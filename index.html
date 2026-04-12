@@ -4,20 +4,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Virginia Paul — Design Technology teacher, designer, maker, and 3D printing creator based in Shenzhen.">
-<title>Virginia Paul</title>
+<meta name="description" content="Free IB DP Design Technology study materials, HTML activities, and curriculum tools for students and teachers worldwide.">
+<title>IB DP Design Resources — contrapaul edu</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="site-header">
 <div class="header-inner">
-<a href="https://contrapaul.com" class="back-link">← contrapaul</a>
+<div class="brand">
+<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
+</div>
 <nav class="nav">
+<a href="#units">Units</a>
+<a href="#tools">Tools</a>
 <a href="#about">About</a>
-<a href="#work">Work</a>
-<a href="#writing">Writing</a>
-<a href="#contact">Contact</a>
+<a href="https://contrapaul.com" class="nav-external">← Main site</a>
 </nav>
 </div>
 </header>
@@ -25,139 +27,174 @@
 <main>
 
 ```
-<!-- PROFILE HERO -->
+<!-- HERO -->
 <section class="hero">
 <div class="hero-inner">
-<div class="profile-block">
-<div class="profile-image-wrap">
-<div class="profile-image-placeholder" aria-label="Profile photo">VP</div>
-</div>
-<div class="profile-text">
-<h1 class="name">Virginia Paul</h1>
-<p class="tagline">Design Technology Teacher &amp; Maker</p>
-<p class="location">📍 Shenzhen, China</p>
-<p class="bio-short">
-         I teach IB DP Design Technology to high school students, design things that get made,
-         and document all of it. My work sits at the edges of education, craft, and electronics.
+<div class="hero-badge">IB DP Design Technology</div>
+<h1 class="hero-title">Free resources for<br>Design students &amp; teachers</h1>
+<p class="hero-sub">
+     Study guides, interactive activities, and curriculum tools covering the full IB DP Design syllabus.
+     Made by a teacher, for students and teachers worldwide.
 </p>
-<div class="profile-links">
-<a href="https://contrapaul.com/make" class="btn-primary">Maker Portfolio →</a>
-<a href="https://contrapaul.com/edu" class="btn-secondary">Teaching Resources →</a>
+<div class="hero-actions">
+<a href="#units" class="btn-primary">Browse by unit →</a>
+<a href="#tools" class="btn-ghost">Interactive tools →</a>
 </div>
+<div class="hero-stats">
+<div class="stat">
+<span class="stat-n">6</span>
+<span class="stat-label">Core units</span>
+</div>
+<div class="stat-divider"></div>
+<div class="stat">
+<span class="stat-n">HL &amp; SL</span>
+<span class="stat-label">Both levels</span>
+</div>
+<div class="stat-divider"></div>
+<div class="stat">
+<span class="stat-n">Free</span>
+<span class="stat-label">Always</span>
 </div>
 </div>
 </div>
 </section>
 
-<!-- DISCIPLINES -->
-<section class="disciplines" id="about">
+<!-- UNITS GRID -->
+<section class="units" id="units">
 <div class="section-inner">
-<h2 class="section-label">What I Do</h2>
-<div class="disciplines-grid">
-<div class="discipline">
-<div class="discipline-icon">✏️</div>
-<h3>Design Education</h3>
-<p>Teaching IB DP Design Technology. Building curriculum tools, HTML activities, and study resources for students and teachers worldwide.</p>
+<div class="section-header">
+<h2 class="section-title">Curriculum Units</h2>
+<p class="section-desc">Resources organised by the current IB DP Design syllabus structure.</p>
 </div>
-<div class="discipline">
-<div class="discipline-icon">🖨️</div>
-<h3>3D Printing & Making</h3>
-<p>Designing models for FDM and resin printing. Publishing files on MakerWorld and Printables, with full documentation on my maker site.</p>
+<div class="units-grid">
+
+<a class="unit-card" href="units/human-factors.html">
+<div class="unit-code">Unit 1</div>
+<h3 class="unit-title">Human Factors &amp; Ergonomics</h3>
+<p class="unit-desc">User-centred design, anthropometrics, cognitive ergonomics, and inclusive design principles.</p>
+<div class="unit-footer">
+<span class="unit-tag">SL + HL</span>
+<span class="unit-arrow">→</span>
 </div>
-<div class="discipline">
-<div class="discipline-icon">⚡</div>
-<h3>Electronics</h3>
-<p>Learning and building with ESP32, Arduino, and related microcontrollers. Integrating electronics into physical projects.</p>
+</a>
+
+<a class="unit-card" href="units/resource-management.html">
+<div class="unit-code">Unit 2</div>
+<h3 class="unit-title">Resource Management &amp; Sustainability</h3>
+<p class="unit-desc">Lifecycle analysis, sustainable design, material choices, and circular economy principles.</p>
+<div class="unit-footer">
+<span class="unit-tag">SL + HL</span>
+<span class="unit-arrow">→</span>
 </div>
-<div class="discipline">
-<div class="discipline-icon">🎥</div>
-<h3>Videography</h3>
-<p>Documenting projects and making process videos. Growing a content presence around making, printing, and design education.</p>
+</a>
+
+<a class="unit-card" href="units/modelling.html">
+<div class="unit-code">Unit 3</div>
+<h3 class="unit-title">Modelling</h3>
+<p class="unit-desc">Physical and virtual modelling techniques, testing, and the iterative design process.</p>
+<div class="unit-footer">
+<span class="unit-tag">SL + HL</span>
+<span class="unit-arrow">→</span>
 </div>
+</a>
+
+<a class="unit-card" href="units/final-product.html">
+<div class="unit-code">Unit 4</div>
+<h3 class="unit-title">Final Product</h3>
+<p class="unit-desc">Manufacturing processes, joining techniques, finishing, and quality control.</p>
+<div class="unit-footer">
+<span class="unit-tag">SL + HL</span>
+<span class="unit-arrow">→</span>
+</div>
+</a>
+
+<a class="unit-card unit-hl" href="units/innovation.html">
+<div class="unit-code">Unit 5</div>
+<h3 class="unit-title">Innovation &amp; Design</h3>
+<p class="unit-desc">Design history, innovation models, intellectual property, and the role of design in society.</p>
+<div class="unit-footer">
+<span class="unit-tag unit-tag-hl">HL only</span>
+<span class="unit-arrow">→</span>
+</div>
+</a>
+
+<a class="unit-card unit-hl" href="units/classic-design.html">
+<div class="unit-code">Unit 6</div>
+<h3 class="unit-title">Classic Design</h3>
+<p class="unit-desc">Analysis of iconic designs through multiple lenses: aesthetic, functional, cultural, and historical.</p>
+<div class="unit-footer">
+<span class="unit-tag unit-tag-hl">HL only</span>
+<span class="unit-arrow">→</span>
+</div>
+</a>
+
 </div>
 </div>
 </section>
 
-<!-- SELECTED WORK -->
-<section class="work" id="work">
+<!-- INTERACTIVE TOOLS -->
+<section class="tools" id="tools">
 <div class="section-inner">
-<h2 class="section-label">Selected Work</h2>
-<div class="work-grid">
-
-<article class="work-card">
-<div class="work-card-img placeholder-img" style="--c:#e8d5b0">Design</div>
-<div class="work-card-body">
-<span class="work-tag">Design</span>
-<h3>Project Title One</h3>
-<p>Brief description of a design project. Replace with your actual work and link to detail page or external resource.</p>
-<a href="#" class="work-link">View project →</a>
+<div class="section-header">
+<h2 class="section-title">Interactive Tools</h2>
+<p class="section-desc">HTML activities you can use directly in your browser — no login, no signup.</p>
 </div>
-</article>
+<div class="tools-list">
 
-<article class="work-card">
-<div class="work-card-img placeholder-img" style="--c:#c8d8c0">Making</div>
-<div class="work-card-body">
-<span class="work-tag">Making</span>
-<h3>Project Title Two</h3>
-<p>Brief description of a making/3D printing project. Replace with actual work and link to MakerWorld or documentation.</p>
-<a href="#" class="work-link">View project →</a>
+<a class="tool-row" href="tools/design-cycle.html">
+<div class="tool-icon">🔄</div>
+<div class="tool-body">
+<h3>Design Cycle Explorer</h3>
+<p>Interactive walkthrough of the IB Design Cycle with examples and self-check questions.</p>
 </div>
-</article>
+<span class="tool-status tool-ready">Ready</span>
+</a>
 
-<article class="work-card">
-<div class="work-card-img placeholder-img" style="--c:#c0ccd8">Electronics</div>
-<div class="work-card-body">
-<span class="work-tag">Electronics</span>
-<h3>Project Title Three</h3>
-<p>Brief description of an electronics build. Replace with actual project details and link to GitHub or documentation.</p>
-<a href="#" class="work-link">View project →</a>
+<a class="tool-row" href="tools/lca-calculator.html">
+<div class="tool-icon">♻️</div>
+<div class="tool-body">
+<h3>Lifecycle Analysis Tool</h3>
+<p>Step-by-step LCA activity with guided prompts for each phase.</p>
 </div>
-</article>
+<span class="tool-status tool-ready">Ready</span>
+</a>
 
+<a class="tool-row" href="tools/ergonomics-quiz.html">
+<div class="tool-icon">📐</div>
+<div class="tool-body">
+<h3>Ergonomics &amp; Anthropometrics Quiz</h3>
+<p>Test knowledge of human factors with instant feedback.</p>
 </div>
-</div>
-</section>
+<span class="tool-status tool-wip">In progress</span>
+</a>
 
-<!-- WRITING / BLOG -->
-<section class="writing" id="writing">
-<div class="section-inner">
-<h2 class="section-label">Writing</h2>
-<div class="writing-list">
-
-<article class="post-row">
-<time class="post-date">2026-04-01</time>
-<div class="post-body">
-<h3><a href="#">Post title — replace with your first entry</a></h3>
-<p>A short excerpt or description of the post. This section will grow as you write. Topics can include teaching reflections, build logs, or design notes.</p>
+<a class="tool-row" href="tools/material-selector.html">
+<div class="tool-icon">🧱</div>
+<div class="tool-body">
+<h3>Material Properties Selector</h3>
+<p>Compare material properties across common DT materials with filtering by category.</p>
 </div>
-<span class="post-tag">Teaching</span>
-</article>
-
-<article class="post-row">
-<time class="post-date">2026-03-15</time>
-<div class="post-body">
-<h3><a href="#">Another placeholder post title</a></h3>
-<p>Replace these with real posts. Each post can be its own HTML file in a /posts/ subfolder, or you can link to external writing.</p>
-</div>
-<span class="post-tag">Making</span>
-</article>
+<span class="tool-status tool-wip">In progress</span>
+</a>
 
 </div>
 </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-<div class="section-inner contact-inner">
-<h2 class="section-label">Get in Touch</h2>
-<p class="contact-text">
-     Whether you're a student, a fellow teacher, a potential collaborator, or just curious — feel free to reach out.
-</p>
-<a href="mailto:hello@contrapaul.com" class="contact-email">hello@contrapaul.com</a>
-<div class="contact-links">
-<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-<a href="https://makerworld.com/" target="_blank" rel="noopener">MakerWorld</a>
-<a href="https://printables.com/" target="_blank" rel="noopener">Printables</a>
+<!-- ABOUT / FOR TEACHERS -->
+<section class="about-strip" id="about">
+<div class="section-inner about-inner">
+<div class="about-text-col">
+<h2 class="section-title">For Teachers</h2>
+<p>All resources here are free to use in your classroom. No attribution required, though appreciated. If you want to suggest a topic, flag an error, or contribute a resource, get in touch.</p>
+<p>These materials are written for the current syllabus. They'll be updated when the IB revises the curriculum.</p>
+<a href="mailto:hello@contrapaul.com" class="contact-link">hello@contrapaul.com →</a>
+</div>
+<div class="about-note-col">
+<div class="note-card">
+<div class="note-label">Note on currency</div>
+<p>This site covers the most recently revised IB DP Design syllabus. Always cross-reference with your official IB course guide — syllabi can change between examination sessions.</p>
+</div>
 </div>
 </div>
 </section>
@@ -167,8 +204,8 @@
 
 <footer class="site-footer">
 <div class="footer-inner">
-<a href="https://contrapaul.com" class="footer-home">contrapaul.com</a>
-<span class="footer-copy">Shenzhen, China</span>
+<span class="footer-brand">contrapaul / edu</span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
 </div>
 </footer>
 
