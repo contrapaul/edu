@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can I Play? — ISNS Library & Device Room</title>
+<!-- No external font dependencies -->
+<style>
+  :root {
+    --green: #1a9e5c;
+    --green-light: #e8f8f0;
+    --green-dark: #137a46;
+    --red: #d63031;
+    --red-light: #fdecea;
+    --red-dark: #a82424;
+    --amber: #e67e22;
+    --amber-light: #fef5eb;
+    --blue: #2563eb;
+    --blue-light: #eff6ff;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--card);
+    border-bottom: 2px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--green); }
+  .header-nav { display: flex; gap: 10px; flex-wrap: wrap; }
+  .nav-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .nav-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+  .nav-btn.active { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
+  /* ── PAGES ── */
+  .page { display: none; flex: 1; }
+  .page.active { display: flex; flex-direction: column; }
+
+  /* ── HOME PAGE ── */
+  #home {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    gap: 32px;
+  }
+  .home-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    text-align: center;
+    line-height: 1.15;
+    color: var(--text);
+  }
+  .home-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 480px;
+  }
+  .search-card {
+    background: var(--card);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    padding: 36px 40px 32px;
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .search-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--text);
+    text-align: center;
+  }
+  .search-label-zh {
+    font-size: 1.1rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: -8px;
+    font-weight: 600;
+  }
+  .search-row {
+    display: flex;
+    gap: 10px;
+    position: relative;
+  }
+  #searchInput {
+    flex: 1;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 3px solid var(--border);
+    outline: none;
+    background: var(--bg);
+    color: var(--text);
+    transition: border-color 0.18s;
+  }
+  #searchInput:focus { border-color: var(--green); background: #fff; }
+  #searchInput::placeholder { color: #b0bec5; font-weight: 600; }
+  .go-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    padding: 18px 30px;
+    border-radius: 14px;
+    border: none;
+    background: var(--green);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.1s;
+    letter-spacing: 0.5px;
+  }
+  .go-btn:hover { background: var(--green-dark); transform: scale(1.03); }
+  .go-btn:active { transform: scale(0.98); }
+
+  /* Autocomplete */
+  .autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 70px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    z-index: 100;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: none;
+  }
+  .autocomplete-list.open { display: block; }
+  .autocomplete-item {
+    padding: 14px 22px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.12s;
+  }
+  .autocomplete-item:last-child { border-bottom: none; }
+  .autocomplete-item:hover { background: var(--bg); }
+  .autocomplete-dot {
+    width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-allowed { background: var(--green); }
+  .dot-notallowed { background: var(--red); }
+
+  .home-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .big-link-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    line-height: 1.2;
+  }
+  .big-link-btn .zh { font-size: 0.82rem; font-weight: 600; opacity: 0.75; }
+  .btn-list { background: var(--blue); color: #fff; }
+  .btn-list:hover { background: #1d4ed8; transform: scale(1.03); }
+  .btn-suggest { background: var(--amber); color: #fff; }
+  .btn-suggest:hover { background: #d35400; transform: scale(1.03); }
+  .btn-request { background: #7c3aed; color: #fff; }
+  .btn-request:hover { background: #5b21b6; transform: scale(1.03); }
+
+  /* ── RESULT PAGE ── */
+  #result {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    gap: 28px;
+  }
+  .result-card {
+    background: var(--card);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    padding: 48px 48px 40px;
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+    border-top: 8px solid transparent;
+  }
+  .result-card.allowed { border-top-color: var(--green); background: linear-gradient(180deg, var(--green-light) 0%, #fff 80px); }
+  .result-card.notallowed { border-top-color: var(--red); background: linear-gradient(180deg, var(--red-light) 0%, #fff 80px); }
+  .result-card.unknown { border-top-color: var(--amber); background: linear-gradient(180deg, var(--amber-light) 0%, #fff 80px); }
+
+  .result-status-en {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    line-height: 1.1;
+  }
+  .result-status-zh {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    line-height: 1.2;
+  }
+  .result-card.allowed .result-status-en,
+  .result-card.allowed .result-status-zh { color: var(--green-dark); }
+  .result-card.notallowed .result-status-en,
+  .result-card.notallowed .result-status-zh { color: var(--red-dark); }
+  .result-card.unknown .result-status-en,
+  .result-card.unknown .result-status-zh { color: var(--amber); }
+
+  .result-divider { width: 60px; height: 4px; border-radius: 4px; }
+  .allowed .result-divider { background: var(--green); }
+  .notallowed .result-divider { background: var(--red); }
+  .unknown .result-divider { background: var(--amber); }
+
+  .result-explanation {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .action-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    line-height: 1.2;
+  }
+  .action-btn .zh { font-size: 0.8rem; font-weight: 600; opacity: 0.8; }
+  .btn-back { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
+  .btn-back:hover { background: var(--border); }
+  .btn-suggest2 { background: var(--amber); color: #fff; }
+  .btn-suggest2:hover { background: #d35400; }
+  .btn-request2 { background: #7c3aed; color: #fff; }
+  .btn-request2:hover { background: #5b21b6; }
+
+  /* ── LIST PAGE ── */
+  #listpage {
+    padding: 40px 24px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    gap: 28px;
+    flex-direction: column;
+  }
+  .page-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--text);
+  }
+  .list-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .section-heading {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .heading-allowed { background: var(--green-light); color: var(--green-dark); }
+  .heading-notallowed { background: var(--red-light); color: var(--red-dark); }
+
+  .list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .list-item {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 20px;
+    border-left: 5px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .list-item.allowed { border-left-color: var(--green); }
+  .list-item.notallowed { border-left-color: var(--red); }
+  .list-item-name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+  .list-item-note {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .list-item-link {
+    font-size: 0.85rem;
+    color: var(--blue);
+    font-weight: 600;
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .list-item-link:hover { text-decoration: underline; }
+  .list-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .tag-app { background: #e0e7ff; color: #3730a3; }
+  .tag-site { background: #dbeafe; color: #1e40af; }
+
+  /* ── SUGGEST PAGE ── */
+  #suggest {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    gap: 28px;
+  }
+  .suggest-card {
+    background: var(--card);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    padding: 48px 48px 40px;
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+    border-top: 8px solid var(--amber);
+    background: linear-gradient(180deg, var(--amber-light) 0%, #fff 80px);
+  }
+  .suggest-eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--amber);
+  }
+  .suggest-name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .suggest-link {
+    font-size: 1rem;
+    color: var(--blue);
+    font-weight: 700;
+    word-break: break-all;
+    text-decoration: none;
+  }
+  .suggest-link:hover { text-decoration: underline; }
+  .suggest-note {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 440px;
+    line-height: 1.6;
+  }
+  .suggest-divider { width: 50px; height: 3px; background: var(--amber); border-radius: 4px; }
+
+  /* ── REQUEST PAGE ── */
+  #request {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 60px;
+    gap: 28px;
+  }
+  .request-card {
+    background: var(--card);
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    padding: 40px 48px 40px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-top: 8px solid #7c3aed;
+  }
+  .request-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .request-title-zh {
+    font-size: 1.2rem;
+    color: var(--muted);
+    font-weight: 700;
+    margin-top: -12px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .form-label .zh { font-size: 0.85rem; color: var(--muted); font-weight: 600; }
+  .form-input, .form-textarea {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 1rem;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.18s;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: #7c3aed; background: #fff; }
+  .form-textarea { resize: vertical; min-height: 100px; }
+  .send-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    padding: 16px;
+    border-radius: 14px;
+    border: none;
+    background: #7c3aed;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    line-height: 1.2;
+  }
+  .send-btn .zh { font-size: 0.85rem; font-weight: 600; opacity: 0.85; }
+  .send-btn:hover { background: #5b21b6; transform: scale(1.02); }
+  .send-note {
+    font-size: 0.88rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Fallback copy box */
+  .copy-area {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 0.92rem;
+    white-space: pre-wrap;
+    font-family: monospace;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .copy-btn {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #7c3aed;
+    background: transparent;
+    color: #7c3aed;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .copy-btn:hover { background: #7c3aed; color: #fff; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--card);
+    border-top: 2px solid var(--border);
+    text-align: center;
+    padding: 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 540px) {
+    .search-card { padding: 28px 20px 24px; }
+    .result-card { padding: 36px 24px 28px; }
+    .suggest-card { padding: 36px 24px 28px; }
+    .request-card { padding: 28px 20px 28px; }
+    header { padding: 12px 16px; }
+    .logo { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">ISNS <span>Device Room</span> &amp; Library</div>
+  <nav class="header-nav">
+    <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+    <button class="nav-btn" onclick="showPage('listpage')">📋 Full List</button>
+    <button class="nav-btn" onclick="showSuggest()">🎲 Suggest</button>
+    <button class="nav-btn" onclick="showPage('request')">✉️ Request</button>
+  </nav>
+</header>
+
+<!-- ══════════════ HOME ══════════════ -->
+<main id="home" class="page active">
+  <div class="home-title">What can I use here?</div>
+  <p class="home-subtitle">Type a game, website, or app name to see if it's allowed in the library or device room.</p>
+
+  <div class="search-card">
+    <div class="search-label">Can I play / use...</div>
+    <div class="search-label-zh">我可以玩 / 使用...</div>
+    <div style="position:relative;">
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Type a game or website..." autocomplete="off"
+          oninput="handleInput()" onkeydown="handleKey(event)">
+        <button class="go-btn" onclick="doSearch()">GO →</button>
+      </div>
+      <div class="autocomplete-list" id="autocompleteList"></div>
+    </div>
+  </div>
+
+  <div class="home-links">
+    <button class="big-link-btn btn-list" onclick="showPage('listpage')">
+      📋 Full Approved List
+      <span class="zh">完整批准列表</span>
+    </button>
+    <button class="big-link-btn btn-suggest" onclick="showSuggest()">
+      🎲 Suggest Something
+      <span class="zh">推荐一个活动</span>
+    </button>
+    <button class="big-link-btn btn-request" onclick="showPage('request')">
+      ✉️ Request Approval
+      <span class="zh">申请批准网站</span>
+    </button>
+  </div>
+</main>
+
+<!-- ══════════════ RESULT ══════════════ -->
+<main id="result" class="page">
+  <div class="result-card" id="resultCard">
+    <div class="result-status-en" id="resultStatusEN"></div>
+    <div class="result-status-zh" id="resultStatusZH"></div>
+    <div class="result-divider"></div>
+    <div class="result-explanation" id="resultExplanation"></div>
+    <div class="result-actions" id="resultActions"></div>
+  </div>
+</main>
+
+<!-- ══════════════ FULL LIST ══════════════ -->
+<main id="listpage" class="page">
+  <div class="page-title">📋 What's Allowed?</div>
+  <div class="list-actions">
+    <button class="action-btn btn-back" onclick="showPage('home')">← Back / 返回</button>
+    <button class="action-btn btn-suggest2" onclick="showSuggest()">🎲 Suggest Something / 推荐活动</button>
+  </div>
+  <div class="section-heading heading-allowed">✅ Allowed</div>
+  <div class="list-grid" id="allowedGrid"></div>
+  <div class="section-heading heading-notallowed">🚫 Not Allowed</div>
+  <div class="list-grid" id="notallowedGrid"></div>
+</main>
+
+<!-- ══════════════ SUGGEST ══════════════ -->
+<main id="suggest" class="page">
+  <div class="suggest-card" id="suggestCard">
+    <div class="suggest-eyebrow">Try this instead 👀</div>
+    <div class="suggest-name" id="suggestName"></div>
+    <a class="suggest-link" id="suggestLink" href="#" target="_blank"></a>
+    <div class="suggest-divider"></div>
+    <div class="suggest-note" id="suggestNote"></div>
+    <div class="result-actions" style="margin-top:8px;">
+      <button class="action-btn btn-suggest2" onclick="showSuggest()">
+        🔀 Suggest Something Else
+        <span class="zh">换一个推荐</span>
+      </button>
+      <button class="action-btn btn-back" onclick="showPage('home')">
+        ← Go Back
+        <span class="zh">返回</span>
+      </button>
+    </div>
+  </div>
+</main>
+
+<!-- ══════════════ REQUEST ══════════════ -->
+<main id="request" class="page">
+  <div class="request-card">
+    <div class="request-title">Ask a teacher to approve a website</div>
+    <div class="request-title-zh">申请老师批准一个网站</div>
+
+    <div class="form-group">
+      <label class="form-label">Your name <span class="zh">你的姓名</span></label>
+      <input type="text" class="form-input" id="reqName" placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Your student email <span class="zh">你的学生邮箱</span></label>
+      <input type="email" class="form-input" id="reqEmail" placeholder="your.name@isnsz.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Website / app link <span class="zh">网站/应用链接</span></label>
+      <input type="url" class="form-input" id="reqURL" placeholder="https://example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Why should this be approved? <span class="zh">为什么应该批准这个网站？</span></label>
+      <textarea class="form-textarea" id="reqReason" placeholder="Tell us why this is a good choice for school..."></textarea>
+    </div>
+
+    <div id="requestPreview" style="display:none; flex-direction:column; gap:10px;">
+      <p style="font-weight:700;color:#7c3aed;font-size:0.95rem;">
+        📋 Step 1 — Copy your request below.<br>
+        <span style="font-weight:600;color:var(--muted);font-size:0.85rem;">第一步：复制下方的申请内容</span>
+      </p>
+      <div class="copy-area" id="fallbackText"></div>
+      <button class="copy-btn" onclick="copyFallback()" id="copyBtn">📋 Copy to clipboard / 复制到剪贴板</button>
+      <p style="font-weight:700;color:#7c3aed;font-size:0.95rem;margin-top:6px;">
+        📧 Step 2 — Open Outlook, paste it into a new email, and send it to <strong>paul.kwiatkowski@isnsz.com</strong> with subject <strong>"Website approval request"</strong>.<br>
+        <span style="font-weight:600;color:var(--muted);font-size:0.85rem;">第二步：打开Outlook，将内容粘贴到新邮件中发送</span>
+      </p>
+      <button class="send-btn" onclick="window.open('https://outlook.office.com/mail/','_blank')">
+        📬 Open Outlook
+        <span class="zh">打开 Outlook</span>
+      </button>
+    </div>
+
+    <button class="send-btn" id="prepareBtn" onclick="prepareRequest()">
+      ✅ Prepare my request
+      <span class="zh">准备我的申请</span>
+    </button>
+
+    <p class="send-note">Fill in all fields above, then press the button to get your message ready to copy &amp; send.<br><span style="font-size:0.82em;">填写上方所有内容，然后点击按钮生成申请信息，复制并发送。</span></p>
+    <button class="action-btn btn-back" onclick="showPage('home')" style="align-self:center;">← Go Back / 返回</button>
+  </div>
+</main>
+
+<footer>ISNS Library &amp; Device Room · For questions, ask a teacher or librarian</footer>
+
+<script>
+// ════════════════════════════════════════════════
+//  DATABASE — Edit items here
+//  Fields: name, status ('allowed'|'notallowed'),
+//          note (optional), url (optional),
+//          isApp (optional bool),
+//          aliases (optional array of alternate spellings)
+// ════════════════════════════════════════════════
+const DATABASE = [
+  // ── ALLOWED ──────────────────────────────────
+  {
+    name: "IXL",
+    status: "allowed",
+    note: "",
+    url: "https://www.ixl.com",
+    aliases: ["ixl learning"]
+  },
+  {
+    name: "RAZ Kids",
+    status: "allowed",
+    note: "",
+    url: "https://www.raz-kids.com",
+    aliases: ["raz-kids", "razkids", "raz kids"]
+  },
+  {
+    name: "Arcademics",
+    status: "allowed",
+    note: "",
+    url: "https://www.arcademics.com",
+    aliases: ["arcade mics", "arcademic"]
+  },
+  {
+    name: "Starfall",
+    status: "allowed",
+    note: "",
+    url: "https://www.starfall.com",
+    aliases: ["star fall"]
+  },
+  {
+    name: "Mr Nussbaum",
+    status: "allowed",
+    note: "",
+    url: "https://mrnussbaum.com",
+    aliases: ["mrnussbaum", "mr. nussbaum", "nussbaum"]
+  },
+  {
+    name: "ABCya!",
+    status: "allowed",
+    note: "",
+    url: "https://www.abcya.com",
+    aliases: ["abcya", "abc ya", "abc ya!"]
+  },
+  {
+    name: "National Geographic",
+    status: "allowed",
+    note: "",
+    url: "https://www.nationalgeographic.com",
+    aliases: ["nat geo", "natgeo", "national geographic kids", "national geo"]
+  },
+  {
+    name: "Calm",
+    status: "allowed",
+    note: "",
+    url: "https://www.calm.com",
+    aliases: []
+  },
+  {
+    name: "Bricklink Studio",
+    status: "allowed",
+    isApp: true,
+    note: "Design LEGO creations digitally! This is a local app on the device.",
+    url: "",
+    aliases: ["bricklink", "brick link", "brick link studio", "lego studio"]
+  },
+  {
+    name: "Fusion 360",
+    status: "allowed",
+    isApp: true,
+    note: "You'll need an Autodesk account for this one — ask your Design teacher if you haven't been assigned one already.",
+    url: "",
+    aliases: ["fusion", "autodesk fusion", "fusion360", "autodesk"]
+  },
+  {
+    name: "Maya",
+    status: "allowed",
+    isApp: true,
+    note: "",
+    url: "",
+    aliases: ["autodesk maya", "maya 3d"]
+  },
+  {
+    name: "Unreal Engine",
+    status: "allowed",
+    isApp: true,
+    note: "",
+    url: "",
+    aliases: ["unreal", "unreal engine 5", "ue5", "ue4"]
+  },
+  {
+    name: "Twinmotion",
+    status: "allowed",
+    isApp: true,
+    note: "",
+    url: "",
+    aliases: ["twin motion", "twinmotion app"]
+  },
+  {
+    name: "Duolingo",
+    status: "allowed",
+    note: "",
+    url: "https://www.duolingo.com",
+    aliases: ["duo lingo", "duolingo app"]
+  },
+  {
+    name: "PhET Sims",
+    status: "allowed",
+    note: "",
+    url: "https://phet.colorado.edu",
+    aliases: ["phet", "phet simulations", "phet interactive", "physics sims"]
+  },
+  {
+    name: "Code.org",
+    status: "allowed",
+    note: "Includes Hour of Code activities!",
+    url: "https://code.org",
+    aliases: ["code org", "hour of code", "hour of coding", "codeorg"]
+  },
+  {
+    name: "Tynker",
+    status: "allowed",
+    note: "",
+    url: "https://www.tynker.com",
+    aliases: ["tinker", "tinkr"]
+  },
+  {
+    name: "Code Combat",
+    status: "allowed",
+    note: "",
+    url: "https://codecombat.com",
+    aliases: ["codecombat", "code combat game"]
+  },
+  {
+    name: "Code Monkey",
+    status: "allowed",
+    note: "",
+    url: "https://www.codemonkey.com",
+    aliases: ["codemonkey", "code monkey game"]
+  },
+  {
+    name: "Blockly",
+    status: "allowed",
+    note: "",
+    url: "https://blockly.google.com",
+    aliases: ["blockly games", "google blockly"]
+  },
+  {
+    name: "VexGo",
+    status: "allowed",
+    note: "",
+    url: "",
+    aliases: ["vex go", "vex-go"]
+  },
+  {
+    name: "VexIQ",
+    status: "allowed",
+    note: "",
+    url: "",
+    aliases: ["vex iq", "vex", "vex robotics", "vex-iq"]
+  },
+  {
+    name: "Marty the Robot",
+    status: "allowed",
+    note: "",
+    url: "https://www.robotical.io",
+    aliases: ["marty", "marty robot", "marty robotical"]
+  },
+  {
+    name: "GeoGuessr",
+    status: "allowed",
+    note: "Test your world geography skills — how well do you know the planet?",
+    url: "https://www.geoguessr.com",
+    aliases: ["geo guessr", "geo quiz", "the geo quiz", "geography quiz", "geoguesser", "geoquiz"]
+  },
+  {
+    name: "GarageBand",
+    status: "allowed",
+    isApp: true,
+    note: "",
+    url: "",
+    aliases: ["garage band", "garageband app"]
+  },
+  {
+    name: "Prodigy",
+    status: "allowed",
+    note: "",
+    url: "https://www.prodigygame.com",
+    aliases: ["prodigy math", "prodigy game"]
+  },
+  {
+    name: "Shapez.io",
+    status: "allowed",
+    note: "A fun factory simulation strategy game where you need to gather and produce specific shapes! (More fun than it sounds.)",
+    url: "https://dimava.github.io/shapez/modZ/",
+    aliases: ["shapez", "shape.io", "shape io", "shapes io", "shapesio"]
+  },
+  {
+    name: "Neal.fun",
+    status: "allowed",
+    note: "Includes Infinite Craft and tons of other creative browser tools.",
+    url: "https://neal.fun",
+    aliases: ["neil.fun", "neal fun", "neil fun", "infinite craft", "infinity craft", "infinitycraft", "infinitecraft"]
+  },
+  {
+    name: "Online Flight Simulator",
+    status: "allowed",
+    note: "Flying games and flight simulators are allowed.",
+    url: "",
+    isApp: true,
+    aliases: ["flight simulator", "flight simulater", "flying game", "flight game", "flying simulator", "flight sim", "flightsim"]
+  },
+  {
+    name: "Scratch",
+    status: "allowed",
+    note: "✅ Allowed for coding and making projects. 🚫 NOT allowed for just browsing and playing other people's games — use it to create, not just play!",
+    url: "https://scratch.mit.edu",
+    aliases: ["scratch coding", "scratch.mit.edu", "scratch jr"]
+  },
+  {
+    name: "Smash Karts",
+    status: "allowed",
+    note: "Allowed — but no yelling! Keep it calm and respectful in the library and device room.",
+    url: "https://smashkarts.io",
+    aliases: ["smash cart", "smashkarts", "kart game", "smash cart io"]
+  },
+  {
+    name: "Minecraft",
+    status: "allowed",
+    note: "Only allowed on the official ISNS server, or in your own solo world. You'll need a paid official Minecraft account — no copies or clones!",
+    url: "https://minecraft.net",
+    aliases: ["mine craft", "mc", "mincraft", "minecaft"]
+  },
+  {
+    name: "Khan Academy",
+    status: "allowed",
+    note: "",
+    url: "https://www.khanacademy.org",
+    aliases: ["khanacademy", "khan", "khan academy kids"]
+  },
+  {
+    name: "Coding",
+    status: "allowed",
+    note: "Writing real code in any app or environment — go for it! This includes Python, Scratch, JavaScript, and more.",
+    url: "",
+    aliases: ["programming", "coding project", "making an app", "writing code"]
+  },
+  {
+    name: "imagi",
+    status: "allowed",
+    isApp: true,
+    note: "",
+    url: "",
+    aliases: ["imaggi", "imagi app"]
+  },
+  {
+    name: "CodinGame",
+    status: "allowed",
+    note: "Like Code Combat but for more advanced users — give it a try if you're ready for a challenge!",
+    url: "https://www.codingame.com",
+    aliases: ["coding game", "codinggame"]
+  },
+   {
+    name: "Microbit",
+    status: "allowed",
+    note: "Absolutely allowed! A great way to learn about coding and electronics!",
+    url: "https://microbit.org/",
+    aliases: ["micronbit"]
+  },
+
+  // ── NOT ALLOWED ──────────────────────────────
+  {
+    name: "Cool Math Games",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["coolmathgames", "cool math", "coolmath", "cool maths games"]
+  },
+  {
+    name: "Roblox",
+    status: "notallowed",
+    note: "No copies, clones, or rip-offs of Roblox either.",
+    url: "",
+    aliases: ["robloz", "robloks", "robloxx"]
+  },
+  {
+    name: "Call of War",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["callofwar", "call of war game"]
+  },
+  {
+    name: "Sports Games",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["sport games", "football game", "basketball game", "soccer game", "fifa", "shot stars", "nba"]
+  },
+  {
+    name: "Shooting Games",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["shooter", "fps", "first person shooter", "gun game", "shooting game"]
+  },
+  {
+    name: "Shellshockers",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["shell shockers", "shell shocker", "shellshocker", "egg shooter"]
+  },
+  {
+    name: "Gimkit",
+    status: "notallowed",
+    note: "Gimkit is only for use during class when your teacher has started a game.",
+    url: "",
+    aliases: ["gim kit"]
+  },
+  {
+    name: "Kahoot",
+    status: "notallowed",
+    note: "Kahoot is only for use during class when your teacher has started a game.",
+    url: "",
+    aliases: ["ka hoot", "kahoot game"]
+  },
+  {
+    name: "Eaglecraft",
+    status: "notallowed",
+    note: "Only the official, paid Minecraft is allowed. No copies or clones — period.",
+    url: "",
+    aliases: ["eagle craft", "eaglercraft", "eagler craft", "minecraft clone", "minecraft copy", "eaglecraft minecraft"]
+  },
+  {
+    name: "Eaglercraft",
+    status: "notallowed",
+    note: "Only the official, paid Minecraft is allowed. No copies or clones — period.",
+    url: "",
+    aliases: ["eaglecraft", "eagle craft", "eagler craft"]
+  },
+  {
+    name: "Math Playground",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["mathplayground", "math play ground", "maths playground"]
+  },
+  {
+    name: "Blooket",
+    status: "notallowed",
+    note: "Blooket is only for use during class when your teacher has started a game.",
+    url: "",
+    aliases: ["blocket", "blookit"]
+  },
+  {
+    name: "TikTok",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["tik tok", "tiktok app", "tiktok.com"]
+  },
+  {
+    name: "Douyin",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["抖音", "dou yin"]
+  },
+  {
+    name: "YouTube",
+    status: "notallowed",
+    note: "Unless a teacher has specifically asked you to watch a video for class.",
+    url: "",
+    aliases: ["you tube", "youtube.com", "yt"]
+  },
+  {
+    name: "Bilibili",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["bili bili", "哔哩哔哩", "bilibili.com"]
+  },
+  {
+    name: "Stabfish",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["stab fish", "stafish", "stabfish.io", "stabfish game", "stab fish io"]
+  },
+  {
+    name: "CrazyGames",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["crazy games", "crazygames.com", "crazy game"]
+  },
+  {
+    name: "Ev.io",
+    status: "notallowed",
+    note: "",
+    url: "",
+    aliases: ["evio", "ev io", "ev.io shooter"]
+  },
+  {
+    name: "GTA",
+    status: "notallowed",
+    note: "GTA is full of crime, violence, and very bad decisions. It's literally named after a crime. Not a school game!",
+    url: "",
+    aliases: ["grand theft auto", "gta v", "gta 5", "gta online", "grand theft", "gta6", "gta 6"]
+  },
+  {
+    name: "CSGO",
+    status: "notallowed",
+    note: "CSGO, CS1.6, CS2, and any online copies.",
+    url: "",
+    aliases: ["cs2", "counter strike", "cs1.6"]
+  },
+   {
+    name: "Brawl Stars",
+    status: "notallowed",
+    note: "Nope.",
+    url: "",
+    aliases: ["brawlstars"]
+  },
+];
+
+// ════════════════════════════════════════════════
+//  SEARCH LOGIC
+// ════════════════════════════════════════════════
+
+function normalize(str) {
+  return str.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]/g, '').trim();
+}
+
+function findEntry(query) {
+  const q = normalize(query);
+  if (!q) return null;
+  for (const item of DATABASE) {
+    if (normalize(item.name) === q) return item;
+    if (item.aliases && item.aliases.some(a => normalize(a) === q)) return item;
+  }
+  // partial match on name start
+  for (const item of DATABASE) {
+    if (normalize(item.name).startsWith(q)) return item;
+    if (item.aliases && item.aliases.some(a => normalize(a).startsWith(q))) return item;
+  }
+  // partial match anywhere
+  for (const item of DATABASE) {
+    if (normalize(item.name).includes(q)) return item;
+    if (item.aliases && item.aliases.some(a => normalize(a).includes(q))) return item;
+  }
+  return null;
+}
+
+function getSuggestions(query) {
+  const q = normalize(query);
+  if (!q) return [];
+  const seen = new Set();
+  const results = [];
+  for (const item of DATABASE) {
+    const n = normalize(item.name);
+    const matchAlias = item.aliases && item.aliases.some(a => normalize(a).includes(q));
+    if (n.includes(q) || matchAlias) {
+      if (!seen.has(item.name)) {
+        seen.add(item.name);
+        results.push(item);
+      }
+    }
+  }
+  return results.slice(0, 7);
+}
+
+function handleInput() {
+  const val = document.getElementById('searchInput').value;
+  const list = document.getElementById('autocompleteList');
+  const suggestions = getSuggestions(val);
+  if (!val.trim() || suggestions.length === 0) {
+    list.classList.remove('open');
+    list.innerHTML = '';
+    return;
+  }
+  list.innerHTML = suggestions.map(item => `
+    <div class="autocomplete-item" onclick="selectItem('${item.name.replace(/'/g,"\\'")}')">
+      <span class="autocomplete-dot dot-${item.status}"></span>
+      ${item.name}${item.isApp ? ' <small style="color:#94a3b8;font-size:0.8em;">(app)</small>' : ''}
+    </div>
+  `).join('');
+  list.classList.add('open');
+}
+
+function selectItem(name) {
+  document.getElementById('searchInput').value = name;
+  document.getElementById('autocompleteList').classList.remove('open');
+  doSearch();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter') doSearch();
+  if (e.key === 'Escape') document.getElementById('autocompleteList').classList.remove('open');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-row') && !e.target.closest('.autocomplete-list')) {
+    document.getElementById('autocompleteList').classList.remove('open');
+  }
+});
+
+function doSearch() {
+  const val = document.getElementById('searchInput').value.trim();
+  if (!val) return;
+  document.getElementById('autocompleteList').classList.remove('open');
+  const item = findEntry(val);
+  showResult(val, item);
+}
+
+// ════════════════════════════════════════════════
+//  RESULT DISPLAY
+// ════════════════════════════════════════════════
+
+function showResult(query, item) {
+  const card = document.getElementById('resultCard');
+  const statusEN = document.getElementById('resultStatusEN');
+  const statusZH = document.getElementById('resultStatusZH');
+  const explanation = document.getElementById('resultExplanation');
+  const actions = document.getElementById('resultActions');
+
+  card.className = 'result-card';
+
+  if (!item) {
+    // Unknown
+    card.classList.add('unknown');
+    statusEN.textContent = `"${query}" is not on our list.`;
+    statusZH.textContent = `"${query}" 不在我们的列表上。`;
+    explanation.innerHTML = `
+      <strong>Treat it as not allowed until a teacher approves it.</strong><br><br>
+      Please double-check your spelling or try pasting the full URL.<br>
+      If you think it should be here, ask a teacher — or use the button below to request it!
+    `;
+    actions.innerHTML = `
+      <button class="action-btn btn-suggest2" onclick="showSuggest()">
+        🎲 Suggest Something To Do
+        <span class="zh">推荐一个活动</span>
+      </button>
+      <button class="action-btn btn-request2" onclick="showPage('request')">
+        ✉️ Request Approval
+        <span class="zh">申请批准</span>
+      </button>
+      <button class="action-btn btn-back" onclick="showPage('home')">
+        ← Go Back
+        <span class="zh">返回</span>
+      </button>
+    `;
+  } else if (item.status === 'allowed') {
+    card.classList.add('allowed');
+    statusEN.textContent = `✅ ${item.name} is allowed!`;
+    statusZH.textContent = `✅ ${item.name} 可以使用！`;
+    explanation.textContent = item.note || '';
+    if (item.url) {
+      explanation.innerHTML += `<br><br><a href="${item.url}" target="_blank" style="color:var(--green-dark);font-weight:700;">${item.url}</a>`;
+    }
+    actions.innerHTML = `
+      <button class="action-btn btn-suggest2" onclick="showSuggest()">
+        🎲 Suggest Something Else
+        <span class="zh">推荐另一个活动</span>
+      </button>
+      <button class="action-btn btn-back" onclick="showPage('home')">
+        ← Go Back &amp; Check Another
+        <span class="zh">返回并检查其他</span>
+      </button>
+    `;
+  } else {
+    card.classList.add('notallowed');
+    statusEN.textContent = `🚫 ${item.name} is NOT allowed!`;
+    statusZH.textContent = `🚫 ${item.name} 不允许使用！`;
+    explanation.textContent = item.note || '';
+    actions.innerHTML = `
+      <button class="action-btn btn-suggest2" onclick="showSuggest()">
+        🎲 Suggest Something To Do
+        <span class="zh">推荐一个活动</span>
+      </button>
+      <button class="action-btn btn-back" onclick="showPage('home')">
+        ← Go Back &amp; Check Another
+        <span class="zh">返回并检查其他</span>
+      </button>
+    `;
+  }
+
+  showPage('result');
+}
+
+// ════════════════════════════════════════════════
+//  SUGGEST
+// ════════════════════════════════════════════════
+
+let lastSuggestIndex = -1;
+
+function showSuggest() {
+  const allowed = DATABASE.filter(i => i.status === 'allowed');
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * allowed.length);
+  } while (idx === lastSuggestIndex && allowed.length > 1);
+  lastSuggestIndex = idx;
+  const item = allowed[idx];
+
+  document.getElementById('suggestName').textContent = item.name;
+
+  const linkEl = document.getElementById('suggestLink');
+  if (item.url) {
+    linkEl.href = item.url;
+    linkEl.textContent = item.url;
+    linkEl.style.display = 'block';
+  } else {
+    linkEl.style.display = 'none';
+    linkEl.href = '#';
+    linkEl.textContent = '';
+  }
+
+  document.getElementById('suggestNote').textContent = item.note || (item.isApp ? '(Local app — open it from the desktop or taskbar)' : '');
+
+  showPage('suggest');
+}
+
+// ════════════════════════════════════════════════
+//  FULL LIST
+// ════════════════════════════════════════════════
+
+function buildList() {
+  const allowed = DATABASE.filter(i => i.status === 'allowed');
+  const notallowed = DATABASE.filter(i => i.status === 'notallowed');
+
+  // Deduplicate by name (Eaglecraft/Eaglercraft appear twice in data)
+  const dedupe = arr => {
+    const seen = new Set();
+    return arr.filter(i => { if (seen.has(i.name)) return false; seen.add(i.name); return true; });
+  };
+
+  const renderGrid = (items, container) => {
+    document.getElementById(container).innerHTML = dedupe(items).map(item => `
+      <div class="list-item ${item.status}">
+        <div class="list-item-name">
+          ${item.name}
+          ${item.isApp ? '<span class="list-tag tag-app">App</span>' : '<span class="list-tag tag-site">Web</span>'}
+        </div>
+        ${item.note ? `<div class="list-item-note">${item.note}</div>` : ''}
+        ${item.url ? `<a class="list-item-link" href="${item.url}" target="_blank">${item.url}</a>` : ''}
+      </div>
+    `).join('');
+  };
+
+  renderGrid(allowed, 'allowedGrid');
+  renderGrid(notallowed, 'notallowedGrid');
+}
+
+// ════════════════════════════════════════════════
+//  PAGE ROUTING
+// ════════════════════════════════════════════════
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  const map = { home: 0, listpage: 1, suggest: 2, request: 3 };
+  const navBtns = document.querySelectorAll('.nav-btn');
+  if (map[id] !== undefined) navBtns[map[id]].classList.add('active');
+
+  window.scrollTo(0, 0);
+  if (id === 'home') {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('autocompleteList').classList.remove('open');
+  }
+}
+
+
+// ════════════════════════════════════════════════
+//  REQUEST FORM
+// ════════════════════════════════════════════════
+
+function prepareRequest() {
+  const name = document.getElementById('reqName').value.trim();
+  const email = document.getElementById('reqEmail').value.trim();
+  const url = document.getElementById('reqURL').value.trim();
+  const reason = document.getElementById('reqReason').value.trim();
+
+  if (!name || !email || !url) {
+    alert('Please fill in your name, email, and the website link first.\n请先填写您的姓名、邮箱和网站链接。');
+    return;
+  }
+
+  const body = `Website Approval Request\n========================\n\nStudent Name: ${name}\nStudent Email: ${email}\nWebsite / App URL: ${url}\n\nWhy it should be approved:\n${reason || '(No reason given)'}`;
+
+  document.getElementById('fallbackText').textContent = body;
+  document.getElementById('requestPreview').style.display = 'flex';
+  document.getElementById('prepareBtn').style.display = 'none';
+  document.getElementById('requestPreview').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyFallback() {
+  const text = document.getElementById('fallbackText').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '\u2705 Copied! Now open Outlook and paste. / \u5df2\u590d\u5236\uff01\u8bf7\u6253\u5f00Outlook\u7c98\u8d34\u3002';
+    setTimeout(() => { btn.textContent = '\ud83d\udccb Copy to clipboard / \u590d\u5236\u5230\u526a\u8d34\u677f'; }, 3000);
+  });
+}
+
+// INIT
+buildList();
+</script>
+</body>
+</html>
