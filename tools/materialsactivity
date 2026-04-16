@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material Selection Challenge</title>
+    <title>Material Classification Challenge</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6e, #b21f7d);
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
             color: #fff;
             min-height: 100vh;
             padding: 20px;
@@ -23,13 +23,14 @@
         }
         
         .container {
-            background-color: rgba(30, 30, 50, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            width: 90%;
             max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
             padding: 30px;
-            margin: 20px auto;
         }
         
         header {
@@ -40,248 +41,225 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 20px;
         }
         
-        .game-container {
+        .topic-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        
+        .topic-info h2 {
+            color: #4facfe;
+            margin-bottom: 10px;
+        }
+        
+        .topic-info ul {
+            padding-left: 25px;
+        }
+        
+        .topic-info li {
+            margin-bottom: 8px;
+        }
+        
+        .screen {
             display: none;
         }
         
-        .question-display {
-            background-color: rgba(50, 50, 80, 0.7);
+        .active {
+            display: block;
+        }
+        
+        .scenario-container {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .question-number {
-            font-size: 1.2rem;
-            color: #ffcc00;
-            margin-bottom: 10px;
         }
         
         .scenario-icon {
-            font-size: 3rem;
-            margin: 15px 0;
-        }
-        
-        .scenario-text {
-            font-size: 1.4rem;
-            line-height: 1.5;
+            font-size: 4rem;
             margin-bottom: 20px;
         }
         
+        .scenario-text {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        
         .materials-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 30px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
         .material-option {
-            background-color: rgba(70, 70, 120, 0.6);
-            border: 2px solid #4a90e2;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             padding: 20px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: left;
+            border: 2px solid transparent;
         }
         
         .material-option:hover {
             transform: translateY(-5px);
-            background-color: rgba(90, 90, 150, 0.8);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .material-option.selected {
-            border-color: #ffcc00;
-            background-color: rgba(255, 204, 0, 0.2);
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.2);
+        }
+        
+        .material-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
         
         .material-name {
-            font-size: 1.3rem;
+            font-weight: bold;
             margin-bottom: 10px;
         }
         
         .material-properties {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .property {
-            background-color: rgba(40, 60, 120, 0.7);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            opacity: 0.9;
         }
         
         .feedback-container {
             display: none;
-            text-align: center;
-            margin: 25px 0;
             padding: 20px;
             border-radius: 15px;
-            min-height: 100px;
-            align-items: center;
-            justify-content: center;
+            margin-bottom: 30px;
+            text-align: center;
         }
         
-        .feedback-correct {
-            background-color: rgba(40, 160, 80, 0.3);
-            border: 2px solid #50d070;
+        .correct {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
         }
         
-        .feedback-incorrect {
-            background-color: rgba(180, 40, 40, 0.3);
-            border: 2px solid #ff6b6b;
+        .incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
         }
         
         .feedback-text {
-            font-size: 1.2rem;
-            margin: 15px 0;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
         }
         
         .explanation {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 15px;
-            margin-top: 15px;
-            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
         
-        .next-button {
-            display: none;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 20px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        button {
             padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            margin: 20px auto;
             transition: all 0.3s ease;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .next-button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #next-button {
+            display: none;
         }
         
         .results-container {
             text-align: center;
-            display: none;
         }
         
         .score-display {
-            font-size: 3rem;
-            color: #ffcc00;
+            font-size: 4rem;
             margin: 20px 0;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .play-again-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s ease;
+        .results-message {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
         }
         
-        .play-again-button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-        
-        .how-to-play {
-            background-color: rgba(50, 50, 80, 0.7);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .how-to-play h2 {
-            color: #ffcc00;
-            margin-bottom: 15px;
-        }
-        
-        .topics-list {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .topic-box {
-            background-color: rgba(70, 130, 180, 0.5);
-            border-radius: 10px;
-            padding: 15px;
-            width: 40%;
-            min-width: 250px;
-        }
-        
-        .topic-title {
-            font-size: 1.4rem;
-            color: #ffcc00;
-            margin-bottom: 10px;
-        }
-        
-        .topic-content {
-            line-height: 1.5;
-        }
-        
-        .material-type-icon {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        
-        .metal { background-color: #a8a8a8; }
-        .polymer { background-color: #ff9900; }
-        .ceramic { background-color: #d32f2f; }
-        .composite { background-color: #64b5f6; }
-        .wood { background-color: #795548; }
-        
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .container {
                 padding: 15px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
-            .scenario-text {
-                font-size: 1.2rem;
+            .materials-container {
+                grid-template-columns: 1fr;
             }
             
-            .material-option {
-                padding: 15px;
-            }
-            
-            .topic-box {
-                width: 90%;
-                min-width: auto;
+            button {
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -289,219 +267,156 @@
 <body>
     <div class="container">
         <header>
-            <h1>Material Selection Challenge</h1>
-            <p class="subtitle">Test your knowledge of material properties and selection for IB Design Technology</p>
+            <h1>Material Classification Challenge</h1>
+            <p class="subtitle">Test your understanding of materials for IB Design Technology</p>
         </header>
         
-        <div id="start-screen" class="game-container">
-            <div class="how-to-play">
-                <h2>How to Play</h2>
-                <p>You'll be presented with design scenarios that require specific material properties. Your task is to select the best material for each scenario.</p>
-                
-                <div class="topics-list">
-                    <div class="topic-box">
-                        <div class="topic-title">Topic A3.1: Material Classification</div>
-                        <p>Metals, polymers, ceramics, composites, and woods - their properties include strength, hardness, ductility, conductivity, density, stiffness, toughness, biodegradability, thermal/electrical properties.</p>
-                    </div>
-                    
-                    <div class="topic-box">
-                        <div class="topic-title">Topic B3.1: Material Selection</div>
-                        <p>Consider factors like cost, sustainability, manufacturability, availability, and aesthetics when selecting materials for your design.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <button id="start-button" class="play-again-button">Start Challenge</button>
+        <div class="topic-info">
+            <h2>This game covers:</h2>
+            <ul>
+                <li><strong>A3.1:</strong> Material classification (metals, polymers, ceramics, composites, woods) and properties (strength, hardness, ductility, conductivity, density, stiffness, toughness, biodegradability, thermal/electrical properties)</li>
+                <li><strong>B3.1:</strong> Material selection based on design criteria (cost, sustainability, manufacturability, availability, aesthetics)</li>
+            </ul>
         </div>
         
-        <div id="game-screen" class="game-container">
-            <div class="question-display">
-                <div class="question-number">Question <span id="current-question">1</span>/10</div>
+        <div id="start-screen" class="screen active">
+            <div class="scenario-container">
+                <h2>Welcome to the Challenge!</h2>
+                <p>You'll be presented with 10 real-world design scenarios. For each, select the best material based on the requirements.</p>
+                <p>After your selection, you'll receive immediate feedback and explanations.</p>
+            </div>
+            
+            <button id="start-button">Start Challenge</button>
+        </div>
+        
+        <div id="game-screen" class="screen">
+            <div class="progress-container">
+                <span>Question: <span id="current-question">1</span>/10</span>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <span>Score: <span id="score">0</span></span>
+            </div>
+            
+            <div class="scenario-container">
                 <div class="scenario-icon" id="scenario-icon">🚲</div>
-                <div class="scenario-text" id="scenario-text">Design a bicycle frame for urban commuting - needs low weight, high stiffness, recyclability, moderate cost.</div>
+                <p class="scenario-text" id="scenario-text"></p>
             </div>
             
-            <div class="materials-container">
-                <div class="material-option" data-material="carbon-fiber">
-                    <div class="material-name">Carbon Fiber Composite</div>
-                    <div class="material-properties">
-                        <span class="property">Low Weight</span>
-                        <span class="property">High Stiffness</span>
-                        <span class="property">Recyclable</span>
-                        <span class="property">Moderate Cost</span>
-                    </div>
-                </div>
-                
-                <div class="material-option" data-material="aluminum">
-                    <div class="material-name">Aluminum 6061</div>
-                    <div class="material-properties">
-                        <span class="property">Low Weight</span>
-                        <span class="property">High Stiffness</span>
-                        <span class="property">Recyclable</span>
-                        <span class="property">Moderate Cost</span>
-                    </div>
-                </div>
-                
-                <div class="material-option" data-material="bamboo">
-                    <div class="material-name">Bamboo</div>
-                    <div class="material-properties">
-                        <span class="property">Low Weight</span>
-                        <span class="property">Moderate Stiffness</span>
-                        <span class="property">Biodegradable</span>
-                        <span class="property">Low Cost</span>
-                    </div>
-                </div>
-                
-                <div class="material-option" data-material="steel">
-                    <div class="material-name">Steel</div>
-                    <div class="material-properties">
-                        <span class="property">High Strength</span>
-                        <span class="property">Moderate Stiffness</span>
-                        <span class="property">Recyclable</span>
-                        <span class="property">Low Cost</span>
-                    </div>
-                </div>
+            <div class="materials-container" id="materials-container">
+                <!-- Material options will be inserted here -->
             </div>
             
-            <div id="feedback-container" class="feedback-container">
-                <div class="feedback-text" id="feedback-text"></div>
+            <div class="feedback-container" id="feedback-container">
+                <div class="feedback-text" id="feedback-text">Select a material</div>
                 <div class="explanation" id="explanation"></div>
             </div>
             
-            <button id="next-button" class="next-button">Next Question</button>
+            <div class="buttons-container">
+                <button id="next-button">Next Question</button>
+                <button id="restart-button" style="display: none;">Play Again</button>
+            </div>
         </div>
         
-        <div id="results-screen" class="results-container">
+        <div id="results-screen" class="screen">
             <h2>Challenge Complete!</h2>
-            <div class="score-display">Your Score: <span id="final-score">0/10</span></div>
-            <p>You've demonstrated your knowledge of material selection for design challenges.</p>
-            <button id="play-again-button" class="play-again-button">Play Again</button>
+            <div class="score-display" id="final-score">0/10</div>
+            <p class="results-message">Great job! You've demonstrated your understanding of material selection.</p>
+            <button id="play-again-button">Play Again</button>
         </div>
     </div>
 
     <script>
-        // Material data
-        const materials = [
-            {
-                name: "Carbon Fiber Composite",
-                properties: ["Low Weight", "High Stiffness", "Recyclable", "Moderate Cost"],
-                type: "composite"
-            },
-            {
-                name: "Aluminum 6061",
-                properties: ["Low Weight", "High Stiffness", "Recyclable", "Moderate Cost"],
-                type: "metal"
-            },
-            {
-                name: "Bamboo",
-                properties: ["Low Weight", "Moderate Stiffness", "Biodegradable", "Low Cost"],
-                type: "wood"
-            },
-            {
-                name: "Steel",
-                properties: ["High Strength", "Moderate Stiffness", "Recyclable", "Low Cost"],
-                type: "metal"
-            }
-        ];
-
-        // Scenario bank with 15+ scenarios
+        // Scenario bank with realistic IB-level scenarios
         const scenarios = [
             {
                 icon: "🚲",
                 text: "Design a bicycle frame for urban commuting - needs low weight, high stiffness, recyclability, moderate cost.",
-                correctMaterial: "carbon-fiber",
-                explanation: "Carbon fiber composite is ideal for bike frames because it's extremely lightweight while providing excellent stiffness-to-weight ratio. It's also fully recyclable and has a moderate cost compared to other advanced composites."
+                correctMaterial: "Carbon fiber composite"
             },
             {
                 icon: "🍽️",
-                text: "Design disposable cutlery for an event - needs biodegradability, low cost, sufficient stiffness for soup.",
-                correctMaterial: "bamboo",
-                explanation: "Bamboo is naturally biodegradable and costs less than many other sustainable options. While it's not the stiffest material, it provides adequate strength for typical use in food service."
+                text: "Disposable cutlery for an event - needs biodegradability, low cost, sufficient stiffness for soup.",
+                correctMaterial: "Bamboo"
             },
             {
                 icon: "💻",
-                text: "Design laptop outer casing - needs impact resistance, electromagnetic shielding, lightweight, premium feel.",
-                correctMaterial: "aluminum",
-                explanation: "Aluminum is an excellent choice because it's lightweight and can be machined to a high finish for a premium look. It also provides good protection against impacts and has some electrical conductivity properties."
+                text: "Laptop outer casing - needs impact resistance, electromagnetic shielding, lightweight, premium feel.",
+                correctMaterial: "Aluminum 6061"
             },
             {
                 icon: "🪑",
-                text: "Design outdoor park bench - needs UV resistance, low maintenance, vandal resistance, moderate cost.",
-                correctMaterial: "polymer",
-                explanation: "High-density polyethylene is ideal for outdoor benches because it's UV-resistant, doesn't require maintenance, and is extremely durable against vandalism. It's also affordable."
+                text: "Outdoor park bench - needs UV resistance, low maintenance, vandal resistance, moderate cost.",
+                correctMaterial: "High-density polyethylene (HDPE)"
             },
             {
                 icon: "🦷",
-                text: "Design a dental implant - needs biocompatibility, high strength, corrosion resistance, non-toxic.",
-                correctMaterial: "titanium",
-                explanation: "Titanium is the gold standard for medical implants due to its excellent biocompatibility and corrosion resistance. It's also strong enough to handle mechanical stresses in the body."
+                text: "Dental implant - needs biocompatibility, high strength, corrosion resistance, non-toxic.",
+                correctMaterial: "Titanium"
             },
             {
                 icon: "⚽",
-                text: "Design a football helmet padding - needs impact absorption, lightweight, durability.",
-                correctMaterial: "polycarbonate",
-                explanation: "Polycarbonate is an excellent choice for this application because it can absorb high-impact forces while remaining lightweight. It's also highly durable and resistant to cracking."
-            },
-            {
-                icon: "🚗",
-                text: "Design car interior trim - needs aesthetic appeal, impact resistance, easy maintenance.",
-                correctMaterial: "polymer",
-                explanation: "Polymer materials like polypropylene are perfect for this application as they're aesthetically pleasing, easy to mold into complex shapes, and highly resistant to impacts."
-            },
-            {
-                icon: "🏗️",
-                text: "Design a bridge deck - needs high strength, weather resistance, cost-effective.",
-                correctMaterial: "concrete",
-                explanation: "Concrete is the most suitable choice for bridge decks because it's extremely strong, naturally weather-resistant, and cost-effective. It also allows for large structural elements."
+                text: "Tennis racket frame - needs high stiffness, low weight, impact resistance, moderate cost.",
+                correctMaterial: "Carbon fiber composite"
             },
             {
                 icon: "📱",
-                text: "Design a smartphone case - needs drop protection, thin profile, affordable.",
-                correctMaterial: "polymer",
-                explanation: "Polymer materials like polycarbonate or TPU offer excellent drop protection while remaining thin and affordable. They're also easy to mold into complex designs."
+                text: "Smartphone case - needs drop protection, slim design, aesthetic appeal, affordable production.",
+                correctMaterial: "Polycarbonate"
             },
             {
-                icon: "🧺",
-                text: "Design a picnic basket - needs lightweight, water-resistant, durable.",
-                correctMaterial: "wood",
-                explanation: "Wood is an excellent choice for this application as it's naturally durable and can be treated to be water-resistant. It also provides the aesthetic appeal needed for outdoor use."
+                icon: "🏠",
+                text: "Residential roof tiles for a hot climate - needs heat resistance, durability, weatherproofing, low cost.",
+                correctMaterial: "Ceramic"
             },
             {
-                icon: "🔬",
-                text: "Design a microscope slide holder - needs high precision, chemical resistance, lightweight.",
-                correctMaterial: "ceramic",
-                explanation: "Ceramic materials are ideal here because they offer excellent chemical resistance and can be machined to extremely precise tolerances while remaining lightweight."
+                icon: "🚗",
+                text: "Automotive engine block - needs high thermal conductivity, wear resistance, light weight, strength under stress.",
+                correctMaterial: "Aluminum alloy"
             },
             {
-                icon: "🎓",
-                text: "Design a desk for school students - needs durability, light weight for portability, low cost.",
-                correctMaterial: "polymer",
-                explanation: "Polymer materials like high-density polyethylene are durable enough to withstand daily use in schools while being lightweight and affordable."
+                icon: "🦴",
+                text: "Bone replacement prosthesis - needs biocompatibility, mechanical strength, low weight, corrosion resistance.",
+                correctMaterial: "Titanium alloy"
             },
             {
-                icon: "🚁",
-                text: "Design a helicopter rotor blade - needs high strength-to-weight ratio, fatigue resistance.",
-                correctMaterial: "carbon-fiber composite",
-                explanation: "Carbon fiber composites provide the ideal combination of high strength and low weight required for rotor blades. They also offer excellent fatigue resistance needed in rotating applications."
+                icon: "🖼️",
+                text: "Artwork display frame - needs durability, aesthetic appeal, lightweight, cost-effective manufacturing.",
+                correctMaterial: "Bamboo composite"
             },
             {
-                icon: "🎧",
-                text: "Design noise-canceling headphones - needs sound isolation, lightweight, comfort.",
-                correctMaterial: "polymer",
-                explanation: "Polymer materials are perfect here because they're lightweight and can be designed with acoustic properties to enhance sound isolation. They also provide comfort for extended wear."
+                icon: "🦺",
+                text: "Protective helmet for cycling - needs high impact resistance, lightweight, breathable material.",
+                correctMaterial: "Polycarbonate"
             },
             {
-                icon: "🌡️",
-                text: "Design a heat exchanger in an HVAC system - needs high thermal conductivity, corrosion resistance.",
-                correctMaterial: "aluminum",
-                explanation: "Aluminum is ideal for heat exchangers because it has excellent thermal conductivity and can be treated to resist corrosion. It's also lightweight and cost-effective."
+                icon: "🥡",
+                text: "Disposable food container - needs food safety, biodegradability, adequate strength, low cost.",
+                correctMaterial: "Starch-based polymer"
+            },
+            {
+                icon: "🏋️",
+                text: "Gym weight plate - needs high tensile strength, wear resistance, non-slip surface, corrosion resistance.",
+                correctMaterial: "Cast iron"
+            },
+            {
+                icon: "🛠️",
+                text: "Construction tool handle - needs durability, grip, lightweight, cost-effective manufacturing.",
+                correctMaterial: "Fiberglass composite"
             }
         ];
 
-        // Game state
-        let currentQuestion = 0;
-        let score = 0;
-        let gameActive = false;
+        // Material options with properties
+        const materials = [
+            {name: "Carbon fiber composite", icon: "🪢", properties: ["Lightweight", "High stiffness"], type: "Composite"},
+            {name: "Aluminum 6061", icon: "🧪", properties: ["Moderate weight", "Good strength", "Recyclable"], type: "Metal"},
+            {name: "Bamboo", icon: "🎋", properties: ["Biodegradable", "Moderate stiffness", "Sustainable"], type: "Natural"},
+            {name: "Steel", icon: "⚙️", properties: ["High strength", "Durable", "Recyclable"], type: "Metal"},
+            {name: "Titanium", icon: "💎", properties: ["Biocompatible", "Corrosion resistant", "Strong"], type: "Metal"},
+            {name: "Ceramic", icon: "🏺", properties: ["Heat resistant", "Durability", "Low thermal conductivity"], type: "Ceramic"},
+            {name: "Polycarbonate", icon: "🧪", properties: ["Impact resistant", "Lightweight", "Transparent"], type: "Polymer"},
+            {name: "High-density polyethylene (HDPE)", icon: "📦", properties: ["UV resistant", "Low maintenance", "Durable"], type: "Polymer"}
+        ];
 
         // DOM elements
         const startScreen = document.getElementById('start-screen');
@@ -509,81 +424,185 @@
         const resultsScreen = document.getElementById('results-screen');
         const startButton = document.getElementById('start-button');
         const nextButton = document.getElementById('next-button');
+        const restartButton = document.getElementById('restart-button');
         const playAgainButton = document.getElementById('play-again-button');
         const currentQuestionElement = document.getElementById('current-question');
-        const scenarioText = document.getElementById('scenario-text');
-        const scenarioIcon = document.getElementById('scenario-icon');
+        const scoreElement = document.getElementById('score');
+        const scenarioTextElement = document.getElementById('scenario-text');
+        const scenarioIconElement = document.getElementById('scenario-icon');
+        const materialsContainer = document.getElementById('materials-container');
         const feedbackContainer = document.getElementById('feedback-container');
-        const feedbackText = document.getElementById('feedback-text');
-        const explanation = document.getElementById('explanation');
+        const feedbackTextElement = document.getElementById('feedback-text');
+        const explanationElement = document.getElementById('explanation');
+        const progressElement = document.getElementById('progress');
+        const finalScoreElement = document.getElementById('final-score');
 
-        // Initialize game
-        startButton.addEventListener('click', () => {
-            startScreen.style.display = 'none';
-            gameScreen.style.display = 'block';
-            currentQuestion = 0;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedMaterial = null;
+
+        // Initialize the game
+        function initGame() {
+            currentQuestionIndex = 0;
             score = 0;
-            nextQuestion();
-        });
+            updateUI();
+            startScreen.classList.remove('active');
+            gameScreen.classList.add('active');
+            loadNextQuestion();
+        }
 
-        playAgainButton.addEventListener('click', () => {
-            resultsScreen.style.display = 'none';
-            startScreen.style.display = 'block';
-        });
-
-        // Event listeners for material selection
-        document.querySelectorAll('.material-option').forEach(option => {
-            option.addEventListener('click', (e) => {
-                if (!gameActive) return;
-                
-                const selectedMaterial = e.currentTarget.dataset.material;
-                const correctMaterial = scenarios[currentQuestion].correctMaterial;
-                
-                if (selectedMaterial === correctMaterial) {
-                    feedbackText.textContent = "✓ Correct!";
-                    score++;
-                } else {
-                    feedbackText.textContent = "✗ Incorrect";
-                }
-                
-                explanation.innerHTML = `<strong>Explanation:</strong> ${scenarios[currentQuestion].explanation}`;
-                gameActive = false;
-                nextButton.style.display = 'block';
-            });
-        });
-
-        // Next button
-        nextButton.addEventListener('click', () => {
-            if (currentQuestion < 9) {
-                currentQuestion++;
-                nextQuestion();
-            } else {
-                endGame();
+        // Load next question
+        function loadNextQuestion() {
+            if (currentQuestionIndex >= 10) {
+                showResults();
+                return;
             }
-        });
+            
+            const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            scoreElement.textContent = score;
+            scenarioTextElement.textContent = scenario.text;
+            scenarioIconElement.textContent = scenario.icon;
 
-        function nextQuestion() {
-            gameActive = true;
-            nextButton.style.display = 'none';
+            // Clear previous materials
+            materialsContainer.innerHTML = '';
             
-            const scenario = scenarios[currentQuestion];
-            scenarioText.textContent = scenario.text;
-            scenarioIcon.textContent = scenario.icon;
-            currentQuestionElement.textContent = (currentQuestion + 1).toString();
+            // Select 4 random materials for this question (excluding the correct one)
+            const availableMaterials = [...materials];
+            const correctMaterialIndex = availableMaterials.findIndex(mat => mat.name === scenario.correctMaterial);
+            if (correctMaterialIndex !== -1) {
+                availableMaterials.splice(correctMaterialIndex, 1); // Remove correct material
+            }
+
+            // Add the correct material to the list
+            const correctMaterial = materials.find(mat => mat.name === scenario.correctMaterial);
+            const selectedMaterials = [correctMaterial];
             
-            // Reset material options
-            document.querySelectorAll('.material-option').forEach(option => {
-                option.style.backgroundColor = '';
+            // Fill remaining slots with random materials (excluding the correct one)
+            for (let i = 0; i < 3 && availableMaterials.length > 0; i++) {
+                const randomIndex = Math.floor(Math.random() * availableMaterials.length);
+                selectedMaterials.push(availableMaterials.splice(randomIndex, 1)[0]);
+            }
+
+            // Shuffle materials
+            shuffleArray(selectedMaterials);
+
+            // Create material buttons
+            selectedMaterials.forEach((material, index) => {
+                const button = document.createElement('button');
+                button.className = 'material-button';
+                button.innerHTML = `
+                    <div class="material-icon">${material.icon}</div>
+                    <div>${material.name}</div>
+                `;
+                button.dataset.material = material.name;
+                button.addEventListener('click', () => selectMaterial(material));
+                materialsContainer.appendChild(button);
             });
             
+            // Reset feedback
             feedbackContainer.style.display = 'none';
         }
 
-        function endGame() {
-            gameScreen.style.display = 'none';
-            resultsScreen.style.display = 'block';
-            document.getElementById('final-score').textContent = `${score}/10`;
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
+
+        // Handle material selection
+        function selectMaterial(material) {
+            selectedMaterial = material;
+            
+            // Disable all buttons except the selected one
+            const buttons = document.querySelectorAll('.material-button');
+            buttons.forEach(button => {
+                if (button.dataset.material === material.name) {
+                    button.style.backgroundColor = '#a0d8ef';
+                } else {
+                    button.disabled = true;
+                }
+            });
+            
+            // Show feedback
+            showFeedback(material);
+        }
+
+        function showFeedback(selectedMaterial) {
+            const scenario = scenarios.find(s => s.correctMaterial === selectedMaterial.name);
+            const isCorrect = selectedMaterial.name === scenario.correctMaterial;
+            
+            if (isCorrect) {
+                feedbackTextElement.textContent = "✅ Correct!";
+                score++;
+                scoreElement.textContent = score;
+            } else {
+                feedbackTextElement.textContent = "❌ Incorrect";
+            }
+            
+            // Show explanation
+            let explanation = `The best material for this application is ${selectedMaterial.name} because it meets all the required properties:\n`;
+            
+            selectedMaterial.properties.forEach(prop => {
+                explanation += `- ${prop}\n`;
+            });
+            
+            if (isCorrect) {
+                explanation += `\nThis choice aligns with IB Design Technology B3.1 principles for material selection.`;
+            } else {
+                const correctMaterial = materials.find(m => m.name === scenario.correctMaterial);
+                explanation += `\nWhile ${selectedMaterial.name} has some good properties, ${correctMaterial.name} is better suited due to:\n`;
+                correctMaterial.properties.forEach(prop => {
+                    explanation += `- ${prop}\n`;
+                });
+            }
+            
+            explanationElement.textContent = explanation;
+            feedbackContainer.style.display = 'block';
+            
+            // Enable next button
+            nextButton.disabled = false;
+        }
+
+        function updateUI() {
+            scoreElement.textContent = score;
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            progressElement.style.width = `${((currentQuestionIndex) / 10) * 100}%`;
+        }
+
+        // Show results screen
+        function showResults() {
+            gameScreen.classList.remove('active');
+            resultsScreen.classList.add('active');
+            finalScoreElement.textContent = `${score}/10`;
+        }
+
+        // Event listeners
+        startButton.addEventListener('click', initGame);
+        nextButton.addEventListener('click', () => {
+            currentQuestionIndex++;
+            loadNextQuestion();
+            
+            // Re-enable buttons for next question
+            const buttons = document.querySelectorAll('.material-button');
+            buttons.forEach(button => {
+                button.disabled = false;
+                button.style.backgroundColor = '';
+            });
+            
+            // Reset feedback display
+            feedbackContainer.style.display = 'none';
+            nextButton.disabled = true;
+        });
+
+        restartButton.addEventListener('click', initGame);
+        playAgainButton.addEventListener('click', initGame);
+
+        // Initialize the game on load
+        window.onload = function() {
+            updateUI();
+        };
     </script>
 </body>
 </html>
