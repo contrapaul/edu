@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microprocessor History Activity</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="activity-header">
+    <h1>How Microprocessors Evolved</h1>
+    <p>Select an era to explore what actually happens inside the chip.</p>
+  </header>
+
+  <main class="activity-container">
+    <!-- Timeline Navigation -->
+    <nav class="timeline-nav" id="timelineNav" aria-label="Microprocessor eras"></nav>
+
+    <!-- Detail Panel -->
+    <section class="detail-panel" id="detailPanel" aria-live="polite">
+      <h2>Select an era to begin</h2>
+      <p>Click a period on the timeline above to see how transistor design, architecture, and hardware specialization changed over time.</p>
+    </section>
+
+    <!-- Knowledge Check -->
+    <section class="quiz-section" id="quizSection">
+      <h2>Check Your Understanding</h2>
+      <div id="quizContainer"></div>
+      <button id="resetQuiz" class="btn-secondary" style="display:none;">Try Again</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
