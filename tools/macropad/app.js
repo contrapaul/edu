@@ -10,39 +10,39 @@ selectedId: null,
 
 chipPos: { x: 0, y: 0 },
 
-dragging: null,     // { type: 'component’|'chip’, id, offX, offY }
+dragging: null,     // { type: 'component'|'chip', id, offX, offY }
 
 };
 
 // ── DOM refs ───────────────────────────────────────────────────────
 
-const canvas      = document.getElementById('canvas’);
+const canvas      = document.getElementById('canvas');
 
-const wireLayer   = document.getElementById('wire-layer’);
+const wireLayer   = document.getElementById('wire-layer');
 
-const canvasWrap  = document.getElementById('canvas-wrap’);
+const canvasWrap  = document.getElementById('canvas-wrap');
 
-const canvasHint  = document.getElementById('canvas-hint’);
+const canvasHint  = document.getElementById('canvas-hint');
 
-const shelfItems  = document.getElementById('shelf-items’);
+const shelfItems  = document.getElementById('shelf-items');
 
-const ctxMenu     = document.getElementById('ctx-menu’);
+const ctxMenu     = document.getElementById('ctx-menu');
 
-const tooltip     = document.getElementById('tooltip’);
+const tooltip     = document.getElementById('tooltip');
 
-const panelForm   = document.getElementById('panel-form’);
+const panelForm   = document.getElementById('panel-form');
 
-const panelEmpty  = document.getElementById('panel-empty’);
+const panelEmpty  = document.getElementById('panel-empty');
 
-const notesList   = document.getElementById('notes-list’);
+const notesList   = document.getElementById('notes-list');
 
-const libList     = document.getElementById('lib-list’);
+const libList     = document.getElementById('lib-list');
 
-const statComponents = document.getElementById('stat-components’);
+const statComponents = document.getElementById('stat-components');
 
-const statPins       = document.getElementById('stat-pins’);
+const statPins       = document.getElementById('stat-pins');
 
-const statLibs       = document.getElementById('stat-libs’);
+const statLibs       = document.getElementById('stat-libs');
 
 let ctxTargetId = null;
 
@@ -74,7 +74,7 @@ updateStats();
 
 function buildShelf() {
 
-shelfItems.innerHTML = '’;
+shelfItems.innerHTML = '';
 
 Object.values(COMPONENT_LIBRARY).forEach(comp => {
 
@@ -82,9 +82,9 @@ const count = state.placed.filter(p => p.compId === comp.id).length;
 
 const atMax = count >= comp.maxInstances;
 
-const el = document.createElement('div’);
+const el = document.createElement('div');
 
-el.className = 'shelf-item’ + (atMax ? ’ disabled’ : '’);
+el.className = 'shelf-item' + (atMax ? ' disabled' : '');
 
 el.dataset.compId = comp.id;
 
@@ -94,9 +94,9 @@ el.title = comp.description;
 
 if (!atMax) {
 
-el.addEventListener('mousedown’, onShelfMouseDown);
+el.addEventListener('mousedown', onShelfMouseDown);
 
-el.addEventListener('click’, () => addComponent(comp.id));
+el.addEventListener('click', () => addComponent(comp.id));
 
 }
 
@@ -110,18 +110,18 @@ shelfItems.appendChild(el);
 
 function buildChip() {
 
-chipEl = document.createElement('div’);
+chipEl = document.createElement('div');
 
-chipEl.className = 'esp32-chip’;
-chipEl.id = 'esp32-chip’;
+chipEl.className = 'esp32-chip';
+chipEl.id = 'esp32-chip';
 
-const leftPins  = ESP32S3_PINS.filter(p => p.side === 'left’);
+const leftPins  = ESP32S3_PINS.filter(p => p.side === 'left');
 
-const rightPins = ESP32S3_PINS.filter(p => p.side === 'right’);
+const rightPins = ESP32S3_PINS.filter(p => p.side === 'right');
 
 const rows = Math.max(leftPins.length, rightPins.length);
 
-let leftHTML = '’, rightHTML = '’;
+let leftHTML = '', rightHTML = '';
 
 leftPins.forEach(pin => {
 
@@ -145,7 +145,7 @@ canvas.appendChild(chipEl);
 
 // Chip drag
 
-chipEl.addEventListener('mousedown’, e => {
+chipEl.addEventListener('mousedown', e => {
 
 if (e.button !== 0) return;
 
@@ -155,7 +155,7 @@ const cRect = canvasWrap.getBoundingClientRect();
 
 state.dragging = {
 
-type: 'chip’,
+type: 'chip',
 
 offX: e.clientX - rect.left,
 
@@ -171,11 +171,11 @@ e.preventDefault();
 
 function pinClass(pin) {
 
-if (pin.types.includes('power’)) return 'power’;
+if (pin.types.includes('power')) return 'power';
 
-if (pin.types.includes('gnd’))   return 'gnd’;
+if (pin.types.includes('gnd'))   return 'gnd';
 
-return '’;
+return '';
 
 }
 
@@ -189,9 +189,9 @@ const cy = Math.max(40, wrap.height / 2 - 160);
 
 state.chipPos = { x: cx, y: cy };
 
-chipEl.style.left = cx + 'px’;
+chipEl.style.left = cx + 'px';
 
-chipEl.style.top  = cy + 'px’;
+chipEl.style.top  = cy + 'px';
 
 }
 
@@ -203,7 +203,7 @@ const pinEl = chipEl.querySelector(`[data-pin="${pinId}"]`);
 
 if (!pinEl) return null;
 
-const dot = pinEl.querySelector(’.pin-dot’);
+const dot = pinEl.querySelector('.pin-dot');
 
 if (!dot) return null;
 
@@ -253,7 +253,7 @@ state.placed.forEach(existing => {
 
 Object.values(existing.pinAssign).forEach(pid => {
 
-if (pid && !['GND’,'3V3’,'GND_R’,'5V’].includes(pid)) usedGPIO.add(pid);
+if (pid && !['GND','3V3','GND_R','5V'].includes(pid)) usedGPIO.add(pid);
 
 });
 
@@ -269,7 +269,7 @@ pinAssign[pg.id] = pg.fixedPin;
 
 // Conditional pins (e.g. LED) — leave unassigned until enabled
 
-pinAssign[pg.id] = '’;
+pinAssign[pg.id] = '';
 
 } else {
 
@@ -277,13 +277,13 @@ pinAssign[pg.id] = '’;
 
 const compat = ESP32S3_PINS.filter(p =>
 
-!['GND’,'3V3’,'GND_R’,'5V’].includes(p.id) &&
+!['GND','3V3','GND_R','5V'].includes(p.id) &&
 
-p.types.some(t => pg.type === t || t === 'gpio’)
+p.types.some(t => pg.type === t || t === 'gpio')
 
 );
 
-let chosen = '’;
+let chosen = '';
 
 if (pg.preferred && !usedGPIO.has(pg.preferred)) {
 
@@ -335,7 +335,7 @@ pinAssign,
 
 config,
 
-label: comp.shortName + ’ ’ + (count + 1),
+label: comp.shortName + ' ' + (count + 1),
 
 };
 
@@ -355,7 +355,7 @@ updateNotes();
 
 updateLibs();
 
-canvasHint.classList.add('hidden’);
+canvasHint.classList.add('hidden');
 
 }
 
@@ -365,26 +365,26 @@ function renderComponent(inst) {
 
 const comp = COMPONENT_LIBRARY[inst.compId];
 
-const existing = document.getElementById('comp-’ + inst.id);
+const existing = document.getElementById('comp-' + inst.id);
 
 if (existing) existing.remove();
 
-const el = document.createElement('div’);
+const el = document.createElement('div');
 
-el.className = 'placed-component’;
-el.id = 'comp-’ + inst.id;
+el.className = 'placed-component';
+el.id = 'comp-' + inst.id;
 
-el.style.left = inst.x + 'px’;
+el.style.left = inst.x + 'px';
 
-el.style.top  = inst.y + 'px’;
+el.style.top  = inst.y + 'px';
 
-el.style.borderColor = comp.color + '55’;
+el.style.borderColor = comp.color + '55';
 
 // Check config completeness
 
 const unconfigured = isUnconfigured(inst);
 
-if (unconfigured) el.classList.add('unconfigured’);
+if (unconfigured) el.classList.add('unconfigured');
 
 // Pin badges
 
@@ -394,25 +394,25 @@ const pinBadgesHTML = assignablePins.map(pg => {
 
 const assigned = inst.pinAssign[pg.id];
 
-const cls = assigned ? 'assigned’ : '’;
+const cls = assigned ? 'assigned' : '';
 
 return `<span class="comp-pin-badge ${cls}" data-pg="${pg.id}" title="Click to reassign ${pg.label}">${pg.label}: ${assigned || '—'}</span>`;
 
-}).join(’’);
+}).join('');
 
 el.innerHTML = `<div class="comp-header"> <span class="comp-icon">${comp.icon}</span> <span class="comp-title">${comp.shortName}</span> <span class="comp-id">#${inst.id}</span> </div> <div class="comp-pins">${pinBadgesHTML}</div> <div class="comp-status ${unconfigured ? 'warn' : 'ok'}">${unconfigured ? '⚠ needs config' : '✓ ready'}</div>`;
 
 // Drag
 
-el.addEventListener('mousedown’, e => {
+el.addEventListener('mousedown', e => {
 
 if (e.button !== 0) return;
 
-if (e.target.closest(’.comp-pin-badge’)) return;
+if (e.target.closest('.comp-pin-badge')) return;
 
 const rect = el.getBoundingClientRect();
 
-state.dragging = { type: 'component’, id: inst.id, offX: e.clientX - rect.left, offY: e.clientY - rect.top };
+state.dragging = { type: 'component', id: inst.id, offX: e.clientX - rect.left, offY: e.clientY - rect.top };
 
 selectComponent(inst.id);
 
@@ -424,9 +424,9 @@ e.preventDefault();
 
 // Click to select
 
-el.addEventListener('click’, e => {
+el.addEventListener('click', e => {
 
-if (!e.target.closest(’.comp-pin-badge’)) selectComponent(inst.id);
+if (!e.target.closest('.comp-pin-badge')) selectComponent(inst.id);
 
 e.stopPropagation();
 
@@ -434,7 +434,7 @@ e.stopPropagation();
 
 // Right-click context menu
 
-el.addEventListener('contextmenu’, e => {
+el.addEventListener('contextmenu', e => {
 
 e.preventDefault();
 
@@ -446,9 +446,9 @@ showCtxMenu(e.clientX, e.clientY);
 
 // Pin badge click — quick reassign popover
 
-el.querySelectorAll(’.comp-pin-badge’).forEach(badge => {
+el.querySelectorAll('.comp-pin-badge').forEach(badge => {
 
-badge.addEventListener('click’, e => {
+badge.addEventListener('click', e => {
 
 e.stopPropagation();
 
@@ -462,7 +462,7 @@ canvas.appendChild(el);
 
 // Highlight if selected
 
-if (state.selectedId === inst.id) el.classList.add('selected’);
+if (state.selectedId === inst.id) el.classList.add('selected');
 
 }
 
@@ -480,7 +480,7 @@ if (!pg.fixed && pg.required && !inst.pinAssign[pg.id]) return true;
 
 // Check label exists for buttons
 
-if (inst.compId === 'button’ && !inst.config.label) return true;
+if (inst.compId === 'button' && !inst.config.label) return true;
 
 return false;
 
@@ -492,21 +492,21 @@ function selectComponent(id) {
 
 state.selectedId = id;
 
-document.querySelectorAll(’.placed-component’).forEach(el => el.classList.remove('selected’));
+document.querySelectorAll('.placed-component').forEach(el => el.classList.remove('selected'));
 
-const el = document.getElementById('comp-’ + id);
+const el = document.getElementById('comp-' + id);
 
-if (el) el.classList.add('selected’);
+if (el) el.classList.add('selected');
 
 renderPanel(id);
 
 // Switch to config tab
 
-document.querySelectorAll(’.ptab’).forEach(t => t.classList.toggle('active’, t.dataset.tab === 'config’));
+document.querySelectorAll('.ptab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'config'));
 
-document.querySelectorAll(’.panel-body’).forEach(b => b.classList.add('hidden’));
+document.querySelectorAll('.panel-body').forEach(b => b.classList.add('hidden'));
 
-document.getElementById('panel-config’).classList.remove('hidden’);
+document.getElementById('panel-config').classList.remove('hidden');
 
 }
 
@@ -514,11 +514,11 @@ function deselectAll() {
 
 state.selectedId = null;
 
-document.querySelectorAll(’.placed-component’).forEach(el => el.classList.remove('selected’));
+document.querySelectorAll('.placed-component').forEach(el => el.classList.remove('selected'));
 
-panelEmpty.style.display = '’;
+panelEmpty.style.display = '';
 
-panelForm.style.display = 'none’;
+panelForm.style.display = 'none';
 
 }
 
@@ -532,9 +532,9 @@ if (!inst) { deselectAll(); return; }
 
 const comp = COMPONENT_LIBRARY[inst.compId];
 
-panelEmpty.style.display = 'none’;
+panelEmpty.style.display = 'none';
 
-panelForm.style.display  = '’;
+panelForm.style.display  = '';
 
 let html = ` <div class="form-section"> <div class="form-section-title">${comp.icon} ${comp.name}</div> <p style="font-size:0.72rem;color:var(--text2);line-height:1.5;margin-bottom:0.6rem">${comp.description}</p> </div>`;
 
@@ -556,15 +556,15 @@ const usedPins = getUsedPins(id, pg.id);
 
 const compatPins = ESP32S3_PINS.filter(p => {
 
-if (['GND’,'3V3’,'GND_R’,'5V’].includes(p.id)) return false;
+if (['GND','3V3','GND_R','5V'].includes(p.id)) return false;
 
-return p.types.some(t => t === pg.type || (pg.type === 'gpio’ && t === 'gpio’));
+return p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio'));
 
 });
 
 // All GPIO-capable pins (for analog we still show GPIO but mark them)
 
-const allPins = ESP32S3_PINS.filter(p => !['GND’,'3V3’,'GND_R’,'5V’].includes(p.id));
+const allPins = ESP32S3_PINS.filter(p => !['GND','3V3','GND_R','5V'].includes(p.id));
 
 html += `<tr> <td>${pg.label}</td> <td><select data-pg="${pg.id}" onchange="onPinChange(${id},'${pg.id}',this.value)"> <option value="">— select —</option> ${allPins.map(p => { const isCompat = p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio')); const taken    = usedPins.includes(p.id); const sel      = inst.pinAssign[pg.id] === p.id ? 'selected' : ''; const style    = !isCompat ? 'style="color:var(--text3)"' : taken ? 'style="color:var(--yellow)"' : ''; const suffix   = !isCompat ? ' (incompatible)' : taken ? ' (in use)' : ''; return `<option value=”${p.id}” ${sel} ${style}>${p.label}${suffix}</option>`; }).join('')} </select></td> </tr>`;
 
@@ -628,41 +628,41 @@ const id = `cfg-${instId}-${key}`;
 
 const onChange = `onConfigChange(${instId},'${key}',this.${schema.type === 'checkbox' ? 'checked' : 'value'})`;
 
-if (schema.type === 'text’) {
+if (schema.type === 'text') {
 
 return `<div class="form-row"><label class="form-label" for="${id}">${schema.label}</label> <input class="form-input" id="${id}" type="text" value="${value || ''}" onchange="${onChange}"></div>`;
 
 }
 
-if (schema.type === 'select’) {
+if (schema.type === 'select') {
 
-const opts = schema.options.map(o => `<option value="${o}" ${value===o?'selected':''}>${o}</option>`).join(’’);
-
-return `<div class="form-row"><label class="form-label" for="${id}">${schema.label}</label> <select class="form-select" id="${id}" onchange="${onChange}">${opts}</select></div>`;
-
-}
-
-if (schema.type === 'keyselect’) {
-
-const opts = KEY_OPTIONS.map(o => `<option value="${o}" ${value===o?'selected':''}>${o||'—'}</option>`).join(’’);
+const opts = schema.options.map(o => `<option value="${o}" ${value===o?'selected':''}>${o}</option>`).join('');
 
 return `<div class="form-row"><label class="form-label" for="${id}">${schema.label}</label> <select class="form-select" id="${id}" onchange="${onChange}">${opts}</select></div>`;
 
 }
 
-if (schema.type === 'checkbox’) {
+if (schema.type === 'keyselect') {
+
+const opts = KEY_OPTIONS.map(o => `<option value="${o}" ${value===o?'selected':''}>${o||'—'}</option>`).join('');
+
+return `<div class="form-row"><label class="form-label" for="${id}">${schema.label}</label> <select class="form-select" id="${id}" onchange="${onChange}">${opts}</select></div>`;
+
+}
+
+if (schema.type === 'checkbox') {
 
 return `<div class="form-check-row"> <input type="checkbox" id="${id}" ${value?'checked':''} onchange="${onChange}"> <label for="${id}">${schema.label}</label></div>`;
 
 }
 
-if (schema.type === 'range’) {
+if (schema.type === 'range') {
 
 return `<div class="form-row"><label class="form-label" for="${id}">${schema.label} <span id="${id}-val">${value}</span></label> <input class="form-input" type="range" id="${id}" min="${schema.min}" max="${schema.max}" step="${schema.step}" value="${value}" oninput="document.getElementById('${id}-val').textContent=this.value" onchange="${onChange}"></div>`;
 
 }
 
-return '’;
+return '';
 
 }
 
@@ -702,7 +702,7 @@ updateNotes();
 
 }
 
-// Get all pins used by other instances (excluding this instance’s same pg)
+// Get all pins used by other instances (excluding this instance's same pg)
 
 function getUsedPins(exceptInstId, exceptPgId) {
 
@@ -712,7 +712,7 @@ state.placed.forEach(inst => {
 
 Object.entries(inst.pinAssign).forEach(([pgId, pinId]) => {
 
-if ((inst.id !== exceptInstId || pgId !== exceptPgId) && pinId && !['GND’,'3V3’,'GND_R’,'5V’].includes(pinId)) {
+if ((inst.id !== exceptInstId || pgId !== exceptPgId) && pinId && !['GND','3V3','GND_R','5V'].includes(pinId)) {
 
 used.push(pinId);
 
@@ -742,42 +742,42 @@ const pg   = comp.pinGroups.find(p => p.id === pgId);
 
 const usedPins  = getUsedPins(instId, pgId);
 
-const allPins   = ESP32S3_PINS.filter(p => !['GND’,'3V3’,'GND_R’,'5V’].includes(p.id));
+const allPins   = ESP32S3_PINS.filter(p => !['GND','3V3','GND_R','5V'].includes(p.id));
 
-const pop = document.createElement('div’);
-pop.id = 'pin-popover’;
+const pop = document.createElement('div');
+pop.id = 'pin-popover';
 
 pop.style.cssText = `position:fixed;z-index:2000;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:8px;min-width:180px;max-height:280px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.5)`;
 
 const rect = anchorEl.getBoundingClientRect();
 
-pop.style.left = rect.left + 'px’;
+pop.style.left = rect.left + 'px';
 
-pop.style.top  = (rect.bottom + 4) + 'px’;
+pop.style.top  = (rect.bottom + 4) + 'px';
 
 pop.innerHTML = `<div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);margin-bottom:6px;letter-spacing:0.1em">ASSIGN ${pg.label}</div>` +
 
 allPins.map(p => {
 
-const isCompat = p.types.some(t => t === pg.type || (pg.type === 'gpio’ && t === 'gpio’));
+const isCompat = p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio'));
 
 const taken    = usedPins.includes(p.id);
 
 const sel      = inst.pinAssign[pgId] === p.id;
 
-const color    = !isCompat ? 'var(–text3)’ : taken ? 'var(–yellow)’ : sel ? 'var(–green)’ : 'var(–text)’;
+const color    = !isCompat ? 'var(–text3)' : taken ? 'var(–yellow)' : sel ? 'var(–green)' : 'var(–text)';
 
-const suffix   = !isCompat ? ’ ✗’ : taken ? ’ ⚠’ : sel ? ’ ✓’ : '’;
+const suffix   = !isCompat ? ' ✗' : taken ? ' ⚠' : sel ? ' ✓' : '';
 
 return `<div style="padding:5px 8px;border-radius:4px;cursor:pointer;font-family:var(--font-mono);font-size:0.72rem;color:${color};background:${sel?'var(--bg3)':'transparent'}" onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background='${sel?'var(--bg3)':'transparent'}'" onclick="onPinChange(${instId},'${pgId}','${p.id}');closePinPopover()"> ${p.label}${suffix} </div>`;
 
-}).join(’’);
+}).join('');
 
 document.body.appendChild(pop);
 
 pinPopover = pop;
 
-setTimeout(() => document.addEventListener('click’, closePinPopover, { once: true }), 10);
+setTimeout(() => document.addEventListener('click', closePinPopover, { once: true }), 10);
 
 }
 
@@ -793,7 +793,7 @@ function removeComponent(id) {
 
 state.placed = state.placed.filter(p => p.id !== id);
 
-const el = document.getElementById('comp-’ + id);
+const el = document.getElementById('comp-' + id);
 
 if (el) el.remove();
 
@@ -809,7 +809,7 @@ updateNotes();
 
 updateLibs();
 
-if (state.placed.length === 0) canvasHint.classList.remove('hidden’);
+if (state.placed.length === 0) canvasHint.classList.remove('hidden');
 
 }
 
@@ -817,7 +817,7 @@ if (state.placed.length === 0) canvasHint.classList.remove('hidden’);
 
 function updateWires() {
 
-wireLayer.innerHTML = '’;
+wireLayer.innerHTML = '';
 
 updateChipPinHighlights();
 
@@ -831,7 +831,7 @@ state.placed.forEach(inst => {
 
 const comp   = COMPONENT_LIBRARY[inst.compId];
 
-const compEl = document.getElementById('comp-’ + inst.id);
+const compEl = document.getElementById('comp-' + inst.id);
 
 if (!compEl) return;
 
@@ -939,7 +939,7 @@ const mx = (cx + pinPos.x) / 2;
 
 const my = (cy + pinPos.y) / 2;
 
-if (passive.type === 'resistor’) {
+if (passive.type === 'resistor') {
 
 // Zigzag resistor symbol
 
@@ -947,75 +947,75 @@ const w = 18, h = 6;
 
 const zz = `M ${mx-w/2} ${my} l 3 ${-h} l 3 ${h*2} l 3 ${-h*2} l 3 ${h*2} l 3 ${-h} l 3 0`;
 
-const path = document.createElementNS('http://www.w3.org/2000/svg’, 'path’);
+const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-path.setAttribute('d’, zz);
+path.setAttribute('d', zz);
 
-path.setAttribute('class’, 'wire wire-data’);
+path.setAttribute('class', 'wire wire-data');
 
-path.setAttribute('stroke’, 'var(–yellow)’);
+path.setAttribute('stroke', 'var(–yellow)');
 
-path.setAttribute('stroke-width’, '1.5’);
+path.setAttribute('stroke-width', '1.5');
 
-path.setAttribute('fill’, 'none’);
+path.setAttribute('fill', 'none');
 
 wireLayer.appendChild(path);
 
 // Label
 
-const t = document.createElementNS('http://www.w3.org/2000/svg’, 'text’);
+const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
-t.setAttribute('x’, mx); t.setAttribute('y’, my - 8);
+t.setAttribute('x', mx); t.setAttribute('y', my - 8);
 
-t.setAttribute('class’, 'wire-annotation’);
+t.setAttribute('class', 'wire-annotation');
 
-t.setAttribute('text-anchor’, 'middle’);
+t.setAttribute('text-anchor', 'middle');
 
 t.textContent = passive.value;
 
-t.addEventListener('mouseenter’, e => showTooltip(e.clientX, e.clientY, passive.value + ’ Resistor’, passive.note));
+t.addEventListener('mouseenter', e => showTooltip(e.clientX, e.clientY, passive.value + ' Resistor', passive.note));
 
-t.addEventListener('mousemove’, e => moveTooltip(e.clientX, e.clientY));
+t.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
 
-t.addEventListener('mouseleave’, hideTooltip);
+t.addEventListener('mouseleave', hideTooltip);
 
 wireLayer.appendChild(t);
 
-} else if (passive.type === 'capacitor’) {
+} else if (passive.type === 'capacitor') {
 
 // Capacitor symbol — two parallel lines
 
-const rect1 = document.createElementNS('http://www.w3.org/2000/svg’, 'rect’);
+const rect1 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 
-rect1.setAttribute('x’, mx-10); rect1.setAttribute('y’, my-8);
+rect1.setAttribute('x', mx-10); rect1.setAttribute('y', my-8);
 
-rect1.setAttribute('width’, 20); rect1.setAttribute('height’, 3);
+rect1.setAttribute('width', 20); rect1.setAttribute('height', 3);
 
-rect1.setAttribute('fill’, 'var(–yellow)’); rect1.setAttribute('opacity’, '0.7’);
+rect1.setAttribute('fill', 'var(–yellow)'); rect1.setAttribute('opacity', '0.7');
 
-const rect2 = document.createElementNS('http://www.w3.org/2000/svg’, 'rect’);
+const rect2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 
-rect2.setAttribute('x’, mx-10); rect2.setAttribute('y’, my+5);
+rect2.setAttribute('x', mx-10); rect2.setAttribute('y', my+5);
 
-rect2.setAttribute('width’, 20); rect2.setAttribute('height’, 3);
+rect2.setAttribute('width', 20); rect2.setAttribute('height', 3);
 
-rect2.setAttribute('fill’, 'var(–yellow)’); rect2.setAttribute('opacity’, '0.7’);
+rect2.setAttribute('fill', 'var(–yellow)'); rect2.setAttribute('opacity', '0.7');
 
 wireLayer.appendChild(rect1); wireLayer.appendChild(rect2);
 
-const t = document.createElementNS('http://www.w3.org/2000/svg’, 'text’);
+const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 
-t.setAttribute('x’, mx+14); t.setAttribute('y’, my+2);
+t.setAttribute('x', mx+14); t.setAttribute('y', my+2);
 
-t.setAttribute('class’, 'wire-annotation’); t.setAttribute('text-anchor’, 'start’);
+t.setAttribute('class', 'wire-annotation'); t.setAttribute('text-anchor', 'start');
 
 t.textContent = passive.value;
 
-t.addEventListener('mouseenter’, e => showTooltip(e.clientX, e.clientY, passive.value + ’ Capacitor’, passive.note));
+t.addEventListener('mouseenter', e => showTooltip(e.clientX, e.clientY, passive.value + ' Capacitor', passive.note));
 
-t.addEventListener('mousemove’, e => moveTooltip(e.clientX, e.clientY));
+t.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
 
-t.addEventListener('mouseleave’, hideTooltip);
+t.addEventListener('mouseleave', hideTooltip);
 
 wireLayer.appendChild(t);
 
@@ -1033,11 +1033,11 @@ Object.values(inst.pinAssign).forEach(p => { if (p) usedPins.add(p); });
 
 });
 
-chipEl.querySelectorAll(’.pin-item’).forEach(el => {
+chipEl.querySelectorAll('.pin-item').forEach(el => {
 
 const pid = el.dataset.pin;
 
-el.classList.toggle('used’, usedPins.has(pid));
+el.classList.toggle('used', usedPins.has(pid));
 
 });
 
@@ -1053,7 +1053,7 @@ state.placed.forEach(inst => {
 
 Object.values(inst.pinAssign).forEach(p => {
 
-if (p && !['GND’,'3V3’,'GND_R’,'5V’].includes(p)) usedPins.add(p);
+if (p && !['GND','3V3','GND_R','5V'].includes(p)) usedPins.add(p);
 
 });
 
@@ -1071,7 +1071,7 @@ statLibs.textContent = libs.length;
 
 function getRequiredLibs() {
 
-const set = new Set(['adafruit_hid’]);
+const set = new Set(['adafruit_hid']);
 
 state.placed.forEach(inst => {
 
@@ -1093,7 +1093,7 @@ const notes = [];
 
 if (state.placed.length === 0) {
 
-notes.push({ cls: 'note-info’, text: 'Add components from the shelf above to start building.’ });
+notes.push({ cls: 'note-info', text: 'Add components from the shelf above to start building.' });
 
 }
 
@@ -1105,23 +1105,23 @@ comp.pinGroups.forEach(pg => {
 
 if (!pg.fixed && pg.required && !inst.pinAssign[pg.id]) {
 
-notes.push({ cls: 'note-error’, text: `${comp.shortName} #${inst.id}: ${pg.label} pin not assigned.` });
+notes.push({ cls: 'note-error', text: `${comp.shortName} #${inst.id}: ${pg.label} pin not assigned.` });
 
 }
 
 });
 
-if (inst.compId === 'button’ && (!inst.config.label || inst.config.label === `BTN ${inst.id}`)) {
+if (inst.compId === 'button' && (!inst.config.label || inst.config.label === `BTN ${inst.id}`)) {
 
-notes.push({ cls: 'note-warn’, text: `Button #${inst.id}: give it a meaningful label before downloading.` });
+notes.push({ cls: 'note-warn', text: `Button #${inst.id}: give it a meaningful label before downloading.` });
 
 }
 
-if ((inst.compId === 'button’) && inst.config.action_type === 'hotkey’) {
+if ((inst.compId === 'button') && inst.config.action_type === 'hotkey') {
 
 const keys = [inst.config.key1, inst.config.key2, inst.config.key3].filter(Boolean);
 
-if (keys.length === 0) notes.push({ cls: 'note-warn’, text: `Button #${inst.id}: no keys assigned for hotkey action.` });
+if (keys.length === 0) notes.push({ cls: 'note-warn', text: `Button #${inst.id}: no keys assigned for hotkey action.` });
 
 }
 
@@ -1133,13 +1133,13 @@ const i2cAddresses = {};
 
 state.placed.forEach(inst => {
 
-if (['ssd1306_i2c’,'sh1106’,'ssd1309’].includes(inst.compId)) {
+if (['ssd1306_i2c','sh1106','ssd1309'].includes(inst.compId)) {
 
-const addr = inst.config.i2c_address || '0x3C’;
+const addr = inst.config.i2c_address || '0x3C';
 
 if (i2cAddresses[addr]) {
 
-notes.push({ cls: 'note-error’, text: `I2C address conflict: two OLEDs both on ${addr}. Change one to 0x3D.` });
+notes.push({ cls: 'note-error', text: `I2C address conflict: two OLEDs both on ${addr}. Change one to 0x3D.` });
 
 }
 
@@ -1157,7 +1157,7 @@ state.placed.forEach(inst => {
 
 Object.values(inst.pinAssign).forEach(p => {
 
-if (p && !['GND’,'3V3’,'GND_R’,'5V’].includes(p)) {
+if (p && !['GND','3V3','GND_R','5V'].includes(p)) {
 
 pinCount[p] = (pinCount[p] || 0) + 1;
 
@@ -1169,7 +1169,7 @@ pinCount[p] = (pinCount[p] || 0) + 1;
 
 Object.entries(pinCount).forEach(([pin, count]) => {
 
-if (count > 1) notes.push({ cls: 'note-error’, text: `Pin conflict: ${pin} assigned to ${count} components.` });
+if (count > 1) notes.push({ cls: 'note-error', text: `Pin conflict: ${pin} assigned to ${count} components.` });
 
 });
 
@@ -1187,17 +1187,17 @@ const comp = COMPONENT_LIBRARY[inst.compId];
 
 extraFiles.forEach(f => {
 
-notes.push({ cls: 'note-info’, text: `Required file: place ${f} in CIRCUITPY root (download from Adafruit framebuf examples).` });
+notes.push({ cls: 'note-info', text: `Required file: place ${f} in CIRCUITPY root (download from Adafruit framebuf examples).` });
 
 });
 
 if (notes.length === 0) {
 
-notes.push({ cls: 'note-ok’, text: 'All components configured — ready to download.’ });
+notes.push({ cls: 'note-ok', text: 'All components configured — ready to download.' });
 
 }
 
-notesList.innerHTML = notes.map(n => `<li class="${n.cls}">${n.text}</li>`).join(’’);
+notesList.innerHTML = notes.map(n => `<li class="${n.cls}">${n.text}</li>`).join('');
 
 }
 
@@ -1209,11 +1209,11 @@ const libs = getRequiredLibs();
 
 libList.innerHTML = libs.map(l => {
 
-const always = l === 'adafruit_hid’;
+const always = l === 'adafruit_hid';
 
 return `<li class="${always ? 'lib-always' : ''}">${l} <span class="lib-tag">${always ? 'always' : 'required'}</span></li>`;
 
-}).join(’’);
+}).join('');
 
 }
 
@@ -1345,15 +1345,15 @@ if (inst.compId === 'button') {
 
 const oleds = state.placed
 
-.filter(p => ['ssd1306_i2c’,'ssd1306_spi’,'sh1106’,'ssd1309’].includes(p.compId))
+.filter(p => ['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(p.compId))
 
 .map(inst => ({
 
 driver:       inst.compId,
 
-i2c_address:  inst.config.i2c_address || '0x3C’,
+i2c_address:  inst.config.i2c_address || '0x3C',
 
-display_mode: inst.config.display_mode || 'idle_status’,
+display_mode: inst.config.display_mode || 'idle_status',
 
 gpio_sda:     inst.pinAssign.sda,
 
@@ -1367,19 +1367,19 @@ return JSON.stringify({ buttons, dial_modes, oleds, sliders }, null, 2);
 
 // ── Download ───────────────────────────────────────────────────────
 
-document.getElementById('btn-download’).addEventListener('click’, () => {
+document.getElementById('btn-download').addEventListener('click', () => {
 
 // Check for errors
 
-const errors = document.querySelectorAll(’.note-error’);
+const errors = document.querySelectorAll('.note-error');
 
 if (errors.length) {
 
-const proceed = confirm('There are configuration errors. Download anyway?’);
+const proceed = confirm('There are configuration errors. Download anyway?');
 
 if (!proceed) {
 
-document.querySelectorAll(’.ptab’)[1].click(); // switch to notes tab
+document.querySelectorAll('.ptab')[1].click(); // switch to notes tab
 
 return;
 
@@ -1389,15 +1389,15 @@ return;
 
 const json = buildConfigJSON();
 
-const blob = new Blob([json], { type: 'application/json’ });
+const blob = new Blob([json], { type: 'application/json' });
 
 const url  = URL.createObjectURL(blob);
 
-const a    = document.createElement('a’);
+const a    = document.createElement('a');
 
 a.href     = url;
 
-a.download = 'config.json’;
+a.download = 'config.json';
 
 a.click();
 
@@ -1405,11 +1405,11 @@ URL.revokeObjectURL(url);
 
 });
 
-document.getElementById('btn-clear’).addEventListener('click’, () => {
+document.getElementById('btn-clear').addEventListener('click', () => {
 
-if (state.placed.length && !confirm('Remove all components?’)) return;
+if (state.placed.length && !confirm('Remove all components?')) return;
 
-state.placed.forEach(p => { const e = document.getElementById('comp-’+p.id); if(e) e.remove(); });
+state.placed.forEach(p => { const e = document.getElementById('comp-'+p.id); if(e) e.remove(); });
 
 state.placed = [];
 
@@ -1427,7 +1427,7 @@ updateNotes();
 
 updateLibs();
 
-canvasHint.classList.remove('hidden’);
+canvasHint.classList.remove('hidden');
 
 });
 
@@ -1435,9 +1435,9 @@ canvasHint.classList.remove('hidden’);
 
 let shelfDrag = null;
 
-const dragGhost = document.createElement('div’);
+const dragGhost = document.createElement('div');
 
-dragGhost.className = 'drag-ghost’;
+dragGhost.className = 'drag-ghost';
 
 document.body.appendChild(dragGhost);
 
@@ -1451,13 +1451,13 @@ shelfDrag = item.dataset.compId;
 
 const comp = COMPONENT_LIBRARY[shelfDrag];
 
-dragGhost.textContent = comp.icon + ’ ’ + comp.shortName;
+dragGhost.textContent = comp.icon + ' ' + comp.shortName;
 
-dragGhost.style.display = 'block’;
+dragGhost.style.display = 'block';
 
-dragGhost.style.left = (e.clientX - 40) + 'px’;
+dragGhost.style.left = (e.clientX - 40) + 'px';
 
-dragGhost.style.top  = (e.clientY - 20) + 'px’;
+dragGhost.style.top  = (e.clientY - 20) + 'px';
 
 e.preventDefault();
 
@@ -1465,13 +1465,13 @@ e.preventDefault();
 
 // ── Global mouse events ────────────────────────────────────────────
 
-document.addEventListener('mousemove’, e => {
+document.addEventListener('mousemove', e => {
 
 if (shelfDrag) {
 
-dragGhost.style.left = (e.clientX - 40) + 'px’;
+dragGhost.style.left = (e.clientX - 40) + 'px';
 
-dragGhost.style.top  = (e.clientY - 20) + 'px’;
+dragGhost.style.top  = (e.clientY - 20) + 'px';
 
 }
 
@@ -1479,7 +1479,7 @@ if (state.dragging) {
 
 const cRect = canvasWrap.getBoundingClientRect();
 
-if (state.dragging.type === 'chip’) {
+if (state.dragging.type === 'chip') {
 
 const nx = e.clientX - cRect.left - state.dragging.offX;
 
@@ -1487,13 +1487,13 @@ const ny = e.clientY - cRect.top  - state.dragging.offY;
 
 state.chipPos = { x: Math.max(0, nx), y: Math.max(0, ny) };
 
-chipEl.style.left = state.chipPos.x + 'px’;
+chipEl.style.left = state.chipPos.x + 'px';
 
-chipEl.style.top  = state.chipPos.y + 'px’;
+chipEl.style.top  = state.chipPos.y + 'px';
 
 updateWires();
 
-} else if (state.dragging.type === 'component’) {
+} else if (state.dragging.type === 'component') {
 
 const inst = state.placed.find(p => p.id === state.dragging.id);
 
@@ -1507,9 +1507,9 @@ inst.x = Math.max(0, nx);
 
 inst.y = Math.max(0, ny);
 
-const el = document.getElementById('comp-’ + inst.id);
+const el = document.getElementById('comp-' + inst.id);
 
-if (el) { el.style.left = inst.x + 'px’; el.style.top = inst.y + 'px’; }
+if (el) { el.style.left = inst.x + 'px'; el.style.top = inst.y + 'px'; }
 
 updateWires();
 
@@ -1521,7 +1521,7 @@ updateWires();
 
 });
 
-document.addEventListener('mouseup’, e => {
+document.addEventListener('mouseup', e => {
 
 if (shelfDrag) {
 
@@ -1541,7 +1541,7 @@ addComponent(shelfDrag, x, y);
 
 shelfDrag = null;
 
-dragGhost.style.display = 'none’;
+dragGhost.style.display = 'none';
 
 }
 
@@ -1553,9 +1553,9 @@ if (state.dragging) state.dragging = null;
 
 function bindCanvas() {
 
-canvasWrap.addEventListener('click’, e => {
+canvasWrap.addEventListener('click', e => {
 
-if (e.target === canvasWrap || e.target === canvas || e.target.classList.contains('canvas-grid’)) {
+if (e.target === canvasWrap || e.target === canvas || e.target.classList.contains('canvas-grid')) {
 
 deselectAll();
 
@@ -1565,11 +1565,11 @@ hideCtxMenu();
 
 });
 
-document.addEventListener('keydown’, e => {
+document.addEventListener('keydown', e => {
 
-if (e.key === 'Escape’) { deselectAll(); hideCtxMenu(); }
+if (e.key === 'Escape') { deselectAll(); hideCtxMenu(); }
 
-if ((e.key === 'Delete’ || e.key === 'Backspace’) && state.selectedId && document.activeElement === document.body) {
+if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && document.activeElement === document.body) {
 
 removeComponent(state.selectedId);
 
@@ -1583,19 +1583,19 @@ removeComponent(state.selectedId);
 
 function showCtxMenu(x, y) {
 
-ctxMenu.style.left = x + 'px’;
+ctxMenu.style.left = x + 'px';
 
-ctxMenu.style.top  = y + 'px’;
+ctxMenu.style.top  = y + 'px';
 
-ctxMenu.classList.add('visible’);
+ctxMenu.classList.add('visible');
 
 }
 
-function hideCtxMenu() { ctxMenu.classList.remove('visible’); }
+function hideCtxMenu() { ctxMenu.classList.remove('visible'); }
 
 function bindContextMenu() {
 
-document.getElementById('ctx-config’).addEventListener('click’, () => {
+document.getElementById('ctx-config').addEventListener('click', () => {
 
 if (ctxTargetId) selectComponent(ctxTargetId);
 
@@ -1603,7 +1603,7 @@ hideCtxMenu();
 
 });
 
-document.getElementById('ctx-duplicate’).addEventListener('click’, () => {
+document.getElementById('ctx-duplicate').addEventListener('click', () => {
 
 if (ctxTargetId) {
 
@@ -1617,7 +1617,7 @@ hideCtxMenu();
 
 });
 
-document.getElementById('ctx-delete’).addEventListener('click’, () => {
+document.getElementById('ctx-delete').addEventListener('click', () => {
 
 if (ctxTargetId) removeComponent(ctxTargetId);
 
@@ -1625,7 +1625,7 @@ hideCtxMenu();
 
 });
 
-document.addEventListener('click’, e => {
+document.addEventListener('click', e => {
 
 if (!ctxMenu.contains(e.target)) hideCtxMenu();
 
@@ -1637,21 +1637,21 @@ if (!ctxMenu.contains(e.target)) hideCtxMenu();
 
 function bindPanelTabs() {
 
-document.querySelectorAll(’.ptab’).forEach(tab => {
+document.querySelectorAll('.ptab').forEach(tab => {
 
-tab.addEventListener('click’, () => {
+tab.addEventListener('click', () => {
 
-document.querySelectorAll(’.ptab’).forEach(t => t.classList.remove('active’));
+document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
 
-tab.classList.add('active’);
+tab.classList.add('active');
 
 const target = tab.dataset.tab;
 
-document.getElementById('panel-config’).classList.toggle('hidden’, target !== 'config’);
+document.getElementById('panel-config').classList.toggle('hidden', target !== 'config');
 
-document.getElementById('panel-notes’).classList.toggle('hidden’, target !== 'notes’);
+document.getElementById('panel-notes').classList.toggle('hidden', target !== 'notes');
 
-document.getElementById('panel-libs’).classList.toggle('hidden’, target !== 'libs’);
+document.getElementById('panel-libs').classList.toggle('hidden', target !== 'libs');
 
 });
 
@@ -1669,7 +1669,7 @@ function showTooltip(x, y, title, body) {
 
 tooltip.innerHTML = `<div class="tooltip-title">${title}</div><div class="tooltip-body">${body}</div>`;
 
-tooltip.classList.add('visible’);
+tooltip.classList.add('visible');
 
 moveTooltip(x, y);
 
@@ -1677,17 +1677,17 @@ moveTooltip(x, y);
 
 function moveTooltip(x, y) {
 
-tooltip.style.left = (x + 12) + 'px’;
+tooltip.style.left = (x + 12) + 'px';
 
-tooltip.style.top  = (y + 12) + 'px’;
+tooltip.style.top  = (y + 12) + 'px';
 
 }
 
-function hideTooltip() { tooltip.classList.remove('visible’); }
+function hideTooltip() { tooltip.classList.remove('visible'); }
 
 // ── Boot ───────────────────────────────────────────────────────────
 
-window.addEventListener('load’, init);
+window.addEventListener('load', init);
 
-window.addEventListener('resize’, () => { updateWires(); });
+window.addEventListener('resize', () => { updateWires(); });
  
