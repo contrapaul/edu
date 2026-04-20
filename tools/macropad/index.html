@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,12 +12,13 @@
 <body>
 
 <!-- Header -->
+
 <header>
   <div class="header-left">
     <div class="logo">
       <span class="logo-icon">⬡</span>
       <div>
-        <div class="logo-title">MacroPad Builder</div>
+        <div class="logo-title">MacroPad Builder <span class="logo-sep">|</span> <a class="logo-back" href="https://edu.contrapaul.com">Back to main site</a></div>
         <div class="logo-sub">ESP32-S3 Visual Configurator</div>
       </div>
     </div>
@@ -27,12 +29,14 @@
     <div class="stat-chip"><span class="stat-label">LIBRARIES</span><span class="stat-val" id="stat-libs">0</span></div>
   </div>
   <div class="header-right">
+    <a class="btn-ghost" href="code.py" download>&#8595; code.py</a>
     <button class="btn-ghost" id="btn-clear">Clear All</button>
     <button class="btn-primary" id="btn-download">↓ Download config.json</button>
   </div>
 </header>
 
 <!-- Component shelf -->
+
 <div class="shelf" id="shelf">
   <div class="shelf-label">COMPONENTS — drag onto canvas or click to add</div>
   <div class="shelf-items" id="shelf-items">
@@ -41,9 +45,11 @@
 </div>
 
 <!-- Main workspace -->
+
 <div class="workspace">
 
   <!-- Canvas area -->
+
   <div class="canvas-wrap" id="canvas-wrap">
     <svg id="wire-layer" class="wire-layer"></svg>
     <div class="canvas-grid" id="canvas" tabindex="0">
@@ -56,6 +62,7 @@
   </div>
 
   <!-- Right panel -->
+
   <aside class="panel" id="panel">
     <div class="panel-tabs">
       <button class="ptab active" data-tab="config">Configure</button>
@@ -63,34 +70,38 @@
       <button class="ptab" data-tab="libs">Libraries</button>
     </div>
 
-    <div class="panel-body" id="panel-config">
-      <div class="panel-empty" id="panel-empty">
-        <div class="empty-icon">↖</div>
-        <div>Select a component<br>on the canvas to<br>configure it</div>
-      </div>
-      <div id="panel-form" style="display:none"></div>
-    </div>
+```
+<div class="panel-body" id="panel-config">
+  <div class="panel-empty" id="panel-empty">
+    <div class="empty-icon">↖</div>
+    <div>Select a component<br>on the canvas to<br>configure it</div>
+  </div>
+  <div id="panel-form" style="display:none"></div>
+</div>
 
-    <div class="panel-body hidden" id="panel-notes">
-      <div class="notes-header">Build checklist</div>
-      <ul class="notes-list" id="notes-list">
-        <li class="note-ok">Add at least one component to begin</li>
-      </ul>
-    </div>
+<div class="panel-body hidden" id="panel-notes">
+  <div class="notes-header">Build checklist</div>
+  <ul class="notes-list" id="notes-list">
+    <li class="note-ok">Add at least one component to begin</li>
+  </ul>
+</div>
 
-    <div class="panel-body hidden" id="panel-libs">
-      <div class="notes-header">Required libraries</div>
-      <p class="lib-note">Copy these into <code>CIRCUITPY/lib/</code></p>
-      <ul class="lib-list" id="lib-list">
-        <li class="lib-always">adafruit_hid <span class="lib-tag">always</span></li>
-      </ul>
-      <div class="notes-header" style="margin-top:1.2rem">Get the bundle</div>
-      <p class="lib-note">Download the full Adafruit CircuitPython Bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> — all libraries live inside it.</p>
-    </div>
+<div class="panel-body hidden" id="panel-libs">
+  <div class="notes-header">Required libraries</div>
+  <p class="lib-note">Copy these into <code>CIRCUITPY/lib/</code></p>
+  <ul class="lib-list" id="lib-list">
+    <li class="lib-always">adafruit_hid <span class="lib-tag">always</span></li>
+  </ul>
+  <div class="notes-header" style="margin-top:1.2rem">Get the bundle</div>
+  <p class="lib-note">Download the full Adafruit CircuitPython Bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> — all libraries live inside it.</p>
+</div>
+```
+
   </aside>
 </div>
 
 <!-- Context menu -->
+
 <div class="ctx-menu" id="ctx-menu">
   <div class="ctx-item" id="ctx-config">Configure</div>
   <div class="ctx-item" id="ctx-duplicate">Duplicate</div>
@@ -99,9 +110,12 @@
 </div>
 
 <!-- Tooltip -->
+
 <div class="tooltip" id="tooltip"></div>
 
 <script src="components.js"></script>
+
 <script src="app.js"></script>
+
 </body>
 </html>
