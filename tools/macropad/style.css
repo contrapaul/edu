@@ -69,6 +69,9 @@ header {
   color: var(--copper2);
 }
 .logo-sub { font-size: 0.68rem; color: var(--text2); letter-spacing: 0.05em; }
+.logo-sep { color: var(--border2); margin: 0 0.4rem; }
+.logo-back { font-size: 0.72rem; color: var(--text2); text-decoration: none; letter-spacing: 0.03em; font-family: var(--font-ui); font-weight: 400; }
+.logo-back:hover { color: var(--copper2); }
 
 .header-center { display: flex; gap: 0.75rem; }
 .stat-chip {
@@ -747,4 +750,53 @@ header {
 .wire-new {
   stroke-dasharray: 1000;
   animation: wire-draw 0.35s ease forwards;
+}
+
+/* -- OS toggle buttons -------------------------------------------- */
+.os-btn-group { display: flex; gap: 4px; }
+.os-btn {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--text2);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+.os-btn:hover { border-color: var(--copper); color: var(--copper); }
+.os-btn-active { border-color: var(--copper); color: var(--copper2); background: var(--bg2); }
+
+/* -- Launch hint text --------------------------------------------- */
+.launch-hint {
+  font-size: 0.68rem;
+  color: var(--text2);
+  line-height: 1.5;
+  padding: 5px 8px;
+  background: var(--bg3);
+  border-left: 2px solid var(--border2);
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 0.5rem;
+}
+.launch-hint code {
+  background: var(--bg2);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  color: var(--copper2);
+}
+
+/* -- Config 2 section --------------------------------------------- */
+.config2-section {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 1rem;
+  background: var(--bg3);
+}
+.config2-title {
+  color: var(--blue) !important;
+  border-bottom-color: var(--blue-dim) !important;
+  margin-bottom: 0.6rem;
 }
