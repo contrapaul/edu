@@ -32,6 +32,7 @@ function init() {
   buildChip();
   placeChipCenter();
   bindHeader();
+  bindModal();
   bindPanelTabs();
   bindContextMenu();
   bindCanvas();
@@ -723,8 +724,25 @@ function updateStats() {
   });
   const libs = getRequiredLibs();
   statComponents.textContent = state.placed.length;
-  statPins.textContent = `${usedPins.size} / 28`;
+  statPins.textContent = `${usedPins.size} / 44`;
   statLibs.textContent = libs.length;
+
+  // Hover tooltip: component breakdown
+  const compCounts = {};
+  state.placed.forEach(inst => {
+    const name = COMPONENT_LIBRARY[inst.compId].name;
+    compCounts[name] = (compCounts[name] || 0) + 1;
+  });
+  const compTip = Object.keys(compCounts).length
+    ? Object.entries(compCounts).map(([n,c]) => n + ' x' + c).join('&#10;')
+    : 'No components placed yet';
+  document.getElementById('stat-components').closest('.stat-chip').title = compTip;
+
+  // Hover tooltip: libraries list
+  const libTip = libs.length
+    ? libs.join('&#10;')
+    : 'No libraries required yet';
+  document.getElementById('stat-libs').closest('.stat-chip').title = libTip;
 }
 
 function getRequiredLibs() {

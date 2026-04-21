@@ -27,6 +27,7 @@
     <div class="stat-chip"><span class="stat-label">LIBRARIES</span><span class="stat-val" id="stat-libs">0</span></div>
   </div>
   <div class="header-right">
+    <button class="btn-instructions" id="btn-instructions">&#9432; Instructions</button>
     <a class="btn-ghost" href="code.py" download>&#8595; code.py</a>
     <button class="btn-ghost" id="btn-clear">Clear All</button>
     <button class="btn-primary" id="btn-download">↓ Download config.json</button>
@@ -101,6 +102,69 @@
 
 <!-- Tooltip -->
 <div class="tooltip" id="tooltip"></div>
+
+<!-- Instructions modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">How to Build Your MacroPad</div>
+      <button class="modal-close" id="modal-close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-intro">This website is designed to help you transform an ESP32-S3 microcontroller and a few input components into a fully functioning, customized macropad.</p>
+
+      <div class="modal-step">
+        <div class="modal-step-num">1</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Flash CircuitPython onto your ESP32-S3</div>
+          <p>Download and install CircuitPython from <a href="https://circuitpython.org/board/espressif_esp32s3_devkitc_1_n16r8/" target="_blank">circuitpython.org</a>. You may need to unplug the ESP32-S3 during installation or swap between USB-C ports, but the process only takes 60&ndash;90 seconds. Once done, your device will appear as a USB drive called <code>CIRCUITPY</code> &mdash; this means it is ready to run Python code!</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">2</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Download and copy the core files</div>
+          <p>Click <strong>&#8595; code.py</strong> in the toolbar above and copy it to the root of your <code>CIRCUITPY</code> drive. You will also need <code>font5x8.bin</code> in the root folder if you are using an OLED display &mdash; download it from <a href="https://github.com/adafruit/Adafruit_CircuitPython_framebuf/raw/main/examples/font5x8.bin" target="_blank">Adafruit&apos;s GitHub</a>. The <code>serve.py</code> file is only needed to run this configurator website locally on your own computer and does not go on the device.</p>
+          <p class="modal-note">&#9432; The Adafruit libraries used in this project are open source (MIT licence). You are free to copy and share them with students. Download the full bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> and copy the required libraries listed in the Libraries tab into the <code>CIRCUITPY/lib/</code> folder.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">3</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Build your wiring diagram</div>
+          <p>Drag components from the shelf at the top into the workspace to create your layout. Appearance does not matter for the code, but arranging components close to the pins you plan to use will help you build a cleaner physical product. Lines connect automatically to available GPIO pins &mdash; you can click any pin badge on a component to reassign it.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">4</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Configure each component</div>
+          <p>Click any component on the canvas to open its settings in the panel on the right. Set the action each button or encoder should perform. If you want two separate configurations &mdash; for example a Mac mode and a PC mode, or a normal layer and an application-specific hotkey layer &mdash; enable <strong>Config 2</strong> inside a component and make sure at least one button is set to <strong>Config Toggle</strong> to switch between them.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">5</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Download and copy config.json</div>
+          <p>When the Notes tab shows no errors, click <strong>&#8595; Download config.json</strong> and copy the file to the root of your <code>CIRCUITPY</code> drive. Then open the <strong>Libraries</strong> tab to see which libraries your build needs, download them from the Adafruit Bundle, and copy them into <code>CIRCUITPY/lib/</code>. Reset the device and your macropad will be active immediately.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">6</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Wire up your components and test</div>
+          <p>Use the wiring diagram on screen as your guide. Connect each component to the GPIO pins shown, then power the device on and try it out. If something does not behave as expected, come back to the configurator, adjust the settings, and re-download <code>config.json</code> &mdash; no reflashing required.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <script src="components.js"></script>
 <script src="app.js"></script>
