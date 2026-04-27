@@ -1,1 +1,520 @@
-{"type":"error","error":{"type":"not_found_error","message":"File not found in container: /mnt/user-data/outputs/studio-project-marking/index.html","details":{"error_visibility":"user_facing"}},"request_id":"req_011CaTb8DB1L5iLKa3b6fdqa"}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Project Marking Tool — MYP G10 Design</title>
+  <style>
+/* ============================================
+   contrapaul.com — portfolio/about
+   Warm editorial light theme. Serif-led.
+   ============================================ */
+:root {
+  --bg:          #faf7f2;
+  --surface:     #f2ede4;
+  --surface-2:   #e8e0d0;
+  --border:      #d8cfc0;
+  --text:        #1a1712;
+  --muted:       #7a7060;
+  --accent:      #c0522a;
+  --accent-light:#f0e0d8;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
+  --max-w:        1060px;
+  --radius:       4px;
+  --transition:   180ms ease;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; }
+main { flex: 1; }
+ 
+/* HEADER */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(250,247,242,0.95);
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(6px);
+}
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
+}
+.back-link {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.04em; transition: color var(--transition);
+}
+.back-link:hover { color: var(--accent); text-decoration: none; }
+.nav { display: flex; gap: 0.25rem; }
+.nav a { font-size: 0.82rem; padding: 0.3rem 0.75rem; color: var(--muted); transition: color var(--transition); text-decoration: none; }
+.nav a:hover { color: var(--text); }
+ 
+/* TOOL-SPECIFIC */
+.tool-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem; }
+.tool-header-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap; }
+.tool-title { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; letter-spacing: -0.01em; color: var(--text); }
+.tool-subtitle { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+ 
+/* TABS */
+.criteria-tabs {
+  border-bottom: 1px solid var(--border); background: var(--bg);
+  position: sticky; top: 52px; z-index: 90;
+}
+.criteria-tabs-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  display: flex; gap: 0;
+}
+.tab-btn {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 0.85rem 1.4rem;
+  border: none; background: none; color: var(--muted);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+ 
+/* LAYOUT */
+.tool-main {
+  max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+}
+ 
+/* CRITERIA PANEL */
+.criteria-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+.criterion-block { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.criterion-header {
+  padding: 0.55rem 1rem; background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.65rem;
+}
+.criterion-code { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); flex-shrink: 0; }
+.criterion-label { font-family: var(--font-display); font-size: 0.92rem; font-weight: 400; color: var(--text); }
+.options-list { list-style: none; padding: 0; margin: 0; }
+.option-item { border-bottom: 1px solid var(--border); }
+.option-item:last-child { border-bottom: none; }
+.option-btn {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 0.6rem 1rem; cursor: pointer;
+  display: grid; grid-template-columns: 38px 1fr; gap: 0.65rem;
+  align-items: start; transition: background var(--transition);
+}
+.option-btn:hover { background: var(--accent-light); }
+.option-btn.selected {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  padding-left: calc(1rem - 3px);
+}
+.option-score { font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.04em; color: var(--muted); padding-top: 0.15rem; white-space: nowrap; }
+.option-score.zero { color: var(--border); }
+.option-text { font-size: 0.81rem; line-height: 1.5; color: var(--text); }
+.option-text strong { color: var(--accent); font-weight: 600; }
+ 
+/* COMMENT PANEL */
+.comment-panel { position: sticky; top: calc(52px + 44px + 2rem); }
+.comment-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; gap: 0.5rem; flex-wrap: wrap; }
+.comment-panel-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.comment-actions { display: flex; gap: 0.4rem; }
+ 
+.btn-tool {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.35rem 0.85rem;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  cursor: pointer; transition: all var(--transition);
+  background: var(--bg); color: var(--muted);
+}
+.btn-tool:hover { border-color: var(--accent); color: var(--accent); }
+.btn-update { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-update:hover { background: #a04020; border-color: #a04020; color: #fff; }
+.btn-update:disabled { background: var(--surface-2); border-color: var(--border); color: var(--muted); cursor: not-allowed; }
+ 
+#comment-box {
+  width: 100%; min-height: 230px; padding: 1rem;
+  font-family: var(--font-body); font-size: 0.88rem; line-height: 1.75;
+  color: var(--text); background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  resize: vertical; transition: border-color var(--transition);
+}
+#comment-box:focus { outline: none; border-color: var(--accent); }
+#comment-box::placeholder { color: var(--border); }
+ 
+.comment-hint { margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.63rem; color: var(--border); letter-spacing: 0.03em; }
+ 
+.score-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.65rem; }
+.score-chip {
+  font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.05em;
+  padding: 0.18rem 0.5rem; border: 1px solid var(--border);
+  border-radius: 2px; color: var(--muted); background: var(--surface);
+  transition: all var(--transition);
+}
+.score-chip.has-score { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+ 
+.pending-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-right: 4px; vertical-align: middle;
+  opacity: 0; transition: opacity 0.2s;
+}
+.pending-dot.visible { opacity: 1; }
+ 
+.btn-copy.copied { background: #e8f5e9; border-color: #66bb6a; color: #2e7d32; }
+ 
+/* FOOTER */
+.site-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--border); background: var(--surface); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--border); }
+ 
+/* RESPONSIVE */
+@media (max-width: 820px) {
+  .tool-main { grid-template-columns: 1fr; }
+  .comment-panel { position: static; }
+}
+@media (max-width: 600px) {
+  .criteria-tabs-inner { overflow-x: auto; padding: 0 1rem; }
+  .tab-btn { padding: 0.75rem 0.9rem; font-size: 0.7rem; }
+  .tool-main { padding: 1rem 1.25rem; }
+}
+  </style>
+</head>
+<body>
+ 
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../" class="back-link">← edu.contrapaul.com</a>
+    <nav class="nav"><a href="../">Tools</a></nav>
+  </div>
+</header>
+ 
+<div class="tool-header">
+  <div class="tool-header-inner">
+    <span class="tool-title">Studio Project Marking</span>
+    <span class="tool-subtitle">MYP Design · Grade 10 · All Criteria</span>
+  </div>
+</div>
+ 
+<div class="criteria-tabs" role="tablist">
+  <div class="criteria-tabs-inner">
+    <button class="tab-btn active" data-criteria="A">Criteria A — Research</button>
+    <button class="tab-btn" data-criteria="B">Criteria B — Ideas</button>
+    <button class="tab-btn" data-criteria="C">Criteria C — Creating</button>
+    <button class="tab-btn" data-criteria="D">Criteria D — Evaluation</button>
+  </div>
+</div>
+ 
+<main>
+  <div class="tool-main">
+    <div class="criteria-panel" id="criteria-panel"></div>
+ 
+    <div class="comment-panel">
+      <div class="comment-panel-header">
+        <span class="comment-panel-label">
+          <span class="pending-dot" id="pending-dot"></span>Generated Comment
+        </span>
+        <div class="comment-actions">
+          <button class="btn-tool btn-update" id="btn-update" disabled>Update ↓</button>
+          <button class="btn-tool btn-copy" id="btn-copy">Copy</button>
+          <button class="btn-tool" id="btn-clear">Clear</button>
+        </div>
+      </div>
+      <textarea id="comment-box" placeholder="Select options on the left, then click Update."></textarea>
+      <div class="score-row" id="score-row"></div>
+      <p class="comment-hint">Select options for each sub-criterion, then click Update. Edit freely before copying.</p>
+    </div>
+  </div>
+</main>
+ 
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-copy">MYP G10 Design — Studio Project Marking Tool</span>
+  </div>
+</footer>
+ 
+<script>
+const CRITERIA = {
+  A: {
+    items: [
+      {
+        code: "Ai", label: "Justifying the need for a product",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Stated a need for the product; <strong>limited connection</strong> to the persona or client.", s: n => `${n} stated a need for a product or solution for a client or target audience, though the justification is limited and not clearly connected to the persona.` },
+          { score: "3–4", text: "Outlined a need and produced a persona; justification is <strong>surface-level</strong>.", s: n => `${n} outlined the need for a product or solution for a client and produced a user persona, though the project justification remains surface-level.` },
+          { score: "5–6", text: "Explained the need with a clear persona; justification is <strong>linked to persona insights</strong>.", s: n => `${n} developed a clear user persona and explained why a product or solution is needed, with the justification directly linked to the persona's goals and frustrations.` },
+          { score: "7–8", text: "<strong>Explained and justified</strong> a genuine, specific need; persona is detailed and <strong>directly drives the justification</strong>.", s: n => `${n} produced a detailed user persona and both explained and justified a genuine, specific need for the product, with the justification strongly grounded in the persona's goals, frustrations, and background.` }
+        ]
+      },
+      {
+        code: "Aii", label: "Research plan",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Research plan attempted but <strong>incomplete or inadequate</strong>.", s: n => `${n} produced a research plan, though it is incomplete or insufficient to guide meaningful research for the project.` },
+          { score: "3–4", text: "Plan outlined with some questions; <strong>guidance was needed</strong>, questions are broad or written before exploration.", s: n => `${n} outlined a research plan identifying some primary and secondary research questions, though the questions are broad or surface-level and guidance was needed to develop the plan.` },
+          { score: "5–6", text: "Plan constructed <strong>with limited guidance</strong>; questions are relevant and <strong>prioritized</strong>.", s: n => `${n} constructed a research plan that identifies and prioritizes relevant primary and secondary research questions, developed with limited guidance and showing evidence of thoughtful prior exploration.` },
+          { score: "7–8", text: "<strong>Independently constructed</strong>; questions are specific, well-prioritized, and clearly <strong>informed by prior exploration — not written in advance</strong>.", s: n => `${n} independently constructed a detailed research plan with specific, well-prioritized questions that are clearly informed by prior exploration rather than written before any inquiry had taken place.` }
+        ]
+      },
+      {
+        code: "Aiii", label: "Product analysis",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Fewer than 3 products analyzed, or products are <strong>not relevant</strong> to the project goal.", s: n => `${n} analyzed fewer than three products, or the products chosen are not sufficiently relevant to the project goal, limiting the usefulness of the analysis.` },
+          { score: "3–4", text: "1–2 relevant products analyzed; ACCESSFM <strong>partially completed</strong>, mostly descriptive.", s: n => `${n} analyzed one to two products that could inspire their work, with ACCESSFM partially completed and analysis that is mostly descriptive with limited critical thinking.` },
+          { score: "5–6", text: "3 relevant products analyzed; ACCESSFM complete; analysis <strong>goes beyond description</strong>.", s: n => `${n} analyzed three relevant products that could inspire their work, with complete and accurate ACCESSFM tables and analysis that goes beyond surface-level description.` },
+          { score: "7–8", text: "<strong>Detailed analysis of 3+ relevant products</strong>; ACCESSFM accurate and thorough; <strong>critical thinking</strong> and meaningful comparisons evident throughout.", s: n => `${n} completed detailed analysis of three or more products highly relevant to the project goal, with accurate and thorough ACCESSFM tables and clear critical thinking that draws meaningful comparisons and design insights.` }
+        ]
+      },
+      {
+        code: "Aiv", label: "Writing a design brief",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Basic design brief; <strong>states findings</strong> but does not link them to research.", s: n => `${n} developed a basic design brief that states some research findings but does not meaningfully link to the research, persona, or analysis completed.` },
+          { score: "3–4", text: "Brief outlines findings; <strong>some connection to research</strong> but links are weak or incomplete.", s: n => `${n} developed a design brief that outlines research findings, though the connections to the persona, research questions, and product analysis are limited or underdeveloped.` },
+          { score: "5–6", text: "Brief explains findings and <strong>links clearly to research, persona, and analysis</strong>.", s: n => `${n} developed a design brief that explains research findings and makes clear connections to the user persona, research questions, and product analysis.` },
+          { score: "7–8", text: "Detailed brief that <strong>synthesizes analysis</strong>; <strong>heavily grounded in findings</strong> across all areas of research.", s: n => `${n} developed a detailed design brief that synthesizes and summarizes the analysis, drawing heavily on the persona, research answers, and product analysis to provide clear and well-grounded direction for the design.` }
+        ]
+      }
+    ]
+  },
+  B: {
+    items: [
+      {
+        code: "Bi", label: "Design specifications",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Listed some basic specifications; <strong>not measurable or research-based</strong>.", s: n => `${n} listed some basic design specifications, though they are not measurable or meaningfully linked to research or the client's needs.` },
+          { score: "3–4", text: "Listed specifications <strong>related to product success</strong>; limited explanation or measurability.", s: n => `${n} listed design specifications related to the success of the product, though explanations are limited and measurability is not consistently addressed.` },
+          { score: "5–6", text: "Developed specifications that <strong>outline success criteria</strong>; measurable and relevant.", s: n => `${n} developed design specifications that outline clear success criteria, with most specifications being measurable and relevant to the client and product function.` },
+          { score: "7–8", text: "Detailed specifications <strong>grounded in research</strong>; each is measurable, achievable, and <strong>explained with reference to findings and realistic production</strong>.", s: n => `${n} developed detailed design specifications that are measurable, achievable, and clearly explained with reference to research findings, client needs, and realistic production methods.` }
+        ]
+      },
+      {
+        code: "Bii", label: "Developing design ideas",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Only 1 idea presented, or ideas are <strong>not feasible or interpretable</strong>.", s: n => `${n} presented only one design idea, or the ideas presented are not feasible or cannot be easily interpreted by others.` },
+          { score: "3–4", text: "2–3 ideas with images or notes; <strong>mostly interpretable</strong> but detail is uneven across ideas.", s: n => `${n} presented two to three design ideas with images or notes that are mostly interpretable, though the level of detail is uneven across ideas.` },
+          { score: "5–6", text: "3+ feasible ideas with <strong>images and notes</strong> that can be interpreted; elements labeled.", s: n => `${n} developed three or more feasible design ideas with images and notes that can be interpreted by others, with elements labeled and annotations providing useful context.` },
+          { score: "7–8", text: "3+ feasible ideas with <strong>clear, detailed images and notes</strong>; all ideas show <strong>equivalent effort</strong> and are fully interpretable.", s: n => `${n} developed three or more feasible design ideas with clear, detailed images and notes fully interpretable by others, with each idea showing equivalent effort and no single idea appearing to be the obvious first and only choice.` }
+        ]
+      },
+      {
+        code: "Biii", label: "Presenting the chosen design",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "<strong>Did not complete 3 designs</strong> in Bii, or did not choose or present a design.", s: n => `${n} did not complete three designs in Bii, or did not select and present a chosen design.` },
+          { score: "3–4", text: "Choice justified by <strong>referencing specifications</strong>; presentation <strong>lacked detail</strong>.", s: n => `${n} justified the choice of design with reference to the specifications, though the class presentation was not very detailed.` },
+          { score: "5–6", text: "Choice justified referencing specifications; presentation <strong>partially detailed</strong> with relevant additions.", s: n => `${n} justified the choice of design by referencing the specifications and added further detail to the chosen design, with a partially detailed class presentation.` },
+          { score: "7–8", text: "Design justified by <strong>critically referencing specifications</strong>; presentation is <strong>detailed and well-structured</strong>.", s: n => `${n} justified the choice of design by critically referencing the specifications and delivered a detailed and well-structured class presentation.` }
+        ]
+      },
+      {
+        code: "Biv", label: "Developing accurate drawings or diagrams",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Drawings are <strong>incomplete or inaccurate</strong>; insufficient for production.", s: n => `${n} created planning drawings that are incomplete or inaccurate and would not be sufficient to guide production.` },
+          { score: "3–4", text: "Created drawings <strong>or</strong> listed requirements — not both; accuracy or detail limited.", s: n => `${n} created drawings or listed production requirements, but not consistently both, and accuracy or detail is limited.` },
+          { score: "5–6", text: "Developed <strong>accurate drawings and listed requirements</strong> sufficient to guide production.", s: n => `${n} developed accurate drawings and listed the requirements needed to create the product, providing sufficient guidance for production.` },
+          { score: "7–8", text: "Accurate, <strong>detailed drawings with measurements</strong>; requirements are <strong>clearly outlined and production-ready</strong>.", s: n => `${n} developed accurate and detailed production drawings with measurements and annotations directed at manufacture, along with clearly outlined requirements that a manufacturer or peer could follow.` }
+        ]
+      }
+    ]
+  },
+  C: {
+    items: [
+      {
+        code: "Ci", label: "Constructing a logical plan",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Plan missing, incomplete, or <strong>unsuitable for the project</strong>.", s: n => `${n} did not complete a suitable production plan, or the plan created is not appropriate for the project.` },
+          { score: "3–4", text: "Plan includes some detail but is <strong>incomplete or difficult for peers to follow</strong>; not all 8 entries present.", s: n => `${n} constructed a plan that includes some details, though it is incomplete or would be difficult for peers to follow without additional guidance.` },
+          { score: "5–6", text: "Logical plan describing <strong>time and resources</strong>; <strong>all 8 entries present</strong> and can be followed by peers.", s: n => `${n} constructed a logical plan that describes the use of time and resources across all eight entries, which can be followed by peers.` },
+          { score: "7–8", text: "Detailed, <strong>logical and efficient</strong> plan; all 8 entries complete with <strong>clear process explanations</strong>; fully peer-followable.", s: n => `${n} constructed a detailed and logical plan that describes the efficient use of time and resources across all eight entries, with clear explanations sufficient for peers to follow.` }
+        ]
+      },
+      {
+        code: "Cii", label: "Demonstrate technical skill",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Minimal technical skill demonstrated; <strong>weak choice of what to highlight</strong>.", s: n => `${n} demonstrated minimal technical skill, and the areas chosen to highlight do not effectively showcase the skill applied in creating the product.` },
+          { score: "3–4", text: "Satisfactory technical skill demonstrated; evidence is <strong>acceptable but not particularly strong</strong>.", s: n => `${n} demonstrated satisfactory technical skills when making the product, with acceptable evidence though the highlighted areas could represent skill more effectively.` },
+          { score: "5–6", text: "Competent technical skill demonstrated; <strong>well-chosen areas to highlight</strong>.", s: n => `${n} demonstrated competent technical skills when creating the product, with well-chosen highlighted areas that effectively show the skill applied.` },
+          { score: "7–8", text: "Excellent technical skill demonstrated; <strong>strong, convincing choice of what to highlight</strong>; skill is clearly evident.", s: n => `${n} demonstrated excellent technical skills when making the product, with a strong and convincing selection of highlighted areas that clearly show the depth and quality of skill applied.` }
+        ]
+      },
+      {
+        code: "Ciii", label: "Creating a functional product",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Product <strong>functions poorly or is incomplete</strong>; significant issues present.", s: n => `${n} created a product that functions poorly or is incomplete, with significant issues that prevent it from working as intended.` },
+          { score: "3–4", text: "Product <strong>partially functions</strong> and is adequately completed; some issues remain.", s: n => `${n} created a product that partially functions and is adequately completed, though some issues prevent it from fully meeting the intended purpose.` },
+          { score: "5–6", text: "Product <strong>functions as intended</strong> and is adequately completed.", s: n => `${n} created a product that functions as intended and is adequately completed, with no major issues affecting its function.` },
+          { score: "7–8", text: "Product <strong>fully functions as intended</strong>, is completely finished; plan was followed; <strong>no rushed or sloppy work</strong>.", s: n => `${n} followed their plan and created a product that fully functions as intended, is completely finished, and demonstrates care and attention to quality throughout.` }
+        ]
+      },
+      {
+        code: "Civ", label: "Justify changes made",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Changes <strong>not documented</strong>, or no meaningful changes recorded.", s: n => `${n} did not meaningfully document changes made to the product, or no notable changes were recorded during the creation process.` },
+          { score: "3–4", text: "Changes outlined; documents <strong>what changed</strong> but little explanation of <em>why</em>.", s: n => `${n} outlined changes made to the product during creation, with some documentation of what was changed but limited explanation of the reasoning behind each change.` },
+          { score: "5–6", text: "Changes <strong>described with reasons provided</strong>; documentation is clear.", s: n => `${n} described changes made to the product during creation, providing clear reasons for each notable change and documenting their impact.` },
+          { score: "7–8", text: "Changes <strong>fully justified</strong>; reasoning is clear; <strong>impact on future steps addressed</strong>; no trivial or cosmetic-only changes.", s: n => `${n} fully justified all notable changes made to the design and plan during creation, with clear reasoning provided and the impact of each change on future steps addressed.` }
+        ]
+      }
+    ]
+  },
+  D: {
+    items: [
+      {
+        code: "Di", label: "Design testing methods",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "A testing method designed but <strong>not specific</strong>; may rely on <strong>yes/no questions</strong>; limited data generated.", s: n => `${n} designed a testing method to measure the success of the product, though it is not specific or well-designed to generate useful data, and may rely on closed-ended or yes/no questions.` },
+          { score: "3–4", text: "A relevant method that <strong>generates data</strong>; limited variety or specificity.", s: n => `${n} designed a relevant testing method that generates data to measure product success, though the variety of methods is limited and specificity could be improved.` },
+          { score: "5–6", text: "Multiple relevant methods that <strong>generate data</strong>; <strong>variety of tests</strong> improves breadth of evaluation.", s: n => `${n} designed relevant testing methods that generate data to measure the success of the product, with a variety of approaches that improve the breadth and reliability of the evaluation.` },
+          { score: "7–8", text: "Detailed, specific, highly relevant methods; <strong>strong variety</strong>; questions are <strong>open-ended</strong> and well-considered.", s: n => `${n} designed detailed and highly relevant testing methods that generate meaningful data, with a strong variety of approaches, open-ended questions, and clear specificity in how each test measures success against the design specifications.` }
+        ]
+      },
+      {
+        code: "Dii", label: "Evaluate the product based on data and specifications",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Success stated based on <strong>feelings or personal opinion</strong> — not data or specifications.", s: n => `${n} stated the success of the product, though the evaluation is based primarily on personal feelings or opinion rather than data or design specifications.` },
+          { score: "3–4", text: "Success outlined referencing specifications and testing; <strong>data interpretation is surface-level</strong>.", s: n => `${n} outlined the success of the product with reference to design specifications and testing, though the interpretation of data is surface-level and does not go beyond basic observations.` },
+          { score: "5–6", text: "Success explained based on <strong>specifications and testing data</strong>; data is <strong>accurately interpreted</strong>.", s: n => `${n} explained the success of the product based on design specifications and testing data, with data accurately interpreted and used to support the evaluation.` },
+          { score: "7–8", text: "<strong>Critically evaluated</strong> against specifications using <strong>authentic testing data</strong>; <strong>honest and accurate</strong> interpretation; no reliance on personal feelings.", s: n => `${n} critically evaluated the success of the product against the design specifications using authentic testing data, with honest and accurate interpretation throughout and no reliance on personal feelings to justify conclusions.` }
+        ]
+      },
+      {
+        code: "Diii", label: "Identify improvements",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Improvement ideas not adequately explained; <strong>vague or unfocused</strong>.", s: n => `${n} did not adequately explain improvement ideas, with suggestions that are vague or unfocused and not grounded in the evaluation.` },
+          { score: "3–4", text: "Outlined how the product could be improved; ideas are present but <strong>lack specific focus or elaboration</strong>.", s: n => `${n} outlined how the product could be improved, though the ideas lack specific focus or elaboration and are not clearly tied to the evaluation findings.` },
+          { score: "5–6", text: "Described <strong>specific improvement areas with elaboration</strong>; linked to evaluation findings.", s: n => `${n} described specific improvement areas with elaboration, with ideas linked to the critical evaluation and personal observations rather than being vague or random.` },
+          { score: "7–8", text: "Explained <strong>specific, well-elaborated improvements</strong>; clearly grounded in evaluation and observation; <strong>focused and actionable</strong>.", s: n => `${n} explained specific and well-elaborated improvement ideas clearly grounded in the critical evaluation and personal observations, with each improvement focused and actionable.` }
+        ]
+      },
+      {
+        code: "Div", label: "Explaining the impact of the product",
+        options: [
+          { score: "0",   text: "No work completed.", s: null },
+          { score: "1–2", text: "Impact not adequately addressed; <strong>no client presentation</strong> or only vague personal opinion.", s: n => `${n} did not adequately address the impact of the product on the client or target audience, with no clear evidence of a presentation or only vague personal opinions provided.` },
+          { score: "3–4", text: "Impact on client outlined; <strong>presentation evidence present but limited</strong>.", s: n => `${n} outlined the impact of the product on the client or target audience, with some evidence of a presentation, though the depth of discussion is limited.` },
+          { score: "5–6", text: "Impact explained <strong>with some guidance</strong>; references the presentation and client response.", s: n => `${n} explained the impact of the product on the client or target audience with some guidance, referencing the presentation and the client's response.` },
+          { score: "7–8", text: "Impact explained <strong>honestly and in detail</strong>; <strong>references Dii and Diii</strong>; grounded in actual presentation and discussion.", s: n => `${n} explained the impact of the product on the client or target audience in detail, with honest reflection grounded in actual presentation and discussion and clear reference to the evaluation findings and identified improvements.` }
+        ]
+      }
+    ]
+  }
+};
+ 
+// State
+let activeCriteria = 'A';
+const selections = { A:[null,null,null,null], B:[null,null,null,null], C:[null,null,null,null], D:[null,null,null,null] };
+ 
+function buildComment(key) {
+  return CRITERIA[key].items
+    .map((item, i) => {
+      const idx = selections[key][i];
+      if (idx === null) return '';
+      const opt = item.options[idx];
+      return opt.s ? opt.s('The student') : '';
+    })
+    .filter(Boolean)
+    .join(' ');
+}
+ 
+function setPending(on) {
+  document.getElementById('pending-dot').classList.toggle('visible', on);
+  document.getElementById('btn-update').disabled = !on;
+}
+ 
+function renderPanel() {
+  const panel = document.getElementById('criteria-panel');
+  const sels = selections[activeCriteria];
+  panel.innerHTML = '';
+  CRITERIA[activeCriteria].items.forEach((item, ii) => {
+    const block = document.createElement('div');
+    block.className = 'criterion-block';
+    block.innerHTML = `<div class="criterion-header"><span class="criterion-code">${item.code}</span><span class="criterion-label">${item.label}</span></div>`;
+    const ul = document.createElement('ul');
+    ul.className = 'options-list';
+    item.options.forEach((opt, oi) => {
+      const li = document.createElement('li');
+      li.className = 'option-item';
+      const btn = document.createElement('button');
+      btn.className = 'option-btn' + (sels[ii] === oi ? ' selected' : '');
+      btn.innerHTML = `<span class="option-score${opt.score==='0'?' zero':''}">${opt.score}</span><span class="option-text">${opt.text}</span>`;
+      btn.addEventListener('click', () => {
+        if (selections[activeCriteria][ii] === oi) return;
+        selections[activeCriteria][ii] = oi;
+        setPending(true);
+        renderPanel();
+      });
+      li.appendChild(btn);
+      ul.appendChild(li);
+    });
+    block.appendChild(ul);
+    panel.appendChild(block);
+  });
+  renderChips();
+}
+ 
+function renderChips() {
+  const row = document.getElementById('score-row');
+  const sels = selections[activeCriteria];
+  row.innerHTML = CRITERIA[activeCriteria].items.map((item, i) => {
+    const score = sels[i] !== null ? item.options[sels[i]].score : '–';
+    const active = sels[i] !== null;
+    return `<span class="score-chip${active?' has-score':''}">${item.code}: ${score}</span>`;
+  }).join('');
+}
+ 
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeCriteria = btn.dataset.criteria;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    const hasSels = selections[activeCriteria].some(v => v !== null);
+    setPending(hasSels);
+    renderPanel();
+  });
+});
+ 
+// Buttons
+document.getElementById('btn-update').addEventListener('click', () => {
+  document.getElementById('comment-box').value = buildComment(activeCriteria);
+  setPending(false);
+});
+ 
+document.getElementById('btn-copy').addEventListener('click', () => {
+  const text = document.getElementById('comment-box').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
+});
+ 
+document.getElementById('btn-clear').addEventListener('click', () => {
+  document.getElementById('comment-box').value = '';
+});
+ 
+renderPanel();
+</script>
+</body>
+</html>
