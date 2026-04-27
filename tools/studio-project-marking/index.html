@@ -430,7 +430,7 @@ function buildComment(key) {
       const idx = selections[key][i];
       if (idx === null) return '';
       const opt = item.options[idx];
-      return opt.s ? opt.s('The student') : '';
+      return opt.s ? opt.s('They') : '';
     })
     .filter(Boolean)
     .join(' ');
