@@ -336,6 +336,93 @@ const ESP32S3_PINS = [
   { id: 'GND_R2', label: 'GND',    side: 'right', types: ['gnd'],                      note: 'Ground' },
   { id: 'GND_R3', label: 'GND',    side: 'right', types: ['gnd'],                      note: 'Ground' },
 ];
+// -- ESP32-C3 Super Mini (HW-466AB, confirmed from physical board) --
+// USB-C at top. 8 pins per side, 16 total.
+// Left top->bottom:  5V GND 3V3 GPIO4 GPIO3 GPIO2 GPIO1 GPIO0
+// Right top->bottom: GPIO5 GPIO6 GPIO7 GPIO8 GPIO9 GPIO10 GPIO20 GPIO21
+const ESP32C3_SUPERMINI_PINS = [
+  { id: 'C3SM_5V',    label: '5V',    side: 'left',  types: ['power'],          note: '5V USB passthrough' },
+  { id: 'C3SM_GND',   label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'C3SM_3V3',   label: '3V3',   side: 'left',  types: ['power'],          note: '3.3V output' },
+  { id: 'GPIO4',      label: 'IO4',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH4, PWM' },
+  { id: 'GPIO3',      label: 'IO3',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH3, PWM' },
+  { id: 'GPIO2',      label: 'IO2',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH2, PWM. Strapping pin -- use with care.' },
+  { id: 'GPIO1',      label: 'IO1',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH1' },
+  { id: 'GPIO0',      label: 'IO0',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH0, PWM. Boot mode pin -- avoid if possible.' },
+  { id: 'GPIO5',      label: 'IO5',   side: 'right', types: ['gpio'],           note: 'PWM' },
+  { id: 'GPIO6',      label: 'IO6',   side: 'right', types: ['gpio'],           note: 'PWM' },
+  { id: 'GPIO7',      label: 'IO7',   side: 'right', types: ['gpio'],           note: 'PWM' },
+  { id: 'GPIO8',      label: 'IO8',   side: 'right', types: ['gpio','i2c_sda'], note: 'Onboard blue LED (active LOW). Strapping pin. Usable as SDA but LED flickers.' },
+  { id: 'GPIO9',      label: 'IO9',   side: 'right', types: ['gpio','i2c_scl'], note: 'BOOT button. Strapping pin. Usable as SCL with care.' },
+  { id: 'GPIO10',     label: 'IO10',  side: 'right', types: ['gpio','spi'],     note: 'SPI CS' },
+  { id: 'GPIO20',     label: 'IO20',  side: 'right', types: ['gpio'],           note: 'UART RX' },
+  { id: 'GPIO21',     label: 'IO21',  side: 'right', types: ['gpio'],           note: 'UART TX' },
+];
+
+// -- ESP32-C3 Dev Board (confirmed from physical board) -------------
+// USB-C at bottom. 15 pins per side.
+// Left top->bottom:  GND 3V3 3V3 GPIO2 GPIO3 GND RST GND GPIO0 GPIO1 GPIO10 GND 5V 5V GND
+// Right top->bottom: GND TX RX GND GPIO9 RST GPIO8 GND GPIO7 PWR GPIO6 GPIO5 GPIO4 GND GPIO18 GPIO19 GND
+const ESP32C3_DEVKIT_PINS = [
+  { id: 'C3D_GND1',  label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'C3D_3V3A',  label: '3V3',   side: 'left',  types: ['power'],          note: '3.3V output' },
+  { id: 'C3D_3V3B',  label: '3V3',   side: 'left',  types: ['power'],          note: '3.3V output (second pin)' },
+  { id: 'GPIO2',     label: 'IO2',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH2. Strapping pin.' },
+  { id: 'GPIO3',     label: 'IO3',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH3' },
+  { id: 'C3D_GND2',  label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'C3D_RST',   label: 'RST',   side: 'left',  types: ['gpio'],           note: 'Reset / PU (pull-up enable). Avoid for GPIO use.' },
+  { id: 'C3D_GND3',  label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'GPIO0',     label: 'IO0',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH0. Boot mode pin -- avoid if possible.' },
+  { id: 'GPIO1',     label: 'IO1',   side: 'left',  types: ['gpio','analog'],  note: 'ADC1_CH1' },
+  { id: 'GPIO10',    label: 'IO10',  side: 'left',  types: ['gpio','spi'],     note: 'SPI CS' },
+  { id: 'C3D_GND4',  label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'C3D_5VA',   label: '5V',    side: 'left',  types: ['power'],          note: '5V USB passthrough' },
+  { id: 'C3D_5VB',   label: '5V',    side: 'left',  types: ['power'],          note: '5V (second pin)' },
+  { id: 'C3D_GND5',  label: 'GND',   side: 'left',  types: ['gnd'],            note: 'Ground' },
+  { id: 'C3D_GND6',  label: 'GND',   side: 'right', types: ['gnd'],            note: 'Ground' },
+  { id: 'GPIO43',    label: 'TX',    side: 'right', types: ['gpio'],           note: 'UART TX' },
+  { id: 'GPIO44',    label: 'RX',    side: 'right', types: ['gpio'],           note: 'UART RX' },
+  { id: 'C3D_GND7',  label: 'GND',   side: 'right', types: ['gnd'],            note: 'Ground' },
+  { id: 'GPIO9',     label: 'IO9',   side: 'right', types: ['gpio','i2c_scl'], note: 'Default SCL. BOOT button. Strapping pin.' },
+  { id: 'C3D_RST2',  label: 'RST',   side: 'right', types: ['gpio'],           note: 'Reset button connection. Avoid for GPIO.' },
+  { id: 'GPIO8',     label: 'IO8',   side: 'right', types: ['gpio','i2c_sda'], note: 'Default SDA. RGB LED on some boards.' },
+  { id: 'C3D_GND8',  label: 'GND',   side: 'right', types: ['gnd'],            note: 'Ground' },
+  { id: 'GPIO7',     label: 'IO7',   side: 'right', types: ['gpio'],           note: 'General GPIO' },
+  { id: 'C3D_PWR',   label: 'PWR',   side: 'right', types: ['power'],          note: 'Power LED indicator -- not a usable GPIO' },
+  { id: 'GPIO6',     label: 'IO6',   side: 'right', types: ['gpio'],           note: 'General GPIO' },
+  { id: 'GPIO5',     label: 'IO5',   side: 'right', types: ['gpio','analog'],  note: 'ADC2_CH0' },
+  { id: 'GPIO4',     label: 'IO4',   side: 'right', types: ['gpio','analog'],  note: 'ADC1_CH4' },
+  { id: 'C3D_GND9',  label: 'GND',   side: 'right', types: ['gnd'],            note: 'Ground' },
+  { id: 'GPIO18',    label: 'IO18',  side: 'right', types: ['gpio'],           note: 'USB D- -- only free when USB CDC not active' },
+  { id: 'GPIO19',    label: 'IO19',  side: 'right', types: ['gpio'],           note: 'USB D+ -- only free when USB CDC not active' },
+  { id: 'C3D_GND10', label: 'GND',   side: 'right', types: ['gnd'],            note: 'Ground' },
+];
+
+// -- Seeed XIAO SAMD21 (confirmed from physical board) --------------
+// USB-C at top. 7 pins per side + GND and VIN at bottom.
+// Left top->bottom:  VCC GND 3V3 D10 D9 D8 D7
+// Right top->bottom: D0  D1  D2  D3  D4  D5  D6
+// Bottom: GND VIN
+const XIAO_SAMD21_PINS = [
+  { id: 'XIAO_VCC',  label: 'VCC',     side: 'left',  types: ['power'],                    note: '3.3V output to power external devices' },
+  { id: 'XIAO_GND',  label: 'GND',     side: 'left',  types: ['gnd'],                      note: 'Ground' },
+  { id: 'XIAO_3V3',  label: '3V3',     side: 'left',  types: ['power'],                    note: '3.3V regulated output. Max 700mA.' },
+  { id: 'D10',       label: 'D10',     side: 'left',  types: ['gpio','spi'],               note: 'PA13. SPI MOSI / SS. PWM.' },
+  { id: 'D9',        label: 'D9',      side: 'left',  types: ['gpio','spi'],               note: 'PA12. SPI MISO. PWM.' },
+  { id: 'D8',        label: 'D8',      side: 'left',  types: ['gpio','spi'],               note: 'PA11. SPI SCK. PWM.' },
+  { id: 'D7',        label: 'D7',      side: 'left',  types: ['gpio'],                     note: 'PA10. UART RX.' },
+  { id: 'D0',        label: 'D0/A0',   side: 'right', types: ['gpio','analog'],            note: 'PA02. Analog A0. DAC output.' },
+  { id: 'D1',        label: 'D1/A1',   side: 'right', types: ['gpio','analog'],            note: 'PA04. Analog A1. PWM.' },
+  { id: 'D2',        label: 'D2/A2',   side: 'right', types: ['gpio','analog'],            note: 'PA05. Analog A2. PWM.' },
+  { id: 'D3',        label: 'D3/A3',   side: 'right', types: ['gpio','analog'],            note: 'PA06. Analog A3. PWM.' },
+  { id: 'D4',        label: 'D4/SDA',  side: 'right', types: ['gpio','analog','i2c_sda'],  note: 'PA07. I2C SDA. Analog A4.' },
+  { id: 'D5',        label: 'D5/SCL',  side: 'right', types: ['gpio','analog','i2c_scl'],  note: 'PA08. I2C SCL. Analog A5.' },
+  { id: 'D6',        label: 'D6/TX',   side: 'right', types: ['gpio'],                     note: 'PA09. UART TX.' },
+  { id: 'XIAO_BGND', label: 'GND',     side: 'bottom',types: ['gnd'],                      note: 'Ground' },
+  { id: 'XIAO_VIN',  label: 'VIN',     side: 'bottom',types: ['power'],                    note: 'Battery / external voltage input. 3.3V-5V.' },
+];
+
+
 const KEY_OPTIONS = [
   '', 'ctrl','shift','alt','win','cmd',
   'a','b','c','d','e','f','g','h','i','j','k','l','m',

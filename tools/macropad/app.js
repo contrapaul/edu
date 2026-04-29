@@ -5,6 +5,7 @@ const state = {
   selectedId: null,
   chipPos: { x: 0, y: 0 },
   dragging: null,     // { type: 'component'|'chip', id, offX, offY }
+  device: 'esp32s3_n16r8',  // selected microcontroller
 };
 
 // -- DOM refs -------------------------------------------------------
@@ -28,6 +29,7 @@ let chipEl = null;
 
 // -- Init -----------------------------------------------------------
 function init() {
+  buildDeviceSelector();
   buildShelf();
   buildChip();
   placeChipCenter();
@@ -39,17 +41,102 @@ function init() {
   updateStats();
 }
 
+// -- Device selector ------------------------------------------------
+const DEVICES = {
+  esp32s3_n16r8: {
+    label: 'ESP32-S3 N16R8',
+    logo: 'ESP32-S3',
+    model: 'N16R8',
+    pinset: 'ESP32S3_PINS',
+    chipWidth: 220,
+    chipColor: '#1a2a1a',
+    chipBorder: '#3a6a30',
+    logoColor: '#4aaa40',
+    maxGpio: 22,
+    unsupported: [],
+    warnings: { 'GPIO0': 'Boot mode pin -- avoid if possible.' },
+    note: 'Full-featured. Supports all components. 22 GPIO per side. Dual USB-C.',
+    maxInstances: { button: 12, ky040: 2, hw040: 2, ssd1306_i2c: 2, ssd1309: 1, sh1106: 2, ps2_joystick: 2, hw371: 4, slide_pot_long: 4 },
+  },
+  esp32c3_super_mini: {
+    label: 'ESP32-C3 Super Mini',
+    logo: 'ESP32-C3',
+    model: 'Super Mini',
+    pinset: 'ESP32C3_SUPERMINI_PINS',
+    chipWidth: 160,
+    chipColor: '#1a1a2a',
+    chipBorder: '#3a3a7a',
+    logoColor: '#5a5aee',
+    maxGpio: 13,
+    unsupported: ['ssd1306_spi','ssd1309','sh1106'],
+    warnings: {
+      'GPIO8': 'Onboard blue LED (active LOW) -- LED will flicker when used as SDA.',
+      'GPIO9': 'BOOT button -- may cause issues as SCL.',
+      'GPIO2': 'Strapping pin -- add 10k pull resistor.',
+    },
+    note: '13 usable GPIO. Compact USB-C. Good for buttons, encoders, I2C OLED.',
+    maxInstances: { button: 8, ky040: 1, hw040: 1, ssd1306_i2c: 1, ps2_joystick: 1, hw371: 2, slide_pot_long: 2 },
+  },
+  esp32c3_devkit: {
+    label: 'ESP32-C3 Dev Board',
+    logo: 'ESP32-C3',
+    model: 'Dev Board',
+    pinset: 'ESP32C3_DEVKIT_PINS',
+    chipWidth: 190,
+    chipColor: '#1a1a2a',
+    chipBorder: '#3a3a7a',
+    logoColor: '#5a5aee',
+    maxGpio: 12,
+    unsupported: ['ssd1306_spi'],
+    warnings: {
+      'GPIO9':  'BOOT button pin.',
+      'GPIO18': 'USB D- -- only available when USB CDC not active.',
+      'GPIO19': 'USB D+ -- only available when USB CDC not active.',
+    },
+    note: '12 usable GPIO. Dual USB-C. Many GND pins for breadboard use.',
+    maxInstances: { button: 8, ky040: 1, hw040: 1, ssd1306_i2c: 1, ssd1309: 1, ps2_joystick: 1, hw371: 2, slide_pot_long: 2 },
+  },
+  xiao_samd21: {
+    label: 'Seeed XIAO SAMD21',
+    logo: 'XIAO',
+    model: 'SAMD21',
+    pinset: 'XIAO_SAMD21_PINS',
+    chipWidth: 140,
+    chipColor: '#1a2a2a',
+    chipBorder: '#2a7a6a',
+    logoColor: '#3aeecc',
+    maxGpio: 11,
+    unsupported: ['ssd1306_spi','ps2_joystick'],
+    warnings: {},
+    note: '11 GPIO. No WiFi. Native USB HID. 3.3V logic only -- do NOT apply 5V to pins.',
+    maxInstances: { button: 7, ky040: 1, hw040: 1, ssd1306_i2c: 1, sh1106: 1, hw371: 2, slide_pot_long: 2 },
+  },
+};
+
+function getCurrentPins() {
+  const PIN_SETS = {
+    'ESP32S3_PINS':           ESP32S3_PINS,
+    'ESP32C3_SUPERMINI_PINS': ESP32C3_SUPERMINI_PINS,
+    'ESP32C3_DEVKIT_PINS':    ESP32C3_DEVKIT_PINS,
+    'XIAO_SAMD21_PINS':       XIAO_SAMD21_PINS,
+  };
+  const dev = DEVICES[state.device];
+  return PIN_SETS[dev.pinset] || ESP32S3_PINS;
+}
+
 // -- Shelf ----------------------------------------------------------
 function buildShelf() {
   shelfItems.innerHTML = '';
+  const dev = DEVICES[state.device];
   Object.values(COMPONENT_LIBRARY).forEach(comp => {
+    const maxInst = (dev.maxInstances && dev.maxInstances[comp.id]) || comp.maxInstances;
     const count = state.placed.filter(p => p.compId === comp.id).length;
-    const atMax = count >= comp.maxInstances;
+    const atMax = count >= maxInst;
     const el = document.createElement('div');
     el.className = 'shelf-item' + (atMax ? ' disabled' : '');
     el.dataset.compId = comp.id;
     el.innerHTML = `
-      <span class="shelf-item-count">${count}/${comp.maxInstances}</span>
+      <span class="shelf-item-count">${count}/${maxInst}</span>
       <span class="shelf-item-icon">${comp.icon}</span>
       <span class="shelf-item-name">${comp.shortName}</span>
     `;
@@ -62,66 +149,175 @@ function buildShelf() {
   });
 }
 
-// -- ESP32-S3 chip --------------------------------------------------
+function buildDeviceSelector() {
+  // Remove existing selector if any
+  const existing = document.getElementById('device-selector-wrap');
+  if (existing) existing.remove();
+
+  const wrap = document.createElement('div');
+  wrap.id = 'device-selector-wrap';
+  wrap.className = 'device-selector-wrap';
+  wrap.innerHTML = '<span class="device-label">DEVICE:</span>';
+
+  Object.entries(DEVICES).forEach(([id, dev]) => {
+    const btn = document.createElement('button');
+    btn.className = 'device-btn' + (state.device === id ? ' active' : '');
+    btn.textContent = dev.label;
+    btn.title = dev.note;
+    btn.addEventListener('click', () => {
+      state.device = id;
+      const old = document.getElementById('esp32-chip');
+      if (old) old.remove();
+      buildChip();
+      placeChipCenter();
+
+      // Auto-remap pin assignments to new device's pin set
+      const newPins    = getCurrentPins();
+      const validPinIds = new Set(newPins.map(p => p.id));
+
+      state.placed.forEach(inst => {
+        const comp = COMPONENT_LIBRARY[inst.compId];
+        // Build a set of already-taken pins for this remap pass
+        const taken = new Set();
+        Object.entries(inst.pinAssign).forEach(([pgId, pinId]) => {
+          if (pinId && validPinIds.has(pinId)) taken.add(pinId);
+        });
+
+        comp.pinGroups.forEach(pg => {
+          const cur = inst.pinAssign[pg.id];
+          if (!cur) return; // already unassigned
+          if (validPinIds.has(cur)) return; // still valid on new device
+          if (pg.fixed) {
+            // Fixed pins: try the same fixedPin; if missing, leave blank
+            inst.pinAssign[pg.id] = validPinIds.has(pg.fixedPin) ? pg.fixedPin : '';
+            return;
+          }
+          // Find next compatible unused pin on new device
+          const compat = newPins.filter(p =>
+            !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
+              'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN',
+              'C3SM_5V','C3SM_GND','C3SM_3V3',
+              'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5',
+              'C3D_GND6','C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
+              'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB',
+              'C3D_RST','C3D_RST2','C3D_PWR'].includes(p.id) &&
+            p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio') ||
+              (pg.type === 'analog' && t === 'analog'))
+          );
+          let chosen = '';
+          for (const p of compat) {
+            if (!taken.has(p.id)) { chosen = p.id; taken.add(p.id); break; }
+          }
+          inst.pinAssign[pg.id] = chosen;
+        });
+        renderComponent(inst);
+      });
+
+      updateWires();
+      wrap.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      buildShelf();
+      updateStats();
+      updateNotes();
+    });
+    wrap.appendChild(btn);
+  });
+
+  // Insert after shelf
+  const shelf = document.getElementById('shelf');
+  shelf.parentNode.insertBefore(wrap, shelf.nextSibling);
+}
+
+// -- Chip rendering -------------------------------------------------
 function buildChip() {
   chipEl = document.createElement('div');
   chipEl.className = 'esp32-chip';
   chipEl.id = 'esp32-chip';
 
-  const leftPins  = ESP32S3_PINS.filter(p => p.side === 'left');
-  const rightPins = ESP32S3_PINS.filter(p => p.side === 'right');
-  const rows = Math.max(leftPins.length, rightPins.length);
+  const dev = DEVICES[state.device];
+  chipEl.style.width       = (dev.chipWidth || 200) + 'px';
+  chipEl.style.background  = dev.chipColor  || 'var(--chip-bg)';
+  chipEl.style.borderColor = dev.chipBorder || 'var(--chip-border)';
 
-  let leftHTML = '', rightHTML = '';
+  const allPins    = getCurrentPins();
+  const leftPins   = allPins.filter(p => p.side === 'left');
+  const rightPins  = allPins.filter(p => p.side === 'right');
+  const bottomPins = allPins.filter(p => p.side === 'bottom');
+
+  let leftHTML = '', rightHTML = '', bottomHTML = '';
+
+  // Left pins: dot → stub → label (label is to the right, inside board)
   leftPins.forEach(pin => {
     const cls = pinClass(pin);
-    leftHTML += `
-      <div class="pin-item ${cls}" data-pin="${pin.id}"
-           title="${pin.label}: ${pin.note}">
-        <div class="pin-dot"></div>
-        <div class="pin-stub"></div>
-        <div class="pin-label">${pin.label}</div>
-      </div>`;
+    leftHTML += `<div class="pin-item ${cls}" data-pin="${pin.id}" title="${pin.label}: ${pin.note}">
+        <div class="pin-dot"></div><div class="pin-stub"></div>
+        <div class="pin-label">${pin.label}</div></div>`;
   });
+  // Right pins: label → stub → dot (label is to the left, inside board)
   rightPins.forEach(pin => {
     const cls = pinClass(pin);
-    rightHTML += `
-      <div class="pin-item ${cls}" data-pin="${pin.id}"
-           title="${pin.label}: ${pin.note}">
-        <div class="pin-label">${pin.label}</div>
-        <div class="pin-stub"></div>
-        <div class="pin-dot"></div>
-      </div>`;
+    rightHTML += `<div class="pin-item ${cls}" data-pin="${pin.id}" title="${pin.label}: ${pin.note}">
+        <div class="pin-label">${pin.label}</div><div class="pin-stub"></div>
+        <div class="pin-dot"></div></div>`;
+  });
+  bottomPins.forEach(pin => {
+    const cls = pinClass(pin);
+    bottomHTML += `<div class="pin-item pin-item-bottom ${cls}" data-pin="${pin.id}" title="${pin.label}: ${pin.note}">
+        <div class="pin-label">${pin.label}</div><div class="pin-stub-bottom"></div>
+        <div class="pin-dot"></div></div>`;
   });
 
+  let centerContent = '';
+  if (state.device === 'esp32s3_n16r8') {
+    // S3: logo text centered, dual USB-C at bottom
+    centerContent = `
+      <div class="chip-logo-text" style="color:${dev.logoColor}">${dev.logo}</div>
+      <div class="chip-model-text">${dev.model}</div>
+      <div class="chip-usb-labels-bottom">
+        <div class="chip-usb-label" style="color:${dev.logoColor}">USB-C</div>
+        <div class="chip-usb-label" style="color:${dev.logoColor}">USB-C</div>
+      </div>`;
+  } else if (state.device.startsWith('esp32c3')) {
+    // C3: single USB-C at top, logo centered
+    centerContent = `
+      <div class="chip-usb-label chip-usb-label-top" style="color:${dev.logoColor}">USB-C</div>
+      <div class="chip-logo-text" style="color:${dev.logoColor}">${dev.logo}</div>
+      <div class="chip-model-text">${dev.model}</div>`;
+  } else if (state.device === 'xiao_samd21') {
+    // XIAO: USB-C at top, bare chip label, bottom pads
+    centerContent = `
+      <div class="chip-usb-label chip-usb-label-top" style="color:${dev.logoColor}">USB-C</div>
+      <div class="xiao-view-label">▲ Top view</div>
+      <div class="chip-logo-text" style="color:${dev.logoColor}">${dev.logo}</div>
+      <div class="chip-model-text">${dev.model}</div>
+      ${bottomPins.length ? `<div class="chip-bottom-pins">${bottomHTML}</div>` : ''}`;
+  }
+
   chipEl.innerHTML = `
-    <div class="chip-top-bar">
-      <div class="chip-name">ESP32-S3 N16R8</div>
+    <div class="chip-top-bar chip-drag-handle" style="background:${dev.chipBorder}">
+      <div class="chip-name" style="color:${dev.logoColor}">${dev.label}</div>
     </div>
     <div class="chip-body">
       <div class="pin-col left">${leftHTML}</div>
-      <div class="chip-center">
-        <div class="chip-notch"></div>
-        <div class="chip-logo">ESP32<br>S3</div>
-        <div class="chip-model">N16R8<br>240MHz</div>
-      </div>
+      <div class="chip-center">${centerContent}</div>
       <div class="pin-col right">${rightHTML}</div>
     </div>
   `;
 
   canvas.appendChild(chipEl);
 
-  // Chip drag
-  chipEl.addEventListener('mousedown', e => {
+  // Chip drag ONLY from the top bar / drag handle — not the entire chip body
+  const dragHandle = chipEl.querySelector('.chip-drag-handle');
+  dragHandle.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
     const rect = chipEl.getBoundingClientRect();
-    const cRect = canvasWrap.getBoundingClientRect();
     state.dragging = {
       type: 'chip',
       offX: e.clientX - rect.left,
       offY: e.clientY - rect.top,
     };
     e.preventDefault();
+    e.stopPropagation();
   });
 }
 
@@ -132,26 +328,39 @@ function pinClass(pin) {
 }
 
 function placeChipCenter() {
-  const wrap = canvasWrap.getBoundingClientRect();
-  const cx = Math.max(40, wrap.width  / 2 - 100);
-  const cy = Math.max(40, wrap.height / 2 - 160);
+  // Place chip in center of the visible canvas viewport area
+  const cx = canvasWrap.scrollLeft + Math.max(40, canvasWrap.clientWidth  / 2 - 100);
+  const cy = canvasWrap.scrollTop  + Math.max(40, canvasWrap.clientHeight / 2 - 160);
   state.chipPos = { x: cx, y: cy };
   chipEl.style.left = cx + 'px';
   chipEl.style.top  = cy + 'px';
 }
 
 // -- Pin position helper --------------------------------------------
+// Returns canvas-absolute coordinates of a pin dot.
+// We read the chip's canvas position from state.chipPos and add the pin's
+// position within the chip element. This is scroll-independent and works
+// at any distance — no getBoundingClientRect() math that breaks when
+// elements scroll out of the visible viewport.
 function getPinPos(pinId) {
   const pinEl = chipEl.querySelector(`[data-pin="${pinId}"]`);
   if (!pinEl) return null;
   const dot = pinEl.querySelector('.pin-dot');
   if (!dot) return null;
-  const dRect = dot.getBoundingClientRect();
-  const cRect = canvasWrap.getBoundingClientRect();
-  // Account for any scrolling inside canvasWrap
+
+  // Use offset* properties relative to the chip element itself (no scroll/viewport dependency)
+  // offsetParent chain: dot → pin-item → pin-col → chip-body → chip-el
+  let ox = 0, oy = 0;
+  let el = dot;
+  while (el && el !== chipEl) {
+    ox += el.offsetLeft;
+    oy += el.offsetTop;
+    el = el.offsetParent;
+  }
+  // Add chip's canvas position
   return {
-    x: dRect.left - cRect.left + dRect.width  / 2 + canvasWrap.scrollLeft,
-    y: dRect.top  - cRect.top  + dRect.height / 2 + canvasWrap.scrollTop,
+    x: state.chipPos.x + ox + dot.offsetWidth  / 2,
+    y: state.chipPos.y + oy + dot.offsetHeight / 2,
   };
 }
 
@@ -160,11 +369,16 @@ function addComponent(compId, x, y) {
   const comp = COMPONENT_LIBRARY[compId];
   if (!comp) return;
   const count = state.placed.filter(p => p.compId === compId).length;
-  if (count >= comp.maxInstances) return;
 
-  const wrap = canvasWrap.getBoundingClientRect();
-  const px = x !== undefined ? x : 80 + Math.random() * (wrap.width  - 280);
-  const py = y !== undefined ? y : 80 + Math.random() * (wrap.height - 200);
+  // Per-device max instances
+  const dev = DEVICES[state.device];
+  const maxInst = (dev.maxInstances && dev.maxInstances[compId]) || comp.maxInstances;
+  if (count >= maxInst) return;
+
+  // x/y are already canvas-absolute when passed from drop handler
+  // When clicking shelf button, pick a visible spot relative to current scroll
+  const px = x !== undefined ? x : canvasWrap.scrollLeft + 80 + Math.random() * (canvasWrap.clientWidth  - 280);
+  const py = y !== undefined ? y : canvasWrap.scrollTop  + 80 + Math.random() * (canvasWrap.clientHeight - 200);
 
   // Default pin assignments  --  prefer recommended pins, auto-assign next available
   const pinAssign = {};
@@ -185,7 +399,7 @@ function addComponent(compId, x, y) {
       pinAssign[pg.id] = '';
     } else {
       // Try preferred first, then walk the pin list for next available compatible pin
-      const compat = ESP32S3_PINS.filter(p =>
+      const compat = getCurrentPins().filter(p =>
         !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST'].includes(p.id) &&
         p.types.some(t => pg.type === t || t === 'gpio')
       );
@@ -210,6 +424,14 @@ function addComponent(compId, x, y) {
     });
   }
 
+  // Jumper-strip sequential color for this instance's data wires
+  // White→gray→purple→blue→green→yellow→orange→red→brown
+  const WIRE_SEQ_COLORS = [
+    '#d8d8d8','#888888','#9b59b6','#2980e8',
+    '#27ae60','#c89020','#e67e22','#e53030','#8b4513',
+  ];
+  const colorIdx = state.placed.filter(p => p.compId === compId).length % 9;
+
   const instance = {
     id: state.nextId++,
     compId,
@@ -218,6 +440,7 @@ function addComponent(compId, x, y) {
     pinAssign,
     config,
     label: comp.shortName + ' ' + (count + 1),
+    wireColor: WIRE_SEQ_COLORS[colorIdx],  // user-customizable
   };
 
   state.placed.push(instance);
@@ -242,7 +465,15 @@ function renderComponent(inst) {
   el.id = 'comp-' + inst.id;
   el.style.left = inst.x + 'px';
   el.style.top  = inst.y + 'px';
-  el.style.borderColor = comp.color + '55';
+
+  // Use the component's first data wire color as the accent color
+  // getWireColor with dataPinIdx=0 gives the base color for this instance
+  const firstDataPg = comp.pinGroups.find(pg => pg.wireClass === 'wire-data');
+  const accentColor = firstDataPg
+    ? getWireColor(firstDataPg, inst, 0)
+    : (inst.wireColor || comp.color || '#c87941');
+  el.style.borderColor = accentColor;
+  el.style.boxShadow = `0 4px 18px rgba(0,0,0,0.7), 0 0 0 0.5px ${accentColor}44`;
 
   // Check config completeness
   const unconfigured = isUnconfigured(inst);
@@ -253,11 +484,14 @@ function renderComponent(inst) {
   const pinBadgesHTML = assignablePins.map(pg => {
     const assigned = inst.pinAssign[pg.id];
     const cls = assigned ? 'assigned' : '';
-    return `<span class="comp-pin-badge ${cls}" data-pg="${pg.id}" title="Click to reassign ${pg.label}">${pg.label}: ${assigned || ' -- '}</span>`;
+    return `<span class="comp-pin-badge ${cls}" data-pg="${pg.id}" title="Click to reassign ${pg.label}">${pg.label}: ${assigned || '—'}</span>`;
   }).join('');
+
+  const swatchColor = accentColor;
 
   el.innerHTML = `
     <div class="comp-header">
+      <div class="comp-color-swatch" style="background:${swatchColor}" title="Click to change wire color" onclick="openColorPicker(${inst.id}, this)"></div>
       <span class="comp-icon">${comp.icon}</span>
       <span class="comp-title">${comp.shortName}</span>
       <span class="comp-id">#${inst.id}</span>
@@ -270,6 +504,7 @@ function renderComponent(inst) {
   el.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
     if (e.target.closest('.comp-pin-badge')) return;
+    if (e.target.closest('.comp-color-swatch')) return;
     const rect = el.getBoundingClientRect();
     state.dragging = { type: 'component', id: inst.id, offX: e.clientX - rect.left, offY: e.clientY - rect.top };
     selectComponent(inst.id);
@@ -277,20 +512,17 @@ function renderComponent(inst) {
     e.preventDefault();
   });
 
-  // Click to select
   el.addEventListener('click', e => {
-    if (!e.target.closest('.comp-pin-badge')) selectComponent(inst.id);
+    if (!e.target.closest('.comp-pin-badge') && !e.target.closest('.comp-color-swatch')) selectComponent(inst.id);
     e.stopPropagation();
   });
 
-  // Right-click context menu
   el.addEventListener('contextmenu', e => {
     e.preventDefault();
     ctxTargetId = inst.id;
     showCtxMenu(e.clientX, e.clientY);
   });
 
-  // Pin badge click  --  quick reassign popover
   el.querySelectorAll('.comp-pin-badge').forEach(badge => {
     badge.addEventListener('click', e => {
       e.stopPropagation();
@@ -299,9 +531,31 @@ function renderComponent(inst) {
   });
 
   canvas.appendChild(el);
-
-  // Highlight if selected
   if (state.selectedId === inst.id) el.classList.add('selected');
+}
+
+// -- Color picker for component wire color --------------------------
+function openColorPicker(instId, swatchEl) {
+  // Create a hidden <input type="color"> and click it
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  const input = document.createElement('input');
+  input.type = 'color';
+  input.value = inst.wireColor || COMPONENT_LIBRARY[inst.compId].color || '#c87941';
+  input.style.cssText = 'position:fixed;opacity:0;pointer-events:none;';
+  document.body.appendChild(input);
+  input.addEventListener('input', () => {
+    inst.wireColor = input.value;
+    renderComponent(inst);
+    updateWires();
+  });
+  input.addEventListener('change', () => {
+    inst.wireColor = input.value;
+    renderComponent(inst);
+    updateWires();
+    input.remove();
+  });
+  input.click();
 }
 
 function isUnconfigured(inst) {
@@ -360,12 +614,14 @@ function renderPanel(id) {
       if (pg.conditional && !inst.config[pg.conditional]) return;
       const usedPins = getUsedPins(id, pg.id);
       // Filter to only pins whose type list matches what this pin group needs
-      const compatPins = ESP32S3_PINS.filter(p => {
-        if (['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST'].includes(p.id)) return false;
-        return p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio'));
-      });
-      // All GPIO-capable pins (for analog we still show GPIO but mark them)
-      const allPins = ESP32S3_PINS.filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST'].includes(p.id));
+      // All GPIO-capable pins for current device
+      const allPins = getCurrentPins().filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
+       'GND','3V3','5V','VUSB',
+       'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
+       'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
+       'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
+       'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN'].includes(p.id));
       html += `<tr>
         <td>${pg.label}</td>
         <td><select data-pg="${pg.id}" onchange="onPinChange(${id},'${pg.id}',this.value)">
@@ -536,7 +792,13 @@ function openPinReassign(instId, pgId, anchorEl) {
   const comp = COMPONENT_LIBRARY[inst.compId];
   const pg   = comp.pinGroups.find(p => p.id === pgId);
   const usedPins  = getUsedPins(instId, pgId);
-  const allPins   = ESP32S3_PINS.filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST'].includes(p.id));
+  const allPins   = getCurrentPins().filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
+       'GND','3V3','5V','VUSB',
+       'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
+       'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
+       'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
+       'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN'].includes(p.id));
 
   const pop = document.createElement('div');
   pop.id = 'pin-popover';
@@ -583,77 +845,158 @@ function removeComponent(id) {
 }
 
 // -- Wires ----------------------------------------------------------
+
+const WIRE_SEQ = ['#d8d8d8','#888888','#9b59b6','#2980e8','#27ae60','#c89020','#e67e22','#e53030','#8b4513'];
+
+function getWireColor(pg, inst, dataPinIdx) {
+  switch (pg.wireClass) {
+    case 'wire-power':   return '#cc1111';
+    case 'wire-gnd':     return '#000000';
+    case 'wire-i2c-sda': return '#2980e8';
+    case 'wire-i2c-scl': return '#9b59b6';
+    case 'wire-analog':  return '#c89020';
+    case 'wire-spi':     return '#27ae60';
+    case 'wire-led':     return '#e91e8c';
+    case 'wire-data': {
+      // Use inst.wireColor as the base (index 0); subsequent data pins step forward
+      const base = inst.wireColor || WIRE_SEQ[0];
+      const baseIdx = WIRE_SEQ.indexOf(base);
+      if (baseIdx >= 0) return WIRE_SEQ[(baseIdx + dataPinIdx) % 9];
+      // Custom (non-sequence) color: use it for pin 0, fall back to sequence for rest
+      return dataPinIdx === 0 ? base : WIRE_SEQ[dataPinIdx % 9];
+    }
+    default: return inst.wireColor || '#c87941';
+  }
+}
+
+// Wire needs white outline for dark strokes that blend into black outlines
+function needsWhiteOutline(color) {
+  const dark = ['#000000','#9b59b6','#8b4513','#888888'];
+  return dark.includes(color.toLowerCase());
+}
+
 function updateWires() {
   wireLayer.innerHTML = '';
   updateChipPinHighlights();
-
-  const cRect    = canvasWrap.getBoundingClientRect();
-  const chipRect = chipEl.getBoundingClientRect();
-  const chipCx   = chipRect.left - cRect.left + chipRect.width / 2 + canvasWrap.scrollLeft;
 
   state.placed.forEach(inst => {
     const comp   = COMPONENT_LIBRARY[inst.compId];
     const compEl = document.getElementById('comp-' + inst.id);
     if (!compEl) return;
-    const compRect = compEl.getBoundingClientRect();
 
-    // Component centre (with scroll offset so coords match SVG space)
-    const compCx = compRect.left - cRect.left + compRect.width  / 2 + canvasWrap.scrollLeft;
-    const compCy = compRect.top  - cRect.top  + compRect.height / 2 + canvasWrap.scrollTop;
+    const compCx = inst.x + compEl.offsetWidth  / 2;
+    const compCy = inst.y + compEl.offsetHeight / 2;
+    const chipCx = state.chipPos.x + chipEl.offsetWidth / 2;
+
+    // Count data pins seen so far for this instance (for sequential color cycling)
+    let dataPinIdx = 0;
 
     comp.pinGroups.forEach((pg, idx) => {
       const pinId = inst.pinAssign[pg.id];
       if (!pinId) return;
-
-      // Skip conditional pins (e.g. LED) when the condition is off
       if (pg.conditional && !inst.config[pg.conditional]) return;
 
       const pinPos = getPinPos(pinId);
       if (!pinPos) return;
 
-      // Anchor from the near edge of the component toward the chip
-      const anchorX = compCx < chipCx
-        ? compRect.right - cRect.left + canvasWrap.scrollLeft   // component left of chip
-        : compRect.left  - cRect.left + canvasWrap.scrollLeft;  // component right of chip
+      let anchorX;
+      if ((inst.x + compEl.offsetWidth) < chipCx) {
+        anchorX = inst.x + compEl.offsetWidth;
+      } else if (inst.x > chipCx) {
+        anchorX = inst.x;
+      } else {
+        anchorX = pinPos.x < chipCx ? inst.x : inst.x + compEl.offsetWidth;
+      }
 
-      // Per-pin y-offset + x-stagger so vertical segments don't stack
-      const offset  = (idx - (comp.pinGroups.length - 1) / 2) * 18;
-      const stagger = (idx - (comp.pinGroups.length - 1) / 2) * 8;
-      const startY  = compCy + offset;
+      const spread  = (idx - (comp.pinGroups.length - 1) / 2) * 14;
+      const stagger = (idx - (comp.pinGroups.length - 1) / 2) * 12;
+      const startY  = compCy + spread;
       const d = routeWire(anchorX, startY, pinPos.x, pinPos.y, stagger);
 
+      const isData = pg.wireClass === 'wire-data';
+      const strokeColor = getWireColor(pg, inst, dataPinIdx);
+      if (isData) dataPinIdx++;
+
+      const outlineColor = needsWhiteOutline(strokeColor) ? '#ffffff' : '#000000';
+
+      // 1) Outline path (wider, behind)
+      const outline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      outline.setAttribute('d', d);
+      outline.setAttribute('class', 'wire-outline');
+      outline.style.stroke = outlineColor;
+      outline.setAttribute('pointer-events', 'none');
+      wireLayer.appendChild(outline);
+
+      // 2) Colored wire on top — inline style always wins over CSS class
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', d);
-      path.setAttribute('class', `wire ${pg.wireClass} wire-new`);
+      path.setAttribute('class', `wire wire-new`);
+      path.style.stroke = strokeColor;
       path.setAttribute('data-inst', inst.id);
       path.setAttribute('data-pg', pg.id);
 
-      // Tooltip on hover
       path.addEventListener('mouseenter', e => {
-        showTooltip(e.clientX, e.clientY,
-          `${comp.shortName} #${inst.id}`,
-          `${pg.label} -> ${pinId}`);
+        showTooltip(e.clientX, e.clientY, `${comp.shortName} #${inst.id}`, `${pg.label} → ${pinId}`);
       });
       path.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
       path.addEventListener('mouseleave', hideTooltip);
 
+      path.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        e.stopPropagation();
+        e.preventDefault();
+        hideTooltip();
+        const cRect = canvasWrap.getBoundingClientRect();
+        const sx = e.clientX - cRect.left + canvasWrap.scrollLeft;
+        const sy = e.clientY - cRect.top  + canvasWrap.scrollTop;
+        startWireDrag(inst.id, pg.id, sx, sy);
+        chipEl.querySelectorAll('.pin-item.wire-drag-target').forEach(pinEl => {
+          pinEl.addEventListener('mouseenter', onDragPinEnter);
+          pinEl.addEventListener('mouseleave', onDragPinLeave);
+          pinEl.addEventListener('mouseup',    onDragPinDrop);
+        });
+      }, { passive: false });
+
       wireLayer.appendChild(path);
 
-      // Draw passive symbols on wire if applicable
       const passive = comp.passives.find(p => p.on.includes(pg.id) &&
         (!p.conditional || inst.config[p.conditional]));
-      if (passive) {
-        drawPassiveSymbol(anchorX, startY, pinPos, passive);
-      }
+      if (passive) drawPassiveSymbol(anchorX, startY, pinPos, passive);
     });
   });
 }
 
 function routeWire(x1, y1, x2, y2, stagger) {
-  // Stagger the midpoint X so vertical segments don't overlap
   const base = (x1 + x2) / 2;
   const mx = base + (stagger || 0);
-  return `M ${x1} ${y1} L ${mx} ${y1} L ${mx} ${y2} L ${x2} ${y2}`;
+  const r = 8;
+
+  if (Math.abs(y2 - y1) < 4) return `M ${x1} ${y1} L ${x2} ${y2}`;
+
+  const dx1 = mx >= x1 ? 1 : -1;
+  const dx2 = x2 >= mx ? 1 : -1;
+  const dy  = y2 >= y1 ? 1 : -1;
+
+  const hSeg1 = Math.abs(mx - x1);
+  const hSeg2 = Math.abs(x2 - mx);
+  const vSeg  = Math.abs(y2 - y1);
+  const cr    = Math.min(r, hSeg1 / 2, hSeg2 / 2, vSeg / 2);
+
+  if (cr < 2) return `M ${x1} ${y1} L ${mx} ${y1} L ${mx} ${y2} L ${x2} ${y2}`;
+
+  const c1x = mx - dx1 * cr;
+  const c2x = mx + dx2 * cr;
+  const c1y = y1 + dy * cr;
+  const c2y = y2 - dy * cr;
+
+  return [
+    `M ${x1} ${y1}`,
+    `L ${c1x} ${y1}`,
+    `Q ${mx} ${y1} ${mx} ${c1y}`,
+    `L ${mx} ${c2y}`,
+    `Q ${mx} ${y2} ${c2x} ${y2}`,
+    `L ${x2} ${y2}`,
+  ].join(' ');
 }
 
 function drawPassiveSymbol(cx, cy, pinPos, passive) {
@@ -714,6 +1057,97 @@ function updateChipPinHighlights() {
   });
 }
 
+// -- Wire drag-and-drop -----------------------------------------
+const wireDrag = {
+  active: false, instId: null, pgId: null,
+  startX: 0, startY: 0, preview: null,
+};
+
+function startWireDrag(instId, pgId, startX, startY) {
+  wireDrag.active = true;
+  wireDrag.instId = instId;
+  wireDrag.pgId   = pgId;
+  wireDrag.startX = startX;
+  wireDrag.startY = startY;
+
+  const preview = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  preview.setAttribute('class', 'wire-drag-preview');
+  preview.setAttribute('d', `M ${startX} ${startY} L ${startX} ${startY}`);
+  wireLayer.appendChild(preview);
+  wireDrag.preview = preview;
+
+  const inst = state.placed.find(p => p.id === instId);
+  const comp = COMPONENT_LIBRARY[inst.compId];
+  const pg   = comp.pinGroups.find(p => p.id === pgId);
+
+  chipEl.querySelectorAll('.pin-item').forEach(el => {
+    const pinDef = getCurrentPins().find(p => p.id === el.dataset.pin);
+    if (!pinDef) return;
+    const isCompat = pinDef.types.some(t =>
+      t === pg.type || (pg.type === 'gpio' && t === 'gpio') ||
+      (pg.type === 'analog' && t === 'analog') ||
+      (pg.type === 'i2c_sda' && t === 'i2c_sda') ||
+      (pg.type === 'i2c_scl' && t === 'i2c_scl')
+    );
+    if (isCompat && !pinDef.types.includes('power') && !pinDef.types.includes('gnd')) {
+      el.classList.add('wire-drag-target');
+    }
+  });
+
+  wireLayer.style.pointerEvents = 'none';
+  document.body.style.cursor = 'crosshair';
+}
+
+function updateWireDragPreview(mouseX, mouseY) {
+  if (!wireDrag.active || !wireDrag.preview) return;
+  const cRect = canvasWrap.getBoundingClientRect();
+  const cx = mouseX - cRect.left + canvasWrap.scrollLeft;
+  const cy = mouseY - cRect.top  + canvasWrap.scrollTop;
+  wireDrag.preview.setAttribute('d',
+    routeWire(wireDrag.startX, wireDrag.startY, cx, cy, 0));
+}
+
+function finishWireDrag(targetPinId) {
+  if (!wireDrag.active) return;
+  wireDrag.active = false;
+  if (wireDrag.preview) { wireDrag.preview.remove(); wireDrag.preview = null; }
+  chipEl.querySelectorAll('.wire-drag-target').forEach(el =>
+    el.classList.remove('wire-drag-target', 'wire-drag-hover'));
+  wireLayer.style.pointerEvents = 'none';
+  document.body.style.cursor = '';
+  if (!targetPinId) return;
+  onPinChange(wireDrag.instId, wireDrag.pgId, targetPinId);
+  hideTooltip();
+}
+
+function cancelWireDrag() {
+  wireDrag.active = false;
+  if (wireDrag.preview) { wireDrag.preview.remove(); wireDrag.preview = null; }
+  chipEl.querySelectorAll('.pin-item').forEach(el => {
+    el.classList.remove('wire-drag-target', 'wire-drag-hover');
+    el.removeEventListener('mouseenter', onDragPinEnter);
+    el.removeEventListener('mouseleave', onDragPinLeave);
+    el.removeEventListener('mouseup',    onDragPinDrop);
+  });
+  wireLayer.style.pointerEvents = 'none';
+  document.body.style.cursor = '';
+}
+
+function onDragPinEnter(e) { if (wireDrag.active) e.currentTarget.classList.add('wire-drag-hover'); }
+function onDragPinLeave(e) { e.currentTarget.classList.remove('wire-drag-hover'); }
+function onDragPinDrop(e) {
+  if (!wireDrag.active) return;
+  const pinId = e.currentTarget.dataset.pin;
+  chipEl.querySelectorAll('.pin-item').forEach(el => {
+    el.classList.remove('wire-drag-target', 'wire-drag-hover');
+    el.removeEventListener('mouseenter', onDragPinEnter);
+    el.removeEventListener('mouseleave', onDragPinLeave);
+    el.removeEventListener('mouseup',    onDragPinDrop);
+  });
+  finishWireDrag(pinId);
+  e.stopPropagation();
+}
+
 // -- Stats ----------------------------------------------------------
 function updateStats() {
   const usedPins = new Set();
@@ -724,7 +1158,8 @@ function updateStats() {
   });
   const libs = getRequiredLibs();
   statComponents.textContent = state.placed.length;
-  statPins.textContent = `${usedPins.size} / 44`;
+  const totalGpio = getCurrentPins().filter(p => p.types.includes('gpio')).length;
+  statPins.textContent = `${usedPins.size} / ${totalGpio}`;
   statLibs.textContent = libs.length;
 
   // Hover tooltip: component breakdown
@@ -825,6 +1260,30 @@ function updateNotes() {
     notes.push({ cls: 'note-info', text: `Required file: place ${f} in CIRCUITPY root (download from Adafruit framebuf examples).` });
   });
 
+  // Device capability warnings
+  const dev = DEVICES[state.device];
+  state.placed.forEach(inst => {
+    if (dev.unsupported && dev.unsupported.includes(inst.compId)) {
+      const comp = COMPONENT_LIBRARY[inst.compId];
+      notes.push({ cls: 'note-error', text: `${comp.name} is not supported on the ${dev.label}. Remove it or switch device.` });
+    }
+    // Pin-specific warnings
+    if (dev.warnings) {
+      Object.values(inst.pinAssign).forEach(pinId => {
+        if (!pinId) return;
+        const warnKey = pinId.toLowerCase();
+        if (dev.warnings[warnKey]) {
+          notes.push({ cls: 'note-warn', text: `${dev.label} warning on ${pinId}: ${dev.warnings[warnKey]}` });
+        }
+      });
+    }
+  });
+
+  // XIAO SAMD21: warn about 5V on pins
+  if (state.device === 'xiao_samd21') {
+    notes.push({ cls: 'note-info', text: 'XIAO SAMD21: logic is 3.3V only. Do not connect 5V components directly to GPIO pins.' });
+  }
+
   if (notes.length === 0) {
     notes.push({ cls: 'note-ok', text: 'All components configured  --  ready to download.' });
   }
@@ -857,7 +1316,7 @@ function buildConfigJSON() {
       let action = {};
       if (c.action_type === 'hotkey') {
         action = { type: 'hotkey', keys: [c.key1, c.key2, c.key3].filter(Boolean), auto_translate: c.auto_translate };
-      } else if (c.action_type === 'consumer') {
+      } else if (c.action_type === 'actions') {
         action = { type: 'consumer', action: c.consumer_action };
       } else if (c.action_type === 'launch') {
         action = { type: 'launch', program: c.program };
@@ -866,7 +1325,7 @@ function buildConfigJSON() {
       } else if (c.action_type === 'mode_toggle') {
         action = { type: 'mode_toggle' };
       } else if (c.action_type === 'config_toggle') {
-        action = { type: 'platform_toggle' };
+        action = { type: 'config_toggle' };
       }
       action.label = c.label || `BTN ${btnIdx}`;
       action.gpio  = inst.pinAssign.sig;
@@ -875,7 +1334,7 @@ function buildConfigJSON() {
     } else if (['ky040','hw040'].includes(inst.compId)) {
       const buildSide = (type_key, cc_key, keys_key, dirVal) => {
         const t = c[type_key];
-        if (t === 'consumer')    return { type: 'consumer',     action: c[cc_key] };
+        if (t === 'consumer' || t === 'actions') return { type: 'consumer', action: c[cc_key] };
         if (t === 'hotkey')      return { type: 'hotkey',       keys: (c[keys_key]||'').split(',').map(s=>s.trim()).filter(Boolean) };
         if (t === 'mouse_scroll')return { type: 'mouse_scroll', direction: dirVal };
         return {};
@@ -917,7 +1376,7 @@ function buildConfigJSON() {
       gpio_scl:     inst.pinAssign.scl,
     }));
 
-  return JSON.stringify({ buttons, dial_modes, oleds, sliders }, null, 2);
+  return JSON.stringify({ device: state.device, buttons, dial_modes, oleds, sliders }, null, 2);
 }
 
 // -- Download -------------------------------------------------------
@@ -975,6 +1434,10 @@ function onShelfMouseDown(e) {
 
 // -- Global mouse events --------------------------------------------
 document.addEventListener('mousemove', e => {
+  if (wireDrag.active) {
+    updateWireDragPreview(e.clientX, e.clientY);
+    return;
+  }
   if (shelfDrag) {
     dragGhost.style.left = (e.clientX - 40) + 'px';
     dragGhost.style.top  = (e.clientY - 20) + 'px';
@@ -982,8 +1445,9 @@ document.addEventListener('mousemove', e => {
   if (state.dragging) {
     const cRect = canvasWrap.getBoundingClientRect();
     if (state.dragging.type === 'chip') {
-      const nx = e.clientX - cRect.left - state.dragging.offX;
-      const ny = e.clientY - cRect.top  - state.dragging.offY;
+      // Canvas-absolute position = mouse offset from canvas viewport edge + scroll
+      const nx = e.clientX - cRect.left - state.dragging.offX + canvasWrap.scrollLeft;
+      const ny = e.clientY - cRect.top  - state.dragging.offY + canvasWrap.scrollTop;
       state.chipPos = { x: Math.max(0, nx), y: Math.max(0, ny) };
       chipEl.style.left = state.chipPos.x + 'px';
       chipEl.style.top  = state.chipPos.y + 'px';
@@ -991,10 +1455,9 @@ document.addEventListener('mousemove', e => {
     } else if (state.dragging.type === 'component') {
       const inst = state.placed.find(p => p.id === state.dragging.id);
       if (inst) {
-        const nx = e.clientX - cRect.left - state.dragging.offX;
-        const ny = e.clientY - cRect.top  - state.dragging.offY;
-        inst.x = Math.max(0, nx);
-        inst.y = Math.max(0, ny);
+        const cRect2 = canvasWrap.getBoundingClientRect();
+        inst.x = Math.max(0, e.clientX - cRect2.left - state.dragging.offX + canvasWrap.scrollLeft);
+        inst.y = Math.max(0, e.clientY - cRect2.top  - state.dragging.offY + canvasWrap.scrollTop);
         const el = document.getElementById('comp-' + inst.id);
         if (el) { el.style.left = inst.x + 'px'; el.style.top = inst.y + 'px'; }
         updateWires();
@@ -1004,12 +1467,17 @@ document.addEventListener('mousemove', e => {
 });
 
 document.addEventListener('mouseup', e => {
+  if (wireDrag.active) {
+    cancelWireDrag();
+    return;
+  }
   if (shelfDrag) {
     const cRect = canvasWrap.getBoundingClientRect();
     if (e.clientX >= cRect.left && e.clientX <= cRect.right &&
         e.clientY >= cRect.top  && e.clientY <= cRect.bottom) {
-      const x = e.clientX - cRect.left - 45;
-      const y = e.clientY - cRect.top  - 30;
+      // Canvas-absolute drop position
+      const x = e.clientX - cRect.left - 45 + canvasWrap.scrollLeft;
+      const y = e.clientY - cRect.top  - 30 + canvasWrap.scrollTop;
       addComponent(shelfDrag, x, y);
     }
     shelfDrag = null;
@@ -1027,7 +1495,7 @@ function bindCanvas() {
     }
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { deselectAll(); hideCtxMenu(); }
+    if (e.key === 'Escape') { cancelWireDrag(); deselectAll(); hideCtxMenu(); }
     if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && document.activeElement === document.body) {
       removeComponent(state.selectedId);
     }
@@ -1079,6 +1547,24 @@ function bindPanelTabs() {
 
 // -- Header ---------------------------------------------------------
 function bindHeader() { /* download and clear bound directly above */ }
+
+// -- Instructions modal --------------------------------------------
+function bindModal() {
+  const overlay = document.getElementById('modal-overlay');
+  const btn     = document.getElementById('btn-instructions');
+  const closeBtn = document.getElementById('modal-close');
+  if (!btn || !overlay) return;
+  btn.addEventListener('click', () => overlay.classList.add('visible'));
+  closeBtn.addEventListener('click', () => overlay.classList.remove('visible'));
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('visible');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') overlay.classList.remove('visible');
+  });
+}
+
+
 
 // -- Tooltip --------------------------------------------------------
 function showTooltip(x, y, title, body) {
