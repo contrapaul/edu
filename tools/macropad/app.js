@@ -424,13 +424,9 @@ function addComponent(compId, x, y) {
     });
   }
 
-  // Jumper-strip sequential color for this instance's data wires
-  // White→gray→purple→blue→green→yellow→orange→red→brown
-  const WIRE_SEQ_COLORS = [
-    '#d8d8d8','#888888','#9b59b6','#2980e8',
-    '#27ae60','#c89020','#e67e22','#e53030','#8b4513',
-  ];
-  const colorIdx = state.placed.filter(p => p.compId === compId).length % 9;
+  // Global sequential color — counts ALL placed components regardless of type
+  // so each new component gets the next color in the jumper-strip sequence
+  const globalIdx = state.placed.length % WIRE_SEQ.length;
 
   const instance = {
     id: state.nextId++,
@@ -440,8 +436,26 @@ function addComponent(compId, x, y) {
     pinAssign,
     config,
     label: comp.shortName + ' ' + (count + 1),
-    wireColor: WIRE_SEQ_COLORS[colorIdx],  // user-customizable
+    wireColor: WIRE_SEQ[globalIdx],
+    // nodes: per-pg canvas positions for the wire-end circles
+    // Initialized below after instance is created
+    nodes: {},
   };
+
+  // Place each node near the chip by default (offset from placement position)
+  // They'll snap to assigned pins automatically in updateWires
+  comp.pinGroups.forEach((pg, i) => {
+    // Default node position: offset to the right of the component, spread vertically
+    const chipOffX = state.chipPos.x - px;
+    const dirX = chipOffX > 0 ? 80 : -80;
+    instance.nodes[pg.id] = {
+      x: px + (instance.x < state.chipPos.x ? 60 : -60) + dirX * 0.4,
+      y: py + (i - (comp.pinGroups.length - 1) / 2) * 22,
+      snapped: pinAssign[pg.id] || null,
+    };
+  });
+  // Snap nodes to their auto-assigned pins
+  syncNodesToPins(instance);
 
   state.placed.push(instance);
   renderComponent(instance);
@@ -466,45 +480,51 @@ function renderComponent(inst) {
   el.style.left = inst.x + 'px';
   el.style.top  = inst.y + 'px';
 
-  // Use the component's first data wire color as the accent color
-  // getWireColor with dataPinIdx=0 gives the base color for this instance
   const firstDataPg = comp.pinGroups.find(pg => pg.wireClass === 'wire-data');
   const accentColor = firstDataPg
     ? getWireColor(firstDataPg, inst, 0)
     : (inst.wireColor || comp.color || '#c87941');
   el.style.borderColor = accentColor;
-  el.style.boxShadow = `0 4px 18px rgba(0,0,0,0.7), 0 0 0 0.5px ${accentColor}44`;
+  el.style.boxShadow = `0 4px 18px rgba(0,0,0,0.7), 0 0 0 1px ${accentColor}55`;
 
-  // Check config completeness
   const unconfigured = isUnconfigured(inst);
   if (unconfigured) el.classList.add('unconfigured');
 
-  // Pin badges
-  const assignablePins = comp.pinGroups.filter(pg => !pg.fixed);
-  const pinBadgesHTML = assignablePins.map(pg => {
+  // Pin rows — each row shows the label colored by its wire color
+  let dataPinIdx = 0;
+  const pinRowsHTML = comp.pinGroups.map((pg) => {
+    if (pg.conditional && !inst.config[pg.conditional]) return '';
     const assigned = inst.pinAssign[pg.id];
-    const cls = assigned ? 'assigned' : '';
-    return `<span class="comp-pin-badge ${cls}" data-pg="${pg.id}" title="Click to reassign ${pg.label}">${pg.label}: ${assigned || '—'}</span>`;
+    const isData   = pg.wireClass === 'wire-data';
+    const wireCol  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
+    if (isData) dataPinIdx++;
+
+    const connected = assigned && inst.nodes && inst.nodes[pg.id] && inst.nodes[pg.id].snapped;
+    const labelColor = connected ? wireCol : 'var(--text3)';
+    const assignedText = assigned || '—';
+    return `<div class="comp-pin-row">
+      <span class="comp-pin-label" style="color:${labelColor}">${pg.label}</span>
+      <span class="comp-pin-assigned ${assigned ? 'ok' : 'miss'}" data-pg="${pg.id}">${assignedText}</span>
+    </div>`;
   }).join('');
 
   const swatchColor = accentColor;
 
   el.innerHTML = `
     <div class="comp-header">
-      <div class="comp-color-swatch" style="background:${swatchColor}" title="Click to change wire color" onclick="openColorPicker(${inst.id}, this)"></div>
+      <div class="comp-color-swatch" style="background:${swatchColor}" title="Click to change color" onclick="openColorPicker(${inst.id}, this)"></div>
       <span class="comp-icon">${comp.icon}</span>
       <span class="comp-title">${comp.shortName}</span>
       <span class="comp-id">#${inst.id}</span>
     </div>
-    <div class="comp-pins">${pinBadgesHTML}</div>
-    <div class="comp-status ${unconfigured ? 'warn' : 'ok'}">${unconfigured ? '&#9888; needs config' : '&#10003; ready'}</div>
+    <div class="comp-pins">${pinRowsHTML}</div>
+    <div class="comp-status ${unconfigured ? 'warn' : 'ok'}">${unconfigured ? '⚠ config' : '✓ ready'}</div>
   `;
 
-  // Drag
   el.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
-    if (e.target.closest('.comp-pin-badge')) return;
     if (e.target.closest('.comp-color-swatch')) return;
+    if (e.target.closest('.comp-pin-assigned')) return;
     const rect = el.getBoundingClientRect();
     state.dragging = { type: 'component', id: inst.id, offX: e.clientX - rect.left, offY: e.clientY - rect.top };
     selectComponent(inst.id);
@@ -513,7 +533,7 @@ function renderComponent(inst) {
   });
 
   el.addEventListener('click', e => {
-    if (!e.target.closest('.comp-pin-badge') && !e.target.closest('.comp-color-swatch')) selectComponent(inst.id);
+    if (!e.target.closest('.comp-color-swatch') && !e.target.closest('.comp-pin-assigned')) selectComponent(inst.id);
     e.stopPropagation();
   });
 
@@ -523,7 +543,8 @@ function renderComponent(inst) {
     showCtxMenu(e.clientX, e.clientY);
   });
 
-  el.querySelectorAll('.comp-pin-badge').forEach(badge => {
+  // Pin assignment click — open popover for manual override
+  el.querySelectorAll('.comp-pin-assigned').forEach(badge => {
     badge.addEventListener('click', e => {
       e.stopPropagation();
       openPinReassign(inst.id, badge.dataset.pg, badge);
@@ -764,6 +785,18 @@ function onPinChange(instId, pgId, pinId) {
   const inst = state.placed.find(p => p.id === instId);
   if (!inst) return;
   inst.pinAssign[pgId] = pinId;
+  // Sync node to new pin position
+  if (pinId) {
+    const pos = getPinPos(pinId);
+    if (pos) {
+      if (!inst.nodes[pgId]) inst.nodes[pgId] = {};
+      inst.nodes[pgId].x = pos.x;
+      inst.nodes[pgId].y = pos.y;
+      inst.nodes[pgId].snapped = pinId;
+    }
+  } else {
+    if (inst.nodes[pgId]) inst.nodes[pgId].snapped = null;
+  }
   renderComponent(inst);
   updateWires();
   updateStats();
@@ -845,8 +878,288 @@ function removeComponent(id) {
 }
 
 // -- Wires ----------------------------------------------------------
+// Sequence matches user spec: white, 30% gray, reddish-purple, turquoise blue,
+// bright green, yellow, orange, medium red, medium brown
+const WIRE_SEQ = [
+  '#e8e8e8', // 0 white
+  '#888888', // 1 30% gray
+  '#c0392b', // 2 reddish-purple (deep red)
+  '#00bcd4', // 3 turquoise blue
+  '#4caf50', // 4 bright green
+  '#ffd600', // 5 yellow
+  '#ff6f00', // 6 orange
+  '#e53030', // 7 medium red
+  '#8d5524', // 8 medium brown
+];
 
-const WIRE_SEQ = ['#d8d8d8','#888888','#9b59b6','#2980e8','#27ae60','#c89020','#e67e22','#e53030','#8b4513'];
+// -- Node (wire-end circle) system ----------------------------------
+// Each pin group has a draggable circle node. When near a chip pin it snaps.
+// The wire is always drawn from component center → node position.
+
+const NODE_RADIUS  = 8;   // px, rendered size
+const SNAP_DIST    = 24;  // px, snap threshold
+
+// Sync node positions to their currently-assigned chip pins
+function syncNodesToPins(inst) {
+  const comp = COMPONENT_LIBRARY[inst.compId];
+  comp.pinGroups.forEach(pg => {
+    const pinId = inst.pinAssign[pg.id];
+    if (pinId) {
+      const pos = getPinPos(pinId);
+      if (pos) {
+        if (!inst.nodes[pg.id]) inst.nodes[pg.id] = {};
+        inst.nodes[pg.id].x = pos.x;
+        inst.nodes[pg.id].y = pos.y;
+        inst.nodes[pg.id].snapped = pinId;
+      }
+    } else {
+      if (inst.nodes[pg.id]) inst.nodes[pg.id].snapped = null;
+    }
+  });
+}
+
+// Find the nearest unoccupied chip pin within SNAP_DIST of (nx, ny)
+// compatible with the given pgType. Returns pinId or null.
+function findSnapPin(nx, ny, pgType, excludeInstId, excludePgId) {
+  const pins = getCurrentPins();
+  const usedPins = new Set();
+  state.placed.forEach(inst => {
+    Object.entries(inst.pinAssign).forEach(([pgId, pid]) => {
+      if (pid && !(inst.id === excludeInstId && pgId === excludePgId)) usedPins.add(pid);
+    });
+  });
+
+  let best = null, bestDist = SNAP_DIST;
+  pins.forEach(pin => {
+    if (pin.types.includes('power') || pin.types.includes('gnd')) return;
+    if (pgType !== 'gpio' && !pin.types.includes(pgType)) return;
+    if (usedPins.has(pin.id)) return;
+    const pos = getPinPos(pin.id);
+    if (!pos) return;
+    const d = Math.hypot(pos.x - nx, pos.y - ny);
+    if (d < bestDist) { bestDist = d; best = pin.id; }
+  });
+  return best;
+}
+
+// Node drag state
+const nodeDrag = {
+  active: false,
+  instId: null,
+  pgId:   null,
+  offX:   0,
+  offY:   0,
+};
+
+function startNodeDrag(instId, pgId, mouseX, mouseY, nodeX, nodeY) {
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  // Unsnap from current pin
+  inst.pinAssign[pgId] = '';
+  if (inst.nodes[pgId]) inst.nodes[pgId].snapped = null;
+
+  nodeDrag.active = true;
+  nodeDrag.instId = instId;
+  nodeDrag.pgId   = pgId;
+  const cRect = canvasWrap.getBoundingClientRect();
+  nodeDrag.offX = mouseX - cRect.left + canvasWrap.scrollLeft - nodeX;
+  nodeDrag.offY = mouseY - cRect.top  + canvasWrap.scrollTop  - nodeY;
+
+  document.body.style.cursor = 'crosshair';
+  renderComponent(inst);
+  updateWires();
+}
+
+function moveNodeDrag(mouseX, mouseY) {
+  if (!nodeDrag.active) return;
+  const inst = state.placed.find(p => p.id === nodeDrag.instId);
+  if (!inst || !inst.nodes[nodeDrag.pgId]) return;
+  const cRect = canvasWrap.getBoundingClientRect();
+  const nx = mouseX - cRect.left + canvasWrap.scrollLeft - nodeDrag.offX;
+  const ny = mouseY - cRect.top  + canvasWrap.scrollTop  - nodeDrag.offY;
+  inst.nodes[nodeDrag.pgId].x = nx;
+  inst.nodes[nodeDrag.pgId].y = ny;
+  inst.nodes[nodeDrag.pgId].snapped = null;
+
+  // Preview snap highlight
+  const comp = COMPONENT_LIBRARY[inst.compId];
+  const pg   = comp.pinGroups.find(p => p.id === nodeDrag.pgId);
+  const snap = findSnapPin(nx, ny, pg.type, inst.id, nodeDrag.pgId);
+  chipEl.querySelectorAll('.pin-item').forEach(el =>
+    el.classList.toggle('wire-drag-target', el.dataset.pin === snap));
+
+  updateWires();
+}
+
+function endNodeDrag(mouseX, mouseY) {
+  if (!nodeDrag.active) return;
+  const inst = state.placed.find(p => p.id === nodeDrag.instId);
+  nodeDrag.active = false;
+  document.body.style.cursor = '';
+  chipEl.querySelectorAll('.pin-item').forEach(el =>
+    el.classList.remove('wire-drag-target', 'wire-drag-hover'));
+  if (!inst) return;
+
+  const node = inst.nodes[nodeDrag.pgId];
+  if (!node) { updateWires(); return; }
+
+  const comp = COMPONENT_LIBRARY[inst.compId];
+  const pg   = comp.pinGroups.find(p => p.id === nodeDrag.pgId);
+  const snap = findSnapPin(node.x, node.y, pg.type, inst.id, nodeDrag.pgId);
+
+  if (snap) {
+    inst.pinAssign[nodeDrag.pgId] = snap;
+    node.snapped = snap;
+    const pos = getPinPos(snap);
+    if (pos) { node.x = pos.x; node.y = pos.y; }
+  } else {
+    inst.pinAssign[nodeDrag.pgId] = '';
+    node.snapped = null;
+  }
+
+  renderComponent(inst);
+  updateWires();
+  updateStats();
+  updateNotes();
+}
+
+// Draw all node circles onto the SVG wire layer
+function drawNodes() {
+  state.placed.forEach(inst => {
+    const comp = COMPONENT_LIBRARY[inst.compId];
+    let dataPinIdx = 0;
+
+    comp.pinGroups.forEach((pg) => {
+      if (pg.conditional && !inst.config[pg.conditional]) return;
+      const node = inst.nodes[pg.id];
+      if (!node) return;
+
+      const isData = pg.wireClass === 'wire-data';
+      const color  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
+      if (isData) dataPinIdx++;
+
+      const snapped   = !!node.snapped;
+      const glowColor = snapped ? color : '#444444';
+      const glowOpacity = snapped ? '0.6' : '0.3';
+
+      // Outer glow
+      const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      glow.setAttribute('cx', node.x);
+      glow.setAttribute('cy', node.y);
+      glow.setAttribute('r',  NODE_RADIUS + 4);
+      glow.setAttribute('fill', glowColor);
+      glow.setAttribute('opacity', glowOpacity);
+      glow.setAttribute('pointer-events', 'none');
+      wireLayer.appendChild(glow);
+
+      // Main circle
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', node.x);
+      circle.setAttribute('cy', node.y);
+      circle.setAttribute('r',  NODE_RADIUS);
+      circle.setAttribute('fill', color);
+      circle.setAttribute('stroke', needsWhiteOutline(color) ? '#ffffff' : '#000000');
+      circle.setAttribute('stroke-width', '1.5');
+      circle.setAttribute('class', 'wire-node');
+      circle.setAttribute('data-inst', inst.id);
+      circle.setAttribute('data-pg', pg.id);
+      circle.style.cursor = 'grab';
+
+      // Node drag — must be on the circle, pointer-events 'all' needed
+      circle.setAttribute('pointer-events', 'all');
+      circle.addEventListener('mousedown', e => {
+        if (e.button !== 0) return;
+        e.stopPropagation();
+        e.preventDefault();
+        startNodeDrag(inst.id, pg.id, e.clientX, e.clientY, node.x, node.y);
+      });
+      circle.addEventListener('mouseenter', () => {
+        showTooltip(0, 0, `${comp.shortName} ${pg.label}`,
+          node.snapped ? `Connected → ${node.snapped}` : 'Unconnected — drag to a pin');
+      });
+      circle.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
+      circle.addEventListener('mouseleave', hideTooltip);
+
+      wireLayer.appendChild(circle);
+    });
+  });
+}
+
+// -- Wire update ----------------------------------------------------
+function updateWires() {
+  wireLayer.innerHTML = '';
+  updateChipPinHighlights();
+
+  // Ensure all nodes are positioned correctly for snapped pins
+  state.placed.forEach(inst => syncNodesToPins(inst));
+
+  state.placed.forEach(inst => {
+    const comp   = COMPONENT_LIBRARY[inst.compId];
+    const compEl = document.getElementById('comp-' + inst.id);
+    if (!compEl) return;
+
+    // Wire originates from the CENTER of the component box
+    const originX = inst.x + compEl.offsetWidth  / 2;
+    const originY = inst.y + compEl.offsetHeight / 2;
+
+    let dataPinIdx = 0;
+
+    comp.pinGroups.forEach((pg) => {
+      if (pg.conditional && !inst.config[pg.conditional]) return;
+      const node = inst.nodes[pg.id];
+      if (!node) return;
+
+      const isData = pg.wireClass === 'wire-data';
+      const color  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
+      if (isData) dataPinIdx++;
+
+      const outlineColor = needsWhiteOutline(color) ? '#ffffff' : '#000000';
+
+      // Route wire: straight from component center to node position
+      // No stagger needed — each wire ends at its own node circle
+      const d = routeWire(originX, originY, node.x, node.y, 0);
+
+      // Draw outline only (per user request — remove top colored layer)
+      const outline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      outline.setAttribute('d', d);
+      outline.setAttribute('class', 'wire-outline');
+      outline.style.stroke = outlineColor;
+      outline.style.strokeWidth = '4';
+      outline.setAttribute('pointer-events', 'none');
+      wireLayer.appendChild(outline);
+
+      // Colored wire path (the visible colored line)
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', 'wire wire-new');
+      path.style.stroke = color;
+      path.style.strokeWidth = '2';
+      path.setAttribute('data-inst', inst.id);
+      path.setAttribute('data-pg', pg.id);
+      path.setAttribute('pointer-events', 'none');
+      wireLayer.appendChild(path);
+    });
+  });
+
+  // Draw node circles on top of all wires
+  drawNodes();
+
+  // Draw passive symbols
+  state.placed.forEach(inst => {
+    const comp   = COMPONENT_LIBRARY[inst.compId];
+    const compEl = document.getElementById('comp-' + inst.id);
+    if (!compEl) return;
+    const originX = inst.x + compEl.offsetWidth  / 2;
+    const originY = inst.y + compEl.offsetHeight / 2;
+    comp.pinGroups.forEach(pg => {
+      const node = inst.nodes[pg.id];
+      if (!node) return;
+      const passive = comp.passives.find(p => p.on.includes(pg.id) &&
+        (!p.conditional || inst.config[p.conditional]));
+      if (passive) drawPassiveSymbol(originX, originY, node, passive);
+    });
+  });
+}
 
 function getWireColor(pg, inst, dataPinIdx) {
   switch (pg.wireClass) {
@@ -1434,6 +1747,10 @@ function onShelfMouseDown(e) {
 
 // -- Global mouse events --------------------------------------------
 document.addEventListener('mousemove', e => {
+  if (nodeDrag.active) {
+    moveNodeDrag(e.clientX, e.clientY);
+    return;
+  }
   if (wireDrag.active) {
     updateWireDragPreview(e.clientX, e.clientY);
     return;
@@ -1445,7 +1762,6 @@ document.addEventListener('mousemove', e => {
   if (state.dragging) {
     const cRect = canvasWrap.getBoundingClientRect();
     if (state.dragging.type === 'chip') {
-      // Canvas-absolute position = mouse offset from canvas viewport edge + scroll
       const nx = e.clientX - cRect.left - state.dragging.offX + canvasWrap.scrollLeft;
       const ny = e.clientY - cRect.top  - state.dragging.offY + canvasWrap.scrollTop;
       state.chipPos = { x: Math.max(0, nx), y: Math.max(0, ny) };
@@ -1467,6 +1783,10 @@ document.addEventListener('mousemove', e => {
 });
 
 document.addEventListener('mouseup', e => {
+  if (nodeDrag.active) {
+    endNodeDrag(e.clientX, e.clientY);
+    return;
+  }
   if (wireDrag.active) {
     cancelWireDrag();
     return;
@@ -1475,7 +1795,6 @@ document.addEventListener('mouseup', e => {
     const cRect = canvasWrap.getBoundingClientRect();
     if (e.clientX >= cRect.left && e.clientX <= cRect.right &&
         e.clientY >= cRect.top  && e.clientY <= cRect.bottom) {
-      // Canvas-absolute drop position
       const x = e.clientX - cRect.left - 45 + canvasWrap.scrollLeft;
       const y = e.clientY - cRect.top  - 30 + canvasWrap.scrollTop;
       addComponent(shelfDrag, x, y);

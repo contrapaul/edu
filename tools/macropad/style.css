@@ -223,9 +223,8 @@ header {
   min-width: 3200px;
   min-height: 2400px;
   pointer-events: none;
-  z-index: 5;
+  z-index: 35;   /* above components (30) so node circles receive clicks */
   overflow: visible;
-  /* SVG drop-shadow filter defined on individual paths */
 }
 
 .canvas-grid {
@@ -383,71 +382,94 @@ header {
   background: var(--bg3);
   border: 1.5px solid var(--border);
   border-radius: 6px;
-  padding: 6px 10px 8px;
+  padding: 6px 10px 6px;
   cursor: move;
   user-select: none;
   z-index: 30;
-  min-width: 90px;
+  min-width: 110px;
+  width: max-content;       /* auto-size to content */
   transition: border-color 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.7);
 }
-.placed-component:hover { border-color: var(--border2); box-shadow: 0 6px 24px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.6); }
+.placed-component:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.8); }
 .placed-component.selected {
-  border-color: var(--copper);
-  box-shadow: 0 0 0 2px rgba(200,121,65,0.3), 0 6px 24px rgba(0,0,0,0.8);
+  box-shadow: 0 0 0 2px rgba(200,121,65,0.4), 0 6px 24px rgba(0,0,0,0.8);
 }
-.placed-component.unconfigured { border-color: var(--yellow); }
-.placed-component.error { border-color: var(--red); }
+.placed-component.unconfigured { border-color: var(--yellow) !important; }
+.placed-component.error { border-color: var(--red) !important; }
 
 .comp-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
+  gap: 4px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
 }
-.comp-icon { font-size: 1rem; line-height: 1; }
+.comp-icon  { font-size: 0.8rem; }
 .comp-title {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-family: var(--font-head);
+  font-size: 0.52rem;
+  letter-spacing: 0.05em;
   color: var(--text);
-  white-space: nowrap;
+  flex: 1;
 }
-.comp-id {
-  font-size: 0.55rem;
-  color: var(--text3);
-  font-family: var(--font-mono);
-  margin-left: auto;
-}
-.comp-pins {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-top: 2px;
-}
-.comp-pin-badge {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 1px 5px;
-  color: var(--text2);
+.comp-id { font-size: 0.5rem; color: var(--text3); font-family: var(--font-mono); }
+.comp-color-swatch {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
   cursor: pointer;
-  transition: border-color 0.12s;
+  transition: transform 0.12s;
+}
+.comp-color-swatch:hover { transform: scale(1.3); }
+
+/* Pin rows — one per pin group */
+.comp-pins { display: flex; flex-direction: column; gap: 2px; margin-bottom: 4px; }
+.comp-pin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  min-height: 16px;
+}
+.comp-pin-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  transition: color 0.2s;
   white-space: nowrap;
 }
-.comp-pin-badge:hover { border-color: var(--copper); color: var(--copper); }
-.comp-pin-badge.assigned { border-color: var(--green-dim); color: var(--green); }
-.comp-pin-badge.conflict { border-color: var(--red); color: var(--red); }
-
-.comp-status {
-  font-size: 0.58rem;
-  margin-top: 4px;
+.comp-pin-assigned {
   font-family: var(--font-mono);
+  font-size: 0.52rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.comp-pin-assigned.ok {
+  color: var(--text2);
+  background: var(--border);
+}
+.comp-pin-assigned.ok:hover { background: var(--border2); color: var(--text); }
+.comp-pin-assigned.miss {
+  color: var(--red);
+  background: var(--red-dim);
+}
+.comp-status {
+  font-size: 0.55rem;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  border-top: 1px solid var(--border);
+  padding-top: 3px;
 }
 .comp-status.ok { color: var(--green); }
 .comp-status.warn { color: var(--yellow); }
 .comp-status.err { color: var(--red); }
+.placed-component.unconfigured { border-color: var(--yellow); }
+.placed-component.error { border-color: var(--red); }
+
 
 /* Component color swatch in card header */
 .comp-color-swatch {
@@ -515,36 +537,33 @@ header {
 /* ── Wires ────────────────────────────────────────────────────── */
 .wire {
   fill: none;
-  stroke-width: 2.5;
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 1;
-  transition: stroke-width 0.1s;
-  pointer-events: stroke;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
+  pointer-events: none;
 }
-.wire:hover { stroke-width: 4; cursor: grab; }
-
-/* Outline underlay — drawn wider behind each wire */
+/* Outline underlay */
 .wire-outline {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 5;
-  opacity: 0.85;
+  stroke-width: 4;
   pointer-events: none;
 }
-
+/* Draggable wire-end node circles */
+.wire-node {
+  cursor: grab;
+  transition: r 0.1s;
+}
+.wire-node:hover { r: 11; }
 /* Wire drag preview */
 .wire-drag-preview {
   fill: none;
   stroke: rgba(255,255,255,0.85);
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-dasharray: 8 5;
   stroke-linecap: round;
   pointer-events: none;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
 }
 
 /* ── Right panel ──────────────────────────────────────────────── */
