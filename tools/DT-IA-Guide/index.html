@@ -3,26 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DP Design Technology IA Guide</title>
+<title>Design Tech IA Guide</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #1a1a1a;
-    --bg2: #222222;
-    --bg3: #2a2a2a;
-    --bg4: #333333;
-    --text: #e8e8e8;
-    --text-dim: #999;
-    --accent: #e63946;
-    --accent-dim: rgba(230,57,70,0.15);
-    --accent-border: rgba(230,57,70,0.4);
-    --border: #383838;
-    --border-light: #444;
-    --success: #4caf50;
-    --nav-h: 56px;
-    --radius: 6px;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --bg: #fafaf9;
+    --bg-warm: #f5f3f0;
+    --bg-subtle: #f0eeeb;
+    --text: #1a1a1a;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --accent: #2c5f6e;
+    --accent-light: #e8f0f2;
+    --accent-border: #c4d8de;
+    --rule: #e0ded9;
+    --rule-light: #ece9e4;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    --font-mono: 'SF Mono', 'Cascadia Code', 'Courier New', Courier, monospace;
+    --max-w: 960px;
+    --nav-h: 52px;
   }
 
   html { scroll-behavior: smooth; }
@@ -31,31 +35,37 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--font);
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.7;
     padding-top: var(--nav-h);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── NAV ─────────────────────────────────────────────────── */
+  /* ── NAV ─────────────────────────────────────────── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: var(--nav-h);
-    background: #111;
-    border-bottom: 1px solid var(--border);
+    background: rgba(250,249,249,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 28px;
     z-index: 1000;
-    gap: 12px;
+    gap: 16px;
   }
 
   .nav-back {
-    color: var(--text-dim);
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 12px;
-    letter-spacing: 0.05em;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     white-space: nowrap;
     flex-shrink: 0;
     transition: color 0.2s;
@@ -63,9 +73,9 @@
   .nav-back:hover, .nav-back:focus { color: var(--accent); outline: none; }
 
   .nav-title {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--text);
     text-align: center;
@@ -78,369 +88,355 @@
 
   .nav-links {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     flex-shrink: 0;
   }
 
   .nav-links a {
-    color: var(--text-dim);
+    color: var(--text-secondary);
     text-decoration: none;
     font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: var(--radius);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
     transition: color 0.2s, background 0.2s;
     white-space: nowrap;
   }
   .nav-links a:hover, .nav-links a:focus {
     color: var(--accent);
-    background: var(--accent-dim);
+    background: var(--accent-light);
     outline: none;
   }
 
-  @media (max-width: 700px) {
-    .nav-title { font-size: 11px; letter-spacing: 0.06em; }
+  @media (max-width: 720px) {
     .nav-links { display: none; }
   }
   @media (max-width: 480px) {
     .nav-back span { display: none; }
+    .nav-back::after { content: '← BACK'; }
   }
 
-  /* ── HERO ─────────────────────────────────────────────────── */
+  /* ── HERO ─────────────────────────────────────────── */
   .hero {
-    background: linear-gradient(180deg, #111 0%, var(--bg) 100%);
-    padding: 64px 20px 48px;
+    padding: 80px 28px 60px;
     text-align: center;
-    border-bottom: 1px solid var(--border);
   }
 
   .hero h1 {
-    font-size: clamp(22px, 5vw, 42px);
+    font-size: clamp(40px, 7vw, 64px);
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    line-height: 1.15;
-    margin-bottom: 16px;
+    line-height: 1.08;
+    color: var(--text);
+    margin-bottom: 20px;
   }
-
-  .hero h1 span { color: var(--accent); }
 
   .hero-sub {
-    color: var(--text-dim);
-    font-size: clamp(14px, 2vw, 17px);
+    color: var(--text-secondary);
+    font-size: clamp(15px, 2vw, 18px);
     max-width: 560px;
-    margin: 0 auto 40px;
+    margin: 0 auto 48px;
     line-height: 1.6;
+    font-weight: 400;
   }
 
-  .hero-cards {
+  .hero-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    max-width: 900px;
+    gap: 4px;
+    max-width: 780px;
     margin: 0 auto;
   }
 
-  .hero-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 20px;
-    cursor: pointer;
-    text-align: center;
-    transition: background 0.2s, border-color 0.2s, transform 0.15s;
-    min-width: 130px;
-    flex: 1 1 130px;
-    max-width: 180px;
-    position: relative;
+  .hero-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 24px;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
   }
-  .hero-card:hover, .hero-card:focus {
-    background: var(--bg4);
-    border-color: var(--accent-border);
-    transform: translateY(-2px);
+
+  .hero-nav a:hover, .hero-nav a:focus {
+    color: var(--accent);
+    background: var(--accent-light);
     outline: none;
   }
-  .hero-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  .hero-card-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 4px;
-  }
-  .hero-card-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text);
-  }
-  .hero-card.active .hero-card-title { color: var(--accent); }
-  .hero-card.active { border-color: var(--accent-border); background: var(--accent-dim); }
-
-  /* ── MAIN CONTENT ─────────────────────────────────────────── */
+  /* ── MAIN CONTENT ─────────────────────────────────── */
   main {
-    max-width: 900px;
+    max-width: var(--max-w);
     margin: 0 auto;
-    padding: 32px 20px 64px;
+    padding: 0 28px 80px;
   }
 
-  /* ── ACCORDION ────────────────────────────────────────────── */
-  .section-block {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    overflow: hidden;
+  /* ── SECTION ──────────────────────────────────────── */
+  .content-section {
+    padding: 56px 0 48px;
+    border-top: 1px solid var(--rule);
   }
 
-  .section-trigger {
-    width: 100%;
-    background: var(--bg2);
-    border: none;
-    color: var(--text);
-    padding: 18px 20px;
+  .content-section:first-of-type { border-top: none; }
+
+  .section-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.2s;
-    gap: 12px;
-  }
-  .section-trigger:hover { background: var(--bg3); }
-  .section-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-
-  .section-trigger-left {
-    display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 14px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
   }
 
   .section-badge {
-    background: var(--bg4);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-dim);
-    padding: 3px 8px;
+    color: var(--accent);
     white-space: nowrap;
-    flex-shrink: 0;
   }
 
-  .section-trigger-title {
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+  .section-header h2 {
+    font-size: clamp(26px, 4vw, 32px);
+    font-weight: 800;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.15;
+    flex: 1;
+    min-width: 200px;
   }
 
-  .section-trigger[aria-expanded="true"] .section-trigger-title {
+  .marks-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  .section-intro {
+    color: var(--text-secondary);
+    font-size: 16px;
+    max-width: 680px;
+    margin: 12px 0 32px;
+    line-height: 1.65;
+  }
+
+  /* ── STRAND NAV (within section) ──────────────────── */
+  .strand-nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .strand-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 24px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .strand-nav a:hover, .strand-nav a:focus {
     color: var(--accent);
-  }
-
-  .section-trigger[aria-expanded="true"] .section-badge {
     border-color: var(--accent-border);
+    background: var(--accent-light);
+    outline: none;
+  }
+
+  .strand-num {
+    font-size: 10px;
+    font-weight: 700;
     color: var(--accent);
+    margin-right: 4px;
   }
 
-  .chevron {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    color: var(--text-dim);
-  }
-  .section-trigger[aria-expanded="true"] .chevron {
-    transform: rotate(180deg);
-    color: var(--accent);
-  }
-
-  .section-body {
-    display: none;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
-  }
-  .section-body.open { display: block; }
-
-  .section-content {
-    padding: 24px 24px 28px;
-  }
-
-  /* ── NESTED ACCORDION ─────────────────────────────────────── */
-  .sub-block {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-top: 16px;
-    overflow: hidden;
+  /* ── SUB-SECTION (expandable) ─────────────────────── */
+  .sub-section {
+    margin-bottom: 28px;
+    scroll-margin-top: calc(var(--nav-h) + 20px);
   }
 
   .sub-trigger {
     width: 100%;
-    background: var(--bg2);
+    background: none;
     border: none;
-    color: var(--text);
-    padding: 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 16px 0;
     cursor: pointer;
     text-align: left;
     gap: 12px;
-    transition: background 0.2s;
+    border-bottom: 1px solid var(--rule-light);
+    transition: border-color 0.2s;
   }
-  .sub-trigger:hover { background: var(--bg3); }
-  .sub-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-  .sub-trigger-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+  .sub-trigger:hover { border-bottom-color: var(--accent-border); }
+  .sub-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  .sub-trigger-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .strand-num {
-    background: var(--accent);
-    color: #fff;
-    border-radius: 3px;
-    font-size: 10px;
-    font-weight: 800;
-    padding: 2px 6px;
+  .sub-trigger h3 {
+    font-size: 20px;
+    font-weight: 700;
     letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: color 0.2s;
   }
 
-  .sub-chevron {
-    width: 16px;
-    height: 16px;
+  .sub-trigger[aria-expanded="true"] h3 { color: var(--accent); }
+
+  .sub-trigger .sub-chevron {
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
-    transition: transform 0.25s ease;
-    color: var(--text-dim);
+    transition: transform 0.3s ease;
+    color: var(--text-muted);
   }
+
   .sub-trigger[aria-expanded="true"] .sub-chevron {
     transform: rotate(180deg);
     color: var(--accent);
   }
-  .sub-trigger[aria-expanded="true"] .sub-trigger-title { color: var(--accent); }
 
   .sub-body {
     display: none;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
+    padding: 20px 0 12px;
   }
+
   .sub-body.open { display: block; }
 
-  .sub-content {
-    padding: 18px 20px 22px;
-  }
-
-  /* ── TYPOGRAPHY ───────────────────────────────────────────── */
-  h2 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    color: var(--text);
-  }
-  h3 {
+  /* ── TYPOGRAPHY ────────────────────────────────────── */
+  h4 {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin: 20px 0 8px;
+    color: var(--text);
+    margin: 28px 0 8px;
+  }
+
+  p {
+    margin-bottom: 14px;
+    color: var(--text);
+    max-width: 680px;
+  }
+
+  ul, ol {
+    padding-left: 22px;
+    margin-bottom: 14px;
+    max-width: 680px;
+  }
+
+  li {
+    margin-bottom: 8px;
     color: var(--text);
   }
-  h4 {
+
+  strong { font-weight: 600; }
+
+  /* ── CALLOUTS ──────────────────────────────────────── */
+  .callout {
+    margin: 24px 0;
+    padding: 18px 22px;
+    border-radius: var(--radius-md);
+    max-width: 720px;
+    font-size: 15px;
+  }
+
+  .callout-title {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 8px;
-  }
-
-  p { margin-bottom: 12px; color: var(--text); }
-  p:last-child { margin-bottom: 0; }
-
-  ul, ol { padding-left: 20px; margin-bottom: 12px; }
-  li { margin-bottom: 6px; color: var(--text); }
-
-  strong { color: var(--text); font-weight: 600; }
-
-  /* ── CALLOUT BOXES ────────────────────────────────────────── */
-  .callout {
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin: 16px 0;
-    border-left: 3px solid;
-  }
-  .callout-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     margin-bottom: 6px;
   }
-  .callout p, .callout li { font-size: 14px; }
+
+  .callout p, .callout ul { font-size: 15px; }
 
   .callout-critical {
-    background: rgba(230,57,70,0.08);
-    border-color: var(--accent);
+    background: #fdf2f2;
+    border-left: 3px solid #c44;
   }
-  .callout-critical .callout-title { color: var(--accent); }
+  .callout-critical .callout-title { color: #c44; }
+  .callout-critical p, .callout-critical li { color: #5a1a1a; }
 
   .callout-success {
-    background: rgba(76,175,80,0.08);
-    border-color: #4caf50;
+    background: #f2f7f3;
+    border-left: 3px solid #4a8;
   }
-  .callout-success .callout-title { color: #4caf50; }
+  .callout-success .callout-title { color: #4a8; }
+  .callout-success p, .callout-success li { color: #1a3a1a; }
 
   .callout-warn {
-    background: rgba(255,183,77,0.08);
-    border-color: #ffb74d;
+    background: #fef9f0;
+    border-left: 3px solid #c94;
   }
-  .callout-warn .callout-title { color: #ffb74d; }
+  .callout-warn .callout-title { color: #c94; }
+  .callout-warn p, .callout-warn li { color: #4a2a0a; }
 
   .callout-info {
-    background: rgba(100,180,255,0.08);
-    border-color: #64b4ff;
+    background: #f0f4f8;
+    border-left: 3px solid var(--accent);
   }
-  .callout-info .callout-title { color: #64b4ff; }
+  .callout-info .callout-title { color: var(--accent); }
+  .callout-info p, .callout-info li { color: #1a2a3a; }
 
-  /* ── TABLES ───────────────────────────────────────────────── */
-  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  /* ── TABLES ────────────────────────────────────────── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+    max-width: 760px;
+  }
 
   table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
   }
+
   th {
-    background: var(--bg3);
+    background: var(--bg-subtle);
     color: var(--text);
     font-size: 11px;
+    font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 10px 12px;
+    padding: 12px 14px;
     text-align: left;
-    border-bottom: 2px solid var(--border);
+    border-bottom: 2px solid var(--rule);
     white-space: nowrap;
   }
+
   td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--rule-light);
     color: var(--text);
     vertical-align: top;
   }
+
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(255,255,255,0.02); }
 
   .marks-cell {
     font-weight: 700;
@@ -448,199 +444,223 @@
     white-space: nowrap;
   }
 
-  /* ── COPY BOX ─────────────────────────────────────────────── */
+  /* ── RULES GRID ─────────────────────────────────────── */
+  .rules-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0;
+    margin: 16px 0 24px;
+    max-width: 800px;
+  }
+
+  .rule-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule-light);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+
+  .rule-icon {
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 16px;
+    margin-top: 1px;
+  }
+
+  /* ── COPY BOX ──────────────────────────────────────── */
   .copy-box {
-    background: #111;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin: 16px 0;
+    margin: 20px 0 28px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
     overflow: hidden;
+    max-width: 760px;
+    box-shadow: var(--shadow-sm);
   }
 
   .copy-box-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg3);
+    padding: 12px 18px;
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--rule);
     gap: 12px;
   }
 
   .copy-box-header h4 {
     margin: 0;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
   }
 
   .copy-btn {
-    background: var(--bg4);
-    border: 1px solid var(--border-light);
-    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    color: var(--text-secondary);
     font-size: 11px;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 4px;
+    padding: 5px 14px;
+    border-radius: 20px;
     cursor: pointer;
     font-family: var(--font);
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: all 0.2s;
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .copy-btn.copied { background: var(--success); border-color: var(--success); color: #fff; }
+
+  .copy-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .copy-btn.copied {
+    background: #4a8;
+    border-color: #4a8;
+    color: #fff;
+  }
 
   .copy-box pre {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     font-size: 13px;
-    line-height: 1.6;
-    color: #ccc;
-    padding: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    padding: 18px 20px;
     white-space: pre-wrap;
     word-break: break-word;
-    overflow: visible;
+    background: #fcfbf9;
   }
 
-  /* ── MARK SCHEME TABLE ────────────────────────────────────── */
-  .mark-row-0 td { color: var(--text-dim); }
-  .mark-row-top td { color: #4caf50; }
-
-  /* ── STRAND SUMMARY ───────────────────────────────────────── */
-  .strand-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 12px 0;
-  }
-  .strand-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-  }
-  .strand-item .strand-num { margin-top: 1px; flex-shrink: 0; }
-  .strand-item-body { flex: 1; }
-  .strand-item-title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 2px;
-  }
-  .strand-item-desc { font-size: 13px; color: var(--text-dim); }
-
-  /* ── RULES LIST ───────────────────────────────────────────── */
-  .rules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 10px;
-    margin: 12px 0;
-  }
-  .rule-item {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 10px 14px;
-    font-size: 13px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-  .rule-icon { color: var(--accent); flex-shrink: 0; font-size: 15px; margin-top: 1px; }
-
-  /* ── MATRIX PREVIEW ───────────────────────────────────────── */
-  .matrix-example {
-    overflow-x: auto;
-    margin: 12px 0;
-  }
-  .matrix-example table th:first-child { min-width: 140px; }
-
-  /* ── PAGE LABEL ───────────────────────────────────────────── */
+  /* ── PAGE RECOMMENDATION TAG ──────────────────────── */
   .page-reco {
     display: inline-block;
-    background: var(--bg4);
-    border: 1px solid var(--border);
-    border-radius: 4px;
     font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    padding: 2px 8px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    background: var(--bg-subtle);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1px 8px;
     margin-left: 8px;
     vertical-align: middle;
   }
 
-  /* ── FOOTER ───────────────────────────────────────────────── */
+  /* ── STRAND LIST (compact) ─────────────────────────── */
+  .strand-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0 8px;
+    max-width: 760px;
+  }
+
+  .strand-card {
+    padding: 16px;
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-md);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .strand-card h4 {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .strand-card .num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .strand-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ── MARKS TABLE COMPACT ──────────────────────────── */
+  .marks-table-compact {
+    max-width: 760px;
+  }
+
+  .marks-table-compact td:first-child {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ── DIVIDER ───────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--rule);
+    margin: 24px 0;
+    max-width: 760px;
+  }
+
+  /* ── FOOTER ────────────────────────────────────────── */
   footer {
-    background: #111;
-    border-top: 1px solid var(--border);
-    padding: 32px 20px;
+    background: var(--bg-warm);
+    border-top: 1px solid var(--rule);
+    padding: 40px 28px;
     text-align: center;
   }
-  footer a { color: var(--accent); text-decoration: none; }
+
+  footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
   footer a:hover { text-decoration: underline; }
+
   .footer-back {
     display: inline-block;
     font-size: 14px;
+    font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 16px;
-    color: var(--text-dim);
+    color: var(--text-secondary);
+    margin-bottom: 18px;
   }
+
   .footer-back:hover { color: var(--accent); }
+
   .footer-source {
-    font-size: 13px;
-    color: var(--text-dim);
+    font-size: 14px;
+    color: var(--text-muted);
     max-width: 560px;
-    margin: 0 auto 10px;
+    margin: 0 auto 8px;
   }
+
   .footer-disclaimer {
-    font-size: 12px;
-    color: #666;
+    font-size: 13px;
+    color: #aaa;
     max-width: 480px;
     margin: 0 auto;
   }
 
-  /* ── UTILITY ──────────────────────────────────────────────── */
-  .divider {
+  /* ── ACCESSIBILITY ─────────────────────────────────── */
+  .sr-only {
+    position: absolute;
+    width: 1px;
     height: 1px;
-    background: var(--border);
-    margin: 20px 0;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
   }
-
-  .tag {
-    display: inline-block;
-    background: var(--accent-dim);
-    border: 1px solid var(--accent-border);
-    color: var(--accent);
-    border-radius: 4px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    margin: 2px 2px 2px 0;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin: 12px 0;
-  }
-  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
-
-  .info-card {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-  }
-  .info-card h4 { margin-bottom: 6px; }
 
   .skip-link {
     position: absolute;
@@ -653,8 +673,9 @@
     background: var(--accent);
     color: #fff;
     padding: 8px 16px;
-    border-radius: var(--radius);
+    border-radius: var(--radius-md);
     z-index: 9999;
+    font-weight: 600;
     text-decoration: none;
     font-size: 14px;
   }
@@ -664,12 +685,12 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- ── NAV ──────────────────────────────────────────────────── -->
+<!-- ── NAV ────────────────────────────────────────────── -->
 <nav role="navigation" aria-label="Site navigation">
   <a href="https://edu.contrapaul.com" class="nav-back" aria-label="Back to edu.contrapaul.com">
     ← <span>BACK TO EDU.CONTRAPAUL.COM</span>
   </a>
-  <div class="nav-title">DP Design Technology IA Guide</div>
+  <div class="nav-title">Design Tech IA Guide</div>
   <div class="nav-links">
     <a href="#sec-empathize">Empathize</a>
     <a href="#sec-define">Define</a>
@@ -679,250 +700,179 @@
   </div>
 </nav>
 
-<!-- ── HERO ─────────────────────────────────────────────────── -->
+<!-- ── HERO ────────────────────────────────────────────── -->
 <header class="hero">
-  <h1>DP Design <span>Technology</span><br>IA Guide</h1>
-  <p class="hero-sub">A practical reference for the 50-hour design project (40% of final grade). Use this guide alongside your teacher's advice and official IB documentation.</p>
-  <div class="hero-cards" role="list">
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-overview" aria-label="Open Overview section">
-      <div class="hero-card-label">Start here</div>
-      <div class="hero-card-title">Overview</div>
-    </div>
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-empathize" aria-label="Open Empathize section">
-      <div class="hero-card-label">Criterion A · 9 marks</div>
-      <div class="hero-card-title">Empathize</div>
-    </div>
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-define" aria-label="Open Define section">
-      <div class="hero-card-label">Criterion B · 6 marks</div>
-      <div class="hero-card-title">Define</div>
-    </div>
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-ideation" aria-label="Open Ideation section">
-      <div class="hero-card-label">Criterion C · 6 marks</div>
-      <div class="hero-card-title">Ideation</div>
-    </div>
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-design" aria-label="Open Design section">
-      <div class="hero-card-label">Criterion D · 6 marks</div>
-      <div class="hero-card-title">Design</div>
-    </div>
-    <div class="hero-card" role="listitem" tabindex="0" data-target="sec-present" aria-label="Open Present section">
-      <div class="hero-card-label">Criterion E · 6 marks</div>
-      <div class="hero-card-title">Present</div>
-    </div>
-  </div>
+  <h1>Design Tech<br>IA Guide</h1>
+  <p class="hero-sub">A practical reference for the 50-hour design project (40% of final grade). Use this guide with your teacher's advice and official IB documentation.</p>
+  <nav class="hero-nav" aria-label="Page sections">
+    <a href="#sec-overview">Overview</a>
+    <a href="#sec-empathize">Empathize</a>
+    <a href="#sec-define">Define</a>
+    <a href="#sec-ideation">Ideation</a>
+    <a href="#sec-design">Design</a>
+    <a href="#sec-present">Present</a>
+  </nav>
 </header>
 
-<!-- ── MAIN ──────────────────────────────────────────────────── -->
+<!-- ── MAIN ────────────────────────────────────────────── -->
 <main id="main-content">
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: OVERVIEW
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-overview">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-overview">
-      <div class="section-trigger-left">
-        <span class="section-badge">Start Here</span>
-        <span class="section-trigger-title">Overview</span>
+  <!-- ══════════════ OVERVIEW ══════════════ -->
+  <div class="content-section" id="sec-overview">
+    <div class="section-header">
+      <span class="section-badge">Start Here</span>
+      <h2>Overview</h2>
+    </div>
+    <p class="section-intro">
+      The Internal Assessment is a 50-hour design project. You identify a real user's problem with an existing product, research the context, generate and test ideas, and present a redesigned solution. It is worth <strong>40% of your final DP grade</strong>.
+    </p>
+
+    <h4>The Five Criteria</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Name</th>
+            <th>Marks</th>
+            <th>What You Show</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>Empathize</td><td class="marks-cell">9</td><td>Research into the user, task, and existing products</td></tr>
+          <tr><td><strong>B</strong></td><td>Define</td><td class="marks-cell">6</td><td>A precise problem statement and testable specification</td></tr>
+          <tr><td><strong>C</strong></td><td>Ideation</td><td class="marks-cell">6</td><td>Three distinct design ideas, evaluated against the spec</td></tr>
+          <tr><td><strong>D</strong></td><td>Design</td><td class="marks-cell">6</td><td>Iterative prototypes and formal technical drawings</td></tr>
+          <tr><td><strong>E</strong></td><td>Present</td><td class="marks-cell">6</td><td>Final solution compared directly to the original product</td></tr>
+          <tr><td colspan="2"><strong>Total</strong></td><td class="marks-cell"><strong>33</strong></td><td>Digital portfolio, max 35 A4 pages</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Key Rules</h4>
+    <div class="rules-list">
+      <div class="rule-item">
+        <div class="rule-icon">📄</div>
+        <div>Maximum <strong>35 A4 pages</strong>. The examiner stops reading after page 35.</div>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-overview">
-      <div class="section-content">
-
-        <p>The Internal Assessment (IA) is a design portfolio showing your complete process: understanding a user problem, defining requirements, generating and testing ideas, and presenting a final redesign. You work for approximately 50 hours. It is worth <strong>40% of your final DP grade</strong>.</p>
-
-        <h3>The Five Criteria at a Glance</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Criterion</th>
-                <th>Name</th>
-                <th>Marks</th>
-                <th>What You Are Showing</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>A</strong></td>
-                <td>Empathize</td>
-                <td class="marks-cell">9</td>
-                <td>Research into the user, context, and existing products</td>
-              </tr>
-              <tr>
-                <td><strong>B</strong></td>
-                <td>Define</td>
-                <td class="marks-cell">6</td>
-                <td>A clear problem statement and a testable design specification</td>
-              </tr>
-              <tr>
-                <td><strong>C</strong></td>
-                <td>Ideation</td>
-                <td class="marks-cell">6</td>
-                <td>Three distinct design directions, evaluated against your specification</td>
-              </tr>
-              <tr>
-                <td><strong>D</strong></td>
-                <td>Design</td>
-                <td class="marks-cell">6</td>
-                <td>Iterative models/prototypes and formal technical drawings</td>
-              </tr>
-              <tr>
-                <td><strong>E</strong></td>
-                <td>Present</td>
-                <td class="marks-cell">6</td>
-                <td>Final solution compared directly to the original product</td>
-              </tr>
-              <tr>
-                <td colspan="2"><strong>Total</strong></td>
-                <td class="marks-cell"><strong>33</strong></td>
-                <td>Submitted as a digital portfolio</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Key Rules You Must Follow</h3>
-        <div class="rules-grid">
-          <div class="rule-item">
-            <div class="rule-icon">📄</div>
-            <div>Maximum <strong>35 A4 pages</strong>. Examiners stop reading after page 35.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">✏️</div>
-            <div>Annotations are limited to <strong>10 words each</strong>. Annotations over 10 words count toward your word limit.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">✍️</div>
-            <div>Handwritten annotations must be <strong>clear and legible</strong>, equivalent to Arial 11pt.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">🔢</div>
-            <div>Maximum <strong>3,500 words</strong>. This applies to body text, not annotations under 10 words.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">🚫</div>
-            <div><strong>No appendices.</strong> Examiners will not read them. Include everything in the main 35 pages.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">🔁</div>
-            <div>You must <strong>redesign an existing product</strong>, not invent a completely new one.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">👤</div>
-            <div>The redesign must address the needs of a <strong>real, named intended user</strong>.</div>
-          </div>
-          <div class="rule-item">
-            <div class="rule-icon">📚</div>
-            <div>Use <strong>subject-specific vocabulary</strong> throughout (ergonomics, anthropometrics, biomechanics, etc.).</div>
-          </div>
-        </div>
-
-        <div class="callout callout-critical">
-          <div class="callout-title">⚠ Critical Rule — Redesign, Do Not Invent</div>
-          <p>You must <strong>redesign an existing product</strong>. Do not invent a new product from scratch. The IB exemplar "FPV Drone Racing Tool" (Example 5) lost marks because the student tried to create a new multi-tool, instead of redesigning the tool bag that was the actual identified problem. Start with a product that already exists — your job is to improve it.</p>
-        </div>
-
-        <h3>Recommended Page Budget</h3>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Criterion</th>
-                <th>Recommended Pages</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>A — Empathize</td><td>~9 pages</td><td>Persona (2), Storyboard (3), Analysis (4)</td></tr>
-              <tr><td>B — Define</td><td>~4 pages</td><td>Problem Statement (1), Specification (3)</td></tr>
-              <tr><td>C — Ideation</td><td>~8 pages</td><td>Three ideas (6), Evaluation (2)</td></tr>
-              <tr><td>D — Design</td><td>~10 pages</td><td>Models/Iteration (6), Technical drawings (4)</td></tr>
-              <tr><td>E — Present</td><td>~4 pages</td><td>Solution (2), Comparison (2)</td></tr>
-              <tr><td><strong>Total</strong></td><td><strong>~35 pages</strong></td><td>Do not exceed this limit</td></tr>
-            </tbody>
-          </table>
-        </div>
-
+      <div class="rule-item">
+        <div class="rule-icon">✏️</div>
+        <div>Annotations <strong>10 words max</strong> each. Longer annotations count toward the word limit.</div>
       </div>
+      <div class="rule-item">
+        <div class="rule-icon">🔢</div>
+        <div>Maximum <strong>3,500 words</strong> total body text (annotations under 10 words excluded).</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🚫</div>
+        <div><strong>No appendices.</strong> Include everything in the main 35 pages.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">🔁</div>
+        <div>You must <strong>redesign an existing product</strong>. Do not invent a new one.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">👤</div>
+        <div>The redesign must address the needs of a <strong>real, named user</strong> you have observed and interviewed.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">✍️</div>
+        <div>Handwritten annotations must be legible, equivalent to <strong>Arial 11pt</strong>.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-icon">📚</div>
+        <div>Use <strong>subject-specific vocabulary</strong>: ergonomics, anthropometrics, biomechanics, percentiles, usability.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-critical">
+      <div class="callout-title">Critical Rule — Redesign, Do Not Invent</div>
+      <p>You must redesign a product that already exists. The IB exemplar "FPV Drone Racing Tool" (Example 5) lost marks because the student tried to create a new multi-tool rather than redesigning the tool bag that was the actual identified problem. Start with an existing product — your job is to improve it for your user.</p>
+    </div>
+
+    <h4>Page Budget</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Criterion</th><th>Recommended Pages</th><th>Content Breakdown</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A — Empathize</td><td>~9</td><td>Persona (2), Storyboard (3), Product Analysis (4)</td></tr>
+          <tr><td>B — Define</td><td>~4</td><td>Problem Statement (1), Specification (3)</td></tr>
+          <tr><td>C — Ideation</td><td>~8</td><td>Three ideas (6), Evaluation Matrix (2)</td></tr>
+          <tr><td>D — Design</td><td>~10</td><td>Iteration log (6), Technical Drawings (4)</td></tr>
+          <tr><td>E — Present</td><td>~4</td><td>Final Solution (2), Comparison (2)</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>~35</strong></td><td>Do not exceed</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
+  <!-- ══════════════ EMPATHIZE ══════════════ -->
+  <div class="content-section" id="sec-empathize">
+    <div class="section-header">
+      <span class="section-badge">Criterion A</span>
+      <h2>Empathize</h2>
+      <span class="marks-badge">9 marks</span>
+    </div>
+    <p class="section-intro">
+      This is the foundation. You research a real user, analyze the specific task where the product fails, and evaluate existing products. Everything in later criteria connects back to what you find here.
+    </p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: EMPATHIZE
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-empathize">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-empathize">
-      <div class="section-trigger-left">
-        <span class="section-badge">Criterion A · 9 Marks</span>
-        <span class="section-trigger-title">Empathize</span>
+    <h4>Three Strands</h4>
+    <div class="strand-summary">
+      <div class="strand-card">
+        <h4><span class="num">1</span> Primary Persona <span class="page-reco">~2 pages</span></h4>
+        <p>A detailed profile of your real user, based on observation and interview, including human factors data.</p>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-empathize">
-      <div class="section-content">
+      <div class="strand-card">
+        <h4><span class="num">2</span> Storyboard <span class="page-reco">~3 pages</span></h4>
+        <p>Step-by-step visual breakdown of the specific task where the existing product fails your user.</p>
+      </div>
+      <div class="strand-card">
+        <h4><span class="num">3</span> Product Analysis <span class="page-reco">~4 pages</span></h4>
+        <p>Critical evaluation of 4–6 existing products using formal design principles and human factors.</p>
+      </div>
+    </div>
 
-        <p>Criterion A is the foundation of the entire project. Here you research the real user, analyze the context of use, and examine existing products. All later criteria must connect back to what you find here.</p>
+    <h4>Mark Scheme</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead><tr><th>Band</th><th>What This Looks Like</th></tr></thead>
+        <tbody>
+          <tr><td>1–3</td><td>Basic research with limited connection to the user or the existing product.</td></tr>
+          <tr><td>4–6</td><td>Research identifies a problem but lacks depth in human factors or critical product analysis.</td></tr>
+          <tr><td>7–9</td><td>Thorough, user-centred research across all three strands. Human factors (anthropometrics, biomechanics, ergonomics) used. Product analysis is critical and specific. All findings connect to the user's problem.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        <h3>Three Strands</h3>
-        <div class="strand-list">
-          <div class="strand-item">
-            <span class="strand-num">1</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Primary Persona <span class="page-reco">~2 pages</span></div>
-              <div class="strand-item-desc">A detailed profile of your real intended user, based on observation and interview.</div>
-            </div>
-          </div>
-          <div class="strand-item">
-            <span class="strand-num">2</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Storyboard <span class="page-reco">~3 pages</span></div>
-              <div class="strand-item-desc">A step-by-step visual breakdown of the specific task where the existing product fails the user.</div>
-            </div>
-          </div>
-          <div class="strand-item">
-            <span class="strand-num">3</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Existing Product Analysis <span class="page-reco">~4 pages · 4–6 products</span></div>
-              <div class="strand-item-desc">Analysis of 4–6 existing products using formal design principles and human factors.</div>
-            </div>
-          </div>
+    <div class="strand-nav">
+      <a href="#sub-persona"><span class="strand-num">1</span> Persona</a>
+      <a href="#sub-storyboard"><span class="strand-num">2</span> Storyboard</a>
+      <a href="#sub-analysis"><span class="strand-num">3</span> Product Analysis</a>
+    </div>
+
+    <!-- PERSONA -->
+    <div class="sub-section" id="sub-persona">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-persona-body">
+        <div class="sub-trigger-left">
+          <h3>Primary Persona</h3>
+          <span class="page-reco">~2 pages</span>
         </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-persona-body">
+        <p>The persona is a profile of <strong>one real person</strong> — not an imaginary character. You should observe and interview this person while they use the existing product. Photographs of them using the product are expected.</p>
+        <p>Include: who the person is, what they want to achieve, what specifically frustrates them about the existing product, and the physical and environmental context of use. Include anthropometric data (measurements, percentile ranges) and ergonomic considerations.</p>
 
-        <h3>Mark Scheme</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Marks</th><th>What the Examiner Is Looking For</th></tr></thead>
-            <tbody>
-              <tr class="mark-row-0"><td>0</td><td>No work submitted, or work that does not meet the level 1 descriptor.</td></tr>
-              <tr><td>1–3</td><td>Basic research with limited connection to the user or the existing product.</td></tr>
-              <tr><td>4–6</td><td>Research that identifies a problem but lacks depth in human factors analysis or product critique.</td></tr>
-              <tr class="mark-row-top"><td>7–9</td><td>Thorough, user-centred research across all three strands. Human factors (anthropometrics, biomechanics, ergonomics) are used. Existing product analysis is critical and specific. All findings directly connect to the user's problem.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- SUB-SECTION: PERSONA -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-persona">
-            <div class="sub-trigger-title">
-              <span class="strand-num">1</span>
-              Primary Persona
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-persona">
-            <div class="sub-content">
-              <p>The persona is a detailed profile of <strong>one real person</strong> — not an imaginary character. You should observe and interview this person while they use the existing product. Photographs of them using the product are expected.</p>
-              <p>The persona must show: who the person is, what they want to achieve, what specifically frustrates them about the existing product, and the physical or environmental context of use.</p>
-
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Persona Outline — Copy This Structure</h4>
-                  <button class="copy-btn" data-copy-target="copy-persona">Copy Text</button>
-                </div>
-                <pre id="copy-persona">[NAME OF PERSONA]
-- Photo/s of the person using the existing product
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Persona Outline — Copy This Structure</h4>
+            <button class="copy-btn" data-copy-target="copy-persona">Copy Text</button>
+          </div>
+          <pre id="copy-persona">[NAME OF PERSONA]
+- Photographs of the person using the existing product
 - Age:
 - Occupation:
 - Location:
@@ -933,8 +883,8 @@ GOALS
 - [Be specific to the task your product addresses]
 
 FRUSTRATIONS
-- [What specifically annoys or limits them about the existing product?]
-- [Use direct quotes from your interview if possible]
+- [What specifically limits them about the existing product?]
+- [Use direct quotes from your interview]
 
 MOTIVATIONS
 - [Why do they care about solving this problem?]
@@ -944,130 +894,125 @@ CONTEXT OF USE
 - [What is their environment like?]
 
 HUMAN FACTORS
-- Relevant anthropometric data (e.g., hand dimensions, percentile range)
-- Relevant biomechanical considerations (e.g., grip force, reach range)
-- Ergonomic requirements (e.g., posture, repetitive strain risk)</pre>
-              </div>
-
-              <div class="callout callout-success">
-                <div class="callout-title">What Success Looks Like</div>
-                <p>The Prosthetics project scored 8/9 on Criterion A. The persona interview revealed a specific, measurable goal: <em>"The hand can move like it did before 80–90%."</em> This specific target gave the student a clear, testable specification to work toward in Criteria B and D.</p>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>The persona is fictional or based on a general stereotype rather than a real, interviewed person.</li>
-                  <li>The frustrations are general ("it is uncomfortable") rather than specific to a particular moment of product use.</li>
-                  <li>No connection is made between the persona's frustrations and the design of the existing product.</li>
-                  <li>No photographs of the real user with the real product are included.</li>
-                  <li>Human factors (anthropometrics, biomechanics) are completely absent.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+- Relevant anthropometric data (hand dimensions, percentile range)
+- Relevant biomechanical considerations (grip force, reach range)
+- Ergonomic requirements (posture, repetitive strain risk)</pre>
         </div>
 
-        <!-- SUB-SECTION: STORYBOARD -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-storyboard">
-            <div class="sub-trigger-title">
-              <span class="strand-num">2</span>
-              Storyboard
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-storyboard">
-            <div class="sub-content">
-              <p>The storyboard is a <strong>step-by-step visual analysis</strong> of the specific task where the existing product fails. It is not a general story about the user's life. It is a close analysis of one particular moment of failure or frustration.</p>
-              <p>Each frame should show one step in the task sequence. Annotations should explain what is happening and <em>why it is a problem</em>. The final frames should make clear what the consequence of the failure is for the user.</p>
+        <div class="callout callout-success">
+          <div class="callout-title">What Success Looks Like</div>
+          <p>The Prosthetics project scored 8/9 on Criterion A. The persona interview revealed a specific, measurable goal: <em>"The hand can move like it did before 80–90%."</em> This gave the student a clear target to test against in later criteria.</p>
+        </div>
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Storyboard Frame Structure — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-storyboard">Copy Text</button>
-                </div>
-                <pre id="copy-storyboard">STORYBOARD: [Task Name]
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>The persona is fictional or based on a stereotype rather than a real, interviewed person.</li>
+            <li>Frustrations are vague ("it is uncomfortable") rather than specific to a moment of product use.</li>
+            <li>No connection between the persona's frustrations and the design of the existing product.</li>
+            <li>No photographs of the real user with the real product.</li>
+            <li>Human factors (anthropometrics, biomechanics) are completely absent.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORYBOARD -->
+    <div class="sub-section" id="sub-storyboard">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-storyboard-body">
+        <div class="sub-trigger-left">
+          <h3>Storyboard</h3>
+          <span class="page-reco">~3 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-storyboard-body">
+        <p>The storyboard is a <strong>step-by-step visual analysis</strong> of one specific task where the existing product fails. Each frame shows one step in the task sequence. The final frames should make clear what the consequence of the failure is.</p>
+        <p>This is not a general story about the user's day. It is a close analysis of one moment of failure. Annotations must explain what is happening and <em>why it is a problem</em>.</p>
+
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Storyboard Frame Structure — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-storyboard">Copy Text</button>
+          </div>
+          <pre id="copy-storyboard">STORYBOARD: [Name of Task]
 Persona: [Name from your persona]
-Existing Product: [Product name and model if known]
+Existing Product: [Product name]
 
-FRAME 1: [Title of step]
-- Visual: [What is shown — drawing or photo]
-- Annotation: [What is happening and why it is a problem]
+FRAME 1: [Step title]
+- Visual: [What is shown — photograph or drawing]
+- Annotation: [What happens and why it is a problem]
 
-FRAME 2: [Title of step]
+FRAME 2: [Step title]
 - Visual: [What is shown]
 - Annotation: [Key action or difficulty at this step]
 
-FRAME 3: [Title of step — the moment of failure]
-- Visual: [The specific point where the product fails]
-- Annotation: [What goes wrong and what the consequence is for the user]
+FRAME 3: [Step title — the moment of failure]
+- Visual: [Specific point where the product fails the user]
+- Annotation: [What goes wrong and the consequence]
 
-FRAME 4–6: [Continue breaking down the task]
+FRAME 4–6: [Continue the task sequence]
 
 CONCLUSION FRAME:
 - What the user cannot do, or what takes too long / causes pain
 - Connection to: which design specification points this will generate</pre>
-              </div>
-
-              <div class="callout callout-success">
-                <div class="callout-title">What Success Looks Like</div>
-                <p>The Prosthetics project storyboard focused narrowly on a single failing task: braking a bicycle. Each frame showed one specific moment in that task. This gave the examiner a clear understanding of the precise problem to be solved.</p>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>The storyboard shows a general lifestyle (e.g., "refugee daily life") instead of analyzing one specific task step-by-step.</li>
-                  <li>The Math Play Set project scored only 4/9 because its storyboard showed general difficulties rather than a detailed task analysis. Do not make this mistake.</li>
-                  <li>Frames show what the user does, but do not explain why each step is a problem with the existing product.</li>
-                  <li>The storyboard uses only photographs without analytical annotations — annotations are required.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- SUB-SECTION: PRODUCT ANALYSIS -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-analysis">
-            <div class="sub-trigger-title">
-              <span class="strand-num">3</span>
-              Existing Product Analysis
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-analysis">
-            <div class="sub-content">
-              <p>Analyze <strong>4–6 existing products</strong> in this category. This should include the product your persona already uses, plus competing or related products. Your analysis should be critical — find both strengths and weaknesses.</p>
-              <p>Use formal design terminology: function, aesthetics, ergonomics, materials, sustainability, safety, cultural considerations, inclusivity, anthropometrics. Do not just describe what you see — evaluate and justify your assessment.</p>
+        <div class="callout callout-success">
+          <div class="callout-title">What Success Looks Like</div>
+          <p>The Prosthetics project storyboard focused narrowly on one failing task: braking a bicycle. Each frame showed one specific moment. The examiner understood the precise problem immediately.</p>
+        </div>
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Product Analysis Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-analysis">Copy Text</button>
-                </div>
-                <pre id="copy-analysis">PRODUCT ANALYSIS — Product [#]
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>The storyboard shows a general lifestyle rather than analyzing one specific task step-by-step.</li>
+            <li>The Math Play Set project scored only 4/9 because its storyboard showed general difficulties of refugee life, not a detailed task analysis of the maths education problem.</li>
+            <li>Frames show what the user does without explaining why each step is a problem.</li>
+            <li>Photographs without analytical annotations — annotations are required.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT ANALYSIS -->
+    <div class="sub-section" id="sub-analysis">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-analysis-body">
+        <div class="sub-trigger-left">
+          <h3>Existing Product Analysis</h3>
+          <span class="page-reco">~4 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-analysis-body">
+        <p>Analyze <strong>4–6 existing products</strong>. Include the product your persona uses, plus competing products. Be critical — find both strengths and weaknesses. Use formal design terminology: function, aesthetics, ergonomics, materials, sustainability, safety, inclusivity, anthropometrics.</p>
+
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Product Analysis Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-analysis">Copy Text</button>
+          </div>
+          <pre id="copy-analysis">PRODUCT ANALYSIS — Product [#]
 Product name:
 Manufacturer:
-Image/annotated photograph:
+[Annotated photograph]
 
 FUNCTION
 - Primary function:
-- How well does it achieve this function for your persona?
+- How well does it achieve this for your persona?
 
 ERGONOMICS & ANTHROPOMETRICS
-- How does the design relate to the user's body dimensions?
-- Relevant percentile data (e.g., 5th–95th percentile hand width):
-- What postures or movements does it require? Are these comfortable?
+- How does the design relate to the user's body?
+- Relevant percentile data:
+- Required postures or movements — comfortable?
 
 MATERIALS
-- Primary materials and why they were chosen:
-- Durability, weight, and safety considerations:
+- Primary materials and rationale:
+- Durability, weight, safety:
 
 AESTHETICS
 - Visual language, colour, finish:
-- Is the aesthetic appropriate for the intended user and context?
+- Appropriate for the user and context?
 
 SUSTAINABILITY
 - Manufacturing process considerations:
@@ -1081,687 +1026,603 @@ WEAKNESSES (for your persona)
 -
 -
 
-WHAT THIS TELLS YOU FOR YOUR DESIGN
-- What feature will you keep or improve?
-- What problem does this product fail to solve?</pre>
-              </div>
-
-              <div class="callout callout-success">
-                <div class="callout-title">What Success Looks Like</div>
-                <p>Strong product analysis connects each product's weakness directly to the user's frustrations identified in the persona. Each product teaches you something specific that will influence your design specification in Criterion B.</p>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Analyzing only 3 products — the guide recommends 4–6.</li>
-                  <li>Analysis that only describes the product without evaluating it critically.</li>
-                  <li>No connection between the products analyzed and the persona's specific needs.</li>
-                  <li>Human factors (anthropometrics, biomechanics, percentile data) are completely missing.</li>
-                  <li>Only the product the persona uses is analyzed — you must look at competing products too.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+WHAT THIS MEANS FOR YOUR DESIGN
+- Feature to keep or improve:
+- Problem this product fails to solve:</pre>
         </div>
 
+        <div class="callout callout-success">
+          <div class="callout-title">What Success Looks Like</div>
+          <p>Strong product analysis connects each product's weakness directly to the user's frustrations from the persona. Each product teaches you something that will appear in your design specification.</p>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Analyzing only 3 products — the guide recommends 4–6.</li>
+            <li>Analysis that only describes products without evaluating them critically.</li>
+            <li>No connection between the products analyzed and the persona's specific needs.</li>
+            <li>Human factors (anthropometrics, biomechanics, percentile data) are missing.</li>
+            <li>Only the product the persona uses is analyzed — competing products must be included too.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ══════════════ DEFINE ══════════════ -->
+  <div class="content-section" id="sec-define">
+    <div class="section-header">
+      <span class="section-badge">Criterion B</span>
+      <h2>Define</h2>
+      <span class="marks-badge">6 marks</span>
+    </div>
+    <p class="section-intro">
+      Criterion B converts your research into a precise, testable plan. It has two parts: a focused problem statement, and a design specification where every requirement is justified by evidence from Criterion A.
+    </p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: DEFINE
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-define">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-define">
-      <div class="section-trigger-left">
-        <span class="section-badge">Criterion B · 6 Marks</span>
-        <span class="section-trigger-title">Define</span>
+    <h4>Two Strands</h4>
+    <div class="strand-summary">
+      <div class="strand-card">
+        <h4><span class="num">1</span> Problem Statement <span class="page-reco">~1 page</span></h4>
+        <p>A concise, specific description focused on one user and one product.</p>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-define">
-      <div class="section-content">
+      <div class="strand-card">
+        <h4><span class="num">2</span> Design Specification <span class="page-reco">~3 pages</span></h4>
+        <p>A table of specific, measurable requirements, each justified by evidence from Criterion A.</p>
+      </div>
+    </div>
 
-        <p>Criterion B converts your research into a precise, testable document. It has two parts: a short problem statement that summarizes the design challenge, and a design specification that lists all the requirements your redesign must meet.</p>
+    <h4>Mark Scheme</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead><tr><th>Band</th><th>What This Looks Like</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>A problem statement exists but is vague. Specifications are general wishes, not testable requirements.</td></tr>
+          <tr><td>3–4</td><td>A reasonable problem statement. Most specification points are reasonable but some lack justification or measurable targets.</td></tr>
+          <tr><td>5–6</td><td>A precise problem statement. Every specification point is measurable and fully justified by evidence from Criterion A. The specification is clearly a test plan for the solution.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        <h3>Two Strands</h3>
-        <div class="strand-list">
-          <div class="strand-item">
-            <span class="strand-num">1</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Problem Statement <span class="page-reco">~1 page</span></div>
-              <div class="strand-item-desc">A concise, specific description of the problem your redesign will solve, focused on one user and one product.</div>
-            </div>
+    <div class="strand-nav">
+      <a href="#sub-problem"><span class="strand-num">1</span> Problem Statement</a>
+      <a href="#sub-spec"><span class="strand-num">2</span> Design Specification</a>
+    </div>
+
+    <!-- PROBLEM STATEMENT -->
+    <div class="sub-section" id="sub-problem">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-problem-body">
+        <div class="sub-trigger-left">
+          <h3>Problem Statement</h3>
+          <span class="page-reco">~1 page</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-problem-body">
+        <p>The problem statement is a focused paragraph. It names your user, names the existing product, and states the specific problem that prevents the user from achieving their goal. It should not describe a global issue or a general category of problems.</p>
+
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Problem Statement Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-problem">Copy Text</button>
           </div>
-          <div class="strand-item">
-            <span class="strand-num">2</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Design Specification <span class="page-reco">~3 pages</span></div>
-              <div class="strand-item-desc">A table of specific, measurable requirements each justified by evidence from Criterion A.</div>
-            </div>
-          </div>
+          <pre id="copy-problem">[Persona name], a [describe user in one phrase], currently uses [name of existing product] to [describe the task].
+
+However, [existing product] fails to [specific limitation], which means that [persona name] cannot [specific goal from persona] without [specific difficulty or consequence].
+
+This project will redesign [existing product] to address [specific problem], so that [persona name] can [specific user goal from persona].
+
+The redesigned product must meet the design specification that follows.</pre>
         </div>
 
-        <h3>Mark Scheme</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Marks</th><th>What the Examiner Is Looking For</th></tr></thead>
-            <tbody>
-              <tr class="mark-row-0"><td>0</td><td>No work submitted.</td></tr>
-              <tr><td>1–2</td><td>A problem statement exists but is vague. Specification points are general wishes, not testable requirements.</td></tr>
-              <tr><td>3–4</td><td>A reasonable problem statement. Most specification points are reasonable but some lack justification or measurable targets.</td></tr>
-              <tr class="mark-row-top"><td>5–6</td><td>A precise problem statement focused on one user and one existing product. Every specification point is measurable and fully justified by evidence from Criterion A. The specification is clearly a test plan for the final solution, not a wish list.</td></tr>
-            </tbody>
-          </table>
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>The problem statement describes a large social issue rather than focusing on one user and one product.</li>
+            <li>The existing product is not named.</li>
+            <li>The statement introduces the solution before the specification has been written.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN SPECIFICATION -->
+    <div class="sub-section" id="sub-spec">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-spec-body">
+        <div class="sub-trigger-left">
+          <h3>Design Specification</h3>
+          <span class="page-reco">~3 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-spec-body">
+        <p>Each specification point must be <strong>specific</strong> (not vague), <strong>measurable</strong> (testable later), and <strong>justified</strong> (traced to evidence from Criterion A).</p>
+
+        <div class="callout callout-critical">
+          <div class="callout-title">Critical Insight — Trowel Project Commentary</div>
+          <p>The IB Trowel project commentary specifically criticized specifications that referenced "boarding houses and aesthetics" without evidence from Criterion A. Every specification point must trace back to something you found in your research. If you cannot find a source in Criterion A for a specification point, remove it.</p>
         </div>
 
-        <!-- SUB: PROBLEM STATEMENT -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-problem">
-            <div class="sub-trigger-title">
-              <span class="strand-num">1</span>
-              Problem Statement
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-problem">
-            <div class="sub-content">
-              <p>The problem statement is a short, focused paragraph. It should name your user, name the existing product, and state the specific problem that prevents the user from achieving their goal. It should not describe a global issue or a general category of problems.</p>
-
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Problem Statement Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-problem">Copy Text</button>
-                </div>
-                <pre id="copy-problem">[Persona name], a [describe user in one phrase], currently uses [name of existing product] to [describe the task].
-
-However, [name of existing product] fails to [specific limitation], which means that [persona name] cannot [specific goal from persona] without [specific difficulty or consequence].
-
-This project will redesign [name of existing product] to address [specific problem], so that [persona name] can [specific user goal from persona].
-
-The redesigned product must meet the following design specification.</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>The problem statement describes a large social issue (e.g., "millions of people worldwide suffer from...") instead of focusing on one user and one product.</li>
-                  <li>The statement does not name the existing product that will be redesigned.</li>
-                  <li>The statement introduces the solution before the specification has been written.</li>
-                </ul>
-              </div>
-            </div>
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Design Specification Table — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-spec">Copy Text</button>
           </div>
+          <pre id="copy-spec">DESIGN SPECIFICATION
+
+# | Requirement | Justification | Source (Criterion A) | Priority
+--|-------------|---------------|----------------------|----------
+1 | [What the product must do or be. Include measurable targets.] | [Why is this needed? What did your research show?] | [Persona / Storyboard / Product analysis] | Essential
+2 | [e.g., Handle diameter 32–38mm to suit 5th–95th percentile female hand width.] | [Persona interview: grip fatigue reported. Product analysis: handle is 28mm — below 5th percentile.] | Persona + Product 1 | Essential
+3 | [e.g., Product must be operated with one hand only.] | [Storyboard frame 3 showed user's other hand is occupied.] | Storyboard, Frame 3 | Essential
+4 | [A desirable (not essential) feature] | [Supporting evidence] | [Source] | Desirable
+
+"Essential" = design fails if not met.
+"Desirable" = improves design but absence does not cause failure.</pre>
         </div>
 
-        <!-- SUB: DESIGN SPECIFICATION -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-spec">
-            <div class="sub-trigger-title">
-              <span class="strand-num">2</span>
-              Design Specification
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-spec">
-            <div class="sub-content">
-              <p>The design specification is a structured table of requirements. Each requirement must be:</p>
-              <ul>
-                <li><strong>Specific</strong> — not vague. "The grip diameter must be between 30mm and 40mm" is good. "It must be comfortable" is not.</li>
-                <li><strong>Measurable</strong> — you must be able to test whether the final design meets this requirement.</li>
-                <li><strong>Justified</strong> — each requirement must link to evidence from Criterion A (persona interview, storyboard finding, or product analysis).</li>
-              </ul>
-
-              <div class="callout callout-critical">
-                <div class="callout-title">⚠ Critical Insight — Trowel Project Commentary</div>
-                <p>The IB Trowel project commentary specifically criticized specifications that referenced "boarding houses and aesthetics" without any supporting evidence from Criterion A. Every specification point must trace back to something you found in your research. If you cannot find a source in Criterion A, do not include that specification point.</p>
-              </div>
-
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Design Specification Table Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-spec">Copy Text</button>
-                </div>
-                <pre id="copy-spec">DESIGN SPECIFICATION
-
-Spec # | Requirement | Justification | Source (Criterion A) | Priority
--------|-------------|---------------|----------------------|----------
-1      | [What the product must do or be. Include measurable targets where possible.] | [Why is this required? What did your research show?] | [Persona / Storyboard frame # / Product analysis #] | Essential
-
-2      | [e.g., The handle diameter must be between 32mm and 38mm to suit the 5th–95th percentile female hand width.] | [Persona interview: user reported grip fatigue. Product analysis showed handle is 28mm — below 5th percentile range.] | Persona + Product 1 analysis | Essential
-
-3      | [e.g., The product must be operated using one hand only.] | [Storyboard frame 3: user's other hand is occupied with the bike brake lever.] | Storyboard, Frame 3 | Essential
-
-4      | [A desirable feature] | [Supporting evidence] | [Source] | Desirable
-
-Note: "Essential" means the final design fails if this is not met. "Desirable" means it would improve the design but is not a failure if absent.</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Specifications are a general wish list ("it should look good", "it should be safe") with no measurable targets.</li>
-                  <li>No column for the source in Criterion A — making it impossible to verify the justification.</li>
-                  <li>All specifications are marked "Essential" when some are clearly preferences.</li>
-                  <li>Specifications are not tested against in Criterion C or Criterion E — making them useless as a test plan.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Specifications are a wish list ("it should be comfortable") with no measurable targets.</li>
+            <li>No column linking each specification to its source in Criterion A.</li>
+            <li>All specifications marked "Essential" when some are clearly preferences.</li>
+            <li>Specifications are not actually tested against in Criteria C or E.</li>
+          </ul>
         </div>
-
       </div>
     </div>
   </div>
 
+  <!-- ══════════════ IDEATION ══════════════ -->
+  <div class="content-section" id="sec-ideation">
+    <div class="section-header">
+      <span class="section-badge">Criterion C</span>
+      <h2>Ideation</h2>
+      <span class="marks-badge">6 marks</span>
+    </div>
+    <p class="section-intro">
+      Generate three genuinely different design directions, then evaluate all three against your specification using a structured matrix. The goal is to show you explored options before committing to one.
+    </p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: IDEATION
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-ideation">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-ideation">
-      <div class="section-trigger-left">
-        <span class="section-badge">Criterion C · 6 Marks</span>
-        <span class="section-trigger-title">Ideation</span>
+    <h4>Two Strands</h4>
+    <div class="strand-summary">
+      <div class="strand-card">
+        <h4><span class="num">1</span> Three Design Ideas <span class="page-reco">~6 pages</span></h4>
+        <p>Three distinct directions, each shown with annotated sketches or models.</p>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-ideation">
-      <div class="section-content">
+      <div class="strand-card">
+        <h4><span class="num">2</span> Evaluation Matrix <span class="page-reco">~2 pages</span></h4>
+        <p>Structured evaluation of all ideas against every specification point, with a clear final selection.</p>
+      </div>
+    </div>
 
-        <p>Criterion C requires you to generate <strong>three genuinely different design directions</strong> and then evaluate all three against your design specification. The goal is to show that you explored options before committing to one.</p>
+    <h4>Mark Scheme</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead><tr><th>Band</th><th>What This Looks Like</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Ideas are similar variations. Evaluation is personal opinion without reference to the specification.</td></tr>
+          <tr><td>3–4</td><td>Three reasonably distinct ideas. Partial evaluation against the specification but not all points tested.</td></tr>
+          <tr><td>5–6</td><td>Three genuinely distinct ideas. Structured matrix covers ALL ideas against EVERY specification point. Selected idea clearly identified and justified by evaluation evidence.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        <h3>Two Strands</h3>
-        <div class="strand-list">
-          <div class="strand-item">
-            <span class="strand-num">1</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Three Feasible Design Ideas <span class="page-reco">~6 pages · 1–2 pages each</span></div>
-              <div class="strand-item-desc">Three distinct design directions, each shown with annotated sketches or models and key features described.</div>
-            </div>
-          </div>
-          <div class="strand-item">
-            <span class="strand-num">2</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Evaluation Against Specification <span class="page-reco">~2 pages</span></div>
-              <div class="strand-item-desc">A structured evaluation (matrix or equivalent) testing all three ideas against every specification point, with a clear final selection and justification.</div>
-            </div>
-          </div>
+    <div class="strand-nav">
+      <a href="#sub-ideas"><span class="strand-num">1</span> Three Ideas</a>
+      <a href="#sub-matrix"><span class="strand-num">2</span> Evaluation Matrix</a>
+    </div>
+
+    <!-- THREE IDEAS -->
+    <div class="sub-section" id="sub-ideas">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-ideas-body">
+        <div class="sub-trigger-left">
+          <h3>Presenting Three Ideas</h3>
+          <span class="page-reco">~6 pages · 1–2 pages each</span>
         </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-ideas-body">
+        <p>Each idea must be a genuinely different approach — different mechanism, material, configuration, or interaction method. Not just the same idea with a different colour or shape.</p>
 
-        <h3>Mark Scheme</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Marks</th><th>What the Examiner Is Looking For</th></tr></thead>
-            <tbody>
-              <tr class="mark-row-0"><td>0</td><td>No work submitted.</td></tr>
-              <tr><td>1–2</td><td>Ideas presented but they are similar variations, or evaluation is personal opinion without reference to the specification.</td></tr>
-              <tr><td>3–4</td><td>Three reasonably distinct ideas. Partial evaluation against the specification but not all points tested.</td></tr>
-              <tr class="mark-row-top"><td>5–6</td><td>Three genuinely distinct ideas. A structured evaluation matrix covers ALL ideas against EVERY specification point. The selected idea is clearly identified and the selection is justified by the evaluation evidence.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- SUB: THREE IDEAS -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-ideas">
-            <div class="sub-trigger-title">
-              <span class="strand-num">1</span>
-              Presenting Three Ideas
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-ideas">
-            <div class="sub-content">
-              <p>Each idea must be genuinely different — not just the same solution with a different colour or a slightly different shape. Think about different approaches to solving the problem: different mechanisms, materials, configurations, or interaction methods.</p>
-
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Idea Presentation Template (for each of 3 ideas) — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-ideas">Copy Text</button>
-                </div>
-                <pre id="copy-ideas">DESIGN IDEA [#]: [Give the idea a descriptive name]
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Idea Presentation Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-ideas">Copy Text</button>
+          </div>
+          <pre id="copy-ideas">DESIGN IDEA [#]: [Give the idea a descriptive name]
 
 CONCEPT DESCRIPTION
-- In 2–3 sentences, describe the design approach and how it is different from the others.
+- [2–3 sentences describing the design approach and how it differs from the others]
 
 KEY FEATURES
-- Feature 1: [Describe and annotate]
-- Feature 2: [Describe and annotate]
-- Feature 3: [Describe and annotate]
+- Feature 1: [Describe and annotate on your drawing]
+- Feature 2: [Describe and annotate on your drawing]
+- Feature 3: [Describe and annotate on your drawing]
 
 HOW IT ADDRESSES THE PROBLEM
-- [Link back to a specific persona frustration or storyboard finding]
+- [Link to a specific persona frustration or storyboard finding]
 
-MATERIALS (proposed)
+PROPOSED MATERIALS
 - Primary material:
 - Why this material:
 
 INITIAL FEASIBILITY
-- Can this be made within the constraints of the project?
-- Any risks or difficulties with this approach?
+- Can this be made within your project constraints?
+- Any risks or difficulties?
 
-VISUAL REPRESENTATION
-- [Annotated sketches, drawings, or photographs of a quick model]</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Three ideas that are all the same concept with minor differences (e.g., three handles with different grip textures).</li>
-                  <li>Ideas that do not connect to the specification or persona frustrations.</li>
-                  <li>Sketches without annotations — the ideas must be explained, not just shown.</li>
-                  <li>Ideas that introduce completely new products not related to the original identified problem.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+[Annotated sketches, drawings, or photographs of a quick model]</pre>
         </div>
 
-        <!-- SUB: EVALUATION MATRIX -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-matrix">
-            <div class="sub-trigger-title">
-              <span class="strand-num">2</span>
-              Evaluation Matrix
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-matrix">
-            <div class="sub-content">
-              <div class="callout callout-success">
-                <div class="callout-title">Key Insight — Prosthetics Project (6/6)</div>
-                <p>The Prosthetics project earned full marks in Criterion C because it created a complete evaluation matrix covering ALL three ideas against EVERY specification point. It then stated clearly which idea was selected and provided a specific justification based on the matrix results — not on personal preference.</p>
-              </div>
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Three ideas that are the same concept with minor differences.</li>
+            <li>Ideas that do not connect to the specification or persona frustrations.</li>
+            <li>Sketches without annotations — the ideas must be explained, not just shown.</li>
+            <li>Ideas that introduce completely new products unrelated to the original problem.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-              <p>The evaluation matrix should test every idea against every specification point from Criterion B. Use a scale (e.g., ✓ = meets requirement, ~ = partially meets, ✗ = does not meet) or a score (0–2 or 0–5) for each cell. After the matrix, write a clear conclusion selecting one idea.</p>
+    <!-- EVALUATION MATRIX -->
+    <div class="sub-section" id="sub-matrix">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-matrix-body">
+        <div class="sub-trigger-left">
+          <h3>Evaluation Matrix</h3>
+          <span class="page-reco">~2 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-matrix-body">
+        <div class="callout callout-success">
+          <div class="callout-title">Key Insight — Prosthetics Project (6/6)</div>
+          <p>The Prosthetics project earned full marks in Criterion C by creating a complete evaluation matrix covering ALL three ideas against EVERY specification point, then stating clearly which idea was selected with specific justification from the matrix results — not personal preference.</p>
+        </div>
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Evaluation Matrix Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-matrix">Copy Text</button>
-                </div>
-                <pre id="copy-matrix">EVALUATION MATRIX
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Evaluation Matrix Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-matrix">Copy Text</button>
+          </div>
+          <pre id="copy-matrix">EVALUATION MATRIX
+Key: ✓ = meets specification   ~ = partially meets   ✗ = does not meet
 
-Spec # | Specification Point (abbreviated) | Idea 1 | Idea 2 | Idea 3
--------|-------------------------------------|--------|--------|--------
-1      | [e.g., One-hand operation]          |   ✓    |   ✓    |   ✗
-2      | [e.g., Handle diameter 32–38mm]     |   ✓    |   ~    |   ✓
-3      | [e.g., Operates in wet conditions]  |   ~    |   ✓    |   ✓
-4      | [e.g., Weight under 200g]           |   ✓    |   ✗    |   ✓
-5      | [Continue for ALL spec points]      |        |        |
-...
+Spec # | Specification (abbreviated) | Idea 1 | Idea 2 | Idea 3
+-------|-----------------------------|--------|--------|--------
+1      | [e.g., One-hand operation]  |   ✓    |   ✓    |   ✗
+2      | [e.g., Handle Ø 32–38mm]   |   ✓    |   ~    |   ✓
+3      | [Spec point]                |        |        |
+...    | [Continue for all spec points] |      |        |
 
-TOTALS:  ✓ = _ / _ | ✗ = _ / _  ||  ✓ = _ / _ | ✗ = _ / _ ||  ✓ = _ / _ | ✗ = _ / _
+TOTALS:  ✓__ ~__ ✗__    ✓__ ~__ ✗__    ✓__ ~__ ✗__
 
 SELECTION
 Selected idea: Idea [#] — [Name]
-Justification: [Explain using the matrix results. Which specification points does this idea best satisfy? Why was this more important than what the other ideas offered? Did you consult your persona/user in this decision?]</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Evaluation based on personal opinion ("I prefer Idea 2 because it looks nicer") rather than on the specification.</li>
-                  <li>Matrix that does not include all specification points — incomplete evaluation.</li>
-                  <li>No clear conclusion identifying which idea was selected.</li>
-                  <li>The selected idea does not match the matrix results — a contradiction that loses marks.</li>
-                  <li>No evidence that the user/persona was consulted during the evaluation.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+Justification: [Explain using the matrix results. Why does this idea best satisfy the most important specification points? Did you consult your user in this decision?]</pre>
         </div>
 
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Evaluation based on personal opinion ("I prefer Idea 2") rather than the specification.</li>
+            <li>Matrix does not include all specification points.</li>
+            <li>No clear conclusion identifying which idea was selected.</li>
+            <li>The selected idea contradicts the matrix results.</li>
+            <li>No evidence the user was consulted during evaluation.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ══════════════ DESIGN ══════════════ -->
+  <div class="content-section" id="sec-design">
+    <div class="section-header">
+      <span class="section-badge">Criterion D</span>
+      <h2>Design</h2>
+      <span class="marks-badge">6 marks</span>
+    </div>
+    <p class="section-intro">
+      Criterion D is about showing your <strong>development process</strong>. You document multiple models or prototypes, show what each test revealed, and demonstrate how you changed the design in response. Then you produce formal technical drawings.
+    </p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: DESIGN
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-design">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-design">
-      <div class="section-trigger-left">
-        <span class="section-badge">Criterion D · 6 Marks</span>
-        <span class="section-trigger-title">Design</span>
+    <h4>Two Strands</h4>
+    <div class="strand-summary">
+      <div class="strand-card">
+        <h4><span class="num">1</span> Iterative Models <span class="page-reco">~6 pages</span></h4>
+        <p>Multiple prototypes at increasing fidelity, each tested, results documented, changes made.</p>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-design">
-      <div class="section-content">
+      <div class="strand-card">
+        <h4><span class="num">2</span> Technical Drawings <span class="page-reco">~4 pages</span></h4>
+        <p>Formal orthographic, assembled, and exploded views with dimensions and Bill of Materials.</p>
+      </div>
+    </div>
 
-        <p>Criterion D is about showing your <strong>development process</strong>, not just a final product. You must show multiple models or prototypes, document what each test revealed, and show how you changed your design in response. Then you must produce formal technical drawings of your final design.</p>
+    <h4>Mark Scheme</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead><tr><th>Band</th><th>What This Looks Like</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>One prototype shown, or models without testing evidence. Technical drawings missing or incomplete.</td></tr>
+          <tr><td>3–4</td><td>Some iteration evident. Testing documented but changes between prototypes not clearly explained. Technical drawings partially complete.</td></tr>
+          <tr><td>5–6</td><td>Clear model–test–refine cycle across multiple prototypes. Each test result directly drives the next change. Testing involves the user. Technical drawings complete: orthographic, assembled, exploded, dimensions, Bill of Materials.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        <h3>Two Strands</h3>
-        <div class="strand-list">
-          <div class="strand-item">
-            <span class="strand-num">1</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Iterative Fidelity Models <span class="page-reco">~6 pages</span></div>
-              <div class="strand-item-desc">Multiple prototypes at increasing fidelity. Each must be tested, with the result documented and a change made for the next version.</div>
-            </div>
-          </div>
-          <div class="strand-item">
-            <span class="strand-num">2</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Technical Drawings <span class="page-reco">~4 pages</span></div>
-              <div class="strand-item-desc">Formal orthographic drawings, assembled and exploded views, with full dimensions and a Bill of Materials.</div>
-            </div>
-          </div>
+    <div class="strand-nav">
+      <a href="#sub-iteration"><span class="strand-num">1</span> Iteration</a>
+      <a href="#sub-drawings"><span class="strand-num">2</span> Technical Drawings</a>
+    </div>
+
+    <!-- ITERATION -->
+    <div class="sub-section" id="sub-iteration">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-iteration-body">
+        <div class="sub-trigger-left">
+          <h3>Iterative Models and Testing</h3>
+          <span class="page-reco">~6 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-iteration-body">
+        <div class="callout callout-success">
+          <div class="callout-title">Key Insight — Prosthetics Project</div>
+          <p>The Prosthetics project documented each prototype in a structured table: Prototype → Testing Result → How to Improve. This format makes iteration evidence clear and easy to follow.</p>
         </div>
 
-        <h3>Mark Scheme</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Marks</th><th>What the Examiner Is Looking For</th></tr></thead>
-            <tbody>
-              <tr class="mark-row-0"><td>0</td><td>No work submitted.</td></tr>
-              <tr><td>1–2</td><td>One prototype shown, or models shown without testing evidence. Technical drawings missing or very incomplete.</td></tr>
-              <tr><td>3–4</td><td>Some iteration evident. Testing documented but changes between prototypes are not clearly explained. Technical drawings partially complete.</td></tr>
-              <tr class="mark-row-top"><td>5–6</td><td>Clear model–test–refine cycle across multiple prototypes. Each test result directly drives the next change. Testing involves the user/persona. Technical drawings are complete: orthographic, assembled, exploded, dimensions, and Bill of Materials.</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Iteration Log Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-iteration">Copy Text</button>
+          </div>
+          <pre id="copy-iteration">ITERATIVE DEVELOPMENT LOG
 
-        <!-- SUB: ITERATION -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-iteration">
-            <div class="sub-trigger-title">
-              <span class="strand-num">1</span>
-              Iterative Models and Testing
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-iteration">
-            <div class="sub-content">
-              <div class="callout callout-success">
-                <div class="callout-title">Key Insight — Prosthetics Project</div>
-                <p>The Prosthetics project excelled in Criterion D by documenting each prototype in a structured table: Prototype Number → Testing Result → How to Improve for the Next Prototype. This format makes iteration evidence impossible to miss.</p>
-              </div>
-
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Iteration Log Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-iteration">Copy Text</button>
-                </div>
-                <pre id="copy-iteration">ITERATIVE DEVELOPMENT LOG
-
-PROTOTYPE 1 — [Descriptive name, e.g., "Low-fidelity foam model"]
-- Material/method: [What was it made from and how?]
-- Spec points tested: [Which specification points did this test address?]
-- Testing method: [How was it tested? With the user? With measurements?]
-- Result: [What did the test show? Be specific. Use measurements or user feedback quotes.]
-- Decision: [What will you change for the next prototype and why?]
-- [Photograph or scan of the model]
-
-PROTOTYPE 2 — [Descriptive name, e.g., "Revised handle grip — 3D printed"]
+PROTOTYPE 1 — [Name, e.g., "Low-fidelity foam model"]
 - Material/method:
-- Spec points tested:
+- Specification points tested:
+- Testing method: [How tested? With the user? With measurements?]
+- Result: [Be specific. Measurements or user quotes.]
+- Decision for next prototype: [What will you change and why?]
+- [Photograph of the model]
+
+PROTOTYPE 2 — [Name, e.g., "Revised grip — 3D printed"]
+- Material/method:
+- Specification points tested:
 - Testing method:
 - Result:
-- Decision:
-- [Photograph or scan]
+- Decision for next prototype:
+- [Photograph]
 
 PROTOTYPE 3 — [Final pre-production model]
 - Material/method:
-- Spec points tested:
+- Specification points tested:
 - Result:
-- Final decision: [Is the design ready? What, if anything, still needs refinement?]
-- [Photograph or scan]</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>One polished prototype with no evidence of earlier, rougher models — this shows no iteration.</li>
-                  <li>Models shown in photographs but no testing results or changes documented.</li>
-                  <li>Development that does not address the original specification — the specification must guide the testing.</li>
-                  <li>No involvement of the real user in testing the prototypes.</li>
-                  <li>Changes between prototypes are not explained — just showing two different models is not enough.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+- Final decision: [Is the design ready? Any remaining refinements?]
+- [Photograph]</pre>
         </div>
 
-        <!-- SUB: TECHNICAL DRAWINGS -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-drawings">
-            <div class="sub-trigger-title">
-              <span class="strand-num">2</span>
-              Technical Drawings
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-drawings">
-            <div class="sub-content">
-              <p>Technical drawings communicate the final design with precision. They must be formal, using standard engineering drawing conventions. Sketches are not acceptable here — these drawings must be made with instruments or CAD software.</p>
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>One polished prototype with no evidence of earlier, rougher models.</li>
+            <li>Models shown but no testing results or changes documented.</li>
+            <li>Development that does not address the original specification.</li>
+            <li>No involvement of the real user in testing.</li>
+            <li>Changes between prototypes not explained — showing two different models is not enough.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-              <h3>Required Drawing Types</h3>
-              <ul>
-                <li><strong>Orthographic projection</strong> — Front, side, and top views with full dimensions</li>
-                <li><strong>Assembled view</strong> — Showing how the product looks when complete</li>
-                <li><strong>Exploded view</strong> — Showing all components separated, with labels and part numbers</li>
-                <li><strong>Section view</strong> (if applicable) — For complex internal features</li>
-              </ul>
+    <!-- TECHNICAL DRAWINGS -->
+    <div class="sub-section" id="sub-drawings">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-drawings-body">
+        <div class="sub-trigger-left">
+          <h3>Technical Drawings</h3>
+          <span class="page-reco">~4 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-drawings-body">
+        <p>Technical drawings must be formal — use instruments or CAD. Sketches are not acceptable here. You need:</p>
+        <ul>
+          <li><strong>Orthographic projection</strong> — Front, side, and top views with full dimensions</li>
+          <li><strong>Assembled view</strong> — The complete product</li>
+          <li><strong>Exploded view</strong> — All components separated, labeled, with part numbers</li>
+          <li><strong>Section view</strong> (if applicable) — For internal features</li>
+        </ul>
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Bill of Materials Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-bom">Copy Text</button>
-                </div>
-                <pre id="copy-bom">BILL OF MATERIALS
-
-Part # | Part Name | Material | Quantity | Dimensions | Manufacturing Process | Source/Notes
--------|-----------|----------|----------|------------|-----------------------|-------------
-1      | [e.g., Main body shell] | [e.g., ABS plastic] | 1 | [e.g., 120 × 45 × 30mm] | [e.g., FDM 3D print] | [e.g., In-house]
-2      | [Part name] | [Material] | [Qty] | [Dimensions] | [Process] | [Notes]
-3      | [Part name] | [Material] | [Qty] | [Dimensions] | [Process] | [Notes]
-...
-
-Notes:
-- Dimensions should match those shown in the orthographic drawings.
-- Manufacturing process should be realistic for a student project.</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Drawings without dimensions — all measurements must be labeled.</li>
-                  <li>Only a perspective or 3D render provided, with no orthographic views.</li>
-                  <li>No exploded view — this is required to show component relationships.</li>
-                  <li>Bill of Materials is missing or lists parts not shown in the drawings.</li>
-                  <li>Drawings show a different design from the one developed in the iteration stage.</li>
-                </ul>
-              </div>
-            </div>
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Bill of Materials Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-bom">Copy Text</button>
           </div>
+          <pre id="copy-bom">BILL OF MATERIALS
+
+Part # | Part Name | Material | Qty | Dimensions | Process | Notes
+-------|-----------|----------|-----|------------|---------|------
+1      | [Name]    | [Material]| 1   | [L×W×H]   | [e.g., FDM print] | [Source/cost]
+2      | [Name]    | [Material]| [Qty]| [Size]   | [Process] | [Notes]
+3      | [Name]    | [Material]| [Qty]| [Size]   | [Process] | [Notes]
+...</pre>
         </div>
 
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Drawings without dimensions.</li>
+            <li>Only a perspective render — no orthographic views.</li>
+            <li>No exploded view showing component relationships.</li>
+            <li>Bill of Materials missing or lists parts not shown in drawings.</li>
+            <li>Drawings show a different design from the one developed in the iteration stage.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- ══════════════ PRESENT ══════════════ -->
+  <div class="content-section" id="sec-present">
+    <div class="section-header">
+      <span class="section-badge">Criterion E</span>
+      <h2>Present</h2>
+      <span class="marks-badge">6 marks</span>
+    </div>
+    <p class="section-intro">
+      The final section. Present your completed redesign with annotated key features, then compare it directly to the original product from Criterion A. The examiner wants to see clear evidence that your redesign solves the problems your research identified.
+    </p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       SECTION: PRESENT
-  ══════════════════════════════════════════════════════════════ -->
-  <div class="section-block" id="sec-present">
-    <button class="section-trigger" aria-expanded="false" aria-controls="body-present">
-      <div class="section-trigger-left">
-        <span class="section-badge">Criterion E · 6 Marks</span>
-        <span class="section-trigger-title">Present</span>
+    <h4>Two Strands</h4>
+    <div class="strand-summary">
+      <div class="strand-card">
+        <h4><span class="num">1</span> Final Solution <span class="page-reco">~2 pages</span></h4>
+        <p>High-quality visuals with annotation callouts identifying key features and design decisions.</p>
       </div>
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="section-body" id="body-present">
-      <div class="section-content">
+      <div class="strand-card">
+        <h4><span class="num">2</span> Comparison <span class="page-reco">~2 pages</span></h4>
+        <p>Direct before-and-after comparison using photographs, feature tables, and user testing evidence.</p>
+      </div>
+    </div>
 
-        <p>Criterion E is the final section of your portfolio. Here you present your completed redesign and compare it directly to the original product you identified in Criterion A. The examiner wants to see clear evidence that your redesign solves the problems you found in your research.</p>
+    <h4>Mark Scheme</h4>
+    <div class="table-wrap marks-table-compact">
+      <table>
+        <thead><tr><th>Band</th><th>What This Looks Like</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Final design shown but not annotated. No direct comparison with the original product.</td></tr>
+          <tr><td>3–4</td><td>Annotated final design. Some comparison with the original, but not structured or evidence-based.</td></tr>
+          <tr><td>5–6</td><td>Clearly annotated final design. Direct side-by-side comparison with the original product using photographs, a specification compliance table, and user testing evidence.</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-        <h3>Two Strands</h3>
-        <div class="strand-list">
-          <div class="strand-item">
-            <span class="strand-num">1</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Presenting the Redesigned Solution <span class="page-reco">~2 pages</span></div>
-              <div class="strand-item-desc">High-quality visuals of the final product with annotation callouts identifying key features and design decisions.</div>
-            </div>
-          </div>
-          <div class="strand-item">
-            <span class="strand-num">2</span>
-            <div class="strand-item-body">
-              <div class="strand-item-title">Comparing with the Original Product <span class="page-reco">~2 pages</span></div>
-              <div class="strand-item-desc">A direct before-and-after comparison using photographs, feature tables, and evidence from user testing.</div>
-            </div>
-          </div>
+    <div class="strand-nav">
+      <a href="#sub-present-solution"><span class="strand-num">1</span> Final Design</a>
+      <a href="#sub-comparison"><span class="strand-num">2</span> Comparison</a>
+    </div>
+
+    <!-- FINAL DESIGN -->
+    <div class="sub-section" id="sub-present-solution">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-present-solution-body">
+        <div class="sub-trigger-left">
+          <h3>Presenting the Final Design</h3>
+          <span class="page-reco">~2 pages</span>
         </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-present-solution-body">
+        <p>Use high-quality photographs of the final physical model (or renders). Each key feature must be annotated. Annotations explain what the feature does and which specification point it satisfies. Keep annotations to 10 words or fewer.</p>
 
-        <h3>Mark Scheme</h3>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Marks</th><th>What the Examiner Is Looking For</th></tr></thead>
-            <tbody>
-              <tr class="mark-row-0"><td>0</td><td>No work submitted.</td></tr>
-              <tr><td>1–2</td><td>Final design shown but not annotated. No direct comparison with the original product.</td></tr>
-              <tr><td>3–4</td><td>Annotated final design. Some comparison with the original, but not structured or evidence-based.</td></tr>
-              <tr class="mark-row-top"><td>5–6</td><td>Clearly annotated final design. Direct side-by-side comparison with the original product using photographs, a feature/specification table, and user testing evidence. The comparison connects explicitly to the problem identified in Criterion A.</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Final Design Annotation Structure — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-final">Copy Text</button>
+          </div>
+          <pre id="copy-final">FINAL DESIGN — [Product Name]
 
-        <!-- SUB: PRESENTING SOLUTION -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-present-solution">
-            <div class="sub-trigger-title">
-              <span class="strand-num">1</span>
-              Presenting the Final Design
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-present-solution">
-            <div class="sub-content">
-              <p>Use high-quality photographs of the final physical model (or high-quality renders if a physical model was not possible). Each key feature must be annotated. Annotations should explain <em>what the feature does</em> and <em>which specification point it satisfies</em>.</p>
+[Photograph or render — multiple angles]
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Final Design Annotation Structure — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-final">Copy Text</button>
-                </div>
-                <pre id="copy-final">FINAL DESIGN — [Product Name]
-
-[Photograph/render — multiple angles recommended]
-
-ANNOTATION CALLOUTS (keep each to 10 words or fewer):
-A → [Feature name]: [What it does / spec point met]
-B → [Feature name]: [What it does / spec point met]
-C → [Feature name]: [What it does / spec point met]
-D → [Material label]: [Material used and reason]
-E → [Dimension label]: [Key measurement]
+ANNOTATION CALLOUTS (10 words max each)
+A → [Feature name]: What it does / spec point
+B → [Feature name]: What it does / spec point
+C → [Feature name]: What it does / spec point
+D → [Material]: Material used and reason
+E → [Dimension]: Key measurement
 
 KEY DESIGN DECISIONS
-(Use this for longer explanations — these count toward word limit)
+[These longer explanations count toward your word limit]
 
 Decision 1: [Feature]
-- Why this feature: [Link to persona frustration or spec point]
-- How it was developed: [Reference prototype number from Criterion D]
+- Why: [Link to persona frustration or spec point]
+- Development: [Reference prototype from Criterion D]
 
 Decision 2: [Feature]
-- Why this feature:
-- How it was developed:
+- Why:
+- Development:
 
 USER RESPONSE
-- [Persona name]'s response when tested with the final model:
-- Specific feedback quote if available:</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>Beautiful renders with no annotation callouts — visuals alone do not earn marks.</li>
-                  <li>Annotations that only name a feature without connecting it to a specification point or persona need.</li>
-                  <li>New features introduced here that were not tested in Criterion D — this breaks the design narrative.</li>
-                  <li>New materials specified here that were not tested in any prototype.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+- [Persona name]'s feedback when testing the final model:
+- [Direct quote if available]</pre>
         </div>
 
-        <!-- SUB: COMPARISON -->
-        <div class="sub-block">
-          <button class="sub-trigger" aria-expanded="false" aria-controls="sub-comparison">
-            <div class="sub-trigger-title">
-              <span class="strand-num">2</span>
-              Comparison with the Original Product
-            </div>
-            <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="sub-body" id="sub-comparison">
-            <div class="sub-content">
-              <div class="callout callout-success">
-                <div class="callout-title">Key Insight — Trowel and Prosthetics Commentaries</div>
-                <p>Both the Trowel and Prosthetics exemplar commentaries specifically note that comparing the redesigned product <strong>directly to the original product identified in Criterion A</strong> is essential for high marks. Use side-by-side photographs, a feature comparison table, and evidence from user testing. Do not just describe your design — show how it improves on what came before.</p>
-              </div>
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>Beautiful renders with no annotation callouts — visuals alone do not earn marks.</li>
+            <li>Annotations that name a feature without connecting it to a specification point.</li>
+            <li>New features or materials introduced here that were not tested in Criterion D.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-              <div class="copy-box">
-                <div class="copy-box-header">
-                  <h4>Comparison Template — Copy This</h4>
-                  <button class="copy-btn" data-copy-target="copy-compare">Copy Text</button>
-                </div>
-                <pre id="copy-compare">BEFORE AND AFTER COMPARISON
+    <!-- COMPARISON -->
+    <div class="sub-section" id="sub-comparison">
+      <button class="sub-trigger" aria-expanded="false" aria-controls="sub-comparison-body">
+        <div class="sub-trigger-left">
+          <h3>Comparison with the Original Product</h3>
+          <span class="page-reco">~2 pages</span>
+        </div>
+        <svg class="sub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sub-body" id="sub-comparison-body">
+        <div class="callout callout-success">
+          <div class="callout-title">Key Insight — Trowel and Prosthetics Commentaries</div>
+          <p>Both commentaries note that comparing the redesigned product <strong>directly to the original product from Criterion A</strong> is essential. Use side-by-side photographs, a feature comparison table, and user testing evidence. Do not just describe your design — show how it improves on what came before.</p>
+        </div>
 
-[Side-by-side photograph: Original product (left) | Redesigned product (right)]
+        <div class="copy-box">
+          <div class="copy-box-header">
+            <h4>Comparison Template — Copy This</h4>
+            <button class="copy-btn" data-copy-target="copy-compare">Copy Text</button>
+          </div>
+          <pre id="copy-compare">BEFORE AND AFTER COMPARISON
+
+[Side-by-side photograph: Original product | Redesigned product]
 
 FEATURE COMPARISON TABLE
 
-Feature / Spec Point | Original Product | Redesigned Product | Improvement?
----------------------|-----------------|-------------------|-------------
-[e.g., Handle diameter] | [e.g., 28mm — below 5th percentile range] | [e.g., 34mm — within 5th–95th percentile range] | ✓ Yes
-[e.g., One-hand operation] | [e.g., Requires two hands] | [e.g., All controls operable with one hand] | ✓ Yes
-[e.g., Weight] | [e.g., 380g] | [e.g., 210g] | ✓ Yes
-[e.g., Feature X] | [Original status] | [Redesigned status] | ✓ / ✗ / ~
-...
+Feature | Original Product | Redesigned Product | Improvement?
+--------|-----------------|-------------------|-------------
+[Spec 1] | [Original status] | [New status] | ✓ / ✗ / ~
+[Spec 2] | [Original status] | [New status] | ✓ / ✗ / ~
+[Bold comparison showing clear difference] | | | ✓
 
 USER TESTING COMPARISON
-- [Persona name] tested both the original product and the redesigned product on the same task (from the storyboard).
-- Original product result: [What happened? Time taken? Pain reported? Goal achieved?]
-- Redesigned product result: [What happened? How did it compare?]
-- User quote: "[Direct feedback from the persona]"
+- [Persona name] tested both products on the same task (from storyboard)
+- Original product result: [Time? Pain? Goal achieved?]
+- Redesigned product result: [How did it compare?]
+- User quote: "[Direct feedback]"
 
 SPECIFICATION COMPLIANCE SUMMARY
 Spec # | Requirement | Met? | Evidence
 -------|-------------|------|--------
-1      | [Spec point] | ✓    | [How was this tested? What result?]
-2      | [Spec point] | ~    | [Partially met — explain]
-3      | [Spec point] | ✗    | [Not met — what would you change in future?]</pre>
-              </div>
-
-              <div class="callout callout-warn">
-                <div class="callout-title">Common Problems</div>
-                <ul>
-                  <li>No direct comparison with the original product from Criterion A — this is the most common mistake in Criterion E.</li>
-                  <li>Comparison is only written text with no visual side-by-side evidence.</li>
-                  <li>No user testing results — the user must interact with both products for the comparison to be meaningful.</li>
-                  <li>Specification compliance is not addressed — the examiner needs to see which spec points were met.</li>
-                  <li>Not acknowledging specification points that were not fully met — honest evaluation is expected and respected.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+1      | [Spec point] | ✓    | [Test result]
+2      | [Spec point] | ~    | [Partial — explain]
+3      | [Spec point] | ✗    | [Not met — what would you change?]</pre>
         </div>
 
+        <div class="callout callout-warn">
+          <div class="callout-title">Common Problems</div>
+          <ul>
+            <li>No direct comparison with the original product from Criterion A — the most common mistake.</li>
+            <li>Comparison is written text only with no visual side-by-side evidence.</li>
+            <li>No user testing results.</li>
+            <li>Specification compliance not addressed.</li>
+            <li>Failing to acknowledge specification points that were not fully met — honest evaluation is expected.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
 </main>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<!-- ── FOOTER ──────────────────────────────────── -->
 <footer>
   <a href="https://edu.contrapaul.com" class="footer-back">← Back to edu.contrapaul.com</a>
   <p class="footer-source">Based on the IB DP Design Technology Guide (First Assessment 2027) and IB-published student exemplars with examiner commentaries.</p>
@@ -1772,74 +1633,32 @@ Spec # | Requirement | Met? | Evidence
 (function () {
   'use strict';
 
-  // ── ACCORDION (sections) ─────────────────────────────────────
-  const sectionTriggers = document.querySelectorAll('.section-trigger');
-
-  function openSection(trigger) {
-    const bodyId = trigger.getAttribute('aria-controls');
-    const body = document.getElementById(bodyId);
-    if (!body) return;
-    trigger.setAttribute('aria-expanded', 'true');
-    body.classList.add('open');
-    // update hero cards
-    const sectionId = trigger.closest('.section-block').id;
-    document.querySelectorAll('.hero-card').forEach(function (c) {
-      c.classList.toggle('active', c.dataset.target === sectionId);
+  // ── SUB-SECTION ACCORDION ──────────────────────────
+  function closeAllSubsInSection(section) {
+    section.querySelectorAll('.sub-trigger').forEach(function (t) {
+      t.setAttribute('aria-expanded', 'false');
+      var b = document.getElementById(t.getAttribute('aria-controls'));
+      if (b) b.classList.remove('open');
     });
   }
 
-  function closeSection(trigger) {
-    const bodyId = trigger.getAttribute('aria-controls');
-    const body = document.getElementById(bodyId);
-    if (!body) return;
-    trigger.setAttribute('aria-expanded', 'false');
-    body.classList.remove('open');
-  }
-
-  sectionTriggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function () {
-      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-      // close all
-      sectionTriggers.forEach(closeSection);
-      document.querySelectorAll('.hero-card').forEach(function (c) { c.classList.remove('active'); });
-      if (!isOpen) {
-        openSection(trigger);
-      }
-    });
-    trigger.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        trigger.click();
-      }
-    });
-  });
-
-  // ── NESTED ACCORDION (sub-sections) ─────────────────────────
   document.querySelectorAll('.sub-trigger').forEach(function (trigger) {
     trigger.addEventListener('click', function () {
-      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-      const bodyId = trigger.getAttribute('aria-controls');
-      const body = document.getElementById(bodyId);
+      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      var bodyId = trigger.getAttribute('aria-controls');
+      var body = document.getElementById(bodyId);
       if (!body) return;
-      // close sibling sub-sections
-      const parentSection = trigger.closest('.section-body');
-      if (parentSection) {
-        parentSection.querySelectorAll('.sub-trigger').forEach(function (t) {
-          if (t !== trigger) {
-            t.setAttribute('aria-expanded', 'false');
-            const b = document.getElementById(t.getAttribute('aria-controls'));
-            if (b) b.classList.remove('open');
-          }
-        });
-      }
-      if (isOpen) {
-        trigger.setAttribute('aria-expanded', 'false');
-        body.classList.remove('open');
-      } else {
+
+      // Close siblings within the same content-section
+      var section = trigger.closest('.content-section');
+      if (section) closeAllSubsInSection(section);
+
+      if (!isOpen) {
         trigger.setAttribute('aria-expanded', 'true');
         body.classList.add('open');
       }
     });
+
     trigger.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -1848,57 +1667,51 @@ Spec # | Requirement | Met? | Evidence
     });
   });
 
-  // ── HERO CARDS ───────────────────────────────────────────────
-  document.querySelectorAll('.hero-card').forEach(function (card) {
-    function activate() {
-      const targetId = card.dataset.target;
-      if (!targetId) return;
-      const block = document.getElementById(targetId);
-      if (!block) return;
-      const trigger = block.querySelector('.section-trigger');
-      if (!trigger) return;
-      // close all, then open target
-      sectionTriggers.forEach(closeSection);
-      document.querySelectorAll('.hero-card').forEach(function (c) { c.classList.remove('active'); });
-      openSection(trigger);
-      card.classList.add('active');
-      // scroll
-      setTimeout(function () {
-        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    }
-    card.addEventListener('click', activate);
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
-    });
-  });
-
-  // ── NAV LINKS smooth scroll + open section ──────────────────
-  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (link) {
+  // ── STRAND NAV LINKS — OPEN CORRESPONDING SUB ─────
+  document.querySelectorAll('.strand-nav a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      const targetId = link.getAttribute('href').slice(1);
-      const block = document.getElementById(targetId);
-      if (!block) return;
-      const trigger = block.querySelector('.section-trigger');
-      if (trigger && trigger.getAttribute('aria-expanded') !== 'true') {
-        sectionTriggers.forEach(closeSection);
-        document.querySelectorAll('.hero-card').forEach(function (c) { c.classList.remove('active'); });
-        openSection(trigger);
-      }
+      var targetId = link.getAttribute('href').slice(1);
+      var sub = document.getElementById(targetId);
+      if (!sub) return;
+      var trigger = sub.querySelector('.sub-trigger');
+      if (!trigger) return;
+
+      // Close siblings
+      var section = sub.closest('.content-section');
+      if (section) closeAllSubsInSection(section);
+
+      // Open this one
+      trigger.setAttribute('aria-expanded', 'true');
+      var body = document.getElementById(trigger.getAttribute('aria-controls'));
+      if (body) body.classList.add('open');
+
+      // Scroll
       setTimeout(function () {
-        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+        sub.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
     });
   });
 
-  // ── COPY BUTTONS ─────────────────────────────────────────────
+  // ── NAV LINKS — SCROLL TO SECTION ─────────────────
+  document.querySelectorAll('.nav-links a[href^="#"], .hero-nav a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var targetId = link.getAttribute('href').slice(1);
+      var el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ── COPY BUTTONS ──────────────────────────────────
   document.querySelectorAll('.copy-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      const targetId = btn.dataset.copyTarget;
-      const pre = document.getElementById(targetId);
+      var targetId = btn.dataset.copyTarget;
+      var pre = document.getElementById(targetId);
       if (!pre) return;
-      const text = pre.textContent || pre.innerText;
+      var text = pre.textContent || pre.innerText;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
           showCopied(btn);
@@ -1912,7 +1725,7 @@ Spec # | Requirement | Met? | Evidence
   });
 
   function showCopied(btn) {
-    const original = btn.textContent;
+    var original = btn.textContent;
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
     btn.disabled = true;
@@ -1924,7 +1737,7 @@ Spec # | Requirement | Met? | Evidence
   }
 
   function fallbackCopy(text, btn) {
-    const ta = document.createElement('textarea');
+    var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed';
     ta.style.left = '-9999px';
@@ -1932,25 +1745,10 @@ Spec # | Requirement | Met? | Evidence
     document.body.appendChild(ta);
     ta.focus();
     ta.select();
-    try {
-      document.execCommand('copy');
-      showCopied(btn);
-    } catch (err) {
-      btn.textContent = 'Copy failed';
-      setTimeout(function () { btn.textContent = 'Copy Text'; }, 2000);
-    }
+    try { document.execCommand('copy'); showCopied(btn); }
+    catch (err) { btn.textContent = 'Copy failed'; setTimeout(function () { btn.textContent = 'Copy Text'; }, 2000); }
     document.body.removeChild(ta);
   }
-
-  // ── AUTO-OPEN OVERVIEW ON FIRST VISIT ────────────────────────
-  try {
-    const seen = sessionStorage.getItem('ia-guide-seen');
-    if (!seen) {
-      const overviewTrigger = document.querySelector('#sec-overview .section-trigger');
-      if (overviewTrigger) openSection(overviewTrigger);
-      sessionStorage.setItem('ia-guide-seen', '1');
-    }
-  } catch (e) { /* sessionStorage may not be available */ }
 
 })();
 </script>
