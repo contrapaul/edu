@@ -180,7 +180,7 @@ main {
 
 .section-trigger h2 {
   font-size: clamp(22px, 3.5vw, 30px);
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text);
@@ -609,9 +609,12 @@ dialog {
   width: calc(100% - 40px);
   max-height: 88vh;
   overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+dialog:not([open]) { display: none; }
+dialog[open] {
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-md);
 }
 
 dialog[open] {
@@ -713,8 +716,8 @@ footer {
 }
 footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
 footer a:hover { text-decoration: underline; }
-.footer-source { font-size: 14px; color: var(--text-muted); max-width: 560px; margin: 0 auto 8px; }
-.footer-disclaimer { font-size: 13px; color: #aaa; max-width: 480px; margin: 0 auto; }
+.footer-source { font-size: 14px; color: var(--text-muted); max-width: 640px; margin: 0 auto 8px; }
+.footer-disclaimer { font-size: 13px; color: #aaa; max-width: 640px; margin: 0 auto; }
 
 /* ── ACCESSIBILITY ───────────────────────────────────────────── */
 .skip-link { position: absolute; left: -9999px; top: 0; }

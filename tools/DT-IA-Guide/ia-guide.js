@@ -156,7 +156,11 @@
 
   document.querySelectorAll('dialog').forEach(function (dlg) {
     dlg.addEventListener('click', function (e) {
-      if (e.target === dlg) dlg.close();
+      var rect = dlg.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right ||
+          e.clientY < rect.top  || e.clientY > rect.bottom) {
+        dlg.close();
+      }
     });
   });
 
