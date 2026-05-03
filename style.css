@@ -329,9 +329,67 @@ main { flex: 1; }
 .footer-brand { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text); }
 .footer-note { font-size: 0.72rem; color: var(--muted); }
 
+/* --- TOOLS PAGE CARDS --- */
+.tool-cards-section { border-bottom: 1px solid var(--border); }
+
+.tool-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.25rem;
+}
+
+/*
+  Per-card CSS custom properties (set via style="" on each .tool-card):
+    --card-bg              background colour
+    --card-border          border colour
+    --card-border-width    border thickness        (default: 2px)
+    --card-font            font family for both title and subtitle
+    --card-title-size      title font size         (default: 1.15rem)
+    --card-title-color     title text colour
+    --card-sub-size        subtitle font size      (default: 0.82rem)
+    --card-sub-color       subtitle text colour
+*/
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 1.75rem 2rem;
+  height: 200px;
+  background: var(--card-bg, var(--surface));
+  border: var(--card-border-width, 2px) solid var(--card-border, var(--border));
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+}
+
+.tool-card-title {
+  font-family: var(--card-font, var(--font-display));
+  font-size: var(--card-title-size, 1.15rem);
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--card-title-color, var(--text));
+}
+
+.tool-card-sub {
+  font-family: var(--card-font, var(--font-body));
+  font-size: var(--card-sub-size, 0.82rem);
+  line-height: 1.5;
+  color: var(--card-sub-color, var(--muted));
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 800px) {
   .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .tool-cards-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 }
 @media (max-width: 600px) {
   .tool-row { grid-template-columns: 40px 1fr; }
