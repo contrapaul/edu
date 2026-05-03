@@ -23,8 +23,26 @@
   sectionTriggers.forEach(function (trigger) {
     trigger.addEventListener('click', function () {
       var isOpen = trigger.getAttribute('aria-expanded') === 'true';
-      sectionTriggers.forEach(closeSection);
-      if (!isOpen) openSection(trigger);
+
+      if (isOpen) {
+        // Closing: restore the scroll position from before it was opened
+        var savedY = trigger._savedScrollY;
+        sectionTriggers.forEach(closeSection);
+        if (savedY !== undefined) {
+          window.scrollTo({ top: savedY, behavior: 'smooth' });
+        }
+      } else {
+        // Opening: save current position, open section, scroll it to the top
+        trigger._savedScrollY = window.scrollY;
+        sectionTriggers.forEach(closeSection);
+        openSection(trigger);
+        var block = trigger.closest('.section-block');
+        if (block) {
+          setTimeout(function () {
+            block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
+      }
     });
   });
 
