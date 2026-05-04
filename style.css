@@ -84,6 +84,14 @@ main { flex: 1; }
   font-size: 0.75rem !important;
 }
 
+@font-face {
+    font-family: 'ostrich-sans-black'; /* Choose a name for your font */
+    src: url('/ostrich-sans-black.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* Improves perceived performance */
+}
+
 /* --- HERO --- */
 .hero {
   background: var(--surface);
