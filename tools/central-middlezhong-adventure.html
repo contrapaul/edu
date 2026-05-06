@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CENTRAL MIDDLEZHONG — A Design Adventure</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap');
+
+  :root {
+    --green: #00ff41;
+    --green-dim: #00aa2a;
+    --green-dark: #003310;
+    --green-glow: rgba(0,255,65,0.15);
+    --amber: #ffb000;
+    --red: #ff3c3c;
+    --blue: #00cfff;
+    --bg: #030d03;
+    --scanline: rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--scanline) 2px,
+      var(--scanline) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 16px;
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  #header {
+    text-align: center;
+    padding: 10px 0 8px;
+    border-bottom: 1px solid var(--green-dim);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  #header h1 {
+    font-family: 'VT323', monospace;
+    font-size: 2.4em;
+    color: var(--green);
+    text-shadow: 0 0 10px var(--green), 0 0 20px var(--green-dim);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  #header .subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65em;
+    color: var(--green-dim);
+    letter-spacing: 3px;
+    margin-top: 3px;
+  }
+
+  #status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    border: 1px solid var(--green-dark);
+    background: rgba(0,255,65,0.03);
+    font-size: 0.7em;
+    color: var(--green-dim);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  #status-bar .location { color: var(--amber); }
+  #status-bar .score { color: var(--blue); }
+
+  #output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 8px;
+    border: 1px solid var(--green-dark);
+    background: rgba(0,30,0,0.4);
+    margin-bottom: 8px;
+    scroll-behavior: smooth;
+  }
+
+  #output::-webkit-scrollbar { width: 6px; }
+  #output::-webkit-scrollbar-track { background: var(--bg); }
+  #output::-webkit-scrollbar-thumb { background: var(--green-dark); }
+
+  .line {
+    font-size: 0.88em;
+    line-height: 1.65;
+    margin-bottom: 2px;
+    animation: fadein 0.3s ease;
+  }
+
+  .line.narrator {
+    color: var(--green);
+  }
+
+  .line.character {
+    color: var(--amber);
+  }
+
+  .line.system {
+    color: var(--blue);
+    font-size: 0.78em;
+  }
+
+  .line.error {
+    color: var(--red);
+  }
+
+  .line.success {
+    color: #80ff80;
+    text-shadow: 0 0 6px var(--green);
+  }
+
+  .line.hint {
+    color: #aaffaa;
+    font-size: 0.78em;
+    padding-left: 12px;
+    border-left: 2px solid var(--green-dark);
+  }
+
+  .line.big {
+    font-family: 'VT323', monospace;
+    font-size: 1.6em;
+    color: var(--green);
+    text-shadow: 0 0 12px var(--green);
+    letter-spacing: 2px;
+  }
+
+  .line.fail {
+    font-family: 'VT323', monospace;
+    font-size: 1.4em;
+    color: var(--red);
+    text-shadow: 0 0 10px var(--red);
+  }
+
+  .line.divider {
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin: 6px 0;
+  }
+
+  .line.player {
+    color: #fffde8;
+    opacity: 0.7;
+    font-size: 0.82em;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  #input-row {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--green-dim);
+    background: rgba(0,255,65,0.04);
+    padding: 6px 10px;
+    flex-shrink: 0;
+  }
+
+  #prompt-symbol {
+    color: var(--green);
+    font-size: 1em;
+    margin-right: 8px;
+    text-shadow: 0 0 8px var(--green);
+    flex-shrink: 0;
+  }
+
+  #input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.88em;
+    caret-color: var(--green);
+    text-transform: lowercase;
+  }
+
+  #input::placeholder { color: var(--green-dark); }
+
+  #footer {
+    text-align: center;
+    font-size: 0.6em;
+    color: var(--green-dark);
+    padding-top: 5px;
+    flex-shrink: 0;
+    letter-spacing: 2px;
+  }
+
+  .flicker {
+    animation: flicker 0.15s ease 2;
+  }
+
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.1; }
+  }
+
+  .cursor-blink::after {
+    content: '█';
+    animation: blink 1s step-end infinite;
+    color: var(--green);
+  }
+
+  #title-art {
+    font-family: 'VT323', monospace;
+    font-size: 0.85em;
+    color: var(--green-dim);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 6px var(--green-dark);
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div id="header">
+    <h1>CENTRAL MIDDLEZHONG</h1>
+    <div class="subtitle">▸ AN IB DP DESIGN TECHNOLOGY ADVENTURE ◂</div>
+  </div>
+
+  <div id="status-bar">
+    <span>IB DP DT — TOPIC B3.1: MATERIAL SELECTION</span>
+    <span class="location" id="status-location">LOCATION: UNKNOWN</span>
+    <span class="score" id="status-score">DECISIONS: 0</span>
+  </div>
+
+  <div id="output"></div>
+
+  <div id="input-row">
+    <span id="prompt-symbol">▸</span>
+    <input id="input" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="type your response and press ENTER..." />
+  </div>
+
+  <div id="footer">TYPE  [hint]  OR  [/hint]  AT ANY TIME TO SEE AVAILABLE COMMANDS &nbsp;|&nbsp; IB DP DESIGN TECHNOLOGY — B3.1 MATERIAL SELECTION</div>
+</div>
+
+<script>
+// ============================================================
+//  CENTRAL MIDDLEZHONG — TEXT ADVENTURE ENGINE
+//  IB DP Design Technology — Topic B3.1: Material Selection
+// ============================================================
+
+const out = document.getElementById('output');
+const input = document.getElementById('input');
+const statusLocation = document.getElementById('status-location');
+const statusScore = document.getElementById('status-score');
+
+let state = {};
+let currentScene = null;
+let decisionsCount = 0;
+let currentHints = [];
+let printQueue = [];
+let isPrinting = false;
+
+// ── Output Helpers ──────────────────────────────────────────
+
+function print(text, cls = 'narrator', delay = 0) {
+  return new Promise(resolve => {
+    printQueue.push({ text, cls, delay, resolve });
+    if (!isPrinting) processQueue();
+  });
+}
+
+function processQueue() {
+  if (printQueue.length === 0) { isPrinting = false; return; }
+  isPrinting = true;
+  const { text, cls, delay, resolve } = printQueue.shift();
+  setTimeout(() => {
+    const div = document.createElement('div');
+    div.className = 'line ' + cls;
+    div.textContent = text;
+    out.appendChild(div);
+    out.scrollTop = out.scrollHeight;
+    resolve();
+    processQueue();
+  }, delay);
+}
+
+async function printLines(lines, cls = 'narrator', baseDelay = 0, step = 30) {
+  for (let i = 0; i < lines.length; i++) {
+    await print(lines[i], cls, i === 0 ? baseDelay : step);
+  }
+}
+
+function printDivider() {
+  print('─────────────────────────────────────────────────────', 'divider', 20);
+}
+
+function printBlank() {
+  print('', 'divider', 10);
+}
+
+function setLocation(loc) {
+  statusLocation.textContent = 'LOCATION: ' + loc.toUpperCase();
+}
+
+function incrementDecisions() {
+  decisionsCount++;
+  statusScore.textContent = 'DECISIONS: ' + decisionsCount;
+}
+
+function setHints(hints) {
+  currentHints = hints;
+}
+
+function normalize(str) {
+  return str.toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
+}
+
+function showHints() {
+  if (currentHints.length === 0) {
+    print('[ No hints available right now. ]', 'hint', 0);
+    return;
+  }
+  print('[ HINT — You can type any of the following: ]', 'hint', 0);
+  currentHints.forEach(h => print('  ▸ ' + h, 'hint', 20));
+  printBlank();
+}
+
+// ── Input Handler ───────────────────────────────────────────
+
+input.addEventListener('keydown', async (e) => {
+  if (e.key === 'Enter') {
+    const val = input.value.trim();
+    if (!val) return;
+    const norm = normalize(val);
+    input.value = '';
+    print('▸ ' + val, 'player', 0);
+    if (norm === 'hint' || norm === '/hint') {
+      showHints();
+      return;
+    }
+    if (currentScene) {
+      incrementDecisions();
+      await currentScene(norm);
+    }
+  }
+});
+
+// ── Scene Registry ──────────────────────────────────────────
+
+async function goTo(sceneFn) {
+  currentScene = null;
+  printBlank();
+  await sceneFn();
+}
+
+// ============================================================
+//  TITLE & INTRO
+// ============================================================
+
+async function sceneTitleScreen() {
+  setLocation('BOOT SCREEN');
+  await printLines([
+    '╔═══════════════════════════════════════════════════════╗',
+    '║                                                       ║',
+    '║        C E N T R A L   M I D D L E Z H O N G         ║',
+    '║                                                       ║',
+    '║           A Design Technology Adventure               ║',
+    '║                                                       ║',
+    '╚═══════════════════════════════════════════════════════╝',
+  ], 'big', 0, 25);
+  await printLines([
+    '',
+    'You have just arrived in Central MiddleZhong — a growing',
+    'town where old infrastructure is giving way to ambitious',
+    'new construction projects.',
+    '',
+    'You are a newly qualified designer / engineer, fresh out',
+    'of school, looking for your first real commission.',
+    '',
+    'The town needs you. But it needs the RIGHT materials too.',
+    '',
+  ], 'narrator', 100, 35);
+  print('Type your name to begin, or type  start  to use a default name.', 'system', 40);
+  setHints(['[your name]', 'start']);
+  currentScene = async (inp) => {
+    let name = inp === 'start' ? 'Designer' : inp.charAt(0).toUpperCase() + inp.slice(1);
+    state.playerName = name;
+    await goTo(() => sceneIntro(name));
+  };
+}
+
+async function sceneIntro(name) {
+  setLocation('CENTRAL STATION');
+  await printLines([
+    `Welcome, ${name}.`,
+    '',
+    'You step off the train at Central MiddleZhong Station.',
+    'The air smells of concrete dust and possibility.',
+    'A noticeboard on the platform lists three active tenders:',
+    '',
+    '  [1] BRIDGE — A new footbridge over the River Zhong.',
+    '  [2] PLAYGROUND — A children\'s play area, Riverside Park.',
+    '  [3] CLIMBING — Indoor rock climbing centre, North Quarter.',
+    '',
+    'Each project will test your material selection skills.',
+    'Choose wisely — budget is tight, and the town is watching.',
+    '',
+    'Which project do you want to apply for?',
+    '(type  bridge, playground,  or  climbing)',
+  ], 'narrator', 0, 30);
+  setHints(['bridge', 'playground', 'climbing']);
+  currentScene = async (inp) => {
+    if (inp === 'bridge') { state.project = 'bridge'; await goTo(sceneBridgeStart); }
+    else if (inp === 'playground' || inp === 'play') { state.project = 'playground'; await goTo(scenePlaygroundStart); }
+    else if (inp === 'climbing' || inp === 'climb') { state.project = 'climbing'; await goTo(sceneClimbingStart); }
+    else {
+      print('The noticeboard only lists those three options. Try again.', 'error', 0);
+      print('Type  bridge,  playground,  or  climbing.', 'system', 20);
+    }
+  };
+}
+
+// ============================================================
+//  PATH 1 — THE BRIDGE
+// ============================================================
+
+async function sceneBridgeStart() {
+  setLocation('CIVIC OFFICES');
+  await printLines([
+    '════════════════════════════════════════════════════════',
+    ' PROJECT 1: THE ZHONG FOOTBRIDGE',
+    '════════════════════════════════════════════════════════',
+    '',
+    'You walk to the Civic Offices and meet MAYOR CHEN.',
+    '',
+  ], 'narrator', 0, 25);
+  await printLines([
+    '"Ah, you made it! The old bridge washed away in last',
+    'autumn\'s floods. We need a new pedestrian footbridge',
+    'over the River Zhong — roughly 18 metres span.',
+    'It must handle heavy foot traffic and last 30+ years.',
+    'The environment is tough: damp, prone to flooding,',
+    'and we get cold winters."',
+    '',
+    '"I\'ll be honest — the council budget is limited.',
+    'We\'re hoping for a practical solution, not a monument.',
+    'Tell me — what would you use for the main structure?"',
+  ], 'character', 50, 30);
+  printBlank();
+  print('What material do you propose for the main bridge structure?', 'system', 40);
+  setHints(['steel', 'reinforced concrete', 'timber', 'aluminium', 'composite']);
+  currentScene = (inp) => sceneBridge_StructureMaterial(inp);
+}
+
+async function sceneBridge_StructureMaterial(inp) {
+  if (inp.includes('steel') || inp.includes('structural steel')) {
+    state.bridgeStructure = 'steel';
+    await printLines([
+      '',
+      'Mayor Chen nods slowly.',
+      '"Steel. Sensible choice. High strength-to-weight ratio,',
+      'predictable behaviour under load, well-understood by',
+      'local contractors."',
+      '',
+      'You remind her: structural steel has a tensile strength',
+      'of ~400-500 MPa — ideal for spanning 18 metres.',
+      'Prefabricated sections can be fabricated off-site.',
+      '',
+      '"But," she says, tapping her clipboard, "the river',
+      'environment means corrosion is a real concern.',
+      'What will you do about that?"',
+    ], 'character', 0, 28);
+    setHints(['galvanise', 'paint', 'weathering steel', 'stainless steel', 'coating']);
+    currentScene = (inp) => sceneBridge_Corrosion(inp);
+
+  } else if (inp.includes('concrete') || inp.includes('reinforced concrete') || inp.includes('rc')) {
+    state.bridgeStructure = 'concrete';
+    await printLines([
+      '',
+      '"Reinforced concrete," the Mayor repeats slowly.',
+      '"It\'s been used on the old road bridge upstream.',
+      'Heavy, but durable. You know, concrete is strong',
+      'in compression but weak in tension — that\'s why',
+      'steel rebar is embedded inside."',
+      '',
+      '"For an 18-metre pedestrian span, you\'d need significant',
+      'formwork and site work. It\'ll take longer and cost more',
+      'to build than a prefab steel solution. The council',
+      'budget is tight. Can you justify the extra cost?"',
+    ], 'character', 0, 28);
+    print('Can you justify reinforced concrete for this short span?', 'system', 40);
+    setHints(['yes it is durable', 'no i will use steel instead', 'it resists flooding well']);
+    currentScene = async (inp) => {
+      if (inp.includes('no') || inp.includes('steel')) {
+        print('You reconsider. "Actually, steel would be more appropriate here."', 'narrator', 0);
+        state.bridgeStructure = 'steel';
+        await print('"Good thinking," says Mayor Chen. "Steel it is."', 'character', 30);
+        print('What will you do about corrosion in the river environment?', 'system', 50);
+        setHints(['galvanise', 'paint', 'weathering steel', 'coating']);
+        currentScene = (inp) => sceneBridge_Corrosion(inp);
+      } else {
+        await printLines([
+          '"Alright," the Mayor sighs. "But the council will push back',
+          'on cost overruns. For a simple pedestrian bridge this short,',
+          'prefabricated steel sections would be faster and cheaper.',
+          'You\'ve forced a compromise: we can only afford a narrower',
+          'deck. Hope no one brings their bicycle."',
+          '',
+          'Lesson noted: matching material choice to structural',
+          'requirements AND budget is essential.',
+        ], 'character', 0, 28);
+        state.bridgeStructure = 'concrete';
+        print('The Mayor moves on. What surface will you use for the deck?', 'system', 40);
+        setHints(['timber decking', 'steel grating', 'concrete', 'composite decking']);
+        currentScene = (inp) => sceneBridge_Deck(inp);
+      }
+    };
+
+  } else if (inp.includes('timber') || inp.includes('wood')) {
+    await printLines([
+      '',
+      'The Mayor raises an eyebrow.',
+      '"Timber? For the main structure of an 18-metre river',
+      'bridge? I appreciate the thought — timber IS strong',
+      'along the grain. But in a damp, flood-prone river',
+      'environment, untreated timber will rot within years.',
+      'Even treated structural timber struggles long-term',
+      'in standing water. And we need 30+ years of service."',
+      '',
+      '"Consider: timber is great for bridge decking,',
+      'handrails, or covered walkways — but for the main',
+      'load-bearing structure here, you need something that',
+      'handles wet conditions better. Want to reconsider?"',
+    ], 'character', 0, 28);
+    print('[ HINT: Think about corrosion/decay resistance and structural strength ]', 'hint', 20);
+    print('What do you propose instead?', 'system', 30);
+    setHints(['steel', 'reinforced concrete', 'composite']);
+    currentScene = (inp) => sceneBridge_StructureMaterial(inp);
+
+  } else if (inp.includes('aluminium') || inp.includes('aluminum')) {
+    await printLines([
+      '',
+      '"Aluminium!" The Mayor looks intrigued.',
+      '"Lightweight, naturally corrosion-resistant — aluminium',
+      'forms a protective oxide layer, which is useful here.',
+      'However... aluminium is significantly more expensive',
+      'than structural steel, and has a lower elastic modulus',
+      '— it deflects more under load. For this span, you\'d',
+      'need a deeper beam section to control deflection.",',
+      '"The council won\'t approve the cost premium.',
+      'Aluminium bridges are used — but typically for',
+      'specialist applications where weight is critical.',
+      'For a simple town footbridge: too expensive.',
+      'Try again."',
+    ], 'character', 0, 28);
+    setHints(['steel', 'reinforced concrete']);
+    currentScene = (inp) => sceneBridge_StructureMaterial(inp);
+
+  } else {
+    print('Mayor Chen looks puzzled. "Is that a material you\'d use for a bridge?"', 'character', 0);
+    print('Type  hint  to see what materials to consider.', 'system', 20);
+  }
+}
+
+async function sceneBridge_Corrosion(inp) {
+  let handled = false;
+  if (inp.includes('galvanis') || inp.includes('galvanize') || inp.includes('zinc')) {
+    state.bridgeCorrosion = 'galvanised';
+    await printLines([
+      '',
+      '"Hot-dip galvanising! Excellent," the Mayor says.',
+      '"You\'re coating the steel in zinc — and zinc is',
+      'sacrificial: it corrodes preferentially, protecting',
+      'the steel beneath. Industry-standard for outdoor',
+      'structural steelwork. Cost-effective. Smart."',
+      '',
+      'MATERIAL NOTE: Galvanised steel lasts 20-50 years',
+      'in most outdoor environments before maintenance.',
+    ], 'character', 0, 28);
+    handled = true;
+  } else if (inp.includes('paint') || inp.includes('painted') || inp.includes('coating') || inp.includes('epoxy')) {
+    state.bridgeCorrosion = 'painted';
+    await printLines([
+      '',
+      '"Paint coatings work," the Mayor says, "but they',
+      'need regular maintenance — repainting every 5-10 years.',
+      'In the long run, galvanising or weathering steel',
+      'reduces lifetime maintenance costs. We\'ll accept it,',
+      'but factor in the maintenance budget."',
+      '',
+      'MATERIAL NOTE: Protective coatings are valid but',
+      'require ongoing maintenance cycles.',
+    ], 'character', 0, 28);
+    handled = true;
+  } else if (inp.includes('weathering') || inp.includes('cor-ten') || inp.includes('corten')) {
+    state.bridgeCorrosion = 'weathering steel';
+    await printLines([
+      '',
+      '"Weathering steel — also called Cor-Ten!" the Mayor',
+      'says with real interest. "It forms a stable rust-like',
+      'patina that actually protects the steel beneath.',
+      'Zero painting needed. Architects love the aesthetic."',
+      '',
+      '"One caution: it needs good drainage — standing water',
+      'can cause it to corrode through. With proper detailing,',
+      'it\'s an excellent long-term choice. Well done."',
+      '',
+      'MATERIAL NOTE: Weathering steel — highest long-term',
+      'value where drainage is well-managed.',
+    ], 'character', 0, 28);
+    handled = true;
+  } else if (inp.includes('stainless')) {
+    await printLines([
+      '"Stainless steel! Technically excellent — the chromium',
+      'oxide layer makes it highly corrosion resistant.',
+      'But stainless structural sections cost 4-6x more than',
+      'mild steel. The council will never approve that budget.',
+      'Good thinking, but impractical here. Try a more',
+      'cost-effective corrosion treatment."',
+    ], 'character', 0, 28);
+    setHints(['galvanise', 'paint', 'weathering steel']);
+    return;
+  } else {
+    print('"That doesn\'t sound like a corrosion treatment to me."', 'character', 0);
+    print('Type  hint  for ideas.', 'system', 20);
+    return;
+  }
+
+  if (handled) {
+    printBlank();
+    print('The Mayor moves on. What will you use for the bridge deck surface?', 'system', 40);
+    setHints(['timber decking', 'steel grating', 'composite decking', 'concrete']);
+    currentScene = (inp) => sceneBridge_Deck(inp);
+  }
+}
+
+async function sceneBridge_Deck(inp) {
+  let feedback = '';
+  let good = false;
+
+  if (inp.includes('timber') || inp.includes('hardwood') || inp.includes('wood')) {
+    good = true;
+    feedback = [
+      '"Hardwood timber decking — classic choice for footbridges.',
+      'It\'s warm underfoot, has a natural grip when wet if',
+      'grooved correctly, and looks welcoming.',
+      'You\'d specify sustainably sourced hardwood — a material',
+      'property worth noting: hardwoods are denser and more',
+      'durable than softwoods for external use.',
+      'Ensure end-grain sealing to slow moisture uptake."',
+    ];
+  } else if (inp.includes('composite') || inp.includes('wpc') || inp.includes('recycled plastic')) {
+    good = true;
+    feedback = [
+      '"Composite decking — wood-plastic composite (WPC).',
+      'Excellent choice. It won\'t rot, splinter, or require',
+      'painting, and many products use recycled materials.',
+      'Slightly higher upfront cost than timber, but lower',
+      'lifetime maintenance. Very suitable for river use."',
+    ];
+  } else if (inp.includes('grating') || inp.includes('steel grating') || inp.includes('open grating')) {
+    good = true;
+    feedback = [
+      '"Steel grating. Practical — allows leaves and water',
+      'to fall through, prevents slip build-up.',
+      'Some pedestrians find open grating unsettling',
+      '(especially with young children) but it\'s cost-effective',
+      'and widely used on utility footbridges. Accepted."',
+    ];
+  } else if (inp.includes('concrete')) {
+    good = false;
+    feedback = [
+      '"Concrete decking adds significant dead load to the',
+      'bridge structure. For a pedestrian footbridge we want',
+      'to minimise self-weight. It would work on a road bridge,',
+      'but here it\'s overspecified and adds unnecessary cost.',
+      'Consider a lighter decking material."',
+    ];
+    setHints(['timber decking', 'composite decking', 'steel grating']);
+    await printLines(feedback, 'character', 0, 28);
+    return;
+  } else {
+    print('"Hmm. That\'s not a standard decking material for a bridge."', 'character', 0);
+    print('Type  hint  for ideas.', 'system', 20);
+    return;
+  }
+
+  await printLines(feedback, 'character', 0, 28);
+  await goTo(sceneBridge_Budget);
+}
+
+async function sceneBridge_Budget() {
+  setLocation('CIVIC OFFICES — BUDGET MEETING');
+  await printLines([
+    '',
+    'Three days later. Budget meeting.',
+    '',
+    'COUNCILLOR ZHANG slides a spreadsheet across the table.',
+    '',
+    '"Your material estimates have come in 22% over budget.',
+    'The council needs a cut. Here are two options:"',
+    '',
+    '  [A] Reduce the bridge width from 3m to 2m.',
+    '  [B] Switch from hardwood timber decking to',
+    '      pressure-treated softwood (pine).',
+    '',
+    '"Either will bring us under budget. Your call."',
+  ], 'narrator', 0, 28);
+  await printLines([
+    '"I\'ll tell you this," Councillor Zhang adds,',
+    '"the bridge sees 200+ pedestrians daily in peak season.',
+    'Narrow bridges create bottlenecks. And softwood outdoors',
+    'will need repainting or re-treating every few years.",',
+  ], 'character', 50, 28);
+  printBlank();
+  print('Which budget cut do you recommend? (type  A  or  B)', 'system', 40);
+  setHints(['a', 'b', 'option a', 'option b', 'reduce width', 'softwood']);
+  currentScene = (inp) => sceneBridge_BudgetChoice(inp);
+}
+
+async function sceneBridge_BudgetChoice(inp) {
+  if (inp.includes('a') || inp.includes('width') || inp.includes('narrow')) {
+    await printLines([
+      '',
+      'You choose Option A — reduce the width.',
+      '',
+      '"Hmm," says Councillor Zhang. "That\'s a significant',
+      'user experience compromise. 2m is barely enough for',
+      'two people and a pram to pass. In a growing town?',
+      'This bridge will feel cramped within 5 years.",',
+      '',
+      '"But... it keeps the better material. The structure',
+      'itself is sound. I\'ll accept it — but note for the',
+      'record: this decision prioritises material performance',
+      'over user comfort. A valid trade-off, but not ideal."',
+      '',
+      'LESSON: Reducing functional dimensions to save material',
+      'cost has long-term usability consequences.',
+    ], 'character', 0, 28);
+    state.bridgeBudgetChoice = 'width';
+    await goTo(sceneBridge_LocalMaterial);
+
+  } else if (inp.includes('b') || inp.includes('softwood') || inp.includes('pine') || inp.includes('timber')) {
+    await printLines([
+      '',
+      'You choose Option B — switch to treated softwood decking.',
+      '',
+      '"Practical," says Councillor Zhang. "Pine is widely',
+      'available locally — lower transport costs too.',
+      'But you know that softwood has lower density and',
+      'durability than hardwood. In a wet outdoor environment',
+      'with heavy foot traffic, you\'re looking at repainting',
+      'or re-treating every 5-7 years. Factor in that',
+      'whole-life cost when advising future clients."',
+      '',
+      'LESSON: Lower upfront material cost can mean',
+      'higher lifetime maintenance cost. The better choice',
+      'depends on the client\'s priorities.',
+    ], 'character', 0, 28);
+    state.bridgeBudgetChoice = 'softwood';
+    await goTo(sceneBridge_LocalMaterial);
+
+  } else {
+    print('"Please choose A or B — we need a decision today."', 'character', 0);
+  }
+}
+
+async function sceneBridge_LocalMaterial() {
+  setLocation('RIVER ZHONG — SITE VISIT');
+  await printLines([
+    '',
+    'On site, you meet LOCAL CONTRACTOR LIN.',
+    '',
+  ], 'narrator', 0, 25);
+  await printLines([
+    '"Good news — there\'s a steel fabricator just 40km north.',
+    'Standard I-beams, galvanised, delivered in two weeks.',
+    'But I want to show you something."',
+    '',
+    'He points upstream.',
+    '',
+    '"Upriver, there\'s a demolition site — a factory closing.',
+    'They have 20-year-old structural steel beams, clean,',
+    'certified, going cheap. Half the price of new.",',
+    '',
+    '"Reclaimed structural steel is common in industry.',
+    'Some designers love it — lower embodied energy,',
+    'lower cost. Others worry about unknown load history.",',
+    '',
+    '"Do you want to specify: new steel, or reclaimed steel?"',
+  ], 'character', 0, 28);
+  setHints(['new steel', 'reclaimed steel', 'new', 'reclaimed']);
+  currentScene = (inp) => sceneBridge_SteelChoice(inp);
+}
+
+async function sceneBridge_SteelChoice(inp) {
+  if (inp.includes('reclaim') || inp.includes('salvage') || inp.includes('used') || inp.includes('second')) {
+    await printLines([
+      '',
+      '"Interesting choice," says Contractor Lin.',
+      '"Reclaimed steel can be excellent if certified.',
+      'You\'d need the structural engineer to verify load',
+      'history and check for fatigue damage. If it passes',
+      'inspection, you\'ve saved money AND reduced the',
+      'embodied carbon of the project — good for a',
+      'sustainability statement in your report."',
+      '',
+      '"One condition: you MUST get a third-party inspection.',
+      'No shortcuts on structural elements."',
+      '',
+      'MATERIAL SELECTION NOTE:',
+      'Reclaimed materials = lower cost + lower embodied energy.',
+      'Risk = unknown load history. Mitigation = inspection.',
+    ], 'character', 0, 28);
+  } else if (inp.includes('new')) {
+    await printLines([
+      '',
+      '"New steel it is," says Contractor Lin.',
+      '"Certified to BS EN 10025. Full traceability.',
+      'No surprises. Slightly higher cost but you have',
+      'full confidence in the material specification.",',
+      '',
+      'MATERIAL SELECTION NOTE:',
+      'New certified steel = known properties, full traceability.',
+      'Higher embodied energy than reclaimed.',
+    ], 'character', 0, 28);
+  } else {
+    print('"Which do you want — new steel or reclaimed steel?"', 'character', 0);
+    return;
+  }
+  await goTo(sceneBridge_Finale);
+}
+
+async function sceneBridge_Finale() {
+  setLocation('CENTRAL MIDDLEZHONG — BRIDGE OPENING');
+  printDivider();
+  await printLines([
+    '  PROJECT COMPLETE — THE ZHONG FOOTBRIDGE',
+    '',
+    '  Six months later, the bridge opens.',
+    '  Mayor Chen cuts the ribbon.',
+  ], 'big', 100, 40);
+  printDivider();
+  await printLines([
+    '',
+    '"You made some tough calls," the Mayor tells you.',
+    '"But the bridge is standing, it\'s safe, and the',
+    'materials you chose will serve this town well."',
+    '',
+    '─── WHAT YOU LEARNED ─────────────────────────────────',
+    '',
+    '  ✓ Steel is ideal for medium-span bridge structures',
+    '    (high strength, predictable, prefabricatable)',
+    '  ✓ Corrosion protection is essential in wet environments',
+    '    (galvanising, weathering steel, coatings)',
+    '  ✓ Deck materials must balance durability, user comfort,',
+    '    maintenance cost and self-weight',
+    '  ✓ Budget constraints require trade-off analysis:',
+    '    upfront cost vs. whole-life cost',
+    '  ✓ Reclaimed materials are a valid choice with',
+    '    appropriate verification',
+    '',
+    '─────────────────────────────────────────────────────',
+    '',
+    'IB DT B3.1 SKILLS PRACTISED:',
+    '  • Selecting materials based on functional requirements',
+    '  • Considering mechanical and durability properties',
+    '  • Responding to budget constraints with alternatives',
+    '  • Local sourcing and sustainability considerations',
+    '',
+    'Type  restart  to play again, or choose a new project.',
+  ], 'narrator', 100, 25);
+  setHints(['restart', 'bridge', 'playground', 'climbing']);
+  currentScene = async (inp) => {
+    if (inp === 'restart' || inp === 'play again') { await goTo(sceneTitleScreen); }
+    else if (inp === 'bridge') { await goTo(sceneBridgeStart); }
+    else if (inp === 'playground') { state.project = 'playground'; await goTo(scenePlaygroundStart); }
+    else if (inp === 'climbing') { state.project = 'climbing'; await goTo(sceneClimbingStart); }
+    else { print('Type  restart,  bridge,  playground  or  climbing.', 'system', 0); }
+  };
+}
+
+// ============================================================
+//  PATH 2 — THE PLAYGROUND
+// ============================================================
+
+async function scenePlaygroundStart() {
+  setLocation('RIVERSIDE PARK OFFICE');
+  await printLines([
+    '════════════════════════════════════════════════════════',
+    ' PROJECT 2: RIVERSIDE PARK CHILDREN\'S PLAYGROUND',
+    '════════════════════════════════════════════════════════',
+    '',
+    'You meet PARKS OFFICER HUANG at the site.',
+    '',
+  ], 'narrator', 0, 25);
+  await printLines([
+    '"Welcome! We\'re replacing the old playground.",',
+    '"The council has three key requirements:"',
+    '"1. Safe — no sharp edges, splinters, toxic finishes."',
+    '"2. Durable — survives heavy use, all weathers."',
+    '"3. Engaging — kids need variety: climbing, sliding, swinging."',
+    '',
+    '"We\'re also getting scrutiny on sustainability this year.',
+    'The local school group will want to know where materials',
+    'came from and whether they\'re recyclable."',
+    '',
+    '"First question — what\'s your main structural frame?',
+    'This is the posts, beams, the skeleton of everything."',
+  ], 'character', 50, 28);
+  printBlank();
+  print('What material do you specify for the main structural frame?', 'system', 40);
+  setHints(['steel', 'timber', 'aluminium', 'hdpe', 'recycled plastic']);
+  currentScene = (inp) => scenePlayground_Frame(inp);
+}
+
+async function scenePlayground_Frame(inp) {
+  if (inp.includes('timber') || inp.includes('wood') || inp.includes('oak') || inp.includes('pine') || inp.includes('softwood')) {
+    state.playFrame = 'timber';
+    await printLines([
+      '',
+      '"Timber! A classic choice for playgrounds," Huang says.',
+      '"Children interact well with natural materials — warm',
+      'to the touch, no heat soak on hot days unlike metal.',
+      'Natural wood has good compressive strength for posts.',
+      '',
+      'You\'d specify pressure-treated softwood (e.g. pine)',
+      'for structural posts — the treatment prevents rot',
+      'and insect attack. Hardwoods like oak are longer-lasting',
+      'but more expensive.',
+      '',
+      'One concern: you MUST verify the treatment chemicals.',
+      'Modern playground timber uses copper-based preservatives',
+      '— older creosote treatments are now banned for play areas',
+      'due to toxicity. Material safety matters here."',
+    ], 'character', 0, 28);
+    printBlank();
+    print('"Now — the slide. What material for the slide surface?"', 'character', 30);
+    setHints(['stainless steel', 'hdpe plastic', 'fibreglass', 'aluminium']);
+    currentScene = (inp) => scenePlayground_Slide(inp);
+
+  } else if (inp.includes('steel')) {
+    state.playFrame = 'steel';
+    await printLines([
+      '',
+      '"Steel frame. Strong, widely available," Huang considers.',
+      '"But I must flag: bare steel in a playground gets',
+      'dangerously hot in summer sun — surface temperatures',
+      'over 60°C have been recorded on dark painted steel.',
+      'You\'d need powder-coated light colours, or reconsider.',
+      '',
+      'Also: any sharp edges, bolts, or cut ends MUST be',
+      'capped or recessed. Sharp edges = injury hazard = fail.',
+      '',
+      '"It\'s workable with good detailing. Accepted — but',
+      'you\'ll need to specify powder coating carefully."',
+    ], 'character', 0, 28);
+    printBlank();
+    print('"The slide material — your call?"', 'character', 30);
+    setHints(['stainless steel', 'hdpe plastic', 'fibreglass', 'aluminium']);
+    currentScene = (inp) => scenePlayground_Slide(inp);
+
+  } else if (inp.includes('aluminium')) {
+    state.playFrame = 'aluminium';
+    await printLines([
+      '"Aluminium — interesting choice," Huang says.',
+      '"Lightweight, naturally corrosion-resistant.',
+      'Doesn\'t rust. Popular in modern playground equipment.',
+      'It\'s more expensive than steel but never needs painting.',
+      'Good choice for a long-life installation.',
+      '',
+      'Consideration: lower strength than steel, so structural',
+      'sections would be slightly larger. Still entirely viable."',
+    ], 'character', 0, 28);
+    print('"Now the slide. What material?"', 'character', 30);
+    setHints(['stainless steel', 'hdpe plastic', 'fibreglass']);
+    currentScene = (inp) => scenePlayground_Slide(inp);
+
+  } else if (inp.includes('hdpe') || inp.includes('plastic') || inp.includes('recycled plastic') || inp.includes('poly')) {
+    state.playFrame = 'hdpe';
+    await printLines([
+      '"Recycled HDPE plastic posts!" Huang lights up.',
+      '"High-density polyethylene — it\'s increasingly popular.',
+      'Won\'t rot, splinter, or rust. Often made from recycled',
+      'milk bottles and packaging. Great sustainability story',
+      'for your school group audience.",',
+      '',
+      '"Compressive strength is lower than timber or steel,',
+      'so structural posts tend to be thicker.',
+      'But for a playground? Entirely appropriate.',
+      'The sustainability angle is a bonus."',
+    ], 'character', 0, 28);
+    print('"Slide material next?"', 'character', 30);
+    setHints(['stainless steel', 'hdpe plastic', 'fibreglass']);
+    currentScene = (inp) => scenePlayground_Slide(inp);
+
+  } else {
+    print('"That material isn\'t typically used for playground frames."', 'character', 0);
+    print('Type  hint  for ideas.', 'system', 20);
+  }
+}
+
+async function scenePlayground_Slide(inp) {
+  if (inp.includes('stainless') || inp.includes('stainless steel')) {
+    await printLines([
+      '',
+      '"Stainless steel slide!" Huang winces slightly.',
+      '"It\'s very common — smooth, durable, hygienic.',
+      'But here\'s the issue: in direct sunlight, stainless',
+      'steel slides reach temperatures of 70°C+.',
+      'We\'ve had children burned. Some councils are now',
+      'banning them in south-facing positions.",',
+      '',
+      '"For this south-facing site, you\'d need to either',
+      'orient carefully, add shade, or choose differently.',
+      'I\'ll accept it IF you add a shade canopy over the slide.',
+      'Factor that into the budget."',
+    ], 'character', 0, 28);
+    state.playSlide = 'stainless steel + canopy';
+
+  } else if (inp.includes('hdpe') || inp.includes('plastic') || inp.includes('poly') || inp.includes('moulded')) {
+    await printLines([
+      '',
+      '"HDPE plastic slide. Excellent modern choice.",',
+      '"Lower heat absorption than metal — much safer in sun.',
+      'Smooth, durable, available in bright colours.',
+      'Can be moulded into curved wave slides.',
+      'Great choice for a child-safe, low-maintenance finish.',
+      'UV-stabilised grades won\'t fade or crack for 15+ years."',
+    ], 'character', 0, 28);
+    state.playSlide = 'hdpe plastic';
+
+  } else if (inp.includes('fibre') || inp.includes('fibreglass') || inp.includes('grp') || inp.includes('frp')) {
+    await printLines([
+      '',
+      '"Fibreglass / GRP slides — a solid choice.",',
+      '"Glass-reinforced polymer. Smooth, strong, lightweight.',
+      'Can be formed into complex shapes. UV-resistant grades',
+      'hold colour well. More expensive than HDPE but',
+      'premium-looking finish. Accepted."',
+    ], 'character', 0, 28);
+    state.playSlide = 'fibreglass';
+
+  } else if (inp.includes('aluminium') || inp.includes('aluminum')) {
+    await printLines([
+      '"Aluminium slides — similar concerns to stainless steel.',
+      'Heat soak in sunlight. More expensive than HDPE.',
+      'Consider a material that doesn\'t get dangerously hot."',
+    ], 'character', 0, 28);
+    setHints(['hdpe plastic', 'fibreglass', 'stainless steel with canopy']);
+    return;
+
+  } else {
+    print('"That\'s an unusual slide material. Type  hint  for ideas."', 'character', 0);
+    return;
+  }
+
+  printBlank();
+  await goTo(scenePlayground_Surface);
+}
+
+async function scenePlayground_Surface() {
+  setLocation('RIVERSIDE PARK — GROUND SURFACE');
+  await printLines([
+    '',
+    'Now for the ground surface beneath equipment.',
+    'PARKS OFFICER HUANG looks at the impact zone.',
+    '',
+  ], 'narrator', 0, 25);
+  await printLines([
+    '"This is critical for safety. A child falling from',
+    '2 metres onto concrete... well. The surface must absorb',
+    'impact energy. What do you specify beneath the equipment?"',
+  ], 'character', 0, 28);
+  setHints(['rubber mulch', 'sand', 'wetpour rubber', 'bark chips', 'artificial grass', 'concrete']);
+  currentScene = (inp) => scenePlayground_SurfaceChoice(inp);
+}
+
+async function scenePlayground_SurfaceChoice(inp) {
+  if (inp.includes('concrete') || inp.includes('tarmac') || inp.includes('asphalt') || inp.includes('paving') || inp.includes('stone')) {
+    await printLines([
+      '',
+      '⚠ FAILURE — PLAYGROUND REJECTED',
+      '',
+      '"Concrete under climbing equipment?" Huang stares.',
+      '"Absolutely not. This fails every playground safety',
+      'standard. EN 1177 requires impact-absorbing surfaces',
+      'beneath equipment with a fall height over 600mm.",',
+      '',
+      'WHY THIS FAILS:',
+      'Hard surfaces like concrete, tarmac or stone provide',
+      'NO energy absorption on impact. A child falling from',
+      '1.5m onto concrete risks serious head injury or death.',
+      'This design would not receive planning approval.',
+      '',
+      'Please reconsider the surface material.',
+    ], 'fail', 0, 25);
+    setHints(['rubber mulch', 'sand', 'wetpour rubber', 'bark chips']);
+    return;
+
+  } else if (inp.includes('sand') || inp.includes('loose sand')) {
+    await printLines([
+      '',
+      '"Sand — the original impact-absorbing surface," Huang says.',
+      '"Low cost, natural feel. Children love it. However:",',
+      '"1. Needs regular raking and topping up.",',
+      '"2. Gets wet and compacts — loses impact absorption.",',
+      '"3. Cats. Enough said.",',
+      '"4. Children tracking it everywhere — parents complain."',
+      '',
+      '"Acceptable for a budget install, but high maintenance.',
+      'You\'d need to specify min 300mm depth, regularly raked."',
+    ], 'character', 0, 28);
+    state.playSurface = 'sand';
+
+  } else if (inp.includes('bark') || inp.includes('wood chip') || inp.includes('mulch') || inp.includes('wood mulch')) {
+    await printLines([
+      '',
+      '"Bark chips or rubber mulch. Natural option.",',
+      '"Bark: biodegradable, renewable, pleasant look.',
+      'Needs replacing every 2-3 years as it degrades.',
+      'Must be specified to EN 1177 depth (typically 300mm+).",',
+      '"Rubber mulch: made from recycled tyres.',
+      'Lasts much longer, drains well. Sustainability question:',
+      'is recycled rubber a positive material story? Discuss."',
+    ], 'character', 0, 28);
+    state.playSurface = 'mulch';
+
+  } else if (inp.includes('wetpour') || inp.includes('wet pour') || inp.includes('rubber') || inp.includes('rubber tile') || inp.includes('safety tile')) {
+    await printLines([
+      '',
+      '"Wetpour rubber — excellent choice for a playground."',
+      '"Poured-in-place recycled rubber crumb with polyurethane binder.",',
+      '"Meets EN 1177 impact attenuation requirements.",',
+      '"Seamless, no loose material, wheelchair accessible.",',
+      '"Available in colours and patterns — you can embed',
+      'shapes and graphics for young children."',
+      '"Higher upfront cost, but minimal maintenance.',
+      'Best whole-life value for a quality installation."',
+    ], 'character', 0, 28);
+    state.playSurface = 'wetpour rubber';
+
+  } else if (inp.includes('grass') || inp.includes('artificial grass') || inp.includes('astroturf')) {
+    await printLines([
+      '"Artificial grass — not suitable as the sole impact surface.",',
+      '"On its own it provides very little impact attenuation.',
+      'You\'d need shock pad underlay to meet EN 1177.',
+      'With the right underlayer it can work, but wetpour',
+      'or rubber tiles are more reliable choices here."',
+    ], 'character', 0, 28);
+    setHints(['wetpour rubber', 'rubber mulch', 'sand', 'bark chips']);
+    return;
+  } else {
+    print('"That doesn\'t sound like a safe playground surface."', 'character', 0);
+    print('Type  hint  for ideas. Safety is critical here.', 'system', 20);
+    return;
+  }
+
+  await goTo(scenePlayground_Budget);
+}
+
+async function scenePlayground_Budget() {
+  setLocation('PARKS BUDGET MEETING');
+  await printLines([
+    '',
+    'Budget review. COUNCILLOR ZHANG again.',
+    '',
+    '"Your specification is over budget by 18%.',
+    'I\'ve identified one possible saving."',
+    '',
+    '"The wetpour rubber surface covers 200m². The premium',
+    'coloured version is £85/m². A plain grey version is £52/m².",',
+    '"That\'s a saving of £6,600 — just enough."',
+    '',
+    '"Alternatively, we can reduce the equipment list:",',
+    '"Drop the climbing wall (the most expensive single item)",',
+    '"and keep the full coloured surface. Your choice."',
+    '',
+    '"What do you decide?"',
+  ], 'narrator', 0, 28);
+  setHints(['plain surface', 'grey surface', 'drop climbing wall', 'remove climbing wall', 'coloured surface']);
+  currentScene = async (inp) => {
+    if (inp.includes('plain') || inp.includes('grey') || inp.includes('color') || inp.includes('colour') || inp.includes('surface')) {
+      await printLines([
+        '',
+        '"Sensible trade-off," Councillor Zhang says.',
+        '"The safety performance of plain wetpour is identical',
+        'to coloured. The colour difference is purely aesthetic.',
+        'You\'ve maintained function, reduced cost — good thinking.",',
+        '',
+        'LESSON: When budgets are tight, distinguish between',
+        'aesthetic choices and functional requirements.',
+        'Safety-critical specifications should not be compromised.',
+      ], 'character', 0, 28);
+    } else if (inp.includes('climb') || inp.includes('wall') || inp.includes('remove') || inp.includes('drop')) {
+      await printLines([
+        '',
+        '"Hmm," Zhang considers. "The climbing wall was the',
+        'most popular element in the community consultation.',
+        'Removing it saves money but disappoints users.",',
+        '',
+        '"You\'ve kept the premium surface — which is arguably',
+        'less visible to users than the equipment itself.',
+        'A reasonable decision, but consider: user research',
+        'should inform what you cut, not just cost.',
+        'The coloured surface option was a better cut."',
+      ], 'character', 0, 28);
+    } else {
+      print('"Please choose between the surface saving or removing the climbing wall."', 'character', 0);
+      return;
+    }
+    await goTo(scenePlayground_Finale);
+  };
+}
+
+async function scenePlayground_Finale() {
+  setLocation('RIVERSIDE PARK — OPENING DAY');
+  printDivider();
+  await printLines([
+    '  PROJECT COMPLETE — RIVERSIDE PARK PLAYGROUND',
+    '',
+    '  Opening day. Children are everywhere.',
+  ], 'big', 100, 40);
+  printDivider();
+  await printLines([
+    '',
+    'Parks Officer Huang shakes your hand.',
+    '"The school group loved the sustainability story.',
+    'The recycled rubber surface, the HDPE posts...',
+    'good material choices you can stand behind."',
+    '',
+    '─── WHAT YOU LEARNED ─────────────────────────────────',
+    '',
+    '  ✓ Material selection must consider user safety first',
+    '    (heat absorption, sharp edges, toxic treatments)',
+    '  ✓ Impact-absorbing surfaces are a safety requirement,',
+    '    not an optional extra (EN 1177)',
+    '  ✓ Polymer materials (HDPE, recycled rubber) offer',
+    '    durability + sustainability benefits outdoors',
+    '  ✓ Budget trade-offs should target aesthetic choices',
+    '    before functional or safety specifications',
+    '  ✓ Whole-life cost matters: low maintenance = long-term value',
+    '',
+    '─────────────────────────────────────────────────────',
+    '',
+    'IB DT B3.1 SKILLS PRACTISED:',
+    '  • Material selection against safety/durability criteria',
+    '  • Sustainability considerations in material choice',
+    '  • Budget trade-off analysis: aesthetic vs functional',
+    '  • Properties of polymers, metals, and timber compared',
+    '',
+    'Type  restart  to play again or choose another project.',
+  ], 'narrator', 100, 25);
+  setHints(['restart', 'bridge', 'playground', 'climbing']);
+  currentScene = async (inp) => {
+    if (inp === 'restart') { await goTo(sceneTitleScreen); }
+    else if (inp === 'bridge') { await goTo(sceneBridgeStart); }
+    else if (inp === 'playground') { await goTo(scenePlaygroundStart); }
+    else if (inp === 'climbing') { await goTo(sceneClimbingStart); }
+    else { print('Type  restart,  bridge,  playground  or  climbing.', 'system', 0); }
+  };
+}
+
+// ============================================================
+//  PATH 3 — INDOOR CLIMBING CENTRE
+// ============================================================
+
+async function sceneClimbingStart() {
+  setLocation('NORTH QUARTER — SITE MEETING');
+  await printLines([
+    '════════════════════════════════════════════════════════',
+    ' PROJECT 3: NORTH QUARTER INDOOR CLIMBING CENTRE',
+    '════════════════════════════════════════════════════════',
+    '',
+    'You meet CLIMBING COACH MEI at the empty warehouse space.',
+    '',
+  ], 'narrator', 0, 25);
+  await printLines([
+    '"We\'re converting this old warehouse into a climbing',
+    'centre. Three wall types needed:",',
+    '"  1. Main top-rope walls (up to 12m high)"',
+    '"  2. Bouldering area (max 4.5m, no ropes)"',
+    '"  3. Training board (steep overhang, holds)"',
+    '',
+    '"The walls need to take dynamic loads — climbers falling',
+    'onto ropes, holds being cranked on, constant vibration.",',
+    '"They also need to be smooth enough for route setting',
+    'but grippy enough to take T-nut inserts for holds.",',
+    '',
+    '"What material do you specify for the climbing wall panels?"',
+  ], 'character', 50, 28);
+  setHints(['plywood', 'fibreglass', 'steel sheet', 'concrete', 'timber boards']);
+  currentScene = (inp) => sceneClimbing_Wall(inp);
+}
+
+async function sceneClimbing_Wall(inp) {
+  if (inp.includes('plywood') || inp.includes('ply')) {
+    state.climbWall = 'plywood';
+    await printLines([
+      '',
+      '"Plywood! Correct industry standard choice," Mei says.',
+      '"Specifically: 17-18mm structural plywood, birch or',
+      'hardwood-faced. Here\'s why it works:",',
+      '"  • Strong and stiff — good for dynamic loads"',
+      '"  • T-nuts can be inserted in a grid — holds screw in"',
+      '"  • Workable with standard tools, panels can be cut",',
+      '"  • Relatively lightweight for the structure"',
+      '"  • Surface can be textured with sand/paint for grip"',
+      '',
+      '"This is what 95% of commercial climbing walls use.",',
+      '"Now — the floor beneath the bouldering area.',
+      'Climbers fall from up to 4.5m without ropes.',
+      'What do you specify for the crash mat system?"',
+    ], 'character', 0, 28);
+    setHints(['foam crash mats', 'foam', 'rubber flooring', 'sand', 'concrete', 'spring floor']);
+    currentScene = (inp) => sceneClimbing_Floor(inp);
+
+  } else if (inp.includes('fibreglass') || inp.includes('grp') || inp.includes('frp') || inp.includes('composite')) {
+    await printLines([
+      '',
+      '"Fibreglass panels exist for climbing walls," Mei says,',
+      '"but they\'re specialist, expensive, and usually used',
+      'for sculpted feature walls — not the whole installation.",',
+      '"The main walls need T-nut insert grids, and fibreglass',
+      'is harder to work with for installers here.",',
+      '"For a commercial install on a budget, plywood is standard.",',
+      'Want to reconsider?',
+    ], 'character', 0, 28);
+    setHints(['plywood', 'fibreglass for feature walls only', 'steel']);
+    return;
+
+  } else if (inp.includes('steel') || inp.includes('metal')) {
+    await printLines([
+      '',
+      '⚠ FAILURE — WALL SPECIFICATION REJECTED',
+      '',
+      '"Steel sheet panels?" Mei shakes her head.',
+      '"This fails on several counts:",',
+      '"1. T-nuts cannot be inserted — you can\'t attach holds",',
+      '"2. Hard, sharp edges are a serious injury risk on falls",',
+      '"3. No give under dynamic loading — uncomfortable",',
+      '"4. Conducts cold in winter — horrible to climb on"',
+      '',
+      'WHY THIS FAILS:',
+      'Material selection must account for the SPECIFIC USE.',
+      'Steel\'s hardness and inability to accept T-nut inserts',
+      'makes it fundamentally unsuitable for climbing wall panels.',
+      '',
+      'Think about what properties climbing wall panels need.',
+    ], 'fail', 0, 25);
+    setHints(['plywood', 'fibreglass']);
+    return;
+
+  } else if (inp.includes('concrete')) {
+    await printLines([
+      '',
+      '⚠ FAILURE — WALL SPECIFICATION REJECTED',
+      '',
+      '"Concrete walls?" Mei looks alarmed.',
+      '"Real rock climbing uses concrete and stone, yes.',
+      'But indoor climbing walls need modular panels',
+      'with T-nut inserts to attach removable holds.',
+      'Concrete cannot accept T-nuts.",',
+      '"Also: falling onto a concrete wall is far more',
+      'dangerous than falling onto a plywood panel.",',
+      '',
+      'WHY THIS FAILS:',
+      'Concrete is rigid, cannot accept hold hardware,',
+      'and creates unacceptable injury risk on contact.',
+      '',
+      'What material is used in actual climbing centres?',
+    ], 'fail', 0, 25);
+    setHints(['plywood', 'fibreglass']);
+    return;
+
+  } else {
+    print('"That\'s not a typical climbing wall material. Think about what', 'character', 0);
+    print('properties you need: strength, workability, T-nut compatibility."', 'character', 20);
+    print('Type  hint  for ideas.', 'system', 30);
+  }
+}
+
+async function sceneClimbing_Floor(inp) {
+  if (inp.includes('foam') || inp.includes('crash mat') || inp.includes('mat') || inp.includes('bouldering mat') || inp.includes('pad')) {
+    state.climbFloor = 'foam crash mats';
+    await printLines([
+      '',
+      '"Foam crash mat system. Correct," Mei confirms.',
+      '"Industry standard: a layered foam system —",',
+      '"  • Top layer: open-cell foam for initial impact",',
+      '"  • Base layer: denser closed-cell foam for energy",',
+      '"    absorption and to prevent bottoming out",',
+      '"  • PVC or Cordura cover — durable, cleanable"',
+      '',
+      '"Total depth typically 300-400mm for bouldering.",',
+      '"The foam is a sacrificial material — it will need',
+      'replacing every 5-8 years as it compresses.",',
+      '"Budget for replacement in your whole-life cost."',
+    ], 'character', 0, 28);
+
+  } else if (inp.includes('rubber') || inp.includes('rubber floor') || inp.includes('gym floor')) {
+    await printLines([
+      '"Rubber gym flooring alone is not sufficient for',
+      'bouldering. It provides grip and some shock absorption,',
+      'but not enough energy absorption for falls from 4.5m.",',
+      '"You\'d need dedicated bouldering crash mat systems.',
+      'Rubber flooring is appropriate in the walking areas."',
+    ], 'character', 0, 28);
+    setHints(['foam crash mats', 'foam', 'layered foam mats']);
+    return;
+
+  } else if (inp.includes('sand') || inp.includes('gravel') || inp.includes('sawdust')) {
+    await printLines([
+      '',
+      '⚠ SERIOUS CONCERN',
+      '',
+      '"Sand or loose fill under a bouldering wall?"',
+      '"This was used in very early climbing gyms and',
+      'proved dangerous — loose fill compacts unevenly,',
+      'creating hard spots. A fall onto a compacted sand',
+      'patch provides almost no energy absorption.",',
+      '"Modern standards require engineered foam systems',
+      'with certified impact attenuation performance.',
+      'Do not use loose fill for bouldering floors."',
+    ], 'fail', 0, 25);
+    setHints(['foam crash mats', 'foam pads']);
+    return;
+
+  } else if (inp.includes('concrete') || inp.includes('hard') || inp.includes('wood')) {
+    await printLines([
+      '',
+      '⚠ FAILURE — UNACCEPTABLE FALL ZONE SURFACE',
+      '',
+      '"A hard surface under bouldering?" Mei is horrified.',
+      '"Falls from 4.5m onto hard surfaces cause severe injury',
+      'or death. This absolutely cannot be approved.",',
+      '',
+      'SAFETY CRITICAL: Fall zones beneath climbing require',
+      'engineered impact-absorbing surfaces. No exceptions.',
+    ], 'fail', 0, 25);
+    setHints(['foam crash mats', 'foam pads']);
+    return;
+
+  } else {
+    print('"What would protect a falling climber? Think about energy absorption."', 'character', 0);
+    print('Type  hint  for ideas.', 'system', 20);
+    return;
+  }
+
+  printBlank();
+  await goTo(sceneClimbing_Structure);
+}
+
+async function sceneClimbing_Structure() {
+  setLocation('NORTH QUARTER — STRUCTURAL DESIGN');
+  await printLines([
+    '',
+    'STRUCTURAL ENGINEER PARK joins the meeting.',
+    '',
+    '"The 12-metre walls need a freestanding steel',
+    'sub-frame — you can\'t attach that load to the',
+    'warehouse roof structure."',
+    '',
+    '"We need a tubular steel space frame.",',
+    '"I can spec it in:",',
+    '"  [A] Mild steel (S275) — standard, inexpensive"',
+    '"  [B] High-strength steel (S355) — 25% stronger,',
+    '       allows lighter sections, costs 15% more"',
+    '"  [C] Stainless steel — corrosion resistant,',
+    '       costs 4x more"',
+    '',
+    '"Which grade do you want?"',
+  ], 'narrator', 0, 28);
+  setHints(['a', 'b', 'c', 's275', 's355', 'mild steel', 'high strength steel', 'stainless']);
+  currentScene = (inp) => sceneClimbing_SteelGrade(inp);
+}
+
+async function sceneClimbing_SteelGrade(inp) {
+  if (inp.includes('a') || inp.includes('s275') || inp.includes('mild') || inp.includes('standard')) {
+    await printLines([
+      '',
+      '"S275 mild steel. Solid, economical choice," Park says.',
+      '"For an indoor structure with no corrosive environment,',
+      'mild steel is perfectly appropriate. Powder coat it',
+      'and you\'ll have zero maintenance for 25+ years.",',
+      '"No need to pay premium for S355 in this application."',
+    ], 'character', 0, 28);
+    state.climbSteel = 's275';
+
+  } else if (inp.includes('b') || inp.includes('s355') || inp.includes('high strength') || inp.includes('stronger')) {
+    await printLines([
+      '',
+      '"S355 high-strength steel," Park nods.',
+      '"The 25% strength increase means you can use smaller',
+      'tube sections — lighter overall structure.",',
+      '"For a 12-metre tall frame taking dynamic loads,',
+      'slightly lighter sections reduce foundation loads.",',
+      '"15% cost premium is reasonable for this application.",',
+      '"A well-reasoned choice."',
+    ], 'character', 0, 28);
+    state.climbSteel = 's355';
+
+  } else if (inp.includes('c') || inp.includes('stainless')) {
+    await printLines([
+      '',
+      '"Stainless steel for an indoor frame?" Park raises an eyebrow.',
+      '"Stainless resists corrosion — excellent property.",',
+      '"But this is an indoor, dry environment. S275 mild steel',
+      'with powder coating provides more than enough corrosion',
+      'resistance indoors at a fraction of the cost.",',
+      '"Stainless steel is 4x the price. The council won\'t approve.',
+      'Overspecification wastes budget that could go on equipment.",',
+      '"Stick to S275 or S355."',
+    ], 'character', 0, 28);
+    setHints(['a', 'b', 's275', 's355']);
+    return;
+
+  } else {
+    print('"Please choose A, B or C."', 'character', 0);
+    return;
+  }
+
+  await goTo(sceneClimbing_Holds);
+}
+
+async function sceneClimbing_Holds() {
+  setLocation('NORTH QUARTER — HOLDS & FITOUT');
+  await printLines([
+    '',
+    'Climbing Coach Mei is back.',
+    '"Last decision — the climbing holds themselves.",',
+    '"They need to be grippy, durable, and replaceable.",',
+    '"What material for the holds?"',
+  ], 'narrator', 0, 25);
+  setHints(['polyurethane', 'pu', 'resin', 'wood', 'wooden holds', 'plastic', 'aluminium']);
+  currentScene = (inp) => sceneClimbing_HoldsMaterial(inp);
+}
+
+async function sceneClimbing_HoldsMaterial(inp) {
+  if (inp.includes('polyurethane') || inp.includes('pu') || inp.includes('resin') || inp.includes('plastic') || inp.includes('polymer')) {
+    state.climbHolds = 'polyurethane';
+    await printLines([
+      '',
+      '"Polyurethane resin holds. Industry standard," Mei confirms.',
+      '"Cast polyurethane is tough, impact-resistant, and can',
+      'be textured to mimic real rock — smooth, rough, slopers.",',
+      '"They\'re injection-moulded or hand-cast into shapes,',
+      'with a threaded steel insert to bolt onto T-nuts.",',
+      '"They wear down over time — when they polish up and',
+      'lose texture, you replace them. Recyclable? Partially."',
+    ], 'character', 0, 28);
+
+  } else if (inp.includes('wood') || inp.includes('wooden') || inp.includes('timber')) {
+    state.climbHolds = 'wood';
+    await printLines([
+      '"Wooden holds — a niche but legitimate choice!" Mei grins.',
+      '"Used mainly on training boards — campuses, system boards.",',
+      '"Wood feels warm and natural. Hardwoods like oak or beech',
+      'are used. They do absorb chalk and sweat over time,',
+      'needing occasional sanding to maintain texture.",',
+      '"For a training board, excellent choice.",',
+      '"For the main colour walls? Polyurethane is more versatile."',
+    ], 'character', 0, 28);
+
+  } else if (inp.includes('aluminium') || inp.includes('aluminum') || inp.includes('metal')) {
+    await printLines([
+      '"Metal holds — sharp edges on metal if the casting isn\'t',
+      'perfect. Hard surfaces cause injury on unexpected contact.",',
+      '"Some specialist macrohold manufacturers use aluminium',
+      'for large feature volumes, but for standard holds,',
+      'polyurethane is safer and more practical."',
+    ], 'character', 0, 28);
+    setHints(['polyurethane', 'wood']);
+    return;
+
+  } else {
+    print('"Think about what properties a climbing hold needs: grip, durability, workability."', 'character', 0);
+    print('Type  hint  for ideas.', 'system', 20);
+    return;
+  }
+
+  await goTo(sceneClimbing_Budget);
+}
+
+async function sceneClimbing_Budget() {
+  setLocation('NORTH QUARTER — FINAL BUDGET REVIEW');
+  await printLines([
+    '',
+    'Final budget review. The project is 12% over.',
+    'COUNCILLOR ZHANG presents two options:',
+    '',
+    '"Option A: Use reclaimed structural steel for the sub-frame.',
+    'A factory nearby is closing — they have certified',
+    'S275 beams and tubes going at 40% market price.",',
+    '',
+    '"Option B: Reduce the climbing wall height from 12m to 9m.',
+    'This significantly reduces the structural steel required.",',
+    '',
+    '"The centre can still operate at 9m — most commercial',
+    'centres are 12-15m. At 9m you lose the lead climbing',
+    'certification for competition events.",',
+    '',
+    '"Your recommendation?"',
+  ], 'narrator', 0, 28);
+  setHints(['a', 'b', 'reclaimed steel', 'reduce height', 'option a', 'option b']);
+  currentScene = async (inp) => {
+    if (inp.includes('a') || inp.includes('reclaim') || inp.includes('salvage') || inp.includes('second')) {
+      await printLines([
+        '',
+        '"Reclaimed steel! I respect that," says Engineer Park.',
+        '"We\'ll need a full material certificate check and',
+        'visual inspection for fatigue cracks — standard procedure.",',
+        '"The steel fabricator 40km north does this inspection.",',
+        '"If it passes — and it likely will from a closed factory',
+        'that wasn\'t a high-fatigue environment — we save significantly",',
+        '"and reduce the project\'s embodied carbon too.",',
+        '',
+        'LESSON: Reclaimed structural steel is legitimate and',
+        'increasingly specified for sustainability. Certification',
+        'and inspection are non-negotiable.',
+      ], 'character', 0, 28);
+    } else if (inp.includes('b') || inp.includes('height') || inp.includes('9') || inp.includes('reduce') || inp.includes('shorter')) {
+      await printLines([
+        '',
+        '"Reducing wall height saves significant steel," Zhang nods.',
+        '"But Coach Mei would prefer you reconsider.",',
+        '"At 9m, you lose the ability to host lead climbing',
+        'competitions — a future revenue stream.",',
+        '"The reclaimed steel option preserves full height',
+        'AND saves money. A 9m centre is still a good facility,',
+        'but you\'ve closed a door unnecessarily.",',
+        '"Noted. We proceed with your decision."',
+      ], 'character', 0, 28);
+    } else {
+      print('"Please choose Option A or B."', 'character', 0);
+      return;
+    }
+    await goTo(sceneClimbing_Finale);
+  };
+}
+
+async function sceneClimbing_Finale() {
+  setLocation('NORTH QUARTER — OPENING NIGHT');
+  printDivider();
+  await printLines([
+    '  PROJECT COMPLETE — NORTH QUARTER CLIMBING CENTRE',
+    '',
+    '  Opening night. Every wall is full.',
+  ], 'big', 100, 40);
+  printDivider();
+  await printLines([
+    '',
+    'Coach Mei high-fives you at the door.',
+    '"The plywood is perfect. The crash mats are deep.",',
+    '"Kids are on the bouldering wall, adults on the leads.",',
+    '"You made the right calls."',
+    '',
+    '─── WHAT YOU LEARNED ─────────────────────────────────',
+    '',
+    '  ✓ Material selection must match the specific mechanism',
+    '    of use (T-nuts, impact, grip, workability)',
+    '  ✓ Overspecification wastes budget: stainless steel',
+    '    indoors = unnecessary premium',
+    '  ✓ Impact-absorbing materials must be engineered',
+    '    for the fall height involved',
+    '  ✓ Reclaimed materials offer cost + sustainability benefits',
+    '    with appropriate certification',
+    '  ✓ Polymer materials (PU resin, HDPE foam) are designed',
+    '    for specific performance characteristics',
+    '',
+    '─────────────────────────────────────────────────────',
+    '',
+    'IB DT B3.1 SKILLS PRACTISED:',
+    '  • Matching material properties to functional requirements',
+    '  • Understanding steel grades and when to specify each',
+    '  • Polymer material properties (PU, foam grades)',
+    '  • Budget trade-offs and whole-life cost thinking',
+    '  • Safety-critical specification decisions',
+    '',
+    'Type  restart  to play again or try another project.',
+  ], 'narrator', 100, 25);
+  setHints(['restart', 'bridge', 'playground', 'climbing']);
+  currentScene = async (inp) => {
+    if (inp === 'restart') { await goTo(sceneTitleScreen); }
+    else if (inp === 'bridge') { await goTo(sceneBridgeStart); }
+    else if (inp === 'playground') { await goTo(scenePlaygroundStart); }
+    else if (inp === 'climbing') { await goTo(sceneClimbingStart); }
+    else { print('Type  restart,  bridge,  playground  or  climbing.', 'system', 0); }
+  };
+}
+
+// ── Boot ────────────────────────────────────────────────────
+window.onload = () => {
+  input.focus();
+  goTo(sceneTitleScreen);
+};
+</script>
+</body>
+</html>
