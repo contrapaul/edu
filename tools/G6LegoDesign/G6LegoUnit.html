@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lego Design Unit Marking Tool — MYP G6 Design</title>
+  <style>
+/* ============================================
+   contrapaul.com — portfolio/about
+   Warm editorial light theme. Serif-led.
+   ============================================ */
+:root {
+  --bg:          #faf7f2;
+  --surface:     #f2ede4;
+  --surface-2:   #e8e0d0;
+  --border:      #d8cfc0;
+  --text:        #1a1712;
+  --muted:       #7a7060;
+  --accent:      #c0522a;
+  --accent-light:#f0e0d8;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
+  --max-w:        1060px;
+  --radius:       4px;
+  --transition:   180ms ease;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; }
+main { flex: 1; }
+
+/* HEADER */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(250,247,242,0.95);
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(6px);
+}
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
+}
+.back-link {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.04em; transition: color var(--transition);
+}
+.back-link:hover { color: var(--accent); text-decoration: none; }
+.nav { display: flex; gap: 0.25rem; }
+.nav a { font-size: 0.82rem; padding: 0.3rem 0.75rem; color: var(--muted); transition: color var(--transition); text-decoration: none; }
+.nav a:hover { color: var(--text); }
+
+/* TOOL-SPECIFIC */
+.tool-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem; }
+.tool-header-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap; }
+.tool-title { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; letter-spacing: -0.01em; color: var(--text); }
+.tool-subtitle { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+/* TABS */
+.criteria-tabs {
+  border-bottom: 1px solid var(--border); background: var(--bg);
+  position: sticky; top: 52px; z-index: 90;
+}
+.criteria-tabs-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  display: flex; gap: 0;
+}
+.tab-btn {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 0.85rem 1.4rem;
+  border: none; background: none; color: var(--muted);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* LAYOUT */
+.tool-main {
+  max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+}
+
+/* CRITERIA PANEL */
+.criteria-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+.criterion-block { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.criterion-header {
+  padding: 0.55rem 1rem; background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.65rem;
+}
+.criterion-code { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); flex-shrink: 0; }
+.criterion-label { font-family: var(--font-display); font-size: 0.92rem; font-weight: 400; color: var(--text); }
+.options-list { list-style: none; padding: 0; margin: 0; }
+.option-item { border-bottom: 1px solid var(--border); }
+.option-item:last-child { border-bottom: none; }
+.option-btn {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 0.6rem 1rem; cursor: pointer;
+  display: grid; grid-template-columns: 38px 1fr; gap: 0.65rem;
+  align-items: start; transition: background var(--transition);
+}
+.option-btn:hover { background: var(--accent-light); }
+.option-btn.selected {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  padding-left: calc(1rem - 3px);
+}
+.option-score { font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.04em; color: var(--muted); padding-top: 0.15rem; white-space: nowrap; }
+.option-score.zero { color: var(--border); }
+.option-text { font-size: 0.81rem; line-height: 1.5; color: var(--text); }
+.option-text strong { color: var(--accent); font-weight: 600; }
+
+/* COMMENT PANEL */
+.comment-panel { position: sticky; top: calc(52px + 44px + 2rem); }
+.comment-panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.65rem; gap: 0.5rem; flex-wrap: wrap; }
+.comment-panel-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.comment-actions { display: flex; gap: 0.4rem; }
+
+.btn-tool {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.35rem 0.85rem;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  cursor: pointer; transition: all var(--transition);
+  background: var(--bg); color: var(--muted);
+}
+.btn-tool:hover { border-color: var(--accent); color: var(--accent); }
+.btn-update { background: var(--accent); color: #fff; border-color: var(--accent); }
+.btn-update:hover { background: #a04020; border-color: #a04020; color: #fff; }
+.btn-update:disabled { background: var(--surface-2); border-color: var(--border); color: var(--muted); cursor: not-allowed; }
+
+#comment-box {
+  width: 100%; min-height: 360px; padding: 1rem;
+  font-family: var(--font-body); font-size: 0.88rem; line-height: 1.75;
+  color: var(--text); background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  resize: vertical; transition: border-color var(--transition);
+}
+#comment-box:focus { outline: none; border-color: var(--accent); }
+#comment-box::placeholder { color: var(--border); }
+
+.comment-hint { margin-top: 0.5rem; font-family: var(--font-mono); font-size: 0.63rem; color: var(--border); letter-spacing: 0.03em; }
+
+.score-row { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.65rem; }
+.score-chip {
+  font-family: var(--font-mono); font-size: 0.63rem; letter-spacing: 0.05em;
+  padding: 0.18rem 0.5rem; border: 1px solid var(--border);
+  border-radius: 2px; color: var(--muted); background: var(--surface);
+  transition: all var(--transition);
+}
+.score-chip.has-score { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+.pending-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-right: 4px; vertical-align: middle;
+  opacity: 0; transition: opacity 0.2s;
+}
+.pending-dot.visible { opacity: 1; }
+
+.btn-copy.copied { background: #e8f5e9; border-color: #66bb6a; color: #2e7d32; }
+
+/* FOOTER */
+.site-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--border); background: var(--surface); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--border); }
+
+/* RESPONSIVE */
+@media (max-width: 820px) {
+  .tool-main { grid-template-columns: 1fr; }
+  .comment-panel { position: static; }
+}
+@media (max-width: 600px) {
+  .criteria-tabs-inner { overflow-x: auto; padding: 0 1rem; }
+  .tab-btn { padding: 0.75rem 0.9rem; font-size: 0.7rem; }
+  .tool-main { padding: 1rem 1.25rem; }
+}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../" class="back-link">← edu.contrapaul.com</a>
+    <nav class="nav"><a href="../">Tools</a></nav>
+  </div>
+</header>
+
+<div class="tool-header">
+  <div class="tool-header-inner">
+    <span class="tool-title">Lego Design Unit Marking</span>
+    <span class="tool-subtitle">MYP Design · Grade 6 · All Criteria</span>
+  </div>
+</div>
+
+<div class="criteria-tabs" role="tablist">
+  <div class="criteria-tabs-inner">
+    <button class="tab-btn active" data-criteria="A">Criteria A — Research</button>
+    <button class="tab-btn" data-criteria="B">Criteria B — Ideas</button>
+    <button class="tab-btn" data-criteria="C">Criteria C — Creating</button>
+    <button class="tab-btn" data-criteria="D">Criteria D — Evaluation</button>
+  </div>
+</div>
+
+<main>
+  <div class="tool-main">
+    <div class="criteria-panel" id="criteria-panel"></div>
+
+    <div class="comment-panel">
+      <div class="comment-panel-header">
+        <span class="comment-panel-label">
+          <span class="pending-dot" id="pending-dot"></span>Generated Comment
+        </span>
+        <div class="comment-actions">
+          <button class="btn-tool btn-update" id="btn-update" disabled>Update ↓</button>
+          <button class="btn-tool btn-copy" id="btn-copy">Copy</button>
+          <button class="btn-tool" id="btn-clear">Clear</button>
+        </div>
+      </div>
+      <textarea id="comment-box" placeholder="Select options on the left, then click Update."></textarea>
+      <div class="score-row" id="score-row"></div>
+      <p class="comment-hint">Select options for each sub-criterion, then click Update. Edit freely before copying.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-copy">MYP G6 Design — Lego Design Unit Marking Tool</span>
+  </div>
+</footer>
+
+<script>
+const CRITERIA = {
+  A: {
+    items: [
+      {
+        code: "Ai", label: "Justify the need for a new Lego set",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not provide a justification for why Lego should make their set idea.` },
+          { score: "1–2", text: "Reasoning is based on <strong>personal preference only</strong> — 'because I like this thing'.", s: n => `${n} attempted to justify the need for a new Lego set, though the reasoning is based entirely on personal preference and does not make a genuine case for why the Lego company should produce the set.` },
+          { score: "3–4", text: "Some market reasoning present, but <strong>still partly personal</strong>; justification underdeveloped.", s: n => `${n} provided some justification for why Lego should make their set, though the reasoning is not fully developed and still relies partly on personal interest rather than a clear market-based case.` },
+          { score: "5–6", text: "Goes beyond personal preference; <strong>considers the existing Lego catalog and target audience</strong>.", s: n => `${n} identified a reasonable case for why Lego should produce their set, going beyond personal preference to consider the existing Lego catalog and the intended target audience.` },
+          { score: "7–8", text: "<strong>Specific and convincing</strong>; identifies a genuine gap in the catalog; <strong>no reliance on personal taste</strong>.", s: n => `${n} provided a specific and convincing justification for why Lego should make their set, identifying a genuine gap in the market or catalog and making a clear case that goes well beyond personal interest.` }
+        ]
+      },
+      {
+        code: "Aii", label: "Create a Research Mind Map",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not create a research mind map.` },
+          { score: "1–2", text: "Questions yield <strong>yes/no or numeric answers</strong>; findings do not inform design decisions.", s: n => `${n} created a mind map with three research questions, though the questions yield only yes/no or numeric-value answers that do not help inform what kind of set to design.` },
+          { score: "3–4", text: "At least <strong>partially useful questions</strong> with some findings; questions could be more focused.", s: n => `${n} created a mind map with at least partially useful research questions and some findings, though the questions could be more focused and the findings do not consistently point toward useful design decisions.` },
+          { score: "5–6", text: "Relevant questions with solid findings; <strong>evidence of exploration on Lego.com or Brickipedia</strong>.", s: n => `${n} created a research mind map with relevant questions and useful findings that provide direction for their set idea, showing evidence of exploration on Lego.com or Brickipedia.` },
+          { score: "7–8", text: "Well-written questions <strong>developed after exploratory research</strong>; detailed bullet-point findings that <strong>meaningfully inform the design direction</strong>.", s: n => `${n} created a research mind map with well-written questions clearly developed after exploratory research on Lego.com or Brickipedia, with detailed bullet-point findings that meaningfully inform what kind of set to design.` }
+        ]
+      },
+      {
+        code: "Aiii", label: "Analyze Official Lego Sets",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not analyze any official Lego sets.` },
+          { score: "1–2", text: "Fewer than 4 sets reviewed, or answers are <strong>very incomplete</strong>; written sections too brief to be useful.", s: n => `${n} attempted to analyze Lego sets, though fewer than four sets were reviewed or the answers provided are very incomplete, with written sections too brief to be useful.` },
+          { score: "3–4", text: "4 sets analyzed; written sections limited to <strong>1–3 sentences</strong>; lacks detail to meaningfully inform their own design.", s: n => `${n} analyzed four Lego sets and completed most sections, though the written portions are limited to one to three sentences and lack the detail needed to meaningfully inform their own design.` },
+          { score: "5–6", text: "4 sets with <strong>mostly complete answers</strong>; written sections adequate but not comprehensive; some ideas to borrow identified.", s: n => `${n} analyzed four Lego sets with mostly complete and reasonably focused answers, identifying features and some ideas to borrow or adapt, with written sections that provide adequate but not comprehensive coverage.` },
+          { score: "7–8", text: "4 <strong>relevant sets</strong> with accurate, complete answers; <strong>4–5 focused sentences</strong> in longer sections; specific ideas to borrow or adapt clearly identified.", s: n => `${n} analyzed four relevant Lego sets with accurate and complete answers throughout, including four to five focused sentences in the longer written sections that clearly identify features and specific ideas to borrow or adapt for their own set.` }
+        ]
+      },
+      {
+        code: "Aiv", label: "Present what I learned for a new design",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not write a summary of what they learned or identify a direction for their design.` },
+          { score: "1–2", text: "<strong>'I'm going to make X because I like X'</strong> — no reference to research or analysis.", s: n => `${n} described a set idea, though the response does not reference research or analysis and relies on personal preference rather than the learning documented through the unit.` },
+          { score: "3–4", text: "Mentions the project idea and some research; <strong>connections to findings are weak</strong>; justification for Lego underdeveloped.", s: n => `${n} described their project idea and mentioned their research, though the connections to specific findings or analysis elements are weak and the justification for why Lego should make the set is underdeveloped.` },
+          { score: "5–6", text: "Explains the project direction with <strong>reference to research and analysis</strong>; satisfactory justification for Lego.", s: n => `${n} explained their project idea and made reasonable reference to research findings and elements from the set analysis that inspired their direction, with a satisfactory justification for why Lego should produce the set.` },
+          { score: "7–8", text: "Clear direction with <strong>specific references to research and analysis</strong>; strong, specific justification for <strong>why Lego should make the set</strong>.", s: n => `${n} clearly explained the direction of their project, referencing specific research findings and elements from the set analysis that shaped their thinking, and provided a strong, specific justification for why Lego should make the set.` }
+        ]
+      }
+    ]
+  },
+  B: {
+    items: [
+      {
+        code: "Bi", label: "Design Specifications",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not complete any design specifications.` },
+          { score: "1–2", text: "Key details missing or incorrect; <strong>success criteria not measurable</strong> or meaningfully explained.", s: n => `${n} attempted some design specifications, though key details are missing or incorrect and any success criteria provided are not measurable or meaningfully explained.` },
+          { score: "3–4", text: "Basic specifications completed; <strong>success criteria not consistently measurable</strong> or well-explained.", s: n => `${n} completed the design specifications including estimates for pieces and price, a name, theme, and features, though the success criteria are not consistently measurable or well-explained.` },
+          { score: "5–6", text: "Complete specifications with clear name, theme, features; <strong>most criteria measurable</strong> and accompanied by some explanation.", s: n => `${n} completed the design specifications with reasonable estimates and a clear set name, theme, features, and description, with most success criteria measurable and accompanied by some explanation.` },
+          { score: "7–8", text: "<strong>All specifications accurate and complete</strong>; 4–5 measurable, achievable criteria — <strong>each clearly explained</strong> with reference to the specific set.", s: n => `${n} completed all design specifications accurately and thoughtfully, with four to five measurable and achievable success criteria — each accompanied by a clear explanation of why it matters for their specific set.` }
+        ]
+      },
+      {
+        code: "Bii", label: "Create Design Ideas",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not create an inspiration board or locate pieces in Bricklink Studio.` },
+          { score: "1–2", text: "Minimal inspiration board or very few pieces found; <strong>effort does not reflect meaningful exploration</strong>.", s: n => `${n} created a basic inspiration board or located a small number of pieces, though the effort is minimal and does not reflect meaningful exploration of reference images or the Bricklink Studio parts catalog.` },
+          { score: "3–4", text: "Inspiration board and some pieces present; <strong>exploration surface-level</strong>; pieces not particularly specific or well-chosen.", s: n => `${n} created an inspiration board with some reference images and located pieces in Bricklink Studio, though the exploration is surface-level and the pieces or images chosen are not particularly specific or well-chosen for the project.` },
+          { score: "5–6", text: "Relevant reference images; <strong>useful pieces identified</strong>; reasonable catalog exploration evident.", s: n => `${n} developed an inspiration board with relevant reference images and identified useful pieces in Bricklink Studio, showing a reasonable level of catalog exploration and design thinking.` },
+          { score: "7–8", text: "<strong>Rich board with highly relevant images</strong>; specific and creative pieces found through <strong>deep catalog exploration</strong>.", s: n => `${n} developed a rich inspiration board with highly relevant reference images and identified specific and creative pieces in Bricklink Studio, demonstrating deep catalog exploration and a clear understanding of how the chosen parts could be used in the final set.` }
+        ]
+      },
+      {
+        code: "Biii", label: "Present Your Design Idea",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not provide a statement clarifying their design idea.` },
+          { score: "1–2", text: "States what they'll make; <strong>no reference to specifications or criteria</strong>; no justification for Lego.", s: n => `${n} stated what they plan to make, though the response does not reference the design specifications or success criteria and does not provide a reason for why Lego should produce the set.` },
+          { score: "3–4", text: "Clarifies the plan with some reference to specs or criteria; <strong>justification for Lego weak or underdeveloped</strong>.", s: n => `${n} clarified what they plan to make with some reference to their specifications or criteria, though the justification for why Lego should make the set is weak or underdeveloped.` },
+          { score: "5–6", text: "<strong>Clear statement referencing specifications and criteria</strong>; reasonable explanation for why Lego should make it.", s: n => `${n} provided a clear statement of what they plan to make, referencing their specifications and success criteria and including a reasonable explanation of why Lego should produce the set.` },
+          { score: "7–8", text: "Specific and well-grounded; <strong>clear reference to specs and criteria</strong>; <strong>compelling justification</strong> for why Lego should make it.", s: n => `${n} provided a specific and well-grounded statement of what they plan to make, with clear reference to the design specifications and success criteria and a compelling justification for why Lego should make the set.` }
+        ]
+      },
+      {
+        code: "Biv", label: "Create a Rough Version of your Set",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not build a rough version of their set in Bricklink Studio.` },
+          { score: "1–2", text: "Build barely started; <strong>too incomplete to communicate the intended design</strong> to others.", s: n => `${n} began building in Bricklink Studio, though the rough version is too incomplete to communicate the intended design to others.` },
+          { score: "3–4", text: "Some elements built; gives <strong>a general sense of the idea</strong> but not the full direction or likely end goal.", s: n => `${n} built some elements of their set in Bricklink Studio, giving a general sense of the idea, though the rough version does not yet fully communicate the intended design or likely end goal.` },
+          { score: "5–6", text: "<strong>Reasonable rough build</strong> that communicates the concept and overall direction to others.", s: n => `${n} built a reasonable rough version of their set in Bricklink Studio that communicates the overall concept and allows others to understand the intended direction of the project.` },
+          { score: "7–8", text: "<strong>Well-developed rough build</strong> that clearly communicates the project's direction and <strong>likely end goal</strong>.", s: n => `${n} built a well-developed rough version of their set in Bricklink Studio that clearly communicates the project's direction and likely end goal, giving others a strong sense of what the finished set will look like.` }
+        ]
+      }
+    ]
+  },
+  C: {
+    items: [
+      {
+        code: "Ci", label: "Update your Plan",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not complete any daily plan or reflection entries.` },
+          { score: "1–2", text: "Very few entries completed, or entries <strong>do not reflect genuine planning or reflection</strong>.", s: n => `${n} completed very few daily entries, or the entries provided do not reflect genuine planning or reflection on class progress.` },
+          { score: "3–4", text: "Some entries present; <strong>record incomplete or inconsistent</strong> across the ten class days.", s: n => `${n} completed some daily entries with plans and end-of-class reflections, though the record is incomplete or inconsistent across the ten class days.` },
+          { score: "5–6", text: "Most entries complete; <strong>reasonable plans and honest accounts</strong> of what was accomplished; minor gaps.", s: n => `${n} completed most of the daily entries, providing reasonable plans for each class and honest accounts of what was accomplished, with only minor gaps.` },
+          { score: "7–8", text: "<strong>All 10 entries complete</strong>; thoughtful and realistic plans at the start; <strong>specific and honest accounts</strong> of accomplishments at the end.", s: n => `${n} completed all ten daily entries with thoughtful and realistic plans at the start of each class and honest, specific accounts of what was accomplished by the end.` }
+        ]
+      },
+      {
+        code: "Cii", label: "Demonstrate Technical Skill",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not demonstrate technical skill in Bricklink Studio.` },
+          { score: "1–2", text: "Minimal skill shown; set <strong>not built like a real Lego set</strong>; limited understanding of Studio evident.", s: n => `${n} demonstrated minimal technical skill, with a set that shows limited understanding of Bricklink Studio and construction that does not reflect how real Lego sets are built.` },
+          { score: "3–4", text: "Some Studio skill shown; <strong>construction issues present</strong> (floating pieces, unrealistic elements); limited growth over the unit.", s: n => `${n} demonstrated some technical skill in Bricklink Studio, though the set has construction issues such as floating pieces or unrealistic elements that would not be physically possible, showing limited growth over the course of the unit.` },
+          { score: "5–6", text: "Competent Studio use; <strong>mostly realistic construction</strong> with overlapping and interconnected pieces; evidence of learning.", s: n => `${n} demonstrated competent technical skill in Bricklink Studio, with a set that is mostly constructed realistically using overlapping and interconnected pieces and shows evidence of meaningful learning through the unit.` },
+          { score: "7–8", text: "<strong>Strong creativity and Studio knowledge</strong>; built like a real Lego set — <strong>overlapping, interconnected, realistic physics</strong>; deep learning clearly evident.", s: n => `${n} demonstrated strong technical skill and creativity in Bricklink Studio, with a set built like a real Lego set — using overlapping, interconnected pieces with real-world physics and possibilities considered — and clear evidence of deep learning over the course of the unit.` }
+        ]
+      },
+      {
+        code: "Ciii", label: "Create Your Lego Set",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not complete a Lego set in Bricklink Studio.` },
+          { score: "1–2", text: "Some building started; <strong>far from complete</strong>; most required deliverables missing.", s: n => `${n} built some elements of a set in Bricklink Studio, though the work is far from complete and is missing most of the required deliverables.` },
+          { score: "3–4", text: "Set built but <strong>missing several deliverables</strong> — rendered images, box design, or instruction pages.", s: n => `${n} completed a set in Bricklink Studio, though it is missing several required deliverables such as rendered images, a complete box design, or instruction pages.` },
+          { score: "5–6", text: "Set broadly matches specs; <strong>most deliverables present</strong>; some elements may be incomplete.", s: n => `${n} completed a set in Bricklink Studio that broadly matches their specifications, with most required deliverables present, though some elements such as the box design or instruction pages may be incomplete.` },
+          { score: "7–8", text: "Set <strong>matches specs and criteria</strong>; <strong>8+ rendered images</strong>, complete box design, and <strong>2 pages of intentional instructions</strong>.", s: n => `${n} completed a set in Bricklink Studio that matches their specifications and success criteria, with eight or more rendered images, a complete box design, and two pages of intentional instructions.` }
+        ]
+      },
+      {
+        code: "Civ", label: "Explain the Changes You Made",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not explain or document any changes made during the creation process.` },
+          { score: "1–2", text: "Very few changes noted; <strong>no explanation or justification</strong> for decisions made.", s: n => `${n} documented very few changes, or the changes noted are not explained or justified, making it unclear why decisions were made during the building process.` },
+          { score: "3–4", text: "Some changes documented; <strong>limited explanation</strong> of the reasoning behind each decision.", s: n => `${n} documented some changes made during the creation process with limited explanation of the reasoning behind each decision.` },
+          { score: "5–6", text: "Multiple changes documented; <strong>clear reasons provided</strong> for each; thoughtful decision-making evident.", s: n => `${n} documented multiple changes made during the creation process and provided clear reasons for each, showing evidence of thoughtful decision-making throughout the build.` },
+          { score: "7–8", text: "Many changes with <strong>specific justification for each</strong>; <strong>ongoing design thinking and reflection from start to finish</strong>.", s: n => `${n} documented many changes made throughout the creation process and provided specific justification for each, demonstrating ongoing design thinking and reflection from start to finish.` }
+        ]
+      }
+    ]
+  },
+  D: {
+    items: [
+      {
+        code: "Di", label: "Write Interview Questions",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not write interview questions or conduct interviews.` },
+          { score: "1–2", text: "Questions are <strong>closed-ended or trivial</strong>; interviews did not generate useful feedback.", s: n => `${n} wrote interview questions, though they are closed-ended or trivial and any interviews conducted did not generate useful feedback for evaluating the set.` },
+          { score: "3–4", text: "Some reasonable questions; interviews conducted; <strong>follow-up discussion limited</strong>.", s: n => `${n} wrote some reasonable interview questions and conducted interviews, though the questions are not consistently qualitative and follow-up discussion was limited.` },
+          { score: "5–6", text: "Qualitative questions; interviews completed with <strong>some follow-up</strong> to gather more useful feedback.", s: n => `${n} wrote qualitative interview questions, conducted interviews, and engaged in some follow-up discussion to gather more useful feedback beyond initial responses.` },
+          { score: "7–8", text: "<strong>Strong qualitative questions</strong>; interviews with follow-up discussion; <strong>replaced unhelpful respondents</strong> to ensure useful data.", s: n => `${n} wrote strong qualitative interview questions, conducted interviews with follow-up discussion to gather meaningful feedback, and sought out useful respondents — replacing those who gave only closed-ended or unhelpful answers.` }
+        ]
+      },
+      {
+        code: "Dii", label: "Evaluate Your Lego Set",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not write an evaluation of their set.` },
+          { score: "1–2", text: "Based on <strong>personal opinion only</strong>; no reference to criteria, specifications, or interview findings.", s: n => `${n} wrote about their set, though the response is based primarily on personal opinion rather than the success criteria, specifications, or interview findings.` },
+          { score: "3–4", text: "References criteria and some interview feedback; <strong>personal opinion still present</strong>; objective evidence used inconsistently.", s: n => `${n} wrote an evaluation that references the success criteria and some interview feedback, though personal opinion is still present and connections to objective evidence are not consistently developed.` },
+          { score: "5–6", text: "Based on <strong>criteria, specifications, and interview data</strong>; most claims supported by objective evidence.", s: n => `${n} wrote an evaluation based on the success criteria, specifications, and interview findings, with most claims supported by objective evidence rather than personal opinion.` },
+          { score: "7–8", text: "<strong>~2 paragraphs</strong> grounded in criteria, specs, and interview data; <strong>no personal opinion</strong>; honest and clear assessment of success.", s: n => `${n} wrote a two-paragraph evaluation grounded entirely in the success criteria, specifications, and interview data, with no reliance on personal opinion and a clear, honest assessment of whether the set succeeded.` }
+        ]
+      },
+      {
+        code: "Diii", label: "Identify Possible Improvements",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not identify any possible improvements to their set.` },
+          { score: "1–2", text: "Very few improvements listed; <strong>vague or do not address meaningful aspects</strong> of the project.", s: n => `${n} listed very few improvements, with suggestions that are vague or do not address meaningful aspects of the project.` },
+          { score: "3–4", text: "Some improvements across a few areas; <strong>list is limited</strong>; suggestions not consistently developed.", s: n => `${n} identified some improvements across a few areas of the project, though the list is limited and the suggestions are not consistently developed.` },
+          { score: "5–6", text: "<strong>Solid list addressing several elements</strong> of the project with reasonable detail; honest reflection evident.", s: n => `${n} produced a solid list of improvements that addresses several elements of the project with reasonable detail, showing honest reflection on what could be done better.` },
+          { score: "7–8", text: "<strong>Comprehensive, well-developed list</strong> addressing most elements; genuine critical reflection across <strong>all areas of their work</strong>.", s: n => `${n} produced a comprehensive list of well-developed improvements addressing most elements of the project, showing genuine critical reflection and a willingness to identify weaknesses across all areas of their work.` }
+        ]
+      },
+      {
+        code: "Div", label: "Complete the Impact Assessment",
+        options: [
+          { score: "0",   text: "No work completed.", s: () => `They did not complete the impact assessment.` },
+          { score: "1–2", text: "Assessment submitted with <strong>very little detail</strong>; checklist does not reflect honest or thoughtful consideration.", s: n => `${n} submitted an impact assessment with very little detail, and the checklist responses do not reflect honest or thoughtful consideration of whether the design goals were met.` },
+          { score: "3–4", text: "Assessment and checklist completed; <strong>reflection not consistently specific or honest</strong> about design readiness.", s: n => `${n} completed the impact assessment and checklist with some detail, though the reflection is not consistently specific or honest about the design's readiness for submission to Lego.` },
+          { score: "5–6", text: "Completed with <strong>reasonable detail</strong>; addresses whether goals were met with some specific supporting evidence.", s: n => `${n} completed the impact assessment and checklist with reasonable detail, addressing whether the design goals were met and providing some specific evidence to support their conclusions.` },
+          { score: "7–8", text: "<strong>Many specific details</strong> honestly explaining the design's viability; clear, evidence-based answer on <strong>readiness for submission to Lego</strong>.", s: n => `${n} completed the impact assessment with many specific details that honestly and convincingly explained the viability of their design, clearly addressing whether the set is ready for submission to Lego and what evidence supports that conclusion.` }
+        ]
+      }
+    ]
+  }
+};
+
+// State
+let activeCriteria = 'A';
+const selections = { A:[null,null,null,null], B:[null,null,null,null], C:[null,null,null,null], D:[null,null,null,null] };
+
+function buildComment(key) {
+  return CRITERIA[key].items
+    .map((item, i) => {
+      const idx = selections[key][i];
+      if (idx === null) return '';
+      const opt = item.options[idx];
+      return opt.s ? opt.s('They') : '';
+    })
+    .filter(Boolean)
+    .join(' ');
+}
+
+function setPending(on) {
+  document.getElementById('pending-dot').classList.toggle('visible', on);
+  document.getElementById('btn-update').disabled = !on;
+}
+
+function renderPanel() {
+  const panel = document.getElementById('criteria-panel');
+  const sels = selections[activeCriteria];
+  panel.innerHTML = '';
+  CRITERIA[activeCriteria].items.forEach((item, ii) => {
+    const block = document.createElement('div');
+    block.className = 'criterion-block';
+    block.innerHTML = `<div class="criterion-header"><span class="criterion-code">${item.code}</span><span class="criterion-label">${item.label}</span></div>`;
+    const ul = document.createElement('ul');
+    ul.className = 'options-list';
+    item.options.forEach((opt, oi) => {
+      const li = document.createElement('li');
+      li.className = 'option-item';
+      const btn = document.createElement('button');
+      btn.className = 'option-btn' + (sels[ii] === oi ? ' selected' : '');
+      btn.innerHTML = `<span class="option-score${opt.score==='0'?' zero':''}">${opt.score}</span><span class="option-text">${opt.text}</span>`;
+      btn.addEventListener('click', () => {
+        if (selections[activeCriteria][ii] === oi) return;
+        selections[activeCriteria][ii] = oi;
+        setPending(true);
+        renderPanel();
+      });
+      li.appendChild(btn);
+      ul.appendChild(li);
+    });
+    block.appendChild(ul);
+    panel.appendChild(block);
+  });
+  renderChips();
+}
+
+function renderChips() {
+  const row = document.getElementById('score-row');
+  const sels = selections[activeCriteria];
+  row.innerHTML = CRITERIA[activeCriteria].items.map((item, i) => {
+    const score = sels[i] !== null ? item.options[sels[i]].score : '–';
+    const active = sels[i] !== null;
+    return `<span class="score-chip${active?' has-score':''}">${item.code}: ${score}</span>`;
+  }).join('');
+}
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeCriteria = btn.dataset.criteria;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+    const hasSels = selections[activeCriteria].some(v => v !== null);
+    setPending(hasSels);
+    renderPanel();
+  });
+});
+
+// Buttons
+document.getElementById('btn-update').addEventListener('click', () => {
+  document.getElementById('comment-box').value = buildComment(activeCriteria);
+  setPending(false);
+});
+
+document.getElementById('btn-copy').addEventListener('click', () => {
+  const text = document.getElementById('comment-box').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
+});
+
+document.getElementById('btn-clear').addEventListener('click', () => {
+  document.getElementById('comment-box').value = '';
+});
+
+renderPanel();
+</script>
+</body>
+</html>
