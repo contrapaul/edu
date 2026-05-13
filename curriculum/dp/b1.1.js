@@ -112,19 +112,24 @@ function initFieldResearch() {
    FOCUS GROUP GENERATOR
 ═══════════════════════════════════════════════════════════ */
 
+/* Bank of 15 questions — each drawn set shows its bank number,
+   inviting users to discover how many there are. */
 var FG_QUESTIONS = [
-  'What words come to mind when you first think about {topic}?',
-  'When was the last time you used or encountered {topic}? Walk us through what that experience was like.',
-  'What is the single most frustrating thing about {topic} as it currently exists?',
-  'If you could change one thing about {topic}, what would it be — and why that one thing in particular?',
-  'How does {topic} compare to alternatives you\'ve tried? What does it do better or worse?',
-  'Who do you think {topic} is designed for? Does that match your own experience using it?',
-  'What would need to be true for you to trust {topic} more than you currently do?',
-  'Imagine you\'re describing {topic} to a friend who has never heard of it. What would you say?',
-  'What would need to be true for {topic} to become something you used — or relied on — every day?',
-  'Think about the last time {topic} let you down. What happened, and what did you do next?',
-  'Is there anything about {topic} that you\'ve simply given up trying to figure out?',
-  'If you could redesign {topic} from scratch, what would be the very first thing you\'d change?'
+  'What words come to mind when you first think about {topic}?',                                             // 1
+  'When was the last time you used or encountered {topic}? Walk us through what that experience was like.', // 2
+  'What is the single most frustrating thing about {topic} as it currently exists?',                        // 3
+  'If you could change one thing about {topic}, what would it be — and why that one thing in particular?',  // 4
+  'How does {topic} compare to alternatives you\'ve tried? What does it do better or worse?',               // 5
+  'Who do you think {topic} is designed for? Does that match your own experience using it?',                // 6
+  'What would need to be true for you to trust {topic} more than you currently do?',                        // 7
+  'Imagine you\'re describing {topic} to a friend who has never heard of it. What would you say?',          // 8
+  'What would need to be true for {topic} to become something you used — or relied on — every day?',        // 9
+  'Think about the last time {topic} let you down. What happened, and what did you do next?',               // 10
+  'Is there anything about {topic} that you\'ve simply given up trying to figure out?',                     // 11
+  'If you could redesign {topic} from scratch, what would be the very first thing you\'d change?',          // 12
+  'How do you feel when {topic} doesn\'t work as expected? What do you do next?',                           // 13
+  'If a friend was about to use {topic} for the first time, what would you tell them to expect?',           // 14
+  'What three words would you use to describe your ideal version of {topic}?'                               // 15
 ];
 
 function shuffle(arr) {
@@ -137,30 +142,43 @@ function shuffle(arr) {
 }
 
 function initFocusGroup() {
-  var btn = document.getElementById('fg-generate');
-  var newBtn = document.getElementById('fg-new');
-  var output = document.getElementById('fg-output');
-  var list = document.getElementById('fg-list');
+  var btn       = document.getElementById('fg-generate');
+  var newBtn    = document.getElementById('fg-new');
+  var topicEl   = document.getElementById('fg-topic-input');
+  var output    = document.getElementById('fg-output');
+  var list      = document.getElementById('fg-list');
   if (!btn) return;
 
   function generate() {
-    var rawTopic = (document.getElementById('fg-topic-input').value || '').trim();
-    var topic = rawTopic || 'the product';
-    var selected = shuffle(FG_QUESTIONS).slice(0, 6);
+    var topic = (topicEl.value || '').trim() || 'the product';
+
+    /* Shuffle the index array so each question keeps its bank number */
+    var indices = FG_QUESTIONS.map(function (_, i) { return i; });
+    var picked  = shuffle(indices).slice(0, 6);
+
     list.innerHTML = '';
-    selected.forEach(function (q) {
+    picked.forEach(function (idx) {
+      var q  = FG_QUESTIONS[idx];
       var li = document.createElement('li');
+
+      var num = document.createElement('span');
+      num.className   = 'fg-q-num';
+      num.textContent = (idx + 1) + '.';
+      li.appendChild(num);
+
+      var body  = document.createElement('span');
       var parts = q.split('{topic}');
       if (parts.length > 1) {
-        li.appendChild(document.createTextNode(parts[0]));
+        body.appendChild(document.createTextNode(parts[0]));
         var hl = document.createElement('span');
-        hl.className = 'fg-topic-highlight';
+        hl.className   = 'fg-topic-highlight';
         hl.textContent = topic;
-        li.appendChild(hl);
-        li.appendChild(document.createTextNode(parts[1] || ''));
+        body.appendChild(hl);
+        body.appendChild(document.createTextNode(parts[1] || ''));
       } else {
-        li.textContent = q;
+        body.textContent = q;
       }
+      li.appendChild(body);
       list.appendChild(li);
     });
     output.style.display = 'block';
@@ -168,18 +186,25 @@ function initFocusGroup() {
 
   btn.addEventListener('click', generate);
   newBtn.addEventListener('click', generate);
+
+  /* Enter / Return inside the topic field triggers generation */
+  topicEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); generate(); }
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════
    LIKERT SIMULATOR
 ═══════════════════════════════════════════════════════════ */
 
-var LIKERT_QS = [
-  'This product is easy to use the first time, without instructions.',
-  'I can complete tasks quickly once I know how the product works.',
-  'After not using this product for a while, I could pick it up again without difficulty.',
-  'When I make a mistake with this product, I can recover quickly.',
-  'Using this product is a satisfying experience overall.'
+/* Questions use {product} as a placeholder that the subject input fills.
+   Each rendered question is also a fully-editable text field. */
+var LIKERT_TEMPLATES = [
+  '{product} is easy to use the first time, without instructions.',
+  'I can complete tasks quickly once I know how {product} works.',
+  'After not using {product} for a while, I could pick it up again without difficulty.',
+  'When I make a mistake with {product}, I can recover quickly.',
+  'Using {product} is a satisfying experience overall.'
 ];
 
 var LIKERT_LABELS = ['Strongly disagree', 'Disagree', 'Neutral', 'Agree', 'Strongly agree'];
@@ -194,23 +219,38 @@ function boxMuller() {
 function clamp(val, lo, hi) { return Math.max(lo, Math.min(hi, val)); }
 
 function initLikert() {
-  var qContainer = document.getElementById('likert-questions');
-  var submitBtn = document.getElementById('likert-submit');
-  var resetBtn = document.getElementById('likert-reset');
+  var qContainer  = document.getElementById('likert-questions');
+  var submitBtn   = document.getElementById('likert-submit');
+  var resetBtn    = document.getElementById('likert-reset');
   var resultsBody = document.getElementById('likert-results-body');
-  var rightPanel = document.getElementById('likert-right');
-  var leftPanel = document.getElementById('likert-left');
+  var rightPanel  = document.getElementById('likert-right');
+  var leftPanel   = document.getElementById('likert-left');
+  var subjectEl   = document.getElementById('likert-subject');
   if (!qContainer) return;
 
-  var answers = [0, 0, 0, 0, 0];
+  var answers   = [0, 0, 0, 0, 0];
+  var qInputEls = []; // references to the editable question inputs
 
-  LIKERT_QS.forEach(function (q, qi) {
-    var row = document.createElement('div');
+  /* Fill all question inputs from templates using the current subject */
+  function fillFromSubject() {
+    var s = (subjectEl ? subjectEl.value : '').trim() || 'this product';
+    qInputEls.forEach(function (inp, qi) {
+      inp.value = LIKERT_TEMPLATES[qi].replace(/\{product\}/g, s);
+    });
+  }
+
+  /* Build question rows as editable inputs */
+  LIKERT_TEMPLATES.forEach(function (template, qi) {
+    var row  = document.createElement('div');
     row.className = 'likert-q';
-    var text = document.createElement('div');
+
+    var text = document.createElement('input');
+    text.type      = 'text';
     text.className = 'likert-q-text';
-    text.textContent = (qi + 1) + '. ' + q;
+    text.value     = template.replace(/\{product\}/g, 'this product');
+    qInputEls.push(text);
     row.appendChild(text);
+
     var opts = document.createElement('div');
     opts.className = 'likert-opts';
     for (var i = 1; i <= 5; i++) {
@@ -219,17 +259,16 @@ function initLikert() {
         opt.className = 'likert-opt';
         opt.type = 'button';
         var num = document.createElement('span');
-        num.className = 'likert-opt-n';
+        num.className   = 'likert-opt-n';
         num.textContent = val;
         var lbl = document.createElement('span');
-        lbl.className = 'likert-opt-l';
+        lbl.className   = 'likert-opt-l';
         lbl.textContent = LIKERT_LABELS[val - 1];
         opt.appendChild(num);
         opt.appendChild(lbl);
         opt.addEventListener('click', function () {
           answers[qi] = val;
-          var sibs = opts.querySelectorAll('.likert-opt');
-          sibs.forEach(function (s) { s.classList.remove('selected'); });
+          opts.querySelectorAll('.likert-opt').forEach(function (o) { o.classList.remove('selected'); });
           opt.classList.add('selected');
         });
         opts.appendChild(opt);
@@ -239,6 +278,14 @@ function initLikert() {
     qContainer.appendChild(row);
   });
 
+  /* Subject input: live-fill {product} into all question inputs */
+  if (subjectEl) {
+    subjectEl.addEventListener('input', fillFromSubject);
+    subjectEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') e.preventDefault();
+    });
+  }
+
   submitBtn.addEventListener('click', function () {
     for (var i = 0; i < answers.length; i++) {
       if (answers[i] === 0) {
@@ -247,9 +294,10 @@ function initLikert() {
       }
     }
     resultsBody.innerHTML = '';
-    LIKERT_QS.forEach(function (q, qi) {
-      var mean = answers[qi];
-      var counts = [0, 0, 0, 0, 0];
+    LIKERT_TEMPLATES.forEach(function (_, qi) {
+      var mean        = answers[qi];
+      var qLabel      = qInputEls[qi] ? qInputEls[qi].value : LIKERT_TEMPLATES[qi];
+      var counts      = [0, 0, 0, 0, 0];
       for (var n = 0; n < 1000; n++) {
         var v = Math.round(mean + boxMuller() * 1.1);
         counts[clamp(v, 1, 5) - 1]++;
@@ -257,23 +305,23 @@ function initLikert() {
       var block = document.createElement('div');
       block.className = 'likert-result-q';
       var qText = document.createElement('div');
-      qText.className = 'likert-result-q-text';
-      qText.textContent = (qi + 1) + '. ' + q;
+      qText.className   = 'likert-result-q-text';
+      qText.textContent = (qi + 1) + '. ' + qLabel;
       block.appendChild(qText);
 
       var barFills = [];
       counts.forEach(function (count, ci) {
-        var pct = count / 10; // out of 1000 = percentage
+        var pct    = count / 10;
         var barRow = document.createElement('div');
         barRow.className = 'likert-bar-row';
         var lbl = document.createElement('span');
-        lbl.className = 'likert-bar-label';
+        lbl.className   = 'likert-bar-label';
         lbl.textContent = LIKERT_LABELS[ci];
         var track = document.createElement('div');
         track.className = 'likert-bar-track';
         var fill = document.createElement('div');
-        fill.className = 'likert-bar-fill';
-        fill.style.width = '0%';
+        fill.className    = 'likert-bar-fill';
+        fill.style.width  = '0%';
         track.appendChild(fill);
         var cnt = document.createElement('span');
         cnt.className = 'likert-bar-count';
@@ -286,18 +334,14 @@ function initLikert() {
       });
 
       resultsBody.appendChild(block);
-
-      // Trigger CSS transition after DOM insertion
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-          barFills.forEach(function (bf) {
-            bf.fill.style.width = bf.pct.toFixed(1) + '%';
-          });
+          barFills.forEach(function (bf) { bf.fill.style.width = bf.pct.toFixed(1) + '%'; });
         });
       });
     });
 
-    leftPanel.style.display = 'none';
+    leftPanel.style.display  = 'none';
     rightPanel.style.display = 'block';
   });
 
@@ -305,7 +349,8 @@ function initLikert() {
     answers = [0, 0, 0, 0, 0];
     qContainer.querySelectorAll('.likert-opt').forEach(function (o) { o.classList.remove('selected'); });
     rightPanel.style.display = '';
-    leftPanel.style.display = '';
+    leftPanel.style.display  = '';
+    /* Leave question text as-is — user may want to run again with same questions */
   });
 }
 
@@ -328,7 +373,7 @@ var PB_NAMES = {
 };
 
 function initPersonaBuilder() {
-  var btn = document.getElementById('pb-finish');
+  var btn    = document.getElementById('pb-finish');
   var output = document.getElementById('pb-output');
   if (!btn) return;
 
@@ -387,20 +432,18 @@ function escHtml(str) {
 ═══════════════════════════════════════════════════════════ */
 
 function initTaskAnalysis() {
-  var addBtn       = document.getElementById('ta-add-hta');
-  var mapBtn       = document.getElementById('ta-complete');
-  var stepsWrap    = document.getElementById('ta-steps-container');
-  var taMapEl      = document.getElementById('ta-map');
-  var mapInner     = document.getElementById('ta-map-inner');
-  var dragHint     = document.getElementById('ta-drag-hint');
+  var addBtn    = document.getElementById('ta-add-hta');
+  var mapBtn    = document.getElementById('ta-complete');
+  var stepsWrap = document.getElementById('ta-steps-container');
+  var taMapEl   = document.getElementById('ta-map');
+  var mapInner  = document.getElementById('ta-map-inner');
+  var dragHint  = document.getElementById('ta-drag-hint');
   if (!addBtn) return;
 
   var steps       = [];
   var stepCounter = 0;
-  var nodeData    = {}; // id → {el, x, y, w, h}
+  var nodeData    = {};
   var activeDrag  = null;
-
-  /* ── Build step list ── */
 
   addBtn.addEventListener('click', function () {
     stepCounter++;
@@ -415,7 +458,7 @@ function initTaskAnalysis() {
       stepDiv.className = 'ta-step';
 
       var num = document.createElement('span');
-      num.className = 'ta-step-num';
+      num.className   = 'ta-step-num';
       num.textContent = (si + 1) + '.';
 
       var fields = document.createElement('div');
@@ -425,14 +468,14 @@ function initTaskAnalysis() {
       htaRow.style.cssText = 'display:flex;gap:0.4rem;align-items:center;';
 
       var htaInput = document.createElement('input');
-      htaInput.type = 'text';
-      htaInput.className = 'ta-hta-input';
+      htaInput.type        = 'text';
+      htaInput.className   = 'ta-hta-input';
       htaInput.placeholder = 'Main step (e.g. Open cart)';
-      htaInput.value = step.text;
+      htaInput.value       = step.text;
       htaInput.addEventListener('input', function () { step.text = htaInput.value; });
 
       var addCtaBtn = document.createElement('button');
-      addCtaBtn.type = 'button';
+      addCtaBtn.type      = 'button';
       addCtaBtn.className = 'tool-btn-sm';
       addCtaBtn.textContent = '+ sub-step';
       (function (s) {
@@ -444,8 +487,8 @@ function initTaskAnalysis() {
       })(step);
 
       var removeBtn = document.createElement('button');
-      removeBtn.type = 'button';
-      removeBtn.className = 'ta-remove-btn';
+      removeBtn.type        = 'button';
+      removeBtn.className   = 'ta-remove-btn';
       removeBtn.textContent = '×';
       (function (idx) {
         removeBtn.addEventListener('click', function () {
@@ -464,15 +507,15 @@ function initTaskAnalysis() {
         ctaRow.style.cssText = 'display:flex;gap:0.4rem;align-items:center;padding-left:0.75rem;margin-top:0.3rem;';
 
         var ctaInput = document.createElement('input');
-        ctaInput.type = 'text';
-        ctaInput.className = 'ta-cta-input';
+        ctaInput.type        = 'text';
+        ctaInput.className   = 'ta-cta-input';
         ctaInput.placeholder = 'Sub-step (e.g. Tap cart icon)';
-        ctaInput.value = cta.text;
+        ctaInput.value       = cta.text;
         ctaInput.addEventListener('input', function () { cta.text = ctaInput.value; });
 
         var removeCta = document.createElement('button');
-        removeCta.type = 'button';
-        removeCta.className = 'ta-remove-btn';
+        removeCta.type        = 'button';
+        removeCta.className   = 'ta-remove-btn';
         removeCta.textContent = '×';
         (function (s, idx) {
           removeCta.addEventListener('click', function () {
@@ -492,8 +535,6 @@ function initTaskAnalysis() {
     });
   }
 
-  /* ── Build map ── */
-
   mapBtn.addEventListener('click', function () {
     var goalText = (document.getElementById('ta-goal').value || '').trim() || 'User goal';
     if (steps.length === 0) {
@@ -508,21 +549,15 @@ function initTaskAnalysis() {
 
   function buildMap(goalText) {
     activeDrag = null;
-    nodeData = {};
+    nodeData   = {};
     mapInner.innerHTML = '';
 
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('style', 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;');
     mapInner.appendChild(svg);
 
-    var nodeW  = 168;
-    var goalH  = 60;
-    var hGap   = 28;
-    var vGap   = 68;
-    var padX   = 24;
-    var padY   = 24;
+    var nodeW = 168, goalH = 60, hGap = 28, vGap = 68, padX = 24, padY = 24;
 
-    // Compute per-node heights: HTA header (38px) + CTAs (28px each) + padding (10px)
     var htaHeights = steps.map(function (s) {
       return Math.max(80, 38 + s.ctas.length * 28 + 10);
     });
@@ -535,27 +570,24 @@ function initTaskAnalysis() {
     mapInner.style.width  = mapW + 'px';
     mapInner.style.height = mapH + 'px';
 
-    /* Goal node */
-    var gx = Math.round(mapW / 2 - nodeW / 2);
-    var gy = padY;
+    var gx     = Math.round(mapW / 2 - nodeW / 2);
+    var gy     = padY;
     var goalEl = document.createElement('div');
-    goalEl.className = 'ta-goal-node';
+    goalEl.className   = 'ta-goal-node';
     goalEl.style.cssText = 'position:absolute;left:' + gx + 'px;top:' + gy + 'px;width:' + nodeW + 'px;cursor:grab;user-select:none;';
-    goalEl.innerHTML =
+    goalEl.innerHTML   =
       '<div class="ta-goal-label">Goal</div>' +
       '<div class="ta-goal-text">' + escHtml(goalText) + '</div>';
     mapInner.appendChild(goalEl);
     nodeData['goal'] = { el: goalEl, x: gx, y: gy, w: nodeW, h: goalH };
     makeDraggable('goal', goalEl, svg);
 
-    /* HTA nodes */
     var htaStartX = Math.round(mapW / 2 - totalW / 2);
     steps.forEach(function (step, si) {
-      var nx = htaStartX + si * (nodeW + hGap);
-      var ny = padY + goalH + vGap;
-
+      var nx     = htaStartX + si * (nodeW + hGap);
+      var ny     = padY + goalH + vGap;
       var nodeEl = document.createElement('div');
-      nodeEl.className = 'ta-node';
+      nodeEl.className   = 'ta-node';
       nodeEl.style.cssText = 'position:absolute;left:' + nx + 'px;top:' + ny + 'px;width:' + nodeW + 'px;';
 
       var htaDiv = document.createElement('div');
@@ -577,8 +609,6 @@ function initTaskAnalysis() {
       mapInner.appendChild(nodeEl);
       nodeData[step.id] = { el: nodeEl, x: nx, y: ny, w: nodeW, h: htaHeights[si] };
       makeDraggable(step.id, nodeEl, svg);
-
-      // Draw connection line goal → this HTA node
       addLine(svg, 'goal', step.id);
     });
 
@@ -595,8 +625,7 @@ function initTaskAnalysis() {
   }
 
   function drawAllLines(svg) {
-    var lines = svg.querySelectorAll('line');
-    lines.forEach(function (line) {
+    svg.querySelectorAll('line').forEach(function (line) {
       var from = nodeData[line.getAttribute('data-from')];
       var to   = nodeData[line.getAttribute('data-to')];
       if (!from || !to) return;
@@ -611,12 +640,9 @@ function initTaskAnalysis() {
     el.addEventListener('mousedown', function (e) {
       if (e.button !== 0) return;
       activeDrag = {
-        id:          id,
-        startMouseX: e.clientX,
-        startMouseY: e.clientY,
-        startX:      nodeData[id].x,
-        startY:      nodeData[id].y,
-        svg:         svg
+        id: id, svg: svg,
+        startMouseX: e.clientX, startMouseY: e.clientY,
+        startX: nodeData[id].x,  startY: nodeData[id].y
       };
       el.style.zIndex = '10';
       e.preventDefault();
