@@ -187,4 +187,38 @@
     });
   }
 
+  /* ── EXPAND ALL / COLLAPSE ALL ──────────────────────────────── */
+  var currMain = document.querySelector('.curr-main');
+  if (currMain && sectionTriggers.length) {
+    var expandBtn = document.createElement('button');
+    expandBtn.className = 'curr-expand-all-btn';
+    expandBtn.textContent = 'Expand all sections';
+    currMain.insertBefore(expandBtn, currMain.firstChild);
+
+    var allExpanded = false;
+    expandBtn.addEventListener('click', function () {
+      allExpanded = !allExpanded;
+
+      if (allExpanded) {
+        sectionTriggers.forEach(openSection);
+        document.querySelectorAll('.obj-trigger').forEach(function (t) {
+          t.setAttribute('aria-expanded', 'true');
+          var b = document.getElementById(t.getAttribute('aria-controls'));
+          if (b) b.classList.add('open');
+        });
+        expandBtn.textContent = 'Collapse all sections';
+        expandBtn.classList.add('is-expanded');
+      } else {
+        sectionTriggers.forEach(closeSection);
+        document.querySelectorAll('.obj-trigger').forEach(function (t) {
+          t.setAttribute('aria-expanded', 'false');
+          var b = document.getElementById(t.getAttribute('aria-controls'));
+          if (b) b.classList.remove('open');
+        });
+        expandBtn.textContent = 'Expand all sections';
+        expandBtn.classList.remove('is-expanded');
+      }
+    });
+  }
+
 })();
