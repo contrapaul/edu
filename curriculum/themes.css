@@ -43,12 +43,16 @@
   --amber-bg:      #c0c0c0;
   --font-display:  'Tahoma', 'Arial', sans-serif;
   --font-body:     'Tahoma', 'Arial', sans-serif;
-  --font-mono:     'Courier New', monospace;
+  --font-mono:     'Courier New', 'Lucida Console', monospace;
   --radius:        0px;
   --transition:    0ms;
 }
 
 /* Win95 structural overrides */
+[data-theme="win95"] * {
+  -webkit-font-smoothing: none;
+  font-smoothing: none;
+}
 [data-theme="win95"] .site-header {
   background: #c0c0c0;
   border-bottom: 3px solid #000;
@@ -150,6 +154,17 @@
   background: #000000;
   border-bottom: 1px solid #00aa00;
 }
+/* Override inline --topic-bg so .topic-code and .topic-guiding-q don't go white */
+[data-theme="dos"] .topic-code {
+  background: #001a00 !important;
+  color: #00ff00 !important;
+  border-color: #00aa00 !important;
+}
+[data-theme="dos"] .topic-guiding-q {
+  background: #001a00 !important;
+  border-left-color: #00ff00 !important;
+  color: #aaaaaa !important;
+}
 [data-theme="dos"] .topic-title {
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -186,10 +201,27 @@
 [data-theme="dos"] .csb-home { color: #00ff00; }
 [data-theme="dos"] input,
 [data-theme="dos"] textarea,
-[data-theme="dos"] select {
+[data-theme="dos"] select,
+[data-theme="dos"] input[type="checkbox"] + label,
+[data-theme="dos"] label {
   background: #000 !important;
   color: #00ff00 !important;
   border-color: #00aa00 !important;
+  accent-color: #00ff00;
+}
+/* Fix white boxes in tools — focus group, task map nodes, any card */
+[data-theme="dos"] .ta-node,
+[data-theme="dos"] .ta-node-hta,
+[data-theme="dos"] .fg-output,
+[data-theme="dos"] .quiz-q,
+[data-theme="dos"] .persona-card,
+[data-theme="dos"] .likert-tool,
+[data-theme="dos"] [class*="-card"],
+[data-theme="dos"] [class*="-panel"],
+[data-theme="dos"] [class*="-block"] {
+  background: #000 !important;
+  border-color: #00aa00 !important;
+  color: #aaaaaa !important;
 }
 [data-theme="dos"] .tool-btn,
 [data-theme="dos"] .tool-btn-sm,
@@ -210,16 +242,19 @@
   --surface-2:     #122612;
   --border:        #1c481e;
   --border-strong: #2d7a35;
-  --text:          #c8f5cc;
-  --muted:         #6aaa70;
+  --text:          #7de083;   /* neon green — not pale/white */
+  --muted:         #3d8a45;
   --accent:        #5adb52;
   --accent-bg:     #0a2a0a;
   --hl:            #94e878;
   --hl-bg:         #0a2010;
   --green:         #5adb52;
   --green-bg:      #0a2010;
-  --amber:         #c8d452;
-  --amber-bg:      #1a1a04;
+  --amber:         #a0db52;
+  --amber-bg:      #1a2004;
+  --font-display:  'Verdana', 'Arial', sans-serif;
+  --font-body:     'Verdana', 'Arial', sans-serif;
+  --font-mono:     'Courier New', monospace;
 }
 
 [data-theme="xbox"] .site-header {
@@ -227,13 +262,32 @@
   border-bottom: 2px solid #5adb52;
   box-shadow: 0 2px 12px rgba(90,219,82,0.25);
 }
-[data-theme="xbox"] .wordmark { color: #c8f5cc; }
-[data-theme="xbox"] .brand-sub { color: #5adb52; }
-[data-theme="xbox"] .nav a { color: #6aaa70; }
-[data-theme="xbox"] .nav a:hover { color: #5adb52; background: rgba(90,219,82,0.1); }
+[data-theme="xbox"] .wordmark { color: #5adb52; }
+[data-theme="xbox"] .brand-sub { color: #3aab32; }
+[data-theme="xbox"] .nav a { color: #5adb52; }
+[data-theme="xbox"] .nav a:hover { color: #7de083; background: rgba(90,219,82,0.1); }
+
+/* Override inline --topic-bg vars so hero area has no white */
+[data-theme="xbox"] .topic-code {
+  background: #0a2a0a !important;
+  color: #5adb52 !important;
+  border-color: #2d7a35 !important;
+}
+[data-theme="xbox"] .topic-guiding-q {
+  background: #0a2a0a !important;
+  border-left-color: #5adb52 !important;
+  color: #7de083 !important;
+}
 [data-theme="xbox"] .topic-hero {
   background: radial-gradient(ellipse at 30% 0%, #1a3a1a 0%, #070f07 70%);
   border-bottom-color: #1c481e;
+}
+[data-theme="xbox"] .topic-title {
+  color: #5adb52 !important;
+  text-shadow: 0 0 16px rgba(90,219,82,0.5);
+}
+[data-theme="xbox"] .topic-sub {
+  color: #3d8a45 !important;
 }
 [data-theme="xbox"] .curr-section {
   border-left-color: #5adb52 !important;
@@ -244,7 +298,12 @@
 [data-theme="xbox"] .curr-section:has(.curr-body.open) {
   box-shadow: 0 0 0 1px #5adb52, 0 4px 20px rgba(90,219,82,0.2) !important;
 }
-[data-theme="xbox"] .curr-trigger h2 { text-shadow: 0 0 16px rgba(90,219,82,0.35); }
+[data-theme="xbox"] .curr-trigger h2 { text-shadow: 0 0 16px rgba(90,219,82,0.35); color: #7de083 !important; }
+[data-theme="xbox"] .curr-badge,
+[data-theme="xbox"] .curr-sec-sub { color: #5adb52 !important; }
+/* Ensure obj-code is green, not multicolored from --curr-color */
+[data-theme="xbox"] .obj-code { color: #5adb52 !important; }
+[data-theme="xbox"] .obj-trigger h3 { color: #7de083 !important; }
 [data-theme="xbox"] .obj-section { border-color: rgba(90,219,82,0.15); }
 [data-theme="xbox"] .curr-sidebar {
   background: linear-gradient(180deg, #0d1a0d, #0a1a0a);
@@ -256,6 +315,33 @@
   border-right-color: #5adb52;
 }
 [data-theme="xbox"] .csb-current .csb-title { color: #5adb52; }
+
+/* Fix white boxes in tools and cards */
+[data-theme="xbox"] .ta-node,
+[data-theme="xbox"] .ta-node-hta,
+[data-theme="xbox"] .fg-output,
+[data-theme="xbox"] .quiz-q,
+[data-theme="xbox"] .persona-card,
+[data-theme="xbox"] [class*="-card"],
+[data-theme="xbox"] [class*="-panel"],
+[data-theme="xbox"] [class*="-block"] {
+  background: #0d1e0d !important;
+  border-color: #1c481e !important;
+  color: #7de083 !important;
+}
+/* Checkbox / label — no white */
+[data-theme="xbox"] input,
+[data-theme="xbox"] textarea,
+[data-theme="xbox"] select,
+[data-theme="xbox"] label {
+  background: #0d1e0d !important;
+  color: #7de083 !important;
+  border-color: #1c481e !important;
+  accent-color: #5adb52;
+}
+[data-theme="xbox"] input[type="checkbox"] {
+  accent-color: #5adb52;
+}
 [data-theme="xbox"] .tool-btn,
 [data-theme="xbox"] .tool-btn-sm,
 [data-theme="xbox"] .quiz-submit-btn {
@@ -269,12 +355,22 @@
   border-color: #5adb52;
   box-shadow: 0 0 8px rgba(90,219,82,0.3);
 }
-[data-theme="xbox"] .activity-block { border-color: #1c481e; }
+[data-theme="xbox"] .activity-block { border-color: #1c481e; background: #0a1a0a; }
 [data-theme="xbox"] .theme-toggle-btn {
   background: #0d1e0d;
   border-color: #2d7a35;
   box-shadow: 0 0 8px rgba(90,219,82,0.2);
 }
+/* Likert, focus group, study tools — no white */
+[data-theme="xbox"] .likert-tool,
+[data-theme="xbox"] .fg-table,
+[data-theme="xbox"] th,
+[data-theme="xbox"] td {
+  background: #0d1e0d !important;
+  border-color: #1c481e !important;
+  color: #7de083 !important;
+}
+[data-theme="xbox"] tr:nth-child(even) td { background: #122612 !important; }
 
 
 /* ── 5. NIGHTMARE MODE ───────────────────────────────────── */
@@ -391,9 +487,8 @@
 }
 
 
-/* ── SIDEBAR CSS ─────────────────────────────────────────── */
-body.has-sidebar .topic-hero,
-body.has-sidebar main { margin-left: 210px; }
+/* ── FLOATING SIDEBAR ────────────────────────────────────── */
+/* The sidebar floats over the left gutter — no content shift */
 
 .curr-sidebar {
   position: fixed;
@@ -408,7 +503,13 @@ body.has-sidebar main { margin-left: 210px; }
   z-index: 90;
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
+  /* Floating/overlay — no margin pushed on body */
+  opacity: 0.82;
+  transition: opacity 0.2s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+.curr-sidebar:hover { opacity: 1; }
 .curr-sidebar::-webkit-scrollbar { width: 4px; }
 .curr-sidebar::-webkit-scrollbar-track { background: transparent; }
 .curr-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -477,8 +578,6 @@ body.has-sidebar main { margin-left: 210px; }
 .csb-current .csb-title { color: var(--text); font-weight: 500; }
 
 @media (max-width: 960px) {
-  body.has-sidebar .topic-hero,
-  body.has-sidebar main { margin-left: 0; }
   .curr-sidebar { display: none; }
 }
 
