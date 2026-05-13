@@ -556,7 +556,7 @@ function initTaskAnalysis() {
     svg.setAttribute('style', 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;');
     mapInner.appendChild(svg);
 
-    var nodeW = 168, goalH = 60, hGap = 40, padX = 24, padY = 32;
+    var nodeW = 140, goalH = 56, hGap = 32, padX = 20, padY = 28;
 
     var htaHeights = steps.map(function (s) {
       return Math.max(80, 38 + s.ctas.length * 28 + 10);
