@@ -29,11 +29,12 @@
         trigger._savedScrollY = window.scrollY;
         sectionTriggers.forEach(closeSection);
         openSection(trigger);
+        /* Scroll so the section header sits just below the sticky nav */
         var block = trigger.closest('.curr-section');
         if (block) {
           setTimeout(function () {
             block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 50);
+          }, 30);
         }
       }
     });
@@ -60,10 +61,10 @@
   document.querySelectorAll('.obj-trigger').forEach(function (trigger) {
     trigger.addEventListener('click', function () {
       var isOpen = trigger.getAttribute('aria-expanded') === 'true';
-      var body = document.getElementById(trigger.getAttribute('aria-controls'));
+      var body   = document.getElementById(trigger.getAttribute('aria-controls'));
       if (!body) return;
 
-      /* close all sibling objectives in the same curr-body */
+      /* Close all sibling objectives in the same section body */
       var parent = trigger.closest('.curr-body');
       if (parent) {
         parent.querySelectorAll('.obj-trigger').forEach(function (t) {
@@ -72,54 +73,94 @@
           if (b) b.classList.remove('open');
         });
       }
+
       if (!isOpen) {
         trigger.setAttribute('aria-expanded', 'true');
         body.classList.add('open');
+        /* Scroll so the objective header is visible at the top — prevents
+           content expanding downward while the trigger scrolls off-screen */
+        var section = trigger.closest('.obj-section');
+        if (section) {
+          setTimeout(function () {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 30);
+        }
       }
     });
   });
 
-  /* ── QUIZ MCQ ──────────────────────────────────────────────── */
-  document.querySelectorAll('.quiz-question').forEach(function (q) {
-    var options  = q.querySelectorAll('.quiz-option');
-    var feedback = q.querySelector('.quiz-feedback');
-    var resetBtn = q.querySelector('.quiz-reset');
-    var answered = false;
+  /* ── QUIZ MCQ — BATCH SUBMIT ───────────────────────────────── */
+  var quizBody   = document.querySelector('#body-quiz');
+  var submitBtn  = document.getElementById('quiz-submit');
+  var scoreEl    = document.getElementById('quiz-score');
 
-    options.forEach(function (opt) {
-      opt.addEventListener('click', function () {
-        if (answered) return;
-        answered = true;
-        var correct = opt.dataset.correct === 'true';
+  if (quizBody && submitBtn) {
+    var questions  = Array.prototype.slice.call(
+      quizBody.querySelectorAll('.quiz-q[data-answer]')
+    );
+    var submitted  = false;
 
-        options.forEach(function (o) {
-          o.disabled = true;
-          if (o.dataset.correct === 'true') o.classList.add('correct');
-          else if (o === opt) o.classList.add('incorrect');
+    /* Option selection */
+    questions.forEach(function (q) {
+      var opts = q.querySelectorAll('.quiz-option');
+      opts.forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          if (submitted) return;
+          opts.forEach(function (o) { o.classList.remove('selected'); });
+          opt.classList.add('selected');
         });
-
-        if (feedback) {
-          feedback.classList.add('show', correct ? 'fb-correct' : 'fb-incorrect');
-          var lbl = feedback.querySelector('.quiz-feedback-label');
-          if (lbl) lbl.textContent = correct ? 'Correct' : 'Incorrect';
-        }
-        if (resetBtn) resetBtn.style.display = 'inline-block';
       });
     });
 
-    if (resetBtn) {
-      resetBtn.style.display = 'none';
-      resetBtn.addEventListener('click', function () {
-        answered = false;
-        options.forEach(function (o) {
-          o.disabled = false;
-          o.classList.remove('correct', 'incorrect');
+    submitBtn.addEventListener('click', function () {
+      /* Reset mode */
+      if (submitted) {
+        submitted = false;
+        submitBtn.textContent = 'Check all answers';
+        if (scoreEl) { scoreEl.style.display = 'none'; scoreEl.className = 'quiz-score'; }
+        questions.forEach(function (q) {
+          q.classList.remove('answered');
+          q.querySelectorAll('.quiz-option').forEach(function (o) {
+            o.disabled = false;
+            o.classList.remove('selected', 'correct', 'incorrect');
+          });
         });
-        if (feedback) feedback.classList.remove('show', 'fb-correct', 'fb-incorrect');
-        resetBtn.style.display = 'none';
+        return;
+      }
+
+      /* Validate all answered */
+      var unanswered = questions.filter(function (q) {
+        return !q.querySelector('.quiz-option.selected');
       });
-    }
-  });
+      if (unanswered.length) {
+        alert('Please answer all ' + questions.length + ' questions before checking.');
+        return;
+      }
+
+      /* Score */
+      submitted = true;
+      var score = 0;
+      questions.forEach(function (q) {
+        var key  = q.dataset.answer;
+        var opts = q.querySelectorAll('.quiz-option');
+        opts.forEach(function (o) {
+          o.disabled = true;
+          if (o.dataset.opt === key)              o.classList.add('correct');
+          else if (o.classList.contains('selected')) o.classList.add('incorrect');
+        });
+        q.classList.add('answered');
+        if (q.querySelector('.quiz-option.correct.selected')) score++;
+      });
+
+      if (scoreEl) {
+        var pct = Math.round(score / questions.length * 100);
+        scoreEl.textContent = score + ' / ' + questions.length + ' correct (' + pct + '%)';
+        scoreEl.style.display = 'inline-block';
+        scoreEl.className = 'quiz-score ' + (pct >= 70 ? 'score-good' : 'score-low');
+      }
+      submitBtn.textContent = 'Try again';
+    });
+  }
 
   /* ── PAPER 2 REVEAL PANELS ─────────────────────────────────── */
   document.querySelectorAll('.p2-question').forEach(function (q) {
@@ -127,10 +168,8 @@
       var targetId = btn.dataset.reveals;
       var panel    = q.querySelector('.' + targetId);
       if (!panel) return;
-
       var labelShow = btn.textContent.trim();
       var labelHide = labelShow.replace(/^Show/, 'Hide');
-
       btn.addEventListener('click', function () {
         var showing = panel.classList.contains('show');
         panel.classList.toggle('show', !showing);
@@ -139,5 +178,13 @@
       });
     });
   });
+
+  /* ── CHINESE LANGUAGE TOGGLE ───────────────────────────────── */
+  var zhToggle = document.getElementById('zh-toggle');
+  if (zhToggle) {
+    zhToggle.addEventListener('change', function () {
+      document.body.classList.toggle('zh-on', this.checked);
+    });
+  }
 
 })();
