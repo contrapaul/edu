@@ -74,6 +74,29 @@
 </div>
 </section>
 
+<!-- MR. K FACTS -->
+<section class="mrk-section" id="mr-k-facts">
+<div class="section-inner">
+<div class="section-header">
+<h2 class="section-title">Mr. K Facts</h2>
+<p class="section-desc">One at a time. Accuracy not guaranteed. Database curated by the subject himself.</p>
+</div>
+
+<div class="mrk-card" id="mrk-card">
+<div class="mrk-meta">
+  <span class="mrk-num" id="mrk-num">No. —</span>
+  <span class="mrk-total" id="mrk-total">of —</span>
+</div>
+<p class="mrk-text" id="mrk-text">Loading…</p>
+</div>
+
+<div class="mrk-actions">
+  <button class="mrk-btn" id="mrk-btn">Another fact →</button>
+  <span class="mrk-tag" id="mrk-tag"></span>
+</div>
+</div>
+</section>
+
 <!-- CONTACT -->
 <section class="about-contact-section">
 <div class="section-inner">
@@ -94,6 +117,58 @@
 </div>
 </footer>
 
+<script src="mrk-facts.js"></script>
 <script src="curriculum/curriculum-themes.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var queue = [];
+
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function nextFact() {
+    if (!queue.length) queue = shuffle(MRK_FACTS);
+    return queue.pop();
+  }
+
+  function showFact(fact) {
+    var card   = document.getElementById('mrk-card');
+    var numEl  = document.getElementById('mrk-num');
+    var totEl  = document.getElementById('mrk-total');
+    var textEl = document.getElementById('mrk-text');
+    var tagEl  = document.getElementById('mrk-tag');
+
+    card.classList.add('is-fading');
+
+    setTimeout(function () {
+      numEl.textContent  = 'No. ' + fact.id;
+      totEl.textContent  = 'of ' + MRK_FACTS.length;
+      textEl.textContent = fact.text;
+      tagEl.textContent  = fact.tags.length ? '#' + fact.tags[0] : '';
+      card.classList.remove('is-fading');
+    }, 220);
+  }
+
+  /* Initial fact */
+  showFact(nextFact());
+
+  /* Button */
+  var btn = document.getElementById('mrk-btn');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      showFact(nextFact());
+    });
+  }
+
+})();
+</script>
 </body>
 </html>

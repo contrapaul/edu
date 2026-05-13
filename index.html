@@ -243,6 +243,7 @@
 </div>
 </footer>
 
+<script src="mrk-facts.js"></script>
 <script src="curriculum/curriculum-themes.js"></script>
 <script>
 (function () {
@@ -368,19 +369,8 @@
     }
   ];
 
-  /* ── MR. K FACTS ──────────────────────────────────────────────── */
-  var FACTS = [
-    'Mr. K has never lost at table tennis — though some claim the table was slightly tilted',
-    'Mr. K once fixed a 3D printer with a bent paperclip and genuine optimism',
-    'Mr. K\'s classroom has more unfinished prototypes than chairs',
-    'Mr. K is technically undefeated at Kahoot if you don\'t count that one time',
-    'Mr. K\'s desk is a fully functional example of creative chaos theory',
-    'Mr. K can identify a typeface within three seconds — he timed himself',
-    'Mr. K has a drawer labelled \'failed experiments\' that is very, very full',
-    'Mr. K\'s all-time favourite design is whichever one he hasn\'t built yet',
-    'Mr. K once stayed until 9pm helping a student finish their IA, then came back the next morning still enthusiastic',
-    'Mr. K claims he only needs one more tool to complete the workshop. He has said this for four years'
-  ];
+  /* ── MR. K FACTS — loaded from mrk-facts.js ──────────────────── */
+  /* MRK_FACTS is the shared database: [{ id, text, tags }, ...] */
 
   /* ── HELPERS ──────────────────────────────────────────────────── */
   function pick(arr) {
@@ -422,7 +412,9 @@
 
   /* Mr. K fact */
   var factEl = document.getElementById('lp-fact');
-  if (factEl) factEl.textContent = pick(FACTS);
+  if (factEl && typeof MRK_FACTS !== 'undefined') {
+    factEl.textContent = pick(MRK_FACTS).text;
+  }
 
 })();
 </script>
