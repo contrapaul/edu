@@ -277,7 +277,7 @@ Show Chinese · 显示中文
 </div>
 <div class="fg-output" id="fg-output">
 <div class="fg-facilitator-label">Facilitator script — use these to open discussion</div>
-<ol class="fg-facilitator-list" id="fg-list"></ol>
+<ul class="fg-facilitator-list" id="fg-list"></ul>
 <button class="tool-btn-sm" id="fg-new" style="margin-top:0.5rem;">New set of questions</button>
 </div>
 </div>
@@ -288,6 +288,10 @@ Show Chinese · 显示中文
 <p class="activity-desc">Answer the five usability questions as if you are a typical user. Then click "Get survey results" to see how 1,000 simulated respondents — drawn from a realistic distribution centred on your answers — responded to the same questions.</p>
 <div class="likert-tool">
 <div id="likert-left">
+<div class="likert-subject-row">
+<label class="likert-subject-label" for="likert-subject">What is being evaluated?</label>
+<input class="fg-topic-input" id="likert-subject" type="text" placeholder="e.g. a reusable water bottle" maxlength="80">
+</div>
 <div id="likert-questions"></div>
 <button class="tool-btn" id="likert-submit" style="margin-top:1rem;">Get survey results</button>
 </div>

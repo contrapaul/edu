@@ -1275,10 +1275,13 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 .fg-question-list { padding-left: 1.25rem; margin: 0 0 0.5rem; }
 .fg-question-item { font-size: 0.9rem; line-height: 1.65; margin-bottom: 0.75rem; }
 .fg-topic-highlight { background: #e8f0fd; color: var(--accent); padding: 0 0.2em; border-radius: 2px; }
-.fg-facilitator-list { padding-left: 1.25rem; margin: 0; }
-.fg-facilitator-list li { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.4rem; }
+.fg-facilitator-list { list-style: none; padding-left: 0; margin: 0; }
+.fg-facilitator-list li { display: flex; gap: 0.5rem; align-items: baseline; font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.4rem; }
+.fg-q-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); min-width: 2rem; flex-shrink: 0; }
 
 /* Likert simulator */
+.likert-subject-row { margin-bottom: 1rem; }
+.likert-subject-label { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.4rem; }
 .likert-tool { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-top: 1rem; }
 .likert-scale-header { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); margin-bottom: 0.75rem; }
 .likert-q { margin-bottom: 0.875rem; padding: 0.875rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
