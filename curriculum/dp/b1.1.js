@@ -477,7 +477,7 @@ function initTaskAnalysis() {
       var addCtaBtn = document.createElement('button');
       addCtaBtn.type      = 'button';
       addCtaBtn.className = 'tool-btn-sm';
-      addCtaBtn.textContent = '+ sub-step';
+      addCtaBtn.textContent = '+ Cognitive Task';
       (function (s) {
         addCtaBtn.addEventListener('click', function () {
           s.ctaCounter++;
@@ -509,7 +509,7 @@ function initTaskAnalysis() {
         var ctaInput = document.createElement('input');
         ctaInput.type        = 'text';
         ctaInput.className   = 'ta-cta-input';
-        ctaInput.placeholder = 'Sub-step (e.g. Tap cart icon)';
+        ctaInput.placeholder = 'Cognitive task (e.g. tap, recall pin, decide)';
         ctaInput.value       = cta.text;
         ctaInput.addEventListener('input', function () { cta.text = ctaInput.value; });
 
@@ -556,36 +556,24 @@ function initTaskAnalysis() {
     svg.setAttribute('style', 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;');
     mapInner.appendChild(svg);
 
-    var nodeW = 168, goalH = 60, hGap = 28, vGap = 68, padX = 24, padY = 24;
+    var nodeW = 168, goalH = 60, hGap = 40, padX = 24, padY = 32;
 
     var htaHeights = steps.map(function (s) {
       return Math.max(80, 38 + s.ctas.length * 28 + 10);
     });
 
-    var totalW  = steps.length * nodeW + (steps.length - 1) * hGap;
-    var mapW    = Math.max(totalW, nodeW) + padX * 2;
-    var maxHtaH = htaHeights.reduce(function (m, h) { return Math.max(m, h); }, 80);
-    var mapH    = padY * 2 + goalH + vGap + maxHtaH + padY;
+    var maxHtaH  = htaHeights.reduce(function (m, h) { return Math.max(m, h); }, goalH);
+    var totalNodes = steps.length + 1;
+    var mapW     = padX * 2 + totalNodes * nodeW + (totalNodes - 1) * hGap;
+    var mapH     = padY * 2 + Math.max(maxHtaH, goalH);
 
     mapInner.style.width  = mapW + 'px';
     mapInner.style.height = mapH + 'px';
 
-    var gx     = Math.round(mapW / 2 - nodeW / 2);
-    var gy     = padY;
-    var goalEl = document.createElement('div');
-    goalEl.className   = 'ta-goal-node';
-    goalEl.style.cssText = 'position:absolute;left:' + gx + 'px;top:' + gy + 'px;width:' + nodeW + 'px;cursor:grab;user-select:none;';
-    goalEl.innerHTML   =
-      '<div class="ta-goal-label">Goal</div>' +
-      '<div class="ta-goal-text">' + escHtml(goalText) + '</div>';
-    mapInner.appendChild(goalEl);
-    nodeData['goal'] = { el: goalEl, x: gx, y: gy, w: nodeW, h: goalH };
-    makeDraggable('goal', goalEl, svg);
-
-    var htaStartX = Math.round(mapW / 2 - totalW / 2);
+    /* Steps: left to right */
     steps.forEach(function (step, si) {
-      var nx     = htaStartX + si * (nodeW + hGap);
-      var ny     = padY + goalH + vGap;
+      var nx     = padX + si * (nodeW + hGap);
+      var ny     = padY;
       var nodeEl = document.createElement('div');
       nodeEl.className   = 'ta-node';
       nodeEl.style.cssText = 'position:absolute;left:' + nx + 'px;top:' + ny + 'px;width:' + nodeW + 'px;';
@@ -602,14 +590,32 @@ function initTaskAnalysis() {
         ctaDiv.className = 'ta-node-cta';
         ctaDiv.innerHTML =
           '<span class="ta-node-num">' + (si + 1) + '.' + (ci + 1) + '</span>' +
-          escHtml(cta.text || 'Sub-step ' + (ci + 1));
+          escHtml(cta.text || 'Cognitive task ' + (ci + 1));
         nodeEl.appendChild(ctaDiv);
       });
 
       mapInner.appendChild(nodeEl);
       nodeData[step.id] = { el: nodeEl, x: nx, y: ny, w: nodeW, h: htaHeights[si] };
       makeDraggable(step.id, nodeEl, svg);
-      addLine(svg, 'goal', step.id);
+    });
+
+    /* Goal: far right */
+    var gx     = padX + steps.length * (nodeW + hGap);
+    var gy     = padY;
+    var goalEl = document.createElement('div');
+    goalEl.className   = 'ta-goal-node';
+    goalEl.style.cssText = 'position:absolute;left:' + gx + 'px;top:' + gy + 'px;width:' + nodeW + 'px;cursor:grab;user-select:none;';
+    goalEl.innerHTML   =
+      '<div class="ta-goal-label">Goal</div>' +
+      '<div class="ta-goal-text">' + escHtml(goalText) + '</div>';
+    mapInner.appendChild(goalEl);
+    nodeData['goal'] = { el: goalEl, x: gx, y: gy, w: nodeW, h: goalH };
+    makeDraggable('goal', goalEl, svg);
+
+    /* Sequential connections: step[0]→step[1]→…→goal */
+    steps.forEach(function (step, si) {
+      var nextId = (si < steps.length - 1) ? steps[si + 1].id : 'goal';
+      addLine(svg, step.id, nextId);
     });
 
     drawAllLines(svg);
@@ -629,10 +635,11 @@ function initTaskAnalysis() {
       var from = nodeData[line.getAttribute('data-from')];
       var to   = nodeData[line.getAttribute('data-to')];
       if (!from || !to) return;
-      line.setAttribute('x1', from.x + from.w / 2);
-      line.setAttribute('y1', from.y + from.h);
-      line.setAttribute('x2', to.x + to.w / 2);
-      line.setAttribute('y2', to.y);
+      /* Connect right-centre → left-centre for horizontal flow */
+      line.setAttribute('x1', from.x + from.w);
+      line.setAttribute('y1', from.y + from.h / 2);
+      line.setAttribute('x2', to.x);
+      line.setAttribute('y2', to.y + to.h / 2);
     });
   }
 
