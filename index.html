@@ -42,27 +42,18 @@
 }
 
 /* Themed link overrides */
-[data-theme="win95"] .lp-link {
-  color: #000080 !important;
-  border-bottom-color: #000080 !important;
-}
-[data-theme="dos"] .lp-link {
-  color: #00ff00 !important;
-  border-bottom-color: #00ff00 !important;
-}
-[data-theme="xbox"] .lp-link {
-  color: #76e800 !important;
-  border-bottom-color: #76e800 !important;
-}
+[data-theme="win95"] .lp-link { color: #000080 !important; }
+[data-theme="dos"]   .lp-link { color: #00ff00 !important; }
+[data-theme="xbox"]  .lp-link { color: #76e800 !important; }
 /* Nightmare keeps individual chaos colours */
-[data-theme="nightmare"] .lp-c1 { color: #ff1493 !important; border-bottom-color: #ff1493 !important; }
-[data-theme="nightmare"] .lp-c2 { color: #0000ee !important; border-bottom-color: #0000ee !important; }
-[data-theme="nightmare"] .lp-c3 { color: #ff6600 !important; border-bottom-color: #ff6600 !important; }
-[data-theme="nightmare"] .lp-c4 { color: #008800 !important; border-bottom-color: #008800 !important; }
-[data-theme="nightmare"] .lp-c5 { color: #9400d3 !important; border-bottom-color: #9400d3 !important; }
-[data-theme="nightmare"] .lp-c6 { color: #ff4500 !important; border-bottom-color: #ff4500 !important; }
-[data-theme="nightmare"] .lp-c7 { color: #0000cd !important; border-bottom-color: #0000cd !important; }
-[data-theme="nightmare"] .lp-c8 { color: #dc143c !important; border-bottom-color: #dc143c !important; }
+[data-theme="nightmare"] .lp-c1 { color: #ff1493 !important; }
+[data-theme="nightmare"] .lp-c2 { color: #0000ee !important; }
+[data-theme="nightmare"] .lp-c3 { color: #ff6600 !important; }
+[data-theme="nightmare"] .lp-c4 { color: #008800 !important; }
+[data-theme="nightmare"] .lp-c5 { color: #9400d3 !important; }
+[data-theme="nightmare"] .lp-c6 { color: #ff4500 !important; }
+[data-theme="nightmare"] .lp-c7 { color: #0000cd !important; }
+[data-theme="nightmare"] .lp-c8 { color: #dc143c !important; }
 
 /* ── Layout ─────────────────────────────────────────────── */
 .lp-main {
@@ -80,11 +71,12 @@
 
 .lp-block {
   animation: lp-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  margin-bottom: 3.75rem;
 }
 .lp-block-1 { animation-delay: 0.06s; }
-.lp-block-2 { animation-delay: 0.20s; margin-left: clamp(0px, 4vw, 2.75rem); }
+.lp-block-2 { animation-delay: 0.20s; }
 .lp-block-3 { animation-delay: 0.34s; }
-.lp-block-4 { animation-delay: 0.48s; margin-left: clamp(0px, 6vw, 4.5rem); }
+.lp-block-4 { animation-delay: 0.48s; }
 
 /* ── Typography ─────────────────────────────────────────── */
 .lp-welcome {
@@ -99,55 +91,34 @@
 
 .lp-text {
   font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.28;
+  font-size: clamp(1.65rem, 3.7vw, 3.0rem);
+  line-height: 1.55;
   font-weight: 300;
   color: var(--text);
   letter-spacing: -0.015em;
   margin: 0;
 }
 
-/* Size variation across blocks — creates rhythmic unpredictability */
-.lp-block-1 .lp-text   { font-size: clamp(1.55rem, 3.4vw, 2.75rem); }
-.lp-block-2 .lp-text   { font-size: clamp(1.65rem, 3.7vw, 3.0rem);  }
-.lp-block-3 .lp-text   { font-size: clamp(1.4rem,  3.1vw, 2.5rem);  }
-.lp-block-4 .lp-text   { font-size: clamp(1.2rem,  2.6vw, 2.05rem); }
-
-/* ── Separators ─────────────────────────────────────────── */
-.lp-sep {
-  border: none;
-  height: 1px;
-  background: var(--border);
-  margin: 4.5rem 0;
-  width: 48px;
-  animation: lp-rise 0.5s ease both;
-}
-.lp-sep:nth-of-type(1) { animation-delay: 0.28s; }
-.lp-sep:nth-of-type(2) { animation-delay: 0.42s; }
-.lp-sep:nth-of-type(3) { animation-delay: 0.56s; margin-left: clamp(0px, 6vw, 4.5rem); }
-
 /* ── Links ──────────────────────────────────────────────── */
 .lp-link {
   font-weight: 600;
   text-decoration: none;
-  border-bottom: 0.1em solid currentColor;
-  padding-bottom: 0.03em;
-  transition: opacity 0.14s ease, border-bottom-width 0.12s ease;
+  transition: opacity 0.14s ease;
 }
 .lp-link:hover {
   opacity: 0.68;
   text-decoration: none;
-  border-bottom-width: 0.22em;
 }
 
 /* Assign the palette */
-.lp-c1 { color: var(--lp-c1); border-bottom-color: var(--lp-c1); }
-.lp-c2 { color: var(--lp-c2); border-bottom-color: var(--lp-c2); }
-.lp-c3 { color: var(--lp-c3); border-bottom-color: var(--lp-c3); }
-.lp-c4 { color: var(--lp-c4); border-bottom-color: var(--lp-c4); }
-.lp-c5 { color: var(--lp-c5); border-bottom-color: var(--lp-c5); }
-.lp-c6 { color: var(--lp-c6); border-bottom-color: var(--lp-c6); }
-.lp-c7 { color: var(--lp-c7); border-bottom-color: var(--lp-c7); }
-.lp-c8 { color: var(--lp-c8); border-bottom-color: var(--lp-c8); }
+.lp-c1 { color: var(--lp-c1); }
+.lp-c2 { color: var(--lp-c2); }
+.lp-c3 { color: var(--lp-c3); }
+.lp-c4 { color: var(--lp-c4); }
+.lp-c5 { color: var(--lp-c5); }
+.lp-c6 { color: var(--lp-c6); }
+.lp-c7 { color: var(--lp-c7); }
+.lp-c8 { color: var(--lp-c8); }
 
 /* JS-injected description text — flows as italic body text */
 .lp-inject { font-style: italic; font-weight: 300; }
@@ -158,9 +129,7 @@
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 640px) {
   .lp-main { padding: 3.5rem 1.5rem 7rem; }
-  .lp-block-2, .lp-block-4 { margin-left: 0; }
-  .lp-sep { margin: 3rem 0; }
-  .lp-sep:nth-of-type(3) { margin-left: 0; }
+  .lp-block { margin-bottom: 2.75rem; }
 }
 @media (max-width: 420px) {
   .lp-main { padding: 2.75rem 1.25rem 5rem; }
@@ -196,9 +165,7 @@
     </p>
   </div>
 
-  <hr class="lp-sep">
-
-  <!-- ── Block 2: DP ────────────────────────────────────── -->
+  <!--── Block 2: DP ────────────────────────────────────── -->
   <div class="lp-block lp-block-2">
     <p class="lp-text">
       There's a ton of
@@ -208,9 +175,7 @@
     </p>
   </div>
 
-  <hr class="lp-sep">
-
-  <!-- ── Block 3: Tools ─────────────────────────────────── -->
+  <!--── Block 3: Tools ─────────────────────────────────── -->
   <div class="lp-block lp-block-3">
     <p class="lp-text">
       My <a href="/tools" class="lp-link lp-c5">tools</a> page has something
@@ -221,9 +186,7 @@
     </p>
   </div>
 
-  <hr class="lp-sep">
-
-  <!-- ── Block 4: About ─────────────────────────────────── -->
+  <!--── Block 4: About ─────────────────────────────────── -->
   <div class="lp-block lp-block-4">
     <p class="lp-text">
       If you've actually come here to learn about
