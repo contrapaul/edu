@@ -231,6 +231,54 @@
 </div>
 <p class="content-note">A single project typically combines 2–3 methods. Field research or observation uncovers what problems exist; interviews and questionnaires explain why and how many people are affected.</p>
 
+<div class="activity-block">
+<div class="activity-label">Activity — Field Research</div>
+<div class="activity-title">Random field research assignment</div>
+<p class="activity-desc">Press the button to receive a field research assignment. Each assignment gives you a specific real-world setting, something to observe, and instructions for data to collect. Treat it as a genuine brief.</p>
+<button class="tool-btn" id="fr-generate" style="margin-top:0.5rem;">Generate assignment</button>
+<div class="fr-card" id="fr-card">
+<div class="fr-task-label">Setting</div>
+<div class="fr-setting" id="fr-setting"></div>
+<div class="fr-task-label">What to observe</div>
+<div class="fr-task-text" id="fr-observe"></div>
+<div class="fr-collect-label">Data to collect</div>
+<ul class="fr-collect-list" id="fr-collect"></ul>
+<div class="fr-tip"><span class="fr-tip-label">Tip</span><span id="fr-tip-text"></span></div>
+</div>
+</div>
+
+<div class="activity-block">
+<div class="activity-label">Activity — Focus Group</div>
+<div class="activity-title">Focus group question generator</div>
+<p class="activity-desc">Type your focus group topic, then generate facilitator questions. Your topic is inserted into each question automatically — Mad Libs style. Press "New set" to get a different selection of six questions.</p>
+<div class="fg-topic-row">
+<input class="fg-topic-input" id="fg-topic-input" type="text" placeholder="e.g. a new school cafeteria menu" maxlength="80">
+<button class="tool-btn" id="fg-generate" style="margin-top:0;">Generate questions</button>
+</div>
+<div class="fg-output" id="fg-output">
+<div class="fg-facilitator-label">Facilitator script — use these to open discussion</div>
+<ol class="fg-facilitator-list" id="fg-list"></ol>
+<button class="tool-btn-sm" id="fg-new" style="margin-top:0.5rem;">New set of questions</button>
+</div>
+</div>
+
+<div class="activity-block">
+<div class="activity-label">Activity — Likert Simulator</div>
+<div class="activity-title">Survey simulator: 1,000 respondents</div>
+<p class="activity-desc">Answer the five usability questions as if you are a typical user. Then click "Get survey results" to see how 1,000 simulated respondents — drawn from a realistic distribution centred on your answers — responded to the same questions.</p>
+<div class="likert-tool">
+<div id="likert-left">
+<div id="likert-questions"></div>
+<button class="tool-btn" id="likert-submit" style="margin-top:1rem;">Get survey results</button>
+</div>
+<div id="likert-right" class="likert-results">
+<div style="font-family:var(--font-mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:1rem;">Results — 1,000 simulated respondents</div>
+<div id="likert-results-body"></div>
+<button class="tool-btn-sm" id="likert-reset" style="margin-top:0.75rem;">Reset</button>
+</div>
+</div>
+</div>
+
 </div>
 </div><!-- /1.1.2 -->
 
@@ -325,6 +373,49 @@
 <div class="persona-field-name">Type (circle one) · 类型（圈出一个）</div>
 <div style="font-size:0.85rem;margin-top:0.35rem;">Primary &nbsp;&nbsp; Secondary &nbsp;&nbsp; Anti-persona</div>
 </div>
+</div>
+
+<div class="activity-block" style="margin-top:1.5rem;">
+<div class="activity-label">Activity — Persona Builder</div>
+<div class="activity-title">Build a primary persona</div>
+<p class="activity-desc">Choose a product context, fill in the fields based on your research findings, then click Finish to generate a formatted primary persona card. Use real or imagined research data — the goal is to practise making the persona specific and concrete.</p>
+<div class="persona-form-grid" id="pb-form">
+<div class="pb-field">
+<span class="pb-label">Product context</span>
+<select class="pb-input" id="pb-product">
+<option value="elevator">Elevator at an international school</option>
+<option value="social">Social media app redesign</option>
+<option value="drink">New isotonic sports drink</option>
+<option value="drill">Battery-powered drill</option>
+</select>
+</div>
+<div class="pb-field">
+<span class="pb-label">First name (made-up)</span>
+<input class="pb-input" id="pb-name" type="text" placeholder="e.g. Maya">
+</div>
+<div class="pb-field">
+<span class="pb-label">Age</span>
+<input class="pb-input" id="pb-age" type="text" placeholder="e.g. 34">
+</div>
+<div class="pb-field pb-field-full">
+<span class="pb-label">Occupation / Role</span>
+<input class="pb-input" id="pb-role" type="text" placeholder="e.g. Secondary school teacher">
+</div>
+<div class="pb-field pb-field-full">
+<span class="pb-label">Goals — what is this person trying to accomplish?</span>
+<textarea class="pb-input" id="pb-goals" rows="2" placeholder="e.g. Get to her classroom quickly between lessons without waiting."></textarea>
+</div>
+<div class="pb-field pb-field-full">
+<span class="pb-label">Frustrations / Pain points</span>
+<textarea class="pb-input" id="pb-frustrations" rows="2" placeholder="e.g. Buttons labelled in only one language; door closes before she can get the trolley in."></textarea>
+</div>
+<div class="pb-field pb-field-full">
+<span class="pb-label">Typical use scenario — when, where, what they're doing</span>
+<textarea class="pb-input" id="pb-scenario" rows="2" placeholder="e.g. Arrives at the ground floor during a 5-minute break, pushing a trolley of science equipment."></textarea>
+</div>
+</div>
+<button class="tool-btn" id="pb-finish">Finish — generate persona card</button>
+<div class="persona-output" id="pb-output"></div>
 </div>
 
 </div>
@@ -511,6 +602,27 @@
 </table>
 </div>
 <p class="content-note"><strong>Design change identified:</strong> Move account creation to after order confirmation. Add a "Save my info for next time?" toggle as the final optional step. This removes an interruption mid-task, reducing abandonment at the highest-friction point.</p>
+
+<div class="activity-block" style="margin-top:1.5rem;">
+<div class="activity-label">Activity — Task Analysis Generator</div>
+<div class="activity-title">Build a hierarchical task analysis</div>
+<p class="activity-desc">Enter the user's overall goal, add the main steps (HTA), then add sub-steps beneath each one. When finished, click "Generate map" to produce a visual task map — drag the nodes to rearrange it.</p>
+<div class="ta-goal-row">
+<span class="ta-goal-label-text">Overall goal</span>
+<input class="ta-goal-input" id="ta-goal" type="text" placeholder="e.g. Pay for an online order">
+</div>
+<div id="ta-steps-container"></div>
+<div class="ta-controls">
+<button class="tool-btn-sm" id="ta-add-hta" type="button">+ Add step</button>
+<button class="tool-btn" id="ta-complete" type="button" style="margin-top:0;">Generate map</button>
+</div>
+<div class="ta-map" id="ta-map">
+<div class="ta-map-inner" id="ta-map-inner" style="position:relative;">
+<svg id="ta-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;"></svg>
+</div>
+</div>
+<div class="ta-drag-hint" id="ta-drag-hint">Drag nodes to rearrange · click "Generate map" again to rebuild from your steps</div>
+</div>
 
 </div>
 </div><!-- /1.1.5 -->
@@ -843,5 +955,6 @@ Represents a malicious user or coordinated group who submits mass false reports 
 </div></main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand">contrapaul / edu</span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="b1.1.js"></script>
 </body>
 </html>
