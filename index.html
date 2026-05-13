@@ -1,17 +1,171 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free IB DP Design Technology study materials, HTML activities, and curriculum tools for students and teachers worldwide.">
-<title>IB DP Design Resources — contrapaul edu</title>
+<meta name="description" content="contrapaul / edu — IB Design Technology curriculum, MYP resources, and interactive tools for students and teachers.">
+<title>contrapaul / edu</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="curriculum/themes.css">
+<link href="https://fonts.cdnfonts.com/css/lexend" rel="stylesheet">
 <script>
-  /* Apply saved theme before paint to prevent flash */
   (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
 </script>
+<style>
+/* ═══════════════════════════════════════════════════════
+   LANDING PAGE — typographic, bold, exploratory
+   Lexend from cdnfonts.com (accessible in China)
+═══════════════════════════════════════════════════════ */
+
+/* ── Per-link colour palette (curriculum stripe colours) ── */
+:root {
+  --lp-c1: #2c5f6e;   /* Topic A teal     — MYP units        */
+  --lp-c2: #1a5cb8;   /* Topic B blue     — random MYP unit  */
+  --lp-c3: #166534;   /* deep green       — DP material      */
+  --lp-c4: #3d6b4a;   /* Topic C green    — random DP topic  */
+  --lp-c5: #7c3aed;   /* HL purple        — tools            */
+  --lp-c6: #c2410c;   /* orange-rust      — random tool 1    */
+  --lp-c7: #0369a1;   /* sky blue         — random tool 2    */
+  --lp-c8: #be185d;   /* rose             — about / me       */
+}
+
+/* Dark mode — lighter versions for legibility on dark bg */
+[data-theme="dark"] {
+  --lp-c1: #4fb8d0;
+  --lp-c2: #6ba3f5;
+  --lp-c3: #4ade80;
+  --lp-c4: #6ee7a0;
+  --lp-c5: #c084fc;
+  --lp-c6: #fb923c;
+  --lp-c7: #38bdf8;
+  --lp-c8: #fb7185;
+}
+
+/* Themed link overrides */
+[data-theme="win95"] .lp-link {
+  color: #000080 !important;
+  border-bottom-color: #000080 !important;
+}
+[data-theme="dos"] .lp-link {
+  color: #00ff00 !important;
+  border-bottom-color: #00ff00 !important;
+}
+[data-theme="xbox"] .lp-link {
+  color: #76e800 !important;
+  border-bottom-color: #76e800 !important;
+}
+/* Nightmare keeps individual chaos colours */
+[data-theme="nightmare"] .lp-c1 { color: #ff1493 !important; border-bottom-color: #ff1493 !important; }
+[data-theme="nightmare"] .lp-c2 { color: #0000ee !important; border-bottom-color: #0000ee !important; }
+[data-theme="nightmare"] .lp-c3 { color: #ff6600 !important; border-bottom-color: #ff6600 !important; }
+[data-theme="nightmare"] .lp-c4 { color: #008800 !important; border-bottom-color: #008800 !important; }
+[data-theme="nightmare"] .lp-c5 { color: #9400d3 !important; border-bottom-color: #9400d3 !important; }
+[data-theme="nightmare"] .lp-c6 { color: #ff4500 !important; border-bottom-color: #ff4500 !important; }
+[data-theme="nightmare"] .lp-c7 { color: #0000cd !important; border-bottom-color: #0000cd !important; }
+[data-theme="nightmare"] .lp-c8 { color: #dc143c !important; border-bottom-color: #dc143c !important; }
+
+/* ── Layout ─────────────────────────────────────────────── */
+.lp-main {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 5.5rem 2.5rem 10rem;
+}
+
+/* ── Entrance animation ──────────────────────────────────── */
+@keyframes lp-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lp-block {
+  animation: lp-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.lp-block-1 { animation-delay: 0.06s; }
+.lp-block-2 { animation-delay: 0.20s; margin-left: clamp(0px, 4vw, 2.75rem); }
+.lp-block-3 { animation-delay: 0.34s; }
+.lp-block-4 { animation-delay: 0.48s; margin-left: clamp(0px, 6vw, 4.5rem); }
+
+/* ── Typography ─────────────────────────────────────────── */
+.lp-welcome {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(3.2rem, 10vw, 7.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--text);
+  margin: 0 0 2.25rem;
+}
+
+.lp-text {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.28;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+/* Size variation across blocks — creates rhythmic unpredictability */
+.lp-block-1 .lp-text   { font-size: clamp(1.55rem, 3.4vw, 2.75rem); }
+.lp-block-2 .lp-text   { font-size: clamp(1.65rem, 3.7vw, 3.0rem);  }
+.lp-block-3 .lp-text   { font-size: clamp(1.4rem,  3.1vw, 2.5rem);  }
+.lp-block-4 .lp-text   { font-size: clamp(1.2rem,  2.6vw, 2.05rem); }
+
+/* ── Separators ─────────────────────────────────────────── */
+.lp-sep {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 4.5rem 0;
+  width: 48px;
+  animation: lp-rise 0.5s ease both;
+}
+.lp-sep:nth-of-type(1) { animation-delay: 0.28s; }
+.lp-sep:nth-of-type(2) { animation-delay: 0.42s; }
+.lp-sep:nth-of-type(3) { animation-delay: 0.56s; margin-left: clamp(0px, 6vw, 4.5rem); }
+
+/* ── Links ──────────────────────────────────────────────── */
+.lp-link {
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 0.1em solid currentColor;
+  padding-bottom: 0.03em;
+  transition: opacity 0.14s ease, border-bottom-width 0.12s ease;
+}
+.lp-link:hover {
+  opacity: 0.68;
+  text-decoration: none;
+  border-bottom-width: 0.22em;
+}
+
+/* Assign the palette */
+.lp-c1 { color: var(--lp-c1); border-bottom-color: var(--lp-c1); }
+.lp-c2 { color: var(--lp-c2); border-bottom-color: var(--lp-c2); }
+.lp-c3 { color: var(--lp-c3); border-bottom-color: var(--lp-c3); }
+.lp-c4 { color: var(--lp-c4); border-bottom-color: var(--lp-c4); }
+.lp-c5 { color: var(--lp-c5); border-bottom-color: var(--lp-c5); }
+.lp-c6 { color: var(--lp-c6); border-bottom-color: var(--lp-c6); }
+.lp-c7 { color: var(--lp-c7); border-bottom-color: var(--lp-c7); }
+.lp-c8 { color: var(--lp-c8); border-bottom-color: var(--lp-c8); }
+
+/* JS-injected description text — flows as italic body text */
+.lp-inject { font-style: italic; font-weight: 300; }
+
+/* Mr. K fact — italic link */
+.lp-fact-link { font-style: italic; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .lp-main { padding: 3.5rem 1.5rem 7rem; }
+  .lp-block-2, .lp-block-4 { margin-left: 0; }
+  .lp-sep { margin: 3rem 0; }
+  .lp-sep:nth-of-type(3) { margin-left: 0; }
+}
+@media (max-width: 420px) {
+  .lp-main { padding: 2.75rem 1.25rem 5rem; }
+}
+</style>
 </head>
 <body>
 
@@ -29,181 +183,56 @@
 </div>
 </header>
 
-<main>
+<main class="lp-main">
 
-```
-<!-- HERO -->
-<section class="hero">
-<div class="hero-inner">
-<div class="hero-badge">IB DP Design Technology</div>
-<h1 class="hero-title">Free resources for<br>Design students &amp; teachers</h1>
-<p class="hero-sub">
-     Study guides, interactive activities, and curriculum tools covering the full IB DP Design syllabus.
-     Made by a teacher, for students and teachers worldwide.
-</p>
-<div class="hero-actions">
-<a href="#units" class="btn-primary">Browse by unit →</a>
-<a href="#tools" class="btn-ghost">Interactive tools →</a>
-</div>
-<div class="hero-stats">
-<div class="stat">
-<span class="stat-n">6</span>
-<span class="stat-label">Core units</span>
-</div>
-<div class="stat-divider"></div>
-<div class="stat">
-<span class="stat-n">HL &amp; SL</span>
-<span class="stat-label">Both levels</span>
-</div>
-<div class="stat-divider"></div>
-<div class="stat">
-<span class="stat-n">Free</span>
-<span class="stat-label">Always</span>
-</div>
-</div>
-</div>
-</section>
+  <!-- ── Block 1: Welcome + MYP ─────────────────────────── -->
+  <div class="lp-block lp-block-1">
+    <p class="lp-welcome">Welcome to my website.</p>
+    <p class="lp-text">
+      Can I interest you in learning more about my
+      <a href="/curriculum/myp" class="lp-link lp-c1">MYP Design units</a>,
+      such as <a href="#" id="lp-myp-link" class="lp-link lp-c2">—</a>,
+      where students <span id="lp-myp-desc" class="lp-inject">—</span>?
+    </p>
+  </div>
 
-<!-- UNITS GRID -->
-<section class="units" id="units">
-<div class="section-inner">
-<div class="section-header">
-<h2 class="section-title">Curriculum Units</h2>
-<p class="section-desc">Resources organised by the current IB DP Design syllabus structure.</p>
-</div>
-<div class="units-grid">
+  <hr class="lp-sep">
 
-<a class="unit-card" href="units/human-factors.html">
-<div class="unit-code">Unit 1</div>
-<h3 class="unit-title">Human Factors &amp; Ergonomics</h3>
-<p class="unit-desc">User-centred design, anthropometrics, cognitive ergonomics, and inclusive design principles.</p>
-<div class="unit-footer">
-<span class="unit-tag">SL + HL</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
+  <!-- ── Block 2: DP ────────────────────────────────────── -->
+  <div class="lp-block lp-block-2">
+    <p class="lp-text">
+      There's a ton of
+      <a href="/curriculum/dp" class="lp-link lp-c3">DP Design Technology material</a>
+      to check out if you'd prefer, including
+      <a href="#" id="lp-dp-link" class="lp-link lp-c4"><span id="lp-dp-text">—</span></a>.
+    </p>
+  </div>
 
-<a class="unit-card" href="units/resource-management.html">
-<div class="unit-code">Unit 2</div>
-<h3 class="unit-title">Resource Management &amp; Sustainability</h3>
-<p class="unit-desc">Lifecycle analysis, sustainable design, material choices, and circular economy principles.</p>
-<div class="unit-footer">
-<span class="unit-tag">SL + HL</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
+  <hr class="lp-sep">
 
-<a class="unit-card" href="units/modelling.html">
-<div class="unit-code">Unit 3</div>
-<h3 class="unit-title">Modelling</h3>
-<p class="unit-desc">Physical and virtual modelling techniques, testing, and the iterative design process.</p>
-<div class="unit-footer">
-<span class="unit-tag">SL + HL</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
+  <!-- ── Block 3: Tools ─────────────────────────────────── -->
+  <div class="lp-block lp-block-3">
+    <p class="lp-text">
+      My <a href="/tools" class="lp-link lp-c5">tools</a> page has something
+      for everyone, whether you're into
+      <a href="#" id="lp-tool1-link" class="lp-link lp-c6"><span id="lp-tool1-text">—</span></a>
+      or would rather
+      <a href="#" id="lp-tool2-link" class="lp-link lp-c7"><span id="lp-tool2-text">—</span></a>.
+    </p>
+  </div>
 
-<a class="unit-card" href="units/final-product.html">
-<div class="unit-code">Unit 4</div>
-<h3 class="unit-title">Final Product</h3>
-<p class="unit-desc">Manufacturing processes, joining techniques, finishing, and quality control.</p>
-<div class="unit-footer">
-<span class="unit-tag">SL + HL</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
+  <hr class="lp-sep">
 
-<a class="unit-card unit-hl" href="units/innovation.html">
-<div class="unit-code">Unit 5</div>
-<h3 class="unit-title">Innovation &amp; Design</h3>
-<p class="unit-desc">Design history, innovation models, intellectual property, and the role of design in society.</p>
-<div class="unit-footer">
-<span class="unit-tag unit-tag-hl">HL only</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
-
-<a class="unit-card unit-hl" href="units/classic-design.html">
-<div class="unit-code">Unit 6</div>
-<h3 class="unit-title">Classic Design</h3>
-<p class="unit-desc">Analysis of iconic designs through multiple lenses: aesthetic, functional, cultural, and historical.</p>
-<div class="unit-footer">
-<span class="unit-tag unit-tag-hl">HL only</span>
-<span class="unit-arrow">→</span>
-</div>
-</a>
-
-</div>
-</div>
-</section>
-
-<!-- INTERACTIVE TOOLS -->
-<section class="tools" id="tools">
-<div class="section-inner">
-<div class="section-header">
-<h2 class="section-title">Interactive Tools and Activities</h2>
-<p class="section-desc">HTML activities you can use directly in your browser — no login, no signup.</p>
-</div>
-<div class="tools-list">
-
-<a class="tool-row" href="tools/design-cycle.html">
-<div class="tool-icon">🔄</div>
-<div class="tool-body">
-<h3>Design Cycle Explorer</h3>
-<p>Interactive walkthrough of the IB Design Cycle with examples and self-check questions.</p>
-</div>
-<span class="tool-status tool-ready">Ready</span>
-</a>
-
-<a class="tool-row" href="tools/deviceroom.html">
-<div class="tool-icon">♻️</div>
-<div class="tool-body">
-<h3>Device Room Rules</h3>
-<p>An upgrade on the tired A3 poster students never read.</p>
-</div>
-<span class="tool-status tool-ready">Ready</span>
-</a>
-
-<a class="tool-row" href="tools/macropad.html">
-<div class="tool-icon">📐</div>
-<div class="tool-body">
-<h3>Macropad Configurator</h3>
-<p>A tool to simplify the process of building and programming a macropad with ESP32 microcontrollers.</p>
-</div>
-<span class="tool-status tool-wip">In progress</span>
-</a>
-
-<a class="tool-row" href="tools/DT-IA-Guide.html">
-<div class="tool-icon">🧱</div>
-<div class="tool-body">
-<h3>DP Design Technology IA Guide</h3>
-<p>A step by step guide to the Internal Assessment project, worth a mere 40% of your total Design Technology grade (no pressure).</p>
-</div>
-<span class="tool-status tool-wip">In progress</span>
-</a>
-
-</div>
-</div>
-</section>
-
-<!-- ABOUT / FOR TEACHERS -->
-<section class="about-strip" id="about">
-<div class="section-inner about-inner">
-<div class="about-text-col">
-<h2 class="section-title">For Teachers</h2>
-<p>All resources here are free to use in your classroom. No attribution required, though appreciated. If you want to suggest a topic, flag an error, or contribute a resource, get in touch.</p>
-<p>These materials are written for the current syllabus. They'll be updated when the IB revises the curriculum.</p>
-<a href="mailto:hello@contrapaul.com" class="contact-link">hello@contrapaul.com →</a>
-</div>
-<div class="about-note-col">
-<div class="note-card">
-<div class="note-label">Note on currency</div>
-<p>This site covers the most recently revised IB DP Design syllabus. Always cross-reference with your official IB course guide — syllabi can change between examination sessions.</p>
-</div>
-</div>
-</div>
-</section>
-```
+  <!-- ── Block 4: About ─────────────────────────────────── -->
+  <div class="lp-block lp-block-4">
+    <p class="lp-text">
+      If you've actually come here to learn about
+      <em><a href="/about" class="lp-link lp-c8">me</a></em>,
+      then I suggest you go to the 'about' page, where I've also added a
+      Mr.&nbsp;K facts generator. For example,
+      <a href="/about" id="lp-fact" class="lp-link lp-c2 lp-fact-link">—</a>.
+    </p>
+  </div>
 
 </main>
 
@@ -215,5 +244,187 @@
 </footer>
 
 <script src="curriculum/curriculum-themes.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ── MYP UNITS ────────────────────────────────────────────────── */
+  var MYP = [
+    {
+      title: 'Grade 6 — Lego Designers',
+      href:  '/curriculum/myp/g6-lego-designers.html',
+      desc:  'design and build structures that solve real challenges using nothing but LEGO'
+    },
+    {
+      title: 'Grade 7 — Lego Engineers',
+      href:  '/curriculum/myp/g7-lego-engineers.html',
+      desc:  'reverse-engineer existing mechanisms and then rebuild them better'
+    },
+    {
+      title: 'Grade 8 — Bridge Designers',
+      href:  '/curriculum/myp/g8-bridge-designers.html',
+      desc:  'stress-test their structures to destruction — learning through failure what makes bridges stand'
+    },
+    {
+      title: 'Grade 8 — 3D Modelling',
+      href:  '/curriculum/myp/g8-3d-modeling.html',
+      desc:  'transform flat sketches into physical objects through digital design and 3D printing'
+    },
+    {
+      title: 'Grade 9 — Toy Design',
+      href:  '/curriculum/myp/g9-toy-design.html',
+      desc:  'design, prototype and pitch a toy concept from first sketch to finished model'
+    },
+    {
+      title: 'Grade 9 — Electronics',
+      href:  '/curriculum/myp/g9-electronics.html',
+      desc:  'wire up circuits, write code, and bring blinking, buzzing creations to life'
+    },
+    {
+      title: 'Grade 10 — Product Design',
+      href:  '/curriculum/myp/g10-product-design.html',
+      desc:  'tackle real client briefs with the full design cycle — research to polished prototype'
+    },
+    {
+      title: 'Grade 10 — Studio Project',
+      href:  '/curriculum/myp/g10-studio-project.html',
+      desc:  'pursue a genuinely self-directed design challenge with full creative freedom'
+    }
+  ];
+
+  /* ── DP TOPICS ────────────────────────────────────────────────── */
+  var DP = [
+    {
+      href: '/curriculum/dp/b1.1-user-centred-design.html',
+      text: 'a deep look at empathy maps, personas, and the five stages of human-centred design'
+    },
+    {
+      href: '/curriculum/dp/a1.1-ergonomics.html',
+      text: 'why your chair is probably trying to hurt you — and what good ergonomics can do about it'
+    },
+    {
+      href: '/curriculum/dp/a2.1-user-centred-research.html',
+      text: 'the research methods that stop designers from designing products only for themselves'
+    },
+    {
+      href: '/curriculum/dp/b2.1-design-process.html',
+      text: 'how designers move from a fuzzy problem statement to a fully realised solution'
+    },
+    {
+      href: '/curriculum/dp/c1.1-responsibility-of-designer.html',
+      text: 'why every design decision is also an ethical decision — and why that matters enormously'
+    },
+    {
+      href: '/curriculum/dp/c2.1-design-for-sustainability.html',
+      text: 'circular economy thinking and what it actually means to design without wrecking the planet'
+    },
+    {
+      href: '/curriculum/dp/a3.1-material-classification.html',
+      text: 'the materials science hiding behind every object you\'ve ever picked up'
+    },
+    {
+      href: '/curriculum/dp/c3.1-product-analysis.html',
+      text: 'how to dissect a product across six design lenses and actually say something interesting'
+    },
+    {
+      href: '/curriculum/dp/c1.2-inclusive-design.html',
+      text: 'designing for the full spectrum of human ability — and why "the average user" is a myth'
+    },
+    {
+      href: '/curriculum/dp/a2.2-prototyping-techniques.html',
+      text: 'why the best designers deliberately build things badly — and do it as fast as possible'
+    }
+  ];
+
+  /* ── TOOLS ────────────────────────────────────────────────────── */
+  var TOOLS = [
+    {
+      href: '/curriculum/dp/b1.1-user-centred-design.html',
+      desc: 'generating a professional focus group discussion guide in about thirty seconds'
+    },
+    {
+      href: '/curriculum/dp/b1.1-user-centred-design.html',
+      desc: 'building a fully customised Likert survey on any topic you choose'
+    },
+    {
+      href: '/curriculum/dp/b1.1-user-centred-design.html',
+      desc: 'mapping a complex task from goal down to every sub-step — visually'
+    },
+    {
+      href: '/curriculum/dp/b1.1-user-centred-design.html',
+      desc: 'generating a detailed user persona in under two minutes'
+    },
+    {
+      href: '/tools/macropad/index.html',
+      desc: 'designing and programming a custom macropad from scratch with an ESP32'
+    },
+    {
+      href: '/tools/DT-IA-Guide/index.html',
+      desc: 'surviving the DP Design IA — which is, very casually, 40% of the final grade'
+    },
+    {
+      href: '/tools/deviceroom.html',
+      desc: 'setting up device room rules that students might actually read'
+    }
+  ];
+
+  /* ── MR. K FACTS ──────────────────────────────────────────────── */
+  var FACTS = [
+    'Mr. K has never lost at table tennis — though some claim the table was slightly tilted',
+    'Mr. K once fixed a 3D printer with a bent paperclip and genuine optimism',
+    'Mr. K\'s classroom has more unfinished prototypes than chairs',
+    'Mr. K is technically undefeated at Kahoot if you don\'t count that one time',
+    'Mr. K\'s desk is a fully functional example of creative chaos theory',
+    'Mr. K can identify a typeface within three seconds — he timed himself',
+    'Mr. K has a drawer labelled \'failed experiments\' that is very, very full',
+    'Mr. K\'s all-time favourite design is whichever one he hasn\'t built yet',
+    'Mr. K once stayed until 9pm helping a student finish their IA, then came back the next morning still enthusiastic',
+    'Mr. K claims he only needs one more tool to complete the workshop. He has said this for four years'
+  ];
+
+  /* ── HELPERS ──────────────────────────────────────────────────── */
+  function pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function pickTwo(arr) {
+    var a = Math.floor(Math.random() * arr.length), b;
+    do { b = Math.floor(Math.random() * arr.length); } while (b === a);
+    return [arr[a], arr[b]];
+  }
+
+  /* ── INJECT ───────────────────────────────────────────────────── */
+
+  /* MYP unit */
+  var myp = pick(MYP);
+  var mypLink = document.getElementById('lp-myp-link');
+  var mypDesc = document.getElementById('lp-myp-desc');
+  if (mypLink) { mypLink.href = myp.href; mypLink.textContent = myp.title; }
+  if (mypDesc) mypDesc.textContent = myp.desc;
+
+  /* DP topic */
+  var dp = pick(DP);
+  var dpLink = document.getElementById('lp-dp-link');
+  var dpText = document.getElementById('lp-dp-text');
+  if (dpLink) dpLink.href = dp.href;
+  if (dpText) dpText.textContent = dp.text;
+
+  /* Tools */
+  var tools = pickTwo(TOOLS);
+  var t1Link = document.getElementById('lp-tool1-link');
+  var t2Link = document.getElementById('lp-tool2-link');
+  var t1Text = document.getElementById('lp-tool1-text');
+  var t2Text = document.getElementById('lp-tool2-text');
+  if (t1Link) t1Link.href = tools[0].href;
+  if (t2Link) t2Link.href = tools[1].href;
+  if (t1Text) t1Text.textContent = tools[0].desc;
+  if (t2Text) t2Text.textContent = tools[1].desc;
+
+  /* Mr. K fact */
+  var factEl = document.getElementById('lp-fact');
+  if (factEl) factEl.textContent = pick(FACTS);
+
+})();
+</script>
 </body>
 </html>
