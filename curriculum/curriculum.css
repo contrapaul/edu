@@ -241,7 +241,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 0.875rem 0;
+  padding: 1.1rem 0;
   cursor: pointer;
   text-align: left;
   gap: 0.875rem;
@@ -268,10 +268,10 @@
   transition: color 0.15s;
 }
 .obj-trigger h3 {
-  font-size: 0.92rem;
-  font-weight: 500;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 600;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.45;
   transition: color 0.15s;
 }
 .obj-trigger[aria-expanded="true"] h3,
@@ -293,6 +293,29 @@
 
 .obj-body { display: none; padding: 0.25rem 0 1.25rem 4rem; }
 .obj-body.open { display: block; }
+
+.obj-figure {
+  margin: 1rem 0 1.5rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.obj-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+}
+.obj-figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  padding: 0.4rem 0.75rem;
+  letter-spacing: 0.04em;
+}
+.obj-figure:has(.obj-img[src=""]) { display: none; }
 
 .obj-statement {
   font-size: 0.88rem;
@@ -327,7 +350,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.6rem 0 1.25rem;
+  padding: 0 0 1.25rem;
 }
 .lang-toggle-label {
   display: flex;
