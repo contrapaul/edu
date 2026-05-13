@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/lexend');
+
 /* ============================================
    contrapaul.com/edu — education resources
    Clean, structured, utilitarian-precise.
@@ -20,7 +22,7 @@
   --green-bg:   #dcfce7;
   --amber:      #92400e;
   --amber-bg:   #fef3c7;
-  --font-display: "Georgia", "Times New Roman", serif;
+  --font-display: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
   --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:    "Courier New", Courier, monospace;
   --max-w:        1100px;
@@ -56,18 +58,19 @@ main { flex: 1; }
 }
 
 .wordmark {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 0.9rem;
   color: var(--text);
-  font-weight: bold;
+  font-weight: 700;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
-.brand-sub { color: var(--accent); font-weight: normal; }
+.brand-sub { color: var(--accent); font-weight: 400; }
 .wordmark:hover { text-decoration: none; }
 
 .nav { display: flex; align-items: center; gap: 0.1rem; }
 .nav a {
+  font-family: var(--font-display);
   font-size: 0.83rem;
   padding: 0.35rem 0.8rem;
   color: var(--muted);
@@ -80,8 +83,8 @@ main { flex: 1; }
   border-left: 1px solid var(--border);
   margin-left: 0.5rem;
   padding-left: 1rem !important;
-  font-family: var(--font-mono);
-  font-size: 0.75rem !important;
+  font-family: var(--font-display);
+  font-size: 0.78rem !important;
 }
 
 @font-face {
@@ -334,10 +337,10 @@ main { flex: 1; }
 /* --- FOOTER --- */
 .site-footer { padding: 1.25rem 2rem; border-top: 1px solid var(--border); background: var(--surface); }
 .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.footer-brand { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text); }
+.footer-brand { font-family: var(--font-display); font-size: 0.75rem; color: var(--text); }
 .footer-brand a { color: var(--text); text-decoration: none; }
 .footer-brand a:hover { color: var(--accent); text-decoration: none; }
-.footer-note { font-size: 0.72rem; color: var(--muted); }
+.footer-note { font-family: var(--font-display); font-size: 0.72rem; color: var(--muted); }
 
 /* --- ABOUT PAGE --- */
 .about-hero {
