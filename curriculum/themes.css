@@ -186,9 +186,9 @@
   --green-bg:      #0d1a0d;
   --amber:         #FFFF55;   /* CGA bright yellow */
   --amber-bg:      #1a1a00;
-  --font-display:  'VT323', 'Courier New', monospace;
-  --font-body:     'VT323', 'Courier New', monospace;
-  --font-mono:     'VT323', 'Courier New', monospace;
+  --font-display:  'IBM VGA 8x16 2x', monospace;
+  --font-body:     'IBM VGA 8x16', monospace;
+  --font-mono:     'IBM VGA 8x16', monospace;
   --radius:        0px;
   --transition:    0ms;
 }
@@ -308,6 +308,36 @@
 }
 [data-theme="dos"] .tool-btn:hover,
 [data-theme="dos"] .tool-btn-sm:hover { background: #004400; }
+
+/* ── DOS font assignments ────────────────────────────────────
+   8x16-2x → --font-display (h1, h2, page/modal titles)
+   8x14-2x → sub-headers (h3, h4, card/section labels)
+   8x16    → --font-body / --font-mono (all body text)
+   8x14    → site header and footer chrome only
+──────────────────────────────────────────────────────────── */
+
+/* Site header + footer: IBM VGA 8x14 */
+[data-theme="dos"] .wordmark,
+[data-theme="dos"] .brand-sub,
+[data-theme="dos"] .nav a,
+[data-theme="dos"] .nav-external,
+[data-theme="dos"] .footer-brand,
+[data-theme="dos"] .footer-brand a,
+[data-theme="dos"] .footer-note { font-family: 'IBM VGA 8x14', monospace !important; }
+
+/* Sub-headers and small labels: IBM VGA 8x14 2x */
+[data-theme="dos"] h3,
+[data-theme="dos"] h4,
+[data-theme="dos"] .obj-trigger h3,
+[data-theme="dos"] .topic-sub,
+[data-theme="dos"] .prog-card-label,
+[data-theme="dos"] .csb-group-label,
+[data-theme="dos"] .csb-code,
+[data-theme="dos"] .ta-card-label,
+[data-theme="dos"] .ta-cog-label,
+[data-theme="dos"] .ta-goal-card-label,
+[data-theme="dos"] .ta-menu-btn,
+[data-theme="dos"] .ta-act-btn { font-family: 'IBM VGA 8x14 2x', monospace !important; }
 
 
 /* ── 4. XBOX OG ──────────────────────────────────────────── */
