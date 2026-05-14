@@ -656,26 +656,16 @@ Show Chinese · 显示中文
 </div>
 <p class="content-note"><strong>Design change identified:</strong> Move account creation to after order confirmation. Add a "Save my info for next time?" toggle as the final optional step. This removes an interruption mid-task, reducing abandonment at the highest-friction point.</p>
 
-<div class="activity-block" style="margin-top:1.5rem;">
-<div class="activity-label">Activity — Task Analysis Generator</div>
-<div class="activity-title">Build a hierarchical task analysis</div>
-<p class="activity-desc">Enter the user's overall goal, add the main steps (HTA), then add sub-steps beneath each one. When finished, click "Generate map" to produce a visual task map — drag the nodes to rearrange it.</p>
-<div class="ta-goal-row">
-<span class="ta-goal-label-text">Overall goal</span>
-<input class="ta-goal-input" id="ta-goal" type="text" placeholder="e.g. Pay for an online order">
+<a class="tool-promo-card" href="/tools/taskanalysis/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Task Analysis Tool preview">
 </div>
-<div id="ta-steps-container"></div>
-<div class="ta-controls">
-<button class="tool-btn-sm" id="ta-add-hta" type="button">+ Add step</button>
-<button class="tool-btn" id="ta-complete" type="button" style="margin-top:0;">Generate map</button>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Task Analysis Generator</div>
+<p class="tool-promo-desc">Enter your user's goal, build the hierarchy of steps, flag the friction points — then generate a visual HTA map you can rearrange and export. Try it →</p>
 </div>
-<div class="ta-map" id="ta-map">
-<div class="ta-map-inner" id="ta-map-inner" style="position:relative;">
-<svg id="ta-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:visible;"></svg>
-</div>
-</div>
-<div class="ta-drag-hint" id="ta-drag-hint">Drag nodes to rearrange · click "Generate map" again to rebuild from your steps</div>
-</div>
+</a>
 
 </div>
 </div><!-- /1.1.5 -->
