@@ -3,46 +3,521 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Task Analysis Generator — build hierarchical task analyses (HTA) visually. A free tool for IB Design Technology students and teachers.">
+<meta name="description" content="Task Analysis Generator — build hierarchical task analyses visually. A free IB Design Technology tool.">
 <title>Task Analysis Generator — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../../curriculum/themes.css">
 <script>
   (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
 </script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   TASK ANALYSIS TOOL
+   All colours via CSS custom properties — all themes work.
+═══════════════════════════════════════════════════════════ */
+
+/* Page layout */
+.ta-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Goal input overlay ─────────────────────────────────── */
+.ta-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.ta-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  max-width: 460px;
+  width: calc(100% - 2rem);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+  text-align: center;
+}
+.ta-modal-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+.ta-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.ta-modal-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+.ta-modal-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  margin-bottom: 0.875rem;
+  outline: none;
+  transition: border-color var(--transition);
+  box-sizing: border-box;
+}
+.ta-modal-input:focus { border-color: var(--accent); }
+.ta-modal-btn {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+.ta-modal-btn:hover { opacity: 0.88; }
+
+/* ── Instructions overlay ───────────────────────────────── */
+.ta-help-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.ta-help-overlay.open { display: flex; }
+.ta-help-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 2.25rem;
+  max-width: 520px;
+  width: calc(100% - 2rem);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+}
+.ta-help-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+.ta-help-box p, .ta-help-box li {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.ta-help-box ul { padding-left: 1.2rem; margin-bottom: 1rem; }
+.ta-help-box li { margin-bottom: 0.3rem; }
+.ta-help-box kbd {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  color: var(--text);
+}
+.ta-help-close {
+  margin-top: 1.25rem;
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.ta-help-close:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Main tool shell ────────────────────────────────────── */
+.ta-tool {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Menu bar ───────────────────────────────────────────── */
+.ta-menubar {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.ta-goal-title {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 0.5rem;
+}
+.ta-goal-title-prefix {
+  font-weight: 400;
+  color: var(--muted);
+  margin-right: 0.3rem;
+}
+.ta-menu-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.ta-menu-btn {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+.ta-menu-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.ta-menu-download {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.ta-menu-download:hover { background: var(--accent); color: #fff; }
+
+/* ── Canvas wrap ────────────────────────────────────────── */
+.ta-canvas-wrap {
+  flex: 1;
+  overflow: auto;
+  background: var(--bg);
+  position: relative;
+  min-height: 340px;
+}
+
+/* dot-grid background — subtle texture */
+.ta-canvas-wrap {
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: var(--bg);
+}
+
+/* ── Canvas surface ─────────────────────────────────────── */
+.ta-canvas {
+  position: relative;
+  /* sized by JS */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* SVG line layer */
+.ta-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.ta-line {
+  stroke: var(--border-strong);
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  fill: none;
+}
+.ta-line-final {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+/* ── Card layer ─────────────────────────────────────────── */
+.ta-cards { position: absolute; top: 0; left: 0; }
+
+/* Base card */
+.ta-card {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: box-shadow 0.15s ease;
+}
+.ta-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+/* Step card */
+.ta-card-step { border-top: 3px solid var(--border-strong); }
+
+.ta-card-main {
+  padding: 0.75rem 0.875rem 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ta-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.ta-card-text {
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text);
+  outline: none;
+  min-height: 52px;
+  word-break: break-word;
+  cursor: text;
+  flex: 1;
+}
+.ta-card-text:empty::before {
+  content: attr(data-ph);
+  color: var(--muted);
+  pointer-events: none;
+  font-style: italic;
+}
+
+/* Action buttons row */
+.ta-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.875rem 0.625rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.ta-act-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  line-height: 1;
+}
+.ta-act-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.ta-act-add {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.ta-act-add:hover { background: var(--accent); color: #fff; }
+.ta-act-cog.is-active { background: var(--hl-bg); border-color: var(--hl); color: var(--hl); }
+.ta-act-del:hover { border-color: #dc2626; color: #dc2626; background: #fff1f1; }
+
+/* Cognitive note section */
+.ta-card-cognitive {
+  padding: 0.6rem 0.875rem 0.75rem;
+  background: var(--hl-bg);
+  border-top: 2px solid var(--hl);
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.ta-cog-label {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--hl);
+  flex-shrink: 0;
+}
+.ta-cog-text {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text);
+  outline: none;
+  min-height: 36px;
+  word-break: break-word;
+}
+.ta-cog-text:empty::before {
+  content: attr(data-ph);
+  color: var(--hl);
+  opacity: 0.65;
+  pointer-events: none;
+  font-style: italic;
+}
+
+/* Goal card */
+.ta-card-goal {
+  background: var(--accent);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 120px;
+}
+.ta-goal-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.4rem;
+}
+.ta-goal-card-text {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* ── Theme-specific line/card tweaks ────────────────────── */
+[data-theme="dos"] .ta-line,
+[data-theme="dos"] .ta-line-final { stroke: #00aa00; }
+[data-theme="dos"] .ta-card { border-color: #00aa00; }
+[data-theme="dos"] .ta-card-goal { background: #000080; border: 2px solid #00ff00; }
+[data-theme="dos"] .ta-goal-card-text { color: #00ff00; }
+[data-theme="dos"] .ta-goal-card-label { color: #33ff55; }
+[data-theme="dos"] .ta-act-del:hover { border-color: #ff0000; color: #ff0000; background: #1a0000; }
+
+[data-theme="win95"] .ta-card {
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  border-radius: 0;
+  box-shadow: 1px 1px 0 #000;
+}
+[data-theme="win95"] .ta-card-step { border-top: 2px solid #fff; }
+[data-theme="win95"] .ta-card-goal { background: #000080; border-color: #fff #808080 #808080 #fff; border-radius: 0; }
+[data-theme="win95"] .ta-act-btn { border-radius: 0; border-color: #fff #808080 #808080 #fff; box-shadow: 1px 1px 0 #000; }
+[data-theme="win95"] .ta-act-btn:active { border-color: #808080 #fff #fff #808080; box-shadow: none; }
+[data-theme="win95"] .ta-modal-input { border-radius: 0; border-color: #808080 #fff #fff #808080; }
+[data-theme="win95"] .ta-modal-btn { border-radius: 0; border: 2px solid; border-color: #fff #808080 #808080 #fff; }
+[data-theme="win95"] .ta-modal { border-radius: 0; border: 2px solid; border-color: #fff #808080 #808080 #fff; box-shadow: 2px 2px 0 #000; }
+[data-theme="win95"] .ta-line,
+[data-theme="win95"] .ta-line-final { stroke: #000080; }
+
+[data-theme="xbox"] .ta-card { border-color: #1a4008; box-shadow: 0 0 8px rgba(118,232,0,0.15); }
+[data-theme="xbox"] .ta-card-goal { background: linear-gradient(135deg, #1a4008, #0a2800); border: 1px solid #76e800; }
+[data-theme="xbox"] .ta-goal-card-text { color: #76e800; text-shadow: 0 0 12px rgba(118,232,0,0.4); }
+[data-theme="xbox"] .ta-goal-card-label { color: #58b818; }
+[data-theme="xbox"] .ta-card-step { border-top-color: #76e800; }
+[data-theme="xbox"] .ta-line { stroke: #1a4008; }
+[data-theme="xbox"] .ta-line-final { stroke: #76e800; }
+
+[data-theme="nightmare"] .ta-card-goal { background: linear-gradient(135deg, #ff1493, #ff4500); }
+[data-theme="nightmare"] .ta-line { stroke: #ff4500; }
+[data-theme="nightmare"] .ta-line-final { stroke: #ff1493; }
+[data-theme="nightmare"] .ta-card { border-color: #ff4500; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .ta-menubar { padding: 0.4rem 0.875rem; }
+  .ta-modal { padding: 1.75rem 1.25rem; }
+  .ta-goal-title { display: none; }
+}
+</style>
 </head>
 <body>
 
 <header class="site-header">
 <div class="header-inner">
-<div class="brand">
-<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
-</div>
-<nav class="nav">
-<a href="/curriculum">Curriculum</a>
-<a href="/tools">Tools</a>
-<a href="/about">About</a>
-<a href="https://contrapaul.com" class="nav-external">← Main site</a>
-</nav>
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
 </div>
 </header>
 
-<main>
-
-<div class="topic-hero" style="--topic-color:#7c3aed;--topic-bg:#f3eeff;--topic-border:#d4b8ff;">
-<div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/tools">Tools</a></div>
-<div class="topic-meta"><span class="topic-code" style="color:#7c3aed;background:#f3eeff;border-color:#d4b8ff;">Tool</span></div>
-<h1 class="topic-title">Task Analysis Generator</h1>
-<p class="topic-guiding-q" style="border-left-color:#7c3aed;background:#f3eeff;"><span class="gq-label" style="color:#7c3aed;">About this tool</span>Build a hierarchical task analysis diagram from any user goal — add steps, sub-steps, flag friction points, and generate a visual HTA map.</p>
+<!-- ── Goal input overlay (shown on load) ──────────────── -->
+<div class="ta-overlay" id="ta-overlay">
+<div class="ta-modal">
+  <div class="ta-modal-icon">📋</div>
+  <h2 class="ta-modal-title">What are you analyzing?</h2>
+  <p class="ta-modal-desc">Describe the overall user task or goal you want to break into steps.</p>
+  <input class="ta-modal-input" id="ta-goal-input" type="text"
+    placeholder="e.g. Pay for an online order" autocomplete="off" autofocus>
+  <button class="ta-modal-btn" id="ta-start-btn">Start analysis →</button>
 </div>
 </div>
 
-<div style="max-width:800px;margin:4rem auto;padding:0 2rem;text-align:center;">
-<p style="font-family:var(--font-display);font-size:1.4rem;color:var(--text);margin-bottom:1rem;">This tool is under construction.</p>
-<p style="font-size:0.95rem;color:var(--muted);line-height:1.7;max-width:48ch;margin:0 auto;">The interactive Task Analysis Generator will live here. Return soon — or go back to the <a href="/curriculum/dp/b1.1-user-centred-design.html">B1.1 User-centred Design</a> page to read about task analysis in the meantime.</p>
+<!-- ── Instructions overlay ─────────────────────────────── -->
+<div class="ta-help-overlay" id="ta-help-overlay">
+<div class="ta-help-box">
+  <h3>How to use the Task Analysis Generator</h3>
+  <p>This tool helps you build a <strong>Hierarchical Task Analysis (HTA)</strong> — breaking a user's overall goal into a sequence of observable steps.</p>
+  <ul>
+    <li>Click <kbd>+</kbd> on any step card to insert a new step immediately after it.</li>
+    <li>Click <kbd>≈</kbd> to add a <strong>cognitive load note</strong> to a step — use this to flag where users must remember, decide, or switch focus.</li>
+    <li>Click <kbd>×</kbd> to delete a step. The first step cannot be removed.</li>
+    <li>Click on any card text to edit it directly.</li>
+    <li>The <strong>Goal</strong> card on the right always shows your original task. Lines connect each step to the next and finally to the goal.</li>
+  </ul>
+  <p><strong>Cognitive load notes</strong> appear in the lower section of a step card in a contrasting colour. Use them to identify: where users hesitate, make errors, or abandon a task.</p>
+  <p><strong>Example</strong> loads a sample HTA. <strong>Clear</strong> resets to a single blank step. <strong>Download</strong> saves the canvas as a PNG image.</p>
+  <button class="ta-help-close" id="ta-help-close">Close</button>
+</div>
 </div>
 
+<!-- ── Main tool ─────────────────────────────────────────── -->
+<main class="ta-page" id="ta-page" style="display:none">
+<div class="ta-tool" id="ta-tool">
+
+  <!-- Menu bar -->
+  <div class="ta-menubar">
+    <span class="ta-goal-title" id="ta-goal-title">
+      <span class="ta-goal-title-prefix">Analyzing:</span>
+      <span id="ta-goal-display">—</span>
+    </span>
+    <div class="ta-menu-btns">
+      <button class="ta-menu-btn" id="ta-help-btn">Instructions</button>
+      <button class="ta-menu-btn" id="ta-example-btn">Example</button>
+      <button class="ta-menu-btn" id="ta-clear-btn">Clear all</button>
+      <button class="ta-menu-btn ta-menu-download" id="ta-download-btn">↓ Download</button>
+    </div>
+  </div>
+
+  <!-- Scrollable canvas -->
+  <div class="ta-canvas-wrap" id="ta-canvas-wrap">
+    <div class="ta-canvas" id="ta-canvas">
+      <svg class="ta-lines" id="ta-lines" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="ta-cards" id="ta-cards"></div>
+    </div>
+  </div>
+
+</div>
 </main>
 
 <footer class="site-footer">
@@ -52,6 +527,376 @@
 </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="../../curriculum/curriculum-themes.js"></script>
+<script>
+/* ============================================================
+   Task Analysis Generator
+   Builds a linear HTA chain: [Step]→[Step]→...→[Goal]
+   Lines route below cards: exit center-bottom, drop, route, rise.
+============================================================ */
+'use strict';
+
+/* ── Layout constants ───────────────────────────────────── */
+var CW      = 210;   /* card width (px) */
+var GAP     = 110;   /* horizontal gap between cards */
+var PAD_X   = 72;    /* canvas left/right padding */
+var PAD_TOP = 56;    /* canvas top padding */
+var PAD_BOT = 64;    /* canvas bottom padding (below line route) */
+var LINE_DRP= 48;    /* how far below card bottom lines drop */
+var MAIN_H  = 158;   /* fixed height of main card section */
+var COG_H   = 80;    /* additional height added by cognitive section */
+var GOAL_H  = 130;   /* goal card fixed height */
+var LINE_ROUTE_PAD = 16; /* extra below max card bottom before routing */
+
+/* ── Sample data ────────────────────────────────────────── */
+var EXAMPLES = [
+  {
+    goal: 'Make a cup of tea',
+    steps: [
+      { text: 'Fill kettle with water', cognitive: null },
+      { text: 'Boil water', cognitive: 'User must remember to return when kettle clicks off' },
+      { text: 'Place teabag in cup', cognitive: null },
+      { text: 'Pour boiling water', cognitive: 'User monitors pour speed to avoid overflow' },
+      { text: 'Steep for 3 minutes', cognitive: 'User must track elapsed time without a timer' },
+      { text: 'Remove teabag', cognitive: null },
+      { text: 'Add milk or sugar', cognitive: null }
+    ]
+  },
+  {
+    goal: 'Pay for an online order',
+    steps: [
+      { text: 'Open cart', cognitive: null },
+      { text: 'Review items and quantities', cognitive: null },
+      { text: 'Enter shipping address', cognitive: 'User must recall or look up address details' },
+      { text: 'Select delivery speed', cognitive: 'User weighs cost vs. time tradeoff under uncertainty' },
+      { text: 'Enter payment details', cognitive: 'High load — recall card number, expiry, CVV; system interrupts with account creation prompt' },
+      { text: 'Confirm order', cognitive: null }
+    ]
+  },
+  {
+    goal: 'Set an alarm on a smartphone',
+    steps: [
+      { text: 'Unlock phone', cognitive: null },
+      { text: 'Locate Clock app', cognitive: 'User scans home screen; may not recall icon appearance' },
+      { text: 'Navigate to Alarm tab', cognitive: null },
+      { text: 'Tap + to create alarm', cognitive: null },
+      { text: 'Set time using scroll or keyboard', cognitive: 'AM/PM confusion is a common error point' },
+      { text: 'Select repeat days (optional)', cognitive: 'User must decide one-off vs. recurring; unclear default' },
+      { text: 'Save alarm', cognitive: null }
+    ]
+  }
+];
+
+var exampleIdx = 0;
+
+/* ── State ──────────────────────────────────────────────── */
+var state = {
+  goal:   '',
+  steps:  [],
+  nextId: 1
+};
+
+function mkStep(text, cognitive) {
+  return { id: state.nextId++, text: text || '', cognitive: cognitive !== undefined ? cognitive : null };
+}
+
+/* ── Geometry helpers ───────────────────────────────────── */
+function cardLeft(i)    { return PAD_X + i * (CW + GAP); }
+function cardCX(i)      { return cardLeft(i) + CW / 2; }
+function cardBottom(i)  {
+  if (i === state.steps.length) return PAD_TOP + GOAL_H; /* goal */
+  var s = state.steps[i];
+  return PAD_TOP + MAIN_H + (s.cognitive !== null ? COG_H : 0);
+}
+function canvasDims() {
+  var n = state.steps.length + 1; /* steps + goal */
+  var w = cardLeft(n) + PAD_X;
+  var maxB = 0;
+  for (var i = 0; i <= state.steps.length; i++) { var b = cardBottom(i); if (b > maxB) maxB = b; }
+  var routeY = maxB + LINE_ROUTE_PAD;
+  var h = routeY + LINE_DRP + PAD_BOT;
+  return { w: w, h: h, routeY: routeY + LINE_DRP };
+}
+
+/* ── DOM helpers ────────────────────────────────────────── */
+function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function svgEl(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+/* ── Render ─────────────────────────────────────────────── */
+function render() {
+  renderCards();
+  drawLines();
+}
+
+function renderCards() {
+  var wrap = document.getElementById('ta-cards');
+  wrap.innerHTML = '';
+
+  state.steps.forEach(function(step, i) {
+    var el = makeStepCard(step, i);
+    el.style.left = cardLeft(i) + 'px';
+    el.style.top  = PAD_TOP + 'px';
+    wrap.appendChild(el);
+  });
+
+  /* Goal card */
+  var goal = document.createElement('div');
+  goal.className = 'ta-card ta-card-goal';
+  goal.id = 'card-goal';
+  goal.style.cssText = 'left:' + cardLeft(state.steps.length) + 'px;top:' + PAD_TOP + 'px;width:' + CW + 'px;height:' + GOAL_H + 'px;';
+  goal.innerHTML = '<div class="ta-goal-card-label">Goal</div><div class="ta-goal-card-text">' + esc(state.goal) + '</div>';
+  wrap.appendChild(goal);
+
+  /* Size canvas */
+  var dims = canvasDims();
+  var canvas = document.getElementById('ta-canvas');
+  canvas.style.width  = dims.w + 'px';
+  canvas.style.height = dims.h + 'px';
+}
+
+function makeStepCard(step, i) {
+  var isFirst = (i === 0);
+  var card = document.createElement('div');
+  card.className = 'ta-card ta-card-step';
+  card.id = 'card-' + step.id;
+  card.style.width = CW + 'px';
+
+  /* Main section */
+  var main = document.createElement('div');
+  main.className = 'ta-card-main';
+  main.style.minHeight = MAIN_H + 'px';
+
+  var label = document.createElement('div');
+  label.className = 'ta-card-label';
+  label.textContent = 'Step ' + (i + 1);
+  main.appendChild(label);
+
+  var textEl = document.createElement('div');
+  textEl.className = 'ta-card-text';
+  textEl.contentEditable = 'true';
+  textEl.setAttribute('data-ph', 'Describe this step…');
+  textEl.innerHTML = esc(step.text);
+  textEl.addEventListener('input', function() { step.text = textEl.innerText; });
+  main.appendChild(textEl);
+
+  /* Action buttons */
+  var actions = document.createElement('div');
+  actions.className = 'ta-card-actions';
+
+  var btnAdd = document.createElement('button');
+  btnAdd.className = 'ta-act-btn ta-act-add';
+  btnAdd.textContent = '+';
+  btnAdd.title = 'Add step after this one';
+  btnAdd.addEventListener('click', function() { addStep(step.id); });
+  actions.appendChild(btnAdd);
+
+  var btnCog = document.createElement('button');
+  btnCog.className = 'ta-act-btn ta-act-cog' + (step.cognitive !== null ? ' is-active' : '');
+  btnCog.textContent = '≈';
+  btnCog.title = 'Toggle cognitive load note';
+  btnCog.addEventListener('click', function() { toggleCognitive(step.id); });
+  actions.appendChild(btnCog);
+
+  if (!isFirst) {
+    var btnDel = document.createElement('button');
+    btnDel.className = 'ta-act-btn ta-act-del';
+    btnDel.textContent = '×';
+    btnDel.title = 'Delete this step';
+    btnDel.style.marginLeft = 'auto';
+    btnDel.addEventListener('click', function() { removeStep(step.id); });
+    actions.appendChild(btnDel);
+  }
+
+  card.appendChild(main);
+  card.appendChild(actions);
+
+  /* Cognitive section */
+  if (step.cognitive !== null) {
+    var cogSection = document.createElement('div');
+    cogSection.className = 'ta-card-cognitive';
+    cogSection.style.minHeight = COG_H + 'px';
+
+    var cogLabel = document.createElement('div');
+    cogLabel.className = 'ta-cog-label';
+    cogLabel.textContent = 'Cognitive load';
+    cogSection.appendChild(cogLabel);
+
+    var cogText = document.createElement('div');
+    cogText.className = 'ta-cog-text';
+    cogText.contentEditable = 'true';
+    cogText.setAttribute('data-ph', 'Describe the mental effort at this step…');
+    cogText.innerHTML = esc(step.cognitive);
+    cogText.addEventListener('input', function() { step.cognitive = cogText.innerText; });
+    cogSection.appendChild(cogText);
+
+    card.appendChild(cogSection);
+  }
+
+  return card;
+}
+
+/* ── SVG lines ──────────────────────────────────────────── */
+function drawLines() {
+  var svg = document.getElementById('ta-lines');
+  svg.innerHTML = '';
+
+  var dims = canvasDims();
+  svg.style.width  = dims.w + 'px';
+  svg.style.height = dims.h + 'px';
+  svg.setAttribute('viewBox', '0 0 ' + dims.w + ' ' + dims.h);
+
+  var routeY = dims.routeY;
+  var n = state.steps.length; /* number of step cards */
+
+  for (var i = 0; i <= n - 1; i++) {
+    var isLast = (i === n - 1); /* last step connects to goal */
+    var x1 = cardCX(i);
+    var y1 = cardBottom(i);
+    var x2 = cardCX(i + 1);
+    var y2 = cardBottom(i + 1);
+    var path = svgEl('path');
+    path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' V ' + routeY + ' H ' + x2 + ' V ' + y2);
+    path.setAttribute('class', isLast ? 'ta-line ta-line-final' : 'ta-line');
+    svg.appendChild(path);
+  }
+}
+
+/* ── State mutations ────────────────────────────────────── */
+function addStep(afterId) {
+  var idx = state.steps.findIndex(function(s) { return s.id === afterId; });
+  if (idx < 0) return;
+  var newStep = mkStep('', null);
+  state.steps.splice(idx + 1, 0, newStep);
+  render();
+  /* Scroll new card into view */
+  requestAnimationFrame(function() {
+    var newCard = document.getElementById('card-' + newStep.id);
+    if (newCard) newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+}
+
+function removeStep(id) {
+  var idx = state.steps.findIndex(function(s) { return s.id === id; });
+  if (idx <= 0) return; /* protect first step */
+  state.steps.splice(idx, 1);
+  render();
+}
+
+function toggleCognitive(id) {
+  var step = state.steps.find(function(s) { return s.id === id; });
+  if (!step) return;
+  step.cognitive = (step.cognitive === null) ? '' : null;
+  render();
+}
+
+/* ── Initialise tool ────────────────────────────────────── */
+function startTool(goalText) {
+  state.goal  = goalText.trim();
+  state.steps = [mkStep('', null)];
+  document.getElementById('ta-goal-display').textContent = state.goal;
+  document.getElementById('ta-overlay').style.display    = 'none';
+  document.getElementById('ta-page').style.display       = '';
+  render();
+  /* Focus first card text */
+  requestAnimationFrame(function() {
+    var first = document.querySelector('.ta-card-text');
+    if (first) first.focus();
+  });
+}
+
+/* ── Menu actions ───────────────────────────────────────── */
+function clearAll() {
+  if (!confirm('Clear all steps and start over? The goal will be kept.')) return;
+  state.nextId = 1;
+  state.steps  = [mkStep('', null)];
+  render();
+}
+
+function loadExample() {
+  var ex = EXAMPLES[exampleIdx % EXAMPLES.length];
+  exampleIdx++;
+  /* If tool not started yet, start it with the example goal */
+  var overlay = document.getElementById('ta-overlay');
+  if (overlay.style.display !== 'none') {
+    document.getElementById('ta-goal-input').value = ex.goal;
+    startTool(ex.goal);
+  } else {
+    if (!confirm('Replace current analysis with example "' + ex.goal + '"?')) return;
+  }
+  state.goal  = ex.goal;
+  state.nextId = 1;
+  state.steps = ex.steps.map(function(s) { return mkStep(s.text, s.cognitive); });
+  document.getElementById('ta-goal-display').textContent = state.goal;
+  document.getElementById('ta-overlay').style.display    = 'none';
+  document.getElementById('ta-page').style.display       = '';
+  render();
+}
+
+function downloadCanvas() {
+  var canvas = document.getElementById('ta-canvas');
+  if (typeof html2canvas === 'undefined') {
+    alert('Download library not loaded. Please check your connection and try again.');
+    return;
+  }
+  var btn = document.getElementById('ta-download-btn');
+  btn.textContent = '⏳ Rendering…';
+  btn.disabled = true;
+  html2canvas(canvas, {
+    backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f8f9fa',
+    scale: 2,
+    useCORS: true,
+    logging: false
+  }).then(function(cvs) {
+    var link = document.createElement('a');
+    var slug = (state.goal || 'task-analysis').toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);
+    link.download = slug + '.png';
+    link.href = cvs.toDataURL('image/png');
+    link.click();
+  }).catch(function(e) {
+    alert('Download failed: ' + e.message);
+  }).finally(function() {
+    btn.textContent = '↓ Download';
+    btn.disabled = false;
+  });
+}
+
+/* ── Wire events ────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* Goal submit */
+  var startBtn   = document.getElementById('ta-start-btn');
+  var goalInput  = document.getElementById('ta-goal-input');
+  startBtn.addEventListener('click', function() {
+    var v = goalInput.value.trim();
+    if (!v) { goalInput.focus(); return; }
+    startTool(v);
+  });
+  goalInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { startBtn.click(); }
+  });
+
+  /* Instructions */
+  document.getElementById('ta-help-btn').addEventListener('click', function() {
+    document.getElementById('ta-help-overlay').classList.add('open');
+  });
+  document.getElementById('ta-help-close').addEventListener('click', function() {
+    document.getElementById('ta-help-overlay').classList.remove('open');
+  });
+  document.getElementById('ta-help-overlay').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+
+  /* Clear */
+  document.getElementById('ta-clear-btn').addEventListener('click', clearAll);
+
+  /* Example */
+  document.getElementById('ta-example-btn').addEventListener('click', loadExample);
+
+  /* Download */
+  document.getElementById('ta-download-btn').addEventListener('click', downloadCanvas);
+
+});
+</script>
 </body>
 </html>
