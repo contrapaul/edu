@@ -384,9 +384,14 @@
   border: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+}
+.ta-goal-body {
   padding: 1rem;
-  min-height: 120px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 112px;
 }
 .ta-goal-card-label {
   font-family: var(--font-mono);
@@ -406,13 +411,70 @@
   word-break: break-word;
 }
 
+/* ── Drag handle ────────────────────────────────────────── */
+.ta-drag-handle {
+  height: 18px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  flex-shrink: 0;
+}
+.ta-drag-handle::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 6px;
+  background-image: radial-gradient(circle, var(--border-strong) 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+  opacity: 0.5;
+}
+.ta-drag-handle:hover { background: var(--bg); }
+.ta-drag-handle:hover::before { opacity: 1; }
+
+/* Goal card drag handle — inverted on accent background */
+.ta-card-goal .ta-drag-handle {
+  background: rgba(0,0,0,0.18);
+  border-bottom-color: rgba(255,255,255,0.15);
+}
+.ta-card-goal .ta-drag-handle::before {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.75) 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+}
+.ta-card-goal .ta-drag-handle:hover { background: rgba(0,0,0,0.32); }
+
+/* Step card top border shouldn't conflict with drag handle */
+.ta-card-step { border-top: none; }
+.ta-card-step .ta-drag-handle {
+  border-top: 3px solid var(--border-strong);
+}
+
+/* While dragging — freeze cursor & text selection everywhere */
+body.ta-is-dragging,
+body.ta-is-dragging * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
 /* ── Theme-specific line/card tweaks ────────────────────── */
 [data-theme="dos"] .ta-line,
-[data-theme="dos"] .ta-line-final { stroke: #00aa00; }
-[data-theme="dos"] .ta-card { border-color: #00aa00; }
-[data-theme="dos"] .ta-card-goal { background: #000080; border: 2px solid #00ff00; }
-[data-theme="dos"] .ta-goal-card-text { color: #00ff00; }
-[data-theme="dos"] .ta-goal-card-label { color: #33ff55; }
+[data-theme="dos"] .ta-line-final { stroke: #55FF55; }
+[data-theme="dos"] .ta-card { border-color: #2a5500; }
+[data-theme="dos"] .ta-card-step .ta-drag-handle { border-top-color: #55FF55; }
+[data-theme="dos"] .ta-card-goal { background: #000080; border: 2px solid #55FF55; }
+[data-theme="dos"] .ta-goal-card-text { color: #55FF55; }
+[data-theme="dos"] .ta-goal-card-label { color: #AAAAAA; }
+[data-theme="dos"] .ta-card-goal .ta-drag-handle {
+  background: rgba(0,85,255,0.15);
+  border-bottom-color: #55FF55;
+}
+[data-theme="dos"] .ta-card-goal .ta-drag-handle::before {
+  background-image: radial-gradient(circle, #55FF55 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+}
 [data-theme="dos"] .ta-act-del:hover { border-color: #ff0000; color: #ff0000; background: #1a0000; }
 
 [data-theme="win95"] .ta-card {
@@ -421,7 +483,7 @@
   border-radius: 0;
   box-shadow: 1px 1px 0 #000;
 }
-[data-theme="win95"] .ta-card-step { border-top: 2px solid #fff; }
+[data-theme="win95"] .ta-card-step .ta-drag-handle { border-top: 2px solid #fff; }
 [data-theme="win95"] .ta-card-goal { background: #000080; border-color: #fff #808080 #808080 #fff; border-radius: 0; }
 [data-theme="win95"] .ta-act-btn { border-radius: 0; border-color: #fff #808080 #808080 #fff; box-shadow: 1px 1px 0 #000; }
 [data-theme="win95"] .ta-act-btn:active { border-color: #808080 #fff #fff #808080; box-shadow: none; }
@@ -435,7 +497,7 @@
 [data-theme="xbox"] .ta-card-goal { background: linear-gradient(135deg, #1a4008, #0a2800); border: 1px solid #76e800; }
 [data-theme="xbox"] .ta-goal-card-text { color: #76e800; text-shadow: 0 0 12px rgba(118,232,0,0.4); }
 [data-theme="xbox"] .ta-goal-card-label { color: #58b818; }
-[data-theme="xbox"] .ta-card-step { border-top-color: #76e800; }
+[data-theme="xbox"] .ta-card-step .ta-drag-handle { border-top-color: #76e800; }
 [data-theme="xbox"] .ta-line { stroke: #1a4008; }
 [data-theme="xbox"] .ta-line-final { stroke: #76e800; }
 
@@ -479,11 +541,12 @@
   <h3>How to use the Task Analysis Generator</h3>
   <p>This tool helps you build a <strong>Hierarchical Task Analysis (HTA)</strong> — breaking a user's overall goal into a sequence of observable steps.</p>
   <ul>
+    <li>Drag any card by its <strong>grip strip</strong> at the top to reposition it freely on the canvas.</li>
     <li>Click <kbd>+</kbd> on any step card to insert a new step immediately after it.</li>
     <li>Click <kbd>≈</kbd> to add a <strong>cognitive load note</strong> to a step — use this to flag where users must remember, decide, or switch focus.</li>
     <li>Click <kbd>×</kbd> to delete a step. The first step cannot be removed.</li>
     <li>Click on any card text to edit it directly.</li>
-    <li>The <strong>Goal</strong> card on the right always shows your original task. Lines connect each step to the next and finally to the goal.</li>
+    <li>The <strong>Goal</strong> card always shows your original task. Lines connect each step to the next and finally to the goal.</li>
   </ul>
   <p><strong>Cognitive load notes</strong> appear in the lower section of a step card in a contrasting colour. Use them to identify: where users hesitate, make errors, or abandon a task.</p>
   <p><strong>Example</strong> loads a sample HTA. <strong>Clear</strong> resets to a single blank step. <strong>Download</strong> saves the canvas as a PNG image.</p>
@@ -533,20 +596,17 @@
 /* ============================================================
    Task Analysis Generator
    Builds a linear HTA chain: [Step]→[Step]→...→[Goal]
-   Lines route below cards: exit center-bottom, drop, route, rise.
+   Cards are freely draggable; lines route below cards.
 ============================================================ */
 'use strict';
 
 /* ── Layout constants ───────────────────────────────────── */
 var CW      = 210;   /* card width (px) */
-var GAP     = 110;   /* horizontal gap between cards */
+var GAP     = 110;   /* default horizontal gap between cards */
 var PAD_X   = 72;    /* canvas left/right padding */
 var PAD_TOP = 56;    /* canvas top padding */
-var PAD_BOT = 64;    /* canvas bottom padding (below line route) */
+var PAD_BOT = 64;    /* canvas bottom padding */
 var LINE_DRP= 48;    /* how far below card bottom lines drop */
-var MAIN_H  = 158;   /* fixed height of main card section */
-var COG_H   = 80;    /* additional height added by cognitive section */
-var GOAL_H  = 130;   /* goal card fixed height */
 var LINE_ROUTE_PAD = 16; /* extra below max card bottom before routing */
 
 /* ── Sample data ────────────────────────────────────────── */
@@ -594,34 +654,72 @@ var exampleIdx = 0;
 var state = {
   goal:   '',
   steps:  [],
-  nextId: 1
+  nextId: 1,
+  goalX:  0,
+  goalY:  0
 };
 
 function mkStep(text, cognitive) {
-  return { id: state.nextId++, text: text || '', cognitive: cognitive !== undefined ? cognitive : null };
+  return {
+    id:        state.nextId++,
+    text:      text || '',
+    cognitive: cognitive !== undefined ? cognitive : null,
+    x: 0,
+    y: 0
+  };
 }
 
-/* ── Geometry helpers ───────────────────────────────────── */
-function cardLeft(i)    { return PAD_X + i * (CW + GAP); }
-function cardCX(i)      { return cardLeft(i) + CW / 2; }
-function cardBottom(i)  {
-  if (i === state.steps.length) return PAD_TOP + GOAL_H; /* goal */
-  var s = state.steps[i];
-  return PAD_TOP + MAIN_H + (s.cognitive !== null ? COG_H : 0);
+/* ── Drag state ─────────────────────────────────────────── */
+var drag = { active: false, id: null, isGoal: false, offsetX: 0, offsetY: 0 };
+
+/* ── Canvas coordinate conversion ──────────────────────── */
+function clientToCanvas(cx, cy) {
+  var wrap = document.getElementById('ta-canvas-wrap');
+  var r    = wrap.getBoundingClientRect();
+  return { x: cx - r.left + wrap.scrollLeft, y: cy - r.top + wrap.scrollTop };
 }
+
+/* ── Position helpers ───────────────────────────────────── */
+function initPositions() {
+  state.steps.forEach(function(s, i) {
+    s.x = PAD_X + i * (CW + GAP);
+    s.y = PAD_TOP;
+  });
+  state.goalX = PAD_X + state.steps.length * (CW + GAP);
+  state.goalY = PAD_TOP;
+}
+
 function canvasDims() {
-  var n = state.steps.length + 1; /* steps + goal */
-  var w = cardLeft(n) + PAD_X;
-  var maxB = 0;
-  for (var i = 0; i <= state.steps.length; i++) { var b = cardBottom(i); if (b > maxB) maxB = b; }
-  var routeY = maxB + LINE_ROUTE_PAD;
-  var h = routeY + LINE_DRP + PAD_BOT;
-  return { w: w, h: h, routeY: routeY + LINE_DRP };
+  var minW = 600, minH = 400;
+  state.steps.forEach(function(s) {
+    var el = document.getElementById('card-' + s.id);
+    var h  = el ? el.offsetHeight : 260;
+    minW   = Math.max(minW, s.x + CW + PAD_X);
+    minH   = Math.max(minH, s.y + h + LINE_DRP + LINE_ROUTE_PAD + PAD_BOT);
+  });
+  var gEl = document.getElementById('card-goal');
+  var gH  = gEl ? gEl.offsetHeight : 148;
+  minW    = Math.max(minW, state.goalX + CW + PAD_X);
+  minH    = Math.max(minH, state.goalY + gH + LINE_DRP + LINE_ROUTE_PAD + PAD_BOT);
+  return { w: minW, h: minH };
 }
 
 /* ── DOM helpers ────────────────────────────────────────── */
 function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function svgEl(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+/* ── Drag handle factory ────────────────────────────────── */
+function makeDragHandle(id, isGoal) {
+  var handle = document.createElement('div');
+  handle.className = 'ta-drag-handle';
+  handle.addEventListener('mousedown', function(e) { startDrag(e, id, isGoal); });
+  handle.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    startDragRaw(t.clientX, t.clientY, id, isGoal);
+  }, { passive: false });
+  return handle;
+}
 
 /* ── Render ─────────────────────────────────────────────── */
 function render() {
@@ -635,8 +733,8 @@ function renderCards() {
 
   state.steps.forEach(function(step, i) {
     var el = makeStepCard(step, i);
-    el.style.left = cardLeft(i) + 'px';
-    el.style.top  = PAD_TOP + 'px';
+    el.style.left = step.x + 'px';
+    el.style.top  = step.y + 'px';
     wrap.appendChild(el);
   });
 
@@ -644,8 +742,16 @@ function renderCards() {
   var goal = document.createElement('div');
   goal.className = 'ta-card ta-card-goal';
   goal.id = 'card-goal';
-  goal.style.cssText = 'left:' + cardLeft(state.steps.length) + 'px;top:' + PAD_TOP + 'px;width:' + CW + 'px;height:' + GOAL_H + 'px;';
-  goal.innerHTML = '<div class="ta-goal-card-label">Goal</div><div class="ta-goal-card-text">' + esc(state.goal) + '</div>';
+  goal.style.cssText = 'left:' + state.goalX + 'px;top:' + state.goalY + 'px;width:' + CW + 'px;';
+
+  goal.appendChild(makeDragHandle('goal', true));
+
+  var gBody = document.createElement('div');
+  gBody.className = 'ta-goal-body';
+  gBody.innerHTML = '<div class="ta-goal-card-label">Goal</div>'
+                  + '<div class="ta-goal-card-text">' + esc(state.goal) + '</div>';
+  goal.appendChild(gBody);
+
   wrap.appendChild(goal);
 
   /* Size canvas */
@@ -662,7 +768,11 @@ function makeStepCard(step, i) {
   card.id = 'card-' + step.id;
   card.style.width = CW + 'px';
 
+  /* Drag handle */
+  card.appendChild(makeDragHandle(step.id, false));
+
   /* Main section */
+  var MAIN_H = 158;
   var main = document.createElement('div');
   main.className = 'ta-card-main';
   main.style.minHeight = MAIN_H + 'px';
@@ -712,6 +822,7 @@ function makeStepCard(step, i) {
   card.appendChild(actions);
 
   /* Cognitive section */
+  var COG_H = 80;
   if (step.cognitive !== null) {
     var cogSection = document.createElement('div');
     cogSection.className = 'ta-card-cognitive';
@@ -746,15 +857,35 @@ function drawLines() {
   svg.style.height = dims.h + 'px';
   svg.setAttribute('viewBox', '0 0 ' + dims.w + ' ' + dims.h);
 
-  var routeY = dims.routeY;
-  var n = state.steps.length; /* number of step cards */
+  /* Also sync canvas size */
+  var canvas = document.getElementById('ta-canvas');
+  canvas.style.width  = dims.w + 'px';
+  canvas.style.height = dims.h + 'px';
 
-  for (var i = 0; i <= n - 1; i++) {
-    var isLast = (i === n - 1); /* last step connects to goal */
-    var x1 = cardCX(i);
-    var y1 = cardBottom(i);
-    var x2 = cardCX(i + 1);
-    var y2 = cardBottom(i + 1);
+  var n = state.steps.length;
+  for (var i = 0; i < n; i++) {
+    var isLast = (i === n - 1);
+    var sA  = state.steps[i];
+    var elA = document.getElementById('card-' + sA.id);
+    var hA  = elA ? elA.offsetHeight : 260;
+    var x1  = sA.x + CW / 2;
+    var y1  = sA.y + hA;
+
+    var x2, y2;
+    if (isLast) {
+      var gEl = document.getElementById('card-goal');
+      var gH  = gEl ? gEl.offsetHeight : 148;
+      x2 = state.goalX + CW / 2;
+      y2 = state.goalY + gH;
+    } else {
+      var sB  = state.steps[i + 1];
+      var elB = document.getElementById('card-' + sB.id);
+      var hB  = elB ? elB.offsetHeight : 260;
+      x2 = sB.x + CW / 2;
+      y2 = sB.y + hB;
+    }
+
+    var routeY = Math.max(y1, y2) + LINE_ROUTE_PAD + LINE_DRP;
     var path = svgEl('path');
     path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' V ' + routeY + ' H ' + x2 + ' V ' + y2);
     path.setAttribute('class', isLast ? 'ta-line ta-line-final' : 'ta-line');
@@ -762,14 +893,92 @@ function drawLines() {
   }
 }
 
+/* ── Drag implementation ────────────────────────────────── */
+function startDrag(e, id, isGoal) {
+  e.preventDefault();
+  startDragRaw(e.clientX, e.clientY, id, isGoal);
+}
+
+function startDragRaw(cx, cy, id, isGoal) {
+  var pos = isGoal
+    ? { x: state.goalX, y: state.goalY }
+    : (function() {
+        var s = state.steps.find(function(s) { return s.id === id; });
+        return s ? { x: s.x, y: s.y } : { x: 0, y: 0 };
+      }());
+  var cp = clientToCanvas(cx, cy);
+  drag.active  = true;
+  drag.id      = id;
+  drag.isGoal  = isGoal;
+  drag.offsetX = cp.x - pos.x;
+  drag.offsetY = cp.y - pos.y;
+  document.body.classList.add('ta-is-dragging');
+}
+
+function moveDragTo(newX, newY) {
+  newX = Math.max(0, newX);
+  newY = Math.max(0, newY);
+  if (drag.isGoal) {
+    state.goalX = newX;
+    state.goalY = newY;
+    var gEl = document.getElementById('card-goal');
+    if (gEl) { gEl.style.left = newX + 'px'; gEl.style.top = newY + 'px'; }
+  } else {
+    var s = state.steps.find(function(s) { return s.id === drag.id; });
+    if (s) {
+      s.x = newX; s.y = newY;
+      var cEl = document.getElementById('card-' + drag.id);
+      if (cEl) { cEl.style.left = newX + 'px'; cEl.style.top = newY + 'px'; }
+    }
+  }
+  drawLines();
+}
+
+function endDrag() {
+  if (drag.active) {
+    drag.active = false;
+    document.body.classList.remove('ta-is-dragging');
+  }
+}
+
+document.addEventListener('mousemove', function(e) {
+  if (!drag.active) return;
+  var cp = clientToCanvas(e.clientX, e.clientY);
+  moveDragTo(cp.x - drag.offsetX, cp.y - drag.offsetY);
+});
+
+document.addEventListener('mouseup', endDrag);
+
+document.addEventListener('touchmove', function(e) {
+  if (!drag.active) return;
+  e.preventDefault();
+  var t  = e.touches[0];
+  var cp = clientToCanvas(t.clientX, t.clientY);
+  moveDragTo(cp.x - drag.offsetX, cp.y - drag.offsetY);
+}, { passive: false });
+
+document.addEventListener('touchend',    endDrag);
+document.addEventListener('touchcancel', endDrag);
+
 /* ── State mutations ────────────────────────────────────── */
 function addStep(afterId) {
   var idx = state.steps.findIndex(function(s) { return s.id === afterId; });
   if (idx < 0) return;
   var newStep = mkStep('', null);
+
+  /* Position new step midway between source and next step (or goal) */
+  var src = state.steps[idx];
+  var nxt = state.steps[idx + 1];
+  if (nxt) {
+    newStep.x = Math.round((src.x + nxt.x) / 2);
+    newStep.y = Math.round((src.y + nxt.y) / 2);
+  } else {
+    newStep.x = Math.round((src.x + state.goalX) / 2);
+    newStep.y = Math.round((src.y + state.goalY) / 2);
+  }
+
   state.steps.splice(idx + 1, 0, newStep);
   render();
-  /* Scroll new card into view */
   requestAnimationFrame(function() {
     var newCard = document.getElementById('card-' + newStep.id);
     if (newCard) newCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -794,11 +1003,11 @@ function toggleCognitive(id) {
 function startTool(goalText) {
   state.goal  = goalText.trim();
   state.steps = [mkStep('', null)];
+  initPositions();
   document.getElementById('ta-goal-display').textContent = state.goal;
   document.getElementById('ta-overlay').style.display    = 'none';
   document.getElementById('ta-page').style.display       = '';
   render();
-  /* Focus first card text */
   requestAnimationFrame(function() {
     var first = document.querySelector('.ta-card-text');
     if (first) first.focus();
@@ -810,23 +1019,24 @@ function clearAll() {
   if (!confirm('Clear all steps and start over? The goal will be kept.')) return;
   state.nextId = 1;
   state.steps  = [mkStep('', null)];
+  initPositions();
   render();
 }
 
 function loadExample() {
   var ex = EXAMPLES[exampleIdx % EXAMPLES.length];
   exampleIdx++;
-  /* If tool not started yet, start it with the example goal */
   var overlay = document.getElementById('ta-overlay');
   if (overlay.style.display !== 'none') {
     document.getElementById('ta-goal-input').value = ex.goal;
-    startTool(ex.goal);
+    /* Fall through to set state below */
   } else {
     if (!confirm('Replace current analysis with example "' + ex.goal + '"?')) return;
   }
-  state.goal  = ex.goal;
+  state.goal   = ex.goal;
   state.nextId = 1;
-  state.steps = ex.steps.map(function(s) { return mkStep(s.text, s.cognitive); });
+  state.steps  = ex.steps.map(function(s) { return mkStep(s.text, s.cognitive); });
+  initPositions();
   document.getElementById('ta-goal-display').textContent = state.goal;
   document.getElementById('ta-overlay').style.display    = 'none';
   document.getElementById('ta-page').style.display       = '';
@@ -865,8 +1075,8 @@ function downloadCanvas() {
 document.addEventListener('DOMContentLoaded', function() {
 
   /* Goal submit */
-  var startBtn   = document.getElementById('ta-start-btn');
-  var goalInput  = document.getElementById('ta-goal-input');
+  var startBtn  = document.getElementById('ta-start-btn');
+  var goalInput = document.getElementById('ta-goal-input');
   startBtn.addEventListener('click', function() {
     var v = goalInput.value.trim();
     if (!v) { goalInput.focus(); return; }
