@@ -6,6 +6,10 @@
 
 /* Xbox Original display font */
 @import url('https://fonts.cdnfonts.com/css/xbox-original');
+/* VT323 — IBM PC / DOS terminal pixel font (closest CDN-available match to IBM VGA)
+   Use int10h.org/oldschool-pc-fonts web pack + self-hosted @font-face to swap in
+   the authentic IBM VGA 8x16-2x / 8x14 fonts if desired. */
+@import url('https://fonts.cdnfonts.com/css/vt323');
 
 /* ── 1. DARK MODE ────────────────────────────────────────── */
 [data-theme="dark"] {
@@ -26,6 +30,22 @@
   --amber-bg:      #2b1f0a;
 }
 
+/* Override inline --topic-color/--topic-bg which are set per-page in the HTML
+   and would otherwise pull light-theme colours into dark mode */
+[data-theme="dark"] .topic-code {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+  border-color: var(--border-strong) !important;
+}
+[data-theme="dark"] .topic-guiding-q {
+  background: var(--accent-bg) !important;
+  border-left-color: var(--accent) !important;
+  color: var(--muted) !important;
+}
+[data-theme="dark"] .gq-label {
+  color: var(--accent) !important;
+}
+
 
 /* ── 2. WINDOWS 95 ───────────────────────────────────────── */
 [data-theme="win95"] {
@@ -44,8 +64,8 @@
   --green-bg:      #c0c0c0;
   --amber:         #808000;
   --amber-bg:      #c0c0c0;
-  --font-display:  'Tahoma', 'Arial', sans-serif;
-  --font-body:     'Tahoma', 'Arial', sans-serif;
+  --font-display:  'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
+  --font-body:     'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
   --font-mono:     'Courier New', 'Lucida Console', monospace;
   --radius:        0px;
   --transition:    0ms;
@@ -61,6 +81,26 @@
   border-bottom: 3px solid #000;
   box-shadow: inset 0 -2px 0 #808080;
 }
+
+/* Override inline --topic-color/--topic-bg so hero doesn't show light-blue */
+[data-theme="win95"] .topic-code {
+  background: #c0c0c0 !important;
+  color: #000080 !important;
+  border: 2px solid !important;
+  border-color: #ffffff #808080 #808080 #ffffff !important;
+}
+[data-theme="win95"] .topic-guiding-q {
+  background: #ffffff !important;
+  border-left: 4px solid #000080 !important;
+  color: #000000 !important;
+  border-top: 2px solid #808080 !important;
+  border-right: 2px solid #ffffff !important;
+  border-bottom: 2px solid #ffffff !important;
+}
+[data-theme="win95"] .gq-label {
+  color: #000080 !important;
+}
+
 [data-theme="win95"] .curr-section {
   border: 2px solid !important;
   border-color: #fff #808080 #808080 #fff !important;
@@ -71,6 +111,13 @@
 [data-theme="win95"] .curr-trigger {
   background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
   padding: 0.5rem 0.875rem;
+}
+/* When expanded: add a sunken separator line beneath the title bar */
+[data-theme="win95"] .curr-section:has(.curr-body.open) .curr-trigger {
+  border-bottom: 2px solid;
+  border-bottom-color: #808080;
+  box-shadow: 0 1px 0 #000000;
+  padding-bottom: calc(0.5rem + 1px);
 }
 [data-theme="win95"] .curr-trigger h2,
 [data-theme="win95"] .curr-trigger .curr-badge,
@@ -139,7 +186,7 @@
   --green-bg:      #001a00;
   --amber:         #ffb000;
   --amber-bg:      #1a0d00;
-  --font-display:  'Courier New', 'Lucida Console', monospace;
+  --font-display:  'VT323', 'Courier New', monospace;
   --font-body:     'Courier New', 'Lucida Console', monospace;
   --font-mono:     'Courier New', monospace;
   --radius:        0px;
@@ -171,6 +218,9 @@
   background: #001a00 !important;
   border-left-color: #00ff00 !important;
   color: #33ff55 !important;
+}
+[data-theme="dos"] .gq-label {
+  color: #00ff00 !important;
 }
 [data-theme="dos"] .topic-title {
   text-transform: uppercase;
@@ -302,6 +352,9 @@
   background: #071a00 !important;
   border-left-color: #76e800 !important;
   color: #a8ff3e !important;
+}
+[data-theme="xbox"] .gq-label {
+  color: #76e800 !important;
 }
 [data-theme="xbox"] .topic-hero {
   background: radial-gradient(ellipse at 30% 0%, #102400 0%, #000500 70%);
@@ -687,3 +740,20 @@
 .theme-option-active .theme-option-label { color: var(--accent); font-weight: 600; }
 .theme-option-emoji { font-size: 1rem; flex-shrink: 0; }
 .theme-option-label { font-size: 0.83rem; color: var(--text); }
+
+/* ── LANDING PAGE: theme font overrides ──────────────────────
+   The landing page uses Lexend by default; themed modes should
+   use their own display font so the character is consistent.   */
+[data-theme="dos"] .lp-welcome,
+[data-theme="dos"] .lp-text,
+[data-theme="dos"] .lp-link,
+[data-theme="win95"] .lp-welcome,
+[data-theme="win95"] .lp-text,
+[data-theme="win95"] .lp-link,
+[data-theme="xbox"] .lp-welcome,
+[data-theme="xbox"] .lp-text,
+[data-theme="xbox"] .lp-link,
+[data-theme="nightmare"] .lp-welcome,
+[data-theme="nightmare"] .lp-text,
+[data-theme="nightmare"] .lp-link { font-family: var(--font-display) !important; }
+
