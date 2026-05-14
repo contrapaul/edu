@@ -173,17 +173,17 @@
 [data-theme="dos"] {
   --bg:            #000000;
   --surface:       #000000;
-  --surface-2:     #001a00;
-  --border:        #2a5500;
-  --border-strong: #55FF55;
-  --text:          #AAAAAA;   /* CGA light gray — main body text */
-  --muted:         #555555;   /* CGA dark gray — secondary / meta text */
-  --accent:        #55FF55;   /* CGA bright green — accents and highlights */
-  --accent-bg:     #001a00;
+  --surface-2:     #111111;   /* very dark gray — card surfaces */
+  --border:        #333333;   /* dark gray — subtle lines */
+  --border-strong: #AAAAAA;   /* CGA light gray — drawn borders */
+  --text:          #FFFFFF;   /* white — primary terminal text */
+  --muted:         #AAAAAA;   /* CGA light gray — secondary text */
+  --accent:        #55FF55;   /* CGA bright green — used SPARINGLY for highlights */
+  --accent-bg:     #0d1a0d;   /* very dark green surface for accent contexts */
   --hl:            #55FFFF;   /* CGA bright cyan */
   --hl-bg:         #001a1a;
   --green:         #55FF55;
-  --green-bg:      #001a00;
+  --green-bg:      #0d1a0d;
   --amber:         #FFFF55;   /* CGA bright yellow */
   --amber-bg:      #1a1a00;
   --font-display:  'VT323', 'Courier New', monospace;
@@ -194,30 +194,30 @@
 }
 
 [data-theme="dos"] .site-header {
-  background: #000080;
-  border-bottom: 1px solid #55FF55;
+  background: #0000AA;  /* CGA dark blue — classic DOS header bar */
+  border-bottom: 2px solid #AAAAAA;
 }
-[data-theme="dos"] .wordmark { color: #55FF55; }
+[data-theme="dos"] .wordmark { color: #55FF55; }   /* green accent on brand only */
 [data-theme="dos"] .brand-sub { color: #AAAAAA; }
-[data-theme="dos"] .nav a { color: #55FF55; }
-[data-theme="dos"] .nav a:hover { color: #FFFFFF; background: rgba(85,255,85,0.1); }
+[data-theme="dos"] .nav a { color: #FFFFFF; }       /* white nav text */
+[data-theme="dos"] .nav a:hover { color: #55FF55; background: transparent; }  /* green on hover */
 [data-theme="dos"] .footer-brand,
 [data-theme="dos"] .footer-brand a,
 [data-theme="dos"] .footer-note { color: #AAAAAA; }
 [data-theme="dos"] .topic-hero {
   background: #000000;
-  border-bottom: 1px solid #00aa00;
+  border-bottom: 1px solid #333333;
 }
 /* Override inline --topic-bg so .topic-code and .topic-guiding-q don't go white */
 [data-theme="dos"] .topic-code {
-  background: #001a00 !important;
-  color: #55FF55 !important;
-  border-color: #2a5500 !important;
+  background: #111111 !important;
+  color: #55FF55 !important;   /* code strings in green — deliberate accent */
+  border-color: #333333 !important;
 }
 [data-theme="dos"] .topic-guiding-q {
-  background: #001a00 !important;
-  border-left-color: #55FF55 !important;
-  color: #AAAAAA !important;
+  background: #111111 !important;
+  border-left-color: #55FF55 !important;  /* green accent border — deliberate */
+  color: #FFFFFF !important;
 }
 [data-theme="dos"] .gq-label {
   color: #55FF55 !important;
@@ -239,13 +239,13 @@
 [data-theme="dos"] .topic-card-title,
 [data-theme="dos"] .topic-card-q,
 [data-theme="dos"] .prog-card-title,
-[data-theme="dos"] .prog-card-desc { color: #AAAAAA !important; }
+[data-theme="dos"] .prog-card-desc { color: #FFFFFF !important; }
 [data-theme="dos"] .prog-card-label { color: #55FF55 !important; }
 [data-theme="dos"] .prog-card-cta { color: #55FF55 !important; }
-[data-theme="dos"] .prog-card-meta { color: #555555 !important; }
+[data-theme="dos"] .prog-card-meta { color: #AAAAAA !important; }
 [data-theme="dos"] .curr-section {
-  border-left-color: #55FF55 !important;
-  border-color: #2a5500;
+  border-left-color: #55FF55 !important;  /* green accent — section marker */
+  border-color: #333333;
   background: #000;
 }
 [data-theme="dos"] .curr-trigger::before {
@@ -258,10 +258,10 @@
   content: 'C:\\> DIR ';
 }
 [data-theme="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #55FF55 !important; }
-[data-theme="dos"] .obj-section { border-color: #009900; }
-[data-theme="dos"] .obj-trigger h3 { color: #AAAAAA !important; }
+[data-theme="dos"] .obj-section { border-color: #333333; }
+[data-theme="dos"] .obj-trigger h3 { color: #FFFFFF !important; }
 [data-theme="dos"] .activity-block {
-  border-color: #009900;
+  border-color: #333333;
   background: #000;
 }
 [data-theme="dos"] .curr-sidebar {
@@ -269,19 +269,19 @@
   border-right: 1px solid #55FF55;
 }
 [data-theme="dos"] .csb-group-label { color: #55FF55 !important; }
-[data-theme="dos"] .csb-link { color: #AAAAAA; }
-[data-theme="dos"] .csb-code { color: #555555; }
-[data-theme="dos"] .csb-current .csb-link { background: #004400; border-right-color: #55FF55; }
+[data-theme="dos"] .csb-link { color: #FFFFFF; }
+[data-theme="dos"] .csb-code { color: #AAAAAA; }
+[data-theme="dos"] .csb-current .csb-link { background: #1a1a1a; border-right-color: #55FF55; }
 [data-theme="dos"] .csb-current .csb-title { color: #55FF55; }
-[data-theme="dos"] .csb-home { color: #55FF55; }
+[data-theme="dos"] .csb-home { color: #FFFFFF; }
 [data-theme="dos"] input,
 [data-theme="dos"] textarea,
 [data-theme="dos"] select,
 [data-theme="dos"] input[type="checkbox"] + label,
 [data-theme="dos"] label {
   background: #000 !important;
-  color: #55FF55 !important;
-  border-color: #2a5500 !important;
+  color: #FFFFFF !important;
+  border-color: #333333 !important;
   accent-color: #55FF55;
 }
 /* Fix white boxes in tools — focus group, task map nodes, any card */
@@ -295,8 +295,8 @@
 [data-theme="dos"] [class*="-panel"],
 [data-theme="dos"] [class*="-block"] {
   background: #000 !important;
-  border-color: #00aa00 !important;
-  color: #AAAAAA !important;
+  border-color: #333333 !important;
+  color: #FFFFFF !important;
 }
 [data-theme="dos"] .tool-btn,
 [data-theme="dos"] .tool-btn-sm,
