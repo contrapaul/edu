@@ -460,19 +460,19 @@ body.ta-is-dragging * {
 }
 
 /* ── Theme-specific line/card tweaks ────────────────────── */
-[data-theme="dos"] .ta-line,
-[data-theme="dos"] .ta-line-final { stroke: #55FF55; }
-[data-theme="dos"] .ta-card { border-color: #2a5500; }
-[data-theme="dos"] .ta-card-step .ta-drag-handle { border-top-color: #55FF55; }
-[data-theme="dos"] .ta-card-goal { background: #000080; border: 2px solid #55FF55; }
-[data-theme="dos"] .ta-goal-card-text { color: #55FF55; }
+[data-theme="dos"] .ta-line        { stroke: #AAAAAA; }
+[data-theme="dos"] .ta-line-final  { stroke: #FFFFFF; }
+[data-theme="dos"] .ta-card { border-color: #333333; }
+[data-theme="dos"] .ta-card-step .ta-drag-handle { border-top-color: #AAAAAA; }
+[data-theme="dos"] .ta-card-goal { background: #0000AA; border: 2px solid #AAAAAA; }
+[data-theme="dos"] .ta-goal-card-text { color: #FFFFFF; }
 [data-theme="dos"] .ta-goal-card-label { color: #AAAAAA; }
 [data-theme="dos"] .ta-card-goal .ta-drag-handle {
-  background: rgba(0,85,255,0.15);
-  border-bottom-color: #55FF55;
+  background: rgba(0,0,0,0.25);
+  border-bottom-color: #AAAAAA;
 }
 [data-theme="dos"] .ta-card-goal .ta-drag-handle::before {
-  background-image: radial-gradient(circle, #55FF55 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, #FFFFFF 1.5px, transparent 1.5px);
   background-size: 6px 6px;
 }
 [data-theme="dos"] .ta-act-del:hover { border-color: #ff0000; color: #ff0000; background: #1a0000; }
@@ -695,12 +695,12 @@ function canvasDims() {
     var el = document.getElementById('card-' + s.id);
     var h  = el ? el.offsetHeight : 260;
     minW   = Math.max(minW, s.x + CW + PAD_X);
-    minH   = Math.max(minH, s.y + h + LINE_DRP + LINE_ROUTE_PAD + PAD_BOT);
+    minH   = Math.max(minH, s.y + h + PAD_BOT);
   });
   var gEl = document.getElementById('card-goal');
   var gH  = gEl ? gEl.offsetHeight : 148;
   minW    = Math.max(minW, state.goalX + CW + PAD_X);
-  minH    = Math.max(minH, state.goalY + gH + LINE_DRP + LINE_ROUTE_PAD + PAD_BOT);
+  minH    = Math.max(minH, state.goalY + gH + PAD_BOT);
   return { w: minW, h: minH };
 }
 
@@ -868,28 +868,32 @@ function drawLines() {
     var sA  = state.steps[i];
     var elA = document.getElementById('card-' + sA.id);
     var hA  = elA ? elA.offsetHeight : 260;
+    /* Connect from vertical centre of card A */
     var x1  = sA.x + CW / 2;
-    var y1  = sA.y + hA;
+    var y1  = sA.y + hA / 2;
 
     var x2, y2;
     if (isLast) {
       var gEl = document.getElementById('card-goal');
       var gH  = gEl ? gEl.offsetHeight : 148;
       x2 = state.goalX + CW / 2;
-      y2 = state.goalY + gH;
+      y2 = state.goalY + gH / 2;
     } else {
       var sB  = state.steps[i + 1];
       var elB = document.getElementById('card-' + sB.id);
       var hB  = elB ? elB.offsetHeight : 260;
       x2 = sB.x + CW / 2;
-      y2 = sB.y + hB;
+      y2 = sB.y + hB / 2;
     }
 
-    var routeY = Math.max(y1, y2) + LINE_ROUTE_PAD + LINE_DRP;
-    var path = svgEl('path');
-    path.setAttribute('d', 'M ' + x1 + ' ' + y1 + ' V ' + routeY + ' H ' + x2 + ' V ' + y2);
-    path.setAttribute('class', isLast ? 'ta-line ta-line-final' : 'ta-line');
-    svg.appendChild(path);
+    /* Direct diagonal line — no elbow routing */
+    var line = svgEl('line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('class', isLast ? 'ta-line ta-line-final' : 'ta-line');
+    svg.appendChild(line);
   }
 }
 
