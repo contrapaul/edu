@@ -7,8 +7,8 @@
 
 var FR_TASKS = [
   {
-    setting: 'School canteen during lunch (observe for 15 minutes)',
-    observe: 'How students navigate queues, where congestion forms, and how long they spend deciding what to eat.',
+    setting: 'School cafeteria or atrium during lunch (observe for 15 minutes)',
+    observe: 'How students navigate queues, where congestion forms, and how long they spend deciding what to eat. In the atrium (or other dining location) how do they choose where to sit, what factors influence their decisions, what does the cleanup process look like?',
     collect: [
       'Sketch a rough floor plan and mark where people slow down or stop',
       'Count how many students abandon the queue before reaching the front',
@@ -34,10 +34,10 @@ var FR_TASKS = [
       'Note which steps cause hesitation (bagging area, payment, weighing items)',
       'Observe whether users read on-screen instructions or ignore them'
     ],
-    tip: 'Watch for the "unexpected item in bagging area" moment — note the user\'s body language.'
+    tip: 'Watch for software error messages and take note of the user\'s body language and response.'
   },
   {
-    setting: 'Public library entrance or reception area',
+    setting: 'School library entrance or reception area',
     observe: 'How first-time visitors navigate to find what they need without prior knowledge of the space.',
     collect: [
       'Track the first three things a new visitor looks at',
@@ -57,7 +57,7 @@ var FR_TASKS = [
     tip: 'Equipment that is regularly misadjusted is a design problem, not a user problem.'
   },
   {
-    setting: 'School corridor near lockers between classes',
+    setting: 'School hallways/corridors near lockers between classes',
     observe: 'Traffic flow, bottlenecks and how students navigate high-density transitions.',
     collect: [
       'Map the most congested points in the corridor',
@@ -67,24 +67,24 @@ var FR_TASKS = [
     tip: 'Arrive 2 minutes before a class ends so you observe the full wave of movement.'
   },
   {
-    setting: 'Coffee shop during peak morning hours',
+    setting: 'Coffee shop during peak morning hours (Or school cafe during lunch)',
     observe: 'Order flow, wait behaviour and how customers interact with menus and pickup points.',
     collect: [
-      'Time the average wait between ordering and receiving a drink',
+      'Time the average wait between ordering and receiving a drink or food',
       'Note where customers position themselves while waiting and whether this causes confusion',
       'Record how customers know their order is ready — name called, number, app notification?'
     ],
-    tip: 'Watch the handoff moment: how confident is the customer that the drink they pick up is theirs?'
+    tip: 'Identify behavior in line and note how attention or lack of attention contributes to overall order speed.'
   },
   {
-    setting: 'Hospital or clinic waiting area',
-    observe: 'How patients find information, manage check-in, and understand their status in the queue.',
+    setting: 'Sidewalk traffic with mixed pedestrian and scooter/bicycle lanes',
+    observe: 'Where do people choose to walk and ride? What do they do when encountering traffic?',
     collect: [
-      'Note how patients discover where to sit after arriving',
-      'Track how patients know when it\'s their turn — screen, staff call, pager?',
-      'Observe how long patients wait before approaching reception to ask about their status'
+      'How many people are paying attention to the path compared to people on phones?',
+      'Does phone use correlate to near-misses or people needing to side-step or drive around others?',
+      'How are the lanes marked, do people appear to notice or change behavior near signage?'
     ],
-    tip: 'Focus on patients who appear uncertain — they reveal exactly where the communication system breaks down.'
+    tip: 'Watch out for scooters!'
   }
 ];
 
