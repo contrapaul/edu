@@ -92,7 +92,6 @@
 .topic-guiding-q {
   font-size: 0.95rem;
   color: var(--muted);
-  max-width: 64ch;
   line-height: 1.7;
   margin-bottom: 0;
   padding: 0.75rem 1rem;
@@ -1780,4 +1779,101 @@ details.p2-reveal summary::before { content: "▼ "; }
   .topic-page-nav .nav-prev-only,
   .topic-page-nav .nav-next-only { grid-column: 1; }
   .obj-body { padding-left: 2rem; }
+}
+
+/* ── IN-PAGE TOC LAYOUT ──────────────────────────────────────── */
+.curr-page-layout {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  align-items: start;
+}
+
+.curr-toc {
+  position: sticky;
+  top: calc(var(--curr-nav-h) + 1rem);
+  max-height: calc(100vh - var(--curr-nav-h) - 2rem);
+  overflow-y: auto;
+  padding: 1.75rem 0.75rem 1.75rem 1.5rem;
+  border-right: 1px solid var(--border);
+}
+
+.curr-toc-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.875rem;
+}
+
+.curr-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.curr-toc-list > li > a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  transition: color var(--transition), background var(--transition);
+}
+.curr-toc-list > li > a:hover { color: var(--text); background: var(--surface-2); }
+.curr-toc-list > li.active > a {
+  color: var(--accent);
+  background: var(--accent-bg);
+  font-weight: 600;
+}
+
+.curr-toc-sub {
+  list-style: none;
+  padding: 0.15rem 0 0.15rem 0.625rem;
+  margin: 0;
+  display: none;
+  border-left: 1px solid var(--border);
+  margin-left: 0.5rem;
+}
+.curr-toc-sub.open { display: block; }
+.curr-toc-sub li a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.22rem 0.4rem;
+  border-radius: 2px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  transition: color var(--transition), background var(--transition);
+}
+.curr-toc-sub li a:hover { color: var(--text); background: var(--surface-2); }
+.curr-toc-sub li.active a {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* Hide TOC on small screens */
+@media (max-width: 960px) {
+  .curr-page-layout {
+    grid-template-columns: 1fr;
+  }
+  .curr-toc {
+    display: none;
+  }
+}
+
+/* ── OVERFLOW FIX FOR ACCORDION BODIES ───────────────────────── */
+.curr-body,
+.obj-body {
+  overflow-x: auto;
 }
