@@ -21,22 +21,22 @@ var MRK_FACTS = [
   /* ── Classroom ────────────────────────────────────────── */
   {
     id: 1,
-    text: "Mr. K has never lost at table tennis — though some claim the table was slightly tilted.",
+    text: "Mr. K was (officially) homeschooled until grade 12, though he did most of his grade 11 classes at a community college. ",
     tags: ["classroom", "personal"]
   },
   {
     id: 2,
-    text: "Mr. K's classroom has more unfinished prototypes than chairs.",
+    text: "Mr. K's unfinished project list has never been empty.",
     tags: ["classroom", "design"]
   },
   {
     id: 3,
-    text: "Mr. K is technically undefeated at Kahoot if you don't count that one time.",
+    text: "Mr. K can and will pwn the whole class on Shellshockers or Ev.io.",
     tags: ["classroom", "ib"]
   },
   {
     id: 4,
-    text: "Mr. K once stayed until 9pm helping a student finish their IA, then came back the next morning still enthusiastic.",
+    text: "The only thing Mr. K loves more than learning something new and awesome is sharing it with someone else.",
     tags: ["classroom", "ib"]
   },
   {
@@ -46,39 +46,39 @@ var MRK_FACTS = [
   },
   {
     id: 6,
-    text: "Mr. K's lesson plans are meticulously organised. His desk is not.",
+    text: "Mr. K's learning materials are fairly well organised. His desk is not.",
     tags: ["classroom", "personal"]
   },
   {
     id: 7,
-    text: "Mr. K genuinely gets excited about materials science at 8am, which is either inspiring or concerning.",
+    text: "Mr. K thinks troubleshooting should be an ATL skill.",
     tags: ["classroom", "design"]
   },
   {
     id: 8,
-    text: "Mr. K grades design folios on a rubric he wrote himself, then spends hours second-guessing the rubric.",
+    text: "It takes Mr. K so much more time to write quizzes and tests than it takes students to take them.",
     tags: ["classroom", "ib"]
   },
   {
     id: 9,
-    text: "Mr. K's students have collectively produced more 3D-printed objects than some small countries.",
+    text: "Young Mr. K would be extremely jealous of older Mr. K's technology.",
     tags: ["classroom", "tech"]
   },
 
   /* ── Design ───────────────────────────────────────────── */
   {
     id: 10,
-    text: "Mr. K can identify a typeface within three seconds — he timed himself.",
+    text: "Mr. K would much rather design a thing for himself than spend less money to buy the same thing on Taobao.",
     tags: ["design", "personal"]
   },
   {
     id: 11,
-    text: "Mr. K once spent three hours choosing the right font for a worksheet, then used Arial anyway.",
+    text: "Mr. K will spend way too long searching for the perfect font for an assessment and then go with Futura anyway.",
     tags: ["design", "personal"]
   },
   {
     id: 12,
-    text: "Mr. K's all-time favourite design is whichever one he hasn't built yet.",
+    text: "Mr. K accidentally became an influencer but is terrible at keeping it up.",
     tags: ["design", "personal"]
   },
   {
@@ -88,93 +88,93 @@ var MRK_FACTS = [
   },
   {
     id: 14,
-    text: "Mr. K once got into a 20-minute discussion about kerning that no one else fully understood but everyone enjoyed.",
+    text: "Mr. K's design journey probably began with Lego.",
     tags: ["design", "personal"]
   },
   {
     id: 15,
-    text: "Mr. K considers the original Xbox dashboard a masterpiece of interface design. He is correct.",
+    text: "Mr. K will happily talk to you about how great the Microsoft Zune was!",
     tags: ["design", "personal", "tech"]
   },
 
   /* ── Tech / Making ────────────────────────────────────── */
   {
     id: 16,
-    text: "Mr. K once fixed a 3D printer with a bent paperclip and genuine optimism.",
+    text: "Mr. K built a Halo helmet with cardstock, wood glue, and very little else.",
     tags: ["tech", "classroom"]
   },
   {
     id: 17,
-    text: "Mr. K has a drawer labelled 'failed experiments' that is very, very full.",
+    text: "Mr. K is proud to own a digital microscope.",
     tags: ["tech", "personal"]
   },
   {
     id: 18,
-    text: "Mr. K claims he only needs one more tool to complete the workshop. He has said this for four years.",
+    text: "Mr. K's first operating system was MS-DOS, but his first PC ran Windows XP.",
     tags: ["tech", "personal"]
   },
   {
     id: 19,
-    text: "Mr. K built a macropad. Then built a second one to fix the problems with the first. The second one also has problems.",
+    text: "Mr. K currently owns 5 3D printers, and wishes he had space for more.",
     tags: ["tech", "personal"]
   },
   {
     id: 20,
-    text: "Mr. K owns at least three versions of the same screwdriver because he 'couldn't find the first one'.",
+    text: "Mr. K believes in buying extra glue, knives, microcontrollers, and pretty much anything else he might need later but could possibly misplace.",
     tags: ["tech", "personal"]
   },
   {
     id: 21,
-    text: "Mr. K once built an entire curriculum resource on a long-haul flight. He called it productive. Others call it concerning.",
+    text: "Mr. K often feels genuinely lucky to have the privilege of teaching design.",
     tags: ["tech", "ib", "personal"]
   },
   {
     id: 22,
-    text: "Mr. K has a collection of broken electronics he describes as 'teaching materials'. They are technically both things.",
+    text: "Mr. K has had well over 100 rolls of filament at once before.",
     tags: ["tech", "classroom"]
   },
 
   /* ── IB / Teaching ────────────────────────────────────── */
   {
     id: 23,
-    text: "Mr. K knows the IB Design syllabus well enough to recite whole sections from memory, but still checks the guide anyway.",
+    text: "Mr. K hardly rememembers a time before he knew all the MYP design criteria.",
     tags: ["ib", "personal"]
   },
   {
     id: 24,
-    text: "Mr. K has corrected the IB's own wording at least once. He has not yet told them.",
+    text: "Mr. K is great a painting miniatures, he just doesn't do it that often.",
     tags: ["ib", "personal"]
   },
   {
     id: 25,
-    text: "Mr. K is the only person in his department who can explain both the Design Cycle and the CSS box model in the same breath.",
+    text: "Mr. K loves building computers so much.",
     tags: ["ib", "tech", "personal"]
   },
 
   /* ── Personal ─────────────────────────────────────────── */
   {
     id: 26,
-    text: "Mr. K's desk is a fully functional example of creative chaos theory.",
+    text: "Mr. K is a cat person. He and his wife have 4 cats- Oscar, Xiaolong, Goose, and Rufus.",
     tags: ["personal"]
   },
   {
     id: 27,
-    text: "Mr. K's laptop has so many browser tabs open that the tab icons are no longer visible. He knows exactly where everything is.",
+    text: "Mr. K deeply regrets not investing in hundreds of gigabytes of RAM between 2022 and 2025. He won't make this mistake again when prices fall.",
     tags: ["personal", "tech"]
   },
   {
     id: 28,
-    text: "Mr. K once drank four coffees and redesigned a unit plan from scratch. The new version was better. The old version was also good.",
+    text: "Mr. K drinks a lot of coffee, but others might debate whether Old Town White Coffee Hazelnut 3-in-1 packets count as coffee.",
     tags: ["personal", "ib"]
   },
   {
     id: 29,
-    text: "Mr. K will spend an unreasonable amount of time making a tool for a task that would have taken ten minutes by hand.",
+    text: "Mr. K is definitely allergic to sawdust. This isn't a cool fact at all.",
     tags: ["personal", "tech"]
   },
   {
     id: 30,
-    text: "Mr. K believes Nightmare mode was a mistake. He also believes it was brilliant. Both things are true.",
+    text: "Mr. K wants you to explore this site. Go find the themes, then give 'Nightmare' a try.",
     tags: ["personal", "design"]
   }
 
