@@ -46,30 +46,6 @@
       }
     }
 
-    /* ── Level 3: show/hide activity lists with each obj-section accordion ── */
-    document.querySelectorAll('.obj-section[id]').forEach(function (section) {
-      var objId = section.id; // e.g. "obj-1.1.2"
-      // The activity list for this obj is the .curr-toc-acts inside the matching TOC item
-      var tocItem = toc.querySelector('[data-section="' + objId + '"]');
-      if (!tocItem) return;
-      var actsEl = tocItem.querySelector('.curr-toc-acts');
-      if (!actsEl) return;
-
-      var trigger = section.querySelector('.obj-trigger');
-      if (!trigger) return;
-
-      function syncActs() {
-        var isOpen = trigger.getAttribute('aria-expanded') === 'true';
-        actsEl.classList.toggle('open', isOpen);
-      }
-
-      trigger.addEventListener('click', function () {
-        requestAnimationFrame(syncActs);
-      });
-
-      syncActs(); // apply initial state
-    });
-
     /* ── Active-item scroll tracking ── */
     function isVisible(el) {
       // Elements inside a closed accordion (display:none) have offsetParent === null.
