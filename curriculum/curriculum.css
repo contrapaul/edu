@@ -1784,8 +1784,13 @@ details.p2-reveal summary::before { content: "▼ "; }
 /* ── IN-PAGE TOC LAYOUT ──────────────────────────────────────── */
 .curr-page-layout {
   display: grid;
-  grid-template-columns: 210px 1fr;
+  grid-template-columns: 210px 1fr 210px; /* symmetric: mirrors TOC on right so content stays centred */
   align-items: start;
+}
+
+/* Prevent grid item from overflowing its column (classic CSS Grid min-width fix) */
+.curr-page-layout > .curr-main {
+  min-width: 0;
 }
 
 .curr-toc {
@@ -1862,7 +1867,34 @@ details.p2-reveal summary::before { content: "▼ "; }
   background: var(--accent-bg);
 }
 
-/* Hide TOC on small screens */
+/* 3rd-level TOC: activities inside each obj-section */
+.curr-toc-acts {
+  list-style: none;
+  padding: 0.12rem 0 0.12rem 0.625rem;
+  margin: 0 0 0 0.5rem;
+  display: none;
+  border-left: 1px dotted var(--border);
+}
+.curr-toc-acts.open { display: block; }
+.curr-toc-acts li a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.18rem 0.4rem;
+  border-radius: 2px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  transition: color var(--transition), background var(--transition);
+}
+.curr-toc-acts li a:hover { color: var(--text); background: var(--surface-2); }
+.curr-toc-acts li.active a {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* Hide TOC on small screens; collapse to 1 column */
 @media (max-width: 960px) {
   .curr-page-layout {
     grid-template-columns: 1fr;
@@ -1872,7 +1904,12 @@ details.p2-reveal summary::before { content: "▼ "; }
   }
 }
 
-/* ── OVERFLOW FIX FOR ACCORDION BODIES ───────────────────────── */
+/* ── OVERFLOW CONTAINMENT ────────────────────────────────────── */
+/* Contain overflow at the section level so nothing bleeds past the right edge */
+.curr-section {
+  overflow-x: hidden;
+}
+/* Scroll within accordion bodies when content is wider than container */
 .curr-body,
 .obj-body {
   overflow-x: auto;
