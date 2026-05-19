@@ -1875,7 +1875,8 @@ details.p2-reveal summary::before { content: "▼ "; }
   display: none;
   border-left: 1px dotted var(--border);
 }
-.curr-toc-acts.open { display: block; }
+/* Show all activity lists as soon as the Study Guide sub-list is open */
+.curr-toc-sub.open .curr-toc-acts { display: block; }
 .curr-toc-acts li a {
   display: block;
   font-family: var(--font-mono);
