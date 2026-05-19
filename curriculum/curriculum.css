@@ -1844,11 +1844,10 @@ details.p2-reveal summary::before { content: "▼ "; }
   list-style: none;
   padding: 0.15rem 0 0.15rem 0.625rem;
   margin: 0;
-  display: none;
+  display: block; /* always visible */
   border-left: 1px solid var(--border);
   margin-left: 0.5rem;
 }
-.curr-toc-sub.open { display: block; }
 .curr-toc-sub li a {
   display: block;
   font-family: var(--font-mono);
@@ -1867,16 +1866,14 @@ details.p2-reveal summary::before { content: "▼ "; }
   background: var(--accent-bg);
 }
 
-/* 3rd-level TOC: activities inside each obj-section */
+/* 3rd-level TOC: activities inside each obj-section — always visible */
 .curr-toc-acts {
   list-style: none;
   padding: 0.12rem 0 0.12rem 0.625rem;
   margin: 0 0 0 0.5rem;
-  display: none;
+  display: block;
   border-left: 1px dotted var(--border);
 }
-/* Show all activity lists as soon as the Study Guide sub-list is open */
-.curr-toc-sub.open .curr-toc-acts { display: block; }
 .curr-toc-acts li a {
   display: block;
   font-family: var(--font-mono);
@@ -1903,6 +1900,11 @@ details.p2-reveal summary::before { content: "▼ "; }
   .curr-toc {
     display: none;
   }
+}
+
+/* Ensure anchor-targeted activity blocks aren't hidden under the sticky header */
+.activity-block[id] {
+  scroll-margin-top: calc(var(--curr-nav-h) + 1rem);
 }
 
 /* ── OVERFLOW CONTAINMENT ────────────────────────────────────── */
