@@ -74,14 +74,14 @@ const COMPONENT_LIBRARY = {
     ],
     configSchema: {
       mode_name:  { type: 'text',   label: 'Mode name',     default: 'Volume' },
-      cw_type:    { type: 'select', label: 'CW action',     options: ['consumer','hotkey','mouse_scroll'], default: 'consumer' },
-      cw_consumer:{ type: 'select', label: 'CW media key',  options: ['VOLUME_INCREMENT','VOLUME_DECREMENT','SCAN_NEXT_TRACK','SCAN_PREVIOUS_TRACK','BRIGHTNESS_INCREMENT'], default: 'VOLUME_INCREMENT', dependsOn: { cw_type: ['consumer'] } },
+      cw_type:    { type: 'select', label: 'CW action',     options: ['consumer','hotkey','mouse_scroll'], optionLabels: ['Media Key','Hotkey','Scroll Wheel'], default: 'consumer' },
+      cw_consumer:{ type: 'select', label: 'CW media key',  options: ['VOLUME_INCREMENT','VOLUME_DECREMENT','SCAN_NEXT_TRACK','SCAN_PREVIOUS_TRACK','BRIGHTNESS_INCREMENT'], optionLabels: ['Volume Up','Volume Down','Next Track','Previous Track','Brightness Up'], default: 'VOLUME_INCREMENT', dependsOn: { cw_type: ['consumer'] } },
       cw_keys:    { type: 'text',   label: 'CW keys (csv)', default: 'ctrl,=', dependsOn: { cw_type: ['hotkey'] } },
-      ccw_type:   { type: 'select', label: 'CCW action',    options: ['consumer','hotkey','mouse_scroll'], default: 'consumer' },
-      ccw_consumer:{ type: 'select',label: 'CCW media key', options: ['VOLUME_DECREMENT','VOLUME_INCREMENT','SCAN_PREVIOUS_TRACK','SCAN_NEXT_TRACK','BRIGHTNESS_DECREMENT'], default: 'VOLUME_DECREMENT', dependsOn: { ccw_type: ['consumer'] } },
+      ccw_type:   { type: 'select', label: 'CCW action',    options: ['consumer','hotkey','mouse_scroll'], optionLabels: ['Media Key','Hotkey','Scroll Wheel'], default: 'consumer' },
+      ccw_consumer:{ type: 'select',label: 'CCW media key', options: ['VOLUME_DECREMENT','VOLUME_INCREMENT','SCAN_PREVIOUS_TRACK','SCAN_NEXT_TRACK','BRIGHTNESS_DECREMENT'], optionLabels: ['Volume Down','Volume Up','Previous Track','Next Track','Brightness Down'], default: 'VOLUME_DECREMENT', dependsOn: { ccw_type: ['consumer'] } },
       ccw_keys:   { type: 'text',   label: 'CCW keys (csv)',default: 'ctrl,-', dependsOn: { ccw_type: ['hotkey'] } },
-      press_action:{ type: 'select',label: 'Press action',  options: ['consumer','hotkey','none'], default: 'consumer' },
-      press_consumer:{ type: 'select', label: 'Press key',  options: ['MUTE','PLAY_PAUSE','SCAN_NEXT_TRACK'], default: 'MUTE', dependsOn: { press_action: ['consumer'] } },
+      press_action:{ type: 'select',label: 'Press action',  options: ['consumer','hotkey','none'], optionLabels: ['Media Key','Hotkey','No Action'], default: 'consumer' },
+      press_consumer:{ type: 'select', label: 'Press key',  options: ['MUTE','PLAY_PAUSE','SCAN_NEXT_TRACK'], optionLabels: ['Mute','Play / Pause','Next Track'], default: 'MUTE', dependsOn: { press_action: ['consumer'] } },
       press_keys: { type: 'text',   label: 'Press keys',    default: 'ctrl,0', dependsOn: { press_action: ['hotkey'] } },
     }
   },
@@ -107,9 +107,9 @@ const COMPONENT_LIBRARY = {
     ],
     configSchema: {
       mode_name: { type: 'text', label: 'Mode name', default: 'Scroll' },
-      cw_type:   { type: 'select', label: 'CW action', options: ['mouse_scroll','consumer','hotkey'], default: 'mouse_scroll' },
-      ccw_type:  { type: 'select', label: 'CCW action',options: ['mouse_scroll','consumer','hotkey'], default: 'mouse_scroll' },
-      press_action:{ type: 'select',label: 'Press action', options: ['consumer','hotkey','none'], default: 'none' },
+      cw_type:   { type: 'select', label: 'CW action', options: ['mouse_scroll','consumer','hotkey'], optionLabels: ['Scroll Wheel','Media Key','Hotkey'], default: 'mouse_scroll' },
+      ccw_type:  { type: 'select', label: 'CCW action',options: ['mouse_scroll','consumer','hotkey'], optionLabels: ['Scroll Wheel','Media Key','Hotkey'], default: 'mouse_scroll' },
+      press_action:{ type: 'select',label: 'Press action', options: ['consumer','hotkey','none'], optionLabels: ['Media Key','Hotkey','No Action'], default: 'none' },
     }
   },
 

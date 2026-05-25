@@ -86,6 +86,7 @@ function init() {
   buildChip();
   placeChipCenter();
   bindHeader();
+  buildPresetUI();
   bindModal();
   bindPanelTabs();
   bindContextMenu();
@@ -1238,6 +1239,16 @@ function buildCcpBody(instId) {
     });
   }
 
+  // Quick hotkey picks (buttons in Hotkey mode)
+  if (inst.compId === 'button' && inst.config.action_type === 'hotkey') {
+    html += `<div class="ccp-section-title">Quick picks</div>
+      <div class="hotkey-chips">` +
+      HOTKEY_PRESETS.map(p =>
+        `<button class="hotkey-chip" onclick="applyHotkeyPreset(${instId},'${p.key1}','${p.key2}','${p.key3}')">${p.name}</button>`
+      ).join('') +
+      `</div>`;
+  }
+
   // Config 2 for buttons
   if (inst.compId === 'button') {
     const has2 = inst.config.has_config2;
@@ -1527,9 +1538,9 @@ function renderField(instId, key, schema, value) {
     const instObj = state.placed.find(p => p.id === instId);
     const os = (instObj && instObj.config[osKey]) || 'windows';
     const APP_PRESETS = {
-      windows: ['notepad','calc','explorer','chrome','code','cmd','powershell','mspaint','winword','excel'],
-      mac:     ['TextEdit','Calculator','Finder','Google Chrome','Visual Studio Code','Terminal','Preview','Safari','Pages','Numbers'],
-      linux:   ['gedit','gnome-calculator','nautilus','chromium','code','bash','gimp','firefox','libreoffice --writer','libreoffice --calc'],
+      windows: ['notepad','calc','explorer','chrome','firefox','code','cmd','powershell','steam','spotify','vlc','obs64','discord','slack','mspaint','taskmgr','winword','excel','outlook'],
+      mac:     ['TextEdit','Calculator','Finder','Google Chrome','Firefox','Visual Studio Code','Terminal','Preview','Safari','Steam','Spotify','VLC','OBS','Discord','Slack','Activity Monitor','Pages','Numbers','Mail'],
+      linux:   ['gedit','gnome-calculator','nautilus','chromium','firefox','code','bash','steam','spotify','vlc','obs','discord','slack','gimp','libreoffice --writer','libreoffice --calc'],
     };
     const presets = APP_PRESETS[os] || APP_PRESETS.windows;
     const opts = ['', ...presets].map(p => `<option value="${p}" ${value===p?'selected':''}>${p||'-- select preset --'}</option>`).join('');
@@ -1642,6 +1653,109 @@ function closePinPopover() {
   if (pinPopover) { pinPopover.remove(); pinPopover = null; }
 }
 
+// -- Load preset build ----------------------------------------------
+function loadPreset(presetId) {
+  const preset = PRESET_CONFIGS[presetId];
+  if (!preset) return;
+  closePresetDropdown();
+  if (state.placed.length && !confirm(`Load "${preset.name}"?\n\nThis will replace your current design. Make sure you've downloaded config.json if you want to keep it.`)) return;
+
+  pushUndo();
+
+  // Clear canvas
+  state.placed.forEach(p => { const e = document.getElementById('comp-' + p.id); if (e) e.remove(); });
+  state.placed = [];
+  state.nextId = 1;
+  state.selectedId = null;
+  deselectAll();
+  closeCompConfig();
+
+  // Compute absolute positions relative to current chip placement
+  const cx = state.chipPos.x;
+  const cy = state.chipPos.y;
+  const chipW = (DEVICES[state.device] && DEVICES[state.device].chipWidth) || 220;
+
+  let colorIdx = 0;
+  preset.components.forEach((def) => {
+    const comp = COMPONENT_LIBRARY[def.compId];
+    if (!comp) return;
+
+    // Skip components unsupported by current device
+    const dev = DEVICES[state.device];
+    if (dev.unsupported && dev.unsupported.includes(def.compId)) return;
+
+    // Build default config then merge preset overrides
+    const config = {};
+    if (comp.configSchema) {
+      Object.entries(comp.configSchema).forEach(([key, schema]) => { config[key] = schema.default; });
+    }
+    Object.assign(config, def.config || {});
+
+    // Absolute canvas position
+    const px = cx + def.offX;
+    const py = cy + def.offY;
+
+    const baseColorIdx = colorIdx;
+    const inst = {
+      id: state.nextId++,
+      compId: def.compId,
+      x: px,
+      y: py,
+      pinAssign: Object.assign({}, def.pinAssign),
+      config,
+      label: def.label || (comp.shortName + ' ' + state.nextId),
+      wireColor: WIRE_SEQ[baseColorIdx % WIRE_SEQ.length],
+      baseColorIdx,
+      nodes: {},
+    };
+
+    // Initialize placeholder node positions (will be snapped in rAF below)
+    comp.pinGroups.forEach((pg, j) => {
+      inst.nodes[pg.id] = { x: px, y: py + j * 22, snapped: inst.pinAssign[pg.id] || null };
+    });
+
+    // Advance color index by number of signal pins this component has
+    colorIdx += comp.pinGroups.filter(pg => pg.wireClass !== 'wire-power' && pg.wireClass !== 'wire-gnd').length;
+
+    state.placed.push(inst);
+  });
+
+  // Render component DOM elements
+  state.placed.forEach(inst => renderComponent(inst));
+
+  // After DOM settles: snap wires to pins, refresh everything
+  requestAnimationFrame(() => {
+    state.placed.forEach(inst => syncNodesToPins(inst));
+    buildShelf();
+    updateWires();
+    updateStats();
+    updateNotes();
+    updateLibs();
+    if (state.placed.length) canvasHint.classList.add('hidden');
+    // Render any OLED displays
+    state.placed.forEach(inst => {
+      if (['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId)) {
+        renderOledCanvas(inst.id);
+      }
+    });
+  });
+}
+
+// -- Apply quick hotkey preset to a button config -------------------
+function applyHotkeyPreset(instId, key1, key2, key3) {
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  pushUndo();
+  inst.config.key1 = key1;
+  inst.config.key2 = key2;
+  inst.config.key3 = key3;
+  inst.config.action_type = 'hotkey';
+  renderPanel(instId);
+  renderComponent(inst);
+  updateNotes();
+  refreshCompConfig(instId);
+}
+
 // -- Remove component -----------------------------------------------
 function removeComponent(id) {
   pushUndo();
@@ -1673,6 +1787,235 @@ const WIRE_SEQ = [
   '#2980b9', // 7 steel blue
   '#8d5524', // 8 brown
 ];
+
+// -- Quick-pick hotkey presets (used in the config popover) ----------
+const HOTKEY_PRESETS = [
+  { name: 'Copy',        key1: 'ctrl',  key2: 'c',      key3: '' },
+  { name: 'Paste',       key1: 'ctrl',  key2: 'v',      key3: '' },
+  { name: 'Cut',         key1: 'ctrl',  key2: 'x',      key3: '' },
+  { name: 'Undo',        key1: 'ctrl',  key2: 'z',      key3: '' },
+  { name: 'Redo',        key1: 'ctrl',  key2: 'y',      key3: '' },
+  { name: 'Save',        key1: 'ctrl',  key2: 's',      key3: '' },
+  { name: 'Select All',  key1: 'ctrl',  key2: 'a',      key3: '' },
+  { name: 'Find',        key1: 'ctrl',  key2: 'f',      key3: '' },
+  { name: 'New Tab',     key1: 'ctrl',  key2: 't',      key3: '' },
+  { name: 'Close Tab',   key1: 'ctrl',  key2: 'w',      key3: '' },
+  { name: 'Bold',        key1: 'ctrl',  key2: 'b',      key3: '' },
+  { name: 'Print',       key1: 'ctrl',  key2: 'p',      key3: '' },
+  { name: 'Zoom In',     key1: 'ctrl',  key2: '=',      key3: '' },
+  { name: 'Zoom Out',    key1: 'ctrl',  key2: '-',      key3: '' },
+  { name: 'Full Screen', key1: 'f11',   key2: '',       key3: '' },
+  { name: 'Dev Tools',   key1: 'f12',   key2: '',       key3: '' },
+  { name: 'Task Mgr',    key1: 'ctrl',  key2: 'shift',  key3: 'esc' },
+  { name: 'Screenshot',  key1: 'win',   key2: 'shift',  key3: 's' },
+  { name: 'Lock Screen', key1: 'win',   key2: 'l',      key3: '' },
+  { name: 'New Window',  key1: 'ctrl',  key2: 'n',      key3: '' },
+  { name: 'Switch App',  key1: 'alt',   key2: 'tab',    key3: '' },
+  { name: 'Close Win',   key1: 'alt',   key2: 'f4',     key3: '' },
+];
+
+// -- Pre-built preset configurations ---------------------------------
+// offX/offY are pixel offsets from state.chipPos (chip top-left corner).
+// Negative offX = left of chip; offX > chipWidth = right of chip.
+const PRESET_CONFIGS = {
+  shortcuts: {
+    name: 'Keyboard Shortcuts',
+    icon: '⌨',
+    desc: '4 buttons: Copy, Cut, Paste, Undo. Auto-translates Ctrl↔Cmd when config 2 is active.',
+    components: [
+      { compId: 'button', label: 'Copy', offX: -250, offY: 10,
+        pinAssign: { sig: 'GPIO4', gnd: 'GND_L' },
+        config: { label: 'Copy', action_type: 'hotkey', key1: 'ctrl', key2: 'c', key3: '', auto_translate: true,
+                  has_config2: false } },
+      { compId: 'button', label: 'Cut', offX: -250, offY: 90,
+        pinAssign: { sig: 'GPIO5', gnd: 'GND_L' },
+        config: { label: 'Cut', action_type: 'hotkey', key1: 'ctrl', key2: 'x', key3: '', auto_translate: true,
+                  has_config2: false } },
+      { compId: 'button', label: 'Paste', offX: -250, offY: 170,
+        pinAssign: { sig: 'GPIO6', gnd: 'GND_L' },
+        config: { label: 'Paste', action_type: 'hotkey', key1: 'ctrl', key2: 'v', key3: '', auto_translate: true,
+                  has_config2: false } },
+      { compId: 'button', label: 'Undo', offX: -250, offY: 250,
+        pinAssign: { sig: 'GPIO7', gnd: 'GND_L' },
+        config: { label: 'Undo', action_type: 'hotkey', key1: 'ctrl', key2: 'z', key3: '', auto_translate: true,
+                  has_config2: false } },
+    ]
+  },
+
+  control_hub: {
+    name: 'Control Hub',
+    icon: '🚀',
+    desc: '5 app-launch buttons + volume encoder. Button 5 switches between Windows and Mac mode.',
+    components: [
+      { compId: 'button', label: 'Explorer', offX: -250, offY: 0,
+        pinAssign: { sig: 'GPIO4', gnd: 'GND_L' },
+        config: { label: 'Files', action_type: 'launch', launch_os: 'windows', program: 'explorer',
+                  has_config2: true, action_type2: 'launch', launch_os2: 'mac', program2: 'Finder' } },
+      { compId: 'button', label: 'Browser', offX: -250, offY: 80,
+        pinAssign: { sig: 'GPIO5', gnd: 'GND_L' },
+        config: { label: 'Browser', action_type: 'launch', launch_os: 'windows', program: 'chrome',
+                  has_config2: true, action_type2: 'launch', launch_os2: 'mac', program2: 'Google Chrome' } },
+      { compId: 'button', label: 'Calculator', offX: -250, offY: 160,
+        pinAssign: { sig: 'GPIO6', gnd: 'GND_L' },
+        config: { label: 'Calc', action_type: 'launch', launch_os: 'windows', program: 'calc',
+                  has_config2: true, action_type2: 'launch', launch_os2: 'mac', program2: 'Calculator' } },
+      { compId: 'button', label: 'Notes', offX: -250, offY: 240,
+        pinAssign: { sig: 'GPIO7', gnd: 'GND_L' },
+        config: { label: 'Notes', action_type: 'launch', launch_os: 'windows', program: 'notepad',
+                  has_config2: true, action_type2: 'launch', launch_os2: 'mac', program2: 'TextEdit' } },
+      { compId: 'button', label: 'Toggle OS', offX: -250, offY: 320,
+        pinAssign: { sig: 'GPIO10', gnd: 'GND_L' },
+        config: { label: 'Toggle OS', action_type: 'config_toggle', key1: '', key2: '', key3: '',
+                  has_config2: false } },
+      { compId: 'ky040', label: 'Volume', offX: 258, offY: 120,
+        pinAssign: { clk: 'GPIO40', dt: 'GPIO41', sw: 'GPIO42', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { mode_name: 'Volume', cw_type: 'consumer', cw_consumer: 'VOLUME_INCREMENT',
+                  ccw_type: 'consumer', ccw_consumer: 'VOLUME_DECREMENT',
+                  press_action: 'consumer', press_consumer: 'MUTE' } },
+    ]
+  },
+
+  command_center: {
+    name: 'Command Center',
+    icon: '🖥',
+    desc: '8 buttons, OLED display, volume encoder, and a volume slider. Full-featured macropad.',
+    components: [
+      { compId: 'ssd1306_i2c', label: 'Display', offX: 30, offY: -100,
+        pinAssign: { sda: 'GPIO8', scl: 'GPIO9', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { i2c_address: '0x3C', display_mode: 'macro_label', rotation: '0' } },
+      { compId: 'button', label: 'Copy', offX: -270, offY: 0,
+        pinAssign: { sig: 'GPIO5', gnd: 'GND_L' },
+        config: { label: 'Copy', action_type: 'hotkey', key1: 'ctrl', key2: 'c', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'button', label: 'Cut', offX: -270, offY: 80,
+        pinAssign: { sig: 'GPIO6', gnd: 'GND_L' },
+        config: { label: 'Cut', action_type: 'hotkey', key1: 'ctrl', key2: 'x', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'button', label: 'Paste', offX: -270, offY: 160,
+        pinAssign: { sig: 'GPIO7', gnd: 'GND_L' },
+        config: { label: 'Paste', action_type: 'hotkey', key1: 'ctrl', key2: 'v', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'button', label: 'Undo', offX: -270, offY: 240,
+        pinAssign: { sig: 'GPIO15', gnd: 'GND_L' },
+        config: { label: 'Undo', action_type: 'hotkey', key1: 'ctrl', key2: 'z', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'hw371', label: 'Volume Slider', offX: -270, offY: 340,
+        pinAssign: { out: 'GPIO4', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { label: 'Volume', function: 'volume', inverted: false } },
+      { compId: 'button', label: 'Files', offX: 258, offY: 0,
+        pinAssign: { sig: 'GPIO16', gnd: 'GND_L' },
+        config: { label: 'Files', action_type: 'launch', launch_os: 'windows', program: 'explorer', has_config2: false } },
+      { compId: 'button', label: 'Browser', offX: 258, offY: 80,
+        pinAssign: { sig: 'GPIO17', gnd: 'GND_L' },
+        config: { label: 'Browser', action_type: 'launch', launch_os: 'windows', program: 'chrome', has_config2: false } },
+      { compId: 'button', label: 'Calculator', offX: 258, offY: 160,
+        pinAssign: { sig: 'GPIO18', gnd: 'GND_L' },
+        config: { label: 'Calc', action_type: 'launch', launch_os: 'windows', program: 'calc', has_config2: false } },
+      { compId: 'button', label: 'Notes', offX: 258, offY: 240,
+        pinAssign: { sig: 'GPIO3', gnd: 'GND_L' },
+        config: { label: 'Notes', action_type: 'launch', launch_os: 'windows', program: 'notepad', has_config2: false } },
+      { compId: 'ky040', label: 'Navigation', offX: 258, offY: 340,
+        pinAssign: { clk: 'GPIO40', dt: 'GPIO41', sw: 'GPIO42', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { mode_name: 'Volume', cw_type: 'consumer', cw_consumer: 'VOLUME_INCREMENT',
+                  ccw_type: 'consumer', ccw_consumer: 'VOLUME_DECREMENT',
+                  press_action: 'consumer', press_consumer: 'MUTE' } },
+    ]
+  },
+
+  audio_mixer: {
+    name: 'Audio Mixer',
+    icon: '🎚',
+    desc: '2 faders, 2 dials, OLED with volume bar, and 5 media + shortcut buttons.',
+    components: [
+      { compId: 'ssd1306_i2c', label: 'Mixer Display', offX: 30, offY: -100,
+        pinAssign: { sda: 'GPIO8', scl: 'GPIO9', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { i2c_address: '0x3C', display_mode: 'volume_bar', rotation: '0' } },
+      { compId: 'hw371', label: 'Main Volume', offX: -290, offY: 50,
+        pinAssign: { out: 'GPIO4', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { label: 'Main Vol', function: 'volume', inverted: false } },
+      { compId: 'slide_pot_long', label: 'Track Fader', offX: -290, offY: 220,
+        pinAssign: { out: 'GPIO5', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { label: 'Fader', function: 'volume', inverted: false } },
+      { compId: 'button', label: 'Play/Pause', offX: -140, offY: 0,
+        pinAssign: { sig: 'GPIO6', gnd: 'GND_L' },
+        config: { label: 'Play', action_type: 'actions', consumer_action: 'PLAY_PAUSE', has_config2: false } },
+      { compId: 'button', label: 'Skip Back', offX: -140, offY: 80,
+        pinAssign: { sig: 'GPIO7', gnd: 'GND_L' },
+        config: { label: '|◂◂', action_type: 'actions', consumer_action: 'SCAN_PREVIOUS_TRACK', has_config2: false } },
+      { compId: 'button', label: 'Skip Fwd', offX: -140, offY: 160,
+        pinAssign: { sig: 'GPIO15', gnd: 'GND_L' },
+        config: { label: '▸▸|', action_type: 'actions', consumer_action: 'SCAN_NEXT_TRACK', has_config2: false } },
+      { compId: 'button', label: 'Copy', offX: -140, offY: 240,
+        pinAssign: { sig: 'GPIO16', gnd: 'GND_L' },
+        config: { label: 'Copy', action_type: 'hotkey', key1: 'ctrl', key2: 'c', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'button', label: 'Paste', offX: -140, offY: 320,
+        pinAssign: { sig: 'GPIO17', gnd: 'GND_L' },
+        config: { label: 'Paste', action_type: 'hotkey', key1: 'ctrl', key2: 'v', key3: '', auto_translate: true, has_config2: false } },
+      { compId: 'ky040', label: 'Pan', offX: 258, offY: 50,
+        pinAssign: { clk: 'GPIO40', dt: 'GPIO41', sw: 'GPIO42', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { mode_name: 'Pan', cw_type: 'hotkey', cw_keys: 'ctrl,shift,right',
+                  ccw_type: 'hotkey', ccw_keys: 'ctrl,shift,left',
+                  press_action: 'none' } },
+      { compId: 'ky040', label: 'EQ / Zoom', offX: 258, offY: 250,
+        pinAssign: { clk: 'GPIO38', dt: 'GPIO39', sw: 'GPIO1', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { mode_name: 'Zoom', cw_type: 'hotkey', cw_keys: 'ctrl,=',
+                  ccw_type: 'hotkey', ccw_keys: 'ctrl,-',
+                  press_action: 'hotkey', press_keys: 'ctrl,0' } },
+    ]
+  },
+
+  gamepad: {
+    name: 'Gamepad',
+    icon: '🎮',
+    desc: '2 analog joysticks and 14 buttons — D-pad, ABXY, triggers, bumpers, and menu buttons.',
+    components: [
+      { compId: 'ps2_joystick', label: 'Left Stick', offX: -290, offY: 160,
+        pinAssign: { vrx: 'GPIO4', vry: 'GPIO5', sw: 'GPIO6', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { label: 'L-Stick', mode: 'mouse', deadzone: 3000, sensitivity: 5, invert_x: false, invert_y: false, sw_action: 'mouse_click' } },
+      { compId: 'ps2_joystick', label: 'Right Stick', offX: 270, offY: 160,
+        pinAssign: { vrx: 'GPIO7', vry: 'GPIO15', sw: 'GPIO16', vcc: '3V3_A', gnd: 'GND_L' },
+        config: { label: 'R-Stick', mode: 'mouse', deadzone: 3000, sensitivity: 5, invert_x: false, invert_y: false, sw_action: 'mouse_click' } },
+      { compId: 'button', label: 'LT', offX: -290, offY: 0,
+        pinAssign: { sig: 'GPIO35', gnd: 'GND_L' },
+        config: { label: 'LT', action_type: 'hotkey', key1: 'shift', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'RT', offX: 270, offY: 0,
+        pinAssign: { sig: 'GPIO45', gnd: 'GND_L' },
+        config: { label: 'RT', action_type: 'hotkey', key1: 'ctrl', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'LB', offX: -290, offY: 80,
+        pinAssign: { sig: 'GPIO37', gnd: 'GND_L' },
+        config: { label: 'LB', action_type: 'hotkey', key1: 'q', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'RB', offX: 270, offY: 80,
+        pinAssign: { sig: 'GPIO36', gnd: 'GND_L' },
+        config: { label: 'RB', action_type: 'hotkey', key1: 'e', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'D-Up', offX: -155, offY: 210,
+        pinAssign: { sig: 'GPIO17', gnd: 'GND_L' },
+        config: { label: '▲', action_type: 'hotkey', key1: 'up', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'D-Left', offX: -210, offY: 280,
+        pinAssign: { sig: 'GPIO3', gnd: 'GND_L' },
+        config: { label: '◀', action_type: 'hotkey', key1: 'left', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'D-Right', offX: -100, offY: 280,
+        pinAssign: { sig: 'GPIO1', gnd: 'GND_L' },
+        config: { label: '▶', action_type: 'hotkey', key1: 'right', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'D-Down', offX: -155, offY: 350,
+        pinAssign: { sig: 'GPIO18', gnd: 'GND_L' },
+        config: { label: '▼', action_type: 'hotkey', key1: 'down', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'Y', offX: 135, offY: 210,
+        pinAssign: { sig: 'GPIO38', gnd: 'GND_L' },
+        config: { label: 'Y', action_type: 'hotkey', key1: 'shift', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'X', offX: 80, offY: 280,
+        pinAssign: { sig: 'GPIO39', gnd: 'GND_L' },
+        config: { label: 'X', action_type: 'hotkey', key1: 'space', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'B', offX: 190, offY: 280,
+        pinAssign: { sig: 'GPIO40', gnd: 'GND_L' },
+        config: { label: 'B', action_type: 'hotkey', key1: 'esc', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'A', offX: 135, offY: 350,
+        pinAssign: { sig: 'GPIO2', gnd: 'GND_L' },
+        config: { label: 'A', action_type: 'hotkey', key1: 'enter', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'Select', offX: -60, offY: 370,
+        pinAssign: { sig: 'GPIO48', gnd: 'GND_L' },
+        config: { label: 'Select', action_type: 'hotkey', key1: 'tab', key2: '', key3: '', has_config2: false } },
+      { compId: 'button', label: 'Start', offX: 50, offY: 370,
+        pinAssign: { sig: 'GPIO47', gnd: 'GND_L' },
+        config: { label: 'Start', action_type: 'hotkey', key1: 'esc', key2: '', key3: '', has_config2: false } },
+    ]
+  },
+};
 
 // -- Node (wire-end circle) system ----------------------------------
 // Each pin group has a draggable circle node. When near a chip pin it snaps.
@@ -2420,6 +2763,40 @@ function bindPanelTabs() {
 
 // -- Header ---------------------------------------------------------
 function bindHeader() { /* download and clear bound directly above */ }
+
+// -- Preset dropdown ------------------------------------------------
+function openPresetDropdown() {
+  const dd = document.getElementById('preset-dropdown');
+  if (!dd) return;
+  dd.classList.toggle('open');
+}
+function closePresetDropdown() {
+  const dd = document.getElementById('preset-dropdown');
+  if (dd) dd.classList.remove('open');
+}
+
+// Build the preset dropdown content and bind the button
+function buildPresetUI() {
+  const btn = document.getElementById('btn-preset');
+  if (!btn) return;
+
+  const dd = document.getElementById('preset-dropdown');
+  if (!dd) return;
+
+  // Populate dropdown items
+  dd.innerHTML = `<div class="preset-dropdown-header">LOAD A SAMPLE BUILD</div>` +
+    Object.entries(PRESET_CONFIGS).map(([id, p]) =>
+      `<div class="preset-item" onclick="loadPreset('${id}')">
+        <div class="preset-item-name">${p.icon} ${p.name}</div>
+        <div class="preset-item-desc">${p.desc}</div>
+      </div>`
+    ).join('');
+
+  btn.addEventListener('click', e => { e.stopPropagation(); openPresetDropdown(); });
+  document.addEventListener('click', e => {
+    if (!btn.closest('.preset-dropdown-wrap').contains(e.target)) closePresetDropdown();
+  });
+}
 
 // -- Instructions modal --------------------------------------------
 function bindModal() {
