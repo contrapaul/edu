@@ -197,34 +197,60 @@ current_mode_index = 0
 displays = []
 
 for oled_cfg in CONFIG.get('oleds', []):
-    driver  = oled_cfg.get('driver', 'ssd1306_i2c')
-    sda_pin = get_pin(oled_cfg.get('gpio_sda'))
-    scl_pin = get_pin(oled_cfg.get('gpio_scl'))
-    if sda_pin is None or scl_pin is None:
-        print('OLED skipped: missing SDA/SCL pins')
-        continue
+    driver = oled_cfg.get('driver', 'ssd1306_i2c')
     try:
-        i2c      = busio.I2C(scl_pin, sda_pin)
-        addr_str = oled_cfg.get('i2c_address', '0x3C')
-        addr     = int(addr_str, 16)
-        if driver in ('ssd1306_i2c', 'ssd1309'):
+        display = None
+
+        if driver == 'ssd1306_spi':
             import adafruit_ssd1306
-            height  = 64 if driver == 'ssd1309' else 32
-            display = adafruit_ssd1306.SSD1306_I2C(128, height, i2c, addr=addr)
-        elif driver == 'sh1106':
-            import adafruit_displayio_sh1107, displayio
-            displayio.release_displays()
-            bus     = displayio.I2CDisplay(i2c, device_address=addr)
-            display = adafruit_displayio_sh1107.SH1107(
-                bus, width=128, height=64, display_offset=96)
+            mosi_pin = get_pin(oled_cfg.get('gpio_mosi'))
+            sck_pin  = get_pin(oled_cfg.get('gpio_sck'))
+            cs_pin   = get_pin(oled_cfg.get('gpio_cs'))
+            dc_pin   = get_pin(oled_cfg.get('gpio_dc'))
+            rst_pin  = get_pin(oled_cfg.get('gpio_rst'))
+            if None in (mosi_pin, sck_pin, cs_pin, dc_pin, rst_pin):
+                print('SPI OLED skipped: missing one or more pins')
+                continue
+            spi    = busio.SPI(sck_pin, MOSI=mosi_pin)
+            cs_io  = digitalio.DigitalInOut(cs_pin)
+            dc_io  = digitalio.DigitalInOut(dc_pin)
+            rst_io = digitalio.DigitalInOut(rst_pin)
+            display = adafruit_ssd1306.SSD1306_SPI(128, 64, spi, dc_io, rst_io, cs_io)
+            dbg('OLED ready: ssd1306_spi (SPI)')
         else:
-            print('Unknown OLED driver: ' + driver)
-            continue
+            sda_pin = get_pin(oled_cfg.get('gpio_sda'))
+            scl_pin = get_pin(oled_cfg.get('gpio_scl'))
+            if sda_pin is None or scl_pin is None:
+                print('OLED skipped: missing SDA/SCL pins')
+                continue
+            i2c      = busio.I2C(scl_pin, sda_pin)
+            addr_str = oled_cfg.get('i2c_address', '0x3C')
+            addr     = int(addr_str, 16)
+            if driver in ('ssd1306_i2c', 'ssd1309'):
+                import adafruit_ssd1306
+                display = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=addr)
+            elif driver == 'sh1106':
+                import adafruit_displayio_sh1107, displayio
+                displayio.release_displays()
+                bus     = displayio.I2CDisplay(i2c, device_address=addr)
+                display = adafruit_displayio_sh1107.SH1107(
+                    bus, width=128, height=64, display_offset=96)
+            else:
+                print('Unknown OLED driver: ' + driver)
+                continue
+            dbg('OLED ready: ' + driver + ' @ ' + addr_str)
+
+        rot = oled_cfg.get('rotation', 0)
+        if rot and hasattr(display, 'rotation'):
+            try:
+                display.rotation = rot
+            except Exception:
+                pass
+
         displays.append({
             'display': display,
             'mode':    oled_cfg.get('display_mode', 'idle_status'),
         })
-        dbg('OLED ready: ' + driver + ' @ ' + addr_str)
     except Exception as e:
         print('OLED init failed: ' + str(e))
 
@@ -327,6 +353,8 @@ def execute_action(cfg):
 # Buttons
 # ---------------------------------------------------------------------------
 
+DEBOUNCE_TIME = 0.020  # 20 ms — filters mechanical contact bounce
+
 class Button:
     def __init__(self, cfg, cfg2, pin_obj):
         self.cfg      = cfg
@@ -334,15 +362,19 @@ class Button:
         self.pin      = digitalio.DigitalInOut(pin_obj)
         self.pin.direction = digitalio.Direction.INPUT
         self.pin.pull      = digitalio.Pull.UP
-        self._pressed = False
+        self._pressed     = False
+        self._last_change = 0.0
 
     def update(self):
         pressed = not self.pin.value  # active low with pull-up
-        if pressed and not self._pressed:
-            active = self.cfg2 if (config_slot == 1 and self.cfg2) else self.cfg
-            execute_action(active)
-            update_displays(active.get('label', ''))
-        self._pressed = pressed
+        now = time.monotonic()
+        if pressed != self._pressed and (now - self._last_change) >= DEBOUNCE_TIME:
+            self._last_change = now
+            self._pressed = pressed
+            if pressed:
+                active = self.cfg2 if (config_slot == 1 and self.cfg2) else self.cfg
+                execute_action(active)
+                update_displays(active.get('label', ''))
 
 
 buttons = []
@@ -396,7 +428,8 @@ class Encoder:
             self.sw = digitalio.DigitalInOut(sw_obj)
             self.sw.direction = digitalio.Direction.INPUT
             self.sw.pull      = digitalio.Pull.UP
-            self._sw_pressed  = False
+            self._sw_pressed     = False
+            self._sw_last_change = 0.0
         else:
             self.sw = None
 
@@ -410,9 +443,12 @@ class Encoder:
             execute_action(self.mode_cfg.get('ccw', {}))
         if self.sw:
             pressed = not self.sw.value
-            if pressed and not self._sw_pressed:
-                execute_action(self.mode_cfg.get('press'))
-            self._sw_pressed = pressed
+            now = time.monotonic()
+            if pressed != self._sw_pressed and (now - self._sw_last_change) >= DEBOUNCE_TIME:
+                self._sw_last_change = now
+                self._sw_pressed = pressed
+                if pressed:
+                    execute_action(self.mode_cfg.get('press'))
 
 
 encoders = []
@@ -437,9 +473,11 @@ class Slider:
     def __init__(self, cfg, adc_obj):
         self.cfg      = cfg
         self.adc      = analogio.AnalogIn(adc_obj)
-        self._buf     = [self.adc.value] * self.SMOOTHING
-        self._idx     = 0
-        self._last    = self._read()
+        # Take SMOOTHING distinct reads so the buffer isn't seeded with a
+        # single repeated value, which biases the first averaged output.
+        self._buf  = [self.adc.value for _ in range(self.SMOOTHING)]
+        self._idx  = 0
+        self._last = sum(self._buf) // self.SMOOTHING
         self.inverted = cfg.get('inverted', False)
         self.function = cfg.get('function', 'volume')
 
@@ -484,13 +522,104 @@ for sl_cfg in CONFIG.get('sliders', []):
     dbg('Slider ready: ' + sl_cfg.get('label', '?'))
 
 # ---------------------------------------------------------------------------
+# Joysticks
+# ---------------------------------------------------------------------------
+
+class Joystick:
+    SMOOTHING = 4
+
+    def __init__(self, cfg, vrx_obj, vry_obj, sw_obj):
+        self.cfg         = cfg
+        self.vrx_adc     = analogio.AnalogIn(vrx_obj)
+        self.vry_adc     = analogio.AnalogIn(vry_obj)
+        self.mode        = cfg.get('mode', 'mouse')
+        self.deadzone    = cfg.get('deadzone', 3000)
+        self.sensitivity = cfg.get('sensitivity', 5)
+        self.invert_x    = cfg.get('invert_x', False)
+        self.invert_y    = cfg.get('invert_y', False)
+        self.sw_cfg      = cfg.get('sw_action', {})
+
+        self._xbuf = [self.vrx_adc.value for _ in range(self.SMOOTHING)]
+        self._ybuf = [self.vry_adc.value for _ in range(self.SMOOTHING)]
+        self._xi   = 0
+        self._yi   = 0
+
+        if sw_obj:
+            self.sw = digitalio.DigitalInOut(sw_obj)
+            self.sw.direction = digitalio.Direction.INPUT
+            self.sw.pull      = digitalio.Pull.UP
+            self._sw_pressed     = False
+            self._sw_last_change = 0.0
+        else:
+            self.sw = None
+
+    def _smooth(self, adc, buf, idx):
+        buf[idx] = adc.value
+        return sum(buf) // len(buf)
+
+    def _scale(self, raw):
+        center = raw - 32767
+        if abs(center) < self.deadzone:
+            return 0
+        sign = 1 if center > 0 else -1
+        return sign * max(1, int(abs(center) * self.sensitivity // 32767))
+
+    def update(self):
+        raw_x = self._smooth(self.vrx_adc, self._xbuf, self._xi)
+        raw_y = self._smooth(self.vry_adc, self._ybuf, self._yi)
+        self._xi = (self._xi + 1) % self.SMOOTHING
+        self._yi = (self._yi + 1) % self.SMOOTHING
+
+        dx = self._scale(raw_x) * (-1 if self.invert_x else 1)
+        dy = self._scale(raw_y) * (-1 if self.invert_y else 1)
+
+        if self.mode == 'mouse' and (dx != 0 or dy != 0):
+            mouse.move(x=max(-127, min(127, dx)),
+                       y=max(-127, min(127, dy)))
+        elif self.mode == 'scroll' and dy != 0:
+            # Negative Y (stick up) → scroll up
+            mouse.move(wheel=1 if dy < 0 else -1)
+
+        if self.sw:
+            pressed = not self.sw.value
+            now = time.monotonic()
+            if pressed != self._sw_pressed and (now - self._sw_last_change) >= DEBOUNCE_TIME:
+                self._sw_last_change = now
+                self._sw_pressed = pressed
+                if pressed:
+                    sw_type = self.sw_cfg.get('type', 'none')
+                    if sw_type == 'mouse_click':
+                        mouse.click(adafruit_hid.mouse.Mouse.LEFT_BUTTON)
+                    elif sw_type == 'hotkey':
+                        codes = [keycode_for(k) for k in self.sw_cfg.get('keys', []) if k]
+                        codes = [c for c in codes if c]
+                        if codes:
+                            keyboard.send(*codes)
+                    elif sw_type == 'consumer':
+                        cc = consumer_code_for(self.sw_cfg.get('action', ''))
+                        if cc:
+                            consumer.send(cc)
+
+
+joysticks = []
+for joy_cfg in CONFIG.get('joysticks', []):
+    vrx = get_pin(joy_cfg.get('gpio_vrx'))
+    vry = get_pin(joy_cfg.get('gpio_vry'))
+    sw  = get_pin(joy_cfg.get('gpio_sw'))
+    if vrx is None or vry is None:
+        print('Joystick skipped: missing VRX or VRY pin')
+        continue
+    joysticks.append(Joystick(joy_cfg, vrx, vry, sw))
+    dbg('Joystick ready: ' + joy_cfg.get('label', '?'))
+
+# ---------------------------------------------------------------------------
 # Main loop
 # ---------------------------------------------------------------------------
 
 print('MacroPad running.')
 print('Device: ' + DEVICE)
 print('Buttons: ' + str(len(buttons)) + '  Encoders: ' + str(len(encoders))
-      + '  Sliders: ' + str(len(sliders)))
+      + '  Sliders: ' + str(len(sliders)) + '  Joysticks: ' + str(len(joysticks)))
 
 while True:
     for btn in buttons:
@@ -499,4 +628,6 @@ while True:
         enc.update()
     for sl in sliders:
         sl.update()
+    for joy in joysticks:
+        joy.update()
     time.sleep(0.008)

@@ -535,20 +535,11 @@ header {
 }
 
 /* ── Wires ────────────────────────────────────────────────────── */
-.wire {
-  fill: none;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-/* Outline underlay */
-.wire-outline {
+/* All drawing paths are pointer-events:none; the hit path overrides inline */
+.wire-shadow, .wire-body, .wire-highlight {
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 4;
-  pointer-events: none;
 }
 /* Draggable wire-end node circles */
 .wire-node {
@@ -836,14 +827,7 @@ header {
 }
 .placed-component { animation: drop-in 0.18s ease; }
 
-@keyframes wire-draw {
-  from { stroke-dashoffset: 1000; }
-  to   { stroke-dashoffset: 0; }
-}
-.wire-new {
-  stroke-dasharray: 1000;
-  animation: wire-draw 0.35s ease forwards;
-}
+/* wire-draw animation removed — it clipped wires longer than 1000px */
 
 /* -- OS toggle buttons -------------------------------------------- */
 .os-btn-group { display: flex; gap: 4px; }
@@ -1171,21 +1155,3 @@ header {
   margin: 0 auto 4px;
 }
 
-/* -- Bottom pins (XIAO VIN/GND) ----------------------------------- */
-.chip-bottom-pins {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 4px 0 2px;
-}
-.pin-item-bottom {
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-}
-.pin-stub-bottom {
-  width: 3px;
-  height: 10px;
-  background: var(--copper);
-  flex-shrink: 0;
-}
