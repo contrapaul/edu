@@ -24,6 +24,10 @@ const libList     = document.getElementById('lib-list');
 const statComponents = document.getElementById('stat-components');
 const statPins       = document.getElementById('stat-pins');
 const statLibs       = document.getElementById('stat-libs');
+const simFeedback    = document.getElementById('sim-feedback');
+const simFeedbackCanvas = document.getElementById('sim-feedback-canvas');
+const simFeedbackText   = document.getElementById('sim-feedback-text');
+const simFeedbackSub    = document.getElementById('sim-feedback-sub');
 
 let ctxTargetId = null;
 let chipEl = null;
@@ -35,6 +39,45 @@ const simState = {
   sliders:  {},   // instId → value 0–100
   joysticks:{},   // instId → { x: 0, y: 0 }  (-1..1 normalized)
 };
+
+// Shared sim display — updated by any interaction, read by all OLED renderers
+// and the virtual sim-feedback widget.
+const simDisplay = {
+  mode:      'idle',   // 'idle' | 'button' | 'encoder' | 'slider' | 'joystick' | 'mode_toggle'
+  label:     '',       // short component label
+  text:      '',       // main display line
+  value:     0,        // numeric (0–100 for slider, deg for encoder, -1..1 for joy axes)
+  value2:    0,        // secondary numeric (y-axis for joystick)
+  timestamp: 0,        // Date.now() when last updated
+};
+let simDisplayTimer = null;
+
+function triggerDisplay(mode, label, text, value, value2 = 0) {
+  simDisplay.mode      = mode;
+  simDisplay.label     = label;
+  simDisplay.text      = text;
+  simDisplay.value     = value;
+  simDisplay.value2    = value2;
+  simDisplay.timestamp = Date.now();
+  renderAllDisplays();
+  // Auto-reset to idle after 2.5 s of inactivity
+  if (simDisplayTimer) clearTimeout(simDisplayTimer);
+  simDisplayTimer = setTimeout(() => {
+    simDisplay.mode = 'idle';
+    renderAllDisplays();
+  }, 2500);
+}
+
+function renderAllDisplays() {
+  // Re-render every OLED on canvas
+  state.placed.forEach(inst => {
+    if (['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId)) {
+      renderOledCanvas(inst.id);
+    }
+  });
+  // Always update the virtual feedback widget
+  renderSimFeedback();
+}
 
 // -- Init -----------------------------------------------------------
 function init() {
@@ -374,13 +417,22 @@ function getPinPos(pinId) {
 }
 
 // -- Utility helpers ------------------------------------------------
-function getNextColorIdx() {
+// Count all non-power/non-gnd pin groups across all placed components.
+// Used to assign each new component's baseColorIdx so every signal wire
+// gets a unique sequential palette slot (red=power, black=GND are reserved).
+function countSignalPins() {
   let count = 0;
   state.placed.forEach(inst => {
     const comp = COMPONENT_LIBRARY[inst.compId];
-    count += comp.pinGroups.filter(pg => pg.wireClass === 'wire-data').length;
+    count += comp.pinGroups.filter(pg =>
+      pg.wireClass !== 'wire-power' && pg.wireClass !== 'wire-gnd'
+    ).length;
   });
-  return count % WIRE_SEQ.length;
+  return count;
+}
+
+function isSignalPin(pg) {
+  return pg.wireClass !== 'wire-power' && pg.wireClass !== 'wire-gnd';
 }
 
 function htmlEscape(s) {
@@ -411,6 +463,20 @@ function restoreSnapshot(snap) {
   state.placed.forEach(p => { const e = document.getElementById('comp-' + p.id); if (e) e.remove(); });
   state.placed  = s.placed;
   state.nextId  = s.nextId;
+  // Backfill baseColorIdx for instances saved before this field was added
+  let runningIdx = 0;
+  state.placed.forEach(inst => {
+    if (inst.baseColorIdx === undefined) {
+      inst.baseColorIdx = runningIdx;
+      inst.wireColor = WIRE_SEQ[runningIdx % WIRE_SEQ.length];
+    }
+    const comp = COMPONENT_LIBRARY[inst.compId];
+    if (comp) {
+      runningIdx += comp.pinGroups.filter(pg =>
+        pg.wireClass !== 'wire-power' && pg.wireClass !== 'wire-gnd'
+      ).length;
+    }
+  });
   state.selectedId = null;
   closeCompConfig();
   state.placed.forEach(inst => renderComponent(inst));
@@ -505,10 +571,10 @@ function addComponent(compId, x, y) {
     });
   }
 
-  // Count data pins consumed by every already-placed component so that
-  // multi-pin components (e.g. joystick: VRX+VRY+SW = 3 data wires) each
-  // claim consecutive palette slots and the next component starts after them.
-  const globalIdx = getNextColorIdx();
+  // Count signal pins across all already-placed components so each new component
+  // starts at the next palette slot. baseColorIdx is stored on the instance so
+  // getWireColor() can compute per-pin colors without re-counting the world each time.
+  const baseColorIdx = countSignalPins();
 
   const instance = {
     id: state.nextId++,
@@ -518,7 +584,8 @@ function addComponent(compId, x, y) {
     pinAssign,
     config,
     label: comp.shortName + ' ' + (count + 1),
-    wireColor: WIRE_SEQ[globalIdx],
+    wireColor: WIRE_SEQ[baseColorIdx % WIRE_SEQ.length],
+    baseColorIdx,
     // nodes: per-pg canvas positions for the wire-end circles
     // Initialized below after instance is created
     nodes: {},
@@ -668,22 +735,25 @@ function buildCompBody(inst, comp) {
 }
 
 // -- OLED canvas rendering ------------------------------------------
-function renderOledCanvas(instId) {
-  const inst = state.placed.find(p => p.id === instId);
-  if (!inst) return;
-  const cv = document.getElementById('oled-' + instId);
-  if (!cv) return;
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
 
+// Draw interaction feedback (sim state) or a configured idle screen onto ctx.
+// W/H are the canvas dimensions. inst is optional — if null, draws generic idle.
+function drawDisplayContent(ctx, W, H, inst) {
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, W, H);
 
-  const mode = inst.config.display_mode || 'idle_status';
+  // If there's active sim feedback, override the configured mode
+  if (simDisplay.mode !== 'idle') {
+    drawSimFeedbackOnCanvas(ctx, W, H);
+    return;
+  }
+
+  // --- Idle / configured display mode ---
+  const mode = inst ? (inst.config.display_mode || 'idle_status') : 'idle_status';
   ctx.fillStyle = '#ddeeff';
 
   if (mode === 'custom_text') {
-    const text = inst.config.custom_text || 'MacroPad';
+    const text = (inst && inst.config.custom_text) || 'MacroPad';
     const fs = Math.min(14, Math.floor(W / (text.length * 0.65 + 1)));
     ctx.font = `bold ${fs}px monospace`;
     ctx.textAlign = 'center';
@@ -696,6 +766,7 @@ function renderOledCanvas(instId) {
     ctx.font = '8px monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#ddeeff';
     ctx.fillText('VOLUME', W / 2, barY - 5);
     ctx.strokeStyle = '#aaccee';
     ctx.lineWidth = 1;
@@ -710,6 +781,7 @@ function renderOledCanvas(instId) {
     ctx.font = `${fs}px monospace`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ddeeff';
     ctx.fillText(label, W / 2, H / 2);
 
   } else {
@@ -728,10 +800,146 @@ function renderOledCanvas(instId) {
   }
 }
 
+// Draw simDisplay feedback onto a canvas 2d context (shared by OLED and virtual widget)
+function drawSimFeedbackOnCanvas(ctx, W, H) {
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+
+  const m = simDisplay.mode;
+
+  if (m === 'button') {
+    // Large label + PRESSED indicator
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 9px monospace';
+    ctx.fillText(simDisplay.label.toUpperCase(), W / 2, Math.round(H * 0.32));
+    ctx.fillStyle = '#3eed8a';
+    ctx.font = 'bold 11px monospace';
+    ctx.fillText('PRESSED', W / 2, Math.round(H * 0.58));
+    ctx.fillStyle = '#224422';
+    ctx.beginPath();
+    ctx.arc(W / 2, Math.round(H * 0.82), 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#3eed8a';
+    ctx.beginPath();
+    ctx.arc(W / 2, Math.round(H * 0.82), 3, 0, Math.PI * 2);
+    ctx.fill();
+
+  } else if (m === 'encoder') {
+    const deg = Math.round(simDisplay.value);
+    const dir = simDisplay.value2 > 0 ? '▶ CW' : '◀ CCW';
+    ctx.fillStyle = '#ddeeff';
+    ctx.font = 'bold 9px monospace';
+    ctx.fillText(simDisplay.label.toUpperCase(), W / 2, Math.round(H * 0.28));
+    ctx.fillStyle = '#ffcc44';
+    ctx.font = 'bold 14px monospace';
+    ctx.fillText(dir, W / 2, Math.round(H * 0.56));
+    ctx.fillStyle = '#8899aa';
+    ctx.font = '8px monospace';
+    ctx.fillText(deg + '°', W / 2, Math.round(H * 0.8));
+
+  } else if (m === 'slider') {
+    const pct = Math.round(simDisplay.value);
+    const barW = Math.round(W * 0.80), barH = 9;
+    const barX = Math.round((W - barW) / 2);
+    const barY = Math.round(H * 0.48);
+    ctx.fillStyle = '#ddeeff';
+    ctx.font = 'bold 9px monospace';
+    ctx.fillText(simDisplay.label.toUpperCase(), W / 2, Math.round(H * 0.3));
+    ctx.strokeStyle = '#4488aa';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barY, barW, barH);
+    ctx.fillStyle = '#22aaee';
+    ctx.fillRect(barX + 1, barY + 1, Math.round(barW * pct / 100), barH - 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '9px monospace';
+    ctx.fillText(pct + '%', W / 2, Math.round(H * 0.82));
+
+  } else if (m === 'joystick') {
+    const jx = simDisplay.value;
+    const jy = simDisplay.value2;
+    const cx2 = W / 2, cy2 = H / 2 + 4;
+    const r = Math.round(Math.min(W, H) * 0.28);
+    ctx.fillStyle = '#ddeeff';
+    ctx.font = 'bold 8px monospace';
+    ctx.fillText(simDisplay.label.toUpperCase(), W / 2, Math.round(H * 0.16));
+    // Crosshair circle
+    ctx.strokeStyle = '#334455';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx2, cy2, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.strokeStyle = '#223344';
+    ctx.beginPath();
+    ctx.moveTo(cx2 - r, cy2); ctx.lineTo(cx2 + r, cy2);
+    ctx.moveTo(cx2, cy2 - r); ctx.lineTo(cx2, cy2 + r);
+    ctx.stroke();
+    // Position dot
+    const dotX = cx2 + Math.round(jx * r);
+    const dotY = cy2 + Math.round(jy * r);
+    ctx.fillStyle = '#33ccff';
+    ctx.beginPath();
+    ctx.arc(dotX, dotY, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+  } else if (m === 'mode_toggle') {
+    ctx.fillStyle = '#ffcc44';
+    ctx.font = 'bold 9px monospace';
+    ctx.fillText('MODE SWITCH', W / 2, Math.round(H * 0.38));
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 14px monospace';
+    ctx.fillText(simDisplay.text, W / 2, Math.round(H * 0.65));
+
+  } else {
+    // generic
+    ctx.fillStyle = '#ddeeff';
+    ctx.font = '9px monospace';
+    ctx.fillText(simDisplay.text || simDisplay.label, W / 2, H / 2);
+  }
+}
+
+function renderOledCanvas(instId) {
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  const cv = document.getElementById('oled-' + instId);
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  drawDisplayContent(ctx, cv.width, cv.height, inst);
+}
+
+// Virtual sim-feedback widget — shown when no OLED is on canvas,
+// or always shown briefly when an interaction fires.
+function renderSimFeedback() {
+  if (!simFeedback || !simFeedbackCanvas) return;
+  const hasOled = state.placed.some(inst =>
+    ['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId));
+
+  if (simDisplay.mode === 'idle' && hasOled) {
+    simFeedback.classList.add('hidden');
+    return;
+  }
+  simFeedback.classList.remove('hidden');
+
+  // Draw on virtual canvas
+  const ctx = simFeedbackCanvas.getContext('2d');
+  drawDisplayContent(ctx, simFeedbackCanvas.width, simFeedbackCanvas.height, null);
+
+  // Update text labels
+  if (simDisplay.mode === 'idle') {
+    simFeedbackText.textContent = 'Interact with a component…';
+    simFeedbackSub.textContent  = '';
+  } else {
+    simFeedbackText.textContent = simDisplay.text  || simDisplay.label;
+    simFeedbackSub.textContent  = simDisplay.label || '';
+  }
+}
+
 // -- Interactive component simulation -------------------------------
 function bindCompInteractions(el, inst) {
+  const compLabel = inst.label || inst.compId;
 
-  // Button — click to press
+  // Button — click to press; shows action on display
   if (inst.compId === 'button') {
     const face = el.querySelector('.btn-keycap');
     if (!face) return;
@@ -740,6 +948,14 @@ function bindCompInteractions(el, inst) {
       e.stopPropagation();
       face.classList.add('pressed');
       simState.buttons[inst.id] = { pressed: true };
+      const action = inst.config.action || 'key';
+      const lbl    = inst.config.label  || inst.config.key || inst.config.macro || 'button';
+      // Detect config toggle
+      if (action === 'config_toggle') {
+        triggerDisplay('mode_toggle', compLabel, 'CONFIG 2', 0);
+      } else {
+        triggerDisplay('button', compLabel, lbl.toUpperCase(), 1);
+      }
     });
     const release = () => {
       face.classList.remove('pressed');
@@ -749,19 +965,23 @@ function bindCompInteractions(el, inst) {
     face.addEventListener('mouseleave', release);
   }
 
-  // Encoder — scroll wheel or drag to rotate
+  // Encoder — scroll wheel or drag to rotate; shows direction + volume bar
   if (inst.compId === 'ky040' || inst.compId === 'hw040') {
     const knob = el.querySelector('.enc-knob');
     if (!knob) return;
+    const doEncTrigger = (delta) => {
+      const angle = ((simState.encoders[inst.id] || 0) + delta + 3600) % 360;
+      simState.encoders[inst.id] = angle;
+      knob.style.transform = `rotate(${angle}deg)`;
+      triggerDisplay('encoder', compLabel,
+        delta > 0 ? '▶ CW' : '◀ CCW', angle, delta);
+    };
     knob.addEventListener('wheel', e => {
       e.preventDefault();
       e.stopPropagation();
-      const delta = e.deltaY > 0 ? 20 : -20;
-      simState.encoders[inst.id] = ((simState.encoders[inst.id] || 0) + delta + 3600) % 360;
-      knob.style.transform = `rotate(${simState.encoders[inst.id]}deg)`;
+      doEncTrigger(e.deltaY > 0 ? 20 : -20);
     }, { passive: false });
-    // Drag to rotate
-    let encDrag = false, encStartY = 0, encStartAngle = 0;
+    let encDrag = false, encStartY = 0, encStartAngle = 0, encLastDelta = 0;
     knob.addEventListener('mousedown', e => {
       if (e.button !== 0) return;
       e.stopPropagation();
@@ -771,56 +991,58 @@ function bindCompInteractions(el, inst) {
     });
     document.addEventListener('mousemove', e => {
       if (!encDrag) return;
-      const a = (encStartAngle + (e.clientY - encStartY) * 2 + 3600) % 360;
+      const rawDelta = (e.clientY - encStartY) * 2;
+      const a = (encStartAngle + rawDelta + 3600) % 360;
       simState.encoders[inst.id] = a;
       knob.style.transform = `rotate(${a}deg)`;
+      encLastDelta = rawDelta;
+      triggerDisplay('encoder', compLabel, rawDelta > 0 ? '▶ CW' : '◀ CCW', a, rawDelta);
     });
     document.addEventListener('mouseup', () => {
       if (encDrag) { encDrag = false; document.body.style.cursor = ''; }
     });
   }
 
-  // Slider — drag thumb
+  // Slider — drag thumb; shows fill bar + percentage
   if (inst.compId === 'hw371' || inst.compId === 'slide_pot_long') {
     const track = el.querySelector('.slider-track');
     const thumb = el.querySelector('.slider-thumb');
     const fill  = el.querySelector('.slider-fill');
     if (!track || !thumb) return;
     let slDrag = false;
+
+    const doSlide = (clientX) => {
+      const rect = track.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, (clientX - rect.left) / rect.width * 100));
+      simState.sliders[inst.id] = pct;
+      const dp = inst.config.inverted ? (100 - pct) : pct;
+      thumb.style.left = dp + '%';
+      if (fill) fill.style.width = dp + '%';
+      triggerDisplay('slider', compLabel, Math.round(pct) + '%', pct);
+    };
+
     thumb.addEventListener('mousedown', e => {
       if (e.button !== 0) return;
       e.stopPropagation();
       slDrag = true;
       document.body.style.cursor = 'ew-resize';
     });
-    // Click anywhere on track
     track.addEventListener('mousedown', e => {
       if (e.button !== 0) return;
       e.stopPropagation();
       slDrag = true;
       document.body.style.cursor = 'ew-resize';
-      const rect = track.getBoundingClientRect();
-      let pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
-      simState.sliders[inst.id] = pct;
-      const dp = inst.config.inverted ? (100 - pct) : pct;
-      thumb.style.left = dp + '%';
-      if (fill) fill.style.width = dp + '%';
+      doSlide(e.clientX);
     });
     document.addEventListener('mousemove', e => {
-      if (!slDrag) return;
-      const rect = track.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
-      simState.sliders[inst.id] = pct;
-      const dp = inst.config.inverted ? (100 - pct) : pct;
-      thumb.style.left = dp + '%';
-      if (fill) fill.style.width = dp + '%';
+      if (slDrag) doSlide(e.clientX);
     });
     document.addEventListener('mouseup', () => {
       if (slDrag) { slDrag = false; document.body.style.cursor = ''; }
     });
   }
 
-  // Joystick — drag stick, spring back on release
+  // Joystick — drag stick, spring back on release; shows crosshair position
   if (inst.compId === 'ps2_joystick') {
     const stick = el.querySelector('.joy-stick');
     const base  = el.querySelector('.joy-base');
@@ -842,8 +1064,12 @@ function bindCompInteractions(el, inst) {
       let dx = e.clientX - cx, dy = e.clientY - cy;
       const dist = Math.hypot(dx, dy);
       if (dist > maxR) { dx = dx / dist * maxR; dy = dy / dist * maxR; }
-      simState.joysticks[inst.id] = { x: dx / maxR, y: dy / maxR };
+      const nx = dx / maxR, ny = dy / maxR;
+      simState.joysticks[inst.id] = { x: nx, y: ny };
       stick.style.transform = `translate(${dx}px,${dy}px)`;
+      triggerDisplay('joystick', compLabel,
+        `X:${nx >= 0 ? '+' : ''}${nx.toFixed(2)}  Y:${ny >= 0 ? '+' : ''}${ny.toFixed(2)}`,
+        nx, ny);
     });
     document.addEventListener('mouseup', () => {
       if (!jsDrag) return;
@@ -852,6 +1078,7 @@ function bindCompInteractions(el, inst) {
       simState.joysticks[inst.id] = { x: 0, y: 0 };
       stick.style.transition = 'transform 0.18s cubic-bezier(.18,.89,.32,1.28)';
       stick.style.transform = 'translate(0,0)';
+      triggerDisplay('joystick', compLabel, 'X:+0.00  Y:+0.00', 0, 0);
       setTimeout(() => { if (stick) stick.style.transition = ''; }, 200);
     });
   }
@@ -869,9 +1096,9 @@ function renderComponent(inst) {
   el.style.left = inst.x + 'px';
   el.style.top  = inst.y + 'px';
 
-  const firstDataPg = comp.pinGroups.find(pg => pg.wireClass === 'wire-data');
-  const accentColor = firstDataPg
-    ? getWireColor(firstDataPg, inst, 0)
+  const firstSigPg = comp.pinGroups.find(pg => isSignalPin(pg));
+  const accentColor = firstSigPg
+    ? getWireColor(firstSigPg, inst, 0)
     : (inst.wireColor || comp.color || '#c87941');
   el.style.borderColor = accentColor;
   el.style.setProperty('--comp-accent', accentColor);
@@ -880,16 +1107,16 @@ function renderComponent(inst) {
   const unconfigured = isUnconfigured(inst);
   if (unconfigured) el.classList.add('unconfigured');
 
-  // Pin rows
-  let dataPinIdx = 0;
+  // Pin rows — show wire color on connected pins, subdued on unconnected
+  let sigIdx = 0;
   const pinRowsHTML = comp.pinGroups.map((pg) => {
     if (pg.conditional && !inst.config[pg.conditional]) return '';
-    const assigned = inst.pinAssign[pg.id];
-    const isData   = pg.wireClass === 'wire-data';
-    const wireCol  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
-    if (isData) dataPinIdx++;
-    const connected = assigned && inst.nodes && inst.nodes[pg.id] && inst.nodes[pg.id].snapped;
-    const labelColor = connected ? wireCol : 'var(--text3)';
+    const assigned  = inst.pinAssign[pg.id];
+    const isSig     = isSignalPin(pg);
+    const wireCol   = getWireColor(pg, inst, sigIdx);
+    if (isSig) sigIdx++;
+    const connected  = assigned && inst.nodes && inst.nodes[pg.id] && inst.nodes[pg.id].snapped;
+    const labelColor = connected ? wireCol : 'var(--text2)';
     return `<div class="comp-pin-row">
       <span class="comp-pin-label" style="color:${labelColor}">${pg.label}</span>
       <span class="comp-pin-assigned ${assigned ? 'ok' : 'miss'}" data-pg="${pg.id}">${assigned || '—'}</span>
@@ -1452,7 +1679,6 @@ const WIRE_SEQ = [
 // The wire is always drawn from component center → node position.
 
 const NODE_RADIUS  = 8;   // px, rendered size
-const SNAP_DIST    = 24;  // px, snap threshold
 
 // Sync node positions to their currently-assigned chip pins
 function syncNodesToPins(inst) {
@@ -1473,128 +1699,26 @@ function syncNodesToPins(inst) {
   });
 }
 
-// Find the nearest unoccupied chip pin within SNAP_DIST of (nx, ny)
-// compatible with the given pgType. Returns pinId or null.
-function findSnapPin(nx, ny, pgType, excludeInstId, excludePgId) {
-  const pins = getCurrentPins();
-  const usedPins = new Set();
-  state.placed.forEach(inst => {
-    Object.entries(inst.pinAssign).forEach(([pgId, pid]) => {
-      if (pid && !(inst.id === excludeInstId && pgId === excludePgId)) usedPins.add(pid);
-    });
-  });
+// (Node drag removed — pin reassignment is done via the ⚙ cog menu)
 
-  let best = null, bestDist = SNAP_DIST;
-  pins.forEach(pin => {
-    if (pin.types.includes('power') || pin.types.includes('gnd')) return;
-    if (pgType !== 'gpio' && !pin.types.includes(pgType)) return;
-    if (usedPins.has(pin.id)) return;
-    const pos = getPinPos(pin.id);
-    if (!pos) return;
-    const d = Math.hypot(pos.x - nx, pos.y - ny);
-    if (d < bestDist) { bestDist = d; best = pin.id; }
-  });
-  return best;
-}
-
-// Node drag state
-const nodeDrag = {
-  active: false,
-  instId: null,
-  pgId:   null,
-  offX:   0,
-  offY:   0,
-};
-
-function startNodeDrag(instId, pgId, mouseX, mouseY, nodeX, nodeY) {
-  const inst = state.placed.find(p => p.id === instId);
-  if (!inst) return;
-  // Unsnap from current pin
-  inst.pinAssign[pgId] = '';
-  if (inst.nodes[pgId]) inst.nodes[pgId].snapped = null;
-
-  nodeDrag.active = true;
-  nodeDrag.instId = instId;
-  nodeDrag.pgId   = pgId;
-  const cRect = canvasWrap.getBoundingClientRect();
-  nodeDrag.offX = mouseX - cRect.left + canvasWrap.scrollLeft - nodeX;
-  nodeDrag.offY = mouseY - cRect.top  + canvasWrap.scrollTop  - nodeY;
-
-  document.body.style.cursor = 'crosshair';
-  renderComponent(inst);
-  updateWires();
-}
-
-function moveNodeDrag(mouseX, mouseY) {
-  if (!nodeDrag.active) return;
-  const inst = state.placed.find(p => p.id === nodeDrag.instId);
-  if (!inst || !inst.nodes[nodeDrag.pgId]) return;
-  const cRect = canvasWrap.getBoundingClientRect();
-  const nx = mouseX - cRect.left + canvasWrap.scrollLeft - nodeDrag.offX;
-  const ny = mouseY - cRect.top  + canvasWrap.scrollTop  - nodeDrag.offY;
-  inst.nodes[nodeDrag.pgId].x = nx;
-  inst.nodes[nodeDrag.pgId].y = ny;
-  inst.nodes[nodeDrag.pgId].snapped = null;
-
-  // Preview snap highlight
-  const comp = COMPONENT_LIBRARY[inst.compId];
-  const pg   = comp.pinGroups.find(p => p.id === nodeDrag.pgId);
-  const snap = findSnapPin(nx, ny, pg.type, inst.id, nodeDrag.pgId);
-  chipEl.querySelectorAll('.pin-item').forEach(el =>
-    el.classList.toggle('wire-drag-target', el.dataset.pin === snap));
-
-  updateWires();
-}
-
-function endNodeDrag(mouseX, mouseY) {
-  if (!nodeDrag.active) return;
-  const inst = state.placed.find(p => p.id === nodeDrag.instId);
-  nodeDrag.active = false;
-  document.body.style.cursor = '';
-  chipEl.querySelectorAll('.pin-item').forEach(el =>
-    el.classList.remove('wire-drag-target', 'wire-drag-hover'));
-  if (!inst) return;
-
-  const node = inst.nodes[nodeDrag.pgId];
-  if (!node) { updateWires(); return; }
-
-  const comp = COMPONENT_LIBRARY[inst.compId];
-  const pg   = comp.pinGroups.find(p => p.id === nodeDrag.pgId);
-  const snap = findSnapPin(node.x, node.y, pg.type, inst.id, nodeDrag.pgId);
-
-  if (snap) {
-    inst.pinAssign[nodeDrag.pgId] = snap;
-    node.snapped = snap;
-    const pos = getPinPos(snap);
-    if (pos) { node.x = pos.x; node.y = pos.y; }
-  } else {
-    inst.pinAssign[nodeDrag.pgId] = '';
-    node.snapped = null;
-  }
-
-  renderComponent(inst);
-  updateWires();
-  updateStats();
-  updateNotes();
-}
-
-// Draw all node circles onto the SVG wire layer
+// Draw all node circles onto the node layer (display-only; pin assignment via cog menu)
 function drawNodes() {
   state.placed.forEach(inst => {
     const comp = COMPONENT_LIBRARY[inst.compId];
-    let dataPinIdx = 0;
+    let sigIdx = 0;
 
     comp.pinGroups.forEach((pg) => {
       if (pg.conditional && !inst.config[pg.conditional]) return;
+
+      const isSig = isSignalPin(pg);
+      const color  = getWireColor(pg, inst, sigIdx);
+      if (isSig) sigIdx++;
+
       const node = inst.nodes[pg.id];
       if (!node) return;
 
-      const isData = pg.wireClass === 'wire-data';
-      const color  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
-      if (isData) dataPinIdx++;
-
-      const snapped   = !!node.snapped;
-      const glowColor = snapped ? color : '#444444';
+      const snapped     = !!node.snapped;
+      const glowColor   = snapped ? color : '#444444';
       const glowOpacity = snapped ? '0.6' : '0.3';
 
       // Outer glow
@@ -1607,7 +1731,7 @@ function drawNodes() {
       glow.setAttribute('pointer-events', 'none');
       nodeLayer.appendChild(glow);
 
-      // Main circle
+      // Main circle — display-only, tooltip on hover
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       circle.setAttribute('cx', node.x);
       circle.setAttribute('cy', node.y);
@@ -1618,19 +1742,12 @@ function drawNodes() {
       circle.setAttribute('class', 'wire-node');
       circle.setAttribute('data-inst', inst.id);
       circle.setAttribute('data-pg', pg.id);
-      circle.style.cursor = 'grab';
-
-      // Node drag — inline style.pointerEvents overrides inherited CSS on node-layer
+      circle.style.cursor = 'default';
       circle.style.pointerEvents = 'all';
-      circle.addEventListener('mousedown', e => {
-        if (e.button !== 0) return;
-        e.stopPropagation();
-        e.preventDefault();
-        startNodeDrag(inst.id, pg.id, e.clientX, e.clientY, node.x, node.y);
-      });
-      circle.addEventListener('mouseenter', () => {
-        showTooltip(0, 0, `${comp.shortName} ${pg.label}`,
-          node.snapped ? `Connected → ${node.snapped}` : 'Unconnected — drag to a pin');
+
+      circle.addEventListener('mouseenter', e => {
+        showTooltip(e.clientX, e.clientY, `${comp.shortName} ${pg.label}`,
+          node.snapped ? `Connected → ${node.snapped}` : 'Unconnected — use ⚙ to assign a pin');
       });
       circle.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
       circle.addEventListener('mouseleave', hideTooltip);
@@ -1640,27 +1757,19 @@ function drawNodes() {
   });
 }
 
-function getWireColor(pg, inst, dataPinIdx) {
-  switch (pg.wireClass) {
-    case 'wire-power':   return '#cc1111';
-    case 'wire-gnd':     return '#000000';
-    case 'wire-i2c-sda': return '#2980e8';
-    case 'wire-i2c-scl': return '#9b59b6';
-    case 'wire-analog':  return '#c89020';
-    case 'wire-spi':     return '#27ae60';
-    case 'wire-led':     return '#e91e8c';
-    case 'wire-data': {
-      const base = inst.wireColor || WIRE_SEQ[0];
-      const baseIdx = WIRE_SEQ.indexOf(base);
-      if (baseIdx >= 0) return WIRE_SEQ[(baseIdx + dataPinIdx) % WIRE_SEQ.length];
-      return dataPinIdx === 0 ? base : WIRE_SEQ[dataPinIdx % WIRE_SEQ.length];
-    }
-    default: return inst.wireColor || '#c87941';
-  }
+// sigIdx = index of this pin among all signal pins for this component (0-based)
+// Power and GND pins always use fixed colors; every other wire type uses the
+// sequential palette so each pin on every component gets a unique color.
+function getWireColor(pg, inst, sigIdx) {
+  if (pg.wireClass === 'wire-power') return '#cc1111';
+  if (pg.wireClass === 'wire-gnd')   return '#000000';
+  const base = (inst.baseColorIdx !== undefined) ? inst.baseColorIdx : 0;
+  return WIRE_SEQ[(base + sigIdx) % WIRE_SEQ.length];
 }
 
 function needsWhiteOutline(color) {
-  const dark = ['#000000','#888888','#9b59b6','#8d5524','#2980b9'];
+  // Colors that need a white outline for legibility on dark backgrounds
+  const dark = ['#000000','#888888','#8d5524'];
   return dark.includes(color.toLowerCase());
 }
 
@@ -1678,13 +1787,19 @@ function updateWires() {
     const compCy = inst.y + compEl.offsetHeight / 2;
     const chipCx = state.chipPos.x + chipEl.offsetWidth / 2;
 
-    // Count data pins seen so far for this instance (for sequential color cycling)
-    let dataPinIdx = 0;
+    // Track signal pins seen so far for sequential color assignment
+    let sigIdx = 0;
 
     comp.pinGroups.forEach((pg, idx) => {
-      const pinId = inst.pinAssign[pg.id];
-      if (!pinId) return;
+      // Always compute color index consistently with renderComponent (count all active signal pins)
       if (pg.conditional && !inst.config[pg.conditional]) return;
+
+      const isSig = isSignalPin(pg);
+      const strokeColor = getWireColor(pg, inst, sigIdx);
+      if (isSig) sigIdx++;
+
+      const pinId = inst.pinAssign[pg.id];
+      if (!pinId) return;  // no wire to draw, but sigIdx was already advanced above
 
       const pinPos = getPinPos(pinId);
       if (!pinPos) return;
@@ -1702,10 +1817,6 @@ function updateWires() {
       const stagger = (idx - (comp.pinGroups.length - 1) / 2) * 12;
       const startY  = compCy + spread;
       const d = routeWire(anchorX, startY, pinPos.x, pinPos.y, stagger);
-
-      const isData = pg.wireClass === 'wire-data';
-      const strokeColor = getWireColor(pg, inst, dataPinIdx);
-      if (isData) dataPinIdx++;
 
       // Three-layer wire: shadow → body → highlight
       // All drawing paths: pointer-events none so they don't consume canvas clicks.
@@ -1725,8 +1836,7 @@ function updateWires() {
       wireLayer.appendChild(mkWirePath(strokeColor, 3.5, 1));              // body
       wireLayer.appendChild(mkWirePath('rgba(255,255,255,0.20)', 1.5, 1)); // highlight
 
-      // Invisible hit zone: wide transparent stroke for drag / tooltip events.
-      // Inline style.pointerEvents overrides the parent SVG's CSS pointer-events:none.
+      // Invisible hit zone: wide transparent stroke for tooltip hover only.
       const hit = mkWirePath('transparent', 14, 1);
       hit.style.pointerEvents = 'stroke';
       hit.setAttribute('data-inst', inst.id);
@@ -1736,21 +1846,6 @@ function updateWires() {
       });
       hit.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
       hit.addEventListener('mouseleave', hideTooltip);
-      hit.addEventListener('mousedown', e => {
-        if (e.button !== 0) return;
-        e.stopPropagation();
-        e.preventDefault();
-        hideTooltip();
-        const cRect = canvasWrap.getBoundingClientRect();
-        const sx = e.clientX - cRect.left + canvasWrap.scrollLeft;
-        const sy = e.clientY - cRect.top  + canvasWrap.scrollTop;
-        startWireDrag(inst.id, pg.id, sx, sy);
-        chipEl.querySelectorAll('.pin-item.wire-drag-target').forEach(pinEl => {
-          pinEl.addEventListener('mouseenter', onDragPinEnter);
-          pinEl.addEventListener('mouseleave', onDragPinLeave);
-          pinEl.addEventListener('mouseup',    onDragPinDrop);
-        });
-      }, { passive: false });
       wireLayer.appendChild(hit);
 
       const passive = comp.passives.find(p => p.on.includes(pg.id) &&
@@ -1853,95 +1948,7 @@ function updateChipPinHighlights() {
 }
 
 // -- Wire drag-and-drop -----------------------------------------
-const wireDrag = {
-  active: false, instId: null, pgId: null,
-  startX: 0, startY: 0, preview: null,
-};
-
-function startWireDrag(instId, pgId, startX, startY) {
-  wireDrag.active = true;
-  wireDrag.instId = instId;
-  wireDrag.pgId   = pgId;
-  wireDrag.startX = startX;
-  wireDrag.startY = startY;
-
-  const preview = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  preview.setAttribute('class', 'wire-drag-preview');
-  preview.setAttribute('d', `M ${startX} ${startY} L ${startX} ${startY}`);
-  wireLayer.appendChild(preview);
-  wireDrag.preview = preview;
-
-  const inst = state.placed.find(p => p.id === instId);
-  const comp = COMPONENT_LIBRARY[inst.compId];
-  const pg   = comp.pinGroups.find(p => p.id === pgId);
-
-  chipEl.querySelectorAll('.pin-item').forEach(el => {
-    const pinDef = getCurrentPins().find(p => p.id === el.dataset.pin);
-    if (!pinDef) return;
-    const isCompat = pinDef.types.some(t =>
-      t === pg.type || (pg.type === 'gpio' && t === 'gpio') ||
-      (pg.type === 'analog' && t === 'analog') ||
-      (pg.type === 'i2c_sda' && t === 'i2c_sda') ||
-      (pg.type === 'i2c_scl' && t === 'i2c_scl')
-    );
-    if (isCompat && !pinDef.types.includes('power') && !pinDef.types.includes('gnd')) {
-      el.classList.add('wire-drag-target');
-    }
-  });
-
-  wireLayer.style.pointerEvents = 'none';
-  document.body.style.cursor = 'crosshair';
-}
-
-function updateWireDragPreview(mouseX, mouseY) {
-  if (!wireDrag.active || !wireDrag.preview) return;
-  const cRect = canvasWrap.getBoundingClientRect();
-  const cx = mouseX - cRect.left + canvasWrap.scrollLeft;
-  const cy = mouseY - cRect.top  + canvasWrap.scrollTop;
-  wireDrag.preview.setAttribute('d',
-    routeWire(wireDrag.startX, wireDrag.startY, cx, cy, 0));
-}
-
-function finishWireDrag(targetPinId) {
-  if (!wireDrag.active) return;
-  wireDrag.active = false;
-  if (wireDrag.preview) { wireDrag.preview.remove(); wireDrag.preview = null; }
-  chipEl.querySelectorAll('.wire-drag-target').forEach(el =>
-    el.classList.remove('wire-drag-target', 'wire-drag-hover'));
-  wireLayer.style.pointerEvents = 'none';
-  document.body.style.cursor = '';
-  if (!targetPinId) return;
-  onPinChange(wireDrag.instId, wireDrag.pgId, targetPinId);
-  hideTooltip();
-}
-
-function cancelWireDrag() {
-  wireDrag.active = false;
-  if (wireDrag.preview) { wireDrag.preview.remove(); wireDrag.preview = null; }
-  chipEl.querySelectorAll('.pin-item').forEach(el => {
-    el.classList.remove('wire-drag-target', 'wire-drag-hover');
-    el.removeEventListener('mouseenter', onDragPinEnter);
-    el.removeEventListener('mouseleave', onDragPinLeave);
-    el.removeEventListener('mouseup',    onDragPinDrop);
-  });
-  wireLayer.style.pointerEvents = 'none';
-  document.body.style.cursor = '';
-}
-
-function onDragPinEnter(e) { if (wireDrag.active) e.currentTarget.classList.add('wire-drag-hover'); }
-function onDragPinLeave(e) { e.currentTarget.classList.remove('wire-drag-hover'); }
-function onDragPinDrop(e) {
-  if (!wireDrag.active) return;
-  const pinId = e.currentTarget.dataset.pin;
-  chipEl.querySelectorAll('.pin-item').forEach(el => {
-    el.classList.remove('wire-drag-target', 'wire-drag-hover');
-    el.removeEventListener('mouseenter', onDragPinEnter);
-    el.removeEventListener('mouseleave', onDragPinLeave);
-    el.removeEventListener('mouseup',    onDragPinDrop);
-  });
-  finishWireDrag(pinId);
-  e.stopPropagation();
-}
+// (Wire drag removed — pin reassignment is done via the ⚙ cog menu)
 
 // -- Stats ----------------------------------------------------------
 function updateStats() {
@@ -1973,6 +1980,9 @@ function updateStats() {
     ? libs.join('&#10;')
     : 'No libraries required yet';
   document.getElementById('stat-libs').closest('.stat-chip').title = libTip;
+
+  // Refresh virtual display visibility (show when no OLED is placed)
+  renderSimFeedback();
 }
 
 function getRequiredLibs() {
@@ -2288,14 +2298,6 @@ function onShelfMouseDown(e) {
 
 // -- Global mouse events --------------------------------------------
 document.addEventListener('mousemove', e => {
-  if (nodeDrag.active) {
-    moveNodeDrag(e.clientX, e.clientY);
-    return;
-  }
-  if (wireDrag.active) {
-    updateWireDragPreview(e.clientX, e.clientY);
-    return;
-  }
   if (shelfDrag) {
     dragGhost.style.left = (e.clientX - 40) + 'px';
     dragGhost.style.top  = (e.clientY - 20) + 'px';
@@ -2324,14 +2326,6 @@ document.addEventListener('mousemove', e => {
 });
 
 document.addEventListener('mouseup', e => {
-  if (nodeDrag.active) {
-    endNodeDrag(e.clientX, e.clientY);
-    return;
-  }
-  if (wireDrag.active) {
-    cancelWireDrag();
-    return;
-  }
   if (shelfDrag) {
     const cRect = canvasWrap.getBoundingClientRect();
     if (e.clientX >= cRect.left && e.clientX <= cRect.right &&
@@ -2358,7 +2352,7 @@ function bindCanvas() {
     const onBody = document.activeElement === document.body ||
                    document.activeElement === document.documentElement;
 
-    if (e.key === 'Escape') { cancelWireDrag(); deselectAll(); hideCtxMenu(); closeCompConfig(); }
+    if (e.key === 'Escape') { deselectAll(); hideCtxMenu(); closeCompConfig(); }
 
     if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && onBody) {
       e.preventDefault();

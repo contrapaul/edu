@@ -223,17 +223,17 @@ header {
   min-width: 3200px;
   min-height: 2400px;
   pointer-events: none;
-  z-index: 12;   /* BELOW chip (20) and components (30) — wires never overlap hardware */
+  z-index: 5;    /* canvas-grid is z-10 and creates a stacking context; wires at z-5 render beneath it */
   overflow: visible;
 }
-/* Separate layer for draggable node circles — must be above everything */
+/* Node circles sit just below the chip/components but above wires */
 .node-layer {
   position: absolute;
   top: 0; left: 0;
   min-width: 3200px;
   min-height: 2400px;
   pointer-events: none;
-  z-index: 45;
+  z-index: 8;
   overflow: visible;
 }
 
@@ -419,12 +419,12 @@ header {
 .comp-icon  { font-size: 0.8rem; }
 .comp-title {
   font-family: var(--font-head);
-  font-size: 0.52rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
   color: var(--text);
   flex: 1;
 }
-.comp-id { font-size: 0.5rem; color: var(--text3); font-family: var(--font-mono); }
+.comp-id { font-size: 0.62rem; color: var(--text2); font-family: var(--font-mono); }
 .comp-color-swatch {
   width: 10px; height: 10px;
   border-radius: 50%;
@@ -446,14 +446,14 @@ header {
 }
 .comp-pin-label {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   transition: color 0.2s;
   white-space: nowrap;
 }
 .comp-pin-assigned {
   font-family: var(--font-mono);
-  font-size: 0.52rem;
-  padding: 1px 4px;
+  font-size: 0.66rem;
+  padding: 1px 5px;
   border-radius: 3px;
   cursor: pointer;
   white-space: nowrap;
@@ -468,7 +468,7 @@ header {
   background: var(--red-dim);
 }
 .comp-status {
-  font-size: 0.55rem;
+  font-size: 0.68rem;
   margin-top: 3px;
   font-family: var(--font-mono);
   border-top: 1px solid var(--border);
@@ -553,19 +553,10 @@ header {
 }
 /* Draggable wire-end node circles */
 .wire-node {
-  cursor: grab;
+  cursor: default;
   transition: r 0.1s;
 }
 .wire-node:hover { r: 11; }
-/* Wire drag preview */
-.wire-drag-preview {
-  fill: none;
-  stroke: rgba(255,255,255,0.85);
-  stroke-width: 2;
-  stroke-dasharray: 8 5;
-  stroke-linecap: round;
-  pointer-events: none;
-}
 
 /* ── Right panel ──────────────────────────────────────────────── */
 .panel {
@@ -1191,8 +1182,8 @@ header {
 }
 .comp-action-label {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
-  color: var(--text3);
+  font-size: 0.68rem;
+  color: var(--text2);
   text-align: center;
   max-width: 140px;
   overflow: hidden;
@@ -1244,8 +1235,8 @@ header {
 }
 .btn-keycap-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: #e0e0f0;
+  font-size: 0.78rem;
+  color: #e8e8f8;
   text-align: center;
   word-break: break-word;
   max-width: 46px;
@@ -1480,3 +1471,57 @@ header {
   border-bottom: 1px solid var(--border);
 }
 .ccp-section-title:first-child { margin-top: 0; }
+
+/* ── Sim feedback display ─────────────────────────────────────── */
+.sim-feedback {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 17, 23, 0.92);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 8px 14px 10px;
+  min-width: 200px;
+  max-width: 320px;
+  z-index: 60;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  transition: opacity 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+}
+.sim-feedback.hidden { opacity: 0; }
+.sim-feedback-header {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.sim-feedback-canvas {
+  display: block;
+  image-rendering: pixelated;
+  width: 128px;
+  height: 64px;
+  border: 1px solid #223;
+  border-radius: 3px;
+  margin: 0 auto 6px;
+  background: #000;
+}
+.sim-feedback-text {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sim-feedback-sub {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text2);
+  text-align: center;
+  margin-top: 2px;
+}
