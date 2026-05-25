@@ -11,6 +11,7 @@ const state = {
 // -- DOM refs -------------------------------------------------------
 const canvas      = document.getElementById('canvas');
 const wireLayer   = document.getElementById('wire-layer');
+const nodeLayer   = document.getElementById('node-layer');
 const canvasWrap  = document.getElementById('canvas-wrap');
 const canvasHint  = document.getElementById('canvas-hint');
 const shelfItems  = document.getElementById('shelf-items');
@@ -26,6 +27,14 @@ const statLibs       = document.getElementById('stat-libs');
 
 let ctxTargetId = null;
 let chipEl = null;
+
+// -- Simulation state (interactive component previews) ---------------
+const simState = {
+  buttons:  {},   // instId → { pressed: false }
+  encoders: {},   // instId → rotation angle in degrees
+  sliders:  {},   // instId → value 0–100
+  joysticks:{},   // instId → { x: 0, y: 0 }  (-1..1 normalized)
+};
 
 // -- Init -----------------------------------------------------------
 function init() {
@@ -403,6 +412,7 @@ function restoreSnapshot(snap) {
   state.placed  = s.placed;
   state.nextId  = s.nextId;
   state.selectedId = null;
+  closeCompConfig();
   state.placed.forEach(inst => renderComponent(inst));
   buildShelf();
   updateWires();
@@ -410,6 +420,14 @@ function restoreSnapshot(snap) {
   updateNotes();
   updateLibs();
   deselectAll();
+  // Re-render OLED canvases after DOM settles
+  requestAnimationFrame(() => {
+    state.placed.forEach(inst => {
+      if (['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId)) {
+        renderOledCanvas(inst.id);
+      }
+    });
+  });
   if (state.placed.length === 0) canvasHint.classList.remove('hidden');
   else canvasHint.classList.add('hidden');
 }
@@ -532,6 +550,313 @@ function addComponent(compId, x, y) {
   canvasHint.classList.add('hidden');
 }
 
+// -- Component body helpers -----------------------------------------
+function getButtonActionLabel(inst) {
+  const c = inst.config;
+  const type = c.action_type;
+  if (type === 'hotkey') {
+    const keys = [c.key1, c.key2, c.key3].filter(Boolean);
+    return keys.length ? keys.join('+') : '(no keys)';
+  }
+  if (type === 'actions') return c.consumer_action || 'Media Key';
+  if (type === 'launch')  return 'Launch: ' + (c.program || '?');
+  if (type === 'type')    return '"' + (c.type_text || '…') + '"';
+  if (type === 'mode_toggle')   return 'Mode Toggle';
+  if (type === 'config_toggle') return 'Config Toggle';
+  return '';
+}
+
+function buildButtonBody(inst) {
+  const label = inst.config.label || 'Button';
+  const action = getButtonActionLabel(inst);
+  return `<div class="comp-body comp-body-button">
+    <div class="btn-visual">
+      <div class="btn-keycap" id="btnface-${inst.id}">
+        <div class="btn-keycap-top">
+          <div class="btn-keycap-label">${htmlEscape(label)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-action-label">${htmlEscape(action)}</div>
+  </div>`;
+}
+
+function buildEncoderBody(inst) {
+  const modeName = inst.config.mode_name || 'Encoder';
+  const angle = simState.encoders[inst.id] || 0;
+  return `<div class="comp-body comp-body-encoder">
+    <div class="enc-visual">
+      <div class="enc-shaft-ring">
+        <div class="enc-knob" id="encknob-${inst.id}" style="transform:rotate(${angle}deg)">
+          <div class="enc-indicator"></div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-action-label">${htmlEscape(modeName)}</div>
+  </div>`;
+}
+
+function buildOledBody(inst) {
+  const rot = parseInt(inst.config.rotation || '0', 10);
+  const isPortrait = (rot === 90 || rot === 270);
+  const cw = isPortrait ? 64 : 128;
+  const ch = isPortrait ? 128 : 64;
+  const scale = isPortrait ? 0.7 : 0.62;
+  const dw = Math.round(cw * scale);
+  const dh = Math.round(ch * scale);
+  return `<div class="comp-body comp-body-oled">
+    <div class="oled-bezel" style="width:${dw + 14}px;height:${dh + 14}px">
+      <canvas class="oled-canvas" id="oled-${inst.id}"
+        width="${cw}" height="${ch}"
+        style="width:${dw}px;height:${dh}px"></canvas>
+    </div>
+  </div>`;
+}
+
+function buildSliderBody(inst) {
+  const label = inst.config.label || 'Slider';
+  const func  = inst.config.function || 'volume';
+  const raw = simState.sliders[inst.id] !== undefined ? simState.sliders[inst.id] : 50;
+  const pct = inst.config.inverted ? (100 - raw) : raw;
+  return `<div class="comp-body comp-body-slider">
+    <div class="slider-visual">
+      <div class="slider-track-wrap">
+        <div class="slider-track" id="slidertrack-${inst.id}">
+          <div class="slider-fill" style="width:${pct}%"></div>
+          <div class="slider-thumb" id="sliderthumb-${inst.id}" style="left:${pct}%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-action-label">${htmlEscape(label)} · ${htmlEscape(func)}</div>
+  </div>`;
+}
+
+function buildJoystickBody(inst) {
+  const label = inst.config.label || 'Joystick';
+  const mode  = inst.config.mode  || 'mouse';
+  const js    = simState.joysticks[inst.id] || { x: 0, y: 0 };
+  const maxOff = 14;
+  const dx = js.x * maxOff;
+  const dy = js.y * maxOff;
+  return `<div class="comp-body comp-body-joystick">
+    <div class="joy-visual">
+      <div class="joy-gate"></div>
+      <div class="joy-base">
+        <div class="joy-stick" id="joystick-${inst.id}" style="transform:translate(${dx}px,${dy}px)">
+          <div class="joy-stick-top"></div>
+        </div>
+      </div>
+    </div>
+    <div class="comp-action-label">${htmlEscape(label)} · ${htmlEscape(mode)}</div>
+  </div>`;
+}
+
+function buildCompBody(inst, comp) {
+  switch (inst.compId) {
+    case 'button':       return buildButtonBody(inst);
+    case 'ky040':
+    case 'hw040':        return buildEncoderBody(inst);
+    case 'ssd1306_i2c':
+    case 'ssd1306_spi':
+    case 'sh1106':
+    case 'ssd1309':      return buildOledBody(inst);
+    case 'hw371':
+    case 'slide_pot_long': return buildSliderBody(inst);
+    case 'ps2_joystick': return buildJoystickBody(inst);
+    default: return '';
+  }
+}
+
+// -- OLED canvas rendering ------------------------------------------
+function renderOledCanvas(instId) {
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  const cv = document.getElementById('oled-' + instId);
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+
+  const mode = inst.config.display_mode || 'idle_status';
+  ctx.fillStyle = '#ddeeff';
+
+  if (mode === 'custom_text') {
+    const text = inst.config.custom_text || 'MacroPad';
+    const fs = Math.min(14, Math.floor(W / (text.length * 0.65 + 1)));
+    ctx.font = `bold ${fs}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, W / 2, H / 2);
+
+  } else if (mode === 'volume_bar') {
+    const barW = Math.round(W * 0.78), barH = 10;
+    const barX = Math.round((W - barW) / 2), barY = Math.round(H / 2);
+    ctx.font = '8px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText('VOLUME', W / 2, barY - 5);
+    ctx.strokeStyle = '#aaccee';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barY, barW, barH);
+    ctx.fillStyle = '#6699cc';
+    ctx.fillRect(barX + 1, barY + 1, Math.round(barW * 0.55), barH - 2);
+
+  } else if (mode === 'macro_label') {
+    const btn = state.placed.find(p => p.compId === 'button');
+    const label = btn ? (btn.config.label || 'Button') : 'Macro';
+    const fs = Math.min(13, Math.floor(W / (label.length * 0.7 + 1)));
+    ctx.font = `${fs}px monospace`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, W / 2, H / 2);
+
+  } else {
+    // idle_status
+    ctx.font = 'bold 10px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#ddeeff';
+    ctx.fillText('MacroPad', W / 2, Math.round(H * 0.38));
+    ctx.fillStyle = '#445566';
+    ctx.fillRect(Math.round(W * 0.1), Math.round(H * 0.48), Math.round(W * 0.8), 1);
+    ctx.fillStyle = '#778899';
+    ctx.font = '8px monospace';
+    const cnt = state.placed.length;
+    ctx.fillText(cnt + ' component' + (cnt !== 1 ? 's' : ''), W / 2, Math.round(H * 0.72));
+  }
+}
+
+// -- Interactive component simulation -------------------------------
+function bindCompInteractions(el, inst) {
+
+  // Button — click to press
+  if (inst.compId === 'button') {
+    const face = el.querySelector('.btn-keycap');
+    if (!face) return;
+    face.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      face.classList.add('pressed');
+      simState.buttons[inst.id] = { pressed: true };
+    });
+    const release = () => {
+      face.classList.remove('pressed');
+      if (simState.buttons[inst.id]) simState.buttons[inst.id].pressed = false;
+    };
+    face.addEventListener('mouseup', release);
+    face.addEventListener('mouseleave', release);
+  }
+
+  // Encoder — scroll wheel or drag to rotate
+  if (inst.compId === 'ky040' || inst.compId === 'hw040') {
+    const knob = el.querySelector('.enc-knob');
+    if (!knob) return;
+    knob.addEventListener('wheel', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const delta = e.deltaY > 0 ? 20 : -20;
+      simState.encoders[inst.id] = ((simState.encoders[inst.id] || 0) + delta + 3600) % 360;
+      knob.style.transform = `rotate(${simState.encoders[inst.id]}deg)`;
+    }, { passive: false });
+    // Drag to rotate
+    let encDrag = false, encStartY = 0, encStartAngle = 0;
+    knob.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      encDrag = true; encStartY = e.clientY;
+      encStartAngle = simState.encoders[inst.id] || 0;
+      document.body.style.cursor = 'ns-resize';
+    });
+    document.addEventListener('mousemove', e => {
+      if (!encDrag) return;
+      const a = (encStartAngle + (e.clientY - encStartY) * 2 + 3600) % 360;
+      simState.encoders[inst.id] = a;
+      knob.style.transform = `rotate(${a}deg)`;
+    });
+    document.addEventListener('mouseup', () => {
+      if (encDrag) { encDrag = false; document.body.style.cursor = ''; }
+    });
+  }
+
+  // Slider — drag thumb
+  if (inst.compId === 'hw371' || inst.compId === 'slide_pot_long') {
+    const track = el.querySelector('.slider-track');
+    const thumb = el.querySelector('.slider-thumb');
+    const fill  = el.querySelector('.slider-fill');
+    if (!track || !thumb) return;
+    let slDrag = false;
+    thumb.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      slDrag = true;
+      document.body.style.cursor = 'ew-resize';
+    });
+    // Click anywhere on track
+    track.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      slDrag = true;
+      document.body.style.cursor = 'ew-resize';
+      const rect = track.getBoundingClientRect();
+      let pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+      simState.sliders[inst.id] = pct;
+      const dp = inst.config.inverted ? (100 - pct) : pct;
+      thumb.style.left = dp + '%';
+      if (fill) fill.style.width = dp + '%';
+    });
+    document.addEventListener('mousemove', e => {
+      if (!slDrag) return;
+      const rect = track.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+      simState.sliders[inst.id] = pct;
+      const dp = inst.config.inverted ? (100 - pct) : pct;
+      thumb.style.left = dp + '%';
+      if (fill) fill.style.width = dp + '%';
+    });
+    document.addEventListener('mouseup', () => {
+      if (slDrag) { slDrag = false; document.body.style.cursor = ''; }
+    });
+  }
+
+  // Joystick — drag stick, spring back on release
+  if (inst.compId === 'ps2_joystick') {
+    const stick = el.querySelector('.joy-stick');
+    const base  = el.querySelector('.joy-base');
+    if (!stick || !base) return;
+    let jsDrag = false;
+    stick.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      e.stopPropagation();
+      jsDrag = true;
+      stick.style.transition = '';
+      document.body.style.cursor = 'grabbing';
+    });
+    document.addEventListener('mousemove', e => {
+      if (!jsDrag) return;
+      const rect = base.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      const maxR = rect.width * 0.38;
+      let dx = e.clientX - cx, dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy);
+      if (dist > maxR) { dx = dx / dist * maxR; dy = dy / dist * maxR; }
+      simState.joysticks[inst.id] = { x: dx / maxR, y: dy / maxR };
+      stick.style.transform = `translate(${dx}px,${dy}px)`;
+    });
+    document.addEventListener('mouseup', () => {
+      if (!jsDrag) return;
+      jsDrag = false;
+      document.body.style.cursor = '';
+      simState.joysticks[inst.id] = { x: 0, y: 0 };
+      stick.style.transition = 'transform 0.18s cubic-bezier(.18,.89,.32,1.28)';
+      stick.style.transform = 'translate(0,0)';
+      setTimeout(() => { if (stick) stick.style.transition = ''; }, 200);
+    });
+  }
+}
+
 // -- Render a placed component --------------------------------------
 function renderComponent(inst) {
   const comp = COMPONENT_LIBRARY[inst.compId];
@@ -549,12 +874,13 @@ function renderComponent(inst) {
     ? getWireColor(firstDataPg, inst, 0)
     : (inst.wireColor || comp.color || '#c87941');
   el.style.borderColor = accentColor;
-  el.style.boxShadow = `0 4px 18px rgba(0,0,0,0.7), 0 0 0 1px ${accentColor}55`;
+  el.style.setProperty('--comp-accent', accentColor);
+  el.style.boxShadow = `0 4px 18px rgba(0,0,0,0.7), 0 0 0 1px ${accentColor}44`;
 
   const unconfigured = isUnconfigured(inst);
   if (unconfigured) el.classList.add('unconfigured');
 
-  // Pin rows — each row shows the label colored by its wire color
+  // Pin rows
   let dataPinIdx = 0;
   const pinRowsHTML = comp.pinGroups.map((pg) => {
     if (pg.conditional && !inst.config[pg.conditional]) return '';
@@ -562,33 +888,38 @@ function renderComponent(inst) {
     const isData   = pg.wireClass === 'wire-data';
     const wireCol  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
     if (isData) dataPinIdx++;
-
     const connected = assigned && inst.nodes && inst.nodes[pg.id] && inst.nodes[pg.id].snapped;
     const labelColor = connected ? wireCol : 'var(--text3)';
-    const assignedText = assigned || '—';
     return `<div class="comp-pin-row">
       <span class="comp-pin-label" style="color:${labelColor}">${pg.label}</span>
-      <span class="comp-pin-assigned ${assigned ? 'ok' : 'miss'}" data-pg="${pg.id}">${assignedText}</span>
+      <span class="comp-pin-assigned ${assigned ? 'ok' : 'miss'}" data-pg="${pg.id}">${assigned || '—'}</span>
     </div>`;
   }).join('');
 
-  const swatchColor = accentColor;
-
   el.innerHTML = `
     <div class="comp-header">
-      <div class="comp-color-swatch" style="background:${swatchColor}" title="Click to change color" onclick="openColorPicker(${inst.id}, this)"></div>
+      <div class="comp-color-swatch" style="background:${accentColor}" title="Change wire color" onclick="openColorPicker(${inst.id}, this)"></div>
       <span class="comp-icon">${comp.icon}</span>
       <span class="comp-title">${comp.shortName}</span>
       <span class="comp-id">#${inst.id}</span>
+      <button class="comp-cog" onclick="openCompConfig(${inst.id}, this)" title="Configure">⚙</button>
     </div>
+    ${buildCompBody(inst, comp)}
     <div class="comp-pins">${pinRowsHTML}</div>
     <div class="comp-status ${unconfigured ? 'warn' : 'ok'}">${unconfigured ? '⚠ config' : '✓ ready'}</div>
   `;
 
+  // Drag (exclude interactive elements)
   el.addEventListener('mousedown', e => {
     if (e.button !== 0) return;
     if (e.target.closest('.comp-color-swatch')) return;
     if (e.target.closest('.comp-pin-assigned')) return;
+    if (e.target.closest('.comp-cog')) return;
+    if (e.target.closest('.btn-keycap')) return;
+    if (e.target.closest('.enc-knob')) return;
+    if (e.target.closest('.slider-thumb')) return;
+    if (e.target.closest('.slider-track')) return;
+    if (e.target.closest('.joy-stick')) return;
     const rect = el.getBoundingClientRect();
     state.dragging = { type: 'component', id: inst.id, offX: e.clientX - rect.left, offY: e.clientY - rect.top };
     selectComponent(inst.id);
@@ -597,7 +928,9 @@ function renderComponent(inst) {
   });
 
   el.addEventListener('click', e => {
-    if (!e.target.closest('.comp-color-swatch') && !e.target.closest('.comp-pin-assigned')) selectComponent(inst.id);
+    if (!e.target.closest('.comp-color-swatch') &&
+        !e.target.closest('.comp-pin-assigned') &&
+        !e.target.closest('.comp-cog')) selectComponent(inst.id);
     e.stopPropagation();
   });
 
@@ -607,7 +940,6 @@ function renderComponent(inst) {
     showCtxMenu(e.clientX, e.clientY);
   });
 
-  // Pin assignment click — open popover for manual override
   el.querySelectorAll('.comp-pin-assigned').forEach(badge => {
     badge.addEventListener('click', e => {
       e.stopPropagation();
@@ -617,6 +949,153 @@ function renderComponent(inst) {
 
   canvas.appendChild(el);
   if (state.selectedId === inst.id) el.classList.add('selected');
+
+  // Bind interactive sim & render OLED after DOM mount
+  bindCompInteractions(el, inst);
+  if (['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId)) {
+    requestAnimationFrame(() => renderOledCanvas(inst.id));
+  }
+}
+
+// -- Component config popover (cog button) --------------------------
+let compConfigPopover = null;
+let compConfigInstId  = null;
+
+function buildCcpBody(instId) {
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return '';
+  const comp = COMPONENT_LIBRARY[inst.compId];
+  let html = '';
+
+  // Pin assignments
+  const assignable = comp.pinGroups.filter(pg => !pg.fixed);
+  if (assignable.length) {
+    html += `<div class="ccp-section-title">Pin assignments</div>
+      <table class="pin-assign-table">`;
+    assignable.forEach(pg => {
+      if (pg.conditional && !inst.config[pg.conditional]) return;
+      const usedPins = getUsedPins(instId, pg.id);
+      const allPins = getCurrentPins().filter(p => ![
+        'GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
+        'GND','3V3','5V','VUSB',
+        'C3SM_5V','C3SM_GND','C3SM_3V3',
+        'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
+        'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
+        'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
+        'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN'].includes(p.id));
+      html += `<tr><td>${pg.label}</td>
+        <td><select data-pg="${pg.id}" onchange="onPinChange(${instId},'${pg.id}',this.value)">
+          <option value=""> -- select -- </option>
+          ${allPins.map(p => {
+            const compat = p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio'));
+            const taken  = usedPins.includes(p.id);
+            const sel    = inst.pinAssign[pg.id] === p.id ? 'selected' : '';
+            const style  = !compat ? 'style="color:var(--text3)"' : taken ? 'style="color:var(--yellow)"' : '';
+            const sfx    = !compat ? ' (incompat)' : taken ? ' (in use)' : '';
+            return `<option value="${p.id}" ${sel} ${style}>${p.label}${sfx}</option>`;
+          }).join('')}
+        </select></td></tr>`;
+    });
+    html += '</table>';
+  }
+
+  // Config schema
+  if (comp.configSchema && Object.keys(comp.configSchema).length) {
+    html += `<div class="ccp-section-title">Configuration</div>`;
+    Object.entries(comp.configSchema).forEach(([key, schema]) => {
+      if (schema.dependsOn) {
+        const [dk, dv] = Object.entries(schema.dependsOn)[0];
+        if (!dv.includes(inst.config[dk])) return;
+      }
+      html += renderField(instId, key, schema, inst.config[key]);
+    });
+  }
+
+  // Config 2 for buttons
+  if (inst.compId === 'button') {
+    const has2 = inst.config.has_config2;
+    html += `<div class="ccp-section-title" style="color:var(--blue)">CONFIG 2 (optional)</div>`;
+    html += renderField(instId, 'has_config2', comp.configSchema.has_config2, inst.config.has_config2);
+    if (has2) {
+      ['action_type2','key1_2','key2_2','key3_2','consumer_action2','launch_os2','program2','type_text2'].forEach(key => {
+        const schema = comp.configSchema[key];
+        if (!schema) return;
+        if (schema.dependsOn) {
+          for (const [dk, dv] of Object.entries(schema.dependsOn)) {
+            if (dk === 'has_config2') continue;
+            if (!dv.includes(inst.config[dk])) return;
+          }
+        }
+        html += renderField(instId, key, schema, inst.config[key]);
+      });
+    }
+  }
+
+  html += `<div style="margin-top:10px">
+    <button class="btn-form danger" onclick="removeComponent(${instId});closeCompConfig()">Remove component</button>
+  </div>`;
+  return html;
+}
+
+function openCompConfig(instId, cogEl) {
+  // If same popover is open, close it (toggle)
+  if (compConfigPopover && compConfigInstId === instId) { closeCompConfig(); return; }
+  closeCompConfig();
+
+  compConfigInstId = instId;
+  const inst = state.placed.find(p => p.id === instId);
+  if (!inst) return;
+  const comp = COMPONENT_LIBRARY[inst.compId];
+
+  const pop = document.createElement('div');
+  pop.className = 'comp-config-popover';
+  pop.id = 'comp-config-popover';
+  pop.dataset.instId = instId;
+
+  pop.innerHTML = `
+    <div class="ccp-header">
+      <span class="ccp-title">${comp.icon} ${comp.shortName} #${instId}</span>
+      <button class="ccp-close" onclick="closeCompConfig()">✕</button>
+    </div>
+    <div class="ccp-body" id="ccp-body">${buildCcpBody(instId)}</div>`;
+
+  // Position: to the right of the component, or left if near edge
+  const compEl = document.getElementById('comp-' + instId);
+  const compRect = compEl.getBoundingClientRect();
+  const pw = 295, ph = 420;
+  let left = compRect.right + 10;
+  if (left + pw > window.innerWidth - 12) left = compRect.left - pw - 10;
+  left = Math.max(8, left);
+  let top = Math.max(8, compRect.top);
+  if (top + ph > window.innerHeight - 12) top = window.innerHeight - ph - 12;
+
+  pop.style.left = left + 'px';
+  pop.style.top  = top  + 'px';
+
+  document.body.appendChild(pop);
+  compConfigPopover = pop;
+
+  // Close on outside click (deferred so this click doesn't immediately close it)
+  setTimeout(() => document.addEventListener('mousedown', _ccpOutside), 80);
+}
+
+function _ccpOutside(e) {
+  if (!compConfigPopover) return;
+  if (compConfigPopover.contains(e.target)) return;
+  if (e.target.closest('.comp-cog')) return;
+  closeCompConfig();
+}
+
+function closeCompConfig() {
+  if (compConfigPopover) { compConfigPopover.remove(); compConfigPopover = null; }
+  compConfigInstId = null;
+  document.removeEventListener('mousedown', _ccpOutside);
+}
+
+function refreshCompConfig(instId) {
+  if (!compConfigPopover || compConfigInstId !== instId) return;
+  const body = document.getElementById('ccp-body');
+  if (body) body.innerHTML = buildCcpBody(instId);
 }
 
 // -- Color picker for component wire color --------------------------
@@ -844,6 +1323,12 @@ function onConfigChange(instId, key, value) {
   renderPanel(instId);
   renderComponent(inst);
   updateNotes();
+  // Refresh open config popover (handles dependsOn visibility)
+  refreshCompConfig(instId);
+  // Re-render OLED canvas when display config changes
+  if (['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(inst.compId)) {
+    requestAnimationFrame(() => renderOledCanvas(instId));
+  }
 }
 
 function onPinChange(instId, pgId, pinId) {
@@ -868,6 +1353,7 @@ function onPinChange(instId, pgId, pinId) {
   updateStats();
   renderPanel(instId);
   updateNotes();
+  refreshCompConfig(instId);
 }
 
 // Get all pins used by other instances (excluding this instance's same pg)
@@ -1119,7 +1605,7 @@ function drawNodes() {
       glow.setAttribute('fill', glowColor);
       glow.setAttribute('opacity', glowOpacity);
       glow.setAttribute('pointer-events', 'none');
-      wireLayer.appendChild(glow);
+      nodeLayer.appendChild(glow);
 
       // Main circle
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -1134,8 +1620,8 @@ function drawNodes() {
       circle.setAttribute('data-pg', pg.id);
       circle.style.cursor = 'grab';
 
-      // Node drag — must be on the circle, pointer-events 'all' needed
-      circle.setAttribute('pointer-events', 'all');
+      // Node drag — inline style.pointerEvents overrides inherited CSS on node-layer
+      circle.style.pointerEvents = 'all';
       circle.addEventListener('mousedown', e => {
         if (e.button !== 0) return;
         e.stopPropagation();
@@ -1149,7 +1635,7 @@ function drawNodes() {
       circle.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
       circle.addEventListener('mouseleave', hideTooltip);
 
-      wireLayer.appendChild(circle);
+      nodeLayer.appendChild(circle);
     });
   });
 }
@@ -1180,6 +1666,7 @@ function needsWhiteOutline(color) {
 
 function updateWires() {
   wireLayer.innerHTML = '';
+  nodeLayer.innerHTML = '';
   updateChipPinHighlights();
 
   state.placed.forEach(inst => {
@@ -1271,6 +1758,7 @@ function updateWires() {
       if (passive) drawPassiveSymbol(anchorX, startY, pinPos, passive);
     });
   });
+  drawNodes();
 }
 
 function routeWire(x1, y1, x2, y2, stagger) {
@@ -1870,7 +2358,7 @@ function bindCanvas() {
     const onBody = document.activeElement === document.body ||
                    document.activeElement === document.documentElement;
 
-    if (e.key === 'Escape') { cancelWireDrag(); deselectAll(); hideCtxMenu(); }
+    if (e.key === 'Escape') { cancelWireDrag(); deselectAll(); hideCtxMenu(); closeCompConfig(); }
 
     if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && onBody) {
       e.preventDefault();
