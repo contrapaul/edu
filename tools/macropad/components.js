@@ -121,7 +121,7 @@ const COMPONENT_LIBRARY = {
     color: '#3fb950',
     maxInstances: 2,
     libraries: ['adafruit_ssd1306', 'adafruit_framebuf', 'adafruit_bus_device'],
-    description: '0.96" 128&#215;64 OLED, I2C interface (4-pin). Default I2C address 0x3C. Second instance must use 0x3D (check module for address solder bridge). Requires font5x8.bin in CIRCUITPY root.',
+    description: '0.96" 128&#215;64 OLED, I2C interface (4-pin). Default I2C address 0x3C. Second instance must use 0x3D (check module for address solder bridge). Requires font5x8.bin in CIRCUITPY root. Rotation supported where the driver allows.',
     pinGroups: [
       { id: 'sda', label: 'SDA', type: 'i2c_sda', required: true, fixed: false, wireClass: 'wire-i2c-sda', preferred: 'GPIO8' },
       { id: 'scl', label: 'SCL/SCK', type: 'i2c_scl', required: true, fixed: false, wireClass: 'wire-i2c-scl', preferred: 'GPIO9' },
@@ -131,9 +131,11 @@ const COMPONENT_LIBRARY = {
     passives: [],
     extraFiles: ['font5x8.bin'],
     configSchema: {
-      i2c_address: { type: 'select', label: 'I2C address', options: ['0x3C','0x3D'], default: '0x3C' },
+      i2c_address:  { type: 'select', label: 'I2C address', options: ['0x3C','0x3D'], default: '0x3C' },
       display_mode: { type: 'select', label: 'Default display', options: ['idle_status','volume_bar','macro_label','custom_text'], default: 'idle_status' },
-      custom_text:  { type: 'text', label: 'Custom text', default: 'MacroPad', dependsOn: { display_mode: ['custom_text'] } }
+      custom_text:  { type: 'text', label: 'Custom text', default: 'MacroPad', dependsOn: { display_mode: ['custom_text'] } },
+      rotation:     { type: 'select', label: 'Rotation', options: ['0','90','180','270'],
+        optionLabels: ['Landscape (0°)', 'Portrait (90°)', 'Landscape flipped (180°)', 'Portrait flipped (270°)'], default: '0' },
     }
   },
 
@@ -159,6 +161,8 @@ const COMPONENT_LIBRARY = {
     extraFiles: ['font5x8.bin'],
     configSchema: {
       display_mode: { type: 'select', label: 'Default display', options: ['idle_status','volume_bar','macro_label','custom_text'], default: 'idle_status' },
+      rotation:     { type: 'select', label: 'Rotation', options: ['0','90','180','270'],
+        optionLabels: ['Landscape (0°)', 'Portrait (90°)', 'Landscape flipped (180°)', 'Portrait flipped (270°)'], default: '0' },
     }
   },
 
@@ -181,6 +185,8 @@ const COMPONENT_LIBRARY = {
     configSchema: {
       i2c_address:  { type: 'select', label: 'I2C address', options: ['0x3C','0x3D'], default: '0x3C' },
       display_mode: { type: 'select', label: 'Default display', options: ['idle_status','volume_bar','macro_label'], default: 'idle_status' },
+      rotation:     { type: 'select', label: 'Rotation', options: ['0','90','180','270'],
+        optionLabels: ['Landscape (0°)', 'Portrait (90°)', 'Landscape flipped (180°)', 'Portrait flipped (270°)'], default: '0' },
     }
   },
 
@@ -204,6 +210,8 @@ const COMPONENT_LIBRARY = {
     configSchema: {
       i2c_address:  { type: 'select', label: 'I2C address', options: ['0x3C','0x3D'], default: '0x3C' },
       display_mode: { type: 'select', label: 'Default display', options: ['idle_status','volume_bar','macro_label'], default: 'idle_status' },
+      rotation:     { type: 'select', label: 'Rotation', options: ['0','90','180','270'],
+        optionLabels: ['Landscape (0°)', 'Portrait (90°)', 'Landscape flipped (180°)', 'Portrait flipped (270°)'], default: '0' },
     }
   },
 
@@ -217,20 +225,27 @@ const COMPONENT_LIBRARY = {
     libraries: [],
     description: 'PS2-style analog joystick. VRX and VRY are analog (use ADC-capable pins). SW is the press button (digital). Move the joystick to control mouse, scroll, or custom actions.',
     pinGroups: [
-      { id: 'vrx', label: 'VRX', type: 'analog', required: true, fixed: false, wireClass: 'wire-analog' },
-      { id: 'vry', label: 'VRY', type: 'analog', required: true, fixed: false, wireClass: 'wire-analog' },
+      { id: 'vrx', label: 'VRX', type: 'analog', required: true, fixed: false, wireClass: 'wire-data' },
+      { id: 'vry', label: 'VRY', type: 'analog', required: true, fixed: false, wireClass: 'wire-data' },
       { id: 'sw',  label: 'SW',  type: 'gpio',   required: true, fixed: false, wireClass: 'wire-data' },
       { id: 'vcc', label: 'VCC', type: 'power',  required: true, fixed: true,  wireClass: 'wire-power', fixedPin: '3V3_A' },
       { id: 'gnd', label: 'GND', type: 'gnd',    required: true, fixed: true,  wireClass: 'wire-gnd',   fixedPin: 'GND_L' }
     ],
     passives: [],
     configSchema: {
-      mode:        { type: 'select', label: 'Joystick mode', options: ['mouse','scroll','custom'], default: 'mouse' },
+      label:       { type: 'text',   label: 'Label',         default: 'Joystick' },
+      mode:        { type: 'select', label: 'Joystick mode', options: ['mouse','scroll'], default: 'mouse' },
       deadzone:    { type: 'range',  label: 'Deadzone',      min: 0, max: 20000, step: 500, default: 3000 },
       sensitivity: { type: 'range',  label: 'Sensitivity',   min: 1, max: 20,    step: 1,   default: 5 },
       invert_x:    { type: 'checkbox', label: 'Invert X axis', default: false },
       invert_y:    { type: 'checkbox', label: 'Invert Y axis', default: false },
-      sw_action:   { type: 'select', label: 'Press action', options: ['mouse_click','hotkey','consumer','none'], default: 'mouse_click' },
+      sw_action:   { type: 'select', label: 'Click (SW) action', options: ['mouse_click','hotkey','consumer','none'],
+        optionLabels: ['Mouse Left Click','Hotkey','Media Key','None'], default: 'mouse_click' },
+      sw_keys:     { type: 'text',   label: 'Click keys (csv)', default: 'ctrl,c', dependsOn: { sw_action: ['hotkey'] } },
+      sw_consumer: { type: 'select', label: 'Click media key',
+        options: ['MUTE','VOLUME_INCREMENT','VOLUME_DECREMENT','PLAY_PAUSE','SCAN_NEXT_TRACK','SCAN_PREVIOUS_TRACK'],
+        optionLabels: ['Mute','Volume Up','Volume Down','Play/Pause','Next Track','Previous Track'],
+        default: 'MUTE', dependsOn: { sw_action: ['consumer'] } },
     }
   },
 

@@ -364,10 +364,73 @@ function getPinPos(pinId) {
   };
 }
 
+// -- Utility helpers ------------------------------------------------
+function getNextColorIdx() {
+  let count = 0;
+  state.placed.forEach(inst => {
+    const comp = COMPONENT_LIBRARY[inst.compId];
+    count += comp.pinGroups.filter(pg => pg.wireClass === 'wire-data').length;
+  });
+  return count % WIRE_SEQ.length;
+}
+
+function htmlEscape(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// -- Undo / Redo ----------------------------------------------------
+const undoStack = [];
+const redoStack = [];
+const MAX_UNDO  = 30;
+
+function snapshotState() {
+  return JSON.stringify({ placed: state.placed, nextId: state.nextId });
+}
+
+function pushUndo() {
+  undoStack.push(snapshotState());
+  if (undoStack.length > MAX_UNDO) undoStack.shift();
+  redoStack.length = 0;
+}
+
+function restoreSnapshot(snap) {
+  const s = JSON.parse(snap);
+  state.placed.forEach(p => { const e = document.getElementById('comp-' + p.id); if (e) e.remove(); });
+  state.placed  = s.placed;
+  state.nextId  = s.nextId;
+  state.selectedId = null;
+  state.placed.forEach(inst => renderComponent(inst));
+  buildShelf();
+  updateWires();
+  updateStats();
+  updateNotes();
+  updateLibs();
+  deselectAll();
+  if (state.placed.length === 0) canvasHint.classList.remove('hidden');
+  else canvasHint.classList.add('hidden');
+}
+
+function undo() {
+  if (undoStack.length === 0) return;
+  redoStack.push(snapshotState());
+  restoreSnapshot(undoStack.pop());
+}
+
+function redo() {
+  if (redoStack.length === 0) return;
+  undoStack.push(snapshotState());
+  restoreSnapshot(redoStack.pop());
+}
+
 // -- Add component --------------------------------------------------
 function addComponent(compId, x, y) {
   const comp = COMPONENT_LIBRARY[compId];
   if (!comp) return;
+  pushUndo();
   const count = state.placed.filter(p => p.compId === compId).length;
 
   // Per-device max instances
@@ -424,9 +487,10 @@ function addComponent(compId, x, y) {
     });
   }
 
-  // Global sequential color — counts ALL placed components regardless of type
-  // so each new component gets the next color in the jumper-strip sequence
-  const globalIdx = state.placed.length % WIRE_SEQ.length;
+  // Count data pins consumed by every already-placed component so that
+  // multi-pin components (e.g. joystick: VRX+VRY+SW = 3 data wires) each
+  // claim consecutive palette slots and the next component starts after them.
+  const globalIdx = getNextColorIdx();
 
   const instance = {
     id: state.nextId++,
@@ -721,7 +785,7 @@ function renderField(instId, key, schema, value) {
 
   if (schema.type === 'text') {
     return `<div class="form-row"><label class="form-label" for="${id}">${schema.label}</label>
-      <input class="form-input" id="${id}" type="text" value="${value || ''}" onchange="${onChange}"></div>`;
+      <input class="form-input" id="${id}" type="text" value="${htmlEscape(value)}" onchange="${onChange}"></div>`;
   }
   if (schema.type === 'select') {
     const opts = schema.options.map((o,i) => { const lbl = schema.optionLabels ? schema.optionLabels[i] : o; return `<option value="${o}" ${value===o?'selected':''}>${lbl}</option>`; }).join('');
@@ -775,6 +839,7 @@ function renderField(instId, key, schema, value) {
 function onConfigChange(instId, key, value) {
   const inst = state.placed.find(p => p.id === instId);
   if (!inst) return;
+  pushUndo();
   inst.config[key] = value;
   renderPanel(instId);
   renderComponent(inst);
@@ -784,6 +849,7 @@ function onConfigChange(instId, key, value) {
 function onPinChange(instId, pgId, pinId) {
   const inst = state.placed.find(p => p.id === instId);
   if (!inst) return;
+  pushUndo();
   inst.pinAssign[pgId] = pinId;
   // Sync node to new pin position
   if (pinId) {
@@ -865,6 +931,7 @@ function closePinPopover() {
 
 // -- Remove component -----------------------------------------------
 function removeComponent(id) {
+  pushUndo();
   state.placed = state.placed.filter(p => p.id !== id);
   const el = document.getElementById('comp-' + id);
   if (el) el.remove();
@@ -878,18 +945,20 @@ function removeComponent(id) {
 }
 
 // -- Wires ----------------------------------------------------------
-// Sequence matches user spec: white, 30% gray, reddish-purple, turquoise blue,
-// bright green, yellow, orange, medium red, medium brown
+// Signal wire palette — red and black are reserved for power/GND wires.
+// These nine colors cycle through remaining typical wire-harness colors with
+// no repeats. Multi-pin components consume consecutive entries so each physical
+// wire gets a unique color.
 const WIRE_SEQ = [
   '#e8e8e8', // 0 white
-  '#888888', // 1 30% gray
-  '#c0392b', // 2 reddish-purple (deep red)
+  '#888888', // 1 gray
+  '#9b59b6', // 2 violet
   '#00bcd4', // 3 turquoise blue
   '#4caf50', // 4 bright green
   '#ffd600', // 5 yellow
   '#ff6f00', // 6 orange
-  '#e53030', // 7 medium red
-  '#8d5524', // 8 medium brown
+  '#2980b9', // 7 steel blue
+  '#8d5524', // 8 brown
 ];
 
 // -- Node (wire-end circle) system ----------------------------------
@@ -1085,82 +1154,6 @@ function drawNodes() {
   });
 }
 
-// -- Wire update ----------------------------------------------------
-function updateWires() {
-  wireLayer.innerHTML = '';
-  updateChipPinHighlights();
-
-  // Ensure all nodes are positioned correctly for snapped pins
-  state.placed.forEach(inst => syncNodesToPins(inst));
-
-  state.placed.forEach(inst => {
-    const comp   = COMPONENT_LIBRARY[inst.compId];
-    const compEl = document.getElementById('comp-' + inst.id);
-    if (!compEl) return;
-
-    // Wire originates from the CENTER of the component box
-    const originX = inst.x + compEl.offsetWidth  / 2;
-    const originY = inst.y + compEl.offsetHeight / 2;
-
-    let dataPinIdx = 0;
-
-    comp.pinGroups.forEach((pg) => {
-      if (pg.conditional && !inst.config[pg.conditional]) return;
-      const node = inst.nodes[pg.id];
-      if (!node) return;
-
-      const isData = pg.wireClass === 'wire-data';
-      const color  = getWireColor(pg, inst, isData ? dataPinIdx : 0);
-      if (isData) dataPinIdx++;
-
-      const outlineColor = needsWhiteOutline(color) ? '#ffffff' : '#000000';
-
-      // Route wire: straight from component center to node position
-      // No stagger needed — each wire ends at its own node circle
-      const d = routeWire(originX, originY, node.x, node.y, 0);
-
-      // Draw outline only (per user request — remove top colored layer)
-      const outline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      outline.setAttribute('d', d);
-      outline.setAttribute('class', 'wire-outline');
-      outline.style.stroke = outlineColor;
-      outline.style.strokeWidth = '4';
-      outline.setAttribute('pointer-events', 'none');
-      wireLayer.appendChild(outline);
-
-      // Colored wire path (the visible colored line)
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', d);
-      path.setAttribute('class', 'wire wire-new');
-      path.style.stroke = color;
-      path.style.strokeWidth = '2';
-      path.setAttribute('data-inst', inst.id);
-      path.setAttribute('data-pg', pg.id);
-      path.setAttribute('pointer-events', 'none');
-      wireLayer.appendChild(path);
-    });
-  });
-
-  // Draw node circles on top of all wires
-  drawNodes();
-
-  // Draw passive symbols
-  state.placed.forEach(inst => {
-    const comp   = COMPONENT_LIBRARY[inst.compId];
-    const compEl = document.getElementById('comp-' + inst.id);
-    if (!compEl) return;
-    const originX = inst.x + compEl.offsetWidth  / 2;
-    const originY = inst.y + compEl.offsetHeight / 2;
-    comp.pinGroups.forEach(pg => {
-      const node = inst.nodes[pg.id];
-      if (!node) return;
-      const passive = comp.passives.find(p => p.on.includes(pg.id) &&
-        (!p.conditional || inst.config[p.conditional]));
-      if (passive) drawPassiveSymbol(originX, originY, node, passive);
-    });
-  });
-}
-
 function getWireColor(pg, inst, dataPinIdx) {
   switch (pg.wireClass) {
     case 'wire-power':   return '#cc1111';
@@ -1171,20 +1164,17 @@ function getWireColor(pg, inst, dataPinIdx) {
     case 'wire-spi':     return '#27ae60';
     case 'wire-led':     return '#e91e8c';
     case 'wire-data': {
-      // Use inst.wireColor as the base (index 0); subsequent data pins step forward
       const base = inst.wireColor || WIRE_SEQ[0];
       const baseIdx = WIRE_SEQ.indexOf(base);
-      if (baseIdx >= 0) return WIRE_SEQ[(baseIdx + dataPinIdx) % 9];
-      // Custom (non-sequence) color: use it for pin 0, fall back to sequence for rest
-      return dataPinIdx === 0 ? base : WIRE_SEQ[dataPinIdx % 9];
+      if (baseIdx >= 0) return WIRE_SEQ[(baseIdx + dataPinIdx) % WIRE_SEQ.length];
+      return dataPinIdx === 0 ? base : WIRE_SEQ[dataPinIdx % WIRE_SEQ.length];
     }
     default: return inst.wireColor || '#c87941';
   }
 }
 
-// Wire needs white outline for dark strokes that blend into black outlines
 function needsWhiteOutline(color) {
-  const dark = ['#000000','#9b59b6','#8b4513','#888888'];
+  const dark = ['#000000','#888888','#9b59b6','#8d5524','#2980b9'];
   return dark.includes(color.toLowerCase());
 }
 
@@ -1230,31 +1220,36 @@ function updateWires() {
       const strokeColor = getWireColor(pg, inst, dataPinIdx);
       if (isData) dataPinIdx++;
 
-      const outlineColor = needsWhiteOutline(strokeColor) ? '#ffffff' : '#000000';
+      // Three-layer wire: shadow → body → highlight
+      // All drawing paths: pointer-events none so they don't consume canvas clicks.
+      const mkWirePath = (stroke, width, opacity) => {
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', d);
+        p.setAttribute('stroke', stroke);
+        p.setAttribute('stroke-width', String(width));
+        p.setAttribute('stroke-linecap', 'round');
+        p.setAttribute('stroke-linejoin', 'round');
+        p.setAttribute('fill', 'none');
+        if (opacity < 1) p.setAttribute('opacity', String(opacity));
+        p.style.pointerEvents = 'none';
+        return p;
+      };
+      wireLayer.appendChild(mkWirePath('rgba(0,0,0,0.5)', 6, 1));         // shadow
+      wireLayer.appendChild(mkWirePath(strokeColor, 3.5, 1));              // body
+      wireLayer.appendChild(mkWirePath('rgba(255,255,255,0.20)', 1.5, 1)); // highlight
 
-      // 1) Outline path (wider, behind)
-      const outline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      outline.setAttribute('d', d);
-      outline.setAttribute('class', 'wire-outline');
-      outline.style.stroke = outlineColor;
-      outline.setAttribute('pointer-events', 'none');
-      wireLayer.appendChild(outline);
-
-      // 2) Colored wire on top — inline style always wins over CSS class
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', d);
-      path.setAttribute('class', `wire wire-new`);
-      path.style.stroke = strokeColor;
-      path.setAttribute('data-inst', inst.id);
-      path.setAttribute('data-pg', pg.id);
-
-      path.addEventListener('mouseenter', e => {
+      // Invisible hit zone: wide transparent stroke for drag / tooltip events.
+      // Inline style.pointerEvents overrides the parent SVG's CSS pointer-events:none.
+      const hit = mkWirePath('transparent', 14, 1);
+      hit.style.pointerEvents = 'stroke';
+      hit.setAttribute('data-inst', inst.id);
+      hit.setAttribute('data-pg', pg.id);
+      hit.addEventListener('mouseenter', e => {
         showTooltip(e.clientX, e.clientY, `${comp.shortName} #${inst.id}`, `${pg.label} → ${pinId}`);
       });
-      path.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
-      path.addEventListener('mouseleave', hideTooltip);
-
-      path.addEventListener('mousedown', e => {
+      hit.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
+      hit.addEventListener('mouseleave', hideTooltip);
+      hit.addEventListener('mousedown', e => {
         if (e.button !== 0) return;
         e.stopPropagation();
         e.preventDefault();
@@ -1269,8 +1264,7 @@ function updateWires() {
           pinEl.addEventListener('mouseup',    onDragPinDrop);
         });
       }, { passive: false });
-
-      wireLayer.appendChild(path);
+      wireLayer.appendChild(hit);
 
       const passive = comp.passives.find(p => p.on.includes(pg.id) &&
         (!p.conditional || inst.config[p.conditional]));
@@ -1617,7 +1611,7 @@ function updateLibs() {
 function buildConfigJSON() {
   const buttons = {};
   const dial_modes = [];
-  const joystick = null;
+  const joysticks = [];
   const sliders = [];
   let btnIdx = 1;
 
@@ -1667,7 +1661,29 @@ function buildConfigJSON() {
       dial_modes.push(mode);
 
     } else if (inst.compId === 'ps2_joystick') {
-      // joystick block
+      const pressA = {};
+      if (c.sw_action === 'hotkey') {
+        pressA.type = 'hotkey';
+        pressA.keys = (c.sw_keys || '').split(',').map(k => k.trim()).filter(Boolean);
+      } else if (c.sw_action === 'consumer') {
+        pressA.type   = 'consumer';
+        pressA.action = c.sw_consumer || '';
+      } else if (c.sw_action === 'mouse_click') {
+        pressA.type = 'mouse_click';
+      }
+      joysticks.push({
+        label:       c.label || 'Joystick',
+        mode:        c.mode || 'mouse',
+        deadzone:    c.deadzone ?? 3000,
+        sensitivity: c.sensitivity ?? 5,
+        invert_x:    !!c.invert_x,
+        invert_y:    !!c.invert_y,
+        sw_action:   pressA,
+        gpio_vrx:    inst.pinAssign.vrx,
+        gpio_vry:    inst.pinAssign.vry,
+        gpio_sw:     inst.pinAssign.sw,
+      });
+
     } else if (['hw371','slide_pot_long'].includes(inst.compId)) {
       sliders.push({
         label:    c.label,
@@ -1681,25 +1697,62 @@ function buildConfigJSON() {
   // OLED config
   const oleds = state.placed
     .filter(p => ['ssd1306_i2c','ssd1306_spi','sh1106','ssd1309'].includes(p.compId))
-    .map(inst => ({
-      driver:       inst.compId,
-      i2c_address:  inst.config.i2c_address || '0x3C',
-      display_mode: inst.config.display_mode || 'idle_status',
-      gpio_sda:     inst.pinAssign.sda,
-      gpio_scl:     inst.pinAssign.scl,
-    }));
+    .map(inst => {
+      const base = {
+        driver:       inst.compId,
+        display_mode: inst.config.display_mode || 'idle_status',
+        rotation:     parseInt(inst.config.rotation || '0', 10),
+      };
+      if (inst.compId === 'ssd1306_spi') {
+        return { ...base,
+          gpio_mosi: inst.pinAssign.mosi,
+          gpio_sck:  inst.pinAssign.sck,
+          gpio_cs:   inst.pinAssign.cs,
+          gpio_dc:   inst.pinAssign.dc,
+          gpio_rst:  inst.pinAssign.rst,
+        };
+      }
+      return { ...base,
+        i2c_address: inst.config.i2c_address || '0x3C',
+        gpio_sda:    inst.pinAssign.sda,
+        gpio_scl:    inst.pinAssign.scl,
+      };
+    });
 
-  return JSON.stringify({ device: state.device, buttons, dial_modes, oleds, sliders }, null, 2);
+  return JSON.stringify({ device: state.device, buttons, dial_modes, joysticks, oleds, sliders }, null, 2);
+}
+
+// -- Pin conflict check ---------------------------------------------
+function hasPinConflicts() {
+  const FIXED = new Set(['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
+    'GND','3V3','5V','VUSB','C3SM_5V','C3SM_GND','C3SM_3V3',
+    'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5',
+    'C3D_GND6','C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
+    'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
+    'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN']);
+  const counts = {};
+  state.placed.forEach(inst => {
+    Object.values(inst.pinAssign).forEach(p => {
+      if (p && !FIXED.has(p)) counts[p] = (counts[p] || 0) + 1;
+    });
+  });
+  return Object.values(counts).some(n => n > 1);
 }
 
 // -- Download -------------------------------------------------------
 document.getElementById('btn-download').addEventListener('click', () => {
-  // Check for errors
+  // Pin conflicts are a hard block — the device will silently mis-fire.
+  if (hasPinConflicts()) {
+    alert('Pin conflicts detected — two or more components share a GPIO pin. Fix conflicts in the Notes tab before downloading.');
+    document.querySelectorAll('.ptab')[1].click();
+    return;
+  }
+  // Other errors get a confirmation prompt.
   const errors = document.querySelectorAll('.note-error');
   if (errors.length) {
     const proceed = confirm('There are configuration errors. Download anyway?');
     if (!proceed) {
-      document.querySelectorAll('.ptab')[1].click(); // switch to notes tab
+      document.querySelectorAll('.ptab')[1].click();
       return;
     }
   }
@@ -1814,9 +1867,28 @@ function bindCanvas() {
     }
   });
   document.addEventListener('keydown', e => {
+    const onBody = document.activeElement === document.body ||
+                   document.activeElement === document.documentElement;
+
     if (e.key === 'Escape') { cancelWireDrag(); deselectAll(); hideCtxMenu(); }
-    if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && document.activeElement === document.body) {
+
+    if ((e.key === 'Delete' || e.key === 'Backspace') && state.selectedId && onBody) {
+      e.preventDefault();
       removeComponent(state.selectedId);
+    }
+
+    if (e.ctrlKey || e.metaKey) {
+      if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+      if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) { e.preventDefault(); redo(); }
+      if (e.key === 's') {
+        e.preventDefault();
+        document.getElementById('btn-download').click();
+      }
+      if (e.key === 'd' && state.selectedId) {
+        e.preventDefault();
+        const src = state.placed.find(p => p.id === state.selectedId);
+        if (src) addComponent(src.compId, src.x + 30, src.y + 30);
+      }
     }
   });
 }
