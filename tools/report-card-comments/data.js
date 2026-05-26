@@ -5,9 +5,9 @@ const PRONOUNS = {
   they: { sub: 'they', obj: 'them', pos: 'their', ref: 'themselves' },
 };
 
-// Each phrase: id, label, section, grades[], criterionGroup (Criteria only), text(n,p)
-// Grades: 6=MYP G6, 7=MYP G7, 10=MYP G10, 11=DP G11
-// Criteria criterionGroup: 'A','B','C','D' — for G11 these map to DP categories (see comments)
+// Each phrase: id, label, section, grades[], text(n,p)
+// SubjectContent phrases also have: subGroup ('lego'|'mechanisms'|'studio'|'dp')
+// Criteria phrases also have: criterionGroup ('A'|'B'|'C'|'D')
 const PHRASES = [
 
   // ─── OPENING ───────────────────────────────────────────────────────────────
@@ -50,239 +50,311 @@ const PHRASES = [
 
   // ─── GRADE LEVEL — MYP (G6, G7, G10) ──────────────────────────────────────
 
-  { id: 'gl-myp-1', label: '1',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-1', label: '1', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is currently working at level one across the criteria, indicating that assessed work does not yet meet the standard for the course.` },
 
-  { id: 'gl-myp-2', label: '2',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-2', label: '2', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is currently achieving at level two, demonstrating a limited understanding of the design cycle and course requirements.` },
 
-  { id: 'gl-myp-3', label: '3',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-3', label: '3', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is achieving at level three, showing some understanding but requiring significant development across most criteria.` },
 
-  { id: 'gl-myp-4', label: '4',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-4', label: '4', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is achieving at level four overall, meeting some expectations and demonstrating a basic command of the design process.` },
 
-  { id: 'gl-myp-5', label: '5',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-5', label: '5', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is achieving at level five, demonstrating a good understanding of the design cycle and the ability to apply skills across most criteria.` },
 
-  { id: 'gl-myp-6', label: '6',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-6', label: '6', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is currently achieving at level six, producing work that demonstrates strong understanding and consistent application of design skills.` },
 
-  { id: 'gl-myp-7', label: '7',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-7', label: '7', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is achieving at the highest levels, producing work of exceptional quality that reflects a thorough command of the design cycle.` },
 
-  { id: 'gl-myp-8', label: '8',
-    section: 'GradeLevel', grades: [6, 7, 10],
+  { id: 'gl-myp-8', label: '8', section: 'GradeLevel', grades: [6, 7, 10],
     text: (n, p) => `${n} is achieving at the highest level, producing work of outstanding quality and demonstrating a comprehensive command of the design cycle.` },
 
   // ─── GRADE LEVEL — IB (G11) ────────────────────────────────────────────────
 
-  { id: 'gl-ib-1', label: '1',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-1', label: '1', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is currently achieving at level one, and significant improvement is required across all assessed components.` },
 
-  { id: 'gl-ib-2', label: '2',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-2', label: '2', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is currently achieving at level two, requiring targeted support and significant improvement across assessed tasks.` },
 
-  { id: 'gl-ib-3', label: '3',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-3', label: '3', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is currently achieving at level three, demonstrating a partial understanding of course content and requiring targeted support.` },
 
-  { id: 'gl-ib-4', label: '4',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-4', label: '4', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is achieving at level four, meeting the standard for the course and demonstrating a competent understanding of core topics.` },
 
-  { id: 'gl-ib-5', label: '5',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-5', label: '5', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is achieving at level five, demonstrating a solid understanding of course content and the ability to apply knowledge effectively.` },
 
-  { id: 'gl-ib-6', label: '6',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-6', label: '6', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is achieving at level six, producing work that demonstrates strong understanding and consistent performance across assessments.` },
 
-  { id: 'gl-ib-7', label: '7',
-    section: 'GradeLevel', grades: [11],
+  { id: 'gl-ib-7', label: '7', section: 'GradeLevel', grades: [11],
     text: (n, p) => `${n} is achieving at the highest level, demonstrating exceptional understanding and consistently producing work of outstanding quality.` },
 
-  // ─── SUBJECT CONTENT ───────────────────────────────────────────────────────
+  // ─── SUBJECT CONTENT — G6 Lego Design Project ──────────────────────────────
 
-  { id: 'sc-lego', label: 'Lego Project',
-    section: 'SubjectContent', grades: [6],
-    text: (n, p) => `This semester, the class completed a Lego set design project using Bricklink Studio, working through the full design cycle from research to a final rendered set concept, complete with original box design and building instructions.` },
+  { id: 'sc-lego-1', label: '1', section: 'SubjectContent', grades: [6], subGroup: 'lego',
+    text: (n, p) => `${n} found aspects of the Lego set design project challenging, and ${p.pos} final set concept required further development to fully meet the requirements of the design cycle.` },
 
-  { id: 'sc-lego-personal', label: 'Lego — Personal Reference',
-    section: 'SubjectContent', grades: [6],
-    text: (n, p) => `${n} worked through the Lego set design project using Bricklink Studio, developing ${p.pos} own original set concept and carrying it through the full design cycle.` },
+  { id: 'sc-lego-2', label: '2', section: 'SubjectContent', grades: [6], subGroup: 'lego',
+    text: (n, p) => `${n} completed the Lego set design project, working through the design cycle to produce a final rendered set concept with original box design and building instructions.` },
 
-  { id: 'sc-g7-mechanisms', label: 'G7 Mechanisms Unit',
-    section: 'SubjectContent', grades: [7],
-    text: (n, p) => `This semester, the class explored mechanisms and machines using Lego Technic, working through the design cycle to design, build, and evaluate a machine with several moving parts.` },
+  { id: 'sc-lego-3', label: '3', section: 'SubjectContent', grades: [6], subGroup: 'lego',
+    text: (n, p) => `${n} excelled in the Lego set design project, producing an outstanding set concept that demonstrated impressive creativity and strong design thinking throughout the design cycle.` },
 
-  { id: 'sc-g7-machine-personal', label: 'G7 Machine — Personal',
-    section: 'SubjectContent', grades: [7],
-    text: (n, p) => `${n} designed and built a machine with moving parts using Lego Technic, working through the design cycle from initial experimentation to a functioning mechanism.` },
+  // ─── SUBJECT CONTENT — G7 Mechanisms Project ───────────────────────────────
 
-  { id: 'sc-studio', label: 'Studio Project',
-    section: 'SubjectContent', grades: [10],
-    text: (n, p) => `This semester, the class worked through the complete MYP design cycle, producing a studio product from initial research and ideation through to a functional prototype and formal evaluation.` },
+  { id: 'sc-mech-1', label: '1', section: 'SubjectContent', grades: [7], subGroup: 'mechanisms',
+    text: (n, p) => `${n} found the mechanisms and machines project challenging, particularly when designing and constructing a machine with functional moving parts using Lego Technic.` },
 
-  { id: 'sc-studio-personal', label: 'Studio — Personal Reference',
-    section: 'SubjectContent', grades: [10],
-    text: (n, p) => `${n} developed a studio product through the complete MYP design cycle, from initial research and ideation through to prototype construction and formal evaluation.` },
+  { id: 'sc-mech-2', label: '2', section: 'SubjectContent', grades: [7], subGroup: 'mechanisms',
+    text: (n, p) => `${n} completed the mechanisms and machines project, designing and building a machine with moving parts using Lego Technic and working through the key stages of the design cycle.` },
 
-  { id: 'sc-sl-topics', label: 'SL Topics Complete',
-    section: 'SubjectContent', grades: [11],
-    text: (n, p) => `Over the course of the year, the class has covered all Standard Level topics in Design Technology, engaging with design theory, product analysis, and innovation across a range of contexts.` },
+  { id: 'sc-mech-3', label: '3', section: 'SubjectContent', grades: [7], subGroup: 'mechanisms',
+    text: (n, p) => `${n} excelled in the mechanisms and machines project, designing and building an impressive machine with several well-functioning moving parts that demonstrated strong technical skill and creative problem-solving.` },
 
-  { id: 'sc-tests-quizzes', label: 'Tests and Quizzes',
-    section: 'SubjectContent', grades: [11],
-    text: (n, p) => `Throughout the year, ${n} has completed a range of tests and in-class assessments covering Standard Level content, demonstrating ${p.pos} developing command of course material.` },
+  // ─── SUBJECT CONTENT — G10 Studio Project ──────────────────────────────────
+
+  { id: 'sc-studio-1', label: '1', section: 'SubjectContent', grades: [10], subGroup: 'studio',
+    text: (n, p) => `${n} found aspects of the studio product design project challenging, particularly in completing all stages of the MYP design cycle to the required standard.` },
+
+  { id: 'sc-studio-2', label: '2', section: 'SubjectContent', grades: [10], subGroup: 'studio',
+    text: (n, p) => `${n} completed the studio product design project, working through the MYP design cycle to produce a functional prototype and formal evaluation.` },
+
+  { id: 'sc-studio-3', label: '3', section: 'SubjectContent', grades: [10], subGroup: 'studio',
+    text: (n, p) => `${n} excelled in the studio product design project, producing an exceptional product that demonstrated outstanding design thinking and technical skill throughout the design cycle.` },
+
+  // ─── SUBJECT CONTENT — G11 DP / IA Progress ────────────────────────────────
+
+  { id: 'sc-dp-1', label: '1', section: 'SubjectContent', grades: [11], subGroup: 'dp',
+    text: (n, p) => `${n} found the demands of the Diploma Programme Design Technology course challenging this year, requiring significant support in keeping pace with Standard Level content and assessment requirements.` },
+
+  { id: 'sc-dp-2', label: '2', section: 'SubjectContent', grades: [11], subGroup: 'dp',
+    text: (n, p) => `${n} made satisfactory progress through the Diploma Programme Design Technology course this year, engaging with Standard Level content across a range of topics and assessments.` },
+
+  { id: 'sc-dp-3', label: '3', section: 'SubjectContent', grades: [11], subGroup: 'dp',
+    text: (n, p) => `${n} had an outstanding year in Diploma Programme Design Technology, demonstrating exceptional engagement with Standard Level content and producing high-quality work across assessments.` },
 
   { id: 'sc-ia-begun', label: 'IA Begun',
-    section: 'SubjectContent', grades: [11],
+    section: 'SubjectContent', grades: [11], subGroup: 'dp-ia',
     text: (n, p) => `${n} has begun developing ${p.pos} Individual Assessment (IA), identifying a design context and working towards a focused research question.` },
 
-  { id: 'sc-ia-progressing', label: 'IA Progressing Well',
-    section: 'SubjectContent', grades: [11],
+  { id: 'sc-ia-progressing', label: 'IA Progressing',
+    section: 'SubjectContent', grades: [11], subGroup: 'dp-ia',
     text: (n, p) => `${n} has made strong progress on ${p.pos} Individual Assessment (IA) and is developing a clear research question with an appropriate supporting evidence base.` },
 
-  { id: 'sc-ia-early', label: 'IA Early Stages',
-    section: 'SubjectContent', grades: [11],
-    text: (n, p) => `${n} is in the early stages of developing ${p.pos} Individual Assessment (IA) and has begun to identify a potential design context.` },
+  // ─── CRITERIA — MYP Criterion A (Inquiring and Analysing) — G6, G7, G10 ───
 
-  // ─── CRITERIA — MYP Criterion A (Inquiring and Analysing) ──────────────────
+  { id: 'crit-a-1', label: '1', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} struggled to identify a clear design problem or gather relevant research, and did not produce a meaningful design brief for their project.` },
 
-  { id: 'crit-a-strong', label: 'A: Strong',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
-    text: (n, p) => `In Criterion A, ${n} produced thorough research, effectively justified the need for ${p.pos} design, and developed a well-structured design brief supported by meaningful product analysis.` },
+  { id: 'crit-a-2', label: '2', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} made a limited start to the research phase and produced a design brief that did not yet reflect the needs of the design problem.` },
 
-  { id: 'crit-a-developing', label: 'A: Developing',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
-    text: (n, p) => `In Criterion A, ${n} demonstrated a developing ability to justify ${p.pos} design context and conduct relevant research, though ${p.pos} design brief and product analysis would benefit from greater depth and specificity.` },
+  { id: 'crit-a-3', label: '3', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} gathered some research relevant to their design problem but found it challenging to develop a complete and well-focused design brief.` },
 
-  { id: 'crit-a-support', label: 'A: Needs Support',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
-    text: (n, p) => `Criterion A remains an area requiring significant development; ${n} should focus on producing more thorough research, clearly justifying the design problem, and developing a detailed design brief.` },
+  { id: 'crit-a-4', label: '4', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} completed relevant research and produced a design brief that identified the key requirements for their project.` },
 
-  // ─── CRITERIA — MYP Criterion B (Developing Ideas) ─────────────────────────
+  { id: 'crit-a-5', label: '5', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} conducted relevant research, analysed ${p.pos} findings effectively, and developed a well-structured design brief that clearly informed ${p.pos} design decisions.` },
 
-  { id: 'crit-b-strong', label: 'B: Strong',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'B',
-    text: (n, p) => `In Criterion B, ${n} presented a range of creative and well-developed design ideas, selecting and justifying ${p.pos} final design with clear reference to the design specification.` },
+  { id: 'crit-a-6', label: '6', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} produced thorough and well-organised research, developing a comprehensive design brief that demonstrated strong analytical thinking and a clear understanding of the design problem.` },
 
-  { id: 'crit-b-developing', label: 'B: Developing',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'B',
-    text: (n, p) => `In Criterion B, ${n} generated design ideas and selected a final concept, though the justification of ${p.pos} design decisions and the detail of ${p.pos} specifications could be further developed.` },
+  { id: 'crit-a-7', label: '7', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'A',
+    text: (n, p) => `${n} conducted exceptional research, producing an outstanding design brief that reflected sophisticated understanding of the problem and fully grounded ${p.pos} subsequent design decisions.` },
 
-  { id: 'crit-b-support', label: 'B: Needs Support',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'B',
-    text: (n, p) => `Criterion B requires attention; ${n} should focus on producing a wider range of developed ideas and providing clearer justification for ${p.pos} chosen design in relation to the specification.` },
+  // ─── CRITERIA — MYP Criterion B (Developing Ideas) — G6, G10 ───────────────
 
-  // ─── CRITERIA — MYP Criterion B, G7-specific (testing/experimenting) ────────
+  { id: 'crit-b-1', label: '1', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} found it challenging to generate design ideas or develop a workable design specification for their project.` },
 
-  { id: 'crit-b-g7-iterative-strong', label: 'B: Strong Testing',
-    section: 'Criteria', grades: [7], criterionGroup: 'B',
-    text: (n, p) => `In Criterion B, ${n} explored a strong range of ideas through hands-on building and testing in class, using ${p.pos} experiments to refine and justify ${p.pos} chosen design.` },
+  { id: 'crit-b-2', label: '2', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} generated a limited range of ideas and produced a design specification that required significant further development.` },
 
-  { id: 'crit-b-g7-some-testing', label: 'B: Some Testing',
-    section: 'Criteria', grades: [7], criterionGroup: 'B',
-    text: (n, p) => `In Criterion B, ${n} tested some design ideas through hands-on building, though ${p.sub} would benefit from exploring a wider range of configurations before committing to a final design.` },
+  { id: 'crit-b-3', label: '3', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} generated some design ideas but found it challenging to develop them in sufficient detail or produce a complete design specification.` },
 
-  { id: 'crit-b-g7-limited-testing', label: 'B: Limited Testing',
-    section: 'Criteria', grades: [7], criterionGroup: 'B',
-    text: (n, p) => `In Criterion B, ${n} should focus on testing a greater range of ideas through building and experimentation, rather than committing to an initial design without exploring alternatives.` },
+  { id: 'crit-b-4', label: '4', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} developed a range of design ideas and selected a final design supported by a basic specification.` },
 
-  // ─── CRITERIA — MYP Criterion C (Creating the Solution) ────────────────────
+  { id: 'crit-b-5', label: '5', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} developed a range of creative ideas, selecting and justifying ${p.pos} final design with clear reference to the design specification.` },
 
-  { id: 'crit-c-strong', label: 'C: Strong',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'C',
-    text: (n, p) => `In Criterion C, ${n} demonstrated strong technical skill, followed a logical plan, and produced a high-quality outcome that closely reflected ${p.pos} intended design.` },
+  { id: 'crit-b-6', label: '6', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} presented a strong range of well-developed ideas, thoroughly justifying ${p.pos} final design in relation to a detailed and accurate specification.` },
 
-  { id: 'crit-c-developing', label: 'C: Developing',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'C',
-    text: (n, p) => `In Criterion C, ${n} demonstrated developing technical skills and produced a functional outcome, though ${p.pos} planning and technical execution could be more precise and detailed.` },
+  { id: 'crit-b-7', label: '7', section: 'Criteria', grades: [6, 10], criterionGroup: 'B',
+    text: (n, p) => `${n} generated an exceptional range of innovative ideas and presented a highly creative, thoroughly justified final design backed by a comprehensive specification.` },
 
-  { id: 'crit-c-support', label: 'C: Needs Support',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'C',
-    text: (n, p) => `Criterion C is an area requiring development; ${n} should focus on constructing a more detailed plan, improving technical precision, and ensuring ${p.pos} final product more accurately reflects ${p.pos} design.` },
+  // ─── CRITERIA — MYP Criterion B (Developing Ideas) — G7 (experimental/testing) ──
 
-  // ─── CRITERIA — MYP Criterion C, G7-specific (machine building) ────────────
+  { id: 'crit-b-g7-1', label: '1', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} found it challenging to generate and test ideas for their machine design, making limited progress in exploring different configurations or justifying a chosen direction.` },
 
-  { id: 'crit-c-g7-machine-strong', label: 'C: Machine Strong',
-    section: 'Criteria', grades: [7], criterionGroup: 'C',
-    text: (n, p) => `In Criterion C, ${n} constructed a well-functioning machine with several moving parts, demonstrating strong technical skill in assembling and connecting mechanisms using Lego Technic.` },
+  { id: 'crit-b-g7-2', label: '2', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} explored a limited range of design ideas through building and made limited progress in using their experiments to justify a chosen design approach.` },
 
-  { id: 'crit-c-g7-machine-developing', label: 'C: Machine Developing',
-    section: 'Criteria', grades: [7], criterionGroup: 'C',
-    text: (n, p) => `In Criterion C, ${n} constructed a machine with moving parts, though some mechanisms did not function as intended and would benefit from further refinement and testing.` },
+  { id: 'crit-b-g7-3', label: '3', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} tested some ideas through hands-on building but found it challenging to use ${p.pos} experiments to develop and justify a clear final design direction.` },
 
-  { id: 'crit-c-g7-machine-support', label: 'C: Machine Needs Support',
-    section: 'Criteria', grades: [7], criterionGroup: 'C',
-    text: (n, p) => `In Criterion C, ${n} found the construction of a functioning machine challenging; ${p.sub} should focus on understanding how individual mechanisms connect and interact to produce controlled movement.` },
+  { id: 'crit-b-g7-4', label: '4', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} explored a range of ideas through hands-on building and testing, selecting a final design approach with some justification drawn from ${p.pos} experiments.` },
 
-  // ─── CRITERIA — MYP Criterion D (Evaluating) ───────────────────────────────
+  { id: 'crit-b-g7-5', label: '5', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} tested a range of design ideas through building and experimentation in class, using ${p.pos} findings to justify and refine ${p.pos} chosen machine design.` },
 
-  { id: 'crit-d-strong', label: 'D: Strong',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
-    text: (n, p) => `In Criterion D, ${n} conducted meaningful testing and produced a detailed evaluation, clearly identifying ${p.pos} product's strengths and limitations in relation to the design specification.` },
+  { id: 'crit-b-g7-6', label: '6', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} explored a strong range of ideas through systematic hands-on testing and building, developing and justifying ${p.pos} final design with clear reference to ${p.pos} experimental findings.` },
 
-  { id: 'crit-d-developing', label: 'D: Developing',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
-    text: (n, p) => `In Criterion D, ${n} evaluated ${p.pos} product and identified some areas for improvement, though ${p.sub} should aim to use more specific evidence and test data to support ${p.pos} conclusions.` },
+  { id: 'crit-b-g7-7', label: '7', section: 'Criteria', grades: [7], criterionGroup: 'B',
+    text: (n, p) => `${n} conducted exceptional hands-on experimentation, exploring a broad range of configurations and using ${p.pos} findings to develop and justify an outstanding final design with great depth and precision.` },
 
-  { id: 'crit-d-support', label: 'D: Needs Support',
-    section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
-    text: (n, p) => `Criterion D requires further development; ${n} should focus on designing and conducting more systematic testing, and using specific results to evaluate ${p.pos} product against the design specification.` },
+  // ─── CRITERIA — MYP Criterion C (Creating the Solution) — G6, G10 ──────────
+
+  { id: 'crit-c-1', label: '1', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} had difficulty following ${p.pos} plan and completing key tasks when creating ${p.pos} product, producing limited evidence of technical skill.` },
+
+  { id: 'crit-c-2', label: '2', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} made limited progress in creating ${p.pos} product and found it challenging to follow ${p.pos} plan or demonstrate consistent technical skill.` },
+
+  { id: 'crit-c-3', label: '3', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} made progress in creating ${p.pos} product but found some stages of construction challenging, with the final outcome only partially reflecting ${p.pos} intended design.` },
+
+  { id: 'crit-c-4', label: '4', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} created a functional product, following ${p.pos} plan and demonstrating adequate technical skill throughout the construction process.` },
+
+  { id: 'crit-c-5', label: '5', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} created a high-quality product, following a logical plan and demonstrating strong technical skill throughout.` },
+
+  { id: 'crit-c-6', label: '6', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} produced an excellent product that closely reflected ${p.pos} intended design, demonstrating impressive technical skill and careful, consistent planning.` },
+
+  { id: 'crit-c-7', label: '7', section: 'Criteria', grades: [6, 10], criterionGroup: 'C',
+    text: (n, p) => `${n} produced an outstanding product of exceptional quality, demonstrating exemplary technical skill and meticulous attention to planning and execution throughout.` },
+
+  // ─── CRITERIA — MYP Criterion C (Creating the Solution) — G7 (machines) ────
+
+  { id: 'crit-c-g7-1', label: '1', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} had difficulty finishing tasks when creating ${p.pos} machine, finding it challenging to construct moving parts that functioned as intended.` },
+
+  { id: 'crit-c-g7-2', label: '2', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} made limited progress in constructing ${p.pos} machine, with most moving parts requiring further development to function correctly.` },
+
+  { id: 'crit-c-g7-3', label: '3', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} made progress in building ${p.pos} machine but found some mechanisms challenging to assemble, with the final product only partially functioning as intended.` },
+
+  { id: 'crit-c-g7-4', label: '4', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} constructed a machine with moving parts that demonstrated adequate technical skill, though some mechanisms required further refinement to function reliably.` },
+
+  { id: 'crit-c-g7-5', label: '5', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} constructed a well-functioning machine with several moving parts, demonstrating strong technical skill in assembling and connecting mechanisms using Lego Technic.` },
+
+  { id: 'crit-c-g7-6', label: '6', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} produced an excellent machine that functioned as intended, demonstrating impressive technical skill in assembling complex mechanisms with multiple well-connected moving parts.` },
+
+  { id: 'crit-c-g7-7', label: '7', section: 'Criteria', grades: [7], criterionGroup: 'C',
+    text: (n, p) => `${n} produced an outstanding machine with exceptional precision, demonstrating exemplary technical skill and creative problem-solving in the construction of complex, well-functioning mechanisms.` },
+
+  // ─── CRITERIA — MYP Criterion D (Evaluating) — G6, G7, G10 ────────────────
+
+  { id: 'crit-d-1', label: '1', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} found it challenging to evaluate ${p.pos} product or identify meaningful testing methods, producing limited evidence of reflection or critical thinking.` },
+
+  { id: 'crit-d-2', label: '2', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} made a limited start to the evaluation process, with testing and reflection requiring significant further development.` },
+
+  { id: 'crit-d-3', label: '3', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} completed some evaluation of ${p.pos} product but found it challenging to use specific evidence or test data to support ${p.pos} conclusions.` },
+
+  { id: 'crit-d-4', label: '4', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} evaluated ${p.pos} product and identified some areas for improvement, with some reference to testing and the design specification.` },
+
+  { id: 'crit-d-5', label: '5', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} conducted meaningful testing and produced a clear evaluation, linking ${p.pos} conclusions to the design specification and identifying relevant improvements.` },
+
+  { id: 'crit-d-6', label: '6', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} excelled at developing testing methods and evaluating ${p.pos} work, producing a detailed and well-supported evaluation with insightful suggestions for improvement.` },
+
+  { id: 'crit-d-7', label: '7', section: 'Criteria', grades: [6, 7, 10], criterionGroup: 'D',
+    text: (n, p) => `${n} produced an exceptional evaluation, using comprehensive testing data to critically assess ${p.pos} product against the design specification and identify sophisticated, well-reasoned improvements.` },
 
   // ─── CRITERIA — DP G11 (criterionGroup A = Design Process) ─────────────────
 
-  { id: 'crit-dp-process-strong', label: 'Design Process: Strong',
-    section: 'Criteria', grades: [11], criterionGroup: 'A',
-    text: (n, p) => `${n} demonstrated a strong command of the design process across assessed tasks, effectively moving between analysis, ideation, development, and evaluation.` },
+  { id: 'crit-dp-a-1', label: '1', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} found it challenging to engage with the design process across assessed tasks, producing limited evidence of analytical thinking or structured design reasoning.` },
 
-  { id: 'crit-dp-process-developing', label: 'Design Process: Developing',
-    section: 'Criteria', grades: [11], criterionGroup: 'A',
-    text: (n, p) => `${n} is developing ${p.pos} application of the design process and would benefit from ensuring all stages are addressed with equal attention and depth across assessed tasks.` },
+  { id: 'crit-dp-a-2', label: '2', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} made limited progress in applying the design process and would benefit from significant development in structuring analytical and evaluative thinking across tasks.` },
 
-  { id: 'crit-dp-process-limited', label: 'Design Process: Limited',
-    section: 'Criteria', grades: [11], criterionGroup: 'A',
-    text: (n, p) => `${n} should focus on developing a more structured approach to the design process, ensuring that analytical thinking and design justification are consistently demonstrated across tasks.` },
+  { id: 'crit-dp-a-3', label: '3', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} demonstrated some understanding of the design process but found it challenging to apply it consistently across all stages of assessed tasks.` },
+
+  { id: 'crit-dp-a-4', label: '4', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} demonstrated a competent understanding of the design process, engaging adequately with analysis, ideation, and evaluation in assessed work.` },
+
+  { id: 'crit-dp-a-5', label: '5', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} demonstrated a solid command of the design process across assessed tasks, effectively engaging with analysis, development, and evaluation.` },
+
+  { id: 'crit-dp-a-6', label: '6', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} demonstrated a strong and consistent command of the design process, moving confidently between analysis, ideation, development, and evaluation across all assessed tasks.` },
+
+  { id: 'crit-dp-a-7', label: '7', section: 'Criteria', grades: [11], criterionGroup: 'A',
+    text: (n, p) => `${n} demonstrated an exceptional command of the design process, producing outstanding work that reflected sophisticated analytical thinking and seamless integration of all design stages.` },
 
   // ─── CRITERIA — DP G11 (criterionGroup B = Paper Performance) ──────────────
 
-  { id: 'crit-dp-paper-strong', label: 'Paper Performance: Strong',
-    section: 'Criteria', grades: [11], criterionGroup: 'B',
-    text: (n, p) => `${n} performed well on tests and in-class assessments throughout the year, demonstrating a confident and thorough understanding of Standard Level topics.` },
+  { id: 'crit-dp-b-1', label: '1', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} found assessments very challenging this year, requiring significant support in understanding and applying Standard Level course content.` },
 
-  { id: 'crit-dp-paper-developing', label: 'Paper Performance: Developing',
-    section: 'Criteria', grades: [11], criterionGroup: 'B',
-    text: (n, p) => `${n} is developing ${p.pos} ability to respond to paper-style questions and would benefit from regular practice applying course knowledge to unseen and unfamiliar contexts.` },
+  { id: 'crit-dp-b-2', label: '2', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} found assessments challenging throughout the year and would benefit from targeted review of key Standard Level topics and structured response practice.` },
 
-  { id: 'crit-dp-paper-limited', label: 'Paper Performance: Limited',
-    section: 'Criteria', grades: [11], criterionGroup: 'B',
-    text: (n, p) => `${n} has found assessments challenging this year and should prioritise reviewing Standard Level content, focusing particularly on structured written responses.` },
+  { id: 'crit-dp-b-3', label: '3', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} demonstrated a partial understanding of course content in assessments and should focus on building confidence in applying knowledge to unfamiliar questions.` },
 
-  // ─── CRITERIA — DP G11 (criterionGroup C = IA Progress) ────────────────────
+  { id: 'crit-dp-b-4', label: '4', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} performed competently in tests and in-class assessments, demonstrating a reasonable understanding of Standard Level topics.` },
 
-  { id: 'crit-dp-ia-strong', label: 'IA Work: Strong',
-    section: 'Criteria', grades: [11], criterionGroup: 'C',
-    text: (n, p) => `${n} has approached ${p.pos} Individual Assessment (IA) work with focus and clarity, developing a well-defined design context and a relevant, specific research direction.` },
+  { id: 'crit-dp-b-5', label: '5', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} performed well in tests and in-class assessments throughout the year, demonstrating a solid and growing understanding of Standard Level content.` },
 
-  { id: 'crit-dp-ia-developing', label: 'IA Work: Developing',
-    section: 'Criteria', grades: [11], criterionGroup: 'C',
-    text: (n, p) => `${n} is developing ${p.pos} Individual Assessment (IA) and should focus on narrowing ${p.pos} research question and establishing a clearer and more specific design context.` },
+  { id: 'crit-dp-b-6', label: '6', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} performed strongly in tests and in-class assessments throughout the year, demonstrating consistent and confident understanding of Standard Level topics.` },
 
-  { id: 'crit-dp-ia-early', label: 'IA Work: Early Stage',
-    section: 'Criteria', grades: [11], criterionGroup: 'C',
-    text: (n, p) => `${n} is in the early stages of ${p.pos} Individual Assessment (IA) and should now prioritise identifying a focused design problem and a well-defined research question.` },
+  { id: 'crit-dp-b-7', label: '7', section: 'Criteria', grades: [11], criterionGroup: 'B',
+    text: (n, p) => `${n} performed exceptionally in assessments, demonstrating outstanding knowledge and application of Standard Level content across all topics assessed.` },
+
+  // ─── CRITERIA — DP G11 (criterionGroup C = IA Work) ────────────────────────
+
+  { id: 'crit-dp-c-1', label: '1', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} made very limited progress on the Individual Assessment (IA) and should prioritise establishing a clear design context and research question as a matter of urgency.` },
+
+  { id: 'crit-dp-c-2', label: '2', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} made limited progress on the Individual Assessment (IA) and should focus on identifying a specific design problem and developing a focused research direction.` },
+
+  { id: 'crit-dp-c-3', label: '3', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} is in the early stages of the Individual Assessment (IA) and should focus on narrowing ${p.pos} research question and establishing a clearer, more specific design context.` },
+
+  { id: 'crit-dp-c-4', label: '4', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} has made a reasonable start to the Individual Assessment (IA), identifying a design context and beginning to develop a research question.` },
+
+  { id: 'crit-dp-c-5', label: '5', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} has made good progress on the Individual Assessment (IA), developing a focused research question and identifying relevant design sources and context.` },
+
+  { id: 'crit-dp-c-6', label: '6', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} has made strong progress on the Individual Assessment (IA), developing a well-defined research question with a clear and well-supported design context.` },
+
+  { id: 'crit-dp-c-7', label: '7', section: 'Criteria', grades: [11], criterionGroup: 'C',
+    text: (n, p) => `${n} has made exceptional progress on the Individual Assessment (IA), producing a sophisticated and well-grounded research question supported by extensive design context and source engagement.` },
 
   // ─── ATL SKILLS ────────────────────────────────────────────────────────────
 
@@ -328,6 +400,22 @@ const PHRASES = [
 
   // ─── IMPROVEMENT ───────────────────────────────────────────────────────────
 
+  { id: 'imp-class-time', label: 'Using Class Time',
+    section: 'Improvement', grades: [6, 7, 10],
+    text: (n, p) => `${n} would benefit from making better use of class time, staying focused on design tasks and using the available time to complete and refine ${p.pos} work to the highest possible standard.` },
+
+  { id: 'imp-ask-questions', label: 'Asking Questions',
+    section: 'Improvement', grades: [6, 7],
+    text: (n, p) => `${n} should feel encouraged to ask questions when unsure what to do, as seeking clarification early will help ${p.obj} make better progress and avoid misunderstandings about task requirements.` },
+
+  { id: 'imp-attention-detail', label: 'Attention to Detail',
+    section: 'Improvement', grades: [6, 7, 10],
+    text: (n, p) => `${n} should focus on paying closer attention to task instructions and details, as careful reading of requirements will help ${p.obj} produce work that more fully addresses what is being asked.` },
+
+  { id: 'imp-following-instructions', label: 'Following Instructions',
+    section: 'Improvement', grades: [6, 7],
+    text: (n, p) => `${n} would benefit from listening more carefully when instructions are given in class, as this will help ${p.obj} begin tasks promptly and with a clear understanding of the expectations.` },
+
   { id: 'imp-research-depth', label: 'Research Depth',
     section: 'Improvement', grades: [6, 7, 10, 11],
     text: (n, p) => `${n} would benefit from developing more thorough research, particularly in justifying design decisions with specific and varied evidence.` },
@@ -356,6 +444,18 @@ const PHRASES = [
     section: 'Improvement', grades: [6, 7, 10],
     text: (n, p) => `${n} should ensure that ${p.pos} design decisions are consistently evaluated against the design specification throughout all stages of the process.` },
 
+  { id: 'imp-mechanism-understanding', label: 'Mechanism Understanding',
+    section: 'Improvement', grades: [7],
+    text: (n, p) => `${n} would benefit from developing a stronger understanding of how mechanisms translate and transform motion, as this will support more effective design and construction decisions.` },
+
+  { id: 'imp-build-testing', label: 'More Build Testing',
+    section: 'Improvement', grades: [7],
+    text: (n, p) => `${n} should focus on testing a greater range of configurations during the design process, using hands-on experimentation to identify what works before committing to a final build.` },
+
+  { id: 'imp-moving-parts', label: 'Moving Parts Precision',
+    section: 'Improvement', grades: [7],
+    text: (n, p) => `${n} should focus on ensuring all moving parts in ${p.pos} machine function correctly and reliably, paying careful attention to how components connect and interact.` },
+
   { id: 'imp-ia-refinement', label: 'IA: Refine Question',
     section: 'Improvement', grades: [11],
     text: (n, p) => `${n} should now focus on refining ${p.pos} Individual Assessment (IA) research question to ensure it is specific, testable, and well-supported by relevant design theory.` },
@@ -371,18 +471,6 @@ const PHRASES = [
   { id: 'imp-fusion', label: 'Fusion 360 Development',
     section: 'Improvement', grades: [11],
     text: (n, p) => `${n} should continue to develop ${p.pos} technical proficiency in Fusion 360, particularly in relation to parametric design and accurate modelling in preparation for the Individual Assessment (IA).` },
-
-  { id: 'imp-mechanism-understanding', label: 'Mechanism Understanding',
-    section: 'Improvement', grades: [7],
-    text: (n, p) => `${n} would benefit from developing a stronger understanding of how mechanisms translate and transform motion, as this will support more effective design and construction decisions.` },
-
-  { id: 'imp-build-testing', label: 'More Build Testing',
-    section: 'Improvement', grades: [7],
-    text: (n, p) => `${n} should focus on testing a greater range of configurations during the design process, using hands-on experimentation to identify what works before committing to a final build.` },
-
-  { id: 'imp-moving-parts', label: 'Moving Parts Precision',
-    section: 'Improvement', grades: [7],
-    text: (n, p) => `${n} should focus on ensuring all moving parts in ${p.pos} machine function correctly and reliably, paying careful attention to how components connect and interact.` },
 
   { id: 'imp-class-participation', label: 'Class Participation',
     section: 'Improvement', grades: [6, 7, 10, 11],
@@ -452,3 +540,12 @@ const PHRASES = [
     section: 'Closing', grades: [6, 7, 10, 11],
     text: (n, p) => `${n} is well-positioned to meet the challenges ahead and should approach next semester with confidence and ambition.` },
 ];
+
+// Sub-group metadata for SubjectContent rendering
+const SUBJECT_SUBGROUPS = {
+  lego:       { label: 'Lego Design Project',       grades: [6]  },
+  mechanisms: { label: 'Mechanisms Project',         grades: [7]  },
+  studio:     { label: 'Studio Project',             grades: [10] },
+  dp:         { label: 'DP — Overall Performance',   grades: [11] },
+  'dp-ia':    { label: 'IA Progress',               grades: [11] },
+};
