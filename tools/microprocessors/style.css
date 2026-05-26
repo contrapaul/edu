@@ -1,0 +1,109 @@
+:root {
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-hover: #7dd3fc;
+  --success: #22c55e;
+  --error: #ef4444;
+  --border-radius: 10px;
+  --transition: 0.2s ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+}
+
+.activity-header { text-align: center; margin-bottom: 2rem; }
+.activity-header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.activity-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+.activity-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Timeline Navigation */
+.timeline-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.era-btn {
+  background: var(--bg-card);
+  border: 1px solid #334155;
+  color: var(--text-main);
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.era-btn:hover, .era-btn.active {
+  background: var(--accent);
+  color: #0f172a;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Detail Panel */
+.detail-panel {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 2rem;
+  min-height: 200px;
+}
+
+.detail-panel h2 { color: var(--accent); margin-bottom: 0.75rem; }
+.detail-panel .meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-muted); }
+.detail-panel .meta span { background: #334155; padding: 0.2rem 0.6rem; border-radius: 6px; }
+.detail-panel h3 { margin-top: 1rem; margin-bottom: 0.4rem; color: var(--accent-hover); font-size: 1.1rem; }
+.detail-panel p, .detail-panel ul { margin-bottom: 0.8rem; }
+.detail-panel ul { padding-left: 1.2rem; }
+
+/* Quiz Section */
+.quiz-section { background: var(--bg-card); padding: 1.5rem; border-radius: var(--border-radius); }
+.quiz-question { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #334155; }
+.quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+.option-btn {
+  background: #334155;
+  border: none;
+  color: var(--text-main);
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.option-btn:hover { background: #475569; }
+.option-btn.correct { background: var(--success); color: #0f172a; }
+.option-btn.incorrect { background: var(--error); }
+.feedback { margin-top: 0.5rem; font-size: 0.9rem; min-height: 1.4em; }
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.btn-secondary:hover { background: rgba(56, 189, 248, 0.1); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .timeline-nav { gap: 0.5rem; }
+  .era-btn { font-size: 0.85rem; padding: 0.5rem 0.7rem; }
+}

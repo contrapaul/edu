@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Systems Application | B3.2 — DP Design — contrapaul edu</title>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../curriculum.css">
+</head>
+<body data-curr-page="b3.2">
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<div class="topic-hero" style="--topic-color:#1a5cb8;--topic-bg:#e8eef8;--topic-border:#c4d0e8;">
+<div class="topic-hero-inner">
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum/dp/">DP Design</a><span class="sep">/</span>Topic B</div>
+<div class="topic-meta"><span class="topic-code">B3.2</span><span class="topic-level level-hl">HL only</span></div>
+<h1 class="topic-title">Structural Systems Application and Selection</h1>
+<p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How can structural systems be incorporated into product design?</p>
+<nav class="topic-nav"><a href="#intro">Introduction</a><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
+</div>
+</div>
+
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<p class="curr-toc-title">Contents</p>
+<ul class="curr-toc-list">
+<li><a href="#intro" class="curr-toc-link">Introduction</a></li>
+<li><a href="#study-guide" class="curr-toc-link">Study Guide</a>
+<ul>
+<li><a href="#obj-3.2.1" class="curr-toc-link curr-toc-sub">3.2.1 Forces on structures</a></li>
+<li><a href="#obj-3.2.2" class="curr-toc-link curr-toc-sub">3.2.2 Young's Modulus &amp; stress-strain</a></li>
+<li><a href="#obj-3.2.3" class="curr-toc-link curr-toc-sub">3.2.3 Structural failure &amp; FEA</a></li>
+<li><a href="#obj-3.2.4" class="curr-toc-link curr-toc-sub">3.2.4 Force diagrams</a></li>
+<li><a href="#obj-3.2.5" class="curr-toc-link curr-toc-sub">3.2.5 Safety factors</a></li>
+</ul>
+</li>
+<li><a href="#quiz" class="curr-toc-link">Quiz</a></li>
+<li><a href="#paper2" class="curr-toc-link">Paper 2 Practice</a></li>
+<li><a href="#references" class="curr-toc-link">References</a></li>
+</ul>
+</nav>
+
+<main><div class="curr-main">
+
+<div class="curr-section" id="intro" style="--curr-color:#1a5cb8;">
+<button class="curr-trigger" aria-expanded="true" aria-controls="body-intro">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body open" id="body-intro">
+<p>B3.2 moves from the vocabulary of structures (A3.2) to the quantitative tools designers use to analyse them. Understanding <em>what</em> forces do to materials requires the mathematics of stress, strain, and stiffness. Understanding <em>when</em> structures fail requires studying real disasters — from the Quebec Bridge collapse of 1907 to the Genoa Morandi Bridge in 2018 — and extracting the engineering lessons they teach.</p>
+<p>The core skill of this topic is calculation: computing stress from force and area, reading a stress-strain graph to extract Young's Modulus and yield strength, applying safety factors to determine allowable working loads, and interpreting force diagrams to understand how loads travel through a structure. These are the tools that separate informed structural design from guesswork.</p>
+</div>
+</div>
+
+<div class="curr-section" id="study-guide" style="--curr-color:#1a5cb8;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-study">
+<p class="curr-section-intro">Building on the structural theory in A3.2, this topic applies structural analysis to real products — calculating stress, interpreting stress-strain graphs, reading force diagrams, and designing with safety factors.</p>
+
+<div class="zh-toggle-wrap">
+<input type="checkbox" id="zh-toggle" class="zh-toggle-input">
+<label for="zh-toggle" class="zh-toggle">显示中文 Show Chinese</label>
+</div>
+
+<div class="obj-list">
+
+<div class="obj-section" id="obj-3.2.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.2.1">
+<div class="obj-trigger-left"><span class="obj-code">3.2.1</span><h3>Structures are present in the design of everyday products.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.2.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse and model the forces acting on and within the structure of existing products and be able to suggest how existing structures can be strengthened.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>A <strong>structure</strong> is any system of interconnected parts designed to support loads and resist forces without unacceptable deformation or failure. Structures appear in every product: a chair's legs, a mobile phone's chassis, a bicycle frame, a bridge deck, and a skyscraper's core are all structures serving the same fundamental purpose.</p>
+
+<p><strong>Five types of stress act on structures:</strong></p>
+<ol>
+<li><strong>Tension</strong> — A pulling force trying to elongate the material. Tensile stress is distributed <em>uniformly</em> across the cross-section. <em>Examples</em>: Suspension bridge cables; a rope in a tug-of-war; the bottom chord of a truss.</li>
+<li><strong>Compression</strong> — A pushing force trying to shorten the material. Like tension, compressive stress is distributed <em>uniformly</em> across the cross-section. <em>Examples</em>: Building columns; chair legs; the top chord of a truss; concrete in a dam.</li>
+<li><strong>Shear</strong> — A sliding force that causes one part to slide over an adjacent part. Shear stress is <em>not uniform</em> — it is <strong>maximum at the neutral axis</strong> and <strong>zero at the outer surfaces</strong>. Shear takes three forms:
+<ul>
+<li><em>Single shear</em>: One shear plane — e.g., a single bolt connecting two overlapping plates. τ = F / A</li>
+<li><em>Double shear</em>: Two shear planes — e.g., a pin in a clevis joint. τ = F / 2A</li>
+<li><em>Punching shear</em>: A punch forcing through a plate. τ = F / (π × d × t) where d is punch diameter and t is plate thickness.</li>
+</ul>
+</li>
+<li><strong>Torsion</strong> — A twisting force (torque) that rotates one end relative to the other. Torsional stress is <strong>highest at the surface</strong> and <strong>zero at the centre</strong>. This is why <em>hollow shafts</em> are as strong in torsion as solid shafts of the same outer diameter — the material at the centre contributes almost nothing — but hollow shafts are significantly lighter. <em>Examples</em>: Car drive shafts; screwdriver blades; drill bits.</li>
+<li><strong>Bending (flexural stress)</strong> — Produces <em>tension on one face</em> and <em>compression on the opposite face</em> of the beam, separated by the <strong>neutral axis</strong> (zero stress). Bending stress is <strong>maximum at the outermost fibres</strong>. This is why I-beams concentrate material at the flanges (top and bottom) — that is where bending stress is highest — leaving the web thin to resist shear. <em>Examples</em>: Shelves sagging under books; a diving board; a car axle.</li>
+</ol>
+
+<p><strong>Load types:</strong></p>
+<ul>
+<li><strong>Dead loads</strong>: Permanent, constant weight — the structure itself plus fixed attachments. Does not change over time.</li>
+<li><strong>Live loads</strong>: Variable, temporary loads — people, furniture, vehicles, stored goods. Must be estimated for the worst credible case.</li>
+<li><strong>Environmental loads</strong>: Wind pressure, rain, snow accumulation, seismic ground motion, thermal expansion and contraction. Dynamic and unpredictable.</li>
+<li><strong>Other loads</strong>: Foundation settlement, machinery vibration, impact (collision), blast.</li>
+</ul>
+<p>Designers analyse structures by identifying all load types, determining how they combine in the worst-case scenario, and ensuring every structural member can carry its share of those combined loads with an adequate safety margin.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>结构</strong>是任何旨在承受荷载和抵抗力而不发生不可接受变形或失效的互连部件系统。结构出现在每件产品中：椅腿、手机底盘、自行车车架、桥面板和摩天大楼核心筒都是服务于同一基本目的的结构。</p>
+
+<p><strong>五种应力类型作用于结构：</strong></p>
+<ol>
+<li><strong>拉伸</strong>——试图拉长材料的拉力。拉伸应力在横截面上<em>均匀</em>分布。<em>例子</em>：悬索桥缆绳；拔河绳；桁架下弦杆。</li>
+<li><strong>压缩</strong>——试图缩短材料的推力。与拉伸一样，压缩应力在横截面上<em>均匀</em>分布。<em>例子</em>：建筑柱；椅腿；桁架上弦杆；坝中混凝土。</li>
+<li><strong>剪切</strong>——使一部分在相邻部分上滑动的力。剪切应力<em>不均匀</em>——在<strong>中性轴处最大</strong>，在<strong>外表面为零</strong>。剪切有三种形式：
+<ul>
+<li><em>单剪切</em>：单个剪切面——如连接两个重叠板的单个螺栓。τ = F / A</li>
+<li><em>双剪切</em>：两个剪切面——如叉形接头中的销。τ = F / 2A</li>
+<li><em>冲切剪力</em>：冲头穿过板。τ = F / (π × d × t)</li>
+</ul>
+</li>
+<li><strong>扭转</strong>——使一端相对于另一端旋转的扭曲力（扭矩）。扭转应力在<strong>表面最大</strong>，在<strong>中心为零</strong>。这就是为什么<em>空心轴</em>在扭转方面与相同外径的实心轴强度相同——中心处的材料几乎没有贡献——但空心轴明显更轻。<em>例子</em>：汽车传动轴；螺丝刀刀头；钻头。</li>
+<li><strong>弯曲（挠曲应力）</strong>——在梁的一个面上产生<em>拉伸</em>，在对面产生<em>压缩</em>，由<strong>中性轴</strong>（零应力）分隔。弯曲应力在<strong>最外层纤维处最大</strong>。这就是工字梁将材料集中在翼缘（顶部和底部）的原因——那里弯曲应力最高——而腹板保持薄以抵抗剪切。</li>
+</ol>
+
+<p><strong>荷载类型：</strong></p>
+<ul>
+<li><strong>恒载</strong>：永久、恒定的重量——结构本身加固定附件。不随时间变化。</li>
+<li><strong>活载</strong>：可变、临时的荷载——人、家具、车辆、存储货物。必须估计最坏的可信情况。</li>
+<li><strong>环境荷载</strong>：风压、雨、积雪、地震地面运动、热膨胀和收缩。动态且不可预测。</li>
+<li><strong>其他荷载</strong>：基础沉降、机械振动、冲击（碰撞）、爆炸。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="obj-section" id="obj-3.2.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.2.2">
+<div class="obj-trigger-left"><span class="obj-code">3.2.2</span><h3>Young's Modulus is the measure of stiffness of a material.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.2.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate Young's Modulus using the formula E = σ / ε, and interpret stress-strain graphs identifying Young's Modulus, yield strength, ultimate strength and fracture.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Stress (σ)</strong> is the internal force per unit cross-sectional area that a material develops in response to an applied load:</p>
+<p class="content-formula">σ = F / A &nbsp;&nbsp; [Pa or MPa; note: 1 N/mm² = 1 MPa]</p>
+<p>Where F = applied force (N) and A = cross-sectional area (m² for Pa; mm² for MPa). Use mm² consistently to work in MPa directly.</p>
+
+<p><strong>Strain (ε)</strong> is the fractional change in length caused by that stress:</p>
+<p class="content-formula">ε = ΔL / L₀ &nbsp;&nbsp; [dimensionless — no units]</p>
+<p>Where ΔL = change in length and L₀ = original length (use consistent units — both mm, or both m).</p>
+
+<p><strong>Young's Modulus (E)</strong> — stiffness — is the ratio of stress to strain in the elastic (linear) region of the stress-strain graph:</p>
+<p class="content-formula">E = σ / ε &nbsp;&nbsp; [GPa or MPa]</p>
+<p>E is the slope of the straight-line portion of the stress-strain curve. A steeper slope = stiffer material. Steel: E ≈ 200 GPa. Aluminium: E ≈ 70 GPa. Rubber: E ≈ 0.01–0.1 GPa.</p>
+
+<p><strong>Reading the stress-strain graph — key points:</strong></p>
+<ol>
+<li><strong>Elastic (linear) region</strong>: Stress and strain are proportional (Hooke's Law). The slope = E. Remove the load and the material returns to its original shape. The Young's Modulus is read from this region only.</li>
+<li><strong>Elastic limit / proportional limit</strong>: The stress at which the stress-strain relationship ceases to be linear. Below this point, deformation is fully reversible.</li>
+<li><strong>Yield point (yield strength, σ_y)</strong>: The stress at which permanent (plastic) deformation begins. For many mild steels, there is a distinct upper yield point (sudden drop in load) followed by a lower yield point. Once passed, the material will not return to its original shape when unloaded.</li>
+<li><strong>Proof stress (for materials without a clear yield point)</strong>: Aluminium alloys, titanium alloys, and copper do not show a well-defined yield point. The <strong>0.2% proof stress</strong> (also called offset yield strength) is found by drawing a line parallel to the elastic region but offset 0.2% along the strain axis. Where this line intersects the stress-strain curve is the proof stress. This is the IB-standard method for these materials.</li>
+<li><strong>Ultimate Tensile Strength (UTS)</strong>: The maximum stress on the graph — the peak of the curve. Beyond this point, the material begins to neck (thin locally) and load-carrying capacity decreases even as the material is still extending.</li>
+<li><strong>Necking</strong>: The localised reduction in cross-sectional area in ductile materials after UTS. The material thins at one point, and true stress actually increases there even though engineering stress (based on original area) decreases.</li>
+<li><strong>Fracture point</strong>: Where the material finally breaks. In ductile materials (mild steel, aluminium), there is significant plastic deformation between yield and fracture. In brittle materials (glass, cast iron, concrete in tension), fracture occurs with little or no plastic deformation — the curve drops sharply from near the elastic limit.</li>
+</ol>
+
+<p><strong>Effect of temperature:</strong> For plain carbon steels, Young's Modulus <em>decreases</em> as temperature increases. At elevated temperatures, steel softens and its stiffness falls — a critical consideration for fire-resistant structural design and high-temperature industrial equipment.</p>
+
+<p><strong>Worked example — calculating Young's Modulus:</strong></p>
+<p>A steel test piece, original length 50 mm and cross-sectional area 20 mm², is pulled with a force of 80 kN. It stretches 0.1 mm. Find E.</p>
+<p class="content-formula">σ = F / A = 80,000 N / 20 mm² = 4,000 MPa</p>
+<p class="content-formula">ε = ΔL / L₀ = 0.1 mm / 50 mm = 0.002</p>
+<p class="content-formula">E = σ / ε = 4,000 MPa / 0.002 = 2,000,000 MPa = 200 GPa ✓ (consistent with steel)</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>应力（σ）</strong>是材料响应施加荷载而产生的单位横截面积内力：</p>
+<p class="content-formula">σ = F / A &nbsp;&nbsp; [Pa或MPa；注：1 N/mm² = 1 MPa]</p>
+
+<p><strong>应变（ε）</strong>是由该应力引起的长度分数变化：</p>
+<p class="content-formula">ε = ΔL / L₀ &nbsp;&nbsp; [无量纲——无单位]</p>
+
+<p><strong>杨氏模量（E）</strong>——刚度——是应力-应变图弹性（线性）区域中应力与应变的比值：</p>
+<p class="content-formula">E = σ / ε &nbsp;&nbsp; [GPa或MPa]</p>
+<p>E是应力-应变曲线直线部分的斜率。斜率越陡 = 材料越刚硬。钢：E ≈ 200 GPa。铝：E ≈ 70 GPa。橡胶：E ≈ 0.01–0.1 GPa。</p>
+
+<p><strong>读取应力-应变图——关键点：</strong></p>
+<ol>
+<li><strong>弹性（线性）区域</strong>：应力和应变成正比（胡克定律）。斜率 = E。移除荷载后材料恢复原始形状。</li>
+<li><strong>弹性极限/比例极限</strong>：应力-应变关系不再线性的应力点。低于此点，变形完全可逆。</li>
+<li><strong>屈服点（屈服强度，σ_y）</strong>：永久（塑性）变形开始的应力。一旦超过，卸载后材料不会恢复原始形状。</li>
+<li><strong>验证应力（无明显屈服点的材料）</strong>：铝合金、钛合金和铜没有明确的屈服点。<strong>0.2%验证应力</strong>通过在应变轴上偏移0.2%绘制平行于弹性区域的线来确定。该线与应力-应变曲线的交点即为验证应力。</li>
+<li><strong>极限抗拉强度（UTS）</strong>：图表上的最大应力——曲线的峰值。超过此点，材料开始颈缩（局部变薄）。</li>
+<li><strong>颈缩</strong>：韧性材料在UTS后发生的局部横截面积减小。材料在一点变薄，承载能力下降。</li>
+<li><strong>断裂点</strong>：材料最终断裂的位置。在韧性材料中，屈服和断裂之间有显著的塑性变形。在脆性材料中，断裂几乎没有塑性变形。</li>
+</ol>
+<p><strong>温度影响</strong>：对于普通碳钢，杨氏模量随温度升高而<em>降低</em>。</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="obj-section" id="obj-3.2.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.2.3">
+<div class="obj-trigger-left"><span class="obj-code">3.2.3</span><h3>Structures fail due to overloading, material choice, size and shape.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.2.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify why a structure has failed, including interpreting data from finite element analysis (FEA).</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Structural failure occurs when stress in any part of a structure exceeds the material's capacity to resist it. Failure modes fall into four main categories:</p>
+<ol>
+<li><strong>Overloading</strong>: Applied loads exceed what the structure was designed for. Causes include unexpected live loads, dynamic impacts, or failure to account for cumulative loading.</li>
+<li><strong>Wrong material choice</strong>: A material with insufficient strength, toughness, or corrosion resistance for the operating environment. A mild steel fastener in a marine environment corrodes rapidly; a glass component in a high-impact application fractures brittlely.</li>
+<li><strong>Wrong size or shape</strong>: A section that is too thin for the load, or a geometry that concentrates stress at notches, holes, or sudden cross-section changes (stress concentrators). Fatigue cracks almost always initiate at stress concentrations.</li>
+<li><strong>Buckling</strong>: A mode of failure unique to slender members under compression. When a long, thin column or strut is loaded in compression, it can suddenly deflect laterally and collapse at a load far below its compressive strength. The critical buckling load depends on the member's slenderness (length-to-radius-of-gyration ratio), its cross-section shape, and its end conditions. Hollow tubes and I-sections resist buckling better than solid rods of the same area because they have a larger radius of gyration.</li>
+</ol>
+
+<p><strong>Case study — Quebec Bridge collapse (1907):</strong></p>
+<p>During construction of what was to be the world's longest cantilever bridge (548 m main span), the south anchor arm collapsed, killing 75 of the 86 workers on site. The primary cause was the <strong>underestimation of the structure's own weight</strong> — the calculated weight was 30,857 tonnes but the actual weight was later found to be 36,408 tonnes. This led to compressive stresses in the lower chord members that exceeded the material's buckling resistance. Signs of buckling had been observed and reported for nearly a month before the collapse, but work continued. The bridge collapsed two hours after buckling was formally reported to the chief engineer.</p>
+<p><em>Engineering lessons</em>: Accurate weight calculations are non-negotiable. Warning signs of buckling must be acted on immediately. Clear lines of responsibility and authority to halt construction are essential. The disaster directly led to the reform of Canadian professional engineering standards.</p>
+
+<p><strong>Case study — Tacoma Narrows Bridge collapse (1940):</strong></p>
+<p>The Tacoma Narrows Bridge was revolutionary in its slenderness: a depth-to-span ratio of 1:350 (compared to the typical 1:84 of contemporary suspension bridges) and a width-to-span ratio of 1:72 — the narrowest of any comparable bridge. Its shallow plate girder sides acted as a solid wall to wind, rather than allowing air to pass through as an open truss would. During construction, the bridge already oscillated vertically in wind, earning the nickname "Galloping Gertie." Four months after opening, a 67 km/h gale induced a coupled bending-torsion oscillation (aeroelastic flutter) — the roadway twisted at increasing amplitude until the deck tore apart.</p>
+<p><em>Engineering lessons</em>: Wind is not just a static pressure load; it can induce dynamic resonance. <strong>Torsional stiffness</strong> and <strong>aerodynamic stability</strong> are as important as vertical strength. Wind tunnel testing of scale bridge models became mandatory following this failure. Modern long-span bridges use open truss girders, aerodynamic deck profiles, and tuned mass dampers to prevent flutter.</p>
+
+<p><strong>Case study — Genoa Morandi Bridge collapse (2018):</strong></p>
+<p>A 210 m section of the cable-stayed Morandi Bridge collapsed, killing 43 people. The failure was caused by decades of <strong>corrosion to steel cables</strong> inside the bridge's distinctive reinforced concrete pylons, combined with <strong>deterioration of the prestressed concrete</strong>. The original design embedded the stay cables inside concrete shrouds — a design that prevented inspection or replacement of the steel. Corrosion progressed invisibly until the cable system no longer had sufficient capacity to carry the bridge's dead load.</p>
+<p><em>Engineering lessons</em>: Safety factors degrade over time as materials corrode and fatigue. Infrastructure must be designed for inspectability and maintainability — hidden structural elements are a design failure, not just an operational problem. The replacement bridge (Genoa San Giorgio, 2020), designed by Renzo Piano, incorporates continuously operating monitoring robots that inspect every structural element for corrosion and cracking.</p>
+
+<p><strong>Finite Element Analysis (FEA):</strong></p>
+<p>FEA is a computational method that divides a complex structure into thousands of tiny elements (triangles or tetrahedra in 2D/3D). The software applies loads and constraints, then calculates stress, strain, and displacement at each element. The results are displayed as <strong>colour maps</strong> (stress contour plots): regions in red/orange indicate the highest stress, green and blue indicate lower stress. Designers use FEA to:</p>
+<ul>
+<li>Identify stress concentrations before any physical prototype is built.</li>
+<li>Optimise cross-section shapes and thicknesses to eliminate over-stressed regions without adding unnecessary material.</li>
+<li>Predict where fatigue cracks will initiate under cyclic loading.</li>
+<li>Verify that a proposed design meets safety factor requirements.</li>
+</ul>
+<p>Interpreting FEA output: a region shown in red that coincides with a geometric feature (hole, fillet, notch) is a stress concentration — the designer should increase the radius of the fillet, add a gusset plate, or choose a stronger material for that region. A large region of uniform low stress (blue) indicates over-engineered material that could be removed to reduce weight.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>结构失效发生在结构任何部分的应力超过材料抵抗能力时。失效模式分为四个主要类别：</p>
+<ol>
+<li><strong>超载</strong>：施加的荷载超过结构设计承受的范围。原因包括意外活载、动力冲击或未能考虑累积荷载。</li>
+<li><strong>错误的材料选择</strong>：强度、韧性或耐腐蚀性不足以应对使用环境的材料。</li>
+<li><strong>错误的尺寸或形状</strong>：对于荷载过薄的截面，或在缺口、孔或截面突变（应力集中点）处集中应力的几何形状。疲劳裂纹几乎总是在应力集中处萌生。</li>
+<li><strong>屈曲</strong>：细长受压构件特有的失效模式。当细长柱在压缩下加载时，它可能突然横向偏转并在远低于其抗压强度的荷载下倒塌。</li>
+</ol>
+
+<p><strong>案例研究——魁北克大桥坍塌（1907年）：</strong></p>
+<p>在建设中，南锚臂坍塌，86名工人中75人遇难。主要原因是<strong>严重低估了结构自重</strong>——计算重量为30,857吨，但实际重量后来发现为36,408吨。这导致下弦杆中的压缩应力超过材料的屈曲抵抗力。屈曲迹象已被观察到并报告了近一个月，但工作继续进行。在正式向总工程师报告屈曲后两小时，桥梁坍塌。</p>
+
+<p><strong>案例研究——塔科马海峡大桥坍塌（1940年）：</strong></p>
+<p>塔科马海峡大桥以其细长著称：高跨比为1:350（当时典型值为1:84）。其浅板梁侧面对风起实墙作用，而不是像开放桁架那样让气流通过。一场67千米/小时的大风引发了耦合弯扭振荡（气动弹性颤振）——路面以增大的幅度扭转直到桥面撕裂。</p>
+
+<p><strong>案例研究——热那亚莫兰迪大桥坍塌（2018年）：</strong></p>
+<p>失效原因是桥梁独特的钢筋混凝土桥塔内<strong>钢缆数十年的腐蚀</strong>，以及<strong>预应力混凝土的劣化</strong>。原始设计将斜拉索嵌入混凝土护套内——这种设计阻止了对钢材的检查或更换。腐蚀隐蔽地发展，直到缆索系统无法承载桥梁的恒载。</p>
+
+<p><strong>有限元分析（FEA）：</strong></p>
+<p>FEA是一种将复杂结构划分为数千个微小元素的计算方法。软件施加荷载和约束，然后计算每个元素处的应力、应变和位移。结果以<strong>色彩图</strong>（应力等值线图）显示：红色/橙色区域表示最高应力，绿色和蓝色表示较低应力。设计师使用FEA识别应力集中点、优化截面形状并验证安全系数要求。</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="obj-section" id="obj-3.2.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.2.4">
+<div class="obj-trigger-left"><span class="obj-code">3.2.4</span><h3>Forces acting on a structure or within a beam can be represented diagrammatically.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.2.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Interpret simple force diagrams for a given structure.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Engineers represent forces and their effects using standardised diagrams. Three types are essential for structural analysis:</p>
+
+<p><strong>1. Free Body Diagrams (FBDs)</strong></p>
+<p>A free body diagram isolates a single object (or a section of a structure) and shows all external forces acting on it as vectors — arrows indicating direction and magnitude. FBDs are the starting point for every structural calculation.</p>
+<p>Rules for drawing FBDs:</p>
+<ul>
+<li>Draw the object in isolation — remove all surrounding context.</li>
+<li>Show every external force: applied loads (arrows at the point of application), reactions at supports (upward at supports, horizontal at pinned supports if required).</li>
+<li>Label each force with its magnitude and direction.</li>
+<li>Show the coordinate system (x–y axes).</li>
+</ul>
+
+<p><strong>2. Force polygons (tip-to-tail vector addition)</strong></p>
+<p>When multiple forces act on a point, their resultant (combined effect) can be found graphically. Draw each force vector to scale, placing the tail of each arrow at the tip of the previous one. The resultant is the vector from the starting point to the final tip. If the forces are in equilibrium, the polygon closes (the last tip meets the first tail) — this is the graphical equivalent of ΣF = 0.</p>
+
+<p><strong>3. Support reactions</strong></p>
+<p>Before drawing shear force and bending moment diagrams, the reactions at all supports must be found using the two equilibrium equations:</p>
+<p class="content-formula">ΣF = 0 &nbsp;&nbsp; (sum of all vertical forces = 0)</p>
+<p class="content-formula">ΣM = 0 &nbsp;&nbsp; (sum of moments about any point = 0)</p>
+<p>Two support types:</p>
+<ul>
+<li><strong>Roller support</strong>: Provides a reaction force <em>perpendicular to the surface</em> only (vertical for a horizontal beam). It cannot resist horizontal forces. One unknown: R_vertical.</li>
+<li><strong>Pinned support</strong>: Provides reactions in <em>any direction</em> — both vertical and horizontal components. Two unknowns: R_vertical and R_horizontal.</li>
+</ul>
+<p><em>Worked example — finding support reactions:</em> A 6 m simply-supported beam carries a 10 kN point load at 2 m from the left (pinned) support A. Find reactions R_A and R_B (roller at B).</p>
+<p>Take moments about A: ΣM_A = 0 → R_B × 6 = 10 × 2 → R_B = 20/6 = 3.33 kN</p>
+<p>ΣF_vertical = 0 → R_A + R_B = 10 → R_A = 10 − 3.33 = 6.67 kN</p>
+
+<p><strong>4. Shear force diagrams (SFD)</strong></p>
+<p>A shear force diagram plots the internal shear force at every cross-section along the beam. Sign convention: shear that tends to cause clockwise rotation of the left segment is positive (+). The diagram is built by working from left to right, adding each load or reaction encountered. Point loads cause vertical jumps in the diagram; uniformly distributed loads (UDL) cause linear slopes.</p>
+
+<p><strong>5. Bending moment diagrams (BMD)</strong></p>
+<p>A bending moment diagram plots the internal bending moment at every cross-section. The critical rule: <strong>maximum bending moment occurs where shear force equals zero</strong>. The BMD is the area under the SFD. Point loads produce triangular shapes; UDLs produce parabolic curves. The BMD is essential for sizing the beam — the peak moment location is where the beam is most likely to fail in bending.</p>
+
+<p><strong>Uniformly distributed loads (UDL):</strong> Expressed in kN/m. A UDL of 5 kN/m over 4 m is equivalent to a point load of 20 kN at the midpoint of the span for the purpose of calculating support reactions. The total UDL force = w × L where w is load intensity (kN/m) and L is span length (m).</p>
+
+<p><strong>Cantilever beams:</strong> Fixed at one end, free at the other. The fixed support must resist both vertical force and bending moment. The maximum bending moment in a cantilever occurs at the fixed end — not in the middle. <em>Examples</em>: Stadium roof canopies, balconies, aircraft wings. A UDL on a cantilever of length L and intensity w gives: maximum bending moment M_max = w × L² / 2 at the fixed end.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>工程师使用标准化图表表示力及其效果。结构分析有三种必备类型：</p>
+
+<p><strong>1. 自由体图（FBD）</strong></p>
+<p>自由体图将单个物体（或结构截面）隔离，并以向量形式显示所有作用于其上的外力——箭头表示方向和大小。FBD是每次结构计算的起点。规则：孤立地绘制物体；显示每个外力（施加荷载、支座反力）；标记每个力的大小和方向；显示坐标系统。</p>
+
+<p><strong>2. 力多边形（首尾相接的向量加法）</strong></p>
+<p>当多个力作用于一点时，可以用图解法找到它们的合力。将每个力向量按比例绘制，将每个箭头的尾部放在前一个的尖端。合力是从起点到最终尖端的向量。如果力处于平衡状态，多边形闭合——这是ΣF = 0的图形等价。</p>
+
+<p><strong>3. 支座反力</strong></p>
+<p>必须使用两个平衡方程找到所有支座的反力：</p>
+<p class="content-formula">ΣF = 0 &nbsp;&nbsp; 和 &nbsp;&nbsp; ΣM = 0</p>
+<ul>
+<li><strong>滚轴支座</strong>：仅提供垂直于表面的反力。一个未知数：R_垂直。</li>
+<li><strong>铰支座</strong>：提供任意方向的反力——垂直和水平分量。两个未知数。</li>
+</ul>
+
+<p><strong>4. 剪力图（SFD）</strong></p>
+<p>剪力图绘制梁沿长度每个截面处的内部剪力。集中荷载在图中引起垂直跳跃；均布荷载引起线性斜坡。</p>
+
+<p><strong>5. 弯矩图（BMD）</strong></p>
+<p>弯矩图绘制每个截面的内部弯矩。关键规则：<strong>最大弯矩发生在剪力为零处</strong>。BMD是SFD下的面积。集中荷载产生三角形形状；均布荷载产生抛物线曲线。</p>
+
+<p><strong>均布荷载（UDL）：</strong>以kN/m表示。总UDL力 = w × L。</p>
+
+<p><strong>悬臂梁：</strong>一端固定，另一端自由。最大弯矩发生在固定端。带UDL的悬臂梁：M_max = w × L² / 2。</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="obj-section" id="obj-3.2.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.2.5">
+<div class="obj-trigger-left"><span class="obj-code">3.2.5</span><h3>Safety factors (SFs) are a way to design in contingency to prevent failure from overloading a structure.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.2.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate SFs using the formula SF = Ultimate Load (Stress) / Allowable Load (Stress); calculate maximum intended loads for given structures; and design structures with an SF.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>The <strong>safety factor</strong> (also called factor of safety, FOS) is the ratio of a structure's ultimate strength to the maximum stress it is designed to carry in service:</p>
+<p class="content-formula">SF = Ultimate Load (or Stress) / Allowable Load (or Stress)</p>
+<p>Rearranged to find allowable working stress:</p>
+<p class="content-formula">σ_working = UTS / SF</p>
+<p>And maximum working load:</p>
+<p class="content-formula">F_working = σ_working × A = (UTS / SF) × A</p>
+
+<p><strong>Why use a safety factor?</strong> Real structures operate in conditions that are imperfect, unpredictable, and changing. The SF absorbs uncertainty across nine categories:</p>
+<ol>
+<li><strong>Certainty of loads</strong>: Actual loads may exceed estimates due to accidents, misuse, or unforeseen conditions.</li>
+<li><strong>Design life</strong>: A structure designed for 50 years must remain safe as materials fatigue and degrade.</li>
+<li><strong>Manufacturing quality</strong>: Real materials have flaws, inconsistencies in composition, and surface defects that reduce strength below laboratory values.</li>
+<li><strong>Consequences of failure</strong>: Catastrophic failure (loss of life, uncontained release of hazardous materials) warrants a higher SF than failure of a non-critical component.</li>
+<li><strong>Environmental influences</strong>: Corrosion, UV degradation, temperature cycling, and chemical attack reduce material strength over time.</li>
+<li><strong>Criticality</strong>: Whether the component is part of a redundant system (failure of one does not cause total collapse) or a single point of failure.</li>
+<li><strong>Repairability</strong>: A buried pipeline cannot easily be inspected or repaired — a higher SF is warranted compared to a visible, accessible structural member.</li>
+<li><strong>Certainty of material properties</strong>: Properties from material databases are average values; actual strength may be ±15% of the published figure.</li>
+<li><strong>Statutory and code requirements</strong>: Industry standards (ISO, ASTM, EN, AS) mandate minimum SF values for specific applications. These are legal requirements, not suggestions.</li>
+</ol>
+
+<p><strong>Typical safety factors by application (from A3.2):</strong></p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Application</th><th>Typical SF</th><th>Key reason</th></tr></thead>
+<tbody>
+<tr><td>Bridges and buildings</td><td>1.5–3</td><td>Long design life; public safety; difficult inspection</td></tr>
+<tr><td>Aircraft structures</td><td>1.2–2</td><td>Weight-critical; redundant systems; strict certification</td></tr>
+<tr><td>Lifting equipment (cranes, hoists)</td><td>4–6</td><td>Dynamic shock loads; no redundancy; cable wear</td></tr>
+<tr><td>Pressure vessels</td><td>3.5–5</td><td>Catastrophic explosive failure; corrosion from contents</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Worked example 1 — calculating SF:</strong></p>
+<p>A steel rod (diameter 12 mm) fails at a load of 90 kN. It is designed to carry a working load of 30 kN. What is the SF?</p>
+<p class="content-formula">A = π × d² / 4 = π × 144 / 4 = 113.1 mm²</p>
+<p class="content-formula">UTS = 90,000 / 113.1 = 795.8 MPa</p>
+<p class="content-formula">σ_working = 30,000 / 113.1 = 265.3 MPa</p>
+<p class="content-formula">SF = 795.8 / 265.3 = <strong>3.0</strong></p>
+
+<p><strong>Worked example 2 — calculating maximum working load (from the MD):</strong></p>
+<p>A 16 mm diameter steel rod has UTS = 590 MPa and SF = 4. Find the maximum working load.</p>
+<p class="content-formula">A = π × 16² / 4 = 201.1 mm²</p>
+<p class="content-formula">σ_working = 590 / 4 = 147.5 MPa</p>
+<p class="content-formula">F_working = 147.5 × 201.1 = 29,662 N ≈ <strong>29.7 kN</strong></p>
+
+<p><strong>Safety factors degrade over time — the Genoa Morandi lesson:</strong></p>
+<p>The Morandi Bridge was designed with an adequate SF at opening in 1967. Over 50 years, corrosion of the embedded steel cables progressively reduced their cross-sectional area and tensile strength — effectively lowering the actual SF year by year. By 2018, the SF for the corroded cables had fallen below 1, and the bridge collapsed. The lesson: the SF at the time of construction is not the SF in service. Infrastructure monitoring, regular inspection, and maintenance are required to keep the actual SF above the design SF throughout the structure's intended life.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>安全系数</strong>（FOS）是结构极限强度与设计服务中承载最大应力的比值：</p>
+<p class="content-formula">SF = 极限荷载（或应力）/ 许用荷载（或应力）</p>
+<p>整理以找到许用工作应力：</p>
+<p class="content-formula">σ_工作 = UTS / SF</p>
+<p>最大工作荷载：</p>
+<p class="content-formula">F_工作 = σ_工作 × A = (UTS / SF) × A</p>
+
+<p><strong>为什么使用安全系数？</strong>真实结构在不完美、不可预测且不断变化的条件下运行。SF在九个类别中吸收不确定性：荷载确定性、设计寿命、制造质量、失效后果、环境影响、关键性、可修复性、材料性能确定性和法规要求。</p>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>应用</th><th>典型SF</th><th>主要原因</th></tr></thead>
+<tbody>
+<tr><td>桥梁和建筑</td><td>1.5–3</td><td>长设计寿命；公共安全；难以检查</td></tr>
+<tr><td>飞机结构</td><td>1.2–2</td><td>重量关键；冗余系统；严格认证</td></tr>
+<tr><td>起重设备</td><td>4–6</td><td>动力冲击荷载；无冗余；钢缆磨损</td></tr>
+<tr><td>压力容器</td><td>3.5–5</td><td>灾难性爆炸性失效；内容物腐蚀</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>安全系数随时间退化——热那亚莫兰迪的教训：</strong></p>
+<p>莫兰迪大桥在1967年开放时设计了足够的SF。在50年里，嵌入式钢缆的腐蚀逐渐减小了其横截面积和抗拉强度——实际上逐年降低了实际SF。到2018年，腐蚀钢缆的SF已降至1以下，桥梁坍塌。教训：施工时的SF不是使用中的SF。需要基础设施监测、定期检查和维护，以在结构设计寿命内将实际SF保持在设计SF以上。</p>
+</div>
+</div>
+</div>
+</div>
+
+</div></div></div>
+
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your understanding of B3.2 Structural Systems Application. Select one answer per question, then submit to see your score.</p>
+<div class="quiz-form">
+
+<div class="quiz-q" id="q1">
+<p class="quiz-stem">1. Which type of stress is highest at the surface of a material and tends to zero at the centre, explaining why hollow shafts are as strong as solid ones?</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Tension</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Compression</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Shear</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Torsion</label>
+</div>
+
+<div class="quiz-q" id="q2">
+<p class="quiz-stem">2. The Quebec Bridge collapsed in 1907 primarily due to:</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Wind-induced aeroelastic flutter</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Underestimated weight calculations and buckling of compression chords</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Corrosion of steel cables</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. An earthquake</label>
+</div>
+
+<div class="quiz-q" id="q3">
+<p class="quiz-stem">3. The Tacoma Narrows Bridge collapsed because of:</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. Overloading from too many vehicles</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Aeroelastic flutter (wind-induced twisting) due to an unprecedented slenderness ratio</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. A ship striking the bridge tower</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Corrosion of the suspension cables</label>
+</div>
+
+<div class="quiz-q" id="q4">
+<p class="quiz-stem">4. Young's Modulus (E) is defined as:</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Stress multiplied by strain (σ × ε)</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Stress divided by strain (σ / ε) within the elastic region</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Strain divided by stress (ε / σ)</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Force divided by cross-sectional area (F / A)</label>
+</div>
+
+<div class="quiz-q" id="q5">
+<p class="quiz-stem">5. A material that does not show a clearly defined yield point (e.g., aluminium, titanium, copper) requires the use of:</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. Ultimate tensile strength only</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. Proof stress (offset method, typically 0.2% strain)</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Fracture toughness</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Elastic limit only</label>
+</div>
+
+<div class="quiz-q" id="q6">
+<p class="quiz-stem">6. The reaction at a roller support is always:</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. In any direction</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Horizontal only</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. Perpendicular to the plane the roller rests on (vertical for a horizontal beam)</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. At a 45° angle</label>
+</div>
+
+<div class="quiz-q" id="q7">
+<p class="quiz-stem">7. In a shear force diagram, the maximum bending moment always occurs where:</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. The shear force is at its maximum</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. The shear force equals zero</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. The shear force is negative</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. The shear force equals the dead load</label>
+</div>
+
+<div class="quiz-q" id="q8">
+<p class="quiz-stem">8. Necking refers to:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. The elastic deformation of a material</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. The localised reduction in cross-sectional area in a ductile material before fracture</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. The point where a material returns to its original shape</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. The corrosion of steel cables</label>
+</div>
+
+<div class="quiz-q" id="q9">
+<p class="quiz-stem">9. As temperature increases, Young's Modulus for plain carbon steels:</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Increases</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Decreases</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. Fluctuates wildly</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Remains unchanged</label>
+</div>
+
+<div class="quiz-q" id="q10">
+<p class="quiz-stem">10. The Genoa Morandi Bridge collapsed primarily due to:</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Aeroelastic flutter from wind</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Corrosion of steel cables and deterioration of prestressed concrete</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. A design error in the original weight calculations</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. An earthquake</label>
+</div>
+
+<div class="quiz-actions">
+<button class="quiz-submit-btn" type="button">Submit answers</button>
+<span class="quiz-score" aria-live="polite"></span>
+</div>
+</div>
+
+<div class="quiz-answers" aria-label="Answer key" hidden>
+<span data-answer="q1">D</span>
+<span data-answer="q2">B</span>
+<span data-answer="q3">B</span>
+<span data-answer="q4">B</span>
+<span data-answer="q5">B</span>
+<span data-answer="q6">C</span>
+<span data-answer="q7">B</span>
+<span data-answer="q8">B</span>
+<span data-answer="q9">B</span>
+<span data-answer="q10">B</span>
+</div>
+</div>
+</div>
+
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 1</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Define stress and strain. Then calculate the strain in a mild steel rod that is 120 mm long and is stretched to a length of 120.2 mm.</span></summary>
+<div class="p2-answer">
+<p><strong>Stress (σ)</strong> is the internal force per unit cross-sectional area that a material develops in response to an applied external load. It is measured in Pascals (Pa) or megapascals (MPa), where 1 MPa = 1 N/mm².</p>
+<p class="content-formula">σ = F / A</p>
+<p><strong>Strain (ε)</strong> is the fractional change in length of a body relative to its original length when subjected to a load. Strain is dimensionless (no units) because it is a ratio of two lengths.</p>
+<p class="content-formula">ε = ΔL / L₀</p>
+<p><strong>Calculation:</strong><br>
+L₀ = 120 mm; L_final = 120.2 mm; ΔL = 120.2 − 120 = 0.2 mm<br>
+ε = ΔL / L₀ = 0.2 / 120 = <strong>0.00167</strong> (dimensionless)</p>
+<p><em>Note: Units cancel as both ΔL and L₀ are in mm — no conversion to metres is needed.</em></p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct definition of stress (force per unit area) with units; 1 mark for correct definition of strain (change in length / original length, dimensionless); 1 mark for correct formula applied (ΔL = 0.2 mm shown); 1 mark for correct answer ε = 0.00167.</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 2</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Describe the five types of stress that can act on a structure. For each type, explain where the stress is highest or how it is distributed, and give a real-world example.</span></summary>
+<div class="p2-answer">
+<ol>
+<li><strong>Tension</strong>: Forces pulling a material apart, trying to elongate it. Tensile stress is distributed <em>uniformly across the cross-section</em> — every part of the area carries the same stress. <em>Example</em>: Suspension bridge cables under load from the bridge deck; a bolt under axial pull.</li>
+<li><strong>Compression</strong>: Forces pushing a material together, trying to shorten it. Like tension, compressive stress is distributed <em>uniformly across the cross-section</em>. <em>Example</em>: Building columns supporting floor loads; a car jack pressing on the vehicle body; the top chord of a roof truss.</li>
+<li><strong>Shear</strong>: Forces trying to slide one part of the material over an adjacent part. Shear stress is <em>non-uniform</em> — maximum at the neutral axis and zero at the outer surfaces. <em>Example</em>: A bolt connecting two steel plates; scissors cutting paper; the web of an I-beam resisting shear between the flanges. Can be single shear (τ = F/A), double shear (τ = F/2A), or punching shear.</li>
+<li><strong>Torsion</strong>: A twisting torque that rotates one end of a member relative to the other. Torsional stress is <em>highest at the outer surface</em> and zero at the centre. This explains why hollow shafts can equal solid shafts in torsional strength — the zero-stress core material is removed. <em>Example</em>: A car drive shaft transmitting engine torque to the wheels; a screwdriver blade under a tight screw.</li>
+<li><strong>Bending (flexural stress)</strong>: A combination of tension on one face and compression on the opposite face, separated by the neutral axis (zero stress). Stress is <em>maximum at the outermost fibres</em>. <em>Example</em>: A shelf sagging under books; a diving board; a steel beam spanning between columns. I-beams place material at the flanges (where bending stress is maximum) and thin the web (where bending stress is zero).</li>
+</ol>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for each stress type that correctly names it, accurately describes its distribution (uniform/non-uniform; where maximum; where zero), and gives a valid example (6 marks available for 5 types — allow 1 mark each for any 5 complete answers, or partial marks at examiner discretion).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 3</span><span class="p2-q-marks">5 marks</span><span class="p2-q-text">A 15 mm diameter steel rod has a maximum load capacity of 70 kN. Calculate its Ultimate Tensile Strength (UTS) in MPa. Show all working.</span></summary>
+<div class="p2-answer">
+<p><strong>Given:</strong> d = 15 mm; F_max = 70 kN = 70,000 N</p>
+<p><strong>Step 1 — Cross-sectional area:</strong><br>
+A = π × d² / 4 = π × (15)² / 4 = π × 225 / 4 = 176.7 mm²</p>
+<p><strong>Step 2 — UTS:</strong><br>
+UTS = F / A = 70,000 N / 176.7 mm² = 396 N/mm²</p>
+<p><strong>Step 3 — Convert:</strong><br>
+Since 1 N/mm² = 1 MPa: UTS = <strong>396 MPa</strong></p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct area formula (π d²/4); 1 mark for correct area value (176.7 mm²); 1 mark for correct UTS formula (F/A); 1 mark for correct numerical result (396); 1 mark for correct unit (MPa, or N/mm²). Award marks for correct method even if arithmetic error present (error carried forward).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 4</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Explain what a safety factor (FOS) is and why engineers use it. Then calculate the maximum working load for a 16 mm diameter steel rod with a UTS of 590 MPa and a safety factor of 4.</span></summary>
+<div class="p2-answer">
+<p>The <strong>safety factor (FOS)</strong> is the ratio of a material's ultimate strength to the allowable working stress:</p>
+<p class="content-formula">FOS = UTS / σ_working &nbsp;&nbsp; therefore &nbsp;&nbsp; σ_working = UTS / FOS</p>
+<p>Engineers use safety factors to account for uncertainties that cannot be fully quantified at the design stage: actual loads may exceed estimates; real materials have flaws; structures degrade over time through corrosion and fatigue; and catastrophic failure may cost lives. An FOS of 1 provides zero safety margin — any unexpected condition causes failure.</p>
+<p><strong>Calculation:</strong><br>
+d = 16 mm; UTS = 590 MPa; FOS = 4</p>
+<p>Step 1 — Area: A = π × 16² / 4 = 201.1 mm²</p>
+<p>Step 2 — Working stress: σ_working = 590 / 4 = 147.5 MPa</p>
+<p>Step 3 — Working load: F = σ_working × A = 147.5 × 201.1 = <strong>29,662 N ≈ 29.7 kN</strong></p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct FOS definition with formula; 1 mark for at least two valid reasons for using safety factors; 1 mark for correct working stress calculation (147.5 MPa); 1 mark for correct working load (29.7 kN, accept 29,600–29,700 N).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 5</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Analyse the causes of the Quebec Bridge collapse (1907) and the Tacoma Narrows Bridge collapse (1940). What lessons did engineers learn from each failure, and how do these lessons influence structural design today?</span></summary>
+<div class="p2-answer">
+<p><strong>Quebec Bridge (1907) — Cause:</strong><br>
+The south anchor arm collapsed during construction, killing 75 workers. The primary cause was significant <strong>underestimation of the structure's self-weight</strong> (calculated: 30,857 tonnes; actual: 36,408 tonnes). This excess weight created compressive stresses in the lower chord members that exceeded their <strong>buckling resistance</strong>. Buckling is a failure mode unique to slender members under compression — the member suddenly deflects laterally and collapses at a load far below its material's compressive strength. Warning signs of buckling were observed and reported for nearly a month but not acted upon; the span collapsed two hours after the first formal report to the chief engineer.</p>
+<p><strong>Quebec lessons:</strong></p>
+<ul>
+<li>Weight calculations must be rigorous and independently verified — errors of 18% in dead load are not acceptable.</li>
+<li>Warning signs of impending failure must be acted upon immediately; construction must halt.</li>
+<li>Clear professional responsibility and authority to halt construction must be established before work begins.</li>
+<li>Buckling analysis of all slender compression members is now mandatory.</li>
+</ul>
+<p><strong>Tacoma Narrows Bridge (1940) — Cause:</strong><br>
+The bridge had an unprecedented slenderness: depth-to-span ratio of 1:350 (typical: 1:84) and width-to-span ratio of 1:72. Its solid plate girder sides acted as a wall to wind rather than allowing air to flow through as an open truss would. Four months after opening, a 67 km/h gale induced <strong>aeroelastic flutter</strong> — a coupled torsional-bending resonance — which oscillated the deck at increasing amplitude until it tore apart. The bridge was already nicknamed "Galloping Gertie" during construction for its vertical oscillations.</p>
+<p><strong>Tacoma lessons:</strong></p>
+<ul>
+<li>Wind is not just a static pressure; it is a dynamic force that can induce catastrophic resonance.</li>
+<li>Torsional stiffness and aerodynamic stability are as critical as vertical load resistance.</li>
+<li>Wind tunnel testing of scale bridge models became standard practice.</li>
+<li>Modern long-span bridges use aerodynamic deck profiles, open truss girders, and tuned mass dampers to prevent flutter.</li>
+</ul>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Lesson</th><th>Modern design practice</th></tr></thead>
+<tbody>
+<tr><td>Buckling of compression members</td><td>FEA routinely checks all slender compression elements; buckling loads calculated per Euler's formula</td></tr>
+<tr><td>Accurate dead load estimation</td><td>Independent verification of weight calculations; design reviews at multiple stages</td></tr>
+<tr><td>Aerodynamic stability</td><td>Wind tunnel testing mandatory for all long-span bridges; aerodynamic deck sections</td></tr>
+<tr><td>Dynamic response to wind</td><td>Tuned mass dampers absorb oscillation energy; open truss girders reduce wind resistance</td></tr>
+<tr><td>Material degradation over time</td><td>Regular inspection schedules; monitoring systems (e.g., robots on Genoa's replacement bridge)</td></tr>
+<tr><td>Safety factors under degrading conditions</td><td>Safety factors applied not just at commissioning but maintained through inspection and maintenance throughout design life</td></tr>
+</tbody>
+</table>
+</div>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correctly explaining the cause of the Quebec collapse (weight underestimation + buckling); 1 mark for Quebec lessons (independent verification, buckling analysis, warning signs); 1 mark for correctly explaining the Tacoma cause (aeroelastic flutter + slenderness ratio); 1 mark for Tacoma lessons (torsional stiffness, wind tunnel testing, aerodynamic design); 1 mark for the comparative table or a clear discussion of how both failures influence modern practice with specific examples; 1 mark for mentioning the Genoa Morandi collapse as a third example of safety factor degradation or for extending the analysis to maintenance and monitoring.</p>
+</div>
+</details>
+
+</div>
+</div>
+
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ol class="ref-list">
+
+<li class="ref-item">
+<span class="ref-item-title">The Efficient Engineer — "Understanding Stress and Strain" (YouTube)</span>
+<span class="ref-item-desc">Animated explainers on stress, strain, Young's Modulus, and the stress-strain curve with worked examples. Search "The Efficient Engineer stress strain" on YouTube.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Tacoma Narrows Bridge Collapse (1940) — original footage (YouTube)</span>
+<span class="ref-item-desc">Historical film showing "Galloping Gertie" twisting and collapsing. One of the most important engineering failure videos ever recorded. Search "Tacoma Narrows Bridge collapse 1940 original footage".</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Quebec Bridge disaster 1907 — engineering failure analysis (YouTube)</span>
+<span class="ref-item-desc">Documentaries and analyses explaining the buckling of compression chords and the design errors that led to the collapse. Search "Quebec Bridge collapse 1907 engineering".</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Free body diagram tutorial — Khan Academy / engineering textbooks</span>
+<span class="ref-item-desc">Step-by-step guides for drawing FBDs with worked examples. Search "free body diagram tutorial" on Khan Academy (khanacademy.org) or YouTube.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Shear force and bending moment diagrams — beam analysis tutorials</span>
+<span class="ref-item-desc">Interactive calculators and visual explainers. Search "shear force diagram tutorial" or use the SkyCiv beam calculator at skyciv.com for interactive practice.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Genoa Morandi Bridge — collapse and rebuilding (The B1M / BBC)</span>
+<span class="ref-item-desc">Documentaries covering the 2018 collapse, corrosion causes, the 43 deaths, and the new Genova San Giorgio bridge with monitoring robots. Search "Genoa bridge collapse B1M" on YouTube.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Factor of safety in engineering — typical values and calculations</span>
+<span class="ref-item-desc">Real-world SF values for bridges, aircraft, pressure vessels, and lifting equipment. Search "factor of safety engineering examples" at engineeringtoolbox.com.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Finite element analysis (FEA) — introductory visualisations (YouTube)</span>
+<span class="ref-item-desc">Colour stress-map outputs explained. Search "FEA simulation tutorial for beginners" or "finite element analysis stress contour" on YouTube.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Hooke's Law and Young's Modulus — PhET interactive simulation</span>
+<span class="ref-item-desc">University of Colorado simulation showing elastic deformation. Available free at phet.colorado.edu — search "Hooke's Law".</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">百度百科 — 杨氏模量 (Young's Modulus)</span>
+<span class="ref-item-desc">中文参考，涵盖刚度、应力-应变关系和典型材料属性值。在百度百科搜索"杨氏模量"。</span>
+</li>
+
+</ol>
+</div>
+</div>
+
+<section class="linking-qs">
+<p class="linking-qs-label">Linking Questions</p>
+<ul>
+<li>To what extent can prototyping techniques, such as simulations of structures, be used to predict real-world performance? <a href="a2.2-prototyping-techniques.html">(A2.2)</a></li>
+<li>How does a deep understanding of stress-strain graphs influence the designer's material selection when designing products? <a href="a3.1-material-classification.html">(A3.1)</a> <a href="b3.1-material-selection.html">(B3.1)</a></li>
+<li>How is the structural system of a product influenced by the mechanical and electronic systems required for the product to function? <a href="a3.3-mechanical-systems.html">(A3.3)</a> <a href="a3.4-electronic-systems.html">(A3.4)</a> <a href="b3.3-mechanical-systems-application.html">(B3.3)</a> <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
+<li>How does FEA play a role in modelling and prototyping? <a href="b2.2-modelling-prototyping.html">(B2.2)</a></li>
+<li>To what extent is the design of a structurally safe product the responsibility of the designer? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
+<li>What are the considerations for the designer of physical structures to ensure a positive life-cycle analysis result when designing a product? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
+</ul>
+</section>
+
+<nav class="topic-page-nav">
+<a href="b3.1-material-selection.html"><span class="nav-dir">← Previous</span><span class="nav-title">B3.1 Material Selection</span></a>
+<a class="nav-next" href="b3.3-mechanical-systems-application.html"><span class="nav-dir">Next →</span><span class="nav-title">B3.3 Mechanical Systems Application</span></a>
+</nav>
+
+</div></main>
+
+</div>
+
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../curriculum.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="b3.2.js"></script>
+</body>
+</html>

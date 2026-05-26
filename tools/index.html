@@ -3,96 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MacroPad Builder</title>
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=share-tech-mono:400|exo-2:300,400,600,700|orbitron:400,700" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="Browser-based interactive tools and activities for IB DP Design Technology students and teachers worldwide.">
+<title>Interactive Tools — contrapaul edu</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../curriculum/themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
 </head>
 <body>
-<!-- Header -->
-<header>
-<div class="header-left">
-<div class="logo">
-<span class="logo-icon">⬡</span>
-<div>
-<div class="logo-title">MacroPad Builder</div>
-<div class="logo-sub">ESP32-S3 Visual Configurator</div>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand">
+<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
 </div>
-</div>
-</div>
-<div class="header-center">
-<div class="stat-chip"><span class="stat-label">COMPONENTS</span><span class="stat-val" id="stat-components">0</span></div>
-<div class="stat-chip"><span class="stat-label">PINS USED</span><span class="stat-val" id="stat-pins">0 / 28</span></div>
-<div class="stat-chip"><span class="stat-label">LIBRARIES</span><span class="stat-val" id="stat-libs">0</span></div>
-</div>
-<div class="header-right">
-<button class="btn-ghost" id="btn-clear">Clear All</button>
-<button class="btn-primary" id="btn-download">↓ Download config.json</button>
+<nav class="nav">
+<a href="/curriculum">Curriculum</a>
+<a href="/tools">Tools</a>
+<a href="/about">About</a>
+<a href="https://contrapaul.com" class="nav-external">← Main site</a>
+</nav>
 </div>
 </header>
-<!-- Component shelf -->
-<div class="shelf" id="shelf">
-<div class="shelf-label">COMPONENTS — drag onto canvas or click to add</div>
-<div class="shelf-items" id="shelf-items">
-<!-- populated by JS -->
+
+<main>
+
+<section class="tool-cards-section">
+<div class="section-inner">
+<div class="section-header">
+<h2 class="section-title">Interactive Tools &amp; Activities</h2>
+<p class="section-desc">Browser-based activities — no login, no signup, no install.</p>
+</div>
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  HOW TO CUSTOMISE EACH CARD
+  ══════════════════════════════════════════════════════════════
+  Add or change these CSS variables in the style="" attribute:
+
+    --card-bg              background colour
+    --card-border          border colour
+    --card-border-width    border thickness (default: 2px)
+    --card-font            font family for both title and subtitle
+    --card-title-size      title font size (default: 1.15rem)
+    --card-title-color     title text colour
+    --card-sub-size        subtitle font size (default: 0.82rem)
+    --card-sub-color       subtitle text colour
+
+  ══════════════════════════════════════════════════════════════
+  HOW TO ADD A NEW CARD
+  ══════════════════════════════════════════════════════════════
+  Copy any <a class="tool-card" …> block below, paste it at the
+  end of the grid, and update the href, title, subtitle, and
+  style variables to match your new activity.
+  ══════════════════════════════════════════════════════════════
+-->
+
+<div class="tool-cards-grid">
+
+<a class="tool-card" href="https://edu.contrapaul.com/tools/DT-IA-Guide/"
+   style="--card-bg:#2563eb; --card-border:#FF8900; --card-title-size: 1.5rem; --card-title-color:#FFFFFF; --card-font:tahoma, sans-serif; --card-sub-color:#FFFFFF;">
+  <h3 class="tool-card-title"><strong>INTERNAL ASSESSMENT GUIDE</strong></h3>
+  <p class="tool-card-sub"><em>A detailed walkthrough of how to achieve success with your IA project.</em></p>
+</a>
+
+<a class="tool-card" href="lca-calculator.html"
+   style="--card-bg:#dcfce7; --card-border:#736F6D; --card-title-color:#121212; --card-sub-color:#121212;">
+  <h3 class="tool-card-title">Lifecycle Analysis Tool</h3>
+  <p class="tool-card-sub">Step-by-step LCA with guided prompts for each phase</p>
+</a>
+
+<a class="tool-card" href="https://edu.contrapaul.com/tools/ia_compare"
+   style="--card-bg:#285E5C; --card-border:#0B091A; --card-title-size: 1.3rem; --card-font:courier new, courier, sans-serif; --card-title-color:#F2F2F2; --card-sub-color:#121212;">
+  <h3 class="tool-card-title">Internal Assessment Marks Reference</h3>
+  <p class="tool-card-sub">Cross-reference 3 sample IA's to explore different levels of achievement.</p>
+</a>
+
+<a class="tool-card" href="https://edu.contrapaul.com/tools/macropad"
+   style="--card-bg:#1e293b; --card-border:#CCAC00; --card-title-color:#CCAC00; --card-title-size: 1.7rem; --card-title-font: ostrich-sans-black, verdana, sans-serif; --card-sub-color:#94a3b8;">
+  <h3 class="tool-card-title">Macropad Builder</h3>
+  <p class="tool-card-sub">Plan components, wiring, and create downloadable code to build a Macropad with an ESP32 device.</p>
+</a>
+
+<a class="tool-card" href="anthropometrics.html"
+   style="--card-bg:#fef3c7; --card-border:#d97706; --card-title-color:#92400e; --card-sub-color:#b45309;">
+  <h3 class="tool-card-title">Material Selection Text Adventure</h3>
+  <p class="tool-card-sub">The town of Central Middlezhong needs your design expertise!</p>
+</a>
+
+<a class="tool-card" href="https://edu.contrapaul.com/tools/deviceroom"
+   style="--card-bg:#f0fdf4; --card-border:#22c55e; --card-title-color:#15803d; --card-sub-color:#16a34a;">
+  <h3 class="tool-card-title">Device Room Rules</h3>
+  <p class="tool-card-sub">No, you can't play GTA in the device room :/</p>
+</a>
+
+<a class="tool-card" href="/tools/taskanalysis/"
+   style="--card-bg:#0f172a; --card-border:#3b82f6; --card-title-color:#e2e8f0; --card-sub-color:#93c5fd;">
+  <h3 class="tool-card-title">Task Analysis Map</h3>
+  <p class="tool-card-sub">Build a hierarchical task analysis by dragging and connecting step cards on a freeform canvas</p>
+</a>
+
+<a class="tool-card" href="ip-guide.html"
+   style="--card-bg:#1e3a5f; --card-border:#2563eb; --card-title-color:#bfdbfe; --card-sub-color:#93c5fd;">
+  <h3 class="tool-card-title">Intellectual Property Guide</h3>
+  <p class="tool-card-sub">Patents, trademarks, copyright, and registered design rights</p>
+</a>
+
+<a class="tool-card" href="manufacturing.html"
+   style="--card-bg:#fff7ed; --card-border:#ea580c; --card-title-color:#c2410c; --card-sub-color:#ea580c;">
+  <h3 class="tool-card-title">Manufacturing Processes</h3>
+  <p class="tool-card-sub">Explore forming, cutting, joining, and finishing techniques</p>
+</a>
+
+<a class="tool-card" href="biomimicry.html"
+   style="--card-bg:#f7fee7; --card-border:#65a30d; --card-title-color:#3f6212; --card-sub-color:#4d7c0f;">
+  <h3 class="tool-card-title">The Museum of Mr. K's Technology</h3>
+  <p class="tool-card-sub">Including a brown Zune!</p>
+</a>
+
+<a class="tool-card" href="design-brief.html"
+   style="--card-bg:#e0f2fe; --card-border:#0284c7; --card-title-color:#075985; --card-sub-color:#0369a1;">
+  <h3 class="tool-card-title">Design Brief Builder</h3>
+  <p class="tool-card-sub">Structure and evaluate a design brief against key criteria</p>
+</a>
+
+<a class="tool-card" href="/tools/LegoInterview/"
+   style="--card-bg:#FCD303; --card-border:#CC0000; --card-title-color:#1a1a1a; --card-sub-color:#333333;">
+  <h3 class="tool-card-title">Interview Question Generator</h3>
+  <p class="tool-card-sub">MYP Grade 6 — build a set of five interview questions for your Lego design project</p>
+</a>
+
+<a class="tool-card" href="prototype-log.html"
+   style="--card-bg:#faf5ff; --card-border:#9333ea; --card-title-color:#6b21a8; --card-sub-color:#7e22ce;">
+  <h3 class="tool-card-title">Prototype Testing Log</h3>
+  <p class="tool-card-sub">Document, evaluate, and iterate on prototype test results</p>
+</a>
+
+<a class="tool-card" href="classic-design.html"
+   style="--card-bg:#fff1f2; --card-border:#f43f5e; --card-title-color:#9f1239; --card-sub-color:#be123c;">
+  <h3 class="tool-card-title">Classic Design Analysis</h3>
+  <p class="tool-card-sub">Analyse iconic objects through aesthetic, functional, and cultural lenses</p>
+</a>
+
+<a class="tool-card" href="innovation-models.html"
+   style="--card-bg:#fffbeb; --card-border:#f59e0b; --card-title-color:#78350f; --card-sub-color:#92400e;">
+  <h3 class="tool-card-title">Innovation Models Explorer</h3>
+  <p class="tool-card-sub">Place Held!</p>
+</a>
+
+<a class="tool-card" href="/tools/dodgeball/"
+   style="--card-bg:#fff0f0; --card-border:#cc0000; --card-title-color:#7f1d1d; --card-sub-color:#991b1b;">
+  <h3 class="tool-card-title">Future Home of Dodgeball Game</h3>
+  <p class="tool-card-sub">I'm working on a dodgeball game. Stay tuned.</p>
+</a>
+
+<a class="tool-card" href="/tools/Placeholder/"
+   style="--card-bg:#f5f0ff; --card-border:#7c3aed; --card-title-color:#4c1d95; --card-sub-color:#6d28d9;">
+  <h3 class="tool-card-title">A Placeholder!</h3>
+  <p class="tool-card-sub">Truly, the place hath been held</p>
+</a>
+
+<a class="tool-card" href="/tools/microprocessors/"
+   style="--card-bg:#0d1117; --card-border:#06b6d4; --card-title-color:#67e8f9; --card-sub-color:#22d3ee;">
+  <h3 class="tool-card-title">How Microprocessors Evolved</h3>
+  <p class="tool-card-sub">An early 1-shot local LLM test. To be replaced.</p>
+</a>
+
+<a class="tool-card" href="/tools/RTSproject/"
+   style="--card-bg:#0c1a0e; --card-border:#22c55e; --card-title-color:#86efac; --card-sub-color:#4ade80;">
+  <h3 class="tool-card-title">StarCraft Lite: In Progress</h3>
+  <p class="tool-card-sub">Experimenting with a lightweight multiplayer RTS game hosted and run in browser.</p>
+</a>
+
 </div>
 </div>
-<!-- Main workspace -->
-<div class="workspace">
-<!-- Canvas area -->
-<div class="canvas-wrap" id="canvas-wrap">
-<svg id="wire-layer" class="wire-layer"></svg>
-<div class="canvas-grid" id="canvas" tabindex="0">
-<!-- ESP32-S3 chip, placed by JS -->
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
 </div>
-<div class="canvas-hint" id="canvas-hint">
-<div class="hint-icon">⬡</div>
-<div>Drag components here to begin</div>
-</div>
-</div>
-<!-- Right panel -->
-<aside class="panel" id="panel">
-<div class="panel-tabs">
-<button class="ptab active" data-tab="config">Configure</button>
-<button class="ptab" data-tab="notes">Notes</button>
-<button class="ptab" data-tab="libs">Libraries</button>
-</div>
-```
-<div class="panel-body" id="panel-config">
-<div class="panel-empty" id="panel-empty">
-<div class="empty-icon">↖</div>
-<div>Select a component<br>on the canvas to<br>configure it</div>
-</div>
-<div id="panel-form" style="display:none"></div>
-</div>
-<div class="panel-body hidden" id="panel-notes">
-<div class="notes-header">Build checklist</div>
-<ul class="notes-list" id="notes-list">
-<li class="note-ok">Add at least one component to begin</li>
-</ul>
-</div>
-<div class="panel-body hidden" id="panel-libs">
-<div class="notes-header">Required libraries</div>
-<p class="lib-note">Copy these into <code>CIRCUITPY/lib/</code></p>
-<ul class="lib-list" id="lib-list">
-<li class="lib-always">adafruit_hid <span class="lib-tag">always</span></li>
-</ul>
-<div class="notes-header" style="margin-top:1.2rem">Get the bundle</div>
-<p class="lib-note">Download the full Adafruit CircuitPython Bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> — all libraries live inside it.</p>
-</div>
-```
-</aside>
-</div>
-<!-- Context menu -->
-<div class="ctx-menu" id="ctx-menu">
-<div class="ctx-item" id="ctx-config">Configure</div>
-<div class="ctx-item" id="ctx-duplicate">Duplicate</div>
-<div class="ctx-sep"></div>
-<div class="ctx-item ctx-danger" id="ctx-delete">Remove</div>
-</div>
-<!-- Tooltip -->
-<div class="tooltip" id="tooltip"></div>
-<script src="components.js"></script>
-<script src="app.js"></script>
+</footer>
+
+<script src="../curriculum/curriculum-themes.js"></script>
 </body>
 </html>

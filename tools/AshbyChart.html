@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DP Design Tech · revised materials + expanded uses</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background: #e9f0f8;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .activity-container {
+            max-width: 1500px;
+            width: 100%;
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 50px -10px #0b334e;
+            padding: 2rem 2rem 2rem 2rem;
+        }
+        h1 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 0.25rem 0;
+            color: #093853;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .scoreboard {
+            background: #1f4c73;
+            color: white;
+            padding: 0.5rem 2rem;
+            border-radius: 60px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            box-shadow: 0 5px 0 #0e2d45;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .scoreboard span {
+            font-size: 1rem;
+            background: #ffffff40;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+        }
+        .sub {
+            color: #2a5e8a;
+            margin-bottom: 2rem;
+            border-left: 5px solid #b2cef0;
+            padding-left: 1.3rem;
+            font-weight: 370;
+        }
+        /* chart section */
+        .chart-section {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .chart-container {
+            background: #ffffff;
+            border-radius: 34px;
+            border: 2px solid #cadaf0;
+            padding: 18px 18px 5px 18px;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #ffffff;
+            border-radius: 26px;
+            border: 1px solid #b7cfef;
+            cursor: pointer;
+        }
+        .axis-labels {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 35px 0 35px;
+            color: #104e7c;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .legend-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin: 15px 0 0 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .legend-dot { width: 18px; height: 18px; border-radius: 18px; border: 2px solid white; box-shadow: 0 2px 7px #0000001a; }
+
+        /* bottom panel */
+        .info-panel {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: #f2f8ff;
+            border-radius: 40px;
+            padding: 1.8rem 1.8rem;
+            border: 2px solid #c5d8f2;
+        }
+        .material-pool {
+            flex: 2;
+            min-width: 380px;
+        }
+        .material-pool h2 {
+            font-size: 1.4rem;
+            margin: 0 0 1rem 0;
+            color: #104267;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pool-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: #e2edfd;
+            border-radius: 34px;
+            padding: 18px 15px;
+            min-height: 160px;
+            align-content: flex-start;
+        }
+        .material-card {
+            background: white;
+            border-left: 5px solid;
+            border-radius: 40px;
+            padding: 6px 16px 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 8px #0000000d;
+            border: 1px solid #b0c9e8;
+            cursor: grab;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .material-card:active { background: #e0edff; cursor: grabbing; }
+        .color-dot { width: 14px; height: 14px; border-radius: 14px; border: 1px solid white; box-shadow: 0 2px 5px #0000001a; }
+
+        .inspector-feedback {
+            flex: 1.5;
+            min-width: 300px;
+            background: #e3eefa;
+            border-radius: 36px;
+            padding: 1.2rem 1.5rem;
+        }
+        #inspector-content {
+            background: #fffffff2;
+            border-radius: 28px;
+            padding: 1.2rem;
+            border: 1px solid #b2ccee;
+            min-height: 170px;
+            font-size: 0.95rem;
+        }
+        .prop-badge {
+            background: #dae6f8; padding: 4px 14px; border-radius: 40px; display: inline-block; margin: 3px 6px 3px 0;
+            font-size: 0.85rem;
+        }
+        .use-case {
+            background: #ecf3fe; border-radius: 20px; padding: 10px 15px; border-left: 4px solid #3573ac; margin-top: 12px;
+            line-height: 1.4;
+        }
+        .feedback {
+            background: #d9e6f9; padding: 14px 20px; border-radius: 40px; font-weight: 500; text-align: center; margin: 20px 0 12px;
+            font-size: 1.1rem;
+        }
+        .btn-reset {
+            background: white; border: 2px solid #adc8ec; border-radius: 40px; padding: 12px 24px; font-weight: 600;
+            color: #0f4570; cursor: pointer; width: 100%; font-size: 1rem; transition: 0.1s;
+        }
+        .btn-reset:hover { background: #deebff; }
+    </style>
+</head>
+<body>
+<div class="activity-container">
+    <h1>
+        🧪 B3.1.1 · materials selection
+        <div class="scoreboard" id="scoreDisplay">🏆 0 <span>points</span></div>
+    </h1>
+    <div class="sub">↕️ strength 0.01 – 1000 MPa (log)  ↔️ temp 10 – 10,000°C · revised materials + detailed uses</div>
+
+    <!-- CHART -->
+    <div class="chart-section">
+        <div class="chart-container">
+            <canvas id="ashbyCanvas" width="850" height="480"></canvas>
+            <div class="axis-labels">
+                <span>10°C</span><span>30°C</span><span>100°C</span><span>300°C</span><span>1000°C</span><span>10000°C</span>
+            </div>
+        </div>
+        <div class="legend-row">
+            <div class="legend-item"><span class="legend-dot" style="background:#4f9e9e;"></span> metals</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#e5a43b;"></span> polymers</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#c25e5e;"></span> ceramics</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#8469b3;"></span> composites</div>
+            <div class="legend-item"><span class="legend-dot" style="background:#7fad7f;"></span> natural</div>
+        </div>
+    </div>
+
+    <!-- BOTTOM PANEL -->
+    <div class="info-panel">
+        <div class="material-pool">
+            <h2>📦 material pool <span style="font-size:0.8rem;">(drag → chart)</span></h2>
+            <div class="pool-grid" id="materialPool"></div>
+        </div>
+
+        <div class="inspector-feedback">
+            <div id="inspector-content">🔍 click any card or chart dot</div>
+            <div id="feedbackMessage" class="feedback">⭐ drag to score points</div>
+            <button class="btn-reset" id="resetBtn">↺ reset all (score to zero)</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // ----- limits (log) -----
+    const STRENGTH_MIN = 0.01, STRENGTH_MAX = 1000;
+    const TEMP_MIN = 10, TEMP_MAX = 10000;
+
+    const canvas = document.getElementById('ashbyCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+
+    // ----- REVISED MATERIALS with expanded uses & abbreviations defined -----
+    const materialCatalog = [
+        // metals (8)
+        { key:'m1', name:'Mild steel', strength:400, temp:600, class:'metal',
+          use:'Mild steel (low carbon steel) is widely used in construction (beams, reinforcement), automobile bodies, and pipelines due to its good formability, weldability, and moderate strength.' },
+        { key:'m2', name:'Stainless 304', strength:550, temp:870, class:'metal',
+          use:'Stainless steel 304 (18/8 chromium-nickel) offers excellent corrosion resistance. Used in kitchen equipment, chemical containers, and architectural trim.' },
+        { key:'m3', name:'Aluminium 6061', strength:310, temp:350, class:'metal',
+          use:'Aluminium 6061 is a precipitation-hardened alloy with good mechanical properties and weldability. Common in bicycle frames, aircraft fittings, and marine components.' },
+        { key:'m4', name:'Copper', strength:220, temp:400, class:'metal',
+          use:'Copper is prized for electrical conductivity (wiring, motors) and thermal conductivity (heat exchangers, cookware). Also used in roofing and plumbing.' },
+        { key:'m5', name:'Titanium Ti-6Al-4V', strength:950, temp:600, class:'metal',
+          use:'Ti-6Al-4V (alpha-beta alloy) has exceptional strength-to-weight ratio and biocompatibility. Aerospace structural parts, surgical implants, and high-performance automotive.' },
+        { key:'m6', name:'Magnesium alloy', strength:230, temp:350, class:'metal',
+          use:'Magnesium alloys are the lightest structural metals. Used in lightweight casings for electronics, power tools, and automotive parts where weight saving is critical.' },
+        { key:'m7', name:'Cast iron', strength:250, temp:800, class:'metal',
+          use:'Cast iron (grey or ductile) has good castability, vibration damping, and wear resistance. Engine blocks, machine tool bases, and brake discs.' },
+        { key:'m8', name:'Nickel superalloy', strength:1100, temp:1050, class:'metal',
+          use:'Nickel-based superalloys (e.g., Inconel) retain strength at high temperatures. Used in gas turbine blades, rocket engines, and nuclear reactors.' },
+
+        // polymers (7) - no changes needed, but we ensure names are clear
+        { key:'p1', name:'HDPE', strength:30, temp:80, class:'polymer',
+          use:'High-density polyethylene (HDPE) – strong, chemical resistant. Used for blow-moulded bottles, fuel tanks, cutting boards, and corrosion-resistant piping.' },
+        { key:'p2', name:'Polypropylene (PP)', strength:35, temp:100, class:'polymer',
+          use:'Polypropylene (PP) is a semi-rigid polymer with good fatigue resistance. Food containers, hinges (living hinges), automotive interior trim, and medical syringes.' },
+        { key:'p3', name:'Nylon 6,6', strength:85, temp:150, class:'polymer',
+          use:'Nylon 6,6 (polyamide) has high strength, abrasion resistance, and low friction. Gears, bearings, textile fibres, and zip ties.' },
+        { key:'p4', name:'PMMA (acrylic)', strength:70, temp:90, class:'polymer',
+          use:'Polymethyl methacrylate (PMMA / acrylic) is a transparent, shatter-resistant glass substitute. Used for lenses, aquariums, signage, and automotive tail lights.' },
+        { key:'p5', name:'PTFE (Teflon™)', strength:25, temp:260, class:'polymer',
+          use:'Polytetrafluoroethylene (PTFE) has extremely low friction and high chemical resistance. Non-stick coatings, seals, gaskets, and electrical insulation.' },
+        { key:'p6', name:'Epoxy', strength:90, temp:180, class:'polymer',
+          use:'Epoxy resins are thermosetting polymers with high adhesion and mechanical strength. Used as adhesives, coatings, and matrix for fibre-reinforced composites.' },
+        { key:'p7', name:'Silicone elastomer', strength:7, temp:230, class:'polymer',
+          use:'Silicone rubber remains flexible over a wide temperature range. Medical tubing, baking moulds, seals, and electrical insulation.' },
+
+        // ceramics (7) – Cordierite replaced by ABS, Zirconia replaced by PETG, plus existing ceramics.
+        { key:'c1', name:'Alumina (Al₂O₃)', strength:350, temp:1750, class:'ceramic',
+          use:'Alumina (aluminium oxide) is a hard, wear-resistant ceramic with high electrical insulation. Used in spark plugs, grinding media, electronic substrates, and biomedical implants.' },
+        { key:'c2', name:'PETG', strength:50, temp:75, class:'polymer',     // Changed from Zirconia to PETG (polymer)
+          use:'Polyethylene terephthalate glycol (PETG) is a clear, impact-resistant thermoplastic. Easily thermoformed or 3D printed. Used for food containers, displays, and protective guards.' },
+        { key:'c3', name:'Silicon carbide (SiC)', strength:400, temp:2600, class:'ceramic',
+          use:'Silicon carbide is an ultra-hard ceramic with high thermal conductivity. Used in abrasives, brake discs, armour, and high-temperature semiconductor components.' },
+        { key:'c4', name:'Porcelain', strength:60, temp:1400, class:'ceramic',
+          use:'Porcelain (a vitrified ceramic) has high electrical resistivity and low porosity. Electrical insulators, tableware, and bathroom fixtures.' },
+        { key:'c5', name:'Glass (soda-lime)', strength:50, temp:550, class:'ceramic',
+          use:'Soda-lime glass is the most common glass. Windows, bottles, and light bulbs. It is transparent, low-cost, but has moderate thermal shock resistance.' },
+        { key:'c6', name:'ABS', strength:40, temp:100, class:'polymer',      // Replaces Cordierite (now a polymer)
+          use:'Acrylonitrile butadiene styrene (ABS) is a tough, impact-resistant thermoplastic. Used for LEGO bricks, automotive dashboards, power tool housings, and 3D printing filaments.' },
+        { key:'c7', name:'Boron carbide (B₄C)', strength:500, temp:800, class:'ceramic',
+          use:'Boron carbide is one of the hardest materials, with low density. Used in ballistic armour, nozzle liners, and as a neutron absorber in nuclear applications.' },
+
+        // composites (4)
+        { key:'cmp1', name:'CFRP', strength:800, temp:180, class:'composite',
+          use:'Carbon fibre reinforced polymer (CFRP) – carbon fibres in an epoxy matrix. Ultra-high strength-to-weight ratio. Aerospace structures, sports equipment (bikes, tennis rackets), and high-end automotive.' },
+        { key:'cmp2', name:'GFRP', strength:300, temp:200, class:'composite',
+          use:'Glass fibre reinforced polymer (GFRP / fibreglass) – glass fibres in polyester or epoxy. Boat hulls, wind turbine blades, storage tanks, and automotive body panels.' },
+        { key:'cmp3', name:'Kevlar/epoxy', strength:400, temp:180, class:'composite',
+          use:'Kevlar (aramid) fibre reinforced epoxy. High tensile strength and impact resistance. Ballistic vests, ropes, helmets, and sporting goods.' },
+        { key:'cmp4', name:'Plywood', strength:40, temp:150, class:'natural',
+          use:'Plywood is an engineered wood composite made from thin veneers cross‑laminated. Furniture, subflooring, and structural sheathing.' },
+
+        // natural materials (4)
+        { key:'n1', name:'Bamboo', strength:70, temp:150, class:'natural',
+          use:'Bamboo is a fast-growing grass with high strength-to-weight ratio. Used for flooring, scaffolding (in Asia), furniture, and textile fibres.' },
+        { key:'n2', name:'Cork', strength:2, temp:100, class:'natural',
+          use:'Cork is harvested from cork oak bark. It is lightweight, compressible, and insulating. Wine stoppers, bulletin boards, flooring underlayment, and gaskets.' },
+        { key:'n3', name:'Leather', strength:15, temp:150, class:'natural',
+          use:'Leather (treated animal hide) is flexible and durable. Upholstery, footwear, belts, and protective clothing (welding aprons).' },
+        { key:'n4', name:'Oak wood', strength:50, temp:150, class:'natural',
+          use:'Oak is a dense hardwood with good strength and attractive grain. Timber framing, furniture, flooring, and whiskey barrels.' }
+    ];
+
+    // helper to get colour by class
+    function classColor(cls) {
+        if (cls === 'metal') return '#4f9e9e';
+        if (cls === 'polymer') return '#e5a43b';
+        if (cls === 'ceramic') return '#c25e5e';
+        if (cls === 'composite') return '#8469b3';
+        return '#7fad7f'; // natural
+    }
+
+    // ----- state -----
+    let placedMarkers = [];               // { key, x, y }
+    let availableInPool = new Set(materialCatalog.map(m => m.key));
+    let totalScore = 0;
+
+    // ----- LOG MAPPING (correct Y: top = high strength) -----
+    function strengthToY(strength) {
+        const logMin = Math.log10(STRENGTH_MIN);
+        const logMax = Math.log10(STRENGTH_MAX);
+        const logS = Math.log10(Math.min(STRENGTH_MAX, Math.max(STRENGTH_MIN, strength)));
+        const fraction = (logS - logMin) / (logMax - logMin); // 0 bottom, 1 top
+        return H * (1 - fraction);
+    }
+    function tempToX(temp) {
+        const logMin = Math.log10(TEMP_MIN);
+        const logMax = Math.log10(TEMP_MAX);
+        const logT = Math.log10(Math.min(TEMP_MAX, Math.max(TEMP_MIN, temp)));
+        return W * (logT - logMin) / (logMax - logMin);
+    }
+    function yToStrength(y) {
+        const fraction = 1 - (y / H);
+        const logMin = Math.log10(STRENGTH_MIN);
+        const logMax = Math.log10(STRENGTH_MAX);
+        return Math.pow(10, logMin + fraction * (logMax - logMin));
+    }
+    function xToTemp(x) {
+        const fraction = x / W;
+        const logMin = Math.log10(TEMP_MIN);
+        const logMax = Math.log10(TEMP_MAX);
+        return Math.pow(10, logMin + fraction * (logMax - logMin));
+    }
+
+    // ideal coordinates for scoring (tuned a bit)
+    function getIdealCoordinates(mat) {
+        if (mat.class === 'metal') return { x: tempToX(500), y: strengthToY(400) };
+        if (mat.class === 'polymer') return { x: tempToX(150), y: strengthToY(50) };
+        if (mat.class === 'ceramic') return { x: tempToX(1800), y: strengthToY(350) };
+        if (mat.class === 'composite') return { x: tempToX(200), y: strengthToY(500) };
+        if (mat.class === 'natural') return { x: tempToX(120), y: strengthToY(30) };
+        return { x: W/2, y: H/2 };
+    }
+
+    function computeScore(material, cx, cy) {
+        const ideal = getIdealCoordinates(material);
+        const dx = (cx - ideal.x) / W;
+        const dy = (cy - ideal.y) / H;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        let raw = 100 * (1 - Math.min(dist / 1.4, 1));
+        return Math.max(0, Math.min(100, Math.round(raw)));
+    }
+
+    // ----- drawing -----
+    function drawGrid() {
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, W, H);
+
+        const tempPoints = [10,30,100,300,1000,10000];
+        ctx.strokeStyle = '#d4e2f7';
+        ctx.lineWidth = 0.8;
+        for (let t of tempPoints) {
+            let x = tempToX(t);
+            ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+        }
+        const strengthPoints = [0.01,0.1,1,10,100,1000];
+        for (let s of strengthPoints) {
+            let y = strengthToY(s);
+            ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+        }
+
+        ctx.fillStyle = '#1d4f7a';
+        ctx.font = 'bold 11px "Segoe UI"';
+        ctx.fillText('0.01 MPa', 8, H-8);
+        ctx.fillText('0.1', 8, strengthToY(0.1)-5);
+        ctx.fillText('1', 8, strengthToY(1)-5);
+        ctx.fillText('10', 8, strengthToY(10)-5);
+        ctx.fillText('100', 8, strengthToY(100)-5);
+        ctx.fillText('1000', 8, strengthToY(1000)-5);
+
+        for (let t of tempPoints) {
+            let x = tempToX(t);
+            ctx.fillText(t+'°C', x-20, H-4);
+        }
+    }
+
+    function drawMarkers() {
+        placedMarkers.forEach(p => {
+            const mat = materialCatalog.find(m => m.key === p.key);
+            if (!mat) return;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 8, 0, 2*Math.PI);
+            ctx.fillStyle = classColor(mat.class);
+            ctx.shadowBlur = 7; ctx.shadowColor = '#00000030';
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = 'white'; ctx.lineWidth = 2.5; ctx.stroke();
+            ctx.font = 'bold 10px "Segoe UI"'; ctx.fillStyle = 'white';
+            ctx.shadowBlur = 4; ctx.fillText(mat.name.charAt(0), p.x-5, p.y+4);
+            ctx.shadowBlur = 0;
+        });
+    }
+
+    function redrawCanvas() {
+        drawGrid();
+        drawMarkers();
+    }
+
+    // ----- scoreboard -----
+    function updateScoreBoard() {
+        document.getElementById('scoreDisplay').innerHTML = `🏆 ${totalScore} <span>points</span>`;
+    }
+
+    // ----- pool UI -----
+    function refreshPoolUI() {
+        const poolDiv = document.getElementById('materialPool');
+        poolDiv.innerHTML = '';
+        const available = materialCatalog.filter(m => availableInPool.has(m.key));
+        available.forEach(mat => {
+            const card = document.createElement('div');
+            card.className = 'material-card';
+            card.dataset.material = mat.key;
+            card.draggable = true;
+            card.style.borderLeftColor = classColor(mat.class);
+            const dot = document.createElement('span');
+            dot.className = 'color-dot';
+            dot.style.backgroundColor = classColor(mat.class);
+            card.appendChild(dot);
+            card.appendChild(document.createTextNode(mat.name));
+            poolDiv.appendChild(card);
+        });
+        attachCardListeners();
+    }
+
+    function attachCardListeners() {
+        document.querySelectorAll('.material-card').forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', card.dataset.material);
+                card.classList.add('dragging');
+            });
+            card.addEventListener('dragend', (e) => {
+                card.classList.remove('dragging');
+            });
+            card.addEventListener('click', (e) => {
+                const key = card.dataset.material;
+                const mat = materialCatalog.find(m => m.key === key);
+                if (mat) showInspector(mat);
+            });
+        });
+    }
+
+    function showInspector(mat) {
+        document.getElementById('inspector-content').innerHTML = `
+            <div style="font-weight:600; font-size:1.2rem;">${mat.name}</div>
+            <div><span class="prop-badge">💪 ${mat.strength} MPa</span><span class="prop-badge">🔥 ${mat.temp} °C</span><span class="prop-badge" style="background:${classColor(mat.class)}30">${mat.class}</span></div>
+            <div class="use-case">📋 ${mat.use}</div>
+        `;
+    }
+
+    // ----- canvas drop -----
+    canvas.addEventListener('dragover', e => e.preventDefault());
+    canvas.addEventListener('drop', e => {
+        e.preventDefault();
+        const materialKey = e.dataTransfer.getData('text/plain');
+        if (!materialKey) return;
+        const mat = materialCatalog.find(m => m.key === materialKey);
+        if (!mat) return;
+
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let mouseX = (e.clientX - rect.left) * scaleX;
+        let mouseY = (e.clientY - rect.top) * scaleY;
+        mouseX = Math.min(W-10, Math.max(10, mouseX));
+        mouseY = Math.min(H-10, Math.max(10, mouseY));
+
+        const wasInPool = availableInPool.has(materialKey);
+        if (wasInPool) {
+            availableInPool.delete(materialKey);
+        } else {
+            placedMarkers = placedMarkers.filter(m => m.key !== materialKey);
+        }
+
+        const scoreEarned = computeScore(mat, mouseX, mouseY);
+        totalScore += scoreEarned;
+
+        placedMarkers.push({ key: materialKey, x: mouseX, y: mouseY });
+
+        refreshPoolUI();
+        redrawCanvas();
+        updateScoreBoard();
+
+        const feedback = document.getElementById('feedbackMessage');
+        feedback.innerHTML = `✅ +${scoreEarned} pts for ${mat.name}. Total: ${totalScore}`;
+        feedback.style.background = '#c4efd0';
+        showInspector(mat);
+    });
+
+    // ----- drag existing markers -----
+    let draggingMarkerKey = null;
+    let dragOffsetX = 0, dragOffsetY = 0;
+
+    canvas.addEventListener('mousedown', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+        const clicked = placedMarkers.find(m => Math.hypot(m.x - mouseX, m.y - mouseY) < 15);
+        if (clicked) {
+            e.preventDefault();
+            draggingMarkerKey = clicked.key;
+            dragOffsetX = clicked.x - mouseX;
+            dragOffsetY = clicked.y - mouseY;
+        }
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!draggingMarkerKey) return;
+        e.preventDefault();
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let mouseX = (e.clientX - rect.left) * scaleX;
+        let mouseY = (e.clientY - rect.top) * scaleY;
+        mouseX = Math.min(W-10, Math.max(10, mouseX + dragOffsetX));
+        mouseY = Math.min(H-10, Math.max(10, mouseY + dragOffsetY));
+
+        const marker = placedMarkers.find(m => m.key === draggingMarkerKey);
+        if (marker) {
+            marker.x = mouseX; marker.y = mouseY;
+            redrawCanvas();
+        }
+    });
+
+    canvas.addEventListener('mouseup', (e) => {
+        if (draggingMarkerKey) {
+            const marker = placedMarkers.find(m => m.key === draggingMarkerKey);
+            const mat = materialCatalog.find(m => m.key === draggingMarkerKey);
+            if (marker && mat) {
+                let sum = 0;
+                placedMarkers.forEach(p => {
+                    const m = materialCatalog.find(mat => mat.key === p.key);
+                    if (m) sum += computeScore(m, p.x, p.y);
+                });
+                totalScore = sum;
+                updateScoreBoard();
+                const feedback = document.getElementById('feedbackMessage');
+                feedback.innerHTML = `✏️ moved – total score: ${totalScore}`;
+                feedback.style.background = '#d9e6f9';
+                showInspector(mat);
+            }
+        }
+        draggingMarkerKey = null;
+    });
+
+    canvas.addEventListener('mouseleave', () => { draggingMarkerKey = null; });
+
+    // reset
+    function resetAll() {
+        placedMarkers = [];
+        availableInPool = new Set(materialCatalog.map(m => m.key));
+        totalScore = 0;
+        refreshPoolUI();
+        redrawCanvas();
+        updateScoreBoard();
+        document.getElementById('feedbackMessage').innerHTML = '⭐ drag materials to score points';
+        document.getElementById('feedbackMessage').style.background = '#d9e6f9';
+        document.getElementById('inspector-content').innerHTML = '🔍 click card or dot';
+    }
+
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+    // click marker to inspect
+    canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+        const clicked = placedMarkers.find(m => Math.hypot(m.x - mouseX, m.y - mouseY) < 12);
+        if (clicked) {
+            const mat = materialCatalog.find(m => m.key === clicked.key);
+            if (mat) showInspector(mat);
+        }
+    });
+
+    // initialise
+    refreshPoolUI();
+    redrawCanvas();
+    updateScoreBoard();
+})();
+</script>
+</body>
+</html>

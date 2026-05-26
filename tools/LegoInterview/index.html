@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interview Question Generator — MYP Grade 6 Lego Design project. Build your set of five interview questions.">
+<title>Interview Questions — contrapaul edu</title>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../curriculum/themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   LEGO INTERVIEW QUESTION GENERATOR
+   All colours via CSS custom properties — all themes work.
+═══════════════════════════════════════════════════════════ */
+
+/* ── Page shell ─────────────────────────────────────────── */
+.li-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── Question stage ─────────────────────────────────────── */
+.li-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 2rem 2.5rem;
+  text-align: center;
+  min-height: 300px;
+}
+
+.li-intro {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2.25rem;
+}
+.li-intro-accent { color: var(--accent); }
+
+/* The big question — same sizing as homepage blocks */
+.li-question-wrap {
+  max-width: 820px;
+  width: 100%;
+  margin-bottom: 2.25rem;
+}
+
+.li-question-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3.7vw, 3.0rem);
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--text);
+  margin: 0 0 0.875rem;
+  transition: opacity 0.18s ease;
+}
+.li-question-text.is-fading { opacity: 0; }
+
+.li-question-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Action buttons ─────────────────────────────────────── */
+.li-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.li-btn {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+.li-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.li-btn-choose {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.li-btn-choose:hover {
+  opacity: 0.88;
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.li-btn-choose:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.li-btn-choose:disabled:hover { opacity: 0.38; }
+
+/* Feedback line */
+.li-feedback {
+  margin-top: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  min-height: 1.1em;
+}
+.li-feedback.is-error { color: #dc2626; }
+
+/* ── Chosen section ─────────────────────────────────────── */
+.li-chosen {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.375rem 2rem 2rem;
+  flex-shrink: 0;
+}
+
+.li-chosen-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  margin-bottom: 1.125rem;
+  flex-wrap: wrap;
+}
+
+.li-chosen-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.li-chosen-progress {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.li-chosen-progress.is-complete { color: var(--accent); font-weight: 600; }
+
+.li-hint {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  color: var(--border-strong);
+  margin-left: auto;
+}
+
+/* Cards row — chosen questions + empty slots */
+.li-cards-row {
+  display: flex;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+}
+
+/* Empty slot */
+.li-slot-empty {
+  width: 190px;
+  min-height: 108px;
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+.li-slot-num {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+}
+.li-slot-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--border);
+}
+
+/* Filled question card */
+.li-card {
+  width: 190px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.75rem 0.6rem;
+  position: relative;
+  flex-shrink: 0;
+  animation: li-slide-up 0.22s ease;
+}
+
+@keyframes li-slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.li-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.45rem;
+  padding-right: 1.2rem; /* space for × button */
+}
+
+.li-card-text {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.li-card-remove {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: color 0.12s, background 0.12s;
+}
+.li-card-remove:hover {
+  color: #dc2626;
+  background: rgba(220,38,38,0.09);
+}
+
+/* ── Complete state ─────────────────────────────────────── */
+.li-complete-banner {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  margin-bottom: 1.125rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.li-complete-banner.visible { display: flex; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .li-stage { padding: 2.5rem 1.25rem 2rem; }
+  .li-chosen { padding: 1.25rem 1.25rem 1.75rem; }
+  .li-slot-empty, .li-card { width: 150px; }
+  .li-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<main class="li-page" id="li-page">
+
+  <!-- ── Question stage ──────────────────────────────────── -->
+  <div class="li-stage" id="li-stage">
+
+    <p class="li-intro">
+      MYP Design · Lego Set Project ·
+      <span class="li-intro-accent">Interview Question Generator</span>
+    </p>
+
+    <div class="li-question-wrap">
+      <p class="li-question-text" id="li-qtext">Loading…</p>
+      <p class="li-question-meta" id="li-qmeta">Question — of 30</p>
+    </div>
+
+    <div class="li-actions">
+      <button class="li-btn" id="li-next-btn">New question →</button>
+      <button class="li-btn li-btn-choose" id="li-choose-btn">+ Choose this question</button>
+    </div>
+
+    <p class="li-feedback" id="li-feedback" aria-live="polite"></p>
+
+  </div>
+
+  <!-- ── Chosen questions ────────────────────────────────── -->
+  <section class="li-chosen" id="li-chosen">
+
+    <div class="li-complete-banner" id="li-complete-banner">
+      ✓ You have chosen all 5 questions — you're ready to interview!
+    </div>
+
+    <div class="li-chosen-header">
+      <span class="li-chosen-label">Your interview questions</span>
+      <span class="li-chosen-progress" id="li-progress">0 / 5 chosen</span>
+      <span class="li-hint">Click × on a card to swap it out</span>
+    </div>
+
+    <div class="li-cards-row" id="li-cards-row">
+      <!-- rendered by JS -->
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<script src="../../curriculum/curriculum-themes.js"></script>
+<script src="questions.js"></script>
+<script>
+/* ============================================================
+   Interview Question Generator
+   Shuffled queue — questions cycle without repeating until
+   all available (unchosen) questions have been shown once.
+============================================================ */
+'use strict';
+
+var MAX_CHOSEN = 5;
+var chosen     = [];   /* array of question objects, max 5 */
+var queue      = [];   /* shuffled IDs of unchosen questions, current rotation */
+var current    = null; /* currently displayed question */
+
+/* ── Fisher-Yates shuffle ───────────────────────────────── */
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+/* ── Pool of questions not yet chosen ───────────────────── */
+function availableIds() {
+  var chosenIds = chosen.map(function(q) { return q.id; });
+  return LEGO_QUESTIONS
+    .filter(function(q) { return chosenIds.indexOf(q.id) === -1; })
+    .map(function(q) { return q.id; });
+}
+
+function refillQueue() {
+  queue = shuffle(availableIds());
+}
+
+function getById(id) {
+  return LEGO_QUESTIONS.find(function(q) { return q.id === id; });
+}
+
+function nextQuestion() {
+  if (queue.length === 0) refillQueue();
+  if (queue.length === 0) return null;
+  /* Skip the current question if it somehow ends up first */
+  if (queue.length > 1 && current && queue[0] === current.id) {
+    queue.push(queue.shift());
+  }
+  return getById(queue.shift());
+}
+
+/* ── Display a question ─────────────────────────────────── */
+function showQuestion(q, animate) {
+  if (!q) return;
+  current = q;
+
+  var textEl = document.getElementById('li-qtext');
+  var metaEl = document.getElementById('li-qmeta');
+
+  function update() {
+    textEl.textContent = q.text;
+    metaEl.textContent = 'Question ' + q.id + ' of ' + LEGO_QUESTIONS.length;
+  }
+
+  if (animate) {
+    textEl.classList.add('is-fading');
+    setTimeout(function() {
+      update();
+      textEl.classList.remove('is-fading');
+    }, 180);
+  } else {
+    update();
+  }
+
+  /* Choose button: disable if this question is already chosen or list is full */
+  syncChooseButton();
+}
+
+function syncChooseButton() {
+  var btn = document.getElementById('li-choose-btn');
+  var alreadyChosen = current && chosen.some(function(c) { return c.id === current.id; });
+  var full = chosen.length >= MAX_CHOSEN;
+  btn.disabled = !current || alreadyChosen || full;
+}
+
+/* ── Render chosen cards row ────────────────────────────── */
+function renderCards() {
+  var row = document.getElementById('li-cards-row');
+  row.innerHTML = '';
+
+  /* Filled cards */
+  chosen.forEach(function(q, i) {
+    var card = document.createElement('div');
+    card.className = 'li-card';
+
+    var numEl = document.createElement('div');
+    numEl.className = 'li-card-num';
+    numEl.textContent = 'Interview Question ' + (i + 1);
+    card.appendChild(numEl);
+
+    var textEl = document.createElement('div');
+    textEl.className = 'li-card-text';
+    textEl.textContent = q.text;
+    card.appendChild(textEl);
+
+    var removeBtn = document.createElement('button');
+    removeBtn.className = 'li-card-remove';
+    removeBtn.textContent = '×';
+    removeBtn.setAttribute('title', 'Remove this question');
+    removeBtn.setAttribute('aria-label', 'Remove Interview Question ' + (i + 1));
+    (function(qId) {
+      removeBtn.addEventListener('click', function() { removeQuestion(qId); });
+    }(q.id));
+    card.appendChild(removeBtn);
+
+    row.appendChild(card);
+  });
+
+  /* Empty slots for the remaining spaces */
+  var remaining = MAX_CHOSEN - chosen.length;
+  for (var i = 1; i <= remaining; i++) {
+    var slot = document.createElement('div');
+    slot.className = 'li-slot-empty';
+    var slotNum = document.createElement('div');
+    slotNum.className = 'li-slot-num';
+    slotNum.textContent = chosen.length + i;
+    var slotLabel = document.createElement('div');
+    slotLabel.className = 'li-slot-label';
+    slotLabel.textContent = 'Empty';
+    slot.appendChild(slotNum);
+    slot.appendChild(slotLabel);
+    row.appendChild(slot);
+  }
+
+  /* Progress counter */
+  var prog = document.getElementById('li-progress');
+  prog.textContent = chosen.length + ' / ' + MAX_CHOSEN + ' chosen';
+  prog.classList.toggle('is-complete', chosen.length === MAX_CHOSEN);
+
+  /* Complete banner */
+  var banner = document.getElementById('li-complete-banner');
+  banner.classList.toggle('visible', chosen.length === MAX_CHOSEN);
+
+  syncChooseButton();
+}
+
+/* ── Choose current question ────────────────────────────── */
+function chooseQuestion() {
+  if (!current) return;
+  if (chosen.length >= MAX_CHOSEN) {
+    showFeedback('You already have 5 questions chosen.', true);
+    return;
+  }
+  if (chosen.some(function(c) { return c.id === current.id; })) {
+    showFeedback('That question is already in your list.', true);
+    return;
+  }
+  chosen.push(current);
+  renderCards();
+  showFeedback('Added as Interview Question ' + chosen.length + '.', false);
+  /* Advance automatically so something new is on screen */
+  var next = nextQuestion();
+  if (next) showQuestion(next, true);
+}
+
+/* ── Remove a question from chosen ─────────────────────── */
+function removeQuestion(id) {
+  chosen = chosen.filter(function(q) { return q.id !== id; });
+  refillQueue(); /* removed question re-enters the pool */
+  renderCards();
+  showFeedback('', false);
+  if (current) syncChooseButton();
+}
+
+/* ── Feedback message ───────────────────────────────────── */
+var feedbackTimer = null;
+function showFeedback(msg, isError) {
+  var el = document.getElementById('li-feedback');
+  el.textContent = msg;
+  el.classList.toggle('is-error', !!isError);
+  clearTimeout(feedbackTimer);
+  if (msg) {
+    feedbackTimer = setTimeout(function() {
+      el.textContent = '';
+    }, 3200);
+  }
+}
+
+/* ── Boot ───────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+
+  refillQueue();
+  showQuestion(nextQuestion(), false);
+  renderCards();
+
+  document.getElementById('li-next-btn').addEventListener('click', function() {
+    showFeedback('', false);
+    var next = nextQuestion();
+    if (next) showQuestion(next, true);
+  });
+
+  document.getElementById('li-choose-btn').addEventListener('click', chooseQuestion);
+
+});
+</script>
+</body>
+</html>

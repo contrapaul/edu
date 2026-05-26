@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electronic Systems Application and Selection | B3.4 — DP Design — contrapaul edu</title>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../themes.css">
+</head>
+<body data-curr-type="dp" data-curr-page="b3.4">
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<div class="topic-hero" style="--topic-color:#1a5cb8;--topic-bg:#e8eef8;--topic-border:#c4d0e8;">
+<div class="topic-hero-inner">
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum/dp/">DP Design</a><span class="sep">/</span>B3.4 Electronic Systems Application and Selection</div>
+<h1 class="topic-title">Electronic Systems Application and Selection | B3.4</h1>
+<p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How can electronic systems be incorporated into product design?</p>
+</div>
+</div>
+
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul class="curr-toc-list">
+  <li class="curr-toc-item" data-section="introduction"><a href="#introduction">Introduction</a></li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+    <a href="#study-guide">Study Guide</a>
+    <ul class="curr-toc-sub" id="toc-sub-study">
+      <li data-section="obj-3.4.1"><a href="#obj-3.4.1">3.4.1 Electronics in Products</a></li>
+      <li data-section="obj-3.4.2"><a href="#obj-3.4.2">3.4.2 Test Equipment</a></li>
+      <li data-section="obj-3.4.3"><a href="#obj-3.4.3">3.4.3 V, I, R and P</a></li>
+      <li data-section="obj-3.4.4"><a href="#obj-3.4.4">3.4.4 Resistors &amp; Capacitors</a></li>
+      <li data-section="obj-3.4.5"><a href="#obj-3.4.5">3.4.5 Flow Diagrams</a></li>
+      <li data-section="obj-3.4.6"><a href="#obj-3.4.6">3.4.6 System Diagrams</a></li>
+      <li data-section="obj-3.4.7"><a href="#obj-3.4.7">3.4.7 Sensor Inputs</a></li>
+      <li data-section="obj-3.4.8"><a href="#obj-3.4.8">3.4.8 Process Stage</a></li>
+      <li data-section="obj-3.4.9"><a href="#obj-3.4.9">3.4.9 Logic</a></li>
+      <li data-section="obj-3.4.10"><a href="#obj-3.4.10">3.4.10 Output Devices</a></li>
+      <li data-section="obj-3.4.11"><a href="#obj-3.4.11">3.4.11 Communication Protocols</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item" data-section="quiz"><a href="#quiz">Quiz</a></li>
+  <li class="curr-toc-item" data-section="paper2"><a href="#paper2">Paper 2</a></li>
+  <li class="curr-toc-item" data-section="references"><a href="#references">References</a></li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 00 — INTRODUCTION                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="introduction" style="--curr-color:#1a5cb8;">
+<button class="curr-trigger" aria-expanded="true" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2><span class="curr-sec-sub">Topic introduction &amp; teacher notes</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body open" id="body-introduction">
+<p class="content-placeholder">Overview and teacher commentary will appear here.</p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 01 — STUDY GUIDE                                 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="study-guide" style="--curr-color:#1a5cb8;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide and Classroom Activities</h2><span class="curr-sec-sub">EN / 中文</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-study">
+<div class="curr-section-intro-wrap">
+<p class="curr-section-intro">Building on A3.4, this topic applies electronic systems to real product design — using test equipment, calculating V/I/R/P, working with resistors and capacitors, drawing flow and system diagrams, selecting sensors and outputs, and comparing wireless protocols. The Input–Process–Output model provides the organising framework throughout.</p>
+<div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Electronic Systems Application — B3.4"></div>
+</div>
+
+<div class="lang-toggle-bar">
+<label class="lang-toggle-label">
+<input type="checkbox" id="zh-toggle" class="lang-toggle-checkbox">
+Show Chinese · 显示中文
+</label>
+</div>
+
+<div class="obj-list">
+
+<!-- 3.4.1 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.1">
+<div class="obj-trigger-left"><span class="obj-code">3.4.1</span><h3>Electronics are present in the design of many everyday products.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse simple electronic products and circuits to identify the main component parts that enable them to perform a specific function.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="IPO model diagram showing Input, Process and Output stages with examples"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>The <strong>Input–Process–Output (IPO) model</strong> is the fundamental framework for understanding any electronic system. It breaks a complex product into three stages:</p>
+<ul>
+<li><strong>Input</strong> — sensors detect changes in the environment (light, temperature, pressure, motion, sound, user commands) and convert them into electrical signals for the process stage.</li>
+<li><strong>Process</strong> — a microcontroller, logic circuit, or embedded processor receives input signals, applies a programmed algorithm, and decides what to do next.</li>
+<li><strong>Output</strong> — actuators, displays, speakers, motors, or relays respond — communicating information to a user or physically controlling the environment.</li>
+</ul>
+<p>Electronics are now embedded in almost every product category: <strong>home appliances</strong> (refrigerators, washing machines, microwaves), <strong>entertainment</strong> (TVs, game consoles), <strong>communication</strong> (smartphones, computers), <strong>automotive</strong> (engine control units, GPS, advanced driver assistance), and <strong>personal wearables</strong> (smartwatches, fitness trackers). When analysing a product, the first task is to identify which components serve which stage of the IPO model.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>输入-处理-输出（IPO）模型</strong>是理解任何电子系统的基本框架。它将复杂产品分解为三个阶段：</p>
+<ul>
+<li><strong>输入</strong>——传感器检测环境变化（光、温度、压力、运动、声音、用户指令），并将其转换为电信号供处理阶段使用。</li>
+<li><strong>处理</strong>——微控制器、逻辑电路或嵌入式处理器接收输入信号，执行编程算法，并决定下一步操作。</li>
+<li><strong>输出</strong>——执行器、显示器、扬声器、电机或继电器作出响应——向用户传递信息或对环境进行物理控制。</li>
+</ul>
+<p>电子系统现已嵌入几乎所有产品类别：<strong>家用电器</strong>（冰箱、洗衣机、微波炉）、<strong>娱乐设备</strong>（电视、游戏机）、<strong>通信工具</strong>（智能手机、计算机）、<strong>汽车</strong>（发动机控制单元、GPS、高级驾驶辅助）和<strong>可穿戴设备</strong>（智能手表、健身追踪器）。分析产品时，第一步是识别哪些组件属于IPO模型的哪个阶段。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /3.4.1 -->
+
+<!-- 3.4.2 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.2">
+<div class="obj-trigger-left"><span class="obj-code">3.4.2</span><h3>Design and manufacture of electronic products requires the use of specialised apparatus.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe how to use basic electronic measuring apparatus, including multi-meters on voltage, current and resistance ranges, and oscilloscopes to observe waveforms.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Bench showing multimeter, oscilloscope and clamp meter"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Choosing the right instrument — and connecting it correctly — is as important as the measurement itself. Using a current meter in parallel, for example, will short-circuit the component and may destroy the meter.</p>
+<p><strong>Digital multimeter (DMM)</strong> — the most versatile handheld instrument:</p>
+<ul>
+<li><em>Voltage</em>: connect in <strong>parallel</strong> across the component. No circuit interruption needed.</li>
+<li><em>Current</em>: connect in <strong>series</strong> — the circuit must be broken and the meter inserted into the path so current flows through it.</li>
+<li><em>Resistance</em>: the component must be <strong>removed from the circuit</strong> entirely, then connected to the meter's Ω terminals. The meter applies its own small current and measures the voltage drop.</li>
+</ul>
+<p><strong>Digital storage oscilloscope (DSO)</strong> — visualises voltage waveforms over time (voltage on Y-axis, time on X-axis). Indispensable for diagnosing: <em>ringing</em> (damped oscillations indicating impedance problems), <em>distorted rising edges</em> (slow component or excessive capacitance), and <em>amplitude problems</em> (incorrect voltage levels indicating a faulty supply). A multimeter cannot reveal any of these — it only shows a single numerical value.</p>
+<p><strong>Function generator</strong> — produces test signals (sine, square, triangle waves) at a chosen frequency. Frequently used alongside a DSO: the generator provides a known input, the DSO captures the circuit's response.</p>
+<p><strong>Clamp meter</strong> — measures current without breaking the circuit by clamping around the conductor. For AC it uses a current transformer; for DC it uses the Hall effect (detecting the magnetic field produced by the current).</p>
+<p><strong>Other instruments:</strong> Megohmmeter (tests insulation resistance at high voltage — a downward trend indicates insulation breakdown); Wattmeter (measures real power P = VI); LCR meter (measures inductance, capacitance and resistance using AC test signals); Logic analyser (captures multiple digital signals simultaneously to debug timing and decode communication protocols such as I²C, SPI, UART).</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>选择正确的仪器并正确连接与测量本身同样重要。例如，将电流表并联连接会使元件短路，并可能损坏仪表。</p>
+<p><strong>数字万用表（DMM）</strong>——最通用的手持仪器：</p>
+<ul>
+<li><em>电压</em>：与被测元件<strong>并联</strong>，无需断开电路。</li>
+<li><em>电流</em>：<strong>串联</strong>接入——需要断开电路并将仪表插入电路中，使电流流过仪表。</li>
+<li><em>电阻</em>：需将元件从电路中<strong>完全拆除</strong>，再连接到仪表的Ω端子。仪表通过内部小电流测量电压降来计算电阻值。</li>
+</ul>
+<p><strong>数字存储示波器（DSO）</strong>——随时间可视化电压波形（Y轴为电压，X轴为时间）。用于诊断：<em>振铃</em>（阻抗问题导致的阻尼振荡）、<em>上升沿失真</em>（元件缓慢或电容过大）和<em>幅度异常</em>（电压电平不正确，提示电源故障）。万用表无法揭示这些问题——它只能显示单一数值。</p>
+<p><strong>函数发生器</strong>——产生指定频率的测试信号（正弦波、方波、三角波）。常与示波器配合使用：发生器提供已知输入，示波器捕捉电路响应。</p>
+<p><strong>钳形表</strong>——无需断路即可测量电流，通过夹住导线来检测其周围的磁场。交流使用电流互感器；直流使用霍尔效应。</p>
+<p><strong>其他仪器：</strong>兆欧表（在高电压下测试绝缘电阻——数值下降趋势表明绝缘劣化）；功率计（测量实际功率P = VI）；LCR表（用交流信号测量电感、电容和电阻）；逻辑分析仪（同时捕捉多路数字信号，调试时序并解码通信协议）。</p>
+</div>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Instrument</th><th>Measures</th><th>Connection</th><th>Key limitation</th></tr></thead>
+<tbody>
+<tr><td><strong>DMM</strong></td><td>V, I, R</td><td>V: parallel / I: series / R: removed</td><td>Only static values — no waveform</td></tr>
+<tr><td><strong>DSO</strong></td><td>Waveform over time</td><td>Parallel (high impedance probe)</td><td>Can miss very slow DC drift</td></tr>
+<tr><td><strong>Clamp meter</strong></td><td>Current only</td><td>Clamp around wire (no break)</td><td>Cannot measure very low currents</td></tr>
+<tr><td><strong>Megger</strong></td><td>Insulation resistance</td><td>High-voltage DC applied</td><td>Cannot test live circuits</td></tr>
+<tr><td><strong>LCR meter</strong></td><td>L, C, R</td><td>Component removed from circuit</td><td>AC test signal only</td></tr>
+<tr><td><strong>Logic analyser</strong></td><td>Digital signals (timing)</td><td>Probes on multiple pins</td><td>No analog voltage detail</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div><!-- /3.4.2 -->
+
+<!-- 3.4.3 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.3">
+<div class="obj-trigger-left"><span class="obj-code">3.4.3</span><h3>Voltage (V) in a circuit is calculated by a combination of current (I) and resistance (R), and electrical power (P) is calculated by a combination of voltage (V) and current (I).</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate power, voltage, current and resistance in a circuit, considering V = IR and P = VI by rearranging equations and substituting values.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Ohm's law triangle and power formula triangle"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Ohm's law:</strong> the voltage across a component equals the current through it multiplied by its resistance.</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">V = I × R &nbsp;&nbsp; → &nbsp;&nbsp; I = V / R &nbsp;&nbsp; → &nbsp;&nbsp; R = V / I</p>
+<p><strong>Power formulas:</strong> electrical power is the rate of energy conversion. Three equivalent forms:</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = V × I &nbsp;&nbsp; = &nbsp;&nbsp; I² × R &nbsp;&nbsp; = &nbsp;&nbsp; V² / R</p>
+<p>Use whichever form avoids an intermediate calculation step. If you know V and R but not I, use P = V²/R directly rather than calculating I first.</p>
+<p><strong>Single-phase vs three-phase power:</strong></p>
+<ul>
+<li><strong>Single-phase</strong> — one AC waveform (one active wire). Used in homes and small businesses. Voltage rises and falls to zero twice per cycle, producing a momentary dip in power.</li>
+<li><strong>Three-phase</strong> — three AC waveforms staggered 120° apart (three active wires). Used in industrial settings. The phases combine so that total power delivery is constant — one phase is always near its peak. More efficient for large motors and high-power equipment.</li>
+</ul>
+<p><strong>IEC 60309 industrial plug colour coding:</strong> yellow = 100–130 V, blue = 200–250 V, red = 380–480 V. Colour coding prevents incorrect connection of equipment to incompatible voltages.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>欧姆定律：</strong>元件两端的电压等于通过它的电流乘以其电阻。</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">V = I × R &nbsp;&nbsp; → &nbsp;&nbsp; I = V / R &nbsp;&nbsp; → &nbsp;&nbsp; R = V / I</p>
+<p><strong>功率公式：</strong>电功率是能量转换的速率。三种等效形式：</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = V × I &nbsp;&nbsp; = &nbsp;&nbsp; I² × R &nbsp;&nbsp; = &nbsp;&nbsp; V² / R</p>
+<p>选择能减少计算步骤的公式。若已知V和R但不知I，直接用P = V²/R，而无需先计算I。</p>
+<p><strong>单相电与三相电：</strong></p>
+<ul>
+<li><strong>单相电</strong>——一个交流波形（一根火线）。用于家庭和小型企业。电压每个周期两次降至零，产生瞬时功率下降。</li>
+<li><strong>三相电</strong>——三个相位相差120°的交流波形（三根火线）。用于工业场合。三相叠加使总功率持续稳定——始终有一相接近峰值。对大型电机和大功率设备更高效。</li>
+</ul>
+<p><strong>IEC 60309工业插头颜色编码：</strong>黄色=100–130V，蓝色=200–250V，红色=380–480V。颜色编码防止设备连接到不兼容的电压。</p>
+</div>
+</div>
+
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked examples</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Given</th><th>Find</th><th>Formula</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>V = 12 V, R = 470 Ω</td><td>I</td><td>I = V / R</td><td>I = 12 / 470 = <strong>25.5 mA</strong></td></tr>
+<tr><td>V = 12 V, I = 25.5 mA</td><td>P</td><td>P = V × I</td><td>P = 12 × 0.0255 = <strong>0.306 W</strong></td></tr>
+<tr><td>V = 12 V, R = 470 Ω</td><td>P (direct)</td><td>P = V² / R</td><td>P = 144 / 470 = <strong>0.306 W</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div><!-- /3.4.3 -->
+
+<!-- 3.4.4 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.4">
+<div class="obj-trigger-left"><span class="obj-code">3.4.4</span><h3>Resistors and capacitors can be used in series or parallel in a circuit for different purposes.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate resistance and capacitance in series and parallel in a circuit.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Series and parallel resistor diagrams alongside low-pass and high-pass RC filter circuits"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Resistors in series</strong> — total resistance is the sum of all resistors. Current is the same through each.</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
+<p><strong>Resistors in parallel</strong> — total resistance is always less than the smallest individual resistor. Voltage is the same across each; current splits between branches.</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1 / R_total = 1/R₁ + 1/R₂ + 1/R₃ + … &nbsp;&nbsp; (for equal R: R_total = R / n)</p>
+<p><strong>RC circuits</strong> — a resistor (R) and capacitor (C) together create time-dependent behaviour. The capacitor charges through the resistor; the time constant τ = R × C (in seconds when R is in Ω and C is in Farads) determines how quickly voltage rises or falls.</p>
+<p><strong>Low-pass filter</strong>: resistor in series, capacitor in parallel with the output. Passes low-frequency (slow) signals; attenuates high-frequency (fast) signals. The capacitor charges slowly, smoothing rapid fluctuations.</p>
+<p><strong>High-pass filter</strong>: capacitor in series, resistor in parallel with the output. Blocks low-frequency signals (capacitor blocks DC and very slow signals); passes high-frequency signals.</p>
+<p><strong>Contact bounce (chatter) elimination:</strong> when a mechanical switch closes, the contacts bounce and produce multiple rapid 1s and 0s before settling. A low-pass RC filter smooths this leading edge, so the logic gate receives a clean single transition rather than a burst of false triggers.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>串联电阻</strong>——总电阻为所有电阻之和。每个电阻通过的电流相同。</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
+<p><strong>并联电阻</strong>——总电阻始终小于最小的单个电阻。每个电阻两端电压相同；电流在各支路间分配。</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1 / R_total = 1/R₁ + 1/R₂ + 1/R₃ + … &nbsp;&nbsp;（相等时：R_total = R / n）</p>
+<p><strong>RC电路</strong>——电阻（R）和电容（C）共同产生时间依赖的行为。电容通过电阻充电；时间常数τ = R × C（R单位Ω，C单位F时，τ单位为秒）决定电压上升或下降的速度。</p>
+<p><strong>低通滤波器</strong>：电阻串联，电容与输出并联。通过低频（慢速）信号；衰减高频（快速）信号。电容缓慢充电，平滑快速波动。</p>
+<p><strong>高通滤波器</strong>：电容串联，电阻与输出并联。阻断低频信号（电容阻断直流和极慢信号）；通过高频信号。</p>
+<p><strong>消除触点弹跳（抖动）：</strong>机械开关闭合时，触点在稳定前会多次弹跳，产生一系列快速的1和0。低通RC滤波器平滑这一前沿信号，使逻辑门接收到干净的单一跳变，而非一连串误触发。</p>
+</div>
+</div>
+
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked examples — resistor networks</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Configuration</th><th>Calculation</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Series: 100 Ω + 220 Ω + 330 Ω</td><td>100 + 220 + 330</td><td><strong>650 Ω</strong></td></tr>
+<tr><td>Parallel: 100 Ω ∥ 100 Ω</td><td>R / n = 100 / 2</td><td><strong>50 Ω</strong></td></tr>
+<tr><td>Parallel: 47 Ω ∥ 47 Ω</td><td>47 / 2</td><td><strong>23.5 Ω</strong></td></tr>
+<tr><td>Combination: 100 Ω + (50 Ω ∥ 50 Ω)</td><td>50/2 = 25; 100 + 25</td><td><strong>125 Ω</strong></td></tr>
+</tbody>
+</table>
+</div>
+<p class="content-note">For combination circuits, always resolve the parallel branches first, then add the series elements — just as you would apply BODMAS to arithmetic.</p>
+
+</div>
+</div><!-- /3.4.4 -->
+
+<!-- 3.4.5 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.5">
+<div class="obj-trigger-left"><span class="obj-code">3.4.5</span><h3>Electronic systems are used to perform a specific function, which can be mapped using a flow diagram.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Construct flow diagrams (using appropriate symbols) to model a programmable system that controls an electronic device.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Flowchart showing standard symbols: terminator, process, input/output, decision"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>A <strong>flow diagram (flowchart)</strong> maps the sequence of steps in an algorithm using standardised symbols. In electronics, flowcharts are used to plan and communicate how a microcontroller will respond to inputs.</p>
+<p><strong>Standard flowchart symbols:</strong></p>
+<ul>
+<li><strong>Rounded rectangle (oval) — Terminator</strong>: marks the Start or End of the program.</li>
+<li><strong>Rectangle — Process</strong>: a calculation or action (e.g., "Turn fan ON", "Increment counter").</li>
+<li><strong>Parallelogram — Input / Output</strong>: data entering or leaving the system (e.g., "Read temperature sensor", "Display value on LCD").</li>
+<li><strong>Diamond — Decision</strong>: a yes/no branch based on a condition (e.g., "Temperature &gt; 30°C?"). Two paths exit: one for Yes, one for No.</li>
+</ul>
+<p>Flow diagrams are useful before writing code because they separate the logic of what the system must do from the syntax of how to code it. A well-drawn flowchart can be translated directly into any programming language.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>流程图</strong>使用标准化符号描述算法的步骤序列。在电子学中，流程图用于规划和传达微控制器如何响应输入。</p>
+<p><strong>标准流程图符号：</strong></p>
+<ul>
+<li><strong>圆角矩形（椭圆）——起止框</strong>：标记程序的开始或结束。</li>
+<li><strong>矩形——处理框</strong>：计算或操作（如"开启风扇"、"计数器加1"）。</li>
+<li><strong>平行四边形——输入/输出框</strong>：数据进入或离开系统（如"读取温度传感器"、"在LCD上显示数值"）。</li>
+<li><strong>菱形——判断框</strong>：基于条件的是/否分支（如"温度 &gt; 30°C？"）。有两条出路：是和否。</li>
+</ul>
+<p>在编写代码之前先画流程图非常有用，因为它将系统的逻辑（做什么）与编程语法（如何编写）分开。一张绘制良好的流程图可以直接翻译成任何编程语言。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /3.4.5 -->
+
+<!-- 3.4.6 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.6">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.6">
+<div class="obj-trigger-left"><span class="obj-code">3.4.6</span><h3>System diagrams depict the components and the arrangement of circuits.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.6">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Construct diagrams for simple circuits that use resistors, capacitors, switches, relays, diodes, transistors, operational amplifiers, integrated circuits, and input and output devices.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Examples of block diagram, circuit schematic and logic diagram side by side"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Designers use different diagram types depending on the level of detail needed and the audience for the drawing:</p>
+<ul>
+<li><strong>Block diagram (functional diagram)</strong> — shows the major subsystems of a product and how they connect at a high level. No component values or symbols — just labelled boxes and arrows. Used to plan and explain system architecture before designing circuits.</li>
+<li><strong>Circuit diagram (schematic)</strong> — shows every component and its logical connection using standardised symbols (resistor, capacitor, switch, diode, transistor, relay, op-amp, IC). Values are specified. Used by engineers to build, troubleshoot and modify circuits.</li>
+<li><strong>Logic diagram</strong> — shows the arrangement of logic gates (AND, OR, NOT) and their interconnections. Used to represent the decision-making or processing stage of a digital system.</li>
+<li><strong>Flow diagram</strong> — as described in 3.4.5, maps the program algorithm. Not a circuit diagram — it represents behaviour, not physical connections.</li>
+</ul>
+<p>All four types are used in IB assessment. Block and flow diagrams are expected at a conceptual level; circuit and logic diagrams require correct use of standard symbols.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>设计师根据所需的详细程度和目标受众使用不同类型的图：</p>
+<ul>
+<li><strong>框图（功能图）</strong>——在高层面上显示产品的主要子系统及其连接方式。不含元件数值或符号——仅有带标注的方框和箭头。在设计电路之前用于规划和解释系统架构。</li>
+<li><strong>电路图（原理图）</strong>——使用标准化符号（电阻器、电容器、开关、二极管、晶体管、继电器、运算放大器、集成电路）显示所有元件及其逻辑连接，并标注数值。工程师用其搭建、排查和修改电路。</li>
+<li><strong>逻辑图</strong>——显示逻辑门（与、或、非）的排列及其连接方式。用于表示数字系统的决策或处理阶段。</li>
+<li><strong>流程图</strong>——如3.4.5所述，描述程序算法。这不是电路图——它表示行为，而非物理连接。</li>
+</ul>
+<p>IB评估中使用所有四种类型。框图和流程图在概念层面上考查；电路图和逻辑图需要正确使用标准符号。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /3.4.6 -->
+
+<!-- 3.4.7 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.7">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.7">
+<div class="obj-trigger-left"><span class="obj-code">3.4.7</span><h3>Digital systems at the first stage of the input–process–output model use inputs to sense changes in their environment.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.7">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Determine the use of sensors to collect and input information into a digital system, including accelerometer (motion), ultrasonic (distance or proximity), photoresistor (light), voltage (moisture), hygrometer (humidity and air temperature), pressure (barometric), microphone (sound) and infrared (radiation or heat).</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Array of sensors including LDR, PIR, ultrasonic and temperature modules"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Sensors are the input stage of the IPO model — they convert a physical quantity into an electrical signal that a microcontroller can read. The choice of sensor must match the physical quantity being measured and the output format the processor expects (analog voltage, or digital signal).</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>传感器是IPO模型的输入阶段——它们将物理量转换为微控制器可读取的电信号。传感器的选择必须匹配被测物理量以及处理器所需的输出格式（模拟电压或数字信号）。</p>
+</div>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Sensor</th><th>Detects</th><th>Output</th><th>Typical application</th><th>中文</th></tr></thead>
+<tbody>
+<tr><td><strong>Accelerometer</strong></td><td>Motion, vibration, tilt</td><td>Analog / digital</td><td>Phone orientation, fall detection</td><td>加速度计</td></tr>
+<tr><td><strong>Ultrasonic</strong></td><td>Distance / proximity</td><td>Digital (pulse timing)</td><td>Parking sensors, robotics</td><td>超声波传感器</td></tr>
+<tr><td><strong>Photoresistor (LDR)</strong></td><td>Light level</td><td>Analog voltage</td><td>Automatic street lights</td><td>光敏电阻</td></tr>
+<tr><td><strong>Moisture / voltage</strong></td><td>Soil or liquid conductivity</td><td>Analog</td><td>Plant watering systems</td><td>湿度/电压传感器</td></tr>
+<tr><td><strong>Hygrometer</strong></td><td>Humidity and air temperature</td><td>Analog / digital</td><td>HVAC, weather stations</td><td>湿度计</td></tr>
+<tr><td><strong>Barometric pressure</strong></td><td>Atmospheric pressure</td><td>Analog / digital</td><td>Weather apps, altimeters</td><td>气压传感器</td></tr>
+<tr><td><strong>Microphone</strong></td><td>Sound</td><td>Analog (AC)</td><td>Voice control, noise monitoring</td><td>麦克风</td></tr>
+<tr><td><strong>Infrared / PIR</strong></td><td>Heat, radiation, motion</td><td>Digital</td><td>Intruder detection, touchless switches</td><td>红外/热释电传感器</td></tr>
+<tr><td><strong>Hall effect</strong></td><td>Magnetic field strength</td><td>Analog / digital</td><td>Speed sensors, position sensing</td><td>霍尔效应传感器</td></tr>
+<tr><td><strong>Gas sensor</strong></td><td>Chemical concentration</td><td>Analog</td><td>CO detectors, air quality monitors</td><td>气体传感器</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div><!-- /3.4.7 -->
+
+<!-- 3.4.8 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.8">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.8">
+<div class="obj-trigger-left"><span class="obj-code">3.4.8</span><h3>Digital systems at the second stage of the input–process–output model use control circuits to monitor and control.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.8">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Create simple circuits that use microcontrollers as a programmable integrated circuit (PIC) with appropriate software to carry out a predetermined task.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Microcontroller board with labelled I/O pins, sensor input and output connections"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>An <strong>embedded system</strong> is a dedicated computer system designed to perform a specific function within a larger product. Unlike a general-purpose computer, it runs one fixed program stored in its memory.</p>
+<p>The heart of the process stage is a <strong>microcontroller (MCU)</strong>, also referred to as a programmable integrated circuit (PIC). A microcontroller integrates on a single chip:</p>
+<ul>
+<li>A <strong>processor</strong> — executes the program instructions</li>
+<li><strong>Flash memory (ROM)</strong> — stores the program permanently</li>
+<li><strong>RAM</strong> — holds variables and data during operation</li>
+<li><strong>Digital I/O pins</strong> — read digital sensors and control digital outputs</li>
+<li><strong>Analog inputs (ADC)</strong> — convert analog sensor voltages to digital values</li>
+<li><strong>Timers, PWM outputs, and communication interfaces</strong> (I²C, SPI, UART) for interacting with other components</li>
+</ul>
+<p>Educational platforms such as Arduino (AVR/ARM microcontrollers) and Raspberry Pi (single-board computer) make it accessible to prototype embedded systems. In industry, dedicated MCUs (e.g., STM32, PIC, ATmega) are chosen for their size, power consumption and cost.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>嵌入式系统</strong>是专为在更大产品中执行特定功能而设计的专用计算机系统。与通用计算机不同，它运行存储在内存中的固定程序。</p>
+<p>处理阶段的核心是<strong>微控制器（MCU）</strong>，也称为可编程集成电路（PIC）。微控制器在单芯片上集成了：</p>
+<ul>
+<li><strong>处理器</strong>——执行程序指令</li>
+<li><strong>闪存（ROM）</strong>——永久存储程序</li>
+<li><strong>RAM</strong>——在运行期间保存变量和数据</li>
+<li><strong>数字I/O引脚</strong>——读取数字传感器并控制数字输出</li>
+<li><strong>模拟输入（ADC）</strong>——将传感器模拟电压转换为数字值</li>
+<li><strong>定时器、PWM输出和通信接口</strong>（I²C、SPI、UART），用于与其他组件交互</li>
+</ul>
+<p>Arduino（AVR/ARM微控制器）和Raspberry Pi（单板计算机）等教育平台让嵌入式系统原型开发变得更加容易。在工业中，专用MCU（如STM32、PIC、ATmega）因其尺寸、功耗和成本而被选用。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /3.4.8 -->
+
+<!-- 3.4.9 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.9">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.9">
+<div class="obj-trigger-left"><span class="obj-code">3.4.9</span><h3>Digital systems use logic to compare input data.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.9">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe digital systems in terms of the binary number system, Boolean algebra, logic gates (AND, OR and NOT), combinational logic circuits and sequential logic circuits, and construct truth tables for a digital circuit.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Logic gate symbols for AND, OR and NOT with truth tables"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>All digital systems represent data using <strong>binary</strong> — a base-2 number system using only 0 and 1 (off and on). Multiple binary digits (bits) represent larger values: 8 bits = 1 byte, capable of representing 256 values (0–255).</p>
+<p><strong>Boolean algebra</strong> defines how binary values are combined using logical operations. Three fundamental gates:</p>
+<ul>
+<li><strong>AND (A · B)</strong>: output is 1 only when both inputs are 1. Used for conditions that must all be true simultaneously.</li>
+<li><strong>OR (A + B)</strong>: output is 1 when at least one input is 1. Used when any one of several conditions triggers an output.</li>
+<li><strong>NOT (Ā)</strong>: inverts the input — 0 becomes 1, 1 becomes 0. Used to reverse a condition.</li>
+</ul>
+<p>A <strong>truth table</strong> lists every possible combination of inputs and the corresponding output. For n inputs there are 2ⁿ rows.</p>
+<p><strong>Combinational logic</strong>: the output depends only on the current inputs. No memory — the same input always produces the same output. Examples: AND, OR, NOT, NAND, NOR, XOR gates.</p>
+<p><strong>Sequential logic</strong>: the output depends on current inputs AND previous states. Uses memory elements (flip-flops). Examples: counters, registers, state machines — the basis of most microcontrollers.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>所有数字系统都使用<strong>二进制</strong>表示数据——一种仅使用0和1（关和开）的二进制数系统。多个二进制位（比特）表示更大的值：8位=1字节，能表示256个值（0–255）。</p>
+<p><strong>布尔代数</strong>定义了如何使用逻辑运算组合二进制值。三种基本门：</p>
+<ul>
+<li><strong>与门（A · B）</strong>：仅当两个输入都为1时，输出为1。用于所有条件必须同时满足的情况。</li>
+<li><strong>或门（A + B）</strong>：当至少一个输入为1时，输出为1。用于任何一个条件触发输出的情况。</li>
+<li><strong>非门（Ā）</strong>：反转输入——0变为1，1变为0。用于反转条件。</li>
+</ul>
+<p><strong>真值表</strong>列出所有可能的输入组合及其对应输出。n个输入有2ⁿ行。</p>
+<p><strong>组合逻辑</strong>：输出仅取决于当前输入。无记忆——相同输入始终产生相同输出。例：与、或、非、与非、或非、异或门。</p>
+<p><strong>时序逻辑</strong>：输出取决于当前输入和之前状态。使用记忆元件（触发器）。例：计数器、寄存器、状态机——大多数微控制器的基础。</p>
+</div>
+</div>
+
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Truth tables — AND, OR, NOT</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>A</th><th>B</th><th>A AND B</th><th>A OR B</th><th>NOT A</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div><!-- /3.4.9 -->
+
+<!-- 3.4.10 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.10">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.10">
+<div class="obj-trigger-left"><span class="obj-code">3.4.10</span><h3>Digital systems at the third stage of the input–process–output model use the output to communicate to or control their environment.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.10">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Determine appropriate output devices to communicate information or physically control an environment, including motors (including servos and pumps), LCD display, buzzer and relay.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Output devices: DC motor, servo, relay, LCD display and piezo buzzer"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Output devices are the third stage of the IPO model — they convert the processed electrical signal into a physical action or visible/audible communication.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>输出设备是IPO模型的第三阶段——将处理后的电信号转换为物理动作或可见/可听的通信。</p>
+</div>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Output device</th><th>Function</th><th>Notes</th><th>中文</th></tr></thead>
+<tbody>
+<tr><td><strong>DC motor</strong></td><td>Continuous rotary motion</td><td>Speed controlled by PWM; direction by H-bridge circuit</td><td>直流电机</td></tr>
+<tr><td><strong>Servo motor</strong></td><td>Precise angular positioning (0–180°)</td><td>Position set by PWM pulse width; used in robotic arms, steering</td><td>伺服电机</td></tr>
+<tr><td><strong>Pump</strong></td><td>Fluid movement</td><td>Essentially a motor with an impeller; used in irrigation, aquariums</td><td>泵</td></tr>
+<tr><td><strong>LCD display</strong></td><td>Text and numeric information</td><td>Communicates data to the user; requires no moving parts</td><td>LCD显示屏</td></tr>
+<tr><td><strong>Piezo buzzer</strong></td><td>Audible alert or tone</td><td>Simple alarm; frequency can be varied to produce different tones</td><td>压电蜂鸣器</td></tr>
+<tr><td><strong>Relay</strong></td><td>Switches a separate high-power circuit using a low-power control signal</td><td>Electrically isolates the control circuit from the load circuit; used to switch mains voltage from a 5V microcontroller output</td><td>继电器</td></tr>
+</tbody>
+</table>
+</div>
+<p class="content-note">When selecting an output device, consider three things: the type of action needed (motion, information, sound), the voltage and current required by the device, and whether the microcontroller can drive it directly or needs an amplifying component (transistor, relay, or motor driver IC).</p>
+
+</div>
+</div><!-- /3.4.10 -->
+
+<!-- 3.4.11 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.11">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b3.4.11">
+<div class="obj-trigger-left"><span class="obj-code">3.4.11</span><h3>Digital systems can communicate with each other using embedded systems.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b3.4.11">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Compare the protocol embedded systems used to communicate with other systems (Wi-Fi vs Bluetooth vs 5G).</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt="Wireless protocol comparison diagram showing Bluetooth, Wi-Fi and 5G range and speed"></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Embedded systems often need to communicate with other devices or networks. The choice of wireless protocol depends on range, speed, power consumption and the infrastructure available.</p>
+<p><strong>Bluetooth</strong> — designed for low-power, short-range device-to-device communication. Operates at 2.4 GHz using frequency hopping to reduce interference. Typical range: ~10 m. Uses a layered <em>protocol stack</em>: the Controller layer (Radio, Link Manager, Voice CODEC) communicates with the Host layer (GAP, GATT, ATT, SMP, RFCOMM) via the HCI interface. <em>GAP (Generic Access Profile)</em> governs device discovery and connection setup. Used in: wireless earbuds, keyboards, fitness trackers, medical devices.</p>
+<p><strong>Wi-Fi</strong> — high-speed, medium-range local area network access. Connects devices to a router (and thus the internet). Higher power consumption than Bluetooth. Range: ~50 m indoors. Used in: laptops, smart home devices, IP cameras.</p>
+<p><strong>5G</strong> — fifth-generation cellular technology. Offers ultra-high data speeds, ultra-low latency, and the ability to connect massive numbers of devices simultaneously. Does not require a local router — connects directly to the cellular network. Used in: autonomous vehicles, smart cities, large-scale IoT deployments.</p>
+<p><strong>Case study — Australia's 3G shutdown (October 2024):</strong> Many 4G phones were designed to fall back to 3G for voice calls because 4G voice required a separate technology called <strong>VoLTE (Voice over LTE)</strong>. When Australia's ACMA shut down the 3G network, non-VoLTE phones lost all voice capability — including emergency calls. Even medical alarms and personal emergency response devices stopped working. The lesson for embedded systems designers: never assume that legacy infrastructure will remain available. Design for forward compatibility and include graceful upgrade paths.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>嵌入式系统通常需要与其他设备或网络通信。无线协议的选择取决于范围、速度、功耗和可用基础设施。</p>
+<p><strong>蓝牙</strong>——专为低功耗、短距离设备间通信设计。在2.4 GHz频段使用跳频技术减少干扰。典型范围：约10米。使用分层<em>协议栈</em>：控制器层（无线电、链路管理器、语音编解码器）通过HCI接口与主机层（GAP、GATT、ATT、SMP、RFCOMM）通信。<em>GAP（通用访问配置文件）</em>负责设备发现和连接建立。应用于：无线耳机、键盘、健身追踪器、医疗设备。</p>
+<p><strong>Wi-Fi</strong>——高速、中距离局域网络访问。将设备连接到路由器（进而连接互联网）。功耗高于蓝牙。室内范围约50米。应用于：笔记本电脑、智能家居设备、IP摄像头。</p>
+<p><strong>5G</strong>——第五代蜂窝技术。提供超高数据速度、超低延迟，以及同时连接大量设备的能力。不需要本地路由器——直接连接到蜂窝网络。应用于：自动驾驶汽车、智慧城市、大规模物联网部署。</p>
+<p><strong>案例研究——澳大利亚3G网络关闭（2024年10月）：</strong>许多4G手机被设计为回落到3G进行语音通话，因为4G语音需要一种名为<strong>VoLTE（基于LTE的语音通话）</strong>的独立技术。当澳大利亚通信与媒体管理局关闭3G网络后，非VoLTE手机失去了所有语音功能——包括紧急呼叫。甚至医疗警报和个人紧急响应设备也停止工作。对嵌入式系统设计师的启示：永远不要假设遗留基础设施将持续可用。应为前向兼容性而设计，并提供优雅的升级路径。</p>
+</div>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Protocol</th><th>Range</th><th>Speed</th><th>Power</th><th>Infrastructure needed</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>Bluetooth</strong></td><td>~10 m</td><td>Moderate</td><td>Very low</td><td>None (peer-to-peer)</td><td>Wearables, peripherals, medical sensors</td></tr>
+<tr><td><strong>Wi-Fi</strong></td><td>~50 m</td><td>High</td><td>Moderate</td><td>Router / access point</td><td>Smart home, streaming, internet access</td></tr>
+<tr><td><strong>5G</strong></td><td>Kilometres</td><td>Ultra-high</td><td>Higher</td><td>Cellular network</td><td>Autonomous vehicles, smart cities, IoT at scale</td></tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div><!-- /3.4.11 -->
+
+</div><!-- /obj-list -->
+</div>
+</div><!-- /study-guide -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 02 — QUIZ                                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Ten questions covering the key learning objectives. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q1 &middot; 3.4.2 Test Equipment</div>
+<div class="quiz-q-text">A technician needs to measure the current flowing through a specific component in a live circuit. Which instrument and connection method should they use?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Multimeter connected in parallel across the component</button>
+<button class="quiz-option" data-opt="B">B) Multimeter connected in series — the circuit must be broken first</button>
+<button class="quiz-option" data-opt="C">C) Clamp meter connected in series with the component</button>
+<button class="quiz-option" data-opt="D">D) Oscilloscope connected in parallel across the component</button>
+</div>
+<div class="quiz-answer">Current measurement requires the meter to be in the current path — connected in series, with the circuit broken so current flows through the meter. Connecting a current meter in parallel would short-circuit the component and likely destroy the meter. A clamp meter measures current without breaking the circuit, but it clamps around the wire — it is not connected in series.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q2 &middot; 3.4.2 Test Equipment</div>
+<div class="quiz-q-text">Which instrument is most appropriate to visualise a signal waveform and diagnose a "ringing" distortion problem?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Digital multimeter (DMM)</button>
+<button class="quiz-option" data-opt="B">B) Clamp meter</button>
+<button class="quiz-option" data-opt="C">C) Digital storage oscilloscope (DSO)</button>
+<button class="quiz-option" data-opt="D">D) Megohmmeter</button>
+</div>
+<div class="quiz-answer">Only a DSO can visualise a waveform over time. Ringing (damped oscillations after a switching edge) is a time-domain phenomenon that a multimeter cannot detect — it only shows a single average or RMS value. A megohmmeter tests insulation resistance; a clamp meter measures current magnitude only.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q3 &middot; 3.4.4 Resistors &amp; Capacitors</div>
+<div class="quiz-q-text">A resistor has colour bands: yellow, violet, brown, gold. Using the colour code (yellow = 4, violet = 7, brown = ×10, gold = ±5%), what is its resistance and tolerance?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) 47 Ω ± 5%</button>
+<button class="quiz-option" data-opt="B">B) 470 Ω ± 5%</button>
+<button class="quiz-option" data-opt="C">C) 4.7 kΩ ± 5%</button>
+<button class="quiz-option" data-opt="D">D) 47 kΩ ± 5%</button>
+</div>
+<div class="quiz-answer">The first two bands give the significant digits: yellow (4) and violet (7) = 47. The third band (brown) is the multiplier: ×10. So 47 × 10 = 470 Ω. The fourth band (gold) indicates ±5% tolerance. Answer: 470 Ω ± 5%.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q4 &middot; 3.4.4 Resistors &amp; Capacitors</div>
+<div class="quiz-q-text">In a low-pass RC filter used to eliminate contact bounce, the capacitor is placed:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) In series with the input signal path</button>
+<button class="quiz-option" data-opt="B">B) In parallel with the output (across the load)</button>
+<button class="quiz-option" data-opt="C">C) In series with the resistor only</button>
+<button class="quiz-option" data-opt="D">D) Between the logic gate output and the power supply</button>
+</div>
+<div class="quiz-answer">A low-pass filter has the resistor in series with the signal path and the capacitor in parallel with the output. The capacitor charges through the resistor when the switch closes, producing a smooth rising voltage instead of the rapid bounce spikes — attenuating the high-frequency bounce while passing the slow, intended switch transition.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q5 &middot; 3.4.11 Communication Protocols</div>
+<div class="quiz-q-text">Which Bluetooth protocol layer defines the basic rules for device discovery, connection establishment, and advertising?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) GATT (Generic Attribute Profile)</button>
+<button class="quiz-option" data-opt="B">B) ATT (Attribute Protocol)</button>
+<button class="quiz-option" data-opt="C">C) GAP (Generic Access Profile)</button>
+<button class="quiz-option" data-opt="D">D) RFCOMM (Radio Frequency Communications)</button>
+</div>
+<div class="quiz-answer">GAP (Generic Access Profile) governs how Bluetooth devices discover each other, advertise their presence, and establish connections. GATT and ATT define how data is structured and exchanged after a connection is established. RFCOMM provides a serial port emulation layer for legacy applications.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q6 &middot; 3.4.11 Communication Protocols</div>
+<div class="quiz-q-text">Australia's 3G network shutdown in October 2024 blocked some 4G phones from emergency calls because those phones:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Did not have 5G antennas installed</button>
+<button class="quiz-option" data-opt="B">B) Were not VoLTE compatible and relied on 3G as a fallback for voice calls</button>
+<button class="quiz-option" data-opt="C">C) Used the wrong SIM card standard</button>
+<button class="quiz-option" data-opt="D">D) Were blocked by Bluetooth interference on 2.4 GHz</button>
+</div>
+<div class="quiz-answer">Many 4G phones were designed to fall back to 3G for voice calls because carrying voice over 4G requires VoLTE (Voice over LTE) — a technology not all 4G devices included. When 3G was shut down, the fallback path disappeared. Non-VoLTE phones could not make or receive any calls, including emergency calls, despite having 4G data connectivity.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q7 &middot; 3.4.3 V, I, R and P</div>
+<div class="quiz-q-text">A three-phase industrial power plug with red colour coding according to IEC 60309 typically indicates a voltage range of:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) 100–130 V</button>
+<button class="quiz-option" data-opt="B">B) 200–250 V</button>
+<button class="quiz-option" data-opt="C">C) 380–480 V</button>
+<button class="quiz-option" data-opt="D">D) 12–24 V</button>
+</div>
+<div class="quiz-answer">IEC 60309 colour coding: yellow = 100–130 V, blue = 200–250 V, red = 380–480 V. Red connectors carry the highest standard industrial voltage and are used for heavy machinery. The colour coding prevents accidental connection of equipment to incompatible supply voltages.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q8 &middot; 3.4.4 Resistors &amp; Capacitors</div>
+<div class="quiz-q-text">Which of the following is true for resistors connected in parallel?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Total resistance is the sum of all individual resistances</button>
+<button class="quiz-option" data-opt="B">B) Voltage across each resistor is different</button>
+<button class="quiz-option" data-opt="C">C) Total current equals the sum of currents through each branch</button>
+<button class="quiz-option" data-opt="D">D) Power is not conserved in parallel circuits</button>
+</div>
+<div class="quiz-answer">In a parallel circuit, voltage is the same across every branch, but current splits — I_total = I₁ + I₂ + ... Each branch carries a current determined by its own resistance and the common voltage (I = V/R). Total resistance is found using 1/R_total = 1/R₁ + 1/R₂ + ... — always less than the smallest individual resistor. Power is always conserved.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q9 &middot; 3.4.4 Resistors &amp; Capacitors</div>
+<div class="quiz-q-text">A high-pass RC filter consists of:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Resistor in series, capacitor in parallel with the output</button>
+<button class="quiz-option" data-opt="B">B) Capacitor in series, resistor in parallel with the output</button>
+<button class="quiz-option" data-opt="C">C) Resistor and capacitor both in series</button>
+<button class="quiz-option" data-opt="D">D) Resistor and capacitor both in parallel</button>
+</div>
+<div class="quiz-answer">A high-pass filter places the capacitor in series (blocking DC and low-frequency signals) and the resistor in parallel with the output. High-frequency signals pass through the capacitor with little attenuation. The opposite arrangement — resistor in series, capacitor in parallel — is a low-pass filter.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q10 &middot; 3.4.2 Test Equipment</div>
+<div class="quiz-q-text">A clamp meter measures current without breaking the circuit by detecting:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) The voltage drop across the conductor</button>
+<button class="quiz-option" data-opt="B">B) The magnetic field created by current flow (Hall effect for DC; current transformer for AC)</button>
+<button class="quiz-option" data-opt="C">C) The resistance of the conductor</button>
+<button class="quiz-option" data-opt="D">D) The temperature rise of the conductor</button>
+</div>
+<div class="quiz-answer">Any conductor carrying current produces a surrounding magnetic field (Ampere's law). A clamp meter's jaws close around the conductor and sense this field — using the Hall effect for DC currents and a current transformer (electromagnetic induction) for AC. No circuit interruption is needed, making it much safer and faster than breaking the circuit to insert a series ammeter.</div>
+</div>
+
+<div class="quiz-footer">
+<button class="quiz-submit-btn" id="quiz-submit">Check all answers</button>
+<div class="quiz-score" id="quiz-score"></div>
+</div>
+
+</div>
+</div><!-- /quiz -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 03 — PAPER 2 PRACTICE                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example — then compare your approach, not just the content.</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 1 &middot; 3.4.2 Test Equipment &middot; 4 marks</div>
+<div class="p2-q-text">Explain the difference between measuring voltage, current, and resistance with a digital multimeter (DMM). For each measurement, describe the correct connection method and any circuit modifications required.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>Voltage:</strong> The voltmeter probes are connected in <strong>parallel</strong> across the two points being measured. No circuit interruption is required — the meter has very high internal resistance so that almost no current flows through it and the circuit is not disturbed. The black probe connects to COM; the red probe to the V terminal.</p>
+<p><strong>Current:</strong> The meter must be connected in <strong>series</strong> — the circuit must be broken and the meter inserted into the break so that the full circuit current flows through it. The power must be switched off before breaking the circuit, then restored for the reading. The black probe connects to COM; the red probe to the A (or mA) terminal. Caution: connecting a current meter in parallel will short-circuit the component.</p>
+<p><strong>Resistance:</strong> The component to be measured must be <strong>removed from the circuit</strong> entirely. If left in circuit, parallel current paths will give a false reading. The dial is set to Ω; the meter sends its own small test current from its internal battery through the component and calculates resistance from the resulting voltage drop. The reading is meaningless if other components remain connected in parallel.</p>
+</div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 2 &middot; 3.4.4 Resistors &amp; Capacitors &middot; 6 marks</div>
+<div class="p2-q-text">A technician suspects that contact bounce from a mechanical switch is causing erratic logic gate outputs in a digital circuit.<br><br>a) Explain what contact bounce is and why it causes problems in digital circuits.<br>b) Describe how an RC circuit can be used to eliminate contact bounce.<br>c) Explain whether a low-pass or high-pass filter configuration is appropriate and why.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously — the gate's output can briefly flicker to an incorrect state before settling to its correct value. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
+<p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly — it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
+<p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate — resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite — it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
+</div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 3 &middot; 3.4.2 Test Equipment &middot; 5 marks</div>
+<div class="p2-q-text">A digital storage oscilloscope (DSO) and a multimeter are both available to a technician.<br><br>a) What can a DSO show that a multimeter cannot?<br>b) Give three examples of signal abnormalities that a DSO can reveal.<br>c) Why might a technician use both instruments rather than relying on one alone?</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>a) What a DSO shows that a multimeter cannot:</strong> A DSO visualises voltage as a waveform over time, displaying voltage on the vertical axis and time on the horizontal axis. It captures the shape, frequency, period, and timing of a signal. A multimeter — even a high-quality digital model — only displays a single numerical value (RMS voltage, average current, or resistance). It cannot reveal signal shape, timing relationships, or transient events.</p>
+<p><strong>b) Three signal abnormalities a DSO can reveal:</strong></p>
+<ol>
+<li><strong>Ringing</strong> — damped oscillations that appear after a sharp rising or falling edge, indicating impedance mismatches. These can cause false triggering in digital circuits.</li>
+<li><strong>Distorted rising/falling edges</strong> — an edge that slopes too slowly suggests a slow component, excessive load capacitance, or a weak driver circuit.</li>
+<li><strong>Incorrect amplitude</strong> — a signal whose high level is too low or low level is too high reduces noise margins and may indicate a faulty power supply or excessive current draw.</li>
+</ol>
+<p><strong>c) Why use both:</strong> The multimeter excels at steady-state DC measurements — precise voltage levels, continuity checking, and resistance values — quickly and portably. The DSO excels at dynamic, time-varying signals — capturing transients, measuring frequency and duty cycle, and debugging communication timing. The instruments complement each other: use the multimeter first to verify that power supply voltages are correct and there are no short circuits, then use the DSO to verify signal integrity and timing. A function generator paired with the DSO allows a technician to inject a known test signal and observe the circuit's response — a powerful combination for diagnosing filters, amplifiers and logic circuits.</p>
+</div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 4 &middot; 3.4.4 Resistors &amp; Capacitors &middot; 4 marks</div>
+<div class="p2-q-text">Calculate the total resistance for each of the following resistor configurations. Show all working.<br><br>a) Three resistors in series: 100 Ω, 220 Ω, and 330 Ω.<br>b) Two resistors in parallel: 100 Ω and 100 Ω.<br>c) Two resistors in parallel: 47 Ω and 47 Ω.<br>d) A combination circuit: a 100 Ω resistor in series with two 50 Ω resistors connected in parallel with each other.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>a) Series:</strong><br>R_total = 100 + 220 + 330 = <strong>650 Ω</strong></p>
+<p><strong>b) Two equal resistors in parallel (100 Ω ∥ 100 Ω):</strong><br>R_total = R / n = 100 / 2 = <strong>50 Ω</strong><br><em>Verification:</em> 1/R_total = 1/100 + 1/100 = 0.02; R_total = 1/0.02 = 50 Ω ✓</p>
+<p><strong>c) Two equal resistors in parallel (47 Ω ∥ 47 Ω):</strong><br>R_total = 47 / 2 = <strong>23.5 Ω</strong></p>
+<p><strong>d) Combination (100 Ω in series with 50 Ω ∥ 50 Ω):</strong><br>Step 1 — resolve the parallel branch first: R_parallel = 50 / 2 = 25 Ω<br>Step 2 — add the series resistor: R_total = 100 + 25 = <strong>125 Ω</strong></p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Configuration</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Series: 100 + 220 + 330</td><td>650 Ω</td></tr>
+<tr><td>Parallel: 100 ∥ 100</td><td>50 Ω</td></tr>
+<tr><td>Parallel: 47 ∥ 47</td><td>23.5 Ω</td></tr>
+<tr><td>Combination: 100 + (50 ∥ 50)</td><td>125 Ω</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 5 &middot; 3.4.11 Communication Protocols &middot; 6 marks</div>
+<div class="p2-q-text">Australia shut down its 3G mobile network in October 2024. Even some phones advertised as 4G/5G were blocked from all services, including emergency calls.<br><br>a) Explain why these 4G/5G phones stopped working.<br>b) What is VoLTE and why was it critical for continued service?<br>c) What lessons does this experience hold for designers of embedded systems and connected devices?</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>a) Why 4G/5G phones stopped working:</strong> Many phones marketed as 4G-capable were designed to fall back to the older 3G network for voice calls, because carrying voice natively over 4G requires a separate technology (VoLTE) that not all devices included. When Australia's ACMA shut down the 3G network, this fallback path disappeared. The ACMA then blocked service to all non-VoLTE 4G phones. These phones lost voice calling, SMS and emergency services entirely — despite having functional 4G data radios — because their voice system had no network to connect to.</p>
+<p><strong>b) VoLTE and why it was critical:</strong> VoLTE (Voice over Long-Term Evolution) is a technology that carries voice calls as data packets over the 4G LTE network, rather than switching to a separate circuit-switched voice network (3G or 2G). VoLTE provides clearer HD voice quality, faster call connection times, and the ability to use mobile data simultaneously during a call. It was critical because without it, a 4G phone had no way to make or receive any call — including Triple Zero (000) emergency calls — once 3G was decommissioned.</p>
+<p><strong>c) Lessons for embedded systems designers:</strong></p>
+<ol>
+<li><strong>Do not design permanent dependencies on legacy infrastructure.</strong> The 3G network operated for over 20 years before shutdown. Devices that relied on it — medical alarms, vehicle trackers, personal emergency response systems — became inoperable overnight. Any device that connects to a network must have a migration path when that network is retired.</li>
+<li><strong>Regulatory decisions can disrupt products instantly.</strong> The ACMA's decision affected consumers who believed their 4G phones were fully compliant. Designers must monitor evolving standards and regulatory timelines, particularly for safety-critical devices.</li>
+<li><strong>Essential services must be future-proofed.</strong> Medical alarms and emergency calling systems are life-safety products. They require either guaranteed backward compatibility or mandatory upgrade paths that are tested before legacy networks close.</li>
+<li><strong>Fallback assumptions become liabilities.</strong> Designing "for robustness" by relying on an older technology introduces fragility when that technology is decommissioned. Modular communication hardware (replaceable radio modules) or software-defined radios offer greater long-term resilience.</li>
+</ol>
+</div>
+</details>
+</div>
+
+</div>
+</div><!-- /paper2 -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 04 — REFERENCES                                  -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<div class="ref-list">
+
+<div class="ref-item">
+<div class="ref-item-tag">Interactive simulation &middot; RC circuits</div>
+<div class="ref-item-title">Circuit Construction Kit: DC — PhET Interactive Simulations</div>
+<a class="ref-item-url" href="https://phet.colorado.edu/en/simulations/circuit-construction-kit-dc" target="_blank" rel="noopener">phet.colorado.edu</a>
+<div class="ref-item-desc">Free browser-based circuit simulator from the University of Colorado. Build series and parallel resistor networks, add capacitors, and measure voltage and current with virtual instruments. Excellent for testing your understanding of Ohm's law and RC filter behaviour before constructing real circuits. Requires no download or login.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-tag">Reference &middot; Multimeters and test equipment</div>
+<div class="ref-item-title">Multimeter — Wikipedia</div>
+<a class="ref-item-url" href="https://en.wikipedia.org/wiki/Multimeter" target="_blank" rel="noopener">en.wikipedia.org/wiki/Multimeter</a>
+<div class="ref-item-desc">Detailed overview of multimeter types, measurement ranges, and connection methods for voltage, current and resistance. Includes diagrams of parallel and series connections and explanations of why incorrect connection can damage the instrument or the circuit. Useful reference for the measurement techniques required in 3.4.2.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-tag">Reference &middot; Wireless protocols</div>
+<div class="ref-item-title">Bluetooth — Wikipedia</div>
+<a class="ref-item-url" href="https://en.wikipedia.org/wiki/Bluetooth" target="_blank" rel="noopener">en.wikipedia.org/wiki/Bluetooth</a>
+<div class="ref-item-desc">Comprehensive reference covering Bluetooth's protocol stack (GAP, GATT, ATT, RFCOMM, HCI), frequency hopping at 2.4 GHz, version history, and comparison with competing protocols. Includes diagrams of the controller and host layers referenced in 3.4.11. Good starting point for understanding how the stack layers relate to each other and to real-world device pairing.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-tag">Video &middot; Electronics fundamentals</div>
+<div class="ref-item-title">The Engineering Mindset — YouTube channel</div>
+<a class="ref-item-url" href="https://www.youtube.com/@theengineeringmindset" target="_blank" rel="noopener">youtube.com/@theengineeringmindset</a>
+<div class="ref-item-desc">Animated engineering explainer videos covering multimeter usage (voltage, current and resistance connections), oscilloscope fundamentals, three-phase power, and single-phase vs. three-phase comparison. Videos are technically accurate, clearly animated, and suitable for HL students. Search the channel for "multimeter," "oscilloscope" and "three phase power" to find the most relevant content for B3.4.</div>
+</div>
+
+</div>
+</div>
+</div><!-- /references -->
+
+<!-- Linking Questions -->
+<section class="linking-qs">
+<p class="linking-qs-label">Linking Questions</p>
+<ul>
+<li>How does the foundational understanding of electronic components introduced in A3.4 inform the selection and application of circuits in product design? <a href="a3.4-electronic-systems.html">(A3.4)</a></li>
+<li>In what ways can the IPO model be applied to the design of user-centred products — and what role do sensors play in gathering the data needed to meet user needs? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
+<li>To what extent does the choice of wireless communication protocol affect the sustainability, repairability and end-of-life strategy of a connected product? <a href="c2.1-design-for-sustainability.html">(C2.1)</a></li>
+<li>How might the increasing integration of electronics into everyday products change what designers must consider when conducting life cycle analyses? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
+<li>How do the design decisions made during electronic system selection affect the inclusivity of a product for users with varying technical literacy? <a href="c1.2-inclusive-design.html">(C1.2)</a></li>
+</ul>
+</section>
+
+<nav class="topic-page-nav">
+<a href="b3.3-mechanical-systems-application.html"><span class="nav-dir">← Previous</span><span class="nav-title">B3.3 Mechanical Systems Application</span></a>
+<a class="nav-next" href="b4.1-production-systems.html"><span class="nav-dir">Next →</span><span class="nav-title">B4.1 Production Systems</span></a>
+</nav>
+
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../curriculum.js"></script>
+<script src="b3.4.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
+</body>
+</html>

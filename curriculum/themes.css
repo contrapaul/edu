@@ -1,0 +1,789 @@
+/* ============================================================
+   themes.css — Color and style mode overrides
+   Applied via [data-theme] on <html>.
+   Default (light) theme lives in style.css + curriculum.css.
+   ============================================================ */
+
+/* Xbox Original display font */
+@import url('https://fonts.cdnfonts.com/css/xbox-original');
+/* VT323 — IBM PC / DOS terminal pixel font (closest CDN-available match to IBM VGA)
+   Use int10h.org/oldschool-pc-fonts web pack + self-hosted @font-face to swap in
+   the authentic IBM VGA 8x16-2x / 8x14 fonts if desired. */
+@import url('https://fonts.cdnfonts.com/css/vt323');
+
+/* ── 1. DARK MODE ────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:            #0d1117;
+  --surface:       #161b22;
+  --surface-2:     #1e2530;
+  --border:        #30363d;
+  --border-strong: #484f58;
+  --text:          #e6edf3;
+  --muted:         #8b949e;
+  --accent:        #58a6ff;
+  --accent-bg:     #0d2149;
+  --hl:            #bc8cff;
+  --hl-bg:         #1a0d35;
+  --green:         #3fb950;
+  --green-bg:      #0d2b15;
+  --amber:         #d29922;
+  --amber-bg:      #2b1f0a;
+}
+
+/* Override inline --topic-color/--topic-bg which are set per-page in the HTML
+   and would otherwise pull light-theme colours into dark mode */
+[data-theme="dark"] .topic-code {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+  border-color: var(--border-strong) !important;
+}
+[data-theme="dark"] .topic-guiding-q {
+  background: var(--accent-bg) !important;
+  border-left-color: var(--accent) !important;
+  color: var(--muted) !important;
+}
+[data-theme="dark"] .gq-label {
+  color: var(--accent) !important;
+}
+
+
+/* ── 2. WINDOWS 95 ───────────────────────────────────────── */
+[data-theme="win95"] {
+  --bg:            #008080;   /* classic teal desktop */
+  --surface:       #c0c0c0;
+  --surface-2:     #d4d0c8;
+  --border:        #808080;
+  --border-strong: #000000;
+  --text:          #000000;
+  --muted:         #3c3c3c;
+  --accent:        #000080;   /* navy blue */
+  --accent-bg:     #c0c0c0;
+  --hl:            #800080;
+  --hl-bg:         #d4d0c8;
+  --green:         #008000;
+  --green-bg:      #c0c0c0;
+  --amber:         #808000;
+  --amber-bg:      #c0c0c0;
+  --font-display:  'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
+  --font-body:     'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
+  --font-mono:     'Courier New', 'Lucida Console', monospace;
+  --radius:        0px;
+  --transition:    0ms;
+}
+
+/* Win95 structural overrides */
+[data-theme="win95"] * {
+  -webkit-font-smoothing: none;
+  font-smoothing: none;
+}
+[data-theme="win95"] .site-header {
+  background: #c0c0c0;
+  border-bottom: 3px solid #000;
+  box-shadow: inset 0 -2px 0 #808080;
+}
+
+/* Override inline --topic-color/--topic-bg so hero doesn't show light-blue */
+[data-theme="win95"] .topic-code {
+  background: #c0c0c0 !important;
+  color: #000080 !important;
+  border: 2px solid !important;
+  border-color: #ffffff #808080 #808080 #ffffff !important;
+}
+[data-theme="win95"] .topic-guiding-q {
+  background: #ffffff !important;
+  border-left: 4px solid #000080 !important;
+  color: #000000 !important;
+  border-top: 2px solid #808080 !important;
+  border-right: 2px solid #ffffff !important;
+  border-bottom: 2px solid #ffffff !important;
+}
+[data-theme="win95"] .gq-label {
+  color: #000080 !important;
+}
+
+[data-theme="win95"] .curr-section {
+  border: 2px solid !important;
+  border-color: #fff #808080 #808080 #fff !important;
+  box-shadow: 1px 1px 0 #000;
+  background: #c0c0c0;
+  margin-top: 6px;
+}
+[data-theme="win95"] .curr-trigger {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+  padding: 0.5rem 0.875rem;
+}
+/* When expanded: add a sunken separator line beneath the title bar */
+[data-theme="win95"] .curr-section:has(.curr-body.open) .curr-trigger {
+  border-bottom: 2px solid;
+  border-bottom-color: #808080;
+  box-shadow: 0 1px 0 #000000;
+  padding-bottom: calc(0.5rem + 1px);
+}
+[data-theme="win95"] .curr-trigger h2,
+[data-theme="win95"] .curr-trigger .curr-badge,
+[data-theme="win95"] .curr-trigger .curr-sec-sub,
+[data-theme="win95"] .curr-trigger .curr-chevron { color: #ffffff !important; }
+[data-theme="win95"] .obj-trigger { background: #d4d0c8; }
+[data-theme="win95"] .obj-section { border-color: #808080; }
+[data-theme="win95"] .topic-hero {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+[data-theme="win95"] .tool-btn,
+[data-theme="win95"] .tool-btn-sm,
+[data-theme="win95"] .quiz-submit-btn,
+[data-theme="win95"] .quiz-option,
+[data-theme="win95"] .theme-toggle-btn {
+  border-radius: 0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 1px 1px 0 #000;
+  background: #c0c0c0;
+  color: #000;
+}
+[data-theme="win95"] .tool-btn:hover,
+[data-theme="win95"] .tool-btn-sm:hover,
+[data-theme="win95"] .quiz-option:hover:not(:disabled) { background: #d4d0c8; }
+[data-theme="win95"] .tool-btn:active,
+[data-theme="win95"] .tool-btn-sm:active {
+  border-color: #808080 #fff #fff #808080;
+  box-shadow: none;
+}
+[data-theme="win95"] .curr-sidebar {
+  background: #c0c0c0;
+  border-right: 2px solid #808080;
+}
+[data-theme="win95"] .csb-current .csb-link { background: #000080; }
+[data-theme="win95"] .csb-current .csb-code,
+[data-theme="win95"] .csb-current .csb-title { color: #fff; }
+[data-theme="win95"] .activity-block {
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 1px 1px 0 #000;
+}
+[data-theme="win95"] .theme-picker-panel {
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 2px 2px 0 #000;
+}
+
+
+/* ── 3. MS-DOS ───────────────────────────────────────────── */
+[data-theme="dos"] {
+  --bg:            #000000;
+  --surface:       #000000;
+  --surface-2:     #111111;   /* very dark gray — card surfaces */
+  --border:        #333333;   /* dark gray — subtle lines */
+  --border-strong: #AAAAAA;   /* CGA light gray — drawn borders */
+  --text:          #FFFFFF;   /* white — primary terminal text */
+  --muted:         #AAAAAA;   /* CGA light gray — secondary text */
+  --accent:        #55FF55;   /* CGA bright green — used SPARINGLY for highlights */
+  --accent-bg:     #0d1a0d;   /* very dark green surface for accent contexts */
+  --hl:            #55FFFF;   /* CGA bright cyan */
+  --hl-bg:         #001a1a;
+  --green:         #55FF55;
+  --green-bg:      #0d1a0d;
+  --amber:         #FFFF55;   /* CGA bright yellow */
+  --amber-bg:      #1a1a00;
+  --font-display:  'IBM VGA 8x16 2x', monospace;
+  --font-body:     'IBM VGA 8x16', monospace;
+  --font-mono:     'IBM VGA 8x16', monospace;
+  --radius:        0px;
+  --transition:    0ms;
+}
+
+[data-theme="dos"] .site-header {
+  background: #0000AA;  /* CGA dark blue — classic DOS header bar */
+  border-bottom: 2px solid #AAAAAA;
+}
+[data-theme="dos"] .wordmark { color: #55FF55; }   /* green accent on brand only */
+[data-theme="dos"] .brand-sub { color: #AAAAAA; }
+[data-theme="dos"] .nav a { color: #FFFFFF; }       /* white nav text */
+[data-theme="dos"] .nav a:hover { color: #55FF55; background: transparent; }  /* green on hover */
+[data-theme="dos"] .footer-brand,
+[data-theme="dos"] .footer-brand a,
+[data-theme="dos"] .footer-note { color: #AAAAAA; }
+[data-theme="dos"] .topic-hero {
+  background: #000000;
+  border-bottom: 1px solid #333333;
+}
+/* Override inline --topic-bg so .topic-code and .topic-guiding-q don't go white */
+[data-theme="dos"] .topic-code {
+  background: #111111 !important;
+  color: #55FF55 !important;   /* code strings in green — deliberate accent */
+  border-color: #333333 !important;
+}
+[data-theme="dos"] .topic-guiding-q {
+  background: #111111 !important;
+  border-left-color: #55FF55 !important;  /* green accent border — deliberate */
+  color: #FFFFFF !important;
+}
+[data-theme="dos"] .gq-label {
+  color: #55FF55 !important;
+}
+[data-theme="dos"] .topic-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #55FF55 !important;
+}
+[data-theme="dos"] .topic-sub { color: #AAAAAA !important; }
+/* Hub/curriculum index page */
+[data-theme="dos"] .hub-title,
+[data-theme="dos"] .hub-desc,
+[data-theme="dos"] .prog-hero-title,
+[data-theme="dos"] .prog-hero-desc,
+[data-theme="dos"] .hub-prog-title,
+[data-theme="dos"] .hub-prog-desc,
+[data-theme="dos"] .hub-group-label,
+[data-theme="dos"] .topic-card-title,
+[data-theme="dos"] .topic-card-q,
+[data-theme="dos"] .prog-card-title,
+[data-theme="dos"] .prog-card-desc { color: #FFFFFF !important; }
+[data-theme="dos"] .prog-card-label { color: #55FF55 !important; }
+[data-theme="dos"] .prog-card-cta { color: #55FF55 !important; }
+[data-theme="dos"] .prog-card-meta { color: #AAAAAA !important; }
+[data-theme="dos"] .curr-section {
+  border-left-color: #55FF55 !important;  /* green accent — section marker */
+  border-color: #333333;
+  background: #000;
+}
+[data-theme="dos"] .curr-trigger::before {
+  content: 'C:\\> ';
+  color: #55FF55;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+[data-theme="dos"] .curr-section:has(.curr-body.open) .curr-trigger::before {
+  content: 'C:\\> DIR ';
+}
+[data-theme="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #55FF55 !important; }
+[data-theme="dos"] .obj-section { border-color: #333333; }
+[data-theme="dos"] .obj-trigger h3 { color: #FFFFFF !important; }
+[data-theme="dos"] .activity-block {
+  border-color: #333333;
+  background: #000;
+}
+[data-theme="dos"] .curr-sidebar {
+  background: #000080;
+  border-right: 1px solid #55FF55;
+}
+[data-theme="dos"] .csb-group-label { color: #55FF55 !important; }
+[data-theme="dos"] .csb-link { color: #FFFFFF; }
+[data-theme="dos"] .csb-code { color: #AAAAAA; }
+[data-theme="dos"] .csb-current .csb-link { background: #1a1a1a; border-right-color: #55FF55; }
+[data-theme="dos"] .csb-current .csb-title { color: #55FF55; }
+[data-theme="dos"] .csb-home { color: #FFFFFF; }
+[data-theme="dos"] input,
+[data-theme="dos"] textarea,
+[data-theme="dos"] select,
+[data-theme="dos"] input[type="checkbox"] + label,
+[data-theme="dos"] label {
+  background: #000 !important;
+  color: #FFFFFF !important;
+  border-color: #333333 !important;
+  accent-color: #55FF55;
+}
+/* Fix white boxes in tools — focus group, task map nodes, any card */
+[data-theme="dos"] .ta-node,
+[data-theme="dos"] .ta-node-hta,
+[data-theme="dos"] .fg-output,
+[data-theme="dos"] .quiz-q,
+[data-theme="dos"] .persona-card,
+[data-theme="dos"] .likert-tool,
+[data-theme="dos"] [class*="-card"],
+[data-theme="dos"] [class*="-panel"],
+[data-theme="dos"] [class*="-block"] {
+  background: #000 !important;
+  border-color: #333333 !important;
+  color: #FFFFFF !important;
+}
+[data-theme="dos"] .tool-btn,
+[data-theme="dos"] .tool-btn-sm,
+[data-theme="dos"] .quiz-submit-btn {
+  background: #000080;
+  color: #55FF55;
+  border: 1px solid #55FF55;
+  border-radius: 0;
+}
+[data-theme="dos"] .tool-btn:hover,
+[data-theme="dos"] .tool-btn-sm:hover { background: #004400; }
+
+/* ── DOS font assignments ────────────────────────────────────
+   8x16-2x → --font-display (h1, h2, page/modal titles)
+   8x14-2x → sub-headers (h3, h4, card/section labels)
+   8x16    → --font-body / --font-mono (all body text)
+   8x14    → site header and footer chrome only
+──────────────────────────────────────────────────────────── */
+
+/* Site header + footer: IBM VGA 8x14 */
+[data-theme="dos"] .wordmark,
+[data-theme="dos"] .brand-sub,
+[data-theme="dos"] .nav a,
+[data-theme="dos"] .nav-external,
+[data-theme="dos"] .footer-brand,
+[data-theme="dos"] .footer-brand a,
+[data-theme="dos"] .footer-note { font-family: 'IBM VGA 8x14', monospace !important; }
+
+/* Sub-headers and small labels: IBM VGA 8x14 2x */
+[data-theme="dos"] h3,
+[data-theme="dos"] h4,
+[data-theme="dos"] .obj-trigger h3,
+[data-theme="dos"] .topic-sub,
+[data-theme="dos"] .prog-card-label,
+[data-theme="dos"] .csb-group-label,
+[data-theme="dos"] .csb-code,
+[data-theme="dos"] .ta-card-label,
+[data-theme="dos"] .ta-cog-label,
+[data-theme="dos"] .ta-goal-card-label,
+[data-theme="dos"] .ta-menu-btn,
+[data-theme="dos"] .ta-act-btn { font-family: 'IBM VGA 8x14 2x', monospace !important; }
+
+
+/* ── 4. XBOX OG ──────────────────────────────────────────── */
+[data-theme="xbox"] {
+  --bg:            #000500;   /* near-black with green tint */
+  --surface:       #010c00;
+  --surface-2:     #061800;
+  --border:        #1a4008;
+  --border-strong: #3e8a10;
+  --text:          #a8ff3e;   /* electric lime — monster energy green */
+  --muted:         #58b818;   /* dimmer neon for secondary text */
+  --accent:        #76e800;   /* full neon lime */
+  --accent-bg:     #071a00;
+  --hl:            #d4ff50;   /* near-yellow neon for highlights */
+  --hl-bg:         #0e2200;
+  --green:         #76e800;
+  --green-bg:      #071a00;
+  --amber:         #c8e800;
+  --amber-bg:      #181e00;
+  --font-display:  'XBOX Original', 'Verdana', 'Arial', sans-serif;
+  --font-body:     'Verdana', 'Arial', sans-serif;
+  --font-mono:     'Courier New', monospace;
+}
+
+[data-theme="xbox"] .site-header {
+  background: linear-gradient(180deg, #0a1a00 0%, #040e00 100%);
+  border-bottom: 2px solid #76e800;
+  box-shadow: 0 2px 16px rgba(118,232,0,0.3);
+}
+[data-theme="xbox"] .wordmark { color: #76e800; }
+[data-theme="xbox"] .brand-sub { color: #58b818; }
+[data-theme="xbox"] .nav a { color: #76e800; }
+[data-theme="xbox"] .nav a:hover { color: #a8ff3e; background: rgba(118,232,0,0.12); }
+
+/* Override inline --topic-bg vars so hero area has no white */
+[data-theme="xbox"] .topic-code {
+  background: #071a00 !important;
+  color: #76e800 !important;
+  border-color: #3e8a10 !important;
+}
+[data-theme="xbox"] .topic-guiding-q {
+  background: #071a00 !important;
+  border-left-color: #76e800 !important;
+  color: #a8ff3e !important;
+}
+[data-theme="xbox"] .gq-label {
+  color: #76e800 !important;
+}
+[data-theme="xbox"] .topic-hero {
+  background: radial-gradient(ellipse at 30% 0%, #102400 0%, #000500 70%);
+  border-bottom-color: #1a4008;
+}
+[data-theme="xbox"] .topic-title {
+  color: #76e800 !important;
+  text-shadow: 0 0 20px rgba(118,232,0,0.6);
+}
+[data-theme="xbox"] .topic-sub { color: #58b818 !important; }
+
+/* Hub/curriculum index page */
+[data-theme="xbox"] .hub-title,
+[data-theme="xbox"] .prog-hero-title,
+[data-theme="xbox"] .hub-prog-title,
+[data-theme="xbox"] .prog-card-title { color: #76e800 !important; text-shadow: 0 0 12px rgba(118,232,0,0.4); }
+[data-theme="xbox"] .hub-desc,
+[data-theme="xbox"] .prog-hero-desc,
+[data-theme="xbox"] .hub-prog-desc,
+[data-theme="xbox"] .topic-card-title,
+[data-theme="xbox"] .topic-card-q,
+[data-theme="xbox"] .prog-card-desc { color: #a8ff3e !important; }
+[data-theme="xbox"] .prog-card-cta { color: #76e800 !important; }
+
+[data-theme="xbox"] .curr-section {
+  border-left-color: #76e800 !important;
+  background: linear-gradient(135deg, rgba(118,232,0,0.04), transparent 60%);
+  box-shadow: 0 0 0 1px rgba(118,232,0,0.18), 0 2px 8px rgba(0,0,0,0.6) !important;
+  border-color: rgba(118,232,0,0.2) !important;
+}
+[data-theme="xbox"] .curr-section:has(.curr-body.open) {
+  box-shadow: 0 0 0 1px #76e800, 0 4px 24px rgba(118,232,0,0.25) !important;
+}
+[data-theme="xbox"] .curr-trigger h2 {
+  color: #a8ff3e !important;
+  text-shadow: 0 0 16px rgba(118,232,0,0.45);
+}
+[data-theme="xbox"] .curr-badge,
+[data-theme="xbox"] .curr-sec-sub { color: #76e800 !important; }
+/* Ensure obj-code is neon, not multicolored from --curr-color */
+[data-theme="xbox"] .obj-code { color: #76e800 !important; }
+[data-theme="xbox"] .obj-trigger h3 { color: #a8ff3e !important; }
+[data-theme="xbox"] .obj-section { border-color: rgba(118,232,0,0.15); }
+[data-theme="xbox"] .curr-sidebar {
+  background: linear-gradient(180deg, #030f00, #010900);
+  border-right: 1px solid #1a4008;
+}
+[data-theme="xbox"] .csb-group-label { color: #76e800 !important; }
+[data-theme="xbox"] .csb-link { color: #a8ff3e; }
+[data-theme="xbox"] .csb-current .csb-link {
+  background: rgba(118,232,0,0.14);
+  border-right-color: #76e800;
+}
+[data-theme="xbox"] .csb-current .csb-title { color: #76e800; }
+
+/* Fix white boxes in tools and cards */
+[data-theme="xbox"] .ta-node,
+[data-theme="xbox"] .ta-node-hta,
+[data-theme="xbox"] .fg-output,
+[data-theme="xbox"] .quiz-q,
+[data-theme="xbox"] .persona-card,
+[data-theme="xbox"] [class*="-card"],
+[data-theme="xbox"] [class*="-panel"],
+[data-theme="xbox"] [class*="-block"] {
+  background: #010c00 !important;
+  border-color: #1a4008 !important;
+  color: #a8ff3e !important;
+}
+/* Checkbox / label — no white */
+[data-theme="xbox"] input,
+[data-theme="xbox"] textarea,
+[data-theme="xbox"] select,
+[data-theme="xbox"] label {
+  background: #010c00 !important;
+  color: #a8ff3e !important;
+  border-color: #1a4008 !important;
+  accent-color: #76e800;
+}
+[data-theme="xbox"] input[type="checkbox"] { accent-color: #76e800; }
+[data-theme="xbox"] .tool-btn,
+[data-theme="xbox"] .tool-btn-sm,
+[data-theme="xbox"] .quiz-submit-btn {
+  background: rgba(118,232,0,0.14);
+  border-color: #3e8a10;
+  color: #76e800;
+}
+[data-theme="xbox"] .tool-btn:hover,
+[data-theme="xbox"] .tool-btn-sm:hover {
+  background: rgba(118,232,0,0.26);
+  border-color: #76e800;
+  box-shadow: 0 0 10px rgba(118,232,0,0.35);
+}
+[data-theme="xbox"] .activity-block { border-color: #1a4008; background: #010900; }
+[data-theme="xbox"] .theme-toggle-btn {
+  background: #010c00;
+  border-color: #3e8a10;
+  box-shadow: 0 0 8px rgba(118,232,0,0.25);
+}
+/* Likert, focus group, study tools — no white */
+[data-theme="xbox"] .likert-tool,
+[data-theme="xbox"] .fg-table,
+[data-theme="xbox"] th,
+[data-theme="xbox"] td {
+  background: #010c00 !important;
+  border-color: #1a4008 !important;
+  color: #a8ff3e !important;
+}
+[data-theme="xbox"] tr:nth-child(even) td { background: #061800 !important; }
+
+
+/* ── 5. NIGHTMARE MODE ───────────────────────────────────── */
+[data-theme="nightmare"] {
+  --bg:            #fffacd;   /* lemon chiffon */
+  --surface:       #ffb6c1;   /* light pink */
+  --surface-2:     #e0ffff;   /* light cyan */
+  --border:        #ff4500;   /* orange-red */
+  --border-strong: #0000cd;   /* medium blue */
+  --text:          #8b008b;   /* dark magenta */
+  --muted:         #ff6347;   /* tomato */
+  --accent:        #ff1493;   /* deep pink */
+  --accent-bg:     #ffff99;
+  --hl:            #32cd32;   /* lime green */
+  --hl-bg:         #ff00ff22;
+  --green:         #008000;
+  --green-bg:      #adff2f;
+  --amber:         #ff8c00;
+  --amber-bg:      #ffd700;
+  --font-display:  'Comic Sans MS', 'Comic Sans', cursive;
+  --font-body:     'Comic Sans MS', 'Comic Sans', cursive;
+  --font-mono:     'Comic Sans MS', 'Comic Sans', cursive;
+  --radius:        18px;
+  --transition:    80ms;
+}
+
+[data-theme="nightmare"] .site-header {
+  background-size: 300% 300%;
+  background-image: linear-gradient(90deg, #ff0000, #ff8c00, #ffd700, #00ff00, #0000ff, #8b00ff, #ff0000);
+  animation: nm-rainbow 4s linear infinite;
+  border-bottom: 4px solid #000;
+}
+@keyframes nm-rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+[data-theme="nightmare"] .wordmark,
+[data-theme="nightmare"] .nav a { color: #fff; text-shadow: 2px 2px 0 #000; }
+[data-theme="nightmare"] .topic-hero {
+  background: repeating-linear-gradient(
+    45deg,
+    #ff69b4 0px, #ff69b4 20px,
+    #ffd700 20px, #ffd700 40px
+  );
+  border-bottom: 4px dashed #0000ff;
+}
+[data-theme="nightmare"] .topic-title {
+  color: #ff0000;
+  text-shadow: 3px 3px 0 #0000ff, -1px -1px 0 #00ff00;
+  font-size: clamp(2rem, 5vw, 3.5rem) !important;
+}
+[data-theme="nightmare"] .topic-guiding-q {
+  border-left: 6px solid #ff0000;
+  background: #ffff99;
+  color: #00008b;
+}
+[data-theme="nightmare"] .curr-section:nth-child(1) { background: #fff0f5; border-left-color: #ff1493 !important; }
+[data-theme="nightmare"] .curr-section:nth-child(2) { background: #f0fff0; border-left-color: #32cd32 !important; }
+[data-theme="nightmare"] .curr-section:nth-child(3) { background: #f0f8ff; border-left-color: #1e90ff !important; }
+[data-theme="nightmare"] .curr-section:nth-child(4) { background: #fffacd; border-left-color: #ffa500 !important; }
+[data-theme="nightmare"] .curr-section:nth-child(5) { background: #fff0ff; border-left-color: #9400d3 !important; }
+[data-theme="nightmare"] .curr-trigger h2 {
+  font-size: clamp(1.3rem, 3vw, 1.9rem) !important;
+}
+[data-theme="nightmare"] .obj-section {
+  border-bottom: 2px dashed #ff69b4;
+}
+[data-theme="nightmare"] .curr-sidebar {
+  background: repeating-linear-gradient(
+    0deg,
+    #ffb6c1 0px, #ffb6c1 10px,
+    #e0ffff 10px, #e0ffff 20px
+  );
+  border-right: 4px solid #ff0000;
+}
+[data-theme="nightmare"] .csb-current .csb-link {
+  background: #ffd700;
+  border-right-color: #ff0000;
+}
+[data-theme="nightmare"] .csb-current .csb-title { color: #8b0000; font-weight: 900; }
+[data-theme="nightmare"] .tool-btn,
+[data-theme="nightmare"] .tool-btn-sm,
+[data-theme="nightmare"] .quiz-submit-btn {
+  background: #ff69b4;
+  border-color: #0000ff;
+  border-width: 3px;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  border-radius: 999px;
+}
+[data-theme="nightmare"] .tool-btn:hover,
+[data-theme="nightmare"] .tool-btn-sm:hover {
+  background: #ffd700;
+  color: #8b008b;
+}
+[data-theme="nightmare"] .activity-block {
+  border: 3px dashed #ff4500;
+  background: #ffffe0;
+}
+[data-theme="nightmare"] .activity-label { color: #ff1493 !important; font-size: 0.9rem !important; }
+[data-theme="nightmare"] .activity-title { color: #0000cd !important; font-size: 1.2rem !important; }
+[data-theme="nightmare"] .quiz-option { border-width: 2px; }
+[data-theme="nightmare"] .quiz-option:nth-child(1) { background: #fff0f5; }
+[data-theme="nightmare"] .quiz-option:nth-child(2) { background: #f0fff0; }
+[data-theme="nightmare"] .quiz-option:nth-child(3) { background: #f0f8ff; }
+[data-theme="nightmare"] .quiz-option:nth-child(4) { background: #fffacd; }
+[data-theme="nightmare"] .theme-toggle-btn {
+  background: linear-gradient(135deg, #ff69b4, #ffd700);
+  border: 3px solid #0000ff;
+}
+[data-theme="nightmare"] .theme-picker-panel {
+  border: 3px dashed #ff4500;
+  background: #fffacd;
+}
+
+
+/* ── FLOATING SIDEBAR ────────────────────────────────────── */
+/* The sidebar floats over the left gutter — no content shift */
+
+.curr-sidebar {
+  position: fixed;
+  top: 54px;
+  left: 0;
+  width: 210px;
+  height: calc(100vh - 54px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  z-index: 90;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  /* Floating/overlay — no margin pushed on body */
+  opacity: 0.82;
+  transition: opacity 0.2s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.curr-sidebar:hover { opacity: 1; }
+.curr-sidebar::-webkit-scrollbar { width: 4px; }
+.curr-sidebar::-webkit-scrollbar-track { background: transparent; }
+.curr-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.csb-inner { padding: 0.5rem 0 3rem; }
+
+.csb-home {
+  display: block;
+  padding: 0.6rem 1rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+  transition: color var(--transition);
+}
+.csb-home:hover { color: var(--text); text-decoration: none; }
+
+.csb-group { margin-bottom: 0.1rem; }
+.csb-group-label {
+  padding: 0.55rem 1rem 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--csb-color, var(--muted));
+}
+.csb-list { list-style: none; padding: 0; margin: 0; }
+
+.csb-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.28rem 0.875rem 0.28rem 1rem;
+  text-decoration: none;
+  border-right: 2px solid transparent;
+  transition: background var(--transition), border-color var(--transition);
+}
+.csb-link:hover { background: var(--surface-2); text-decoration: none; border-right-color: var(--border); }
+
+.csb-current .csb-link {
+  background: var(--accent-bg);
+  border-right-color: var(--accent);
+}
+.csb-code {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 2.2rem;
+}
+.csb-current .csb-code { color: var(--accent); }
+.csb-title {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.3;
+}
+.csb-current .csb-title { color: var(--text); font-weight: 500; }
+
+@media (max-width: 960px) {
+  .curr-sidebar { display: none; }
+}
+
+
+/* ── THEME PICKER CSS ────────────────────────────────────── */
+.theme-picker-wrap {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 300;
+  font-family: var(--font-body);
+}
+.theme-toggle-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: box-shadow 0.2s, transform 0.15s;
+  margin-left: auto;
+}
+.theme-toggle-btn:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.22); transform: scale(1.06); }
+
+.theme-picker-panel {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  width: 176px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.16);
+  overflow: hidden;
+}
+.theme-picker-title {
+  padding: 0.55rem 0.875rem 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.5rem 0.875rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+.theme-option:last-child { border-bottom: none; }
+.theme-option:hover { background: var(--surface-2); }
+.theme-option-active { background: var(--accent-bg) !important; }
+.theme-option-active .theme-option-label { color: var(--accent); font-weight: 600; }
+.theme-option-emoji { font-size: 1rem; flex-shrink: 0; }
+.theme-option-label { font-size: 0.83rem; color: var(--text); }
+
+/* ── LANDING PAGE: theme font overrides ──────────────────────
+   The landing page uses Lexend by default; themed modes should
+   use their own display font so the character is consistent.   */
+[data-theme="dos"] .lp-welcome,
+[data-theme="dos"] .lp-text,
+[data-theme="dos"] .lp-link,
+[data-theme="win95"] .lp-welcome,
+[data-theme="win95"] .lp-text,
+[data-theme="win95"] .lp-link,
+[data-theme="xbox"] .lp-welcome,
+[data-theme="xbox"] .lp-text,
+[data-theme="xbox"] .lp-link,
+[data-theme="nightmare"] .lp-welcome,
+[data-theme="nightmare"] .lp-text,
+[data-theme="nightmare"] .lp-link { font-family: var(--font-display) !important; }
+

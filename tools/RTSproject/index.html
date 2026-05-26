@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StarCraft Lite - Beginner RTS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== LOBBY SCREEN ===== -->
+  <div id="lobby-screen" class="screen active">
+    <div class="lobby-container">
+      <h1 class="game-title">&#9876; StarCraft Lite</h1>
+      <p class="game-subtitle">A beginner-friendly real-time strategy game</p>
+
+      <div class="lobby-main">
+        <!-- Host Panel -->
+        <div class="lobby-panel">
+          <h2>Host a Game</h2>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="host-player-name" placeholder="Commander" maxlength="20">
+          </div>
+          <div class="form-group">
+            <label>Game Name</label>
+            <input type="text" id="host-game-name" placeholder="My Game" maxlength="30">
+          </div>
+          <div class="form-group">
+            <label>Max Players</label>
+            <select id="host-max-players">
+              <option value="2">2 Players</option>
+              <option value="3">3 Players</option>
+              <option value="4" selected>4 Players</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>PIN (optional, 4 digits)</label>
+            <input type="text" id="host-pin" placeholder="Leave blank for public" maxlength="4" pattern="[0-9]*" inputmode="numeric">
+          </div>
+          <button id="btn-host" class="btn btn-primary">Host Game</button>
+        </div>
+
+        <!-- Join Panel -->
+        <div class="lobby-panel">
+          <h2>Join a Game</h2>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="join-player-name" placeholder="Commander" maxlength="20">
+          </div>
+
+          <div class="game-list-header">
+            <span>Available Games</span>
+            <button id="btn-refresh" class="btn btn-small">&#8635; Refresh</button>
+          </div>
+          <div id="game-list" class="game-list">
+            <div class="game-list-empty">Click Refresh to scan for games...</div>
+          </div>
+
+          <div class="divider"><span>or enter room code</span></div>
+
+          <div class="form-group">
+            <input type="text" id="join-room-code" placeholder="6-character room code" maxlength="6" style="text-transform:uppercase">
+          </div>
+          <button id="btn-join-code" class="btn btn-secondary">Join with Code</button>
+        </div>
+      </div>
+
+      <div id="lobby-status" class="lobby-status"></div>
+    </div>
+  </div>
+
+  <!-- ===== PRE-GAME LOBBY (after connecting) ===== -->
+  <div id="pregame-screen" class="screen">
+    <div class="pregame-container">
+      <h2 id="pregame-title">Game Lobby</h2>
+      <div class="room-code-display">
+        Room Code: <strong id="room-code-display">------</strong>
+        <button id="btn-copy-code" class="btn btn-small">Copy</button>
+      </div>
+
+      <div id="player-slots" class="player-slots"></div>
+
+      <div class="pregame-actions">
+        <button id="btn-start-game" class="btn btn-primary hidden">Start Game</button>
+        <p id="pregame-status" class="pregame-status">Waiting for host to start...</p>
+        <button id="btn-leave-lobby" class="btn btn-danger">Leave</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div id="game-screen" class="screen">
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Top Bar -->
+    <div id="top-bar">
+      <div id="resource-display">
+        <span class="resource-icon">&#11042;</span>
+        <span id="resource-count">200</span>
+        <span class="stat-label">Materials</span>
+      </div>
+      <div id="supply-display">
+        <span class="supply-icon">&#128101;</span>
+        <span id="supply-count">0/10</span>
+        <span class="stat-label">Supply</span>
+      </div>
+      <div id="player-list-hud"></div>
+      <button id="btn-menu" class="btn btn-small menu-btn">&#9776; Menu</button>
+    </div>
+
+    <!-- Bottom Panel -->
+    <div id="bottom-panel">
+      <div id="minimap-container">
+        <canvas id="minimap-canvas" width="200" height="200"></canvas>
+        <div class="minimap-label">Minimap</div>
+      </div>
+      <div id="selection-info">
+        <div id="selection-portrait" class="selection-portrait"></div>
+        <div id="selection-details" class="selection-details">
+          <p class="no-selection">Nothing selected</p>
+        </div>
+        <div id="selection-health-bar" class="health-bar-container hidden">
+          <div id="selection-health-fill" class="health-bar-fill"></div>
+        </div>
+      </div>
+      <div id="command-card" class="command-card"></div>
+    </div>
+
+    <!-- Notification Area -->
+    <div id="notification-area"></div>
+
+    <!-- Build placement hint -->
+    <div id="placement-hint" class="placement-hint hidden">
+      Left-click to place &nbsp;|&nbsp; Right-click to cancel
+    </div>
+  </div>
+
+  <!-- ===== MENU OVERLAY ===== -->
+  <div id="menu-overlay" class="overlay hidden">
+    <div class="overlay-panel">
+      <h2>Menu</h2>
+      <button id="btn-surrender" class="btn btn-danger full-width">Surrender</button>
+      <button id="btn-quit" class="btn btn-secondary full-width">Quit Game</button>
+      <hr class="divider-line">
+      <button id="btn-close-menu" class="btn btn-primary full-width">Resume</button>
+    </div>
+  </div>
+
+  <!-- ===== PIN DIALOG ===== -->
+  <div id="pin-dialog" class="overlay hidden">
+    <div class="overlay-panel">
+      <h2>Enter PIN</h2>
+      <input type="text" id="pin-input" placeholder="4-digit PIN" maxlength="4" pattern="[0-9]*" inputmode="numeric">
+      <div class="pin-actions">
+        <button id="btn-pin-submit" class="btn btn-primary">Join</button>
+        <button id="btn-pin-cancel" class="btn btn-secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GAME OVER SCREEN ===== -->
+  <div id="gameover-screen" class="overlay hidden">
+    <div class="overlay-panel gameover-panel">
+      <h1 id="gameover-title">Victory!</h1>
+      <p id="gameover-message" class="gameover-message"></p>
+      <div id="gameover-stats" class="gameover-stats"></div>
+      <button id="btn-gameover-ok" class="btn btn-primary full-width">Return to Lobby</button>
+    </div>
+  </div>
+
+  <!-- ===== LOADING OVERLAY ===== -->
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="overlay-panel loading-panel">
+      <div class="spinner"></div>
+      <p id="loading-message">Connecting...</p>
+    </div>
+  </div>
+
+  <!-- Scripts: PeerJS from CDN, then game modules -->
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="units.js"></script>
+  <script src="map.js"></script>
+  <script src="renderer.js"></script>
+  <script src="network.js"></script>
+  <script src="ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

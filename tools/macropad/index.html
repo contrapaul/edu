@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MacroPad Builder</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=share-tech-mono:400|exo-2:300,400,600,700|orbitron:400,700" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-left">
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      <div>
+        <div class="logo-title">MacroPad Builder <span class="logo-sep">|</span> <a class="logo-back" href="https://edu.contrapaul.com">Back to main site</a></div>
+        <div class="logo-sub">ESP32-S3 Visual Configurator</div>
+      </div>
+    </div>
+  </div>
+  <div class="header-center">
+    <div class="stat-chip"><span class="stat-label">COMPONENTS</span><span class="stat-val" id="stat-components">0</span></div>
+    <div class="stat-chip"><span class="stat-label">PINS USED</span><span class="stat-val" id="stat-pins">0 / 28</span></div>
+    <div class="stat-chip"><span class="stat-label">LIBRARIES</span><span class="stat-val" id="stat-libs">0</span></div>
+  </div>
+  <div class="header-right">
+    <button class="btn-instructions" id="btn-instructions">&#9432; Instructions</button>
+    <a class="btn-ghost" href="code.py" download>&#8595; code.py</a>
+    <button class="btn-ghost" id="btn-clear">Clear All</button>
+    <button class="btn-primary" id="btn-download">&#8595; Download config.json</button>
+  </div>
+</header>
+
+<!-- Component shelf -->
+<div class="shelf" id="shelf">
+  <div class="shelf-label">COMPONENTS — drag onto canvas or click to add</div>
+  <div class="shelf-items" id="shelf-items">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- Main workspace -->
+<div class="workspace">
+
+  <!-- Canvas area -->
+  <div class="canvas-wrap" id="canvas-wrap">
+    <svg id="wire-layer"  class="wire-layer"></svg>
+    <svg id="node-layer"  class="node-layer"></svg>
+    <div class="canvas-grid" id="canvas" tabindex="0">
+      <!-- ESP32-S3 chip, placed by JS -->
+    </div>
+    <div class="canvas-hint" id="canvas-hint">
+      <div class="hint-icon">⬡</div>
+      <div>Drag components here to begin</div>
+    </div>
+    <div class="sim-feedback hidden" id="sim-feedback">
+      <div class="sim-feedback-header">⬡ SIM DISPLAY</div>
+      <canvas class="sim-feedback-canvas" id="sim-feedback-canvas" width="128" height="64"></canvas>
+      <div class="sim-feedback-text" id="sim-feedback-text">—</div>
+      <div class="sim-feedback-sub" id="sim-feedback-sub"></div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <aside class="panel" id="panel">
+    <div class="panel-tabs">
+      <button class="ptab active" data-tab="config">Configure</button>
+      <button class="ptab" data-tab="notes">Notes</button>
+      <button class="ptab" data-tab="libs">Libraries</button>
+    </div>
+
+    <div class="panel-body" id="panel-config">
+      <div class="panel-empty" id="panel-empty">
+        <div class="empty-icon">↖</div>
+        <div>Select a component<br>on the canvas to<br>configure it</div>
+      </div>
+      <div id="panel-form" style="display:none"></div>
+    </div>
+
+    <div class="panel-body hidden" id="panel-notes">
+      <div class="notes-header">Build checklist</div>
+      <ul class="notes-list" id="notes-list">
+        <li class="note-ok">Add at least one component to begin</li>
+      </ul>
+    </div>
+
+    <div class="panel-body hidden" id="panel-libs">
+      <div class="notes-header">Required libraries</div>
+      <p class="lib-note">Copy these into <code>CIRCUITPY/lib/</code></p>
+      <ul class="lib-list" id="lib-list">
+        <li class="lib-always">adafruit_hid <span class="lib-tag">always</span></li>
+      </ul>
+      <div class="notes-header" style="margin-top:1.2rem">Get the bundle</div>
+      <p class="lib-note">Download the full Adafruit CircuitPython Bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> — all libraries live inside it.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- Context menu -->
+<div class="ctx-menu" id="ctx-menu">
+  <div class="ctx-item" id="ctx-config">Configure</div>
+  <div class="ctx-item" id="ctx-duplicate">Duplicate</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item ctx-danger" id="ctx-delete">Remove</div>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip"></div>
+
+<!-- Instructions modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">How to Build Your MacroPad</div>
+      <button class="modal-close" id="modal-close">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-intro">This website is designed to help you transform an ESP32-S3 microcontroller and a few input components into a fully functioning, customized macropad.</p>
+
+      <div class="modal-step">
+        <div class="modal-step-num">1</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Flash CircuitPython onto your ESP32-S3</div>
+          <p>Download and install CircuitPython from <a href="https://circuitpython.org/board/espressif_esp32s3_devkitc_1_n16/" target="_blank">circuitpython.org</a>. You may need to unplug the ESP32-S3 during installation or swap between USB-C ports, but the process only takes 60&ndash;90 seconds. Once done, your device will appear as a USB drive called <code>CIRCUITPY</code> &mdash; this means it is ready to run Python code!</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">2</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Download and copy the core files</div>
+          <p>Click <strong>&#8595; code.py</strong> in the toolbar above and copy it to the root of your <code>CIRCUITPY</code> drive. You will also need <code>font5x8.bin</code> in the root folder if you are using an OLED display &mdash; download it from <a href="https://github.com/adafruit/Adafruit_CircuitPython_framebuf/raw/main/examples/font5x8.bin" target="_blank">Adafruit&apos;s GitHub</a>. The <code>serve.py</code> file is only needed to run this configurator website locally on your own computer and does not go on the device.</p>
+          <p class="modal-note">&#9432; The Adafruit libraries used in this project are open source (MIT licence). You are free to copy and share them with students. Download the full bundle from <a href="https://circuitpython.org/libraries" target="_blank">circuitpython.org/libraries</a> and copy the required libraries listed in the Libraries tab into the <code>CIRCUITPY/lib/</code> folder.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">3</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Build your wiring diagram</div>
+          <p>Drag components from the shelf at the top into the workspace to create your layout. Appearance does not matter for the code, but arranging components close to the pins you plan to use will help you build a cleaner physical product. Lines connect automatically to available GPIO pins &mdash; you can click any pin badge on a component to reassign it.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">4</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Configure each component</div>
+          <p>Click any component on the canvas to open its settings in the panel on the right. Set the action each button or encoder should perform. If you want two separate configurations &mdash; for example a Mac mode and a PC mode, or a normal layer and an application-specific hotkey layer &mdash; enable <strong>Config 2</strong> inside a component and make sure at least one button is set to <strong>Config Toggle</strong> to switch between them.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">5</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Download and copy config.json</div>
+          <p>When the Notes tab shows no errors, click <strong>&#8595; Download config.json</strong> and copy the file to the root of your <code>CIRCUITPY</code> drive. Then open the <strong>Libraries</strong> tab to see which libraries your build needs, download them from the Adafruit Bundle, and copy them into <code>CIRCUITPY/lib/</code>. Reset the device and your macropad will be active immediately.</p>
+        </div>
+      </div>
+
+      <div class="modal-step">
+        <div class="modal-step-num">6</div>
+        <div class="modal-step-body">
+          <div class="modal-step-title">Wire up your components and test</div>
+          <p>Use the wiring diagram on screen as your guide. Connect each component to the GPIO pins shown, then power the device on and try it out. If something does not behave as expected, come back to the configurator, adjust the settings, and re-download <code>config.json</code> &mdash; no reflashing required.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="components.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
