@@ -30,7 +30,6 @@
   --radius:       4px;
   --transition:   180ms ease;
   --header-h:     52px;
-  --controls-h:   84px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -83,18 +82,18 @@ main { flex: 1; }
 }
 .nav a:hover { color: var(--text); }
 
-/* ── CONTROLS BAR ── */
-.controls-bar {
-  position: sticky; top: var(--header-h); z-index: 90;
-  background: rgba(242,237,228,0.97);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(6px);
-  min-height: var(--controls-h);
+/* ── OUTPUT CONTROLS (above textarea) ── */
+.output-controls {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.875rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius);
 }
-.controls-inner {
-  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
-  height: 100%; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+.control-row {
+  display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center;
 }
+.control-row--name .name-input { flex: 1; width: auto; }
 .control-group {
   display: flex; align-items: center; gap: 0.5rem;
 }
@@ -220,7 +219,7 @@ main { flex: 1; }
 /* ── OUTPUT PANEL (right) ── */
 .output-panel {
   position: sticky;
-  top: calc(var(--header-h) + var(--controls-h) + 1.5rem);
+  top: calc(var(--header-h) + 1.5rem);
 }
 .comment-box {
   width: 100%; min-height: 320px;
@@ -311,12 +310,11 @@ main { flex: 1; }
 @media (max-width: 860px) {
   .tool-grid { grid-template-columns: 1fr; }
   .output-panel { position: static; }
-  .controls-inner { gap: 1rem; }
 }
 @media (max-width: 600px) {
   .tool-wrap { padding: 1rem; }
   .header-title { display: none; }
-  .controls-inner { flex-wrap: wrap; }
+  .control-row { gap: 0.75rem; }
 }
   </style>
 </head>
@@ -335,31 +333,6 @@ main { flex: 1; }
   </div>
 </header>
 
-<div class="controls-bar">
-  <div class="controls-inner">
-    <div class="control-group">
-      <span class="control-label">Grade</span>
-      <div class="toggle-set" id="grade-toggles">
-        <button class="toggle-btn active" data-grade="6">6</button>
-        <button class="toggle-btn" data-grade="7">7</button>
-        <button class="toggle-btn" data-grade="10">10</button>
-        <button class="toggle-btn" data-grade="11">11</button>
-      </div>
-    </div>
-    <div class="control-group">
-      <span class="control-label">Name</span>
-      <input class="name-input" id="student-name" type="text" placeholder="Student name" autocomplete="off" />
-    </div>
-    <div class="control-group">
-      <span class="control-label">Pronoun</span>
-      <div class="toggle-set" id="pronoun-toggles">
-        <button class="toggle-btn active" data-pronoun="she">She/Her</button>
-        <button class="toggle-btn" data-pronoun="he">He/His</button>
-        <button class="toggle-btn" data-pronoun="they">They/Their</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <main>
   <div class="tool-wrap">
@@ -370,6 +343,34 @@ main { flex: 1; }
 
       <!-- Right: output -->
       <div class="output-panel">
+        <div class="output-controls">
+          <div class="control-row">
+            <div class="control-group">
+              <span class="control-label">Grade</span>
+              <div class="toggle-set" id="grade-toggles">
+                <button class="toggle-btn active" data-grade="6">6</button>
+                <button class="toggle-btn" data-grade="7">7</button>
+                <button class="toggle-btn" data-grade="10">10</button>
+                <button class="toggle-btn" data-grade="11">11</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <span class="control-label">Pronoun</span>
+              <div class="toggle-set" id="pronoun-toggles">
+                <button class="toggle-btn active" data-pronoun="she">She/Her</button>
+                <button class="toggle-btn" data-pronoun="he">He/His</button>
+                <button class="toggle-btn" data-pronoun="they">They/Their</button>
+              </div>
+            </div>
+          </div>
+          <div class="control-row control-row--name">
+            <div class="control-group" style="flex:1">
+              <span class="control-label">Name</span>
+              <input class="name-input" id="student-name" type="text" placeholder="Student name" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+
         <textarea
           class="comment-box"
           id="comment-box"
@@ -409,7 +410,7 @@ const state = {
   selected: {
     Opening:        new Set(),
     GradeLevel:     null,
-    SubjectContent: new Set(),
+    SubjectContent: { lego: null, mechanisms: null, studio: null, dp: null, 'dp-ia': null },
     Criteria:       { A: null, B: null, C: null, D: null },
     ATL:            new Set(),
     Improvement:    new Set(),
@@ -421,7 +422,7 @@ const state = {
 const SECTIONS = [
   { key: 'Opening',        label: 'Opening',                type: 'multi'    },
   { key: 'GradeLevel',     label: 'Grade Level',            type: 'grade'    },
-  { key: 'SubjectContent', label: 'Subject Content',        type: 'multi'    },
+  { key: 'SubjectContent', label: 'Subject Content',        type: 'subgroup' },
   { key: 'Criteria',       label: 'Criteria',               type: 'criteria' },
   { key: 'ATL',            label: 'ATL Skills',             type: 'multi'    },
   { key: 'Improvement',    label: 'Areas for Improvement',  type: 'multi'    },
@@ -444,15 +445,17 @@ const CRITERION_LABELS_DP = {
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function isSelected(phrase) {
   const s = state.selected;
-  if (phrase.section === 'GradeLevel') return s.GradeLevel === phrase.id;
-  if (phrase.section === 'Criteria')   return s.Criteria[phrase.criterionGroup] === phrase.id;
+  if (phrase.section === 'GradeLevel')     return s.GradeLevel === phrase.id;
+  if (phrase.section === 'Criteria')       return s.Criteria[phrase.criterionGroup] === phrase.id;
+  if (phrase.section === 'SubjectContent') return s.SubjectContent[phrase.subGroup] === phrase.id;
   return s[phrase.section]?.has(phrase.id) ?? false;
 }
 
 function getSelectionCount(sectionKey) {
   const s = state.selected;
-  if (sectionKey === 'GradeLevel') return s.GradeLevel ? 1 : 0;
-  if (sectionKey === 'Criteria')   return Object.values(s.Criteria).filter(Boolean).length;
+  if (sectionKey === 'GradeLevel')     return s.GradeLevel ? 1 : 0;
+  if (sectionKey === 'Criteria')       return Object.values(s.Criteria).filter(Boolean).length;
+  if (sectionKey === 'SubjectContent') return Object.values(s.SubjectContent).filter(Boolean).length;
   return s[sectionKey]?.size ?? 0;
 }
 
@@ -468,6 +471,9 @@ function onPhraseClick(phrase) {
   } else if (phrase.section === 'Criteria') {
     const cg = phrase.criterionGroup;
     s.Criteria[cg] = s.Criteria[cg] === phrase.id ? null : phrase.id;
+  } else if (phrase.section === 'SubjectContent') {
+    const sg = phrase.subGroup;
+    s.SubjectContent[sg] = s.SubjectContent[sg] === phrase.id ? null : phrase.id;
   } else {
     if (s[phrase.section].has(phrase.id)) s[phrase.section].delete(phrase.id);
     else s[phrase.section].add(phrase.id);
@@ -501,7 +507,12 @@ function buildComment() {
     if (ph) parts.push(ph.text(n, p));
   }
 
-  addSet('SubjectContent');
+  Object.keys(SUBJECT_SUBGROUPS).forEach(sg => {
+    if (s.SubjectContent[sg]) {
+      const ph = PHRASES.find(ph => ph.id === s.SubjectContent[sg]);
+      if (ph) parts.push(ph.text(n, p));
+    }
+  });
 
   ['A', 'B', 'C', 'D'].forEach(cg => {
     if (s.Criteria[cg]) {
@@ -530,6 +541,33 @@ function makePhraseBtn(phrase) {
   if (!available) btn.disabled = true;
   else btn.addEventListener('click', () => onPhraseClick(phrase));
   return btn;
+}
+
+function renderSubjectContentSection() {
+  const wrap = document.createElement('div');
+
+  Object.entries(SUBJECT_SUBGROUPS).forEach(([sgKey, sgMeta]) => {
+    if (!sgMeta.grades.includes(state.grade)) return;
+
+    const groupEl = document.createElement('div');
+    groupEl.className = 'grade-sub-group';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'sub-group-label';
+    lbl.textContent = sgMeta.label;
+    groupEl.appendChild(lbl);
+
+    const phrases = PHRASES.filter(ph => ph.section === 'SubjectContent' && ph.subGroup === sgKey);
+    const isCompact = phrases.length > 0 && phrases.every(ph => /^\d+$/.test(ph.label));
+    const grid = document.createElement('div');
+    grid.className = 'phrase-grid' + (isCompact ? ' phrase-grid--compact' : '');
+
+    phrases.forEach(ph => grid.appendChild(makePhraseBtn(ph)));
+    groupEl.appendChild(grid);
+    wrap.appendChild(groupEl);
+  });
+
+  return wrap;
 }
 
 function renderGradeLevelSection(phrases) {
@@ -582,7 +620,7 @@ function renderCriteriaSection() {
     lbl.textContent = criterionLabels[cg];
     groupEl.appendChild(lbl);
     const grid = document.createElement('div');
-    grid.className = 'phrase-grid';
+    grid.className = 'phrase-grid phrase-grid--compact';
     groups[cg].forEach(ph => grid.appendChild(makePhraseBtn(ph)));
     groupEl.appendChild(grid);
     wrap.appendChild(groupEl);
@@ -616,6 +654,8 @@ function renderSection(sec) {
     wrapper.appendChild(renderGradeLevelSection(phrases));
   } else if (sec.type === 'criteria') {
     wrapper.appendChild(renderCriteriaSection());
+  } else if (sec.type === 'subgroup') {
+    wrapper.appendChild(renderSubjectContentSection());
   } else {
     const grid = document.createElement('div');
     grid.className = 'phrase-grid';
@@ -701,7 +741,7 @@ function clearSelections() {
   const s = state.selected;
   s.Opening.clear();
   s.GradeLevel = null;
-  s.SubjectContent.clear();
+  s.SubjectContent = { lego: null, mechanisms: null, studio: null, dp: null, 'dp-ia': null };
   s.Criteria = { A: null, B: null, C: null, D: null };
   s.ATL.clear();
   s.Improvement.clear();
