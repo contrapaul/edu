@@ -48,6 +48,32 @@ const PHRASES = [
     section: 'Opening', grades: [11],
     text: (n, p) => `${n} has shown variable engagement with the Diploma Programme Design Technology course this year, demonstrating capability in some areas while requiring further development in others.` },
 
+  // ── Lukewarm / neutral openers ──
+
+  { id: 'open-variable', label: 'Variable Term',
+    section: 'Opening', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has had a variable semester in Design, producing work of inconsistent quality across different tasks and stages of the design cycle.` },
+
+  { id: 'open-mixed-effort', label: 'Mixed Effort',
+    section: 'Opening', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has shown a mixed level of effort in Design this semester, with some tasks completed to a reasonable standard and others requiring significant further development.` },
+
+  { id: 'open-limited-engagement', label: 'Limited Engagement',
+    section: 'Opening', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has found it challenging to engage consistently with Design this semester, and the quality of submitted work has not yet reflected ${p.pos} full potential.` },
+
+  { id: 'open-below-potential', label: 'Below Potential',
+    section: 'Opening', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has the ability to perform more strongly in Design but has not consistently applied ${p.pos} skills and attention to the work required this semester.` },
+
+  { id: 'open-present-not-engaged', label: 'Present, Not Engaged',
+    section: 'Opening', grades: [6, 7, 10],
+    text: (n, p) => `${n} has attended Design classes regularly this semester but has not yet demonstrated the level of focus and effort needed to make meaningful progress across all areas of the course.` },
+
+  { id: 'open-settling-in', label: 'Still Settling In',
+    section: 'Opening', grades: [6],
+    text: (n, p) => `${n} is still developing the habits and focus needed to engage fully with Design at the secondary level, and greater commitment will be essential for progress in the coming semester.` },
+
   // ─── GRADE LEVEL — MYP (G6, G7, G10) ──────────────────────────────────────
 
   { id: 'gl-myp-1', label: '1', section: 'GradeLevel', grades: [6, 7, 10],
@@ -539,6 +565,56 @@ const PHRASES = [
   { id: 'close-challenge-next', label: 'Challenge Ahead',
     section: 'Closing', grades: [6, 7, 10, 11],
     text: (n, p) => `${n} is well-positioned to meet the challenges ahead and should approach next semester with confidence and ambition.` },
+
+  // ─── BEHAVIOUR ─────────────────────────────────────────────────────────────
+
+  { id: 'beh-distracted', label: 'Easily Distracted',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has demonstrated a tendency to become distracted during class, which has impacted ${p.pos} ability to complete tasks to the expected standard.` },
+
+  { id: 'beh-off-task', label: 'Frequently Off-Task',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has frequently been off-task during class time this semester, and this has directly affected the quantity and quality of work produced.` },
+
+  { id: 'beh-disruptive', label: 'Disruptive in Class',
+    section: 'Behavior', grades: [6, 7, 10],
+    text: (n, p) => `${n}'s behaviour during class has at times disrupted the learning environment, and ${p.sub} is expected to approach all lessons with greater focus and respect for peers and the teacher.` },
+
+  { id: 'beh-social', label: 'Socialising Over Work',
+    section: 'Behavior', grades: [6, 7, 10],
+    text: (n, p) => `${n} has at times prioritised socialising over completing design tasks, and ${p.sub} is encouraged to use class time more purposefully to ensure work is completed to the required standard.` },
+
+  { id: 'beh-devices', label: 'Device Use',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has struggled to manage ${p.pos} use of personal devices during class time, which has limited ${p.pos} focus on design tasks and reduced ${p.pos} overall productivity.` },
+
+  { id: 'beh-instructions', label: 'Not Following Instructions',
+    section: 'Behavior', grades: [6, 7, 10],
+    text: (n, p) => `${n} has found it challenging to follow instructions consistently during class, and this has contributed to incomplete or misdirected work at several stages of the design process.` },
+
+  { id: 'beh-missing-work', label: 'Missing / Incomplete Work',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has not consistently submitted required work this semester, and several key tasks remain incomplete or missing from ${p.pos} design portfolio.` },
+
+  { id: 'beh-attitude-feedback', label: 'Resistant to Feedback',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n} has found it difficult to respond constructively to feedback this semester and is encouraged to approach teacher and peer input as a valuable part of the design process.` },
+
+  { id: 'beh-independent-work', label: 'Needs Constant Support',
+    section: 'Behavior', grades: [6, 7, 10],
+    text: (n, p) => `${n} has found it challenging to work independently this semester and has required significant teacher support to remain on task and make progress through the design cycle.` },
+
+  { id: 'beh-materials', label: 'Materials & Equipment',
+    section: 'Behavior', grades: [6, 7, 10],
+    text: (n, p) => `${n} is reminded of the importance of treating design materials and equipment with care and respect, as careless handling has caused disruption to ${p.pos} own work and that of others.` },
+
+  { id: 'beh-attendance', label: 'Attendance & Punctuality',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n}'s attendance and punctuality have affected ${p.pos} progress this semester, resulting in missed instruction and gaps in ${p.pos} design portfolio.` },
+
+  { id: 'beh-attitude-general', label: 'Poor Attitude to Work',
+    section: 'Behavior', grades: [6, 7, 10, 11],
+    text: (n, p) => `${n}'s attitude towards design work this semester has not always reflected the effort and engagement expected at this level, and a more committed approach will be required going forward.` },
 ];
 
 // Sub-group metadata for SubjectContent rendering
