@@ -413,6 +413,7 @@ const state = {
     SubjectContent: { lego: null, mechanisms: null, studio: null, dp: null, 'dp-ia': null },
     Criteria:       { A: null, B: null, C: null, D: null },
     ATL:            new Set(),
+    Behavior:       new Set(),
     Improvement:    new Set(),
     Suggestions:    new Set(),
     Closing:        new Set(),
@@ -425,6 +426,7 @@ const SECTIONS = [
   { key: 'SubjectContent', label: 'Subject Content',        type: 'subgroup' },
   { key: 'Criteria',       label: 'Criteria',               type: 'criteria' },
   { key: 'ATL',            label: 'ATL Skills',             type: 'multi'    },
+  { key: 'Behavior',       label: 'Behaviour',              type: 'multi'    },
   { key: 'Improvement',    label: 'Areas for Improvement',  type: 'multi'    },
   { key: 'Suggestions',    label: 'Break / Next Steps',     type: 'multi'    },
   { key: 'Closing',        label: 'Closing',                type: 'multi'    },
@@ -522,6 +524,7 @@ function buildComment() {
   });
 
   addSet('ATL');
+  addSet('Behavior');
   addSet('Improvement');
   addSet('Suggestions');
   addSet('Closing');
@@ -744,6 +747,7 @@ function clearSelections() {
   s.SubjectContent = { lego: null, mechanisms: null, studio: null, dp: null, 'dp-ia': null };
   s.Criteria = { A: null, B: null, C: null, D: null };
   s.ATL.clear();
+  s.Behavior.clear();
   s.Improvement.clear();
   s.Suggestions.clear();
   s.Closing.clear();
