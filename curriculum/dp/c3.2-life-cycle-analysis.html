@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C3.2 Life-cycle Analysis — DP Design — contrapaul edu</title>
+<title>C3.2 Life-Cycle Analysis — DP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../curriculum-themes.css">
 </head>
-<body>
+<body data-curr-type="dp" data-curr-page="c3.2">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -17,41 +18,414 @@
 
 <div class="topic-hero" style="--topic-color:#3d6b4a;--topic-bg:#e8f2eb;--topic-border:#c4d8ca;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>Topic C</div>
-<div class="topic-meta"><span class="topic-code">C3.2</span><span class="topic-level level-hl">HL only</span></div>
-<h1 class="topic-title">Life-cycle Analysis</h1>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>C3.2 Life-Cycle Analysis</div>
+<h1 class="topic-title">Life-Cycle Analysis | C3.2</h1>
 <p class="topic-guiding-q"><span class="gq-label">Guiding question</span>Why should designers consider the effects a product has on the environment?</p>
-<nav class="topic-nav"><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
 </div>
 </div>
 
-<main><div class="curr-main">
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul>
+<li class="curr-toc-item" data-section="introduction">Introduction</li>
+<li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+Study Guide
+<ul id="toc-sub-study">
+<li class="curr-toc-item" data-section="obj-3.2.1">3.2.1 LCA and environmental impacts</li>
+<li class="curr-toc-item" data-section="obj-3.2.2">3.2.2 Five stages of LCA</li>
+</ul>
+</li>
+<li class="curr-toc-item" data-section="quiz">Quiz</li>
+<li class="curr-toc-item" data-section="paper2">Paper 2 Practice</li>
+<li class="curr-toc-item" data-section="references">References</li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<div class="curr-section" id="introduction" style="--curr-color:#3d6b4a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-introduction">
+<div class="curr-section-intro-wrap">
+<div class="curr-section-intro-photo">
+<div class="curr-section-intro-img" aria-hidden="true"></div>
+</div>
+<p>A product's environmental story begins long before it reaches the consumer — and continues long after it is thrown away. <strong>Life-Cycle Assessment (LCA)</strong> is the internationally standardised method (ISO 14040:2006) for telling that story quantitatively: tracking every input of energy and material, and every output of emissions and waste, from raw material extraction through to final disposal.</p>
+<p>A critical finding for designers: a significant portion of a product's environmental impact is <strong>determined during the design phase</strong>, before a single component is manufactured. Incorporating LCA thinking early allows designers to make choices — about materials, manufacturing processes, and end-of-life strategies — that genuinely reduce environmental harm rather than simply shifting it from one stage of the life cycle to another.</p>
+</div>
+<div class="lang-toggle-bar">
+<span class="lang-toggle-label">Study guide language</span>
+<label class="lang-toggle-checkbox">
+<input type="checkbox" id="lang-toggle" autocomplete="off">
+<span class="lang-slider"></span>
+<span class="lang-on">中文</span>
+<span class="lang-off">EN</span>
+</label>
+</div>
+</div>
+</div>
 
 <div class="curr-section" id="study-guide" style="--curr-color:#3d6b4a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study-guide">
 <div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-study">
+<div class="curr-body" id="body-study-guide">
 <p class="curr-section-intro">Life-cycle analysis (LCA) tracks a product's environmental impact from raw material extraction (cradle) through manufacture, distribution, use and disposal (grave), considering global warming potential, pollution and resource depletion. These notes address each learning objective in turn.</p>
 <div class="obj-list">
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c3.2.1"><div class="obj-trigger-left"><span class="obj-code">3.2.1</span><h3>A life-cycle analysis (also known as the five stages of life-cycle analysis) helps designers factually analyse a product's entire life cycle in terms of sustainability.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c3.2.1"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain and discuss life-cycle analysis considerations, such as global warming potential, air, water and soil pollution, ecotoxicity and resource depletion, that cause environmental impact.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C3.2.1 -->
+<div class="obj-section" id="obj-3.2.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-3.2.1">
+<div class="obj-trigger-left"><span class="obj-code">3.2.1</span><h3>Life-cycle analysis helps designers factually analyse a product's entire life cycle in terms of sustainability.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-3.2.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain and discuss life-cycle analysis considerations, such as global warming potential, air, water and soil pollution, ecotoxicity and resource depletion, that cause environmental impact.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Life-Cycle Assessment (LCA)</strong> is an internationally standardised process (ISO 14040:2006) that evaluates the environmental impacts of a product or service throughout its entire lifespan. LCA does not provide solutions — it provides <strong>data</strong> to support better-informed decisions, identifying "hotspots" (areas most in need of improvement based on environmental impact).</p>
+<p><strong>Environmental impact categories assessed in LCA:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Impact category</th><th>Mechanism</th><th>Common metric</th></tr></thead>
+<tbody>
+<tr><td><strong>Climate change (global warming)</strong></td><td>Greenhouse gas emissions (CO₂, CH₄, N₂O, F-gases) trap heat in the atmosphere</td><td>kg CO₂ equivalent (CO₂e)</td></tr>
+<tr><td><strong>Ozone depletion</strong></td><td>Chlorofluorocarbons (CFCs) and HCFCs destroy stratospheric ozone</td><td>kg CFC-11 equivalent</td></tr>
+<tr><td><strong>Air pollution (acidification)</strong></td><td>SO₂ and NOx emissions form acid rain, damaging ecosystems and infrastructure</td><td>kg SO₂ equivalent</td></tr>
+<tr><td><strong>Water pollution (eutrophication)</strong></td><td>Excess nitrogen/phosphorus from runoff causes algal blooms, oxygen depletion</td><td>kg PO₄ equivalent</td></tr>
+<tr><td><strong>Soil contamination and erosion</strong></td><td>Toxic chemicals, heavy metals, and mining activity degrade soil quality</td><td>Land use (m² × year)</td></tr>
+<tr><td><strong>Ecotoxicity</strong></td><td>Toxic substances harm aquatic and terrestrial organisms throughout the food chain</td><td>CTUe (comparative toxic units)</td></tr>
+<tr><td><strong>Resource depletion</strong></td><td>Extraction of finite fossil fuels, minerals, and rare earth elements</td><td>MJ surplus / kg Sb equivalent</td></tr>
+<tr><td><strong>Loss of biodiversity and habitat</strong></td><td>Land use change, mining, and agriculture fragment and destroy ecosystems</td><td>Species loss potential</td></tr>
+<tr><td><strong>Noise pollution</strong></td><td>Manufacturing, transport, and product operation generate noise affecting communities and wildlife</td><td>dB(A) / affected area</td></tr>
+</tbody>
+</table>
+<p><strong>Four phases of an LCA study (ISO 14040:2006):</strong></p>
+<ol>
+<li><strong>Goal definition and scope:</strong> Define why the LCA is being conducted, the product system boundaries (e.g., cradle-to-grave, cradle-to-gate), and the functional unit (e.g., "1,000 hours of lighting").</li>
+<li><strong>Inventory analysis (LCI):</strong> Collect data on all energy inputs, material inputs, and emissions (outputs) at every stage of the product's life cycle. The most time-consuming phase.</li>
+<li><strong>Impact assessment (LCIA):</strong> Translate the inventory data into environmental impacts across the categories above (climate change, eutrophication, etc.).</li>
+<li><strong>Interpretation:</strong> Identify hotspots, evaluate data quality, draw conclusions, and make recommendations for management.</li>
+</ol>
+<p><strong>LCA approaches:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Approach</th><th>Scope</th><th>Used when</th></tr></thead>
+<tbody>
+<tr><td><strong>Cradle-to-grave</strong></td><td>Full life cycle — extraction through disposal</td><td>Complete environmental impact required; regulatory compliance; eco-label certification</td></tr>
+<tr><td><strong>Cradle-to-gate</strong></td><td>Extraction to factory gate only (excludes use and disposal)</td><td>Comparing material suppliers; manufacturer has no control over downstream use</td></tr>
+<tr><td><strong>Cradle-to-cradle</strong></td><td>End-of-life is a recycling input (closed loop)</td><td>Circular economy design; materials designed for infinite recyclability</td></tr>
+<tr><td><strong>Gate-to-gate</strong></td><td>One value-adding process within production only</td><td>Benchmarking a single manufacturing step (e.g., a painting process)</td></tr>
+<tr><td><strong>Well-to-wheel</strong></td><td>Fuel/energy production through vehicle operation</td><td>Comparing transport fuel chains (EV vs. petrol vs. hydrogen)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>生命周期评估（LCA）</strong>是一个国际标准化过程（ISO 14040:2006），用于评估产品或服务在整个生命周期中的环境影响。LCA不提供解决方案——它提供支持更明智决策的<strong>数据</strong>，识别"热点"（根据环境影响最需要改进的领域）。</p>
+<p><strong>LCA评估的环境影响类别：</strong></p>
+<table class="curr-table">
+<thead><tr><th>影响类别</th><th>机制</th><th>常用指标</th></tr></thead>
+<tbody>
+<tr><td><strong>气候变化（全球变暖）</strong></td><td>温室气体排放（CO₂、CH₄、N₂O、氟化气体）在大气中捕获热量</td><td>kg CO₂当量（CO₂e）</td></tr>
+<tr><td><strong>臭氧层消耗</strong></td><td>氯氟烃（CFC）和氢氯氟烃（HCFC）破坏平流层臭氧</td><td>kg CFC-11当量</td></tr>
+<tr><td><strong>空气污染（酸化）</strong></td><td>SO₂和NOx排放形成酸雨，损害生态系统和基础设施</td><td>kg SO₂当量</td></tr>
+<tr><td><strong>水污染（富营养化）</strong></td><td>径流中过量氮/磷导致藻华，耗氧</td><td>kg PO₄当量</td></tr>
+<tr><td><strong>土壤污染和侵蚀</strong></td><td>有毒化学物质、重金属和采矿活动降低土壤质量</td><td>土地使用（m²×年）</td></tr>
+<tr><td><strong>生态毒性</strong></td><td>有毒物质在整个食物链中危害水生和陆生生物</td><td>CTUe（比较毒性单位）</td></tr>
+<tr><td><strong>资源枯竭</strong></td><td>有限化石燃料、矿物和稀土元素的提取</td><td>MJ剩余/kg Sb当量</td></tr>
+<tr><td><strong>生物多样性和栖息地丧失</strong></td><td>土地利用变化、采矿和农业使生态系统碎片化和破坏</td><td>物种丧失潜力</td></tr>
+<tr><td><strong>噪音污染</strong></td><td>制造、运输和产品操作产生影响社区和野生动物的噪音</td><td>dB(A)/受影响面积</td></tr>
+</tbody>
+</table>
+<p><strong>LCA研究的四个阶段（ISO 14040:2006）：</strong></p>
+<ol>
+<li><strong>目标和范围定义：</strong>定义为何进行LCA、产品系统边界（如从摇篮到坟墓、从摇篮到大门）和功能单位（如"1000小时照明"）。</li>
+<li><strong>清单分析（LCI）：</strong>收集产品生命周期每个阶段所有能源输入、材料输入和排放（输出）的数据。最耗时的阶段。</li>
+<li><strong>影响评估（LCIA）：</strong>将清单数据转化为上述类别的环境影响（气候变化、富营养化等）。</li>
+<li><strong>解释：</strong>识别热点、评估数据质量、得出结论并向管理层提出建议。</li>
+</ol>
+<p><strong>LCA方法：</strong></p>
+<table class="curr-table">
+<thead><tr><th>方法</th><th>范围</th><th>使用时机</th></tr></thead>
+<tbody>
+<tr><td><strong>从摇篮到坟墓</strong></td><td>完整生命周期——从提取到处置</td><td>需要完整环境影响；法规合规；生态标签认证</td></tr>
+<tr><td><strong>从摇篮到大门</strong></td><td>仅从提取到工厂大门（不含使用和处置）</td><td>比较材料供应商；制造商对下游使用没有控制权</td></tr>
+<tr><td><strong>从摇篮到摇篮</strong></td><td>寿命终结是回收输入（闭环）</td><td>循环经济设计；设计为无限可回收的材料</td></tr>
+<tr><td><strong>从大门到大门</strong></td><td>仅生产中的一个增值过程</td><td>对单个制造步骤进行基准测试（如喷漆过程）</td></tr>
+<tr><td><strong>从油井到车轮</strong></td><td>燃料/能源生产到车辆运行</td><td>比较运输燃料链（电动车vs汽油vs氢气）</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c3.2.2"><div class="obj-trigger-left"><span class="obj-code">3.2.2</span><h3>Designers evaluate the environmental impacts of a product or service from raw material extraction and processing (cradle), through manufacture, distribution and use, to the recycling or final disposal of the materials (grave).</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c3.2.2"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the life-cycle analysis inventory stages (cradle-to-grave) and the materials and energy usage that go into these processes: raw material extraction; manufacture; distribution and transport; use and maintenance; and disposal and recycling.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C3.2.2 -->
+<div class="obj-section" id="obj-3.2.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-3.2.2">
+<div class="obj-trigger-left"><span class="obj-code">3.2.2</span><h3>Designers evaluate environmental impacts from raw material extraction (cradle) through manufacture, distribution, use, and disposal (grave).</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-3.2.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the life-cycle analysis inventory stages (cradle-to-grave) and the materials and energy usage that go into these processes: raw material extraction; manufacture; distribution and transport; use and maintenance; and disposal and recycling.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>The five stages of a cradle-to-grave LCA:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Stage</th><th>Activities</th><th>Key inputs/outputs</th><th>Environmental considerations</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Pre-production</strong> (raw material extraction)</td><td>Mining, drilling, harvesting; refining and processing; transportation to factory</td><td>Ore, fossil fuels, water; CO₂, tailings, wastewater</td><td>Habitat destruction; soil erosion; ecotoxicity from mine drainage; resource depletion</td></tr>
+<tr><td><strong>2. Production</strong> (manufacturing)</td><td>Machining, moulding, assembly; finishing; quality control; factory cooling and lighting</td><td>Energy (electricity, heat); process chemicals; water; scrap/waste</td><td>Energy-related CO₂; process emissions; wastewater; solid waste</td></tr>
+<tr><td><strong>3. Distribution and packaging</strong></td><td>Packaging production; transport by road, rail, sea, air; warehousing</td><td>Packaging materials; transport fuels; refrigerants</td><td>Transport CO₂; packaging waste; refrigerant ozone depletion</td></tr>
+<tr><td><strong>4. Utilisation</strong> (use phase)</td><td>Product operation; maintenance; repair; consumables replacement</td><td>Electricity, fuel, water, consumables (ink, batteries, filters)</td><td>In-use energy emissions; consumable waste; maintenance chemicals</td></tr>
+<tr><td><strong>5. Disposal</strong> (end of life)</td><td>Collection; sorting; recycling; incineration; landfill</td><td>Recycled materials (back to stage 1); energy from incineration; landfill gas; leachate</td><td>Landfill leachate and gas; incineration emissions; recycling energy; e-waste toxics</td></tr>
+</tbody>
+</table>
+<p><strong>Hotspot analysis — where the biggest impact lies:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Product type</th><th>Dominant hotspot</th><th>Evidence</th><th>Design implication</th></tr></thead>
+<tbody>
+<tr><td>Conventional vehicle</td><td>Use phase (~90% of energy)</td><td>2006 British Motor Industry study: 90% operational, 10% manufacturing</td><td>Improve fuel efficiency; reduce drag; develop hybrid/electric powertrains</td></tr>
+<tr><td>Toyota Prius (hybrid)</td><td>Use phase (75%) + manufacturing (25%)</td><td>Higher battery manufacturing energy reduces operational %; total still lower than conventional</td><td>Battery longevity matters; recycle battery at end of life</td></tr>
+<tr><td>Consumer electronics</td><td>Manufacturing phase</td><td>In-use energy reduced by Moore's Law, Energy Star, LED screens; manufacturing of chips/screens dominates</td><td>Extend product lifespan; design for repairability; use recycled materials</td></tr>
+</tbody>
+</table>
+<p><strong>Key conclusion — extended use of older electronics:</strong> "Extended use of an older product is a more environmentally friendly choice than replacement given the environmental costs associated with extracting, processing and manufacturing." A new, more energy-efficient laptop may have higher total environmental impact than continuing to use an older one, because the manufacturing emissions of the new laptop may never be offset by its use-phase efficiency gains.</p>
+<p><strong>Weighting caution:</strong> "The weighting process must be carefully considered. If some elements of the life-cycle are inappropriately prioritised and weighted, the final result can be even more distorted." LCA does not make decisions — it provides data for decision-makers.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>从摇篮到坟墓LCA的五个阶段：</strong></p>
+<table class="curr-table">
+<thead><tr><th>阶段</th><th>活动</th><th>主要投入/产出</th><th>环境考虑</th></tr></thead>
+<tbody>
+<tr><td><strong>1. 前生产阶段</strong>（原材料提取）</td><td>采矿、钻探、收割；精炼和加工；运输到工厂</td><td>矿石、化石燃料、水；CO₂、尾矿、废水</td><td>栖息地破坏；土壤侵蚀；矿山排水的生态毒性；资源枯竭</td></tr>
+<tr><td><strong>2. 生产阶段</strong>（制造）</td><td>加工、成型、装配；表面处理；质量控制；工厂冷却和照明</td><td>能源（电、热）；工艺化学品；水；废料/废物</td><td>能源相关CO₂；工艺排放；废水；固体废物</td></tr>
+<tr><td><strong>3. 分销和包装阶段</strong></td><td>包装生产；公路、铁路、海运、空运；仓储</td><td>包装材料；运输燃料；制冷剂</td><td>运输CO₂；包装废物；制冷剂臭氧消耗</td></tr>
+<tr><td><strong>4. 使用阶段</strong></td><td>产品运行；维护；修理；消耗品更换</td><td>电、燃料、水、耗材（墨水、电池、滤芯）</td><td>使用中能源排放；耗材废物；维护化学品</td></tr>
+<tr><td><strong>5. 处置阶段</strong>（寿命终结）</td><td>收集；分类；回收；焚烧；填埋</td><td>回收材料（回到阶段1）；焚烧能量；填埋气；渗滤液</td><td>填埋渗滤液和气体；焚烧排放；回收能量；电子废物毒性</td></tr>
+</tbody>
+</table>
+<p><strong>热点分析——最大影响在哪里：</strong></p>
+<table class="curr-table">
+<thead><tr><th>产品类型</th><th>主要热点</th><th>证据</th><th>设计影响</th></tr></thead>
+<tbody>
+<tr><td>传统汽车</td><td>使用阶段（约90%能源）</td><td>2006年英国汽车工业研究：90%使用阶段，10%制造阶段</td><td>提高燃油效率；减少阻力；开发混合动力/电动传动系统</td></tr>
+<tr><td>丰田普锐斯（混合动力）</td><td>使用阶段（75%）+制造阶段（25%）</td><td>更高的电池制造能源降低了使用阶段百分比；总量仍低于传统车型</td><td>电池寿命很重要；寿命终结时回收电池</td></tr>
+<tr><td>消费电子产品</td><td>制造阶段</td><td>使用中能源通过摩尔定律、能源之星、LED屏幕降低；芯片/屏幕制造占主导</td><td>延长产品寿命；为可维修性而设计；使用回收材料</td></tr>
+</tbody>
+</table>
+<p><strong>关键结论——延长使用旧电子产品：</strong>"考虑到与提取、加工和制造相关的环境成本，延长使用旧产品是比更换更环保的选择。"一台更节能的新笔记本电脑可能比继续使用旧笔记本具有更高的总体环境影响，因为新笔记本的制造排放可能永远无法被其使用阶段的节能效益所抵消。</p>
+<p><strong>权重注意事项：</strong>"权重分配过程必须仔细考虑。如果生命周期的某些要素被不恰当地优先考虑和加权，最终结果可能会更加失真。"LCA不做决策——它为决策者提供数据。</p>
+</div>
+</div>
+</div>
+</div>
 
-</div></div></div>
+</div><!-- /obj-list -->
+</div><!-- /curr-body -->
+</div><!-- /study-guide -->
 
-<div class="curr-section" id="quiz" style="--curr-color:#8b6520;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz"><div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-quiz"><p class="quiz-intro">Multiple choice questions for C3.2 Life-cycle Analysis will be added here.</p></div></div>
+<!-- QUIZ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your knowledge of C3.2 Life-Cycle Analysis. Select the best answer for each question, then check your score.</p>
+<div class="quiz-wrap" id="quiz-c3.2" data-answers="C,B,D,B,B,C,C,C,C,C">
 
-<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2"><div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-paper2"><div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div><p class="content-placeholder">Practice questions for C3.2 will be added here.</p></div></div>
+<div class="quiz-q" data-q="1">
+<p class="quiz-stem">1. According to the LCA principle, a significant portion of a product's environmental impact is determined during which phase?</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. The distribution phase</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. The use phase</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. The design phase</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. The disposal phase</label>
+</div>
 
-<div class="curr-section" id="references" style="--curr-color:#2d7a6a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-refs"><div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-refs"><p class="content-placeholder">Reference links for C3.2 will be added here.</p></div></div>
+<div class="quiz-q" data-q="2">
+<p class="quiz-stem">2. A "cradle-to-grave" life-cycle assessment includes which stages?</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Raw material extraction to factory gate only</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Raw material extraction to final disposal (including use phase)</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Manufacturing to distribution only</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. Use phase to disposal only</label>
+</div>
+
+<div class="quiz-q" data-q="3">
+<p class="quiz-stem">3. According to a 2006 British Motor Industry study, approximately what percentage of a conventional vehicle's total energy consumption occurs during the operational (use) phase?</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. 25%</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. 50%</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. 75%</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. 90%</label>
+</div>
+
+<div class="quiz-q" data-q="4">
+<p class="quiz-stem">4. For the Toyota Prius, the study found that what percentage of energy use was in the operational stage?</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. 90%</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. 75%</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. 50%</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. 25%</label>
+</div>
+
+<div class="quiz-q" data-q="5">
+<p class="quiz-stem">5. When assessing consumer electronics for environmental impact, the in-use phase is considered:</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. Of greater importance than the manufacturing phase</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. Of lesser importance due to reduced energy consumption levels</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Equivalent in importance to the disposal phase</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Irrelevant to the overall assessment</label>
+</div>
+
+<div class="quiz-q" data-q="6">
+<p class="quiz-stem">6. Which of the following is NOT one of the four phases of an LCA study according to ISO 14040:2006?</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. Goal definition and scope</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Inventory analysis</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. Marketing analysis</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. Impact assessment</label>
+</div>
+
+<div class="quiz-q" data-q="7">
+<p class="quiz-stem">7. A "cradle-to-cradle" LCA approach is characterised by:</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. Ending with disposal in a landfill</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. Ending with incineration</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. End-of-life resulting in a recycling process that closes the loop</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. Excluding the use phase entirely</label>
+</div>
+
+<div class="quiz-q" data-q="8">
+<p class="quiz-stem">8. A "well-to-wheel" LCA is specifically used for:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. Consumer electronics</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Furniture manufacturing</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. Distribution and transport networks (encompassing fuels and transportation)</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. Food production</label>
+</div>
+
+<div class="quiz-q" data-q="9">
+<p class="quiz-stem">9. Why might extended use of an older electronic product be more environmentally friendly than replacement with a newer, more efficient model?</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Older products use less energy</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Newer products require more maintenance</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. The environmental costs of extracting, processing and manufacturing the new product outweigh the use-phase efficiency gains</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Older products are easier to recycle</label>
+</div>
+
+<div class="quiz-q" data-q="10">
+<p class="quiz-stem">10. The role of LCA in decision-making is best described as:</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. LCA provides the final management decision</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. LCA replaces all other environmental assessments</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. LCA provides data to make better-informed decisions, identifying environmental hotspots</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. LCA is only useful for regulatory compliance, not design</label>
+</div>
+
+<div class="quiz-controls">
+<button class="quiz-submit" type="button">Check answers</button>
+<button class="quiz-reset" type="button">Reset</button>
+</div>
+<div class="quiz-result" aria-live="polite"></div>
+</div>
+</div>
+</div>
+
+<!-- PAPER 2 -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the difference between "cradle-to-grave," "cradle-to-cradle," and "cradle-to-gate" life-cycle assessment approaches. Give an example of when each might be used.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Cradle-to-grave:</strong> Includes all stages from raw material extraction (cradle) to final disposal (grave). Example: assessing a plastic water bottle — from oil extraction, to bottle production, to consumer use, to landfill disposal. Used when a complete environmental picture is required (e.g., regulatory submission, eco-label). (1+0.5)</p>
+<p><strong>Cradle-to-cradle:</strong> Similar to cradle-to-grave but end-of-life results in a recycling input that returns materials to production — closing the loop. Example: an aluminium can recycled into another aluminium can (not downcycled). Used when designing for a circular economy where materials are infinitely recyclable. (1+0.5)</p>
+<p><strong>Cradle-to-gate:</strong> Assesses from raw material extraction only up to the factory gate — excluding distribution, use, and end-of-life. Example: a manufacturer comparing two steel suppliers' environmental footprints. Used when downstream stages are identical or outside the manufacturer's control. (1+0.5)</p>
+<p><em>(Accept any correctly classified example — those above are illustrative.)</em></p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> A 2006 British Motor Industry study found that for conventional vehicles, 90% of energy occurs in the use phase; for the Toyota Prius, 75%. (a) Explain why the Prius has a lower operational energy percentage. (b) Explain why the in-use phase of consumer electronics is of "lesser importance" and discuss the environmental implications for product replacement decisions.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>(a) Prius — lower operational energy percentage (up to 3 marks):</strong></p>
+<ul>
+<li>The Prius hybrid uses an electric motor to assist at low speeds and during acceleration, significantly reducing fuel consumption. (1)</li>
+<li>Regenerative braking captures kinetic energy that conventional vehicles waste as heat, storing it in the battery. (1)</li>
+<li>The engine shuts off at idle (e.g., traffic lights), eliminating idle fuel consumption. (1)</li>
+<li>The Prius has slightly higher manufacturing energy due to the battery and electric motor. Since operational energy fell but manufacturing energy rose slightly, manufacturing's <em>relative share</em> increased (25%). The total LCA footprint is still lower than a conventional vehicle. (1)</li>
+</ul>
+<p><strong>(b) Electronics in-use phase and replacement decisions (up to 3 marks):</strong></p>
+<ul>
+<li>Consumer electronics have dramatically reduced operating power through Moore's Law, Energy Star standards, LED displays, and low-power sleep modes. Therefore the in-use phase is of "lesser importance." (1)</li>
+<li>For electronics, the manufacturing phase is often the dominant hotspot: extracting rare earth metals, refining silicon, and producing circuit boards generates substantial CO₂, water use and toxic waste. (1)</li>
+<li>Replacing an older laptop with a more energy-efficient new one may increase total environmental impact: the manufacturing emissions of the new laptop may never be offset by use-phase efficiency gains. "Extended use of an older product is a more environmentally friendly choice than replacement." (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[5 marks]</span> Describe the four phases of a Life-Cycle Assessment (LCA) according to ISO 14040:2006. For each phase, explain what activity occurs.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<ul>
+<li><strong>Goal definition and scope:</strong> Defines why the LCA is conducted, the system boundaries (cradle-to-grave, cradle-to-gate, etc.), and the functional unit (e.g., "1,000 km of passenger travel" or "1,000 hours of lighting"). Specifies assumptions and limitations. (1)</li>
+<li><strong>Inventory analysis (LCI):</strong> Data collection — energy inputs (electricity, fuel), material inputs (raw materials, water), and emissions/waste outputs for every stage. This is the most time-consuming phase; data comes from suppliers, utility records, transport logs, and waste facilities. (1)</li>
+<li><strong>Impact assessment (LCIA):</strong> Translates inventory data into impact categories — climate change (kg CO₂e), eutrophication (kg PO₄e), acidification (kg SO₂e), resource depletion, ecotoxicity, etc. Aggregates individual flows into meaningful environmental indicators. (1)</li>
+<li><strong>Interpretation:</strong> Identifies hotspots (stages contributing most to environmental impact); evaluates data completeness, sensitivity, and consistency; draws conclusions and recommends improvement priorities for management. (1)</li>
+<li><strong>Important note:</strong> "LCA approaches are assistive devices in the decision-making process — the LCA itself makes no decisions." Weighting must be carefully applied; inappropriate weighting distorts conclusions. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the importance of "hotspot" identification in LCA. Use vehicle and consumer electronics examples to illustrate how hotspots differ between product categories.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Definition:</strong> Hotspots are the stages or processes within a life cycle that contribute most to total environmental impact. Identifying them allows designers to focus improvement efforts where they have greatest leverage, rather than wasting resources on low-impact stages. (1)</p>
+<p><strong>Vehicle hotspot — use phase:</strong> For conventional vehicles, the use phase accounts for ~90% of total energy (2006 BIS study). The Prius reduces this to 75% through hybrid technology. <em>Design implication</em>: improving fuel efficiency and developing hybrid/electric powertrains has the greatest environmental benefit. Focusing only on manufacturing efficiency would address just 10–25% of the impact. (1)</p>
+<p><strong>Electronics hotspot — manufacturing phase:</strong> Consumer electronics use energy very efficiently (LED screens, efficient chips, Energy Star). The manufacturing phase — mining rare earth metals, refining silicon, producing PCBs — is the dominant hotspot. <em>Design implication</em>: extending product lifespan, designing for repairability and upgradability, and using recycled materials have greater impact than marginal use-phase efficiency gains. (1)</p>
+<p><strong>Counterintuitive conclusion:</strong> For electronics, replacing an older product with a new, more efficient one is often more environmentally harmful than continuing to use the older one — because manufacturing emissions of the new product outweigh any use-phase savings. This contradicts consumer intuition but is what hotspot analysis reveals. (1)</p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Evaluate the statement: "A product with lower operational energy consumption is always more environmentally friendly than a less efficient alternative."</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p>The statement is <strong>false</strong> — a product with lower operational energy is not always more environmentally friendly. Environmental impact depends on the full life cycle and the location of hotspots, not just the use phase. (1)</p>
+<p><strong>When the statement holds (vehicles):</strong> For conventional vehicles, the use phase is ~90% of total energy. A more efficient vehicle (e.g., Prius vs. conventional SUV) genuinely reduces total environmental impact because the hotspot is in the use phase. Improving efficiency directly addresses the dominant contributor. (1)</p>
+<p><strong>When the statement fails (electronics):</strong> For consumer electronics, the use phase is of "lesser importance" — the manufacturing phase dominates. A new, highly efficient laptop may have higher total LCA impact than an older model if manufacturing emissions are never offset by use-phase savings. The chapter states: "extended use of an older product is a more environmentally friendly choice than replacement." (1+1)</p>
+<p><strong>The weighting problem:</strong> If LCA inappropriately weights operational energy and ignores manufacturing impact, it will erroneously recommend replacing old electronics with new ones. Correct weighting is critical — "if some elements of the life-cycle are inappropriately prioritised and weighted, the final result can be even more distorted." (1)</p>
+<p><strong>Factors that determine environmental friendliness:</strong> (1) location of LCA hotspots; (2) expected product lifespan (longer lifespan spreads manufacturing impact over more years); (3) magnitude of efficiency gain (small gains rarely offset manufacturing emissions); (4) weighting scheme used in the LCA. Designers must consult full LCAs, not assume operational efficiency alone determines environmental performance. (1)</p>
+</details>
+</div>
+
+</div>
+</div>
+
+<!-- REFERENCES -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ul class="ref-list">
+<li class="ref-item"><span class="ref-label">Standard</span><a href="https://www.iso.org/standard/37456.html" class="ref-link" target="_blank" rel="noopener">ISO 14040:2006 — "Environmental management – Life cycle assessment – Principles and framework." The international standard defining the four phases of LCA and key terminology.</a></li>
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/results?search_query=life+cycle+assessment+LCA+explained" class="ref-link" target="_blank" rel="noopener">YouTube — "Life Cycle Assessment (LCA) Explained." Animated video covering cradle-to-grave, functional unit, inventory analysis, impact assessment, and interpretation with clear visuals.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://eplca.jrc.ec.europa.eu/ilcd.html" class="ref-link" target="_blank" rel="noopener">European Commission — ILCD Handbook (International Reference Life Cycle Data System). Detailed LCA methodology with impact category definitions for climate change, eutrophication, acidification.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://www.ellenmacarthurfoundation.org/topics/circular-economy/overview" class="ref-link" target="_blank" rel="noopener">Ellen MacArthur Foundation — Circular Economy resources. Explains cradle-to-cradle design and closed-loop material systems that eliminate waste at end of life.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://www.europarl.europa.eu/topics/en/article/20230601STO93804/right-to-repair-new-eu-rules-explained" class="ref-link" target="_blank" rel="noopener">European Parliament — Right to Repair. Policy context for why extending electronic product lifespans (through repairability) is environmentally preferable to early replacement.</a></li>
+<li class="ref-item"><span class="ref-label">中文参考</span><a href="https://baike.baidu.com/item/生命周期评估" class="ref-link" target="_blank" rel="noopener">百度百科 — 生命周期评估。涵盖ISO 14040阶段和LCA方法论的中文综合介绍。</a></li>
+</ul>
+</div>
+</div>
 
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
@@ -60,8 +434,7 @@
 <li>Which aspects of a life-cycle analysis are most affected by material selection? <a href="b3.1-material-selection.html">(B3.1)</a></li>
 <li>What is the impact of selecting a particular production system on a life-cycle analysis? <a href="b4.1-production-systems.html">(B4.1)</a></li>
 <li>To what extent is it the responsibility of the designer to ensure a product achieves a positive life-cycle analysis? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
-<li>What is the role of the life-cycle analysis in determining if a product has been developed successfully using a design for sustainability strategy? <a href="c2.1-design-for-sustainability.html">(C2.1)</a></li>
-<li>To what extent are products designed for a circular economy likely to result in a positive outcome of a life-cycle analysis? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
+<li>To what extent are products designed for a circular economy likely to result in a positive LCA outcome? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
 <li>What is the relationship between life-cycle analysis and product analysis? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
 </ul>
 </section>
@@ -71,8 +444,14 @@
 <a class="nav-next" href="c4.1-design-for-manufacture.html"><span class="nav-dir">Next →</span><span class="nav-title">C4.1 Design for Manufacture Strategies</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="c3.2.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>

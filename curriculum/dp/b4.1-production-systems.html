@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,9 @@
 <title>B4.1 Production Systems — DP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../curriculum-themes.css">
 </head>
-<body>
+<body data-curr-type="dp" data-curr-page="b4.1">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -17,66 +18,553 @@
 
 <div class="topic-hero" style="--topic-color:#1a5cb8;--topic-bg:#e8eef8;--topic-border:#c4d0e8;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>Topic B</div>
-<div class="topic-meta"><span class="topic-code">B4.1</span><span class="topic-level level-hl">HL only</span></div>
-<h1 class="topic-title">Production Systems</h1>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>B4.1 Production Systems</div>
+<h1 class="topic-title">Production Systems | B4.1</h1>
 <p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How is the ideal production system determined for a product?</p>
-<nav class="topic-nav"><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
 </div>
 </div>
 
-<main><div class="curr-main">
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul>
+<li class="curr-toc-item" data-section="introduction">Introduction</li>
+<li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+Study Guide
+<ul id="toc-sub-study">
+<li class="curr-toc-item" data-section="obj-4.1.1">4.1.1 Production system types</li>
+<li class="curr-toc-item" data-section="obj-4.1.2">4.1.2 Advantages &amp; disadvantages</li>
+<li class="curr-toc-item" data-section="obj-4.1.3">4.1.3 Scale of production</li>
+<li class="curr-toc-item" data-section="obj-4.1.4">4.1.4 Factors influencing choice</li>
+<li class="curr-toc-item" data-section="obj-4.1.5">4.1.5 Reverse engineering</li>
+<li class="curr-toc-item" data-section="obj-4.1.6">4.1.6 Production &amp; design aesthetics</li>
+</ul>
+</li>
+<li class="curr-toc-item" data-section="quiz">Quiz</li>
+<li class="curr-toc-item" data-section="paper2">Paper 2 Practice</li>
+<li class="curr-toc-item" data-section="references">References</li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<div class="curr-section" id="introduction" style="--curr-color:#1a5cb8;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-introduction">
+<div class="curr-section-intro-wrap">
+<div class="curr-section-intro-photo">
+<div class="curr-section-intro-img" aria-hidden="true"></div>
+</div>
+<p>Before the Industrial Revolution, every product was made by hand — a skilled artisan shaped each piece from start to finish. Today, a smartphone contains over 1,000 components made across dozens of countries using automated systems that operate around the clock. B4.1 maps this spectrum of production, from <strong>craft production</strong> through <strong>mechanisation</strong> and <strong>assembly line</strong> methods to <strong>computer-integrated manufacturing (CIM)</strong> — and asks when each is the right choice.</p>
+<p>The key insight is that no single production system suits all products. Scale, cost, customisation, and material all constrain the decision. Designers who understand production systems can make their products manufacturable — and can predict how production choices will affect aesthetics, function, and price.</p>
+</div>
+<div class="lang-toggle-bar">
+<span class="lang-toggle-label">Study guide language</span>
+<label class="lang-toggle-checkbox">
+<input type="checkbox" id="lang-toggle" autocomplete="off">
+<span class="lang-slider"></span>
+<span class="lang-on">中文</span>
+<span class="lang-off">EN</span>
+</label>
+</div>
+</div>
+</div>
 
 <div class="curr-section" id="study-guide" style="--curr-color:#1a5cb8;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study-guide">
 <div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-study">
-<p class="curr-section-intro">Production systems range from craft production through to computer integrated manufacturing (CIM), each matched to a scale of production and product type. These notes address each learning objective in turn.</p>
+<div class="curr-body" id="body-study-guide">
+<p class="curr-section-intro">Production systems range from craft production through to computer-integrated manufacturing (CIM), each matched to a scale of production and product type. Reverse engineering and patent mining provide insight into existing systems. These notes address each learning objective in turn.</p>
 <div class="obj-list">
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.1"><div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Production systems can be unique and specific to the type of product being manufactured.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.1"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify the most effective type of production system (craft, mechanized, automated, assembly line, hybrid production systems and computer integrated manufacturing (CIM)) used in the manufacture of a given product.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.1 -->
+<div class="obj-section" id="obj-4.1.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.1">
+<div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Production systems can be unique and specific to the type of product being manufactured.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify the most effective type of production system (craft, mechanised, automated, assembly line, hybrid production systems and computer integrated manufacturing (CIM)) used in the manufacture of a given product.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Six main production systems exist on a continuum from human-centred to machine-centred:</p>
+<table class="curr-table">
+<thead><tr><th>System</th><th>Human vs. machine balance</th><th>Typical volume</th><th>Typical products</th></tr></thead>
+<tbody>
+<tr><td><strong>Craft production</strong></td><td>Almost entirely human; hand tools or simple machines</td><td>One-off to very small batches</td><td>Custom furniture, jewellery, haute couture, artisan ceramics</td></tr>
+<tr><td><strong>Mechanised production</strong></td><td>Machines operated by humans; workers still guide each step</td><td>Small to medium batches</td><td>Small-run textiles, workshop metalwork</td></tr>
+<tr><td><strong>Assembly line production</strong></td><td>Standardised tasks; workers perform single repeated operations</td><td>High volume, identical products</td><td>Ford automobiles, consumer appliances</td></tr>
+<tr><td><strong>Automated production (CAD/CAM, CNC)</strong></td><td>Machines operate autonomously; minimal human intervention</td><td>High to very high volume</td><td>Precision machined parts, circuit boards</td></tr>
+<tr><td><strong>Computer-Integrated Manufacturing (CIM)</strong></td><td>Entire enterprise automated — design, production, QC, logistics</td><td>Very high; mass customisation possible</td><td>Modern automotive plants, electronics factories</td></tr>
+<tr><td><strong>Hybrid production</strong></td><td>Strategic combination of the above</td><td>Variable</td><td>Luxury cars (hand-stitched interior + robot-welded body)</td></tr>
+</tbody>
+</table>
+<p>Before the Industrial Revolution, craft production was the only method. Apprentices spent up to seven years learning multiple skills. Henry Ford's introduction of the moving assembly line ("Fordism") and its standardised part system marked a turning point — and his famous remark that customers could have "any colour as long as it's black" illustrates the trade-off between efficiency and customisation.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>从以人为中心到以机器为中心，存在六种主要生产系统：</p>
+<table class="curr-table">
+<thead><tr><th>系统</th><th>人机比例</th><th>典型规模</th><th>典型产品</th></tr></thead>
+<tbody>
+<tr><td><strong>手工艺生产</strong></td><td>几乎完全由人工完成；手工具或简单机器</td><td>单件至极小批量</td><td>定制家具、珠宝、高级定制时装、手工陶瓷</td></tr>
+<tr><td><strong>机械化生产</strong></td><td>人工操作机器；工人仍指导每个步骤</td><td>小至中批量</td><td>小批量纺织品、车间金属加工</td></tr>
+<tr><td><strong>装配线生产</strong></td><td>标准化任务；工人执行单一重复操作</td><td>大批量，产品相同</td><td>福特汽车、消费电器</td></tr>
+<tr><td><strong>自动化生产（CAD/CAM、CNC）</strong></td><td>机器自主运行；人工干预最少</td><td>大至极大批量</td><td>精密加工零件、电路板</td></tr>
+<tr><td><strong>计算机集成制造（CIM）</strong></td><td>整个企业自动化——设计、生产、质量控制、物流</td><td>极大批量；可大规模定制</td><td>现代汽车工厂、电子工厂</td></tr>
+<tr><td><strong>混合生产</strong></td><td>上述系统的战略组合</td><td>可变</td><td>豪华轿车（手工缝制内饰+机器人焊接车身）</td></tr>
+</tbody>
+</table>
+<p>工业革命之前，手工艺生产是唯一方式。学徒需要长达七年才能掌握多种技能。亨利·福特引入流水线（"福特制"）及其标准化零件体系是一个转折点——他那句"只要是黑色的就行"名言形象说明了效率与定制化之间的权衡。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.2"><div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Production systems can be categorized based on the balance between the manufacturer and the tools and machinery they use.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.2"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss the advantages and disadvantages of each production system, including craft production, mechanization, automation, assembly line, hybrid production systems and CIM.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.2 -->
+<div class="obj-section" id="obj-4.1.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.2">
+<div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Production systems can be categorised based on the balance between the manufacturer and the tools and machinery they use.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss the advantages and disadvantages of each production system, including craft production, mechanisation, automation, assembly line, hybrid production systems and CIM.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<table class="curr-table">
+<thead><tr><th>System</th><th>Advantages</th><th>Disadvantages</th></tr></thead>
+<tbody>
+<tr><td><strong>Craft production</strong></td><td>High customisation; direct client communication; each piece unique; skilled craftsmanship valued</td><td>Very slow; labour-intensive; high cost per unit; low volume; inconsistency between pieces</td></tr>
+<tr><td><strong>Mechanised production</strong></td><td>Faster than craft; moderate consistency; lower skill threshold than fully manual</td><td>Higher capital cost than craft; still requires significant human oversight</td></tr>
+<tr><td><strong>Assembly line production</strong></td><td>High efficiency; consistent output; economies of scale (lower unit cost at volume); reduced need for skilled labour</td><td>High capital investment; inflexible (design changes are costly); monotonous work → worker dissatisfaction; single breakdown halts the whole line</td></tr>
+<tr><td><strong>Automated production (CNC/CAM)</strong></td><td>24/7 operation; reduced human error; consistent quality; lower long-term labour costs; reduced workplace injuries</td><td>High capital investment; requires specialised technical staff; inflexible if product changes</td></tr>
+<tr><td><strong>CIM</strong></td><td>Integrates entire enterprise; enables mass customisation; data accessible globally; near-perfect repeatability</td><td>Very high initial setup cost; staff restructuring required; complex interdependencies — software failure can halt production</td></tr>
+<tr><td><strong>Hybrid production</strong></td><td>Balances customisation and efficiency; flexible; suits premium products</td><td>Complex to manage; higher cost than pure automation; requires skilled workers alongside machines</td></tr>
+</tbody>
+</table>
+<p><strong>CIM and mass customisation:</strong> CIM can produce customised products at near mass-production efficiency. Consumers may follow their order in real time via online interfaces. Distributors worldwide can access production data — enabling just-in-time supply chains.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<table class="curr-table">
+<thead><tr><th>系统</th><th>优点</th><th>缺点</th></tr></thead>
+<tbody>
+<tr><td><strong>手工艺生产</strong></td><td>高度定制化；直接客户沟通；每件独特；工艺价值高</td><td>速度极慢；劳动密集；单位成本高；产量低；件件不一致</td></tr>
+<tr><td><strong>机械化生产</strong></td><td>比手工艺快；中等一致性；技能要求低于纯手工</td><td>资本成本高于手工艺；仍需大量人工监督</td></tr>
+<tr><td><strong>装配线生产</strong></td><td>高效率；产出一致；规模经济（批量越大单位成本越低）；减少对熟练劳动力的需求</td><td>资本投入高；灵活性差（设计变更代价高昂）；工作单调→工人不满；一处故障导致全线停产</td></tr>
+<tr><td><strong>自动化生产（CNC/CAM）</strong></td><td>全天候运行；减少人为错误；质量一致；长期劳动力成本低；减少工伤</td><td>资本投入高；需要专业技术人员；产品变更时灵活性差</td></tr>
+<tr><td><strong>CIM</strong></td><td>整合整个企业；实现大规模定制；数据全球可访问；重复性近乎完美</td><td>初始设置成本极高；需人员重组；复杂的相互依赖关系——软件故障可能导致全线停产</td></tr>
+<tr><td><strong>混合生产</strong></td><td>平衡定制化与效率；灵活；适合高端产品</td><td>管理复杂；成本高于纯自动化；需要熟练工人与机器并行工作</td></tr>
+</tbody>
+</table>
+<p><strong>CIM与大规模定制：</strong>CIM能够以接近大规模生产的效率生产定制产品。消费者可通过在线界面实时跟踪订单。全球分销商可访问生产数据——实现准时制供应链。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.3"><div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Production systems are selected according to the required scale of production.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.3"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Determine appropriate manufacturing techniques for each scale of production, including one-off production, batch production, mass production, mass customization and continuous production.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.3 -->
+<div class="obj-section" id="obj-4.1.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.3">
+<div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Production systems are selected according to the required scale of production.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Determine appropriate manufacturing techniques for each scale of production, including one-off production, batch production, mass production, mass customisation and continuous production.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Scale of production is the primary driver of system choice. As volume increases, fixed costs are spread over more units, reducing the cost-per-unit. However, higher-volume systems require greater capital investment and offer less flexibility.</p>
+<table class="curr-table">
+<thead><tr><th>Scale</th><th>Volume</th><th>System match</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>One-off (jobbing)</strong></td><td>1 unit</td><td>Craft / manual</td><td>Bespoke suit, custom trophy, one-off concept car</td></tr>
+<tr><td><strong>Batch production</strong></td><td>Tens to thousands</td><td>Mechanised / semi-automated</td><td>Seasonal clothing range, limited-edition sneakers, artisan bread</td></tr>
+<tr><td><strong>Mass production</strong></td><td>Thousands to millions</td><td>Assembly line / automated</td><td>Standard Ford models, IKEA furniture, PET bottles</td></tr>
+<tr><td><strong>Mass customisation</strong></td><td>Millions of individually configured variants</td><td>CIM with flexible automation</td><td>Build-to-order laptops (Dell), personalised trainers (Nike By You), Invisalign aligners</td></tr>
+<tr><td><strong>Continuous (process) production</strong></td><td>Non-stop, 24/7</td><td>Fully automated process</td><td>Steel mills, petroleum refineries, paper mills, bottling plants</td></tr>
+</tbody>
+</table>
+<p>Key principle: "low-volume work would most likely be produced by craftsmen, whereas high-volume work would be more suited to mechanical and/or automated processes." As volume increases, fixed costs (tooling, equipment) become less significant per unit, while variable costs (labour) dominate less.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>生产规模是系统选择的主要驱动因素。随着批量增加，固定成本分摊到更多产品上，从而降低单位成本。然而，更大批量的系统需要更多资本投入，灵活性更低。</p>
+<table class="curr-table">
+<thead><tr><th>规模</th><th>数量</th><th>匹配系统</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td><strong>单件生产</strong></td><td>1件</td><td>手工艺/手工</td><td>定制西装、定制奖杯、一次性概念车</td></tr>
+<tr><td><strong>批量生产</strong></td><td>数十至数千</td><td>机械化/半自动化</td><td>季节性服装系列、限量版运动鞋、手工面包</td></tr>
+<tr><td><strong>大规模生产</strong></td><td>数千至数百万</td><td>装配线/自动化</td><td>标准福特车型、宜家家具、PET瓶</td></tr>
+<tr><td><strong>大规模定制</strong></td><td>数百万个个性化变体</td><td>具有柔性自动化的CIM</td><td>按订单生产的笔记本（戴尔）、个性化运动鞋（Nike By You）、Invisalign牙套</td></tr>
+<tr><td><strong>连续（流程）生产</strong></td><td>不间断，全天候</td><td>全自动化流程</td><td>钢铁厂、石油炼油厂、造纸厂、灌装厂</td></tr>
+</tbody>
+</table>
+<p>核心原则："小批量工作最可能由工匠生产，而大批量工作更适合机械化和/或自动化流程。"随着批量增加，固定成本（模具、设备）每件意义降低，而可变成本（劳动力）的主导地位减弱。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.4"><div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Various factors influence the choice of manufacturing techniques.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.4"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss factors that influence choices of manufacturing techniques, including type of product being manufactured, type of material(s) used, scale of production, production system, cost constraints and environmental considerations, and justify the selection of appropriate manufacturing techniques for a product.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.4 -->
+<div class="obj-section" id="obj-4.1.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.4">
+<div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Various factors influence the choice of manufacturing techniques.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss factors that influence choices of manufacturing techniques, including type of product, material(s) used, scale of production, production system, cost constraints and environmental considerations; and justify the selection of appropriate manufacturing techniques for a product.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Manufacturing technique selection is never made in isolation — multiple factors interact:</p>
+<table class="curr-table">
+<thead><tr><th>Factor</th><th>How it influences technique selection</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Type of product</strong></td><td>Geometry, function, and required precision constrain options</td><td>A turbine blade requires CNC + investment casting; a water bottle uses blow moulding</td></tr>
+<tr><td><strong>Material(s)</strong></td><td>Formability, machinability, meltability, and compatibility with tooling limit choices</td><td>Titanium requires EDM or 5-axis CNC; thermoplastics suit injection moulding</td></tr>
+<tr><td><strong>Scale of production</strong></td><td>High volumes justify tooling investment; low volumes require flexible processes</td><td>1 unit → 3D print; 1 million units → injection mould</td></tr>
+<tr><td><strong>Production system</strong></td><td>Available equipment and workforce skills constrain technique options</td><td>A factory with only CNC machines cannot use injection moulding without new investment</td></tr>
+<tr><td><strong>Cost constraints</strong></td><td>Tooling amortisation, material cost, labour cost, and energy cost all factor in</td><td>Die casting tooling costs $20,000–$200,000 but per-part cost at volume is very low</td></tr>
+<tr><td><strong>Environmental considerations</strong></td><td>Material waste, energy consumption, emissions, and end-of-life recyclability are increasingly mandatory</td><td>Waterjet cutting produces no heat-affected zone and less waste; powder coating has no VOC solvents</td></tr>
+</tbody>
+</table>
+<p><strong>Patent mining</strong> — searching databases such as Google Patents, WIPO, and USPTO — helps manufacturers analyse competitor innovations, identify trends, and plan development strategies while avoiding intellectual property infringement.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>制造工艺的选择从不孤立进行——多种因素相互作用：</p>
+<table class="curr-table">
+<thead><tr><th>因素</th><th>对工艺选择的影响</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td><strong>产品类型</strong></td><td>几何形状、功能和所需精度限制了选项</td><td>涡轮叶片需要CNC+熔模铸造；水瓶使用吹塑成型</td></tr>
+<tr><td><strong>材料</strong></td><td>可成形性、可加工性、可熔性和与工具的相容性限制了选择</td><td>钛需要EDM或五轴CNC；热塑性塑料适合注塑成型</td></tr>
+<tr><td><strong>生产规模</strong></td><td>大批量证明模具投资合理；小批量需要灵活工艺</td><td>1件→3D打印；100万件→注塑模具</td></tr>
+<tr><td><strong>生产系统</strong></td><td>现有设备和员工技能限制了工艺选项</td><td>只有CNC机床的工厂在没有新投资的情况下无法使用注塑成型</td></tr>
+<tr><td><strong>成本约束</strong></td><td>模具摊销、材料成本、劳动力成本和能源成本都是考虑因素</td><td>压铸模具成本2万–20万美元，但批量生产时单件成本极低</td></tr>
+<tr><td><strong>环境考虑</strong></td><td>材料浪费、能源消耗、排放和报废可回收性日益成为强制要求</td><td>水刀切割不产生热影响区且废料少；粉末涂装没有VOC溶剂</td></tr>
+</tbody>
+</table>
+<p><strong>专利挖掘</strong>——搜索Google Patents、WIPO和USPTO等数据库——帮助制造商分析竞争对手创新、识别趋势并规划开发策略，同时避免侵犯知识产权。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.5"><div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>The design of a production system requires an understanding of a product, its component parts and the manufacturing techniques used.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.5"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Deconstruct and analyse multi-component products to determine how they were made and their relevance within the assembly and function of a product.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.5 -->
+<div class="obj-section" id="obj-4.1.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.5">
+<div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>The design of a production system requires an understanding of a product's components and the manufacturing techniques used.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Deconstruct and analyse multi-component products to determine how they were made and their relevance within the assembly and function of a product.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Reverse engineering</strong> (also called teardown or disassembly analysis) is the systematic process of deconstructing an existing product to understand its design, materials, manufacturing methods, and assembly sequence. It is used to reduce development time, identify opportunities for improvement, and benchmark against competitors.</p>
+<p><strong>Six-step reverse engineering process:</strong></p>
+<ol>
+<li><strong>External visual examination:</strong> Identify materials, joining methods, seams, hidden fasteners, and possible disassembly points. Plan the disassembly sequence. Record by photo/video.</li>
+<li><strong>Disassembly:</strong> Carefully remove components using appropriate tools. Label and number every part. Record the entire process to enable reassembly.</li>
+<li><strong>Component analysis:</strong> For each part, determine: Is it functional, aesthetic, or safety-related? How does it contribute to overall function? What wear considerations exist? Could it be made redundant?</li>
+<li><strong>Manufacturing analysis:</strong> Identify the manufacturing process used for each component. Recognise how processes enhance material properties (work hardening, annealing). Confirm materials by mass, colour, magnetism, and surface finish.</li>
+<li><strong>Assembly analysis:</strong> Record the assembly sequence. Determine whether assembly was manual or automated. Assess whether the product is designed for disassembly or is single-use.</li>
+<li><strong>Redundancy assessment:</strong> Identify unnecessary parts or overdesigned components that could be eliminated to reduce cost and material.</li>
+</ol>
+<p><em>Useful tools for disassembly: tweezers, magnifying glass, magnet (to identify ferrous metals), screwdrivers of various types, voltmeter (for electronic components).</em></p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>逆向工程</strong>（也称为拆卸或拆解分析）是系统拆解现有产品以了解其设计、材料、制造方法和装配顺序的过程。它用于缩短开发时间、识别改进机会，并与竞争对手进行基准比较。</p>
+<p><strong>六步逆向工程流程：</strong></p>
+<ol>
+<li><strong>外部目视检查：</strong>识别材料、连接方式、接缝、隐藏紧固件和可能的拆卸点。规划拆卸顺序。拍照/录像记录。</li>
+<li><strong>拆卸：</strong>使用适当工具小心取下零件。标记并编号每个零部件。记录全过程以便重新组装。</li>
+<li><strong>零件分析：</strong>对每个零件确定：它是功能性的、美学性的还是安全相关的？它如何影响整体功能？有哪些磨损考虑？能否被淘汰？</li>
+<li><strong>制造分析：</strong>识别每个零件所用的制造工艺。认识工艺如何改善材料性能（加工硬化、退火）。通过质量、颜色、磁性和表面处理确认材料。</li>
+<li><strong>装配分析：</strong>记录装配顺序。确定装配是手工还是自动化进行的。评估产品是否设计为可拆卸或一次性使用。</li>
+<li><strong>冗余评估：</strong>识别可消除以降低成本和材料的不必要零件或过度设计的组件。</li>
+</ol>
+<p><em>拆卸常用工具：镊子、放大镜、磁铁（识别铁磁金属）、各类螺丝刀、电压表（用于电子元件）。</em></p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b4.1.6"><div class="obj-trigger-left"><span class="obj-code">4.1.6</span><h3>The design of a product is influenced by the limitations of a production system and manufacturing techniques.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-b4.1.6"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss how production methods can influence the function and aesthetics of a product.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- B4.1.6 -->
+<div class="obj-section" id="obj-4.1.6">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.6">
+<div class="obj-trigger-left"><span class="obj-code">4.1.6</span><h3>The design of a product is influenced by the limitations of a production system and manufacturing techniques.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.6">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss how production methods can influence the function and aesthetics of a product.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Production methods directly shape both the <strong>function</strong> (how the product works) and the <strong>aesthetics</strong> (how it looks and feels) of a product. A designer who understands production constraints can design <em>with</em> them, not against them.</p>
+<table class="curr-table">
+<thead><tr><th>Product</th><th>Production method</th><th>Effect on function</th><th>Effect on aesthetics</th></tr></thead>
+<tbody>
+<tr><td><strong>Phone case</strong></td><td>Injection moulded polymer</td><td>Lightweight, durable, consistent wall thickness, snap-fit geometry possible</td><td>Smooth uniform surface; wide colour range via pigmented resin; fine moulded textures</td></tr>
+<tr><td><strong>Phone case (premium)</strong></td><td>CNC-machined aluminium + anodising</td><td>Higher structural rigidity; scratch resistance; heat dissipation; precise tolerances for camera cutouts</td><td>Metallic lustre; jewel-like edges from CNC chamfering; vibrant anodised colours</td></tr>
+<tr><td><strong>Wooden chair</strong></td><td>CNC machining</td><td>Precise mortise-and-tenon joints improve structural rigidity; consistent replication</td><td>Smooth, clean lines; identical reproductions; intricate carved patterns possible</td></tr>
+<tr><td><strong>Wooden chair</strong></td><td>Hand-carving (craft)</td><td>Each piece tailor-made; potential variation in joint quality</td><td>Visible craftsmanship; unique grain and ornamental detail in each piece</td></tr>
+<tr><td><strong>Car body panel</strong></td><td>Sheet metal stamping (cold forming)</td><td>Work-hardened surface is impact-resistant; aerodynamic curves reduce drag</td><td>Smooth consistent curves; pressing dictates the form language of the vehicle</td></tr>
+<tr><td><strong>Cooking pan</strong></td><td>Cast iron (sand casting)</td><td>Excellent, even heat retention; robust; develops seasoned non-stick surface over time</td><td>Traditional rustic appearance; visible texture; patina develops with age</td></tr>
+</tbody>
+</table>
+<p><strong>Key relationships:</strong></p>
+<ul>
+<li><strong>Forging</strong> creates directional grain structure → directional strength (unlike casting, which can be isotropic).</li>
+<li><strong>Annealing</strong> (controlled heating and cooling of glass or metal) reduces internal stresses → less likely to crack under load.</li>
+<li><strong>3D printing (FDM)</strong> leaves visible layer lines → distinctive aesthetic that can be hidden by post-processing or embraced as a design feature.</li>
+<li><strong>Cold rolling</strong> creates smooth, work-hardened sheet → flat reflective surface finish.</li>
+</ul>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>生产方法直接塑造产品的<strong>功能</strong>（产品如何工作）和<strong>美学</strong>（产品的外观和感觉）。理解生产限制的设计师可以顺应这些限制进行设计，而不是与之对抗。</p>
+<table class="curr-table">
+<thead><tr><th>产品</th><th>生产方式</th><th>对功能的影响</th><th>对美学的影响</th></tr></thead>
+<tbody>
+<tr><td><strong>手机壳</strong></td><td>注塑聚合物</td><td>轻巧耐用，壁厚均匀，可实现卡扣几何形状</td><td>表面光滑均匀；通过着色树脂提供多种颜色；精细模制纹理</td></tr>
+<tr><td><strong>高端手机壳</strong></td><td>CNC铝材加工+阳极氧化</td><td>更高结构刚性；耐划；散热；相机开孔精密公差</td><td>金属光泽；CNC倒角的宝石般边缘；鲜艳的阳极氧化颜色</td></tr>
+<tr><td><strong>木椅</strong></td><td>CNC加工</td><td>精密榫卯接头提升结构刚性；一致可复制</td><td>线条流畅清晰；可完全复制；可实现复杂雕刻图案</td></tr>
+<tr><td><strong>木椅</strong></td><td>手工雕刻（工艺）</td><td>每件量身定制；接头质量可能有差异</td><td>可见的工艺；每件的纹理和装饰细节都是独一无二的</td></tr>
+<tr><td><strong>汽车车身板</strong></td><td>钣金冲压（冷成型）</td><td>加工硬化表面耐冲击；空气动力学曲线减少阻力</td><td>光滑一致的曲线；冲压决定了车辆的形态语言</td></tr>
+<tr><td><strong>炊具锅</strong></td><td>铸铁（砂型铸造）</td><td>优良均匀的储热性；坚固耐用；使用时间长后发展出天然不粘表面（"养锅"）</td><td>传统质朴外观；可见纹理；随使用时间形成独特锈色</td></tr>
+</tbody>
+</table>
+<p><strong>关键关系：</strong></p>
+<ul>
+<li><strong>锻造</strong>产生定向晶粒结构→定向强度（不同于可能各向同性的铸造）。</li>
+<li><strong>退火</strong>（玻璃或金属的受控加热冷却）减少内应力→在载荷下不易开裂。</li>
+<li><strong>3D打印（FDM）</strong>留下可见层纹→独特美学，可通过后处理隐藏或作为设计特征展示。</li>
+<li><strong>冷轧</strong>产生光滑、加工硬化的板材→平坦反光的表面处理。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-</div></div></div>
+</div><!-- /obj-list -->
+</div><!-- /curr-body -->
+</div><!-- /study-guide -->
 
-<div class="curr-section" id="quiz" style="--curr-color:#8b6520;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz"><div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-quiz"><p class="quiz-intro">Multiple choice questions for B4.1 Production Systems will be added here.</p></div></div>
+<!-- QUIZ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your knowledge of B4.1 Production Systems. Select the best answer for each question, then check your score.</p>
+<div class="quiz-wrap" id="quiz-b4.1" data-answers="B,B,D,C,B,B,B,B,C,B">
 
-<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2"><div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-paper2"><div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div><p class="content-placeholder">Practice questions for B4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="1">
+<p class="quiz-stem">1. Before the Industrial Revolution, manufacturing was primarily characterised by:</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Automated assembly lines with robots</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Craft production by skilled artisans in small workshops</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Computer-integrated manufacturing (CIM)</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Mass production of standardised goods</label>
+</div>
 
-<div class="curr-section" id="references" style="--curr-color:#2d7a6a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-refs"><div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-refs"><p class="content-placeholder">Reference links for B4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="2">
+<p class="quiz-stem">2. Henry Ford's assembly line is most closely associated with which phrase?</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. "Mass customisation for every customer"</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. "My customers can get any colour, as long as it's black"</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. "The skill of the artisan determines quality"</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. "Computer numerical control for precision"</label>
+</div>
+
+<div class="quiz-q" data-q="3">
+<p class="quiz-stem">3. Which production system requires the highest initial capital investment but enables 24/7 operation with minimal human intervention?</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. Craft production</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Mechanised production</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. Assembly line production</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Automated production (CAD/CAM, CNC, CIM)</label>
+</div>
+
+<div class="quiz-q" data-q="4">
+<p class="quiz-stem">4. A major disadvantage of assembly line production is:</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. It cannot achieve economies of scale</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. It requires highly skilled workers for every task</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. It lacks flexibility and a single breakdown can halt the entire line</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. It produces inconsistent quality across batches</label>
+</div>
+
+<div class="quiz-q" data-q="5">
+<p class="quiz-stem">5. Computer-Integrated Manufacturing (CIM) enables:</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. Only craft-based customisation</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. Mass customisation and global access to production data</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Elimination of all quality control processes</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Manual assembly of all components</label>
+</div>
+
+<div class="quiz-q" data-q="6">
+<p class="quiz-stem">6. Reverse engineering involves:</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. Creating a new product from scratch without any existing reference</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Disassembling a product to understand its design, materials, and manufacturing methods</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. Applying for patents before manufacturing begins</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. Using only automated production systems</label>
+</div>
+
+<div class="quiz-q" data-q="7">
+<p class="quiz-stem">7. Which of the following is a correct statement about forging?</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. It provides isotropic properties (same in all directions)</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. It provides directional strength properties due to grain alignment</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. It is only suitable for plastics</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. It produces parts with visible layer lines</label>
+</div>
+
+<div class="quiz-q" data-q="8">
+<p class="quiz-stem">8. Annealing of glass and metals is used to:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. Increase internal stresses for greater strength</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Reduce internal stresses</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. Add surface colour</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. Increase electrical conductivity</label>
+</div>
+
+<div class="quiz-q" data-q="9">
+<p class="quiz-stem">9. A cast iron cooking pan develops a natural non-stick surface over time through a process called:</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Anodising</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Powder coating</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. Seasoning</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Work hardening</label>
+</div>
+
+<div class="quiz-q" data-q="10">
+<p class="quiz-stem">10. In the context of reverse engineering, "redundancy assessment" refers to:</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Using backup power supplies during disassembly</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Identifying unnecessary parts or overdesigned components that could be eliminated</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. Recording the disassembly process with multiple cameras</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. Creating duplicate parts for testing</label>
+</div>
+
+<div class="quiz-controls">
+<button class="quiz-submit" type="button">Check answers</button>
+<button class="quiz-reset" type="button">Reset</button>
+</div>
+<div class="quiz-result" aria-live="polite"></div>
+</div>
+</div>
+</div>
+
+<!-- PAPER 2 -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the key differences between craft production and assembly line production. Include one advantage and one disadvantage of each system.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Craft production</strong>: skilled artisans create individual products by hand or with minimal mechanisation. Apprentices historically served up to seven years learning multiple skills. Products are unique and made to client specifications. <strong>Advantage</strong>: high customisation; direct client–maker communication. <strong>Disadvantage</strong>: slow, labour-intensive, high per-unit cost, low volume. (1+1)</p>
+<p><strong>Assembly line production</strong> (refined by Henry Ford — "Fordism"): products move along conveyors past workers who perform single, repetitive operations. Standardised parts enable consistent large volumes. <strong>Advantage</strong>: high efficiency; economies of scale; consistent output; reduced need for skilled labour. <strong>Disadvantage</strong>: high capital investment; inflexible (design changes costly); monotonous work → dissatisfied workers; one breakdown halts the whole line. (1+1)</p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Describe the four main production systems (craft, mechanised, assembly line, and automated/CIM) and explain how the scale of production influences which system a manufacturer should choose.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Craft production (very low volume, very high customisation):</strong> products made by hand. Each piece is unique. Suitable for one-off or very small batches (custom jewellery, bespoke furniture). Choose when customers demand uniqueness and will pay a premium. (1)</p>
+<p><strong>Mechanised production (low–medium volume, medium customisation):</strong> machines operated by humans increase efficiency beyond handwork. Suitable for small–medium batches where full automation is unjustified. (1)</p>
+<p><strong>Assembly line production (high volume, very low customisation):</strong> standardised parts move along conveyors; workers perform single repetitive tasks. Economies of scale reduce unit cost. Suitable for mass-produced identical products (Ford cars, PET bottles). High initial capital justified by volume. (1)</p>
+<p><strong>Automated production / CIM (very high volume, mass customisation possible):</strong> CAD/CAM, CNC, robotics, minimal human intervention. 24/7 operation; fine tolerances; near-perfect repeatability. CIM integrates design, production, QC and logistics. Mass customisation possible — each product configured differently at near mass-production cost. (1)</p>
+<p><strong>Scale influence:</strong> as volume increases, fixed costs (tooling, equipment) per unit decrease; variable costs (labour) decrease proportionally for automated systems. Low-volume → craft (low fixed cost, high variable). High-volume → automated (high fixed, low variable). The crossover point determines when tooling investment becomes cost-effective. (1+1)</p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[5 marks]</span> A company is transitioning from assembly line production to computer-integrated manufacturing (CIM). Outline three benefits and two challenges they may face.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Benefits (any 3 × 1 mark):</strong></p>
+<ul>
+<li><strong>Mass customisation</strong>: unlike assembly lines that produce identical products, CIM enables individually configured products at near mass-production efficiency. (1)</li>
+<li><strong>Integrated coordination</strong>: CIM links design, production, stock control, QC and logistics — design changes in CAD automatically update manufacturing instructions, reducing errors. (1)</li>
+<li><strong>24/7 operation and reduced human error</strong>: automated systems operate continuously with near-perfect repeatability, improving quality consistency. (1)</li>
+<li><strong>Global data access</strong>: production data is accessible to distributors and clients worldwide, improving supply chain coordination. (1)</li>
+</ul>
+<p><strong>Challenges (any 2 × 1 mark):</strong></p>
+<ul>
+<li><strong>High initial capital investment</strong>: CIM requires significant expenditure on advanced machinery, robotics, sensors, and software. (1)</li>
+<li><strong>Staff restructuring and morale</strong>: workers accustomed to assembly line tasks must be retrained or replaced. Staff morale and resistance to change are real risks. (1)</li>
+<li><strong>Interdependency risk</strong>: CIM systems are highly interconnected — a software bug or sensor failure can disrupt the entire production system. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the process of reverse engineering. Include four key steps and identify one tool that may be used.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<ul>
+<li><strong>External visual examination</strong>: identify materials, joining techniques, seams, hidden fasteners, and develop a disassembly plan. Record with photographs or video. (1)</li>
+<li><strong>Disassembly</strong>: carefully remove components using appropriate tools; label and number all parts to enable reassembly. (1)</li>
+<li><strong>Component analysis</strong>: for each part, determine whether it is functional, aesthetic, or safety-related; assess wear, interaction with other parts, and whether it could be eliminated. (1)</li>
+<li><strong>Manufacturing analysis</strong>: identify the manufacturing process used; recognise how processes altered material properties (e.g., work hardening, annealing); confirm material by mass, colour, magnetism. (1)</li>
+</ul>
+<p><em>Tool: a magnet can distinguish ferrous from non-ferrous metals without destructive testing.</em></p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Analyse how production methods influence the function and aesthetics of a wooden chair, a car body panel, and a cooking pan. Use specific examples for each product.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Wooden chair:</strong></p>
+<ul>
+<li><em>CNC machining:</em> precise mortise-and-tenon joints → structural rigidity (function); smooth, clean lines; identical reproductions (aesthetics). (1)</li>
+<li><em>Hand-carving:</em> tailor-made joints, but potential variation in quality (function); unique visible craftsmanship, grain and ornamental detail in each piece (aesthetics). (1)</li>
+</ul>
+<p><strong>Car body panel:</strong></p>
+<ul>
+<li><em>Sheet metal stamping (cold forming):</em> work-hardened surface → impact-resistant, aerodynamic curves reduce drag (function); smooth consistent curves; stamping limits the form language of the design (aesthetics). (1)</li>
+<li><em>Carbon fibre layup:</em> extremely lightweight and stiff (function); smooth coloured surface or exposed woven texture — distinctively high-tech (aesthetics). (1)</li>
+</ul>
+<p><strong>Cooking pan:</strong></p>
+<ul>
+<li><em>Die-cast aluminium:</em> excellent heat distribution, lightweight (function); sleek, modern finish (aesthetics). (1)</li>
+<li><em>Cast iron (sand casting):</em> superior heat retention; robust; develops natural non-stick "seasoning" over time (function); traditional rustic appearance with visible texture; patina ages well (aesthetics). (1)</li>
+</ul>
+</details>
+</div>
+
+</div>
+</div>
+
+<!-- REFERENCES -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ul class="ref-list">
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/results?search_query=henry+ford+assembly+line+simple+history" class="ref-link" target="_blank" rel="noopener">YouTube — "Henry Ford and the Assembly Line" (Simple History). Short animated video explaining Fordism, the moving assembly line, and the "any colour as long as it's black" context.</a></li>
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/@TheEngineeringMindset" class="ref-link" target="_blank" rel="noopener">The Engineering Mindset — "CNC vs 3D Printing vs Injection Moulding." Compares production methods for consumer products including phone cases.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://en.wikipedia.org/wiki/Computer-integrated_manufacturing" class="ref-link" target="_blank" rel="noopener">Wikipedia — Computer-integrated manufacturing. Overview of CIM architecture, components, and how it integrates CAD, CAM, robotics and business systems.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://patents.google.com" class="ref-link" target="_blank" rel="noopener">Google Patents — Free patent database for practising patent mining by searching company, inventor, or keyword. Useful for analysing manufacturing innovations.</a></li>
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/results?search_query=practical+engineering+reverse+engineering+product" class="ref-link" target="_blank" rel="noopener">YouTube — "How to Reverse Engineer a Product" (Practical Engineering). Step-by-step disassembly guide covering visual examination, component analysis, and reassembly.</a></li>
+<li class="ref-item"><span class="ref-label">中文参考</span><a href="https://baike.baidu.com/item/生产系统" class="ref-link" target="_blank" rel="noopener">百度百科 — 生产系统。涵盖手工艺生产、机械化生产、装配线生产、自动化生产和CIM系统的中文综合介绍。</a></li>
+</ul>
+</div>
+</div>
 
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
 <li>To what extent are prototyping techniques becoming production systems? <a href="a2.2-prototyping-techniques.html">(A2.2)</a></li>
-<li>Which aspects of structural, mechanical and electronic systems impact on the availability of certain production systems? <a href="a3.2-structural-systems.html">(A3.2)</a> <a href="a3.3-mechanical-systems.html">(A3.3)</a> <a href="a3.4-electronic-systems.html">(A3.4)</a> <a href="b3.2-structural-systems-application.html">(B3.2)</a> <a href="b3.3-mechanical-systems-application.html">(B3.3)</a> <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
+<li>Which aspects of structural, mechanical and electronic systems impact on the availability of certain production systems? <a href="a3.2-structural-systems.html">(A3.2)</a> <a href="a3.3-mechanical-systems.html">(A3.3)</a> <a href="a3.4-electronic-systems.html">(A3.4)</a></li>
 <li>How does the design of a product for specific manufacturing techniques limit the choice of production system? <a href="a4.1-manufacturing-techniques.html">(A4.1)</a></li>
 <li>How does material selection in a commercially viable product impact the cost of using different production systems? <a href="b3.1-material-selection.html">(B3.1)</a></li>
-<li>How do production techniques influence aspects of user-centred design (UCD) that go beyond usability? <a href="c1.3-beyond-usability.html">(C1.3)</a></li>
-<li>How does the scale of production impact a product when using a design for a circular economy strategy? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
 <li>Why is a deep understanding of how components are manufactured and assembled vital for effective product analysis and evaluation? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
 <li>To what extent does the selection of a production system affect the outcome of a product's life-cycle analysis? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
-<li>To what extent does the choice of design for manufacture strategies affect the feasibility of certain production systems? <a href="c4.1-design-for-manufacture.html">(C4.1)</a></li>
 </ul>
 </section>
 
@@ -85,8 +573,14 @@
 <a class="nav-next" href="c1.1-responsibility-of-designer.html"><span class="nav-dir">Next →</span><span class="nav-title">C1.1 Responsibility of the Designer</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="b4.1.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>
