@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A3.4 Introduction to Electronic Systems — DP Design — contrapaul edu</title>
+<title>Introduction to Electronic Systems | A3.4 — DP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../themes.css">
 </head>
-<body>
+<body data-curr-type="dp" data-curr-page="a3.4">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -17,89 +18,971 @@
 
 <div class="topic-hero" style="--topic-color:#2c5f6e;--topic-bg:#e8f0f2;--topic-border:#c4d8de;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>Topic A</div>
-<div class="topic-meta"><span class="topic-code">A3.4</span><span class="topic-level level-hl">HL only</span></div>
-<h1 class="topic-title">Introduction to Electronic Systems</h1>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum/dp/">DP Design</a><span class="sep">/</span>A3.4 Introduction to Electronic Systems</div>
+<h1 class="topic-title">Introduction to Electronic Systems | A3.4</h1>
 <p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How are electronics present in everyday products?</p>
-<nav class="topic-nav"><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
 </div>
 </div>
 
-<main><div class="curr-main">
+<main><div class="curr-page-layout">
 
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul class="curr-toc-list">
+  <li class="curr-toc-item" data-section="introduction"><a href="#introduction">Introduction</a></li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+    <a href="#study-guide">Study Guide</a>
+    <ul class="curr-toc-sub" id="toc-sub-study">
+      <li data-section="obj-3.4.1"><a href="#obj-3.4.1">3.4.1 Input–Process–Output model</a></li>
+      <li data-section="obj-3.4.2"><a href="#obj-3.4.2">3.4.2 Electronics in everyday life</a></li>
+      <li data-section="obj-3.4.3"><a href="#obj-3.4.3">3.4.3 Analogue and digital systems</a></li>
+      <li data-section="obj-3.4.4"><a href="#obj-3.4.4">3.4.4 Analogue signals and SI units</a></li>
+      <li data-section="obj-3.4.5"><a href="#obj-3.4.5">3.4.5 Digital signals and logic gates</a></li>
+      <li data-section="obj-3.4.6"><a href="#obj-3.4.6">3.4.6 Electronic components</a></li>
+      <li data-section="obj-3.4.7"><a href="#obj-3.4.7">3.4.7 Input devices and sensors</a></li>
+      <li data-section="obj-3.4.8"><a href="#obj-3.4.8">3.4.8 Processing devices</a></li>
+      <li data-section="obj-3.4.9"><a href="#obj-3.4.9">3.4.9 Control circuits</a></li>
+      <li data-section="obj-3.4.10"><a href="#obj-3.4.10">3.4.10 Output devices</a></li>
+      <li data-section="obj-3.4.11"><a href="#obj-3.4.11">3.4.11 Feedback</a></li>
+      <li data-section="obj-3.4.12"><a href="#obj-3.4.12">3.4.12 Operational amplifiers</a></li>
+      <li data-section="obj-3.4.13"><a href="#obj-3.4.13">3.4.13 Embedded systems</a></li>
+      <li data-section="obj-3.4.14"><a href="#obj-3.4.14">3.4.14 Circuit diagrams</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item" data-section="quiz"><a href="#quiz">Quiz</a></li>
+  <li class="curr-toc-item" data-section="paper2"><a href="#paper2">Paper 2 Practice</a></li>
+  <li class="curr-toc-item" data-section="references"><a href="#references">References</a></li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 00 — INTRODUCTION                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="introduction" style="--curr-color:#2c5f6e;">
+<button class="curr-trigger" aria-expanded="true" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body open" id="body-introduction">
+<p>Electronics are present in nearly every modern product — from the temperature sensor in a kettle to the microcontroller in a pacemaker. Designers who understand how electronic systems work can make informed decisions about component selection, energy efficiency, and responsible product design.</p>
+<p>This topic introduces the fundamental model of any electronic system — input, process, output, and feedback — and builds from basic analogue and digital concepts through to components, sensors, control circuits, operational amplifiers, embedded systems, and circuit diagrams. These foundations are applied and extended in B3.4 Electronic Systems Application and Selection.</p>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 01 — STUDY GUIDE                                 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="curr-section" id="study-guide" style="--curr-color:#2c5f6e;">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
-<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
+<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide and Classroom Activities</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-study">
-<p class="curr-section-intro">Electronic systems span analogue and digital circuits, input/output components, microcontrollers, and embedded systems. These notes cover each learning objective in turn, from basic circuit concepts through to IoT and operational amplifiers.</p>
+<div class="curr-section-intro-wrap">
+<p class="curr-section-intro">From the IPO model to op-amps and circuit diagrams, this topic builds the foundational electronic literacy needed before tackling the applied selection and testing content of B3.4. Focus on the vocabulary and core concepts of both analogue and digital domains.</p>
+<div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Introduction to Electronic Systems — A3.4"></div>
+</div>
+
+<div class="lang-toggle-bar">
+<label class="lang-toggle-label">
+<input type="checkbox" id="zh-toggle" class="lang-toggle-checkbox">
+Show Chinese · 显示中文
+</label>
+</div>
+
 <div class="obj-list">
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.1"><div class="obj-trigger-left"><span class="obj-code">3.4.1</span><h3>Electronic systems comprise of an input, process, output and feedback loop.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.1"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe an electronic system in terms of input, process, output and feedback.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.1 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.1">
+<div class="obj-trigger-left"><span class="obj-code">3.4.1</span><h3>Electronic systems comprise of an input, process, output and feedback loop.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe an electronic system in terms of input, process, output and feedback.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Every electronic system can be described using the <strong>Input–Process–Output (IPO) model</strong>, often extended with a <strong>feedback loop</strong>:</p>
+<ul>
+<li><strong>Input</strong> — A sensor or transducer converts a physical quantity (light, temperature, sound, force, position) into an electrical signal the system can process. Examples: microphone, thermistor, photodiode, push-button switch.</li>
+<li><strong>Process</strong> — A control unit (microcontroller, logic circuit, or op-amp) receives the input signal and applies programmed logic or circuitry to decide on a response. This may involve amplification, comparison, timing, or computation.</li>
+<li><strong>Output</strong> — An actuator or output transducer converts the processed electrical signal back into a physical effect. Examples: LED (light), loudspeaker (sound), motor (movement), heater (heat).</li>
+<li><strong>Feedback</strong> — A signal from the output is returned to the input or process stage to modify behaviour. <em>Negative feedback</em> reduces the difference between desired and actual output, creating stable, self-regulating systems. Example: a thermostat monitors room temperature (feedback) and turns a heater on or off (output) to maintain a set point (input).</li>
+</ul>
+<p><strong>Example — electric kettle:</strong> Temperature sensor (input) → microcontroller compares measured temperature to 100 °C target (process) → heating element on or off (output) → temperature reading returned to process (feedback).</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>每个电子系统都可以用<strong>输入–处理–输出（IPO）模型</strong>来描述，通常还会加入<strong>反馈回路</strong>：</p>
+<ul>
+<li><strong>输入</strong>——传感器或换能器将物理量（光、温度、声音、力、位置）转换为系统可处理的电信号。例如：麦克风、热敏电阻、光电二极管、按钮开关。</li>
+<li><strong>处理</strong>——控制单元（微控制器、逻辑电路或运算放大器）接收输入信号，并应用编程逻辑或电路来决定响应。这可能包括放大、比较、定时或计算。</li>
+<li><strong>输出</strong>——执行器或输出换能器将处理后的电信号转换回物理效果。例如：LED（光）、扬声器（声音）、电机（运动）、加热器（热量）。</li>
+<li><strong>反馈</strong>——来自输出的信号被返回到输入或处理阶段以改变行为。<em>负反馈</em>减少期望输出与实际输出之间的差异，创建稳定的自调节系统。例如：恒温器监测室温（反馈）并开关加热器（输出）以维持设定点（输入）。</li>
+</ul>
+<p><strong>示例——电热水壶：</strong>温度传感器（输入）→ 微控制器将测量温度与100°C目标值比较（处理）→ 加热元件开关（输出）→ 温度读数返回处理阶段（反馈）。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.2"><div class="obj-trigger-left"><span class="obj-code">3.4.2</span><h3>Electronics are ubiquitous and designers need to consider how they can be created so that they may be used responsibly in homes, industry and society as well as improving aspects of modern-day life.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.2"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify electronic products that are safe, energy-efficient and utilize minimal energy.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.2 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.2">
+<div class="obj-trigger-left"><span class="obj-code">3.4.2</span><h3>Electronics are ubiquitous and designers need to consider how they can be created so that they may be used responsibly.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify electronic products that are safe, energy-efficient and utilise minimal energy.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Electronics are embedded in almost every product we use — smartphones, medical devices, household appliances, vehicles, infrastructure. This ubiquity creates both opportunity and responsibility for designers.</p>
+<p><strong>Responsible electronic design considers:</strong></p>
+<ul>
+<li><strong>Safety</strong> — Devices must not harm users or bystanders. Electrical insulation, thermal protection, overvoltage protection (fuses, circuit breakers), and regulatory compliance (CE marking in Europe, UL in the USA) are all safety measures. Medical devices face the most stringent safety standards.</li>
+<li><strong>Energy efficiency</strong> — Electronic products consume energy throughout their life. Sleep modes, LED lighting, variable-speed drives, and power factor correction all reduce consumption. The EU Ecodesign Directive requires manufacturers to demonstrate energy efficiency before products can be sold.</li>
+<li><strong>Minimal standby power</strong> — Many devices consume power even when not in active use (standby loss, "phantom load"). Efficient designs reduce this to near zero. EU regulations cap standby power at 0.5 W for most devices.</li>
+<li><strong>End-of-life</strong> — Electronic waste (e-waste) is the fastest-growing waste stream globally. Designers should minimise toxic materials (lead, mercury, cadmium — now restricted by RoHS), use recyclable materials, and design for disassembly so components can be recovered.</li>
+<li><strong>Data and privacy</strong> — Connected electronic products collect data. Designers have responsibilities around secure data storage, minimal data collection, and transparency with users.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>电子产品几乎嵌入了我们使用的每一件产品中——智能手机、医疗设备、家用电器、车辆、基础设施。这种无处不在的特性为设计师带来了机遇，也带来了责任。</p>
+<p><strong>负责任的电子设计考虑以下方面：</strong></p>
+<ul>
+<li><strong>安全性</strong>——设备不得伤害用户或旁观者。绝缘、热保护、过压保护（保险丝、断路器）和法规符合性（欧洲的CE认证、美国的UL认证）都是安全措施。医疗设备面临最严格的安全标准。</li>
+<li><strong>能源效率</strong>——电子产品在其整个生命周期内都会消耗能源。睡眠模式、LED照明、变频驱动和功率因数校正都能减少消耗。欧盟生态设计指令要求制造商在产品上市前证明其能源效率。</li>
+<li><strong>最小待机功耗</strong>——许多设备即使在不活跃使用时也会消耗电力（待机损耗、"幽灵负载"）。高效设计将此降低至接近零。欧盟法规规定大多数设备的待机功耗上限为0.5W。</li>
+<li><strong>生命末期处理</strong>——电子垃圾（e-waste）是全球增长最快的废物流。设计师应尽量减少有毒材料（铅、汞、镉——现已受RoHS限制），使用可回收材料，并为拆卸而设计，以便回收组件。</li>
+<li><strong>数据与隐私</strong>——联网电子产品收集数据。设计师有责任确保安全的数据存储、最小化数据收集，并对用户保持透明。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.3"><div class="obj-trigger-left"><span class="obj-code">3.4.3</span><h3>Electronic systems can be either analogue or digital.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.3"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between analogue and digital systems.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.3 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.3">
+<div class="obj-trigger-left"><span class="obj-code">3.4.3</span><h3>Electronic systems can be either analogue or digital.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between analogue and digital systems.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values. An analogue signal can take any value between a minimum and maximum — just like the physical world it represents. A microphone output, a temperature sensor voltage, and the position of a potentiometer are all analogue signals.</p>
+<p><strong>Digital systems</strong> represent and process information using only two discrete states: HIGH (logic 1, typically 3.3 V or 5 V) and LOW (logic 0, 0 V). All data — numbers, text, images, audio, video — is encoded as sequences of binary digits (bits). The binary system uses base 2 (only digits 0 and 1).</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Feature</th><th>Analogue</th><th>Digital</th></tr></thead>
+<tbody>
+<tr><td>Signal type</td><td>Continuously variable</td><td>Two discrete states (0 or 1)</td></tr>
+<tr><td>Noise sensitivity</td><td>High — noise degrades the signal</td><td>Low — noise rejected as long as threshold is not crossed</td></tr>
+<tr><td>Processing</td><td>Op-amps, filters, oscillators</td><td>Logic gates, microcontrollers, processors</td></tr>
+<tr><td>Example</td><td>Vinyl record, analogue thermometer, AM radio</td><td>CD audio, digital thermometer, Wi-Fi</td></tr>
+</tbody>
+</table>
+</div>
+<p>Most modern systems are <strong>mixed signal</strong> — an analogue front-end (sensor, amplifier) converts real-world signals, then an Analogue-to-Digital Converter (ADC) converts them to digital form for processing. Digital-to-Analogue Converters (DAC) convert digital results back to analogue for output (e.g., speakers, actuators).</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>模拟系统</strong>使用在一定范围内连续变化的信号。模拟信号可以取最小值和最大值之间的任意值——就像它所代表的物理世界一样。麦克风输出、温度传感器电压和电位器位置都是模拟信号。</p>
+<p><strong>数字系统</strong>仅使用两种离散状态来表示和处理信息：HIGH（逻辑1，通常为3.3V或5V）和LOW（逻辑0，0V）。所有数据——数字、文本、图像、音频、视频——都被编码为二进制数字（位）序列。二进制系统使用以2为基数（仅有数字0和1）。</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>特征</th><th>模拟</th><th>数字</th></tr></thead>
+<tbody>
+<tr><td>信号类型</td><td>连续可变</td><td>两种离散状态（0或1）</td></tr>
+<tr><td>噪声敏感性</td><td>高——噪声会降低信号质量</td><td>低——只要不超过阈值，噪声就会被抑制</td></tr>
+<tr><td>处理方式</td><td>运算放大器、滤波器、振荡器</td><td>逻辑门、微控制器、处理器</td></tr>
+<tr><td>示例</td><td>黑胶唱片、模拟温度计、AM收音机</td><td>CD音频、数字温度计、Wi-Fi</td></tr>
+</tbody>
+</table>
+</div>
+<p>大多数现代系统是<strong>混合信号</strong>系统——模拟前端（传感器、放大器）转换现实世界的信号，然后模数转换器（ADC）将其转换为数字形式进行处理。数模转换器（DAC）将数字结果转换回模拟信号输出（如扬声器、执行器）。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.4"><div class="obj-trigger-left"><span class="obj-code">3.4.4</span><h3>An analogue system uses continually changing signals such as sine waves.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.4"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe analogue systems in terms of voltage, current, resistance, frequency and power using SI units: ampere (A), second (s), hertz (Hz), watt (W), volt (V), ohm (Ω). Use SI multipliers: p, n, μ, m, k, M, G, T.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.4 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.4">
+<div class="obj-trigger-left"><span class="obj-code">3.4.4</span><h3>An analogue system uses continually changing signals such as sine waves.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe analogue systems in terms of voltage, current, resistance, frequency and power using SI units: ampere (A), second (s), hertz (Hz), watt (W), volt (V), ohm (Ω). Use SI multipliers: p, n, μ, m, k, M, G, T.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Analogue signals are characterised by quantities that vary continuously. The most common waveform is the <strong>sine wave</strong> — it models the output of AC generators, audio signals, and many natural phenomena. Key analogue quantities and their SI units:</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Quantity</th><th>Symbol</th><th>SI Unit</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td>Voltage (potential difference)</td><td>V</td><td>Volt (V)</td><td>Energy transferred per unit charge; drives current through a circuit</td></tr>
+<tr><td>Current</td><td>I</td><td>Ampere (A)</td><td>Rate of flow of charge; 1 A = 1 coulomb per second</td></tr>
+<tr><td>Resistance</td><td>R</td><td>Ohm (Ω)</td><td>Opposition to current flow; Ohm's Law: V = IR</td></tr>
+<tr><td>Frequency</td><td>f</td><td>Hertz (Hz)</td><td>Number of complete cycles per second; 1 Hz = 1 cycle/s</td></tr>
+<tr><td>Power</td><td>P</td><td>Watt (W)</td><td>Rate of energy transfer; P = IV = V²/R = I²R</td></tr>
+<tr><td>Time</td><td>t</td><td>Second (s)</td><td>Period T = 1/f (time for one complete cycle)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>SI multipliers:</strong> Engineers routinely use prefixes to avoid writing many zeros.</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Prefix</th><th>Symbol</th><th>Factor</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>pico</td><td>p</td><td>10⁻¹²</td><td>100 pF capacitor (picofarads)</td></tr>
+<tr><td>nano</td><td>n</td><td>10⁻⁹</td><td>10 nF capacitor (nanofarads)</td></tr>
+<tr><td>micro</td><td>μ</td><td>10⁻⁶</td><td>47 μF capacitor (microfarads)</td></tr>
+<tr><td>milli</td><td>m</td><td>10⁻³</td><td>20 mA LED current (milliamps)</td></tr>
+<tr><td>kilo</td><td>k</td><td>10³</td><td>10 kΩ resistor (kilohms)</td></tr>
+<tr><td>Mega</td><td>M</td><td>10⁶</td><td>1 MHz clock frequency (megahertz)</td></tr>
+<tr><td>Giga</td><td>G</td><td>10⁹</td><td>2.4 GHz Wi-Fi (gigahertz)</td></tr>
+<tr><td>Tera</td><td>T</td><td>10¹²</td><td>1 TB storage (terabytes)</td></tr>
+</tbody>
+</table>
+</div>
+<p>AC mains electricity in Australia is 230 V RMS at 50 Hz. A sine wave at 50 Hz completes one full cycle every 20 ms (period T = 1/50 = 0.02 s).</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>模拟信号的特点是连续变化的量。最常见的波形是<strong>正弦波</strong>——它模拟交流发电机的输出、音频信号和许多自然现象。关键模拟量及其SI单位：</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>量</th><th>符号</th><th>SI单位</th><th>定义</th></tr></thead>
+<tbody>
+<tr><td>电压（电位差）</td><td>V</td><td>伏特（V）</td><td>单位电荷传递的能量；驱动电流流过电路</td></tr>
+<tr><td>电流</td><td>I</td><td>安培（A）</td><td>电荷流动速率；1A = 每秒1库仑</td></tr>
+<tr><td>电阻</td><td>R</td><td>欧姆（Ω）</td><td>对电流流动的阻抗；欧姆定律：V = IR</td></tr>
+<tr><td>频率</td><td>f</td><td>赫兹（Hz）</td><td>每秒完整周期数；1Hz = 1周期/秒</td></tr>
+<tr><td>功率</td><td>P</td><td>瓦特（W）</td><td>能量传递速率；P = IV = V²/R = I²R</td></tr>
+<tr><td>时间</td><td>t</td><td>秒（s）</td><td>周期T = 1/f（一个完整周期的时间）</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>SI前缀：</strong>工程师通常使用前缀来避免书写多个零。</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>前缀</th><th>符号</th><th>倍数</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td>皮</td><td>p</td><td>10⁻¹²</td><td>100 pF电容（皮法）</td></tr>
+<tr><td>纳</td><td>n</td><td>10⁻⁹</td><td>10 nF电容（纳法）</td></tr>
+<tr><td>微</td><td>μ</td><td>10⁻⁶</td><td>47 μF电容（微法）</td></tr>
+<tr><td>毫</td><td>m</td><td>10⁻³</td><td>20 mA LED电流（毫安）</td></tr>
+<tr><td>千</td><td>k</td><td>10³</td><td>10 kΩ电阻（千欧）</td></tr>
+<tr><td>兆</td><td>M</td><td>10⁶</td><td>1 MHz时钟频率（兆赫）</td></tr>
+<tr><td>吉</td><td>G</td><td>10⁹</td><td>2.4 GHz Wi-Fi（吉赫）</td></tr>
+<tr><td>太</td><td>T</td><td>10¹²</td><td>1 TB存储（太字节）</td></tr>
+</tbody>
+</table>
+</div>
+<p>澳大利亚的交流电源为50Hz下的230V有效值。50Hz的正弦波每20ms完成一个完整周期（周期T = 1/50 = 0.02秒）。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.5"><div class="obj-trigger-left"><span class="obj-code">3.4.5</span><h3>A digital system is designed to store, process and communicate information in digital form.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.5"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe digital systems in terms of using discrete values such as binary digits and on and off signals. Define logic gates.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.5 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.5">
+<div class="obj-trigger-left"><span class="obj-code">3.4.5</span><h3>A digital system is designed to store, process and communicate information in digital form.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe digital systems in terms of using discrete values such as binary digits and on and off signals. Define logic gates.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Digital systems store, process, and transmit all information as binary (base-2) numbers — sequences of 0s and 1s. Each binary digit is a <strong>bit</strong>; 8 bits = 1 byte. Advantages of digital over analogue: noise immunity, perfect copying, easy storage, encryption, and compression.</p>
+<p><strong>Logic gates</strong> are the fundamental building blocks of digital circuits. They take one or more binary inputs and produce a single binary output according to a defined Boolean function:</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Gate</th><th>Symbol label</th><th>Function</th><th>Output rule</th></tr></thead>
+<tbody>
+<tr><td><strong>AND</strong></td><td>&amp;</td><td>Output HIGH only when ALL inputs are HIGH</td><td>A AND B → 1 only if A=1 and B=1</td></tr>
+<tr><td><strong>OR</strong></td><td>≥1</td><td>Output HIGH when ANY input is HIGH</td><td>A OR B → 1 if A=1 or B=1 (or both)</td></tr>
+<tr><td><strong>NOT</strong></td><td>1</td><td>Inverts the single input</td><td>NOT A → 1 if A=0; 0 if A=1</td></tr>
+<tr><td><strong>NAND</strong></td><td>&amp; with bubble</td><td>NOT AND — inverse of AND</td><td>Output LOW only when ALL inputs HIGH</td></tr>
+<tr><td><strong>NOR</strong></td><td>≥1 with bubble</td><td>NOT OR — inverse of OR</td><td>Output HIGH only when ALL inputs LOW</td></tr>
+<tr><td><strong>XOR</strong></td><td>=1</td><td>Exclusive OR — output HIGH when inputs differ</td><td>A XOR B → 1 only if A ≠ B</td></tr>
+</tbody>
+</table>
+</div>
+<p>Logic gates combine to form adders, comparators, flip-flops (memory cells), counters, and all the complex functions of a microprocessor. NAND and NOR are <em>universal gates</em> — any logic function can be built using only one type.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>数字系统以二进制（以2为底）数字——0和1的序列——来存储、处理和传输所有信息。每个二进制数字是一个<strong>位（bit）</strong>；8位 = 1字节。数字相较于模拟的优点：抗噪性强、完美复制、易于存储、可加密和压缩。</p>
+<p><strong>逻辑门</strong>是数字电路的基本构建模块。它们接受一个或多个二进制输入，并根据定义的布尔函数产生单个二进制输出：</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>门</th><th>符号标签</th><th>功能</th><th>输出规则</th></tr></thead>
+<tbody>
+<tr><td><strong>与门（AND）</strong></td><td>&amp;</td><td>仅当所有输入为高时输出高</td><td>A AND B → 仅当A=1且B=1时为1</td></tr>
+<tr><td><strong>或门（OR）</strong></td><td>≥1</td><td>任意输入为高时输出高</td><td>A OR B → A=1或B=1时为1（或两者）</td></tr>
+<tr><td><strong>非门（NOT）</strong></td><td>1</td><td>对单个输入取反</td><td>NOT A → A=0时为1；A=1时为0</td></tr>
+<tr><td><strong>与非门（NAND）</strong></td><td>带圆圈的&amp;</td><td>AND取反</td><td>仅当所有输入高时输出低</td></tr>
+<tr><td><strong>或非门（NOR）</strong></td><td>带圆圈的≥1</td><td>OR取反</td><td>仅当所有输入低时输出高</td></tr>
+<tr><td><strong>异或门（XOR）</strong></td><td>=1</td><td>输入不同时输出高</td><td>A XOR B → 仅当A≠B时为1</td></tr>
+</tbody>
+</table>
+</div>
+<p>逻辑门组合构成加法器、比较器、触发器（存储单元）、计数器以及微处理器的所有复杂功能。与非门和或非门是<em>通用门</em>——任何逻辑功能都可以只用一种门来实现。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.6"><div class="obj-trigger-left"><span class="obj-code">3.4.6</span><h3>Electronic systems are composed of electronic components that have a specific purpose.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.6"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the purpose of passive electronic components, including fixed and variable resistors, capacitors, switches, relays and active components such as diodes and transistors.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.6 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.6">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.6">
+<div class="obj-trigger-left"><span class="obj-code">3.4.6</span><h3>Electronic systems are composed of electronic components that have a specific purpose.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.6">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the purpose of passive electronic components, including fixed and variable resistors, capacitors, switches, relays; and active components such as diodes and transistors.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Passive components</strong> do not require an external power supply to function and cannot amplify signals — they can only attenuate, store, or redirect energy:</p>
+<ul>
+<li><strong>Fixed resistors</strong> — Limit current flow according to Ohm's Law (V = IR). Used for biasing, current limiting (protecting LEDs), and voltage division. Measured in ohms (Ω). Colour codes indicate value.</li>
+<li><strong>Variable resistors (potentiometers / rheostats)</strong> — Resistance adjustable by turning a dial or sliding a wiper. Used for volume controls, dimmer switches, position sensors.</li>
+<li><strong>Capacitors</strong> — Store electrical charge (energy) in an electric field. Used for filtering, smoothing power supplies, timing circuits, and coupling/decoupling. Measured in farads (F), typically μF or pF. Electrolytic capacitors are polarised (must be connected the right way round).</li>
+<li><strong>Switches</strong> — Mechanically open or close a circuit. Types: SPST (single-pole single-throw — on/off), SPDT (changeover), DPDT, push-to-make, push-to-break, reed switches (activated by a magnet).</li>
+<li><strong>Relays</strong> — Electrically operated switches. A small current through an electromagnet coil controls a separate, larger-current switching contact. Used to allow a low-voltage microcontroller to switch mains-voltage circuits safely.</li>
+</ul>
+<p><strong>Active components</strong> require an external energy source and can amplify or switch signals:</p>
+<ul>
+<li><strong>Diodes</strong> — Allow current to flow in one direction only (anode to cathode). Used for rectification (AC to DC), voltage clamping, and protection. LED (Light Emitting Diode) emits light when forward biased.</li>
+<li><strong>Transistors (BJT and MOSFET)</strong> — Three-terminal devices that act as electronically controlled switches or amplifiers. A small base/gate signal controls a much larger collector/drain current. Fundamental to all digital and analogue circuits — a modern processor contains billions of MOSFET transistors.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>无源元件</strong>不需要外部电源即可工作，不能放大信号——只能衰减、存储或重定向能量：</p>
+<ul>
+<li><strong>固定电阻</strong>——根据欧姆定律（V = IR）限制电流。用于偏置、限流（保护LED）和分压。以欧姆（Ω）为单位。色码指示阻值。</li>
+<li><strong>可变电阻（电位器/变阻器）</strong>——通过旋转旋钮或滑动触点来调节电阻。用于音量控制、调光开关和位置传感器。</li>
+<li><strong>电容器</strong>——在电场中存储电荷（能量）。用于滤波、平滑电源、定时电路和耦合/去耦。以法拉（F）为单位，通常为μF或pF。电解电容器有极性（必须正确连接）。</li>
+<li><strong>开关</strong>——机械地断开或闭合电路。类型：SPST（单刀单掷——开/关）、SPDT（换向）、DPDT、按下接通、按下断开、干簧管开关（由磁铁激活）。</li>
+<li><strong>继电器</strong>——电控开关。通过线圈中的小电流控制独立的较大电流开关触点。用于允许低电压微控制器安全控制市电电压电路。</li>
+</ul>
+<p><strong>有源元件</strong>需要外部能源，可以放大或切换信号：</p>
+<ul>
+<li><strong>二极管</strong>——允许电流只沿一个方向流动（从阳极到阴极）。用于整流（交流转直流）、电压钳位和保护。LED（发光二极管）在正向偏置时发光。</li>
+<li><strong>晶体管（BJT和MOSFET）</strong>——三端器件，作为电子控制的开关或放大器。小的基极/栅极信号控制更大的集电极/漏极电流。是所有数字和模拟电路的基础——现代处理器包含数十亿个MOSFET晶体管。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.7"><div class="obj-trigger-left"><span class="obj-code">3.4.7</span><h3>Electronic systems utilize input devices to identify a change in an environment that requires a response.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.7"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the purpose of basic analogue and digital input electronic components, including switches and sensors (including light, temperature, humidity and sound).</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.7 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.7">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.7">
+<div class="obj-trigger-left"><span class="obj-code">3.4.7</span><h3>Electronic systems utilise input devices to identify a change in an environment that requires a response.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.7">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify appropriate input devices for a given electronic system, including light, sound, temperature, motion, and touch sensors.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Input devices (sensors and transducers) convert a physical change in the environment into an electrical signal. Choosing the right sensor is a key design decision. Common sensor types:</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Sensor</th><th>Detects</th><th>Type</th><th>Application</th></tr></thead>
+<tbody>
+<tr><td>LDR (Light Dependent Resistor)</td><td>Light intensity</td><td>Analogue — resistance decreases with light</td><td>Automatic street lights, camera exposure</td></tr>
+<tr><td>Thermistor (NTC)</td><td>Temperature</td><td>Analogue — resistance decreases as temp rises</td><td>Thermostats, fire alarms, engine management</td></tr>
+<tr><td>Microphone</td><td>Sound (pressure waves)</td><td>Analogue — converts acoustic to electrical signal</td><td>Voice assistants, recording, alarms</td></tr>
+<tr><td>PIR (Passive Infrared)</td><td>Body heat / motion</td><td>Digital — detects IR changes from moving warm objects</td><td>Security lights, intruder alarms</td></tr>
+<tr><td>Ultrasonic sensor</td><td>Distance</td><td>Digital/analogue — measures echo time</td><td>Parking sensors, robotics, level sensing</td></tr>
+<tr><td>Push switch</td><td>Touch / physical press</td><td>Digital — open or closed</td><td>Keyboards, machine safety interlocks</td></tr>
+<tr><td>Potentiometer</td><td>Position / rotation</td><td>Analogue — voltage divider</td><td>Joysticks, rotary encoders, throttle control</td></tr>
+</tbody>
+</table>
+</div>
+<p>When selecting a sensor, designers consider: measurand (what physical property is detected), range, sensitivity, response time, linearity, power requirements, size, and cost.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>输入设备（传感器和换能器）将环境中的物理变化转换为电信号。选择正确的传感器是关键设计决策。常见传感器类型：</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>传感器</th><th>检测</th><th>类型</th><th>应用</th></tr></thead>
+<tbody>
+<tr><td>光敏电阻（LDR）</td><td>光照强度</td><td>模拟——电阻随光线增强而减小</td><td>自动路灯、相机曝光</td></tr>
+<tr><td>热敏电阻（NTC）</td><td>温度</td><td>模拟——电阻随温度升高而减小</td><td>恒温器、火灾报警、发动机管理</td></tr>
+<tr><td>麦克风</td><td>声音（压力波）</td><td>模拟——将声学信号转换为电信号</td><td>语音助手、录音、报警</td></tr>
+<tr><td>被动红外传感器（PIR）</td><td>体热/运动</td><td>数字——检测移动热物体的红外变化</td><td>安防灯、入侵报警</td></tr>
+<tr><td>超声波传感器</td><td>距离</td><td>数字/模拟——测量回声时间</td><td>倒车雷达、机器人、液位传感</td></tr>
+<tr><td>按钮开关</td><td>触摸/物理按压</td><td>数字——断开或闭合</td><td>键盘、机器安全联锁</td></tr>
+<tr><td>电位器</td><td>位置/旋转</td><td>模拟——分压器</td><td>操纵杆、旋转编码器、油门控制</td></tr>
+</tbody>
+</table>
+</div>
+<p>在选择传感器时，设计师需考虑：被测量（检测什么物理属性）、量程、灵敏度、响应时间、线性度、功耗、尺寸和成本。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.8"><div class="obj-trigger-left"><span class="obj-code">3.4.8</span><h3>Processing devices translate an input into an output.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.8"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Compare and differentiate basic analogue and digital electronic process components, including signal conditioning (analogue) and program control (digital).</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.8 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.8">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.8">
+<div class="obj-trigger-left"><span class="obj-code">3.4.8</span><h3>Processing devices translate an input into an output.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.8">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe the role of processing devices in an electronic system, including logic ICs, microcontrollers, and single-board computers.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>The <strong>process</strong> stage in an electronic system receives input signals, applies logic or computation, and generates output signals. Processing devices range in complexity:</p>
+<ul>
+<li><strong>Logic ICs</strong> — Integrated circuits containing fixed logic gates (AND, OR, NOT, etc.) in a single chip package. Examples: 74HC series (CMOS logic). Used for simple combinational logic — no programming required, but no flexibility.</li>
+<li><strong>Microcontrollers (MCUs)</strong> — A complete computer on a single chip: CPU, RAM, flash memory (for program storage), and programmable input/output pins. Program written in C, MicroPython, or a block-based language. Examples: Arduino (ATmega328), Raspberry Pi Pico (RP2040), PIC, STM32. Widely used in consumer electronics, automotive systems, and industrial control.</li>
+<li><strong>Single-board computers (SBCs)</strong> — Full Linux computers on one board. Examples: Raspberry Pi 4, BeagleBone. Have operating systems, USB, HDMI, ethernet — more powerful than MCUs but consume more power and require more time to boot.</li>
+<li><strong>FPGAs (Field-Programmable Gate Arrays)</strong> — Chips that can be configured to implement any digital circuit. Used in high-speed signal processing, prototyping, and aerospace/defence applications.</li>
+</ul>
+<p>For most embedded product designs, a <strong>microcontroller</strong> is the most common choice: it is purpose-built, inexpensive, energy-efficient, and available in a huge range of sizes and capabilities.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>电子系统中的<strong>处理</strong>阶段接收输入信号，应用逻辑或计算，并生成输出信号。处理设备的复杂程度不同：</p>
+<ul>
+<li><strong>逻辑IC</strong>——包含固定逻辑门（AND、OR、NOT等）的集成电路封装。示例：74HC系列（CMOS逻辑）。用于简单的组合逻辑——不需要编程，但没有灵活性。</li>
+<li><strong>微控制器（MCU）</strong>——单芯片上的完整计算机：CPU、RAM、闪存（用于程序存储）和可编程输入/输出引脚。程序用C、MicroPython或块式语言编写。示例：Arduino（ATmega328）、树莓派Pico（RP2040）、PIC、STM32。广泛用于消费电子、汽车系统和工业控制。</li>
+<li><strong>单板计算机（SBC）</strong>——一块板上的完整Linux计算机。示例：树莓派4、BeagleBone。有操作系统、USB、HDMI、以太网——比MCU更强大，但消耗更多电力，需要更长时间启动。</li>
+<li><strong>FPGA（现场可编程门阵列）</strong>——可配置为实现任何数字电路的芯片。用于高速信号处理、原型制作和航空航天/国防应用。</li>
+</ul>
+<p>对于大多数嵌入式产品设计，<strong>微控制器</strong>是最常见的选择：它专为特定目的而设计，价格低廉，能效高，并有大量不同尺寸和功能可供选择。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.9"><div class="obj-trigger-left"><span class="obj-code">3.4.9</span><h3>Many everyday electronic devices contain control circuits to monitor and control.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.9"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe the use of a microcontroller as a programmable integrated circuit (PIC) into which software can be loaded to carry out a range of processing tasks.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.9 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.9">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.9">
+<div class="obj-trigger-left"><span class="obj-code">3.4.9</span><h3>Many everyday electronic devices contain control circuits to monitor and control.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.9">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe the function of control circuits in everyday products, and explain how they monitor and respond to changing conditions.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>A <strong>control circuit</strong> continuously monitors one or more inputs, applies logic, and switches outputs on or off to maintain a desired condition. Control circuits underpin all automated systems.</p>
+<p><strong>Examples of control circuits in everyday products:</strong></p>
+<ul>
+<li><strong>Thermostat (home heating)</strong> — Temperature sensor monitors room temperature. When temperature falls below the set point, the control circuit closes a relay to activate the boiler. When temperature reaches the set point, the relay opens, turning the boiler off. This is an example of <em>on–off control</em> (bang-bang control).</li>
+<li><strong>Automatic street lights</strong> — LDR monitors light level. When ambient light falls below a threshold (dusk), the control circuit switches the lamp on. At dawn, the lamp switches off. The time delay prevents flickering in brief cloud shadow.</li>
+<li><strong>Washing machine</strong> — Multiple control circuits manage water temperature, water level (pressure sensor), drum motor speed (tachometer feedback), door lock, and timer. The main microcontroller coordinates all these through a programmed wash cycle.</li>
+<li><strong>Battery management system (BMS)</strong> — Monitors cell voltage, current, and temperature in a lithium battery pack. Controls charging rate, prevents overcharging or over-discharging, and balances cells. Critical for safety in electric vehicles and portable electronics.</li>
+</ul>
+<p>Control circuits may be implemented as hardwired analogue circuits (comparators with hysteresis) or as software running on a microcontroller. Software-based control is more flexible — parameters can be changed by reprogramming rather than replacing components.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>控制电路</strong>持续监控一个或多个输入，应用逻辑，并开关输出以维持所需条件。控制电路是所有自动化系统的基础。</p>
+<p><strong>日常产品中控制电路示例：</strong></p>
+<ul>
+<li><strong>恒温器（家庭供暖）</strong>——温度传感器监控室温。当温度低于设定点时，控制电路闭合继电器以启动锅炉。当温度达到设定点时，继电器断开，关闭锅炉。这是<em>开关控制</em>（乒乓控制）的示例。</li>
+<li><strong>自动路灯</strong>——光敏电阻监控光照水平。当环境光低于阈值（黄昏）时，控制电路开启路灯。黎明时，路灯关闭。时间延迟可防止短暂云影引起的闪烁。</li>
+<li><strong>洗衣机</strong>——多个控制电路管理水温、水位（压力传感器）、滚筒电机速度（转速反馈）、门锁和计时器。主微控制器通过编程洗涤程序协调所有这些。</li>
+<li><strong>电池管理系统（BMS）</strong>——监控锂电池组中的单元电压、电流和温度。控制充电速率，防止过充或过放，并平衡单元。对于电动汽车和便携式电子产品的安全至关重要。</li>
+</ul>
+<p>控制电路可以实现为硬接线模拟电路（带迟滞的比较器）或在微控制器上运行的软件。基于软件的控制更灵活——参数可以通过重新编程而非更换组件来更改。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.10"><div class="obj-trigger-left"><span class="obj-code">3.4.10</span><h3>Electronic systems utilize output devices to perform a function in response to an initial stimulus.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.10"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline basic analogue and digital electronic output components: motors, haptic devices, buzzers, speakers, headphones, printers, lights, plotters, relays, braille display, LED and LCD.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.10 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.10">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.10">
+<div class="obj-trigger-left"><span class="obj-code">3.4.10</span><h3>Electronic systems utilise output devices to perform a function in response to an initial stimulus.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.10">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify appropriate output devices for a given electronic system, including lights, displays, motors, speakers, and solenoids.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>Output devices convert an electrical signal into a physical effect — light, sound, motion, or heat. The output device chosen must match the application's requirements for power, speed, precision, and size.</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Output Device</th><th>Physical Effect</th><th>Application</th></tr></thead>
+<tbody>
+<tr><td>LED / LED array</td><td>Light (visual indication)</td><td>Status indicators, backlights, traffic lights, displays</td></tr>
+<tr><td>LCD / OLED display</td><td>Text and graphics</td><td>Instrument panels, smartwatches, control interfaces</td></tr>
+<tr><td>DC motor</td><td>Continuous rotation</td><td>Electric vehicles, fans, conveyor belts, toys</td></tr>
+<tr><td>Servo motor</td><td>Precise angular position</td><td>Robot joints, RC vehicles, camera gimbals</td></tr>
+<tr><td>Stepper motor</td><td>Stepped rotation (precise increments)</td><td>3D printers, CNC machines, disk drives</td></tr>
+<tr><td>Loudspeaker / buzzer</td><td>Sound (audio output)</td><td>Alarms, audio playback, voice output</td></tr>
+<tr><td>Solenoid</td><td>Linear push or pull motion</td><td>Door locks, valves, printers, pinball machines</td></tr>
+<tr><td>Heating element</td><td>Heat</td><td>Kettles, ovens, 3D printer hot-ends</td></tr>
+</tbody>
+</table>
+</div>
+<p>Power management is critical at the output stage: most microcontrollers can only supply ~40 mA per GPIO pin. A transistor or MOSFET driver, or a relay, is needed to switch higher-current outputs such as motors and solenoids.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>输出设备将电信号转换为物理效果——光、声音、运动或热量。所选输出设备必须满足应用对功率、速度、精度和尺寸的要求。</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>输出设备</th><th>物理效果</th><th>应用</th></tr></thead>
+<tbody>
+<tr><td>LED / LED阵列</td><td>光（视觉指示）</td><td>状态指示灯、背光、交通灯、显示屏</td></tr>
+<tr><td>LCD / OLED显示屏</td><td>文本和图形</td><td>仪表盘、智能手表、控制界面</td></tr>
+<tr><td>直流电机</td><td>连续旋转</td><td>电动汽车、风扇、传送带、玩具</td></tr>
+<tr><td>伺服电机</td><td>精确角位置</td><td>机器人关节、遥控车辆、相机云台</td></tr>
+<tr><td>步进电机</td><td>步进旋转（精确增量）</td><td>3D打印机、数控机床、磁盘驱动器</td></tr>
+<tr><td>扬声器/蜂鸣器</td><td>声音（音频输出）</td><td>报警、音频播放、语音输出</td></tr>
+<tr><td>电磁铁/螺线管</td><td>线性推拉运动</td><td>门锁、阀门、打印机、弹球机</td></tr>
+<tr><td>加热元件</td><td>热量</td><td>水壶、烤箱、3D打印机热端</td></tr>
+</tbody>
+</table>
+</div>
+<p>功率管理在输出阶段至关重要：大多数微控制器每个GPIO引脚只能提供约40mA电流。需要晶体管或MOSFET驱动器，或继电器，来切换电机和螺线管等大电流输出。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.11"><div class="obj-trigger-left"><span class="obj-code">3.4.11</span><h3>Electronic systems utilize feedback to monitor an environment and respond to a stimulus if required.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.11"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Compare open- and closed-loop electronic systems, identify where open- and closed-loop systems are used, and explain the purpose of feedback in a closed-loop system.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.11 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.11">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.11">
+<div class="obj-trigger-left"><span class="obj-code">3.4.11</span><h3>Electronic systems utilise feedback to monitor an environment and respond to a stimulus if required.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.11">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the role of negative and positive feedback in electronic systems, and identify how feedback creates self-regulating systems.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p><strong>Feedback</strong> is the process of routing part of the output signal back to the input, where it influences the system's behaviour. Feedback is fundamental to creating stable, accurate, self-correcting systems.</p>
+<p><strong>Negative feedback</strong> — The feedback signal opposes the change in output, reducing the difference between the desired (set point) and actual output. Negative feedback makes systems stable and predictable.</p>
+<ul>
+<li><em>Example</em>: A cruise control system measures actual vehicle speed (output), compares it to the set speed (set point), and adjusts the throttle (process) to reduce the error. If the car slows going uphill, the throttle opens; if it accelerates downhill, the throttle closes.</li>
+<li><em>Example</em>: An op-amp with negative feedback has its output fed back to its inverting input, dramatically improving linearity, bandwidth, and output stability compared to open-loop operation.</li>
+</ul>
+<p><strong>Positive feedback</strong> — The feedback signal reinforces the change, amplifying the output further in the same direction. Positive feedback leads to instability or latching behaviour — often used deliberately in oscillators and Schmitt triggers.</p>
+<ul>
+<li><em>Example</em>: Microphone held too close to a speaker — sound is picked up, amplified, played back, and picked up again — producing a loud squeal (runaway positive feedback).</li>
+<li><em>Example</em>: Schmitt trigger — uses positive feedback to create sharp, clean transitions between HIGH and LOW, eliminating noise-induced jitter on the edges of slowly changing input signals.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>反馈</strong>是将部分输出信号引回输入端的过程，在那里它影响系统的行为。反馈是创建稳定、准确、自校正系统的基础。</p>
+<p><strong>负反馈</strong>——反馈信号对抗输出变化，减少期望（设定点）与实际输出之间的差异。负反馈使系统稳定且可预测。</p>
+<ul>
+<li><em>示例</em>：巡航控制系统测量实际车速（输出），将其与设定速度（设定点）比较，并调整油门（处理）以减少误差。如果汽车上坡减速，油门开大；如果下坡加速，油门关小。</li>
+<li><em>示例</em>：具有负反馈的运算放大器将其输出反馈至反相输入端，与开环操作相比，大大提高了线性度、带宽和输出稳定性。</li>
+</ul>
+<p><strong>正反馈</strong>——反馈信号强化变化，进一步沿同一方向放大输出。正反馈导致不稳定或锁存行为——常被有意用于振荡器和施密特触发器中。</p>
+<ul>
+<li><em>示例</em>：麦克风靠近扬声器——声音被拾取、放大、播放，再次被拾取——产生响亮的啸叫（失控的正反馈）。</li>
+<li><em>示例</em>：施密特触发器——使用正反馈在HIGH和LOW之间创建清晰、干净的转换，消除缓慢变化输入信号边缘的噪声抖动。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.12"><div class="obj-trigger-left"><span class="obj-code">3.4.12</span><h3>An operational amplifier (op-amp) is a high-gain voltage amplifier with differential inputs and a single output.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.12"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe the common applications of op-amps, such as analogue or digital signal amplifiers used to amplify signals from sensors in internet of things (IoT) home appliances.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.12 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.12">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.12">
+<div class="obj-trigger-left"><span class="obj-code">3.4.12</span><h3>An operational amplifier (op-amp) is a high-gain voltage amplifier with differential inputs and a single output.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.12">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe the characteristics of an ideal op-amp and explain the operation of inverting and non-inverting amplifier configurations.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>An <strong>operational amplifier (op-amp)</strong> is a high-gain, DC-coupled voltage amplifier with two inputs — a non-inverting input (+) and an inverting input (−) — and a single output. Op-amps are integrated circuits (the μA741 is the classic example; the LM358 and TL071 are widely used modern variants).</p>
+<p><strong>Ideal op-amp characteristics</strong>: infinite open-loop gain, infinite input impedance (draws no current), zero output impedance, zero offset voltage, infinite bandwidth. Real op-amps approach these ideals.</p>
+<p><strong>Common configurations:</strong></p>
+<ul>
+<li><strong>Comparator (open loop)</strong> — No feedback. Output swings to positive or negative rail depending on which input is higher. V+ &gt; V− → output HIGH; V− &gt; V+ → output LOW. Used to compare a sensor voltage to a reference (e.g., trigger an alarm when temperature exceeds a threshold).</li>
+<li><strong>Inverting amplifier (negative feedback)</strong> — Input resistor R₁ at the inverting input; feedback resistor R₂ from output to inverting input. Voltage gain A = −R₂/R₁ (negative = inverted). Example: R₁ = 1 kΩ, R₂ = 10 kΩ → gain = −10.</li>
+<li><strong>Non-inverting amplifier (negative feedback)</strong> — Input at non-inverting (+) terminal; feedback resistors R₁ and R₂ set gain. Voltage gain A = 1 + R₂/R₁ (always positive, output in phase with input). Example: R₁ = 1 kΩ, R₂ = 9 kΩ → gain = +10.</li>
+<li><strong>Voltage follower (unity gain buffer)</strong> — Output connected directly to inverting input. Gain = 1; used to buffer a high-impedance source without drawing current from it.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>运算放大器（op-amp）</strong>是一种高增益、直流耦合的电压放大器，具有两个输入端——同相输入（+）和反相输入（-）——以及单个输出端。运算放大器是集成电路（μA741是经典例子；LM358和TL071是广泛使用的现代变体）。</p>
+<p><strong>理想运算放大器特性</strong>：无限开环增益、无限输入阻抗（不吸取电流）、零输出阻抗、零偏移电压、无限带宽。真实的运算放大器接近这些理想值。</p>
+<p><strong>常见配置：</strong></p>
+<ul>
+<li><strong>比较器（开环）</strong>——无反馈。输出摆动至正或负电源轨，取决于哪个输入更高。V+ &gt; V- → 输出HIGH；V- &gt; V+ → 输出LOW。用于将传感器电压与参考值进行比较（如温度超过阈值时触发报警）。</li>
+<li><strong>反相放大器（负反馈）</strong>——输入电阻R₁在反相输入端；反馈电阻R₂从输出到反相输入。电压增益A = -R₂/R₁（负号 = 反相）。示例：R₁ = 1kΩ，R₂ = 10kΩ → 增益 = -10。</li>
+<li><strong>同相放大器（负反馈）</strong>——输入在同相（+）端；反馈电阻R₁和R₂设置增益。电压增益A = 1 + R₂/R₁（始终为正，输出与输入同相）。示例：R₁ = 1kΩ，R₂ = 9kΩ → 增益 = +10。</li>
+<li><strong>电压跟随器（单位增益缓冲器）</strong>——输出直接连接到反相输入。增益 = 1；用于缓冲高阻抗源而不从中吸取电流。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.13"><div class="obj-trigger-left"><span class="obj-code">3.4.13</span><h3>Digital systems communicate with each other through the use of embedded systems to perform a specific task.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.13"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Define an embedded system, encompassing its role in augmenting everyday products' functionality, efficiency and automation.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.13 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.13">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.13">
+<div class="obj-trigger-left"><span class="obj-code">3.4.13</span><h3>Digital systems communicate with each other through the use of embedded systems to perform a specific task.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.13">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe what an embedded system is and explain how embedded systems communicate with each other using standard protocols.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>An <strong>embedded system</strong> is a dedicated computer system designed to perform a specific function within a larger product or system. Unlike a general-purpose computer, an embedded system runs a fixed program and is not intended to be reprogrammed by the end user.</p>
+<p><strong>Key characteristics</strong>: dedicated function, real-time response, constrained resources (limited RAM and flash memory), low power consumption, high reliability, long service life.</p>
+<p><strong>Examples</strong>: Engine control unit (ECU) in a car, anti-lock brake system, insulin pump controller, smart thermostat, industrial PLC (Programmable Logic Controller), washing machine control board.</p>
+<p><strong>Communication between embedded systems</strong> — Multiple embedded systems within a product or across products use standard serial communication protocols:</p>
+<ul>
+<li><strong>I²C (Inter-Integrated Circuit)</strong> — Two-wire bus (SDA data, SCL clock). Supports multiple devices on one bus using addresses. Typical speed: 100 kHz or 400 kHz. Used for sensors, displays, EEPROMs in short-range connections.</li>
+<li><strong>SPI (Serial Peripheral Interface)</strong> — Four-wire bus (MOSI, MISO, SCK, CS). Higher speed than I²C, full-duplex. Used for SD cards, ADCs, and fast displays.</li>
+<li><strong>UART (Universal Asynchronous Receiver/Transmitter)</strong> — Two-wire (TX, RX). Simple, no clock line — devices must agree on baud rate. Used for GPS modules, Bluetooth serial links, debugging.</li>
+<li><strong>CAN bus (Controller Area Network)</strong> — Robust two-wire differential bus used in automotive and industrial applications. Supports up to 1 Mbit/s; resistant to electrical noise; each node can communicate with all others.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>嵌入式系统</strong>是专用计算机系统，设计用于在更大产品或系统中执行特定功能。与通用计算机不同，嵌入式系统运行固定程序，不打算由最终用户重新编程。</p>
+<p><strong>关键特性</strong>：专用功能、实时响应、资源受限（RAM和闪存有限）、低功耗、高可靠性、长使用寿命。</p>
+<p><strong>示例</strong>：汽车发动机控制单元（ECU）、防抱死制动系统、胰岛素泵控制器、智能恒温器、工业PLC（可编程逻辑控制器）、洗衣机控制板。</p>
+<p><strong>嵌入式系统间通信</strong>——产品内或产品间的多个嵌入式系统使用标准串行通信协议：</p>
+<ul>
+<li><strong>I²C（集成电路总线）</strong>——双线总线（SDA数据、SCL时钟）。使用地址支持总线上的多个设备。典型速度：100kHz或400kHz。用于短距离连接的传感器、显示屏、EEPROM。</li>
+<li><strong>SPI（串行外围接口）</strong>——四线总线（MOSI、MISO、SCK、CS）。比I²C速度更高，全双工。用于SD卡、ADC和快速显示屏。</li>
+<li><strong>UART（通用异步收发器）</strong>——双线（TX、RX）。简单，无时钟线——设备必须就波特率达成一致。用于GPS模块、蓝牙串行链路、调试。</li>
+<li><strong>CAN总线（控制器局域网）</strong>——汽车和工业应用中使用的健壮双线差分总线。支持高达1Mbit/s；抗电气噪声；每个节点可与所有其他节点通信。</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.14"><div class="obj-trigger-left"><span class="obj-code">3.4.14</span><h3>Electronic components are combined to perform a function in an electronic circuit, which is represented in a circuit diagram.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a3.4.14"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify the symbols used in a circuit diagram for fixed and variable resistors, capacitors, switches, relays, diodes, transistors, operational amplifiers and input and output devices.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 3.4.14 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-3.4.14">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a3.4.14">
+<div class="obj-trigger-left"><span class="obj-code">3.4.14</span><h3>Electronic components are combined to perform a function in an electronic circuit, which is represented in a circuit diagram.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-a3.4.14">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Draw and interpret simple electronic circuit diagrams using standard IEC symbols, and distinguish between series and parallel circuits.</p>
+<div class="bilingual-block">
+<div class="lang-col">
+<span class="lang-label">English</span>
+<p>A <strong>circuit diagram</strong> (schematic) is a standardised graphical representation of an electronic circuit, using universally recognised symbols defined by IEC 60617. Circuit diagrams allow engineers worldwide to communicate circuit designs unambiguously.</p>
+<p><strong>Key IEC schematic symbols</strong> (know these for examination):</p>
+<ul>
+<li>Battery / DC supply — long and short parallel lines; + terminal at long line</li>
+<li>Resistor — rectangle (IEC) or zigzag (ANSI)</li>
+<li>Capacitor — two parallel lines (electrolytic adds a + sign)</li>
+<li>Switch (SPST) — line with a gap and pivoting arm</li>
+<li>LED — diode triangle pointing to bar, with arrows indicating emitted light</li>
+<li>Transistor (NPN BJT) — three-terminal symbol with arrow on emitter pointing outward</li>
+<li>Op-amp — triangle with two inputs on left (+ and −) and output on right</li>
+<li>Ground — downward-pointing lines (horizontal bars decreasing in size)</li>
+</ul>
+<p><strong>Series circuits</strong>: Components connected end-to-end in a single path. Same current flows through all components. Total resistance = R₁ + R₂ + R₃. If one component fails (open), the entire circuit stops working. <em>Example</em>: Old-style Christmas lights in series — one blown bulb stops all.</p>
+<p><strong>Parallel circuits</strong>: Components connected across the same two nodes, providing multiple current paths. Same voltage across all branches. Total resistance is less than any individual resistor (1/R_total = 1/R₁ + 1/R₂ + ...). If one branch fails (open), others continue. <em>Example</em>: Household mains wiring — all appliances share the same 230 V, and switching one off does not affect others.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>电路图</strong>（原理图）是使用IEC 60617定义的普遍认可符号的电子电路标准化图形表示。电路图允许全世界的工程师无歧义地交流电路设计。</p>
+<p><strong>关键IEC原理图符号</strong>（考试需了解）：</p>
+<ul>
+<li>电池/直流电源——长短平行线；+极在长线处</li>
+<li>电阻——矩形（IEC）或锯齿形（ANSI）</li>
+<li>电容器——两条平行线（电解电容加+号）</li>
+<li>开关（SPST）——带缺口和转动臂的线</li>
+<li>LED——指向横杆的二极管三角形，带箭头表示发出光</li>
+<li>晶体管（NPN BJT）——三端符号，发射极上箭头向外</li>
+<li>运算放大器——三角形，左侧两个输入（+和-），右侧输出</li>
+<li>地——向下指的线（水平线递减）</li>
+</ul>
+<p><strong>串联电路</strong>：元件首尾相连在单条路径中。相同的电流流过所有元件。总电阻 = R₁ + R₂ + R₃。如果一个元件失效（断路），整个电路停止工作。<em>示例</em>：旧式串联圣诞灯——一个灯泡烧断，所有灯熄灭。</p>
+<p><strong>并联电路</strong>：元件连接在相同的两个节点上，提供多条电流路径。所有支路上电压相同。总电阻小于任何单个电阻（1/R总 = 1/R₁ + 1/R₂ + ...）。如果一条支路失效（断路），其他支路继续工作。<em>示例</em>：家用电源布线——所有电器共享相同的230V，关闭一个不影响其他。</p>
+</div>
+</div>
+</div>
+</div>
 
 </div></div></div>
 
-<div class="curr-section" id="quiz" style="--curr-color:#8b6520;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz"><div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-quiz"><p class="quiz-intro">Multiple choice questions for A3.4 Introduction to Electronic Systems will be added here.</p></div></div>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 02 — QUIZ                                        -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your understanding of A3.4 Introduction to Electronic Systems. Select one answer per question, then submit to see your score.</p>
+<div class="quiz-form">
 
-<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2"><div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-paper2"><div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div><p class="content-placeholder">Practice questions for A3.4 will be added here.</p></div></div>
+<div class="quiz-q" id="q1">
+<p class="quiz-stem">1. In the IPO model of an electronic system, which stage receives signals from sensors and decides on an appropriate response?</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Input</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Output</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Process</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Feedback</label>
+</div>
 
-<div class="curr-section" id="references" style="--curr-color:#2d7a6a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-refs"><div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-refs"><p class="content-placeholder">Reference links for A3.4 will be added here.</p></div></div>
+<div class="quiz-q" id="q2">
+<p class="quiz-stem">2. Which type of signal varies continuously over a range of values, such as the voltage from a microphone?</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Analogue signal</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Digital signal</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Binary signal</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. Pulse-width modulated signal</label>
+</div>
+
+<div class="quiz-q" id="q3">
+<p class="quiz-stem">3. Australian mains electricity runs at 230 V and 50 Hz. What is the period (time for one complete cycle) of this AC signal?</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. 50 ms</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. 20 ms</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. 5 ms</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. 230 ms</label>
+</div>
+
+<div class="quiz-q" id="q4">
+<p class="quiz-stem">4. A capacitor's main function in a circuit is to:</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Limit current flow in one direction</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Store electrical charge and energy in an electric field</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Amplify a signal</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Convert rotary motion to linear motion</label>
+</div>
+
+<div class="quiz-q" id="q5">
+<p class="quiz-stem">5. A diode in a circuit allows current to flow:</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. In both directions equally</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. In one direction only (anode to cathode when forward biased)</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Only when the voltage exceeds 12 V</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Only in AC circuits</label>
+</div>
+
+<div class="quiz-q" id="q6">
+<p class="quiz-stem">6. A thermistor (NTC type) used as a temperature sensor has the following characteristic:</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. Its resistance decreases as temperature rises</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Its resistance increases as temperature rises</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. It emits light proportional to temperature</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. Its resistance is constant regardless of temperature</label>
+</div>
+
+<div class="quiz-q" id="q7">
+<p class="quiz-stem">7. A NOT logic gate with a HIGH (logic 1) input produces:</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. HIGH output</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. LOW output</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. No output</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. The same output as an AND gate</label>
+</div>
+
+<div class="quiz-q" id="q8">
+<p class="quiz-stem">8. Negative feedback in an electronic control system (such as a thermostat) acts to:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. Amplify the error between set point and actual output</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Reduce the error between set point and actual output, creating stability</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. Increase the gain of the system without limit</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. Switch the output permanently to maximum</label>
+</div>
+
+<div class="quiz-q" id="q9">
+<p class="quiz-stem">9. An inverting amplifier uses an op-amp with R₁ = 2 kΩ and R₂ = 20 kΩ. What is the voltage gain?</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. +10</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. −10</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. +0.1</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. −0.1</label>
+</div>
+
+<div class="quiz-q" id="q10">
+<p class="quiz-stem">10. An embedded system differs from a general-purpose computer in that it:</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Always runs at higher clock speeds</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Cannot use any form of memory</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. Is dedicated to a specific task, with fixed programming not intended to be changed by the end user</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. Must always be connected to the internet</label>
+</div>
+
+<div class="quiz-actions">
+<button class="quiz-submit-btn" type="button">Submit answers</button>
+<span class="quiz-score" aria-live="polite"></span>
+</div>
+</div>
+
+<div class="quiz-answers" aria-label="Answer key" hidden>
+<span data-answer="q1">C</span>
+<span data-answer="q2">A</span>
+<span data-answer="q3">B</span>
+<span data-answer="q4">B</span>
+<span data-answer="q5">B</span>
+<span data-answer="q6">A</span>
+<span data-answer="q7">B</span>
+<span data-answer="q8">B</span>
+<span data-answer="q9">B</span>
+<span data-answer="q10">C</span>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 03 — PAPER 2                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 1</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Using the Input–Process–Output–Feedback (IPOF) model, describe how a home thermostat controls room temperature. Identify the input device, the processing stage, the output device, and the role of feedback.</span></summary>
+<div class="p2-answer">
+<p><strong>Input</strong>: A thermistor (NTC temperature sensor) continuously measures the actual room temperature. The resistance of the thermistor decreases as temperature rises, producing a proportional voltage at the input of the microcontroller or comparator circuit.</p>
+<p><strong>Process</strong>: The control circuit (microcontroller or comparator) compares the actual temperature (from the thermistor) to the user-set target temperature (set point). If the actual temperature is below the set point, the processor generates a signal to activate the heating output. If actual temperature equals or exceeds the set point, the output signal is removed.</p>
+<p><strong>Output</strong>: A relay (electrically controlled switch) is activated by the processor. The relay closes to switch on the boiler or heating element (mains voltage circuit). When the target temperature is reached, the relay opens, turning the boiler off.</p>
+<p><strong>Feedback</strong>: The thermistor continuously reports the room temperature back to the process stage. This is negative feedback — when the heater is on and the room warms up, the thermistor voltage changes in a direction that reduces the error between actual and set temperature, eventually switching the heater off. This creates a self-regulating system.</p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct input device with explanation (thermistor, measures temperature); 1 mark for process stage (comparison to set point, decision logic); 1 mark for output device (relay switching heater/boiler); 1 mark for correct description of negative feedback as self-correcting (not just "feedback sends signal back").</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 2</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Compare analogue and digital electronic systems. In your answer, discuss signal characteristics, noise immunity, processing methods, and give one example application of each that demonstrates why that signal type is appropriate.</span></summary>
+<div class="p2-answer">
+<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values — like a smoothly changing voltage that mirrors a physical quantity exactly. An analogue microphone output rises and falls in direct proportion to air pressure changes from sound. Analogue signals can represent an infinite range of values between minimum and maximum.</p>
+<p><strong>Digital systems</strong> represent all information as sequences of binary digits (0 and 1). A digital signal switches sharply between LOW (0 V) and HIGH (3.3 V or 5 V). All data — numbers, text, images, audio — is encoded as patterns of bits.</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Feature</th><th>Analogue</th><th>Digital</th></tr></thead>
+<tbody>
+<tr><td>Signal values</td><td>Infinite continuous range</td><td>Only two states: 0 or 1</td></tr>
+<tr><td>Noise immunity</td><td>Low — any electrical noise corrupts the signal permanently</td><td>High — noise rejected as long as it does not cross the threshold; signal can be regenerated perfectly</td></tr>
+<tr><td>Processing</td><td>Op-amps, filters, oscillators — hardware-defined</td><td>Logic gates, microcontrollers — software-programmable</td></tr>
+<tr><td>Copying accuracy</td><td>Degrades with each copy (noise accumulates)</td><td>Perfect — digital copies are bit-for-bit identical</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example — analogue</strong>: A vinyl record stores audio as a continuous groove in a disc. The groove's width and depth vary continuously, just as the original sound pressure varied. A stylus reads the groove as a continuous analogue signal. Digital conversion would be unnecessary overhead for this type of storage — the analogue medium directly captures all detail.</p>
+<p><strong>Example — digital</strong>: Wi-Fi transmits data as digital packets over radio waves. Because radio signals are subject to significant noise and interference, using a digital format means the receiver can reconstruct the original data perfectly using error-correction codes. The same data would be destroyed by noise if transmitted as an analogue signal without any error-correction.</p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct signal characteristic of each (continuous vs. discrete/binary); 1 mark for noise immunity comparison with explanation; 1 mark for processing methods contrast; 1 mark for correct analogue example with justification; 1 mark for correct digital example with justification; 1 mark for any additional developed comparison point (copying accuracy, storage density, programmability).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 3</span><span class="p2-q-marks">5 marks</span><span class="p2-q-text">A security light uses a PIR (passive infrared) sensor, a microcontroller, and an LED floodlight. A relay is used between the microcontroller and the floodlight. Draw the block diagram of this system and explain why a relay is necessary in this circuit.</span></summary>
+<div class="p2-answer">
+<p><strong>Block diagram (describe in text):</strong></p>
+<p>PIR sensor → [INPUT] → Microcontroller → [PROCESS] → Relay driver (transistor) → Relay → [OUTPUT] → LED floodlight</p>
+<p>Optionally: a timer within the microcontroller's software delays the off signal so the light stays on for a set period (e.g., 30 seconds) after motion ceases. The thermistor on the PCB may also provide temperature feedback to prevent the relay from operating in conditions that could damage the circuit.</p>
+<p><strong>Why a relay is necessary:</strong></p>
+<p>A microcontroller's GPIO (general-purpose input/output) pin can supply only approximately 20–40 mA at 3.3 V or 5 V. An LED floodlight may require 500 mA to several amps at 12 V or 240 V mains. Connecting the floodlight directly to a GPIO pin would damage or destroy the microcontroller.</p>
+<p>A relay provides electrical isolation between the low-voltage microcontroller circuit and the high-power floodlight circuit. The microcontroller energises a small electromagnetic coil in the relay (typically 5–12 V, ~50–100 mA, within safe GPIO limits using a transistor driver). This coil magnetically closes the relay's switching contacts, which can safely carry the high current and voltage needed by the floodlight. The two circuits are electrically separate — mains voltage never reaches the microcontroller.</p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for a correct block diagram with all four components in correct sequence (PIR → MCU → relay → floodlight); 1 mark for correctly stating the GPIO current/voltage limitation (~40 mA, low voltage); 1 mark for explaining that the relay coil is controlled by a safe low current; 1 mark for explaining electrical isolation (mains voltage separated from microcontroller); 1 mark for any additional developed point (transistor driver, timer in software, protection diode across relay coil).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 4</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Explain the difference between series and parallel circuits. For each, state how total resistance is calculated and describe what happens to the rest of the circuit if one component fails (open circuit).</span></summary>
+<div class="p2-answer">
+<p><strong>Series circuits</strong> connect components end-to-end in a single, unbroken loop. The same current flows through every component. Total resistance is the sum of all individual resistances:</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
+<p>If one component fails open circuit (breaks), the current path is interrupted and the entire circuit stops working. The failed component causes a complete loss of function. <em>Example</em>: Old-style series Christmas lights — one blown bulb stops the whole string.</p>
+<p><strong>Parallel circuits</strong> connect components across the same two nodes, providing multiple independent current paths. The same voltage appears across every branch. Total resistance is calculated using the reciprocal formula:</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1/R_total = 1/R₁ + 1/R₂ + 1/R₃ + …</p>
+<p>The total parallel resistance is always less than the smallest individual resistor. If one branch fails open circuit, current continues to flow through the remaining parallel branches — the rest of the circuit is unaffected. <em>Example</em>: House wiring — each room's lighting circuit is a separate parallel branch; one blown fuse does not affect other rooms.</p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for series definition (same current, single path) with correct total resistance formula; 1 mark for explanation of series open-circuit failure (complete loss of function); 1 mark for parallel definition (same voltage, multiple paths) with correct reciprocal resistance formula; 1 mark for explanation of parallel open-circuit failure (remaining branches unaffected).</p>
+</div>
+</details>
+
+<details class="p2-reveal">
+<summary class="p2-q-stem"><span class="p2-q-label">Question 5</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Evaluate the claim that "all modern electronic products should be redesigned to minimise their environmental impact." Refer to energy efficiency requirements, e-waste regulations, and the responsibilities of designers in your answer.</span></summary>
+<div class="p2-answer">
+<p><strong>The case for redesign:</strong> Electronic products are the fastest-growing waste stream globally (54 million tonnes of e-waste generated in 2019, according to the UN Global E-waste Monitor). Many older products contain hazardous materials — lead solder, mercury backlights, hexavalent chromium — now restricted under the EU RoHS Directive (2011). These substances leach into soil and groundwater if products are landfilled rather than properly recycled.</p>
+<p>Energy consumption is also significant. A poorly designed device with 5 W standby power left plugged in for 10 years consumes 5 × 87,600 hours = 438 kWh — equivalent to a long-haul flight's CO₂ equivalent per device. The EU Ecodesign Directive and the Australian Minimum Energy Performance Standards (MEPS) both require manufacturers to meet energy efficiency targets before products can be sold.</p>
+<p><strong>Designer responsibilities:</strong> Designers must now consider environmental impact across the full product life cycle — from material selection (avoiding restricted substances, using recycled content) through energy consumption in use, to end-of-life recyclability. Designing for disassembly (fasteners rather than adhesives, labelled materials, modularity) allows components to be separated and recovered. The EU's Right to Repair legislation (2021) extends this further — designers must make spare parts and repair documentation available for a minimum period.</p>
+<p><strong>Limitations of the claim:</strong> "All products" is too broad — the trade-off between environmental redesign cost and benefit varies widely. A device sold in millions of units (smartphone charger) benefits hugely from even a small efficiency improvement; a specialised industrial instrument sold in tens of units may not justify a complete redesign. Additionally, manufacturing a new product has its own environmental cost (embedded carbon, rare earth extraction) — if a redesign requires discarding functional existing devices, the net environmental benefit may be negative.</p>
+<p><strong>Conclusion:</strong> The claim is broadly valid as a design principle, but "all modern products should be redesigned" overstates the case. Priority should go to high-volume, high-energy-use, or high-hazard products. Regulations provide a minimum standard; responsible designers should aim beyond compliance — designing for longevity, repairability, and efficient end-of-life processing.</p>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for relevant e-waste statistic or reference to e-waste problem; 1 mark for correct reference to a regulation (RoHS, Ecodesign, MEPS, Right to Repair) with explanation of its scope; 1 mark for designer responsibility in material selection or design for disassembly; 1 mark for energy efficiency point with a quantified example; 1 mark for a valid counter-argument or qualification of the claim (embedded carbon, cost-benefit analysis, high vs. low volume); 1 mark for a supported conclusion that evaluates the claim rather than simply restating it.</p>
+</div>
+</details>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  SECTION 04 — REFERENCES                                  -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ol class="ref-list">
+
+<li class="ref-item">
+<span class="ref-item-title">The Engineering Mindset — "How Electronics Work" (YouTube)</span>
+<span class="ref-item-desc">Animated introductions to electronic circuits, components, and the IPO model. Search "The Engineering Mindset electronics basics" on YouTube.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">PhET Interactive Simulations — Circuit Construction Kit (University of Colorado Boulder)</span>
+<span class="ref-item-desc">Free browser-based simulator for building and testing series and parallel circuits with resistors, capacitors, LEDs, and voltage sources. Available at phet.colorado.edu.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">Wikipedia — Operational Amplifier</span>
+<span class="ref-item-desc">Comprehensive reference covering op-amp theory, ideal characteristics, and common configurations (inverting, non-inverting, comparator, Schmitt trigger). Available at en.wikipedia.org/wiki/Operational_amplifier.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">EU RoHS Directive — European Commission Environment</span>
+<span class="ref-item-desc">Restriction of Hazardous Substances in electrical and electronic equipment — restricted substances list and compliance requirements. Search "EU RoHS Directive 2011/65/EU" for official text.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">UN Global E-waste Monitor 2020 — International Telecommunication Union</span>
+<span class="ref-item-desc">Annual global e-waste statistics, trends, and policy recommendations. Search "Global E-waste Monitor 2020 ITU" for the full report.</span>
+</li>
+
+<li class="ref-item">
+<span class="ref-item-title">百度百科 — 运算放大器 (Operational Amplifier)</span>
+<span class="ref-item-desc">中文参考资料，涵盖运算放大器的工作原理、理想特性和常见电路配置。在百度百科搜索"运算放大器"。</span>
+</li>
+
+</ol>
+</div>
+</div>
 
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
-<li>Which material properties are particularly important to consider when designing products that include electronic systems? <a href="a3.1-material-classification.html">(A3.1)</a></li>
-<li>How does the choice between analogue and digital electronic systems affect the need for mechanical systems in products? <a href="b3.3-mechanical-systems-application.html">(B3.3)</a></li>
-<li>To what extent does the inclusion of electronic systems in products affect the choice of production systems? <a href="b4.1-production-systems.html">(B4.1)</a></li>
-<li>What are the main responsibilities of the designer when designing products to be part of the IoT? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
-<li>How do electronic systems enable designers to engage more effectively in inclusive design? <a href="c1.2-inclusive-design.html">(C1.2)</a></li>
-<li>To what extent does product analysis and evaluation reveal that electronic systems improve the effectiveness of products? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
-<li>What are the challenges for electronic products when considering design for a circular economy? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
-<li>How does the inclusion of electronic systems in a product affect the life-cycle analysis of that product? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
+<li>How do the IPO model and feedback concepts from A3.4 apply to the selection of test equipment and advanced circuit analysis in application contexts? <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
+<li>In what ways do the passive and active components introduced in A3.4 relate to the material properties discussed in A3.1? <a href="a3.1-material-classification.html">(A3.1)</a></li>
+<li>How can a designer's understanding of electronic systems inform responsible and ethical product design decisions? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
+<li>To what extent does knowledge of embedded systems and microcontrollers influence the manufacturing and assembly considerations in A4.1? <a href="a4.1-manufacturing-techniques.html">(A4.1)</a></li>
+<li>How does the lifecycle of electronic components (RoHS, e-waste) connect to circular economy principles? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
 </ul>
 </section>
 
@@ -108,8 +991,13 @@
 <a class="nav-next" href="a4.1-manufacturing-techniques.html"><span class="nav-dir">Next →</span><span class="nav-title">A4.1 Manufacturing Techniques</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="a3.4.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>

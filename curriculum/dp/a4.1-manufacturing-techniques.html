@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,9 @@
 <title>A4.1 Manufacturing Techniques — DP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../curriculum-themes.css">
 </head>
-<body>
+<body data-curr-type="dp" data-curr-page="a4.1">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -17,79 +18,808 @@
 
 <div class="topic-hero" style="--topic-color:#2c5f6e;--topic-bg:#e8f0f2;--topic-border:#c4d8de;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>Topic A</div>
-<div class="topic-meta"><span class="topic-code">A4.1</span><span class="topic-level level-hl">HL only</span></div>
-<h1 class="topic-title">Manufacturing Techniques</h1>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>A4.1 Manufacturing Techniques</div>
+<h1 class="topic-title">Manufacturing Techniques | A4.1</h1>
 <p class="topic-guiding-q"><span class="gq-label">Guiding question</span>Why are different manufacturing techniques used for producing different products?</p>
-<nav class="topic-nav"><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
 </div>
 </div>
 
-<main><div class="curr-main">
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul>
+<li class="curr-toc-item" data-section="introduction">Introduction</li>
+<li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+Study Guide
+<ul id="toc-sub-study">
+<li class="curr-toc-item" data-section="obj-4.1.1">4.1.1 Five categories</li>
+<li class="curr-toc-item" data-section="obj-4.1.2">4.1.2 Additive techniques</li>
+<li class="curr-toc-item" data-section="obj-4.1.3">4.1.3 Rapid prototyping</li>
+<li class="curr-toc-item" data-section="obj-4.1.4">4.1.4 Low-volume production</li>
+<li class="curr-toc-item" data-section="obj-4.1.5">4.1.5 4D printing</li>
+<li class="curr-toc-item" data-section="obj-4.1.6">4.1.6 5D printing</li>
+<li class="curr-toc-item" data-section="obj-4.1.7">4.1.7 Subtractive techniques</li>
+<li class="curr-toc-item" data-section="obj-4.1.8">4.1.8 Forming techniques</li>
+<li class="curr-toc-item" data-section="obj-4.1.9">4.1.9 Joining techniques</li>
+<li class="curr-toc-item" data-section="obj-4.1.10">4.1.10 Finishing techniques</li>
+<li class="curr-toc-item" data-section="obj-4.1.11">4.1.11 Combining techniques</li>
+</ul>
+</li>
+<li class="curr-toc-item" data-section="quiz">Quiz</li>
+<li class="curr-toc-item" data-section="paper2">Paper 2 Practice</li>
+<li class="curr-toc-item" data-section="references">References</li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<div class="curr-section" id="introduction" style="--curr-color:#2c5f6e;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-introduction">
+<div class="curr-section-intro-wrap">
+<div class="curr-section-intro-photo">
+<div class="curr-section-intro-img" aria-hidden="true"></div>
+</div>
+<p>Every physical product you use — a smartphone, a chair, a medical implant — results from a sequence of deliberate manufacturing choices. A4.1 maps the landscape of those choices across five categories: <strong>additive</strong>, <strong>subtractive</strong>, <strong>forming</strong>, <strong>joining</strong> and <strong>finishing</strong>. Within additive manufacturing the topic extends into the frontier technologies of <strong>4D printing</strong> (smart materials that respond to stimuli) and <strong>5D printing</strong> (multi-axis deposition on curved surfaces).</p>
+<p>Understanding manufacturing techniques allows a designer to connect material selection, geometric complexity, volume requirements and environmental impact into a coherent production strategy.</p>
+</div>
+
+<div class="lang-toggle-bar">
+<span class="lang-toggle-label">Study guide language</span>
+<label class="lang-toggle-checkbox">
+<input type="checkbox" id="lang-toggle" autocomplete="off">
+<span class="lang-slider"></span>
+<span class="lang-on">中文</span>
+<span class="lang-off">EN</span>
+</label>
+</div>
+</div>
+</div>
 
 <div class="curr-section" id="study-guide" style="--curr-color:#2c5f6e;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study-guide">
 <div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-study">
-<p class="curr-section-intro">Manufacturing techniques span five categories — additive, subtractive, forming, joining and finishing — including emerging technologies such as 4D and 5D printing. These notes address each learning objective in turn.</p>
+<div class="curr-body" id="body-study-guide">
+<p class="curr-section-intro">Manufacturing techniques span five categories — additive, subtractive, forming, joining and finishing — including the emerging technologies of 4D and 5D printing. These notes address each learning objective in turn.</p>
 <div class="obj-list">
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.1"><div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Manufacturing techniques can be organized into five categories.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.1"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline additive, subtractive (wasting), forming, joining and finishing techniques, relevant to the properties of the selected material(s).</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.1 -->
+<div class="obj-section" id="obj-4.1.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.1">
+<div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Manufacturing techniques can be organized into five categories.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline additive, subtractive (wasting), forming, joining and finishing techniques, relevant to the properties of the selected material(s).</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>All manufactured products result from applying one or more techniques drawn from five broad categories. The choice of category depends on material properties, desired geometry, production volume and cost.</p>
+<table class="curr-table">
+<thead><tr><th>Category</th><th>Principle</th><th>Typical materials</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>Additive</strong></td><td>Build up material layer by layer</td><td>Polymers, metals, ceramics, composites</td><td>SLA, FDM, SLS, material jetting</td></tr>
+<tr><td><strong>Subtractive</strong></td><td>Remove material from a solid block</td><td>Metals, polymers, wood, composites</td><td>Turning, milling, laser cutting, waterjet</td></tr>
+<tr><td><strong>Forming</strong></td><td>Reshape without adding or removing material</td><td>Metals, thermoplastics</td><td>Casting, injection moulding, rolling, forging</td></tr>
+<tr><td><strong>Joining</strong></td><td>Fasten two or more parts permanently or temporarily</td><td>Any combination</td><td>Welding, soldering, adhesives, fasteners</td></tr>
+<tr><td><strong>Finishing</strong></td><td>Protect or enhance the surface</td><td>Metals, polymers, wood</td><td>Anodising, powder coating, polishing</td></tr>
+</tbody>
+</table>
+<p>The categories are not mutually exclusive; a single product typically requires techniques from several categories applied in sequence.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>所有制造产品都通过五大类工艺中的一种或多种来实现。类别的选择取决于材料特性、所需几何形状、生产数量和成本。</p>
+<table class="curr-table">
+<thead><tr><th>类别</th><th>原理</th><th>典型材料</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td><strong>增材</strong></td><td>逐层堆积材料</td><td>聚合物、金属、陶瓷、复合材料</td><td>SLA、FDM、SLS、材料喷射</td></tr>
+<tr><td><strong>减材</strong></td><td>从实体块中去除材料</td><td>金属、聚合物、木材、复合材料</td><td>车削、铣削、激光切割、水刀切割</td></tr>
+<tr><td><strong>成形</strong></td><td>在不增减材料的情况下改变形状</td><td>金属、热塑性塑料</td><td>铸造、注塑、轧制、锻造</td></tr>
+<tr><td><strong>连接</strong></td><td>将两个或多个零件永久或临时固定</td><td>任意组合</td><td>焊接、软钎焊、胶粘剂、紧固件</td></tr>
+<tr><td><strong>表面处理</strong></td><td>保护或改善表面</td><td>金属、聚合物、木材</td><td>阳极氧化、粉末涂装、抛光</td></tr>
+</tbody>
+</table>
+<p>这五类并不相互排斥；单个产品通常需要按顺序应用多个类别的工艺。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.2"><div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>An additive technique is the process of creating an object by constructing it one layer at a time and typically refers to 3D printing.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.2"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using additive manufacturing techniques, including laminated object manufacture (LOM), fused deposition modelling (FDM) and stereolithography (SLA).</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.2 -->
+<div class="obj-section" id="obj-4.1.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.2">
+<div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Additive manufacturing builds objects layer by layer and typically refers to 3D printing.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using additive manufacturing techniques, including fused deposition modelling (FDM) and stereolithography (SLA).</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Additive manufacturing (AM) constructs objects by depositing or curing material one cross-sectional layer at a time. Chuck Hull invented stereolithography in 1984, marking the birth of commercial 3D printing.</p>
+<table class="curr-table">
+<thead><tr><th>Process</th><th>Material feedstock</th><th>Energy/mechanism</th><th>Strengths</th><th>Limitations</th></tr></thead>
+<tbody>
+<tr><td><strong>Stereolithography (SLA)</strong></td><td>Liquid photopolymer resin</td><td>UV laser cures each layer</td><td>Very high accuracy; smooth surface finish</td><td>Brittle parts; post-cure required; resin cost</td></tr>
+<tr><td><strong>Fused Deposition Modelling (FDM)</strong></td><td>Thermoplastic filament (PLA, ABS, PETG…)</td><td>Heated nozzle melts and deposits</td><td>Low cost; wide material choice; large build volumes</td><td>Visible layer lines; anisotropic strength</td></tr>
+<tr><td><strong>Selective Laser Sintering (SLS)</strong></td><td>Polymer or metal powder</td><td>Laser sinters powder bed</td><td>No support structures needed; strong parts</td><td>Powder handling; surface porosity</td></tr>
+<tr><td><strong>Material Jetting</strong></td><td>Photopolymer droplets</td><td>UV curing of inkjet-deposited drops</td><td>Multi-material; full colour; very high detail</td><td>High cost; brittle support material</td></tr>
+<tr><td><strong>Binder Jetting</strong></td><td>Powder + liquid binder</td><td>Binder printed onto powder bed</td><td>High speed; large metal parts possible</td><td>Lower density; sintering step required</td></tr>
+<tr><td><strong>Directed Energy Deposition (DED)</strong></td><td>Metal wire or powder</td><td>Laser or electron beam melts feedstock in flight</td><td>Repairs and additions to existing parts</td><td>Rough surface; expensive equipment</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>增材制造（AM）通过逐层沉积或固化材料来构建物体。Chuck Hull于1984年发明了光固化成型，标志着商业3D打印的诞生。</p>
+<table class="curr-table">
+<thead><tr><th>工艺</th><th>原料</th><th>能量/机制</th><th>优点</th><th>局限</th></tr></thead>
+<tbody>
+<tr><td><strong>光固化成型（SLA）</strong></td><td>液态光敏树脂</td><td>UV激光逐层固化</td><td>精度极高；表面光滑</td><td>零件脆；需后固化；树脂成本高</td></tr>
+<tr><td><strong>熔融沉积建模（FDM）</strong></td><td>热塑性长丝（PLA、ABS、PETG等）</td><td>加热喷嘴熔化并沉积</td><td>成本低；材料选择广；构建体积大</td><td>层纹明显；各向异性强度</td></tr>
+<tr><td><strong>选择性激光烧结（SLS）</strong></td><td>聚合物或金属粉末</td><td>激光烧结粉末床</td><td>无需支撑结构；零件强度高</td><td>粉末处理复杂；表面多孔</td></tr>
+<tr><td><strong>材料喷射</strong></td><td>光敏聚合物液滴</td><td>UV固化喷墨沉积</td><td>多材料；全彩；细节极高</td><td>成本高；支撑材料脆</td></tr>
+<tr><td><strong>粘结剂喷射</strong></td><td>粉末+液态粘结剂</td><td>粘结剂喷印到粉末床上</td><td>速度快；可制造大型金属零件</td><td>密度较低；需烧结步骤</td></tr>
+<tr><td><strong>定向能量沉积（DED）</strong></td><td>金属丝或粉末</td><td>激光或电子束在飞行中熔化原料</td><td>可修复和添加到现有零件</td><td>表面粗糙；设备昂贵</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.3"><div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Rapid prototyping is the creation of an object based on a computer model developed in a 3D modelling (CAD) program.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.3"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between rapid prototyping techniques used for creating initial base models, which serve as a foundation for testing and validation, as opposed to techniques used in the production of the refined products.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.3 -->
+<div class="obj-section" id="obj-4.1.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.3">
+<div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Rapid prototyping creates objects from a 3D CAD model quickly to test and validate designs.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between rapid prototyping techniques used for creating initial base models — which serve as a foundation for testing and validation — as opposed to techniques used in the production of refined products.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Rapid prototyping (RP)</strong> is the fast production of a physical model directly from CAD data, used primarily for form, fit and function testing early in the design process.</p>
+<p><strong>Workflow:</strong> CAD model → export as STL/3MF → slice into layers → print → post-process → evaluate</p>
+<table class="curr-table">
+<thead><tr><th>Characteristic</th><th>Rapid prototype</th><th>Production part</th></tr></thead>
+<tbody>
+<tr><td>Purpose</td><td>Test geometry, ergonomics, assembly</td><td>End-use function</td></tr>
+<tr><td>Material</td><td>Cheap polymer (PLA, resin)</td><td>Specified engineering material</td></tr>
+<tr><td>Volume</td><td>1–5 units</td><td>100s–millions</td></tr>
+<tr><td>Finish</td><td>Often rough / support marks</td><td>Meeting spec tolerances</td></tr>
+<tr><td>Lead time</td><td>Hours to days</td><td>Days to weeks per mould/setup</td></tr>
+<tr><td>Cost per part</td><td>Higher (no tooling amortisation)</td><td>Lower at scale</td></tr>
+</tbody>
+</table>
+<p>As AM materials and accuracy improve, the boundary between prototype and production part blurs — GE Aviation now produces certified LEAP engine fuel nozzles using SLS.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>快速原型（RP）</strong>是直接从CAD数据快速生产物理模型，主要用于设计过程早期的形态、配合和功能测试。</p>
+<p><strong>工作流程：</strong>CAD模型 → 导出为STL/3MF → 切片分层 → 打印 → 后处理 → 评估</p>
+<table class="curr-table">
+<thead><tr><th>特征</th><th>快速原型</th><th>量产零件</th></tr></thead>
+<tbody>
+<tr><td>目的</td><td>测试几何形状、人体工程学、装配</td><td>最终使用功能</td></tr>
+<tr><td>材料</td><td>廉价聚合物（PLA、树脂）</td><td>规定的工程材料</td></tr>
+<tr><td>数量</td><td>1–5件</td><td>数百至数百万</td></tr>
+<tr><td>表面</td><td>通常粗糙/有支撑痕迹</td><td>符合规格公差</td></tr>
+<tr><td>交货期</td><td>数小时至数天</td><td>每个模具/设置数天至数周</td></tr>
+<tr><td>单件成本</td><td>较高（无模具摊销）</td><td>规模化后较低</td></tr>
+</tbody>
+</table>
+<p>随着AM材料和精度的提升，原型与量产零件之间的界限逐渐模糊——GE航空现已使用SLS生产经认证的LEAP发动机燃油喷嘴。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.4"><div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Additive manufacturing is used in various industries for low-volume production runs.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.4"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe additive manufacturing techniques used in manufacturing, including powder bed fusion (PBF), material extrusion, and selective laser sintering (SLS).</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.4 -->
+<div class="obj-section" id="obj-4.1.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.4">
+<div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Additive manufacturing is used in various industries for low-volume production runs.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe additive manufacturing techniques used in manufacturing, including powder bed fusion (PBF), material extrusion, and selective laser sintering (SLS).</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>AM is particularly suited to <strong>low-volume, high-complexity, or patient-specific</strong> production where conventional tooling would be prohibitively expensive. The crossover point where injection moulding becomes cheaper than AM is typically around 1,000–10,000 units depending on part complexity.</p>
+<table class="curr-table">
+<thead><tr><th>Industry</th><th>Application</th><th>AM process</th><th>Benefit</th></tr></thead>
+<tbody>
+<tr><td>Medical/Dental</td><td>Invisalign aligners; patient-specific implants</td><td>SLA, SLS, material jetting</td><td>Mass customisation; no tooling per patient</td></tr>
+<tr><td>Aerospace</td><td>GE LEAP fuel nozzles; Airbus bracket</td><td>SLS (Ti-6Al-4V)</td><td>Weight reduction; consolidated parts</td></tr>
+<tr><td>Automotive</td><td>F1 brake ducts; Bugatti titanium caliper</td><td>SLS metal</td><td>Complex topology-optimised geometry</td></tr>
+<tr><td>Consumer goods</td><td>Adidas 4D midsole; New Balance FuelCell</td><td>DLP/SLA lattice</td><td>Tunable cushioning; on-demand production</td></tr>
+<tr><td>Construction</td><td>ICON concrete 3D-printed homes (Texas)</td><td>Concrete extrusion (DED variant)</td><td>Reduced labour; complex geometry possible</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>AM特别适合<strong>小批量、高复杂度或患者特定</strong>的生产，在这些场合传统模具成本过高。注塑成型比AM更经济的临界点通常在1,000–10,000件左右，具体取决于零件复杂性。</p>
+<table class="curr-table">
+<thead><tr><th>行业</th><th>应用</th><th>AM工艺</th><th>优势</th></tr></thead>
+<tbody>
+<tr><td>医疗/牙科</td><td>Invisalign牙套；患者特定植入物</td><td>SLA、SLS、材料喷射</td><td>大规模定制；每位患者无需模具</td></tr>
+<tr><td>航空航天</td><td>GE LEAP燃油喷嘴；空客支架</td><td>SLS（Ti-6Al-4V）</td><td>减轻重量；零件整合</td></tr>
+<tr><td>汽车</td><td>F1制动风道；布加迪钛制卡钳</td><td>金属SLS</td><td>复杂拓扑优化几何形状</td></tr>
+<tr><td>消费品</td><td>阿迪达斯4D中底；新百伦FuelCell</td><td>DLP/SLA晶格</td><td>可调节缓冲；按需生产</td></tr>
+<tr><td>建筑</td><td>ICON混凝土3D打印住宅（德克萨斯州）</td><td>混凝土挤出（DED变体）</td><td>减少劳动力；可实现复杂几何形状</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.5"><div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>4D printing is an extension of 3D printing, where the physical and chemical state of a 3D printed object changes over time due to external stimuli such as pH, temperature, water and light.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.5"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how the use of shape memory polymers can be deployed for printing 4D objects and provide examples of their potential use.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.5 -->
+<div class="obj-section" id="obj-4.1.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.5">
+<div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>4D printing extends 3D printing by using smart materials that change shape in response to external stimuli.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how the use of shape memory polymers can be deployed for printing 4D objects and provide examples of their potential use.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>4D printing</strong> (coined by MIT's Skylar Tibbits, 2013) is 3D printing with smart materials — the fourth dimension is time, representing the transformation that occurs after printing.</p>
+<p><strong>Key smart materials:</strong></p>
+<ul>
+<li><strong>Shape Memory Polymers (SMPs)</strong> — programmed to hold a temporary shape below the glass transition temperature (T<sub>g</sub>) and return to their original shape when heated above T<sub>g</sub>.</li>
+<li><strong>Shape Memory Alloys (SMAs)</strong> — typically Nitinol (NiTi); recover shape when heated.</li>
+<li><strong>Hydrogels</strong> — swell or contract in response to water or pH changes.</li>
+</ul>
+<p><strong>Four-stage SMP cycle:</strong></p>
+<ol>
+<li><strong>Print</strong> — object printed in permanent (memory) shape.</li>
+<li><strong>Programme</strong> — heat above T<sub>g</sub>, deform mechanically.</li>
+<li><strong>Fix temporary shape</strong> — cool below T<sub>g</sub>; temporary shape is retained.</li>
+<li><strong>Trigger</strong> — apply stimulus (heat, water, light); object returns to memory shape.</li>
+</ol>
+<table class="curr-table">
+<thead><tr><th>Application area</th><th>Example</th><th>Stimulus</th></tr></thead>
+<tbody>
+<tr><td>Biomedical</td><td>Self-deploying stents; drug delivery capsules</td><td>Body heat</td></tr>
+<tr><td>Aerospace</td><td>Morphing aerofoils; deployable solar panels</td><td>Temperature</td></tr>
+<tr><td>Soft robotics</td><td>Gripper fingers that curl around objects</td><td>Temperature / humidity</td></tr>
+<tr><td>Smart textiles</td><td>Self-adjusting sportswear ventilation</td><td>Moisture / heat</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>4D打印</strong>（由MIT的Skylar Tibbits于2013年提出）是使用智能材料的3D打印——第四维度是时间，代表打印后发生的变形。</p>
+<p><strong>关键智能材料：</strong></p>
+<ul>
+<li><strong>形状记忆聚合物（SMP）</strong>——在玻璃化转变温度（T<sub>g</sub>）以下保持临时形状，加热至T<sub>g</sub>以上时恢复原始形状。</li>
+<li><strong>形状记忆合金（SMA）</strong>——通常为镍钛诺（NiTi）；加热时恢复形状。</li>
+<li><strong>水凝胶</strong>——对水或pH变化产生膨胀或收缩。</li>
+</ul>
+<p><strong>SMP四阶段循环：</strong></p>
+<ol>
+<li><strong>打印</strong>——以永久（记忆）形状打印物体。</li>
+<li><strong>编程</strong>——加热至T<sub>g</sub>以上，进行机械变形。</li>
+<li><strong>固定临时形状</strong>——冷却至T<sub>g</sub>以下；保持临时形状。</li>
+<li><strong>触发</strong>——施加刺激（热、水、光）；物体恢复记忆形状。</li>
+</ol>
+<table class="curr-table">
+<thead><tr><th>应用领域</th><th>示例</th><th>刺激因素</th></tr></thead>
+<tbody>
+<tr><td>生物医学</td><td>自展开支架；药物输送胶囊</td><td>体温</td></tr>
+<tr><td>航空航天</td><td>变形翼型；可展开太阳能板</td><td>温度</td></tr>
+<tr><td>软体机器人</td><td>卷曲抓取物体的夹持手指</td><td>温度/湿度</td></tr>
+<tr><td>智能纺织品</td><td>自调节运动服通风</td><td>湿度/热量</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.6"><div class="obj-trigger-left"><span class="obj-code">4.1.6</span><h3>5D dimensional additive manufacturing involves the rotation of the extruder head and the print bed in order to print in five different axes.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.6"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how 5D technology can be used to produce long-lasting and complex components in biomedical, automobile and aerospace applications.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.6 -->
+<div class="obj-section" id="obj-4.1.6">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.6">
+<div class="obj-trigger-left"><span class="obj-code">4.1.6</span><h3>5D additive manufacturing rotates both the extruder and print bed to print across five axes.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.6">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how 5D technology can be used to produce long-lasting and complex components in biomedical, automobile and aerospace applications.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Standard 3D printing moves in three axes (X, Y, Z). <strong>5D additive manufacturing</strong> adds two rotational axes — one on the extruder head and one on the print bed — allowing the nozzle to deposit material on curved surfaces from multiple angles.</p>
+<p><strong>Key advantages over 3D printing:</strong></p>
+<ul>
+<li><strong>No support structures needed</strong> — the bed tilts so overhanging geometry is always printed at the correct angle.</li>
+<li><strong>Curved layer deposition</strong> — fibres or material lines follow the stress paths within the part, producing stronger components (isotropic strength).</li>
+<li><strong>Reduced material waste</strong> — elimination of supports saves polymer and post-processing time.</li>
+<li><strong>Larger effective build volume</strong> — rotation enables parts that cannot fit flat in a standard envelope.</li>
+</ul>
+<table class="curr-table">
+<thead><tr><th>Industry</th><th>Application</th><th>5D benefit</th></tr></thead>
+<tbody>
+<tr><td>Biomedical</td><td>Skull implants; bone scaffolds</td><td>Curved surfaces match anatomy; no support contamination</td></tr>
+<tr><td>Automotive</td><td>Structural brackets; B-pillar inserts</td><td>Fibre orientation matches load paths; weight saving</td></tr>
+<tr><td>Aerospace</td><td>Turbine blade coatings; fuselage ribs</td><td>Complex curvature; high-strength composite deposition</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>标准3D打印沿三个轴（X、Y、Z）移动。<strong>5D增材制造</strong>增加了两个旋转轴——一个在挤出头上，一个在打印床上——使喷嘴能够从多个角度在曲面上沉积材料。</p>
+<p><strong>相比3D打印的主要优势：</strong></p>
+<ul>
+<li><strong>无需支撑结构</strong>——打印床倾斜，使悬空几何形状始终以正确角度打印。</li>
+<li><strong>曲面层沉积</strong>——纤维或材料线沿零件内部应力路径分布，生产出更强的部件（各向同性强度）。</li>
+<li><strong>减少材料浪费</strong>——无支撑节省聚合物和后处理时间。</li>
+<li><strong>更大的有效构建体积</strong>——旋转使无法平放在标准范围内的零件成为可能。</li>
+</ul>
+<table class="curr-table">
+<thead><tr><th>行业</th><th>应用</th><th>5D优势</th></tr></thead>
+<tbody>
+<tr><td>生物医学</td><td>颅骨植入物；骨骼支架</td><td>曲面与解剖结构匹配；无支撑污染</td></tr>
+<tr><td>汽车</td><td>结构支架；B柱插件</td><td>纤维方向与载荷路径匹配；减轻重量</td></tr>
+<tr><td>航空航天</td><td>涡轮叶片涂层；机身肋板</td><td>复杂曲率；高强度复合材料沉积</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.7"><div class="obj-trigger-left"><span class="obj-code">4.1.7</span><h3>Subtractive techniques involve removing material from an initial 3D mass to achieve a desired shape and can also be applied to 2D or flat materials to modify or change the shape.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.7"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using wasting manufacturing techniques, including machining (cutting, milling, turning) and abrading processes, which are applied to both 3D and 2D materials.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.7 -->
+<div class="obj-section" id="obj-4.1.7">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.7">
+<div class="obj-trigger-left"><span class="obj-code">4.1.7</span><h3>Subtractive techniques remove material from a solid block to achieve the desired shape.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.7">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using wasting manufacturing techniques, including machining (cutting, milling, turning) and abrading processes, which are applied to both 3D and 2D materials.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Subtractive (wasting) processes begin with a solid block or sheet and remove material to reveal the final shape. CNC (computer numerical control) automation allows extremely precise, repeatable cuts.</p>
+<table class="curr-table">
+<thead><tr><th>Process</th><th>Mechanism</th><th>Materials</th><th>Typical application</th></tr></thead>
+<tbody>
+<tr><td><strong>Turning (lathe)</strong></td><td>Workpiece rotates; cutting tool traverses</td><td>Metals, polymers, wood</td><td>Shafts, cylinders, threads</td></tr>
+<tr><td><strong>Milling</strong></td><td>Rotating cutter moves across stationary workpiece</td><td>Metals, polymers, composites</td><td>Flat surfaces, slots, pockets, complex 3D profiles (5-axis)</td></tr>
+<tr><td><strong>EDM / Wire cutting</strong></td><td>Electrical discharge erodes metal</td><td>Conductive metals</td><td>Hardened tool steel dies; very fine features</td></tr>
+<tr><td><strong>Laser cutting</strong></td><td>Focused laser melts/vaporises material</td><td>Sheet metal, polymers, wood, fabrics</td><td>2D profiles; thin materials</td></tr>
+<tr><td><strong>Plasma cutting</strong></td><td>Ionised gas jet melts and blows away metal</td><td>Conductive metals (up to 150 mm)</td><td>Structural steel; shipbuilding</td></tr>
+<tr><td><strong>Abrasive waterjet</strong></td><td>Water at 280–690 MPa + abrasive grit</td><td>Any material including stone, glass, titanium</td><td>Heat-sensitive or hard materials</td></tr>
+</tbody>
+</table>
+<p>Subtractive processes produce excellent surface finishes and tight tolerances (±0.01 mm or better for CNC milling), but can generate significant material waste (swarf/chips).</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>减材（浪费型）工艺从实体块或薄板开始，通过去除材料来呈现最终形状。CNC（计算机数控）自动化允许极其精确、可重复的切削。</p>
+<table class="curr-table">
+<thead><tr><th>工艺</th><th>机制</th><th>材料</th><th>典型应用</th></tr></thead>
+<tbody>
+<tr><td><strong>车削（车床）</strong></td><td>工件旋转；切削刀具横移</td><td>金属、聚合物、木材</td><td>轴、圆柱体、螺纹</td></tr>
+<tr><td><strong>铣削</strong></td><td>旋转铣刀在固定工件上移动</td><td>金属、聚合物、复合材料</td><td>平面、槽、凹槽、复杂3D轮廓（五轴）</td></tr>
+<tr><td><strong>EDM/线切割</strong></td><td>电火花腐蚀金属</td><td>导电金属</td><td>淬硬工具钢模具；极细特征</td></tr>
+<tr><td><strong>激光切割</strong></td><td>聚焦激光熔化/气化材料</td><td>板材、聚合物、木材、织物</td><td>2D轮廓；薄材料</td></tr>
+<tr><td><strong>等离子切割</strong></td><td>电离气体射流熔化并吹走金属</td><td>导电金属（最厚150mm）</td><td>结构钢；造船</td></tr>
+<tr><td><strong>磨料水刀</strong></td><td>280–690 MPa水压+磨料</td><td>任何材料，包括石材、玻璃、钛</td><td>热敏或硬质材料</td></tr>
+</tbody>
+</table>
+<p>减材工艺可产生优良的表面光洁度和紧密公差（CNC铣削可达±0.01 mm或更好），但可能产生大量材料浪费（切屑）。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.8"><div class="obj-trigger-left"><span class="obj-code">4.1.8</span><h3>Forming techniques modify the shape of a material without adding or removing any materials.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.8"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using forming techniques, including bending, press-forming, casting, moulding (injection, extrusion, rotational, blow, vacuum) processes.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.8 -->
+<div class="obj-section" id="obj-4.1.8">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.8">
+<div class="obj-trigger-left"><span class="obj-code">4.1.8</span><h3>Forming techniques reshape material without adding or removing any of it.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.8">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using forming techniques, including bending, press-forming, casting, moulding (injection, extrusion, rotational, blow, vacuum) processes.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Forming exploits a material's plasticity, fluidity (molten) or elasticity. Since material is not wasted, forming is generally more material-efficient than subtractive methods.</p>
+<p><strong>Metal casting:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Process</th><th>Mould type</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Sand casting</td><td>Expendable sand mould</td><td>Low tooling cost; rough surface; any alloy</td></tr>
+<tr><td>Investment (lost-wax) casting</td><td>Expendable ceramic shell</td><td>Excellent detail and surface; complex 3D shapes; expensive</td></tr>
+<tr><td>Die casting</td><td>Permanent steel die</td><td>High volume; thin walls; aluminium/zinc alloys</td></tr>
+<tr><td>Continuous casting</td><td>Water-cooled copper mould</td><td>Junghans process (1933); molten steel solidifies as a strand; standard for steel/aluminium production</td></tr>
+</tbody>
+</table>
+<p><strong>Polymer moulding:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Process</th><th>Principle</th><th>Typical products</th></tr></thead>
+<tbody>
+<tr><td>Injection moulding</td><td>Molten polymer injected into closed mould under pressure</td><td>Phone cases, bottle caps, dashboard parts</td></tr>
+<tr><td>Blow moulding</td><td>Hollow parison inflated inside mould</td><td>PET bottles, fuel tanks</td></tr>
+<tr><td>Thermoforming</td><td>Sheet heated then vacuum- or pressure-formed over tool</td><td>Food packaging, bathtubs, aircraft cabin panels</td></tr>
+<tr><td>Extrusion</td><td>Polymer forced through a die; continuous profile</td><td>Pipe, window frames, cable insulation</td></tr>
+<tr><td>Rotational moulding</td><td>Powder loaded into mould; mould heated and biaxially rotated</td><td>Large hollow items: tanks, kayaks, playground equipment</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>成形工艺利用材料的可塑性、流动性（熔融）或弹性。由于不浪费材料，成形工艺通常比减材方法更节省材料。</p>
+<p><strong>金属铸造：</strong></p>
+<table class="curr-table">
+<thead><tr><th>工艺</th><th>模具类型</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>砂型铸造</td><td>消耗性砂模</td><td>模具成本低；表面粗糙；适用任何合金</td></tr>
+<tr><td>熔模（失蜡）铸造</td><td>消耗性陶瓷壳</td><td>细节和表面优良；复杂3D形状；成本高</td></tr>
+<tr><td>压铸</td><td>永久钢模</td><td>大批量；薄壁；铝/锌合金</td></tr>
+<tr><td>连续铸造</td><td>水冷铜模</td><td>Junghans工艺（1933年）；熔融钢以铸坯形式凝固；钢/铝生产标准</td></tr>
+</tbody>
+</table>
+<p><strong>聚合物成型：</strong></p>
+<table class="curr-table">
+<thead><tr><th>工艺</th><th>原理</th><th>典型产品</th></tr></thead>
+<tbody>
+<tr><td>注塑成型</td><td>熔融聚合物在压力下注入闭合模具</td><td>手机壳、瓶盖、仪表板零件</td></tr>
+<tr><td>吹塑成型</td><td>空心型坯在模具内充气膨胀</td><td>PET瓶、燃油箱</td></tr>
+<tr><td>热成型</td><td>片材加热后在工具上真空或压力成型</td><td>食品包装、浴缸、飞机舱内板</td></tr>
+<tr><td>挤出成型</td><td>聚合物通过模头挤出；连续型材</td><td>管道、窗框、电缆绝缘</td></tr>
+<tr><td>旋转成型</td><td>粉末装入模具；加热并双轴旋转</td><td>大型空心物品：水箱、皮划艇、游乐设备</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.9"><div class="obj-trigger-left"><span class="obj-code">4.1.9</span><h3>Joining techniques can temporarily or permanently join two or more similar or dissimilar materials together.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.9"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are assembled using joining techniques, including adhering, fastening, stitching, weaving and welding processes.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.9 -->
+<div class="obj-section" id="obj-4.1.9">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.9">
+<div class="obj-trigger-left"><span class="obj-code">4.1.9</span><h3>Joining techniques can permanently or temporarily join similar or dissimilar materials.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.9">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are assembled using joining techniques, including adhering, fastening, stitching, weaving and welding processes.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Joining creates assemblies from separate components. The choice between permanent and temporary joining has significant implications for repairability, recycling and end-of-life disassembly.</p>
+<table class="curr-table">
+<thead><tr><th>Technique</th><th>Type</th><th>Mechanism</th><th>Example / notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Fusion welding</strong></td><td>Permanent</td><td>Base metal melted; may use filler rod (MIG, TIG, arc)</td><td>Steel structures, pipelines</td></tr>
+<tr><td><strong>Solid-state welding</strong></td><td>Permanent</td><td>No melting — friction stir, ultrasonic, explosive</td><td>Dissimilar metals; aircraft fuselage panels</td></tr>
+<tr><td><strong>Soldering</strong></td><td>Permanent</td><td>Filler alloy melted below 450 °C; wets parent metals</td><td>PCB assembly (SAC305 lead-free solder per RoHS)</td></tr>
+<tr><td><strong>Brazing</strong></td><td>Permanent</td><td>Filler alloy melted above 450 °C; base metals not melted</td><td>Copper pipe joints; tool tips</td></tr>
+<tr><td><strong>Adhesives</strong></td><td>Permanent</td><td>Chemical bonding at surface (epoxy, cyanoacrylate, structural acrylic)</td><td>Aerospace composite bonds; automotive body panels</td></tr>
+<tr><td><strong>SMT (Surface Mount Technology)</strong></td><td>Permanent</td><td>Solder paste + reflow oven attaches SMD components to PCB</td><td>All modern PCBs; very high component density</td></tr>
+<tr><td><strong>Mechanical fasteners</strong></td><td>Temporary</td><td>Bolts, screws, rivets, snap-fits, press-fits</td><td>Wide use; allows disassembly</td></tr>
+<tr><td><strong>Stitching / weaving</strong></td><td>Permanent / temporary</td><td>Thread or fibre interlocks</td><td>Textiles; fibre-reinforced composites (woven prepreg)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>连接工艺将独立零件组装成组件。永久性与临时性连接的选择对可维修性、回收和报废拆解有重要影响。</p>
+<table class="curr-table">
+<thead><tr><th>技术</th><th>类型</th><th>机制</th><th>示例/说明</th></tr></thead>
+<tbody>
+<tr><td><strong>熔化焊接</strong></td><td>永久性</td><td>基底金属熔化；可使用填充棒（MIG、TIG、电弧）</td><td>钢结构、管道</td></tr>
+<tr><td><strong>固态焊接</strong></td><td>永久性</td><td>不熔化——搅拌摩擦、超声波、爆炸焊接</td><td>异种金属；飞机机身板</td></tr>
+<tr><td><strong>软钎焊</strong></td><td>永久性</td><td>填充合金在450°C以下熔化；润湿母材</td><td>PCB组装（RoHS规定SAC305无铅焊料）</td></tr>
+<tr><td><strong>硬钎焊</strong></td><td>永久性</td><td>填充合金在450°C以上熔化；母材不熔化</td><td>铜管接头；刀具刀头</td></tr>
+<tr><td><strong>胶粘剂</strong></td><td>永久性</td><td>表面化学结合（环氧树脂、氰基丙烯酸酯、结构丙烯酸）</td><td>航空复合材料粘接；汽车车身板</td></tr>
+<tr><td><strong>SMT（表面贴装技术）</strong></td><td>永久性</td><td>焊膏+回流炉将SMD元件焊接到PCB上</td><td>所有现代PCB；元件密度极高</td></tr>
+<tr><td><strong>机械紧固件</strong></td><td>临时性</td><td>螺栓、螺钉、铆钉、卡扣、压配</td><td>广泛使用；允许拆卸</td></tr>
+<tr><td><strong>缝合/编织</strong></td><td>永久/临时</td><td>线或纤维相互交锁</td><td>纺织品；纤维增强复合材料（编织预浸料）</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.10"><div class="obj-trigger-left"><span class="obj-code">4.1.10</span><h3>Finishing techniques are used to protect and enhance the surface of a component, contributing to its longevity and an overall increase in product life.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.10"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest how natural and human-made finishing techniques (anodizing, electro-plating, galvanizing), coatings (powder-coating), polishing, sealants (oils, wax, silicone) enhance a product's aesthetics, protection, durability, longevity and ease of maintenance.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.10 -->
+<div class="obj-section" id="obj-4.1.10">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.10">
+<div class="obj-trigger-left"><span class="obj-code">4.1.10</span><h3>Finishing techniques protect and enhance the surface of a component to increase its longevity.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.10">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest how natural and human-made finishing techniques (anodising, electroplating, galvanising), coatings (powder coating), polishing, and sealants enhance a product's aesthetics, protection, durability, longevity and ease of maintenance.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>Finishing techniques are applied after forming or machining to alter the surface chemistry, texture or appearance of a component. They can dramatically extend product life and perceived quality.</p>
+<table class="curr-table">
+<thead><tr><th>Technique</th><th>Process</th><th>Material</th><th>Benefit</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>Anodising</strong></td><td>Electrochemical — aluminium becomes anode in sulphuric acid bath; oxide layer grows into surface</td><td>Aluminium alloys</td><td>Corrosion resistance; hard surface; accepts dyes</td><td>iPhone enclosures; bicycle frames; architectural cladding</td></tr>
+<tr><td><strong>Electroplating</strong></td><td>DC current deposits metal ions (chrome, nickel, gold, silver) from solution onto workpiece (cathode)</td><td>Any conductive substrate</td><td>Decorative; corrosion / wear resistance; conductivity</td><td>Chrome taps; gold-plated connectors; nickel-plated steel</td></tr>
+<tr><td><strong>Hot-dip galvanising</strong></td><td>Steel immersed in molten zinc (450 °C); zinc-iron alloy layers bond; surface shows characteristic spangle</td><td>Steel</td><td>Sacrificial cathodic protection; very thick coating</td><td>Street furniture, motorway barriers, structural steelwork</td></tr>
+<tr><td><strong>Powder coating</strong></td><td>Dry polymer powder electrostatically applied then cured at 177–204 °C in oven</td><td>Metals</td><td>Thick, even coat; no VOC solvents; wide colour range</td><td>Garden furniture, bicycle frames, kitchen appliances</td></tr>
+<tr><td><strong>Ceramic coating</strong></td><td>Silicon dioxide (SiO₂) or titanium dioxide (TiO₂) nano-layer applied and cured</td><td>Metals, glass, polymers</td><td>Extreme hardness; UV and chemical resistance; hydrophobic</td><td>Automotive paintwork protection; cookware; aerospace</td></tr>
+<tr><td><strong>Polishing</strong></td><td>Abrasive or chemical removal of surface peaks; electropolishing uses electrochemical dissolution</td><td>Metals, polymers, glass</td><td>Improved aesthetics; reduced friction and bacterial adhesion</td><td>Surgical instruments; optical components; jewellery</td></tr>
+</tbody>
+</table>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>表面处理工艺在成形或加工后应用，以改变零件的表面化学性质、纹理或外观。它们可以显著延长产品寿命和提升感知质量。</p>
+<table class="curr-table">
+<thead><tr><th>技术</th><th>工艺</th><th>材料</th><th>优势</th><th>示例</th></tr></thead>
+<tbody>
+<tr><td><strong>阳极氧化</strong></td><td>电化学法——铝在硫酸浴中作为阳极；氧化层生长入表面</td><td>铝合金</td><td>耐腐蚀；硬表面；可着色</td><td>iPhone外壳；自行车架；建筑外墙</td></tr>
+<tr><td><strong>电镀</strong></td><td>直流电将金属离子（铬、镍、金、银）从溶液沉积到工件（阴极）上</td><td>任何导电基材</td><td>装饰性；耐腐蚀/耐磨；导电性</td><td>镀铬水龙头；镀金连接器；镀镍钢</td></tr>
+<tr><td><strong>热浸镀锌</strong></td><td>钢浸入熔融锌中（450°C）；锌铁合金层粘合；表面呈现特征性光泽花纹</td><td>钢铁</td><td>牺牲阳极保护；涂层很厚</td><td>街道设施、公路护栏、结构钢</td></tr>
+<tr><td><strong>粉末涂装</strong></td><td>干燥聚合物粉末静电喷涂后在177–204°C烤炉固化</td><td>金属</td><td>厚实均匀的涂层；无VOC溶剂；颜色范围广</td><td>花园家具、自行车架、厨房电器</td></tr>
+<tr><td><strong>陶瓷涂层</strong></td><td>二氧化硅（SiO₂）或二氧化钛（TiO₂）纳米层涂覆并固化</td><td>金属、玻璃、聚合物</td><td>极高硬度；耐UV和化学腐蚀；疏水</td><td>汽车漆面保护；炊具；航空航天</td></tr>
+<tr><td><strong>抛光</strong></td><td>磨料或化学法去除表面峰值；电解抛光使用电化学溶解</td><td>金属、聚合物、玻璃</td><td>改善美观；减少摩擦和细菌附着</td><td>手术器械；光学元件；珠宝</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-a4.1.11"><div class="obj-trigger-left"><span class="obj-code">4.1.11</span><h3>A combination of additive, subtractive, forming, joining and finishing techniques are needed to create components and products.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-a4.1.11"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest why specific manufacturing techniques have been used to create a given component.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- 4.1.11 -->
+<div class="obj-section" id="obj-4.1.11">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.11">
+<div class="obj-trigger-left"><span class="obj-code">4.1.11</span><h3>A combination of techniques from all five categories is needed to create finished products.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.11">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest why specific manufacturing techniques have been used to create a given component.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>No real product uses only one category of technique. The design team must reason about <em>why</em> each technique is selected by connecting material properties, geometry, volume, cost and sustainability.</p>
+<p><strong>Case study — smartphone (iPhone-type aluminium body):</strong></p>
+<table class="curr-table">
+<thead><tr><th>Component</th><th>Technique(s)</th><th>Category</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Aluminium enclosure</td><td>CNC milling from billet + anodising</td><td>Subtractive + Finishing</td><td>Billet milling gives tight tolerance and complex radii; anodising provides colour, scratch resistance and eliminates paint</td></tr>
+<tr><td>Glass back panel</td><td>Chemical strengthening (ion exchange) + polishing</td><td>Forming + Finishing</td><td>Ion exchange compresses surface for crack resistance; polishing ensures optical clarity</td></tr>
+<tr><td>PCB</td><td>SMT reflow soldering</td><td>Joining</td><td>Enables placement of hundreds of components in mm²; no through-holes required</td></tr>
+<tr><td>SoC (chip)</td><td>Photolithography (subtractive at nm scale) + wire bonding</td><td>Subtractive + Joining</td><td>Transistors defined by etching; die bonded to substrate</td></tr>
+<tr><td>Battery</td><td>Winding / stacking of electrodes + laser welding</td><td>Forming + Joining</td><td>Electrode layers formed by calendering; sealed by laser welding</td></tr>
+<tr><td>Camera lens</td><td>Glass pressing + polishing + anti-reflection coating</td><td>Forming + Finishing</td><td>Precision pressing gives lens shape; polishing and coating ensure optical performance</td></tr>
+</tbody>
+</table>
+<p>Exam tip: when asked to "suggest why," link the technique to a specific material property or product requirement (e.g., "injection moulding is used for the polymer casing because the high-volume production run amortises the tooling cost").</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>没有任何真实产品只使用一类工艺。设计团队必须通过联系材料性能、几何形状、数量、成本和可持续性来推理<em>为什么</em>选择每种技术。</p>
+<p><strong>案例研究——智能手机（iPhone型铝制机身）：</strong></p>
+<table class="curr-table">
+<thead><tr><th>零部件</th><th>工艺</th><th>类别</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td>铝制外壳</td><td>铝锭CNC铣削+阳极氧化</td><td>减材+表面处理</td><td>铣削提供精密公差和复杂弧度；阳极氧化提供颜色、耐划性并省去涂漆工序</td></tr>
+<tr><td>玻璃背板</td><td>化学强化（离子交换）+抛光</td><td>成形+表面处理</td><td>离子交换压缩表面以提高抗裂性；抛光确保光学清晰度</td></tr>
+<tr><td>PCB</td><td>SMT回流焊接</td><td>连接</td><td>使数百个元件能够放置在毫米²内；无需通孔</td></tr>
+<tr><td>SoC（芯片）</td><td>光刻（纳米级减材）+引线键合</td><td>减材+连接</td><td>通过蚀刻定义晶体管；裸片键合到基板</td></tr>
+<tr><td>电池</td><td>电极卷绕/叠片+激光焊接</td><td>成形+连接</td><td>电极层通过压延成形；通过激光焊接密封</td></tr>
+<tr><td>摄像头镜头</td><td>玻璃压制+抛光+增透膜</td><td>成形+表面处理</td><td>精密压制形成镜头形状；抛光和镀膜确保光学性能</td></tr>
+</tbody>
+</table>
+<p>考试技巧：当被要求"建议原因"时，将技术与具体的材料性能或产品要求联系起来（例如，"注塑成型用于聚合物外壳，因为大批量生产摊销了模具成本"）。</p>
+</div>
+</div>
+</div>
+</div>
 
-</div></div></div>
+</div><!-- /obj-list -->
+</div><!-- /curr-body -->
+</div><!-- /study-guide -->
 
-<div class="curr-section" id="quiz" style="--curr-color:#8b6520;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz"><div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-quiz"><p class="quiz-intro">Multiple choice questions for A4.1 Manufacturing Techniques will be added here.</p></div></div>
+<!-- QUIZ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your knowledge of A4.1 Manufacturing Techniques. Select the best answer for each question, then check your score.</p>
+<div class="quiz-wrap" id="quiz-a4.1" data-answers="C,C,B,C,B,A,C,A,B,A">
 
-<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2"><div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-paper2"><div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div><p class="content-placeholder">Practice questions for A4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="1">
+<p class="quiz-stem">1. Which of the following best describes an <em>additive</em> manufacturing process?</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Removing material from a block using a rotating cutter</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Reshaping a material by pressing it into a mould</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Building up an object layer by layer from a digital model</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Joining two materials using an electrical discharge</label>
+</div>
 
-<div class="curr-section" id="references" style="--curr-color:#2d7a6a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-refs"><div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-refs"><p class="content-placeholder">Reference links for A4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="2">
+<p class="quiz-stem">2. Chuck Hull invented stereolithography in which year?</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. 1974</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. 1979</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. 1984</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. 1991</label>
+</div>
+
+<div class="quiz-q" data-q="3">
+<p class="quiz-stem">3. In 4D printing, the "fourth dimension" refers to:</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. A fourth spatial axis of motion</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Time — the transformation of the printed object after printing</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. The use of four different materials simultaneously</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Printing at four times normal speed</label>
+</div>
+
+<div class="quiz-q" data-q="4">
+<p class="quiz-stem">4. Continuous casting (Junghans process) is classified under which manufacturing category?</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Additive</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Subtractive</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Forming</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Joining</label>
+</div>
+
+<div class="quiz-q" data-q="5">
+<p class="quiz-stem">5. Which finishing technique uses a water-cooled copper mould to continuously solidify molten steel into a strand?</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. Anodising</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. Hot-dip galvanising</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Powder coating</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Electroplating</label>
+</div>
+
+<div class="quiz-q" data-q="6">
+<p class="quiz-stem">6. The key advantage of anodising aluminium compared to painting is that:</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. The oxide layer grows into the surface, so it cannot peel or flake</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. It adds a thick layer of zinc for sacrificial protection</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. It can be applied to any material including polymers</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. It requires no electrical current</label>
+</div>
+
+<div class="quiz-q" data-q="7">
+<p class="quiz-stem">7. Which SMP (shape memory polymer) behaviour explains the "programming" step in 4D printing?</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. The polymer is cooled to cryogenic temperatures to lock in a rigid state</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. UV light cross-links the polymer chains permanently</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. The polymer is heated above T<sub>g</sub>, deformed, then cooled to fix a temporary shape</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. The polymer absorbs water, causing it to swell into the desired form</label>
+</div>
+
+<div class="quiz-q" data-q="8">
+<p class="quiz-stem">8. Selective Laser Sintering (SLS) differs from FDM primarily because SLS:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. Does not require support structures, as surrounding powder supports the part</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Uses a heated nozzle rather than a laser</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. Can only process metals, not polymers</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. Produces parts with visible layer lines</label>
+</div>
+
+<div class="quiz-q" data-q="9">
+<p class="quiz-stem">9. SMT (Surface Mount Technology) in PCB assembly is an example of which manufacturing category?</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Forming</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Joining</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. Additive</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Finishing</label>
+</div>
+
+<div class="quiz-q" data-q="10">
+<p class="quiz-stem">10. Why is injection moulding generally more cost-effective than FDM 3D printing for production runs above approximately 10,000 units?</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. The high initial tooling cost is amortised across many parts, driving down the per-unit cost</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Injection moulding uses less electricity per part at all volumes</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. FDM cannot produce parts in engineering-grade thermoplastics</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. Injection moulded parts are always stronger than FDM parts</label>
+</div>
+
+<div class="quiz-controls">
+<button class="quiz-submit" type="button">Check answers</button>
+<button class="quiz-reset" type="button">Reset</button>
+</div>
+<div class="quiz-result" aria-live="polite"></div>
+</div>
+</div>
+</div>
+
+<!-- PAPER 2 -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Outline the five categories of manufacturing techniques and give one example process for each.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Mark scheme guidance:</strong> One mark per category correctly named + example (4 categories awarded, maximum 4).</p>
+<ul>
+<li><strong>Additive</strong> — material is built up layer by layer. Example: FDM / SLA / SLS. (1)</li>
+<li><strong>Subtractive (wasting)</strong> — material is removed from a solid block. Example: CNC milling / turning / laser cutting. (1)</li>
+<li><strong>Forming</strong> — material is reshaped without adding or removing mass. Example: injection moulding / continuous casting / thermoforming. (1)</li>
+<li><strong>Joining</strong> — two or more parts are fastened together, permanently or temporarily. Example: MIG welding / SMT soldering / bolting. (1)</li>
+<li><strong>Finishing</strong> — surface is treated to protect or enhance it. Example: anodising / powder coating / electroplating. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Describe the continuous casting (Junghans) process for steel and explain two advantages it offers over conventional ingot casting.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Process description (up to 4 marks):</strong></p>
+<ul>
+<li>Molten steel from the ladle is transferred into a <strong>tundish</strong> — a buffer vessel that maintains a steady flow. (1)</li>
+<li>Steel flows from the tundish into an open-ended, <strong>water-cooled copper mould</strong> that defines the cross-sectional shape (slab, bloom or billet). (1)</li>
+<li>The outer skin solidifies in the mould while the interior remains liquid; the partially solidified strand is withdrawn downward by driven rollers. (1)</li>
+<li>Secondary cooling via water sprays solidifies the strand completely; it is then cut to length by a torch or shear. (1)</li>
+</ul>
+<p><strong>Two advantages (1 mark each, up to 2):</strong></p>
+<ul>
+<li><strong>No reheating required</strong> — ingot casting requires reheating cold ingots before rolling; continuous casting goes directly from liquid to rolled product, saving energy. (1)</li>
+<li><strong>Higher yield / less segregation</strong> — continuous strands have more uniform composition than ingots, where solidification causes elemental segregation toward the centre. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[5 marks]</span> Explain the four-stage cycle by which a shape memory polymer (SMP) is used in 4D printing, referring to the glass transition temperature (T<sub>g</sub>).</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<ul>
+<li><strong>Stage 1 — Print:</strong> The SMP is printed in its <em>permanent (memory) shape</em> using a standard 3D printing process. At this point the object is in its stable, stress-free configuration. (1)</li>
+<li><strong>Stage 2 — Programme:</strong> The printed object is heated above T<sub>g</sub>. Above T<sub>g</sub>, the polymer chains have sufficient mobility to be deformed; the object is bent or compressed into a <em>temporary shape</em>. (1)</li>
+<li><strong>Stage 3 — Fix:</strong> While still deformed, the object is cooled below T<sub>g</sub>. Chain mobility is frozen, locking in the temporary shape. The object can be stored or shipped in this compact form. (1)</li>
+<li><strong>Stage 4 — Trigger:</strong> A stimulus (usually heat above T<sub>g</sub>) is applied. The stored elastic strain is released and the object recovers its original printed shape. Water, light or pH can act as triggers for certain SMP formulations. (1)</li>
+<li><strong>T<sub>g</sub> relevance:</strong> T<sub>g</sub> is the critical temperature threshold; below it the polymer behaves as a glass (rigid), above it as a rubber (flexible). The programming and recovery both rely on crossing T<sub>g</sub>. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Compare hot-chamber and cold-chamber die casting in terms of process and suitable materials.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<table class="curr-table">
+<thead><tr><th>Aspect</th><th>Hot-chamber</th><th>Cold-chamber</th></tr></thead>
+<tbody>
+<tr><td>Molten metal location</td><td>Pot immersed <em>within</em> the machine; plunger forces metal directly (1)</td><td>Metal ladled into a <em>separate</em> cold shot chamber each cycle (1)</td></tr>
+<tr><td>Cycle speed</td><td>Fast (up to 500 shots/hour)</td><td>Slower — manual or automated ladling</td></tr>
+<tr><td>Suitable alloys</td><td>Low melting point: zinc, tin, lead alloys (1)</td><td>High melting point: aluminium, magnesium, copper alloys (1)</td></tr>
+<tr><td>Reason for difference</td><td>High-temp alloys would attack the immersed plunger and pot</td><td>Cold chamber is isolated from the hot metal between shots</td></tr>
+</tbody>
+</table>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> A manufacturer is choosing between injection moulding and FDM 3D printing to produce 50,000 identical polymer brackets. Discuss the factors that would influence this decision.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Cost:</strong> Injection moulding requires a steel mould costing $10,000–$100,000, but at 50,000 units the per-part cost falls to cents. FDM has no tooling cost but machine time per part remains constant; at 50,000 units FDM is almost certainly more expensive per part. (1+1)</p>
+<p><strong>Cycle time / throughput:</strong> Injection moulding cycles in seconds (15–60 s per shot, often multi-cavity); FDM takes hours per part or batch. At this volume, injection moulding is dramatically faster. (1)</p>
+<p><strong>Dimensional accuracy and surface finish:</strong> Injection moulding typically achieves ±0.1 mm tolerances with a smooth Class A finish. FDM produces visible layer lines and ±0.3–0.5 mm without post-processing. If the bracket has tight fitting interfaces, injection moulding is preferred. (1)</p>
+<p><strong>Material properties:</strong> Injection moulding supports a wider range of engineering thermoplastics and produces isotropic parts. FDM parts are anisotropic (weaker in Z-axis), which may be unacceptable for a structural bracket. (1)</p>
+<p><strong>Conclusion:</strong> At 50,000 identical parts, injection moulding is almost always the correct choice for cost, speed and quality. FDM would only be justified if the bracket geometry changes frequently (avoiding mould changes) or if the production run is extremely urgent and tooling lead time is the bottleneck. (1)</p>
+</details>
+</div>
+
+</div>
+</div>
+
+<!-- REFERENCES -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ul class="ref-list">
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/@TheEngineeringMindset" class="ref-link" target="_blank" rel="noopener">The Engineering Mindset — YouTube channel covering manufacturing processes, casting, moulding and welding with clear animations.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://help.prusa3d.com/article/what-is-3d-printing_2519" class="ref-link" target="_blank" rel="noopener">Prusa Research — "What is 3D printing?" Comprehensive overview of FDM, SLA and SLS processes with material guidance.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://en.wikipedia.org/wiki/Stereolithography" class="ref-link" target="_blank" rel="noopener">Wikipedia — Stereolithography. History, mechanism and applications of SLA, including Chuck Hull's 1984 patent.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://en.wikipedia.org/wiki/Continuous_casting" class="ref-link" target="_blank" rel="noopener">Wikipedia — Continuous casting. Detailed description of the Junghans process, tundish design and secondary cooling.</a></li>
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.ted.com/talks/skylar_tibbits_the_emergence_of_4d_printing" class="ref-link" target="_blank" rel="noopener">TED — Skylar Tibbits, "The emergence of 4D printing" (2013). The original presentation introducing 4D printing and self-assembly.</a></li>
+<li class="ref-item"><span class="ref-label">中文参考</span><a href="https://baike.baidu.com/item/注射成型" class="ref-link" target="_blank" rel="noopener">百度百科 — 注射成型。注塑工艺原理、设备与材料的中文综合介绍。</a></li>
+</ul>
+</div>
+</div>
 
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
-<li>How might material properties influence the selection of manufacturing techniques? <a href="a3.1-material-classification.html">(A3.1)</a></li>
-<li>To what extent are manufacturing techniques for commercial products used for modelling and prototyping potential design solutions? <a href="b2.2-modelling-prototyping.html">(B2.2)</a></li>
-<li>To what extent are manufacturing techniques determined by material selection? <a href="b3.1-material-selection.html">(B3.1)</a></li>
-<li>How could manufacturing techniques influence the way a structural system is designed? <a href="a3.2-structural-systems.html">(A3.2)</a> <a href="b3.2-structural-systems-application.html">(B3.2)</a></li>
-<li>How can product analysis and evaluation be used to identify the manufacturing techniques used to create a product? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
-<li>How can the selection of a manufacturing technique affect the outcome of a life-cycle analysis on a product? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
-<li>Why do manufacturing strategies influence the design choice of manufacturing techniques to create a product? <a href="c4.1-design-for-manufacture.html">(C4.1)</a></li>
+<li>How do the material properties of metals and polymers determine which manufacturing techniques can be applied to them? <a href="a3.1-material-classification.html">(A3.1)</a></li>
+<li>To what extent should a designer consider end-of-life disassembly when choosing between permanent and temporary joining techniques? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
+<li>How might the choice of finishing technique reflect the cultural or aesthetic values of a target market? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
+<li>Why is rapid prototyping with additive manufacturing particularly valuable in iterative design processes? <a href="b2.2-modelling-prototyping.html">(B2.2)</a></li>
+<li>How does product analysis reveal the manufacturing techniques used in a given product? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
 </ul>
 </section>
 
@@ -98,8 +828,14 @@
 <a class="nav-next" href="b1.1-user-centred-design.html"><span class="nav-dir">Next →</span><span class="nav-title">B1.1 User-centred Design</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="a4.1.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>
