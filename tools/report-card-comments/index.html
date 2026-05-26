@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Card Comments — Design</title>
+  <style>
+/* =====================================================================
+   contrapaul.com — Warm editorial light theme
+   ===================================================================== */
+:root {
+  --bg:          #faf7f2;
+  --surface:     #f2ede4;
+  --surface-2:   #e8e0d0;
+  --border:      #d8cfc0;
+  --text:        #1a1712;
+  --muted:       #7a7060;
+  --accent:      #c0522a;
+  --accent-light:#f0e0d8;
+  --green:       #2a7a42;
+  --green-light: #e4f0e8;
+  --orange:      #c07820;
+  --orange-light:#f5ead8;
+  --red:         #b03030;
+  --red-light:   #f5e0e0;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "Courier New", Courier, monospace;
+  --max-w:        1060px;
+  --radius:       4px;
+  --transition:   180ms ease;
+  --header-h:     52px;
+  --controls-h:   84px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; background: var(--bg); color: var(--text); }
+body {
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+main { flex: 1; }
+
+/* ── HEADER ── */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: rgba(250,247,242,0.95);
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(6px);
+  height: var(--header-h);
+}
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  height: 100%; display: flex; align-items: center; justify-content: space-between;
+}
+.back-link {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+  letter-spacing: 0.04em; transition: color var(--transition);
+}
+.back-link:hover { color: var(--accent); text-decoration: none; }
+.header-title {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  text-align: center;
+}
+.header-title h1 {
+  font-family: var(--font-display); font-size: 1rem; font-weight: normal;
+  letter-spacing: 0.01em;
+}
+.header-title .subtitle {
+  font-size: 0.72rem; color: var(--muted); font-family: var(--font-mono);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.nav { display: flex; gap: 0.25rem; }
+.nav a {
+  font-size: 0.82rem; padding: 0.3rem 0.75rem; color: var(--muted);
+  transition: color var(--transition); text-decoration: none;
+}
+.nav a:hover { color: var(--text); }
+
+/* ── CONTROLS BAR ── */
+.controls-bar {
+  position: sticky; top: var(--header-h); z-index: 90;
+  background: rgba(242,237,228,0.97);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+  min-height: var(--controls-h);
+}
+.controls-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+  height: 100%; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.control-group {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.control-label {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.07em; white-space: nowrap;
+}
+.toggle-set {
+  display: flex; gap: 0.25rem;
+}
+.toggle-btn {
+  font-family: var(--font-mono); font-size: 0.8rem;
+  padding: 0.25rem 0.65rem;
+  background: var(--bg); border: 1px solid var(--border); color: var(--muted);
+  border-radius: var(--radius); cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.toggle-btn:hover { color: var(--text); border-color: var(--text); }
+.toggle-btn.active {
+  background: var(--accent); border-color: var(--accent);
+  color: #fff; font-weight: 600;
+}
+.name-input {
+  font-family: var(--font-body); font-size: 0.875rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); color: var(--text);
+  width: 160px;
+  transition: border-color var(--transition);
+}
+.name-input:focus { outline: none; border-color: var(--accent); }
+.name-input::placeholder { color: var(--muted); }
+
+/* ── MAIN GRID ── */
+.tool-wrap {
+  max-width: var(--max-w); margin: 0 auto; padding: 2rem;
+}
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* ── PHRASE BANK (left) ── */
+.phrase-bank {
+  display: flex; flex-direction: column; gap: 0;
+}
+.phrase-section {
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 0;
+}
+.phrase-section:last-child { border-bottom: none; }
+
+.section-header {
+  display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;
+}
+.section-label {
+  font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--muted); font-weight: 600;
+}
+.section-count {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  background: var(--accent); color: #fff;
+  border-radius: 10px; padding: 0.05rem 0.45rem;
+  line-height: 1.4;
+}
+
+.phrase-grid {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+}
+
+/* Sub-groups within Grade Level */
+.grade-sub-group {
+  margin-bottom: 0.6rem;
+}
+.grade-sub-group:last-child { margin-bottom: 0; }
+.sub-group-label {
+  font-size: 0.68rem; font-family: var(--font-mono); color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+.grade-sub-group.sub-group-disabled .sub-group-label {
+  opacity: 0.4;
+}
+
+/* Criteria sub-groups */
+.criteria-group { margin-bottom: 0.75rem; }
+.criteria-group:last-child { margin-bottom: 0; }
+.criteria-group-label {
+  font-size: 0.72rem; font-family: var(--font-mono); color: var(--text);
+  font-weight: 600; letter-spacing: 0.03em; margin-bottom: 0.35rem;
+}
+
+/* Phrase buttons */
+.phrase-btn {
+  font-family: var(--font-body); font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--bg); border: 1px solid var(--border); color: var(--text);
+  border-radius: var(--radius); cursor: pointer;
+  transition: all var(--transition);
+  text-align: left; line-height: 1.3;
+}
+.phrase-btn:hover:not(:disabled) {
+  border-color: var(--accent); background: var(--accent-light);
+}
+.phrase-btn.selected {
+  border-color: var(--accent); background: var(--accent-light);
+  border-left-width: 3px; padding-left: calc(0.7rem - 2px);
+  color: var(--accent);
+}
+.phrase-btn.unavailable {
+  opacity: 0.3; cursor: not-allowed;
+}
+.phrase-btn:disabled { pointer-events: none; }
+
+/* Compact grid (grade level numeric buttons) */
+.phrase-grid--compact .phrase-btn {
+  min-width: 2rem; text-align: center; padding: 0.3rem 0.5rem;
+}
+
+/* ── OUTPUT PANEL (right) ── */
+.output-panel {
+  position: sticky;
+  top: calc(var(--header-h) + var(--controls-h) + 1.5rem);
+}
+.comment-box {
+  width: 100%; min-height: 320px;
+  font-family: var(--font-body); font-size: 0.875rem; line-height: 1.65;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); color: var(--text);
+  resize: vertical;
+  transition: border-color var(--transition);
+}
+.comment-box:focus { outline: none; border-color: var(--accent); }
+.comment-box::placeholder { color: var(--muted); }
+
+/* Character counter */
+.char-counter {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-top: 0.5rem; padding: 0.45rem 0.75rem;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--surface); font-family: var(--font-mono); font-size: 0.75rem;
+  transition: all var(--transition);
+}
+.char-counter.ok     { border-color: var(--green);  background: var(--green-light);  }
+.char-counter.under  { border-color: var(--orange); background: var(--orange-light); }
+.char-counter.over   { border-color: var(--red);    background: var(--red-light);    }
+
+.count-primary {
+  font-weight: 700; font-size: 0.85rem;
+}
+.count-primary.ok    { color: var(--green); }
+.count-primary.under { color: var(--orange); }
+.count-primary.over  { color: var(--red); }
+
+.count-secondary { color: var(--muted); }
+.count-sep { color: var(--border); }
+.count-range { margin-left: auto; color: var(--muted); font-size: 0.68rem; }
+
+/* Style flags */
+.style-flags {
+  display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem;
+  min-height: 1.4rem;
+}
+.style-flag {
+  font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 0.1rem 0.5rem; border-radius: 10px;
+}
+.flag-error { background: var(--red-light); color: var(--red); }
+.flag-warn  { background: var(--orange-light); color: var(--orange); }
+
+/* Action buttons */
+.btn-row {
+  display: flex; gap: 0.5rem; margin-top: 0.75rem;
+}
+.btn {
+  font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.5rem 1rem;
+  border-radius: var(--radius); cursor: pointer;
+  transition: all var(--transition); border: 1px solid transparent;
+}
+.btn-update {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+  position: relative;
+}
+.btn-update:hover { filter: brightness(1.1); }
+.btn-update.dirty::after {
+  content: '';
+  position: absolute; top: 5px; right: 5px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #fff;
+}
+.btn-secondary {
+  background: var(--surface); color: var(--text); border-color: var(--border);
+}
+.btn-secondary:hover { border-color: var(--text); }
+.btn-copy.copied { background: var(--green-light); border-color: var(--green); color: var(--green); }
+
+/* Snackbar */
+.snackbar {
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--bg);
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em;
+  padding: 0.5rem 1.25rem; border-radius: var(--radius);
+  opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 200;
+}
+.snackbar.show { opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .tool-grid { grid-template-columns: 1fr; }
+  .output-panel { position: static; }
+  .controls-inner { gap: 1rem; }
+}
+@media (max-width: 600px) {
+  .tool-wrap { padding: 1rem; }
+  .header-title { display: none; }
+  .controls-inner { flex-wrap: wrap; }
+}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://edu.contrapaul.com/tools" class="back-link">← Tools</a>
+    <div class="header-title">
+      <h1>Report Card Comments</h1>
+      <div class="subtitle">Design — MYP &amp; DP</div>
+    </div>
+    <nav class="nav">
+      <a href="https://edu.contrapaul.com">edu.contrapaul.com</a>
+    </nav>
+  </div>
+</header>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="control-group">
+      <span class="control-label">Grade</span>
+      <div class="toggle-set" id="grade-toggles">
+        <button class="toggle-btn active" data-grade="6">6</button>
+        <button class="toggle-btn" data-grade="7">7</button>
+        <button class="toggle-btn" data-grade="10">10</button>
+        <button class="toggle-btn" data-grade="11">11</button>
+      </div>
+    </div>
+    <div class="control-group">
+      <span class="control-label">Name</span>
+      <input class="name-input" id="student-name" type="text" placeholder="Student name" autocomplete="off" />
+    </div>
+    <div class="control-group">
+      <span class="control-label">Pronoun</span>
+      <div class="toggle-set" id="pronoun-toggles">
+        <button class="toggle-btn active" data-pronoun="she">She/Her</button>
+        <button class="toggle-btn" data-pronoun="he">He/His</button>
+        <button class="toggle-btn" data-pronoun="they">They/Their</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="tool-wrap">
+    <div class="tool-grid">
+
+      <!-- Left: phrase bank -->
+      <div class="phrase-bank" id="phrase-bank"></div>
+
+      <!-- Right: output -->
+      <div class="output-panel">
+        <textarea
+          class="comment-box"
+          id="comment-box"
+          placeholder="Select phrases on the left, then click Update."
+        ></textarea>
+
+        <div class="char-counter" id="char-counter">
+          <span class="count-primary under" id="count-primary">0</span>
+          <span id="count-label" style="font-size:0.7rem;color:var(--muted)">chars</span>
+          <span class="count-sep">·</span>
+          <span class="count-secondary" id="count-nospace">0 no-sp</span>
+          <span class="count-range">Target: 700–1000</span>
+        </div>
+
+        <div class="style-flags" id="style-flags"></div>
+
+        <div class="btn-row">
+          <button class="btn btn-update dirty" id="btn-update">Update</button>
+          <button class="btn btn-secondary btn-copy" id="btn-copy">Copy</button>
+          <button class="btn btn-secondary" id="btn-clear">Clear</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<div class="snackbar" id="snackbar"></div>
+
+<script src="data.js"></script>
+<script>
+// ── State ────────────────────────────────────────────────────────────────────
+const state = {
+  grade: 6,
+  pronoun: 'she',
+  dirty: false,
+  selected: {
+    Opening:        new Set(),
+    GradeLevel:     null,
+    SubjectContent: new Set(),
+    Criteria:       { A: null, B: null, C: null, D: null },
+    ATL:            new Set(),
+    Improvement:    new Set(),
+    Suggestions:    new Set(),
+    Closing:        new Set(),
+  },
+};
+
+const SECTIONS = [
+  { key: 'Opening',        label: 'Opening',                type: 'multi'    },
+  { key: 'GradeLevel',     label: 'Grade Level',            type: 'grade'    },
+  { key: 'SubjectContent', label: 'Subject Content',        type: 'multi'    },
+  { key: 'Criteria',       label: 'Criteria',               type: 'criteria' },
+  { key: 'ATL',            label: 'ATL Skills',             type: 'multi'    },
+  { key: 'Improvement',    label: 'Areas for Improvement',  type: 'multi'    },
+  { key: 'Suggestions',    label: 'Break / Next Steps',     type: 'multi'    },
+  { key: 'Closing',        label: 'Closing',                type: 'multi'    },
+];
+
+const CRITERION_LABELS_MYP = {
+  A: 'A — Inquiring and Analysing',
+  B: 'B — Developing Ideas',
+  C: 'C — Creating the Solution',
+  D: 'D — Evaluating',
+};
+const CRITERION_LABELS_DP = {
+  A: 'Design Process',
+  B: 'Paper Performance',
+  C: 'IA Work',
+};
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function isSelected(phrase) {
+  const s = state.selected;
+  if (phrase.section === 'GradeLevel') return s.GradeLevel === phrase.id;
+  if (phrase.section === 'Criteria')   return s.Criteria[phrase.criterionGroup] === phrase.id;
+  return s[phrase.section]?.has(phrase.id) ?? false;
+}
+
+function getSelectionCount(sectionKey) {
+  const s = state.selected;
+  if (sectionKey === 'GradeLevel') return s.GradeLevel ? 1 : 0;
+  if (sectionKey === 'Criteria')   return Object.values(s.Criteria).filter(Boolean).length;
+  return s[sectionKey]?.size ?? 0;
+}
+
+function getTotalSelected() {
+  return SECTIONS.reduce((n, sec) => n + getSelectionCount(sec.key), 0);
+}
+
+// ── Phrase toggle ─────────────────────────────────────────────────────────────
+function onPhraseClick(phrase) {
+  const s = state.selected;
+  if (phrase.section === 'GradeLevel') {
+    s.GradeLevel = s.GradeLevel === phrase.id ? null : phrase.id;
+  } else if (phrase.section === 'Criteria') {
+    const cg = phrase.criterionGroup;
+    s.Criteria[cg] = s.Criteria[cg] === phrase.id ? null : phrase.id;
+  } else {
+    if (s[phrase.section].has(phrase.id)) s[phrase.section].delete(phrase.id);
+    else s[phrase.section].add(phrase.id);
+  }
+  markDirty();
+  renderPhraseBank();
+}
+
+function markDirty() {
+  state.dirty = true;
+  document.getElementById('btn-update').classList.add('dirty');
+}
+
+// ── Build comment ─────────────────────────────────────────────────────────────
+function buildComment() {
+  const nameEl = document.getElementById('student-name');
+  const n = nameEl.value.trim() || '[Name]';
+  const p = PRONOUNS[state.pronoun];
+  const s = state.selected;
+  const parts = [];
+
+  // Helper: add phrases from a Set in data order
+  const addSet = (sectionKey) =>
+    PHRASES.filter(ph => ph.section === sectionKey && s[sectionKey].has(ph.id))
+           .forEach(ph => parts.push(ph.text(n, p)));
+
+  addSet('Opening');
+
+  if (s.GradeLevel) {
+    const ph = PHRASES.find(ph => ph.id === s.GradeLevel);
+    if (ph) parts.push(ph.text(n, p));
+  }
+
+  addSet('SubjectContent');
+
+  ['A', 'B', 'C', 'D'].forEach(cg => {
+    if (s.Criteria[cg]) {
+      const ph = PHRASES.find(ph => ph.id === s.Criteria[cg]);
+      if (ph) parts.push(ph.text(n, p));
+    }
+  });
+
+  addSet('ATL');
+  addSet('Improvement');
+  addSet('Suggestions');
+  addSet('Closing');
+
+  return parts.join(' ');
+}
+
+// ── Rendering ─────────────────────────────────────────────────────────────────
+function makePhraseBtn(phrase) {
+  const available = phrase.grades.includes(state.grade);
+  const selected  = isSelected(phrase);
+  const btn = document.createElement('button');
+  btn.className = 'phrase-btn' +
+    (selected   ? ' selected'   : '') +
+    (!available ? ' unavailable' : '');
+  btn.textContent = phrase.label;
+  if (!available) btn.disabled = true;
+  else btn.addEventListener('click', () => onPhraseClick(phrase));
+  return btn;
+}
+
+function renderGradeLevelSection(phrases) {
+  const wrap = document.createElement('div');
+
+  const mypPhrases = phrases.filter(ph => ph.grades.includes(6));
+  const ibPhrases  = phrases.filter(ph => ph.grades.includes(11));
+  const isDP = state.grade === 11;
+
+  const makeSubGroup = (label, list, disabled) => {
+    const div = document.createElement('div');
+    div.className = 'grade-sub-group' + (disabled ? ' sub-group-disabled' : '');
+    const lbl = document.createElement('div');
+    lbl.className = 'sub-group-label';
+    lbl.textContent = label;
+    div.appendChild(lbl);
+    const grid = document.createElement('div');
+    grid.className = 'phrase-grid phrase-grid--compact';
+    list.forEach(ph => grid.appendChild(makePhraseBtn(ph)));
+    div.appendChild(grid);
+    return div;
+  };
+
+  wrap.appendChild(makeSubGroup('MYP (1–8)', mypPhrases, isDP));
+  wrap.appendChild(makeSubGroup('IB (1–7)',  ibPhrases,  !isDP));
+  return wrap;
+}
+
+function renderCriteriaSection() {
+  const wrap = document.createElement('div');
+  const isDP = state.grade === 11;
+  const criterionLabels = isDP ? CRITERION_LABELS_DP : CRITERION_LABELS_MYP;
+
+  // Only show phrases for current grade
+  const available = PHRASES.filter(ph => ph.section === 'Criteria' && ph.grades.includes(state.grade));
+
+  // Group by criterionGroup
+  const groups = {};
+  available.forEach(ph => {
+    if (!groups[ph.criterionGroup]) groups[ph.criterionGroup] = [];
+    groups[ph.criterionGroup].push(ph);
+  });
+
+  Object.keys(criterionLabels).forEach(cg => {
+    if (!groups[cg]) return;
+    const groupEl = document.createElement('div');
+    groupEl.className = 'criteria-group';
+    const lbl = document.createElement('div');
+    lbl.className = 'criteria-group-label';
+    lbl.textContent = criterionLabels[cg];
+    groupEl.appendChild(lbl);
+    const grid = document.createElement('div');
+    grid.className = 'phrase-grid';
+    groups[cg].forEach(ph => grid.appendChild(makePhraseBtn(ph)));
+    groupEl.appendChild(grid);
+    wrap.appendChild(groupEl);
+  });
+  return wrap;
+}
+
+function renderSection(sec) {
+  const phrases = PHRASES.filter(ph => ph.section === sec.key);
+  const count   = getSelectionCount(sec.key);
+  const wrapper = document.createElement('div');
+  wrapper.className = 'phrase-section';
+
+  // Header
+  const header = document.createElement('div');
+  header.className = 'section-header';
+  const lbl = document.createElement('span');
+  lbl.className = 'section-label';
+  lbl.textContent = sec.label;
+  header.appendChild(lbl);
+  if (count > 0) {
+    const badge = document.createElement('span');
+    badge.className = 'section-count';
+    badge.textContent = count;
+    header.appendChild(badge);
+  }
+  wrapper.appendChild(header);
+
+  // Body
+  if (sec.type === 'grade') {
+    wrapper.appendChild(renderGradeLevelSection(phrases));
+  } else if (sec.type === 'criteria') {
+    wrapper.appendChild(renderCriteriaSection());
+  } else {
+    const grid = document.createElement('div');
+    grid.className = 'phrase-grid';
+    phrases.forEach(ph => grid.appendChild(makePhraseBtn(ph)));
+    wrapper.appendChild(grid);
+  }
+
+  return wrapper;
+}
+
+function renderPhraseBank() {
+  const bank = document.getElementById('phrase-bank');
+  bank.innerHTML = '';
+  SECTIONS.forEach(sec => bank.appendChild(renderSection(sec)));
+}
+
+// ── Character counter ─────────────────────────────────────────────────────────
+function updateCounter() {
+  const text      = document.getElementById('comment-box').value;
+  const withSp    = text.length;
+  const withoutSp = text.replace(/\s/g, '').length;
+
+  const counterEl  = document.getElementById('char-counter');
+  const primaryEl  = document.getElementById('count-primary');
+  const nospEl     = document.getElementById('count-nospace');
+
+  primaryEl.textContent = withSp;
+  nospEl.textContent    = `${withoutSp} no-sp`;
+
+  let zone = 'under';
+  if (withSp >= 700 && withSp <= 1000) zone = 'ok';
+  else if (withSp > 1000) zone = 'over';
+
+  counterEl.className      = `char-counter ${zone}`;
+  primaryEl.className      = `count-primary ${zone}`;
+}
+
+// ── Style checker ──────────────────────────────────────────────────────────────
+const STYLE_CHECKS = [
+  { pattern: /\b(don't|can't|isn't|aren't|won't|doesn't|didn't|shouldn't|couldn't|wouldn't|I've|they've|I'm|it's(?!\s+\w+\s+of)|they're|I'll|that's|he's|she's|we're|you're|I'd)\b/i,
+    label: 'Contraction', cls: 'flag-error' },
+  { pattern: /\bI (would|am|think|feel|believe|have|was|want|hope|would like|can see|notice)\b/i,
+    label: 'First Person', cls: 'flag-error' },
+  { pattern: /\b(pleasing|solid|quite|good job|nice work)\b/i,
+    label: 'Vague Word', cls: 'flag-warn' },
+];
+
+function updateStyleFlags() {
+  const text  = document.getElementById('comment-box').value;
+  const name  = document.getElementById('student-name').value.trim();
+  const flags = [];
+
+  STYLE_CHECKS.forEach(chk => {
+    if (chk.pattern.test(text)) flags.push({ label: chk.label, cls: chk.cls });
+  });
+
+  if (name && text.length > 20 && !text.includes(name)) {
+    flags.push({ label: 'Name Missing', cls: 'flag-warn' });
+  }
+
+  const container = document.getElementById('style-flags');
+  container.innerHTML = '';
+  flags.forEach(f => {
+    const span = document.createElement('span');
+    span.className = `style-flag ${f.cls}`;
+    span.textContent = f.label;
+    container.appendChild(span);
+  });
+}
+
+// ── Snackbar ──────────────────────────────────────────────────────────────────
+let snackTimer;
+function showSnackbar(msg) {
+  const el = document.getElementById('snackbar');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(snackTimer);
+  snackTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ── Grade switch ──────────────────────────────────────────────────────────────
+function clearSelections() {
+  const s = state.selected;
+  s.Opening.clear();
+  s.GradeLevel = null;
+  s.SubjectContent.clear();
+  s.Criteria = { A: null, B: null, C: null, D: null };
+  s.ATL.clear();
+  s.Improvement.clear();
+  s.Suggestions.clear();
+  s.Closing.clear();
+}
+
+function switchGrade(grade) {
+  if (state.grade === grade) return;
+  state.grade = grade;
+  clearSelections();
+  state.dirty = false;
+  document.getElementById('btn-update').classList.remove('dirty');
+  document.getElementById('grade-toggles').querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.grade) === grade);
+  });
+  renderPhraseBank();
+  showSnackbar(`Grade ${grade} selected — selections cleared.`);
+}
+
+// ── Init & event wiring ───────────────────────────────────────────────────────
+function init() {
+  renderPhraseBank();
+
+  // Grade toggles
+  document.getElementById('grade-toggles').addEventListener('click', e => {
+    const btn = e.target.closest('.toggle-btn');
+    if (btn) switchGrade(parseInt(btn.dataset.grade));
+  });
+
+  // Pronoun toggles
+  document.getElementById('pronoun-toggles').addEventListener('click', e => {
+    const btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    state.pronoun = btn.dataset.pronoun;
+    document.getElementById('pronoun-toggles').querySelectorAll('.toggle-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.pronoun === state.pronoun);
+    });
+    markDirty();
+  });
+
+  // Name input
+  document.getElementById('student-name').addEventListener('input', () => {
+    markDirty();
+    updateStyleFlags();
+  });
+
+  // Update button
+  document.getElementById('btn-update').addEventListener('click', () => {
+    const comment = buildComment();
+    document.getElementById('comment-box').value = comment;
+    state.dirty = false;
+    document.getElementById('btn-update').classList.remove('dirty');
+    updateCounter();
+    updateStyleFlags();
+  });
+
+  // Copy button
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    const text = document.getElementById('comment-box').value;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('btn-copy');
+      btn.textContent = 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 1800);
+    });
+  });
+
+  // Clear button
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    document.getElementById('comment-box').value = '';
+    updateCounter();
+    updateStyleFlags();
+  });
+
+  // Live counter + style flags on textarea edit
+  document.getElementById('comment-box').addEventListener('input', () => {
+    updateCounter();
+    updateStyleFlags();
+  });
+
+  // Initial counter state
+  updateCounter();
+}
+
+init();
+</script>
+
+</body>
+</html>
