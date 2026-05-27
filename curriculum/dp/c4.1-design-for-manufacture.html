@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,9 @@
 <title>C4.1 Design for Manufacture Strategies — DP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../themes.css">
 </head>
-<body>
+<body data-curr-type="dp" data-curr-page="c4.1">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -17,68 +18,546 @@
 
 <div class="topic-hero" style="--topic-color:#3d6b4a;--topic-bg:#e8f2eb;--topic-border:#c4d8ca;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>Topic C</div>
-<div class="topic-meta"><span class="topic-code">C4.1</span><span class="topic-level level-hl">HL only</span></div>
-<h1 class="topic-title">Design for Manufacture Strategies</h1>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>C4.1 Design for Manufacture Strategies</div>
+<h1 class="topic-title">Design for Manufacture Strategies | C4.1</h1>
 <p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How can the evolution of production systems transform the way products are designed and manufactured, and transform the efficient disposal of products?</p>
-<nav class="topic-nav"><a href="#study-guide">Study Guide</a><a href="#quiz">Quiz</a><a href="#paper2">Paper 2</a><a href="#references">References</a></nav>
 </div>
 </div>
 
-<main><div class="curr-main">
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul>
+<li class="curr-toc-item" data-section="introduction">Introduction</li>
+<li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
+Study Guide
+<ul id="toc-sub-study">
+<li class="curr-toc-item" data-section="obj-4.1.1">4.1.1 DfM overview</li>
+<li class="curr-toc-item" data-section="obj-4.1.2">4.1.2 Design for Process</li>
+<li class="curr-toc-item" data-section="obj-4.1.3">4.1.3 Design for Assembly</li>
+<li class="curr-toc-item" data-section="obj-4.1.4">4.1.4 Design for Disassembly</li>
+<li class="curr-toc-item" data-section="obj-4.1.5">4.1.5 Environmental impact of DfM</li>
+</ul>
+</li>
+<li class="curr-toc-item" data-section="quiz">Quiz</li>
+<li class="curr-toc-item" data-section="paper2">Paper 2 Practice</li>
+<li class="curr-toc-item" data-section="references">References</li>
+</ul>
+</nav>
+
+<div class="curr-main">
+
+<div class="curr-section" id="introduction" style="--curr-color:#3d6b4a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-introduction">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-introduction">
+<div class="curr-section-intro-wrap">
+<div class="curr-section-intro-photo">
+<div class="curr-section-intro-img" aria-hidden="true"></div>
+</div>
+<p>A brilliant product that cannot be efficiently manufactured, assembled, repaired, or recycled is not a finished design — it is an expensive problem. <strong>Design for Manufacture (DfM)</strong> is the discipline of engineering manufacturability into a product from the very first sketch, ensuring that good design intentions survive contact with the factory floor, the repair bench, and the recycling facility.</p>
+<p>DfM comprises three complementary strategies: <strong>Design for Process</strong> (optimising how a product is made), <strong>Design for Assembly</strong> (minimising assembly time and error), and <strong>Design for Disassembly</strong> (enabling repair, reuse, and recycling at end of life). Together these three strategies connect C4.1 to almost every other topic in the curriculum — from material selection to LCA to production systems.</p>
+</div>
+<div class="lang-toggle-bar">
+<span class="lang-toggle-label">Study guide language</span>
+<label class="lang-toggle-checkbox">
+<input type="checkbox" id="lang-toggle" autocomplete="off">
+<span class="lang-slider"></span>
+<span class="lang-on">中文</span>
+<span class="lang-off">EN</span>
+</label>
+</div>
+</div>
+</div>
 
 <div class="curr-section" id="study-guide" style="--curr-color:#3d6b4a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-study-guide">
 <div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-study">
+<div class="curr-body" id="body-study-guide">
 <p class="curr-section-intro">Design for manufacture (DfM) comprises three strategies — design for process, design for assembly and design for disassembly — each with direct implications for environmental impact, cost and end-of-life outcomes. These notes address each learning objective in turn.</p>
 <div class="obj-list">
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c4.1.1"><div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Design for manufacture (DfM) comprises of three strategies.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c4.1.1"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline design for process, design for assembly and design for disassembly strategies.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C4.1.1 -->
+<div class="obj-section" id="obj-4.1.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.1">
+<div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Design for manufacture (DfM) comprises three strategies.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline design for process, design for assembly and design for disassembly strategies.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Design for Manufacture (DfM)</strong> integrates manufacturing considerations into the earliest stages of product design. It is far cheaper to fix a manufacturing problem during the design phase than after tooling is built or production has started.</p>
+<table class="curr-table">
+<thead><tr><th>Strategy</th><th>Focus</th><th>Key goal</th><th>Life-cycle phase</th></tr></thead>
+<tbody>
+<tr><td><strong>Design for Process (DfP)</strong></td><td>How individual components are made</td><td>Reduce energy, waste, processes, and emissions during manufacturing</td><td>Production</td></tr>
+<tr><td><strong>Design for Assembly (DFA)</strong></td><td>How components are joined into a product</td><td>Minimise part count; maximise assembly efficiency and error-prevention</td><td>Assembly</td></tr>
+<tr><td><strong>Design for Disassembly (DFD)</strong></td><td>How components are separated at end of life</td><td>Enable repair, reuse, remanufacture, and recycling</td><td>End of life</td></tr>
+</tbody>
+</table>
+<p>These three strategies are complementary but can sometimes conflict — a choice that optimises assembly (e.g., adhesive bonding) may hinder disassembly. Holistic DfM requires designers to balance all three throughout the design process.</p>
+<p>Manufacturers may formalise DfM through quality management systems (<strong>ISO 9001</strong>) and environmental management systems (<strong>ISO 14001</strong>) to ensure consistent, measurable outcomes.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>面向制造的设计（DfM）</strong>将制造考虑因素整合到产品设计的最早阶段。在设计阶段解决制造问题比在模具建成或生产开始后解决要便宜得多。</p>
+<table class="curr-table">
+<thead><tr><th>策略</th><th>关注点</th><th>关键目标</th><th>生命周期阶段</th></tr></thead>
+<tbody>
+<tr><td><strong>面向工艺的设计（DfP）</strong></td><td>单个零件如何制造</td><td>减少制造过程中的能耗、废物、工序和排放</td><td>生产</td></tr>
+<tr><td><strong>面向装配的设计（DFA）</strong></td><td>零件如何组合成产品</td><td>最小化零件数量；最大化装配效率和防错性</td><td>装配</td></tr>
+<tr><td><strong>面向拆卸的设计（DFD）</strong></td><td>寿命终结时零件如何分离</td><td>实现维修、再利用、再制造和回收</td><td>寿命终结</td></tr>
+</tbody>
+</table>
+<p>这三种策略相辅相成，但有时可能产生冲突——优化装配的选择（如粘合剂粘接）可能阻碍拆卸。整体DfM要求设计师在整个设计过程中平衡三者。</p>
+<p>制造商可通过质量管理体系（<strong>ISO 9001</strong>）和环境管理体系（<strong>ISO 14001</strong>）将DfM正式化，以确保一致、可衡量的结果。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c4.1.2"><div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Design for process considers how products are made using a specific manufacturing technique.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c4.1.2"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for process and explain how a product could be designed using this strategy.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C4.1.2 -->
+<div class="obj-section" id="obj-4.1.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.2">
+<div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Design for process considers how products are made using a specific manufacturing technique.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for process and explain how a product could be designed using this strategy.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Design for Process (DfP)</strong> focuses on reducing the energy, material, processes, waste, and emissions involved in manufacturing individual components. Designers must understand the constraints and opportunities of each manufacturing process and design components that exploit process strengths.</p>
+<p><strong>DfP design guidelines:</strong></p>
+<ul>
+<li><strong>Simplify the design</strong> — fewer features mean fewer operations. Avoid unnecessary undercuts, complex radii, or features that require additional setups on a CNC machine.</li>
+<li><strong>Reduce secondary operations</strong> — minimise parts that require post-processing (plating, painting, welding, riveting). Each secondary step adds cost, energy, and time.</li>
+<li><strong>Specify standardised components</strong> — use off-the-shelf fasteners, bearings, and seals rather than custom parts. Reduces procurement cost and improves availability.</li>
+<li><strong>Material efficiency</strong> — select materials to reduce toxic substances and hazardous waste. Specify single-component materials for moulding where possible. Mark recyclable materials with identification codes.</li>
+<li><strong>Process substitution</strong> — replace high-energy processes with lower-energy alternatives where quality is maintained. Example: replace welding with mechanical folding (saves energy, allows disassembly); replace drilling with punching (faster, produces recyclable blanks rather than mixed swarf).</li>
+</ul>
+<p><strong>Case study — Apple Unibody MacBook:</strong> The laptop body is CNC-machined from a single solid block of aluminium ("unibody"). This eliminates the need to join or weld multiple body parts together. Results: stronger and more rigid structure than multi-part assembly; finer tolerances; smooth, seamless finish; reduced assembly complexity. The trade-off: CNC machining removes 30–50% of the aluminium billet as waste swarf, but this is recyclable.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>面向工艺的设计（DfP）</strong>侧重于减少制造单个零件所涉及的能源、材料、工序、废物和排放。设计师必须了解每种制造工艺的约束和机会，并设计出能充分利用工艺优势的零件。</p>
+<p><strong>DfP设计指南：</strong></p>
+<ul>
+<li><strong>简化设计</strong>——功能越少，工序越少。避免不必要的内凹、复杂圆角或需要CNC机器额外设置的特征。</li>
+<li><strong>减少二次操作</strong>——最大程度减少需要后处理（电镀、喷漆、焊接、铆接）的零件。每个二次步骤都会增加成本、能耗和时间。</li>
+<li><strong>指定标准化组件</strong>——使用现成的紧固件、轴承和密封件，而非定制件。降低采购成本并提高可用性。</li>
+<li><strong>材料效率</strong>——选择材料以减少有毒物质和危险废物。在可能的情况下，指定用于成型的单组分材料。标记可回收材料以便识别。</li>
+<li><strong>工艺替代</strong>——在保证质量的前提下，用低能耗工艺替代高能耗工艺。例如：以机械折叠替代焊接（节省能源，允许拆卸）；以冲压替代钻削（更快，产生可回收冲压废料而非混合切屑）。</li>
+</ul>
+<p><strong>案例研究——苹果Unibody MacBook：</strong>笔记本电脑机身由一整块铝经CNC加工而成（"一体式"）。这消除了连接或焊接多个机身部件的需要。效果：比多部件组件更坚固、更刚性；公差更精细；表面光滑无缝；降低装配复杂性。权衡：CNC加工会去除30–50%的铝锭作为废料，但这些废料是可回收的。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c4.1.3"><div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Design for assembly considers how components of a product are combined.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c4.1.3"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for assembly and explain how a product could be designed using the design for assembly strategy.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C4.1.3 -->
+<div class="obj-section" id="obj-4.1.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.3">
+<div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Design for assembly considers how components of a product are combined.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for assembly and explain how a product could be designed using the design for assembly strategy.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Design for Assembly (DFA)</strong> analyses components and sub-assemblies to reduce costs by minimising the number of parts and maximising the efficiency of assembly. Fewer parts means faster assembly, smaller inventory, lower storage costs, and fewer potential failure points.</p>
+<p><strong>DFA principles:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Principle</th><th>How to apply</th><th>Benefit</th></tr></thead>
+<tbody>
+<tr><td><strong>Reduce part count</strong></td><td>Combine multiple components into single moulded or machined parts; eliminate redundant parts</td><td>Lower material cost; faster assembly; fewer failure points</td></tr>
+<tr><td><strong>Standardise fasteners</strong></td><td>Use one screw size/type throughout; avoid custom fasteners</td><td>One tool needed; no mis-assembly risk from wrong fastener</td></tr>
+<tr><td><strong>Snap-fit and clip connections</strong></td><td>Design press-fit or snap-fit joints that click into place without tools</td><td>Faster assembly; no fastener inventory; allows disassembly</td></tr>
+<tr><td><strong>Self-locating parts</strong></td><td>Design parts that align themselves (symmetrical, keyed, or self-nesting)</td><td>Reduces jigs/fixtures; prevents mis-assembly; enables automation</td></tr>
+<tr><td><strong>Vertical axis of assembly</strong></td><td>Design so all parts drop in from above; gravity assists alignment</td><td>Gravity-assisted; suits robotic assembly; faster cycle time</td></tr>
+<tr><td><strong>Modular design</strong></td><td>Divide product into independent sub-assemblies that can be tested separately</td><td>Parallel assembly; easier repair/upgrade; mass customisation</td></tr>
+<tr><td><strong>Poka-Yoke (mistake-proofing)</strong></td><td>Make incorrect assembly physically impossible (asymmetry, colour coding, keying)</td><td>Eliminates assembly errors; reduces rework and warranty claims</td></tr>
+</tbody>
+</table>
+<p><strong>Case study — Bosch circular saw redesign:</strong> Reduced from over 100 parts to dramatically fewer by combining components into single moulded parts, using snap-fit connections, self-locating symmetrical parts (preventing incorrect assembly), vertical axis of assembly (parts drop into place), and standard screws instead of custom fasteners.</p>
+<p><strong>Case study — IKEA furniture:</strong> Flat pack design minimises shipping volume; standardised cam-lock fasteners and dowels throughout the catalogue; symmetrical/reversible panels reduce assembly error; pictorial step-by-step instructions eliminate language barriers; modular units allow expansion and reconfiguration.</p>
+<p><strong>Poka-Yoke example — USB Type C (2014):</strong> The connector is symmetrical — it can be inserted in either orientation. Previous connectors (USB-A, Micro-USB) were asymmetrical, causing frequent insertion errors. Symmetrical design prevents assembly errors entirely, speeds up manufacturing (robots don't need vision systems to detect orientation), and eliminates damage from forced insertion.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>面向装配的设计（DFA）</strong>分析组件和子组件，通过最小化零件数量和最大化装配效率来降低成本。更少的零件意味着更快的装配、更小的库存、更低的存储成本和更少的潜在故障点。</p>
+<p><strong>DFA原则：</strong></p>
+<table class="curr-table">
+<thead><tr><th>原则</th><th>如何应用</th><th>效益</th></tr></thead>
+<tbody>
+<tr><td><strong>减少零件数量</strong></td><td>将多个组件组合成单个模制或加工件；消除冗余零件</td><td>降低材料成本；加快装配；减少故障点</td></tr>
+<tr><td><strong>标准化紧固件</strong></td><td>全程使用一种螺钉尺寸/类型；避免定制紧固件</td><td>只需一种工具；无因错误紧固件导致的误装风险</td></tr>
+<tr><td><strong>卡扣和夹子连接</strong></td><td>设计无需工具即可咬合的压配或卡扣接头</td><td>加快装配；无紧固件库存；允许拆卸</td></tr>
+<tr><td><strong>自定位零件</strong></td><td>设计能自行对准的零件（对称、带键或自嵌套）</td><td>减少夹具/固定装置；防止误装；便于自动化</td></tr>
+<tr><td><strong>垂直装配轴</strong></td><td>设计所有零件从上方放入；重力辅助对准</td><td>重力辅助；适合机器人装配；加快节拍</td></tr>
+<tr><td><strong>模块化设计</strong></td><td>将产品分成可独立测试的独立子组件</td><td>并行装配；更易维修/升级；大规模定制</td></tr>
+<tr><td><strong>防错（Poka-Yoke）</strong></td><td>使错误装配在物理上不可能（不对称、颜色编码、带键）</td><td>消除装配错误；减少返工和保修索赔</td></tr>
+</tbody>
+</table>
+<p><strong>案例研究——博世圆锯重新设计：</strong>从100多个零件大幅减少，通过将组件合并成单个模制件、使用卡扣连接、自定位对称零件（防止错误装配）、垂直装配轴（零件直接放入到位）以及使用标准螺钉替代定制紧固件。</p>
+<p><strong>案例研究——宜家家具：</strong>平板包装最小化运输体积；整个目录使用标准化凸轮锁紧固件和榫钉；对称/可逆面板减少装配错误；图解分步说明消除语言障碍；模块化单元允许扩展和重新配置。</p>
+<p><strong>防错示例——USB Type C（2014年）：</strong>连接器是对称的——可以以任意方向插入。早期连接器（USB-A、Micro-USB）是不对称的，频繁导致插入错误。对称设计完全防止装配错误，加快制造（机器人无需视觉系统检测方向），并消除强制插入造成的损坏。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c4.1.4"><div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Design for disassembly considers how components of a product can be separated.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c4.1.4"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for disassembly and explain how a product could be designed using this strategy.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C4.1.4 -->
+<div class="obj-section" id="obj-4.1.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.4">
+<div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Design for disassembly considers how components of a product can be separated.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for disassembly and explain how a product could be designed using this strategy.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p><strong>Design for Disassembly (DFD)</strong> facilitates ease of repair, reuse, remanufacture, or recycling. It has become increasingly important as manufacturers must comply with <strong>WEEE</strong> (Waste from Electrical and Electronic Equipment) and <strong>RoHS</strong> (Restriction of Hazardous Substances) legislation in Europe and similar requirements globally.</p>
+<p><strong>DFD design guidelines:</strong></p>
+<table class="curr-table">
+<thead><tr><th>Area</th><th>DFD guideline</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td><strong>Materials selection</strong></td><td>Choose readily recyclable materials; minimise material diversity; use polymer identification codes (SPI codes); avoid composite laminates where possible</td><td>Single material types are easy to sort and recycle; mixed materials contaminate recycling streams</td></tr>
+<tr><td><strong>Fastening techniques</strong></td><td>Eliminate/minimise adhesives and solvents; use thermoplastic adhesives (separable by heat); prefer snap-fits, clips, screws, bolts over welding, brazing, or soldering</td><td>Mechanical fasteners allow non-destructive separation; adhesives create permanent bonds that destroy components on removal</td></tr>
+<tr><td><strong>Component design</strong></td><td>Prioritise ease of access for removal; standardise fasteners throughout; ensure all parts are accessible; label disassembly sequence and hazardous materials</td><td>Third-party recyclers and repair technicians need to understand the product; proprietary tools restrict access</td></tr>
+<tr><td><strong>Modularity</strong></td><td>Group components of the same material together; design sub-assemblies that can be removed as a unit</td><td>Speeds disassembly; allows module replacement rather than full replacement</td></tr>
+</tbody>
+</table>
+<p><strong>Case study — Mongolian Yurt (traditional DFD):</strong> A portable dwelling with an expanding wooden circular frame covered with felt. Designed for disassembly and reassembly as nomadic communities relocate. Timber lattice walls, roof poles, and felt panels can all be separated, packed on animals or vehicles, transported, and rebuilt without damage. An ancient example of DFD principles.</p>
+<p><strong>Case study — Smartphone (poor DFD):</strong> Modern smartphones present significant disassembly challenges:</p>
+<ul>
+<li><strong>Material complexity:</strong> Plastics with flame retardants, aluminium frames, copper wiring, precious metals (gold, silver), and rare earth elements (neodymium in speakers) — each requiring different recovery processes.</li>
+<li><strong>Joining techniques:</strong> Adhesives and soldering impede mechanical separation; micro fasteners and proprietary screws require specialised tools, limiting access by third-party recyclers and repairers.</li>
+<li><strong>Laminated layers:</strong> Touchscreens and batteries are often fused together, making separation hazardous or impossible without damaging materials.</li>
+</ul>
+<p>Despite the push for circularity, many smartphones are still shredded, recovering only high-value metals while plastics and rare earths are incinerated or landfilled.</p>
+<p><strong>Emerging solutions:</strong> Fraunhofer IFF's <em>iDEAR</em> project uses machine learning and computer vision to automate disassembly; smart disassembly uses 3D imaging and selective chemical delamination for PCBs. The Fairphone is a consumer smartphone designed explicitly for repairability — each major module is replaceable with a standard screwdriver.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p><strong>面向拆卸的设计（DFD）</strong>便于产品的维修、再利用、再制造或回收。随着制造商必须遵守欧洲的<strong>WEEE</strong>（废弃电子电气设备指令）和<strong>RoHS</strong>（有害物质限制指令）以及全球类似要求，它变得越来越重要。</p>
+<p><strong>DFD设计指南：</strong></p>
+<table class="curr-table">
+<thead><tr><th>领域</th><th>DFD指南</th><th>重要原因</th></tr></thead>
+<tbody>
+<tr><td><strong>材料选择</strong></td><td>选择易回收材料；最小化材料多样性；使用聚合物识别码（SPI码）；尽可能避免复合层压</td><td>单一材料类型易于分类和回收；混合材料污染回收流</td></tr>
+<tr><td><strong>紧固技术</strong></td><td>消除/最小化粘合剂和溶剂；使用热塑性粘合剂（可通过加热分离）；优先使用卡扣、夹子、螺钉、螺栓，而非焊接、钎焊或软钎焊</td><td>机械紧固件允许无损分离；粘合剂形成永久键合，拆除时会损坏零件</td></tr>
+<tr><td><strong>零件设计</strong></td><td>优先考虑拆卸的易达性；全程标准化紧固件；确保所有零件可触及；标注拆卸顺序和危险材料</td><td>第三方回收商和维修技术人员需要了解产品；专有工具限制了访问</td></tr>
+<tr><td><strong>模块化</strong></td><td>将同种材料的组件归组；设计可作为一个单元移除的子组件</td><td>加快拆卸速度；允许模块更换而非整机更换</td></tr>
+</tbody>
+</table>
+<p><strong>案例研究——蒙古包（传统DFD）：</strong>一种带有可扩展圆形木框架、覆盖毛毡的便携式住所。设计用于游牧社区迁移时的拆卸和重新组装。木格墙、屋顶杆和毛毡板均可拆卸，装载在动物或车辆上运输，并在无损的情况下重建。这是DFD原则的古代范例。</p>
+<p><strong>案例研究——智能手机（DFD不佳）：</strong>现代智能手机存在重大拆卸挑战：</p>
+<ul>
+<li><strong>材料复杂性：</strong>含阻燃剂的塑料、铝框架、铜线、贵金属（金、银）和稀土元素（扬声器中的钕）——每种都需要不同的回收工艺。</li>
+<li><strong>连接技术：</strong>粘合剂和软钎焊阻碍机械分离；微型紧固件和专有螺钉需要专业工具，限制了第三方回收商和维修人员的访问。</li>
+<li><strong>层压层：</strong>触摸屏和电池通常融合在一起，使分离变得危险或不可能而不损坏材料。</li>
+</ul>
+<p>尽管有循环利用的推动，许多智能手机仍被整体粉碎，只回收高价值金属，而塑料和稀土被焚烧或填埋。</p>
+<p><strong>新兴解决方案：</strong>弗劳恩霍夫IFF的<em>iDEAR</em>项目使用机器学习和计算机视觉自动化拆卸；智能拆卸使用3D成像和选择性化学分层处理PCB。Fairphone是专为可维修性而设计的消费级智能手机——每个主要模块只需标准螺丝刀即可更换。</p>
+</div>
+</div>
+</div>
+</div>
 
-<div class="obj-section"><button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c4.1.5"><div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>The selection of DfM strategies has a direct effect on the environmental impact of the manufacture, use and disposal of a product.</h3></div><svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="obj-body" id="obj-body-c4.1.5"><p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss how designers use DfM strategies to reduce the environmental impact of the manufacture, use and disposal of products.</p><div class="bilingual-block"><div class="lang-col"><span class="lang-label">English</span><p class="content-placeholder lang-en">Study notes will be added here.</p></div><div class="lang-col"><span class="lang-label">中文</span><p class="content-placeholder lang-zh">学习笔记将在此处添加。</p></div></div></div></div>
+<!-- C4.1.5 -->
+<div class="obj-section" id="obj-4.1.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.5">
+<div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>The selection of DfM strategies has a direct effect on the environmental impact of the manufacture, use and disposal of a product.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss how designers use DfM strategies to reduce the environmental impact of the manufacture, use and disposal of products.</p>
+<div class="bilingual-block">
+<div class="lang-col"><span class="lang-label">English</span>
+<p>DfM strategies, when applied holistically, can simultaneously reduce cost, improve quality, and reduce environmental impact. These are not competing objectives — the same design decisions that make manufacturing more efficient often also reduce waste and energy consumption.</p>
+<table class="curr-table">
+<thead><tr><th>DfM strategy</th><th>Environmental benefit</th><th>Mechanism / example</th></tr></thead>
+<tbody>
+<tr><td>Fewer parts (DFA)</td><td>Less material extraction and processing; less energy in manufacturing</td><td>Bosch saw: fewer metal parts → less machining energy; less scrap</td></tr>
+<tr><td>Single-component materials (DfP)</td><td>Easier end-of-life recycling; avoids contamination of recycling streams</td><td>Specifying PP (polypropylene) throughout a product rather than mixing PP, ABS and PC</td></tr>
+<tr><td>Process substitution (DfP)</td><td>Reduced energy and emissions</td><td>Mechanical folding instead of welding saves electricity and eliminates weld fume emissions; punching produces recyclable blanks rather than mixed swarf</td></tr>
+<tr><td>Snap-fits instead of adhesives (DFD)</td><td>Non-destructive disassembly enables repair and recycling</td><td>Product modules can be replaced individually; at end of life, materials can be separated without grinding</td></tr>
+<tr><td>Modular design (DFA + DFD)</td><td>Extends product lifespan; reduces premature replacement waste</td><td>Replacing a broken display module rather than the whole phone; upgrading RAM in a laptop rather than buying new</td></tr>
+<tr><td>Recyclable materials with identification codes (DFD)</td><td>Enables sorted material recovery; reduces landfill</td><td>SPI resin codes on polymer parts allow automated sorting at MRF (material recovery facility)</td></tr>
+<tr><td>Waste minimisation (DfP)</td><td>Reduces landfill; conserves raw materials</td><td>Guidelines include "adopting designs that favour the efficient selection of materials, ease of assembly/disassembly, and repair, recovery and recycling"</td></tr>
+</tbody>
+</table>
+<p><strong>Potential conflicts and limitations:</strong></p>
+<ul>
+<li>What is easy to assemble may be hard to disassemble — adhesives vs. snap-fits is the classic tension.</li>
+<li>Materials chosen for manufacturing performance may be difficult to recycle — e.g., aluminium car body panels are light (fuel efficiency benefit) but require careful separation from steel components for recycling.</li>
+<li>DFD may incur supplementary costs, which are often passed on to consumers — making DFD products more expensive at point of purchase even if they have better environmental outcomes over their lifetime.</li>
+</ul>
+<p>The resolution is a <strong>holistic LCA-informed approach</strong>: evaluate environmental trade-offs across the full life cycle (C3.2), not just at the manufacturing stage. Environmentally conscious design also enhances product appeal to eco-conscious consumers and improves brand reputation.</p>
+</div>
+<div class="lang-col"><span class="lang-label">中文</span>
+<p>整体应用DfM策略可以同时降低成本、提高质量并减少环境影响。这些不是相互竞争的目标——使制造更高效的相同设计决策通常也会减少废物和能源消耗。</p>
+<table class="curr-table">
+<thead><tr><th>DfM策略</th><th>环境效益</th><th>机制/示例</th></tr></thead>
+<tbody>
+<tr><td>减少零件（DFA）</td><td>减少材料提取和加工；减少制造能耗</td><td>博世锯：更少金属零件→更少加工能耗；更少废料</td></tr>
+<tr><td>单组分材料（DfP）</td><td>更容易实现寿命终结回收；避免污染回收流</td><td>在整个产品中指定PP（聚丙烯）而非混合PP、ABS和PC</td></tr>
+<tr><td>工艺替代（DfP）</td><td>减少能耗和排放</td><td>机械折叠替代焊接节省电力并消除焊接烟雾排放；冲压产生可回收冲压废料而非混合切屑</td></tr>
+<tr><td>卡扣替代粘合剂（DFD）</td><td>无损拆卸使维修和回收成为可能</td><td>产品模块可单独更换；寿命终结时无需研磨即可分离材料</td></tr>
+<tr><td>模块化设计（DFA+DFD）</td><td>延长产品寿命；减少过早更换废物</td><td>更换损坏的显示模块而非整机；升级笔记本内存而非购买新机</td></tr>
+<tr><td>带识别码的可回收材料（DFD）</td><td>实现分类材料回收；减少填埋</td><td>聚合物零件上的SPI树脂代码允许材料回收设施（MRF）自动分类</td></tr>
+<tr><td>废物最小化（DfP）</td><td>减少填埋；节约原材料</td><td>指南包括"采用有利于材料有效选择、装配/拆卸方便及维修、回收和再循环的设计"</td></tr>
+</tbody>
+</table>
+<p><strong>潜在冲突和局限性：</strong></p>
+<ul>
+<li>易于装配的可能难以拆卸——粘合剂与卡扣是经典张力。</li>
+<li>为制造性能选择的材料可能难以回收——例如，铝制汽车车身板重量轻（燃油效率优势），但需要仔细与钢制零件分离才能回收。</li>
+<li>DFD可能产生额外成本，通常转嫁给消费者——使DFD产品在购买时更贵，即使它们在整个寿命期内具有更好的环境结果。</li>
+</ul>
+<p>解决方案是<strong>基于LCA的整体方法</strong>：评估整个生命周期（C3.2）的环境权衡，而非仅在制造阶段。环保设计也增强了对环保意识消费者的产品吸引力，并改善了品牌声誉。</p>
+</div>
+</div>
+</div>
+</div>
 
-</div></div></div>
+</div><!-- /obj-list -->
+</div><!-- /curr-body -->
+</div><!-- /study-guide -->
 
-<div class="curr-section" id="quiz" style="--curr-color:#8b6520;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz"><div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-quiz"><p class="quiz-intro">Multiple choice questions for C4.1 Design for Manufacture Strategies will be added here.</p></div></div>
+<!-- QUIZ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Test your knowledge of C4.1 Design for Manufacture Strategies. Select the best answer for each question, then check your score.</p>
+<div class="quiz-wrap" id="quiz-c4.1" data-answers="B,B,C,B,B,B,D,B,B,B">
 
-<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2"><div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-paper2"><div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div><p class="content-placeholder">Practice questions for C4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="1">
+<p class="quiz-stem">1. The Apple Unibody MacBook is an example of which Design for Manufacture strategy?</p>
+<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Design for Disassembly</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Design for Process</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Design for Assembly</label>
+<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Design for Recycling</label>
+</div>
 
-<div class="curr-section" id="references" style="--curr-color:#2d7a6a;"><button class="curr-trigger" aria-expanded="false" aria-controls="body-refs"><div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div><svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-<div class="curr-body" id="body-refs"><p class="content-placeholder">Reference links for C4.1 will be added here.</p></div></div>
+<div class="quiz-q" data-q="2">
+<p class="quiz-stem">2. The Bosch circular saw was redesigned to reduce its part count primarily by:</p>
+<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Adding more custom fasteners</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Combining multiple components into single moulded parts with snap-fit connections</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Increasing the number of welding operations</label>
+<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. Adding more screws and bolts</label>
+</div>
+
+<div class="quiz-q" data-q="3">
+<p class="quiz-stem">3. The Mongolian Yurt is presented as an example of:</p>
+<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. Design for Process</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Design for Assembly</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. Design for Disassembly</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Mass production</label>
+</div>
+
+<div class="quiz-q" data-q="4">
+<p class="quiz-stem">4. Poka-Yoke is a Japanese concept that means:</p>
+<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Continuous improvement</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Mistake-proofing or error-proofing</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Just-in-time manufacturing</label>
+<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Lean production</label>
+</div>
+
+<div class="quiz-q" data-q="5">
+<p class="quiz-stem">5. Which two legislative requirements have made Design for Disassembly increasingly important for electronics manufacturers?</p>
+<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. ISO 9001 and ISO 14001</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. WEEE (Waste from Electrical and Electronic Equipment) and RoHS (Restriction of Hazardous Substances)</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. CE marking and FCC approval</label>
+<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. ASTM and ISO dimensional standards</label>
+</div>
+
+<div class="quiz-q" data-q="6">
+<p class="quiz-stem">6. The USB Type C connector (introduced 2014) is an example of Poka-Yoke because:</p>
+<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. It uses 24 pins for faster data transfer</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. It is symmetrical, so the connection does not rely on orientation</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. It is only compatible with Apple products</label>
+<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. It requires a special tool for disconnection</label>
+</div>
+
+<div class="quiz-q" data-q="7">
+<p class="quiz-stem">7. IKEA furniture embodies Design for Assembly principles through all of the following EXCEPT:</p>
+<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. Simplified components with standardised fasteners</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. Flat pack design to reduce shipping volume</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. Step-by-step pictorial assembly instructions</label>
+<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. Permanent welding of all joints</label>
+</div>
+
+<div class="quiz-q" data-q="8">
+<p class="quiz-stem">8. Smartphones are notoriously difficult to disassemble for recycling because of:</p>
+<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. They contain no valuable materials</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Material complexity, adhesive joining techniques, proprietary screws, and laminated layers fusing touchscreens and batteries</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. They are designed to be easily disassembled</label>
+<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. They use only standard fasteners throughout</label>
+</div>
+
+<div class="quiz-q" data-q="9">
+<p class="quiz-stem">9. The Fraunhofer IFF's iDEAR project uses which technologies to automate disassembly of electronics?</p>
+<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Hydraulic presses and shredders</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Machine learning and computer vision</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. Manual labour and specialised hand tools</label>
+<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Chemical baths and incineration</label>
+</div>
+
+<div class="quiz-q" data-q="10">
+<p class="quiz-stem">10. Which process substitution in DfP both reduces energy use AND produces more easily recyclable waste?</p>
+<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Replacing injection moulding with 3D printing</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Replacing drilling with punching (recyclable blanks vs. mixed swarf)</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. Replacing powder coating with liquid spray painting</label>
+<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. Replacing CNC milling with hand filing</label>
+</div>
+
+<div class="quiz-controls">
+<button class="quiz-submit" type="button">Check answers</button>
+<button class="quiz-reset" type="button">Reset</button>
+</div>
+<div class="quiz-result" aria-live="polite"></div>
+</div>
+</div>
+</div>
+
+<!-- PAPER 2 -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the difference between Design for Assembly (DFA) and Design for Disassembly (DFD). Give one example of each.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Design for Assembly (DFA):</strong> an approach to analyse components and sub-assemblies, reducing costs by minimising the number of parts and maximising assembly efficiency. Fewer parts → faster assembly, lower inventory, fewer failure points. Focus: beginning of product life. (1)</p>
+<p><em>Example:</em> The redesigned Bosch circular saw reduced from over 100 parts using snap-fit connections, self-locating symmetrical parts, vertical axis of assembly, and single moulded components instead of separate parts. (1)</p>
+<p><strong>Design for Disassembly (DFD):</strong> facilitates ease of repair, reuse, remanufacture, or recycling. Focus: end of product life. Driven by WEEE and RoHS legislation. Uses snap-fits/clips/screws instead of adhesives; standardised accessible fasteners; recyclable identified materials. (1)</p>
+<p><em>Example:</em> The Mongolian Yurt — a portable dwelling with an expanding wooden circular frame covered with felt — designed for repeated disassembly and reassembly as nomadic communities relocate without damage to any component. (1)</p>
+<p><strong>Key tension:</strong> what is quick to assemble (adhesive bonding) may be impossible to disassemble without damage. Holistic DfM must balance both.</p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Analyse the specific design features that make smartphone disassembly difficult for repair and recycling. Refer to material complexity, joining techniques, and laminated layers.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Material complexity (up to 2 marks):</strong></p>
+<ul>
+<li>Plastics with flame retardants; aluminium frames; copper wiring; precious metals (gold, silver on connectors); rare earth elements (neodymium in speakers, lanthanum in lenses) — each requiring different, often incompatible, recovery processes. (1)</li>
+<li>Despite their value, rare earths are present in tiny quantities making economical recovery impractical with current techniques. Many are ultimately incinerated or landfilled. (1)</li>
+</ul>
+<p><strong>Joining techniques (up to 2 marks):</strong></p>
+<ul>
+<li>Adhesives and soldering permanently bond components — mechanical separation destroys parts. Unlike screws or snap-fits, adhesive joints cannot be non-destructively undone. (1)</li>
+<li>Proprietary (non-standard) screws require special tools unavailable to third-party recyclers and repairers, intentionally restricting access and concentrating repair in authorised service centres. (1)</li>
+</ul>
+<p><strong>Laminated layers (up to 2 marks):</strong></p>
+<ul>
+<li>Touchscreen glass, OLED/LCD display, and digitiser are optically bonded (laminated) together. Separating them requires heat/pressure that almost always cracks the glass. (1)</li>
+<li>Batteries are adhesively bonded to chassis. Forced removal of a swollen battery risks puncture, thermal runaway, fire, and chemical release — making DIY repair dangerous. (1)</li>
+</ul>
+<p><em>Consequence:</em> Most smartphones are shredded at end of life, recovering only high-value metals while rare earths, plastics, and glass are lost. Emerging solutions (Fraunhofer iDEAR AI robotics; Fairphone modular design) offer partial remedies.</p>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[5 marks]</span> Explain how IKEA furniture embodies the principles of Design for Assembly. Refer to simplified components, flat pack design, Poka-Yoke, and modular design.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<ul>
+<li><strong>Simplified components:</strong> Parts are reduced to the minimum. Standardised dowels, cam-lock fasteners, and screws are used consistently throughout IKEA's catalogue — one Allen key fits every product. Symmetrical, reversible panels cannot be installed the wrong way, reducing errors. (1)</li>
+<li><strong>Flat pack design:</strong> Components shipped unassembled in flat packages reduce volume — customers transport in a small car rather than needing a delivery truck. Reduces shipping CO₂ and packaging material. Concept traces back to corrugated iron houses shipped to the California goldfields in 1849. (1)</li>
+<li><strong>Poka-Yoke:</strong> Symmetrical panels and colour-coded hardware prevent incorrect assembly. Cam-lock devices and snap-fit connectors physically cannot be installed incorrectly — the fit either works or it does not. Pictorial step-by-step instructions without text eliminate language barriers across global markets. (1)</li>
+<li><strong>Modular design:</strong> Standardised shared components across product lines allow customers to add shelves, drawers, or cabinets years later. Modules are independently replaceable — a damaged shelf from a KALLAX unit can be replaced without discarding the whole frame. (1)</li>
+<li><strong>Overall benefit:</strong> DFA principles simultaneously reduce IKEA's manufacturing and logistics costs (passed on as lower prices) and make consumer assembly feasible without specialist skills — expanding the market. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[4 marks]</span> Explain the concept of Poka-Yoke and use the USB Type C connector as an example. Why is this important for design for assembly?</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p><strong>Definition:</strong> Poka-Yoke (Japanese: "mistake-proofing") is a design approach that makes incorrect assembly physically impossible or immediately detectable. The goal is to eliminate an entire class of errors rather than correcting them after they occur. (1)</p>
+<p><strong>USB Type C example:</strong> Previous USB connectors (Type A, Micro-USB) were asymmetrical — one correct orientation only. Users frequently attempted insertion upside-down, causing frustration, wasted time, and potential pin damage. The Type C connector is symmetrical — it can be inserted in either orientation without error, making incorrect insertion impossible. (1)</p>
+<p><strong>Importance for DFA (any 2 × 1 mark):</strong></p>
+<ul>
+<li>Reduces assembly time — workers and robots do not need to inspect orientation before insertion. (1)</li>
+<li>Prevents component damage from forced incorrect insertion — reducing rework and warranty claims. (1)</li>
+<li>Enables robotic automation without vision systems — robots can insert without cameras to detect orientation, lowering equipment cost. (1)</li>
+<li>Improves customer experience — the product cannot be assembled incorrectly, reducing support calls. (1)</li>
+</ul>
+</details>
+</div>
+
+<div class="p2-q">
+<p class="p2-stem"><span class="p2-marks">[6 marks]</span> Evaluate how DfM strategies can simultaneously reduce costs, improve environmental sustainability, and maintain product quality. Refer to waste minimisation, material selection, and process substitution.</p>
+<details class="p2-answer">
+<summary>Sample answer</summary>
+<p>DfM strategies are not trade-offs between cost, environment, and quality — when applied correctly, the same decisions that reduce manufacturing costs often also reduce environmental impact and improve quality. (1)</p>
+<p><strong>Waste minimisation:</strong> Replacing welding with mechanical folding saves energy (no welding equipment), eliminates weld fume emissions (environmental), produces a joint that can be non-destructively disassembled (DFD benefit), and may produce a stronger, more consistent joint (quality). Snap-fit connections reduce part count (cost), eliminate adhesive waste (environmental), and allow repair or recycling (DFD). (1+1)</p>
+<p><strong>Material selection:</strong> Specifying single-component polymers (e.g., PP throughout) rather than mixed materials costs less to mould (bulk pricing, simpler tooling), is easier to recycle at end of life (no separation needed), and avoids compatibility problems in moulding (quality consistency). Using RoHS-compliant materials avoids regulatory fines (cost), prevents environmental contamination, and improves product safety (quality). (1+1)</p>
+<p><strong>Process substitution:</strong> Replacing drilling with punching is faster (reduces labour cost), produces cleanly recyclable blanks rather than mixed swarf (environmental), and achieves consistent hole quality (dimensional accuracy — quality). The Apple Unibody CNC approach eliminates joining operations (reduces assembly cost), produces a stronger, more rigid structure (quality), and generates recyclable aluminium swarf as the only by-product. (1)</p>
+<p><strong>Honest evaluation — conflicts:</strong> DFD may increase manufacturing cost (snap-fits over adhesives require tighter tolerances); materials chosen for lightweight performance (aluminium + steel composite bodies) may resist separation at end of life. However, these conflicts can be resolved through LCA-informed holistic design — the long-term environmental and brand benefits typically outweigh short-term cost premiums. (1)</p>
+</details>
+</div>
+
+</div>
+</div>
+
+<!-- REFERENCES -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>References &amp; Further Reading</h2></div>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-refs">
+<ul class="ref-list">
+<li class="ref-item"><span class="ref-label">Standard</span><a href="https://www.iso.org/iso-9001-quality-management.html" class="ref-link" target="_blank" rel="noopener">ISO 9001:2015 — Quality management systems. International standard referenced in the chapter for maintaining consistent DfM outcomes across production.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://ec.europa.eu/environment/topics/waste-and-recycling/waste-electrical-and-electronic-equipment-weee_en" class="ref-link" target="_blank" rel="noopener">European Commission — WEEE Directive. EU legislation requiring producer responsibility for electrical and electronic waste recycling. Key driver of DFD requirements.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://ec.europa.eu/environment/topics/pollution/restriction-hazardous-substances-rohs_en" class="ref-link" target="_blank" rel="noopener">European Commission — RoHS Directive. Restricts lead, mercury, cadmium, and other hazardous substances in electronics. Influences DfP material selection.</a></li>
+<li class="ref-item"><span class="ref-label">Video</span><a href="https://www.youtube.com/results?search_query=IKEA+furniture+how+its+made+flat+pack" class="ref-link" target="_blank" rel="noopener">YouTube — "How It's Made: IKEA Furniture" (Science Channel). Shows flat pack design, standardised hardware, and the manufacturing processes that enable DFA at scale.</a></li>
+<li class="ref-item"><span class="ref-label">Reference</span><a href="https://www.fairphone.com/en/story/the-fairphone-story/" class="ref-link" target="_blank" rel="noopener">Fairphone — Modular, repairable smartphone. Real-world consumer electronics example of DFD in practice: each major module replaceable with a standard screwdriver. Contrast with conventional smartphone design.</a></li>
+<li class="ref-item"><span class="ref-label">中文参考</span><a href="https://baike.baidu.com/item/面向制造的设计" class="ref-link" target="_blank" rel="noopener">百度百科 — 面向制造的设计。涵盖DfM、DFA和DFD策略及其工业应用的中文综合介绍。</a></li>
+</ul>
+</div>
+</div>
 
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
 <li>How might manufacturing techniques influence the way a structural system is designed? <a href="a3.2-structural-systems.html">(A3.2)</a> <a href="b3.2-structural-systems-application.html">(B3.2)</a></li>
-<li>To what extent can moving mechanical parts be simplified when considering design for manufacture strategies? <a href="a3.3-mechanical-systems.html">(A3.3)</a> <a href="b3.3-mechanical-systems-application.html">(B3.3)</a></li>
+<li>To what extent can moving mechanical parts be simplified when considering design for manufacture strategies? <a href="a3.3-mechanical-systems.html">(A3.3)</a></li>
 <li>How can design for manufacture strategies take advantage of the inclusion of electronic components? <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
 <li>To what extent does the choice of design for manufacture strategies affect the feasibility of certain production systems? <a href="b4.1-production-systems.html">(B4.1)</a></li>
 <li>To what extent do design for manufacture strategies promote a design for a circular economy strategy? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
+<li>What is the relationship between DfM strategy choices and the outcomes of a product life-cycle analysis? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
 </ul>
 </section>
 
 <nav class="topic-page-nav">
-<a href="c3.2-life-cycle-analysis.html"><span class="nav-dir">← Previous</span><span class="nav-title">C3.2 Life-cycle Analysis</span></a>
+<a href="c3.2-life-cycle-analysis.html"><span class="nav-dir">← Previous</span><span class="nav-title">C3.2 Life-Cycle Analysis</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="c4.1.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>
