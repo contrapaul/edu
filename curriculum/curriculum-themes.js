@@ -13,12 +13,13 @@
   var STORAGE_KEY = 'edu-theme';
 
   var THEMES = [
-    { id: 'light',     label: 'Default',    emoji: '☀️'  },
-    { id: 'dark',      label: 'Dark',       emoji: '🌙'  },
-    { id: 'win95',     label: 'Windows 95', emoji: '🖥️'  },
-    { id: 'dos',       label: 'MS-DOS',     emoji: '⌨️'  },
-    { id: 'xbox',      label: 'Xbox OG',    emoji: '🎮'  },
-    { id: 'nightmare', label: 'Nightmare',  emoji: '🌈'  }
+    { id: 'light',     label: 'Default',           emoji: '☀️'  },
+    { id: 'dark',      label: 'Dark',               emoji: '🌙'  },
+    { id: 'win95',     label: 'Windows 95',         emoji: '🖥️'  },
+    { id: 'dos',       label: 'MS-DOS',             emoji: '⌨️'  },
+    { id: 'xbox',      label: 'Xbox OG',            emoji: '🎮'  },
+    { id: 'nightmare', label: 'Nightmare',          emoji: '🌈'  },
+    { id: 'hannah',    label: "Hannah's request",   emoji: '🎀'  }
   ];
 
   /* ── Apply theme immediately (before paint) ─────────────── */
