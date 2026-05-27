@@ -609,6 +609,166 @@
 }
 
 
+/* ── 6. HANNAH'S REQUEST ─────────────────────────────────── */
+/* Full Barbie-pink palette. Fonts intentionally inherit from   */
+/* the default (light/dark) theme — no font-family overrides.  */
+[data-theme="hannah"] {
+  --bg:            #fff0f5;   /* lavender blush */
+  --surface:       #ffd6e7;   /* light pink */
+  --surface-2:     #ffecf4;   /* very light pink */
+  --border:        #ffb3d4;   /* medium pink */
+  --border-strong: #ff69b4;   /* hot pink */
+  --text:          #6d0f35;   /* deep dark rose — readable */
+  --muted:         #c2607a;   /* medium rose — secondary text */
+  --accent:        #ff1493;   /* deep pink — Barbie signature */
+  --accent-bg:     #ffdcec;
+  --hl:            #c71585;   /* medium violet red */
+  --hl-bg:         #ffe0ee;
+  --green:         #d63384;   /* pink-shade stand-in for success */
+  --green-bg:      #ffd6e7;
+  --amber:         #e75480;   /* deep pink stand-in for warning */
+  --amber-bg:      #ffeef5;
+}
+
+/* Site header */
+[data-theme="hannah"] .site-header {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  border-bottom: 2px solid #c71585;
+  box-shadow: 0 2px 12px rgba(255,20,147,0.25);
+}
+[data-theme="hannah"] .wordmark,
+[data-theme="hannah"] .nav a { color: #fff; }
+[data-theme="hannah"] .brand-sub { color: rgba(255,255,255,0.75); }
+[data-theme="hannah"] .nav a:hover { color: #fff; background: rgba(255,255,255,0.2); }
+[data-theme="hannah"] .nav-external { color: rgba(255,255,255,0.85) !important; }
+
+/* Hero */
+[data-theme="hannah"] .topic-hero {
+  background: linear-gradient(135deg, #ffd6e7 0%, #fff0f5 100%);
+  border-bottom-color: #ffb3d4;
+}
+[data-theme="hannah"] .topic-title { color: #c71585 !important; }
+[data-theme="hannah"] .topic-code {
+  background: #ffd6e7 !important;
+  color: #ff1493 !important;
+  border-color: #ffb3d4 !important;
+}
+[data-theme="hannah"] .topic-guiding-q {
+  background: #ffd6e7 !important;
+  border-left-color: #ff1493 !important;
+  color: #6d0f35 !important;
+}
+[data-theme="hannah"] .gq-label { color: #ff1493 !important; }
+
+/* Collapsible sections — pink title-bar gradient */
+[data-theme="hannah"] .curr-section { border-left-color: #ff69b4 !important; }
+[data-theme="hannah"] .curr-trigger {
+  background: linear-gradient(90deg, #ff69b4 0%, #ff1493 100%);
+}
+[data-theme="hannah"] .curr-trigger h2,
+[data-theme="hannah"] .curr-trigger .curr-badge,
+[data-theme="hannah"] .curr-trigger .curr-sec-sub,
+[data-theme="hannah"] .curr-trigger .curr-chevron { color: #fff !important; }
+
+/* Objective sections */
+[data-theme="hannah"] .obj-code { color: #ff1493 !important; }
+[data-theme="hannah"] .obj-trigger h3 { color: #6d0f35 !important; }
+[data-theme="hannah"] .obj-section { border-color: #ffb3d4; }
+
+/* Curriculum sidebar */
+[data-theme="hannah"] .curr-sidebar {
+  background: linear-gradient(180deg, #ffd6e7, #ffecf4);
+  border-right: 1px solid #ffb3d4;
+}
+[data-theme="hannah"] .csb-group-label { color: #ff1493 !important; }
+[data-theme="hannah"] .csb-current .csb-link {
+  background: #ffdcec;
+  border-right-color: #ff1493;
+}
+[data-theme="hannah"] .csb-current .csb-title { color: #c71585; }
+
+/* Buttons */
+[data-theme="hannah"] .tool-btn,
+[data-theme="hannah"] .tool-btn-sm,
+[data-theme="hannah"] .quiz-submit-btn {
+  background: #ff1493;
+  border-color: #c71585;
+  color: #fff;
+}
+[data-theme="hannah"] .tool-btn:hover,
+[data-theme="hannah"] .tool-btn-sm:hover {
+  background: #c71585;
+  border-color: #9b0d6d;
+  box-shadow: 0 0 10px rgba(255,20,147,0.4);
+}
+
+/* Activity blocks */
+[data-theme="hannah"] .activity-block {
+  border-color: #ffb3d4;
+  background: #fff5f9;
+}
+[data-theme="hannah"] .activity-label { color: #ff1493 !important; }
+[data-theme="hannah"] .activity-title { color: #c71585 !important; }
+
+/* Tables */
+[data-theme="hannah"] th {
+  background: #ff69b4 !important;
+  color: #fff !important;
+  border-color: #ffb3d4 !important;
+}
+[data-theme="hannah"] td {
+  background: #fff0f5 !important;
+  border-color: #ffb3d4 !important;
+  color: #6d0f35 !important;
+}
+[data-theme="hannah"] tr:nth-child(even) td { background: #ffd6e7 !important; }
+
+/* Quiz options */
+[data-theme="hannah"] .quiz-option {
+  border-color: #ffb3d4;
+  background: #fff5f9;
+  color: #6d0f35;
+}
+[data-theme="hannah"] .quiz-option:hover:not(:disabled) { background: #ffd6e7; }
+
+/* Forms and inputs */
+[data-theme="hannah"] input,
+[data-theme="hannah"] textarea,
+[data-theme="hannah"] select,
+[data-theme="hannah"] label {
+  background: #fff0f5 !important;
+  color: #6d0f35 !important;
+  border-color: #ffb3d4 !important;
+  accent-color: #ff1493;
+}
+
+/* Tool/card whites → pink */
+[data-theme="hannah"] .ta-node,
+[data-theme="hannah"] .ta-node-hta,
+[data-theme="hannah"] .fg-output,
+[data-theme="hannah"] .quiz-q,
+[data-theme="hannah"] .persona-card,
+[data-theme="hannah"] .likert-tool,
+[data-theme="hannah"] [class*="-card"],
+[data-theme="hannah"] [class*="-panel"],
+[data-theme="hannah"] [class*="-block"] {
+  background: #ffd6e7 !important;
+  border-color: #ffb3d4 !important;
+  color: #6d0f35 !important;
+}
+
+/* Theme picker itself */
+[data-theme="hannah"] .theme-toggle-btn {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  border-color: #c71585;
+  box-shadow: 0 2px 12px rgba(255,20,147,0.4);
+}
+[data-theme="hannah"] .theme-picker-panel {
+  background: #fff0f5;
+  border-color: #ffb3d4;
+}
+
+
 /* ── FLOATING SIDEBAR ────────────────────────────────────── */
 /* The sidebar floats over the left gutter — no content shift */
 
