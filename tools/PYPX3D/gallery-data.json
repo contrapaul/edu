@@ -1,36 +1,51 @@
 {
   "_instructions": [
-    "1. Export your model as .glb (Blender: File → Export → glTF Binary)",
-    "2. Name it clearly (e.g. firstname-projectname.glb, lowercase, hyphens only)",
-    "3. Place the .glb file in the models/ folder",
-    "4. Add one entry to the 'entries' array below — the gallery auto-positions it",
-    "5. Commit and push — Cloudflare Pages deploys in ~2 minutes"
+    "CONTENT TYPES — add one entry per artwork:",
+    "  type:'model'  → 3D model (.glb) placed in models/",
+    "  type:'image'  → photo/digital art (.jpg or .png) placed in images/",
+    "  type:'video'  → MP4 clip placed in videos/ (plays muted in the gallery)",
+    "  type:'text'   → artist statement; put the text in 'content', no file needed",
+    "",
+    "All types share: id, name, student, year, description.",
+    "Gallery auto-positions everything — no coordinates needed."
   ],
   "galleryTitle": "Design Technology — Student Project Gallery",
   "entries": [
     {
-      "id": "demo-01",
+      "id": "demo-model",
+      "type": "model",
       "name": "Ergonomic Pencil Holder",
       "student": "Demo Student A",
       "year": "2025",
-      "description": "A user-centred pencil holder designed for left-handed users, featuring a weighted base and angled slots for easy retrieval.",
+      "description": "A user-centred pencil holder designed for left-handed users, featuring a weighted base and angled slots.",
       "file": "demo-01.glb"
     },
     {
-      "id": "demo-02",
-      "name": "Modular Desk Organiser",
+      "id": "demo-image",
+      "type": "image",
+      "name": "Urban Geometry",
       "student": "Demo Student B",
       "year": "2025",
-      "description": "Stackable interlocking compartments that can be reconfigured for different workspace layouts.",
-      "file": "demo-02.glb"
+      "description": "Digital photography exploring repeating patterns in city architecture.",
+      "file": "demo-photo.jpg"
     },
     {
-      "id": "demo-03",
-      "name": "Reusable Snack Container",
+      "id": "demo-video",
+      "type": "video",
+      "name": "Design Process Reel",
       "student": "Demo Student C",
       "year": "2025",
-      "description": "A zero-waste snack container with a silicone seal, designed to fit in a school backpack.",
-      "file": "demo-03.glb"
+      "description": "A one-minute walkthrough of the full design cycle from brief to prototype.",
+      "file": "demo-reel.mp4"
+    },
+    {
+      "id": "demo-text",
+      "type": "text",
+      "name": "Artist Statement",
+      "student": "Demo Student D",
+      "year": "2025",
+      "description": "Reflection on the design process.",
+      "content": "My work explores how everyday objects can be redesigned to reduce friction for users with limited dexterity. I approached each iteration by testing with real users and letting their feedback drive every decision."
     }
   ]
 }
