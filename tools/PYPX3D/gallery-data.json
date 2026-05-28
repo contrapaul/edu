@@ -6,8 +6,18 @@
     "  type:'video'  → MP4 clip placed in videos/ (plays muted in the gallery)",
     "  type:'text'   → artist statement; put the text in 'content', no file needed",
     "",
+    "OPTIONAL: add 'audioFile' to any entry to play a narration when clicked:",
+    "  'audioFile': 'firstname-narration.mp3'   (place MP3 in audio/)",
+    "",
+    "FUSION 360 → GLB EXPORT:",
+    "  Option A (recommended): File → Export → FBX, then import into Blender,",
+    "    then File → Export → glTF 2.0 (.glb). Keep under 10 MB.",
+    "  Option B: Install the free 'Autodesk Fusion 360 glTF Exporter' add-in",
+    "    from the Autodesk App Store to export GLB directly.",
+    "",
     "All types share: id, name, student, year, description.",
-    "Gallery auto-positions everything — no coordinates needed."
+    "Gallery auto-positions everything — no coordinates needed.",
+    "Press P (or click the 📸 button) to save a photo of the gallery."
   ],
   "galleryTitle": "Design Technology — Student Project Gallery",
   "entries": [
@@ -45,7 +55,8 @@
       "student": "Demo Student D",
       "year": "2025",
       "description": "Reflection on the design process.",
-      "content": "My work explores how everyday objects can be redesigned to reduce friction for users with limited dexterity. I approached each iteration by testing with real users and letting their feedback drive every decision."
+      "content": "My work explores how everyday objects can be redesigned to reduce friction for users with limited dexterity. I approached each iteration by testing with real users and letting their feedback drive every decision.",
+      "audioFile": "demo-narration.mp3"
     }
   ]
 }
