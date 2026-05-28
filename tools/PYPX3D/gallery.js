@@ -10,7 +10,7 @@ const BEZEL_COLOR = 0x222222;
 
 // ── Renderer ──────────────────────────────────────────────────────────────────
 const canvas = document.getElementById('gallery-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
@@ -36,9 +36,9 @@ controls.enablePan = false;
 controls.target.set(0, 1, 0);
 
 // ── Lighting ──────────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0x404060, 0.6));
+scene.add(new THREE.AmbientLight(0x404060, 0.5));
 
-const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+const mainLight = new THREE.DirectionalLight(0xffffff, 1.0);
 mainLight.position.set(5, 10, 7);
 mainLight.castShadow = true;
 mainLight.shadow.mapSize.width = 1024;
@@ -51,29 +51,143 @@ mainLight.shadow.camera.top = 30;
 mainLight.shadow.camera.bottom = -30;
 scene.add(mainLight);
 
-const fillLight = new THREE.PointLight(0x4466cc, 0.4);
+const fillLight = new THREE.PointLight(0x4466cc, 0.35);
 fillLight.position.set(0, -1, 4);
 scene.add(fillLight);
 
-const rimLight = new THREE.PointLight(0xffaa66, 0.35);
+const rimLight = new THREE.PointLight(0xffaa66, 0.3);
 rimLight.position.set(-4, 4, -6);
 scene.add(rimLight);
 
-// ── Floor ─────────────────────────────────────────────────────────────────────
-const gridHelper = new THREE.GridHelper(60, 30, 0x88aaff, 0x223366);
-gridHelper.position.y = -0.5;
-gridHelper.material.transparent = true;
-gridHelper.material.opacity = 0.4;
-scene.add(gridHelper);
+// ── Environment ───────────────────────────────────────────────────────────────
+function createEnvironment() {
+  // Reflective floor
+  const floorMesh = new THREE.Mesh(
+    new THREE.CircleGeometry(80, 64),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.08, metalness: 0.85 })
+  );
+  floorMesh.rotation.x = -Math.PI / 2;
+  floorMesh.position.y = -0.5;
+  floorMesh.receiveShadow = true;
+  scene.add(floorMesh);
 
-const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(60, 60),
-  new THREE.ShadowMaterial({ opacity: 0.35, transparent: true })
-);
-floor.rotation.x = -Math.PI / 2;
-floor.position.y = -0.49;
-floor.receiveShadow = true;
-scene.add(floor);
+  // Subtle grid for spatial reference
+  const grid = new THREE.GridHelper(60, 30, 0x88aaff, 0x223366);
+  grid.position.y = -0.48;
+  grid.material.transparent = true;
+  grid.material.opacity = 0.15;
+  scene.add(grid);
+
+  // Center anchor ring
+  const ringMat = new THREE.MeshStandardMaterial({
+    color: 0x7c3aed,
+    emissive: 0x3b1a8a,
+    emissiveIntensity: 0.6,
+    roughness: 0.3,
+    metalness: 0.6,
+  });
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.06, 8, 48), ringMat);
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = -0.44;
+  scene.add(ring);
+
+  // Warm ceiling PointLights + visible fixtures
+  const ceilingPositions = [
+    [8, 12, 8], [-8, 12, 8], [-8, 12, -8], [8, 12, -8]
+  ];
+  const fixtureMat = new THREE.MeshStandardMaterial({
+    color: 0xfff5e0,
+    emissive: 0xffcc88,
+    emissiveIntensity: 0.9,
+  });
+  ceilingPositions.forEach(([x, y, z]) => {
+    const light = new THREE.PointLight(0xffcc88, 0.65, 30);
+    light.position.set(x, y, z);
+    scene.add(light);
+    const fixture = new THREE.Mesh(new THREE.SphereGeometry(0.18, 12, 8), fixtureMat);
+    fixture.position.set(x, y, z);
+    scene.add(fixture);
+  });
+}
+
+// ── Particles ─────────────────────────────────────────────────────────────────
+let particles;
+function createParticles() {
+  const count = 400;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    pos[i * 3]     = (Math.random() - 0.5) * 40;
+    pos[i * 3 + 1] = Math.random() * 6;
+    pos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const mat = new THREE.PointsMaterial({ color: 0xffbb66, size: 0.04, transparent: true, opacity: 0.35 });
+  particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+}
+
+// ── Hover label ───────────────────────────────────────────────────────────────
+let hoverLabel;
+function createHoverLabel() {
+  const cv = document.createElement('canvas');
+  cv.width = 512; cv.height = 160;
+  const ctx = cv.getContext('2d');
+  const tex = new THREE.CanvasTexture(cv);
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.2, 0.7),
+    new THREE.MeshBasicMaterial({ map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false })
+  );
+  mesh.visible = false;
+  scene.add(mesh);
+  hoverLabel = { mesh, cv, ctx, tex };
+}
+
+function updateHoverLabel(art) {
+  if (!hoverLabel) return;
+  if (!art) {
+    hoverLabel.mesh.visible = false;
+    return;
+  }
+  const { cv, ctx, tex } = hoverLabel;
+  ctx.clearRect(0, 0, cv.width, cv.height);
+
+  // Background pill
+  ctx.fillStyle = 'rgba(5,11,26,0.88)';
+  const r = 28;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, cv.width, cv.height, r);
+  ctx.fill();
+
+  // Border
+  ctx.strokeStyle = 'rgba(124,58,237,0.5)';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.roundRect(2, 2, cv.width - 4, cv.height - 4, r - 1);
+  ctx.stroke();
+
+  // Name
+  ctx.fillStyle = '#c4b5fd';
+  ctx.font = 'bold 52px Inter, Helvetica, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(art.userData.name || '', cv.width / 2, 62, cv.width - 32);
+
+  // Student
+  if (art.userData.student) {
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.font = 'italic 34px Inter, Helvetica, sans-serif';
+    ctx.fillText('by ' + art.userData.student, cv.width / 2, 114, cv.width - 32);
+  }
+
+  tex.needsUpdate = true;
+
+  // Position above artwork
+  const worldPos = new THREE.Vector3();
+  art.getWorldPosition(worldPos);
+  hoverLabel.mesh.position.set(worldPos.x, worldPos.y + TARGET_SIZE + 0.7, worldPos.z);
+  hoverLabel.mesh.visible = true;
+}
 
 // ── State ─────────────────────────────────────────────────────────────────────
 const artworks = [];
@@ -83,6 +197,8 @@ const pointer = new THREE.Vector2();
 let pointerDownPos = { x: 0, y: 0 };
 let totalItems = 0;
 let loadedItems = 0;
+let currentAudio = null;
+let galleryTitle = 'Student 3D Gallery';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function spiralPosition(index) {
@@ -107,6 +223,21 @@ function updateLoadingBar() {
 function registerArtwork(wrapper, baseY, phase, rotate, extra = {}) {
   wrapper.userData = { ...wrapper.userData, baseY, phase, rotate, ...extra };
   artworks.push(wrapper);
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  Object.assign(t.style, {
+    position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
+    background: 'rgba(5,11,26,0.9)', color: '#c4b5fd',
+    padding: '8px 20px', borderRadius: '20px', fontSize: '13px',
+    border: '1px solid rgba(124,58,237,0.4)', backdropFilter: 'blur(8px)',
+    zIndex: '1000', transition: 'opacity 0.4s', pointerEvents: 'none',
+  });
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; }, 2000);
+  setTimeout(() => t.remove(), 2500);
 }
 
 function makeFlatFallback(label, color, w, h, pos, phase, entryMeta) {
@@ -171,7 +302,7 @@ function addBezel(group, w, h) {
 
 function loadModel(entry, index, pos, phase) {
   const gltfLoader = new GLTFLoader();
-  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'model' };
+  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'model', audioFile: entry.audioFile };
 
   gltfLoader.load(
     './models/' + entry.file,
@@ -204,7 +335,6 @@ function loadModel(entry, index, pos, phase) {
     },
     undefined,
     () => {
-      // Wireframe cube fallback
       const color = PLACEHOLDER_COLORS[index % PLACEHOLDER_COLORS.length];
       const cube = new THREE.Mesh(
         new THREE.BoxGeometry(2, 2, 2),
@@ -224,7 +354,7 @@ function loadModel(entry, index, pos, phase) {
 }
 
 function loadImage(entry, index, pos, phase) {
-  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'image' };
+  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'image', audioFile: entry.audioFile };
   const texLoader = new THREE.TextureLoader();
 
   texLoader.load(
@@ -259,7 +389,7 @@ function loadImage(entry, index, pos, phase) {
 }
 
 function loadVideo(entry, index, pos, phase) {
-  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'video' };
+  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'video', audioFile: entry.audioFile };
   const w = TARGET_SIZE * (16 / 9);
   const h = TARGET_SIZE;
 
@@ -291,7 +421,6 @@ function loadVideo(entry, index, pos, phase) {
   registerArtwork(wrapper, wrapper.position.y, phase, false);
 
   video.addEventListener('error', () => {
-    // Replace with fallback material
     screen.material = new THREE.MeshBasicMaterial({
       map: (() => {
         const cv = document.createElement('canvas'); cv.width = 320; cv.height = 180;
@@ -315,33 +444,27 @@ function loadVideo(entry, index, pos, phase) {
 }
 
 function createText(entry, index, pos, phase) {
-  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'text' };
+  const meta = { name: entry.name, student: entry.student, description: entry.description, type: 'text', audioFile: entry.audioFile };
   const CW = 1024, CH = 768;
   const cv = document.createElement('canvas');
   cv.width = CW; cv.height = CH;
   const ctx = cv.getContext('2d');
 
-  // Background
   ctx.fillStyle = '#f5f0e8';
   ctx.fillRect(0, 0, CW, CH);
-
-  // Border
   ctx.strokeStyle = '#8b6914';
   ctx.lineWidth = 16;
   ctx.strokeRect(8, 8, CW - 16, CH - 16);
 
-  // Title
   ctx.fillStyle = '#2c1810';
   ctx.font = 'bold 56px Georgia, serif';
   ctx.textAlign = 'center';
   ctx.fillText(entry.name || '', CW / 2, 90);
 
-  // Divider
   ctx.strokeStyle = '#c9a87c';
   ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(80, 120); ctx.lineTo(CW - 80, 120); ctx.stroke();
 
-  // Student
   if (entry.student) {
     ctx.fillStyle = '#5a4030';
     ctx.font = 'italic 30px Georgia, serif';
@@ -349,7 +472,6 @@ function createText(entry, index, pos, phase) {
     ctx.fillText('by ' + entry.student + (entry.year ? '  ·  ' + entry.year : ''), CW / 2, 162);
   }
 
-  // Content with word-wrap
   const content = entry.content || entry.description || '';
   ctx.fillStyle = '#333';
   ctx.font = '28px Helvetica, Arial, sans-serif';
@@ -413,8 +535,11 @@ async function loadGallery() {
   try {
     const res = await fetch('./gallery-data.json');
     const data = await res.json();
-    const titleEl = document.getElementById('gallery-title');
-    if (titleEl && data.galleryTitle) titleEl.textContent = data.galleryTitle;
+    if (data.galleryTitle) {
+      galleryTitle = data.galleryTitle;
+      const titleEl = document.getElementById('gallery-title');
+      if (titleEl) titleEl.textContent = galleryTitle;
+    }
     layoutAndLoad(data.entries || []);
   } catch (err) {
     console.error('Failed to load gallery-data.json:', err);
@@ -426,11 +551,42 @@ function showInspect(userData) {
   document.getElementById('inspect-name').textContent = userData.name || '';
   document.getElementById('inspect-student').textContent = userData.student ? 'by ' + userData.student : '';
   document.getElementById('inspect-desc').textContent = userData.description || '';
+
+  const audioEl = document.getElementById('inspect-audio');
+  if (audioEl) audioEl.classList.add('hidden');
+
+  if (userData.audioFile) {
+    if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; }
+    currentAudio = new Audio('./audio/' + userData.audioFile);
+    currentAudio.play().catch(() => {});
+    if (audioEl) {
+      audioEl.textContent = '🔊 Playing narration';
+      audioEl.classList.remove('hidden');
+    }
+    currentAudio.addEventListener('ended', () => {
+      if (audioEl) audioEl.classList.add('hidden');
+    });
+  }
+
   document.getElementById('inspect-panel').classList.remove('hidden');
 }
 
 function hideInspect() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.src = ''; currentAudio = null; }
+  const audioEl = document.getElementById('inspect-audio');
+  if (audioEl) audioEl.classList.add('hidden');
   document.getElementById('inspect-panel').classList.add('hidden');
+}
+
+// ── Screenshot ────────────────────────────────────────────────────────────────
+function takeScreenshot() {
+  const dataURL = renderer.domElement.toDataURL('image/png');
+  const link = document.createElement('a');
+  const safe = galleryTitle.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+  link.download = 'gallery-' + safe + '-' + Date.now() + '.png';
+  link.href = dataURL;
+  link.click();
+  showToast('📸 Photo saved!');
 }
 
 // ── Event handlers ────────────────────────────────────────────────────────────
@@ -460,8 +616,17 @@ function onPointerMove(e) {
   pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
   pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(pointer, camera);
-  canvas.style.cursor =
-    raycaster.intersectObjects(artworks, true).length > 0 ? 'pointer' : 'default';
+  const hits = raycaster.intersectObjects(artworks, true);
+
+  if (hits.length > 0) {
+    let obj = hits[0].object;
+    while (obj && !obj.userData?.name) obj = obj.parent;
+    canvas.style.cursor = 'pointer';
+    updateHoverLabel(obj?.userData?.name ? obj : null);
+  } else {
+    canvas.style.cursor = 'default';
+    updateHoverLabel(null);
+  }
 }
 
 function onResize() {
@@ -474,20 +639,34 @@ function onResize() {
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
+
   artworks.forEach((art) => {
     art.position.y = art.userData.baseY + Math.sin(t * 0.5 + art.userData.phase) * 0.15;
     if (art.userData.rotate) art.rotation.y += 0.003;
   });
+
+  if (particles) particles.rotation.y += 0.0003;
+
+  if (hoverLabel?.mesh.visible) {
+    hoverLabel.mesh.lookAt(camera.position);
+  }
+
   controls.update();
   renderer.render(scene, camera);
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+createEnvironment();
+createParticles();
+createHoverLabel();
+
 document.getElementById('inspect-close').addEventListener('click', hideInspect);
+document.getElementById('photo-btn')?.addEventListener('click', takeScreenshot);
 canvas.addEventListener('pointerdown', onPointerDown);
 canvas.addEventListener('pointerup', onPointerUp);
 canvas.addEventListener('pointermove', onPointerMove);
 window.addEventListener('resize', onResize);
+window.addEventListener('keypress', (e) => { if (e.key.toLowerCase() === 'p') takeScreenshot(); });
 
 loadGallery();
 animate();
