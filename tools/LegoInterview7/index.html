@@ -295,9 +295,8 @@
 .le-qchooser-stage { text-align: center; padding: 1.75rem 1rem; }
 .le-qchooser-text {
   font-family: var(--font-display); font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 700;
-  line-height: 1.5; color: var(--text); margin: 0 0 0.75rem; transition: opacity 0.18s;
+  line-height: 1.5; color: var(--text); margin: 0 0 0.75rem;
 }
-.le-qchooser-text.fading { opacity: 0; }
 .le-qchooser-meta { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
 .le-qchooser-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 .le-qc-btn {
@@ -890,8 +889,8 @@ function syncDiiButtons() {
 ════════════════════════════════════════════════════════════ */
 
 var qc = {
-  diii: { questions: DIII_QUESTIONS, queue:[], current:null, chosen:[], built:false, locked:false },
-  div:  { questions: DIV_QUESTIONS,  queue:[], current:null, chosen:[], built:false, locked:false }
+  diii: { questions: DIII_QUESTIONS, queue:[], current:null, chosen:[], built:false },
+  div:  { questions: DIV_QUESTIONS,  queue:[], current:null, chosen:[], built:false }
 };
 
 function buildQChooser(id) {
@@ -968,28 +967,17 @@ function qcShowDirect(id, q) {
 }
 
 function qcNext(id) {
-  /* Ignore clicks that arrive during the fade — prevents silent queue drain */
-  if (qc[id].locked) return;
   if (qc[id].queue.length === 0) qcRefill(id);
   if (qc[id].queue.length === 0) return;
   if (qc[id].queue.length > 1 && qc[id].current && qc[id].queue[0]===qc[id].current.id) qc[id].queue.push(qc[id].queue.shift());
   var q = qc[id].questions.find(function(q){ return q.id===qc[id].queue.shift(); });
   if (!q) return;
   qc[id].current = q;
-  qc[id].locked = true;
   var textEl = document.getElementById('qc-' + id + '-text');
   var metaEl = document.getElementById('qc-' + id + '-meta');
-  if (textEl) {
-    textEl.classList.add('fading');
-    setTimeout(function(){
-      if (textEl) { textEl.textContent = q.text; textEl.classList.remove('fading'); }
-      if (metaEl) metaEl.textContent = 'Question ' + q.id + ' of ' + qc[id].questions.length;
-      qcSyncChooseBtn(id);
-      qc[id].locked = false;
-    }, 180);
-  } else {
-    qc[id].locked = false;
-  }
+  if (textEl) textEl.textContent = q.text;
+  if (metaEl) metaEl.textContent = 'Question ' + q.id + ' of ' + qc[id].questions.length;
+  qcSyncChooseBtn(id);
 }
 
 function qcSyncChooseBtn(id) {
