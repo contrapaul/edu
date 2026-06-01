@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Lego Engineers Evaluation — MYP Grade 7 Criteria D worksheet builder.">
+<title>Lego Engineers Evaluation — contrapaul edu</title>
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../curriculum/themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   LEGO ENGINEERS EVALUATION — Criteria D Worksheet Builder
+═══════════════════════════════════════════════════════════ */
+
+/* ── Page shell ─────────────────────────────────────────── */
+.le-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero / title area ──────────────────────────────────── */
+.le-hero {
+  text-align: center;
+  padding: 3.5rem 2rem 2rem;
+}
+
+.le-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 3.7vw, 3.0rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0 0 1.25rem;
+}
+
+.le-instructions {
+  max-width: 680px;
+  margin: 0 auto;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ── Entry cards row ────────────────────────────────────── */
+.le-cards-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem 2rem 0;
+}
+
+.le-entry-card {
+  width: 285px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.1rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  flex-shrink: 0;
+}
+.le-entry-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.le-entry-card.is-complete { border-top-color: #16a34a; }
+
+.le-card-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.le-entry-card.is-complete .le-card-label { color: #16a34a; }
+
+.le-card-title {
+  font-family: var(--font-display);
+  font-size: 1.23rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+}
+
+.le-card-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.le-card-status.in-progress { color: var(--accent); }
+.le-card-status.complete { color: #16a34a; }
+
+/* ── A4 worksheet preview ───────────────────────────────── */
+.le-sheet-section {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.le-sheet-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: flex-start;
+  max-width: 940px;
+  width: 100%;
+}
+
+/* A4 landscape: 297×210 ratio = 1.4143:1 */
+.le-sheet-wrapper {
+  width: 100%;
+  max-width: 940px;
+}
+
+#le-a4 {
+  width: 940px;
+  height: 665px; /* 940 / 1.4143 */
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0;
+  overflow: hidden;
+  color: #111;
+  font-family: Georgia, 'Times New Roman', serif;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  transform-origin: top left;
+}
+
+.le-quadrant {
+  border: 1px solid #ccc;
+  padding: 10px 12px 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.le-q-header {
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  border-bottom: 1.5px solid #1d4ed8;
+  padding-bottom: 3px;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.le-q-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.le-q-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Di quadrant content */
+.le-di-test {
+  margin-bottom: 5px;
+  font-size: 7.5px;
+  line-height: 1.35;
+}
+.le-di-test-num {
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  color: #1d4ed8;
+}
+.le-di-row { display: flex; gap: 4px; margin-top: 2px; }
+.le-di-cell {
+  flex: 1;
+  background: #f0f4ff;
+  border: 0.5px solid #c7d4f5;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 6.5px;
+}
+.le-di-cell-label {
+  font-weight: 700;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 5.5px;
+  color: #4b7bec;
+  margin-bottom: 1px;
+}
+.le-di-explain {
+  margin-top: 2px;
+  font-size: 6.5px;
+  font-style: italic;
+  color: #444;
+  padding-left: 2px;
+}
+
+/* Dii quadrant content */
+.le-dii-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 7px;
+}
+.le-dii-table th {
+  font-family: Arial, sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #f0f4ff;
+  border: 0.5px solid #c7d4f5;
+  padding: 2px 4px;
+  text-align: left;
+}
+.le-dii-table td {
+  border: 0.5px solid #ddd;
+  padding: 2px 4px;
+  vertical-align: top;
+  font-size: 6.5px;
+  line-height: 1.3;
+}
+.le-dii-achieved { text-align: center; font-weight: 700; }
+.le-dii-yes { color: #16a34a; }
+.le-dii-no { color: #dc2626; }
+
+/* Diii / Div quadrant content */
+.le-diii-q, .le-div-q {
+  margin-bottom: 6px;
+  font-size: 7px;
+  line-height: 1.4;
+}
+.le-diii-num, .le-div-num {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  font-size: 6.5px;
+  color: #1d4ed8;
+  margin-bottom: 1px;
+}
+.le-diii-text, .le-div-text {
+  border-bottom: 0.5px dotted #aaa;
+  padding-bottom: 3px;
+}
+
+/* ── Download button ────────────────────────────────────── */
+.le-download-btn {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.le-download-btn:hover { opacity: 0.88; }
+
+/* ── Modal overlay ──────────────────────────────────────── */
+.le-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.le-overlay.open { display: flex; }
+
+.le-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 1.5);
+  width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 2rem 2rem 1.5rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+}
+
+.le-modal-close {
+  position: absolute;
+  top: 0.875rem;
+  right: 0.875rem;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.12s, background 0.12s;
+  line-height: 1;
+}
+.le-modal-close:hover { color: #dc2626; background: rgba(220,38,38,0.09); }
+
+.le-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 2rem 0.5rem 0;
+}
+.le-modal-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+/* ── Di wizard ──────────────────────────────────────────── */
+.le-di-wizard {}
+
+.le-test-block {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.le-test-block.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.le-test-block-header {
+  background: var(--surface-2);
+  padding: 0.5rem 0.875rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+}
+
+.le-tier-row {
+  display: flex;
+  gap: 0;
+  min-height: 160px;
+}
+
+.le-tier-col {
+  flex: 1;
+  border-right: 1px solid var(--border);
+  padding: 0.75rem;
+  min-width: 0;
+}
+.le-tier-col:last-child { border-right: none; }
+
+.le-tier-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.le-tier-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+.le-tier-btn:hover { border-color: var(--accent); background: var(--accent-bg); }
+.le-tier-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.le-tier4-col {
+  flex: 1.2;
+  padding: 0.75rem;
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.le-tier4-col label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.le-tier4-col input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--surface);
+  color: var(--text);
+  box-sizing: border-box;
+}
+.le-tier4-col input:focus { outline: none; border-color: var(--accent); }
+
+.le-finish-btn {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: opacity 0.15s;
+  align-self: flex-start;
+}
+.le-finish-btn:hover { opacity: 0.88; }
+
+.le-tier-hidden { display: none; }
+
+/* ── Dii table editor ───────────────────────────────────── */
+.le-dii-editor {}
+
+.le-dii-instr {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  border-left: 3px solid var(--accent);
+  padding-left: 0.875rem;
+}
+
+.le-dii-editor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+.le-dii-editor-table th {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 2px solid var(--border);
+}
+.le-dii-editor-table td {
+  padding: 0.4rem 0.5rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+.le-dii-editor-table input[type="text"],
+.le-dii-editor-table textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.6);
+  background: var(--surface);
+  color: var(--text);
+  box-sizing: border-box;
+  resize: vertical;
+}
+.le-dii-editor-table input:focus,
+.le-dii-editor-table textarea:focus { outline: none; border-color: var(--accent); }
+
+.le-dii-toggle {
+  display: flex;
+  gap: 0.3rem;
+}
+.le-dii-toggle button {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  border-radius: calc(var(--radius) * 0.6);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.le-dii-toggle button.active-yes {
+  background: #16a34a; border-color: #16a34a; color: #fff;
+}
+.le-dii-toggle button.active-no {
+  background: #dc2626; border-color: #dc2626; color: #fff;
+}
+
+.le-add-row-btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+.le-add-row-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── Diii / Div question chooser ────────────────────────── */
+.le-qchooser {}
+
+.le-qchooser-stage {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.le-qchooser-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+  transition: opacity 0.18s;
+}
+.le-qchooser-text.fading { opacity: 0; }
+.le-qchooser-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.le-qchooser-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.le-qc-btn {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+.le-qc-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.le-qc-btn-choose {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+.le-qc-btn-choose:hover { opacity: 0.88; color: #fff; background: var(--accent); border-color: var(--accent); }
+.le-qc-btn-choose:disabled { opacity: 0.38; cursor: not-allowed; }
+.le-qc-feedback {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  min-height: 1em;
+  margin-top: 0.5rem;
+}
+
+.le-chosen-list {
+  border-top: 1px solid var(--border);
+  padding: 1rem 1rem 0.5rem;
+}
+.le-chosen-list-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.le-chosen-q-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+.le-chosen-q-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  width: 18px;
+}
+.le-chosen-q-remove {
+  margin-left: auto;
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 0.2rem;
+  transition: color 0.12s;
+}
+.le-chosen-q-remove:hover { color: #dc2626; }
+
+.le-lock-btn {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.7rem 1.75rem;
+  border-radius: var(--radius);
+  border: none;
+  background: #16a34a;
+  color: #fff;
+  cursor: pointer;
+  margin: 1.25rem auto 0;
+  transition: opacity 0.15s;
+}
+.le-lock-btn:hover { opacity: 0.88; }
+.le-lock-btn.visible { display: block; }
+
+/* ── Clarifications table ───────────────────────────────── */
+.le-clarif-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+.le-clarif-table th {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.le-clarif-table td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.8rem;
+}
+.le-clarif-table tr:first-child td { font-weight: 600; color: var(--text); font-style: normal; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .le-entry-card { width: 100%; }
+  #le-a4 { width: 100%; height: auto; min-height: 300px; display: block; }
+  .le-quadrant { min-height: 120px; }
+  .le-tier-row { flex-direction: column; }
+  .le-tier-col { border-right: none; border-bottom: 1px solid var(--border); }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<main class="le-page">
+
+  <!-- ── Hero ──────────────────────────────────────────────── -->
+  <div class="le-hero">
+    <h1 class="le-title">Lego Engineers Evaluation | Criteria D</h1>
+    <p class="le-instructions">Use each criteria tool to create your assessment for criteria D. Save your work with the <strong>Download</strong> button and upload it to ManageBac. Mr. K will print a copy for you to complete the work on paper.</p>
+  </div>
+
+  <!-- ── Entry cards ───────────────────────────────────────── -->
+  <div class="le-cards-row">
+    <div class="le-entry-card" id="card-di" onclick="openModal('di')">
+      <div class="le-card-label">Criteria Di</div>
+      <div class="le-card-title">Choosing Testing Methods</div>
+      <div class="le-card-status" id="status-di">Not started</div>
+    </div>
+    <div class="le-entry-card" id="card-dii" onclick="openModal('dii')">
+      <div class="le-card-label">Criteria Dii</div>
+      <div class="le-card-title">Evaluating your Success</div>
+      <div class="le-card-status" id="status-dii">Not started</div>
+    </div>
+    <div class="le-entry-card" id="card-diii" onclick="openModal('diii')">
+      <div class="le-card-label">Criteria Diii</div>
+      <div class="le-card-title">Improving your Machine</div>
+      <div class="le-card-status" id="status-diii">Not started</div>
+    </div>
+    <div class="le-entry-card" id="card-div" onclick="openModal('div')">
+      <div class="le-card-label">Criteria Div</div>
+      <div class="le-card-title">Describing the Impact of your Machine</div>
+      <div class="le-card-status" id="status-div">Not started</div>
+    </div>
+    <div class="le-entry-card" onclick="openModal('clarif')">
+      <div class="le-card-label">Reference</div>
+      <div class="le-card-title">Task Specific Clarifications</div>
+      <div class="le-card-status">View table →</div>
+    </div>
+  </div>
+
+  <!-- ── A4 worksheet ──────────────────────────────────────── -->
+  <div class="le-sheet-section">
+    <div class="le-sheet-label">Your worksheet — fills in as you complete each criteria</div>
+    <div class="le-sheet-wrapper">
+      <div id="le-a4">
+        <div class="le-quadrant" id="q-di">
+          <div class="le-q-header">Di — Choosing Testing Methods</div>
+          <div class="le-q-body" id="q-di-body">
+            <div class="le-q-placeholder">Complete Criteria Di above</div>
+          </div>
+        </div>
+        <div class="le-quadrant" id="q-dii">
+          <div class="le-q-header">Dii — Evaluating your Success</div>
+          <div class="le-q-body" id="q-dii-body">
+            <div class="le-q-placeholder">Complete Criteria Dii above</div>
+          </div>
+        </div>
+        <div class="le-quadrant" id="q-diii">
+          <div class="le-q-header">Diii — Improving your Machine</div>
+          <div class="le-q-body" id="q-diii-body">
+            <div class="le-q-placeholder">Complete Criteria Diii above</div>
+          </div>
+        </div>
+        <div class="le-quadrant" id="q-div">
+          <div class="le-q-header">Div — Impact of your Machine</div>
+          <div class="le-q-body" id="q-div-body">
+            <div class="le-q-placeholder">Complete Criteria Div above</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="le-download-btn" onclick="downloadSheet()">Download my worksheet</button>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════════════════════ -->
+
+<!-- Di modal -->
+<div class="le-overlay" id="modal-di" onclick="handleOverlayClick(event,'di')">
+  <div class="le-modal" onclick="event.stopPropagation()">
+    <button class="le-modal-close" onclick="closeModal('di')">×</button>
+    <div class="le-modal-title">Choosing Testing Methods</div>
+    <div class="le-modal-subtitle">Criteria Di — define 3 ways you will test your machine</div>
+    <div class="le-di-wizard" id="di-wizard"></div>
+  </div>
+</div>
+
+<!-- Dii modal -->
+<div class="le-overlay" id="modal-dii" onclick="handleOverlayClick(event,'dii')">
+  <div class="le-modal" onclick="event.stopPropagation()">
+    <button class="le-modal-close" onclick="closeModal('dii')">×</button>
+    <div class="le-modal-title">Evaluating your Success</div>
+    <div class="le-modal-subtitle">Criteria Dii — record your success criteria and evaluate each one</div>
+    <div class="le-dii-editor" id="dii-editor">
+      <p class="le-dii-instr">Add your success criteria from our planning assessment (In Teams). Did you accomplish each criteria? Explain how you accomplished each, or why success was not achieved.</p>
+      <table class="le-dii-editor-table">
+        <thead>
+          <tr>
+            <th style="width:35%">Success Criterion</th>
+            <th style="width:90px">Achieved?</th>
+            <th>Explanation</th>
+          </tr>
+        </thead>
+        <tbody id="dii-tbody"></tbody>
+      </table>
+      <button class="le-add-row-btn" id="dii-add-btn" onclick="diiAddRow()">+ Add criterion</button>
+      <br><br>
+      <button class="le-finish-btn" id="dii-finish-btn" style="display:none" onclick="closeModal('dii')">Finished</button>
+    </div>
+  </div>
+</div>
+
+<!-- Diii modal -->
+<div class="le-overlay" id="modal-diii" onclick="handleOverlayClick(event,'diii')">
+  <div class="le-modal" onclick="event.stopPropagation()">
+    <button class="le-modal-close" onclick="closeModal('diii')">×</button>
+    <div class="le-modal-title">Improving your Machine</div>
+    <div class="le-modal-subtitle">Criteria Diii — choose 3 questions to answer on paper about potential improvements</div>
+    <div class="le-qchooser" id="diii-chooser"></div>
+  </div>
+</div>
+
+<!-- Div modal -->
+<div class="le-overlay" id="modal-div" onclick="handleOverlayClick(event,'div')">
+  <div class="le-modal" onclick="event.stopPropagation()">
+    <button class="le-modal-close" onclick="closeModal('div')">×</button>
+    <div class="le-modal-title">Describing the Impact of your Machine</div>
+    <div class="le-modal-subtitle">Criteria Div — choose 3 questions to answer on paper about impact and learning</div>
+    <div class="le-qchooser" id="div-chooser"></div>
+  </div>
+</div>
+
+<!-- Clarifications modal -->
+<div class="le-overlay" id="modal-clarif" onclick="handleOverlayClick(event,'clarif')">
+  <div class="le-modal" onclick="event.stopPropagation()">
+    <button class="le-modal-close" onclick="closeModal('clarif')">×</button>
+    <div class="le-modal-title">Task Specific Clarifications</div>
+    <div class="le-modal-subtitle">Grade band descriptors for Criteria D</div>
+    <table class="le-clarif-table">
+      <thead>
+        <tr>
+          <th>Criteria</th>
+          <th>1–2</th>
+          <th>3–4</th>
+          <th>5–6</th>
+          <th>7–8</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Di — Testing Methods</td>
+          <td>[Grade 1–2 descriptor — to be added]</td>
+          <td>[Grade 3–4 descriptor — to be added]</td>
+          <td>[Grade 5–6 descriptor — to be added]</td>
+          <td>[Grade 7–8 descriptor — to be added]</td>
+        </tr>
+        <tr>
+          <td>Dii — Evaluating Success</td>
+          <td>[Grade 1–2 descriptor — to be added]</td>
+          <td>[Grade 3–4 descriptor — to be added]</td>
+          <td>[Grade 5–6 descriptor — to be added]</td>
+          <td>[Grade 7–8 descriptor — to be added]</td>
+        </tr>
+        <tr>
+          <td>Diii — Improvements</td>
+          <td>[Grade 1–2 descriptor — to be added]</td>
+          <td>[Grade 3–4 descriptor — to be added]</td>
+          <td>[Grade 5–6 descriptor — to be added]</td>
+          <td>[Grade 7–8 descriptor — to be added]</td>
+        </tr>
+        <tr>
+          <td>Div — Impact</td>
+          <td>[Grade 1–2 descriptor — to be added]</td>
+          <td>[Grade 3–4 descriptor — to be added]</td>
+          <td>[Grade 5–6 descriptor — to be added]</td>
+          <td>[Grade 7–8 descriptor — to be added]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- html2canvas CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="../../curriculum/curriculum-themes.js"></script>
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════════
+   DATA
+════════════════════════════════════════════════════════════ */
+
+var DI_TIERS = {
+  'Function': {
+    tier2: [
+      'Does it complete its task?',
+      'Does it move as designed?',
+      'Does it start automatically?',
+      'Are all mechanisms working?',
+      'Does it stop correctly?'
+    ],
+    tier3: {
+      'Does it complete its task?':    ['Observe and record outcomes','Film and count repetitions','Test 5 times and note differences','Compare to original design plan','Time how long it runs'],
+      'Does it move as designed?':     ['Film and compare to design sketch','Observe joint and part movement','Describe each stage of movement','Mark expected vs actual path','Test 3 times and record differences'],
+      'Does it start automatically?':  ['Time delay from trigger to start','Observe starting mechanism','Test 10 triggers and record','Film in slow motion','Remove human input and observe'],
+      'Are all mechanisms working?':   ['Check each mechanism in isolation','Run a full cycle and note failures','Film and analyse each stage','Record which parts stall or jam','Test with added load'],
+      'Does it stop correctly?':       ['Observe stopping mechanism','Time run from start to stop','Film and count successful stops','Test on different surfaces','Check what causes it to stop']
+    }
+  },
+  'Stability': {
+    tier2: [
+      'Does it tip or wobble during operation?',
+      'Does it stay in place while running?',
+      'Are connections holding under load?',
+      'Is weight well distributed?',
+      'Does it recover from small bumps?'
+    ],
+    tier3: {
+      'Does it tip or wobble during operation?': ['Measure wobble with a ruler','Film in slow motion and observe','Run 10 cycles and count wobbles','Place on uneven surface and observe','Describe the pattern of movement'],
+      'Does it stay in place while running?':    ['Mark starting position and measure drift','Film from the side','Run on different surfaces','Time how long before it moves','Add weight and observe'],
+      'Are connections holding under load?':      ['Test each joint individually','Apply gentle pressure and observe','Run 10 full cycles and inspect','Record which joints loosen','Film at full operating speed'],
+      'Is weight well distributed?':             ['Attempt to balance machine on finger','Describe where the heaviest parts are','Observe lean direction during operation','Add counterweight and compare','Photograph from front and side'],
+      'Does it recover from small bumps?':       ['Apply light tap and observe','Push gently and record response','Test on carpet vs hard floor','Count how many bumps before failure','Film recovery after contact']
+    }
+  },
+  'Efficiency': {
+    tier2: [
+      'Is energy transferred smoothly?',
+      'Do gears turn without slipping?',
+      'Is there unnecessary friction?',
+      'Is force used effectively?',
+      'How many steps does the movement take?'
+    ],
+    tier3: {
+      'Is energy transferred smoothly?':   ['Observe and describe friction points','Film and slow down playback','Feel resistance at each stage','Compare start force to output force','Count stalls in 10 runs'],
+      'Do gears turn without slipping?':   ['Count gear rotations per input','Mark a tooth and track movement','Apply load and observe','Film at full speed','Listen for clicking or skipping'],
+      'Is there unnecessary friction?':    ['Identify all contact points','Attempt to reduce contact and compare','Film before and after adjustment','Describe where resistance is highest','Test with and without lubrication'],
+      'Is force used effectively?':        ['Measure mechanical advantage','Compare input effort to output','Describe gear ratio used','Change gear ratio and compare','Observe direction of force transfer'],
+      'How many steps does the movement take?': ['Count stages in one full cycle','Diagram the movement path','Remove a step and observe effect','Film and annotate each stage','Compare to a simpler version']
+    }
+  },
+  'Design': {
+    tier2: [
+      'Does it look intentional?',
+      'Are parts visually consistent?',
+      'Is it clear what the machine does just by looking?',
+      'Does it match the original design sketch?',
+      'Would someone understand it without explanation?'
+    ],
+    tier3: {
+      'Does it look intentional?':                      ['Photograph and annotate choices','Interview 2–3 peers and record','Compare to design goals','Describe 3 deliberate decisions','Ask a peer for first impressions'],
+      'Are parts visually consistent?':                 ['Photograph and label colour/shape patterns','Interview a peer about visual clarity','List parts that feel out of place','Compare to original colour plan','Describe what draws the eye'],
+      'Is it clear what the machine does just by looking?': ['Ask someone to explain it without being told','Record 3 first responses','Film a peer seeing it for the first time','Compare responses before and after explanation','Note what is confusing'],
+      'Does it match the original design sketch?':      ['Photograph side by side with sketch','List changes made and reasons','Mark which parts were modified','Describe what stayed the same','Rate similarity 1–10 with justification'],
+      'Would someone understand it without explanation?': ['Present without speaking and record reactions','Ask 3 people to guess its function','Film their responses','Note what they got right and wrong','Revise based on feedback']
+    }
+  },
+  'Build Quality': {
+    tier2: [
+      'Are all connections secure?',
+      'Do moving parts operate freely?',
+      'Are there stress points in the frame?',
+      'Is the structure reinforced where needed?',
+      'Does it hold together under full operation?'
+    ],
+    tier3: {
+      'Are all connections secure?':            ['Test each joint individually','Count loose parts after 10 runs','Check each axle and pin','Apply gentle flex to the frame','Film vibration during operation'],
+      'Do moving parts operate freely?':        ['Manually cycle each moving part','Record where resistance occurs','Test after adding load','Film and compare tight vs loose joints','Remove friction sources and retest'],
+      'Are there stress points in the frame?':  ['Inspect joints under load','Flex frame gently and observe','Mark parts that bend or flex','Run 10 cycles and reinspect','Film at full speed and slow down'],
+      'Is the structure reinforced where needed?': ['Identify load-bearing sections','Test without reinforcement and compare','Describe which Technic pieces were used for support','Photograph reinforcement details','Add reinforcement and retest'],
+      'Does it hold together under full operation?': ['Run 10 full cycles and inspect','Count failures per 10 runs','Record which parts separate','Film a full run from start to finish','Compare fresh build vs worn build']
+    }
+  }
+};
+
+var DIII_QUESTIONS = [
+  { id: 1, text: "What is one thing your machine could not do that you wanted it to — and how might you fix it?" },
+  { id: 2, text: "If you had unlimited parts, what would you add or change first, and why?" },
+  { id: 3, text: "Where did your machine underperform most, and what would you rebuild if you started over?" },
+  { id: 4, text: "What did testing reveal about your machine that your original design didn't predict?" },
+  { id: 5, text: "If someone else were to build your machine, what is the most important piece of advice you would give them?" },
+  { id: 6, text: "What was the biggest design compromise you made — and would you change it now that you've seen the machine work?" },
+  { id: 7, text: "Which mechanism caused the most problems, and how would you redesign it?" },
+  { id: 8, text: "How would you improve the stability of your machine without adding more parts?" },
+  { id: 9, text: "What would you do differently in the first 20 minutes of building if you started again?" },
+  { id: 10, text: "Is there a simpler way to achieve the same function? What would it look like?" },
+  { id: 11, text: "What part of your machine wears out or fails first, and how would you fix that?" },
+  { id: 12, text: "How would you make your machine work with less human input than it currently needs?" },
+  { id: 13, text: "What would you test first in a second version of this machine, and why?" },
+  { id: 14, text: "If you could add one completely new mechanism, what would it do and how would you build it?" },
+  { id: 15, text: "What feedback from peers or teachers would you act on if you rebuilt this?" },
+  { id: 16, text: "Which part of the build do you think looked the most unfinished — and how would you address it?" },
+  { id: 17, text: "How would you improve the efficiency of energy transfer in your machine?" },
+  { id: 18, text: "What would you change about the gearing to make the machine faster or more powerful?" },
+  { id: 19, text: "Describe one moment during building where you had to completely change your approach — what would you do differently next time?" },
+  { id: 20, text: "What single improvement would have the biggest impact on how well your machine works?" }
+];
+
+var DIV_QUESTIONS = [
+  { id: 1, text: "What is the most important thing you learned about mechanical systems through building this machine?" },
+  { id: 2, text: "Describe a problem you ran into and explain exactly how your group solved it." },
+  { id: 3, text: "How did your group divide the work, and what would you change about that if you did it again?" },
+  { id: 4, text: "What surprised you most about how your machine actually behaved when it ran?" },
+  { id: 5, text: "How has building this machine changed the way you think about how things move or transfer energy?" },
+  { id: 6, text: "What did you discover about gears, levers, or linkages that you didn't expect?" },
+  { id: 7, text: "Describe a moment when your group disagreed about the design — how did you resolve it?" },
+  { id: 8, text: "What is one thing you understand about Lego Technic mechanisms now that you didn't at the start?" },
+  { id: 9, text: "How did you use your knowledge of mechanisms to make a decision during building?" },
+  { id: 10, text: "What was the most frustrating part of this project, and what did it teach you?" },
+  { id: 11, text: "In what ways did the final machine match or differ from what you imagined at the start?" },
+  { id: 12, text: "What role did you play in your group, and how did that affect the outcome of the machine?" },
+  { id: 13, text: "How did testing your machine change the way you thought about your design choices?" },
+  { id: 14, text: "What would you tell a younger student about working in a group on a building project?" },
+  { id: 15, text: "How did your understanding of mechanical advantage change through building and testing?" },
+  { id: 16, text: "What connections did you make between this project and the real world — machines, engineering, or technology?" },
+  { id: 17, text: "What was a moment where things went better than expected — and why do you think that happened?" },
+  { id: 18, text: "If this machine had a purpose in the real world, what would it be and who would benefit from it?" },
+  { id: 19, text: "How did your group communicate when something wasn't working? What did that process look like?" },
+  { id: 20, text: "What does your finished machine show about what you know about mechanisms and mechanical systems?" }
+];
+
+/* ════════════════════════════════════════════════════════════
+   STATE & PERSISTENCE
+════════════════════════════════════════════════════════════ */
+
+var STATE_KEY = 'le-eval-state';
+
+var state = {
+  di:   { tests: [] },
+  dii:  { rows: [] },
+  diii: { chosen: [] },
+  div:  { chosen: [] }
+};
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STATE_KEY);
+    if (raw) {
+      var s = JSON.parse(raw);
+      if (s.di)   state.di   = s.di;
+      if (s.dii)  state.dii  = s.dii;
+      if (s.diii) state.diii = s.diii;
+      if (s.div)  state.div  = s.div;
+    }
+  } catch(e) {}
+}
+
+function saveState() {
+  try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch(e) {}
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL OPEN / CLOSE
+════════════════════════════════════════════════════════════ */
+
+function openModal(id) {
+  if (id === 'di')     buildDiWizard();
+  if (id === 'dii')    buildDiiEditor();
+  if (id === 'diii')   buildQChooser('diii');
+  if (id === 'div')    buildQChooser('div');
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+  saveState();
+  updateAllSheets();
+  updateCardStatuses();
+}
+
+function handleOverlayClick(e, id) {
+  if (e.target === document.getElementById('modal-' + id)) closeModal(id);
+}
+
+/* ════════════════════════════════════════════════════════════
+   CARD STATUS
+════════════════════════════════════════════════════════════ */
+
+function getStatus(id) {
+  if (id === 'di') {
+    var t = state.di.tests.length;
+    if (t === 0) return 'not-started';
+    if (t < 3)   return 'in-progress';
+    return 'complete';
+  }
+  if (id === 'dii') {
+    var r = state.dii.rows.filter(function(r){ return r.criterion.trim(); });
+    if (r.length === 0) return 'not-started';
+    return 'complete';
+  }
+  if (id === 'diii' || id === 'div') {
+    var c = state[id].chosen.length;
+    if (c === 0) return 'not-started';
+    if (c < 3)   return 'in-progress';
+    return 'complete';
+  }
+  return 'not-started';
+}
+
+function updateCardStatuses() {
+  ['di','dii','diii','div'].forEach(function(id) {
+    var s = getStatus(id);
+    var el = document.getElementById('status-' + id);
+    var card = document.getElementById('card-' + id);
+    el.className = 'le-card-status';
+    card.classList.remove('is-complete');
+    if (s === 'not-started') { el.textContent = 'Not started'; }
+    else if (s === 'in-progress') { el.textContent = 'In progress'; el.classList.add('in-progress'); }
+    else { el.textContent = 'Complete ✓'; el.classList.add('complete'); card.classList.add('is-complete'); }
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   DI WIZARD
+════════════════════════════════════════════════════════════ */
+
+/* di_active: the test currently being built (0-indexed, <3) */
+var di_active = { tier1: null, tier2: null, tier3: null, cat1: '', cat2: '', cat3: '' };
+
+function buildDiWizard() {
+  var wiz = document.getElementById('di-wizard');
+  wiz.innerHTML = '';
+  /* Render locked tests */
+  state.di.tests.forEach(function(t, i) { wiz.appendChild(renderLockedTest(t, i)); });
+  /* Render active test if < 3 */
+  if (state.di.tests.length < 3) {
+    di_active = { tier1: null, tier2: null, tier3: null, cat1: '', cat2: '', cat3: '' };
+    wiz.appendChild(renderActiveTest(state.di.tests.length));
+  }
+}
+
+function renderLockedTest(t, i) {
+  var block = document.createElement('div');
+  block.className = 'le-test-block locked';
+  block.innerHTML =
+    '<div class="le-test-block-header">Test ' + (i+1) + ' — ' + esc(t.tier1) + ' <span style="color:#16a34a">✓</span></div>' +
+    '<div class="le-tier-row">' +
+      '<div class="le-tier-col"><div class="le-tier-label">Category</div><button class="le-tier-btn selected">' + esc(t.tier1) + '</button></div>' +
+      '<div class="le-tier-col"><div class="le-tier-label">What is being tested</div><button class="le-tier-btn selected">' + esc(t.tier2) + '</button></div>' +
+      '<div class="le-tier-col"><div class="le-tier-label">How it will be tested</div><button class="le-tier-btn selected">' + esc(t.tier3) + '</button></div>' +
+      '<div class="le-tier4-col"><div class="le-tier-label">Your plan</div>' +
+        '<label>Category</label><input type="text" readonly value="' + esc(t.cat1) + '">' +
+        '<label>What is being tested</label><input type="text" readonly value="' + esc(t.cat2) + '">' +
+        '<label>How I will test it</label><input type="text" readonly value="' + esc(t.cat3) + '">' +
+      '</div>' +
+    '</div>';
+  return block;
+}
+
+function renderActiveTest(idx) {
+  var block = document.createElement('div');
+  block.className = 'le-test-block';
+  block.id = 'active-test-block';
+  var hdr = document.createElement('div');
+  hdr.className = 'le-test-block-header';
+  hdr.textContent = 'Test ' + (idx + 1) + ' — select a category to begin';
+  block.appendChild(hdr);
+
+  var row = document.createElement('div');
+  row.className = 'le-tier-row';
+  row.id = 'active-tier-row';
+
+  /* Tier 1 */
+  var col1 = document.createElement('div');
+  col1.className = 'le-tier-col';
+  col1.innerHTML = '<div class="le-tier-label">Step 1 — Category</div>';
+  Object.keys(DI_TIERS).forEach(function(cat) {
+    var btn = document.createElement('button');
+    btn.className = 'le-tier-btn' + (di_active.tier1 === cat ? ' selected' : '');
+    btn.textContent = cat;
+    btn.onclick = function() { selectTier1(cat); };
+    col1.appendChild(btn);
+  });
+  row.appendChild(col1);
+
+  /* Tier 2 placeholder */
+  var col2 = document.createElement('div');
+  col2.className = 'le-tier-col le-tier-hidden';
+  col2.id = 'di-col2';
+  row.appendChild(col2);
+
+  /* Tier 3 placeholder */
+  var col3 = document.createElement('div');
+  col3.className = 'le-tier-col le-tier-hidden';
+  col3.id = 'di-col3';
+  row.appendChild(col3);
+
+  /* Tier 4 placeholder */
+  var col4 = document.createElement('div');
+  col4.className = 'le-tier4-col le-tier-hidden';
+  col4.id = 'di-col4';
+  row.appendChild(col4);
+
+  block.appendChild(row);
+  return block;
+}
+
+function selectTier1(cat) {
+  di_active.tier1 = cat;
+  di_active.tier2 = null;
+  di_active.tier3 = null;
+  /* Update T1 buttons */
+  var col1 = document.querySelector('#active-tier-row .le-tier-col:first-child');
+  col1.querySelectorAll('.le-tier-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.textContent === cat);
+  });
+  /* Update header */
+  document.querySelector('#active-test-block .le-test-block-header').textContent =
+    'Test ' + (state.di.tests.length + 1) + ' — ' + cat;
+  /* Build T2 column */
+  var col2 = document.getElementById('di-col2');
+  col2.className = 'le-tier-col';
+  col2.innerHTML = '<div class="le-tier-label">Step 2 — What to test</div>';
+  DI_TIERS[cat].tier2.forEach(function(opt) {
+    var btn = document.createElement('button');
+    btn.className = 'le-tier-btn';
+    btn.textContent = opt;
+    btn.onclick = function() { selectTier2(cat, opt); };
+    col2.appendChild(btn);
+  });
+  /* Hide T3/T4 */
+  var col3 = document.getElementById('di-col3');
+  col3.className = 'le-tier-col le-tier-hidden';
+  col3.innerHTML = '';
+  var col4 = document.getElementById('di-col4');
+  col4.className = 'le-tier4-col le-tier-hidden';
+  col4.innerHTML = '';
+}
+
+function selectTier2(cat, opt) {
+  di_active.tier2 = opt;
+  di_active.tier3 = null;
+  /* Update T2 buttons */
+  var col2 = document.getElementById('di-col2');
+  col2.querySelectorAll('.le-tier-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.textContent === opt);
+  });
+  /* Build T3 */
+  var col3 = document.getElementById('di-col3');
+  col3.className = 'le-tier-col';
+  col3.innerHTML = '<div class="le-tier-label">Step 3 — How to test it</div>';
+  var methods = DI_TIERS[cat].tier3[opt] || [];
+  methods.forEach(function(m) {
+    var btn = document.createElement('button');
+    btn.className = 'le-tier-btn';
+    btn.textContent = m;
+    btn.onclick = function() { selectTier3(m); };
+    col3.appendChild(btn);
+  });
+  /* Hide T4 */
+  var col4 = document.getElementById('di-col4');
+  col4.className = 'le-tier4-col le-tier-hidden';
+  col4.innerHTML = '';
+}
+
+function selectTier3(method) {
+  di_active.tier3 = method;
+  /* Update T3 buttons */
+  var col3 = document.getElementById('di-col3');
+  col3.querySelectorAll('.le-tier-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.textContent === method);
+  });
+  /* Build T4 */
+  var col4 = document.getElementById('di-col4');
+  col4.className = 'le-tier4-col';
+  var idx = state.di.tests.length;
+  var btnLabel = idx === 2 ? 'Finished!' : 'Finish and create test ' + (idx + 2);
+  col4.innerHTML =
+    '<div class="le-tier-label">Step 4 — Write your plan</div>' +
+    '<div><label>Category</label><input id="di-t4-cat" type="text" placeholder="e.g. ' + esc(di_active.tier1) + '" value="' + esc(di_active.tier1) + '"></div>' +
+    '<div><label>What I am testing</label><input id="di-t4-what" type="text" placeholder="e.g. ' + esc(di_active.tier2) + '" value="' + esc(di_active.tier2) + '"></div>' +
+    '<div><label>How I will test it</label><input id="di-t4-how" type="text" placeholder="e.g. ' + esc(di_active.tier3) + '" value="' + esc(di_active.tier3) + '"></div>' +
+    '<button class="le-finish-btn" onclick="finishDiTest()">' + esc(btnLabel) + '</button>';
+}
+
+function finishDiTest() {
+  var cat  = (document.getElementById('di-t4-cat')  || {value:''}).value.trim();
+  var what = (document.getElementById('di-t4-what') || {value:''}).value.trim();
+  var how  = (document.getElementById('di-t4-how')  || {value:''}).value.trim();
+  if (!cat && !what && !how) { cat = di_active.tier1; what = di_active.tier2; how = di_active.tier3; }
+  state.di.tests.push({
+    tier1: di_active.tier1,
+    tier2: di_active.tier2,
+    tier3: di_active.tier3,
+    cat1: cat || di_active.tier1,
+    cat2: what || di_active.tier2,
+    cat3: how || di_active.tier3
+  });
+  saveState();
+  if (state.di.tests.length >= 3) {
+    closeModal('di');
+  } else {
+    buildDiWizard();
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   DII EDITOR
+════════════════════════════════════════════════════════════ */
+
+function buildDiiEditor() {
+  var tbody = document.getElementById('dii-tbody');
+  tbody.innerHTML = '';
+  /* Populate from state */
+  if (state.dii.rows.length === 0) {
+    state.dii.rows = [{ criterion:'', achieved:'', explanation:'' }];
+  }
+  state.dii.rows.forEach(function(r, i) { diiAppendRow(r, i); });
+  syncDiiButtons();
+}
+
+function diiAppendRow(r, i) {
+  var tbody = document.getElementById('dii-tbody');
+  var tr = document.createElement('tr');
+  tr.id = 'dii-row-' + i;
+  tr.innerHTML =
+    '<td><input type="text" placeholder="Success criterion…" value="' + esc(r.criterion) + '" oninput="diiUpdate(' + i + ')"></td>' +
+    '<td><div class="le-dii-toggle">' +
+      '<button id="dii-yes-' + i + '" class="' + (r.achieved==='yes'?'active-yes':'') + '" onclick="diiToggle(' + i + ',\'yes\')">Yes</button>' +
+      '<button id="dii-no-' + i + '" class="' + (r.achieved==='no'?'active-no':'') + '" onclick="diiToggle(' + i + ',\'no\')">No</button>' +
+    '</div></td>' +
+    '<td><textarea rows="2" placeholder="Explain your answer…" oninput="diiUpdate(' + i + ')">' + esc(r.explanation) + '</textarea></td>';
+  tbody.appendChild(tr);
+}
+
+function diiAddRow() {
+  if (state.dii.rows.length >= 6) return;
+  state.dii.rows.push({ criterion:'', achieved:'', explanation:'' });
+  diiAppendRow(state.dii.rows[state.dii.rows.length-1], state.dii.rows.length-1);
+  syncDiiButtons();
+}
+
+function diiUpdate(i) {
+  var tr = document.getElementById('dii-row-' + i);
+  if (!tr) return;
+  var inp = tr.querySelector('input');
+  var ta  = tr.querySelector('textarea');
+  state.dii.rows[i].criterion  = inp ? inp.value : '';
+  state.dii.rows[i].explanation = ta ? ta.value : '';
+  saveState();
+  syncDiiButtons();
+}
+
+function diiToggle(i, val) {
+  state.dii.rows[i].achieved = state.dii.rows[i].achieved === val ? '' : val;
+  var yBtn = document.getElementById('dii-yes-' + i);
+  var nBtn = document.getElementById('dii-no-' + i);
+  if (yBtn) { yBtn.className = state.dii.rows[i].achieved === 'yes' ? 'active-yes' : ''; }
+  if (nBtn) { nBtn.className = state.dii.rows[i].achieved === 'no'  ? 'active-no'  : ''; }
+  saveState();
+}
+
+function syncDiiButtons() {
+  var hasCrit = state.dii.rows.some(function(r){ return r.criterion.trim(); });
+  document.getElementById('dii-finish-btn').style.display = hasCrit ? 'inline-block' : 'none';
+  document.getElementById('dii-add-btn').style.display = state.dii.rows.length >= 6 ? 'none' : 'inline-block';
+}
+
+/* ════════════════════════════════════════════════════════════
+   DIII / DIV QUESTION CHOOSER
+════════════════════════════════════════════════════════════ */
+
+var qc = {
+  diii: { questions: DIII_QUESTIONS, queue: [], current: null, chosen: [] },
+  div:  { questions: DIV_QUESTIONS,  queue: [], current: null, chosen: [] }
+};
+
+function buildQChooser(id) {
+  var container = document.getElementById(id + '-chooser');
+  container.innerHTML = '';
+
+  /* Sync chosen from state */
+  qc[id].chosen = (state[id].chosen || []).slice();
+
+  /* Stage */
+  var stage = document.createElement('div');
+  stage.className = 'le-qchooser-stage';
+  stage.innerHTML =
+    '<p class="le-qchooser-text" id="qc-' + id + '-text">Loading…</p>' +
+    '<p class="le-qchooser-meta" id="qc-' + id + '-meta"></p>' +
+    '<div class="le-qchooser-actions">' +
+      '<button class="le-qc-btn" onclick="qcNext(\'' + id + '\')">New question →</button>' +
+      '<button class="le-qc-btn le-qc-btn-choose" id="qc-' + id + '-choose" onclick="qcChoose(\'' + id + '\')">+ Choose this question</button>' +
+    '</div>' +
+    '<div class="le-qc-feedback" id="qc-' + id + '-fb" aria-live="polite"></div>';
+  container.appendChild(stage);
+
+  /* Chosen list */
+  var list = document.createElement('div');
+  list.className = 'le-chosen-list';
+  list.innerHTML = '<div class="le-chosen-list-label">Chosen (' + qc[id].chosen.length + '/3)</div>' +
+    '<div id="qc-' + id + '-list"></div>';
+  container.appendChild(list);
+
+  /* Lock button */
+  var lockBtn = document.createElement('button');
+  lockBtn.className = 'le-lock-btn' + (qc[id].chosen.length === 3 ? ' visible' : '');
+  lockBtn.id = 'qc-' + id + '-lock';
+  lockBtn.textContent = 'Lock in my choices!';
+  lockBtn.onclick = function() { closeModal(id); };
+  container.appendChild(lockBtn);
+
+  qcRefill(id);
+  qcShow(id, qcNext(id, true), false);
+  qcRenderList(id);
+}
+
+function qcShuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length-1; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function qcAvailable(id) {
+  return qc[id].questions.filter(function(q){ return qc[id].chosen.indexOf(q.id) === -1; }).map(function(q){ return q.id; });
+}
+
+function qcRefill(id) { qc[id].queue = qcShuffle(qcAvailable(id)); }
+
+function qcNext(id, returnOnly) {
+  if (qc[id].queue.length === 0) qcRefill(id);
+  if (qc[id].queue.length === 0) return null;
+  if (qc[id].queue.length > 1 && qc[id].current && qc[id].queue[0] === qc[id].current.id) {
+    qc[id].queue.push(qc[id].queue.shift());
+  }
+  var q = qc[id].questions.find(function(q){ return q.id === qc[id].queue.shift(); });
+  if (returnOnly) return q;
+  qcShow(id, q, true);
+}
+
+function qcShow(id, q, animate) {
+  if (!q) return;
+  qc[id].current = q;
+  var textEl = document.getElementById('qc-' + id + '-text');
+  var metaEl = document.getElementById('qc-' + id + '-meta');
+  function update() {
+    textEl.textContent = q.text;
+    metaEl.textContent = 'Question ' + q.id + ' of ' + qc[id].questions.length;
+  }
+  if (animate && textEl) {
+    textEl.classList.add('fading');
+    setTimeout(function(){ update(); textEl.classList.remove('fading'); }, 180);
+  } else { update(); }
+  qcSyncChooseBtn(id);
+}
+
+function qcSyncChooseBtn(id) {
+  var btn = document.getElementById('qc-' + id + '-choose');
+  if (!btn) return;
+  var already = qc[id].current && qc[id].chosen.indexOf(qc[id].current.id) !== -1;
+  var full = qc[id].chosen.length >= 3;
+  btn.disabled = !qc[id].current || already || full;
+}
+
+function qcChoose(id) {
+  var q = qc[id].current;
+  if (!q || qc[id].chosen.length >= 3) return;
+  if (qc[id].chosen.indexOf(q.id) !== -1) return;
+  qc[id].chosen.push(q.id);
+  state[id].chosen = qc[id].chosen.slice();
+  saveState();
+  qcRenderList(id);
+  qcSyncChooseBtn(id);
+  /* Show lock button */
+  var lockBtn = document.getElementById('qc-' + id + '-lock');
+  if (lockBtn) lockBtn.classList.toggle('visible', qc[id].chosen.length === 3);
+  /* Update list label */
+  var label = document.querySelector('#' + id + '-chooser .le-chosen-list-label');
+  if (label) label.textContent = 'Chosen (' + qc[id].chosen.length + '/3)';
+  /* Advance */
+  var next = qcNext(id, true);
+  if (next) qcShow(id, next, true);
+}
+
+function qcRemove(id, qid) {
+  qc[id].chosen = qc[id].chosen.filter(function(x){ return x !== qid; });
+  state[id].chosen = qc[id].chosen.slice();
+  saveState();
+  qcRefill(id);
+  qcRenderList(id);
+  qcSyncChooseBtn(id);
+  var lockBtn = document.getElementById('qc-' + id + '-lock');
+  if (lockBtn) lockBtn.classList.toggle('visible', qc[id].chosen.length === 3);
+  var label = document.querySelector('#' + id + '-chooser .le-chosen-list-label');
+  if (label) label.textContent = 'Chosen (' + qc[id].chosen.length + '/3)';
+}
+
+function qcRenderList(id) {
+  var container = document.getElementById('qc-' + id + '-list');
+  if (!container) return;
+  container.innerHTML = '';
+  if (qc[id].chosen.length === 0) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:0.8rem;padding:0.5rem 0">No questions chosen yet.</div>';
+    return;
+  }
+  qc[id].chosen.forEach(function(qid, i) {
+    var q = qc[id].questions.find(function(q){ return q.id === qid; });
+    if (!q) return;
+    var item = document.createElement('div');
+    item.className = 'le-chosen-q-item';
+    item.innerHTML =
+      '<span class="le-chosen-q-num">Q' + (i+1) + '</span>' +
+      '<span>' + esc(q.text) + '</span>' +
+      '<button class="le-chosen-q-remove" title="Remove" onclick="qcRemove(\'' + id + '\',' + qid + ')">×</button>';
+    container.appendChild(item);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   A4 SHEET RENDERING
+════════════════════════════════════════════════════════════ */
+
+function updateAllSheets() {
+  renderDiSheet();
+  renderDiiSheet();
+  renderDiiiSheet();
+  renderDivSheet();
+  scaleA4();
+}
+
+function renderDiSheet() {
+  var body = document.getElementById('q-di-body');
+  if (!state.di.tests.length) {
+    body.innerHTML = '<div class="le-q-placeholder">Complete Criteria Di above</div>';
+    return;
+  }
+  var html = '';
+  state.di.tests.forEach(function(t, i) {
+    html += '<div class="le-di-test">' +
+      '<div class="le-di-test-num">Test ' + (i+1) + '</div>' +
+      '<div class="le-di-row">' +
+        '<div class="le-di-cell"><div class="le-di-cell-label">Category</div>' + esc(t.cat1 || t.tier1) + '</div>' +
+        '<div class="le-di-cell"><div class="le-di-cell-label">What is tested</div>' + esc(t.cat2 || t.tier2) + '</div>' +
+        '<div class="le-di-cell"><div class="le-di-cell-label">How I will test it</div>' + esc(t.cat3 || t.tier3) + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  body.innerHTML = html;
+}
+
+function renderDiiSheet() {
+  var body = document.getElementById('q-dii-body');
+  var rows = (state.dii.rows || []).filter(function(r){ return r.criterion.trim(); });
+  if (!rows.length) {
+    body.innerHTML = '<div class="le-q-placeholder">Complete Criteria Dii above</div>';
+    return;
+  }
+  var html = '<table class="le-dii-table"><thead><tr>' +
+    '<th style="width:38%">Success Criterion</th><th style="width:22px">✓</th><th>Explanation</th>' +
+    '</tr></thead><tbody>';
+  rows.forEach(function(r) {
+    var ach = r.achieved === 'yes' ? '<span class="le-dii-yes">Y</span>' : (r.achieved === 'no' ? '<span class="le-dii-no">N</span>' : '—');
+    html += '<tr><td>' + esc(r.criterion) + '</td><td class="le-dii-achieved">' + ach + '</td><td>' + esc(r.explanation) + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  body.innerHTML = html;
+}
+
+function renderDiiiSheet() {
+  var body = document.getElementById('q-diii-body');
+  var chosen = state.diii.chosen || [];
+  if (!chosen.length) {
+    body.innerHTML = '<div class="le-q-placeholder">Complete Criteria Diii above</div>';
+    return;
+  }
+  var html = '';
+  chosen.forEach(function(qid, i) {
+    var q = DIII_QUESTIONS.find(function(q){ return q.id === qid; });
+    if (!q) return;
+    html += '<div class="le-diii-q"><div class="le-diii-num">Question ' + (i+1) + '</div>' +
+      '<div class="le-diii-text">' + esc(q.text) + '</div></div>';
+  });
+  body.innerHTML = html;
+}
+
+function renderDivSheet() {
+  var body = document.getElementById('q-div-body');
+  var chosen = state.div.chosen || [];
+  if (!chosen.length) {
+    body.innerHTML = '<div class="le-q-placeholder">Complete Criteria Div above</div>';
+    return;
+  }
+  var html = '';
+  chosen.forEach(function(qid, i) {
+    var q = DIV_QUESTIONS.find(function(q){ return q.id === qid; });
+    if (!q) return;
+    html += '<div class="le-div-q"><div class="le-div-num">Question ' + (i+1) + '</div>' +
+      '<div class="le-div-text">' + esc(q.text) + '</div></div>';
+  });
+  body.innerHTML = html;
+}
+
+/* Scale A4 to fit container width */
+function scaleA4() {
+  var a4 = document.getElementById('le-a4');
+  var wrapper = document.querySelector('.le-sheet-wrapper');
+  if (!a4 || !wrapper) return;
+  var naturalW = 940;
+  var available = wrapper.offsetWidth;
+  var scale = Math.min(1, available / naturalW);
+  a4.style.transform = 'scale(' + scale + ')';
+  a4.style.marginBottom = ((665 * scale) - 665) + 'px';
+}
+
+/* ════════════════════════════════════════════════════════════
+   DOWNLOAD
+════════════════════════════════════════════════════════════ */
+
+function downloadSheet() {
+  var a4 = document.getElementById('le-a4');
+  /* Temporarily remove transform for capture */
+  var prevTransform = a4.style.transform;
+  var prevMargin = a4.style.marginBottom;
+  a4.style.transform = 'none';
+  a4.style.marginBottom = '0';
+  html2canvas(a4, {
+    scale: 3.5,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    width: 940,
+    height: 665
+  }).then(function(canvas) {
+    a4.style.transform = prevTransform;
+    a4.style.marginBottom = prevMargin;
+    var link = document.createElement('a');
+    link.download = 'lego-evaluation.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(function() {
+    a4.style.transform = prevTransform;
+    a4.style.marginBottom = prevMargin;
+  });
+}
+
+/* ════════════════════════════════════════════════════════════
+   UTILS
+════════════════════════════════════════════════════════════ */
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ════════════════════════════════════════════════════════════
+   BOOT
+════════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadState();
+  updateAllSheets();
+  updateCardStatuses();
+  window.addEventListener('resize', scaleA4);
+});
+</script>
+</body>
+</html>

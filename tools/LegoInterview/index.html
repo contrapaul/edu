@@ -176,11 +176,12 @@
   display: flex;
   gap: 0.875rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Empty slot */
 .li-slot-empty {
-  width: 190px;
+  width: 285px;
   min-height: 108px;
   border: 2px dashed var(--border);
   border-radius: var(--radius);
@@ -208,7 +209,7 @@
 
 /* Filled question card */
 .li-card {
-  width: 190px;
+  width: 285px;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-top: 3px solid var(--accent);
@@ -237,7 +238,7 @@
 
 .li-card-text {
   font-family: var(--font-body);
-  font-size: 0.82rem;
+  font-size: 1.23rem;
   line-height: 1.5;
   color: var(--text);
   word-break: break-word;
@@ -288,7 +289,8 @@
 @media (max-width: 640px) {
   .li-stage { padding: 2.5rem 1.25rem 2rem; }
   .li-chosen { padding: 1.25rem 1.25rem 1.75rem; }
-  .li-slot-empty, .li-card { width: 150px; }
+  .li-slot-empty, .li-card { width: 225px; }
+  .li-card-text { font-size: 1.05rem; }
   .li-hint { display: none; }
 }
 </style>
