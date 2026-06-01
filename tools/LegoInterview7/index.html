@@ -530,7 +530,7 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.4.0/dist/dom-to-image-more.min.js"></script>
 <script src="../../curriculum/curriculum-themes.js"></script>
 <script>
 'use strict';
@@ -1119,22 +1119,39 @@ function nameInputChanged(val) {
 
 function confirmDownload() {
   var name = (document.getElementById('le-name-input').value || '').trim() || 'lego-evaluation';
-  /* Close popup */
   document.getElementById('modal-name').classList.remove('open');
   document.body.style.overflow = '';
-  /* Update name on sheet before capture */
   var nameEl = document.getElementById('le-a4-name');
   if (nameEl) nameEl.textContent = name + ' — Grade 7 Criteria D';
+
   var a4 = document.getElementById('le-a4');
   var prev = a4.style.transform, prevM = a4.style.marginBottom;
+  /* Remove display scale so we capture at natural 940×665 */
   a4.style.transform = 'none'; a4.style.marginBottom = '0';
-  html2canvas(a4, { scale:3.5, useCORS:true, backgroundColor:null, width:940, height:665 }).then(function(canvas) {
+
+  /* dom-to-image-more renders the live DOM via SVG foreignObject —
+     captures exactly what the browser drew, including grid, overflow,
+     and resolved CSS variables. Scale 3× gives ~2820×1995 px. */
+  var SCALE = 3;
+  domtoimage.toPng(a4, {
+    width:  940 * SCALE,
+    height: 665 * SCALE,
+    style: {
+      transform:       'scale(' + SCALE + ')',
+      transformOrigin: 'top left',
+      width:  '940px',
+      height: '665px'
+    }
+  }).then(function(dataUrl) {
     a4.style.transform = prev; a4.style.marginBottom = prevM;
     var link = document.createElement('a');
-    link.download = name + '.png';  /* #7 — filename from name */
-    link.href = canvas.toDataURL('image/png');
+    link.download = name + '.png';
+    link.href = dataUrl;
     link.click();
-  }).catch(function() { a4.style.transform = prev; a4.style.marginBottom = prevM; });
+  }).catch(function(err) {
+    console.error('Download failed:', err);
+    a4.style.transform = prev; a4.style.marginBottom = prevM;
+  });
 }
 
 /* ════════════════════════════════════════════════════════════
