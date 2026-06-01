@@ -1,0 +1,36 @@
+{
+  "_instructions": [
+    "1. Export your model as .glb (Blender: File → Export → glTF Binary)",
+    "2. Name it clearly (e.g. firstname-projectname.glb, lowercase, hyphens only)",
+    "3. Place the .glb file in the models/ folder",
+    "4. Add one entry to the 'entries' array below — the gallery auto-positions it",
+    "5. Commit and push — Cloudflare Pages deploys in ~2 minutes"
+  ],
+  "galleryTitle": "Design Technology — Student Project Gallery",
+  "entries": [
+    {
+      "id": "demo-01",
+      "name": "Ergonomic Pencil Holder",
+      "student": "Demo Student A",
+      "year": "2025",
+      "description": "A user-centred pencil holder designed for left-handed users, featuring a weighted base and angled slots for easy retrieval.",
+      "file": "demo-01.glb"
+    },
+    {
+      "id": "demo-02",
+      "name": "Modular Desk Organiser",
+      "student": "Demo Student B",
+      "year": "2025",
+      "description": "Stackable interlocking compartments that can be reconfigured for different workspace layouts.",
+      "file": "demo-02.glb"
+    },
+    {
+      "id": "demo-03",
+      "name": "Reusable Snack Container",
+      "student": "Demo Student C",
+      "year": "2025",
+      "description": "A zero-waste snack container with a silicone seal, designed to fit in a school backpack.",
+      "file": "demo-03.glb"
+    }
+  ]
+}
