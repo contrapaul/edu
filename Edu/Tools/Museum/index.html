@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Museum of Mr. K</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; }
+    canvas { display: block; }
+
+    #blocker {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10; cursor: pointer;
+    }
+    #instructions {
+        color: #fff; text-align: center;
+        padding: 30px 50px;
+        background: rgba(20,20,30,0.85);
+        border: 2px solid #c8a050;
+        border-radius: 8px;
+        max-width: 500px;
+    }
+    #instructions h1 {
+        font-size: 28px; color: #c8a050;
+        margin-bottom: 12px;
+        font-weight: 300; letter-spacing: 3px;
+    }
+    #instructions p {
+        font-size: 14px; line-height: 1.8;
+        color: #ccc;
+    }
+    #instructions .key {
+        display: inline-block;
+        background: #333; color: #eee;
+        padding: 2px 8px; border-radius: 4px;
+        font-size: 13px; border: 1px solid #555;
+        font-family: monospace;
+    }
+
+    #hud {
+        position: fixed; bottom: 40px; left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        text-align: center;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    #hud.visible { opacity: 1; }
+    #hud .prompt {
+        color: #fff;
+        background: rgba(0,0,0,0.7);
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-size: 16px;
+        border: 1px solid rgba(200,160,80,0.5);
+    }
+    #hud .prompt .key {
+        display: inline-block;
+        background: #c8a050; color: #1a1a1a;
+        padding: 1px 10px; border-radius: 3px;
+        font-weight: bold; font-size: 14px;
+        margin-right: 6px;
+    }
+    #hud .artifact-label {
+        color: #c8a050;
+        font-size: 13px; margin-top: 6px;
+        letter-spacing: 1px;
+    }
+    #hud .speaking {
+        color: #8f8;
+        font-size: 13px; margin-top: 4px;
+        animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+    #hud .artifact-desc {
+        color: #ccc;
+        font-size: 13px; margin-top: 4px;
+        font-style: italic;
+    }
+</style>
+</head>
+<body>
+
+<div id="blocker">
+    <div id="instructions">
+        <h1>&#9670; MUSEUM OF MR. K</h1>
+        <p>
+            Click to explore<br>
+            <span class="key">W</span> <span class="key">A</span>
+            <span class="key">S</span> <span class="key">D</span> to move &bull;
+            Mouse to look around<br>
+            Press <span class="key">E</span> near artifacts to hear their story
+        </p>
+    </div>
+</div>
+
+<div id="hud">
+    <div class="prompt"><span class="key">E</span> Listen</div>
+    <div class="artifact-label"></div>
+    <div class="speaking" style="display:none">&#9835; Speaking ...</div>
+    <div class="artifact-desc"></div>
+</div>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+// ── DOM refs ──────────────────────────────────────────────────────────
+const blocker    = document.getElementById('blocker');
+const hud        = document.getElementById('hud');
+const promptEl   = hud.querySelector('.prompt');
+const labelEl    = hud.querySelector('.artifact-label');
+const speakEl    = hud.querySelector('.speaking');
+const descEl     = hud.querySelector('.artifact-desc');
+
+// ── Scene ─────────────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1a2e);
+scene.fog = new THREE.Fog(0x1a1a2e, 18, 35);
+
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 50);
+camera.position.set(0, 1.7, 9);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+document.body.prepend(renderer.domElement);
+
+// ── Controls ──────────────────────────────────────────────────────────
+const controls = new PointerLockControls(camera, renderer.domElement);
+
+// ── Lights ────────────────────────────────────────────────────────────
+const ambient = new THREE.AmbientLight(0x404060, 0.5);
+scene.add(ambient);
+
+const dirLight = new THREE.DirectionalLight(0xffeedd, 1.2);
+dirLight.position.set(5, 12, 8);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.width = 1024;
+dirLight.shadow.mapSize.height = 1024;
+dirLight.shadow.camera.near = 0.5;
+dirLight.shadow.camera.far = 30;
+dirLight.shadow.camera.left = -15;
+dirLight.shadow.camera.right = 15;
+dirLight.shadow.camera.top = 15;
+dirLight.shadow.camera.bottom = -15;
+scene.add(dirLight);
+
+const hemi = new THREE.HemisphereLight(0x8888ff, 0x444422, 0.4);
+scene.add(hemi);
+
+function addOverheadLight(x, z, color = 0xffeedd, intensity = 0.6) {
+    const bulb = new THREE.Mesh(
+        new THREE.SphereGeometry(0.15, 12, 12),
+        new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 2 })
+    );
+    bulb.position.set(x, 4.7, z);
+    scene.add(bulb);
+
+    const pl = new THREE.PointLight(color, intensity, 8);
+    pl.position.set(x, 4.5, z);
+    scene.add(pl);
+}
+addOverheadLight(-5, -5);
+addOverheadLight(5, -5);
+addOverheadLight(0, 0);
+addOverheadLight(-5, 5, 0xeeddff, 0.4);
+addOverheadLight(5, 5, 0xeeddff, 0.4);
+addOverheadLight(0, 9, 0xffeedd, 0.5);
+
+// ── Materials ─────────────────────────────────────────────────────────
+const floorMat = new THREE.MeshStandardMaterial({
+    roughness: 0.7, metalness: 0.05
+});
+const wallMat = new THREE.MeshStandardMaterial({
+    color: 0xe4dcc8, roughness: 0.9, metalness: 0, side: THREE.DoubleSide
+});
+const ceilMat = new THREE.MeshStandardMaterial({
+    color: 0xf0ece4, roughness: 0.95, metalness: 0, side: THREE.BackSide
+});
+
+// ── Floor ─────────────────────────────────────────────────────────────
+{
+    const canvas = document.createElement('canvas');
+    canvas.width = 512; canvas.height = 512;
+    const ctx = canvas.getContext('2d');
+    const cs = 512 / 8;
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            ctx.fillStyle = (i + j) % 2 === 0 ? '#d4cfc8' : '#c4bfb8';
+            ctx.fillRect(i * cs, j * cs, cs, cs);
+        }
+    }
+    ctx.strokeStyle = 'rgba(0,0,0,0.04)';
+    ctx.lineWidth = 1;
+    for (let k = 0; k <= 8; k++) {
+        ctx.beginPath(); ctx.moveTo(k * cs, 0); ctx.lineTo(k * cs, 512); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, k * cs); ctx.lineTo(512, k * cs); ctx.stroke();
+    }
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 3);
+    floorMat.map = tex;
+
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(24, 24), floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.set(0, 0, 0);
+    floor.receiveShadow = true;
+    scene.add(floor);
+}
+
+// ── Ceiling ───────────────────────────────────────────────────────────
+{
+    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(24, 24), ceilMat);
+    ceil.rotation.x = Math.PI / 2;
+    ceil.position.set(0, 5, 0);
+    scene.add(ceil);
+}
+
+// ── Collision world ───────────────────────────────────────────────────
+const collisionBoxes = [];
+function addCollisionBox(x1, y1, z1, x2, y2, z2) {
+    collisionBoxes.push(new THREE.Box3(
+        new THREE.Vector3(x1, y1, z1),
+        new THREE.Vector3(x2, y2, z2)
+    ));
+}
+
+// ── Walls ─────────────────────────────────────────────────────────────
+const wallHeight = 5;
+const W = 0.25;
+
+// Helper: create visible wall + collision box
+function createWall(w, h, d, x, y, z) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
+    mesh.position.set(x, y, z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    scene.add(mesh);
+    const hw = w / 2, hh = h / 2, hd = d / 2;
+    addCollisionBox(x - hw, y - hh, z - hd, x + hw, y + hh, z + hd);
+    return mesh;
+}
+
+const roomSize = 12;
+createWall(W, wallHeight, roomSize * 2, -roomSize, wallHeight / 2, 0);            // left
+createWall(W, wallHeight, roomSize * 2,  roomSize, wallHeight / 2, 0);            // right
+createWall(roomSize * 2, wallHeight, W, 0, wallHeight / 2, -roomSize);             // back
+
+// Front walls with 6-unit entrance gap
+const entranceHalf = 3;
+createWall(roomSize - entranceHalf, wallHeight, W,
+    -(roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);           // front-left
+createWall(roomSize - entranceHalf, wallHeight, W,
+    (roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);             // front-right
+
+// ── Pedestals ─────────────────────────────────────────────────────────
+const pedMat = new THREE.MeshStandardMaterial({
+    color: 0x8a7a6a, roughness: 0.6, metalness: 0.15
+});
+
+function createPedestal(x, z) {
+    const ped = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 0.9), pedMat);
+    ped.position.set(x, 0.45, z);
+    ped.castShadow = true;
+    ped.receiveShadow = true;
+    scene.add(ped);
+    addCollisionBox(x - 0.45, 0, z - 0.45, x + 0.45, 0.9, z + 0.45);
+    return ped;
+}
+
+// ── Artifacts ─────────────────────────────────────────────────────────
+const artifacts = [];
+
+// Artifact 1: Rotating cube with retro-computer texture (earth url as placeholder)
+{
+    const mat = new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.1 });
+    const loader = new THREE.TextureLoader();
+    loader.load(
+        'https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg',
+        (tex) => { mat.map = tex; mat.needsUpdate = true; },
+        undefined,
+        () => {
+            // fallback: generate a retro-computer-looking canvas texture
+            const c = document.createElement('canvas');
+            c.width = 256; c.height = 256;
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = '#c0c0c0'; ctx.fillRect(0, 0, 256, 256);
+            ctx.fillStyle = '#000080'; ctx.fillRect(28, 28, 200, 160);
+            ctx.fillStyle = '#00ff00';
+            ctx.font = '14px monospace';
+            ctx.fillText('C64 BASIC', 48, 70);
+            ctx.fillText('READY.', 48, 90);
+            ctx.fillStyle = '#a0a0a0';
+            ctx.fillRect(38, 200, 84, 22); ctx.fillRect(134, 200, 84, 22);
+            const tex = new THREE.CanvasTexture(c);
+            mat.map = tex; mat.needsUpdate = true;
+        }
+    );
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), mat);
+    cube.castShadow = true;
+    createPedestal(-5, -5);
+    cube.position.set(-5, 1.2, -5);
+    scene.add(cube);
+    artifacts.push({
+        mesh: cube,
+        center: new THREE.Vector3(-5, 1.2, -5),
+        label: 'Retro Computer',
+        audio: 'This is my first computer, a Commodore 64.',
+        desc: 'Circa 1982 – 8-bit home computing'
+    });
+}
+
+// Artifact 2: Torus knot with shiny material
+{
+    const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x44aaff, roughness: 0.15, metalness: 0.8,
+        clearcoat: 0.3, clearcoatRoughness: 0.2,
+        emissive: 0x0044aa, emissiveIntensity: 0.05
+    });
+    const geo = new THREE.TorusKnotGeometry(0.4, 0.15, 100, 16);
+    const knot = new THREE.Mesh(geo, mat);
+    knot.castShadow = true;
+    createPedestal(5, -5);
+    knot.position.set(5, 1.2, -5);
+    scene.add(knot);
+    artifacts.push({
+        mesh: knot,
+        center: new THREE.Vector3(5, 1.2, -5),
+        label: 'Vintage Console',
+        audio: 'This is my favorite vintage console.',
+        desc: 'Limited edition – only 500 ever made'
+    });
+}
+
+// Artifact 3: Framed photo on back wall
+{
+    const c = document.createElement('canvas');
+    c.width = 256; c.height = 192;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#2a2a2a'; ctx.fillRect(0, 0, 256, 192);
+    ctx.fillStyle = '#1a1a1a'; ctx.fillRect(36, 55, 184, 100);
+    ctx.beginPath(); ctx.arc(128, 105, 42, 0, Math.PI * 2);
+    ctx.fillStyle = '#333'; ctx.fill();
+    ctx.strokeStyle = '#555'; ctx.lineWidth = 3; ctx.stroke();
+    ctx.beginPath(); ctx.arc(128, 105, 22, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a1a3a'; ctx.fill();
+    ctx.fillStyle = '#222'; ctx.fillRect(106, 38, 44, 22);
+    ctx.fillStyle = '#888'; ctx.font = '11px monospace';
+    ctx.fillText('VINTAGE', 98, 82);
+    const tex = new THREE.CanvasTexture(c);
+
+    const photoMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.4, metalness: 0.05 });
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0x6b4c2a, roughness: 0.7, metalness: 0.1 });
+
+    const group = new THREE.Group();
+    const frame = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.1, 0.06), frameMat);
+    const photo = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.9), photoMat);
+    photo.position.z = 0.04;
+    group.add(frame);
+    group.add(photo);
+    group.position.set(0, 2.5, -11.87);
+    group.castShadow = true;
+    scene.add(group);
+
+    artifacts.push({
+        mesh: group,
+        center: new THREE.Vector3(0, 2.5, -11.5),
+        label: 'Vintage Camera',
+        audio: 'This camera took my first digital photos.',
+        desc: '2 megapixels of pure nostalgia'
+    });
+}
+
+// ── Museum Sign ───────────────────────────────────────────────────────
+{
+    const c = document.createElement('canvas');
+    c.width = 640; c.height = 140;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#2c1810'; ctx.fillRect(0, 0, 640, 140);
+    ctx.strokeStyle = '#c8a050'; ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, 620, 120);
+    ctx.fillStyle = '#c8a050';
+    ctx.font = 'bold 52px Georgia, "Times New Roman", serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('Museum of Mr. K', 320, 70);
+    const tex = new THREE.CanvasTexture(c);
+    const signMat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.3, metalness: 0.1 });
+    const sign = new THREE.Mesh(new THREE.PlaneGeometry(4, 0.9), signMat);
+    sign.position.set(0, 4.2, 10.8);
+    scene.add(sign);
+
+    // Two small support posts
+    const postMat = new THREE.MeshStandardMaterial({ color: 0x5a4a3a, roughness: 0.8 });
+    for (const sx of [-1.8, 1.8]) {
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.8, 6), postMat);
+        post.position.set(sx, 3.8, 10.8);
+        scene.add(post);
+    }
+}
+
+// ── Keyboard state ────────────────────────────────────────────────────
+const keys = { w: false, a: false, s: false, d: false };
+
+document.addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase();
+    if (k === 'w' || k === 'a' || k === 's' || k === 'd') keys[k] = true;
+    if (e.key === 'e' || e.key === 'E') handleInteraction();
+});
+document.addEventListener('keyup', (e) => {
+    const k = e.key.toLowerCase();
+    if (k === 'w' || k === 'a' || k === 's' || k === 'd') keys[k] = false;
+});
+
+// ── Pointer lock ──────────────────────────────────────────────────────
+blocker.addEventListener('click', () => controls.lock());
+controls.addEventListener('lock', () => {
+    blocker.style.display = 'none';
+    hud.classList.add('visible');
+});
+controls.addEventListener('unlock', () => {
+    blocker.style.display = 'flex';
+    hud.classList.remove('visible');
+});
+
+// ── Movement & collision ──────────────────────────────────────────────
+const playerSpeed = 5;
+const playerHeight = 1.7;
+const playerRadius = 0.5;
+
+function checkCollision(pos) {
+    const r = playerRadius;
+    const box = new THREE.Box3(
+        new THREE.Vector3(pos.x - r, 0, pos.z - r),
+        new THREE.Vector3(pos.x + r, playerHeight, pos.z + r)
+    );
+    for (const cb of collisionBoxes) {
+        if (box.intersectsBox(cb)) return true;
+    }
+    return false;
+}
+
+function applyMovement(delta) {
+    const cur = camera.position;
+    const target = cur.clone().add(delta);
+
+    if (!checkCollision(target)) {
+        camera.position.copy(target);
+        return;
+    }
+    // Try X only
+    const xOnly = cur.clone().add(new THREE.Vector3(delta.x, 0, 0));
+    if (!checkCollision(xOnly)) camera.position.x = xOnly.x;
+    // Try Z only
+    const zOnly = cur.clone().add(new THREE.Vector3(0, 0, delta.z));
+    if (!checkCollision(zOnly)) camera.position.z = zOnly.z;
+}
+
+// ── Proximity & interaction ───────────────────────────────────────────
+let currentArtifact = null;
+let isSpeaking = false;
+
+function checkProximity() {
+    const pos = camera.position;
+    let closest = null;
+    let closestDist = Infinity;
+
+    for (const art of artifacts) {
+        const d = pos.distanceTo(art.center);
+        if (d < 2.5 && d < closestDist) {
+            closest = art;
+            closestDist = d;
+        }
+    }
+
+    currentArtifact = closest;
+
+    if (closest && !isSpeaking) {
+        promptEl.style.display = 'block';
+        labelEl.textContent = closest.label;
+        descEl.textContent = closest.desc;
+    } else if (!isSpeaking) {
+        promptEl.style.display = 'none';
+        labelEl.textContent = '';
+        descEl.textContent = '';
+    }
+}
+
+function handleInteraction() {
+    if (!currentArtifact) return;
+
+    if (isSpeaking) {
+        window.speechSynthesis.cancel();
+        isSpeaking = false;
+        speakEl.style.display = 'none';
+        promptEl.style.display = 'block';
+    }
+
+    isSpeaking = true;
+    promptEl.style.display = 'none';
+    speakEl.style.display = 'block';
+    labelEl.textContent = currentArtifact.label;
+    descEl.textContent = currentArtifact.desc;
+
+    const utterance = new SpeechSynthesisUtterance(currentArtifact.audio);
+    utterance.rate = 0.92;
+    utterance.pitch = 1.0;
+    utterance.onend = () => {
+        isSpeaking = false;
+        speakEl.style.display = 'none';
+    };
+    utterance.onerror = () => {
+        isSpeaking = false;
+        speakEl.style.display = 'none';
+    };
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+}
+
+// ── Resize ────────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ── Animation loop ────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+
+function animate() {
+    requestAnimationFrame(animate);
+    const delta = clock.getDelta();
+
+    if (controls.isLocked) {
+        const forward = new THREE.Vector3();
+        camera.getWorldDirection(forward);
+        forward.y = 0;
+        forward.normalize();
+
+        const right = new THREE.Vector3();
+        right.crossVectors(forward, new THREE.Vector3(0, 1, 0)).normalize();
+
+        const moveDelta = new THREE.Vector3();
+        const d = playerSpeed * delta;
+
+        if (keys.w) moveDelta.addScaledVector(forward, d);
+        if (keys.s) moveDelta.addScaledVector(forward, -d);
+        if (keys.a) moveDelta.addScaledVector(right, -d);
+        if (keys.d) moveDelta.addScaledVector(right, d);
+
+        if (moveDelta.lengthSq() > 0) applyMovement(moveDelta);
+        camera.position.y = playerHeight;
+        checkProximity();
+    }
+
+    for (const art of artifacts) {
+        if (art.mesh && art.mesh !== artifacts[2].mesh) {
+            art.mesh.rotation.y += 0.8 * delta;
+        }
+    }
+    if (artifacts[2] && artifacts[2].mesh) {
+        artifacts[2].mesh.children[1].rotation.y += 0.3 * delta;
+    }
+
+    renderer.render(scene, camera);
+}
+
+animate();
+</script>
+</body>
+</html>
