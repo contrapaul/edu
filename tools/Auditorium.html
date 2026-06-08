@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Auditorium Seating Planner | ContraPaul</title>
+    <style>
+        /* JetBrains Fonts - from /WEB folder */
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-BoldItalic.woff2') format('woff2');
+            font-weight: bold;
+            font-style: italic;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-ExtraBold.woff2') format('woff2');
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none; /* avoid text selection while dragging */
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            background: #1a1a2e;
+            transition: background 0.3s;
+            min-height: 100vh;
+        }
+
+        /* Main layout */
+        .app {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: rgba(0,0,0,0.4);
+            padding: 12px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(8px);
+        }
+
+        .toolbar button {
+            background: #2c2c3e;
+            border: none;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .toolbar button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+        .active-group-indicator {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #FFE536;
+        }
+
+        /* Two columns: seating grid + groups sidebar */
+        .workspace {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .seating-area {
+            flex: 3;
+            min-width: 280px;
+            overflow-x: auto;
+            background: rgba(0,0,0,0.2);
+            border-radius: 24px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .groups-sidebar {
+            flex: 1;
+            min-width: 260px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 24px;
+            padding: 15px;
+            backdrop-filter: blur(4px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .groups-sidebar h3 {
+            margin: 0 0 15px 0;
+            color: #FFE536;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .groups-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Seat grid */
+        .seat-grid {
+            display: grid;
+            gap: 6px;
+            justify-content: center;
+        }
+        .seat {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #2d2d3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+            transition: 0.1s;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .seat.aisle {
+            background: transparent;
+            box-shadow: none;
+            cursor: default;
+            border: 1px dashed rgba(255,255,255,0.3);
+        }
+        .seat.landmark {
+            background: #4a4a6a;
+            font-size: 9px;
+            font-weight: normal;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            cursor: default;
+        }
+        .seat.painted {
+            /* dynamic style via JS */
+        }
+        .seat:hover:not(.aisle):not(.landmark) {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* Group cards */
+        .group-card {
+            background: rgba(20,20,40,0.8);
+            border-radius: 16px;
+            padding: 12px;
+            position: relative;
+            backdrop-filter: blur(4px);
+            transition: 0.2s;
+            border-left: 4px solid currentColor;
+            cursor: pointer;
+        }
+        .group-card.active-card {
+            background: rgba(255,229,54,0.15);
+            border: 1px solid #FFE536;
+            box-shadow: 0 0 10px rgba(255,229,54,0.3);
+        }
+        .group-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            word-break: break-word;
+            padding-right: 25px;
+        }
+        .group-stats {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #ccc;
+        }
+        .cog-icon {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            transition: 0.2s;
+        }
+        .cog-icon:hover {
+            opacity: 1;
+            transform: rotate(15deg);
+        }
+        .delete-group-btn {
+            background: none;
+            border: none;
+            color: #ff8888;
+            cursor: pointer;
+            font-family: monospace;
+            margin-left: 8px;
+        }
+
+        /* Modal overlays */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: #1e1e2a;
+            border-radius: 28px;
+            padding: 25px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .modal-content h2 {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            font-style: italic;
+            text-align: center;
+            margin-top: 0;
+            color: #FFE536;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .color-option {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.1s;
+            padding: 8px;
+            border-radius: 20px;
+        }
+        .color-option:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.02);
+        }
+        .color-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: 0.1s;
+        }
+        .color-name {
+            font-size: 0.7rem;
+            font-family: monospace;
+        }
+
+        /* settings popup menu (cog) */
+        .settings-menu {
+            position: fixed;
+            background: #2a2a3a;
+            border-radius: 16px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 8px 20px black;
+            z-index: 1100;
+            backdrop-filter: blur(12px);
+            border: 1px solid #888;
+        }
+        .settings-menu input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            background: #1a1a2a;
+            border: 1px solid #FFE536;
+            color: white;
+            font-family: monospace;
+            border-radius: 8px;
+        }
+        .settings-menu button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 6px;
+            background: #3a3a5a;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .settings-menu .delete-btn {
+            background: #aa2e2e;
+        }
+
+        /* utility */
+        .hidden {
+            display: none;
+        }
+        .status-text {
+            font-size: 0.75rem;
+            color: #FFE536;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <div class="toolbar">
+        <button id="addGroupBtn">➕ Add group</button>
+        <button id="colorSchemesBtn">🎨 Color schemes</button>
+        <button id="clearAllBtn">🗑️ Clear all</button>
+        <div class="active-group-indicator">🎯 Active: <span id="activeGroupName">None</span></div>
+    </div>
+    <div class="workspace">
+        <div class="seating-area">
+            <div id="seatGridContainer" class="seat-grid"></div>
+        </div>
+        <div class="groups-sidebar">
+            <h3>📋 CLASS GROUPS</h3>
+            <div id="groupsContainer" class="groups-container"></div>
+            <div class="status-text" style="margin-top:12px; text-align:center;">Click a group card to paint with it</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- SEAT LAYOUT DEFINITION (customizable) ----------
+    // Define a matrix: rows, columns. Each cell can be: 
+    // 'seat', 'aisle', 'stage', 'exit', 'soundbooth'
+    // Using numbers for easier editing: 0=seat, 1=aisle, 2=stage, 3=exit, 4=soundbooth
+    const RAW_MATRIX = [
+        // row 0 (back wall) - sound booth
+        [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
+        // row 1-7: seats with aisles
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        [0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0],
+        // row 8 (front) - stage
+        [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+    ];
+    // Add left/right exit landmarks on sides of stage
+    for(let i=0; i<RAW_MATRIX.length; i++) {
+        if(RAW_MATRIX[i][0] === 0) RAW_MATRIX[i][0] = 3; // left exit
+        if(RAW_MATRIX[i][RAW_MATRIX[i].length-1] === 0) RAW_MATRIX[i][RAW_MATRIX[i].length-1] = 3;
+    }
+    
+    const cellTypeMap = {
+        0: 'seat',
+        1: 'aisle',
+        2: 'stage',
+        3: 'exit',
+        4: 'soundbooth'
+    };
+    const cellLabel = {
+        seat: '',
+        aisle: '🚶',
+        stage: 'STAGE',
+        exit: 'EXIT',
+        soundbooth: 'Sound Booth'
+    };
+    
+    let seatsData = []; // 2D array of {type, groupId}
+    let groups = []; // {id, name, styleClass/styleObj, seatCount}
+    let nextGroupId = 1;
+    let activeGroupId = null;
+    let isDragging = false;
+    let currentTheme = 'dark'; // default
+    let currentPalette = []; // store current color options for popup
+    
+    // Themes database (8 themes)
+    const THEMES = {
+        light: {
+            name: 'Light',
+            bgBody: '#f0f0f0',
+            seatDefault: '#dddddd',
+            seatText: '#333',
+            aisleBg: '#f9f9f9',
+            landmarkBg: '#c0c0c0',
+            groupsPalette: generatePaletteForTheme('light')
+        },
+        dark: {
+            name: 'Dark',
+            bgBody: '#1a1a2e',
+            seatDefault: '#2d2d3a',
+            seatText: '#eee',
+            aisleBg: 'transparent',
+            landmarkBg: '#4a4a6a',
+            groupsPalette: generatePaletteForTheme('dark')
+        },
+        rgb: {
+            name: 'RGB',
+            bgBody: '#000000',
+            seatDefault: '#111',
+            seatText: '#fff',
+            aisleBg: '#222',
+            landmarkBg: '#333',
+            groupsPalette: generatePaletteForTheme('rgb')
+        },
+        phoenix: {
+            name: 'Phoenix',
+            bgBody: '#630d13',
+            seatDefault: '#d5d5d7',
+            seatText: '#000',
+            aisleBg: '#5f6168',
+            landmarkBg: '#1c355e',
+            groupsPalette: generatePaletteForTheme('phoenix')
+        },
+        ocean: {
+            name: 'Ocean',
+            bgBody: '#0a2f4a',
+            seatDefault: '#1c5a7a',
+            seatText: '#e0f0ff',
+            aisleBg: '#0a2f4a',
+            landmarkBg: '#2c7a9e',
+            groupsPalette: generatePaletteForTheme('ocean')
+        },
+        forest: {
+            name: 'Forest',
+            bgBody: '#1a3a1a',
+            seatDefault: '#2d5a2d',
+            seatText: '#e0ffe0',
+            aisleBg: '#1a3a1a',
+            landmarkBg: '#3a6a3a',
+            groupsPalette: generatePaletteForTheme('forest')
+        },
+        sunset: {
+            name: 'Sunset',
+            bgBody: '#4a2a3a',
+            seatDefault: '#7a4a5a',
+            seatText: '#ffe0e0',
+            aisleBg: '#4a2a3a',
+            landmarkBg: '#9a6a7a',
+            groupsPalette: generatePaletteForTheme('sunset')
+        },
+        monochrome: {
+            name: 'Monochrome',
+            bgBody: '#2c2c2c',
+            seatDefault: '#444',
+            seatText: '#ccc',
+            aisleBg: '#222',
+            landmarkBg: '#555',
+            groupsPalette: generatePaletteForTheme('monochrome')
+        }
+    };
+    
+    function generatePaletteForTheme(themeName) {
+        // produce 16 distinct options (colors + effects)
+        const solidColors = ['#FF4136','#2ECC40','#0074D9','#FF851B','#FFDC00','#B10DC9','#F012BE','#39CCCC','#3D9970','#AAAAAA','#FF6EB4','#7FDBFF'];
+        const effects = [
+            { name: 'RGB Glow', style: 'background: linear-gradient(45deg, red, blue, green); box-shadow: 0 0 8px cyan; animation: rgbPulse 1s infinite;' },
+            { name: 'Spin Gradient', style: 'background: conic-gradient(from 0deg, #FFE536, #FA16C2, #FF7200, #FFE536); animation: spin 2s linear infinite; background-size: 200%;' },
+            { name: 'Neon Pulse', style: 'background: #000; border:2px solid #0f0; box-shadow:0 0 12px #0f0; animation: pulse 0.8s infinite;' },
+            { name: 'Ice Glow', style: 'background: #a0e0ff; box-shadow:0 0 10px #0af;' },
+            { name: 'Fire', style: 'background: linear-gradient(45deg, #ff4500, #ff8c00);' },
+            { name: 'Cyberpunk', style: 'background: #ff00cc; box-shadow: 0 0 5px #00ffff;' }
+        ];
+        let palette = [];
+        // add 10 solid vibrant colors from school colors or generic
+        if(themeName === 'phoenix') {
+            palette.push({ name: 'Phoenix Red', style: 'background:#630d13' });
+            palette.push({ name: 'Phoenix Silver', style: 'background:#d5d5d7' });
+            palette.push({ name: 'Phoenix Orange', style: 'background:#ff7000' });
+            palette.push({ name: 'Phoenix Yellow', style: 'background:#ffcb00' });
+            palette.push({ name: 'Phoenix Blue', style: 'background:#1c355e' });
+            palette.push({ name: 'Phoenix Cyan', style: 'background:#00c4df' });
+            palette.push({ name: 'Phoenix Gold', style: 'background:#d7c834' });
+            palette.push({ name: 'Phoenix Gray', style: 'background:#5f6168' });
+            palette.push(...effects.slice(0,5));
+            palette.push({ name: 'White', style: 'background:#fff; color:black' });
+        } else {
+            for(let i=0; i<10; i++) palette.push({ name: `Color ${i+1}`, style: `background:${solidColors[i%solidColors.length]}` });
+            palette.push(...effects.slice(0,6));
+        }
+        while(palette.length < 16) palette.push({ name: 'Extra', style: 'background:#888' });
+        return palette.slice(0,16);
+    }
+    
+    // Initialize seats
+    function initSeatsFromMatrix() {
+        seatsData = [];
+        for(let r=0; r<RAW_MATRIX.length; r++) {
+            let row = [];
+            for(let c=0; c<RAW_MATRIX[r].length; c++) {
+                let typeCode = RAW_MATRIX[r][c];
+                let type = cellTypeMap[typeCode];
+                row.push({ type: type, groupId: null });
+            }
+            seatsData.push(row);
+        }
+        renderSeatGrid();
+    }
+    
+    // Render seats
+    function renderSeatGrid() {
+        const container = document.getElementById('seatGridContainer');
+        const rows = seatsData.length;
+        const cols = seatsData[0].length;
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = `repeat(${cols}, 52px)`;
+        container.style.gap = '4px';
+        container.innerHTML = '';
+        for(let i=0; i<rows; i++) {
+            for(let j=0; j<cols; j++) {
+                const seat = seatsData[i][j];
+                const div = document.createElement('div');
+                div.className = `seat ${seat.type}`;
+                if(seat.type !== 'seat') {
+                    div.textContent = cellLabel[seat.type] || '';
+                    div.style.background = seat.type==='aisle' ? 'transparent' : (seat.type==='stage' ? '#5a3a2a' : '#4a4a6a');
+                    div.style.cursor = 'default';
+                } else {
+                    div.textContent = '';
+                    if(seat.groupId) {
+                        const group = groups.find(g => g.id === seat.groupId);
+                        if(group) {
+                            div.style.cssText = group.style + '; border-radius:12px; color:white; font-size:10px;';
+                            div.textContent = group.name.slice(0,2);
+                        }
+                    } else {
+                        div.style.background = THEMES[currentTheme].seatDefault;
+                        div.style.color = THEMES[currentTheme].seatText;
+                    }
+                    div.style.cursor = 'pointer';
+                    div.addEventListener('mousedown', (e) => { e.preventDefault(); startPaint(i,j); });
+                    div.addEventListener('mouseenter', (e) => { if(isDragging) paintSeat(i,j); });
+                }
+                div.setAttribute('data-row', i);
+                div.setAttribute('data-col', j);
+                container.appendChild(div);
+            }
+        }
+    }
+    
+    function startPaint(row,col) { if(activeGroupId) { isDragging=true; paintSeat(row,col); } }
+    function stopPaint() { isDragging=false; }
+    function paintSeat(row,col) {
+        if(!activeGroupId) return;
+        if(seatsData[row][col].type !== 'seat') return;
+        if(seatsData[row][col].groupId === activeGroupId) return;
+        // remove old group assignment
+        const oldGroupId = seatsData[row][col].groupId;
+        if(oldGroupId) {
+            const oldGrp = groups.find(g=>g.id===oldGroupId);
+            if(oldGrp) oldGrp.seatCount--;
+            updateGroupCards();
+        }
+        seatsData[row][col].groupId = activeGroupId;
+        const group = groups.find(g=>g.id===activeGroupId);
+        if(group) {
+            group.seatCount++;
+            // if first seat painted and no card yet? group already has card, but check visibility
+            if(group.seatCount === 1) {
+                // ensure card is visible (already created)
+            }
+            updateGroupCards();
+        }
+        renderSeatGrid();
+    }
+    
+    function updateGroupCards() {
+        const container = document.getElementById('groupsContainer');
+        container.innerHTML = '';
+        groups.forEach(group => {
+            const card = document.createElement('div');
+            card.className = `group-card ${activeGroupId === group.id ? 'active-card' : ''}`;
+            card.style.borderLeftColor = group.style.match(/#[A-F0-9]{6}/)?.[0] || '#FFE536';
+            card.innerHTML = `
+                <div class="cog-icon" data-group-id="${group.id}">⚙️</div>
+                <div class="group-name" data-group-name="${group.id}">${group.name}</div>
+                <div class="group-stats">Seats: ${group.seatCount}</div>
+            `;
+            card.addEventListener('click', (e) => {
+                if(e.target.classList.contains('cog-icon')) return;
+                activeGroupId = group.id;
+                document.getElementById('activeGroupName').innerText = group.name;
+                updateGroupCards();
+            });
+            const cog = card.querySelector('.cog-icon');
+            cog.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showGroupSettings(group);
+            });
+            container.appendChild(card);
+        });
+        if(groups.length===0) activeGroupId=null;
+    }
+    
+    function addGroup(styleObj, colorName) {
+        const newId = nextGroupId++;
+        const group = {
+            id: newId,
+            name: `Group ${newId}`,
+            style: styleObj.style,
+            seatCount: 0,
+            styleObj: styleObj
+        };
+        groups.push(group);
+        activeGroupId = newId;
+        document.getElementById('activeGroupName').innerText = group.name;
+        updateGroupCards();
+        renderSeatGrid();
+        return group;
+    }
+    
+    function showGroupSettings(group) {
+        const existing = document.querySelector('.settings-menu');
+        if(existing) existing.remove();
+        const menu = document.createElement('div');
+        menu.className = 'settings-menu';
+        menu.style.top = '150px';
+        menu.style.left = '200px';
+        menu.innerHTML = `
+            <div style="font-weight:bold;">EDIT GROUP</div>
+            <input type="text" id="groupNameInput" value="${group.name}" placeholder="Group name">
+            <button id="changeColorBtn">Change Color/Effect</button>
+            <button id="deleteGroupBtn" class="delete-btn">🗑️ Delete Group</button>
+        `;
+        document.body.appendChild(menu);
+        
+        const closeMenu = (e) => { if(!menu.contains(e.target)) menu.remove(); };
+        setTimeout(() => document.addEventListener('click', closeMenu), 0);
+        
+        document.getElementById('changeColorBtn').onclick = () => {
+            menu.remove();
+            openColorPicker((newStyle) => {
+                group.style = newStyle.style;
+                group.styleObj = newStyle;
+                // update all seats with this group
+                for(let i=0;i<seatsData.length;i++) {
+                    for(let j=0;j<seatsData[0].length;j++) {
+                        if(seatsData[i][j].groupId === group.id) {
+                            seatsData[i][j].groupId = group.id; // trigger rerender
+                        }
+                    }
+                }
+                renderSeatGrid();
+                updateGroupCards();
+            });
+        };
+        document.getElementById('deleteGroupBtn').onclick = () => {
+            // remove group, clear seats
+            for(let i=0;i<seatsData.length;i++) {
+                for(let j=0;j<seatsData[0].length;j++) {
+                    if(seatsData[i][j].groupId === group.id) seatsData[i][j].groupId = null;
+                }
+            }
+            groups = groups.filter(g=>g.id!==group.id);
+            if(activeGroupId === group.id) activeGroupId = groups[0]?.id || null;
+            renderSeatGrid();
+            updateGroupCards();
+            menu.remove();
+        };
+        const inputField = document.getElementById('groupNameInput');
+        inputField.addEventListener('change', (e) => {
+            group.name = e.target.value;
+            updateGroupCards();
+        });
+    }
+    
+    function openColorPicker(callback) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        const palette = THEMES[currentTheme].groupsPalette;
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h2>COLORS & EFFECTS</h2>
+                <div class="color-grid" id="colorGridPopup"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        const gridDiv = modal.querySelector('#colorGridPopup');
+        palette.forEach(opt => {
+            const optDiv = document.createElement('div');
+            optDiv.className = 'color-option';
+            optDiv.innerHTML = `<div class="color-circle" style="${opt.style}"></div><div class="color-name">${opt.name}</div>`;
+            optDiv.onclick = () => {
+                callback({ style: opt.style, name: opt.name });
+                modal.remove();
+            };
+            gridDiv.appendChild(optDiv);
+        });
+        modal.onclick = (e) => { if(e.target===modal) modal.remove(); };
+    }
+    
+    function applyTheme(themeKey) {
+        currentTheme = themeKey;
+        const theme = THEMES[themeKey];
+        document.body.style.background = theme.bgBody;
+        // update seat default colors
+        renderSeatGrid();
+        // update group palette for future adds
+    }
+    
+    function clearAll() {
+        if(confirm('Clear all groups and painted seats?')) {
+            groups = [];
+            activeGroupId = null;
+            for(let i=0;i<seatsData.length;i++)
+                for(let j=0;j<seatsData[0].length;j++)
+                    if(seatsData[i][j].type === 'seat') seatsData[i][j].groupId = null;
+            renderSeatGrid();
+            updateGroupCards();
+            document.getElementById('activeGroupName').innerText = 'None';
+        }
+    }
+    
+    // Event listeners
+    document.getElementById('addGroupBtn').onclick = () => {
+        openColorPicker((styleObj) => {
+            addGroup(styleObj, styleObj.name);
+        });
+    };
+    document.getElementById('colorSchemesBtn').onclick = () => {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h2>COLOR SCHEMES</h2>
+                <div class="color-grid" id="schemesGrid"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        const grid = modal.querySelector('#schemesGrid');
+        Object.keys(THEMES).forEach(key => {
+            const btn = document.createElement('div');
+            btn.className = 'color-option';
+            btn.innerHTML = `<div class="color-circle" style="background:${THEMES[key].seatDefault}; border:2px solid white;"></div><div class="color-name">${THEMES[key].name}</div>`;
+            btn.onclick = () => {
+                applyTheme(key);
+                modal.remove();
+            };
+            grid.appendChild(btn);
+        });
+        modal.onclick = (e) => { if(e.target===modal) modal.remove(); };
+    };
+    document.getElementById('clearAllBtn').onclick = clearAll;
+    
+    document.addEventListener('mouseup', stopPaint);
+    initSeatsFromMatrix();
+    applyTheme('dark'); // default
+    
+    // add some dummy groups for demo (optional)
+    setTimeout(() => {
+        if(groups.length===0) {
+            const demoStyle = { style: 'background:#FF4136;', name: 'Red' };
+            addGroup(demoStyle, 'Red');
+        }
+    }, 100);
+</script>
+</body>
+</html>
