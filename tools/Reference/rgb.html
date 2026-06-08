@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Personalities - ContraPaul Landing Page</title>
+    <style>
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Bold.woff2') format('woff2');
+            font-weight: bold;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #143CC7;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subhead {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Base card structure */
+        .card {
+            border-radius: 24px;
+            padding: 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            height: 100%;
+            position: relative;
+        }
+
+        .card-interior {
+            border-radius: 18px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ========== CARD 1: GAMER RGB SPINNING GLOW (MAKE) ========== */
+        @property --rgb-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        
+        @keyframes rgb-spin {
+            to { --rgb-angle: 360deg; }
+        }
+
+        @keyframes rgb-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .card-gamer {
+            background: conic-gradient(from var(--rgb-angle), 
+                #FF0000, #FF00FF, #0000FF, #00FFFF, #00FF00, #FFFF00, #FF0000);
+            animation: rgb-spin 3s linear infinite;
+            position: relative;
+        }
+
+        .card-gamer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(from var(--rgb-angle), 
+                #FF0000, #FF00FF, #0000FF, #00FFFF, #00FF00, #FFFF00, #FF0000);
+            animation: rgb-spin 3s linear infinite;
+            border-radius: 26px;
+            filter: blur(15px);
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .card-gamer .card-interior {
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2a);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-gamer .card-interior::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,0,0.1), rgba(0,255,0,0.1), rgba(0,0,255,0.1));
+            animation: rgb-pulse 2s ease-in-out infinite;
+        }
+
+        .card-gamer:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card-gamer:hover::before {
+            filter: blur(25px);
+            opacity: 1;
+        }
+
+        .gamer-badge {
+            display: inline-block;
+            background: rgba(0,0,0,0.7);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 1.5rem;
+            color: #00FF00;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            border: 1px solid #FF00FF;
+            box-shadow: 0 0 10px rgba(255,0,255,0.3);
+        }
+
+        .card-gamer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FF0000, #FF00FF, #00FFFF, #00FF00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rgb-pulse 2s ease-in-out infinite;
+        }
+
+        /* ========== CARD 2: ARCTIC ICE WITH ICY GLOW (EDU) ========== */
+        @property --ice-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        
+        @keyframes ice-spin {
+            to { --ice-angle: 360deg; }
+        }
+
+        @keyframes ice-glow {
+            0% { box-shadow: 0 0 5px rgba(255,255,255,0.3), inset 0 0 5px rgba(255,255,255,0.1); }
+            100% { box-shadow: 0 0 25px rgba(100, 200, 255, 0.6), inset 0 0 15px rgba(100, 200, 255, 0.3); }
+        }
+
+        .card-arctic {
+            background: conic-gradient(from var(--ice-angle), 
+                #E0E7FF, #9FC5F8, #6FA8DC, #3C78D8, #6FA8DC, #9FC5F8, #E0E7FF);
+            animation: ice-spin 6s linear infinite;
+        }
+
+        .card-arctic .card-interior {
+            background: linear-gradient(135deg, #0a1a2a, #0a1220);
+            backdrop-filter: blur(5px);
+        }
+
+        .card-arctic:hover {
+            transform: translateY(-8px);
+            animation: ice-glow 0.5s ease-in-out infinite alternate;
+        }
+
+        .arctic-badge {
+            display: inline-block;
+            background: rgba(100, 200, 255, 0.2);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 1.5rem;
+            color: #9FC5F8;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            border: 1px solid #6FA8DC;
+        }
+
+        .card-arctic h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #E0E7FF, #9FC5F8, #6FA8DC);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Frost effect on hover */
+        .card-arctic .card-interior {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-arctic .card-interior::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            pointer-events: none;
+        }
+
+        .card-arctic:hover .card-interior::after {
+            left: 100%;
+        }
+
+        /* ========== CARD 3: GLASS THEME WITH SHADOW (BLOG) ========== */
+        @property --glass-angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        
+        @keyframes glass-spin {
+            to { --glass-angle: 360deg; }
+        }
+
+        .card-glass {
+            background: conic-gradient(from var(--glass-angle), 
+                rgba(255,255,255,0.3), rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            animation: glass-spin 8s linear infinite;
+        }
+
+        .card-glass .card-interior {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 35px -15px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.3);
+        }
+
+        .glass-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-glass h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.95);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Common content styles */
+        .card-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .nested-section {
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+
+        .card-gamer .nested-section {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,0,255,0.2);
+        }
+        .card-gamer .nested-section:hover {
+            background: rgba(255,0,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .card-arctic .nested-section {
+            background: rgba(100, 200, 255, 0.05);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+        .card-arctic .nested-section:hover {
+            background: rgba(100, 200, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .card-glass .nested-section {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(4px);
+        }
+        .card-glass .nested-section:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .nested-section h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-gamer .nested-section h3 { color: #FF00FF; }
+        .card-arctic .nested-section h3 { color: #9FC5F8; }
+        .card-glass .nested-section h3 { color: #FFE536; }
+
+        .nested-section p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .feature-list li::before {
+            content: "→";
+        }
+
+        .card-gamer .feature-list li::before { color: #00FF00; }
+        .card-arctic .feature-list li::before { color: #9FC5F8; }
+        .card-glass .feature-list li::before { color: #FFE536; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid { gap: 1.5rem; }
+            h2 { font-size: 2rem !important; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .card-interior { padding: 1.5rem; }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>contrapaul.com</h1>
+            <div class="subhead">Designer. Educator. Maker. — Three unique personalities, one creator</div>
+        </div>
+
+        <!-- THREE UNIQUE CARDS -->
+        <div class="grid">
+            <!-- CARD 1: GAMER RGB (MAKE) -->
+            <div class="card card-gamer">
+                <div class="card-interior">
+                    <div class="gamer-badge">🎮 GAMER EDITION</div>
+                    <h2>MAKE</h2>
+                    <p class="card-description">
+                        3D printing, CNC, electronics, and workshop projects. RGB-powered builds and laser-focused prototyping.
+                    </p>
+                    
+                    <div class="nested-section">
+                        <h3>⚡ RGB Featured Build</h3>
+                        <p>Custom gaming macro pad • Addressable LEDs • QMK firmware</p>
+                    </div>
+                    
+                    <div class="nested-section">
+                        <h3>🎯 Current Project</h3>
+                        <p>CNC-drawn PCB with RGB backlight • 234 stars on GitHub</p>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li>Mechanical keyboard build guide</li>
+                        <li>ESP32 RGB LED controller</li>
+                        <li>OpenSCAD parametric case generator</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CARD 2: ARCTIC ICE (EDU) -->
+            <div class="card card-arctic">
+                <div class="card-interior">
+                    <div class="arctic-badge">❄️ ARCTIC EDITION</div>
+                    <h2>EDU</h2>
+                    <p class="card-description">
+                        IB Design Technology resources, lesson plans, and student work. Clear, crisp, and methodical.
+                    </p>
+                    
+                    <div class="nested-section">
+                        <h3>📚 Current Unit</h3>
+                        <p>User-Centered Design & Prototyping with Arduino</p>
+                    </div>
+                    
+                    <div class="nested-section">
+                        <h3>🎓 Student Gallery</h3>
+                        <p>Assistive device prototypes • Grade 12 Exhibition</p>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li>Complete DT Curriculum Guide</li>
+                        <li>Assessment Criteria Workshop</li>
+                        <li>Arduino Starter Projects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CARD 3: GLASS THEME (BLOG) -->
+            <div class="card card-glass">
+                <div class="card-interior">
+                    <div class="glass-badge">🥂 GLASS EDITION</div>
+                    <h2>BLOG</h2>
+                    <p class="card-description">
+                        Reflections, tutorials, and maker journal. Transparent thoughts from a Design Technology teacher in China.
+                    </p>
+                    
+                    <div class="nested-section">
+                        <h3>📝 Latest Reflection</h3>
+                        <p>Teaching in Shenzhen: Year 5 — What I've learned</p>
+                    </div>
+                    
+                    <div class="nested-section">
+                        <h3>💬 Community Discussion</h3>
+                        <p>42 comments on "Rapid prototyping with foam"</p>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li>KiCad vs EasyEDA deep dive</li>
+                        <li>Interview with makerspace founder</li>
+                        <li>CNC calibration masterclass</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON TABLE -->
+        <div style="background: rgba(0,0,0,0.4); border-radius: 20px; padding: 2rem; backdrop-filter: blur(10px);">
+            <h3 style="color: #FFE536; margin-bottom: 1.5rem; text-align: center;">✨ Three Unique Personalities ✨</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem;">🎮</div>
+                    <h4 style="color: #FF00FF; margin: 0.5rem 0;">GAMER RGB</h4>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.8rem;">
+                        <strong>Border:</strong> Full RGB spectrum<br>
+                        <strong>Spin:</strong> 3 seconds (fastest)<br>
+                        <strong>Glow:</strong> Blurred RGB aura<br>
+                        <strong>Hover:</strong> Intensified glow + lift<br>
+                        <strong>Vibe:</strong> Energetic, playful, bold
+                    </p>
+                </div>
+
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem;">❄️</div>
+                    <h4 style="color: #9FC5F8; margin: 0.5rem 0;">ARCTIC ICE</h4>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.8rem;">
+                        <strong>Border:</strong> Ice blue gradient<br>
+                        <strong>Spin:</strong> 6 seconds (medium)<br>
+                        <strong>Glow:</strong> Pulsing frost aura<br>
+                        <strong>Hover:</strong> Sweep + pulsing glow<br>
+                        <strong>Vibe:</strong> Calm, focused, professional
+                    </p>
+                </div>
+
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem;">🥂</div>
+                    <h4 style="color: #FFE536; margin: 0.5rem 0;">GLASS SHADOW</h4>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 0.8rem;">
+                        <strong>Border:</strong> Subtle white gradient<br>
+                        <strong>Spin:</strong> 8 seconds (slowest)<br>
+                        <strong>Effect:</strong> Deep shadow (no glow)<br>
+                        <strong>Hover:</strong> Lift + intensified shadow<br>
+                        <strong>Vibe:</strong> Elegant, transparent, refined
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPECIFICATIONS BREAKDOWN -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            
+            <!-- Gamer Specs -->
+            <div style="background: rgba(255,0,255,0.1); border-radius: 16px; padding: 1.5rem; border-left: 4px solid #FF00FF;">
+                <h4 style="color: #FF00FF; margin-bottom: 0.5rem;">🎮 Gamer RGB (MAKE)</h4>
+                <ul style="color: rgba(255,255,255,0.8); font-size: 0.8rem; list-style: none;">
+                    <li>✨ Full RGB spectrum conic gradient</li>
+                    <li>✨ 3-second fast spin animation</li>
+                    <li>✨ Blurred RGB outer glow (15px → 25px on hover)</li>
+                    <li>✨ Pulsing interior RGB ambient light</li>
+                    <li>✨ Rainbow text gradient on title</li>
+                    <li>✨ Neon pink borders on nested content</li>
+                </ul>
+            </div>
+
+            <!-- Arctic Specs -->
+            <div style="background: rgba(100,200,255,0.1); border-radius: 16px; padding: 1.5rem; border-left: 4px solid #9FC5F8;">
+                <h4 style="color: #9FC5F8; margin-bottom: 0.5rem;">❄️ Arctic Ice (EDU)</h4>
+                <ul style="color: rgba(255,255,255,0.8); font-size: 0.8rem; list-style: none;">
+                    <li>✨ Ice blue to deep blue gradient</li>
+                    <li>✨ 6-second elegant spin</li>
+                    <li>✨ Pulsing frost glow on hover</li>
+                    <li>✨ Frost sweep animation on interaction</li>
+                    <li>✨ Clean blue-white text gradient</li>
+                    <li>✨ No shadow - just pure glow</li>
+                </ul>
+            </div>
+
+            <!-- Glass Specs -->
+            <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; border-left: 4px solid #FFE536;">
+                <h4 style="color: #FFE536; margin-bottom: 0.5rem;">🥂 Glass Shadow (BLOG)</h4>
+                <ul style="color: rgba(255,255,255,0.8); font-size: 0.8rem; list-style: none;">
+                    <li>✨ Subtle white transparency gradient</li>
+                    <li>✨ 8-second slow, meditative spin</li>
+                    <li>✨ NO glow - only deep shadow on hover</li>
+                    <li>✨ Glassmorphism blur background</li>
+                    <li>✨ Crisp white text with shadow</li>
+                    <li>✨ Most content-focused design</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>✨ Hover over each card to see unique personality emerge ✨</p>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: conic-gradient(from 0deg, #FF0000, #FF00FF, #0000FF, #00FFFF, #00FF00, #FFFF00);"></div>
+                    <span>MAKE: Gaming RGB</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: conic-gradient(from 0deg, #E0E7FF, #9FC5F8, #6FA8DC);"></div>
+                    <span>EDU: Arctic Ice</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: conic-gradient(from 0deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));"></div>
+                    <span>BLOG: Glass Shadow</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

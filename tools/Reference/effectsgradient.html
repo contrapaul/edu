@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Card Effects - ContraPaul Design Lab</title>
+    <style>
+        /* JetBrains Font */
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Regular.woff2') format('woff2');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('/WEB/JetBrainsMono-Bold.woff2') format('woff2');
+            font-weight: bold;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: white;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #FF7200;
+            display: inline-block;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Base Card Styles */
+        .card {
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* White Background Cards */
+        .card-white {
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        /* Blue Background Cards (using your workshop blue) */
+        .card-blue {
+            background: #143CC7;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .card-blue p, .card-blue .card-subtitle {
+            color: rgba(255,255,255,0.85);
+        }
+        .card-blue h3, .card-blue h4 {
+            color: white;
+        }
+
+        /* ========== EFFECT 10 MODIFIED: SLOW SPIN + GLOW + LIFT ========== */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        @keyframes slow-spin {
+            to { --angle: 360deg; }
+        }
+        
+        .effect-spin-combo {
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        .effect-spin-combo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(from var(--angle), #FFE536, #FA16C2, #FF7200, #FFE536);
+            border-radius: 18px;
+            z-index: -1;
+            animation: slow-spin 8s linear infinite; /* Slowed from 3s to 8s */
+        }
+        .effect-spin-combo:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3), 0 0 20px rgba(255,229,54,0.4);
+        }
+        /* Blue variant keeps same spin but different shadow */
+        .card-blue.effect-spin-combo:hover {
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), 0 0 25px rgba(255,114,0,0.5);
+        }
+
+        /* ========== EFFECT 8 MODIFIED: GLASS + GLOW + SHADOW LIFT ========== */
+        .effect-glass-combo {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .effect-glass-combo:hover {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(15px);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.2), 0 0 0 2px #FFE536, 0 0 15px rgba(250,22,194,0.6);
+        }
+        /* Blue background glass variant */
+        .card-blue.effect-glass-combo {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+        }
+        .card-blue.effect-glass-combo:hover {
+            background: rgba(0,0,0,0.4);
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.4), 0 0 0 2px #FA16C2, 0 0 20px rgba(255,114,0,0.5);
+        }
+
+        /* ========== CARD-ON-CARD NESTED STRUCTURES ========== */
+        .nested-card {
+            background: rgba(0,0,0,0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+        .card-blue .nested-card {
+            background: rgba(255,255,255,0.1);
+        }
+        .nested-card:hover {
+            transform: translateX(5px);
+            background: rgba(255,229,54,0.1);
+        }
+        .nested-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #FF7200;
+        }
+        .nested-card p {
+            font-size: 0.8rem;
+        }
+
+        /* Mini Screenshot Mockups */
+        .screenshot-mock {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+        .mock-browser-bar {
+            background: #3a3a3a;
+            height: 24px;
+            border-radius: 6px 6px 0 0;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            gap: 6px;
+        }
+        .mock-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+        .mock-dot:nth-child(2) { background: #ffbd2e; }
+        .mock-dot:nth-child(3) { background: #27c93f; }
+        .mock-content {
+            background: #143CC7;
+            border-radius: 0 0 8px 8px;
+            padding: 1rem;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .mock-make { background: linear-gradient(135deg, #FF7200, #FFE536); }
+        .mock-edu { background: linear-gradient(135deg, #FA16C2, #FF7200); }
+        .mock-blog { background: linear-gradient(135deg, #FFE536, #FA16C2); }
+        .mock-content span {
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* Demo badge */
+        .badge {
+            display: inline-block;
+            background: #FF7200;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-bottom: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-subtitle {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #FFE536, #FA16C2, #FF7200);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 2.5rem; background: linear-gradient(135deg, #FF7200, #FA16C2); -webkit-background-clip: text; background-clip: text; color: transparent;">🎨 Enhanced Card Effects Lab</h1>
+        <p style="margin: 1rem 0 2rem 0; color: #666;">Modified effects: Slowed spin (#10) + Glass with glow/lift (#8) + Nested cards + Screenshot mockups</p>
+
+        <!-- SECTION 1: MODIFIED EFFECT 10 - SLOW SPIN + GLOW + LIFT -->
+        <div class="section">
+            <h2 class="section-title">✨ Effect #10: Slow Spin + Glow + Lift</h2>
+            <p class="section-subtitle">8-second rotation (not speeding up on hover) + lift shadow + neon glow</p>
+            
+            <div class="grid">
+                <!-- White background version -->
+                <div class="card card-white effect-spin-combo">
+                    <div class="badge">WHITE BG / SLOW SPIN</div>
+                    <h3>make.contrapaul.com</h3>
+                    <div class="card-subtitle">Projects & Prototypes</div>
+                    <p>3D printing • Electronics • Workshop builds</p>
+                    
+                    <!-- Nested card example -->
+                    <div class="nested-card">
+                        <h4>📌 Featured Project</h4>
+                        <p>Custom Macro Pad build with RGB lighting and QMK firmware</p>
+                    </div>
+                    
+                    <!-- Mini screenshot mockup -->
+                    <div class="screenshot-mock">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content mock-make">
+                            <span>🔧 LATEST BUILD</span>
+                            <span style="font-size: 0.7rem;">CNC Router Enclosure</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blue background version -->
+                <div class="card card-blue effect-spin-combo">
+                    <div class="badge" style="background: #FFE536; color: #143CC7;">BLUE BG / SLOW SPIN</div>
+                    <h3>edu.contrapaul.com</h3>
+                    <div class="card-subtitle" style="color: rgba(255,255,255,0.7);">Teaching Resources</div>
+                    <p>IB Design Technology • Lesson plans • Student work</p>
+                    
+                    <div class="nested-card">
+                        <h4>📚 Current Unit</h4>
+                        <p>User-Centered Design & Prototyping with Arduino</p>
+                    </div>
+                    
+                    <div class="screenshot-mock">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content mock-edu">
+                            <span>📖 DT GUIDE</span>
+                            <span style="font-size: 0.7rem;">Assessment Criteria 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nested cards within cards - deeper hierarchy demo -->
+                <div class="card card-white effect-spin-combo">
+                    <div class="badge">DEEP NESTING DEMO</div>
+                    <h3>blog.contrapaul.com</h3>
+                    <div class="card-subtitle">Notes & Writing</div>
+                    <p>Reflections • Tutorials • Maker journal</p>
+                    
+                    <div class="nested-card">
+                        <h4>📝 Latest Post</h4>
+                        <p>Building a desktop CNC from scrap components</p>
+                        <div class="nested-card" style="margin-top: 0.5rem; margin-left: 1rem;">
+                            <h4 style="font-size: 0.9rem;">↳ Comments (3)</h4>
+                            <p style="font-size: 0.75rem;">Great build log! - JohnDoe</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-mock">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content mock-blog">
+                            <span>✍️ WEEKLY UPDATE</span>
+                            <span style="font-size: 0.7rem;">KiCad vs EasyEDA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 2: MODIFIED EFFECT 8 - GLASS + GLOW + SHADOW LIFT -->
+        <div class="section">
+            <h2 class="section-title">🥂 Effect #8: Glassmorphism + Glow + Shadow Lift</h2>
+            <p class="section-subtitle">Intensifying blur, accent border glow, and lifted shadow on hover</p>
+            
+            <div class="grid">
+                <!-- White background glass (actually transparent on white) -->
+                <div class="card card-white effect-glass-combo">
+                    <div class="badge" style="background: rgba(0,0,0,0.7);">WHITE BG / GLASS</div>
+                    <h3>make.contrapaul.com</h3>
+                    <div class="card-subtitle">Glass effect on white</div>
+                    <p>Subtle transparency • Border glow on hover</p>
+                    
+                    <div class="nested-card">
+                        <h4>🔨 Workshop Stream</h4>
+                        <p>Live soldering sessions every Tuesday</p>
+                    </div>
+                    
+                    <div class="screenshot-mock">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content" style="background: linear-gradient(135deg, #FF7200, #FA16C2);">
+                            <span>🎥 LIVE NOW</span>
+                            <span style="font-size: 0.7rem;">PCB Assembly Stream</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blue background glass - dramatic effect -->
+                <div class="card card-blue effect-glass-combo">
+                    <div class="badge" style="background: #FFE536; color: #143CC7;">BLUE BG / GLASS+</div>
+                    <h3>edu.contrapaul.com</h3>
+                    <div class="card-subtitle" style="color: rgba(255,255,255,0.7);">Glass on deep blue</div>
+                    <p>Maximum contrast • Pink accent glow on hover</p>
+                    
+                    <div class="nested-card">
+                        <h4>🎓 Student Gallery</h4>
+                        <p>Grade 12 Design Projects - Class of 2025</p>
+                        <div class="nested-card" style="margin-top: 0.5rem;">
+                            <p>↑ Chair design using recycled plastics</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-mock">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content" style="background: #FA16C2;">
+                            <span>🏆 EXHIBITION</span>
+                            <span style="font-size: 0.7rem;">May 15-20, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complex nested structure with multiple levels -->
+                <div class="card card-white effect-glass-combo">
+                    <div class="badge">MULTI-LEVEL NESTING</div>
+                    <h3>dashboard concept</h3>
+                    <div class="card-subtitle">Card-on-card-on-card</div>
+                    
+                    <!-- Level 1 nested -->
+                    <div class="nested-card">
+                        <h4>📊 Recent Activity</h4>
+                        <p>3 new comments on your blog post</p>
+                        
+                        <!-- Level 2 nested -->
+                        <div class="nested-card">
+                            <h4 style="font-size: 0.9rem;">↳ From: MakerChen</h4>
+                            <p>"Loved the CNC calibration guide!"</p>
+                            
+                            <!-- Level 3 nested -->
+                            <div class="nested-card" style="background: rgba(255,114,0,0.1);">
+                                <p style="font-size: 0.7rem;">👍 12 upvotes • Reply</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-mock" style="margin-top: 1rem;">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                        </div>
+                        <div class="mock-content" style="background: #FFE536; color: #143CC7;">
+                            <span style="color: #143CC7;">🔔 NOTIFICATIONS</span>
+                            <span style="font-size: 0.7rem; color: #143CC7;">3 unread</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 3: SUBDOMAIN SPECIFIC WITH FULL SCREENSHOT MOCKUPS -->
+        <div class="section">
+            <h2 class="section-title">🎯 Production-Ready Demos (Your Subdomains)</h2>
+            <p class="section-subtitle">Each card represents one subdomain with mini-screenshot preview + nested content areas</p>
+            
+            <div class="grid">
+                <!-- MAKE Subdomain Card -->
+                <div class="card card-white effect-spin-combo">
+                    <div class="badge" style="background: #FF7200;">make.contrapaul.com</div>
+                    <h3 style="color: #FF7200;">🔧 MAKE</h3>
+                    <p>Projects, prototypes, and workshop documentation</p>
+                    
+                    <!-- Mini screenshot of make subdomain -->
+                    <div class="screenshot-mock" style="margin: 1rem 0;">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                            <span style="color: white; font-size: 0.6rem; margin-left: auto;">make.contrapaul.com</span>
+                        </div>
+                        <div class="mock-content mock-make">
+                            <span style="font-size: 1rem;">🖨️</span>
+                            <span>Latest: 3D Printed Gear Clock</span>
+                            <span style="font-size: 0.6rem;">⭐ 234 stars</span>
+                        </div>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>📂 Recent Projects</h4>
+                        <p>• CNC-drawn PCBs (4 new)<br>• OpenSCAD parameteric box generator<br>• ESP32 air quality monitor</p>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>🔥 Popular This Week</h4>
+                        <p>Mechanical keyboard build guide - 1.2k views</p>
+                    </div>
+                </div>
+
+                <!-- EDU Subdomain Card -->
+                <div class="card card-blue effect-glass-combo">
+                    <div class="badge" style="background: #FA16C2;">edu.contrapaul.com</div>
+                    <h3 style="color: #FA16C2;">📚 EDU</h3>
+                    <p>IB Design Technology resources and student work</p>
+                    
+                    <div class="screenshot-mock" style="margin: 1rem 0;">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                            <span style="color: white; font-size: 0.6rem; margin-left: auto;">edu.contrapaul.com</span>
+                        </div>
+                        <div class="mock-content mock-edu">
+                            <span style="font-size: 1rem;">📖</span>
+                            <span>Unit 4: User-Centered Design</span>
+                            <span style="font-size: 0.6rem;">Updated Jan 2025</span>
+                        </div>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>🎓 Course Modules</h4>
+                        <p>• Design Thinking Workshop<br>• Arduino for Prototyping<br>• Assessment Criteria Guide</p>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>👩‍🎓 Student Showcase</h4>
+                        <p>Assistive device prototypes - Grade 12</p>
+                    </div>
+                </div>
+
+                <!-- BLOG Subdomain Card -->
+                <div class="card card-white effect-spin-combo">
+                    <div class="badge" style="background: #FFE536; color: #143CC7;">blog.contrapaul.com</div>
+                    <h3 style="color: #FFE536;">✍️ BLOG</h3>
+                    <p>Reflections, tutorials, and maker journal entries</p>
+                    
+                    <div class="screenshot-mock" style="margin: 1rem 0;">
+                        <div class="mock-browser-bar">
+                            <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+                            <span style="color: white; font-size: 0.6rem; margin-left: auto;">blog.contrapaul.com</span>
+                        </div>
+                        <div class="mock-content mock-blog">
+                            <span style="font-size: 1rem;">💭</span>
+                            <span>Teaching in Shenzhen: Year 5</span>
+                            <span style="font-size: 0.6rem;">15 min read</span>
+                        </div>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>📝 Recent Posts</h4>
+                        <p>• KiCad vs EasyEDA: Which is better for beginners?<br>• CNC dust collection DIY solution<br>• Interview with a local makerspace founder</p>
+                    </div>
+                    
+                    <div class="nested-card">
+                        <h4>💬 Discussion</h4>
+                        <p>42 comments on "Rapid prototyping with foam"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- SECTION 4: COMPARISON SIDEBYSIDE -->
+        <div class="section">
+            <h2 class="section-title">🔄 Side-by-Side: Effect 10 vs Effect 8</h2>
+            <div class="grid">
+                <div class="card card-blue effect-spin-combo" style="text-align: center;">
+                    <h3>🌀 SPIN COMBO</h3>
+                    <p style="margin: 1rem 0;">8-second rotating gradient border<br>+ lift shadow on hover<br>+ glow effect</p>
+                    <div class="badge" style="background: #FF7200;">Bold & Mechanical</div>
+                    <div class="nested-card" style="margin-top: 1rem;">
+                        <p>✨ Best for: MAKE subdomain<br>High visibility CTAs</p>
+                    </div>
+                </div>
+                
+                <div class="card card-blue effect-glass-combo" style="text-align: center;">
+                    <h3>🔮 GLASS COMBO</h3>
+                    <p style="margin: 1rem 0;">Blur backdrop + intensifies on hover<br>+ accent border glow<br>+ shadow lift</p>
+                    <div class="badge" style="background: #FA16C2;">Modern & Elegant</div>
+                    <div class="nested-card" style="margin-top: 1rem;">
+                        <p>✨ Best for: EDU subdomain<br>Premium/content focus</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 3rem; padding: 2rem; text-align: center; border-top: 2px solid #e0e0e0; color: #666;">
+            <p>🎨 Built with JetBrains Mono • Workshop Colors: #143CC7 | #FFE536 | #FA16C2 | #FF7200</p>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">✨ Hover over any card to see enhanced effects • Nested cards show depth hierarchy • Screenshot mockups preview subdomain content ✨</p>
+            <p style="font-size: 0.7rem; margin-top: 1rem;">Effect 10: 8s spin (no speed increase) + glow + translateY lift | Effect 8: Glass + glow border + shadow lift</p>
+        </footer>
+    </div>
+</body>
+</html>
