@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Museum of Mr. K — Threepipe Editor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; }
+    canvas { display: block; }
+
+    #blocker {
+      position: fixed; inset: 0; z-index: 10;
+      background: rgba(0,0,0,0.7);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.4s;
+    }
+    #blocker.hidden { pointer-events: none; opacity: 0; }
+
+    #instructions {
+      text-align: center; color: #fff; user-select: none;
+      background: rgba(30,30,40,0.85); padding: 2.5rem 3rem;
+      border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
+      max-width: 540px;
+    }
+    #instructions h1 {
+      font-size: 2rem; font-weight: 300; letter-spacing: 4px;
+      margin-bottom: 0.5rem; color: #d4af37;
+    }
+    #instructions .sub {
+      font-size: 0.8rem; color: #888; margin-bottom: 1.5rem;
+    }
+    #instructions p { font-size: 0.9rem; line-height: 1.7; color: #ccc; }
+    #instructions kbd {
+      background: rgba(255,255,255,0.15); padding: 2px 8px;
+      border-radius: 4px; font-size: 0.85rem;
+    }
+    #instructions .btn-explore {
+      display: inline-block; margin-top: 1.5rem;
+      padding: 0.7rem 2.5rem; font-size: 1.1rem;
+      background: #d4af37; color: #1a1a2e; border: none;
+      border-radius: 6px; cursor: pointer; font-weight: 600;
+      letter-spacing: 1px; transition: background 0.2s;
+    }
+    #instructions .btn-explore:hover { background: #e8c44a; }
+
+    #prompt {
+      position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%);
+      z-index: 5; color: #fff; font-size: 1.1rem;
+      background: rgba(0,0,0,0.65); padding: 10px 24px;
+      border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
+      pointer-events: none; transition: opacity 0.3s;
+    }
+    #prompt.hidden { opacity: 0; }
+    #prompt kbd {
+      background: rgba(255,255,255,0.2); padding: 2px 10px;
+      border-radius: 4px; font-size: 0.95rem;
+    }
+
+    #status {
+      position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+      z-index: 5; color: #aaf; font-size: 0.85rem; font-style: italic;
+      background: rgba(0,0,0,0.5); padding: 6px 16px; border-radius: 6px;
+      pointer-events: none; transition: opacity 0.3s;
+    }
+    #status.hidden { opacity: 0; }
+
+    #mode-label {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      z-index: 5; font-size: 0.75rem; color: rgba(255,255,255,0.5);
+      background: rgba(0,0,0,0.5); padding: 6px 16px; border-radius: 20px;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: opacity 0.3s; display: flex; gap: 12px; align-items: center;
+    }
+    #mode-label.hidden { display: none; }
+    #mode-label span { pointer-events: none; }
+    .btn-exit {
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; padding: 2px 10px; border-radius: 12px; cursor: pointer;
+      font-size: 0.7rem; letter-spacing: 0.5px; transition: background 0.2s;
+    }
+    .btn-exit:hover { background: rgba(255,255,255,0.25); }
+  </style>
+</head>
+<body>
+
+  <div id="blocker">
+    <div id="instructions">
+      <h1>Museum of Mr. K</h1>
+      <div class="sub">— powered by Threepipe —</div>
+      <p>
+        <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to walk &nbsp;·&nbsp; <kbd>E</kbd> to listen near artifacts<br>
+        <span style="font-size:0.8rem;color:#888;">Move mouse to look around &nbsp;·&nbsp; <kbd>Esc</kbd> to return to editor</span>
+      </p>
+      <button class="btn-explore" id="btn-explore">Enter Museum</button>
+    </div>
+  </div>
+
+  <div id="prompt" class="hidden">Press <kbd>E</kbd> to listen</div>
+  <div id="status" class="hidden"></div>
+  <div id="mode-label" class="hidden">
+    <span>Explore Mode — Click view to lock · <kbd>Esc</kbd> to unlock</span>
+    <button class="btn-exit" id="btn-exit">Exit to Editor</button>
+  </div>
+
+  <canvas id="mcanvas"></canvas>
+
+  <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "threepipe": "https://unpkg.com/threepipe@0.5.0/dist/index.mjs",
+      "@threepipe/plugin-tweakpane": "https://unpkg.com/@threepipe/plugin-tweakpane@0.10.1/dist/index.mjs",
+      "@threepipe/plugin-tweakpane-editor": "https://unpkg.com/@threepipe/plugin-tweakpane-editor@0.4.1/dist/index.mjs"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import {
+      ThreeViewer, TonemapPlugin, PickingPlugin, ViewerUiConfigPlugin,
+      TransformControlsPlugin, AssetExporterPlugin, DropzonePlugin,
+      PointerLockControlsPlugin, UndoManagerPlugin, EditorViewWidgetPlugin,
+      FullScreenPlugin, CanvasSnapshotPlugin, Color,
+      HemisphereLight, DirectionalLight, PointLight, AmbientLight,
+      PhysicalMaterial, Mesh, BoxGeometry, PlaneGeometry, SphereGeometry,
+      CylinderGeometry, TorusKnotGeometry, TextureLoader,
+      CanvasTexture, Fog, MeshStandardMaterial,
+      Vector3, RepeatWrapping, BackSide
+    } from 'threepipe';
+
+    import { TweakpaneUiPlugin } from '@threepipe/plugin-tweakpane';
+    import { TweakpaneEditorPlugin, HierarchyUiPlugin } from '@threepipe/plugin-tweakpane-editor';
+
+    /* ===================== DOM REFS ===================== */
+
+    const blocker = document.getElementById('blocker');
+    const btnExplore = document.getElementById('btn-explore');
+    const promptEl = document.getElementById('prompt');
+    const statusEl = document.getElementById('status');
+    const modeLabel = document.getElementById('mode-label');
+
+    /* ===================== VIEWER ===================== */
+
+    const viewer = new ThreeViewer({
+      canvas: document.getElementById('mcanvas'),
+      msaa: true,
+      dropzone: true,
+    });
+
+    viewer.scene.backgroundColor = new Color(0x1a1a2e);
+    viewer.scene.fog = new Fog(0x1a1a2e, 18, 30);
+
+    /* ===================== PLUGINS ===================== */
+
+    const corePlugins = [
+      TonemapPlugin,
+      PickingPlugin,
+      UndoManagerPlugin,
+      EditorViewWidgetPlugin,
+      FullScreenPlugin,
+      PointerLockControlsPlugin,
+      AssetExporterPlugin,
+      CanvasSnapshotPlugin,
+    ];
+    await viewer.addPlugins(corePlugins);
+
+    viewer.addPluginSync(new TransformControlsPlugin(false));
+
+    /* ===================== TWEAKPANE EDITOR ===================== */
+
+    viewer.addPluginSync(new TweakpaneUiPlugin(true));
+    const editor = viewer.addPluginSync(new TweakpaneEditorPlugin());
+
+    editor.loadPlugins({
+      ['Viewer']: [ViewerUiConfigPlugin, DropzonePlugin, TonemapPlugin],
+      ['Objects']: [HierarchyUiPlugin, PickingPlugin, TransformControlsPlugin],
+      ['Export']: [AssetExporterPlugin, CanvasSnapshotPlugin],
+    });
+
+    /* ===================== LIGHTING ===================== */
+
+    const hemi = viewer.scene.addObject(new HemisphereLight(0xb1b1ff, 0x443322, 0.4));
+    hemi.name = 'Hemisphere Light';
+
+    const ambient = viewer.scene.addObject(new AmbientLight(0x404060, 0.5));
+    ambient.name = 'Ambient Light';
+
+    const dirLight = viewer.scene.addObject(new DirectionalLight(0xffeedd, 1.2));
+    dirLight.position.set(8, 14, 4);
+    dirLight.name = 'Main Directional';
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 1024;
+    dirLight.shadow.mapSize.height = 1024;
+    dirLight.shadow.camera.near = 0.5;
+    dirLight.shadow.camera.far = 30;
+    dirLight.shadow.camera.left = -15;
+    dirLight.shadow.camera.right = 15;
+    dirLight.shadow.camera.top = 15;
+    dirLight.shadow.camera.bottom = -15;
+
+    function makePointLight(x, y, z, color, intensity, name) {
+      const pl = viewer.scene.addObject(new PointLight(color, intensity, 10));
+      pl.position.set(x, y, z);
+      pl.name = name || 'Point Light';
+      const bulb = new Mesh(new SphereGeometry(0.12, 8, 8),
+        new MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.8 }));
+      bulb.position.copy(pl.position);
+      bulb.name = name + ' bulb' || 'Point Light Bulb';
+      viewer.scene.addObject(bulb);
+      return pl;
+    }
+
+    makePointLight(-5, 5.2, -2, 0xffddaa, 0.8, 'Light FL');
+    makePointLight(5, 5.2, -3, 0xffddaa, 0.8, 'Light FR');
+    makePointLight(-4, 5.2, -7, 0xffeedd, 0.6, 'Light BL');
+    makePointLight(4, 5.2, -8, 0xffeedd, 0.6, 'Light BR');
+
+    /* ===================== ENVIRONMENT ===================== */
+
+    function createCheckerTexture(size, checks, c1, c2) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const cell = size / checks;
+      for (let i = 0; i < checks; i++) {
+        for (let j = 0; j < checks; j++) {
+          ctx.fillStyle = (i + j) % 2 === 0 ? c1 : c2;
+          ctx.fillRect(i * cell, j * cell, cell, cell);
+        }
+      }
+      const tex = new CanvasTexture(canvas);
+      tex.wrapS = tex.wrapT = RepeatWrapping;
+      tex.repeat.set(8, 8);
+      return tex;
+    }
+
+    const floorTex = createCheckerTexture(512, 8, '#c8c0b0', '#b0a898');
+    const floorMat = new PhysicalMaterial({ roughness: 0.7, metalness: 0.05 });
+    floorMat.map = floorTex;
+    floorMat.needsUpdate = true;
+    const floor = new Mesh(new PlaneGeometry(26, 26), floorMat);
+    floor.rotation.x = -Math.PI / 2;
+    floor.receiveShadow = true;
+    floor.name = 'Floor';
+    viewer.scene.addObject(floor);
+
+    const ceilMat = new PhysicalMaterial({ color: 0x2a2a3a, roughness: 0.9, side: BackSide });
+    const ceiling = new Mesh(new PlaneGeometry(24, 24), ceilMat);
+    ceiling.rotation.x = Math.PI / 2;
+    ceiling.position.y = 6;
+    ceiling.name = 'Ceiling';
+    viewer.scene.addObject(ceiling);
+
+    const wallMat = new PhysicalMaterial({ color: 0xe8ddd0, roughness: 0.85 });
+
+    function addWall(w, h, d, x, y, z, name) {
+      const m = new Mesh(new BoxGeometry(w, h, d), wallMat);
+      m.position.set(x, y, z);
+      m.castShadow = true; m.receiveShadow = true;
+      m.name = name || 'Wall';
+      viewer.scene.addObject(m);
+    }
+
+    addWall(24, 6, 0.3, 0, 3, -12, 'Back Wall');
+    addWall(0.3, 6, 24, -12, 3, 0, 'Left Wall');
+    addWall(0.3, 6, 24, 12, 3, 0, 'Right Wall');
+    addWall(8.5, 6, 0.3, -7.75, 3, 12, 'Front Wall Left');
+    addWall(8.5, 6, 0.3, 7.75, 3, 12, 'Front Wall Right');
+    addWall(3.5, 2, 0.3, 0, 5, 12, 'Front Wall Top');
+
+    /* ===================== COLLISION ===================== */
+
+    const obstacles = [
+      { minX: -12.15, minZ: -12.15, maxX: 12.15, maxZ: -11.85 },
+      { minX: -12.15, minZ: -11.85, maxX: -11.85, maxZ: 11.85 },
+      { minX: 11.85, minZ: -11.85, maxX: 12.15, maxZ: 11.85 },
+      { minX: -12.15, minZ: 11.85, maxX: -3.5, maxZ: 12.15 },
+      { minX: 3.5, minZ: 11.85, maxX: 12.15, maxZ: 12.15 },
+    ];
+
+    function collides(x, z, r, list) {
+      for (const o of list) {
+        if (x + r > o.minX && x - r < o.maxX && z + r > o.minZ && z - r < o.maxZ) return true;
+      }
+      return false;
+    }
+
+    /* ===================== ARTIFACTS ===================== */
+
+    const artifacts = [];
+    let nearArtifact = -1;
+    let audioPlaying = false;
+
+    function makePedestal(x, z, color, name) {
+      const mat = new PhysicalMaterial({ color, roughness: 0.4, metalness: 0.2 });
+      const base = new Mesh(new BoxGeometry(1.4, 0.1, 1.4), mat);
+      base.position.set(x, 0.05, z);
+      base.receiveShadow = true; base.castShadow = true;
+      base.name = name + ' Base';
+      viewer.scene.addObject(base);
+
+      const column = new Mesh(new BoxGeometry(1.0, 0.5, 1.0), mat);
+      column.position.set(x, 0.35, z);
+      column.receiveShadow = true; column.castShadow = true;
+      column.name = name + ' Column';
+      viewer.scene.addObject(column);
+
+      const top = new Mesh(new BoxGeometry(1.2, 0.08, 1.2), mat);
+      top.position.set(x, 0.64, z);
+      top.receiveShadow = true; top.castShadow = true;
+      top.name = name + ' Top';
+      viewer.scene.addObject(top);
+
+      obstacles.push({ minX: x - 0.6, minZ: z - 0.6, maxX: x + 0.6, maxZ: z + 0.6 });
+    }
+
+    /* Artifact 1 — Cube */
+    makePedestal(-5, -2, 0x7a8a9a, 'Pedestal 1');
+    const texLoader = new TextureLoader();
+    const cubeTex = texLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+    const cubeMat = new PhysicalMaterial({ roughness: 0.3, metalness: 0.1 });
+    cubeMat.map = cubeTex;
+    cubeMat.needsUpdate = true;
+    const cube = new Mesh(new BoxGeometry(0.7, 0.7, 0.7), cubeMat);
+    cube.position.set(-5, 0.95, -2);
+    cube.castShadow = true;
+    cube.name = 'Retro Computer Cube';
+    viewer.scene.addObject(cube);
+
+    artifacts.push({
+      mesh: cube,
+      pos: new Vector3(-5, 0.5, -2),
+      message: 'This is my first computer, a Gateway 2000 P5-120.',
+      update: function (dt) { this.mesh.rotation.x += 0.005; this.mesh.rotation.y += 0.01; }
+    });
+
+    /* Artifact 2 — Torus Knot */
+    makePedestal(5, -3, 0x9a8a7a, 'Pedestal 2');
+    const knotMat = new PhysicalMaterial({
+      color: 0xd4a030, metalness: 0.85, roughness: 0.15,
+      emissive: 0x331100, emissiveIntensity: 0.05
+    });
+    const knot = new Mesh(new TorusKnotGeometry(0.35, 0.12, 64, 16), knotMat);
+    knot.position.set(5, 1.05, -3);
+    knot.castShadow = true;
+    knot.name = 'Vintage Console (Torus Knot)';
+    viewer.scene.addObject(knot);
+
+    artifacts.push({
+      mesh: knot,
+      pos: new Vector3(5, 0.5, -3),
+      message: 'This is my favorite vintage console.',
+      update: function (dt) { this.mesh.rotation.x += 0.008; this.mesh.rotation.y += 0.015; }
+    });
+
+    /* Artifact 3 — Framed Photo */
+    function createPhotoTexture() {
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 384;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(256, 200, 50, 256, 192, 300);
+      grad.addColorStop(0, '#c4a882');
+      grad.addColorStop(0.6, '#8b7355');
+      grad.addColorStop(1, '#5a4a3a');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 384);
+      ctx.fillStyle = '#3a2a1a';
+      ctx.fillRect(156, 100, 200, 140);
+      ctx.fillStyle = '#5a4a3a';
+      ctx.beginPath(); ctx.arc(256, 170, 55, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#2a1a0a';
+      ctx.beginPath(); ctx.arc(256, 170, 25, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#1a0a00';
+      ctx.beginPath(); ctx.arc(256, 170, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#4a3a2a';
+      ctx.fillRect(208, 75, 40, 30);
+      ctx.fillRect(256, 80, 10, 20);
+      ctx.fillStyle = '#6a5a4a';
+      ctx.fillRect(180, 240, 152, 20);
+      return new CanvasTexture(c);
+    }
+
+    const frameMat2 = new PhysicalMaterial({ color: 0x6a4a2a, roughness: 0.6, metalness: 0.3 });
+    const frame = new Mesh(new BoxGeometry(1.6, 1.1, 0.08), frameMat2);
+    frame.position.set(0, 1.6, -11.4);
+    frame.castShadow = true;
+    frame.name = 'Photo Frame';
+    viewer.scene.addObject(frame);
+
+    const photoMat = new PhysicalMaterial({ roughness: 0.5 });
+    photoMat.map = createPhotoTexture();
+    photoMat.needsUpdate = true;
+    const photo = new Mesh(new PlaneGeometry(1.4, 0.9), photoMat);
+    photo.position.set(0, 1.6, -11.25);
+    photo.name = 'Vintage Camera Photo';
+    viewer.scene.addObject(photo);
+
+    artifacts.push({
+      mesh: photo,
+      pos: new Vector3(0, 1.6, -10),
+      message: 'This camera took my first digital photos.',
+      update: function () {}
+    });
+
+    /* ===================== SIGN ===================== */
+
+    function createSignTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 256;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#1a1a2e';
+      ctx.fillRect(0, 0, 1024, 256);
+      ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 4;
+      ctx.strokeRect(12, 12, 1000, 232);
+      ctx.strokeStyle = '#d4af37'; ctx.lineWidth = 1;
+      ctx.strokeRect(20, 20, 984, 216);
+      ctx.fillStyle = '#d4af37';
+      ctx.font = 'bold 72px "Georgia", "Palatino Linotype", serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(212,175,55,0.3)'; ctx.shadowBlur = 20;
+      ctx.fillText('MUSEUM OF MR. K', 512, 128);
+      return new CanvasTexture(c);
+    }
+
+    const signMat = new PhysicalMaterial({ emissive: 0x443311, emissiveIntensity: 0.15 });
+    signMat.map = createSignTexture();
+    signMat.needsUpdate = true;
+    const sign = new Mesh(new PlaneGeometry(5, 1.25), signMat);
+    sign.position.set(0, 4.8, 11.5);
+    sign.name = 'Museum Sign';
+    viewer.scene.addObject(sign);
+
+    const signFrame = new Mesh(
+      new BoxGeometry(5.3, 1.55, 0.08),
+      new PhysicalMaterial({ color: 0x8a7a5a, roughness: 0.5, metalness: 0.4 })
+    );
+    signFrame.position.set(0, 4.8, 11.45);
+    signFrame.name = 'Sign Frame';
+    viewer.scene.addObject(signFrame);
+
+    const chainMat = new PhysicalMaterial({ color: 0x665544, metalness: 0.6, roughness: 0.4 });
+    for (let side = -1; side <= 1; side += 2) {
+      const chain = new Mesh(new CylinderGeometry(0.04, 0.04, 0.8), chainMat);
+      chain.position.set(side * 2.0, 4.8 + 0.4, 11.45);
+      chain.name = 'Chain ' + (side > 0 ? 'R' : 'L');
+      viewer.scene.addObject(chain);
+    }
+
+    /* ===================== CAMERA & CONTROLS ===================== */
+
+    const camera = viewer.camera;
+    camera.position.set(0, 1.7, 9);
+
+    /* ===================== AUDIO ===================== */
+
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function playBeep(freq, duration, type) {
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(ctx.currentTime); osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    let currentUtterance = null;
+
+    function speakMessage(text) {
+      if (!window.speechSynthesis) return;
+      if (speechSynthesis.speaking) speechSynthesis.cancel();
+      if (currentUtterance) { currentUtterance.onend = null; currentUtterance = null; }
+
+      playBeep(660, 0.15, 'sine');
+      setTimeout(() => playBeep(880, 0.2, 'sine'), 120);
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.85; utterance.pitch = 1.0; utterance.volume = 1.0;
+      utterance.onstart = () => {
+        audioPlaying = true;
+        statusEl.textContent = '"' + text + '"';
+        statusEl.classList.remove('hidden');
+      };
+      utterance.onend = () => {
+        audioPlaying = false; currentUtterance = null;
+        statusEl.classList.add('hidden');
+        if (nearArtifact >= 0) promptEl.classList.remove('hidden');
+      };
+      utterance.onerror = () => {
+        audioPlaying = false; currentUtterance = null;
+        statusEl.classList.add('hidden');
+        if (nearArtifact >= 0) promptEl.classList.remove('hidden');
+      };
+      currentUtterance = utterance;
+      speechSynthesis.speak(utterance);
+    }
+
+    /* ===================== PROXIMITY ===================== */
+
+    function checkProximity() {
+      const px = camera.position.x;
+      const pz = camera.position.z;
+      let closest = -1;
+      let closestDist = Infinity;
+      for (let i = 0; i < artifacts.length; i++) {
+        const a = artifacts[i];
+        const dx = px - a.pos.x;
+        const dz = pz - a.pos.z;
+        const dist = Math.sqrt(dx * dx + dz * dz);
+        if (dist < 2.0 && dist < closestDist) { closest = i; closestDist = dist; }
+      }
+      if (closest !== nearArtifact) {
+        nearArtifact = closest;
+        if (nearArtifact >= 0 && !audioPlaying) {
+          promptEl.classList.remove('hidden');
+        } else {
+          promptEl.classList.add('hidden');
+        }
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.key === 'e' || e.key === 'E') && nearArtifact >= 0 && !audioPlaying) {
+        promptEl.classList.add('hidden');
+        speakMessage(artifacts[nearArtifact].message);
+      }
+    });
+
+    /* ===================== MODE SWITCHING ===================== */
+
+    let isExploring = false;
+    const keys = { w: false, a: false, s: false, d: false };
+    const front = new Vector3();
+    const right = new Vector3();
+    const speed = 4.5;
+
+    const btnExit = document.getElementById('btn-exit');
+
+    btnExplore.addEventListener('click', () => {
+      viewer.scene.mainCamera.controlsMode = 'pointerLock';
+    });
+
+    btnExit.addEventListener('click', (e) => {
+      e.stopPropagation();
+      viewer.scene.mainCamera.controlsMode = 'orbit';
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isExploring && viewer.scene.mainCamera.controlsMode === 'pointerLock') {
+        viewer.scene.mainCamera.controlsMode = 'orbit';
+      }
+    });
+
+    let prevMode = 'orbit';
+
+    document.addEventListener('keydown', (e) => {
+      switch (e.code) {
+        case 'KeyW': keys.w = true; break;
+        case 'KeyA': keys.a = true; break;
+        case 'KeyS': keys.s = true; break;
+        case 'KeyD': keys.d = true; break;
+      }
+    });
+    document.addEventListener('keyup', (e) => {
+      switch (e.code) {
+        case 'KeyW': keys.w = false; break;
+        case 'KeyA': keys.a = false; break;
+        case 'KeyS': keys.s = false; break;
+        case 'KeyD': keys.d = false; break;
+      }
+    });
+
+    function movePlayer(dt) {
+      if (!isExploring || viewer.scene.mainCamera.controlsMode !== 'pointerLock') return;
+
+      camera.getWorldDirection(front);
+      front.y = 0;
+      front.normalize();
+      right.crossVectors(front, camera.up).normalize();
+
+      let mx = 0, mz = 0;
+      if (keys.w) { mx += front.x; mz += front.z; }
+      if (keys.s) { mx -= front.x; mz -= front.z; }
+      if (keys.a) { mx -= right.x; mz -= right.z; }
+      if (keys.d) { mx += right.x; mz += right.z; }
+
+      const len = Math.sqrt(mx * mx + mz * mz);
+      if (len < 0.001) return;
+      const inv = 1 / len;
+      mx *= inv; mz *= inv;
+
+      const step = speed * dt;
+      const nx = camera.position.x + mx * step;
+      if (!collides(nx, camera.position.z, 0.3, obstacles)) camera.position.x = nx;
+      const nz = camera.position.z + mz * step;
+      if (!collides(camera.position.x, nz, 0.3, obstacles)) camera.position.z = nz;
+    }
+
+    /* ===================== ANIMATION LOOP ===================== */
+
+    viewer.addEventListener('preFrame', (ev) => {
+      const dt = Math.min((ev.deltaTime || ev.timeline?.delta || 16) / 1000, 0.05);
+
+      const mode = viewer.scene.mainCamera.controlsMode;
+      if (mode !== prevMode) {
+        prevMode = mode;
+        if (mode === 'pointerLock') {
+          isExploring = true;
+          blocker.classList.add('hidden');
+          modeLabel.classList.remove('hidden');
+        } else {
+          isExploring = false;
+          modeLabel.classList.add('hidden');
+        }
+      }
+
+      for (const a of artifacts) a.update(dt);
+      movePlayer(dt);
+      checkProximity();
+    });
+
+    /* ===================== RESIZE ===================== */
+
+    window.addEventListener('resize', () => {
+      viewer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    console.log('Museum of Mr. K — Threepipe Edition loaded.');
+    console.log('Click "Enter Museum" for first-person exploration, or use the editor panel on the right.');
+  </script>
+</body>
+</html>
