@@ -1,846 +1,696 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Auditorium Seating Planner - edu.contrapaul.com</title>
-    <style>
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('/WEB/JetBrainsMono-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('/WEB/JetBrainsMono-Bold.woff2') format('woff2');
-            font-weight: bold;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('/WEB/JetBrainsMono-BoldItalic.woff2') format('woff2');
-            font-weight: bold;
-            font-style: italic;
-        }
-        @font-face {
-            font-family: 'JetBrains Mono';
-            src: url('/WEB/JetBrainsMono-ExtraBold.woff2') format('woff2');
-            font-weight: 800;
-            font-style: normal;
-        }
-        * { box-sizing: border-box; user-select: none; margin: 0; padding: 0; }
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            background: #1a1a2e;
-            min-height: 100vh;
-        }
-        .app { max-width: 1600px; margin: 0 auto; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Auditorium Seating Planner - contrapaul edu</title>
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../curriculum/themes.css">
+<script>
+(function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ── JetBrains Mono ─────────────────────────────────────── */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../make/WEB/Jetbrains/woff2/JetBrainsMono-Bold-Italic.woff2') format('woff2'),
+       url('../../make/WEB/Jetbrains/woff/JetBrainsMono-Bold-Italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../make/WEB/Jetbrains/woff2/JetBrainsMono-ExtraBold.woff2') format('woff2'),
+       url('../../make/WEB/Jetbrains/woff/JetBrainsMono-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 
-        .site-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 16px 28px;
-            margin-bottom: 20px;
-        }
-        .site-header a {
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        .site-header a:hover { color: #FFE536; }
-        .header-title {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .header-nav { display: flex; gap: 24px; }
+/* ── Tool layout ───────────────────────────────────────── */
+.tool-wrap {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
 
-        .toolbar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            align-items: center;
-            background: rgba(0,0,0,0.4);
-            padding: 12px 20px;
-            border-radius: 40px;
-            backdrop-filter: blur(8px);
-        }
-        .toolbar button {
-            background: #2c2c3e;
-            border: none;
-            color: white;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: bold;
-            padding: 8px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .toolbar button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
-        }
-        .active-group-indicator {
-            margin-left: auto;
-            background: rgba(255,255,255,0.15);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: #FFE536;
-        }
+.tool-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+}
+.tool-hero-inner { max-width: var(--max-w); margin: 0 auto; }
+.tool-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.tool-hero p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 60ch;
+  line-height: 1.65;
+}
 
-        .workspace {
-            display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-        .seating-area {
-            flex: 3;
-            min-width: 280px;
-            overflow-x: auto;
-            background: rgba(0,0,0,0.2);
-            border-radius: 24px;
-            padding: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-        .groups-sidebar {
-            flex: 1;
-            min-width: 260px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 24px;
-            padding: 15px;
-            backdrop-filter: blur(4px);
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .groups-sidebar h3 {
-            margin: 0 0 15px 0;
-            color: #FFE536;
-            font-weight: 800;
-            font-size: 1.2rem;
-            text-align: center;
-        }
-        .groups-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+/* ── Toolbar ───────────────────────────────────────────── */
+.planner-toolbar {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: fit-content;
+}
+.planner-toolbar button {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.planner-toolbar button:hover {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
 
-        .seat-grid {
-            display: grid;
-            justify-content: center;
-        }
-        .seat {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: #2d2d3a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: white;
-            transition: 0.1s;
-            cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .seat.aisle {
-            background: transparent;
-            box-shadow: none;
-            cursor: default;
-            color: rgba(255,255,255,0.5);
-            font-size: 11px;
-            font-weight: bold;
-        }
-        .seat.aisle.with-step::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 4px;
-            right: 4px;
-            height: 1px;
-            background: rgba(255,255,255,0.2);
-        }
-        .seat.stage {
-            background: #5a3a2a;
-            cursor: default;
-            font-size: 10px;
-            font-weight: bold;
-            color: #d4a76a;
-        }
-        .seat.soundbooth {
-            background: #3a3a5a;
-            cursor: default;
-            font-size: 9px;
-            color: #aaccff;
-            font-weight: bold;
-        }
-        .seat.void { background: transparent; box-shadow: none; cursor: default; }
-        .seat.wall {
-            background: transparent;
-            box-shadow: none;
-            cursor: default;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 4px;
-        }
-        .seat.exit {
-            background: #6a3a3a;
-            cursor: default;
-            font-size: 8px;
-            color: #ff8888;
-            font-weight: bold;
-        }
-        .seat:hover:not(.aisle):not(.stage):not(.soundbooth):not(.void):not(.wall):not(.exit) {
-            transform: scale(1.02);
-            filter: brightness(1.1);
-        }
+/* ── Workspace ─────────────────────────────────────────── */
+.planner-workspace {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.seating-area {
+  flex: 0 1 auto;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.groups-sidebar {
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+}
+.groups-sidebar h3 {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.groups-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.status-text {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.75rem;
+}
 
-        .group-card {
-            background: rgba(20,20,40,0.8);
-            border-radius: 16px;
-            padding: 12px;
-            position: relative;
-            backdrop-filter: blur(4px);
-            transition: 0.2s;
-            border-left: 4px solid currentColor;
-            cursor: pointer;
-        }
-        .group-card.active-card {
-            background: rgba(255,229,54,0.15);
-            border: 1px solid #FFE536;
-            box-shadow: 0 0 10px rgba(255,229,54,0.3);
-        }
-        .group-name {
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin: 0 0 5px 0;
-            word-break: break-word;
-            padding-right: 25px;
-        }
-        .group-stats {
-            font-size: 0.7rem;
-            color: #ccc;
-        }
-        .cog-icon {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            opacity: 0.7;
-            transition: 0.2s;
-        }
-        .cog-icon:hover {
-            opacity: 1;
-            transform: rotate(15deg);
-        }
+/* ── Seat grid ─────────────────────────────────────────── */
+.seat-grid {
+  display: grid;
+  justify-content: center;
+}
+.seat {
+  width: 44px;
+  height: 44px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--muted);
+  transition: background 0.1s, border-color 0.1s;
+  cursor: pointer;
+  position: relative;
+}
+.seat.aisle {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+.seat.aisle.with-step::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+  background: var(--border);
+}
+.seat.stage {
+  background: var(--surface-2);
+  border-color: var(--border);
+  cursor: default;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.seat.soundbooth {
+  background: var(--surface-2);
+  border-color: var(--border);
+  cursor: default;
+  font-size: 0.5rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.seat.void {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+}
+.seat.wall {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  border-radius: 2px;
+}
+.seat.exit {
+  background: var(--surface-2);
+  border-color: var(--border);
+  cursor: default;
+  font-size: 0.5rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.seat.painted { border-color: transparent; }
+.seat:hover:not(.aisle):not(.stage):not(.soundbooth):not(.void):not(.wall):not(.exit):not(.painted) {
+  border-color: var(--accent);
+}
 
-        .modal {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: #1e1e2a;
-            border-radius: 28px;
-            padding: 25px;
-            max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .modal-content h2 {
-            font-weight: bold;
-            font-style: italic;
-            text-align: center;
-            margin-top: 0;
-            color: #FFE536;
-        }
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .color-option {
-            text-align: center;
-            cursor: pointer;
-            transition: 0.1s;
-            padding: 8px;
-            border-radius: 20px;
-        }
-        .color-option:hover {
-            background: rgba(255,255,255,0.1);
-            transform: scale(1.02);
-        }
-        .color-circle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 0 auto 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            transition: 0.1s;
-        }
-        .color-name {
-            font-size: 0.7rem;
-        }
-        .color-circle.effect {
-            border-radius: 12px;
-        }
+/* ── Group cards ───────────────────────────────────────── */
+.group-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.group-card:hover {
+  border-color: var(--accent);
+}
+.group-card.active-card {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.group-name {
+  font-family: 'JetBrains Mono', var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-style: italic;
+  padding-right: 1.5rem;
+}
+.group-stats {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.cog-icon {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  opacity: 0.5;
+  transition: opacity 0.15s, transform 0.15s;
+  line-height: 1;
+}
+.cog-icon:hover {
+  opacity: 1;
+  transform: rotate(15deg);
+}
 
-        .settings-menu {
-            position: fixed;
-            background: #2a2a3a;
-            border-radius: 16px;
-            padding: 16px;
-            min-width: 220px;
-            box-shadow: 0 8px 20px black;
-            z-index: 1100;
-            backdrop-filter: blur(12px);
-            border: 1px solid #888;
-        }
-        .settings-menu .group-name-field {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            background: #1a1a2a;
-            border: none;
-            border-bottom: 2px solid #FFE536;
-            color: white;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            font-weight: 800;
-            outline: none;
-        }
-        .settings-menu .menu-label {
-            font-size: 0.7rem;
-            color: #aaa;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .settings-menu button {
-            width: 100%;
-            margin: 5px 0;
-            padding: 8px;
-            border: none;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-        }
-        .settings-menu .delete-btn {
-            background: #aa2e2e;
-        }
-        .settings-menu .change-color-btn {
-            background: #2c5a8a;
-        }
+/* ── Modal / color picker ──────────────────────────────── */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+.modal-content h2 {
+  font-family: 'JetBrains Mono', var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  font-size: 1.3rem;
+}
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.color-option {
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.1s;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+}
+.color-option:hover {
+  background: var(--surface-2);
+}
+.color-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin: 0 auto 0.4rem;
+  border: 1px solid var(--border);
+}
+.color-circle.effect {
+  border-radius: 6px;
+}
+.color-name {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
 
-        .site-footer {
-            margin-top: 30px;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.4);
-            font-size: 0.75rem;
-        }
+/* ── Settings menu ─────────────────────────────────────── */
+.settings-menu {
+  position: fixed;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  min-width: 200px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  z-index: 1100;
+}
+.settings-menu .menu-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+.settings-menu .group-name-field {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-bottom: 2px solid var(--accent);
+  color: var(--text);
+  font-family: 'JetBrains Mono', var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 800;
+  outline: none;
+  border-radius: 3px 3px 0 0;
+}
+.settings-menu .group-name-field:focus {
+  border-bottom-color: var(--accent);
+}
+.settings-menu button {
+  width: 100%;
+  margin: 0.35rem 0;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.settings-menu .change-color-btn {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.settings-menu .change-color-btn:hover {
+  border-color: var(--accent);
+}
+.settings-menu .delete-btn {
+  background: var(--surface-2);
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+.settings-menu .delete-btn:hover {
+  background: #fee2e2;
+}
 
-        .hidden { display: none; }
-        .status-text {
-            font-size: 0.75rem;
-            color: #FFE536;
-            margin-left: 10px;
-        }
-
-        @property --a { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-        @keyframes spin { to { --a: 360deg; } }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
-        @keyframes rgbPulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
-
-        @media (max-width: 768px) {
-            .seat { width: 36px; height: 36px; font-size: 8px; }
-            .site-header { flex-direction: column; gap: 10px; }
-        }
-    </style>
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .seat { width: 34px; height: 34px; font-size: 0.5rem; }
+  .planner-workspace { flex-direction: column; }
+  .groups-sidebar { max-width: 100%; }
+}
+</style>
 </head>
 <body>
-<div class="app">
-    <div class="site-header">
-        <a href="https://edu.contrapaul.com" class="header-title">edu.contrapaul.com</a>
-        <div class="header-nav">
-            <a href="https://make.contrapaul.com">make</a>
-            <a href="https://blog.contrapaul.com">blog</a>
-        </div>
-    </div>
 
-    <div class="toolbar">
-        <button id="addGroupBtn">+ Add group</button>
-        <button id="colorSchemesBtn">Color schemes</button>
-        <button id="clearAllBtn">Clear all</button>
-        <div class="active-group-indicator">Active: <span id="activeGroupName">None</span></div>
-    </div>
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">&larr; Main site</a></nav>
+</div>
+</header>
 
-    <div class="workspace">
-        <div class="seating-area">
-            <div id="seatGridContainer" class="seat-grid"></div>
-        </div>
-        <div class="groups-sidebar">
-            <h3>CLASS GROUPS</h3>
-            <div id="groupsContainer" class="groups-container"></div>
-            <div class="status-text" style="margin-top:12px; text-align:center;">Click a group card to paint with it</div>
-        </div>
-    </div>
-
-    <div class="site-footer">ContraPaul &mdash; Design Technology</div>
+<div class="tool-hero">
+<div class="tool-hero-inner">
+<h1>Auditorium Seating Planner</h1>
+<p>Click a group card, then click or drag across seats to paint them. Use the cog to rename groups, change colours, or delete.</p>
+</div>
 </div>
 
+<div class="tool-wrap">
+
+<div class="planner-toolbar">
+  <button id="addGroupBtn">+ Add group</button>
+  <button id="clearAllBtn">Clear all</button>
+</div>
+
+<div class="planner-workspace">
+  <div class="seating-area">
+    <div id="seatGridContainer" class="seat-grid"></div>
+  </div>
+  <div class="groups-sidebar">
+    <h3>Class Groups</h3>
+    <div id="groupsContainer" class="groups-container"></div>
+    <div class="status-text">Click a group card to paint with it</div>
+  </div>
+</div>
+
+</div>
+
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+
+<script src="../curriculum/curriculum-themes.js"></script>
 <script>
-    // -------- AUDITORIUM MAP --------
-    // Each row is space-delimited. w=wall  b=blank  s=seat  a=aisle  f=stage  e=soundbooth  x=exit
-    // Numbers (19..1) in aisle cells mark row numbers per the original Excel layout
-    const RAW = [
-        'w w w w w w w w w w w w w w w w w w w w w w w w w w',
-        'w b b b b b a 19 b b b b b s s s s s a 19 s s s s b w',
-        'w e s s s s a 18 b b b b s s s s s s a 18 s s s s s w',
-        'w s s s s s a 17 s s s s s s s s s s a 17 s s s s s w',
-        'w s s s s s a 16 s s s s s s s s s s a 16 s s s s s w',
-        'w s s s s s a 15 s s s s s s s s s s a 15 s s s s s w',
-        'w s s s s s a 14 s s s s s s s s s s a 14 s s s s s w',
-        'w s s s s s a 13 s s s s s s s s s s a 13 s s s s s w',
-        'w s s s s s a 12 s s s s s s s s s s a 12 s s s s s w',
-        'w s s s s s a 11 s s s s s s s s s s a 11 s s s s s w',
-        'w s s s s s a 10 s s s s s s s s s s a 10 s s s s s w',
-        'w s s s s s a 9 s s s s s s s s s s a 9 s s s s s w',
-        'w s s s s s a 8 s s s s s s s s s s a 8 s s s s s w',
-        'w s s s s s a 7 s s s s s s s s s s a 7 s s s s s w',
-        'w s s s s s a 6 s s s s s s s s s s a 6 s s s s s w',
-        'w s s s s s a 5 s s s s s s s s s s a 5 s s s s s w',
-        'w s s s s s a 4 s s s s s s s s s s a 4 s s s s s w',
-        'w b s s s s a 3 s s s s s s s s s s a 3 s s s s b w',
-        'w b s s s s a 2 s s s s s s s s s s a 2 s s s s b w',
-        'w b b b b s a 1 s s s s s s s s s s a 1 s b b b b w',
-        'w a a a a a a a a a a a a a a a a a a a a a a a a w',
-        'x a a a a a a a a a a a a a a a a a a a a a a a a x',
-        'w f f f f f f f f f f f f f f f f f f f f f f f f w',
+(function () {
+'use strict';
+
+var RAW = [
+    'w w w w w w w w w w w w w w w w w w w w w w w w w w',
+    'w e e e e e a 19 b b b b b s s s s s a 19 s s s s b w',
+    'w e s s s s a 18 b b b b s s s s s s a 18 s s s s s w',
+    'w s s s s s a 17 s s s s s s s s s s a 17 s s s s s w',
+    'w s s s s s a 16 s s s s s s s s s s a 16 s s s s s w',
+    'w s s s s s a 15 s s s s s s s s s s a 15 s s s s s w',
+    'w s s s s s a 14 s s s s s s s s s s a 14 s s s s s w',
+    'w s s s s s a 13 s s s s s s s s s s a 13 s s s s s w',
+    'w s s s s s a 12 s s s s s s s s s s a 12 s s s s s w',
+    'w s s s s s a 11 s s s s s s s s s s a 11 s s s s s w',
+    'w s s s s s a 10 s s s s s s s s s s a 10 s s s s s w',
+    'w s s s s s a 9 s s s s s s s s s s a 9 s s s s s w',
+    'w s s s s s a 8 s s s s s s s s s s a 8 s s s s s w',
+    'w s s s s s a 7 s s s s s s s s s s a 7 s s s s s w',
+    'w s s s s s a 6 s s s s s s s s s s a 6 s s s s s w',
+    'w s s s s s a 5 s s s s s s s s s s a 5 s s s s s w',
+    'w s s s s s a 4 s s s s s s s s s s a 4 s s s s s w',
+    'w b s s s s a 3 s s s s s s s s s s a 3 s s s s b w',
+    'w b s s s s a 2 s s s s s s s s s s a 2 s s s s b w',
+    'w b b b b s a 1 s s s s s s s s s s a 1 s b b b b w',
+    'w a a a a a a a a a a a a a a a a a a a a a a a a w',
+    'x a a a a a a a a a a a a a a a a a a a a a a a a x',
+    'w f f f f f f f f f f f f f f f f f f f f f f f f w'
+];
+
+var MAP = RAW.map(function(r){ return r.split(/\s+/); });
+var ROWS = MAP.length;
+var COLS = MAP[0].length;
+
+function parseCell(t) {
+    if (t==='s') return {type:'seat',label:''};
+    if (t==='w') return {type:'wall',label:''};
+    if (t==='b') return {type:'void',label:''};
+    if (t==='a') return {type:'aisle',label:''};
+    if (t==='f') return {type:'stage',label:'STAGE'};
+    if (t==='e') return {type:'soundbooth',label:'Sound'};
+    if (t==='x') return {type:'exit',label:'EXIT'};
+    if (/^[0-9]+$/.test(t)) return {type:'aisle',label:t};
+    return {type:'void',label:''};
+}
+
+var state = {
+    seatsData: [],
+    groups: [],
+    nextGroupId: 1,
+    activeGroupId: null,
+    isDragging: false
+};
+
+function generatePalette() {
+    return [
+        {name:'Red',    style:'background:#e53e3e'},
+        {name:'Green',  style:'background:#38a169'},
+        {name:'Blue',   style:'background:#3182ce'},
+        {name:'Orange', style:'background:#dd6b20'},
+        {name:'Yellow', style:'background:#d69e2e;color:#000'},
+        {name:'Purple', style:'background:#805ad5'},
+        {name:'Pink',   style:'background:#d53f8c'},
+        {name:'Cyan',   style:'background:#0bc5ea;color:#000'},
+        {name:'Teal',   style:'background:#319795'},
+        {name:'Gray',   style:'background:#718096;color:#fff'},
+        {name:'RGB Glow',  style:'background:linear-gradient(45deg,red,blue,green);box-shadow:0 0 8px cyan;animation:rgbPulse 1s infinite', effect:true},
+        {name:'Spin',      style:'background:conic-gradient(from var(--a),#d69e2e,#d53f8c,#dd6b20,#d69e2e);animation:spin 2s linear infinite', effect:true},
+        {name:'Neon',      style:'background:#000;border:2px solid #48bb78;box-shadow:0 0 10px #48bb78;animation:pulse 0.8s infinite', effect:true},
+        {name:'Ice',       style:'background:#bee3f8;box-shadow:0 0 8px #4299e1;color:#000', effect:true},
+        {name:'Fire',      style:'background:linear-gradient(45deg,#e53e3e,#dd6b20)', effect:true},
+        {name:'Cyber',     style:'background:#d53f8c;box-shadow:0 0 5px #0bc5ea', effect:true}
     ];
+}
 
-    const MAP = RAW.map(function(row) { return row.split(/\s+/); });
-    const ROWS = MAP.length;
-    const COLS = MAP[0].length;
+var palette = generatePalette();
 
-    // Parse map cell -> { type, label }
-    function parseCell(token) {
-        if (token === 's') return { type: 'seat', label: '' };
-        if (token === 'w') return { type: 'wall', label: '' };
-        if (token === 'b') return { type: 'void', label: '' };
-        if (token === 'a') return { type: 'aisle', label: '' };
-        if (token === 'f') return { type: 'stage', label: 'STAGE' };
-        if (token === 'e') return { type: 'soundbooth', label: 'Sound' };
-        if (token === 'x') return { type: 'exit', label: 'EXIT' };
-        // numbered aisle cells
-        if (/^[0-9]+$/.test(token)) return { type: 'aisle', label: token };
-        return { type: 'void', label: '' };
+function initSeatsFromMap() {
+    state.seatsData = [];
+    var r, c;
+    for (r = 0; r < ROWS; r++) {
+        var row = [];
+        for (c = 0; c < COLS; c++) {
+            var p = parseCell(MAP[r][c]);
+            row.push({type:p.type, label:p.label, groupId:null});
+        }
+        state.seatsData.push(row);
     }
-
-    let seatsData = [];
-    let groups = [];
-    let nextGroupId = 1;
-    let activeGroupId = null;
-    let isDragging = false;
-    let currentTheme = 'dark';
-
-    const THEMES = {
-        dark: {
-            name: 'Dark', bgBody: '#1a1a2e', seatDefault: '#2d2d3a', seatText: '#eee',
-            groupsPalette: generatePalette()
-        },
-        light: {
-            name: 'Light', bgBody: '#f0f0f0', seatDefault: '#dddddd', seatText: '#333',
-            groupsPalette: generatePalette()
-        },
-        phoenix: {
-            name: 'Phoenix', bgBody: '#630d13', seatDefault: '#d5d5d7', seatText: '#000',
-            groupsPalette: generatePalette()
-        },
-        ocean: {
-            name: 'Ocean', bgBody: '#0a2f4a', seatDefault: '#1c5a7a', seatText: '#e0f0ff',
-            groupsPalette: generatePalette()
-        },
-        forest: {
-            name: 'Forest', bgBody: '#1a3a1a', seatDefault: '#2d5a2d', seatText: '#e0ffe0',
-            groupsPalette: generatePalette()
-        },
-        sunset: {
-            name: 'Sunset', bgBody: '#4a2a3a', seatDefault: '#7a4a5a', seatText: '#ffe0e0',
-            groupsPalette: generatePalette()
-        },
-        rgb: {
-            name: 'RGB', bgBody: '#000', seatDefault: '#111', seatText: '#fff',
-            groupsPalette: generatePalette()
-        }
-    };
-
-    function generatePalette() {
-        return [
-            { name: 'Red',       style: 'background:#FF4136' },
-            { name: 'Green',     style: 'background:#2ECC40' },
-            { name: 'Blue',      style: 'background:#0074D9' },
-            { name: 'Orange',    style: 'background:#FF851B' },
-            { name: 'Yellow',    style: 'background:#FFDC00;color:#000' },
-            { name: 'Purple',    style: 'background:#B10DC9' },
-            { name: 'Pink',      style: 'background:#F012BE' },
-            { name: 'Cyan',      style: 'background:#39CCCC;color:#000' },
-            { name: 'Teal',      style: 'background:#3D9970' },
-            { name: 'Silver',    style: 'background:#AAAAAA;color:#000' },
-            { name: 'RGB Glow',  style: 'background:linear-gradient(45deg,red,blue,green);box-shadow:0 0 8px cyan;animation:rgbPulse 1s infinite', effect: true },
-            { name: 'Spin',      style: 'background:conic-gradient(from var(--a),#FFE536,#FA16C2,#FF7200,#FFE536);animation:spin 2s linear infinite', effect: true },
-            { name: 'Neon',      style: 'background:#000;border:2px solid #0f0;box-shadow:0 0 12px #0f0;animation:pulse 0.8s infinite', effect: true },
-            { name: 'Ice',       style: 'background:#a0e0ff;box-shadow:0 0 10px #0af;color:#000', effect: true },
-            { name: 'Fire',      style: 'background:linear-gradient(45deg,#ff4500,#ff8c00)', effect: true },
-            { name: 'Cyber',     style: 'background:#ff00cc;box-shadow:0 0 5px #00ffff', effect: true },
-        ];
+    var sbCells = [];
+    for (r = 0; r < ROWS; r++)
+        for (c = 0; c < COLS; c++)
+            if (state.seatsData[r][c].type==='soundbooth') sbCells.push({r:r,c:c});
+    if (sbCells.length) {
+        var mid = sbCells[Math.floor(sbCells.length/2)];
+        state.seatsData[mid.r][mid.c].label = 'Sound Booth';
     }
+    for (r = 17; r < ROWS; r++)
+        for (c = 0; c < COLS; c++)
+            if (state.seatsData[r][c].type==='aisle') state.seatsData[r][c].hasStep = true;
+    renderSeatGrid();
+}
 
-    function initSeatsFromMap() {
-        seatsData = [];
-        for (var r = 0; r < ROWS; r++) {
-            var row = [];
-            for (var c = 0; c < COLS; c++) {
-                var token = MAP[r][c];
-                var parsed = parseCell(token);
-                row.push({
-                    type: parsed.type,
-                    label: parsed.label,
-                    groupId: null
-                });
-            }
-            seatsData.push(row);
-        }
-        // Soundbooth span label - place it at the first soundbooth cell
-        var sbFound = false;
-        for (var r = 0; r < ROWS && !sbFound; r++) {
-            for (var c = 0; c < COLS && !sbFound; c++) {
-                if (seatsData[r][c].type === 'soundbooth') {
-                    seatsData[r][c].label = 'Sound Booth';
-                    sbFound = true;
-                }
-            }
-        }
-        // Step markers: starting from row 4 (index 3 in seating area), add step line to aisle cells
-        // Key says: starting at row 4, the auditorium gains elevation - 1 step per row
-        // Rows 0-3 (map rows 2-5?) have no steps; rows >= 4 have steps
-        // Map rows 2-5 correspond roughly to map indices 2-5 (soundbooth row + first 3 seat rows)
-        // Actually: map indices: 2=e/s row, 3=17, 4=16, 5=15, 6=14...
-        // The step starts at map index 6 (row 14 in seating, which is row index 14)
-        // Let's check: row 17 starts at map index 4, row 16 at index 5, row 15 at index 6...
-        // Row numbering: map index 2=row 18(SB), 3=row 17, 4=row 16, 5=row 15, 6=row 14...
-        // The user says "starting at row 4" which is map index 2+? 
-        // Actually the labels on the map: row 19 is at map index 2 (back), row 1 is at map index 20 (front)
-        // "Row 4" in terms of the formatted seating = map index where label = 4... that's map index 17
-        // So rows with labels 4 and below have steps. Map indices 17-20 have steps.
-        // This means map rows 17 (label 3), 18 (label 2), 19 (label 1), 20-21 (no labels) have steps.
-        // Simpler: just add steps to aisle cells in rows where there are seats below
-        // Rows that have steps: map rows where the row label is <= 4
-        // So map indices 17, 18, 19, 20, 21 have steps on their aisles
-        for (var r = 17; r < ROWS; r++) {
-            for (var c = 0; c < COLS; c++) {
-                if (seatsData[r][c].type === 'aisle') {
-                    seatsData[r][c].hasStep = true;
-                }
-            }
-        }
-        renderSeatGrid();
-    }
-
-    function renderSeatGrid() {
-        var container = document.getElementById('seatGridContainer');
-        container.style.display = 'grid';
-        container.style.gridTemplateColumns = 'repeat(' + COLS + ', 48px)';
-        container.style.gap = '3px';
-        container.innerHTML = '';
-
-        for (var r = 0; r < ROWS; r++) {
-            for (var c = 0; c < COLS; c++) {
-                var seat = seatsData[r][c];
-                var div = document.createElement('div');
-                var cls = 'seat ' + seat.type;
-                if (seat.hasStep) cls += ' with-step';
-                div.className = cls;
-
-                if (seat.type === 'aisle') {
-                    div.textContent = seat.label || '';
-                } else if (seat.type === 'wall' || seat.type === 'void') {
-                    div.textContent = '';
-                } else if (seat.type === 'stage') {
-                    div.textContent = 'STAGE';
-                } else if (seat.type === 'soundbooth') {
-                    div.textContent = seat.label || 'Sound Booth';
-                } else if (seat.type === 'exit') {
-                    div.textContent = 'EXIT';
-                } else if (seat.type === 'seat') {
-                    if (seat.groupId) {
-                        var group = findGroup(seat.groupId);
-                        if (group) {
-                            div.style.cssText = group.style + '; border-radius:10px; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;';
-                            div.textContent = group.name.slice(0, 2);
-                        }
-                    } else {
-                        div.style.background = THEMES[currentTheme].seatDefault;
-                        div.style.color = THEMES[currentTheme].seatText;
+function renderSeatGrid() {
+    var el = document.getElementById('seatGridContainer');
+    el.style.gridTemplateColumns = 'repeat('+COLS+', 44px)';
+    el.style.gap = '2px';
+    el.innerHTML = '';
+    var r, c;
+    for (r = 0; r < ROWS; r++) {
+        for (c = 0; c < COLS; c++) {
+            var s = state.seatsData[r][c];
+            var d = document.createElement('div');
+            var cls = 'seat '+s.type;
+            if (s.hasStep) cls += ' with-step';
+            d.className = cls;
+            if (s.type==='aisle') { d.textContent = s.label||''; }
+            else if (s.type==='stage') { d.textContent = 'STAGE'; }
+            else if (s.type==='soundbooth') { d.textContent = s.label||''; }
+            else if (s.type==='exit') { d.textContent = 'EXIT'; }
+            else if (s.type==='seat') {
+                if (s.groupId) {
+                    var g = findGroup(s.groupId);
+                    if (g) {
+                        d.className += ' painted';
+                        d.style.cssText = g.style+';border-radius:3px;color:#fff;font-size:0.55rem;display:flex;align-items:center;justify-content:center;';
+                        d.textContent = g.name.slice(0,2);
                     }
-                    (function(row, col) {
-                        div.addEventListener('mousedown', function(e) { e.preventDefault(); startPaint(row, col); });
-                        div.addEventListener('mouseenter', function(e) { if (isDragging) paintSeat(row, col); });
-                    })(r, c);
+                } else {
+                    d.style.background = '';
+                    d.style.color = '';
+                    d.style.border = '';
                 }
-
-                container.appendChild(div);
+                (function(rr,cc){
+                    d.addEventListener('mousedown',function(e){e.preventDefault();startPaint(rr,cc);});
+                    d.addEventListener('mouseenter',function(){if(state.isDragging)paintSeat(rr,cc);});
+                })(r,c);
             }
+            el.appendChild(d);
         }
     }
+}
 
-    function findGroup(id) {
-        for (var i = 0; i < groups.length; i++) {
-            if (groups[i].id === id) return groups[i];
-        }
-        return null;
-    }
+function findGroup(id) { for(var i=0;i<state.groups.length;i++) if(state.groups[i].id===id) return state.groups[i]; return null; }
 
-    function startPaint(row, col) { if (activeGroupId) { isDragging = true; paintSeat(row, col); } }
-    function stopPaint() { isDragging = false; }
+function startPaint(r,c) { if(state.activeGroupId){state.isDragging=true;paintSeat(r,c);} }
+function stopPaint() { state.isDragging=false; }
 
-    function paintSeat(row, col) {
-        if (!activeGroupId) return;
-        if (seatsData[row][col].type !== 'seat') return;
-        if (seatsData[row][col].groupId === activeGroupId) return;
+function paintSeat(r,c) {
+    if(!state.activeGroupId||state.seatsData[r][c].type!=='seat'||state.seatsData[r][c].groupId===state.activeGroupId) return;
+    var old=state.seatsData[r][c].groupId;
+    if(old){var og=findGroup(old);if(og)og.seatCount--;}
+    state.seatsData[r][c].groupId=state.activeGroupId;
+    var g=findGroup(state.activeGroupId); if(g)g.seatCount++;
+    renderSeatGrid(); updateGroupCards();
+}
 
-        var oldGroupId = seatsData[row][col].groupId;
-        if (oldGroupId) {
-            var oldGrp = findGroup(oldGroupId);
-            if (oldGrp) oldGrp.seatCount--;
-            updateGroupCards();
-        }
-        seatsData[row][col].groupId = activeGroupId;
-        var group = findGroup(activeGroupId);
-        if (group) {
-            group.seatCount++;
-            updateGroupCards();
-        }
-        renderSeatGrid();
-    }
-
-    function updateGroupCards() {
-        var container = document.getElementById('groupsContainer');
-        container.innerHTML = '';
-        for (var i = 0; i < groups.length; i++) {
-            var group = groups[i];
-            (function(g) {
-                var card = document.createElement('div');
-                var cls = 'group-card';
-                if (activeGroupId === g.id) cls += ' active-card';
-                card.className = cls;
-                var match = g.style.match(/#[A-F0-9]{6}/);
-                card.style.borderLeftColor = match ? match[0] : '#FFE536';
-                card.innerHTML =
-                    '<div class="cog-icon">⚙️</div>' +
-                    '<div class="group-name" style="font-weight:800">' + escapeHtml(g.name) + '</div>' +
-                    '<div class="group-stats">Seats: ' + g.seatCount + '</div>';
-
-                card.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('cog-icon')) {
-                        e.stopPropagation();
-                        showGroupSettings(g);
-                        return;
-                    }
-                    document.getElementById('activeGroupName').innerText = g.name;
-                    activeGroupId = g.id;
-                    updateGroupCards();
-                });
-
-                container.appendChild(card);
-            })(group);
-        }
-        if (groups.length === 0) {
-            activeGroupId = null;
-            document.getElementById('activeGroupName').innerText = 'None';
-        }
-    }
-
-    function escapeHtml(s) {
-        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    function addGroup(styleObj, colorName) {
-        var newId = nextGroupId++;
-        var group = {
-            id: newId,
-            name: 'Group ' + newId,
-            style: styleObj.style,
-            seatCount: 0,
-            styleObj: styleObj
-        };
-        groups.push(group);
-        activeGroupId = newId;
-        document.getElementById('activeGroupName').innerText = group.name;
-        updateGroupCards();
-        return group;
-    }
-
-    function showGroupSettings(group) {
-        var existing = document.querySelector('.settings-menu');
-        if (existing) existing.remove();
-        var menu = document.createElement('div');
-        menu.className = 'settings-menu';
-        menu.style.top = Math.min(window.innerHeight - 250, Math.max(100, window.scrollY + 150)) + 'px';
-        menu.style.left = Math.min(window.innerWidth - 250, Math.max(100, window.scrollX + 200)) + 'px';
-        menu.innerHTML =
-            '<div class="menu-label">Group Name</div>' +
-            '<input type="text" class="group-name-field" value="' + escapeHtml(group.name) + '" placeholder="Group name">' +
-            '<button class="change-color-btn">Change Color / Effect</button>' +
-            '<button class="delete-btn">Delete Group</button>';
-        document.body.appendChild(menu);
-
-        var closeMenu = function(e) { if (!menu.contains(e.target)) menu.remove(); };
-        setTimeout(function() { document.addEventListener('click', closeMenu); }, 0);
-
-        menu.querySelector('.change-color-btn').onclick = function() {
-            menu.remove();
-            openColorPicker(function(newStyle) {
-                group.style = newStyle.style;
-                group.styleObj = newStyle;
-                renderSeatGrid();
-                updateGroupCards();
+function updateGroupCards() {
+    var el=document.getElementById('groupsContainer'); el.innerHTML='';
+    for(var i=0;i<state.groups.length;i++){
+        (function(g){
+            var card=document.createElement('div');
+            card.className='group-card'+(state.activeGroupId===g.id?' active-card':'');
+            var m=g.style.match(/#[A-F0-9]{6}/i);
+            card.style.borderLeftColor=m?m[0]:'var(--accent)';
+            card.innerHTML='<div class="cog-icon">&#9881;</div><div class="group-name">'+esc(g.name)+'</div><div class="group-stats">Seats: '+g.seatCount+'</div>';
+            card.addEventListener('click',function(e){
+                if(e.target.classList.contains('cog-icon')){e.stopPropagation();showGroupSettings(g);return;}
+                state.activeGroupId=g.id; updateGroupCards();
             });
-        };
-
-        menu.querySelector('.delete-btn').onclick = function() {
-            for (var r = 0; r < seatsData.length; r++) {
-                for (var c = 0; c < seatsData[0].length; c++) {
-                    if (seatsData[r][c].groupId === group.id) seatsData[r][c].groupId = null;
-                }
-            }
-            groups = groups.filter(function(g) { return g.id !== group.id; });
-            if (activeGroupId === group.id) activeGroupId = groups.length > 0 ? groups[0].id : null;
-            renderSeatGrid();
-            updateGroupCards();
-            menu.remove();
-        };
-
-        var inputField = menu.querySelector('.group-name-field');
-        inputField.addEventListener('change', function(e) {
-            group.name = e.target.value || group.name;
-            updateGroupCards();
-        });
-        inputField.focus();
-        inputField.select();
+            el.appendChild(card);
+        })(state.groups[i]);
     }
+    if(!state.groups.length){state.activeGroupId=null;}
+}
 
-    function openColorPicker(callback) {
-        var modal = document.createElement('div');
-        modal.className = 'modal';
-        var palette = THEMES[currentTheme].groupsPalette;
-        modal.innerHTML =
-            '<div class="modal-content">' +
-                '<h2>COLORS AND EFFECTS</h2>' +
-                '<div class="color-grid" id="colorGridPopup"></div>' +
-            '</div>';
-        document.body.appendChild(modal);
-        var gridDiv = modal.querySelector('#colorGridPopup');
-        for (var i = 0; i < palette.length; i++) {
-            (function(opt) {
-                var optDiv = document.createElement('div');
-                optDiv.className = 'color-option';
-                var circleClass = 'color-circle' + (opt.effect ? ' effect' : '');
-                optDiv.innerHTML = '<div class="' + circleClass + '" style="' + opt.style + '"></div><div class="color-name">' + opt.name + '</div>';
-                optDiv.onclick = function() {
-                    callback({ style: opt.style, name: opt.name });
-                    modal.remove();
-                };
-                gridDiv.appendChild(optDiv);
-            })(palette[i]);
-        }
-        modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
-    }
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-    function applyTheme(themeKey) {
-        currentTheme = themeKey;
-        var theme = THEMES[themeKey];
-        document.body.style.background = theme.bgBody;
-        renderSeatGrid();
-    }
+function addGroup(obj) {
+    var g={id:state.nextGroupId++,name:'Group '+state.nextGroupId,style:obj.style,seatCount:0};
+    state.groups.push(g); state.activeGroupId=g.id;
+    updateGroupCards(); return g;
+}
 
-    function clearAll() {
-        if (confirm('Clear all groups and painted seats?')) {
-            groups = [];
-            activeGroupId = null;
-            for (var r = 0; r < seatsData.length; r++)
-                for (var c = 0; c < seatsData[0].length; c++)
-                    if (seatsData[r][c].type === 'seat') seatsData[r][c].groupId = null;
-            renderSeatGrid();
-            updateGroupCards();
-        }
-    }
-
-    // -------- BIND EVENTS --------
-    document.getElementById('addGroupBtn').onclick = function() {
-        openColorPicker(function(styleObj) {
-            addGroup(styleObj, styleObj.name);
-        });
+function showGroupSettings(group) {
+    var old=document.querySelector('.settings-menu'); if(old)old.remove();
+    var m=document.createElement('div'); m.className='settings-menu';
+    m.style.top=Math.min(innerHeight-220,Math.max(80,scrollY+120))+'px';
+    m.style.left=Math.min(innerWidth-240,Math.max(80,scrollX+160))+'px';
+    m.innerHTML='<div class="menu-label">Group Name</div><input type="text" class="group-name-field" value="'+esc(group.name)+'"><button class="change-color-btn">Change Color / Effect</button><button class="delete-btn">Delete Group</button>';
+    document.body.appendChild(m);
+    var close=function(e){if(!m.contains(e.target))m.remove();};
+    setTimeout(function(){document.addEventListener('click',close);},0);
+    m.querySelector('.change-color-btn').onclick=function(){m.remove();openColorPicker(function(o){group.style=o.style;renderSeatGrid();updateGroupCards();});};
+    m.querySelector('.delete-btn').onclick=function(){
+        for(var r=0;r<state.seatsData.length;r++)for(var c=0;c<COLS;c++)if(state.seatsData[r][c].groupId===group.id)state.seatsData[r][c].groupId=null;
+        state.groups=state.groups.filter(function(g){return g.id!==group.id;});
+        if(state.activeGroupId===group.id)state.activeGroupId=state.groups.length?state.groups[0].id:null;
+        renderSeatGrid();updateGroupCards();m.remove();
     };
+    var inp=m.querySelector('.group-name-field');
+    inp.addEventListener('change',function(e){group.name=e.target.value||group.name;updateGroupCards();});
+    inp.focus(); inp.select();
+}
 
-    document.getElementById('colorSchemesBtn').onclick = function() {
-        var modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.innerHTML =
-            '<div class="modal-content">' +
-                '<h2>COLOR SCHEMES</h2>' +
-                '<div class="color-grid" id="schemesGrid"></div>' +
-            '</div>';
-        document.body.appendChild(modal);
-        var grid = modal.querySelector('#schemesGrid');
-        Object.keys(THEMES).forEach(function(key) {
-            var btn = document.createElement('div');
-            btn.className = 'color-option';
-            btn.innerHTML = '<div class="color-circle" style="background:' + THEMES[key].seatDefault + '; border:2px solid white;"></div><div class="color-name">' + THEMES[key].name + '</div>';
-            btn.onclick = function() {
-                applyTheme(key);
-                modal.remove();
+function openColorPicker(cb) {
+    var md=document.createElement('div'); md.className='modal';
+    md.innerHTML='<div class="modal-content"><h2>Colors and Effects</h2><div class="color-grid" id="cgp"></div></div>';
+    document.body.appendChild(md);
+    var g=md.querySelector('#cgp');
+    for(var i=0;i<palette.length;i++){
+        (function(o){
+            var d=document.createElement('div'); d.className='color-option';
+            var cc='color-circle'+(o.effect?' effect':'');
+            d.innerHTML='<div class="'+cc+'" style="'+o.style+'"></div><div class="color-name">'+o.name+'</div>';
+            d.onclick=function(){cb({style:o.style,name:o.name});md.remove();};
+            g.appendChild(d);
+        })(palette[i]);
+    }
+    md.onclick=function(e){if(e.target===md)md.remove();};
+}
+
+function clearAll() {
+    if(!confirm('Clear all groups and painted seats?')) return;
+    state.groups=[]; state.activeGroupId=null;
+    for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++)if(state.seatsData[r][c].type==='seat')state.seatsData[r][c].groupId=null;
+    renderSeatGrid(); updateGroupCards();
+}
+
+document.getElementById('addGroupBtn').onclick=function(){
+    var md=document.createElement('div'); md.className='modal';
+    md.innerHTML='<div class="modal-content"><h2>New Group</h2><input type="text" id="newGroupName" class="group-name-field" placeholder="Class name" autocomplete="off"><div class="color-grid" id="cgp"></div></div>';
+    document.body.appendChild(md);
+    var nameField=md.querySelector('#newGroupName');
+    var chosen=null;
+    var g=md.querySelector('#cgp');
+    for(var i=0;i<palette.length;i++){
+        (function(o){
+            var d=document.createElement('div'); d.className='color-option';
+            var cc='color-circle'+(o.effect?' effect':'');
+            d.innerHTML='<div class="'+cc+'" style="'+o.style+'"></div><div class="color-name">'+o.name+'</div>';
+            d.onclick=function(){
+                var name=nameField.value.trim()||'Group '+(state.nextGroupId);
+                var grp=addGroup({style:o.style,name:o.name});
+                grp.name=name;
+                updateGroupCards();
+                md.remove();
             };
-            grid.appendChild(btn);
-        });
-        modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
-    };
+            g.appendChild(d);
+        })(palette[i]);
+    }
+    md.onclick=function(e){if(e.target===md)md.remove();};
+    setTimeout(function(){nameField.focus();},0);
+};
+document.getElementById('clearAllBtn').onclick=clearAll;
+document.addEventListener('mouseup',stopPaint);
 
-    document.getElementById('clearAllBtn').onclick = clearAll;
-    document.addEventListener('mouseup', stopPaint);
+initSeatsFromMap();
 
-    initSeatsFromMap();
-    applyTheme('dark');
+})();
 </script>
 </body>
 </html>
