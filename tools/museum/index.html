@@ -78,9 +78,7 @@
   <script type="importmap">
   {
     "imports": {
-      "threepipe": "https://unpkg.com/threepipe@0.5.0/dist/index.mjs",
-      "@threepipe/plugin-tweakpane": "https://unpkg.com/@threepipe/plugin-tweakpane@0.10.1/dist/index.mjs",
-      "@threepipe/plugin-tweakpane-editor": "https://unpkg.com/@threepipe/plugin-tweakpane-editor@0.4.1/dist/index.mjs"
+      "threepipe": "https://unpkg.com/threepipe@0.5.0/dist/index.mjs"
     }
   }
   </script>
@@ -88,7 +86,7 @@
   <script type="module">
     import {
       ThreeViewer, TonemapPlugin, PickingPlugin,
-      PointerLockControlsPlugin, UndoManagerPlugin,
+      UndoManagerPlugin,
       FullScreenPlugin, AssetExporterPlugin, CanvasSnapshotPlugin, Color,
       PhysicalMaterial, Mesh, BoxGeometry, PlaneGeometry, SphereGeometry,
       CylinderGeometry, TorusKnotGeometry, TextureLoader,
@@ -96,7 +94,6 @@
       Vector3, Box3, RepeatWrapping, BackSide
     } from 'threepipe';
 
-    import { TweakpaneUiPlugin } from '@threepipe/plugin-tweakpane';
 
     /* ===================== DOM REFS ===================== */
 
@@ -122,13 +119,29 @@
       PickingPlugin,
       UndoManagerPlugin,
       FullScreenPlugin,
-      PointerLockControlsPlugin,
       AssetExporterPlugin,
       CanvasSnapshotPlugin,
     ];
     await viewer.addPlugins(corePlugins);
 
-    viewer.addPluginSync(new TweakpaneUiPlugin(true));
+    /* ===================== POINTER LOCK ===================== */
+
+    const renderer = viewer.renderManager.renderer;
+    let isLocked = false;
+
+    document.addEventListener('pointerlockchange', () => {
+      isLocked = document.pointerLockElement === renderer.domElement;
+      blocker.classList.toggle('hidden', isLocked);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isLocked) return;
+      const cam = viewer.camera;
+      cam.rotation.order = 'YXZ';
+      cam.rotation.y -= e.movementX * 0.002;
+      cam.rotation.x -= e.movementY * 0.002;
+      cam.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, cam.rotation.x));
+    });
 
     /* ===================== LIGHTING ===================== */
 
@@ -475,19 +488,14 @@
       if (!collides(camera.position.x, nz, 0.3, obstacles)) camera.position.z = nz;
     }
 
-    // Blocked click → enter pointer lock
     blocker.addEventListener('click', () => {
-      viewer.scene.mainCamera.controlsMode = 'pointerLock';
+      renderer.domElement.requestPointerLock();
     });
 
     /* ===================== ANIMATION LOOP ===================== */
 
     viewer.addEventListener('preFrame', (ev) => {
       const dt = Math.min((ev.deltaTime || ev.timeline?.delta || 16) / 1000, 0.05);
-
-      if (viewer.scene.mainCamera.controlsMode === 'pointerLock' && !blocker.classList.contains('hidden')) {
-        blocker.classList.add('hidden');
-      }
 
       for (const a of artifacts) a.update(dt);
       movePlayer(dt);
