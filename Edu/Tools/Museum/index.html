@@ -7,7 +7,10 @@
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; }
-    canvas { display: block; }
+    #canvas {
+        position: fixed; top: 0; left: 0;
+        width: 100vw; height: 100vh; display: block;
+    }
 
     #blocker {
         position: fixed; inset: 0;
@@ -88,6 +91,8 @@
 </head>
 <body>
 
+<canvas id="canvas"></canvas>
+
 <div id="blocker">
     <div id="instructions">
         <h1>&#9670; MUSEUM OF MR. K</h1>
@@ -112,13 +117,17 @@
 {
     "imports": {
         "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "threepipe": "https://unpkg.com/threepipe@latest/dist/index.mjs",
+        "@threepipe/plugin-tweakpane": "https://unpkg.com/@threepipe/plugin-tweakpane@latest/dist/index.mjs"
     }
 }
 </script>
 
 <script type="module">
 import * as THREE from 'three';
+import { ThreeViewer } from 'threepipe';
+import { TweakpaneUiPlugin } from '@threepipe/plugin-tweakpane';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
 // ── DOM refs ──────────────────────────────────────────────────────────
@@ -129,22 +138,30 @@ const labelEl    = hud.querySelector('.artifact-label');
 const speakEl    = hud.querySelector('.speaking');
 const descEl     = hud.querySelector('.artifact-desc');
 
-// ── Scene ─────────────────────────────────────────────────────────────
-const scene = new THREE.Scene();
+// ── ThreeViewer ───────────────────────────────────────────────────────
+const viewer = new ThreeViewer({
+    canvas: document.getElementById('canvas'),
+    msaa: true,
+    renderScale: 'auto',
+    tonemap: true,
+});
+
+viewer.addPluginSync(new TweakpaneUiPlugin(true));
+
+const scene  = viewer.scene;
+const camera = viewer.camera;
+const renderer = viewer.renderManager.renderer;
+
 scene.background = new THREE.Color(0x1a1a2e);
 scene.fog = new THREE.Fog(0x1a1a2e, 18, 35);
 
-const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 50);
+camera.fov = 70;
 camera.position.set(0, 1.7, 9);
+camera.updateProjectionMatrix();
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2;
-document.body.prepend(renderer.domElement);
+
 
 // ── Controls ──────────────────────────────────────────────────────────
 const controls = new PointerLockControls(camera, renderer.domElement);
@@ -250,7 +267,6 @@ function addCollisionBox(x1, y1, z1, x2, y2, z2) {
 const wallHeight = 5;
 const W = 0.25;
 
-// Helper: create visible wall + collision box
 function createWall(w, h, d, x, y, z) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
     mesh.position.set(x, y, z);
@@ -263,16 +279,15 @@ function createWall(w, h, d, x, y, z) {
 }
 
 const roomSize = 12;
-createWall(W, wallHeight, roomSize * 2, -roomSize, wallHeight / 2, 0);            // left
-createWall(W, wallHeight, roomSize * 2,  roomSize, wallHeight / 2, 0);            // right
-createWall(roomSize * 2, wallHeight, W, 0, wallHeight / 2, -roomSize);             // back
+createWall(W, wallHeight, roomSize * 2, -roomSize, wallHeight / 2, 0);
+createWall(W, wallHeight, roomSize * 2,  roomSize, wallHeight / 2, 0);
+createWall(roomSize * 2, wallHeight, W, 0, wallHeight / 2, -roomSize);
 
-// Front walls with 6-unit entrance gap
 const entranceHalf = 3;
 createWall(roomSize - entranceHalf, wallHeight, W,
-    -(roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);           // front-left
+    -(roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);
 createWall(roomSize - entranceHalf, wallHeight, W,
-    (roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);             // front-right
+    (roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);
 
 // ── Pedestals ─────────────────────────────────────────────────────────
 const pedMat = new THREE.MeshStandardMaterial({
@@ -292,7 +307,7 @@ function createPedestal(x, z) {
 // ── Artifacts ─────────────────────────────────────────────────────────
 const artifacts = [];
 
-// Artifact 1: Rotating cube with retro-computer texture (earth url as placeholder)
+// Artifact 1: Rotating cube with retro-computer texture
 {
     const mat = new THREE.MeshStandardMaterial({ roughness: 0.3, metalness: 0.1 });
     const loader = new THREE.TextureLoader();
@@ -301,7 +316,6 @@ const artifacts = [];
         (tex) => { mat.map = tex; mat.needsUpdate = true; },
         undefined,
         () => {
-            // fallback: generate a retro-computer-looking canvas texture
             const c = document.createElement('canvas');
             c.width = 256; c.height = 256;
             const ctx = c.getContext('2d');
@@ -327,7 +341,7 @@ const artifacts = [];
         center: new THREE.Vector3(-5, 1.2, -5),
         label: 'Retro Computer',
         audio: 'This is my first computer, a Commodore 64.',
-        desc: 'Circa 1982 – 8-bit home computing'
+        desc: 'Circa 1982 \u2013 8-bit home computing'
     });
 }
 
@@ -349,7 +363,7 @@ const artifacts = [];
         center: new THREE.Vector3(5, 1.2, -5),
         label: 'Vintage Console',
         audio: 'This is my favorite vintage console.',
-        desc: 'Limited edition – only 500 ever made'
+        desc: 'Limited edition \u2013 only 500 ever made'
     });
 }
 
@@ -410,7 +424,6 @@ const artifacts = [];
     sign.position.set(0, 4.2, 10.8);
     scene.add(sign);
 
-    // Two small support posts
     const postMat = new THREE.MeshStandardMaterial({ color: 0x5a4a3a, roughness: 0.8 });
     for (const sx of [-1.8, 1.8]) {
         const post = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.8, 6), postMat);
@@ -468,10 +481,8 @@ function applyMovement(delta) {
         camera.position.copy(target);
         return;
     }
-    // Try X only
     const xOnly = cur.clone().add(new THREE.Vector3(delta.x, 0, 0));
     if (!checkCollision(xOnly)) camera.position.x = xOnly.x;
-    // Try Z only
     const zOnly = cur.clone().add(new THREE.Vector3(0, 0, delta.z));
     if (!checkCollision(zOnly)) camera.position.z = zOnly.z;
 }
@@ -541,15 +552,17 @@ function handleInteraction() {
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ── Animation loop ────────────────────────────────────────────────────
-const clock = new THREE.Clock();
+// ── Game loop ─────────────────────────────────────────────────────────
+let prevTime = performance.now();
 
-function animate() {
-    requestAnimationFrame(animate);
-    const delta = clock.getDelta();
+function gameLoop() {
+    requestAnimationFrame(gameLoop);
+
+    const now = performance.now();
+    const delta = Math.min((now - prevTime) / 1000, 0.1);
+    prevTime = now;
 
     if (controls.isLocked) {
         const forward = new THREE.Vector3();
@@ -581,11 +594,9 @@ function animate() {
     if (artifacts[2] && artifacts[2].mesh) {
         artifacts[2].mesh.children[1].rotation.y += 0.3 * delta;
     }
-
-    renderer.render(scene, camera);
 }
 
-animate();
+gameLoop();
 </script>
 </body>
 </html>
