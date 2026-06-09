@@ -205,53 +205,16 @@ addOverheadLight(-5, 5, 0xeeddff, 0.4);
 addOverheadLight(5, 5, 0xeeddff, 0.4);
 addOverheadLight(0, 9, 0xffeedd, 0.5);
 
-// ── Materials ─────────────────────────────────────────────────────────
-const floorMat = new THREE.MeshStandardMaterial({
-    roughness: 0.7, metalness: 0.05
-});
-const wallMat = new THREE.MeshStandardMaterial({
-    color: 0xe4dcc8, roughness: 0.9, metalness: 0, side: THREE.DoubleSide
-});
-const ceilMat = new THREE.MeshStandardMaterial({
-    color: 0xf0ece4, roughness: 0.95, metalness: 0, side: THREE.BackSide
-});
-
-// ── Floor ─────────────────────────────────────────────────────────────
+// ── Safety floor (fallback ground) ────────────────────────────────────
 {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512; canvas.height = 512;
-    const ctx = canvas.getContext('2d');
-    const cs = 512 / 8;
-    for (let i = 0; i < 8; i++) {
-        for (let j = 0; j < 8; j++) {
-            ctx.fillStyle = (i + j) % 2 === 0 ? '#d4cfc8' : '#c4bfb8';
-            ctx.fillRect(i * cs, j * cs, cs, cs);
-        }
-    }
-    ctx.strokeStyle = 'rgba(0,0,0,0.04)';
-    ctx.lineWidth = 1;
-    for (let k = 0; k <= 8; k++) {
-        ctx.beginPath(); ctx.moveTo(k * cs, 0); ctx.lineTo(k * cs, 512); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0, k * cs); ctx.lineTo(512, k * cs); ctx.stroke();
-    }
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set(3, 3);
-    floorMat.map = tex;
-
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(24, 24), floorMat);
+    const floor = new THREE.Mesh(
+        new THREE.PlaneGeometry(50, 50),
+        new THREE.MeshStandardMaterial({ color: 0x3a3a3a, side: THREE.DoubleSide })
+    );
     floor.rotation.x = -Math.PI / 2;
-    floor.position.set(0, 0, 0);
+    floor.position.set(0, -0.01, 0);
     floor.receiveShadow = true;
     scene.add(floor);
-}
-
-// ── Ceiling ───────────────────────────────────────────────────────────
-{
-    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(24, 24), ceilMat);
-    ceil.rotation.x = Math.PI / 2;
-    ceil.position.set(0, 5, 0);
-    scene.add(ceil);
 }
 
 // ── Collision world ───────────────────────────────────────────────────
@@ -263,31 +226,7 @@ function addCollisionBox(x1, y1, z1, x2, y2, z2) {
     ));
 }
 
-// ── Walls ─────────────────────────────────────────────────────────────
-const wallHeight = 5;
-const W = 0.25;
 
-function createWall(w, h, d, x, y, z) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), wallMat);
-    mesh.position.set(x, y, z);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    scene.add(mesh);
-    const hw = w / 2, hh = h / 2, hd = d / 2;
-    addCollisionBox(x - hw, y - hh, z - hd, x + hw, y + hh, z + hd);
-    return mesh;
-}
-
-const roomSize = 12;
-createWall(W, wallHeight, roomSize * 2, -roomSize, wallHeight / 2, 0);
-createWall(W, wallHeight, roomSize * 2,  roomSize, wallHeight / 2, 0);
-createWall(roomSize * 2, wallHeight, W, 0, wallHeight / 2, -roomSize);
-
-const entranceHalf = 3;
-createWall(roomSize - entranceHalf, wallHeight, W,
-    -(roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);
-createWall(roomSize - entranceHalf, wallHeight, W,
-    (roomSize + roomSize - entranceHalf) / 2, wallHeight / 2, roomSize);
 
 // ── Pedestals ─────────────────────────────────────────────────────────
 const pedMat = new THREE.MeshStandardMaterial({
@@ -431,6 +370,24 @@ const artifacts = [];
         scene.add(post);
     }
 }
+
+// ── GLB Environment ──────────────────────────────────────────────────
+viewer.load('./museum/museum.glb', {
+    autoCenter: false,
+    autoScale: false,
+}).then(model => {
+    if (model) {
+        const envBox = new THREE.Box3().setFromObject(model);
+        if (envBox.min.x !== Infinity && envBox.min.z !== Infinity) {
+            const h = 5, m = 0.3;
+            addCollisionBox(envBox.min.x - m, 0, envBox.min.z - m, envBox.max.x + m, h, envBox.min.z + m);
+            addCollisionBox(envBox.min.x - m, 0, envBox.min.z - m, envBox.min.x + m, h, envBox.max.z + m);
+            addCollisionBox(envBox.max.x - m, 0, envBox.min.z - m, envBox.max.x + m, h, envBox.max.z + m);
+        }
+    }
+}).catch(err => {
+    console.warn('museum.glb not loaded:', err);
+});
 
 // ── Keyboard state ────────────────────────────────────────────────────
 const keys = { w: false, a: false, s: false, d: false };
