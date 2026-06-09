@@ -377,13 +377,13 @@ const CRITERIA = {
   D: {
     items: [
       {
-        code: "Di", label: "Write Interview Questions",
+        code: "Di", label: "Choose Interview Questions",
         options: [
-          { score: "0",   text: "No work completed.", s: () => `They did not write interview questions or conduct interviews.` },
-          { score: "1–2", text: "Questions are <strong>closed-ended or trivial</strong>; interviews did not generate useful feedback.", s: n => `${n} wrote interview questions, though they are closed-ended or trivial and any interviews conducted did not generate useful feedback for evaluating the set.` },
-          { score: "3–4", text: "Some reasonable questions; interviews conducted; <strong>follow-up discussion limited</strong>.", s: n => `${n} wrote some reasonable interview questions and conducted interviews, though the questions are not consistently qualitative and follow-up discussion was limited.` },
-          { score: "5–6", text: "Qualitative questions; interviews completed with <strong>some follow-up</strong> to gather more useful feedback.", s: n => `${n} wrote qualitative interview questions, conducted interviews, and engaged in some follow-up discussion to gather more useful feedback beyond initial responses.` },
-          { score: "7–8", text: "<strong>Strong qualitative questions</strong>; interviews with follow-up discussion; <strong>replaced unhelpful respondents</strong> to ensure useful data.", s: n => `${n} wrote strong qualitative interview questions, conducted interviews with follow-up discussion to gather meaningful feedback, and sought out useful respondents — replacing those who gave only closed-ended or unhelpful answers.` }
+          { score: "0",   text: "No work completed.", s: () => `They did not choose interview questions or conduct interviews.` },
+          { score: "1–2", text: "Chosen questions are <strong>closed-ended or trivial</strong>; interviews did not generate useful feedback.", s: n => `${n} chose interview questions from the provided question bank, though the selected questions are closed-ended or trivial and any interviews conducted did not generate useful feedback for evaluating the set.` },
+          { score: "3–4", text: "Some reasonable questions chosen; interviews conducted; <strong>follow-up discussion limited</strong>.", s: n => `${n} chose some reasonable interview questions from the provided question bank and conducted interviews, though the questions are not consistently qualitative and follow-up discussion was limited.` },
+          { score: "5–6", text: "Qualitative questions chosen; interviews completed with <strong>some follow-up</strong> to gather more useful feedback.", s: n => `${n} chose qualitative interview questions from the provided question bank, conducted interviews, and engaged in some follow-up discussion to gather more useful feedback beyond initial responses.` },
+          { score: "7–8", text: "<strong>Strong qualitative questions</strong> chosen; interviews with follow-up discussion; <strong>replaced unhelpful respondents</strong> to ensure useful data.", s: n => `${n} chose strong qualitative interview questions from the provided question bank, conducted interviews with follow-up discussion to gather meaningful feedback, and sought out useful respondents — replacing those who gave only closed-ended or unhelpful answers.` }
         ]
       },
       {
