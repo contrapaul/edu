@@ -127,7 +127,7 @@
       PhysicalMaterial, Mesh, BoxGeometry, PlaneGeometry, SphereGeometry,
       CylinderGeometry, TorusKnotGeometry, TextureLoader,
       CanvasTexture, Fog, MeshStandardMaterial,
-      Vector3, RepeatWrapping, BackSide
+      Vector3, Box3, RepeatWrapping, BackSide
     } from 'threepipe';
 
     import { TweakpaneUiPlugin } from '@threepipe/plugin-tweakpane';
@@ -219,66 +219,7 @@
 
     /* ===================== ENVIRONMENT ===================== */
 
-    function createCheckerTexture(size, checks, c1, c2) {
-      const canvas = document.createElement('canvas');
-      canvas.width = size; canvas.height = size;
-      const ctx = canvas.getContext('2d');
-      const cell = size / checks;
-      for (let i = 0; i < checks; i++) {
-        for (let j = 0; j < checks; j++) {
-          ctx.fillStyle = (i + j) % 2 === 0 ? c1 : c2;
-          ctx.fillRect(i * cell, j * cell, cell, cell);
-        }
-      }
-      const tex = new CanvasTexture(canvas);
-      tex.wrapS = tex.wrapT = RepeatWrapping;
-      tex.repeat.set(8, 8);
-      return tex;
-    }
-
-    const floorTex = createCheckerTexture(512, 8, '#c8c0b0', '#b0a898');
-    const floorMat = new PhysicalMaterial({ roughness: 0.7, metalness: 0.05 });
-    floorMat.map = floorTex;
-    floorMat.needsUpdate = true;
-    const floor = new Mesh(new PlaneGeometry(26, 26), floorMat);
-    floor.rotation.x = -Math.PI / 2;
-    floor.receiveShadow = true;
-    floor.name = 'Floor';
-    viewer.scene.addObject(floor);
-
-    const ceilMat = new PhysicalMaterial({ color: 0x2a2a3a, roughness: 0.9, side: BackSide });
-    const ceiling = new Mesh(new PlaneGeometry(24, 24), ceilMat);
-    ceiling.rotation.x = Math.PI / 2;
-    ceiling.position.y = 6;
-    ceiling.name = 'Ceiling';
-    viewer.scene.addObject(ceiling);
-
-    const wallMat = new PhysicalMaterial({ color: 0xe8ddd0, roughness: 0.85 });
-
-    function addWall(w, h, d, x, y, z, name) {
-      const m = new Mesh(new BoxGeometry(w, h, d), wallMat);
-      m.position.set(x, y, z);
-      m.castShadow = true; m.receiveShadow = true;
-      m.name = name || 'Wall';
-      viewer.scene.addObject(m);
-    }
-
-    addWall(24, 6, 0.3, 0, 3, -12, 'Back Wall');
-    addWall(0.3, 6, 24, -12, 3, 0, 'Left Wall');
-    addWall(0.3, 6, 24, 12, 3, 0, 'Right Wall');
-    addWall(8.5, 6, 0.3, -7.75, 3, 12, 'Front Wall Left');
-    addWall(8.5, 6, 0.3, 7.75, 3, 12, 'Front Wall Right');
-    addWall(3.5, 2, 0.3, 0, 5, 12, 'Front Wall Top');
-
-    /* ===================== COLLISION ===================== */
-
-    const obstacles = [
-      { minX: -12.15, minZ: -12.15, maxX: 12.15, maxZ: -11.85 },
-      { minX: -12.15, minZ: -11.85, maxX: -11.85, maxZ: 11.85 },
-      { minX: 11.85, minZ: -11.85, maxX: 12.15, maxZ: 11.85 },
-      { minX: -12.15, minZ: 11.85, maxX: -3.5, maxZ: 12.15 },
-      { minX: 3.5, minZ: 11.85, maxX: 12.15, maxZ: 12.15 },
-    ];
+    const obstacles = [];
 
     function collides(x, z, r, list) {
       for (const o of list) {
@@ -286,6 +227,28 @@
       }
       return false;
     }
+
+    // Fallback floor in case GLB lacks ground
+    const fallbackFloor = new Mesh(new PlaneGeometry(100, 100),
+      new MeshStandardMaterial({ color: 0x2a2a2a, side: BackSide }));
+    fallbackFloor.rotation.x = -Math.PI / 2;
+    fallbackFloor.position.y = -0.01;
+    viewer.scene.addObject(fallbackFloor);
+
+    // Load museum environment
+    viewer.load('./museum/museum.glb', { autoCenter: false, autoScale: false }).then(model => {
+      if (model) {
+        const box = new Box3().setFromObject(model);
+        if (box.min.x !== Infinity) {
+          const m = 0.3;
+          obstacles.push(
+            { minX: box.min.x - m, minZ: box.min.z - m, maxX: box.max.x + m, maxZ: box.min.z + m },
+            { minX: box.min.x - m, minZ: box.min.z - m, maxX: box.min.x + m, maxZ: box.max.z + m },
+            { minX: box.max.x - m, minZ: box.min.z - m, maxX: box.max.x + m, maxZ: box.max.z + m },
+          );
+        }
+      }
+    }).catch(err => console.warn('museum.glb not loaded:', err));
 
     /* ===================== ARTIFACTS ===================== */
 
