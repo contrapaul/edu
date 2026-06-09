@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Museum of Mr. K — Threepipe Editor</title>
+  <title>Museum of Mr. K</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { overflow: hidden; background: #000; font-family: 'Segoe UI', Arial, sans-serif; }
@@ -26,24 +26,13 @@
     }
     #instructions h1 {
       font-size: 2rem; font-weight: 300; letter-spacing: 4px;
-      margin-bottom: 0.5rem; color: #d4af37;
-    }
-    #instructions .sub {
-      font-size: 0.8rem; color: #888; margin-bottom: 1.5rem;
+      margin-bottom: 1rem; color: #d4af37;
     }
     #instructions p { font-size: 0.9rem; line-height: 1.7; color: #ccc; }
     #instructions kbd {
       background: rgba(255,255,255,0.15); padding: 2px 8px;
       border-radius: 4px; font-size: 0.85rem;
     }
-    #instructions .btn-explore {
-      display: inline-block; margin-top: 1.5rem;
-      padding: 0.7rem 2.5rem; font-size: 1.1rem;
-      background: #d4af37; color: #1a1a2e; border: none;
-      border-radius: 6px; cursor: pointer; font-weight: 600;
-      letter-spacing: 1px; transition: background 0.2s;
-    }
-    #instructions .btn-explore:hover { background: #e8c44a; }
 
     #prompt {
       position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%);
@@ -65,22 +54,6 @@
       pointer-events: none; transition: opacity 0.3s;
     }
     #status.hidden { opacity: 0; }
-
-    #mode-label {
-      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-      z-index: 5; font-size: 0.75rem; color: rgba(255,255,255,0.5);
-      background: rgba(0,0,0,0.5); padding: 6px 16px; border-radius: 20px;
-      letter-spacing: 1px; text-transform: uppercase;
-      transition: opacity 0.3s; display: flex; gap: 12px; align-items: center;
-    }
-    #mode-label.hidden { display: none; }
-    #mode-label span { pointer-events: none; }
-    .btn-exit {
-      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; padding: 2px 10px; border-radius: 12px; cursor: pointer;
-      font-size: 0.7rem; letter-spacing: 0.5px; transition: background 0.2s;
-    }
-    .btn-exit:hover { background: rgba(255,255,255,0.25); }
   </style>
 </head>
 <body>
@@ -88,21 +61,16 @@
   <div id="blocker">
     <div id="instructions">
       <h1>Museum of Mr. K</h1>
-      <div class="sub">— powered by Threepipe —</div>
       <p>
         <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> to walk &nbsp;·&nbsp; <kbd>E</kbd> to listen near artifacts<br>
-        <span style="font-size:0.8rem;color:#888;">Move mouse to look around &nbsp;·&nbsp; <kbd>Esc</kbd> to return to editor</span>
+        <span style="font-size:0.8rem;color:#888;">Move mouse to look around</span>
       </p>
-      <button class="btn-explore" id="btn-explore">Enter Museum</button>
+      <p style="margin-top:1.5rem;font-size:1.1rem;color:#d4af37;">Click to explore</p>
     </div>
   </div>
 
   <div id="prompt" class="hidden">Press <kbd>E</kbd> to listen</div>
   <div id="status" class="hidden"></div>
-  <div id="mode-label" class="hidden">
-    <span>Explore Mode — Click view to lock · <kbd>Esc</kbd> to unlock</span>
-    <button class="btn-exit" id="btn-exit">Exit to Editor</button>
-  </div>
 
   <canvas id="mcanvas"></canvas>
 
@@ -119,11 +87,9 @@
 
   <script type="module">
     import {
-      ThreeViewer, TonemapPlugin, PickingPlugin, ViewerUiConfigPlugin,
-      TransformControlsPlugin, AssetExporterPlugin, DropzonePlugin,
-      PointerLockControlsPlugin, UndoManagerPlugin, EditorViewWidgetPlugin,
-      FullScreenPlugin, CanvasSnapshotPlugin, Color,
-      HemisphereLight, DirectionalLight, PointLight, AmbientLight,
+      ThreeViewer, TonemapPlugin, PickingPlugin,
+      PointerLockControlsPlugin, UndoManagerPlugin,
+      FullScreenPlugin, AssetExporterPlugin, CanvasSnapshotPlugin, Color,
       PhysicalMaterial, Mesh, BoxGeometry, PlaneGeometry, SphereGeometry,
       CylinderGeometry, TorusKnotGeometry, TextureLoader,
       CanvasTexture, Fog, MeshStandardMaterial,
@@ -131,15 +97,12 @@
     } from 'threepipe';
 
     import { TweakpaneUiPlugin } from '@threepipe/plugin-tweakpane';
-    import { TweakpaneEditorPlugin, HierarchyUiPlugin } from '@threepipe/plugin-tweakpane-editor';
 
     /* ===================== DOM REFS ===================== */
 
     const blocker = document.getElementById('blocker');
-    const btnExplore = document.getElementById('btn-explore');
     const promptEl = document.getElementById('prompt');
     const statusEl = document.getElementById('status');
-    const modeLabel = document.getElementById('mode-label');
 
     /* ===================== VIEWER ===================== */
 
@@ -158,7 +121,6 @@
       TonemapPlugin,
       PickingPlugin,
       UndoManagerPlugin,
-      EditorViewWidgetPlugin,
       FullScreenPlugin,
       PointerLockControlsPlugin,
       AssetExporterPlugin,
@@ -166,56 +128,11 @@
     ];
     await viewer.addPlugins(corePlugins);
 
-    viewer.addPluginSync(new TransformControlsPlugin(false));
-
-    /* ===================== TWEAKPANE EDITOR ===================== */
-
     viewer.addPluginSync(new TweakpaneUiPlugin(true));
-    const editor = viewer.addPluginSync(new TweakpaneEditorPlugin());
-
-    editor.loadPlugins({
-      ['Viewer']: [ViewerUiConfigPlugin, DropzonePlugin, TonemapPlugin],
-      ['Objects']: [HierarchyUiPlugin, PickingPlugin, TransformControlsPlugin],
-      ['Export']: [AssetExporterPlugin, CanvasSnapshotPlugin],
-    });
 
     /* ===================== LIGHTING ===================== */
 
-    const hemi = viewer.scene.addObject(new HemisphereLight(0xb1b1ff, 0x443322, 0.4));
-    hemi.name = 'Hemisphere Light';
-
-    const ambient = viewer.scene.addObject(new AmbientLight(0x404060, 0.5));
-    ambient.name = 'Ambient Light';
-
-    const dirLight = viewer.scene.addObject(new DirectionalLight(0xffeedd, 1.2));
-    dirLight.position.set(8, 14, 4);
-    dirLight.name = 'Main Directional';
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize.width = 1024;
-    dirLight.shadow.mapSize.height = 1024;
-    dirLight.shadow.camera.near = 0.5;
-    dirLight.shadow.camera.far = 30;
-    dirLight.shadow.camera.left = -15;
-    dirLight.shadow.camera.right = 15;
-    dirLight.shadow.camera.top = 15;
-    dirLight.shadow.camera.bottom = -15;
-
-    function makePointLight(x, y, z, color, intensity, name) {
-      const pl = viewer.scene.addObject(new PointLight(color, intensity, 10));
-      pl.position.set(x, y, z);
-      pl.name = name || 'Point Light';
-      const bulb = new Mesh(new SphereGeometry(0.12, 8, 8),
-        new MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.8 }));
-      bulb.position.copy(pl.position);
-      bulb.name = name + ' bulb' || 'Point Light Bulb';
-      viewer.scene.addObject(bulb);
-      return pl;
-    }
-
-    makePointLight(-5, 5.2, -2, 0xffddaa, 0.8, 'Light FL');
-    makePointLight(5, 5.2, -3, 0xffddaa, 0.8, 'Light FR');
-    makePointLight(-4, 5.2, -7, 0xffeedd, 0.6, 'Light BL');
-    makePointLight(4, 5.2, -8, 0xffeedd, 0.6, 'Light BR');
+    // Lights are embedded in the GLB environment
 
     /* ===================== ENVIRONMENT ===================== */
 
@@ -238,6 +155,16 @@
     // Load museum environment
     viewer.load('./museum/museum.glb', { autoCenter: false, autoScale: false }).then(model => {
       if (model) {
+        // Use camera from GLB as spawn point
+        let found = false;
+        model.traverse(child => {
+          if (child.isCamera && !found) {
+            camera.position.copy(child.position);
+            if (child.quaternion) camera.quaternion.copy(child.quaternion);
+            found = true;
+          }
+        });
+        // Compute bounds for collision
         const box = new Box3().setFromObject(model);
         if (box.min.x !== Infinity) {
           const m = 0.3;
@@ -500,32 +427,12 @@
       }
     });
 
-    /* ===================== MODE SWITCHING ===================== */
+    /* ===================== MOVEMENT ===================== */
 
-    let isExploring = false;
     const keys = { w: false, a: false, s: false, d: false };
     const front = new Vector3();
     const right = new Vector3();
     const speed = 4.5;
-
-    const btnExit = document.getElementById('btn-exit');
-
-    btnExplore.addEventListener('click', () => {
-      viewer.scene.mainCamera.controlsMode = 'pointerLock';
-    });
-
-    btnExit.addEventListener('click', (e) => {
-      e.stopPropagation();
-      viewer.scene.mainCamera.controlsMode = 'orbit';
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isExploring && viewer.scene.mainCamera.controlsMode === 'pointerLock') {
-        viewer.scene.mainCamera.controlsMode = 'orbit';
-      }
-    });
-
-    let prevMode = 'orbit';
 
     document.addEventListener('keydown', (e) => {
       switch (e.code) {
@@ -545,8 +452,6 @@
     });
 
     function movePlayer(dt) {
-      if (!isExploring || viewer.scene.mainCamera.controlsMode !== 'pointerLock') return;
-
       camera.getWorldDirection(front);
       front.y = 0;
       front.normalize();
@@ -570,22 +475,18 @@
       if (!collides(camera.position.x, nz, 0.3, obstacles)) camera.position.z = nz;
     }
 
+    // Blocked click → enter pointer lock
+    blocker.addEventListener('click', () => {
+      viewer.scene.mainCamera.controlsMode = 'pointerLock';
+    });
+
     /* ===================== ANIMATION LOOP ===================== */
 
     viewer.addEventListener('preFrame', (ev) => {
       const dt = Math.min((ev.deltaTime || ev.timeline?.delta || 16) / 1000, 0.05);
 
-      const mode = viewer.scene.mainCamera.controlsMode;
-      if (mode !== prevMode) {
-        prevMode = mode;
-        if (mode === 'pointerLock') {
-          isExploring = true;
-          blocker.classList.add('hidden');
-          modeLabel.classList.remove('hidden');
-        } else {
-          isExploring = false;
-          modeLabel.classList.add('hidden');
-        }
+      if (viewer.scene.mainCamera.controlsMode === 'pointerLock' && !blocker.classList.contains('hidden')) {
+        blocker.classList.add('hidden');
       }
 
       for (const a of artifacts) a.update(dt);
@@ -599,8 +500,7 @@
       viewer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    console.log('Museum of Mr. K — Threepipe Edition loaded.');
-    console.log('Click "Enter Museum" for first-person exploration, or use the editor panel on the right.');
+    console.log('Museum of Mr. K loaded. Click the screen to explore in first-person.');
   </script>
 </body>
 </html>
