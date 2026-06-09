@@ -97,6 +97,7 @@
 
     /* ===================== DOM REFS ===================== */
 
+    const canvas = document.getElementById('mcanvas');
     const blocker = document.getElementById('blocker');
     const promptEl = document.getElementById('prompt');
     const statusEl = document.getElementById('status');
@@ -126,12 +127,15 @@
 
     /* ===================== POINTER LOCK ===================== */
 
-    const renderer = viewer.renderManager.renderer;
     let isLocked = false;
 
     document.addEventListener('pointerlockchange', () => {
-      isLocked = document.pointerLockElement === renderer.domElement;
+      isLocked = document.pointerLockElement === canvas;
       blocker.classList.toggle('hidden', isLocked);
+    });
+
+    document.addEventListener('pointerlockerror', () => {
+      blocker.classList.remove('hidden');
     });
 
     document.addEventListener('mousemove', (e) => {
@@ -489,7 +493,8 @@
     }
 
     blocker.addEventListener('click', () => {
-      renderer.domElement.requestPointerLock();
+      blocker.classList.add('hidden');
+      try { canvas.requestPointerLock(); } catch (_) {}
     });
 
     /* ===================== ANIMATION LOOP ===================== */
