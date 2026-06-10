@@ -346,15 +346,20 @@
         }
         .group-name {
             font-weight: 800;
-            font-size: 1.1rem;
-            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+            margin: 0;
             word-break: break-word;
-            padding-right: 25px;
+            padding-right: 64px;
         }
         .group-stats {
-            font-size: 0.7rem;
+            position: absolute;
+            top: 32px;
+            right: 12px;
+            font-size: 0.6rem;
             color: inherit;
             opacity: 0.8;
+            text-align: right;
+            white-space: nowrap;
         }
         .cog-icon {
             position: absolute;
@@ -398,6 +403,21 @@
             text-align: center;
             margin-top: 0;
             color: #FFE536;
+        }
+        .group-name-input {
+            width: 100%;
+            margin: 18px 0 4px;
+            padding: 12px 16px;
+            background: #1a1a2a;
+            border: none;
+            border-bottom: 2px solid #FFE536;
+            border-radius: 10px;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-align: center;
+            outline: none;
         }
         .color-grid {
             display: grid;
@@ -619,7 +639,7 @@
 
     // Fixed set of 8 group slots per side. Each entry is a groupId or null (empty).
     // Left and right are INDEPENDENT (not mirrored) so they can indicate seating side.
-    const NUM_SLOTS = 8;
+    const NUM_SLOTS = 9;
     let slotsLeft = new Array(NUM_SLOTS).fill(null);
     let slotsRight = new Array(NUM_SLOTS).fill(null);
     let draggingGroupId = null;
@@ -791,7 +811,7 @@
                     if (seat.groupId) {
                         var group = findGroup(seat.groupId);
                         if (group) {
-                            div.style.cssText = group.style + '; border-radius:10px; color:white; font-size:10px; display:flex; align-items:center; justify-content:center;';
+                            div.style.cssText = group.style + '; border-radius:10px; color:' + contrastColor(groupColor(group)) + '; font-size:10px; display:flex; align-items:center; justify-content:center;';
                             div.textContent = group.name.slice(0, 2);
                         }
                     } else {
@@ -956,16 +976,17 @@
     function startAddAtSlot(side, slotIndex) {
         openColorPicker(function(styleObj) {
             addGroupAtSlot(styleObj, side, slotIndex);
-        });
+        }, { withName: true });
     }
 
     function addGroupAtSlot(styleObj, side, slotIndex) {
         var arr = slotsFor(side);
         if (arr[slotIndex] != null) return null;
         var newId = nextGroupId++;
+        var typedName = (styleObj.groupName || '').trim();
         var group = {
             id: newId,
-            name: 'Group ' + newId,
+            name: typedName || ('Group ' + newId),
             style: styleObj.style,
             seatCount: 0,
             styleObj: styleObj
@@ -992,10 +1013,23 @@
             '<button class="delete-btn">Delete Group</button>';
         document.body.appendChild(menu);
 
-        var closeMenu = function(e) { if (!menu.contains(e.target)) menu.remove(); };
+        var inputField = menu.querySelector('.group-name-field');
+        function commitName() {
+            var v = inputField.value.trim();
+            if (v) group.name = v;
+            updateGroupCards();
+        }
+        function closeSettings() {
+            commitName();
+            document.removeEventListener('click', closeMenu);
+            menu.remove();
+        }
+        var closeMenu = function(e) { if (!menu.contains(e.target)) closeSettings(); };
         setTimeout(function() { document.addEventListener('click', closeMenu); }, 0);
 
         menu.querySelector('.change-color-btn').onclick = function() {
+            commitName();
+            document.removeEventListener('click', closeMenu);
             menu.remove();
             openColorPicker(function(newStyle) {
                 group.style = newStyle.style;
@@ -1006,6 +1040,7 @@
         };
 
         menu.querySelector('.delete-btn').onclick = function() {
+            document.removeEventListener('click', closeMenu);
             for (var r = 0; r < seatsData.length; r++) {
                 for (var c = 0; c < seatsData[0].length; c++) {
                     if (seatsData[r][c].groupId === group.id) seatsData[r][c].groupId = null;
@@ -1022,25 +1057,26 @@
             menu.remove();
         };
 
-        var inputField = menu.querySelector('.group-name-field');
-        inputField.addEventListener('change', function(e) {
-            group.name = e.target.value || group.name;
-            updateGroupCards();
+        inputField.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') { e.preventDefault(); closeSettings(); }
         });
         inputField.focus();
         inputField.select();
     }
 
-    function openColorPicker(callback) {
+    function openColorPicker(callback, opts) {
+        opts = opts || {};
         var modal = document.createElement('div');
         modal.className = 'modal';
         var palette = THEMES[currentTheme].groupsPalette;
         modal.innerHTML =
             '<div class="modal-content">' +
                 '<h2>COLORS AND EFFECTS</h2>' +
+                (opts.withName ? '<input type="text" class="group-name-input" placeholder="Group name (e.g. 6CK)" autocomplete="off">' : '') +
                 '<div class="color-grid" id="colorGridPopup"></div>' +
             '</div>';
         document.body.appendChild(modal);
+        var nameInput = modal.querySelector('.group-name-input');
         var gridDiv = modal.querySelector('#colorGridPopup');
         for (var i = 0; i < palette.length; i++) {
             (function(opt) {
@@ -1049,13 +1085,14 @@
                 var circleClass = 'color-circle' + (opt.effect ? ' effect' : '');
                 optDiv.innerHTML = '<div class="' + circleClass + '" style="' + opt.style + '"></div><div class="color-name">' + opt.name + '</div>';
                 optDiv.onclick = function() {
-                    callback({ style: opt.style, name: opt.name });
+                    callback({ style: opt.style, name: opt.name, groupName: nameInput ? nameInput.value.trim() : '' });
                     modal.remove();
                 };
                 gridDiv.appendChild(optDiv);
             })(palette[i]);
         }
         modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+        if (nameInput) nameInput.focus();
     }
 
     function applyTheme(themeKey) {
@@ -1125,7 +1162,11 @@
     }
 
     function normalizeSlots(arr) {
-        return (arr && arr.length === NUM_SLOTS) ? arr.slice() : new Array(NUM_SLOTS).fill(null);
+        var out = new Array(NUM_SLOTS).fill(null);
+        if (Array.isArray(arr)) {
+            for (var i = 0; i < NUM_SLOTS && i < arr.length; i++) out[i] = arr[i];
+        }
+        return out;
     }
 
     function applyConfigState(state) {
@@ -1243,14 +1284,15 @@
         var mapW = (rightX - legendGap) - mapX;
         var mapH = H - 2 * pad;
 
+        var labelArea = 56; // room below the grid for the Washrooms/Stage/Kitchen labels
         var gap = 6;
         var cw = Math.floor((mapW - (COLS - 1) * gap) / COLS);
-        var ch = Math.floor((mapH - (ROWS - 1) * gap) / ROWS);
+        var ch = Math.floor((mapH - labelArea - (ROWS - 1) * gap) / ROWS);
         var cell = Math.max(8, Math.min(cw, ch));
         var gridW = COLS * cell + (COLS - 1) * gap;
         var gridH = ROWS * cell + (ROWS - 1) * gap;
         var startX = mapX + (mapW - gridW) / 2;
-        var startY = mapY + (mapH - gridH) / 2;
+        var startY = mapY + ((mapH - labelArea) - gridH) / 2;
 
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -1267,7 +1309,7 @@
                         ctx.fillStyle = g ? groupColor(g) : theme.seatDefault;
                         ctx.fill();
                         if (g) {
-                            ctx.fillStyle = '#fff';
+                            ctx.fillStyle = contrastColor(groupColor(g));
                             ctx.font = 'bold ' + Math.floor(cell * 0.34) + "px 'JetBrains Mono'";
                             ctx.fillText(g.name.slice(0, 2), x + cell / 2, y + cell / 2 + 1);
                         }
@@ -1299,6 +1341,18 @@
                 }
             }
         }
+
+        // map labels below the grid (JetBrains bold italic), matching the on-screen bar
+        var labelY = startY + gridH + 32;
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.font = "italic bold 22px 'JetBrains Mono'";
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'left';
+        ctx.fillText('Washrooms, Lift', startX, labelY);
+        ctx.textAlign = 'center';
+        ctx.fillText('Stage', startX + gridW / 2, labelY);
+        ctx.textAlign = 'right';
+        ctx.fillText('Kitchen, T-504', startX + gridW, labelY);
 
         // legend cards — both sides, independent, matching the on-screen panels
         function drawLegend(arr, lx) {
