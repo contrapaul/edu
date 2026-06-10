@@ -216,6 +216,22 @@
             display: grid;
             justify-content: center;
         }
+        .map-legend {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+            padding: 12px 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .map-legend span:nth-child(2) { flex: 1; text-align: center; }
+        .map-legend span:last-child { text-align: right; }
         .seat {
             width: 44px;
             height: 44px;
@@ -291,19 +307,35 @@
             transition: border-color 0.15s, background 0.15s;
         }
         .group-slot.filled { border-color: transparent; }
+        .group-slot.empty { align-items: center; padding-left: 10px; }
         .group-slot.drag-over {
             border-color: #FFE536;
             background: rgba(255,229,54,0.08);
         }
+        .slot-add {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #2c2c3e;
+            color: #FFE536;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: 0.15s;
+        }
+        .slot-add:hover { transform: scale(1.1); filter: brightness(1.25); }
         .group-card {
             width: 100%;
             background: rgba(20,20,40,0.8);
             border-radius: 16px;
             padding: 12px;
             position: relative;
-            backdrop-filter: blur(4px);
             transition: 0.2s;
-            border-left: 4px solid currentColor;
             cursor: grab;
         }
         .group-card.dragging { opacity: 0.4; cursor: grabbing; }
@@ -321,7 +353,8 @@
         }
         .group-stats {
             font-size: 0.7rem;
-            color: #ccc;
+            color: inherit;
+            opacity: 0.8;
         }
         .cog-icon {
             position: absolute;
@@ -492,6 +525,7 @@
     <div class="site-header">
         <span class="header-title">ISNS Seating Plan Builder 1.0</span>
         <div class="header-actions">
+            <button id="clearAllBtn">Clear all</button>
             <button id="saveBtn">Save</button>
             <button id="loadBtn">Load</button>
             <button id="downloadBtn">Download as PNG</button>
@@ -500,24 +534,21 @@
 
     <div class="workspace">
         <div class="groups-sidebar">
-            <div class="sidebar-actions-top">
-                <button class="add-group-btn">+ Add group</button>
-                <button class="clear-all-btn">Clear all</button>
-            </div>
-            <div class="groups-container"></div>
+            <div class="groups-container" data-side="left"></div>
             <div class="sidebar-actions-bottom">
                 <button class="themes-btn">Themes</button>
             </div>
         </div>
         <div class="seating-area">
             <div id="seatGridContainer" class="seat-grid"></div>
+            <div class="map-legend">
+                <span>Washrooms, Lift</span>
+                <span>Stage</span>
+                <span>Kitchen, T-504</span>
+            </div>
         </div>
         <div class="groups-sidebar">
-            <div class="sidebar-actions-top">
-                <button class="add-group-btn">+ Add group</button>
-                <button class="clear-all-btn">Clear all</button>
-            </div>
-            <div class="groups-container"></div>
+            <div class="groups-container" data-side="right"></div>
             <div class="sidebar-actions-bottom">
                 <button class="themes-btn">Themes</button>
             </div>
@@ -559,7 +590,6 @@
         'b s s s s a 3 s s s s s s s s s s a 3 s s s s b',
         'b s s s s a 2 s s s s s s s s s s a 2 s s s s b',
         'b b b b s a 1 s s s s s s s s s s a 1 s b b b b',
-        'a a a a a a a a a a a a a a a a a a a a a a a a',
     ];
 
     const MAP = RAW.map(function(row) { return row.split(/\s+/); });
@@ -587,10 +617,21 @@
     let isDragging = false;
     let currentTheme = 'dark';
 
-    // Fixed set of 8 group slots. Each entry is a groupId or null (empty).
+    // Fixed set of 8 group slots per side. Each entry is a groupId or null (empty).
+    // Left and right are INDEPENDENT (not mirrored) so they can indicate seating side.
     const NUM_SLOTS = 8;
-    let slots = new Array(NUM_SLOTS).fill(null);
+    let slotsLeft = new Array(NUM_SLOTS).fill(null);
+    let slotsRight = new Array(NUM_SLOTS).fill(null);
     let draggingGroupId = null;
+
+    function slotsFor(side) { return side === 'right' ? slotsRight : slotsLeft; }
+    function findSlotOf(groupId) {
+        var i = slotsLeft.indexOf(groupId);
+        if (i >= 0) return { side: 'left', index: i };
+        i = slotsRight.indexOf(groupId);
+        if (i >= 0) return { side: 'right', index: i };
+        return null;
+    }
 
     const THEMES = {
         dark: {
@@ -805,21 +846,15 @@
         renderSeatGrid();
     }
 
-    function firstEmptySlot() {
-        for (var i = 0; i < slots.length; i++) {
-            if (slots[i] == null) return i;
-        }
-        return -1;
-    }
-
     function buildCard(g) {
         var card = document.createElement('div');
         var cls = 'group-card';
         if (activeGroupId === g.id) cls += ' active-card';
         card.className = cls;
         card.draggable = true;
-        var match = g.style.match(/#[A-F0-9]{6}/i);
-        card.style.borderLeftColor = match ? match[0] : '#FFE536';
+        // Card uses the SAME fill as the group's seats (theme-independent).
+        card.style.cssText = g.style;
+        card.style.color = contrastColor(groupColor(g));
         card.innerHTML =
             '<div class="cog-icon">⚙️</div>' +
             '<div class="group-name" style="font-weight:800">' + escapeHtml(g.name) + '</div>' +
@@ -849,47 +884,65 @@
         return card;
     }
 
-    function updateGroupCards() {
-        var containers = document.querySelectorAll('.groups-container');
-        containers.forEach(function(container) {
-            container.innerHTML = '';
-            for (var i = 0; i < slots.length; i++) {
-                (function(slotIndex) {
-                    var slotEl = document.createElement('div');
-                    slotEl.className = 'group-slot';
-                    var gid = slots[slotIndex];
-                    if (gid != null) {
-                        var g = findGroup(gid);
-                        if (g) {
-                            slotEl.classList.add('filled');
-                            slotEl.appendChild(buildCard(g));
-                        } else {
-                            slots[slotIndex] = null;
-                        }
+    function renderSide(side) {
+        var container = document.querySelector('.groups-container[data-side="' + side + '"]');
+        if (!container) return;
+        var arr = slotsFor(side);
+        container.innerHTML = '';
+        for (var i = 0; i < arr.length; i++) {
+            (function(slotIndex) {
+                var slotEl = document.createElement('div');
+                slotEl.className = 'group-slot';
+                var gid = arr[slotIndex];
+                if (gid != null) {
+                    var g = findGroup(gid);
+                    if (g) {
+                        slotEl.classList.add('filled');
+                        slotEl.appendChild(buildCard(g));
+                    } else {
+                        arr[slotIndex] = null;
                     }
-                    slotEl.addEventListener('dragover', function(e) {
-                        e.preventDefault();
-                        e.dataTransfer.dropEffect = 'move';
-                        slotEl.classList.add('drag-over');
-                    });
-                    slotEl.addEventListener('dragleave', function() {
-                        slotEl.classList.remove('drag-over');
-                    });
-                    slotEl.addEventListener('drop', function(e) {
-                        e.preventDefault();
-                        slotEl.classList.remove('drag-over');
-                        if (draggingGroupId == null) return;
-                        var fromIndex = slots.indexOf(draggingGroupId);
-                        if (fromIndex === slotIndex) return;
-                        // swap occupant of the target slot with the dragged card's slot
-                        slots[fromIndex] = slots[slotIndex];
-                        slots[slotIndex] = draggingGroupId;
-                        updateGroupCards();
-                    });
-                    container.appendChild(slotEl);
-                })(i);
-            }
-        });
+                }
+                if (arr[slotIndex] == null) {
+                    slotEl.classList.add('empty');
+                    var plus = document.createElement('button');
+                    plus.className = 'slot-add';
+                    plus.textContent = '+';
+                    plus.title = 'Add a group here';
+                    plus.onclick = function(e) { e.stopPropagation(); startAddAtSlot(side, slotIndex); };
+                    slotEl.appendChild(plus);
+                }
+                slotEl.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    slotEl.classList.add('drag-over');
+                });
+                slotEl.addEventListener('dragleave', function() {
+                    slotEl.classList.remove('drag-over');
+                });
+                slotEl.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    slotEl.classList.remove('drag-over');
+                    if (draggingGroupId == null) return;
+                    var from = findSlotOf(draggingGroupId);
+                    if (!from) return;
+                    if (from.side === side && from.index === slotIndex) return;
+                    // move/swap across (or within) sides; a group lives on exactly one side
+                    var targetArr = slotsFor(side);
+                    var fromArr = slotsFor(from.side);
+                    var displaced = targetArr[slotIndex];
+                    targetArr[slotIndex] = draggingGroupId;
+                    fromArr[from.index] = displaced;
+                    updateGroupCards();
+                });
+                container.appendChild(slotEl);
+            })(i);
+        }
+    }
+
+    function updateGroupCards() {
+        renderSide('left');
+        renderSide('right');
         if (groups.length === 0) {
             activeGroupId = null;
             setActiveName('None');
@@ -900,12 +953,15 @@
         return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    function addGroup(styleObj, colorName) {
-        var slotIndex = firstEmptySlot();
-        if (slotIndex === -1) {
-            alert('All ' + NUM_SLOTS + ' group slots are full. Delete a group to add another.');
-            return null;
-        }
+    function startAddAtSlot(side, slotIndex) {
+        openColorPicker(function(styleObj) {
+            addGroupAtSlot(styleObj, side, slotIndex);
+        });
+    }
+
+    function addGroupAtSlot(styleObj, side, slotIndex) {
+        var arr = slotsFor(side);
+        if (arr[slotIndex] != null) return null;
         var newId = nextGroupId++;
         var group = {
             id: newId,
@@ -915,7 +971,7 @@
             styleObj: styleObj
         };
         groups.push(group);
-        slots[slotIndex] = newId;
+        arr[slotIndex] = newId;
         activeGroupId = newId;
         setActiveName(group.name);
         updateGroupCards();
@@ -956,8 +1012,9 @@
                 }
             }
             groups = groups.filter(function(g) { return g.id !== group.id; });
-            for (var i = 0; i < slots.length; i++) {
-                if (slots[i] === group.id) slots[i] = null;
+            for (var i = 0; i < NUM_SLOTS; i++) {
+                if (slotsLeft[i] === group.id) slotsLeft[i] = null;
+                if (slotsRight[i] === group.id) slotsRight[i] = null;
             }
             if (activeGroupId === group.id) activeGroupId = groups.length > 0 ? groups[0].id : null;
             renderSeatGrid();
@@ -1011,7 +1068,8 @@
     function clearAll() {
         if (confirm('Clear all groups and painted seats?')) {
             groups = [];
-            slots = new Array(NUM_SLOTS).fill(null);
+            slotsLeft = new Array(NUM_SLOTS).fill(null);
+            slotsRight = new Array(NUM_SLOTS).fill(null);
             activeGroupId = null;
             for (var r = 0; r < seatsData.length; r++)
                 for (var c = 0; c < seatsData[0].length; c++)
@@ -1063,13 +1121,19 @@
                 if (s.type === 'seat' && s.groupId != null) seatAssignments.push([r, c, s.groupId]);
             }
         }
-        return { groups: groups, slots: slots, seats: seatAssignments, nextGroupId: nextGroupId, theme: currentTheme };
+        return { groups: groups, slotsLeft: slotsLeft, slotsRight: slotsRight, seats: seatAssignments, nextGroupId: nextGroupId, theme: currentTheme };
+    }
+
+    function normalizeSlots(arr) {
+        return (arr && arr.length === NUM_SLOTS) ? arr.slice() : new Array(NUM_SLOTS).fill(null);
     }
 
     function applyConfigState(state) {
         if (!state) return;
         groups = (state.groups || []).map(function(g) { return g; });
-        slots = (state.slots && state.slots.length === NUM_SLOTS) ? state.slots.slice() : new Array(NUM_SLOTS).fill(null);
+        // Back-compat: older saves used a single mirrored `slots` array.
+        slotsLeft = normalizeSlots(state.slotsLeft || state.slots);
+        slotsRight = normalizeSlots(state.slotsRight || (state.slots ? new Array(NUM_SLOTS).fill(null) : null));
         var maxId = 0;
         groups.forEach(function(g) { if (g.id > maxId) maxId = g.id; });
         nextGroupId = state.nextGroupId && state.nextGroupId > maxId ? state.nextGroupId : maxId + 1;
@@ -1140,6 +1204,15 @@
         return m ? m[0] : '#888888';
     }
 
+    // Pick black or white text for legibility on a given hex fill.
+    function contrastColor(hex) {
+        var c = String(hex).replace('#', '');
+        if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+        var r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
+        var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return lum > 0.6 ? '#000000' : '#ffffff';
+    }
+
     function roundRect(ctx, x, y, w, h, r) {
         if (ctx.roundRect) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); return; }
         ctx.beginPath();
@@ -1161,11 +1234,13 @@
         ctx.fillRect(0, 0, W, H);
 
         var pad = 48;
-        var legendW = groups.length > 0 ? 400 : 0;
-        var legendGap = legendW ? 32 : 0;
-        var legendX = W - pad - legendW;
-        var mapX = pad, mapY = pad;
-        var mapW = (legendW ? legendX - legendGap : W - pad) - pad;
+        var legendW = 360;
+        var legendGap = 32;
+        var leftX = pad;
+        var rightX = W - pad - legendW;
+        var mapX = leftX + legendW + legendGap;
+        var mapY = pad;
+        var mapW = (rightX - legendGap) - mapX;
         var mapH = H - 2 * pad;
 
         var gap = 6;
@@ -1225,27 +1300,34 @@
             }
         }
 
-        // legend cards
-        if (legendW) {
+        // legend cards — both sides, independent, matching the on-screen panels
+        function drawLegend(arr, lx) {
             var ly = pad;
             var cardH = 70, cardGap = 14;
-            ctx.textBaseline = 'alphabetic';
-            groups.forEach(function(g) {
-                roundRect(ctx, legendX, ly, legendW, cardH, 16);
-                ctx.fillStyle = 'rgba(20,20,40,0.9)';
+            for (var i = 0; i < arr.length; i++) {
+                var gid = arr[i];
+                if (gid == null) continue;
+                var g = findGroup(gid);
+                if (!g) continue;
+                var col = groupColor(g);
+                var txt = contrastColor(col);
+                roundRect(ctx, lx, ly, legendW, cardH, 16);
+                ctx.fillStyle = col;
                 ctx.fill();
-                ctx.fillStyle = groupColor(g);
-                ctx.fillRect(legendX, ly + 10, 6, cardH - 20);
                 ctx.textAlign = 'left';
-                ctx.fillStyle = '#fff';
+                ctx.textBaseline = 'alphabetic';
+                ctx.fillStyle = txt;
                 ctx.font = "bold 26px 'JetBrains Mono'";
-                ctx.fillText(g.name, legendX + 26, ly + 34);
-                ctx.fillStyle = '#cccccc';
+                ctx.fillText(g.name, lx + 20, ly + 34);
+                ctx.globalAlpha = 0.8;
                 ctx.font = "16px 'JetBrains Mono'";
-                ctx.fillText('Seats: ' + g.seatCount, legendX + 26, ly + 58);
+                ctx.fillText('Seats: ' + g.seatCount, lx + 20, ly + 58);
+                ctx.globalAlpha = 1;
                 ly += cardH + cardGap;
-            });
+            }
         }
+        drawLegend(slotsLeft, leftX);
+        drawLegend(slotsRight, rightX);
 
         return canvas;
     }
@@ -1270,23 +1352,14 @@
         });
     }
 
-    // -------- BIND EVENTS (both left and right panels) --------
+    // -------- BIND EVENTS --------
+    document.getElementById('clearAllBtn').onclick = clearAll;
     document.getElementById('saveBtn').onclick = saveConfig;
     document.getElementById('loadBtn').onclick = openLoadDialog;
     document.getElementById('downloadBtn').onclick = downloadPNG;
 
-    document.querySelectorAll('.add-group-btn').forEach(function(btn) {
-        btn.onclick = function() {
-            openColorPicker(function(styleObj) {
-                addGroup(styleObj, styleObj.name);
-            });
-        };
-    });
     document.querySelectorAll('.themes-btn').forEach(function(btn) {
         btn.onclick = openThemes;
-    });
-    document.querySelectorAll('.clear-all-btn').forEach(function(btn) {
-        btn.onclick = clearAll;
     });
     document.addEventListener('mouseup', stopPaint);
 
