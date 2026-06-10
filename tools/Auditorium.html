@@ -71,6 +71,24 @@
             background-clip: text;
             color: transparent;
         }
+        /* Per-theme overrides for the title + map labels */
+        body[data-theme="light"] .header-title {
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: #444;
+            color: #444;
+        }
+        body[data-theme="light"] .map-legend { color: #444; }
+        body[data-theme="phoenix"] .header-title,
+        body[data-theme="ocean"] .header-title,
+        body[data-theme="grape"] .header-title {
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: #fff;
+            color: #fff;
+        }
         .header-nav { display: flex; gap: 24px; }
         .header-actions { display: flex; gap: 10px; }
         .header-actions button {
@@ -446,7 +464,7 @@
             transition: 0.1s;
         }
         .color-name {
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: #fff;
         }
         .color-circle.effect {
@@ -694,18 +712,19 @@
             { name: 'Lime',      style: 'background:#CCFF00;color:#000' },
             { name: 'Violet',    style: 'background:#7C4DFF' },
             { name: 'Gold',      style: 'background:#FFC400;color:#000' },
-            { name: 'RGB',       style: 'background:conic-gradient(from var(--a),red,orange,yellow,lime,cyan,blue,magenta,red);animation:spin 2.5s linear infinite;box-shadow:0 0 10px rgba(255,255,255,0.5)', effect: true },
+            { name: 'Coral',     style: 'background:#FF7F50' },
+            { name: 'Mint',      style: 'background:#2EE6A6;color:#000' },
+            { name: 'Rose',      style: 'background:#FF4D88' },
+            { name: 'RGB',       style: 'background:radial-gradient(circle at center,#0a0a0a 0 58%,rgba(0,0,0,0) 70%),conic-gradient(from var(--a),red,orange,yellow,lime,cyan,blue,magenta,red);animation:spin 3s linear infinite;box-shadow:0 0 14px rgba(120,180,255,0.55)', effect: true },
             { name: 'Spin',      style: 'background:conic-gradient(from var(--a),#FFE536,#FA16C2,#FF7200,#FFE536);animation:spin 2s linear infinite', effect: true },
             { name: 'Aurora',    style: 'background:linear-gradient(60deg,#00ffa3,#00bfff,#7c4dff,#00ffa3);background-size:300% 300%;animation:shift 4s ease infinite', effect: true },
             { name: 'Lava',      style: 'background:linear-gradient(45deg,#ff0000,#ff8c00,#ffd000);background-size:200% 200%;animation:shift 2.5s ease infinite;box-shadow:0 0 10px #ff4500', effect: true },
-            { name: 'Holo',      style: 'background:linear-gradient(90deg,red,orange,yellow,lime,cyan,blue,violet,red);background-size:300% 100%;animation:shift 3s linear infinite', effect: true },
             { name: 'Galaxy',    style: 'background:conic-gradient(from var(--a),#0d0d2b,#3a1c71,#d76d77,#3a1c71,#0d0d2b);animation:spin 5s linear infinite;box-shadow:0 0 10px #7c4dff', effect: true },
-            { name: 'Plasma',    style: 'background:radial-gradient(circle,#ff00cc,#3333ff);box-shadow:0 0 12px #ff00cc;animation:pulse 1.2s infinite', effect: true },
+            { name: 'Slurm',     style: 'background:conic-gradient(from var(--a),#ff00cc,#7a00ff,#3333ff,#00e5ff,#ff00cc);animation:spin 6s linear infinite, pulse 2.5s infinite;box-shadow:0 0 12px #ff00cc', effect: true },
             { name: 'Toxic',     style: 'background:#39FF14;box-shadow:0 0 14px #39FF14;animation:pulse 0.9s infinite;color:#000', effect: true },
-            { name: 'Candy',     style: 'background:repeating-linear-gradient(45deg,#ff6ec4 0 12px,#7873f5 12px 24px)', effect: true },
+            { name: 'Vapor',     style: 'background:linear-gradient(45deg,#ff71ce,#01cdfe,#05ffa1,#ff71ce);background-size:300% 300%;animation:shift 5s ease infinite', effect: true },
             { name: 'Ice',       style: 'background:#a0e0ff;box-shadow:0 0 10px #0af;color:#000', effect: true },
             { name: 'Fire',      style: 'background:linear-gradient(45deg,#ff4500,#ff8c00)', effect: true },
-            { name: 'Cyber',     style: 'background:#ff00cc;box-shadow:0 0 5px #00ffff', effect: true },
         ];
     }
 
@@ -1122,6 +1141,7 @@
         currentTheme = themeKey;
         var theme = THEMES[themeKey];
         document.body.style.background = theme.bgBody;
+        document.body.setAttribute('data-theme', themeKey);
         renderSeatGrid();
     }
 
