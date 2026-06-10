@@ -438,6 +438,13 @@
             text-align: center;
             outline: none;
         }
+        .group-name-input.invalid {
+            animation: invalidPulse 0.8s ease-in-out infinite;
+        }
+        @keyframes invalidPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,60,60,0); border-bottom-color: #FFE536; }
+            50% { box-shadow: 0 0 16px 3px rgba(255,60,60,0.9); border-bottom-color: #ff3b3b; }
+        }
         .color-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
@@ -656,7 +663,7 @@
     let nextGroupId = 1;
     let activeGroupId = null;
     let isDragging = false;
-    let currentTheme = 'dark';
+    let currentTheme = 'light';
 
     // Fixed set of 8 group slots per side. Each entry is a groupId or null (empty).
     // Left and right are INDEPENDENT (not mirrored) so they can indicate seating side.
@@ -675,12 +682,12 @@
     }
 
     const THEMES = {
-        dark: {
-            name: 'Dark', bgBody: '#1a1a2e', seatDefault: '#2d2d3a', seatText: '#eee',
-            groupsPalette: generatePalette()
-        },
         light: {
             name: 'Light', bgBody: '#f0f0f0', seatDefault: '#dddddd', seatText: '#333',
+            groupsPalette: generatePalette()
+        },
+        dark: {
+            name: 'Dark', bgBody: '#1a1a2e', seatDefault: '#2d2d3a', seatText: '#eee',
             groupsPalette: generatePalette()
         },
         phoenix: {
@@ -750,29 +757,6 @@
                 if (seatsData[r][c].type === 'soundbooth') {
                     seatsData[r][c].label = 'Sound Booth';
                     sbFound = true;
-                }
-            }
-        }
-        // Step markers: starting from row 4 (index 3 in seating area), add step line to aisle cells
-        // Key says: starting at row 4, the auditorium gains elevation - 1 step per row
-        // Rows 0-3 (map rows 2-5?) have no steps; rows >= 4 have steps
-        // Map rows 2-5 correspond roughly to map indices 2-5 (soundbooth row + first 3 seat rows)
-        // Actually: map indices: 2=e/s row, 3=17, 4=16, 5=15, 6=14...
-        // The step starts at map index 6 (row 14 in seating, which is row index 14)
-        // Let's check: row 17 starts at map index 4, row 16 at index 5, row 15 at index 6...
-        // Row numbering: map index 2=row 18(SB), 3=row 17, 4=row 16, 5=row 15, 6=row 14...
-        // The user says "starting at row 4" which is map index 2+? 
-        // Actually the labels on the map: row 19 is at map index 2 (back), row 1 is at map index 20 (front)
-        // "Row 4" in terms of the formatted seating = map index where label = 4... that's map index 17
-        // So rows with labels 4 and below have steps. Map indices 17-20 have steps.
-        // This means map rows 17 (label 3), 18 (label 2), 19 (label 1), 20-21 (no labels) have steps.
-        // Simpler: just add steps to aisle cells in rows where there are seats below
-        // Rows that have steps: map rows where the row label is <= 4
-        // So map indices 17, 18, 19, 20, 21 have steps on their aisles
-        for (var r = 17; r < ROWS; r++) {
-            for (var c = 0; c < COLS; c++) {
-                if (seatsData[r][c].type === 'aisle') {
-                    seatsData[r][c].hasStep = true;
                 }
             }
         }
@@ -852,7 +836,7 @@
                         var group = findGroup(seat.groupId);
                         if (group) {
                             div.style.cssText = group.style + '; border-radius:' + radius + 'px; color:' + contrastColor(groupColor(group)) + '; font-size:' + seatFont + 'px; display:flex; align-items:center; justify-content:center;';
-                            div.textContent = group.name.slice(0, 2);
+                            div.textContent = group.name.slice(0, 3);
                         }
                     } else {
                         div.style.background = THEMES[currentTheme].seatDefault;
@@ -1119,6 +1103,16 @@
             '</div>';
         document.body.appendChild(modal);
         var nameInput = modal.querySelector('.group-name-input');
+        var requireName = !!opts.withName;
+        function nameMissing() { return requireName && (!nameInput || nameInput.value.trim() === ''); }
+        function flagMissingName() {
+            if (!nameInput) return;
+            nameInput.classList.add('invalid');
+            nameInput.focus();
+        }
+        if (nameInput) {
+            nameInput.addEventListener('input', function() { nameInput.classList.remove('invalid'); });
+        }
         var gridDiv = modal.querySelector('#colorGridPopup');
         for (var i = 0; i < palette.length; i++) {
             (function(opt) {
@@ -1127,13 +1121,19 @@
                 var circleClass = 'color-circle' + (opt.effect ? ' effect' : '');
                 optDiv.innerHTML = '<div class="' + circleClass + '" style="' + opt.style + '"></div><div class="color-name">' + opt.name + '</div>';
                 optDiv.onclick = function() {
+                    if (nameMissing()) { flagMissingName(); return; }
                     callback({ style: opt.style, name: opt.name, groupName: nameInput ? nameInput.value.trim() : '' });
                     modal.remove();
                 };
                 gridDiv.appendChild(optDiv);
             })(palette[i]);
         }
-        modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
+        // Don't allow closing via backdrop until a name is entered (add-group flow only).
+        modal.onclick = function(e) {
+            if (e.target !== modal) return;
+            if (nameMissing()) { flagMissingName(); return; }
+            modal.remove();
+        };
         if (nameInput) nameInput.focus();
     }
 
@@ -1353,8 +1353,8 @@
                         ctx.fill();
                         if (g) {
                             ctx.fillStyle = contrastColor(groupColor(g));
-                            ctx.font = 'bold ' + Math.floor(cell * 0.34) + "px 'JetBrains Mono'";
-                            ctx.fillText(g.name.slice(0, 2), x + cell / 2, y + cell / 2 + 1);
+                            ctx.font = 'bold ' + Math.floor(cell * 0.30) + "px 'JetBrains Mono'";
+                            ctx.fillText(g.name.slice(0, 3), x + cell / 2, y + cell / 2 + 1);
                         }
                     } else {
                         ctx.fillStyle = theme.seatDefault;
@@ -1467,7 +1467,7 @@
     });
 
     initSeatsFromMap();
-    applyTheme('dark');
+    applyTheme('light');
     updateGroupCards();
 </script>
 </body>
