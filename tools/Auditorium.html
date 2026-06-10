@@ -580,7 +580,8 @@
     function renderSeatGrid() {
         var container = document.getElementById('seatGridContainer');
         container.style.display = 'grid';
-        container.style.gridTemplateColumns = 'repeat(' + COLS + ', 48px)';
+        var colWidth = Math.min(48, Math.floor((container.clientWidth - (COLS - 1) * 3) / COLS));
+        container.style.gridTemplateColumns = 'repeat(' + COLS + ', ' + colWidth + 'px)';
         container.style.gap = '3px';
         container.innerHTML = '';
 
@@ -859,6 +860,12 @@
 
     document.getElementById('clearAllBtn').onclick = clearAll;
     document.addEventListener('mouseup', stopPaint);
+
+    var resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(renderSeatGrid, 100);
+    });
 
     initSeatsFromMap();
     applyTheme('dark');
