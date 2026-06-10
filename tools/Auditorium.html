@@ -585,7 +585,8 @@
         container.innerHTML = '';
 
         for (var r = 0; r < ROWS; r++) {
-            for (var c = 0; c < COLS; c++) {
+            var c = 0;
+            while (c < COLS) {
                 var seat = seatsData[r][c];
                 var div = document.createElement('div');
                 var cls = 'seat ' + seat.type;
@@ -594,14 +595,32 @@
 
                 if (seat.type === 'aisle') {
                     div.textContent = seat.label || '';
+                    container.appendChild(div);
+                    c++;
                 } else if (seat.type === 'wall' || seat.type === 'void') {
                     div.textContent = '';
+                    container.appendChild(div);
+                    c++;
                 } else if (seat.type === 'stage') {
+                    var stageSpan = 1;
+                    while (c + stageSpan < COLS && seatsData[r][c + stageSpan].type === 'stage') {
+                        stageSpan++;
+                    }
+                    div.style.gridColumn = 'span ' + stageSpan;
                     div.textContent = 'STAGE';
+                    div.style.fontSize = '14px';
+                    div.style.fontWeight = '800';
+                    div.style.letterSpacing = '2px';
+                    container.appendChild(div);
+                    c += stageSpan;
                 } else if (seat.type === 'soundbooth') {
                     div.textContent = seat.label || 'Sound Booth';
+                    container.appendChild(div);
+                    c++;
                 } else if (seat.type === 'exit') {
                     div.textContent = 'EXIT';
+                    container.appendChild(div);
+                    c++;
                 } else if (seat.type === 'seat') {
                     if (seat.groupId) {
                         var group = findGroup(seat.groupId);
@@ -617,9 +636,11 @@
                         div.addEventListener('mousedown', function(e) { e.preventDefault(); startPaint(row, col); });
                         div.addEventListener('mouseenter', function(e) { if (isDragging) paintSeat(row, col); });
                     })(r, c);
+                    container.appendChild(div);
+                    c++;
+                } else {
+                    c++;
                 }
-
-                container.appendChild(div);
             }
         }
     }
