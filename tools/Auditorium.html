@@ -1395,6 +1395,11 @@
         ctx.fillStyle = theme.bgBody;
         ctx.fillRect(0, 0, W, H);
 
+        // Match the on-screen text colours: dark on light themes, light on dark themes.
+        var isLightBg = contrastColor(theme.bgBody) === '#000000';
+        var rowNumColor = isLightBg ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.5)';
+        var labelColor = isLightBg ? '#444444' : 'rgba(255,255,255,0.8)';
+
         var pad = 48;
         var legendW = 360;
         var legendGap = 32;
@@ -1452,7 +1457,7 @@
                     c += span;
                 } else if (s.type === 'aisle') {
                     if (s.label) {
-                        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                        ctx.fillStyle = rowNumColor;
                         ctx.font = 'bold ' + Math.floor(cell * 0.36) + "px 'JetBrains Mono'";
                         ctx.fillText(s.label, x + cell / 2, y + cell / 2 + 1);
                     }
@@ -1465,7 +1470,7 @@
 
         // map labels below the grid (JetBrains bold italic), matching the on-screen bar
         var labelY = startY + gridH + 32;
-        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.fillStyle = labelColor;
         ctx.font = "italic bold 22px 'JetBrains Mono'";
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'left';
