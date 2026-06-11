@@ -417,8 +417,8 @@
             background: #1e1e2a;
             border-radius: 28px;
             padding: 25px;
-            max-width: 700px;
-            width: 90%;
+            max-width: 760px;
+            width: 92%;
             max-height: 80vh;
             overflow-y: auto;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -490,17 +490,49 @@
         .color-circle.effect {
             border-radius: 16px;
         }
+        /* Add-group menu: an expanded version of the settings swatch grid (3 rows of 10, with names) */
+        .color-grid.add-grid {
+            grid-template-columns: repeat(10, 1fr);
+            gap: 14px 8px;
+        }
+        .add-grid .color-option { padding: 4px; border-radius: 12px; }
+        .add-grid .color-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            margin: 0 auto 5px;
+        }
+        .add-grid .color-circle.effect { border-radius: 10px; }
+        .add-grid .color-name { font-size: 0.72rem; line-height: 1.15; }
 
         .settings-menu {
             position: fixed;
             background: #2a2a3a;
             border-radius: 16px;
             padding: 16px;
-            min-width: 220px;
+            width: 340px;
             box-shadow: 0 8px 20px black;
             z-index: 1100;
             backdrop-filter: blur(12px);
             border: 1px solid #888;
+        }
+        .settings-menu .settings-colors {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            margin: 8px 0 12px;
+        }
+        .settings-menu .color-swatch {
+            aspect-ratio: 1 / 1;
+            border-radius: 7px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+        .settings-menu .color-swatch:hover { transform: scale(1.18); }
+        .settings-menu .color-swatch.selected {
+            outline: 2px solid #FFE536;
+            outline-offset: 1px;
         }
         .settings-menu .group-name-field {
             width: 100%;
@@ -735,7 +767,7 @@
             { name: 'Coral',     style: 'background:#FF7F50' },
             { name: 'Mint',      style: 'background:#2EE6A6;color:#000' },
             { name: 'Rose',      style: 'background:#FF4D88' },
-            { name: 'RGB',       style: 'background:radial-gradient(circle at center,#0a0a0a 0 58%,rgba(0,0,0,0) 70%),conic-gradient(from var(--a),red,orange,yellow,lime,cyan,blue,magenta,red);animation:spin 3s linear infinite;box-shadow:0 0 14px rgba(120,180,255,0.55)', effect: true },
+            { name: 'RGB',       style: 'background:linear-gradient(#0a0a0a,#0a0a0a) padding-box,conic-gradient(from var(--a),red,orange,yellow,lime,cyan,blue,magenta,red) border-box;border:4px solid transparent;animation:spin 3s linear infinite;box-shadow:0 0 14px rgba(120,180,255,0.55)', effect: true },
             { name: 'Spin',      style: 'background:conic-gradient(from var(--a),#FFE536,#FA16C2,#FF7200,#FFE536);animation:spin 2s linear infinite', effect: true },
             { name: 'Aurora',    style: 'background:linear-gradient(60deg,#00ffa3,#00bfff,#7c4dff,#00ffa3);background-size:300% 300%;animation:shift 4s ease infinite', effect: true },
             { name: 'Lava',      style: 'background:linear-gradient(45deg,#ff0000,#ff8c00,#ffd000);background-size:200% 200%;animation:shift 2.5s ease infinite;box-shadow:0 0 10px #ff4500', effect: true },
@@ -1047,12 +1079,13 @@
         if (existing) existing.remove();
         var menu = document.createElement('div');
         menu.className = 'settings-menu';
-        menu.style.top = Math.min(window.innerHeight - 250, Math.max(100, window.scrollY + 150)) + 'px';
-        menu.style.left = Math.min(window.innerWidth - 250, Math.max(100, window.scrollX + 200)) + 'px';
+        menu.style.top = Math.min(window.innerHeight - 300, Math.max(80, window.scrollY + 120)) + 'px';
+        menu.style.left = Math.min(window.innerWidth - 360, Math.max(20, window.scrollX + 200)) + 'px';
         menu.innerHTML =
             '<div class="menu-label">Group Name</div>' +
             '<input type="text" class="group-name-field" value="' + escapeHtml(group.name) + '" placeholder="Group name">' +
-            '<button class="change-color-btn">Change Color / Effect</button>' +
+            '<div class="menu-label">Colour / Effect</div>' +
+            '<div class="settings-colors"></div>' +
             '<button class="delete-btn">Delete Group</button>';
         document.body.appendChild(menu);
 
@@ -1070,17 +1103,24 @@
         var closeMenu = function(e) { if (!menu.contains(e.target)) closeSettings(); };
         setTimeout(function() { document.addEventListener('click', closeMenu); }, 0);
 
-        menu.querySelector('.change-color-btn').onclick = function() {
-            commitName();
-            document.removeEventListener('click', closeMenu);
-            menu.remove();
-            openColorPicker(function(newStyle) {
-                group.style = newStyle.style;
-                group.styleObj = newStyle;
+        var colorsDiv = menu.querySelector('.settings-colors');
+        THEMES[currentTheme].groupsPalette.forEach(function(opt) {
+            var sw = document.createElement('div');
+            sw.className = 'color-swatch';
+            sw.style.cssText = opt.style;
+            sw.title = opt.name;
+            if (opt.style === group.style) sw.classList.add('selected');
+            sw.onclick = function() {
+                group.style = opt.style;
+                group.styleObj = opt;
+                var prev = colorsDiv.querySelector('.color-swatch.selected');
+                if (prev) prev.classList.remove('selected');
+                sw.classList.add('selected');
                 renderSeatGrid();
                 updateGroupCards();
-            }, { title: 'CHANGE COLOUR / EFFECT' });
-        };
+            };
+            colorsDiv.appendChild(sw);
+        });
 
         menu.querySelector('.delete-btn').onclick = function() {
             document.removeEventListener('click', closeMenu);
@@ -1117,7 +1157,7 @@
             '<div class="modal-content">' +
                 '<h2>' + title + '</h2>' +
                 (opts.withName ? '<input type="text" class="group-name-input" placeholder="Group name (e.g. 6CK)" autocomplete="off">' : '') +
-                '<div class="color-grid" id="colorGridPopup"></div>' +
+                '<div class="color-grid add-grid" id="colorGridPopup"></div>' +
             '</div>';
         document.body.appendChild(modal);
         var nameInput = modal.querySelector('.group-name-input');
