@@ -192,8 +192,9 @@
             border-radius: 24px;
             padding: 15px;
             backdrop-filter: blur(4px);
-            max-height: 80vh;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         .groups-sidebar h3 {
             margin: 0 0 15px 0;
@@ -205,7 +206,10 @@
         .groups-container {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
         }
         .sidebar-actions-top {
             display: flex;
@@ -213,7 +217,7 @@
             margin-bottom: 14px;
         }
         .sidebar-actions-top button { flex: 1; }
-        .sidebar-actions-bottom { margin-top: 14px; }
+        .sidebar-actions-bottom { margin-top: 12px; flex: 0 0 auto; }
         .sidebar-actions-bottom button { width: 100%; }
         .groups-sidebar button {
             background: #2c2c3e;
@@ -321,7 +325,8 @@
         }
 
         .group-slot {
-            min-height: 72px;
+            min-height: 52px;
+            flex-shrink: 0;
             border: 2px dashed rgba(255,255,255,0.18);
             border-radius: 16px;
             display: flex;
@@ -354,7 +359,7 @@
             width: 100%;
             background: rgba(20,20,40,0.8);
             border-radius: 16px;
-            padding: 12px;
+            padding: 6px 12px;
             position: relative;
             transition: 0.2s;
             cursor: grab;
@@ -368,6 +373,7 @@
         .group-name {
             font-weight: 800;
             font-size: 2.2rem;
+            line-height: 1.1;
             margin: 0;
             word-break: break-word;
             padding-right: 64px;
@@ -1492,15 +1498,29 @@
     });
     document.addEventListener('mouseup', stopPaint);
 
+    // Size the group panels to fit the viewport so they don't overflow the window.
+    // Slots keep their natural height, so the panel only scrolls internally when
+    // content genuinely overflows (e.g. long names wrapping to two lines).
+    function sizePanels() {
+        var footer = document.querySelector('.site-footer');
+        var reserve = footer ? footer.offsetHeight + 42 : 24; // footer + its margin/padding
+        document.querySelectorAll('.groups-sidebar').forEach(function(sb) {
+            sb.style.height = 'auto';
+            var top = sb.getBoundingClientRect().top;
+            sb.style.height = Math.max(220, window.innerHeight - top - reserve) + 'px';
+        });
+    }
+
     var resizeTimeout;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(renderSeatGrid, 100);
+        resizeTimeout = setTimeout(function() { renderSeatGrid(); sizePanels(); }, 100);
     });
 
     initSeatsFromMap();
     applyTheme('light');
     updateGroupCards();
+    sizePanels();
 </script>
 </body>
 </html>
