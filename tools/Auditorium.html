@@ -186,8 +186,8 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .groups-sidebar {
-            flex: 0 1 340px;
-            min-width: 240px;
+            flex: 0 1 300px;
+            min-width: 210px;
             background: rgba(0,0,0,0.3);
             border-radius: 24px;
             padding: 15px;
@@ -372,11 +372,11 @@
         }
         .group-name {
             font-weight: 800;
-            font-size: 2.2rem;
+            font-size: 2rem;
             line-height: 1.1;
             margin: 0;
             word-break: break-word;
-            padding-right: 64px;
+            padding-right: 58px;
         }
         .group-stats {
             position: absolute;
@@ -1502,12 +1502,12 @@
     // Slots keep their natural height, so the panel only scrolls internally when
     // content genuinely overflows (e.g. long names wrapping to two lines).
     function sizePanels() {
-        var footer = document.querySelector('.site-footer');
-        var reserve = footer ? footer.offsetHeight + 42 : 24; // footer + its margin/padding
+        // Match the panels to the auditorium's height so they don't run longer than it.
+        // Slots keep their natural height and only scroll internally if content overflows.
+        var seating = document.querySelector('.seating-area');
+        var h = seating ? Math.round(seating.getBoundingClientRect().height) : 0;
         document.querySelectorAll('.groups-sidebar').forEach(function(sb) {
-            sb.style.height = 'auto';
-            var top = sb.getBoundingClientRect().top;
-            sb.style.height = Math.max(220, window.innerHeight - top - reserve) + 'px';
+            sb.style.height = h ? h + 'px' : 'auto';
         });
     }
 
