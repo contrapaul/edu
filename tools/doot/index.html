@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DooT — a brass-powered shooter</title>
+<style>
+  html, body { margin: 0; padding: 0; overflow: hidden; background: #0a0a12; height: 100%; font-family: 'Courier New', monospace; }
+  #game { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  /* ── HUD ── */
+  #hud { position: fixed; inset: 0; pointer-events: none; display: none; }
+  #crosshair {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    font-size: 22px; color: #ffe066; text-shadow: 0 0 6px #000;
+    user-select: none;
+  }
+  #hitmark {
+    position: absolute; left: 52%; top: 46%; font-size: 30px; color: #ff5cf0;
+    opacity: 0; text-shadow: 0 0 8px #ff5cf0; transition: opacity .25s;
+  }
+  #breathwrap {
+    position: absolute; left: 24px; bottom: 24px; width: 240px;
+    border: 2px solid #ffe066; background: rgba(0,0,0,.5); padding: 4px;
+  }
+  #breathlabel { color: #ffe066; font-size: 12px; letter-spacing: 2px; margin-bottom: 3px; }
+  #breathbar { height: 14px; width: 100%; background: linear-gradient(90deg,#4fd0ff,#9fffe0); transition: width .08s linear; }
+  #hpwrap {
+    position: absolute; left: 24px; bottom: 92px; width: 240px;
+    border: 2px solid #ff6b6b; background: rgba(0,0,0,.5); padding: 4px;
+  }
+  #hplabel { color: #ff6b6b; font-size: 12px; letter-spacing: 2px; margin-bottom: 3px; }
+  #hpbar { height: 14px; width: 100%; background: linear-gradient(90deg,#ff3b3b,#ff9d6b); transition: width .12s linear; }
+  #dootcount {
+    position: absolute; right: 24px; bottom: 24px; color: #ffe066; font-size: 20px;
+    text-shadow: 0 0 6px #000; text-align: right;
+  }
+  #sheetinv {
+    position: absolute; right: 24px; top: 24px; color: #fff; font-size: 16px;
+    text-shadow: 0 0 6px #000; text-align: right; opacity: .9;
+  }
+  #message {
+    position: absolute; left: 50%; top: 30%; transform: translateX(-50%);
+    color: #ffe066; font-size: 22px; text-shadow: 0 0 10px #000; text-align: center;
+    opacity: 0; transition: opacity .4s; white-space: pre-line;
+  }
+  #vignette {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(255,0,0,.55) 100%);
+    transition: opacity .35s;
+  }
+
+  /* ── Overlays ── */
+  .overlay {
+    position: fixed; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    background: rgba(6,6,14,.92); color: #eee; cursor: pointer; z-index: 10;
+  }
+  .overlay h1 {
+    font-size: 84px; margin: 0 0 8px; color: #ffe066; letter-spacing: 6px;
+    text-shadow: 4px 4px 0 #7c3aed, 0 0 30px rgba(255,224,102,.4);
+  }
+  .overlay h2 { font-size: 20px; margin: 0 0 28px; color: #9fffe0; font-weight: normal; }
+  .overlay p { font-size: 15px; line-height: 1.8; color: #bbb; max-width: 520px; margin: 4px 0; }
+  .overlay .go { margin-top: 30px; font-size: 22px; color: #ffe066; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 50% { opacity: .4; } }
+  #deathoverlay, #winoverlay { display: none; }
+  #deathoverlay h1 { color: #ff6b6b; text-shadow: 4px 4px 0 #500; }
+  #winoverlay h1 { color: #9fffe0; text-shadow: 4px 4px 0 #1a5cb8; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="game"></div>
+
+<div id="hud">
+  <div id="crosshair">♪</div>
+  <div id="hitmark">♪!</div>
+  <div id="hpwrap"><div id="hplabel">TEMPO (HP)</div><div id="hpbar"></div></div>
+  <div id="breathwrap"><div id="breathlabel">BREATH</div><div id="breathbar"></div></div>
+  <div id="dootcount">DOOTS: 0</div>
+  <div id="sheetinv">SHEET MUSIC: none</div>
+  <div id="message"></div>
+  <div id="vignette"></div>
+</div>
+
+<div class="overlay" id="titleoverlay">
+  <h1>DooT</h1>
+  <h2>a brass-powered shooter &nbsp;·&nbsp; tech demo</h2>
+  <p>The string section has gone demonic. You have a trumpet.<br>You know what to do.</p>
+  <p>WASD — move &nbsp;·&nbsp; SPACE — jump &nbsp;·&nbsp; MOUSE — aim &nbsp;·&nbsp; CLICK — doot</p>
+  <p>Ammo is breath. It runs out. So does your dignity.</p>
+  <div class="go">CLICK TO DOOT</div>
+</div>
+
+<div class="overlay" id="deathoverlay">
+  <h1>FORTISSIMO'D</h1>
+  <p>The strings have silenced your brass.</p>
+  <div class="go">CLICK TO DA CAPO (restart)</div>
+</div>
+
+<div class="overlay" id="winoverlay">
+  <h1>ENCORE!</h1>
+  <p>The demo level is cleared. The orchestra pit trembles at your name.</p>
+  <div class="go">CLICK TO PLAY IT AGAIN, MAESTRO</div>
+</div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>
