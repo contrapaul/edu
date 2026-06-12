@@ -10,6 +10,330 @@
 <script>
   (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
 </script>
+<style>
+/* ═══ CUSTOM CARD STYLES (from styleideas.html showroom) ═══ */
+.tool-card[class*="cs-"] { position: relative; }
+
+/* 01 — Lifted Paper */
+.cs-paper {
+  background: #f4f1ea !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+}
+.cs-paper:hover {
+  transform: translateY(-6px) rotate(-1deg) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 18px 40px rgba(0,0,0,0.45) !important;
+}
+
+/* 02 — Merging Cards (two white cards combine on hover) */
+.cs-merge {
+  background: #fff !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 10px 10px 0 0 #fff, 10px 10px 0 3px #1a1a2e;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.cs-merge:hover {
+  transform: translate(5px, 5px) !important;
+  box-shadow: 5px 5px 0 0 #fff, 5px 5px 0 3px #1a1a2e !important;
+}
+.cs-merge:active {
+  transform: translate(10px, 10px) !important;
+  box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1a1a2e !important;
+}
+
+/* 03 — Neon Sign */
+.cs-neon {
+  background: #14142a !important;
+  border: 1px solid #FA16C2 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 8px rgba(250,22,194,0.4), inset 0 0 8px rgba(250,22,194,0.1);
+}
+.cs-neon .tool-card-title { text-shadow: 0 0 8px rgba(250,22,194,0.6); }
+.cs-neon:hover { box-shadow: 0 0 24px rgba(250,22,194,0.8), inset 0 0 16px rgba(250,22,194,0.2) !important; }
+
+/* 05+10 — Terminal Window + Scanline CRT */
+.cs-crtterm {
+  background: #0d0d18 !important;
+  border: 2px solid #2dd4bf !important;
+  border-radius: 10px !important;
+  padding-top: 3rem !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(45,212,191,0.25), inset 0 0 30px rgba(45,212,191,0.08);
+}
+.cs-crtterm::before {
+  content: '\25CF \25CF \25CF';
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 7px 14px;
+  font-size: 0.6rem; letter-spacing: 3px;
+  text-align: left;
+  color: #555;
+  background: #1c1c2c;
+  border-bottom: 1px solid #333;
+}
+.cs-crtterm::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.25) 2px 4px);
+  pointer-events: none;
+}
+.cs-crtterm .tool-card-title::before { content: '$ '; opacity: 0.5; }
+.cs-crtterm .tool-card-title { text-shadow: 0 0 6px rgba(74,222,128,0.7); }
+.cs-crtterm:hover { animation: cs-flicker 0.15s 2; }
+@keyframes cs-flicker { 50% { opacity: 0.85; } }
+
+/* 06 — Retro Hard Shadow */
+.cs-retro {
+  background: #FFE536 !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 8px 8px 0 #FA16C2;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+.cs-retro:hover { transform: translate(4px, 4px) !important; box-shadow: 4px 4px 0 #FA16C2 !important; }
+.cs-retro:active { transform: translate(8px, 8px) !important; box-shadow: 0 0 0 #FA16C2 !important; }
+
+/* 07 — Spotlight Tracker (JS sets --mx/--my) */
+.cs-spotlight {
+  background: #20203a !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+.cs-spotlight::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,229,54,0.16), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.cs-spotlight:hover::before { opacity: 1; }
+
+/* 08 — Tilt 3D (JS-driven transform) */
+.cs-tilt { transition: box-shadow 0.3s !important; }
+.cs-tilt:hover { box-shadow: 0 14px 34px rgba(0,0,0,0.35) !important; }
+
+/* 09 — Regulatory Papers (dog-eared document) */
+.cs-papers {
+  background: #ece4cd !important;
+  border: 1px solid #b3a987 !important;
+  border-radius: 2px !important;
+  outline: 1px solid rgba(90,80,50,0.35);
+  outline-offset: -8px;
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.cs-papers::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  border-style: solid;
+  border-width: 0 34px 34px 0;
+  border-color: transparent #c5b990 transparent transparent;
+}
+.cs-papers::after {
+  content: 'FORM 7-B';
+  position: absolute; bottom: 12px; right: 14px;
+  font-size: 0.55rem; letter-spacing: 1px;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+  padding: 2px 6px;
+  transform: rotate(-6deg);
+  opacity: 0.75;
+}
+.cs-papers:hover { transform: translateY(-3px) rotate(0.5deg) !important; }
+
+/* 11 — Aurora Blob */
+.cs-aurora {
+  background: #1d1d38 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+}
+.cs-aurora::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  top: -60px; right: -60px;
+  background: radial-gradient(circle, #FA16C2, transparent 70%);
+  filter: blur(40px);
+  opacity: 0.5;
+  transition: 0.6s;
+  pointer-events: none;
+}
+.cs-aurora:hover::before { transform: translate(-90px, 70px) scale(1.4); opacity: 0.7; }
+.cs-aurora .tool-card-title, .cs-aurora .tool-card-sub { position: relative; }
+
+/* 12 — Split Reveal */
+.cs-reveal {
+  background: #232342 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 18px !important;
+}
+.cs-reveal:hover { background: #2b2b52 !important; }
+.cs-reveal-extra {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: 0.35s ease;
+  font-size: 0.68rem; line-height: 1.6;
+  color: #FFE536;
+  margin: 0;
+}
+.cs-reveal:hover .cs-reveal-extra { max-height: 80px; opacity: 1; margin-top: 4px; }
+
+/* 13 — Stamped Outline */
+.cs-stamp {
+  background: transparent !important;
+  border: 2px dashed rgba(128,128,128,0.55) !important;
+  border-radius: 16px !important;
+}
+.cs-stamp:hover {
+  border-style: solid !important;
+  border-color: #e3b400 !important;
+  background: rgba(255,229,54,0.1) !important;
+  box-shadow: 0 0 0 4px rgba(255,229,54,0.12) !important;
+}
+
+/* 14 — Bento Box (tag pills) */
+.cs-bento {
+  background: #1f1f33 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 20px !important;
+}
+.cs-bento:hover { transform: scale(1.02) !important; }
+.cs-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 4px; }
+.cs-tags span {
+  font-size: 0.6rem; font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,114,0,0.2);
+  color: #FF7200;
+}
+
+/* 15+18 — Blueprint (mint variant adds shimmer) */
+.cs-blueprint {
+  background-color: #16335f !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 2px solid rgba(255,255,255,0.5) !important;
+  border-radius: 4px !important;
+  outline: 1px dashed rgba(255,255,255,0.4);
+  outline-offset: -8px;
+}
+.cs-blueprint .tool-card-title { text-decoration: underline; text-underline-offset: 4px; }
+.cs-blueprint:hover { box-shadow: 0 8px 24px rgba(22,51,95,0.5) !important; }
+.cs-blueprint-mint {
+  background-color: #1d4f47 !important;
+  overflow: hidden;
+}
+.cs-blueprint-mint:hover { box-shadow: 0 8px 24px rgba(29,79,71,0.6) !important; }
+.cs-blueprint-mint::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cs-blueprint-mint:hover::before { animation: cs-sweep 0.7s ease; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }
+
+/* 16 — Circuit Board */
+.cs-circuit {
+  background-color: #14202a !important;
+  background-image:
+    linear-gradient(rgba(45,212,191,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,212,191,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid rgba(45,212,191,0.3) !important;
+  border-radius: 12px !important;
+  transition: 0.3s !important;
+}
+.cs-circuit:hover {
+  background-size: 16px 16px;
+  border-color: #2dd4bf !important;
+  box-shadow: 0 0 18px rgba(45,212,191,0.3) !important;
+}
+.cs-circuit-gray { background-color: #23272b !important; border-color: rgba(160,160,160,0.4) !important; }
+.cs-circuit-gray:hover { border-color: #FF7200 !important; box-shadow: 0 0 18px rgba(255,114,0,0.3) !important; }
+
+/* 17 — Polaroid */
+.cs-polaroid {
+  background: #fff !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 14px 14px 18px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  transform: rotate(2deg);
+}
+.cs-polaroid:hover { transform: rotate(0deg) scale(1.03) !important; box-shadow: 0 10px 28px rgba(0,0,0,0.4) !important; }
+.cs-polaroid .cs-photo {
+  width: 100%; height: 150px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* 19 — Gradient Wash */
+.cs-wash {
+  background: linear-gradient(135deg, #FA16C2 0%, #FF7200 100%) !important;
+  background-size: 150% 150% !important;
+  border: none !important;
+  border-radius: 22px !important;
+  box-shadow: 0 8px 24px rgba(250,22,194,0.3);
+  transition: 0.4s !important;
+}
+.cs-wash:hover {
+  background-position: 100% 100% !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(255,114,0,0.45) !important;
+}
+
+/* 08+10 — DooT (tilt + Doom-themed CRT) */
+.cs-doot {
+  background: #1a0d0d !important;
+  border: 2px solid #8b0000 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(139,0,0,0.5), inset 0 0 30px rgba(255,56,0,0.08);
+}
+.cs-doot::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.3) 2px 4px);
+  pointer-events: none;
+}
+.cs-doot .tool-card-title { text-shadow: 0 0 10px rgba(255,56,0,0.8); letter-spacing: 2px; }
+
+/* 20 — Orbiting Border */
+.cs-orbit {
+  background: #1f1f38 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-orbit::before {
+  content: '';
+  position: absolute; inset: -50%;
+  background: conic-gradient(from 0deg, transparent 70%, #FFE536, #FA16C2, transparent);
+  animation: cs-orbit 3s linear infinite paused;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -2;
+}
+.cs-orbit:hover::before { opacity: 1; }
+.cs-orbit::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 17px;
+  background: #1f1f38;
+  z-index: -1;
+}
+.cs-orbit:hover::before { animation-play-state: running; }
+@keyframes cs-orbit { to { transform: rotate(360deg); } }
+</style>
 </head>
 <body>
 
@@ -62,121 +386,123 @@
 
 <div class="tool-cards-grid">
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/DT-IA-Guide/"
-   style="--card-bg:#2563eb; --card-border:#FF8900; --card-title-size: 1.5rem; --card-title-color:#FFFFFF; --card-font:tahoma, sans-serif; --card-sub-color:#FFFFFF;">
-  <h3 class="tool-card-title"><strong>INTERNAL ASSESSMENT GUIDE</strong></h3>
+<a class="tool-card cs-paper" href="https://edu.contrapaul.com/tools/DT-IA-Guide/"
+   style="--card-title-color:#2a2a35; --card-sub-color:#55555f;">
+  <h3 class="tool-card-title"><strong>DP Design Technology IA Guide</strong></h3>
   <p class="tool-card-sub"><em>A detailed walkthrough of how to achieve success with your IA project.</em></p>
 </a>
 
-<a class="tool-card" href="lca-calculator.html"
-   style="--card-bg:#dcfce7; --card-border:#736F6D; --card-title-color:#121212; --card-sub-color:#121212;">
-  <h3 class="tool-card-title">Lifecycle Analysis Tool</h3>
-  <p class="tool-card-sub">Step-by-step LCA with guided prompts for each phase</p>
+<a class="tool-card cs-merge" href="lca-calculator.html"
+   style="--card-title-color:#1a1a2e; --card-sub-color:#44444f;">
+  <h3 class="tool-card-title">Infinite Composites</h3>
+  <p class="tool-card-sub">Learn about materials in a game inspired by Infinite Craft</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/ia_compare"
-   style="--card-bg:#285E5C; --card-border:#0B091A; --card-title-size: 1.3rem; --card-font:courier new, courier, sans-serif; --card-title-color:#F2F2F2; --card-sub-color:#121212;">
-  <h3 class="tool-card-title">Internal Assessment Marks Reference</h3>
+<a class="tool-card cs-blueprint cs-blueprint-mint" href="https://edu.contrapaul.com/tools/ia_compare"
+   style="--card-title-color:#d9fff4; --card-sub-color:#9fe8d2;">
+  <h3 class="tool-card-title">DP Design Technology IA Marks Reference</h3>
   <p class="tool-card-sub">Cross-reference 3 sample IA's to explore different levels of achievement.</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/macropad"
-   style="--card-bg:#1e293b; --card-border:#CCAC00; --card-title-color:#CCAC00; --card-title-size: 1.7rem; --card-title-font: ostrich-sans-black, verdana, sans-serif; --card-sub-color:#94a3b8;">
+<a class="tool-card cs-circuit" href="https://edu.contrapaul.com/tools/macropad"
+   style="--card-title-color:#2dd4bf; --card-sub-color:#7fc4bb;">
   <h3 class="tool-card-title">Macropad Builder</h3>
   <p class="tool-card-sub">Plan components, wiring, and create downloadable code to build a Macropad with an ESP32 device.</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/central-middlezhong-adventure"
-   style="--card-bg:#fef3c7; --card-border:#d97706; --card-title-color:#92400e; --card-sub-color:#b45309;">
+<a class="tool-card cs-crtterm" href="https://edu.contrapaul.com/tools/central-middlezhong-adventure"
+   style="--card-title-color:#4ade80; --card-sub-color:#8a8aa0;">
   <h3 class="tool-card-title">Material Selection Text Adventure</h3>
   <p class="tool-card-sub">The town of Central Middlezhong needs your design expertise!</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/deviceroom"
-   style="--card-bg:#f0fdf4; --card-border:#22c55e; --card-title-color:#15803d; --card-sub-color:#16a34a;">
+<a class="tool-card cs-neon" href="https://edu.contrapaul.com/tools/deviceroom"
+   style="--card-title-color:#FA16C2; --card-sub-color:#e9a5d8;">
   <h3 class="tool-card-title">Device Room Rules</h3>
   <p class="tool-card-sub">No, you can't play GTA in the device room :/</p>
 </a>
 
-<a class="tool-card" href="/tools/taskanalysis/"
-   style="--card-bg:#0f172a; --card-border:#3b82f6; --card-title-color:#e2e8f0; --card-sub-color:#93c5fd;">
+<a class="tool-card cs-reveal" href="/tools/taskanalysis/"
+   style="--card-title-color:#e2e8f0; --card-sub-color:#a3b3cd;">
   <h3 class="tool-card-title">Task Analysis Map</h3>
   <p class="tool-card-sub">Build a hierarchical task analysis by dragging and connecting step cards on a freeform canvas</p>
+  <p class="cs-reveal-extra">&rarr; User opens Google Chrome<br>&rarr; User types 'Google' into search bar<br>&rarr; User searches for 'Facebook' on Google.com</p>
 </a>
 
-<a class="tool-card" href="ip-guide.html"
-   style="--card-bg:#1e3a5f; --card-border:#2563eb; --card-title-color:#bfdbfe; --card-sub-color:#93c5fd;">
-  <h3 class="tool-card-title">Intellectual Property Guide</h3>
-  <p class="tool-card-sub">Patents, trademarks, copyright, and registered design rights</p>
+<a class="tool-card cs-polaroid" href="ip-guide.html"
+   style="--card-title-color:#222222; --card-sub-color:#666666;">
+  <img class="cs-photo" src="gamesimage.png" alt="Games collage">
+  <h3 class="tool-card-title">You Should Play These Games</h3>
+  <p class="tool-card-sub">A bunch of awesome games with educational benefits</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/LegoInterview7/"
-   style="--card-bg:#fff7ed; --card-border:#ea580c; --card-title-color:#c2410c; --card-sub-color:#ea580c;">
+<a class="tool-card cs-blueprint" href="https://edu.contrapaul.com/tools/LegoInterview7/"
+   style="--card-title-color:#eaf2ff; --card-sub-color:#b9cdf0;">
   <h3 class="tool-card-title">Lego Engineers Evaluation Creator</h3>
   <p class="tool-card-sub">A worksheet generator for students to make their own criteria D assessments</p>
 </a>
 
-<a class="tool-card" href="placeholder"
-   style="--card-bg:#f7fee7; --card-border:#65a30d; --card-title-color:#3f6212; --card-sub-color:#4d7c0f;">
+<a class="tool-card cs-retro" href="placeholder"
+   style="--card-title-color:#1a1a2e; --card-sub-color:#3a3a4e;">
   <h3 class="tool-card-title">The Museum of Mr. K's Technology</h3>
   <p class="tool-card-sub">Including his beloved brown Zune!</p>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/AshbyChart"
-   style="--card-bg:#e0f2fe; --card-border:#0284c7; --card-title-color:#075985; --card-sub-color:#0369a1;">
+<a class="tool-card cs-circuit cs-circuit-gray" href="https://edu.contrapaul.com/tools/AshbyChart"
+   style="--card-title-color:#FF7200; --card-sub-color:#2dd4bf;">
   <h3 class="tool-card-title">Ashby Chart Game</h3>
   <p class="tool-card-sub">Learn about materials and logarithmic charts at the same time!</p>
 </a>
 
-<a class="tool-card" href="/tools/LegoInterview/"
-   style="--card-bg:#FCD303; --card-border:#CC0000; --card-title-color:#1a1a1a; --card-sub-color:#333333;">
-  <h3 class="tool-card-title">Interview Question Generator</h3>
+<a class="tool-card cs-bento" href="/tools/LegoInterview/"
+   style="--card-title-color:#ffffff; --card-sub-color:#b9b9cc;">
+  <h3 class="tool-card-title">Lego Product Design Interview Question Generator</h3>
   <p class="tool-card-sub">Build a set of five interview questions for your Lego design project</p>
+  <span class="cs-tags"><span>No more</span><span>useless</span><span>questions</span><span>:)</span></span>
 </a>
 
-<a class="tool-card" href="https://edu.contrapaul.com/tools/Auditorium"
-   style="--card-bg:#faf5ff; --card-border:#9333ea; --card-title-color:#6b21a8; --card-sub-color:#7e22ce;">
+<a class="tool-card cs-wash" href="https://edu.contrapaul.com/tools/Auditorium"
+   style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.88);">
   <h3 class="tool-card-title">Auditorium Seating Planner</h3>
   <p class="tool-card-sub">Quickly build an attractive seating plan for the ISNS auditorium</p>
 </a>
 
-<a class="tool-card" href="classic-design.html"
-   style="--card-bg:#fff1f2; --card-border:#f43f5e; --card-title-color:#9f1239; --card-sub-color:#be123c;">
-  <h3 class="tool-card-title">Classic Design Analysis</h3>
-  <p class="tool-card-sub">Analyse iconic objects through aesthetic, functional, and cultural lenses</p>
+<a class="tool-card cs-doot cs-tilt" href="classic-design.html"
+   style="--card-title-color:#ff3800; --card-sub-color:#d4a373;">
+  <h3 class="tool-card-title">DooT</h3>
+  <p class="tool-card-sub">The only thing they fear is DooT</p>
 </a>
 
-<a class="tool-card" href="innovation-models.html"
-   style="--card-bg:#fffbeb; --card-border:#f59e0b; --card-title-color:#78350f; --card-sub-color:#92400e;">
-  <h3 class="tool-card-title">Innovation Models Explorer</h3>
-  <p class="tool-card-sub">Place Held!</p>
+<a class="tool-card cs-papers" href="innovation-models.html"
+   style="--card-title-color:#3a3326; --card-sub-color:#6b6249;">
+  <h3 class="tool-card-title">Regulatory Papers, Please!</h3>
+  <p class="tool-card-sub">A "fun game" about getting a product made</p>
 </a>
 
-<a class="tool-card" href="/tools/dodgeball/"
-   style="--card-bg:#fff0f0; --card-border:#cc0000; --card-title-color:#7f1d1d; --card-sub-color:#991b1b;">
+<a class="tool-card cs-orbit" href="/tools/dodgeball/"
+   style="--card-title-color:#ffffff; --card-sub-color:#b9b9cc;">
   <h3 class="tool-card-title">Future Home of Dodgeball Game</h3>
   <p class="tool-card-sub">I'm working on a dodgeball game. Stay tuned.</p>
 </a>
 
-<a class="tool-card" href="/tools/Placeholder/"
-   style="--card-bg:#f5f0ff; --card-border:#7c3aed; --card-title-color:#4c1d95; --card-sub-color:#6d28d9;">
+<a class="tool-card cs-stamp" href="/tools/Placeholder/">
   <h3 class="tool-card-title">A Placeholder!</h3>
   <p class="tool-card-sub">Truly, the place hath been held</p>
 </a>
 
-<a class="tool-card" href="/tools/microprocessors/"
-   style="--card-bg:#0d1117; --card-border:#06b6d4; --card-title-color:#67e8f9; --card-sub-color:#22d3ee;">
-  <h3 class="tool-card-title">How Microprocessors Evolved</h3>
-  <p class="tool-card-sub">An early 1-shot local LLM test. To be replaced.</p>
+<a class="tool-card cs-spotlight" href="/tools/microprocessors/"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+  <h3 class="tool-card-title">Computer Parts: A History</h3>
+  <p class="tool-card-sub">Discover 50 years of computer components</p>
 </a>
 
-<a class="tool-card" href="/tools/RTSproject/"
-   style="--card-bg:#0c1a0e; --card-border:#22c55e; --card-title-color:#86efac; --card-sub-color:#4ade80;">
+<a class="tool-card cs-aurora" href="/tools/RTSproject/"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
   <h3 class="tool-card-title">StarCraft Lite: In Progress</h3>
   <p class="tool-card-sub">Experimenting with a lightweight multiplayer RTS game hosted and run in browser.</p>
 </a>
 
-<a class="tool-card" href="/tools/3Dmuseum1/"
+<a class="tool-card cs-tilt" href="/tools/3Dmuseum1/"
    style="--card-bg:#0a0a1a; --card-border:#7c3aed; --card-title-color:#c4b5fd; --card-title-size:1.4rem; --card-sub-color:#a78bfa;">
   <h3 class="tool-card-title">Tech Museum Test</h3>
   <p class="tool-card-sub">An early test of three.js</p>
@@ -196,5 +522,23 @@
 </footer>
 
 <script src="../curriculum/curriculum-themes.js"></script>
+<script>
+document.querySelectorAll('.cs-spotlight').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.cs-tilt').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'perspective(800px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 14) + 'deg)';
+  });
+  el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+});
+</script>
 </body>
 </html>
