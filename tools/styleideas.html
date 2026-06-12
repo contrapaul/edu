@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Style Showroom - edu.contrapaul.com</title>
+<style>
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('WEB/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: normal; font-style: normal;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('WEB/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');
+    font-weight: bold; font-style: normal;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('WEB/Jetbrains/woff2/JetBrainsMono-ExtraBold.woff2') format('woff2');
+    font-weight: 800; font-style: normal;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: #1a1a2e;
+    color: #fff;
+    min-height: 100vh;
+    padding: 12px;
+}
+.site-header {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 16px 28px;
+    margin-bottom: 10px;
+}
+.header-title {
+    font-weight: 800; font-size: 1.3rem;
+    background: linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.intro {
+    text-align: center;
+    color: rgba(255,255,255,0.55);
+    font-size: 0.85rem;
+    margin: 18px auto 30px;
+    max-width: 720px;
+    line-height: 1.6;
+}
+.showroom {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 40px 30px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+.exhibit { display: flex; flex-direction: column; gap: 12px; }
+.exhibit-label {
+    display: flex; align-items: baseline; gap: 10px;
+}
+.exhibit-num {
+    font-weight: 800; font-size: 1.1rem;
+    background: linear-gradient(135deg, #FFE536, #FA16C2);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.exhibit-name { font-weight: bold; font-size: 1rem; }
+.exhibit-desc {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.72rem; line-height: 1.5;
+}
+.stage {
+    min-height: 220px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.1);
+}
+/* Shared inner-content layout for all demo cards */
+.card {
+    width: 280px; min-height: 170px;
+    padding: 22px;
+    cursor: pointer;
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+}
+.card .icon { font-size: 1.8rem; }
+.card .name { font-weight: 800; font-size: 1.05rem; }
+.card .desc { font-size: 0.72rem; line-height: 1.5; opacity: 0.7; }
+
+/* ============ 1. GLASS PANEL ============ */
+.c1 {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    transition: 0.25s;
+}
+.c1:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+
+/* ============ 2. GRADIENT BORDER ============ */
+.c2 {
+    background: #1f1f33;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-image: linear-gradient(#1f1f33, #1f1f33), linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: 0.25s;
+}
+.c2:hover { transform: translateY(-4px); box-shadow: 0 0 24px rgba(250,22,194,0.35); }
+
+/* ============ 3. NEON GLOW ============ */
+.c3 {
+    background: #14142a;
+    border: 1px solid #FA16C2;
+    border-radius: 16px;
+    box-shadow: 0 0 8px rgba(250,22,194,0.4), inset 0 0 8px rgba(250,22,194,0.1);
+    transition: 0.3s;
+}
+.c3 .name { color: #FA16C2; text-shadow: 0 0 8px rgba(250,22,194,0.6); }
+.c3:hover { box-shadow: 0 0 24px rgba(250,22,194,0.8), inset 0 0 16px rgba(250,22,194,0.2); }
+
+/* ============ 4. LIFTED PAPER ============ */
+.c4 {
+    background: #f4f1ea;
+    color: #2a2a35;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.5);
+    transition: 0.25s;
+}
+.c4:hover { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 18px 40px rgba(0,0,0,0.6); }
+
+/* ============ 5. TERMINAL WINDOW ============ */
+.c5 {
+    background: #0d0d18;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding-top: 40px;
+    transition: 0.2s;
+}
+.c5::before {
+    content: '● ● ●';
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 8px 14px;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: #555;
+    background: #1c1c2c;
+    border-radius: 9px 9px 0 0;
+    border-bottom: 1px solid #333;
+}
+.c5 .name { color: #4ade80; }
+.c5 .name::before { content: '$ '; opacity: 0.5; }
+.c5 .desc { color: #8a8aa0; }
+.c5:hover { border-color: #4ade80; }
+.c5:hover .name::after { content: '_'; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============ 6. RETRO HARD SHADOW ============ */
+.c6 {
+    background: #FFE536;
+    color: #1a1a2e;
+    border: 3px solid #1a1a2e;
+    border-radius: 12px;
+    box-shadow: 8px 8px 0 #FA16C2;
+    transition: 0.15s;
+}
+.c6 .desc { opacity: 0.85; }
+.c6:hover { transform: translate(4px, 4px); box-shadow: 4px 4px 0 #FA16C2; }
+.c6:active { transform: translate(8px, 8px); box-shadow: 0 0 0 #FA16C2; }
+
+/* ============ 7. SPOTLIGHT TRACKER ============ */
+.c7 {
+    background: #20203a;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+.c7::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(255,229,54,0.15), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.c7:hover::before { opacity: 1; }
+
+/* ============ 8. TILT 3D ============ */
+.stage.s8 { perspective: 800px; }
+.c8 {
+    background: linear-gradient(145deg, #26264a, #1c1c36);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.15s ease-out, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.c8 .icon, .c8 .name, .c8 .desc { transform: translateZ(30px); }
+
+/* ============ 9. CORNER FOLD TICKET ============ */
+.c9 {
+    background: #2a2a45;
+    border-radius: 14px 14px 14px 0;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+    transition: 0.25s;
+}
+.c9::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    border-style: solid;
+    border-width: 30px 30px 0 0;
+    border-color: #FF7200 transparent transparent transparent;
+}
+.c9:hover { background: #33335a; transform: translateY(-4px); }
+
+/* ============ 10. SCANLINE CRT ============ */
+.c10 {
+    background: #101024;
+    border: 2px solid #2dd4bf;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 16px rgba(45,212,191,0.25), inset 0 0 30px rgba(45,212,191,0.08);
+}
+.c10 .name, .c10 .icon { color: #2dd4bf; text-shadow: 0 0 6px rgba(45,212,191,0.8); }
+.c10 .desc { color: #6ee7da; }
+.c10::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.25) 2px 4px);
+    pointer-events: none;
+}
+.c10:hover { animation: flicker 0.15s 2; }
+@keyframes flicker { 50% { opacity: 0.85; } }
+
+/* ============ 11. AURORA BLOB ============ */
+.c11 {
+    background: #1d1d38;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.c11::before {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    top: -60px; right: -60px;
+    background: radial-gradient(circle, #FA16C2, transparent 70%);
+    filter: blur(40px);
+    opacity: 0.5;
+    transition: 0.6s;
+}
+.c11:hover::before { transform: translate(-80px, 80px) scale(1.4); opacity: 0.7; }
+.c11 > * { position: relative; }
+
+/* ============ 12. SPLIT REVEAL ============ */
+.c12 {
+    background: #232342;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.c12 .reveal {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.35s ease;
+    font-size: 0.68rem;
+    color: #FFE536;
+}
+.c12:hover { background: #2b2b52; }
+.c12:hover .reveal { max-height: 60px; opacity: 1; margin-top: 6px; }
+
+/* ============ 13. STAMPED OUTLINE ============ */
+.c13 {
+    background: transparent;
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 16px;
+    transition: 0.25s;
+}
+.c13:hover {
+    border-style: solid;
+    border-color: #FFE536;
+    background: rgba(255,229,54,0.06);
+    box-shadow: 0 0 0 4px rgba(255,229,54,0.1);
+}
+
+/* ============ 14. BENTO METRIC ============ */
+.c14 {
+    background: rgba(0,0,0,0.4);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    gap: 4px;
+    transition: 0.25s;
+}
+.c14 .icon { grid-row: 1; grid-column: 2; }
+.c14 .name { grid-row: 1; grid-column: 1; align-self: center; }
+.c14 .desc { grid-row: 2; grid-column: 1 / -1; }
+.c14 .tag {
+    grid-row: 3;
+    justify-self: start;
+    font-size: 0.6rem; font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: rgba(255,114,0,0.2);
+    color: #FF7200;
+}
+.c14:hover { background: rgba(0,0,0,0.6); transform: scale(1.02); }
+
+/* ============ 15. SHIMMER SWEEP ============ */
+.c15 {
+    background: #222240;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.c15::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+    transform: translateX(-100%);
+}
+.c15:hover::before { animation: sweep 0.7s ease; }
+@keyframes sweep { to { transform: translateX(100%); } }
+
+/* ============ 16. CIRCUIT BOARD ============ */
+.c16 {
+    background-color: #14202a;
+    background-image:
+        linear-gradient(rgba(45,212,191,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45,212,191,0.07) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 1px solid rgba(45,212,191,0.3);
+    border-radius: 12px;
+    transition: 0.3s;
+}
+.c16 .name { color: #2dd4bf; }
+.c16:hover { background-size: 16px 16px; border-color: #2dd4bf; box-shadow: 0 0 18px rgba(45,212,191,0.3); }
+
+/* ============ 17. POLAROID ============ */
+.c17 {
+    background: #fff;
+    color: #222;
+    padding: 14px 14px 18px;
+    border-radius: 3px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    transform: rotate(2deg);
+    transition: 0.3s;
+}
+.c17 .photo {
+    height: 100px;
+    border-radius: 2px;
+    background: linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+.c17 .name { font-size: 0.95rem; }
+.c17 .desc { opacity: 0.6; }
+.c17:hover { transform: rotate(0deg) scale(1.04); }
+
+/* ============ 18. BLUEPRINT ============ */
+.c18 {
+    background: #16335f;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 4px;
+    outline: 1px dashed rgba(255,255,255,0.4);
+    outline-offset: -8px;
+    color: #dce9ff;
+    transition: 0.25s;
+}
+.c18 .name { text-decoration: underline; text-underline-offset: 4px; }
+.c18:hover { background-color: #1c427c; box-shadow: 0 8px 24px rgba(22,51,95,0.8); }
+
+/* ============ 19. GRADIENT WASH ============ */
+.c19 {
+    background: linear-gradient(135deg, #FA16C2 0%, #FF7200 100%);
+    background-size: 150% 150%;
+    border-radius: 22px;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(250,22,194,0.3);
+    transition: 0.4s;
+}
+.c19 .desc { opacity: 0.9; }
+.c19:hover { background-position: 100% 100%; transform: translateY(-4px); box-shadow: 0 14px 36px rgba(255,114,0,0.45); }
+
+/* ============ 20. ORBITING BORDER ============ */
+.c20 {
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1f1f38;
+    isolation: isolate;
+}
+.c20::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 0deg, transparent 70%, #FFE536, #FA16C2, transparent);
+    animation: orbit 3s linear infinite paused;
+    z-index: -2;
+}
+.c20::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 18px;
+    background: #1f1f38;
+    z-index: -1;
+}
+.c20:hover::before { animation-play-state: running; }
+@keyframes orbit { to { transform: rotate(360deg); } }
+
+.site-footer {
+    margin: 50px auto 10px;
+    text-align: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+    max-width: 1500px;
+}
+
+/* ============ STYLE MENU ============ */
+.style-menu {
+    max-width: 1500px;
+    margin: 60px auto 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 28px;
+}
+.style-menu h2 {
+    font-weight: 800; font-size: 1.2rem; margin-bottom: 6px;
+    background: linear-gradient(135deg, #FFE536, #FA16C2, #FF7200);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.style-menu > p { color: rgba(255,255,255,0.55); font-size: 0.78rem; margin-bottom: 20px; }
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+.menu-section {
+    background: rgba(255,255,255,0.05);
+    border-radius: 14px;
+    padding: 16px 18px;
+}
+.menu-section h3 { font-size: 0.85rem; color: #FFE536; margin-bottom: 8px; }
+.menu-section ul { list-style: none; }
+.menu-section li {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.7);
+    padding: 4px 0;
+    line-height: 1.45;
+}
+.menu-section li b { color: #fff; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <span class="header-title">CARD STYLE SHOWROOM</span>
+    <span style="color:rgba(255,255,255,0.5); font-size:0.8rem;">20 exhibits &middot; hover everything</span>
+</header>
+
+<p class="intro">Each card below is a candidate style for the tools landing page. Hover (and click #6) to see interactions.
+Styles can be mixed &mdash; e.g. a Glass Panel base with a Shimmer Sweep hover. Pick favorites, then check the Style Menu at the bottom for tweakable options.</p>
+
+<div class="showroom">
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">01</span><span class="exhibit-name">Glass Panel</span></div>
+        <div class="stage">
+            <div class="card c1"><span class="icon">🪟</span><span class="name">Frosted Glass</span><span class="desc">Translucent blur over the page background. Matches the current header style.</span></div>
+        </div>
+        <p class="exhibit-desc">Safe, modern, cohesive with Auditorium's existing header/toolbar. Lifts on hover.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">02</span><span class="exhibit-name">Gradient Border</span></div>
+        <div class="stage">
+            <div class="card c2"><span class="icon">🌈</span><span class="name">Brand Frame</span><span class="desc">Dark card wrapped in the site's signature yellow-magenta-orange gradient.</span></div>
+        </div>
+        <p class="exhibit-desc">Ties every card to the brand gradient. Glows pink on hover.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">03</span><span class="exhibit-name">Neon Glow</span></div>
+        <div class="stage">
+            <div class="card c3"><span class="icon">⚡</span><span class="name">Neon Sign</span><span class="desc">Single accent color, glowing border and text. Glow intensifies on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Arcade vibe. Each tool could get its own neon color.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">04</span><span class="exhibit-name">Lifted Paper</span></div>
+        <div class="stage">
+            <div class="card c4"><span class="icon">📄</span><span class="name">Index Card</span><span class="desc">Warm paper tone on the dark stage. Lifts and tilts slightly on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">High contrast against the dark site &mdash; very legible, classroom-friendly.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">05</span><span class="exhibit-name">Terminal Window</span></div>
+        <div class="stage">
+            <div class="card c5"><span class="name">launch-tool</span><span class="desc">// macOS-style window chrome, prompt prefix, blinking cursor on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Leans into the JetBrains Mono font. Great fit for a developer-flavored site.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">06</span><span class="exhibit-name">Retro Hard Shadow</span></div>
+        <div class="stage">
+            <div class="card c6"><span class="icon">🕹️</span><span class="name">Neo-Brutalist</span><span class="desc">Flat color, thick border, offset shadow. Click me &mdash; I physically press down.</span></div>
+        </div>
+        <p class="exhibit-desc">Playful and bold. The press-down click is very satisfying.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">07</span><span class="exhibit-name">Spotlight Tracker</span></div>
+        <div class="stage">
+            <div class="card c7" onmousemove="track(event,this)"><span class="icon">🔦</span><span class="name">Follow the Light</span><span class="desc">A soft glow follows your cursor across the card surface.</span></div>
+        </div>
+        <p class="exhibit-desc">Subtle JS-powered radial glow. Feels premium and reactive.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">08</span><span class="exhibit-name">Tilt 3D</span></div>
+        <div class="stage s8">
+            <div class="card c8" onmousemove="tilt(event,this)" onmouseleave="this.style.transform=''"><span class="icon">🎲</span><span class="name">Parallax Tilt</span><span class="desc">The card tilts toward your cursor; content floats above the surface.</span></div>
+        </div>
+        <p class="exhibit-desc">JS-powered perspective tilt with layered depth. Show-off factor: high.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">09</span><span class="exhibit-name">Corner Fold Ticket</span></div>
+        <div class="stage">
+            <div class="card c9"><span class="icon">🎟️</span><span class="name">Folded Corner</span><span class="desc">Clip-path cuts the corner; a colored fold tucks underneath.</span></div>
+        </div>
+        <p class="exhibit-desc">Pure CSS shape trickery. Fold color could encode tool category.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">10</span><span class="exhibit-name">Scanline CRT</span></div>
+        <div class="stage">
+            <div class="card c10"><span class="icon">📺</span><span class="name">CRT Monitor</span><span class="desc">Phosphor green-teal text with scanlines. Flickers briefly on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Retro-tech aesthetic. Pairs naturally with Terminal Window (#05).</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">11</span><span class="exhibit-name">Aurora Blob</span></div>
+        <div class="stage">
+            <div class="card c11"><span class="icon">🌌</span><span class="name">Aurora</span><span class="desc">A blurred color blob drifts across the card on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Soft, organic motion. Blob color could vary per card.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">12</span><span class="exhibit-name">Split Reveal</span></div>
+        <div class="stage">
+            <div class="card c12"><span class="icon">📂</span><span class="name">Expand on Hover</span><span class="desc">Compact by default. Hover to reveal extra details...</span>
+                <span class="reveal">&rarr; Last updated: June 2026<br>&rarr; Works offline &middot; No login</span></div>
+        </div>
+        <p class="exhibit-desc">Keeps the grid tidy while offering metadata on demand.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">13</span><span class="exhibit-name">Stamped Outline</span></div>
+        <div class="stage">
+            <div class="card c13"><span class="icon">✏️</span><span class="name">Dashed Draft</span><span class="desc">Ghost-light dashed outline that solidifies and tints on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Minimalist. Also a natural style for "coming soon" placeholder cards.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">14</span><span class="exhibit-name">Bento Metric</span></div>
+        <div class="stage">
+            <div class="card c14"><span class="icon">🍱</span><span class="name">Bento Box</span><span class="desc">Structured grid layout inside the card with a category tag pill.</span><span class="tag">PLANNING</span></div>
+        </div>
+        <p class="exhibit-desc">Dashboard feel. Tags let users scan tool categories at a glance.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">15</span><span class="exhibit-name">Shimmer Sweep</span></div>
+        <div class="stage">
+            <div class="card c15"><span class="icon">✨</span><span class="name">Light Sweep</span><span class="desc">A diagonal sheen sweeps across the card on hover, like polished metal.</span></div>
+        </div>
+        <p class="exhibit-desc">One-shot animation, subtle and classy. Combinable with almost any base.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">16</span><span class="exhibit-name">Circuit Board</span></div>
+        <div class="stage">
+            <div class="card c16"><span class="icon">🔌</span><span class="name">Grid Trace</span><span class="desc">Fine teal grid lines; the grid tightens and the border energizes on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Techy texture from pure CSS gradients &mdash; no images needed.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">17</span><span class="exhibit-name">Polaroid</span></div>
+        <div class="stage">
+            <div class="card c17"><div class="photo">📸</div><span class="name">Snapshot</span><span class="desc">White frame, image area on top, caption below. Straightens on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Best if each tool gets a screenshot or illustration thumbnail.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">18</span><span class="exhibit-name">Blueprint</span></div>
+        <div class="stage">
+            <div class="card c18"><span class="icon">📐</span><span class="name">Schematic</span><span class="desc">Architect's blueprint: grid paper, double border, drafting underline.</span></div>
+        </div>
+        <p class="exhibit-desc">Fits "planner" tools especially well (seating charts, layouts).</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">19</span><span class="exhibit-name">Gradient Wash</span></div>
+        <div class="stage">
+            <div class="card c19"><span class="icon">🎨</span><span class="name">Full Bleed</span><span class="desc">The whole card is a brand-gradient surface; gradient shifts on hover.</span></div>
+        </div>
+        <p class="exhibit-desc">Loudest option. Could be reserved for one featured/new tool.</p>
+    </div>
+
+    <div class="exhibit">
+        <div class="exhibit-label"><span class="exhibit-num">20</span><span class="exhibit-name">Orbiting Border</span></div>
+        <div class="stage">
+            <div class="card c20"><span class="icon">🛰️</span><span class="name">Comet Trail</span><span class="desc">Hover: a gradient comet orbits the card's edge continuously.</span></div>
+        </div>
+        <p class="exhibit-desc">Animated conic-gradient border. Eye-catching without filling the card.</p>
+    </div>
+
+</div>
+
+<div class="style-menu">
+    <h2>STYLE MENU &mdash; mix &amp; match options</h2>
+    <p>Most exhibits are a combination of a base, a hover behavior, and accents. Order like a sandwich: pick one from each section (or say "as shown").</p>
+    <div class="menu-grid">
+        <div class="menu-section">
+            <h3>Base Surface</h3>
+            <ul>
+                <li><b>Glass</b> &mdash; translucent blur (#01)</li>
+                <li><b>Solid dark</b> &mdash; flat panel (#03, #12)</li>
+                <li><b>Light/paper</b> &mdash; bright card on dark page (#04, #17)</li>
+                <li><b>Textured</b> &mdash; grid/scanline patterns (#10, #16, #18)</li>
+                <li><b>Gradient fill</b> &mdash; full color (#19)</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Border Treatment</h3>
+            <ul>
+                <li><b>None / hairline</b></li>
+                <li><b>Gradient ring</b> (#02)</li>
+                <li><b>Neon glow</b> (#03)</li>
+                <li><b>Thick brutalist</b> (#06)</li>
+                <li><b>Dashed</b> (#13) or <b>animated orbit</b> (#20)</li>
+                <li><b>Shaped</b> &mdash; clipped corners, folds (#09)</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Hover Behavior</h3>
+            <ul>
+                <li><b>Lift</b> &mdash; rise + shadow (#01, #04)</li>
+                <li><b>Press</b> &mdash; push down on click (#06)</li>
+                <li><b>Glow up</b> &mdash; brighten border/shadow (#03, #16)</li>
+                <li><b>Shimmer</b> &mdash; one light sweep (#15)</li>
+                <li><b>Spotlight / tilt</b> &mdash; cursor-tracking (#07, #08)</li>
+                <li><b>Reveal</b> &mdash; expand extra info (#12)</li>
+                <li><b>Drift</b> &mdash; moving color blob (#11)</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Corner Radius</h3>
+            <ul>
+                <li><b>Pill-soft</b> &mdash; 20-24px (current site look)</li>
+                <li><b>Medium</b> &mdash; 10-14px</li>
+                <li><b>Sharp</b> &mdash; 0-4px (paper, blueprint)</li>
+                <li><b>Mixed</b> &mdash; one corner different (ticket fold)</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Accent Color Strategy</h3>
+            <ul>
+                <li><b>Brand gradient everywhere</b> (yellow&rarr;magenta&rarr;orange)</li>
+                <li><b>One color per tool</b> &mdash; each card gets its own hue</li>
+                <li><b>Category colors</b> &mdash; e.g. planners orange, games pink</li>
+                <li><b>Monochrome + single pop</b> on hover only</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Content Extras</h3>
+            <ul>
+                <li><b>Emoji icon</b> (as shown) or <b>SVG icon</b></li>
+                <li><b>Screenshot thumbnail</b> (#17 style)</li>
+                <li><b>Category tag pill</b> (#14)</li>
+                <li><b>Metadata reveal</b> &mdash; updated date, etc. (#12)</li>
+                <li><b>"NEW" ribbon or badge</b> for recent tools</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Motion Dial</h3>
+            <ul>
+                <li><b>Still</b> &mdash; no animation at all</li>
+                <li><b>Calm</b> &mdash; hover-only, short transitions</li>
+                <li><b>Lively</b> &mdash; cursor tracking, sweeps</li>
+                <li><b>Ambient</b> &mdash; subtle always-on animation (orbit border running constantly, slow gradient drift)</li>
+            </ul>
+        </div>
+        <div class="menu-section">
+            <h3>Grid &amp; Layout (page-level)</h3>
+            <ul>
+                <li><b>Uniform grid</b> &mdash; all cards equal size</li>
+                <li><b>Bento</b> &mdash; featured tool spans 2 cells</li>
+                <li><b>Masonry</b> &mdash; varied heights</li>
+                <li><b>Single featured + row of small</b></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">styleideas.html &mdash; digital showroom for the tools landing page redesign</footer>
+
+<script>
+function track(e, el) {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}
+function tilt(e, el) {
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'rotateY(' + (x * 18) + 'deg) rotateX(' + (-y * 18) + 'deg)';
+}
+</script>
+</body>
+</html>

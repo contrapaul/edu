@@ -107,6 +107,12 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .header-actions button:hover { transform: translateY(-2px); filter: brightness(1.15); }
+        #eraseBtn.active {
+            background: #aa2e2e;
+            box-shadow: 0 0 10px rgba(255,60,60,0.6);
+        }
+        body.erasing #seatGridContainer { cursor: crosshair; }
+        body.erasing .seat { cursor: crosshair; }
 
         .config-list { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
         .config-row {
@@ -504,6 +510,12 @@
         }
         .add-grid .color-circle.effect { border-radius: 10px; }
         .add-grid .color-name { font-size: 0.72rem; line-height: 1.15; }
+        .erase-hint {
+            text-align: center;
+            font-size: 0.72rem;
+            color: #aaa;
+            margin-top: 12px;
+        }
 
         .settings-menu {
             position: fixed;
@@ -618,6 +630,7 @@
     <div class="site-header">
         <span class="header-title">ISNS Seating Plan Builder 1.0</span>
         <div class="header-actions">
+            <button id="eraseBtn" title="Toggle erase mode (or hold E)">Erase</button>
             <button id="clearAllBtn">Clear all</button>
             <button id="saveBtn">Save</button>
             <button id="loadBtn">Load</button>
@@ -709,6 +722,9 @@
     let activeGroupId = null;
     let isDragging = false;
     let currentTheme = 'light';
+    let eraseHeld = false;    // 'E' key held
+    let eraseToggle = false;  // Erase button toggled on
+    function erasing() { return eraseHeld || eraseToggle; }
 
     // Fixed set of 8 group slots per side. Each entry is a groupId or null (empty).
     // Left and right are INDEPENDENT (not mirrored) so they can indicate seating side.
@@ -918,10 +934,24 @@
         if (el) el.innerText = name;
     }
 
-    function startPaint(row, col) { if (activeGroupId) { isDragging = true; paintSeat(row, col); } }
+    function startPaint(row, col) {
+        if (erasing()) { isDragging = true; eraseSeat(row, col); return; }
+        if (activeGroupId) { isDragging = true; paintSeat(row, col); }
+    }
     function stopPaint() { isDragging = false; }
 
+    function eraseSeat(row, col) {
+        var seat = seatsData[row][col];
+        if (seat.type !== 'seat' || seat.groupId == null) return;
+        var grp = findGroup(seat.groupId);
+        if (grp) grp.seatCount--;
+        seat.groupId = null;
+        updateGroupCards();
+        renderSeatGrid();
+    }
+
     function paintSeat(row, col) {
+        if (erasing()) { eraseSeat(row, col); return; }
         if (!activeGroupId) return;
         if (seatsData[row][col].type !== 'seat') return;
         if (seatsData[row][col].groupId === activeGroupId) return;
@@ -1086,6 +1116,7 @@
             '<input type="text" class="group-name-field" value="' + escapeHtml(group.name) + '" placeholder="Group name">' +
             '<div class="menu-label">Colour / Effect</div>' +
             '<div class="settings-colors"></div>' +
+            '<div class="erase-hint">Hold E + Left click to erase seats</div>' +
             '<button class="delete-btn">Delete Group</button>';
         document.body.appendChild(menu);
 
@@ -1158,6 +1189,7 @@
                 '<h2>' + title + '</h2>' +
                 (opts.withName ? '<input type="text" class="group-name-input" placeholder="Group name (e.g. 6CK)" autocomplete="off">' : '') +
                 '<div class="color-grid add-grid" id="colorGridPopup"></div>' +
+                '<div class="erase-hint">Hold E + Left click to erase seats</div>' +
             '</div>';
         document.body.appendChild(modal);
         var nameInput = modal.querySelector('.group-name-input');
@@ -1542,6 +1574,25 @@
         btn.onclick = openThemes;
     });
     document.addEventListener('mouseup', stopPaint);
+
+    // -------- ERASE (hold E, or toggle the Erase button) --------
+    var eraseBtn = document.getElementById('eraseBtn');
+    function updateEraseUI() {
+        document.body.classList.toggle('erasing', erasing());
+        eraseBtn.classList.toggle('active', eraseToggle);
+    }
+    eraseBtn.onclick = function() { eraseToggle = !eraseToggle; updateEraseUI(); };
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'e' && e.key !== 'E') return;
+        var el = document.activeElement;
+        if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return; // don't hijack typing
+        if (!eraseHeld) { eraseHeld = true; updateEraseUI(); }
+    });
+    document.addEventListener('keyup', function(e) {
+        if (e.key !== 'e' && e.key !== 'E') return;
+        eraseHeld = false;
+        updateEraseUI();
+    });
 
     // Size the group panels to fit the viewport so they don't overflow the window.
     // Slots keep their natural height, so the panel only scrolls internally when
