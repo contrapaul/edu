@@ -342,7 +342,7 @@ main { flex: 1; }
 
 .tool-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
@@ -397,7 +397,7 @@ main { flex: 1; }
 /* --- RESPONSIVE --- */
 @media (max-width: 800px) {
   .about-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .tool-cards-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .tool-cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
   .tool-row { grid-template-columns: 40px 1fr; }
