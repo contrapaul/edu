@@ -3,7 +3,7 @@
 // geo-fencing, and lithium battery air transport (IATA). Uses EMC + drop test
 // plus a bespoke data-privacy test.
 
-import { getSupplier } from '../materials.js';
+import { getPart } from '../materials.js';
 
 export default {
   id: 'leo-cameradrone',
@@ -15,6 +15,11 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Camera-drone buyers expect 4K video; the rival ships it. Note the tension:
+  // the cheapest 4K module fails the GDPR test, so 4K-on-the-cheap backfires.
+  market: { valuedCaps: { cam4k: 0.25 } },
+  competitor: { name: 'SkyRival 4K', caps: { cam4k: true } },
+
   defaultBudgetAllocation: {
     testing:       65000,
     materials:     50000,
@@ -25,10 +30,45 @@ export default {
 
   components: [
     { id: 'shell', name: 'Body Shell & Arms', kind: 'material', materialSet: 'enclosure' },
+
     { id: 'battery', name: 'Flight Battery', kind: 'supplier', critical: true,
-      note: 'A large lithium pack that must fly by air (IATA) and survive a crash from altitude.' },
-    { id: 'camera', name: 'Camera Module', kind: 'supplier' },
-    { id: 'gps', name: 'GPS / Remote-ID Module', kind: 'supplier' }
+      note: 'A large lithium pack that must fly by air (IATA) and survive a crash from altitude.',
+      options: [
+        { id: 'cnhl', name: 'LiPo flight pack', mfr: 'CNHL', unitCost: 9.00,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.05,
+          note: 'Airworthy pack with full UN 38.3 / IATA summaries.' },
+        { id: 'tattu-fp', name: 'LiPo flight pack', mfr: 'Tattu', unitCost: 5.50,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.07,
+          note: 'Solid mid pack; complete transport docs.' },
+        { id: 'generic-fp', name: 'Unbranded flight pack', mfr: 'Unbranded', unitCost: 3.00,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.28,
+          risk: { text: 'Packs swell after hard landings and one caught fire on a charger — a drone-fire video trends.' },
+          note: 'Cheap, no transport test data.' }
+      ] },
+
+    { id: 'camera', name: 'Camera Module', kind: 'supplier', options: [
+      { id: 'sony-imx', name: '4K sensor, encrypted storage', mfr: 'Sony (IMX)', unitCost: 14.00,
+        rating: 5, docsComplete: true, caps: { cam4k: true }, riskChance: 0.05,
+        note: '4K, encrypted local storage, documented privacy policy — GDPR-ready.' },
+      { id: 'omnivision', name: '2.7K sensor, local storage', mfr: 'OmniVision', unitCost: 7.00,
+        rating: 4, docsComplete: true, caps: { cam4k: false }, riskChance: 0.06,
+        note: 'Sharp 2.7K, local-only storage. Not 4K.' },
+      { id: 'generic-cam', name: '4K module (no privacy docs)', mfr: 'Unbranded', unitCost: 4.00,
+        rating: 2, docsComplete: false, caps: { cam4k: true }, riskChance: 0.18,
+        note: '4K on the cheap — but it uploads footage to an undisclosed server.' }
+    ] },
+
+    { id: 'gps', name: 'GPS / Remote-ID Module', kind: 'supplier', options: [
+      { id: 'ublox', name: 'GNSS + Remote-ID module', mfr: 'u-blox', unitCost: 4.50,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.05,
+        note: 'Accurate fix, tamper-evident Remote ID with test logs.' },
+      { id: 'generic-gnss', name: 'GNSS module', mfr: 'Quectel', unitCost: 2.50,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Decent fix; Remote ID needs documenting.' },
+      { id: 'cheap-gps', name: 'Cheap GPS module', mfr: 'Unbranded', unitCost: 1.20,
+        rating: 3, docsComplete: true, caps: {}, riskChance: 0.12,
+        note: 'Slow to lock; marginal for geo-fencing.' }
+    ] }
   ],
 
   phases: {
@@ -72,8 +112,8 @@ export default {
         { id: 'privacy', name: 'Data Privacy (GDPR) Review', cost: 3000, days: 3,
           certRequired: true, certReworkCost: 2400, certMissingCost: 3000,
           desc: 'Assess how the camera stores, transmits, and protects captured footage.',
-          resolve: (p) => {
-            const cam = getSupplier(p.selectedSuppliers.camera);
+          resolve: (p, def) => {
+            const cam = getPart(def.components.find(c => c.id === 'camera'), p.selectedSuppliers.camera);
             if (cam && cam.rating <= 2)
               return { status: 'fail', details: `${cam.name} ships unencrypted footage to an undisclosed server with no privacy documentation — a clear GDPR failure.` };
             if (cam && cam.rating === 3)
@@ -137,19 +177,21 @@ export default {
           body: "We found a cheaper camera with a bigger sensor and disabled that slow encryption step to speed up boot. Footage uploads faster now too! To a server. Somewhere. Already in 4,000 units." }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 11000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 11000, perUnit: 2.50,
           note: 'Fast and cheap. Has opinions about which firmware to flash.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 16000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 16000, perUnit: 4.50,
           note: 'Flashes your exact Remote ID firmware and holds the battery spec.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 26000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 26000, perUnit: 8.00,
           note: 'Aviation-grade, audited, and priced accordingly.' }
       ],
       firstArticle: [
         { id: 'finish', finding: 'Shell finish slightly glossier than spec', real: false, reworkCost: 450,
           note: 'Within tolerance. Cosmetic.' },
         { id: 'firmware', finding: 'Remote ID firmware build differs from the certified one', real: true, reworkCost: 1400,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'An uncertified Remote ID build voids your aviation approval.' },
         { id: 'batlabel', finding: 'Lithium-battery handling label missing on cartons', real: true, reworkCost: 800,
+          fromFactories: ['shenzhen'],
           note: 'Air freight will reject lithium shipments without the correct hazard label.' }
       ],
       availableMarks: [

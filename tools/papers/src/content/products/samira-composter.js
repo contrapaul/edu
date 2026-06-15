@@ -3,7 +3,7 @@
 // EU compost-output rules. Electronic (motor + heater) so it uses EMC, plus a
 // bespoke food-contact migration test.
 
-import { getMaterial, getSupplier } from '../materials.js';
+import { getMaterial, getPart } from '../materials.js';
 
 export default {
   id: 'samira-composter',
@@ -15,6 +15,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Buyers want genuine odour control on a kitchen composter; the rival has it.
+  market: { valuedCaps: { odorControl: 0.20 } },
+  competitor: { name: 'GreenCycle Pro', caps: { odorControl: true } },
+
   defaultBudgetAllocation: {
     testing:       45000,
     materials:     35000,
@@ -25,10 +29,45 @@ export default {
 
   components: [
     { id: 'housing', name: 'Chamber & Housing', kind: 'material', materialSet: 'enclosure' },
+
     { id: 'heater', name: 'Heating Element', kind: 'supplier', critical: true,
-      note: 'A mains heater sitting against food waste. It must be both electrically safe and food-contact safe.' },
-    { id: 'motor', name: 'Grinder Motor', kind: 'supplier' },
-    { id: 'filter', name: 'Carbon Filter', kind: 'supplier' }
+      note: 'A mains heater sitting against food waste. It must be both electrically safe and food-contact safe.',
+      options: [
+        { id: 'backer-ptc', name: 'Certified PTC element', mfr: 'Backer', unitCost: 4.50,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+          note: 'Insulated, thermal cut-out, full safety certification.' },
+        { id: 'mid-heater', name: 'PTC element', mfr: 'Weldy', unitCost: 2.80,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+          note: 'Certified mid-tier; thinner cut-out margin.' },
+        { id: 'uncert-heater', name: 'Uncertified element', mfr: 'Unbranded', unitCost: 1.20,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.22,
+          risk: { text: 'The heater runs dangerously hot with a faint electrical smell; one unit melted its base.' },
+          note: 'No safety cert. Bare element against wet waste.' }
+      ] },
+
+    { id: 'motor', name: 'Grinder Motor', kind: 'supplier', options: [
+      { id: 'quiet-geared', name: 'Quiet geared motor', mfr: 'Bühler', unitCost: 3.20,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Low-noise, high-torque, durable.' },
+      { id: 'std-grinder', name: 'Standard grinder motor', mfr: 'Johnson', unitCost: 1.80,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Gets the job done; a bit louder.' },
+      { id: 'cheap-grinder', name: 'Cheap brushed motor', mfr: 'Unbranded', unitCost: 0.90,
+        rating: 3, docsComplete: true, caps: {}, riskChance: 0.10,
+        note: 'Noisy and brush-noisy on EMC, but cheap.' }
+    ] },
+
+    { id: 'filter', name: 'Carbon Filter', kind: 'supplier', options: [
+      { id: 'catalyst-filter', name: 'Activated carbon + catalyst', mfr: 'CarbonZorb', unitCost: 2.20,
+        rating: 5, docsComplete: true, caps: { odorControl: true }, riskChance: 0.04,
+        note: 'Genuinely neutralises kitchen odours.' },
+      { id: 'basic-carbon', name: 'Basic carbon filter', mfr: 'CarbonZorb', unitCost: 1.00,
+        rating: 4, docsComplete: true, caps: { odorControl: false }, riskChance: 0.05,
+        note: 'Takes the edge off; doesn\'t fully control odour.' },
+      { id: 'thin-pad', name: 'Thin carbon pad', mfr: 'Unbranded', unitCost: 0.40,
+        rating: 3, docsComplete: true, caps: { odorControl: false }, riskChance: 0.08,
+        note: 'Barely better than nothing.' }
+    ] }
   ],
 
   phases: {
@@ -67,8 +106,8 @@ export default {
         { id: 'electrical', name: 'Electrical Safety', cost: 2000, days: 2,
           certRequired: true, certReworkCost: 1600, certMissingCost: 2000,
           desc: 'Check the mains heater and motor for shock and fire hazards.',
-          resolve: (p) => {
-            const heat = getSupplier(p.selectedSuppliers.heater);
+          resolve: (p, def) => {
+            const heat = getPart(def.components.find(c => c.id === 'heater'), p.selectedSuppliers.heater);
             if (heat && heat.rating <= 2)
               return { status: 'fail', details: `${heat.name} heater has no safety certification — an uninsulated mains element against wet waste is a real shock/fire hazard.` };
             if (heat && heat.rating === 3)
@@ -136,19 +175,21 @@ export default {
           body: "We switched the chamber to a cheaper plastic that looks identical and costs half. Non-food-grade, but who's checking a compost bin? Already in 3,000 units. Green savings!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 8000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 8000, perUnit: 1.80,
           note: 'Fast and cheap. Carlos\'s pick. Substitutes materials freely.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 12000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 12000, perUnit: 3.00,
           note: 'Holds your food-grade material spec.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 19000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 19000, perUnit: 5.50,
           note: 'Food-appliance certified, audited, expensive.' }
       ],
       firstArticle: [
         { id: 'finish', finding: 'Housing colour slightly off the swatch', real: false, reworkCost: 350,
           note: 'Within tolerance. Cosmetic.' },
         { id: 'grade',  finding: 'Chamber moulded in non-food-grade resin', real: true, reworkCost: 1200,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'A non-food-grade chamber voids your food-contact certification.' },
         { id: 'earth',  finding: 'Earth bonding wire omitted on this batch', real: true, reworkCost: 800,
+          fromFactories: ['shenzhen'],
           note: 'A mains appliance without earth bonding is an electrocution hazard.' }
       ],
       availableMarks: [

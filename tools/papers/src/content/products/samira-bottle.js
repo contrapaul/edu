@@ -3,7 +3,7 @@
 // CLAIMS, and Prop 65. Non-electronic — no EMC. Uses the drop test plus bespoke
 // leaching and insulation tests.
 
-import { getMaterial, getSupplier } from '../materials.js';
+import { getMaterial, getPart } from '../materials.js';
 
 export default {
   id: 'samira-bottle',
@@ -15,6 +15,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Buyers expect a genuinely leakproof lid; the rival's is. Skip it and lose sales.
+  market: { valuedCaps: { leakproof: 0.18 } },
+  competitor: { name: 'AquaRival Flask', caps: { leakproof: true } },
+
   defaultBudgetAllocation: {
     testing:       40000,
     materials:     35000,
@@ -25,10 +29,45 @@ export default {
 
   components: [
     { id: 'body', name: 'Bottle Body', kind: 'material', materialSet: 'enclosure' },
+
     { id: 'coating', name: 'Interior Coating', kind: 'supplier', critical: true,
-      note: 'The interior lining is what your drink actually touches. A cheap coating is where BPA and leaching problems live.' },
-    { id: 'seal', name: 'Lid Seal', kind: 'supplier' },
-    { id: 'cap', name: 'Cap Assembly', kind: 'supplier' }
+      note: 'The interior lining is what your drink actually touches. A cheap coating is where BPA and leaching problems live.',
+      options: [
+        { id: 'ceramic-line', name: 'Inert ceramic lining', mfr: 'Whitford', unitCost: 1.60,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+          note: 'Fully documented, inert, genuinely BPA-free.' },
+        { id: 'fg-epoxy', name: 'Food-grade epoxy', mfr: 'PPG', unitCost: 0.90,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+          note: 'Certified food-grade lining; solid choice.' },
+        { id: 'cheap-epoxy', name: 'Epoxy ("food ok")', mfr: 'Unbranded', unitCost: 0.35,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.20,
+          risk: { text: 'An independent lab livestreams a BPA test of your bottle — and it fails. The clip goes viral.' },
+          note: 'One-line datasheet. Cheap epoxies are where BPA hides.' }
+      ] },
+
+    { id: 'seal', name: 'Lid Seal', kind: 'supplier', options: [
+      { id: 'silicone-leak', name: 'Silicone leakproof gasket', mfr: 'Trelleborg', unitCost: 0.80,
+        rating: 5, docsComplete: true, caps: { leakproof: true }, riskChance: 0.04,
+        note: 'Seals fully even shaken in a bag.' },
+      { id: 'std-gasket', name: 'Standard gasket', mfr: 'Trelleborg', unitCost: 0.40,
+        rating: 4, docsComplete: true, caps: { leakproof: false }, riskChance: 0.05,
+        note: 'Fine upright; can weep if tipped.' },
+      { id: 'thin-gasket', name: 'Thin gasket', mfr: 'Unbranded', unitCost: 0.15,
+        rating: 3, docsComplete: true, caps: { leakproof: false }, riskChance: 0.08,
+        note: 'Leaks readily; cheapest.' }
+    ] },
+
+    { id: 'cap', name: 'Cap Assembly', kind: 'supplier', options: [
+      { id: 'machined-cap', name: 'Machined cap, tight thread', mfr: 'Camelbak-grade', unitCost: 1.20,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Precise threads, durable.' },
+      { id: 'std-cap', name: 'Standard moulded cap', mfr: 'Generic', unitCost: 0.60,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Works well enough.' },
+      { id: 'cheap-cap', name: 'Cheap cap', mfr: 'Unbranded', unitCost: 0.25,
+        rating: 3, docsComplete: true, caps: {}, riskChance: 0.10,
+        note: 'Loose threads; cross-threads easily.' }
+    ] }
   ],
 
   phases: {
@@ -67,8 +106,8 @@ export default {
         { id: 'leaching', name: 'Leaching / BPA Test', cost: 3000, days: 3,
           certRequired: true, certReworkCost: 2200, certMissingCost: 3000,
           desc: 'Measure what the interior coating releases into the drink over time.',
-          resolve: (p) => {
-            const coat = getSupplier(p.selectedSuppliers.coating);
+          resolve: (p, def) => {
+            const coat = getPart(def.components.find(c => c.id === 'coating'), p.selectedSuppliers.coating);
             if (coat && coat.rating <= 2)
               return { status: 'fail', details: `${coat.name} lining leaches BPA above the food-contact limit — fails outright and kills any "BPA-free" claim.` };
             if (coat && coat.rating === 3)
@@ -135,19 +174,21 @@ export default {
           body: "We upgraded the interior lining to a shinier, cheaper epoxy. Looks premium! Probably has some BPA but it's a tiny amount, surely. Already in 5,000 units. Cheers!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 7000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 7000, perUnit: 0.60,
           note: 'Fast and cheap. Swaps linings without telling you.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 11000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 11000, perUnit: 1.10,
           note: 'Holds your documented food-grade lining.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 17000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 17000, perUnit: 2.00,
           note: 'Food-contact certified, audited, pricey.' }
       ],
       firstArticle: [
         { id: 'print', finding: 'Exterior print slightly misaligned', real: false, reworkCost: 300,
           note: 'Within tolerance. Cosmetic.' },
         { id: 'lining', finding: 'Interior lining swapped for an undocumented epoxy', real: true, reworkCost: 1100,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'An unvetted lining voids your leaching test and BPA-free claim.' },
         { id: 'thread', finding: 'Cap thread tolerance loose; some lids weep', real: true, reworkCost: 600,
+          fromFactories: ['shenzhen'],
           note: 'A leaking lid is a returns nightmare and a food-safety question.' }
       ],
       availableMarks: [

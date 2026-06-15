@@ -128,12 +128,18 @@ export default {
         { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 20000, perUnit: 4.20,
           note: 'Premium build, spotless compliance, premium per-unit invoice.' }
       ],
+      // `fromFactories` ties a finding to the partners that actually produce it,
+      // so a premium EU line never ships the cut-corner defects. Cosmetic
+      // findings (no list) can show anywhere; real defects are then rolled by the
+      // partner's compliance, so the same factory varies run to run.
       firstArticle: [
         { id: 'logo',  finding: 'Silk-screen logo sits 2 mm off-centre', real: false, reworkCost: 300,
           note: 'Cosmetic, and within the drawing tolerance. Accepting is fine.' },
         { id: 'screw', finding: 'Base plate uses a non-spec screw type', real: true, reworkCost: 600,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'Wrong fastener can back out under vibration. A real defect.' },
         { id: 'led',   finding: 'Factory added a "bonus" blinking status LED', real: true, reworkCost: 500,
+          fromFactories: ['shenzhen'],
           note: 'An undeclared design change voids the technical file you certified.' }
       ],
       availableMarks: [

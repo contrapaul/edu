@@ -36,8 +36,10 @@ export function renderProduction(container, ctx) {
     const factory = factoryOf(m.factory);
     const ids = [];
     for (const item of cfg.firstArticle) {
-      if (!item.real) { ids.push(item.id); continue; }
-      const chance = clamp(0.15 + (5 - factory.compliance) * 0.17, 0.05, 0.9);
+      // A finding tied to specific partners can't appear from any other.
+      if (item.fromFactories && !item.fromFactories.includes(m.factory)) continue;
+      if (!item.real) { ids.push(item.id); continue; }   // cosmetic variance always shows
+      const chance = clamp(0.25 + (5 - factory.compliance) * 0.18, 0.1, 0.92);
       if (Math.random() < chance) ids.push(item.id);
     }
     m.findings = ids;

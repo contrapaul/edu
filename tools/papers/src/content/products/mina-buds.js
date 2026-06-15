@@ -12,6 +12,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Buyers expect active noise cancelling on premium earbuds; the rival has it.
+  market: { valuedCaps: { anc: 0.28 } },
+  competitor: { name: 'SonicWave Air', caps: { bluetooth: true, anc: true } },
+
   defaultBudgetAllocation: {
     testing:       60000,
     materials:     50000,
@@ -22,10 +26,45 @@ export default {
 
   components: [
     { id: 'case', name: 'Charging Case', kind: 'material', materialSet: 'enclosure' },
-    { id: 'battery', name: 'Li-ion Cells', kind: 'supplier', critical: true,
-      note: 'Lithium cells govern air-freight (UN 38.3) and your worst-case failure mode. Source them carefully.' },
-    { id: 'btsoc', name: 'Bluetooth SoC', kind: 'supplier' },
-    { id: 'driver', name: 'Audio Driver', kind: 'supplier' }
+
+    { id: 'battery', name: 'Li-ion Cells (55 mAh)', kind: 'supplier', critical: true,
+      note: 'Lithium cells govern air-freight (UN 38.3) and your worst-case failure mode. Source them carefully.',
+      options: [
+        { id: 'lg-inr', name: 'INR-series 55 mAh', mfr: 'LG Energy Solution', unitCost: 2.10,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+          note: 'Tier-1 cells with full UN 38.3 test summaries on file.' },
+        { id: 'eve-55', name: 'EVE 55 mAh', mfr: 'EVE Energy', unitCost: 1.40,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.07,
+          note: 'Solid mid-tier; paperwork complete, slightly thinner thermal margin.' },
+        { id: 'generic-cell', name: 'Unbranded 55 mAh', mfr: 'Unbranded', unitCost: 0.70,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.30,
+          risk: { text: 'A few cells run hot and one swelled in its case — battery-swelling posts go viral fast.' },
+          note: 'Cheapest by far. "Safe" sticker; no transport test data.' }
+      ] },
+
+    { id: 'btsoc', name: 'Bluetooth SoC', kind: 'supplier', options: [
+      { id: 'qcc5181', name: 'QCC5181 (BT 5.3, ANC)', mfr: 'Qualcomm', unitCost: 3.80,
+        rating: 5, docsComplete: true, caps: { bluetooth: true, anc: true }, riskChance: 0.05,
+        note: 'Hardware active noise cancelling and aptX. The premium path.' },
+      { id: 'nrf5340', name: 'nRF5340 (BT 5.4)', mfr: 'Nordic', unitCost: 2.60,
+        rating: 5, docsComplete: true, caps: { bluetooth: true, anc: false }, riskChance: 0.05,
+        note: 'Excellent radio and battery life — but no built-in ANC.' },
+      { id: 'generic-bt', name: 'BT 5.0 SoC', mfr: 'Bluetrum', unitCost: 1.10,
+        rating: 3, docsComplete: true, caps: { bluetooth: true, anc: false }, riskChance: 0.12,
+        note: 'Cheap and gets you paired. No ANC, older stack.' }
+    ] },
+
+    { id: 'driver', name: 'Audio Driver', kind: 'supplier', options: [
+      { id: 'knowles-ba', name: 'Balanced armature', mfr: 'Knowles', unitCost: 2.40,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Crisp detailed sound; reviewers notice.' },
+      { id: 'dyn-10mm', name: '10 mm dynamic driver', mfr: 'AAC Technologies', unitCost: 0.90,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Warm, punchy, the sensible default.' },
+      { id: 'mylar', name: 'Mylar micro-driver', mfr: 'Unbranded', unitCost: 0.35,
+        rating: 2, docsComplete: true, caps: {}, riskChance: 0.10,
+        note: 'Tinny and inconsistent batch to batch, but almost free.' }
+    ] }
   ],
 
   phases: {
@@ -125,19 +164,21 @@ export default {
           body: "We swapped your cells for a slightly bigger one that fits almost perfectly (just trimmed a wall). More battery = better, yes? Shipping!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 10000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 10000, perUnit: 1.20,
           note: 'Fast and cheap. Battery handling history is… we don\'t ask.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 15000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 15000, perUnit: 2.00,
           note: 'Reliable, certified lithium assembly line.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 24000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 24000, perUnit: 3.80,
           note: 'Immaculate, audited, and priced like it.' }
       ],
       firstArticle: [
         { id: 'tint',  finding: 'Case plastic is a half-shade lighter than spec', real: false, reworkCost: 400,
           note: 'Within the colour tolerance band. Cosmetic.' },
         { id: 'cell',  finding: 'Substituted battery cell, different part number', real: true, reworkCost: 1200,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'A different cell invalidates your UN 38.3 testing. Serious.' },
         { id: 'glue',  finding: 'Extra adhesive bead near the acoustic vent', real: true, reworkCost: 500,
+          fromFactories: ['shenzhen'],
           note: 'Blocks the vent and changes the certified acoustic design.' }
       ],
       availableMarks: [

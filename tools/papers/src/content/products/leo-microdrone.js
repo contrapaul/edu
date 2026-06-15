@@ -12,6 +12,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Beginners want altitude-hold (it makes a toy drone actually flyable); the rival has it.
+  market: { valuedCaps: { altHold: 0.22 } },
+  competitor: { name: 'SkyToy Hover', caps: { altHold: true } },
+
   defaultBudgetAllocation: {
     testing:       45000,
     materials:     35000,
@@ -22,10 +26,45 @@ export default {
 
   components: [
     { id: 'frame', name: 'Frame & Prop Guards', kind: 'material', materialSet: 'enclosure' },
-    { id: 'battery', name: 'LiPo Cell', kind: 'supplier', critical: true,
-      note: 'A single LiPo flying around a child\'s bedroom. Source cells with real UN 38.3 data.' },
-    { id: 'motor', name: 'Brushless Motors', kind: 'supplier' },
-    { id: 'radio', name: '2.4 GHz Radio', kind: 'supplier' }
+
+    { id: 'battery', name: 'LiPo Cell (1S 250 mAh)', kind: 'supplier', critical: true,
+      note: 'A single LiPo flying around a child\'s bedroom. Source cells with real UN 38.3 data.',
+      options: [
+        { id: 'tattu', name: 'Tattu 250 mAh 1S', mfr: 'Grepow', unitCost: 2.20,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.05,
+          note: 'Reputable LiPo with full transport test data.' },
+        { id: 'gnb', name: 'GNB 250 mAh 1S', mfr: 'Gaoneng', unitCost: 1.30,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.07,
+          note: 'Popular hobby cell; paperwork complete.' },
+        { id: 'generic-lipo', name: 'Unbranded 250 mAh', mfr: 'Unbranded', unitCost: 0.60,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.28,
+          risk: { text: 'Cells get hot and one puffs up after a crash — "is my kid\'s toy a fire risk?" goes viral.' },
+          note: 'Elena\'s "same factory, probably" cells. No docs.' }
+      ] },
+
+    { id: 'motor', name: 'Brushless Motors', kind: 'supplier', options: [
+      { id: 'betafpv', name: '0802 brushless set', mfr: 'BetaFPV', unitCost: 1.80,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Efficient, durable, consistent thrust.' },
+      { id: 'generic-bl', name: '0802 brushless set', mfr: 'Eachine', unitCost: 1.00,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Decent mid-tier motors.' },
+      { id: 'unmarked-motor', name: 'Unmarked motors', mfr: '"Definately Motors"', unitCost: 0.40,
+        rating: 2, docsComplete: false, caps: {}, riskChance: 0.12,
+        note: 'No markings, no datasheet. Thrust varies wildly.' }
+    ] },
+
+    { id: 'radio', name: 'Radio / Flight Controller', kind: 'supplier', options: [
+      { id: 'elrs-fc', name: 'ELRS 2.4G + altitude-hold FC', mfr: 'ExpressLRS', unitCost: 2.40,
+        rating: 5, docsComplete: true, caps: { altHold: true }, riskChance: 0.05,
+        note: 'Stable link plus barometer altitude hold — easy to fly.' },
+      { id: 'basic-rx', name: 'Basic 2.4G receiver', mfr: 'FlySky', unitCost: 1.10,
+        rating: 4, docsComplete: true, caps: { altHold: false }, riskChance: 0.05,
+        note: 'Reliable control, but no self-levelling — twitchy for beginners.' },
+      { id: 'cheap-rx', name: 'Cheap 2.4G module', mfr: 'Unbranded', unitCost: 0.55,
+        rating: 3, docsComplete: true, caps: { altHold: false }, riskChance: 0.12,
+        note: 'Works, mostly. No altitude hold; occasional dropouts.' }
+    ] }
   ],
 
   phases: {
@@ -125,19 +164,21 @@ export default {
           body: "We switched to a thinner, lighter propeller for better flight time. Snaps off a little easier but flies GREAT. Already in 6,000 units. You're welcome!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 7000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 7000, perUnit: 0.90,
           note: 'Fast and cheap. Elena\'s favourite. Toy-safety record is patchy.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 11000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 11000, perUnit: 1.60,
           note: 'Holds your spec, including the prop guards.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 18000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 18000, perUnit: 3.00,
           note: 'Toy-certified line, audited, pricey.' }
       ],
       firstArticle: [
         { id: 'colour', finding: 'Body colour is a shade off the swatch', real: false, reworkCost: 300,
           note: 'Within tolerance. Cosmetic.' },
         { id: 'prop',   finding: 'Propellers are a thinner, snappier type than spec', real: true, reworkCost: 900,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'Easier-shedding props change the impact and small-parts results you certified.' },
         { id: 'warn',   finding: 'Choking-hazard warning missing from one carton run', real: true, reworkCost: 600,
+          fromFactories: ['shenzhen'],
           note: 'A toy without the required warning is detained at customs.' }
       ],
       availableMarks: [

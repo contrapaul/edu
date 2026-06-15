@@ -3,7 +3,7 @@
 // phthalates in soft plastics, and small-parts warnings. Uses EMC + a bespoke
 // speed-limit test.
 
-import { getSupplier } from '../materials.js';
+import { getPart } from '../materials.js';
 
 export default {
   id: 'leo-rccar',
@@ -15,6 +15,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Hobby buyers want proportional steering/throttle, not cheap on/off control; the rival has it.
+  market: { valuedCaps: { proportional: 0.20 } },
+  competitor: { name: 'Bolt RC Pro', caps: { proportional: true } },
+
   defaultBudgetAllocation: {
     testing:       50000,
     materials:     40000,
@@ -25,10 +29,45 @@ export default {
 
   components: [
     { id: 'chassis', name: 'Chassis & Body', kind: 'material', materialSet: 'enclosure' },
+
     { id: 'battery', name: 'Battery Pack', kind: 'supplier', critical: true,
-      note: 'A removable pack a child will charge unsupervised. Proper safety docs matter.' },
-    { id: 'motor', name: 'Drive Motor', kind: 'supplier' },
-    { id: 'radio', name: 'Radio Transmitter', kind: 'supplier' }
+      note: 'A removable pack a child will charge unsupervised. Proper safety docs matter.',
+      options: [
+        { id: 'reedy', name: 'NiMH race pack', mfr: 'Reedy', unitCost: 2.40,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.05,
+          note: 'Proven hobby pack with full safety documentation.' },
+        { id: 'gens-ace', name: 'NiMH pack', mfr: 'Gens Ace', unitCost: 1.40,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.07,
+          note: 'Solid mid-tier pack, docs complete.' },
+        { id: 'generic-pack', name: 'Unbranded pack', mfr: 'Unbranded', unitCost: 0.65,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.26,
+          risk: { text: 'The pack runs hot on fast charge and one melted its connector — overnight-charging fears spread.' },
+          note: 'Cheap, no safety docs.' }
+      ] },
+
+    { id: 'motor', name: 'Drive Motor', kind: 'supplier', options: [
+      { id: 'geared-380', name: 'Geared 380, EU speed-rated', mfr: 'Mabuchi', unitCost: 2.10,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Geared and rated within the EU Toy Directive speed limit.' },
+      { id: 'std-380', name: 'Standard 380 motor', mfr: 'Mabuchi', unitCost: 1.30,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Within the limit with the firmware speed cap fitted.' },
+      { id: 'fastfast', name: '"Fast fast" motor (unrated)', mfr: 'Unbranded', unitCost: 0.70,
+        rating: 2, docsComplete: false, caps: {}, riskChance: 0.10,
+        note: 'No speed rating. Quick — likely over the EU toy limit.' }
+    ] },
+
+    { id: 'radio', name: 'Radio Transmitter', kind: 'supplier', options: [
+      { id: 'prop-2g4', name: '2.4G proportional radio', mfr: 'FlySky', unitCost: 2.30,
+        rating: 5, docsComplete: true, caps: { proportional: true }, riskChance: 0.05,
+        note: 'Smooth proportional steering and throttle.' },
+      { id: 'onoff-2g4', name: '2.4G on/off radio', mfr: 'FlySky', unitCost: 1.10,
+        rating: 4, docsComplete: true, caps: { proportional: false }, riskChance: 0.05,
+        note: 'Reliable but only full-left/right, full-throttle control.' },
+      { id: 'cheap-2g4', name: 'Cheap 2.4G radio', mfr: 'Unbranded', unitCost: 0.55,
+        rating: 3, docsComplete: true, caps: { proportional: false }, riskChance: 0.12,
+        note: 'On/off control, occasional glitching.' }
+    ] }
   ],
 
   phases: {
@@ -67,8 +106,8 @@ export default {
         { id: 'speed', name: 'Speed-Limit Check (EU Toy)', cost: 1500, days: 1,
           certRequired: true, certReworkCost: 1400, certMissingCost: 1800,
           desc: 'Measure top speed against the EU Toy Directive limit.',
-          resolve: (p) => {
-            const motor = getSupplier(p.selectedSuppliers.motor);
+          resolve: (p, def) => {
+            const motor = getPart(def.components.find(c => c.id === 'motor'), p.selectedSuppliers.motor);
             if (motor && motor.rating <= 2)
               return { status: 'fail', details: `${motor.name} motor has no speed rating and overshoots the EU Toy Directive limit. Needs gearing or a software limiter.` };
             if (motor && motor.rating === 3)
@@ -126,19 +165,21 @@ export default {
           body: "We swapped in a stronger motor we had spare — much faster! Removed that fiddly speed-limiter chip too, saved a few cents. Already in 7,000 units. Speed!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 8000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 8000, perUnit: 1.00,
           note: 'Fast and cheap. Has been known to "upgrade" motors uninvited.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 12000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 12000, perUnit: 1.80,
           note: 'Keeps your motor and your speed limiter exactly as specified.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 19000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 19000, perUnit: 3.40,
           note: 'Toy-certified, audited, expensive.' }
       ],
       firstArticle: [
         { id: 'paint', finding: 'Body paint slightly more metallic than spec', real: false, reworkCost: 350,
           note: 'Within finish tolerance. Cosmetic.' },
         { id: 'limiter', finding: 'Speed-limiter firmware not flashed on this batch', real: true, reworkCost: 1000,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'Without the limiter the car exceeds the EU speed limit you certified to.' },
         { id: 'label', finding: 'Age grade / choking warning missing from blister packs', real: true, reworkCost: 600,
+          fromFactories: ['shenzhen'],
           note: 'A toy without the required warnings is detained at customs.' }
       ],
       availableMarks: [

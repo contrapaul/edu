@@ -2,7 +2,7 @@
 // Focus: optical/eye safety (IEC 62471 photobiological), LED thermal management,
 // Prop 65, and China CCC. Uses a bespoke optical auto-test.
 
-import { getSupplier } from '../materials.js';
+import { getPart } from '../materials.js';
 
 export default {
   id: 'mina-lamp',
@@ -14,6 +14,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Buyers expect smart-home integration (Matter/Thread); the rival ships it.
+  market: { valuedCaps: { smartHome: 0.22 } },
+  competitor: { name: 'SonicWave Glow', caps: { wifi: true, smartHome: true } },
+
   defaultBudgetAllocation: {
     testing:       70000,
     materials:     60000,
@@ -24,10 +28,45 @@ export default {
 
   components: [
     { id: 'shade', name: 'Shade / Diffuser', kind: 'material', materialSet: 'enclosure' },
+
     { id: 'led', name: 'LED Module', kind: 'supplier', critical: true,
-      note: 'The LEDs set your eye-safety class (IEC 62471). Cheap, unbinned emitters are an optical-hazard risk.' },
-    { id: 'driver', name: 'LED Driver', kind: 'supplier' },
-    { id: 'wifi', name: 'Wi-Fi Module', kind: 'supplier' }
+      note: 'The LEDs set your eye-safety class (IEC 62471). Cheap, unbinned emitters are an optical-hazard risk.',
+      options: [
+        { id: 'nichia', name: 'NVSL high-CRI LEDs', mfr: 'Nichia', unitCost: 2.20,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.03,
+          note: 'Tightly binned, exempt risk group, beautiful colour rendering.' },
+        { id: 'samsung-lm', name: 'LM301 mid-power LEDs', mfr: 'Samsung', unitCost: 1.30,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.05,
+          note: 'Efficient and well-documented; the sensible choice.' },
+        { id: 'generic-led', name: 'Unbinned emitters', mfr: 'Unbranded', unitCost: 0.45,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.25,
+          risk: { text: 'LEDs flicker and run hot; a few units discolour the shade. "Is my lamp dying?" threads spread.' },
+          note: 'Very bright, very cheap, no photometric data.' }
+      ] },
+
+    { id: 'driver', name: 'LED Driver', kind: 'supplier', options: [
+      { id: 'meanwell-ldd', name: 'LDD constant-current driver', mfr: 'Mean Well', unitCost: 2.60,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Clean, efficient, flicker-free dimming.' },
+      { id: 'inventronics', name: 'Constant-current driver', mfr: 'Inventronics', unitCost: 1.50,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Reliable mid-tier driver.' },
+      { id: 'generic-driver', name: 'Generic CC driver', mfr: 'Unbranded', unitCost: 0.60,
+        rating: 2, docsComplete: false, caps: {}, riskChance: 0.18,
+        note: 'Cheap; noisy emissions and visible flicker on dimming.' }
+    ] },
+
+    { id: 'wifi', name: 'Wi-Fi Module', kind: 'supplier', options: [
+      { id: 'esp32-c6', name: 'ESP32-C6 (Matter/Thread)', mfr: 'Espressif', unitCost: 2.90,
+        rating: 5, docsComplete: true, caps: { wifi: true, smartHome: true }, riskChance: 0.05,
+        note: 'Full smart-home interop — works with every major ecosystem.' },
+      { id: 'esp8266', name: 'ESP8266 (Wi-Fi, app only)', mfr: 'Espressif', unitCost: 1.20,
+        rating: 4, docsComplete: true, caps: { wifi: true, smartHome: false }, riskChance: 0.05,
+        note: 'Controls via your own app, but no Matter/HomeKit/Alexa.' },
+      { id: 'generic-wifi', name: 'Generic Wi-Fi module', mfr: 'Tuya', unitCost: 0.90,
+        rating: 3, docsComplete: true, caps: { wifi: true, smartHome: false }, riskChance: 0.12,
+        note: 'Cheap cloud module; no open smart-home standard.' }
+    ] }
   ],
 
   phases: {
@@ -66,8 +105,8 @@ export default {
         { id: 'optical', name: 'Photobiological Safety (IEC 62471)', cost: 3500, days: 3,
           certRequired: true, certReworkCost: 2200, certMissingCost: 3200,
           desc: 'Measure blue-light and retinal-hazard exposure from the LEDs.',
-          resolve: (p) => {
-            const led = getSupplier(p.selectedSuppliers.led);
+          resolve: (p, def) => {
+            const led = getPart(def.components.find(c => c.id === 'led'), p.selectedSuppliers.led);
             if (led && led.rating <= 2)
               return { status: 'fail', details: `${led.name} emitters exceed the IEC 62471 blue-light limit — a genuine retinal-hazard failure.` };
             if (led && led.rating === 3)
@@ -125,19 +164,21 @@ export default {
           body: "We upgraded your LEDs to a cheaper, brighter bin we had in stock. Much more lumens per dollar. You will be amazed. Already in the first 5,000 units." }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 9000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 9000, perUnit: 1.30,
           note: 'Fast and cheap. They "improve" LED bins without asking.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 14000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 14000, perUnit: 2.20,
           note: 'Reliable, and they hold the LED bin you specify.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 22000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 22000, perUnit: 4.00,
           note: 'Photometrically consistent, audited, expensive.' }
       ],
       firstArticle: [
         { id: 'shade', finding: 'Shade is a touch glossier than the matte spec', real: false, reworkCost: 400,
           note: 'Within finish tolerance. Cosmetic.' },
         { id: 'bin',   finding: 'LEDs are a different colour bin than specified', real: true, reworkCost: 1100,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'Wrong bin shifts colour temperature and may void the photometric file.' },
         { id: 'heat',  finding: 'Heatsink is 1 mm thinner than drawing', real: true, reworkCost: 700,
+          fromFactories: ['shenzhen'],
           note: 'Less thermal mass shortens LED life and raises surface temperature.' }
       ],
       availableMarks: [

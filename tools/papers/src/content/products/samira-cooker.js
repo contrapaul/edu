@@ -4,7 +4,7 @@
 // Non-electronic. Uses the drop test (stability) + bespoke thermal and
 // green-claims tests.
 
-import { getMaterial, getSupplier } from '../materials.js';
+import { getMaterial } from '../materials.js';
 
 export default {
   id: 'samira-cooker',
@@ -16,6 +16,10 @@ export default {
 
   availableMarkets: ['usa', 'california', 'eu', 'china', 'japan', 'australia'],
 
+  // Campers want it to fold flat with a carry case; the rival's does. Skip it and lose sales.
+  market: { valuedCaps: { foldable: 0.18 } },
+  competitor: { name: 'SunChef Fold', caps: { foldable: true } },
+
   defaultBudgetAllocation: {
     testing:       55000,
     materials:     50000,
@@ -26,10 +30,45 @@ export default {
 
   components: [
     { id: 'reflector', name: 'Reflector Panel', kind: 'material', materialSet: 'enclosure' },
-    { id: 'frame', name: 'Support Frame', kind: 'supplier' },
+
+    { id: 'frame', name: 'Support Frame', kind: 'supplier', options: [
+      { id: 'fold-alu', name: 'Folding aluminium frame + case', mfr: 'Helinox-grade', unitCost: 4.00,
+        rating: 5, docsComplete: true, caps: { foldable: true }, riskChance: 0.04,
+        note: 'Packs flat into a carry case; light and rigid.' },
+      { id: 'fixed-steel', name: 'Fixed steel frame', mfr: 'Generic', unitCost: 2.20,
+        rating: 4, docsComplete: true, caps: { foldable: false }, riskChance: 0.06,
+        note: 'Sturdy but bulky — no fold-flat.' },
+      { id: 'wire-frame', name: 'Cheap wire frame', mfr: 'Unbranded', unitCost: 1.00,
+        rating: 3, docsComplete: true, caps: { foldable: false }, riskChance: 0.10,
+        note: 'Flimsy, tips in wind, doesn\'t pack down.' }
+    ] },
+
     { id: 'pot', name: 'Cooking Pot', kind: 'supplier', critical: true,
-      note: 'The pot holds food at cooking heat for hours. Food-contact safety and even heating both ride on it.' },
-    { id: 'hardware', name: 'Hinges & Hardware', kind: 'supplier' }
+      note: 'The pot holds food at cooking heat for hours. Food-contact safety and even heating both ride on it.',
+      options: [
+        { id: 'anodised', name: 'Anodised food-grade pot', mfr: 'GSI Outdoors', unitCost: 3.50,
+          rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+          note: 'Even heating, fully food-safe, documented.' },
+        { id: 'stainless', name: 'Stainless pot', mfr: 'Generic', unitCost: 2.00,
+          rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+          note: 'Food-safe and solid; heats a little unevenly.' },
+        { id: 'uncoated', name: 'Uncoated cheap pot', mfr: 'Unbranded', unitCost: 0.90,
+          rating: 2, docsComplete: false, caps: {}, riskChance: 0.18,
+          risk: { text: 'The cheap pot leaches and scorches food unevenly; food-safety complaints pile up.' },
+          note: 'No food-contact documentation.' }
+      ] },
+
+    { id: 'hardware', name: 'Hinges & Hardware', kind: 'supplier', options: [
+      { id: 'ss-hinges', name: 'Stainless hinges & hardware', mfr: 'Sugatsune', unitCost: 1.20,
+        rating: 5, docsComplete: true, caps: {}, riskChance: 0.04,
+        note: 'Corrosion-proof, smooth, durable.' },
+      { id: 'zinc-hinges', name: 'Zinc-alloy hinges', mfr: 'Generic', unitCost: 0.60,
+        rating: 4, docsComplete: true, caps: {}, riskChance: 0.06,
+        note: 'Fine indoors; can corrode outdoors over time.' },
+      { id: 'cheap-hinges', name: 'Cheap hinges', mfr: 'Unbranded', unitCost: 0.25,
+        rating: 3, docsComplete: true, caps: {}, riskChance: 0.10,
+        note: 'Stiff, rust-prone, fatigue early.' }
+    ] }
   ],
 
   phases: {
@@ -138,19 +177,21 @@ export default {
           body: "We switched the reflector to a cheaper film that's even shinier at first. Hazes up after a few months but looks amazing in the box! Also slapped \"eco\" stickers everywhere. Already in 4,000 units!" }
       ],
       factories: [
-        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 9000,
+        { id: 'shenzhen', name: 'Shenzhen MegaFab', quality: 3, speed: 5, cost: 1, compliance: 2, setup: 9000, perUnit: 1.50,
           note: 'Fast and cheap. Loves an unearned "eco" sticker.' },
-        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 14000,
+        { id: 'vietnam', name: 'Hanoi Precision', quality: 4, speed: 3, cost: 3, compliance: 4, setup: 14000, perUnit: 2.60,
           note: 'Holds your reflector spec and your honest labelling.' },
-        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 22000,
+        { id: 'brno', name: 'Brno Assembly (EU)', quality: 5, speed: 2, cost: 5, compliance: 5, setup: 22000, perUnit: 4.80,
           note: 'Audited, food-safe, and won\'t greenwash your box.' }
       ],
       firstArticle: [
         { id: 'tone',  finding: 'Frame powder-coat a shade darker than spec', real: false, reworkCost: 400,
           note: 'Within tolerance. Cosmetic.' },
         { id: 'film',  finding: 'Reflector film swapped for a non-UV-stable type', real: true, reworkCost: 1200,
+          fromFactories: ['shenzhen', 'vietnam'],
           note: 'A non-UV-stable reflector hazes within months — it breaks the cooking and the eco claim.' },
         { id: 'burn',  finding: 'Burn-hazard warning label missing from cartons', real: true, reworkCost: 600,
+          fromFactories: ['shenzhen'],
           note: 'A device that reaches cooking temperature must carry the burn-hazard warning.' }
       ],
       availableMarks: [

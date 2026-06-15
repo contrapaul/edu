@@ -381,7 +381,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 /* ============================================================
    PHASE 2 — DESIGN
    ============================================================ */
-.phase-design { background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 1.5rem; }
+.phase-design, .phase-marketing { background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 1.5rem; }
+.phase-marketing h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.2rem; margin: 1.4rem 0 0.6rem; }
 .phase-intro { font-size: 0.92rem; color: #33373f; max-width: 70ch; }
 .steve-note {
   font-size: 0.85rem; color: #6a4a00; background: #fef3c7;
@@ -789,6 +790,7 @@ html, body { overflow-x: hidden; }
   .metric-bar { grid-column: 1 / -1; order: 3; }
   .fa-item, .sb-item { flex-wrap: wrap; }
   .emc-mits { grid-template-columns: 1fr; }
-  .phase, .phase-design, .phase-testing, .phase-mfg,
+  .phase, .phase-design, .phase-testing, .phase-mfg, .phase-marketing,
   .phase-launch, .docdesk, .phase-cert-letter { padding: 1.1rem; }
+  .mkt-grid { grid-template-columns: 1fr; }
 }
