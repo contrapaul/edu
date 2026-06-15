@@ -15,6 +15,7 @@ import { renderLaunch } from '../ui/launch.js';
 import { advanceTime } from './events.js';
 import { enqueuePhaseEmails, unreadCount, openInbox } from '../ui/inbox.js';
 import { unlockedCount, openLibrary } from '../ui/library.js';
+import { openPortfolio, activeMarketCount } from '../ui/portfolio.js';
 import { openSandbox } from '../ui/sandbox.js';
 
 const PHASE_LABELS = {
@@ -71,6 +72,7 @@ function hudHTML(character, def) {
       <div class="hud-tools">
         <button class="hud-tool" data-tool="library" title="Regulatory Library" aria-label="Regulatory Library, ${unlockedCount()} unlocked"><span aria-hidden="true">📋</span><span class="hud-badge">${unlockedCount()}</span></button>
         <button class="hud-tool" data-tool="inbox" title="Inbox" aria-label="Inbox, ${unreadCount()} unread"><span aria-hidden="true">✉</span>${unreadCount() ? `<span class="hud-badge unread">${unreadCount()}</span>` : ''}</button>
+        ${state.markets.length ? `<button class="hud-tool" data-tool="portfolio" title="Market Portfolio" aria-label="Market portfolio, ${activeMarketCount()} selling"><span aria-hidden="true">📈</span>${activeMarketCount() ? `<span class="hud-badge">${activeMarketCount()}</span>` : ''}</button>` : ''}
         <button class="hud-tool" data-tool="sandbox" title="Operations (sandbox)" aria-label="Operations panel"><span aria-hidden="true">🌐</span>${state.worldEvents.length ? `<span class="hud-badge unread">!</span>` : ''}</button>
       </div>
       <div class="hud-money">
@@ -149,13 +151,13 @@ export function renderGame(root, onQuit) {
       completeProduct: () => {
         const nextDef = getProductDef(state.character, state.productIndex + 1);
         if (!nextDef) return;
-        // Company cash, reputation, morale and the clock all carry forward — the
-        // money you made in the market IS your budget for the next product.
+        // Company cash, reputation, morale, the clock AND the previous product's
+        // market all carry forward — that market keeps selling in the background
+        // (ticked by advanceTime) while you build the next product.
         state.productIndex += 1;
         state.phase = 'brief';
         state.product = null;
-        state.market = null;            // the previous product's market is done
-        state.competitorProgress = 0;   // a fresh competitor for the new product
+        state.competitorProgress = 0;   // a fresh competitor for the new product's dev race
         save();
         renderGame(root, onQuit);   // re-enter with the new product
       },
@@ -196,10 +198,12 @@ function repaintHud(root, character, def, rerender) {
 function bindTools(root, character, def, rerender) {
   const lib = root.querySelector('[data-tool="library"]');
   const inbox = root.querySelector('[data-tool="inbox"]');
+  const portfolio = root.querySelector('[data-tool="portfolio"]');
   const sandbox = root.querySelector('[data-tool="sandbox"]');
   const hudRefresh = () => repaintHud(root, character, def, rerender);
   if (lib) lib.addEventListener('click', () => openLibrary(hudRefresh));
   if (inbox) inbox.addEventListener('click', () => openInbox(hudRefresh));
+  if (portfolio) portfolio.addEventListener('click', () => openPortfolio(hudRefresh));
   // Sandbox changes can alter phase costs, so closing it re-renders the phase.
   if (sandbox) sandbox.addEventListener('click', () => openSandbox({ def, refreshHud: hudRefresh }, rerender));
   // Clickable stepper: jump back to an earlier phase. `rerender` is the full

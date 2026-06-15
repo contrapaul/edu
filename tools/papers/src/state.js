@@ -26,7 +26,7 @@ function blankState() {
     bankrupt: false,        // tripped when payroll/spend drives cash below zero
     ledger: [],             // dated { day, label, amount } entries (amount<0 = expense)
     competitor: { progress: 0, launched: false, capabilities: {}, intel: 0 },
-    market: null,           // post-launch ongoing per-product sales state
+    markets: [],            // post-launch ongoing per-product sales states (concurrent)
     companyFixes: [],       // company-level fixes that persist across products (e.g. 'address')
 
     // --- sandbox hooks (inert in v1) ---

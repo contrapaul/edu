@@ -703,6 +703,21 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .boost-field input { font-family: var(--font-mono); width: 110px; padding: 0.4rem 0.5rem; border: 1.5px solid var(--line); border-radius: var(--radius); }
 .market-hint { font-size: 0.8rem; color: var(--muted); }
 .market-closed { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; margin-bottom: 1rem; }
+.market-table.summary { max-width: 560px; }
+.btn-sub { font-weight: 400; font-size: 0.72rem; opacity: 0.85; }
+.grade-pill { font-family: var(--font-mono); font-weight: 700; padding: 0.05rem 0.4rem; border-radius: 4px; background: var(--paper-2); border: 1px solid var(--line); }
+
+/* --- portfolio panel --- */
+.pf-list { display: flex; flex-direction: column; gap: 0.7rem; overflow-y: auto; }
+.pf-card { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.7rem 0.9rem; }
+.pf-head { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; margin-bottom: 0.3rem; }
+.pf-status { font-size: 0.62rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; padding: 0.05rem 0.4rem; border-radius: 3px; }
+.pf-status.live { color: #1f7a43; border: 1px solid #1f7a43; }
+.pf-status.closed { color: var(--muted); border: 1px solid var(--muted); }
+.pf-stats { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; font-size: 0.78rem; font-family: var(--font-mono); color: #44484f; }
+.pf-last { font-size: 0.76rem; color: var(--muted); margin-top: 0.3rem; }
+.pf-boost { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 0.5rem; font-size: 0.8rem; }
+.pf-boost input { font-family: var(--font-mono); width: 100px; padding: 0.3rem 0.45rem; border: 1.5px solid var(--line); border-radius: var(--radius); }
 
 /* ============================================================
    PHASE 6 — LAUNCH

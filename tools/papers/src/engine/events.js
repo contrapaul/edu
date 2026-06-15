@@ -7,6 +7,7 @@
 
 import { state, save } from '../state.js';
 import { getCharacter } from '../content/characters.js';
+import { tickMarkets } from './market.js';
 
 const clamp = (n, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, n));
 
@@ -30,6 +31,8 @@ export function advanceTime(days, label = 'Development') {
     state.budget -= payroll;
     logLedger(`Payroll — ${label} (${days}d)`, -payroll);
   }
+  // Background markets sell into the elapsed time (banks revenue, may recover cash).
+  tickMarkets();
   if (state.budget < 0) state.bankrupt = true;
   save();
 }
