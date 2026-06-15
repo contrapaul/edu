@@ -71,11 +71,20 @@ export function renderTesting(container, ctx) {
       const cost = testCost(t);
       const affordable = state.budget >= cost;
       const surcharge = cost > t.cost ? ' <span class="cost-up">▲</span>' : cost < t.cost ? ' <span class="cost-down">▼</span>' : '';
+      // After a non-pass result you can re-test. Interactive tests let you
+      // replay the mini-game; auto tests are fixed by your design, so we say so
+      // rather than charge for a guaranteed-identical result.
+      let retest = '';
+      if (res && res.status !== 'pass') {
+        retest = t.interactive
+          ? `<button class="btn-secondary test-retest" data-retest="${t.id}" ${affordable ? '' : 'disabled'}>Re-test · ${money(cost)}${surcharge}</button>`
+          : `<span class="retest-note">Determined by your design — change the design next time to fix this.</span>`;
+      }
       const body = res
         ? `<div class="test-result status-${res.status}">
              <span class="test-badge">${STATUS_LABEL[res.status]}</span>
              <span class="test-details">${res.details}</span>
-           </div>`
+           </div>${retest}`
         : `<button class="btn-primary test-run" data-run="${t.id}" ${affordable ? '' : 'disabled'}>
              Run · ${money(cost)}${surcharge} · ${t.days}d${affordable ? '' : ' (over budget)'}
            </button>`;
@@ -106,6 +115,14 @@ export function renderTesting(container, ctx) {
 
     container.querySelectorAll('[data-run]').forEach(btn =>
       btn.addEventListener('click', () => runTest(btn.dataset.run)));
+    container.querySelectorAll('[data-retest]').forEach(btn =>
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.retest;
+        // Drop the old result, then run it again (charges the fee, replays the game).
+        p.testResults = p.testResults.filter(r => r.testId !== id);
+        save();
+        runTest(id);
+      }));
     container.querySelector('[data-action="advance"]').addEventListener('click', ctx.advance);
   }
 

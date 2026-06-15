@@ -41,7 +41,8 @@ function hudHTML(character, def) {
 
   const morale = character.staff.map(s => {
     const m = state.staffMorale[s.id] ?? 50;
-    return `<li class="staff-row">
+    const perk = s.translator ? ' A happy specialist translates regulatory letters for free.' : '';
+    return `<li class="staff-row" title="${s.name}'s morale: ${m}%. It shifts when you lock in cheap vs. premium sourcing.${perk}">
       <span class="staff-name">${s.name}</span>
       <span class="staff-role">${s.role}</span>
       <span class="morale-bar"><span class="morale-fill" style="width:${m}%"></span></span>
@@ -66,14 +67,14 @@ function hudHTML(character, def) {
       </div>
     </header>
     <aside class="hud-side">
-      <section class="staff-panel">
-        <h3>Team</h3>
+      <section class="staff-panel" title="Team morale. Locking in cheap parts pleases your pragmatist and worries your compliance lead (and vice-versa). A happy translator handles regulatory letters for free.">
+        <h3>Team morale</h3>
         <ul class="staff-list">${morale}</ul>
       </section>
-      <section class="competitor">
-        <h3>GloboCorp</h3>
+      <section class="competitor" title="Every phase you spend lets GloboCorp catch up. If they reach market first you lose sales — keep delays (corrections, slow factories, re-tests) down.">
+        <h3>GloboCorp${state.competitorProgress >= 70 ? ' ⚠' : ''}</h3>
         <div class="comp-bar"><span class="comp-fill" style="width:${state.competitorProgress}%"></span></div>
-        <p class="comp-note">Rival progress to market</p>
+        <p class="comp-note">${state.competitorProgress >= 70 ? 'Closing in — they may beat you to market!' : 'Rival racing you to market'}</p>
       </section>
     </aside>`;
 }
@@ -107,7 +108,13 @@ export function renderGame(root, onQuit) {
     const ctx = {
       def, character,
       refreshHud: () => repaintHud(root, character, def, paint),
-      advance: () => { nextPhase(); paint(); },
+      advance: () => {
+        // Time passes each phase, so the rival closes in — this is the baseline
+        // pressure; corrections, slow factories and re-tests add to it.
+        if (state.phase !== 'launch') state.competitorProgress = Math.min(100, state.competitorProgress + 8);
+        nextPhase();
+        paint();
+      },
       hasNextProduct: !!getProductDef(state.character, state.productIndex + 1),
       completeProduct: () => {
         const profit = state.product?.launch?.sales?.profit ?? 0;
@@ -119,6 +126,7 @@ export function renderGame(root, onQuit) {
         state.phase = 'brief';
         state.product = null;
         state.budget = nextDef.startBudget + reinvest;
+        state.competitorProgress = 0;   // a fresh competitor for the new product
         save();
         renderGame(root, onQuit);   // re-enter with the new product
       },

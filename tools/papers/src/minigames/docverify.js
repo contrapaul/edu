@@ -62,7 +62,7 @@ export function renderDocDesk(container, model, handlers) {
         <div class="doc-rows">${checks.map(rowHTML).join('')}</div>
         <div class="phase-actions">
           <button class="btn-primary" id="submit-dossier" ${remaining ? 'disabled' : ''}>Submit dossier →</button>
-          <span class="confirm-msg">${remaining ? `${remaining} discrepancy${remaining === 1 ? '' : 'ies'} unresolved.` : 'Dossier consistent — ready to submit.'}</span>
+          <span class="confirm-msg">${remaining ? `${remaining} discrepanc${remaining === 1 ? 'y' : 'ies'} unresolved.` : 'Dossier consistent — ready to submit.'}</span>
         </div>
       </div>`;
 

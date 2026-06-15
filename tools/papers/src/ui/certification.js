@@ -38,11 +38,14 @@ function buildChecks(def, p) {
       match: false, arguable: true, correctCost: tc.correctCost, note: tc.note });
   }
 
-  // A real (must-correct) discrepancy reused across products.
-  checks.push({ id: 'address', doc: 'Form 1-A', field: 'Applicant registered address',
-    fileValue: 'Unit 4, 12 Maker Rd', formValue: 'Unit 4, 21 Maker Rd', match: false,
-    arguable: false, correctCost: 150,
-    note: 'Legal identity must be exact — a transposed street number is not "close enough".' });
+  // A real (must-correct) discrepancy — but the registered address is a company
+  // fact: once corrected on your filings it stays corrected for later products.
+  if (!state.companyFixes.includes('address')) {
+    checks.push({ id: 'address', doc: 'Form 1-A', field: 'Applicant registered address',
+      fileValue: 'Unit 4, 12 Maker Rd', formValue: 'Unit 4, 21 Maker Rd', match: false,
+      arguable: false, correctCost: 150,
+      note: 'Legal identity must be exact — a transposed street number is not "close enough". Fix it once and it stays fixed.' });
+  }
 
   // Critical component with unverifiable certification.
   if (critSupplier && !critSupplier.docsComplete) {
@@ -103,6 +106,8 @@ export function renderCertification(container, ctx) {
           state.budget -= cost;
           state.competitorProgress = Math.min(100, state.competitorProgress + 3);
           p.certification.resolved[checkId] = 'corrected';
+          // Company-level fixes persist across products.
+          if (checkId === 'address' && !state.companyFixes.includes('address')) state.companyFixes.push('address');
           save(); ctx.refreshHud();
           return { ok: true };
         }

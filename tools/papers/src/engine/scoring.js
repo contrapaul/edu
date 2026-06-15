@@ -28,7 +28,7 @@ export function computeSales(state, def, satisfaction) {
     .reduce((sum, id) => sum + (getMarket(id)?.size ?? 0), 0);
   const price = state.product.targetPrice;
   const priceFactor = clamp(1.4 - price / 150, 0.4, 1.3);
-  const timeFactor = 1 - state.competitorProgress / 200;      // rivals steal share
+  const timeFactor = Math.max(0.35, 1 - state.competitorProgress / 130);  // rivals steal share
   const qualityFactor = 0.7 + (satisfaction / 100) * 0.5;     // reviews drive sales
 
   const units = Math.round((def.phases.launch.baseUnits) * reach * priceFactor * timeFactor * qualityFactor);

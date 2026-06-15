@@ -439,6 +439,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .status-fail .test-badge { color: var(--stamp-red); }
 .submit-warn { font-size: 0.82rem; color: #92400e; }
 .submit-ok { font-size: 0.82rem; color: var(--stamp-grn); }
+.test-retest { align-self: flex-start; margin-top: 0.5rem; font-size: 0.8rem; padding: 0.45rem 0.9rem; }
+.retest-note { display: block; margin-top: 0.5rem; font-size: 0.76rem; color: var(--muted); font-style: italic; }
 
 /* ============================================================
    EMC MINI-GAME

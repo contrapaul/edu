@@ -20,6 +20,7 @@ function blankState() {
     unlockedRegulations: [],
     inbox: [],
     competitorProgress: 0,  // 0..100
+    companyFixes: [],       // company-level fixes that persist across products (e.g. 'address')
 
     // --- sandbox hooks (inert in v1) ---
     countryPresence: {},

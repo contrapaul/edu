@@ -154,29 +154,14 @@ export function renderDesign(container, ctx) {
     });
   });
 
+  // Selecting/comparing suppliers is free — morale only moves when the design is
+  // locked in (see the Generate Technical File handler below).
   container.querySelectorAll('[data-supplier]').forEach(btn => {
     btn.addEventListener('click', () => {
       const comp = btn.dataset.comp;
-      const id = btn.dataset.supplier;
-      if (p.selectedSuppliers[comp] === id) return; // no change, no morale churn
-      p.selectedSuppliers[comp] = id;
+      p.selectedSuppliers[comp] = btn.dataset.supplier;
       container.querySelectorAll(`[data-comp="${comp}"]`).forEach(b => b.classList.toggle('on', b === btn));
-
-      // Sourcing pleases or worries the team by disposition: the shortcut-liker
-      // welcomes a cheap part; the compliance-minded one frets over it.
-      const s = getSupplier(id);
-      const shortcut = ctx.character.staff.find(x => x.disposition === 'shortcut');
-      const compliance = ctx.character.staff.find(x => x.disposition === 'compliance');
-      if (s.rating <= 2) {
-        if (shortcut) adjustMorale(shortcut.id, 4);
-        if (compliance) adjustMorale(compliance.id, -5);
-      } else if (s.rating >= 4) {
-        if (compliance) adjustMorale(compliance.id, 4);
-        if (shortcut) adjustMorale(shortcut.id, -2);
-      }
-
       refresh(); save();
-      ctx.refreshHud();
     });
   });
 
@@ -195,6 +180,27 @@ export function renderDesign(container, ctx) {
       process: p.selectedProcess,
       riskFlags: gatherConsequences().filter(c => c.kind === 'risk').map(c => `${c.src}: ${c.text}`)
     };
+
+    // Apply team morale once, based on the FINAL sourcing decisions. Cheap parts
+    // please the shortcut-liker and worry the compliance-minded; premium parts
+    // the reverse. (Guarded so re-entering the locked design can't double-apply.)
+    if (!p.moraleApplied) {
+      const shortcut = ctx.character.staff.find(x => x.disposition === 'shortcut');
+      const compliance = ctx.character.staff.find(x => x.disposition === 'compliance');
+      for (const comp of supplierComps) {
+        const s = getSupplier(p.selectedSuppliers[comp.id]);
+        if (!s) continue;
+        if (s.rating <= 2) {
+          if (shortcut) adjustMorale(shortcut.id, 4);
+          if (compliance) adjustMorale(compliance.id, -5);
+        } else if (s.rating >= 4) {
+          if (compliance) adjustMorale(compliance.id, 4);
+          if (shortcut) adjustMorale(shortcut.id, -2);
+        }
+      }
+      p.moraleApplied = true;
+    }
+
     save();
     ctx.advance();
   });
