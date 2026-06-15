@@ -9,7 +9,8 @@ import { renderBrief } from '../ui/brief.js';
 import { renderDesign } from '../ui/design.js';
 import { renderTesting } from '../ui/testing.js';
 import { renderCertification } from '../ui/certification.js';
-import { renderManufacturing } from '../ui/manufacturing.js';
+import { renderProduction } from '../ui/production.js';
+import { renderMarketing } from '../ui/marketing.js';
 import { renderLaunch } from '../ui/launch.js';
 import { enqueuePhaseEmails, unreadCount, openInbox } from '../ui/inbox.js';
 import { unlockedCount, openLibrary } from '../ui/library.js';
@@ -17,7 +18,7 @@ import { openSandbox } from '../ui/sandbox.js';
 
 const PHASE_LABELS = {
   brief: 'Brief', design: 'Design', testing: 'Testing',
-  certification: 'Certify', manufacturing: 'Manufacture', launch: 'Launch'
+  certification: 'Certify', production: 'Produce', marketing: 'Market', launch: 'Launch'
 };
 
 // Phase id -> mount function. Phases not yet built fall back to a stub.
@@ -26,7 +27,8 @@ const PHASE_MODULES = {
   design: renderDesign,
   testing: renderTesting,
   certification: renderCertification,
-  manufacturing: renderManufacturing,
+  production: renderProduction,
+  marketing: renderMarketing,
   launch: renderLaunch
 };
 
@@ -63,8 +65,12 @@ function hudHTML(character, def) {
       </div>
       <div class="hud-budget">
         <span class="hud-budget-n">${money(state.budget)}</span>
-        <span class="hud-budget-l">Budget</span>
+        <span class="hud-budget-l">Cash</span>
       </div>
+      ${state.product?.unitCost > 0 ? `<div class="hud-unitcost" title="Bill-of-materials cost per device, from your component choices.">
+        <span class="hud-unitcost-n">$${state.product.unitCost.toFixed(2)}</span>
+        <span class="hud-unitcost-l">/ device</span>
+      </div>` : ''}
     </header>
     <aside class="hud-side">
       <section class="staff-panel" title="Team morale. Locking in cheap parts pleases your pragmatist and worries your compliance lead (and vice-versa). A happy translator handles regulatory letters for free.">

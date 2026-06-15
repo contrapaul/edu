@@ -4,7 +4,7 @@
 // Step B: a piece of bureaucratic correspondence with a paid Translate option.
 
 import { state, save } from '../state.js';
-import { getMaterial, getSupplier } from '../content/materials.js';
+import { getMaterial, getPart } from '../content/materials.js';
 import { renderDocDesk } from '../minigames/docverify.js';
 import { getMorale, applyModifiers } from '../engine/events.js';
 
@@ -19,7 +19,7 @@ function buildChecks(def, p) {
   const matComp = def.components.find(c => c.kind === 'material');
   const material = matComp ? getMaterial(p.selectedMaterials[matComp.id]) : null;
   const critComp = def.components.find(c => c.critical);
-  const critSupplier = critComp ? getSupplier(p.selectedSuppliers[critComp.id]) : null;
+  const critSupplier = critComp ? getPart(critComp, p.selectedSuppliers[critComp.id]) : null;
 
   const checks = [
     { id: 'model', doc: 'Form 1-A', field: 'Product model designation',

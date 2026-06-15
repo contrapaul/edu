@@ -6,9 +6,12 @@
 import { state, save } from '../state.js';
 import {
   ENCLOSURE_MATERIALS, SUPPLIERS, MANUFACTURING_PROCESSES,
-  getMaterial, getSupplier, getProcess
+  getMaterial, getPart, getProcess
 } from '../content/materials.js';
 import { adjustMorale } from '../engine/events.js';
+import { unitCost } from '../engine/economy.js';
+
+const money2 = (n) => '$' + n.toFixed(2);
 
 const stars = (n) => '★★★★★'.slice(0, n).padEnd(5, '☆');
 const dots  = (n) => '●●●●●'.slice(0, n).padEnd(5, '○');
@@ -24,7 +27,7 @@ export function renderDesign(container, ctx) {
   const materialCards = ENCLOSURE_MATERIALS.map(m => {
     const on = p.selectedMaterials[matKey] === m.id ? ' on' : '';
     return `<button class="opt material-opt${on}" data-material="${m.id}">
-      <span class="opt-name">${m.name}</span>
+      <span class="opt-name">${m.name}${typeof m.unitCost === 'number' ? `<span class="opt-unitcost">${money2(m.unitCost)}/unit</span>` : ''}</span>
       <span class="opt-props">
         <span>Cost ${dots(m.cost)}</span>
         <span>Fire: ${m.fireRating}</span>
@@ -36,11 +39,16 @@ export function renderDesign(container, ctx) {
   }).join('');
 
   const supplierBlocks = supplierComps.map(comp => {
-    const cards = SUPPLIERS.map(s => {
+    const parts = comp.options || SUPPLIERS;
+    const cards = parts.map(s => {
       const on = p.selectedSuppliers[comp.id] === s.id ? ' on' : '';
+      const cost = typeof s.unitCost === 'number'
+        ? `<span class="opt-unitcost">${money2(s.unitCost)}/unit</span>` : '';
+      const mfr = s.mfr ? `<span class="opt-mfr">${s.mfr}</span>` : '';
       return `<button class="opt supplier-opt${on}" data-comp="${comp.id}" data-supplier="${s.id}">
-        <span class="opt-name">${s.name}</span>
-        <span class="opt-stars" title="Compliance rating">${stars(s.rating)}</span>
+        <span class="opt-name">${s.name}${cost}</span>
+        ${mfr}
+        <span class="opt-stars" title="Sourcing / compliance rating">${stars(s.rating)}</span>
         <span class="opt-note">${s.note}</span>
       </button>`;
     }).join('');
@@ -82,6 +90,11 @@ export function renderDesign(container, ctx) {
         </div>
 
         <aside class="consequences">
+          <div class="unit-cost-card" id="unit-cost-card">
+            <span class="ucc-label">Cost per device</span>
+            <span class="ucc-val" id="ucc-val">—</span>
+            <span class="ucc-note" id="ucc-note">Pick every component to see the full bill of materials.</span>
+          </div>
           <h3>Design consequences</h3>
           <ul class="cons-list" id="cons-list"></ul>
           <div class="phase-actions">
@@ -99,7 +112,7 @@ export function renderDesign(container, ctx) {
     if (mat) mat.consequences.forEach(c => out.push({ ...c, src: mat.name }));
 
     supplierComps.forEach(comp => {
-      const s = getSupplier(p.selectedSuppliers[comp.id]);
+      const s = getPart(comp, p.selectedSuppliers[comp.id]);
       if (!s) return;
       if (!s.docsComplete) {
         out.push({
@@ -117,7 +130,21 @@ export function renderDesign(container, ctx) {
     return out;
   }
 
+  function refreshUnitCost() {
+    const chosen = supplierComps.every(c => p.selectedSuppliers[c.id]) && !!p.selectedMaterials[matKey];
+    const uc = unitCost(p, def);
+    p.unitCost = uc;
+    const valEl = container.querySelector('#ucc-val');
+    const noteEl = container.querySelector('#ucc-note');
+    if (uc > 0) valEl.textContent = money2(uc); else valEl.textContent = '—';
+    noteEl.textContent = chosen
+      ? 'Full bill of materials. You set price and order size in Production.'
+      : 'Running total — pick every component for the full bill of materials.';
+    ctx.refreshHud();
+  }
+
   function refresh() {
+    refreshUnitCost();
     const cons = gatherConsequences();
     const list = container.querySelector('#cons-list');
     if (cons.length === 0) {
@@ -188,7 +215,7 @@ export function renderDesign(container, ctx) {
       const shortcut = ctx.character.staff.find(x => x.disposition === 'shortcut');
       const compliance = ctx.character.staff.find(x => x.disposition === 'compliance');
       for (const comp of supplierComps) {
-        const s = getSupplier(p.selectedSuppliers[comp.id]);
+        const s = getPart(comp, p.selectedSuppliers[comp.id]);
         if (!s) continue;
         if (s.rating <= 2) {
           if (shortcut) adjustMorale(shortcut.id, 4);

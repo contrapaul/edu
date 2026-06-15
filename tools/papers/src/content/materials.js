@@ -8,7 +8,7 @@
 
 export const ENCLOSURE_MATERIALS = [
   {
-    id: 'abs', name: 'ABS Plastic', cost: 1,
+    id: 'abs', name: 'ABS Plastic', cost: 1, unitCost: 1.10,
     fireRating: 'UL94 HB', recyclability: 2, acoustics: 4, aesthetics: 3, prop65Risk: false,
     processes: ['injection', '3dprint'],
     consequences: [
@@ -16,7 +16,7 @@ export const ENCLOSURE_MATERIALS = [
     ]
   },
   {
-    id: 'pcabs', name: 'PC/ABS Blend', cost: 2,
+    id: 'pcabs', name: 'PC/ABS Blend', cost: 2, unitCost: 1.85,
     fireRating: 'UL94 V-0', recyclability: 2, acoustics: 4, aesthetics: 4, prop65Risk: false,
     processes: ['injection'],
     consequences: [
@@ -24,7 +24,7 @@ export const ENCLOSURE_MATERIALS = [
     ]
   },
   {
-    id: 'bamboo', name: 'Bamboo Composite', cost: 3,
+    id: 'bamboo', name: 'Bamboo Composite', cost: 3, unitCost: 3.40,
     fireRating: 'Untreated', recyclability: 5, acoustics: 5, aesthetics: 5, prop65Risk: true,
     processes: ['cnc'],
     consequences: [
@@ -34,7 +34,7 @@ export const ENCLOSURE_MATERIALS = [
     ]
   },
   {
-    id: 'aluminum', name: 'Recycled Aluminum', cost: 4,
+    id: 'aluminum', name: 'Recycled Aluminum', cost: 4, unitCost: 5.20,
     fireRating: 'Non-combustible', recyclability: 5, acoustics: 2, aesthetics: 5, prop65Risk: false,
     processes: ['cnc'],
     consequences: [
@@ -82,3 +82,10 @@ export const MANUFACTURING_PROCESSES = [
 export const getMaterial = (id) => ENCLOSURE_MATERIALS.find(m => m.id === id) || null;
 export const getSupplier = (id) => SUPPLIERS.find(s => s.id === id) || null;
 export const getProcess  = (id) => MANUFACTURING_PROCESSES.find(p => p.id === id) || null;
+
+// Resolve the chosen option for a sourcing component slot. New-schema products
+// author `component.options` (specific parts with real unitCost); legacy products
+// fall back to the shared SUPPLIERS pool. Both stash the id in selectedSuppliers,
+// and both expose `rating`/`docsComplete` so downstream readers are unchanged.
+export const getPart = (comp, id) =>
+  (comp && comp.options ? comp.options.find(o => o.id === id) : getSupplier(id)) || null;

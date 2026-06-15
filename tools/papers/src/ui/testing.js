@@ -4,7 +4,7 @@
 // product.testResults and are read by certification (Chunk 5).
 
 import { state, save } from '../state.js';
-import { getMaterial, getProcess, getSupplier } from '../content/materials.js';
+import { getMaterial, getProcess, getPart } from '../content/materials.js';
 import { renderEmc } from '../minigames/emc.js';
 import { renderDropTest } from '../minigames/droptest.js';
 import { applyModifiers } from '../engine/events.js';
@@ -23,7 +23,7 @@ function resolveAutoTest(testId, p, def) {
 
   if (testId === 'battery') {
     const battComp = def.components.find(c => c.id === 'battery');
-    const batt = battComp ? getSupplier(p.selectedSuppliers[battComp.id]) : null;
+    const batt = battComp ? getPart(battComp, p.selectedSuppliers[battComp.id]) : null;
     if (batt && batt.rating <= 2)
       return { status: 'fail', details: `${batt.name} cells lack UN 38.3 transport test data — a genuine safety and air-freight blocker.` };
     if (batt && batt.rating === 3)
@@ -180,7 +180,7 @@ export function renderTesting(container, ctx) {
     if (test.minigame === 'emc') {
       // A cheap critical supplier worsens "sensitive" peaks.
       const critComp = def.components.find(c => c.critical);
-      const critSupplier = critComp ? getSupplier(p.selectedSuppliers[critComp.id]) : null;
+      const critSupplier = critComp ? getPart(critComp, p.selectedSuppliers[critComp.id]) : null;
       const penalty = critSupplier && critSupplier.rating <= 2 ? 4 : 0;
       const peaks = raw.peaks.map(pk => pk.psuSensitive ? { ...pk, excess: pk.excess + penalty } : { ...pk });
       return { standardLabel: raw.standardLabel, maxApplications: raw.maxApplications, peaks };

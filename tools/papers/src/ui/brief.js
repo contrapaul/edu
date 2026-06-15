@@ -1,18 +1,12 @@
 // Phase 1 — Product Brief & Requirements Gathering.
-// Read the brief, choose target markets (live-updates required standards),
-// allocate the budget across four buckets, set a target retail price.
+// Read the brief and choose target markets (live-updates required standards).
+// Money is a single company cash pot now: there's no up-front budget split and
+// no up-front price — you commit price and order size late, in Production.
 
 import { state, save, unlockRegulation } from '../state.js';
 import { MARKETS, requiredStandardsFor } from '../content/markets.js';
 
 const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
-
-const BUCKETS = [
-  ['testing',       'Testing & Certification'],
-  ['materials',     'Materials'],
-  ['manufacturing', 'Manufacturing Setup'],
-  ['consulting',    'Regulatory Consulting']
-];
 
 export function renderBrief(container, ctx) {
   const { def } = ctx;
@@ -29,13 +23,6 @@ export function renderBrief(container, ctx) {
         <span class="market-blurb">${m.blurb}</span>
       </button>`;
     }).join('');
-
-  const buckets = BUCKETS.map(([key, label]) => `
-    <label class="bucket">
-      <span class="bucket-label">${label}</span>
-      <span class="bucket-input">$<input type="number" min="0" step="1000"
-        data-bucket="${key}" value="${p.budgetAllocation[key]}"></span>
-    </label>`).join('');
 
   container.innerHTML = `
     <div class="phase phase-brief">
@@ -57,16 +44,9 @@ export function renderBrief(container, ctx) {
           <h3 class="req-title">Required certifications <span id="req-count"></span></h3>
           <ul class="req-list" id="req-list"></ul>
 
-          <h2>2 · Budget allocation</h2>
-          <div class="buckets">${buckets}</div>
-          <p class="budget-readout" id="budget-readout"></p>
-
-          <h2>3 · Target retail price</h2>
-          <div class="price-row">
-            <input type="range" id="price" min="${def.priceRange.min}" max="${def.priceRange.max}"
-              step="5" value="${p.targetPrice}">
-            <span class="price-val" id="price-val">$${p.targetPrice.toFixed(2)}</span>
-          </div>
+          <p class="cash-readout">You have <b>${money(state.budget)}</b> in company cash. Every
+            component, test, certification fee and marketing push spends from it — and you don't set
+            a price until the product exists. Spend with intent.</p>
 
           <div class="phase-actions">
             <button class="btn-primary" id="confirm-brief" disabled>Lock the brief →</button>
@@ -76,7 +56,6 @@ export function renderBrief(container, ctx) {
       </div>
     </div>`;
 
-  // --- live state ---
   function recomputeStandards() {
     p.requiredStandards = requiredStandardsFor(p.selectedMarkets, def.categories);
     p.requiredStandards.forEach(s => unlockRegulation(s.id));
@@ -92,27 +71,14 @@ export function renderBrief(container, ctx) {
     }
   }
 
-  function allocated() {
-    return BUCKETS.reduce((sum, [k]) => sum + (p.budgetAllocation[k] || 0), 0);
-  }
-
   function refreshValidity() {
-    const used = allocated();
-    const remaining = state.budget - used;
-    const readout = container.querySelector('#budget-readout');
-    readout.innerHTML = `Allocated <b>${money(used)}</b> of ${money(state.budget)} ·
-      <span class="${remaining < 0 ? 'over' : 'ok'}">${remaining < 0 ? 'Over by ' + money(-remaining) : money(remaining) + ' unallocated'}</span>`;
-
     const hasMarket = p.selectedMarkets.length > 0;
-    const inBudget = remaining >= 0;
     const btn = container.querySelector('#confirm-brief');
     const msg = container.querySelector('#confirm-msg');
-    btn.disabled = !(hasMarket && inBudget);
-    msg.textContent = !hasMarket ? 'Pick a market first.'
-      : !inBudget ? 'Trim the budget — you are over.' : '';
+    btn.disabled = !hasMarket;
+    msg.textContent = hasMarket ? '' : 'Pick a market first.';
   }
 
-  // --- listeners ---
   container.querySelectorAll('[data-market]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.market;
@@ -124,21 +90,6 @@ export function renderBrief(container, ctx) {
       save();
       ctx.refreshHud();
     });
-  });
-
-  container.querySelectorAll('[data-bucket]').forEach(inp => {
-    inp.addEventListener('input', () => {
-      p.budgetAllocation[inp.dataset.bucket] = Math.max(0, Number(inp.value) || 0);
-      refreshValidity();
-      save();
-    });
-  });
-
-  const price = container.querySelector('#price');
-  price.addEventListener('input', () => {
-    p.targetPrice = Number(price.value);
-    container.querySelector('#price-val').textContent = '$' + p.targetPrice.toFixed(2);
-    save();
   });
 
   container.querySelector('#confirm-brief').addEventListener('click', () => {
