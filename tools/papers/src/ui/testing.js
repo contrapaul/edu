@@ -1,0 +1,176 @@
+// Phase 3 — Pre-Certification Testing.
+// Spend budget to run internal tests. EMC launches the interactive mini-game;
+// the others resolve automatically from the design choices. Results land in
+// product.testResults and are read by certification (Chunk 5).
+
+import { state, save } from '../state.js';
+import { getMaterial, getProcess, getSupplier } from '../content/materials.js';
+import { renderEmc } from '../minigames/emc.js';
+import { renderDropTest } from '../minigames/droptest.js';
+import { applyModifiers } from '../engine/events.js';
+
+const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+const STATUS_LABEL = { pass: 'PASS', conditional: 'CONDITIONAL', fail: 'FAIL' };
+
+// Interactive test id -> mini-game renderer. Config lives at def.phases.testing[id].
+const MINIGAMES = { emc: renderEmc, droptest: renderDropTest };
+
+// Resolve a non-interactive test from the current design.
+function resolveAutoTest(testId, p, def) {
+  const matComp = def.components.find(c => c.kind === 'material');
+  const mat = matComp ? getMaterial(p.selectedMaterials[matComp.id]) : null;
+  const proc = getProcess(p.selectedProcess);
+
+  if (testId === 'battery') {
+    const battComp = def.components.find(c => c.id === 'battery');
+    const batt = battComp ? getSupplier(p.selectedSuppliers[battComp.id]) : null;
+    if (batt && batt.rating <= 2)
+      return { status: 'fail', details: `${batt.name} cells lack UN 38.3 transport test data — a genuine safety and air-freight blocker.` };
+    if (batt && batt.rating === 3)
+      return { status: 'conditional', details: 'Cells pass basic checks but thermal margin is thin; acceptable with a charge-rate limit.' };
+    return { status: 'pass', details: 'Cells carry full UN 38.3 documentation and pass thermal/short-circuit tests.' };
+  }
+
+  if (testId === 'flammability') {
+    const fr = mat?.fireRating;
+    if (fr === 'UL94 V-0' || fr === 'Non-combustible')
+      return { status: 'pass', details: `${mat.name} (${fr}) self-extinguishes well within the limit.` };
+    if (fr === 'Untreated')
+      return { status: 'fail', details: `${mat.name} is untreated — it sustains a flame. Needs flame treatment.` };
+    return { status: 'fail', details: `${mat?.name} (${fr}) burns steadily and fails the flammability standard.` };
+  }
+
+  if (testId === 'mechanical') {
+    if (proc?.id === '3dprint')
+      return { status: 'conditional', details: '3D-printed housing is prototype-grade; layer adhesion is marginal under load.' };
+    if (mat?.id === 'bamboo')
+      return { status: 'conditional', details: 'Composite shows variable strength at the seams; acceptable with reinforcement.' };
+    return { status: 'pass', details: `${mat?.name} housing survives drop and load testing.` };
+  }
+
+  if (testId === 'chemical') {
+    if (mat?.prop65Risk)
+      return { status: 'conditional', details: `${mat.name} flags a Prop 65 substance — sellable with a disclosure warning.` };
+    return { status: 'pass', details: `${mat?.name} clears RoHS and Prop 65 screening.` };
+  }
+
+  return { status: 'pass', details: 'No issues found.' };
+}
+
+export function renderTesting(container, ctx) {
+  const { def } = ctx;
+  const cfg = def.phases.testing;
+  const p = state.product;
+
+  const resultFor = (id) => p.testResults.find(r => r.testId === id);
+  const testCost = (t) => applyModifiers('test-cost', t.cost);
+
+  function render() {
+    const cards = cfg.tests.map(t => {
+      const res = resultFor(t.id);
+      const cost = testCost(t);
+      const affordable = state.budget >= cost;
+      const surcharge = cost > t.cost ? ' <span class="cost-up">▲</span>' : cost < t.cost ? ' <span class="cost-down">▼</span>' : '';
+      const body = res
+        ? `<div class="test-result status-${res.status}">
+             <span class="test-badge">${STATUS_LABEL[res.status]}</span>
+             <span class="test-details">${res.details}</span>
+           </div>`
+        : `<button class="btn-primary test-run" data-run="${t.id}" ${affordable ? '' : 'disabled'}>
+             Run · ${money(cost)}${surcharge} · ${t.days}d${affordable ? '' : ' (over budget)'}
+           </button>`;
+      return `<div class="test-card${res ? ' done' : ''}">
+        <div class="test-head"><h3>${t.name}</h3>${t.interactive ? '<span class="test-tag">interactive</span>' : ''}</div>
+        <p class="test-desc">${t.desc}</p>
+        ${body}
+      </div>`;
+    }).join('');
+
+    const tested = p.testResults.length;
+    const fails = p.testResults.filter(r => r.status === 'fail').length;
+    const warn = tested < cfg.tests.length
+      ? `<span class="submit-warn">${cfg.tests.length - tested} test${cfg.tests.length - tested === 1 ? '' : 's'} not run — you'll submit those blind.</span>`
+      : fails > 0
+        ? `<span class="submit-warn">${fails} failing result${fails === 1 ? '' : 's'} — certification will be rough.</span>`
+        : `<span class="submit-ok">All tests run and passing. Strong position.</span>`;
+
+    container.innerHTML = `
+      <div class="phase phase-testing">
+        <p class="phase-intro">${cfg.intro}</p>
+        <div class="test-grid">${cards}</div>
+        <div class="phase-actions">
+          <button class="btn-primary" data-action="advance">Submit to certification →</button>
+          ${warn}
+        </div>
+      </div>`;
+
+    container.querySelectorAll('[data-run]').forEach(btn =>
+      btn.addEventListener('click', () => runTest(btn.dataset.run)));
+    container.querySelector('[data-action="advance"]').addEventListener('click', ctx.advance);
+  }
+
+  function runTest(id) {
+    const test = cfg.tests.find(t => t.id === id);
+    const cost = test ? testCost(test) : 0;
+    if (!test || state.budget < cost || resultFor(id)) return;
+
+    // Charge the (modifier-adjusted) fee up front.
+    state.budget -= cost;
+    save();
+    ctx.refreshHud();
+
+    if (test.interactive && MINIGAMES[test.minigame]) {
+      launchMinigame(test, cost);
+    } else {
+      // A product may define a bespoke `resolve(p, def)`; otherwise use the
+      // shared resolver for the common material/supplier-driven tests.
+      const r = typeof test.resolve === 'function' ? test.resolve(p, def) : resolveAutoTest(id, p, def);
+      p.testResults.push({ testId: id, label: test.name, ...r });
+      save();
+      render();
+    }
+  }
+
+  function launchMinigame(test, paidCost) {
+    const modal = document.createElement('div');
+    modal.className = 'emc-modal';   // reused full-screen modal shell
+    document.body.appendChild(modal);
+    const host = document.createElement('div');
+    host.className = 'emc-modal-inner';
+    modal.appendChild(host);
+
+    // The config builder lives on the test config (lets each product tweak it).
+    const config = buildMinigameConfig(test);
+
+    MINIGAMES[test.minigame](host, config, (result) => {
+      modal.remove();
+      if (result) {
+        p.testResults.push({ testId: test.id, label: test.name, ...result });
+        save();
+      } else {
+        // Aborted — refund the fee so backing out isn't punished.
+        state.budget += paidCost;
+        save();
+        ctx.refreshHud();
+      }
+      render();
+    });
+  }
+
+  // Assemble a mini-game's config, applying any design-driven difficulty.
+  function buildMinigameConfig(test) {
+    const raw = cfg[test.minigame];
+    if (test.minigame === 'emc') {
+      // A cheap critical supplier worsens "sensitive" peaks.
+      const critComp = def.components.find(c => c.critical);
+      const critSupplier = critComp ? getSupplier(p.selectedSuppliers[critComp.id]) : null;
+      const penalty = critSupplier && critSupplier.rating <= 2 ? 4 : 0;
+      const peaks = raw.peaks.map(pk => pk.psuSensitive ? { ...pk, excess: pk.excess + penalty } : { ...pk });
+      return { standardLabel: raw.standardLabel, maxApplications: raw.maxApplications, peaks };
+    }
+    // droptest and others pass their config straight through.
+    return { ...raw, points: raw.points ? raw.points.map(x => ({ ...x })) : undefined };
+  }
+
+  render();
+}
