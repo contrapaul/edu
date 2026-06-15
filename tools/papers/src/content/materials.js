@@ -79,7 +79,17 @@ export const MANUFACTURING_PROCESSES = [
   }
 ];
 
-export const getMaterial = (id) => ENCLOSURE_MATERIALS.find(m => m.id === id) || null;
+// Material sets let products offer different (and more than four) material
+// choices. A component points at a set via `materialSet`; add new sets here and
+// reference them by name. Ids must stay unique across sets so getMaterial works
+// globally (scoring/economy/cert resolve by id without component context).
+export const MATERIAL_SETS = {
+  enclosure: ENCLOSURE_MATERIALS
+};
+export const materialsForSet = (name) => MATERIAL_SETS[name] || ENCLOSURE_MATERIALS;
+
+export const getMaterial = (id) =>
+  Object.values(MATERIAL_SETS).flat().find(m => m.id === id) || null;
 export const getSupplier = (id) => SUPPLIERS.find(s => s.id === id) || null;
 export const getProcess  = (id) => MANUFACTURING_PROCESSES.find(p => p.id === id) || null;
 

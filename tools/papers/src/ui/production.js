@@ -1,17 +1,18 @@
-// Phase 5 — Production (pricing, order size, assembly & QC).
-// Pick an assembly partner (adds a per-unit cost on top of the bill of materials),
-// judge the first-article inspection, place the correct certification marks, then
-// — late, with the product actually in hand — commit a retail PRICE and an ORDER
-// SIZE. The order spends real cash: qty × cost-per-device + setup. Order too many
-// and unsold units are dead loss; too few and you cap your own sales.
+// Phase 5 — Production (assembly partner, QC, pricing & order).
+// Pick an assembly partner first — only then does the first production run come
+// back for inspection (the findings depend on who built it), you place the
+// certification marks, and finally commit a retail PRICE and ORDER SIZE. The
+// order spends real cash: qty × cost-per-device + setup. Over-order and unsold
+// units are dead loss; under-order and you cap your own sales.
 
 import { state, save } from '../state.js';
-import { applyModifiers } from '../engine/events.js';
+import { applyModifiers, advanceTime } from '../engine/events.js';
 import { unitCost } from '../engine/economy.js';
 
 const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
 const money2 = (n) => '$' + n.toFixed(2);
 const dots  = (n) => '●●●●●'.slice(0, n).padEnd(5, '○');
+const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
 
 export function renderProduction(container, ctx) {
   const { def } = ctx;
@@ -26,10 +27,29 @@ export function renderProduction(container, ctx) {
   const isFalseMark = (mk) => mk.market && !p.selectedMarkets.includes(mk.market);
   const factoryOf = (id) => cfg.factories.find(f => f.id === id);
   const setupCost = () => (m.factory ? applyModifiers('factory-setup', factoryOf(m.factory).setup) : 0);
-  // Total cash the order will spend: one-time setup + per-device cost across the run.
   const orderCost = () => setupCost() + (p.orderQty || 0) * unitCost(p, def);
 
+  // Inspection findings depend on WHO built it: a low-compliance partner surfaces
+  // more real defects. Cosmetic variance always shows; real defects are rolled
+  // once per chosen partner and persisted so a reload is stable.
+  function rollFindings() {
+    const factory = factoryOf(m.factory);
+    const ids = [];
+    for (const item of cfg.firstArticle) {
+      if (!item.real) { ids.push(item.id); continue; }
+      const chance = clamp(0.15 + (5 - factory.compliance) * 0.17, 0.05, 0.9);
+      if (Math.random() < chance) ids.push(item.id);
+    }
+    m.findings = ids;
+    m.findingsFactory = m.factory;
+    // Drop decisions for findings that no longer appear.
+    for (const id of Object.keys(m.inspection)) if (!ids.includes(id)) delete m.inspection[id];
+  }
+  const findingItems = () => cfg.firstArticle.filter(i => (m.findings || []).includes(i.id));
+
   function render() {
+    p.unitCost = unitCost(p, def);   // keep the HUD chip in sync (BOM, +assembly once chosen)
+
     const factories = cfg.factories.map(f => {
       const on = m.factory === f.id ? ' on' : '';
       const setup = applyModifiers('factory-setup', f.setup);
@@ -47,36 +67,32 @@ export function renderProduction(container, ctx) {
       </button>`;
     }).join('');
 
-    const inspections = cfg.firstArticle.map(item => {
-      const decision = m.inspection[item.id];
-      return `<div class="fa-item">
-        <div class="fa-finding"><b>${item.finding}</b><span class="fa-note">${item.note}</span></div>
-        <div class="fa-actions">
-          <button class="fa-btn${decision === 'accept' ? ' chosen' : ''}" data-fa="${item.id}" data-decision="accept">Accept</button>
-          <button class="fa-btn${decision === 'reject' ? ' chosen' : ''}" data-fa="${item.id}" data-decision="reject">Reject · ${money(item.reworkCost)}</button>
-        </div>
-      </div>`;
-    }).join('');
+    // Everything past the partner choice is revealed only once a partner is set.
+    let postFactory = '';
+    if (m.factory) {
+      const inspections = findingItems().map(item => {
+        const decision = m.inspection[item.id];
+        return `<div class="fa-item">
+          <div class="fa-finding"><b>${item.finding}</b><span class="fa-note">${item.note}</span></div>
+          <div class="fa-actions">
+            <button class="fa-btn${decision === 'accept' ? ' chosen' : ''}" data-fa="${item.id}" data-decision="accept">Accept</button>
+            <button class="fa-btn${decision === 'reject' ? ' chosen' : ''}" data-fa="${item.id}" data-decision="reject">Reject · ${money(item.reworkCost)}</button>
+          </div>
+        </div>`;
+      }).join('');
 
-    const marks = cfg.availableMarks.map(mk => {
-      const on = m.marks.includes(mk.id) ? ' on' : '';
-      const req = requiredMarks.some(r => r.id === mk.id);
-      return `<button class="mark${on}${req ? ' required' : ''}" data-mark="${mk.id}">
-        ${mk.label}${req ? '<span class="mark-req">required</span>' : ''}
-      </button>`;
-    }).join('');
+      const marks = cfg.availableMarks.map(mk => {
+        const on = m.marks.includes(mk.id) ? ' on' : '';
+        const req = requiredMarks.some(r => r.id === mk.id);
+        return `<button class="mark${on}${req ? ' required' : ''}" data-mark="${mk.id}">
+          ${mk.label}${req ? '<span class="mark-req">required</span>' : ''}
+        </button>`;
+      }).join('');
 
-    const pr = def.priceRange;
-    container.innerHTML = `
-      <div class="phase phase-mfg">
-        <p class="phase-intro">${cfg.intro}</p>
-
-        <h2>1 · Assembly partner</h2>
-        <p class="panel-hint">The partner adds a per-unit assembly cost on top of your bill of materials, plus a one-time setup fee. It rolls straight into cost-per-device.</p>
-        <div class="opt-grid">${factories}</div>
-
+      const pr = def.priceRange;
+      postFactory = `
         <h2>2 · First-article inspection</h2>
-        <p class="panel-hint">Reject real defects (they cost rework now); accept cosmetic ones within tolerance. Shipping a real defect haunts you at launch.</p>
+        <p class="panel-hint">${factoryOf(m.factory).name} sent the first run. Reject real defects (they cost rework now); accept cosmetic ones within tolerance. Shipping a real defect haunts you at launch.</p>
         <div class="fa-list">${inspections}</div>
 
         <h2>3 · Label — certification marks</h2>
@@ -101,11 +117,22 @@ export function renderProduction(container, ctx) {
         <div class="phase-actions">
           <button class="btn-primary" id="ship" disabled>Place production order →</button>
           <span class="confirm-msg" id="mfg-msg"></span>
-        </div>
+        </div>`;
+    }
+
+    container.innerHTML = `
+      <div class="phase phase-mfg">
+        <p class="phase-intro">${cfg.intro}</p>
+
+        <h2>1 · Assembly partner</h2>
+        <p class="panel-hint">The partner adds a per-unit assembly cost on top of your bill of materials, plus a one-time setup fee. Choose one to inspect its first production run.</p>
+        <div class="opt-grid">${factories}</div>
+
+        ${postFactory}
       </div>`;
 
     bind();
-    refresh();
+    if (m.factory) refresh();
   }
 
   function bind() {
@@ -114,16 +141,16 @@ export function renderProduction(container, ctx) {
         m.factory = b.dataset.factory;
         const f = factoryOf(m.factory);
         m.assemblyPerUnit = typeof f.perUnit === 'number' ? f.perUnit : f.cost;
-        container.querySelectorAll('[data-factory]').forEach(x => x.classList.toggle('on', x === b));
-        p.unitCost = unitCost(p, def);
-        save(); ctx.refreshHud(); refresh();
+        if (m.findingsFactory !== m.factory) rollFindings();
+        save(); render(); ctx.refreshHud();   // render() refreshes p.unitCost (incl. assembly) before the HUD repaints
       }));
+
+    if (!m.factory) return;
 
     container.querySelectorAll('[data-fa]').forEach(b =>
       b.addEventListener('click', () => {
         m.inspection[b.dataset.fa] = b.dataset.decision;
-        const group = container.querySelectorAll(`[data-fa="${b.dataset.fa}"]`);
-        group.forEach(x => x.classList.toggle('chosen', x === b));
+        container.querySelectorAll(`[data-fa="${b.dataset.fa}"]`).forEach(x => x.classList.toggle('chosen', x === b));
         save(); refresh();
       }));
 
@@ -178,7 +205,7 @@ export function renderProduction(container, ctx) {
         <div class="order-row"><span>Cash after order</span><b class="${cashAfter < 0 ? 'neg' : 'pos'}">${money(cashAfter)}</b></div>`;
     }
 
-    const allInspected = cfg.firstArticle.every(i => m.inspection[i.id]);
+    const allInspected = findingItems().every(i => m.inspection[i.id]);
     const mv = marksValid();
     const affordable = cost <= state.budget;
     const qtyOk = (p.orderQty || 0) > 0;
@@ -186,9 +213,9 @@ export function renderProduction(container, ctx) {
 
     const btn = container.querySelector('#ship');
     const msg = container.querySelector('#mfg-msg');
+    if (!btn) return;
     btn.disabled = !ready;
-    msg.textContent = !m.factory ? 'Choose an assembly partner.'
-      : !allInspected ? 'Decide on every inspection finding.'
+    msg.textContent = !allInspected ? 'Decide on every inspection finding.'
       : mv.missing.length ? `Missing required mark: ${mv.missing.map(x => x.label).join(', ')}.`
       : mv.falseMarks.length ? `Remove false mark: ${mv.falseMarks.map(x => x.label).join(', ')}.`
       : !qtyOk ? 'Set an order quantity.'
@@ -198,25 +225,24 @@ export function renderProduction(container, ctx) {
 
   function ship() {
     const factory = factoryOf(m.factory);
+    const items = findingItems();
 
-    // Charge setup + rework for rejected findings + the production run itself.
     let cost = setupCost();
-    cfg.firstArticle.forEach(i => { if (m.inspection[i.id] === 'reject') cost += i.reworkCost; });
+    items.forEach(i => { if (m.inspection[i.id] === 'reject') cost += i.reworkCost; });
     cost += (p.orderQty || 0) * unitCost(p, def);
     state.budget -= cost;
 
-    // Lock in price and the committed unit cost for the launch maths.
     p.priceSet = true;
     p.unitCost = unitCost(p, def);
-
-    // Slow partners let the competitor catch up.
     state.competitorProgress = Math.min(100, state.competitorProgress + (5 - factory.speed) * 4);
+    // Slower partners take longer to tool up and run the line — more payroll.
+    advanceTime((6 - factory.speed) * 7, 'Production run');
 
-    const total = cfg.firstArticle.length;
-    const correct = cfg.firstArticle.filter(i =>
+    const total = items.length || 1;
+    const correct = items.filter(i =>
       (i.real && m.inspection[i.id] === 'reject') || (!i.real && m.inspection[i.id] === 'accept')).length;
     m.inspectionScore = Math.round(correct / total * 100);
-    m.shippedDefects = cfg.firstArticle.filter(i => i.real && m.inspection[i.id] === 'accept').map(i => i.id);
+    m.shippedDefects = items.filter(i => i.real && m.inspection[i.id] === 'accept').map(i => i.id);
 
     save();
     ctx.refreshHud();

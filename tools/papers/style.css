@@ -68,6 +68,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
   padding: 0.4rem 1rem; border-radius: 4px; font-size: 1.4rem;
   transform: rotate(-14deg); opacity: 0.22; user-select: none;
 }
+.stamp-red { color: var(--stamp-red); border-color: var(--stamp-red); }
 
 .title-btn {
   background: var(--paper);
@@ -172,6 +173,10 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 }
 .hud-co strong { font-family: var(--font-display); font-size: 1.15rem; display: block; }
 .hud-product { font-size: 0.78rem; color: #aeb6c2; }
+.hud-money { display: flex; align-items: center; gap: 1.1rem; }
+.hud-clock { text-align: right; }
+.hud-clock-n { font-family: var(--font-mono); font-size: 1.05rem; color: #cdd6e2; display: block; }
+.hud-clock-l { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 .hud-budget { text-align: right; }
 .hud-budget-n { font-family: var(--font-mono); font-size: 1.05rem; color: #9fe0b0; display: block; }
 .hud-budget-l { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
@@ -263,6 +268,9 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .step.done .step-dot { background: var(--stamp-grn); }
 .step.cur { color: var(--paper); font-weight: 700; }
 .step.cur .step-dot { background: var(--accent); box-shadow: 0 0 0 3px rgba(26,92,184,0.3); }
+.step.nav { cursor: pointer; }
+.step.nav:hover { color: #fff; text-decoration: underline; }
+.step.nav:hover .step-dot { box-shadow: 0 0 0 3px rgba(159,224,176,0.3); }
 
 /* --- side panel --- */
 .hud-side { display: flex; flex-direction: column; gap: 1rem; }
@@ -426,6 +434,7 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .cons-risk  { border-left-color: var(--stamp-red); background: #fbeeec; }
 .cons-boost { border-left-color: var(--stamp-grn); background: #e9f6ec; }
 .cons-note  { border-left-color: var(--accent); background: #eef3fb; }
+.cons-block { border-left-color: var(--stamp-red); background: #fbeeec; font-weight: 600; }
 .cons-empty { color: var(--muted); font-style: italic; border: none; background: none; padding: 0; }
 
 /* ============================================================
@@ -671,6 +680,28 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 
 .field-issue-list { margin: 0.4rem 0 0.8rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
 .field-issue-list li { font-size: 0.88rem; }
+
+.memo-event { border-radius: var(--radius); padding: 0.7rem 0.9rem; margin-bottom: 1rem; font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.memo-event.ok  { background: #e9f6ec; border: 1px solid var(--stamp-grn); }
+.memo-event.bad { background: #fbeeec; border: 1px solid var(--stamp-red); }
+
+/* --- post-launch market dashboard --- */
+.market-note { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.6rem; }
+.market-summary { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem; }
+.ms-stat { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.5rem 0.8rem; flex: 1; min-width: 130px; }
+.ms-stat span { display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.ms-stat b { font-family: var(--font-mono); font-size: 1.05rem; }
+.ms-stat b.pos { color: #1f7a43; } .ms-stat b.neg { color: var(--stamp-red); }
+.market-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
+.market-table th, .market-table td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--line); font-family: var(--font-mono); }
+.market-table th { font-family: var(--font-body); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.market-table td.pos { color: #1f7a43; } .market-table td.neg { color: var(--stamp-red); }
+.market-empty { color: var(--muted); font-family: var(--font-body); }
+.market-controls { display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; margin-bottom: 0.5rem; }
+.boost-field { font-size: 0.85rem; color: var(--muted); }
+.boost-field input { font-family: var(--font-mono); width: 110px; padding: 0.4rem 0.5rem; border: 1.5px solid var(--line); border-radius: var(--radius); }
+.market-hint { font-size: 0.8rem; color: var(--muted); }
+.market-closed { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; margin-bottom: 1rem; }
 
 /* ============================================================
    PHASE 6 — LAUNCH

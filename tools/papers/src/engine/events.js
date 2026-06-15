@@ -6,8 +6,33 @@
 // v1 — it returns the base value unchanged.
 
 import { state, save } from '../state.js';
+import { getCharacter } from '../content/characters.js';
 
 const clamp = (n, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, n));
+
+// --- Stage E: company clock, payroll, ledger -------------------------------
+// Every staff member draws a monthly salary; time spent developing burns it.
+export const SALARY_PER_STAFF_MONTH = 5000;
+
+// Record a dated money movement (amount < 0 = expense) for the reports.
+export function logLedger(label, amount) {
+  state.ledger.push({ day: state.clock.day, label, amount: Math.round(amount) });
+}
+
+// Advance the company clock by `days`, deducting payroll for the elapsed time.
+// Running the bank account dry trips the bankruptcy flag (handled by the engine).
+export function advanceTime(days, label = 'Development') {
+  if (!days || days <= 0) return;
+  state.clock.day += days;
+  const staffCount = getCharacter(state.character)?.staff.length || 0;
+  const payroll = Math.round((SALARY_PER_STAFF_MONTH / 30) * staffCount * days);
+  if (payroll > 0) {
+    state.budget -= payroll;
+    logLedger(`Payroll — ${label} (${days}d)`, -payroll);
+  }
+  if (state.budget < 0) state.bankrupt = true;
+  save();
+}
 
 // Every active sandbox modifier: world events, owned facilities, hired staff.
 // Each may carry an `effects` map of { actionTag: multiplier }.

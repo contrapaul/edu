@@ -23,6 +23,7 @@ function blankState() {
 
     // --- economy / simulation (Stage E fills clock/ledger/market) ---
     clock: { day: 0 },
+    bankrupt: false,        // tripped when payroll/spend drives cash below zero
     ledger: [],             // dated { day, label, amount } entries (amount<0 = expense)
     competitor: { progress: 0, launched: false, capabilities: {}, intel: 0 },
     market: null,           // post-launch ongoing per-product sales state

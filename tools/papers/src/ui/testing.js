@@ -7,7 +7,11 @@ import { state, save } from '../state.js';
 import { getMaterial, getProcess, getPart } from '../content/materials.js';
 import { renderEmc } from '../minigames/emc.js';
 import { renderDropTest } from '../minigames/droptest.js';
-import { applyModifiers } from '../engine/events.js';
+import { applyModifiers, adjustMorale, advanceTime } from '../engine/events.js';
+import { productCaps } from '../engine/economy.js';
+
+const CAP_LABELS = { bluetooth: 'Bluetooth', wifi: 'Wi-Fi' };
+const capLabel = (c) => CAP_LABELS[c] || c;
 
 const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
 const STATUS_LABEL = { pass: 'PASS', conditional: 'CONDITIONAL', fail: 'FAIL' };
@@ -65,6 +69,19 @@ export function renderTesting(container, ctx) {
   const resultFor = (id) => p.testResults.find(r => r.testId === id);
   const testCost = (t) => applyModifiers('test-cost', t.cost);
 
+  // Random focus-group feature memo: decided once per product. It demands a
+  // buyer-valued capability. If the design already has it you reassure the team;
+  // if not, you must go back to Design and choose a part that provides it.
+  if (p.featureMemo === undefined) {
+    const valued = Object.keys(def.market?.valuedCaps || {});
+    p.featureMemo = (valued.length && Math.random() < 0.6)
+      ? { cap: valued[Math.floor(Math.random() * valued.length)], resolved: false }
+      : { cap: null, resolved: true };
+    save();
+  }
+  const memoCap = p.featureMemo.cap;
+  const memoSatisfied = () => !memoCap || !!productCaps(p, def)[memoCap];
+
   function render() {
     const cards = cfg.tests.map(t => {
       const res = resultFor(t.id);
@@ -97,24 +114,50 @@ export function renderTesting(container, ctx) {
 
     const tested = p.testResults.length;
     const fails = p.testResults.filter(r => r.status === 'fail').length;
-    const warn = tested < cfg.tests.length
-      ? `<span class="submit-warn">${cfg.tests.length - tested} test${cfg.tests.length - tested === 1 ? '' : 's'} not run — you'll submit those blind.</span>`
-      : fails > 0
-        ? `<span class="submit-warn">${fails} failing result${fails === 1 ? '' : 's'} — certification will be rough.</span>`
-        : `<span class="submit-ok">All tests run and passing. Strong position.</span>`;
+
+    // Feature-memo banner.
+    let memoBanner = '';
+    const memoMissing = memoCap && !memoSatisfied() && !p.featureMemo.resolved;
+    if (memoCap && memoSatisfied() && !p.featureMemo.resolved) {
+      memoBanner = `<div class="memo-event ok">
+        <b>📣 Focus group:</b> the panel insists the product must have <b>${capLabel(memoCap)}</b>.
+        Good news — it already does. <button class="btn-secondary" data-action="reassure">Reassure the team</button>
+      </div>`;
+    } else if (memoMissing) {
+      memoBanner = `<div class="memo-event bad">
+        <b>📣 Focus group:</b> the panel says we <b>cannot ship without ${capLabel(memoCap)}</b> — and the current
+        design doesn't have it. Go back to Design and choose a part that provides ${capLabel(memoCap)}.
+      </div>`;
+    }
+
+    // A hard failure OR an unmet must-have feature has to be fixed at the source.
+    const actions = (fails > 0 || memoMissing)
+      ? `<button class="btn-primary" data-action="redesign">← Back to Design</button>
+         <span class="submit-warn">${fails > 0 ? `${fails} failing result${fails === 1 ? '' : 's'}. ` : ''}${memoMissing ? `Missing the required ${capLabel(memoCap)}. ` : ''}This is a design fault — fix it at the source. (Redesigning costs time.)</span>`
+      : `<button class="btn-primary" data-action="advance">Submit to certification →</button>
+         ${tested < cfg.tests.length
+            ? `<span class="submit-warn">${cfg.tests.length - tested} test${cfg.tests.length - tested === 1 ? '' : 's'} not run — you'll submit those blind.</span>`
+            : `<span class="submit-ok">All tests run and passing. Strong position.</span>`}`;
 
     container.innerHTML = `
       <div class="phase phase-testing">
         <p class="phase-intro">${cfg.intro}</p>
+        ${memoBanner}
         <div class="test-grid">${cards}</div>
-        <div class="phase-actions">
-          <button class="btn-primary" data-action="advance">Submit to certification →</button>
-          ${warn}
-        </div>
+        <div class="phase-actions">${actions}</div>
       </div>`;
+
+    const reassureBtn = container.querySelector('[data-action="reassure"]');
+    if (reassureBtn) reassureBtn.addEventListener('click', () => {
+      p.featureMemo.resolved = true;
+      ctx.character.staff.forEach(s => adjustMorale(s.id, 3));
+      save(); render();
+    });
 
     container.querySelectorAll('[data-run]').forEach(btn =>
       btn.addEventListener('click', () => runTest(btn.dataset.run)));
+    const redesignBtn = container.querySelector('[data-action="redesign"]');
+    if (redesignBtn) redesignBtn.addEventListener('click', () => ctx.goTo('design'));
     container.querySelectorAll('[data-retest]').forEach(btn =>
       btn.addEventListener('click', () => {
         const id = btn.dataset.retest;
@@ -123,7 +166,8 @@ export function renderTesting(container, ctx) {
         save();
         runTest(id);
       }));
-    container.querySelector('[data-action="advance"]').addEventListener('click', ctx.advance);
+    const advanceBtn = container.querySelector('[data-action="advance"]');
+    if (advanceBtn) advanceBtn.addEventListener('click', ctx.advance);
   }
 
   function runTest(id) {
@@ -131,8 +175,9 @@ export function renderTesting(container, ctx) {
     const cost = test ? testCost(test) : 0;
     if (!test || state.budget < cost || resultFor(id)) return;
 
-    // Charge the (modifier-adjusted) fee up front.
+    // Charge the (modifier-adjusted) fee and the days the lab takes (payroll runs).
     state.budget -= cost;
+    advanceTime(test.days || 0, test.name);
     save();
     ctx.refreshHud();
 

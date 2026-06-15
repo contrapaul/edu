@@ -5,10 +5,10 @@
 
 import { state, save } from '../state.js';
 import {
-  ENCLOSURE_MATERIALS, SUPPLIERS, MANUFACTURING_PROCESSES,
-  getMaterial, getPart, getProcess
+  SUPPLIERS, MANUFACTURING_PROCESSES,
+  getMaterial, getPart, getProcess, materialsForSet
 } from '../content/materials.js';
-import { adjustMorale } from '../engine/events.js';
+import { adjustMorale, advanceTime } from '../engine/events.js';
 import { unitCost } from '../engine/economy.js';
 
 const money2 = (n) => '$' + n.toFixed(2);
@@ -23,8 +23,12 @@ export function renderDesign(container, ctx) {
   const supplierComps = def.components.filter(c => c.kind === 'supplier');
   const matComp = def.components.find(c => c.kind === 'material');
   const matKey = matComp.id;   // slot key in p.selectedMaterials (e.g. 'enclosure', 'case')
+  const materials = materialsForSet(matComp.materialSet);
 
-  const materialCards = ENCLOSURE_MATERIALS.map(m => {
+  // Cards show neutral datasheet specs only. We deliberately do NOT flag
+  // downstream risks here (flammability, Prop 65) — those are for the player to
+  // weigh and, if they get it wrong, discover in testing/certification.
+  const materialCards = materials.map(m => {
     const on = p.selectedMaterials[matKey] === m.id ? ' on' : '';
     return `<button class="opt material-opt${on}" data-material="${m.id}">
       <span class="opt-name">${m.name}${typeof m.unitCost === 'number' ? `<span class="opt-unitcost">${money2(m.unitCost)}/unit</span>` : ''}</span>
@@ -33,7 +37,6 @@ export function renderDesign(container, ctx) {
         <span>Fire: ${m.fireRating}</span>
         <span>Recycl. ${dots(m.recyclability)}</span>
         <span>Acoustics ${dots(m.acoustics)}</span>
-        ${m.prop65Risk ? '<span class="opt-warn">Prop 65 risk</span>' : ''}
       </span>
     </button>`;
   }).join('');
@@ -124,7 +127,9 @@ export function renderDesign(container, ctx) {
 
     const proc = getProcess(p.selectedProcess);
     if (mat && proc && !mat.processes.includes(proc.id)) {
-      out.push({ kind: 'risk', src: 'Manufacturing',
+      // A hard, immediate design constraint (kind 'block') — not a downstream
+      // telegraph — so it stays visible and gates generation.
+      out.push({ kind: 'block', src: 'Manufacturing',
         text: `${mat.name} can't be made by ${proc.name}. Pick a compatible process.` });
     }
     return out;
@@ -145,12 +150,15 @@ export function renderDesign(container, ctx) {
 
   function refresh() {
     refreshUnitCost();
-    const cons = gatherConsequences();
+    // Only show positives, neutral notes, and hard blocks. Downstream risks
+    // ('risk') are recorded into the technical file but NOT telegraphed here —
+    // the player has to make the call and live with it.
+    const shown = gatherConsequences().filter(c => c.kind !== 'risk');
     const list = container.querySelector('#cons-list');
-    if (cons.length === 0) {
-      list.innerHTML = `<li class="cons-empty">Make your selections to see consequences.</li>`;
+    if (shown.length === 0) {
+      list.innerHTML = `<li class="cons-empty">Your choices look internally consistent. Whether they survive testing is another matter.</li>`;
     } else {
-      list.innerHTML = cons.map(c =>
+      list.innerHTML = shown.map(c =>
         `<li class="cons cons-${c.kind}"><b>${c.src}:</b> ${c.text}</li>`).join('');
     }
 
@@ -201,7 +209,26 @@ export function renderDesign(container, ctx) {
   });
 
   container.querySelector('#gen-tf').addEventListener('click', () => {
+    const signature = JSON.stringify([p.selectedMaterials[matKey], p.selectedSuppliers, p.selectedProcess]);
+
+    // If you came back and actually changed the design, the work downstream is
+    // invalidated: tests, certification, the production order and risk rolls all
+    // reset, and the lost time lets the competitor close in. Re-locking an
+    // unchanged design is free.
+    if (p.technicalFile && p.technicalFile.signature !== signature) {
+      p.testResults = [];
+      p.certification = null;
+      p.manufacturing = null;
+      p.launch = null;
+      p.riskRolls = {};
+      p.priceSet = false;
+      p.orderQty = null;
+      state.competitorProgress = Math.min(100, state.competitorProgress + 6);
+      advanceTime(10, 'Redesign');   // reworking the design burns days (and payroll)
+    }
+
     p.technicalFile = {
+      signature,
       material: p.selectedMaterials[matKey],
       suppliers: { ...p.selectedSuppliers },
       process: p.selectedProcess,

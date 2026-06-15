@@ -2,7 +2,7 @@
 // The engine never hardcodes a product: it reads the product definition and
 // mounts the UI module registered for the current phase.
 
-import { state, PHASES, initProduct, nextPhase, save } from '../state.js';
+import { state, PHASES, initProduct, nextPhase, setPhase, save } from '../state.js';
 import { getCharacter } from '../content/characters.js';
 import { getProductDef } from '../content/products/index.js';
 import { renderBrief } from '../ui/brief.js';
@@ -12,6 +12,7 @@ import { renderCertification } from '../ui/certification.js';
 import { renderProduction } from '../ui/production.js';
 import { renderMarketing } from '../ui/marketing.js';
 import { renderLaunch } from '../ui/launch.js';
+import { advanceTime } from './events.js';
 import { enqueuePhaseEmails, unreadCount, openInbox } from '../ui/inbox.js';
 import { unlockedCount, openLibrary } from '../ui/library.js';
 import { openSandbox } from '../ui/sandbox.js';
@@ -33,12 +34,21 @@ const PHASE_MODULES = {
 };
 
 const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+const clockLabel = (day) => {
+  const wk = Math.floor(day / 7);
+  return wk > 0 ? `Wk ${wk} · d${day % 7}` : `Day ${day}`;
+};
 
 function hudHTML(character, def) {
+  const curIdx = PHASES.indexOf(state.phase);
   const stepper = PHASES.map(p => {
+    const i = PHASES.indexOf(p);
     const cur = p === state.phase ? ' cur' : '';
-    const done = PHASES.indexOf(p) < PHASES.indexOf(state.phase) ? ' done' : '';
-    return `<li class="step${cur}${done}"><span class="step-dot"></span>${PHASE_LABELS[p]}</li>`;
+    const done = i < curIdx ? ' done' : '';
+    // Earlier phases are clickable so you can jump back and redesign.
+    const nav = i < curIdx ? ' nav' : '';
+    return `<li class="step${cur}${done}${nav}" ${nav ? `data-phase="${p}"` : ''}>
+      <span class="step-dot"></span>${PHASE_LABELS[p]}</li>`;
   }).join('');
 
   const morale = character.staff.map(s => {
@@ -63,14 +73,20 @@ function hudHTML(character, def) {
         <button class="hud-tool" data-tool="inbox" title="Inbox" aria-label="Inbox, ${unreadCount()} unread"><span aria-hidden="true">✉</span>${unreadCount() ? `<span class="hud-badge unread">${unreadCount()}</span>` : ''}</button>
         <button class="hud-tool" data-tool="sandbox" title="Operations (sandbox)" aria-label="Operations panel"><span aria-hidden="true">🌐</span>${state.worldEvents.length ? `<span class="hud-badge unread">!</span>` : ''}</button>
       </div>
-      <div class="hud-budget">
-        <span class="hud-budget-n">${money(state.budget)}</span>
-        <span class="hud-budget-l">Cash</span>
+      <div class="hud-money">
+        <div class="hud-clock" title="Company calendar. Time passes as you work — and payroll is due the whole time.">
+          <span class="hud-clock-n">${clockLabel(state.clock.day)}</span>
+          <span class="hud-clock-l">Timeline</span>
+        </div>
+        <div class="hud-budget">
+          <span class="hud-budget-n">${money(state.budget)}</span>
+          <span class="hud-budget-l">Cash</span>
+        </div>
+        ${state.product ? `<div class="hud-unitcost" title="Bill-of-materials cost per device, from your component choices.">
+          <span class="hud-unitcost-n">${state.product.unitCost > 0 ? '$' + state.product.unitCost.toFixed(2) : '—'}</span>
+          <span class="hud-unitcost-l">/ device</span>
+        </div>` : ''}
       </div>
-      ${state.product?.unitCost > 0 ? `<div class="hud-unitcost" title="Bill-of-materials cost per device, from your component choices.">
-        <span class="hud-unitcost-n">$${state.product.unitCost.toFixed(2)}</span>
-        <span class="hud-unitcost-l">/ device</span>
-      </div>` : ''}
     </header>
     <aside class="hud-side">
       <section class="staff-panel" title="Team morale. Locking in cheap parts pleases your pragmatist and worries your compliance lead (and vice-versa). A happy translator handles regulatory letters for free.">
@@ -102,6 +118,7 @@ export function renderGame(root, onQuit) {
   initProduct(def);
 
   function paint() {
+    if (state.bankrupt) return renderBankrupt(root, character, onQuit);
     enqueuePhaseEmails(def);
 
     root.innerHTML = `
@@ -115,23 +132,29 @@ export function renderGame(root, onQuit) {
       def, character,
       refreshHud: () => repaintHud(root, character, def, paint),
       advance: () => {
-        // Time passes each phase, so the rival closes in — this is the baseline
-        // pressure; corrections, slow factories and re-tests add to it.
-        if (state.phase !== 'launch') state.competitorProgress = Math.min(100, state.competitorProgress + 8);
+        // Time passes each phase, so the rival closes in and payroll is due —
+        // this is the baseline pressure; corrections, slow factories and re-tests
+        // add to it.
+        if (state.phase !== 'launch') {
+          state.competitorProgress = Math.min(100, state.competitorProgress + 8);
+          advanceTime(14, PHASE_LABELS[state.phase]);
+        }
         nextPhase();
         paint();
       },
+      // Jump back to an earlier phase (e.g. to redesign after a test failure).
+      // No competitor penalty for navigating; the redesign itself charges time.
+      goTo: (phase) => { setPhase(phase); paint(); },
       hasNextProduct: !!getProductDef(state.character, state.productIndex + 1),
       completeProduct: () => {
-        const profit = state.product?.launch?.sales?.profit ?? 0;
         const nextDef = getProductDef(state.character, state.productIndex + 1);
         if (!nextDef) return;
-        // Carry reputation + morale; reinvest a slice of profit into the next budget.
-        const reinvest = Math.min(50000, Math.max(0, Math.round(profit * 0.1)));
+        // Company cash, reputation, morale and the clock all carry forward — the
+        // money you made in the market IS your budget for the next product.
         state.productIndex += 1;
         state.phase = 'brief';
         state.product = null;
-        state.budget = nextDef.startBudget + reinvest;
+        state.market = null;            // the previous product's market is done
         state.competitorProgress = 0;   // a fresh competitor for the new product
         save();
         renderGame(root, onQuit);   // re-enter with the new product
@@ -157,6 +180,9 @@ export function renderGame(root, onQuit) {
 // the full-phase repaint, threaded through so the sandbox can apply changes that
 // affect phase content (e.g. costs).
 function repaintHud(root, character, def, rerender) {
+  // A spend during the phase (test fee, production order…) can trip bankruptcy;
+  // rerender so the game-over screen shows immediately.
+  if (state.bankrupt) { rerender(); return; }
   const game = root.querySelector('.game');
   if (!game) return;
   const tmp = document.createElement('div');
@@ -176,6 +202,23 @@ function bindTools(root, character, def, rerender) {
   if (inbox) inbox.addEventListener('click', () => openInbox(hudRefresh));
   // Sandbox changes can alter phase costs, so closing it re-renders the phase.
   if (sandbox) sandbox.addEventListener('click', () => openSandbox({ def, refreshHud: hudRefresh }, rerender));
+  // Clickable stepper: jump back to an earlier phase. `rerender` is the full
+  // phase repaint (paint), so changing state.phase then calling it re-mounts.
+  root.querySelectorAll('.step.nav[data-phase]').forEach(li =>
+    li.addEventListener('click', () => { setPhase(li.dataset.phase); rerender(); }));
+}
+
+// Out of cash before launch — payroll and spending outran the bank account.
+function renderBankrupt(root, character, onQuit) {
+  root.innerHTML = `
+    <div class="screen placeholder bankrupt">
+      <div class="stamp stamp-red" aria-hidden="true">INSOLVENT</div>
+      <h1>${character.company} has run out of money.</h1>
+      <p class="ph-note">Payroll and development costs drained the account before you could launch.
+        In product development, time is money — every week of delay, redesign and re-testing is salary you still owe.</p>
+      <button class="title-btn" data-action="quit">← Back to title</button>
+    </div>`;
+  root.querySelector('[data-action="quit"]').addEventListener('click', onQuit);
 }
 
 // Fallback for phases not yet implemented — keeps navigation working.
