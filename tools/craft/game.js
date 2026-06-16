@@ -52,7 +52,8 @@ async function loadData() {
 // ═══════════════════════════════════════════════════════════════════
 
 let discovered = new Set();
-let placed = [];
+let placed = [];           // [{ id, x, y }]
+let draggedFromIdx = -1;   // index in `placed` when dragging a canvas card
 
 // ═══════════════════════════════════════════════════════════════════
 // 3.  DOM REFS
@@ -117,11 +118,13 @@ function renderInventory() {
             <span class="name">${d.name}</span>
         `;
         div.addEventListener('dragstart', (e) => {
+            draggedFromIdx = -1;
             e.dataTransfer.setData('text/plain', d.id);
             e.dataTransfer.effectAllowed = 'copy';
         });
         div.addEventListener('click', () => {
-            placed.push(d.id);
+            const offset = placed.length * 18;
+            placed.push({ id: d.id, x: 20 + offset, y: 20 + offset });
             renderWorkbench();
         });
         invList.appendChild(div);
@@ -139,22 +142,37 @@ function renderWorkbench() {
         `;
         return;
     }
+
     dropZone.innerHTML = '';
-    placed.forEach((id, idx) => {
-        const d = getDiscovery(id);
+
+    placed.forEach((entry, idx) => {
+        const d = getDiscovery(entry.id);
         if (!d) return;
         const card = document.createElement('div');
         card.className = 'craft-card';
+        card.style.left = entry.x + 'px';
+        card.style.top = entry.y + 'px';
         card.draggable = true;
-        card.dataset.id = id;
+        card.dataset.id = entry.id;
+
         card.innerHTML = `
             <span class="craft-card-emoji">${d.emoji}</span>
             <span class="craft-card-name">${d.name}</span>
         `;
 
         card.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', id);
+            draggedFromIdx = idx;
+            const rect = card.getBoundingClientRect();
+            e.dataTransfer.setData('text/plain', entry.id);
+            e.dataTransfer.setData('application/x-source', 'canvas');
+            e.dataTransfer.setData('application/x-idx', String(idx));
+            e.dataTransfer.setData('application/x-offx', String(e.clientX - rect.left));
+            e.dataTransfer.setData('application/x-offy', String(e.clientY - rect.top));
             e.dataTransfer.effectAllowed = 'move';
+            card.style.opacity = '0.5';
+        });
+        card.addEventListener('dragend', () => {
+            card.style.opacity = '';
         });
 
         card.addEventListener('click', () => {
@@ -165,18 +183,28 @@ function renderWorkbench() {
         card.addEventListener('dragover', (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'move';
-            card.classList.add('drag-target');
+            card.classList.add('drag-hover');
         });
         card.addEventListener('dragleave', () => {
-            card.classList.remove('drag-target');
+            card.classList.remove('drag-hover');
         });
         card.addEventListener('drop', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            card.classList.remove('drag-target');
+            card.classList.remove('drag-hover');
             const otherId = e.dataTransfer.getData('text/plain');
-            if (otherId && otherId !== id && isDiscovered(otherId)) {
-                attemptCombine(otherId, id);
+            if (!otherId || otherId === entry.id || !isDiscovered(otherId)) return;
+
+            const newIds = attemptCombine(otherId, entry.id);
+            if (newIds.length > 0) {
+                const cardRect = card.getBoundingClientRect();
+                const zoneRect = dropZone.getBoundingClientRect();
+                const baseX = cardRect.left - zoneRect.left;
+                const baseY = cardRect.top - zoneRect.top;
+                newIds.forEach((nid, i) => {
+                    placed.push({ id: nid, x: baseX + 30 + i * 40, y: baseY + 50 + i * 20 });
+                });
+                renderWorkbench();
             }
         });
 
@@ -249,7 +277,7 @@ function attemptCombine(a, b) {
 
     if (newIds.length === 0) {
         showToast('🧪', 'No new combination. Try different materials!');
-        return;
+        return [];
     }
 
     const discoveredItems = [];
@@ -269,6 +297,8 @@ function attemptCombine(a, b) {
     if (discoveredItems.length > 1) {
         showToast('🎉', `Discovered ${discoveredItems.length} new materials!`);
     }
+
+    return newIds;
 }
 
 function resetGame() {
@@ -291,7 +321,7 @@ function resetGame() {
 
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
+    e.dataTransfer.dropEffect = 'move';
     dropZone.classList.add('drag-over');
 });
 dropZone.addEventListener('dragleave', () => {
@@ -301,8 +331,26 @@ dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('drag-over');
     const data = e.dataTransfer.getData('text/plain');
-    if (data && isDiscovered(data)) {
-        placed.push(data);
+    if (!data || !isDiscovered(data)) return;
+
+    const zoneRect = dropZone.getBoundingClientRect();
+    const source = e.dataTransfer.getData('application/x-source');
+
+    if (source === 'canvas') {
+        const idx = parseInt(e.dataTransfer.getData('application/x-idx'), 10);
+        if (idx >= 0 && idx < placed.length) {
+            const offX = parseFloat(e.dataTransfer.getData('application/x-offx')) || 0;
+            const offY = parseFloat(e.dataTransfer.getData('application/x-offy')) || 0;
+            placed[idx].x = e.clientX - zoneRect.left - offX;
+            placed[idx].y = e.clientY - zoneRect.top - offY;
+            renderWorkbench();
+        }
+    } else {
+        placed.push({
+            id: data,
+            x: e.clientX - zoneRect.left - 40,
+            y: e.clientY - zoneRect.top - 20
+        });
         renderWorkbench();
     }
 });
@@ -324,7 +372,7 @@ function initGame() {
     updateStats();
 
     setTimeout(() => {
-        showToast('🧪', 'Welcome! Drag materials from your inventory onto the workbench, then drop them on each other to discover new combinations.');
+        showToast('🧪', 'Welcome! Drag materials from your inventory onto the canvas, then drop them on each other to discover new combinations.');
     }, 400);
 }
 

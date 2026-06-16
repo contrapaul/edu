@@ -64,7 +64,7 @@ body {
     background: var(--surface);
 }
 
-/* ── GAME LAYOUT: INVENTORY + WORKBENCH ─────────────────── */
+/* ── GAME LAYOUT: INVENTORY + CANVAS ────────────────────── */
 .craft-app {
     flex: 1;
     display: flex;
@@ -133,7 +133,7 @@ body {
     text-overflow: ellipsis;
 }
 
-/* ── WORKBENCH (CENTER) ──────────────────────────────────── */
+/* ── CANVAS (CENTER) ─────────────────────────────────────── */
 .craft-workbench {
     flex: 1;
     display: flex;
@@ -143,34 +143,33 @@ body {
     background: var(--bg);
 }
 .craft-drop-zone {
+    position: relative;
     flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: 0.5rem;
-    padding: 0.75rem;
     border: 3px dashed var(--border);
     border-radius: 14px;
     transition: border-color 0.25s, background 0.25s;
     background: var(--surface);
     min-height: 160px;
+    overflow: hidden;
 }
 .craft-drop-zone.drag-over {
     border-color: var(--accent);
     background: var(--accent-bg);
 }
+
+/* ── PLACEHOLDER (empty canvas) ──────────────────────────── */
 .craft-placeholder {
-    width: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     color: var(--muted);
     font-size: 0.9rem;
     text-align: center;
     pointer-events: none;
     line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 140px;
 }
 .craft-big-emoji {
     font-size: 2.5rem;
@@ -178,44 +177,51 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* ── WORKBENCH CARDS ─────────────────────────────────────── */
+/* ── CANVAS CARDS ────────────────────────────────────────── */
 .craft-card {
+    position: absolute;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.25rem 0.55rem 0.25rem 0.4rem;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
     cursor: grab;
-    font-size: 0.75rem;
-    transition: border-color 0.12s, background 0.12s;
-    height: 28px;
-    flex-shrink: 0;
+    font-size: 0.82rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: box-shadow 0.15s, border-color 0.15s, opacity 0.15s;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 1;
+    min-width: 60px;
 }
 .craft-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.16);
     border-color: var(--border-strong);
-    background: var(--surface-2);
+    z-index: 3;
 }
 .craft-card:active {
     cursor: grabbing;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.20);
 }
-.craft-card.drag-target {
+.craft-card.drag-hover {
     border-color: var(--accent);
     background: var(--accent-bg);
-    box-shadow: inset 0 0 0 1px var(--accent);
+    box-shadow: 0 0 0 2px var(--accent), 0 4px 16px rgba(0,0,0,0.16);
+    z-index: 2;
 }
 .craft-card-emoji {
-    font-size: 0.95rem;
+    font-size: 1.3rem;
     flex-shrink: 0;
     line-height: 1;
 }
 .craft-card-name {
-    white-space: nowrap;
+    color: var(--text);
+    font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--text);
-    max-width: 100px;
+    max-width: 120px;
 }
 
 /* ── TOAST / DISCOVERY POPUP ─────────────────────────────── */
@@ -287,20 +293,16 @@ body {
     .craft-workbench {
         padding: 0.5rem;
     }
-    .craft-drop-zone {
-        padding: 0.5rem;
+    .craft-card {
+        font-size: 0.72rem;
+        padding: 0.35rem 0.65rem;
         gap: 0.35rem;
     }
-    .craft-card {
-        font-size: 0.68rem;
-        height: 24px;
-        padding: 0.15rem 0.4rem 0.15rem 0.3rem;
-    }
     .craft-card-emoji {
-        font-size: 0.8rem;
+        font-size: 1.05rem;
     }
     .craft-card-name {
-        max-width: 70px;
+        max-width: 80px;
     }
     .craft-toolbar {
         padding: 0.4rem 0.75rem;
