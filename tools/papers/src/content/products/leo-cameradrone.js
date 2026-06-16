@@ -29,7 +29,7 @@ export default {
   priceRange: { min: 99.99, max: 499.99, default: 299.99 },
 
   components: [
-    { id: 'shell', name: 'Body Shell & Arms', kind: 'material', materialSet: 'enclosure' },
+    { id: 'shell', name: 'Body Shell & Arms', kind: 'material', materialSet: 'droneShell' },
 
     { id: 'battery', name: 'Flight Battery', kind: 'supplier', critical: true,
       note: 'A large lithium pack that must fly by air (IATA) and survive a crash from altitude.',

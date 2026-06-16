@@ -28,7 +28,7 @@ export default {
   priceRange: { min: 29.99, max: 129.99, default: 59.99 },
 
   components: [
-    { id: 'chassis', name: 'Chassis & Body', kind: 'material', materialSet: 'enclosure' },
+    { id: 'chassis', name: 'Chassis & Body', kind: 'material', materialSet: 'rcBody' },
 
     { id: 'battery', name: 'Battery Pack', kind: 'supplier', critical: true,
       note: 'A removable pack a child will charge unsupervised. Proper safety docs matter.',

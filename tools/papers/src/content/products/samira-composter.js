@@ -28,7 +28,7 @@ export default {
   priceRange: { min: 79.99, max: 299.99, default: 149.99 },
 
   components: [
-    { id: 'housing', name: 'Chamber & Housing', kind: 'material', materialSet: 'enclosure' },
+    { id: 'housing', name: 'Chamber & Housing', kind: 'material', materialSet: 'foodHousing' },
 
     { id: 'heater', name: 'Heating Element', kind: 'supplier', critical: true,
       note: 'A mains heater sitting against food waste. It must be both electrically safe and food-contact safe.',
@@ -120,10 +120,11 @@ export default {
           resolve: (p) => {
             const mat = getMaterial(p.selectedMaterials.housing);
             if (!mat) return { status: 'fail', details: 'No chamber material selected.' };
-            if (mat.id === 'bamboo')
-              return { status: 'fail', details: 'Composite binders migrate into the heated waste — fails food-contact migration limits.' };
-            if (mat.id === 'abs')
-              return { status: 'conditional', details: 'Standard ABS is borderline under continuous heat; passable only with a food-grade certified batch.' };
+            const fs = mat.foodSafe ?? 1;
+            if (fs <= 2)
+              return { status: 'fail', details: `${mat.name} isn't food-grade — constituents migrate into the heated waste and fail food-contact limits.` };
+            if (fs === 3)
+              return { status: 'conditional', details: `${mat.name} is borderline under continuous heat; passable only with a food-grade certified batch.` };
             return { status: 'pass', details: `${mat.name} stays within migration limits at chamber temperature.` };
           } },
         { id: 'chemical', name: 'Off-gassing & Prop 65', cost: 2600, days: 3,

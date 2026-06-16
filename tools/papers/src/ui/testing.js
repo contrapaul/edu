@@ -39,6 +39,8 @@ function resolveAutoTest(testId, p, def) {
     const fr = mat?.fireRating;
     if (fr === 'UL94 V-0' || fr === 'Non-combustible')
       return { status: 'pass', details: `${mat.name} (${fr}) self-extinguishes well within the limit.` };
+    if (fr === 'UL94 V-2' || fr === 'UL94 HBF')
+      return { status: 'conditional', details: `${mat.name} (${fr}) self-extinguishes slowly — passable with the right rating and labelling.` };
     if (fr === 'Untreated')
       return { status: 'fail', details: `${mat.name} is untreated — it sustains a flame. Needs flame treatment.` };
     return { status: 'fail', details: `${mat?.name} (${fr}) burns steadily and fails the flammability standard.` };
@@ -47,8 +49,11 @@ function resolveAutoTest(testId, p, def) {
   if (testId === 'mechanical') {
     if (proc?.id === '3dprint')
       return { status: 'conditional', details: '3D-printed housing is prototype-grade; layer adhesion is marginal under load.' };
-    if (mat?.id === 'bamboo')
-      return { status: 'conditional', details: 'Composite shows variable strength at the seams; acceptable with reinforcement.' };
+    const t = mat?.toughness ?? 3;
+    if (t <= 1)
+      return { status: 'fail', details: `${mat?.name} is too brittle/flimsy — it fails the drop and load test outright.` };
+    if (t === 2)
+      return { status: 'conditional', details: `${mat?.name} shows variable strength at the seams; acceptable with reinforcement.` };
     return { status: 'pass', details: `${mat?.name} housing survives drop and load testing.` };
   }
 

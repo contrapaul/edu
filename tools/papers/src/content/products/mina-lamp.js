@@ -27,7 +27,7 @@ export default {
   priceRange: { min: 39.99, max: 199.99, default: 89.99 },
 
   components: [
-    { id: 'shade', name: 'Shade / Diffuser', kind: 'material', materialSet: 'enclosure' },
+    { id: 'shade', name: 'Shade / Diffuser', kind: 'material', materialSet: 'diffuser' },
 
     { id: 'led', name: 'LED Module', kind: 'supplier', critical: true,
       note: 'The LEDs set your eye-safety class (IEC 62471). Cheap, unbinned emitters are an optical-hazard risk.',

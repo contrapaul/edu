@@ -25,7 +25,7 @@ export default {
   priceRange: { min: 24.99, max: 99.99, default: 49.99 },
 
   components: [
-    { id: 'frame', name: 'Frame & Prop Guards', kind: 'material', materialSet: 'enclosure' },
+    { id: 'frame', name: 'Frame & Prop Guards', kind: 'material', materialSet: 'droneFrame' },
 
     { id: 'battery', name: 'LiPo Cell (1S 250 mAh)', kind: 'supplier', critical: true,
       note: 'A single LiPo flying around a child\'s bedroom. Source cells with real UN 38.3 data.',

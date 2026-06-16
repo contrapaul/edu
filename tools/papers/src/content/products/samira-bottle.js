@@ -28,7 +28,7 @@ export default {
   priceRange: { min: 14.99, max: 59.99, default: 29.99 },
 
   components: [
-    { id: 'body', name: 'Bottle Body', kind: 'material', materialSet: 'enclosure' },
+    { id: 'body', name: 'Bottle Body', kind: 'material', materialSet: 'bottleBody' },
 
     { id: 'coating', name: 'Interior Coating', kind: 'supplier', critical: true,
       note: 'The interior lining is what your drink actually touches. A cheap coating is where BPA and leaching problems live.',
@@ -119,10 +119,11 @@ export default {
           resolve: (p) => {
             const mat = getMaterial(p.selectedMaterials.body);
             if (!mat) return { status: 'fail', details: 'No body material selected.' };
-            if (mat.id === 'aluminum')
-              return { status: 'pass', details: 'Double-wall metal construction holds temperature for the full claimed period.' };
-            if (mat.id === 'bamboo')
-              return { status: 'fail', details: 'Single-wall composite barely insulates — the 24-hour claim is unsupportable.' };
+            const ins = mat.insulation ?? 2;
+            if (ins >= 4)
+              return { status: 'pass', details: `${mat.name} holds temperature for the full claimed period.` };
+            if (ins <= 1)
+              return { status: 'fail', details: `${mat.name} barely insulates — the 24-hour claim is unsupportable.` };
             return { status: 'conditional', details: `${mat.name} insulates modestly; the claim must be softened to a defensible number.` };
           } },
         { id: 'chemical', name: 'Chemical / Prop 65', cost: 2400, days: 3,

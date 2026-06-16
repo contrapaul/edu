@@ -36,7 +36,7 @@ export function renderDesign(container, ctx) {
         <span>Cost ${dots(m.cost)}</span>
         <span>Fire: ${m.fireRating}</span>
         <span>Recycl. ${dots(m.recyclability)}</span>
-        <span>Acoustics ${dots(m.acoustics)}</span>
+        <span>Tough ${dots(m.toughness)}</span>
       </span>
     </button>`;
   }).join('');
@@ -62,18 +62,25 @@ export function renderDesign(container, ctx) {
     </div>`;
   }).join('');
 
-  const processCards = MANUFACTURING_PROCESSES.map(pr => {
-    const on = p.selectedProcess === pr.id ? ' on' : '';
-    return `<button class="opt process-opt${on}" data-process="${pr.id}">
-      <span class="opt-name">${pr.name}</span>
-      <span class="opt-props">
-        <span>Setup ${dots(pr.setupCost)}</span>
-        <span>Per-unit ${dots(pr.perUnit)}</span>
-        <span>Precision ${dots(pr.precision)}</span>
-      </span>
-      <span class="opt-note">${pr.note}</span>
-    </button>`;
-  }).join('');
+  // Only the processes the chosen material can actually be made by — so the list
+  // is product-appropriate (no "injection-mould this stainless bottle").
+  function processCardsHTML() {
+    const mat = getMaterial(p.selectedMaterials[matKey]);
+    if (!mat) return `<p class="panel-hint">Choose a material first — it determines how the product can be made.</p>`;
+    const compat = MANUFACTURING_PROCESSES.filter(pr => mat.processes.includes(pr.id));
+    return `<div class="opt-grid">${compat.map(pr => {
+      const on = p.selectedProcess === pr.id ? ' on' : '';
+      return `<button class="opt process-opt${on}" data-process="${pr.id}">
+        <span class="opt-name">${pr.name}</span>
+        <span class="opt-props">
+          <span>Setup ${dots(pr.setupCost)}</span>
+          <span>Per-unit ${dots(pr.perUnit)}</span>
+          <span>Precision ${dots(pr.precision)}</span>
+        </span>
+        <span class="opt-note">${pr.note}</span>
+      </button>`;
+    }).join('')}</div>`;
+  }
 
   container.innerHTML = `
     <div class="phase phase-design">
@@ -82,14 +89,14 @@ export function renderDesign(container, ctx) {
 
       <div class="design-grid">
         <div class="design-main">
-          <h2>1 · Enclosure material</h2>
+          <h2>1 · ${matComp.name} material</h2>
           <div class="opt-grid">${materialCards}</div>
 
           <h2>2 · Component sourcing</h2>
           ${supplierBlocks}
 
           <h2>3 · Manufacturing process</h2>
-          <div class="opt-grid">${processCards}</div>
+          <div id="process-section">${processCardsHTML()}</div>
         </div>
 
         <aside class="consequences">
@@ -173,11 +180,24 @@ export function renderDesign(container, ctx) {
     const btn = container.querySelector('#gen-tf');
     const msg = container.querySelector('#design-msg');
     btn.disabled = !ready;
-    msg.textContent = !matChosen ? 'Choose an enclosure material.'
+    msg.textContent = !matChosen ? 'Choose a material.'
       : !allSuppliers ? 'Source every component.'
       : !procChosen ? 'Pick a manufacturing process.'
       : !compatible ? 'Material and process are incompatible.'
       : '';
+  }
+
+  // Rebuild + rebind the process cards (they depend on the chosen material).
+  function renderProcesses() {
+    const section = container.querySelector('#process-section');
+    section.innerHTML = processCardsHTML();
+    section.querySelectorAll('[data-process]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        p.selectedProcess = btn.dataset.process;
+        section.querySelectorAll('[data-process]').forEach(b => b.classList.toggle('on', b === btn));
+        refresh(); save();
+      });
+    });
   }
 
   // --- listeners ---
@@ -185,6 +205,10 @@ export function renderDesign(container, ctx) {
     btn.addEventListener('click', () => {
       p.selectedMaterials[matKey] = btn.dataset.material;
       container.querySelectorAll('[data-material]').forEach(b => b.classList.toggle('on', b === btn));
+      // Drop a now-incompatible process so you must re-pick a valid one.
+      const mat = getMaterial(btn.dataset.material);
+      if (p.selectedProcess && mat && !mat.processes.includes(p.selectedProcess)) p.selectedProcess = null;
+      renderProcesses();
       refresh(); save();
     });
   });
@@ -200,13 +224,7 @@ export function renderDesign(container, ctx) {
     });
   });
 
-  container.querySelectorAll('[data-process]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      p.selectedProcess = btn.dataset.process;
-      container.querySelectorAll('[data-process]').forEach(b => b.classList.toggle('on', b === btn));
-      refresh(); save();
-    });
-  });
+  renderProcesses();   // bind the initial (material-filtered) process cards
 
   container.querySelector('#gen-tf').addEventListener('click', () => {
     const signature = JSON.stringify([p.selectedMaterials[matKey], p.selectedSuppliers, p.selectedProcess]);

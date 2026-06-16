@@ -29,7 +29,7 @@ export default {
   priceRange: { min: 49.99, max: 199.99, default: 119.99 },
 
   components: [
-    { id: 'reflector', name: 'Reflector Panel', kind: 'material', materialSet: 'enclosure' },
+    { id: 'reflector', name: 'Reflector Panel', kind: 'material', materialSet: 'reflector' },
 
     { id: 'frame', name: 'Support Frame', kind: 'supplier', options: [
       { id: 'fold-alu', name: 'Folding aluminium frame + case', mfr: 'Helinox-grade', unitCost: 4.00,
@@ -110,10 +110,11 @@ export default {
           resolve: (p) => {
             const mat = getMaterial(p.selectedMaterials.reflector);
             if (!mat) return { status: 'fail', details: 'No reflector material selected.' };
-            if (mat.id === 'aluminum')
-              return { status: 'pass', details: 'Polished metal reflector reaches and holds safe cooking temperature reliably.' };
-            if (mat.id === 'bamboo')
-              return { status: 'fail', details: 'A composite reflector barely concentrates light — it never reaches a food-safe temperature.' };
+            const r = mat.reflectivity ?? 1;
+            if (r >= 4)
+              return { status: 'pass', details: `${mat.name} concentrates sunlight well — it reaches and holds safe cooking temperature reliably.` };
+            if (r <= 2)
+              return { status: 'fail', details: `${mat.name} barely concentrates light — it never reaches a food-safe temperature.` };
             return { status: 'conditional', details: `${mat.name} reflects modestly; safe temperature is reached only in strong sun, so it needs a clear usage label.` };
           } },
         { id: 'greenclaims', name: 'Green-Claim Substantiation (FTC)', cost: 2400, days: 2,
