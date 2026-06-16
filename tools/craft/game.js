@@ -20,7 +20,6 @@ async function loadData() {
         DISCOVERIES_DATA = discData.discoveries || discData;
         RECIPES = recipeData.recipes || recipeData;
 
-        // Build lookup maps
         discoveryMap = Object.fromEntries(DISCOVERIES_DATA.map(d => [d.id, d]));
         recipeMap = {};
         RECIPES.forEach(r => {
@@ -29,14 +28,12 @@ async function loadData() {
             recipeMap[key].push(r.id);
         });
 
-        // Ensure base elements exist in data
         BASE_IDS.forEach(id => {
             if (!discoveryMap[id]) {
                 console.warn(`Base element "${id}" not found in discoveries.json`);
             }
         });
 
-        // Start game
         initGame();
     } catch (err) {
         console.error('Failed to load data:', err);
@@ -55,8 +52,7 @@ async function loadData() {
 // ═══════════════════════════════════════════════════════════════════
 
 let discovered = new Set();
-let slots = [null, null];
-let dragData = null;
+let placed = [];
 
 // ═══════════════════════════════════════════════════════════════════
 // 3.  DOM REFS
@@ -64,10 +60,6 @@ let dragData = null;
 
 const invList = document.getElementById('inventoryList');
 const dropZone = document.getElementById('dropZone');
-const placeholder = document.getElementById('placeholder');
-const slotsContainer = document.getElementById('slotsContainer');
-const combineBtn = document.getElementById('combineBtn');
-const clearSlotsBtn = document.getElementById('clearSlots');
 const discoveryCountEl = document.getElementById('discoveryCount');
 const maxTierEl = document.getElementById('maxTier');
 const toastContainer = document.getElementById('toastContainer');
@@ -123,85 +115,73 @@ function renderInventory() {
         div.innerHTML = `
             <span class="emoji">${d.emoji}</span>
             <span class="name">${d.name}</span>
-            <span class="craft-badge-tier">T${d.tier}</span>
         `;
         div.addEventListener('dragstart', (e) => {
-            dragData = d.id;
             e.dataTransfer.setData('text/plain', d.id);
             e.dataTransfer.effectAllowed = 'copy';
         });
         div.addEventListener('click', () => {
-            const idx = slots.indexOf(null);
-            if (idx !== -1) {
-                slots[idx] = d.id;
-                renderSlots();
-            } else {
-                slots[1] = d.id;
-                renderSlots();
-            }
+            placed.push(d.id);
+            renderWorkbench();
         });
         invList.appendChild(div);
     });
     updateStats();
 }
 
-function renderSlots() {
-    const hasAny = slots.some(s => s !== null);
-    if (!hasAny) {
-        slotsContainer.style.display = 'none';
-        placeholder.style.display = 'block';
-        combineBtn.disabled = true;
+function renderWorkbench() {
+    if (placed.length === 0) {
+        dropZone.innerHTML = `
+            <div class="craft-placeholder">
+                <span class="craft-big-emoji">🛠️</span>
+                Drag materials here to begin
+            </div>
+        `;
         return;
     }
-    placeholder.style.display = 'none';
-    slotsContainer.style.display = 'flex';
+    dropZone.innerHTML = '';
+    placed.forEach((id, idx) => {
+        const d = getDiscovery(id);
+        if (!d) return;
+        const card = document.createElement('div');
+        card.className = 'craft-card';
+        card.draggable = true;
+        card.dataset.id = id;
+        card.innerHTML = `
+            <span class="craft-card-emoji">${d.emoji}</span>
+            <span class="craft-card-name">${d.name}</span>
+        `;
 
-    slotsContainer.innerHTML = '';
-    slots.forEach((id, idx) => {
-        const div = document.createElement('div');
-        div.className = 'craft-slot' + (id ? ' filled' : '');
-        if (id) {
-            const d = getDiscovery(id);
-            div.innerHTML = `
-                <span class="emoji">${d.emoji}</span>
-                <span>${d.name}</span>
-            `;
-            div.addEventListener('click', () => {
-                slots[idx] = null;
-                renderSlots();
-            });
-        } else {
-            div.innerHTML = `<span class="label">drop here</span>`;
-        }
-        div.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'copy';
-            div.classList.add('drag-hover');
+        card.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', id);
+            e.dataTransfer.effectAllowed = 'move';
         });
-        div.addEventListener('dragleave', () => {
-            div.classList.remove('drag-hover');
+
+        card.addEventListener('click', () => {
+            placed.splice(idx, 1);
+            renderWorkbench();
         });
-        div.addEventListener('drop', (e) => {
+
+        card.addEventListener('dragover', (e) => {
             e.preventDefault();
-            div.classList.remove('drag-hover');
-            const data = e.dataTransfer.getData('text/plain');
-            if (data && discovered.has(data)) {
-                slots[idx] = data;
-                renderSlots();
+            e.dataTransfer.dropEffect = 'move';
+            card.classList.add('drag-target');
+        });
+        card.addEventListener('dragleave', () => {
+            card.classList.remove('drag-target');
+        });
+        card.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            card.classList.remove('drag-target');
+            const otherId = e.dataTransfer.getData('text/plain');
+            if (otherId && otherId !== id && isDiscovered(otherId)) {
+                attemptCombine(otherId, id);
             }
         });
-        slotsContainer.appendChild(div);
 
-        if (idx === 0) {
-            const plus = document.createElement('span');
-            plus.className = 'craft-plus';
-            plus.textContent = '+';
-            slotsContainer.appendChild(plus);
-        }
+        dropZone.appendChild(card);
     });
-
-    const bothFilled = slots[0] !== null && slots[1] !== null;
-    combineBtn.disabled = !bothFilled;
 }
 
 function updateStats() {
@@ -245,17 +225,12 @@ function showToast(emoji, message) {
     }, 3000);
 }
 
-function combine() {
-    const a = slots[0];
-    const b = slots[1];
-    if (!a || !b) return;
-
+function attemptCombine(a, b) {
     const ingredients = [a, b].sort();
     const key = ingredients.join('|');
 
     let matchIds = recipeMap[key] || [];
 
-    // Superset match (3+ ingredient recipes)
     if (matchIds.length === 0) {
         for (const r of RECIPES) {
             const sorted = [...r.ingredients].sort();
@@ -273,9 +248,7 @@ function combine() {
     const newIds = matchIds.filter(id => !discovered.has(id));
 
     if (newIds.length === 0) {
-        showToast('🧪', 'No new combination found. Try different materials!');
-        slots = [null, null];
-        renderSlots();
+        showToast('🧪', 'No new combination. Try different materials!');
         return;
     }
 
@@ -290,8 +263,6 @@ function combine() {
     });
 
     saveState();
-    slots = [null, null];
-    renderSlots();
     renderInventory();
     updateStats();
 
@@ -300,18 +271,13 @@ function combine() {
     }
 }
 
-function clearSlots() {
-    slots = [null, null];
-    renderSlots();
-}
-
 function resetGame() {
     if (confirm('Reset all progress? You will lose all discovered materials.')) {
         localStorage.removeItem('compositeCraft');
         discovered = new Set();
         BASE_IDS.forEach(id => discovered.add(id));
-        slots = [null, null];
-        renderSlots();
+        placed = [];
+        renderWorkbench();
         renderInventory();
         updateStats();
         toastContainer.innerHTML = '';
@@ -335,15 +301,9 @@ dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('drag-over');
     const data = e.dataTransfer.getData('text/plain');
-    if (data && discovered.has(data)) {
-        const idx = slots.indexOf(null);
-        if (idx !== -1) {
-            slots[idx] = data;
-            renderSlots();
-        } else {
-            slots[1] = data;
-            renderSlots();
-        }
+    if (data && isDiscovered(data)) {
+        placed.push(data);
+        renderWorkbench();
     }
 });
 
@@ -351,8 +311,6 @@ dropZone.addEventListener('drop', (e) => {
 // 6.  EVENT BINDINGS
 // ═══════════════════════════════════════════════════════════════════
 
-combineBtn.addEventListener('click', combine);
-clearSlotsBtn.addEventListener('click', clearSlots);
 document.getElementById('resetBtn').addEventListener('click', resetGame);
 
 // ═══════════════════════════════════════════════════════════════════
@@ -362,13 +320,12 @@ document.getElementById('resetBtn').addEventListener('click', resetGame);
 function initGame() {
     loadState();
     renderInventory();
-    renderSlots();
+    renderWorkbench();
     updateStats();
 
     setTimeout(() => {
-        showToast('🧪', 'Welcome to Composite Craft! Drag materials to the workbench and combine them.');
+        showToast('🧪', 'Welcome! Drag materials from your inventory onto the workbench, then drop them on each other to discover new combinations.');
     }, 400);
 }
 
-// Start everything
 loadData();
