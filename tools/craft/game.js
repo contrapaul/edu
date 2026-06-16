@@ -15,8 +15,10 @@ async function loadData() {
             fetch('discoveries.json'),
             fetch('recipes.json')
         ]);
-        DISCOVERIES_DATA = await discRes.json();
-        RECIPES = await recipeRes.json();
+        const discData = await discRes.json();
+        const recipeData = await recipeRes.json();
+        DISCOVERIES_DATA = discData.discoveries || discData;
+        RECIPES = recipeData.recipes || recipeData;
 
         // Build lookup maps
         discoveryMap = Object.fromEntries(DISCOVERIES_DATA.map(d => [d.id, d]));
