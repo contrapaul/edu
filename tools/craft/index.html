@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Composite Craft</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ─── HEADER ─── -->
+    <header>
+        <h1>🧪 Composite Craft</h1>
+        <div class="stats">
+            <span>🔬 <strong id="discoveryCount">0</strong> discovered</span>
+            <span>🏷️ Tier <strong id="maxTier">0</strong></span>
+        </div>
+        <button id="resetBtn">⟳ Reset</button>
+    </header>
+
+    <!-- ─── MAIN ─── -->
+    <div class="app">
+        <!-- Inventory -->
+        <aside class="inventory">
+            <h2>📦 Inventory</h2>
+            <div class="inv-list" id="inventoryList"></div>
+        </aside>
+
+        <!-- Workbench -->
+        <main class="workbench">
+            <div class="drop-zone" id="dropZone">
+                <div class="placeholder" id="placeholder">
+                    <span class="big-emoji">🛠️</span>
+                    Drag items from your inventory here<br />
+                    or click an item then click a slot.
+                </div>
+                <div class="slots" id="slotsContainer" style="display:none;"></div>
+                <button class="combine-btn" id="combineBtn" disabled>⚡ Combine</button>
+                <button class="clear-slots" id="clearSlots">Clear slots</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- ─── TOAST CONTAINER ─── -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ─── JAVASCRIPT ─── -->
+    <script src="game.js"></script>
+</body>
+</html>

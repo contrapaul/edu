@@ -1,0 +1,988 @@
+{
+  "discoveries": [
+    {
+      "id": "mithril",
+      "name": "Mithril",
+      "emoji": "🧝",
+      "definition": "Fictional Tolkien metal; lighter than steel, stronger than titanium, and worth more than gold.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "unobtanium",
+      "name": "Unobtanium",
+      "emoji": "💎",
+      "definition": "The material you need but can't get; used in every engineering student's dreams.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "vibranium",
+      "name": "Vibranium",
+      "emoji": "🛡️",
+      "definition": "Absorbs all vibrations; Wakandan export ban applies.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "adamantium",
+      "name": "Adamantium",
+      "emoji": "🦴",
+      "definition": "Indestructible alloy; claws sold separately.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "nanomachines",
+      "name": "Nanomachines",
+      "emoji": "🤖",
+      "definition": "Self-replicating robots; they harden in response to physical trauma.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "the_one_ring",
+      "name": "The One Ring",
+      "emoji": "💍",
+      "definition": "Forged in Mount Doom; turns you invisible but corrupts your soul. Also makes you speak in Elvish.",
+      "tier": 0,
+      "category": "fantasy"
+    },
+    {
+      "id": "alloy",
+      "name": "Alloy",
+      "emoji": "🔩",
+      "definition": "Metallic mix; stronger or more corrosion-resistant than pure metals.",
+      "tier": 1,
+      "category": "alloy"
+    },
+    {
+      "id": "steel",
+      "name": "Steel",
+      "emoji": "🗡️",
+      "definition": "Iron + carbon; the foundation of skyscrapers and swords.",
+      "tier": 1,
+      "category": "alloy"
+    },
+    {
+      "id": "cermet",
+      "name": "Cermet",
+      "emoji": "💎",
+      "definition": "Ceramic grains in a metal binder; heat-resistant cutting tools.",
+      "tier": 1,
+      "category": "composite"
+    },
+    {
+      "id": "metal_matrix_composite",
+      "name": "Metal Matrix Composite",
+      "emoji": "🛡️",
+      "definition": "Metal reinforced with polymer fibers; light and tough.",
+      "tier": 1,
+      "category": "composite"
+    },
+    {
+      "id": "ceramic_matrix_composite",
+      "name": "Ceramic Matrix Composite",
+      "emoji": "🧱",
+      "definition": "Ceramic fibers in ceramic base; survives 2000°C.",
+      "tier": 1,
+      "category": "composite"
+    },
+    {
+      "id": "carbon_fiber",
+      "name": "Carbon Fiber",
+      "emoji": "🖤",
+      "definition": "Thin carbon strands; 5x steel's strength at 1/5 the weight.",
+      "tier": 1,
+      "category": "fiber"
+    },
+    {
+      "id": "oxide",
+      "name": "Oxide",
+      "emoji": "🔥",
+      "definition": "Metal oxide or ceramic oxide; forms protective layers.",
+      "tier": 1,
+      "category": "chemical"
+    },
+    {
+      "id": "organic_polymer",
+      "name": "Organic Polymer",
+      "emoji": "🌿",
+      "definition": "Natural or synthetic chain molecules; plastics, rubber, DNA.",
+      "tier": 1,
+      "category": "polymer"
+    },
+    {
+      "id": "glass",
+      "name": "Glass",
+      "emoji": "🥃",
+      "definition": "Amorphous silica; transparent, brittle, recyclable.",
+      "tier": 1,
+      "category": "ceramic"
+    },
+    {
+      "id": "rubber",
+      "name": "Rubber",
+      "emoji": "🏀",
+      "definition": "Elastic polymer; bounces, seals, grips.",
+      "tier": 1,
+      "category": "polymer"
+    },
+    {
+      "id": "foam",
+      "name": "Foam",
+      "emoji": "🧽",
+      "definition": "Gas-filled polymer matrix; lightweight insulation.",
+      "tier": 1,
+      "category": "composite"
+    },
+    {
+      "id": "glue",
+      "name": "Glue",
+      "emoji": "🫘",
+      "definition": "Adhesive polymer; bonds anything except broken hearts.",
+      "tier": 1,
+      "category": "polymer"
+    },
+    {
+      "id": "paint",
+      "name": "Paint",
+      "emoji": "🎨",
+      "definition": "Pigment + binder; protects surfaces and looks pretty.",
+      "tier": 1,
+      "category": "coating"
+    },
+    {
+      "id": "brick",
+      "name": "Brick",
+      "emoji": "🧱",
+      "definition": "Fired clay; cheap, compressive strength, built civilizations.",
+      "tier": 1,
+      "category": "ceramic"
+    },
+    {
+      "id": "cement",
+      "name": "Cement",
+      "emoji": "🪨",
+      "definition": "Powder that hardens with water; makes concrete possible.",
+      "tier": 1,
+      "category": "ceramic"
+    },
+    {
+      "id": "silicon",
+      "name": "Silicon",
+      "emoji": "💻",
+      "definition": "Semiconductor base; the heart of every microchip.",
+      "tier": 1,
+      "category": "chemical"
+    },
+    {
+      "id": "copper",
+      "name": "Copper",
+      "emoji": "🪙",
+      "definition": "Conductive metal; wires, PCBs, and the Statue of Liberty.",
+      "tier": 1,
+      "category": "metal"
+    },
+    {
+      "id": "bronze",
+      "name": "Bronze",
+      "emoji": "🥉",
+      "definition": "Copper + tin; the alloy that ended the Stone Age.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "brass",
+      "name": "Brass",
+      "emoji": "🟡",
+      "definition": "Copper + zinc; shiny, acoustic, and antimicrobial.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "stainless_steel",
+      "name": "Stainless Steel",
+      "emoji": "🍴",
+      "definition": "Chromium-steel; doesn't rust, doesn't stain, does dishes.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "titanium_alloy",
+      "name": "Titanium Alloy",
+      "emoji": "✈️",
+      "definition": "Ti-6Al-4V; aerospace, medical, bike frames.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "aluminum_alloy",
+      "name": "Aluminum Alloy",
+      "emoji": "🛸",
+      "definition": "7075-T6; lightweight, stressed, used in fighter jets.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "cast_iron",
+      "name": "Cast Iron",
+      "emoji": "🍳",
+      "definition": "2-4% carbon; hard, brittle, makes great pancakes.",
+      "tier": 2,
+      "category": "alloy"
+    },
+    {
+      "id": "glass_ceramic",
+      "name": "Glass Ceramic",
+      "emoji": "🔮",
+      "definition": "Crystalline glass; thermal shock resistant (cooktops).",
+      "tier": 2,
+      "category": "ceramic"
+    },
+    {
+      "id": "carbon_carbon_composite",
+      "name": "Carbon-Carbon Composite",
+      "emoji": "🏎️",
+      "definition": "Carbon fibers in carbon matrix; rocket nozzles and F1 brakes.",
+      "tier": 2,
+      "category": "composite"
+    },
+    {
+      "id": "kevlar",
+      "name": "Kevlar",
+      "emoji": "🦺",
+      "definition": "Aramid; stops bullets, holds bridges, saves lives.",
+      "tier": 2,
+      "category": "fiber"
+    },
+    {
+      "id": "fiberglass",
+      "name": "Fiberglass",
+      "emoji": "🚤",
+      "definition": "Glass fibers + resin; boats, bathtubs, wind turbines.",
+      "tier": 2,
+      "category": "composite"
+    },
+    {
+      "id": "epoxy_resin",
+      "name": "Epoxy Resin",
+      "emoji": "🧪",
+      "definition": "Thermoset glue; matrix for composites, art, and flooring.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "concrete",
+      "name": "Concrete",
+      "emoji": "🏗️",
+      "definition": "Cement + aggregate; literally everywhere.",
+      "tier": 2,
+      "category": "composite"
+    },
+    {
+      "id": "plywood",
+      "name": "Plywood",
+      "emoji": "🪵",
+      "definition": "Wood veneer layers cross-grained; strong, cheap, flat.",
+      "tier": 2,
+      "category": "composite"
+    },
+    {
+      "id": "latex",
+      "name": "Latex",
+      "emoji": "🧤",
+      "definition": "Natural rubber sap; gloves, condoms, elastic.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "nylon",
+      "name": "Nylon",
+      "emoji": "👕",
+      "definition": "Synthetic polyamide; stockings, ropes, carpets.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "polyester",
+      "name": "Polyester",
+      "emoji": "👖",
+      "definition": "Synthetic fabric; wrinkles? never met her.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "acrylic",
+      "name": "Acrylic",
+      "emoji": "🪟",
+      "definition": "Plexiglass; shatterproof glass alternative.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "teflon",
+      "name": "Teflon",
+      "emoji": "🍳",
+      "definition": "PTFE; non-stick, slippery, used in space suits.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "silicone",
+      "name": "Silicone",
+      "emoji": "🧴",
+      "definition": "Silicon-oxygen polymer; heatproof, flexible, implantable.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "basalt_fiber",
+      "name": "Basalt Fiber",
+      "emoji": "🌋",
+      "definition": "Volcanic rock fiber; fireproof, cheap composite reinforcement.",
+      "tier": 2,
+      "category": "fiber"
+    },
+    {
+      "id": "jute",
+      "name": "Jute",
+      "emoji": "🌾",
+      "definition": "Natural plant fiber; biodegradable composite filler.",
+      "tier": 2,
+      "category": "fiber"
+    },
+    {
+      "id": "chitosan",
+      "name": "Chitosan",
+      "emoji": "🦐",
+      "definition": "Shellfish-derived biopolymer; wound dressings and food film.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "cellulose",
+      "name": "Cellulose",
+      "emoji": "📄",
+      "definition": "Plant cell wall polymer; paper, cotton, wood.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "lignin",
+      "name": "Lignin",
+      "emoji": "🪵",
+      "definition": "Plant binder; makes wood stiff, paper brown.",
+      "tier": 2,
+      "category": "polymer"
+    },
+    {
+      "id": "spider_silk",
+      "name": "Spider Silk",
+      "emoji": "🕷️",
+      "definition": "Protein fiber; stronger than steel, stretchier than nylon.",
+      "tier": 2,
+      "category": "fiber"
+    },
+    {
+      "id": "thermal_paste",
+      "name": "Thermal Paste",
+      "emoji": "🌡️",
+      "definition": "Metal oxide + silicone; fills microscopic gaps, keeps CPUs cool.",
+      "tier": 2,
+      "category": "coating"
+    },
+    {
+      "id": "pcb",
+      "name": "PCB",
+      "emoji": "📟",
+      "definition": "Printed Circuit Board; copper traces on insulating board; electronics backbone.",
+      "tier": 2,
+      "category": "product"
+    },
+    {
+      "id": "inconel",
+      "name": "Inconel",
+      "emoji": "🔥",
+      "definition": "Nickel superalloy; jet engines, nuclear reactors.",
+      "tier": 3,
+      "category": "alloy"
+    },
+    {
+      "id": "magnesium_alloy",
+      "name": "Magnesium Alloy",
+      "emoji": "📱",
+      "definition": "Lightest structural alloy; laptops, drones, wheels.",
+      "tier": 3,
+      "category": "alloy"
+    },
+    {
+      "id": "tungsten_carbide",
+      "name": "Tungsten Carbide",
+      "emoji": "🪚",
+      "definition": "WC-Co; drill bits, jewelry, armor-piercing rounds.",
+      "tier": 3,
+      "category": "composite"
+    },
+    {
+      "id": "boron_fiber",
+      "name": "Boron Fiber",
+      "emoji": "🎯",
+      "definition": "Stiff, lightweight fiber; fishing rods, golf clubs.",
+      "tier": 3,
+      "category": "fiber"
+    },
+    {
+      "id": "peek",
+      "name": "PEEK",
+      "emoji": "🏥",
+      "definition": "Polyether ether ketone; spinal implants, aircraft.",
+      "tier": 3,
+      "category": "polymer"
+    },
+    {
+      "id": "silicon_carbide",
+      "name": "Silicon Carbide",
+      "emoji": "⚡",
+      "definition": "SiC; semiconductor, brake discs, bulletproof plates.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "zirconia",
+      "name": "Zirconia",
+      "emoji": "🦷",
+      "definition": "ZrO₂; hip joints, dental crowns, oxygen sensors.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "shape_memory_alloy",
+      "name": "Shape Memory Alloy",
+      "emoji": "🔄",
+      "definition": "Nitinol; bends and returns, stents and eyeglass frames.",
+      "tier": 3,
+      "category": "alloy"
+    },
+    {
+      "id": "hybrid_composite",
+      "name": "Hybrid Composite",
+      "emoji": "🧩",
+      "definition": "Stiff + impact-resistant; race car monocoques.",
+      "tier": 3,
+      "category": "composite"
+    },
+    {
+      "id": "bio_glass",
+      "name": "Bio-glass",
+      "emoji": "🧫",
+      "definition": "Bonds with bone; dental implants, bone grafts.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "graphene",
+      "name": "Graphene",
+      "emoji": "🔬",
+      "definition": "1-atom-thick carbon; 200x steel strength, conductive.",
+      "tier": 3,
+      "category": "fiber"
+    },
+    {
+      "id": "carbon_nanotube",
+      "name": "Carbon Nanotube",
+      "emoji": "🧪",
+      "definition": "Rolled graphene; stronger than anything, conducts heat.",
+      "tier": 3,
+      "category": "fiber"
+    },
+    {
+      "id": "aerogel",
+      "name": "Aerogel",
+      "emoji": "☁️",
+      "definition": "99.8% air; world's lightest solid, insulation.",
+      "tier": 3,
+      "category": "composite"
+    },
+    {
+      "id": "pyrolytic_carbon",
+      "name": "Pyrolytic Carbon",
+      "emoji": "🔥",
+      "definition": "Biocompatible carbon coating; heart valves.",
+      "tier": 3,
+      "category": "coating"
+    },
+    {
+      "id": "diamond",
+      "name": "Diamond",
+      "emoji": "💍",
+      "definition": "Pure carbon crystal; hardest natural material.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "graphite",
+      "name": "Graphite",
+      "emoji": "✏️",
+      "definition": "Layered carbon; lubricant, battery anodes.",
+      "tier": 3,
+      "category": "chemical"
+    },
+    {
+      "id": "boron_nitride",
+      "name": "Boron Nitride",
+      "emoji": "🛡️",
+      "definition": "\"White graphene\"; lubricates, insulates, tough.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "max_phase",
+      "name": "MAX Phase",
+      "emoji": "⚡",
+      "definition": "Ternary carbide; machinable ceramic, thermal shock resistant.",
+      "tier": 3,
+      "category": "ceramic"
+    },
+    {
+      "id": "bulk_metallic_glass",
+      "name": "Bulk Metallic Glass",
+      "emoji": "🪞",
+      "definition": "Amorphous metal; springy, hard, phone hinges.",
+      "tier": 3,
+      "category": "alloy"
+    },
+    {
+      "id": "high_entropy_alloy",
+      "name": "High-Entropy Alloy",
+      "emoji": "🌀",
+      "definition": "5+ metals mixed equally; extreme strength, cryo-compatible.",
+      "tier": 3,
+      "category": "alloy"
+    },
+    {
+      "id": "lcd_screen",
+      "name": "LCD Screen",
+      "emoji": "📺",
+      "definition": "Liquid Crystal Display; glass + polymer + electronics; pixels everywhere.",
+      "tier": 3,
+      "category": "product"
+    },
+    {
+      "id": "oled_screen",
+      "name": "OLED Screen",
+      "emoji": "🖥️",
+      "definition": "Organic LED; carbon-based pixels, perfect blacks, bends like plastic.",
+      "tier": 3,
+      "category": "product"
+    },
+    {
+      "id": "solar_panel",
+      "name": "Solar Panel",
+      "emoji": "☀️",
+      "definition": "Silicon + glass + aluminum; converts sunlight to electron flow.",
+      "tier": 3,
+      "category": "product"
+    },
+    {
+      "id": "cpu",
+      "name": "CPU",
+      "emoji": "🧠",
+      "definition": "Silicon chip with billions of transistors; the brain of every device.",
+      "tier": 3,
+      "category": "product"
+    },
+    {
+      "id": "microcontroller",
+      "name": "ESP32 Microcontroller",
+      "emoji": "📡",
+      "definition": "WiFi + Bluetooth + CPU on one chip; IoT's favorite brain.",
+      "tier": 3,
+      "category": "product"
+    },
+    {
+      "id": "turbine_blade",
+      "name": "Turbine Blade",
+      "emoji": "🌀",
+      "definition": "Jet fan blade; 1500°C, 10,000 RPM, doesn't melt.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "aircraft_fuselage",
+      "name": "Aircraft Fuselage",
+      "emoji": "✈️",
+      "definition": "787 Dreamliner skin; 50% composite, 20% fuel saved.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "rocket_nozzle",
+      "name": "Rocket Nozzle",
+      "emoji": "🚀",
+      "definition": "Survives 3000°C exhaust; cheap at $1M each.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "bulletproof_vest",
+      "name": "Bulletproof Vest",
+      "emoji": "🛡️",
+      "definition": "Kevlar + ceramic plates; Level IV armor; stops rifle rounds.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "dental_implant",
+      "name": "Dental Implant",
+      "emoji": "🦷",
+      "definition": "Screw-in tooth; lasts 20 years, no cavities.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "brake_disc",
+      "name": "Brake Disc",
+      "emoji": "🏎️",
+      "definition": "F1 brakes; glowing red, 1000°C, still stopping.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "wind_turbine_blade",
+      "name": "Wind Turbine Blade",
+      "emoji": "🌬️",
+      "definition": "100m long; one rotation powers a house for 2 days.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "spacecraft_heat_shield",
+      "name": "Spacecraft Heat Shield",
+      "emoji": "☄️",
+      "definition": "Ablative shield; 2000°C plasma, keeps astronauts cool.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "artificial_heart_valve",
+      "name": "Artificial Heart Valve",
+      "emoji": "❤️",
+      "definition": "Self-expanding; crimped in catheter, opens in heart.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "hydrogen_fuel_tank",
+      "name": "Hydrogen Fuel Tank",
+      "emoji": "🧊",
+      "definition": "Linerless tank; 700 bar H2, 3x lighter than steel.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "submarine_hull",
+      "name": "Submarine Hull",
+      "emoji": "🚢",
+      "definition": "1000 atm crush depth; silent, non-magnetic.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "golf_club_shaft",
+      "name": "Golf Club Shaft",
+      "emoji": "🏌️",
+      "definition": "Stiff tip, flexible handle; 10 extra yards.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "tennis_racket",
+      "name": "Tennis Racket",
+      "emoji": "🎾",
+      "definition": "Light, stiff, powerful; pro players use them.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "bicycle_frame",
+      "name": "Bicycle Frame",
+      "emoji": "🚲",
+      "definition": "Under 1kg; stiff, responsive, expensive.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "engine_block",
+      "name": "Engine Block",
+      "emoji": "🚗",
+      "definition": "50% lighter than iron; 500hp, stays cool.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "knee_implant",
+      "name": "Knee Implant",
+      "emoji": "🦵",
+      "definition": "Total knee replacement; 15-year lifespan.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "bullet_train_nose",
+      "name": "Bullet Train Nose",
+      "emoji": "🚄",
+      "definition": "Aerodynamic, bird-strike resistant, 400km/h.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "satellite_structure",
+      "name": "Satellite Structure",
+      "emoji": "🛰️",
+      "definition": "Lightweight, thermally stable, orbits for decades.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "solar_panel_frame",
+      "name": "Solar Panel Frame",
+      "emoji": "☀️",
+      "definition": "Rigid, conducts heat away; 25-year lifespan.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "robot_arm",
+      "name": "Robot Arm",
+      "emoji": "🦾",
+      "definition": "Precision movement, low inertia; assembles iPhones.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "crash_helmet",
+      "name": "Crash Helmet",
+      "emoji": "⛑️",
+      "definition": "Impact absorption + penetration resistance; F1 safety.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "boat_hull",
+      "name": "Boat Hull",
+      "emoji": "⛵",
+      "definition": "40-ft yacht; unsinkable, low maintenance.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "building_cladding",
+      "name": "Building Cladding",
+      "emoji": "🏢",
+      "definition": "Architectural skin; weatherproof, decorative, insulated.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "copper_clad_laminate",
+      "name": "Copper-Clad Laminate",
+      "emoji": "💻",
+      "definition": "PCB substrate; every circuit board starts here.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "fuel_cell_bipolar_plate",
+      "name": "Fuel Cell Bipolar Plate",
+      "emoji": "🔋",
+      "definition": "Conductive, corrosion-free; hydrogen EV heart.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "drone",
+      "name": "DJI Drone",
+      "emoji": "🛸",
+      "definition": "Magnesium alloy frame + carbon fiber arms; 4K camera flys 30 minutes.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "nintendo_switch",
+      "name": "Nintendo Switch",
+      "emoji": "🎮",
+      "definition": "LCD screen + custom CPU + joy-cons; plays anywhere, joy everywhere.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "rtx_5090",
+      "name": "RTX 5090 Graphics Card",
+      "emoji": "🎨",
+      "definition": "920亿 transistors on silicon + copper + polymer PCB; renders 4K at 500 FPS.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "gaming_pc",
+      "name": "Gaming PC",
+      "emoji": "💻",
+      "definition": "RTX 5090 + CPU + PCB + aluminum case; destroys frames, heats room.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "datacenter",
+      "name": "Datacenter",
+      "emoji": "🏢",
+      "definition": "Thousands of CPUs + copper + fiberglass; powers the cloud, AI, and memes.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "iphone_17_pro",
+      "name": "iPhone 17 Pro",
+      "emoji": "📱",
+      "definition": "Titanium frame + OLED screen + A19 CPU + glass back; camera bumps get bigger.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "ferrari",
+      "name": "Ferrari",
+      "emoji": "🏎️",
+      "definition": "Carbon fiber monocoque + aluminum engine block + hybrid power; V12 screams.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "byd_car",
+      "name": "BYD EV",
+      "emoji": "⚡",
+      "definition": "Aluminum body + LFP battery + silicon carbide inverters; 0-60 in 3.4s, Chinese engineering.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "f1_car",
+      "name": "F1 Car",
+      "emoji": "🏁",
+      "definition": "Carbon-carbon brakes + hybrid composite monocoque + Inconel exhaust; 20,000 RPM fury.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "katana",
+      "name": "Katana",
+      "emoji": "⚔️",
+      "definition": "Steel folded 1000x + carbon edge; cuts silk, slices bamboo, looks cool.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "mjolnir_mk_vii",
+      "name": "MJOLNIR Mk. VII Armor",
+      "emoji": "🦾",
+      "definition": "Titanium alloy + shape memory alloy + energy shield (vibranium implied); Master Chief approved.",
+      "tier": 4,
+      "category": "fantasy_product"
+    },
+    {
+      "id": "captain_america_shield",
+      "name": "Captain America's Shield",
+      "emoji": "🛡️",
+      "definition": "Vibranium alloy; absorbs all kinetic energy, returns when thrown, 100% patriotic.",
+      "tier": 4,
+      "category": "fantasy_product"
+    },
+    {
+      "id": "gym_clothes",
+      "name": "Gym Clothes",
+      "emoji": "🏋️",
+      "definition": "Spandex + polyester + nylon; stretches, wicks sweat, looks good.",
+      "tier": 4,
+      "category": "product"
+    },
+    {
+      "id": "duct_tape",
+      "name": "Duct Tape",
+      "emoji": "🦆",
+      "definition": "Fixes everything; engineers' actual secret material.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "cardboard",
+      "name": "Cardboard",
+      "emoji": "📦",
+      "definition": "Corrugated miracle; holds up Amazon's economy.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "silly_putty",
+      "name": "Silly Putty",
+      "emoji": "🥚",
+      "definition": "Bounces, stretches, copies newspaper; desk toy royalty.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "bubble_wrap",
+      "name": "Bubble Wrap",
+      "emoji": "📬",
+      "definition": "The best stress-relief material.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "spandex",
+      "name": "Spandex",
+      "emoji": "🩱",
+      "definition": "Stretches 500%; zero drag, all fashion.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "flubber",
+      "name": "Flubber",
+      "emoji": "🟢",
+      "definition": "Bounces higher with every drop; chaos ensues.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "unobtanium_2",
+      "name": "Unobtanium-2",
+      "emoji": "💰",
+      "definition": "The stuff you actually use in the shop.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "student_loan",
+      "name": "Student Loan",
+      "emoji": "📜",
+      "definition": "Composite of debt and dreams; 30-year payoff.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "coffee",
+      "name": "Coffee",
+      "emoji": "☕",
+      "definition": "The true composite enabler; graduate student fuel.",
+      "tier": 4,
+      "category": "fun"
+    },
+    {
+      "id": "bondo",
+      "name": "Bondo",
+      "emoji": "🚗",
+      "definition": "Auto body filler; hides rust, never hides shame.",
+      "tier": 4,
+      "category": "fun"
+    }
+  ]
+}
