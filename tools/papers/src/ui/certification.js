@@ -3,7 +3,7 @@
 //         earlier design + test choices.
 // Step B: a piece of bureaucratic correspondence with a paid Translate option.
 
-import { state, save } from '../state.js';
+import { state, save, canSpend } from '../state.js';
 import { getMaterial, getPart } from '../content/materials.js';
 import { renderDocDesk } from '../minigames/docverify.js';
 import { getMorale, applyModifiers } from '../engine/events.js';
@@ -101,8 +101,8 @@ export function renderCertification(container, ctx) {
         const check = checks.find(c => c.id === checkId);
         if (method === 'correct') {
           const cost = check.correctCost;   // already modifier-adjusted at build
-          if (state.budget < cost)
-            return { ok: false, message: `Not enough budget to correct this (${cost}).` };
+          if (!canSpend(cost))
+            return { ok: false, message: `Beyond your cash + credit (${cost}).` };
           state.budget -= cost;
           state.competitorProgress = Math.min(100, state.competitorProgress + 3);
           p.certification.resolved[checkId] = 'corrected';
@@ -156,7 +156,7 @@ export function renderCertification(container, ctx) {
       const tr = container.querySelector('#translate');
       if (tr) tr.addEventListener('click', () => {
         const cost = getMorale(translator.id) >= GUNTHER_FREE_MORALE ? 0 : applyModifiers('cert-fee', TRANSLATE_BASE_COST);
-        if (state.budget < cost) { outcome = 'Not enough budget for a translation.'; return draw(); }
+        if (!canSpend(cost)) { outcome = 'Beyond your cash + credit for a translation.'; return draw(); }
         state.budget -= cost;
         save(); ctx.refreshHud();
         translated = true; draw();

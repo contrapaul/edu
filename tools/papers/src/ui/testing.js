@@ -3,7 +3,7 @@
 // the others resolve automatically from the design choices. Results land in
 // product.testResults and are read by certification (Chunk 5).
 
-import { state, save } from '../state.js';
+import { state, save, canSpend } from '../state.js';
 import { getMaterial, getProcess, getPart } from '../content/materials.js';
 import { renderEmc } from '../minigames/emc.js';
 import { renderDropTest } from '../minigames/droptest.js';
@@ -86,7 +86,7 @@ export function renderTesting(container, ctx) {
     const cards = cfg.tests.map(t => {
       const res = resultFor(t.id);
       const cost = testCost(t);
-      const affordable = state.budget >= cost;
+      const affordable = canSpend(cost);
       const surcharge = cost > t.cost ? ' <span class="cost-up">▲</span>' : cost < t.cost ? ' <span class="cost-down">▼</span>' : '';
       // After a non-pass result you can re-test. Interactive tests let you
       // replay the mini-game; auto tests are fixed by your design, so we say so
@@ -173,7 +173,7 @@ export function renderTesting(container, ctx) {
   function runTest(id) {
     const test = cfg.tests.find(t => t.id === id);
     const cost = test ? testCost(test) : 0;
-    if (!test || state.budget < cost || resultFor(id)) return;
+    if (!test || !canSpend(cost) || resultFor(id)) return;
 
     // Charge the (modifier-adjusted) fee and the days the lab takes (payroll runs).
     state.budget -= cost;

@@ -23,7 +23,8 @@ function blankState() {
 
     // --- economy / simulation (Stage E fills clock/ledger/market) ---
     clock: { day: 0 },
-    bankrupt: false,        // tripped when payroll/spend drives cash below zero
+    creditLimit: 0,         // how far cash may go negative (a credit line) before insolvency
+    bankrupt: false,        // tripped only when debt blows past the credit limit
     ledger: [],             // dated { day, label, amount } entries (amount<0 = expense)
     competitor: { progress: 0, launched: false, capabilities: {}, intel: 0 },
     markets: [],            // post-launch ongoing per-product sales states (concurrent)
@@ -48,6 +49,9 @@ export function newGame(characterId) {
   state = blankState();
   state.character = characterId;
   state.budget = character.startBudget;
+  // A credit line worth half the starting cash: room to weather payroll and
+  // finance a production run, but not infinite.
+  state.creditLimit = Math.round(character.startBudget * 0.5);
   state.staffMorale = Object.fromEntries(character.staff.map(s => [s.id, 70]));
   save();
   return state;
@@ -105,6 +109,19 @@ export function unlockRegulation(id) {
   }
 }
 
+// Cash you can still spend = current cash plus the unused credit line.
+export function spendable() {
+  return state.budget + (state.creditLimit || 0);
+}
+// Can this cost be covered without blowing past the credit line?
+export function canSpend(cost) {
+  return cost <= spendable();
+}
+// Current debt (0 when in the black).
+export function debt() {
+  return state.budget < 0 ? -state.budget : 0;
+}
+
 export function save() {
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
@@ -121,6 +138,11 @@ export function load() {
     const parsed = JSON.parse(raw);
     if (!parsed || parsed.version !== 2 || !parsed.character) return null;
     state = { ...blankState(), ...parsed };
+    // Backfill a credit line for saves made before the loan system existed.
+    if (!state.creditLimit) {
+      const ch = getCharacter(state.character);
+      state.creditLimit = ch ? Math.round(ch.startBudget * 0.5) : 50000;
+    }
     return state;
   } catch (e) {
     console.warn('Could not load game:', e);

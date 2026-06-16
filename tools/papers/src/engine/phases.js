@@ -16,6 +16,7 @@ import { advanceTime } from './events.js';
 import { enqueuePhaseEmails, unreadCount, openInbox } from '../ui/inbox.js';
 import { unlockedCount, openLibrary } from '../ui/library.js';
 import { openPortfolio, activeMarketCount } from '../ui/portfolio.js';
+import { openFinances } from '../ui/finances.js';
 import { openSandbox } from '../ui/sandbox.js';
 
 const PHASE_LABELS = {
@@ -72,6 +73,7 @@ function hudHTML(character, def) {
       <div class="hud-tools">
         <button class="hud-tool" data-tool="library" title="Regulatory Library" aria-label="Regulatory Library, ${unlockedCount()} unlocked"><span aria-hidden="true">📋</span><span class="hud-badge">${unlockedCount()}</span></button>
         <button class="hud-tool" data-tool="inbox" title="Inbox" aria-label="Inbox, ${unreadCount()} unread"><span aria-hidden="true">✉</span>${unreadCount() ? `<span class="hud-badge unread">${unreadCount()}</span>` : ''}</button>
+        <button class="hud-tool" data-tool="finances" title="Finances — where the money went" aria-label="Finances"><span aria-hidden="true">💰</span>${state.budget < 0 ? '<span class="hud-badge unread">!</span>' : ''}</button>
         ${state.markets.length ? `<button class="hud-tool" data-tool="portfolio" title="Market Portfolio" aria-label="Market portfolio, ${activeMarketCount()} selling"><span aria-hidden="true">📈</span>${activeMarketCount() ? `<span class="hud-badge">${activeMarketCount()}</span>` : ''}</button>` : ''}
         <button class="hud-tool" data-tool="sandbox" title="Operations (sandbox)" aria-label="Operations panel"><span aria-hidden="true">🌐</span>${state.worldEvents.length ? `<span class="hud-badge unread">!</span>` : ''}</button>
       </div>
@@ -80,10 +82,19 @@ function hudHTML(character, def) {
           <span class="hud-clock-n">${clockLabel(state.clock.day)}</span>
           <span class="hud-clock-l">Timeline</span>
         </div>
-        <div class="hud-budget">
-          <span class="hud-budget-n">${money(state.budget)}</span>
-          <span class="hud-budget-l">Cash</span>
-        </div>
+        ${(() => {
+          const cl = state.creditLimit || 0;
+          const onCredit = state.budget < 0;
+          const left = cl + state.budget;            // remaining credit when in the red
+          const near = onCredit && left < cl * 0.25;
+          const title = onCredit
+            ? `Operating on your credit line: ${money(-state.budget)} borrowed of ${money(cl)}. Interest accrues monthly; exceed the limit and the company is insolvent.`
+            : `Company cash. Credit line available: ${money(cl)}.`;
+          return `<div class="hud-budget${onCredit ? ' on-credit' : ''}${near ? ' warn' : ''}" title="${title}">
+            <span class="hud-budget-n">${money(state.budget)}</span>
+            <span class="hud-budget-l">${onCredit ? `On credit · ${money(left)} left` : 'Cash'}</span>
+          </div>`;
+        })()}
         ${state.product ? `<div class="hud-unitcost" title="Bill-of-materials cost per device, from your component choices.">
           <span class="hud-unitcost-n">${state.product.unitCost > 0 ? '$' + state.product.unitCost.toFixed(2) : '—'}</span>
           <span class="hud-unitcost-l">/ device</span>
@@ -198,11 +209,13 @@ function repaintHud(root, character, def, rerender) {
 function bindTools(root, character, def, rerender) {
   const lib = root.querySelector('[data-tool="library"]');
   const inbox = root.querySelector('[data-tool="inbox"]');
+  const finances = root.querySelector('[data-tool="finances"]');
   const portfolio = root.querySelector('[data-tool="portfolio"]');
   const sandbox = root.querySelector('[data-tool="sandbox"]');
   const hudRefresh = () => repaintHud(root, character, def, rerender);
   if (lib) lib.addEventListener('click', () => openLibrary(hudRefresh));
   if (inbox) inbox.addEventListener('click', () => openInbox(hudRefresh));
+  if (finances) finances.addEventListener('click', () => openFinances(hudRefresh));
   if (portfolio) portfolio.addEventListener('click', () => openPortfolio(hudRefresh));
   // Sandbox changes can alter phase costs, so closing it re-renders the phase.
   if (sandbox) sandbox.addEventListener('click', () => openSandbox({ def, refreshHud: hudRefresh }, rerender));
@@ -212,14 +225,21 @@ function bindTools(root, character, def, rerender) {
     li.addEventListener('click', () => { setPhase(li.dataset.phase); rerender(); }));
 }
 
-// Out of cash before launch — payroll and spending outran the bank account.
+// Debt blew past the credit line — the bank has called the loan. Show the last
+// transactions so the failure is never a mystery ("how did this happen?").
 function renderBankrupt(root, character, onQuit) {
+  const recent = (state.ledger || []).slice(-8).reverse().map(e =>
+    `<tr><td>d${e.day}</td><td>${e.label}</td><td class="${e.amount < 0 ? 'neg' : 'pos'}">${money(e.amount)}</td></tr>`).join('');
   root.innerHTML = `
     <div class="screen placeholder bankrupt">
       <div class="stamp stamp-red" aria-hidden="true">INSOLVENT</div>
-      <h1>${character.company} has run out of money.</h1>
-      <p class="ph-note">Payroll and development costs drained the account before you could launch.
-        In product development, time is money — every week of delay, redesign and re-testing is salary you still owe.</p>
+      <h1>${character.company} has defaulted.</h1>
+      <p class="ph-note">Debt of ${money(-state.budget)} pushed past your ${money(state.creditLimit)} credit line and the bank has called the loan.
+        In product development, time is money — every week of delay, redesign and re-testing is salary and interest you still owe.</p>
+      <table class="market-table ledger-table">
+        <thead><tr><th>Day</th><th>Where the money went</th><th>Amount</th></tr></thead>
+        <tbody>${recent || '<tr><td colspan="3" class="market-empty">No transactions recorded.</td></tr>'}</tbody>
+      </table>
       <button class="title-btn" data-action="quit">← Back to title</button>
     </div>`;
   root.querySelector('[data-action="quit"]').addEventListener('click', onQuit);

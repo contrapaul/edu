@@ -14,6 +14,8 @@ const clamp = (n, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, n));
 // --- Stage E: company clock, payroll, ledger -------------------------------
 // Every staff member draws a monthly salary; time spent developing burns it.
 export const SALARY_PER_STAFF_MONTH = 5000;
+// Monthly interest charged on a negative balance (the credit line).
+export const CREDIT_MONTHLY_RATE = 0.04;
 
 // Record a dated money movement (amount < 0 = expense) for the reports.
 export function logLedger(label, amount) {
@@ -33,7 +35,17 @@ export function advanceTime(days, label = 'Development') {
   }
   // Background markets sell into the elapsed time (banks revenue, may recover cash).
   tickMarkets();
-  if (state.budget < 0) state.bankrupt = true;
+  // If still in the red after revenue, the credit line charges interest.
+  if (state.budget < 0) {
+    const interest = Math.round(-state.budget * CREDIT_MONTHLY_RATE * (days / 30));
+    if (interest > 0) {
+      state.budget -= interest;
+      logLedger(`Loan interest (${days}d on credit)`, -interest);
+    }
+  }
+  // Insolvent only once debt blows past the credit line — not the instant cash
+  // dips below zero. Up to the limit you're simply operating on credit.
+  if (state.budget < -(state.creditLimit || 0)) state.bankrupt = true;
   save();
 }
 

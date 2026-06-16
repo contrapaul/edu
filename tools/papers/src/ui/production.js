@@ -5,7 +5,7 @@
 // order spends real cash: qty × cost-per-device + setup. Over-order and unsold
 // units are dead loss; under-order and you cap your own sales.
 
-import { state, save } from '../state.js';
+import { state, save, canSpend, spendable } from '../state.js';
 import { applyModifiers, advanceTime } from '../engine/events.js';
 import { unitCost } from '../engine/economy.js';
 
@@ -52,13 +52,17 @@ export function renderProduction(container, ctx) {
   function render() {
     p.unitCost = unitCost(p, def);   // keep the HUD chip in sync (BOM, +assembly once chosen)
 
+    const committed = !!m.factory;
+    const sel = m.factory || m.factorySel;   // committed wins; otherwise the preview pick
     const factories = cfg.factories.map(f => {
-      const on = m.factory === f.id ? ' on' : '';
+      const on = sel === f.id ? ' on' : '';
+      // After commitment the others dim out — no shopping around for easier QC.
+      const lockCls = committed ? (m.factory === f.id ? ' locked' : ' dimmed') : '';
       const setup = applyModifiers('factory-setup', f.setup);
       const tag = setup < f.setup ? ' <span class="cost-down">▼</span>' : setup > f.setup ? ' <span class="cost-up">▲</span>' : '';
       const per = typeof f.perUnit === 'number' ? f.perUnit : f.cost;
-      return `<button class="opt factory-opt${on}" data-factory="${f.id}">
-        <span class="opt-name">${f.name}<span class="opt-unitcost">+${money2(per)}/unit</span></span>
+      return `<button class="opt factory-opt${on}${lockCls}" data-factory="${f.id}" ${committed ? 'disabled' : ''}>
+        <span class="opt-name">${f.name}<span class="opt-unitcost">+${money2(per)}/unit</span>${m.factory === f.id ? ' <span class="opt-lock">🔒 locked in</span>' : ''}</span>
         <span class="opt-props">
           <span>Quality ${dots(f.quality)}</span>
           <span>Speed ${dots(f.speed)}</span>
@@ -68,6 +72,17 @@ export function renderProduction(container, ctx) {
         <span class="opt-note">${f.note}</span>
       </button>`;
     }).join('');
+
+    // Lock-in gate: until you commit a partner you only see ratings, not their
+    // QC reality. Committing rolls the first-article findings and reveals the rest.
+    const lockGate = committed
+      ? `<p class="partner-locked">🔒 Locked in: <b>${factoryOf(m.factory).name}</b>. Their first production run is in — inspect it below.</p>`
+      : `<div class="phase-actions partner-lock">
+          <button class="btn-primary" id="lock-partner" ${m.factorySel ? '' : 'disabled'}>Lock in this partner →</button>
+          <span class="confirm-msg">${m.factorySel
+            ? `Commit to ${factoryOf(m.factorySel).name}. You'll inspect their first run and can't shop around after — you're choosing on reputation, not a sneak peek.`
+            : 'Select a partner to commit to.'}</span>
+        </div>`;
 
     // Everything past the partner choice is revealed only once a partner is set.
     let postFactory = '';
@@ -127,8 +142,9 @@ export function renderProduction(container, ctx) {
         <p class="phase-intro">${cfg.intro}</p>
 
         <h2>1 · Assembly partner</h2>
-        <p class="panel-hint">The partner adds a per-unit assembly cost on top of your bill of materials, plus a one-time setup fee. Choose one to inspect its first production run.</p>
+        <p class="panel-hint">The partner adds a per-unit assembly cost on top of your bill of materials, plus a one-time setup fee. Pick on reputation — quality, speed, and compliance — then lock one in to see the first run they actually deliver.</p>
         <div class="opt-grid">${factories}</div>
+        ${lockGate}
 
         ${postFactory}
       </div>`;
@@ -138,16 +154,23 @@ export function renderProduction(container, ctx) {
   }
 
   function bind() {
-    container.querySelectorAll('[data-factory]').forEach(b =>
-      b.addEventListener('click', () => {
-        m.factory = b.dataset.factory;
+    // Before commitment, clicking a partner is just a preview selection. After
+    // commitment the cards are disabled, so there's nothing to bind.
+    if (!m.factory) {
+      container.querySelectorAll('[data-factory]').forEach(b =>
+        b.addEventListener('click', () => { m.factorySel = b.dataset.factory; save(); render(); }));
+
+      const lockBtn = container.querySelector('#lock-partner');
+      if (lockBtn) lockBtn.addEventListener('click', () => {
+        if (!m.factorySel) return;
+        m.factory = m.factorySel;                       // the commitment
         const f = factoryOf(m.factory);
         m.assemblyPerUnit = typeof f.perUnit === 'number' ? f.perUnit : f.cost;
-        if (m.findingsFactory !== m.factory) rollFindings();
-        save(); render(); ctx.refreshHud();   // render() refreshes p.unitCost (incl. assembly) before the HUD repaints
-      }));
-
-    if (!m.factory) return;
+        rollFindings();                                 // discover their QC reality now
+        save(); render(); ctx.refreshHud();             // render() refreshes p.unitCost (incl. assembly) before the HUD repaints
+      });
+      return;
+    }
 
     container.querySelectorAll('[data-fa]').forEach(b =>
       b.addEventListener('click', () => {
@@ -197,6 +220,7 @@ export function renderProduction(container, ctx) {
     const cashAfter = state.budget - cost;
     const marginClass = margin >= 0 ? 'pos' : 'neg';
 
+    const onCredit = cashAfter < 0;
     const readout = container.querySelector('#order-readout');
     if (readout) {
       readout.innerHTML = `
@@ -204,12 +228,12 @@ export function renderProduction(container, ctx) {
         <div class="order-row"><span>Margin per device</span><b class="${marginClass}">${money2(margin)}</b></div>
         <div class="order-row"><span>Setup (one-time)</span><b>${money(setupCost())}</b></div>
         <div class="order-row total"><span>Production order (${(p.orderQty||0).toLocaleString('en-US')} units)</span><b>${money(cost)}</b></div>
-        <div class="order-row"><span>Cash after order</span><b class="${cashAfter < 0 ? 'neg' : 'pos'}">${money(cashAfter)}</b></div>`;
+        <div class="order-row"><span>Cash after order</span><b class="${onCredit ? 'neg' : 'pos'}">${money(cashAfter)}${onCredit ? ' (on credit)' : ''}</b></div>`;
     }
 
     const allInspected = findingItems().every(i => m.inspection[i.id]);
     const mv = marksValid();
-    const affordable = cost <= state.budget;
+    const affordable = canSpend(cost);   // may dip into the credit line
     const qtyOk = (p.orderQty || 0) > 0;
     const ready = m.factory && allInspected && mv.ok && qtyOk && affordable;
 
@@ -221,7 +245,7 @@ export function renderProduction(container, ctx) {
       : mv.missing.length ? `Missing required mark: ${mv.missing.map(x => x.label).join(', ')}.`
       : mv.falseMarks.length ? `Remove false mark: ${mv.falseMarks.map(x => x.label).join(', ')}.`
       : !qtyOk ? 'Set an order quantity.'
-      : !affordable ? `Order costs ${money(cost)} — more than your ${money(state.budget)} cash.`
+      : !affordable ? `Order costs ${money(cost)} — beyond your ${money(spendable())} of cash + credit.`
       : '';
   }
 
