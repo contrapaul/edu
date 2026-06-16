@@ -1,313 +1,324 @@
-/* ─── RESET ─── */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* ── OVERRIDE ROOT BODY FOR FULL-HEIGHT APP ─────────────── */
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #0f1117;
-    color: #e8edf5;
+    overflow: hidden;
     height: 100vh;
+}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────────── */
+.craft-main {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    user-select: none;
-    overflow: hidden;
-}
-
-/* ─── HEADER ─── */
-header {
-    background: #1a1d26;
-    padding: 10px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #2a2f3a;
-    flex-shrink: 0;
-    z-index: 10;
-}
-header h1 {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    background: linear-gradient(135deg, #f0c27f, #fc4a1a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-header .stats {
-    display: flex;
-    gap: 24px;
-    font-size: 14px;
-    color: #9aa4bf;
-}
-header .stats span {
-    background: #262c38;
-    padding: 4px 14px;
-    border-radius: 20px;
-    color: #e8edf5;
-}
-header .stats strong {
-    color: #f0c27f;
-}
-#resetBtn {
-    background: #2f3545;
-    border: none;
-    color: #e8edf5;
-    padding: 6px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    transition: 0.2s;
-}
-#resetBtn:hover {
-    background: #3f465a;
-}
-
-/* ─── MAIN LAYOUT ─── */
-.app {
-    display: flex;
-    flex: 1;
     min-height: 0;
 }
 
-/* ─── LEFT: INVENTORY ─── */
-.inventory {
+/* ── TOOLBAR ─────────────────────────────────────────────── */
+.craft-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.5rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+.craft-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.01em;
+}
+.craft-stats {
+    display: flex;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+.craft-stat {
+    font-size: 0.82rem;
+    background: var(--surface-2);
+    color: var(--muted);
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+}
+.craft-stat strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+.craft-reset-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.3rem 0.9rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.craft-reset-btn:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--surface);
+}
+
+/* ── GAME LAYOUT: INVENTORY + WORKBENCH ─────────────────── */
+.craft-app {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+}
+
+/* ── INVENTORY (LEFT SIDEBAR) ────────────────────────────── */
+.craft-inventory {
     width: 260px;
-    background: #161a22;
-    border-right: 2px solid #232833;
+    background: var(--surface-2);
+    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
 }
-.inventory h2 {
-    font-size: 14px;
-    font-weight: 600;
+.craft-inv-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #6e7a93;
-    padding: 14px 16px 8px;
-    border-bottom: 1px solid #232833;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 0.875rem 1rem 0.5rem;
+    border-bottom: 1px solid var(--border);
 }
-.inv-list {
+.craft-inv-list {
     flex: 1;
     overflow-y: auto;
-    padding: 8px 8px 8px 12px;
+    padding: 0.5rem 0.5rem 0.5rem 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
 }
-.inv-list::-webkit-scrollbar {
-    width: 4px;
-}
-.inv-list::-webkit-scrollbar-thumb {
-    background: #2f3545;
-    border-radius: 4px;
-}
-.inv-item {
+.craft-inv-list::-webkit-scrollbar { width: 4px; }
+.craft-inv-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.craft-inv-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 6px 10px;
-    border-radius: 8px;
+    gap: 0.625rem;
+    padding: 0.35rem 0.625rem;
+    border-radius: var(--radius);
     cursor: grab;
-    transition: 0.15s;
-    font-size: 14px;
-    background: transparent;
+    transition: background 0.12s;
+    font-size: 0.875rem;
     border: 1px solid transparent;
+    color: var(--text);
 }
-.inv-item:hover {
-    background: #1f2532;
-    border-color: #2f3545;
+.craft-inv-item:hover {
+    background: var(--surface);
+    border-color: var(--border);
 }
-.inv-item:active {
+.craft-inv-item:active {
     cursor: grabbing;
-    background: #2a3142;
+    background: var(--surface);
 }
-.inv-item .emoji {
-    font-size: 20px;
-    width: 28px;
+.craft-inv-item .emoji {
+    font-size: 1.25rem;
+    width: 1.75rem;
     text-align: center;
     flex-shrink: 0;
 }
-.inv-item .name {
+.craft-inv-item .name {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.inv-item .badge-tier {
+.craft-badge-tier {
     margin-left: auto;
-    font-size: 10px;
-    background: #262c38;
-    padding: 1px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1px 0.5rem;
     border-radius: 12px;
-    color: #6e7a93;
+    color: var(--muted);
     flex-shrink: 0;
 }
 
-/* ─── CENTER: WORKBENCH ─── */
-.workbench {
+/* ── WORKBENCH (CENTER) ──────────────────────────────────── */
+.craft-workbench {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px 30px;
+    padding: 1.25rem 1.75rem;
     min-width: 0;
+    background: var(--bg);
 }
-.workbench .drop-zone {
+.craft-drop-zone {
     flex: 1;
-    border: 3px dashed #2a2f3a;
-    border-radius: 20px;
+    border: 3px dashed var(--border);
+    border-radius: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: 0.25s;
-    background: #11151e;
+    transition: border-color 0.25s, background 0.25s;
+    background: var(--surface);
     position: relative;
     min-height: 200px;
 }
-.workbench .drop-zone.drag-over {
-    border-color: #f0c27f;
-    background: #1a1f2b;
-    box-shadow: inset 0 0 60px rgba(240, 194, 127, 0.05);
+.craft-drop-zone.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-bg);
 }
-.drop-zone .placeholder {
-    color: #4a5368;
-    font-size: 16px;
+.craft-placeholder {
+    color: var(--muted);
+    font-size: 0.95rem;
     text-align: center;
     pointer-events: none;
+    line-height: 1.6;
 }
-.drop-zone .placeholder .big-emoji {
-    font-size: 52px;
+.craft-big-emoji {
+    font-size: 3rem;
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
 }
-.drop-zone .slots {
+.craft-slots {
     display: flex;
-    gap: 30px;
+    gap: 1.75rem;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
+    padding: 1.25rem;
 }
-.drop-zone .slot {
-    background: #1f2532;
-    border-radius: 16px;
-    padding: 16px 24px;
-    min-width: 120px;
-    min-height: 80px;
+.craft-slot {
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    min-width: 110px;
+    min-height: 72px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #2f3545;
-    transition: 0.2s;
-    font-size: 14px;
-    gap: 4px;
+    border: 2px dashed var(--border);
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 0.875rem;
+    gap: 0.25rem;
     cursor: pointer;
+    color: var(--text);
 }
-.drop-zone .slot.filled {
+.craft-slot.filled {
     border-style: solid;
-    border-color: #3a4258;
-    background: #1f2532;
+    border-color: var(--border-strong);
+    background: var(--surface);
 }
-.drop-zone .slot .emoji {
-    font-size: 32px;
+.craft-slot .emoji {
+    font-size: 2rem;
 }
-.drop-zone .slot .label {
-    font-size: 12px;
-    color: #6e7a93;
+.craft-slot.drag-hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
 }
-.drop-zone .plus {
-    font-size: 32px;
-    color: #3a4258;
+.craft-slot .label {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+.craft-plus {
+    font-size: 2rem;
+    color: var(--border-strong);
     font-weight: 300;
 }
-.drop-zone .combine-btn {
-    margin-top: 20px;
-    background: #f0c27f;
-    color: #0f1117;
+.craft-combine-btn {
+    margin-top: 1.25rem;
+    background: var(--accent);
+    color: #fff;
     border: none;
-    padding: 10px 32px;
+    padding: 0.6rem 2rem;
     border-radius: 40px;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: 0.2s;
-    letter-spacing: 0.3px;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+    font-family: var(--font-body);
 }
-.drop-zone .combine-btn:hover:not(:disabled) {
+.craft-combine-btn:hover:not(:disabled) {
+    opacity: 0.88;
     transform: scale(1.04);
-    background: #f5d094;
 }
-.drop-zone .combine-btn:disabled {
-    opacity: 0.3;
+.craft-combine-btn:disabled {
+    opacity: 0.25;
     cursor: not-allowed;
     transform: none;
 }
-.drop-zone .clear-slots {
+.craft-clear-slots {
     background: transparent;
     border: none;
-    color: #5a647a;
+    color: var(--muted);
     cursor: pointer;
-    font-size: 12px;
-    margin-top: 8px;
+    font-size: 0.72rem;
+    margin-top: 0.5rem;
     text-decoration: underline;
+    font-family: var(--font-body);
 }
-.drop-zone .clear-slots:hover {
-    color: #8a94aa;
+.craft-clear-slots:hover {
+    color: var(--text);
 }
 
-/* ─── TOAST / DISCOVERY POPUP ─── */
-.toast-container {
+/* ── TOAST / DISCOVERY POPUP ─────────────────────────────── */
+.craft-toast-container {
     position: fixed;
-    top: 80px;
-    right: 24px;
+    top: 90px;
+    right: 1.5rem;
     z-index: 999;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
     max-width: 360px;
     pointer-events: none;
 }
-.toast {
-    background: #1f2532;
-    border-left: 4px solid #f0c27f;
-    border-radius: 12px;
-    padding: 16px 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-    animation: slideIn 0.35s ease;
+.craft-toast {
+    background: var(--surface);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    animation: craftSlideIn 0.35s ease;
     pointer-events: auto;
     display: flex;
-    gap: 14px;
+    gap: 0.875rem;
     align-items: flex-start;
+    border: 1px solid var(--border);
 }
-.toast .emoji {
-    font-size: 32px;
+.craft-toast .emoji {
+    font-size: 2rem;
     flex-shrink: 0;
 }
-.toast .content {
+.craft-toast .content {
     flex: 1;
 }
-.toast .content .name {
+.craft-toast .content .name {
     font-weight: 700;
-    font-size: 16px;
-    color: #f0c27f;
+    font-size: 0.95rem;
+    color: var(--accent);
 }
-.toast .content .def {
-    font-size: 13px;
-    color: #b0bcca;
-    margin-top: 2px;
-    line-height: 1.4;
+.craft-toast .content .def {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.125rem;
+    line-height: 1.45;
 }
-.toast .content .tier {
-    font-size: 11px;
-    color: #6e7a93;
-    margin-top: 4px;
+.craft-toast .content .tier {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
 }
-@keyframes slideIn {
+
+@keyframes craftSlideIn {
     from {
         opacity: 0;
-        transform: translateX(40px);
+        transform: translateX(2.5rem);
     }
     to {
         opacity: 1;
@@ -315,25 +326,55 @@ header .stats strong {
     }
 }
 
-/* ─── RESPONSIVE ─── */
+/* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 720px) {
-    .inventory {
+    .craft-inventory {
         width: 180px;
     }
-    .workbench {
-        padding: 12px;
+    .craft-workbench {
+        padding: 0.75rem;
     }
-    .drop-zone .slot {
-        min-width: 80px;
-        min-height: 60px;
-        padding: 10px 14px;
+    .craft-slot {
+        min-width: 72px;
+        min-height: 56px;
+        padding: 0.625rem 0.875rem;
     }
-    header h1 {
-        font-size: 16px;
+    .craft-toolbar {
+        padding: 0.4rem 0.75rem;
+        gap: 0.75rem;
+        flex-wrap: wrap;
     }
-    .toast-container {
-        right: 12px;
-        left: 12px;
+    .craft-title {
+        font-size: 1rem;
+    }
+    .craft-stat {
+        font-size: 0.72rem;
+        padding: 0.15rem 0.5rem;
+    }
+    .craft-toast-container {
+        right: 0.75rem;
+        left: 0.75rem;
         max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .craft-inventory {
+        width: 140px;
+    }
+    .craft-inv-item {
+        font-size: 0.78rem;
+        padding: 0.25rem 0.4rem;
+    }
+    .craft-inv-item .emoji {
+        font-size: 1rem;
+        width: 1.25rem;
+    }
+    .craft-badge-tier {
+        display: none;
+    }
+    .craft-stats {
+        flex-direction: column;
+        gap: 0.25rem;
     }
 }

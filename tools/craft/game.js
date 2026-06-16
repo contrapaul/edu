@@ -115,13 +115,13 @@ function renderInventory() {
     invList.innerHTML = '';
     items.forEach(d => {
         const div = document.createElement('div');
-        div.className = 'inv-item';
+        div.className = 'craft-inv-item';
         div.draggable = true;
         div.dataset.id = d.id;
         div.innerHTML = `
             <span class="emoji">${d.emoji}</span>
             <span class="name">${d.name}</span>
-            <span class="badge-tier">T${d.tier}</span>
+            <span class="craft-badge-tier">T${d.tier}</span>
         `;
         div.addEventListener('dragstart', (e) => {
             dragData = d.id;
@@ -157,7 +157,7 @@ function renderSlots() {
     slotsContainer.innerHTML = '';
     slots.forEach((id, idx) => {
         const div = document.createElement('div');
-        div.className = 'slot' + (id ? ' filled' : '');
+        div.className = 'craft-slot' + (id ? ' filled' : '');
         if (id) {
             const d = getDiscovery(id);
             div.innerHTML = `
@@ -174,14 +174,14 @@ function renderSlots() {
         div.addEventListener('dragover', (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'copy';
-            div.style.borderColor = '#f0c27f';
+            div.classList.add('drag-hover');
         });
         div.addEventListener('dragleave', () => {
-            div.style.borderColor = '';
+            div.classList.remove('drag-hover');
         });
         div.addEventListener('drop', (e) => {
             e.preventDefault();
-            div.style.borderColor = '';
+            div.classList.remove('drag-hover');
             const data = e.dataTransfer.getData('text/plain');
             if (data && discovered.has(data)) {
                 slots[idx] = data;
@@ -192,7 +192,7 @@ function renderSlots() {
 
         if (idx === 0) {
             const plus = document.createElement('span');
-            plus.className = 'plus';
+            plus.className = 'craft-plus';
             plus.textContent = '+';
             slotsContainer.appendChild(plus);
         }
@@ -209,7 +209,7 @@ function updateStats() {
 
 function showDiscovery(d) {
     const toast = document.createElement('div');
-    toast.className = 'toast';
+    toast.className = 'craft-toast';
     toast.innerHTML = `
         <span class="emoji">${d.emoji}</span>
         <div class="content">
@@ -226,14 +226,13 @@ function showDiscovery(d) {
     }, 6000);
 }
 
-function showToast(emoji, message, color = '#f0c27f') {
+function showToast(emoji, message) {
     const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.style.borderLeftColor = color;
+    toast.className = 'craft-toast';
     toast.innerHTML = `
         <span class="emoji">${emoji}</span>
         <div class="content">
-            <div class="def" style="color:#e8edf5;">${message}</div>
+            <div class="def">${message}</div>
         </div>
     `;
     toastContainer.appendChild(toast);
@@ -272,7 +271,7 @@ function combine() {
     const newIds = matchIds.filter(id => !discovered.has(id));
 
     if (newIds.length === 0) {
-        showToast('🧪', 'No new combination found. Try different materials!', '#4a5368');
+        showToast('🧪', 'No new combination found. Try different materials!');
         slots = [null, null];
         renderSlots();
         return;
@@ -295,7 +294,7 @@ function combine() {
     updateStats();
 
     if (discoveredItems.length > 1) {
-        showToast('🎉', `Discovered ${discoveredItems.length} new materials!`, '#f0c27f');
+        showToast('🎉', `Discovered ${discoveredItems.length} new materials!`);
     }
 }
 
@@ -314,7 +313,7 @@ function resetGame() {
         renderInventory();
         updateStats();
         toastContainer.innerHTML = '';
-        showToast('🔄', 'Game reset. Start combining!', '#f0c27f');
+        showToast('🔄', 'Game reset. Start combining!');
     }
 }
 
@@ -365,7 +364,7 @@ function initGame() {
     updateStats();
 
     setTimeout(() => {
-        showToast('🧪', 'Welcome to Composite Craft! Drag materials to the workbench and combine them.', '#f0c27f');
+        showToast('🧪', 'Welcome to Composite Craft! Drag materials to the workbench and combine them.');
     }, 400);
 }
 

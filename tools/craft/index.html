@@ -1,50 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Composite Craft</title>
-    <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Composite Craft — contrapaul edu</title>
+<link rel="stylesheet" href="../style.css" />
+<link rel="stylesheet" href="../curriculum/themes.css" />
+<link rel="stylesheet" href="style.css" />
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
 </head>
 <body>
 
-    <!-- ─── HEADER ─── -->
-    <header>
-        <h1>🧪 Composite Craft</h1>
-        <div class="stats">
-            <span>🔬 <strong id="discoveryCount">0</strong> discovered</span>
-            <span>🏷️ Tier <strong id="maxTier">0</strong></span>
-        </div>
-        <button id="resetBtn">⟳ Reset</button>
-    </header>
+<header class="site-header">
+<div class="header-inner">
+<div class="brand">
+<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
+</div>
+<nav class="nav">
+<a href="/curriculum">Curriculum</a>
+<a href="/tools">Tools</a>
+<a href="/about">About</a>
+<a href="https://contrapaul.com" class="nav-external">← Main site</a>
+</nav>
+</div>
+</header>
 
-    <!-- ─── MAIN ─── -->
-    <div class="app">
-        <!-- Inventory -->
-        <aside class="inventory">
-            <h2>📦 Inventory</h2>
-            <div class="inv-list" id="inventoryList"></div>
-        </aside>
+<main class="craft-main">
 
-        <!-- Workbench -->
-        <main class="workbench">
-            <div class="drop-zone" id="dropZone">
-                <div class="placeholder" id="placeholder">
-                    <span class="big-emoji">🛠️</span>
-                    Drag items from your inventory here<br />
-                    or click an item then click a slot.
-                </div>
-                <div class="slots" id="slotsContainer" style="display:none;"></div>
-                <button class="combine-btn" id="combineBtn" disabled>⚡ Combine</button>
-                <button class="clear-slots" id="clearSlots">Clear slots</button>
-            </div>
-        </main>
+  <div class="craft-toolbar">
+    <h1 class="craft-title">&#x1F9EA; Composite Craft</h1>
+    <div class="craft-stats">
+      <span class="craft-stat">&#x1F52C; <strong id="discoveryCount">0</strong> discovered</span>
+      <span class="craft-stat">&#x1F3F7;&#xFE0F; Tier <strong id="maxTier">0</strong></span>
     </div>
+    <button class="craft-reset-btn" id="resetBtn">&#x27F3; Reset</button>
+  </div>
 
-    <!-- ─── TOAST CONTAINER ─── -->
-    <div class="toast-container" id="toastContainer"></div>
+  <div class="craft-app">
+    <aside class="craft-inventory">
+      <h2 class="craft-inv-title">&#x1F4E6; Inventory</h2>
+      <div class="craft-inv-list" id="inventoryList"></div>
+    </aside>
 
-    <!-- ─── JAVASCRIPT ─── -->
-    <script src="game.js"></script>
+    <section class="craft-workbench">
+      <div class="craft-drop-zone" id="dropZone">
+        <div class="craft-placeholder" id="placeholder">
+          <span class="craft-big-emoji">&#x1F6E0;&#xFE0F;</span>
+          Drag items from your inventory here<br />
+          or click an item then click a slot.
+        </div>
+        <div class="craft-slots" id="slotsContainer" style="display:none;"></div>
+        <button class="craft-combine-btn" id="combineBtn" disabled>&#x26A1; Combine</button>
+        <button class="craft-clear-slots" id="clearSlots">Clear slots</button>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<div class="craft-toast-container" id="toastContainer"></div>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<script src="../curriculum/curriculum-themes.js"></script>
+<script src="game.js"></script>
 </body>
 </html>
