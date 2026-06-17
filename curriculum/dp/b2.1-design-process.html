@@ -7,8 +7,194 @@
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* ── B2.1.1 CASE STUDY CARDS & MODALS ────────────────────────── */
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.case-study-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.case-study-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.case-study-img {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.case-study-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.case-study-card:hover .case-study-img img { transform: scale(1.03); }
+.case-study-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: #fff;
+  text-align: center;
+}
+.case-study-content { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.case-study-phase {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.case-study-content h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+}
+.case-study-content p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.case-study-btn { margin-top: auto; align-self: flex-start; }
+
+/* Modal */
+.case-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  contain: layout style;
+}
+.case-modal.open { display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.case-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.case-modal-content {
+  position: relative;
+  width: min(95vw, 880px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: modal-in 0.2s ease;
+}
+@keyframes modal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.case-modal-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  z-index: 1;
+}
+.case-modal-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 400;
+}
+.case-modal-close {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text);
+}
+.case-modal-close:hover { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.case-modal-body { padding: 1.5rem; max-height: calc(90vh - 80px); overflow-y: auto; }
+
+/* Textbook-style content */
+.case-modal-body .case-phase { margin-bottom: 2rem; }
+.case-modal-body .case-phase-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+}
+.case-modal-body .case-phase h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.case-modal-body .case-phase p { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 0.75rem; }
+.case-modal-body .case-phase ol { padding-left: 1.5rem; margin: 0.75rem 0; }
+.case-modal-body .case-phase li { font-size: 0.88rem; line-height: 1.65; margin-bottom: 0.4rem; }
+.case-modal-body .case-phase strong { font-weight: 600; }
+.case-modal-body .case-phase em { font-style: italic; }
+
+.case-modal-body .case-iteration {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.case-modal-body .case-iteration h4 {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.case-modal-body .case-iteration p { font-size: 0.85rem; line-height: 1.65; color: var(--muted); margin: 0; }
+
+@media (max-width: 600px) {
+  .case-study-grid { grid-template-columns: 1fr; }
+  .case-modal-content { width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
+  .case-modal-header { padding: 0.75rem 1rem; }
+  .case-modal-body { padding: 1rem; }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .case-study-caption { background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
+[data-theme="win95"] .case-study-card,
+[data-theme="dos"] .case-study-card,
+[data-theme="xbox"] .case-study-card,
+[data-theme="nightmare"] .case-study-card,
+[data-theme="hannah"] .case-study-card { box-shadow: none; }
+[data-theme="win95"] .case-modal-content,
+[data-theme="dos"] .case-modal-content,
+[data-theme="xbox"] .case-modal-content,
+[data-theme="nightmare"] .case-modal-content,
+[data-theme="hannah"] .case-modal-content { box-shadow: 4px 4px 0 #000; }
+[data-theme="win95"] .case-modal-close,
+[data-theme="dos"] .case-modal-close,
+[data-theme="xbox"] .case-modal-close,
+[data-theme="nightmare"] .case-modal-close,
+[data-theme="hannah"] .case-modal-close { border-radius: 0; }
+</style>
 </head>
-<body data-curr-type="dp" data-curr-page="b2.1">
+  <body data-curr-type="dp" data-curr-page="b2.1">
 
 <header class="site-header">
 <div class="header-inner">
@@ -132,6 +318,47 @@ Show Chinese · 显示中文
 </ol>
 <p>这个过程是<strong>迭代的</strong>，而非线性的。随着新信息的出现，设计师会循环回到较早的阶段——在原型测试揭示意外的用户需求后重新共情，或在材料约束改变问题时重新定义规格。</p>
 </div>
+  </div>
+
+<div class="case-study-grid">
+  <article class="case-study-card" data-case="xbox">
+    <figure class="case-study-img">
+      <img src="../images/case-xbox.jpg" alt="Original Xbox console (2001)" loading="lazy">
+      <figcaption class="case-study-caption">Original Xbox — 2001</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <span class="case-study-phase">All 5 phases</span>
+      <h4>Microsoft Xbox (2001)</h4>
+      <p>From PC brute force to living-room console: anthropometric crises, hard-drive gambles, and the Controller S pivot.</p>
+      <button class="case-study-btn tool-btn-sm" data-modal="modal-xbox">Read case study →</button>
+    </div>
+  </article>
+
+  <article class="case-study-card" data-case="iphone">
+    <figure class="case-study-img">
+      <img src="../images/case-iphone.jpg" alt="Original iPhone (2007)" loading="lazy">
+      <figcaption class="case-study-caption">iPhone 2G — 2007</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <span class="case-study-phase">All 5 phases</span>
+      <h4>Apple iPhone (2007)</h4>
+      <p>Project Purple: killing the stylus, inventing multi-touch, and the last-minute Gorilla Glass pivot.</p>
+      <button class="case-study-btn tool-btn-sm" data-modal="modal-iphone">Read case study →</button>
+    </div>
+  </article>
+
+  <article class="case-study-card" data-case="walkman">
+    <figure class="case-study-img">
+      <img src="../images/case-walkman.jpg" alt="Sony Walkman TPS-L2 (1979)" loading="lazy">
+      <figcaption class="case-study-caption">Walkman TPS-L2 — 1979</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <span class="case-study-phase">All 5 phases</span>
+      <h4>Sony Walkman (1979)</h4>
+      <p>Removing features to create a revolution: the hacked Pressman prototype and the birth of private audio.</p>
+      <button class="case-study-btn tool-btn-sm" data-modal="modal-walkman">Read case study →</button>
+    </div>
+  </article>
 </div>
 
 </div>
@@ -1025,6 +1252,170 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  CASE STUDY MODALS                                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<div class="case-modal" id="modal-xbox" role="dialog" aria-modal="true" aria-labelledby="modal-xbox-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-xbox-title">Case Study: Microsoft Xbox (2001)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 1</span>
+        <h3>Empathize</h3>
+        <p>In the late '90s, PC gamers enjoyed cutting-edge graphics and online multiplayer, but they paid a steep price: endless troubleshooting, driver conflicts, and complex hardware setups. Meanwhile, console gamers enjoyed seamless plug-and-play simplicity but lacked a robust online infrastructure. Microsoft saw an opportunity in this gap, but first, they had to understand the users they were designing for.</p>
+        <p>Through intensive ethnographic playtests and user observations, the team noted critical friction points. Gamers hated long loading screens that broke immersion. They desperately wanted a unified "friends list" rather than managing separate accounts for every game. More alarmingly, during international testing, the team discovered a glaring anthropometric mismatch: the massive initial controller design was physically uncomfortable for users with smaller hands, particularly in the vital Asian market.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 2</span>
+        <h3>Define</h3>
+        <p>Armed with user data, the engineering and design teams sat down to transform abstract frustrations into concrete Design Specifications. They established a clear problem statement: <em>How might we design a console that brings the raw processing power of a gaming PC into the living room while maintaining the seamless, plug-and-play simplicity of a traditional console?</em></p>
+        <p>This led to a radical departure from industry norms. The team defined strict technical specifications to address user pain points: a built-in 8GB Hard Disk Drive (eliminating the need for expensive, easy-to-lose memory cards) and a built-in broadband Ethernet port, anticipating a future dominated by online networks.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 3</span>
+        <h3>Ideate &amp; Model</h3>
+        <p>The ideation phase was a clash of cultures between hardware engineers and industrial designers. The earliest physical models weren't sleek consoles; they were literally beige, off-the-shelf PC towers repurposed to prove the internal architecture could handle the heat and processing demands.</p>
+        <p>Early concept sketches explored wild, futuristic aesthetics, including literal "X"-shaped metallic enclosures. Industrial designers generated over 50 distinct sketches and physical foam models to explore branding, venting layouts, and ergonomic button placements before settling on the iconic black box with the glowing green jewel.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 4</span>
+        <h3>Design a Solution</h3>
+        <p>Designing the final solution forced the team into brutal compromise. When the massive internal hardware—including a custom NVIDIA GPU and a desktop-grade Intel CPU—was crammed into the final shell, prototype units began overheating and melting internal plastics. Designers had to re-engineer the internal airflow, implementing dual high-performance fans and custom heat sinks.</p>
+        <p>Furthermore, user feedback from field tests forced a dramatic split in the design output: the giant, heavy "Duke" controller was kept for the North American market, but a radically downsized "Controller S" was rapidly engineered to satisfy international ergonomic requirements.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 5</span>
+        <h3>Present a Solution</h3>
+        <p>In January 2001, Bill Gates took the stage at the Consumer Electronics Show (CES) alongside wrestling superstar The Rock to unveil the final product. The presentation relied heavily on transparency and technical dominance.</p>
+        <p>Microsoft distributed detailed cutaway technical drawings to the press, highlighting the clean layout of the motherboard, the intentional routing of IDE cables to minimize interference, and the sheer scale of the power supply. The marketing message was tailored perfectly to the demographic they had researched: <em>"Built by gamers, for gamers."</em></p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The Xbox design process highlights that the design cycle is rarely linear. After initial playtests, the team had to completely re-empathize with Japanese players, re-define their controller specifications, and re-ideate a smaller layout, leading to the Controller S. Additionally, the hard drive was initially deemed a luxury "optional" component due to cost constraints. However, testing showed that the competitors' memory card limitations heavily frustrated users, prompting a late-stage loop back to the definition phase to lock the 8GB HDD in as a core specification.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-iphone" role="dialog" aria-modal="true" aria-labelledby="modal-iphone-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-iphone-title">Case Study: Apple iPhone (2007)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 1</span>
+        <h3>Empathize</h3>
+        <p>Apple's design team, led by Jony Ive, spent hundreds of hours conducting ethnographic studies watching people interact with their mobile devices. They noticed a recurring pattern of frustration: users constantly misplaced their styluses, text entry on tiny plastic keyboards was error-prone, and the mobile internet was a stripped-down, text-only ghost of the real web.</p>
+        <p>Designers mapped out "thumb reach zones" on physical devices, realizing that mobile interaction shouldn't force the human hand to adapt to rigid plastic buttons; the device should adapt to the hand.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 2</span>
+        <h3>Define</h3>
+        <p>The design brief was distilled by Steve Jobs into a historic, three-pronged problem statement: <em>Design a widescreen iPod with touch controls, a revolutionary mobile phone, and a breakthrough internet communications device—all integrated into a single, seamless product.</em></p>
+        <p>The constraints were uncompromising: No physical keyboard. No stylus. The user's finger would be the primary input tool. The minimum product specifications required a massive 3.5-inch capacitive screen, multi-touch gestures, and a fully functional desktop-class operating system (OS X) scaled down for a pocket device.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 3</span>
+        <h3>Ideate &amp; Model</h3>
+        <p>The ideation phase was incredibly chaotic, generating over 200 distinct physical and digital prototypes. Apple split into two competing design tracks. One track, codenamed P1, tried to adapt the existing iPod click-wheel into a phone dialer (which failed miserably during user testing).</p>
+        <p>The second track, P2, experimented with experimental multi-touch glass panels. Designers built giant, iPad-sized plastic slabs bolted to workbenches, wired to external computer towers, just to simulate what scrolling through a list with a finger might feel like. They even used dummy plastic blocks with taped-over screens to test weight, thickness, and pocketability without revealing the software.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 4</span>
+        <h3>Design a Solution</h3>
+        <p>Developing the iPhone required massive breakthroughs in material science and user interface testing. Originally, the screen was meant to be heavy-duty plastic. However, after Steve Jobs carried a prototype in his pocket for a few weeks, he realized keys easily scratched the surface. The design team looped back to source an entirely unreleased material from Corning: Gorilla Glass.</p>
+        <p>Engineers ran over 100 UI tests just to perfect the "rubber-band scrolling" effect (where a list bounces when it hits the bottom), ensuring the software felt physically responsive. Hardware designers redesigned the internal steel band—which doubled as the device's antenna—five times to maintain structural integrity while ensuring cellular reception.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 5</span>
+        <h3>Present a Solution</h3>
+        <p>On January 9, 2007, the iPhone was presented to the world in what is widely considered the most successful product keynote in history. To convince a skeptical public used to physical keyboards, the presentation focused heavily on user interface feedback mechanisms.</p>
+        <p>The live demo highlighted the intuitive "slide to unlock" animation and the magical "pinch-to-zoom" gesture. Technical documentation released alongside the launch illustrated the highly complex layered construction of the display: an LCD screen, a digitizer grid, and a capacitive touch sensor stack working in perfect harmony.</p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The iPhone's development was a masterclass in design agility. Just two months before the official launch, the team realized that the plastic screen formulation was fundamentally flawed for daily use, forcing a sudden loop from the Design a Solution phase back to Material Specifications. Furthermore, early testing with users who had larger fingers revealed high error rates on digital keys, forcing designers to loop back, re-empathize, and rewrite the software algorithms to create a dynamic "invisible" 44-point touch target area that anticipated which letter the user intended to hit next.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-walkman" role="dialog" aria-modal="true" aria-labelledby="modal-walkman-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-walkman-title">Case Study: Sony Walkman TPS-L2 (1979)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 1</span>
+        <h3>Empathize</h3>
+        <p>Masaru Ibuka closely observed the daily habits of urban commuters and teenagers. He noticed business executives carrying heavy, briefcase-sized tape recorders just to listen to audio on trains. Even more fascinatingly, he observed that young people were misusing existing technology—they would press the "record" button on heavy portable dictation machines just to use them as playback devices, completely ignoring the microphone.</p>
+        <p>The deep user insight was clear: there was a massive, unaddressed emotional and functional need for private audio spaces in crowded, public environments.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 2</span>
+        <h3>Define</h3>
+        <p>The design brief was highly restrictive and completely flipped the audio industry on its head: <em>Design a stereo cassette playback device under 500 grams that runs on standard AA batteries and can comfortably fit into a coat pocket.</em></p>
+        <p>Crucially, the engineering team made a radical choice during the definition phase: remove the recording function entirely. In 1979, an audio device that couldn't record was seen as commercial suicide, but the team defined the lack of a microphone as a feature, not a bug, to keep the device compact, lightweight, and entirely focused on high-quality playback.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 3</span>
+        <h3>Ideate &amp; Model</h3>
+        <p>To move quickly, the engineering team bypassed building a prototype from scratch. Instead, they used a donor device—the Sony Pressman, a rugged, mono dictation recorder built for journalists.</p>
+        <p>Engineers hacked the Pressman by ripping out the internal speaker and recording head, replacing them with a custom-engineered stereo amplifier circuit. They built crude physical models using lightweight foam padding and fake leather straps to test how comfortably the device could be worn on a user's hip or shoulder. As a last-minute ideation breakthrough to promote sharing, they added a second headphone jack so two people could listen at once.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 4</span>
+        <h3>Design a Solution</h3>
+        <p>Translating the hacked prototype into a consumer product meant overcoming intense engineering constraints. Traditional headphones of the era were massive, heavy, and weighed more than the Walkman itself. Sony had to concurrently design a new lightweight headphone line (weighing just 50 grams).</p>
+        <p>To maximize battery life, engineers meticulously adjusted the internal electrical impedance of the system from 8&Omega; to 16&Omega;. They also re-engineered the main housing, moving from the heavy machined metal of the Pressman prototype to a high-impact ABS plastic chassis, which drastically lowered manufacturing costs and overall product weight.</p>
+      </div>
+
+      <div class="case-phase">
+        <span class="case-phase-label">Phase 5</span>
+        <h3>Present a Solution</h3>
+        <p>Sony launched the Walkman using an incredibly aggressive, experiential marketing campaign targeted squarely at youth culture. Instead of traditional static advertisements detailing technical specs, Sony hired actors, skateboarders, and joggers to traverse the busy streets of Tokyo, handing headphones to pedestrians so they could experience high-fidelity, portable stereo sound for themselves.</p>
+        <p>The technical drawings distributed to distributors emphasized the beautifully compact, folded gear train and the precision spring-loaded pinch rollers that allowed the tape mechanism to play smoothly even while the user was running.</p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The Walkman's journey showcases how material and market testing alters a product's DNA. The project shifted from a metal chassis to high-impact ABS plastic after structural stress testing showed that metal dented easily when dropped by active users. Additionally, during real-world user testing, the team realized that isolation could feel antisocial or dangerous on busy city streets. They looped back to the ideation phase and designed a mechanical orange button called the "Hot Line"—when pressed, it lowered the music volume and activated a small built-in microphone so users could talk to each other without removing their headphones.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
