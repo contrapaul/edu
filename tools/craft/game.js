@@ -53,7 +53,9 @@ async function loadData() {
 
 let discovered = new Set();
 let placed = [];           // [{ id, x, y }]
-let draggedFromIdx = -1;   // index in `placed` when dragging a canvas card
+
+// Track what's being dragged: { id, isCanvasCard:bool, canvasIdx:number }
+let dragPayload = null;
 
 // ═══════════════════════════════════════════════════════════════════
 // 3.  DOM REFS
@@ -104,6 +106,17 @@ function getMaxTier() {
     return max;
 }
 
+function getCardAtPoint(x, y) {
+    const cards = dropZone.querySelectorAll('.craft-card');
+    for (let i = cards.length - 1; i >= 0; i--) {
+        const r = cards[i].getBoundingClientRect();
+        if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+            return cards[i];
+        }
+    }
+    return null;
+}
+
 function renderInventory() {
     const items = getAllDiscovered();
     items.sort((a, b) => a.tier - b.tier || a.name.localeCompare(b.name));
@@ -118,12 +131,15 @@ function renderInventory() {
             <span class="name">${d.name}</span>
         `;
         div.addEventListener('dragstart', (e) => {
-            draggedFromIdx = -1;
+            dragPayload = { id: d.id, isCanvasCard: false };
             e.dataTransfer.setData('text/plain', d.id);
             e.dataTransfer.effectAllowed = 'copy';
         });
+        div.addEventListener('dragend', () => {
+            dragPayload = null;
+        });
         div.addEventListener('click', () => {
-            const offset = placed.length * 18;
+            const offset = placed.length * 20;
             placed.push({ id: d.id, x: 20 + offset, y: 20 + offset });
             renderWorkbench();
         });
@@ -154,6 +170,7 @@ function renderWorkbench() {
         card.style.top = entry.y + 'px';
         card.draggable = true;
         card.dataset.id = entry.id;
+        card.dataset.idx = idx;
 
         card.innerHTML = `
             <span class="craft-card-emoji">${d.emoji}</span>
@@ -161,51 +178,26 @@ function renderWorkbench() {
         `;
 
         card.addEventListener('dragstart', (e) => {
-            draggedFromIdx = idx;
             const rect = card.getBoundingClientRect();
+            dragPayload = {
+                id: entry.id,
+                isCanvasCard: true,
+                canvasIdx: idx,
+                offX: e.clientX - rect.left,
+                offY: e.clientY - rect.top
+            };
             e.dataTransfer.setData('text/plain', entry.id);
-            e.dataTransfer.setData('application/x-source', 'canvas');
-            e.dataTransfer.setData('application/x-idx', String(idx));
-            e.dataTransfer.setData('application/x-offx', String(e.clientX - rect.left));
-            e.dataTransfer.setData('application/x-offy', String(e.clientY - rect.top));
             e.dataTransfer.effectAllowed = 'move';
-            card.style.opacity = '0.5';
+            card.style.opacity = '0.4';
         });
         card.addEventListener('dragend', () => {
             card.style.opacity = '';
+            dragPayload = null;
         });
 
         card.addEventListener('click', () => {
             placed.splice(idx, 1);
             renderWorkbench();
-        });
-
-        card.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            card.classList.add('drag-hover');
-        });
-        card.addEventListener('dragleave', () => {
-            card.classList.remove('drag-hover');
-        });
-        card.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            card.classList.remove('drag-hover');
-            const otherId = e.dataTransfer.getData('text/plain');
-            if (!otherId || otherId === entry.id || !isDiscovered(otherId)) return;
-
-            const newIds = attemptCombine(otherId, entry.id);
-            if (newIds.length > 0) {
-                const cardRect = card.getBoundingClientRect();
-                const zoneRect = dropZone.getBoundingClientRect();
-                const baseX = cardRect.left - zoneRect.left;
-                const baseY = cardRect.top - zoneRect.top;
-                newIds.forEach((nid, i) => {
-                    placed.push({ id: nid, x: baseX + 30 + i * 40, y: baseY + 50 + i * 20 });
-                });
-                renderWorkbench();
-            }
         });
 
         dropZone.appendChild(card);
@@ -323,36 +315,75 @@ dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     dropZone.classList.add('drag-over');
+
+    // Highlight the card under the cursor
+    const target = getCardAtPoint(e.clientX, e.clientY);
+    dropZone.querySelectorAll('.craft-card.drag-hover').forEach(c => c.classList.remove('drag-hover'));
+    if (target) target.classList.add('drag-hover');
 });
-dropZone.addEventListener('dragleave', () => {
+dropZone.addEventListener('dragleave', (e) => {
     dropZone.classList.remove('drag-over');
+    dropZone.querySelectorAll('.craft-card.drag-hover').forEach(c => c.classList.remove('drag-hover'));
 });
 dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('drag-over');
+    dropZone.querySelectorAll('.craft-card.drag-hover').forEach(c => c.classList.remove('drag-hover'));
+
     const data = e.dataTransfer.getData('text/plain');
     if (!data || !isDiscovered(data)) return;
 
     const zoneRect = dropZone.getBoundingClientRect();
-    const source = e.dataTransfer.getData('application/x-source');
+    const targetCard = getCardAtPoint(e.clientX, e.clientY);
 
-    if (source === 'canvas') {
-        const idx = parseInt(e.dataTransfer.getData('application/x-idx'), 10);
+    if (targetCard) {
+        // Dropped on an existing card → attempt combine
+        const targetId = targetCard.dataset.id;
+        if (data === targetId) return; // same card
+
+        const newIds = attemptCombine(data, targetId);
+        if (newIds.length > 0) {
+            const tr = targetCard.getBoundingClientRect();
+            const baseX = tr.left - zoneRect.left;
+            const baseY = tr.top - zoneRect.top;
+            newIds.forEach((nid, i) => {
+                placed.push({ id: nid, x: baseX + 30 + i * 40, y: baseY + 50 + i * 20 });
+            });
+        }
+
+        // If dragging from inventory, also place the card on the canvas
+        if (dragPayload && !dragPayload.isCanvasCard) {
+            placed.push({
+                id: data,
+                x: e.clientX - zoneRect.left - 40,
+                y: e.clientY - zoneRect.top - 20
+            });
+        }
+
+        renderWorkbench();
+        return;
+    }
+
+    // Dropped on empty canvas space
+    if (dragPayload && dragPayload.isCanvasCard) {
+        // Reposition existing canvas card
+        const idx = dragPayload.canvasIdx;
+        const offX = dragPayload.offX || 0;
+        const offY = dragPayload.offY || 0;
         if (idx >= 0 && idx < placed.length) {
-            const offX = parseFloat(e.dataTransfer.getData('application/x-offx')) || 0;
-            const offY = parseFloat(e.dataTransfer.getData('application/x-offy')) || 0;
             placed[idx].x = e.clientX - zoneRect.left - offX;
             placed[idx].y = e.clientY - zoneRect.top - offY;
-            renderWorkbench();
         }
     } else {
+        // Add new card from inventory
         placed.push({
             id: data,
             x: e.clientX - zoneRect.left - 40,
             y: e.clientY - zoneRect.top - 20
         });
-        renderWorkbench();
     }
+
+    renderWorkbench();
 });
 
 // ═══════════════════════════════════════════════════════════════════
