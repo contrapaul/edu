@@ -65,7 +65,7 @@ Study Guide
 <div class="curr-section-intro-photo">
 <div class="curr-section-intro-img" aria-hidden="true"></div>
 </div>
-<p>Every physical product you use — a smartphone, a chair, a medical implant — results from a sequence of deliberate manufacturing choices. A4.1 maps the landscape of those choices across five categories: <strong>additive</strong>, <strong>subtractive</strong>, <strong>forming</strong>, <strong>joining</strong> and <strong>finishing</strong>. Within additive manufacturing the topic extends into the frontier technologies of <strong>4D printing</strong> (smart materials that respond to stimuli) and <strong>5D printing</strong> (multi-axis deposition on curved surfaces).</p>
+<p>Every physical product you use (a smartphone, a chair, a medical implant) results from a sequence of deliberate manufacturing choices. A4.1 maps the landscape of those choices across five categories: <strong>additive</strong>, <strong>subtractive</strong>, <strong>forming</strong>, <strong>joining</strong> and <strong>finishing</strong>. Within additive manufacturing the topic extends into the frontier technologies of <strong>4D printing</strong> (smart materials that respond to stimuli) and <strong>5D printing</strong> (multi-axis deposition on curved surfaces).</p>
 <p>Understanding manufacturing techniques allows a designer to connect material selection, geometric complexity, volume requirements and environmental impact into a coherent production strategy.</p>
 </div>
 
@@ -87,7 +87,7 @@ Study Guide
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-study-guide">
-<p class="curr-section-intro">Manufacturing techniques span five categories — additive, subtractive, forming, joining and finishing — including the emerging technologies of 4D and 5D printing. These notes address each learning objective in turn.</p>
+<p class="curr-section-intro">Manufacturing techniques span five categories (additive, subtractive, forming, joining and finishing), including the emerging technologies of 4D and 5D printing. These notes address each learning objective in turn.</p>
 <div class="obj-list">
 
 <!-- 4.1.1 -->
@@ -100,7 +100,7 @@ Study Guide
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline additive, subtractive (wasting), forming, joining and finishing techniques, relevant to the properties of the selected material(s).</p>
 <div class="bilingual-block">
 <div class="lang-col"><span class="lang-label">English</span>
-<p>All manufactured products result from applying one or more techniques drawn from five broad categories. The choice of category depends on material properties, desired geometry, production volume and cost.</p>
+<p>All manufactured products result from applying one or more techniques drawn from five broad categories. The choice of category depends on <a href="a3.1-material-classification.html">material properties</a>, desired geometry, production volume and cost.</p>
 <table class="curr-table">
 <thead><tr><th>Category</th><th>Principle</th><th>Typical materials</th><th>Examples</th></tr></thead>
 <tbody>
@@ -169,6 +169,14 @@ Study Guide
 </table>
 </div>
 </div>
+
+<div class="concept-box">
+<h4>Concept: Isotropic vs Anisotropic Strength</h4>
+<p>A material is isotropic if its mechanical properties, such as strength and stiffness, are the same in every direction. It is anisotropic if those properties vary depending on the direction in which a load is applied. FDM parts are anisotropic because each layer bonds well within itself but only partially fuses to the layer above it, so the part is weaker when pulled apart along the layer lines (the Z-axis) than when loaded in the X-Y plane.</p>
+<p>This connects to the discussion of material properties in <a href="a3.1-material-classification.html">A3.1 Material Classification</a>: most bulk metals and polymers are treated as isotropic, but processes that build a part from oriented layers, fibres or grains (3D printing, composite lay-up, wood grain, rolled sheet metal) introduce direction-dependent behaviour that a designer must account for when orienting a part for printing or loading.</p>
+<figure class="obj-figure"><img class="obj-img" src="" alt="Diagram comparing isotropic strength, uniform in all directions, with anisotropic strength, weaker along the layer lines of a 3D-printed part"></figure>
+</div>
+
 </div>
 </div>
 
@@ -179,7 +187,7 @@ Study Guide
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="obj-body" id="obj-body-4.1.3">
-<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between rapid prototyping techniques used for creating initial base models — which serve as a foundation for testing and validation — as opposed to techniques used in the production of refined products.</p>
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between rapid prototyping techniques used for creating initial base models (which serve as a foundation for testing and validation) as opposed to techniques used in the production of refined products.</p>
 <div class="bilingual-block">
 <div class="lang-col"><span class="lang-label">English</span>
 <p><strong>Rapid prototyping (RP)</strong> is the fast production of a physical model directly from CAD data, used primarily for form, fit and function testing early in the design process.</p>
@@ -195,7 +203,7 @@ Study Guide
 <tr><td>Cost per part</td><td>Higher (no tooling amortisation)</td><td>Lower at scale</td></tr>
 </tbody>
 </table>
-<p>As AM materials and accuracy improve, the boundary between prototype and production part blurs — GE Aviation now produces certified LEAP engine fuel nozzles using SLS.</p>
+<p>As AM materials and accuracy improve, the boundary between prototype and production part blurs. GE Aviation now produces certified LEAP engine fuel nozzles using SLS.</p>
 </div>
 <div class="lang-col"><span class="lang-label">中文</span>
 <p><strong>快速原型（RP）</strong>是直接从CAD数据快速生产物理模型，主要用于设计过程早期的形态、配合和功能测试。</p>
@@ -214,6 +222,9 @@ Study Guide
 <p>随着AM材料和精度的提升，原型与量产零件之间的界限逐渐模糊——GE航空现已使用SLS生产经认证的LEAP发动机燃油喷嘴。</p>
 </div>
 </div>
+
+<div class="topic-link-blurb">Rapid prototyping is explored in much greater depth, including low-fidelity versus high-fidelity models and user testing protocols, in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>.</div>
+
 </div>
 </div>
 
@@ -253,6 +264,9 @@ Study Guide
 </table>
 </div>
 </div>
+
+<div class="topic-link-blurb">Topology optimisation and how load paths shape structural geometry are covered in <a href="a3.2-structural-systems.html">A3.2 Structural Systems</a>.</div>
+
 </div>
 </div>
 
@@ -266,19 +280,19 @@ Study Guide
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how the use of shape memory polymers can be deployed for printing 4D objects and provide examples of their potential use.</p>
 <div class="bilingual-block">
 <div class="lang-col"><span class="lang-label">English</span>
-<p><strong>4D printing</strong> (coined by MIT's Skylar Tibbits, 2013) is 3D printing with smart materials — the fourth dimension is time, representing the transformation that occurs after printing.</p>
+<p><strong>4D printing</strong> (coined by MIT's Skylar Tibbits, 2013) is 3D printing with smart materials: the fourth dimension is time, representing the transformation that occurs after printing.</p>
 <p><strong>Key smart materials:</strong></p>
 <ul>
-<li><strong>Shape Memory Polymers (SMPs)</strong> — programmed to hold a temporary shape below the glass transition temperature (T<sub>g</sub>) and return to their original shape when heated above T<sub>g</sub>.</li>
-<li><strong>Shape Memory Alloys (SMAs)</strong> — typically Nitinol (NiTi); recover shape when heated.</li>
-<li><strong>Hydrogels</strong> — swell or contract in response to water or pH changes.</li>
+<li><strong>Shape Memory Polymers (SMPs)</strong>: programmed to hold a temporary shape below the glass transition temperature (T<sub>g</sub>) and return to their original shape when heated above T<sub>g</sub>.</li>
+<li><strong>Shape Memory Alloys (SMAs)</strong>: typically Nitinol (NiTi); recover shape when heated.</li>
+<li><strong>Hydrogels</strong>: swell or contract in response to water or pH changes.</li>
 </ul>
 <p><strong>Four-stage SMP cycle:</strong></p>
 <ol>
-<li><strong>Print</strong> — object printed in permanent (memory) shape.</li>
-<li><strong>Programme</strong> — heat above T<sub>g</sub>, deform mechanically.</li>
-<li><strong>Fix temporary shape</strong> — cool below T<sub>g</sub>; temporary shape is retained.</li>
-<li><strong>Trigger</strong> — apply stimulus (heat, water, light); object returns to memory shape.</li>
+<li><strong>Print</strong>: object printed in permanent (memory) shape.</li>
+<li><strong>Programme</strong>: heat above T<sub>g</sub>, deform mechanically.</li>
+<li><strong>Fix temporary shape</strong>: cool below T<sub>g</sub>; temporary shape is retained.</li>
+<li><strong>Trigger</strong>: apply stimulus (heat, water, light); object returns to memory shape.</li>
 </ol>
 <table class="curr-table">
 <thead><tr><th>Application area</th><th>Example</th><th>Stimulus</th></tr></thead>
@@ -329,13 +343,13 @@ Study Guide
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how 5D technology can be used to produce long-lasting and complex components in biomedical, automobile and aerospace applications.</p>
 <div class="bilingual-block">
 <div class="lang-col"><span class="lang-label">English</span>
-<p>Standard 3D printing moves in three axes (X, Y, Z). <strong>5D additive manufacturing</strong> adds two rotational axes — one on the extruder head and one on the print bed — allowing the nozzle to deposit material on curved surfaces from multiple angles.</p>
+<p>Standard 3D printing moves in three axes (X, Y, Z). <strong>5D additive manufacturing</strong> adds two rotational axes (one on the extruder head and one on the print bed), allowing the nozzle to deposit material on curved surfaces from multiple angles.</p>
 <p><strong>Key advantages over 3D printing:</strong></p>
 <ul>
-<li><strong>No support structures needed</strong> — the bed tilts so overhanging geometry is always printed at the correct angle.</li>
-<li><strong>Curved layer deposition</strong> — fibres or material lines follow the stress paths within the part, producing stronger components (isotropic strength).</li>
-<li><strong>Reduced material waste</strong> — elimination of supports saves polymer and post-processing time.</li>
-<li><strong>Larger effective build volume</strong> — rotation enables parts that cannot fit flat in a standard envelope.</li>
+<li><strong>No support structures needed</strong>: the bed tilts so overhanging geometry is always printed at the correct angle.</li>
+<li><strong>Curved layer deposition</strong>: fibres or material lines follow the stress paths within the part, producing stronger components (isotropic strength).</li>
+<li><strong>Reduced material waste</strong>: elimination of supports saves polymer and post-processing time.</li>
+<li><strong>Larger effective build volume</strong>: rotation enables parts that cannot fit flat in a standard envelope.</li>
 </ul>
 <table class="curr-table">
 <thead><tr><th>Industry</th><th>Application</th><th>5D benefit</th></tr></thead>
@@ -408,6 +422,14 @@ Study Guide
 <p>减材工艺可产生优良的表面光洁度和紧密公差（CNC铣削可达±0.01 mm或更好），但可能产生大量材料浪费（切屑）。</p>
 </div>
 </div>
+
+<div class="concept-box">
+<h4>Concept: CNC (Computer Numerical Control)</h4>
+<p>CNC describes any manufacturing machine, a lathe, mill, router, laser or plasma cutter, that is guided by a computer program rather than a human operator moving the tool by hand. The designer's CAD model is converted into G-code, a list of coordinate and tool instructions, which drives motors to move the cutting tool along the programmed path with repeatable accuracy measured in microns.</p>
+<p>This builds on the prototyping workflow introduced in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>: where a 3D printer deposits material to build a part, a CNC machine removes it, and both rely on the same digital file, the CAD model, to translate a design directly into a physical object without dedicated tooling for each one-off part.</p>
+<figure class="obj-figure"><img class="obj-img" src="" alt="CNC mill removing material from a metal block while following a programmed toolpath"></figure>
+</div>
+
 </div>
 </div>
 
@@ -487,7 +509,7 @@ Study Guide
 <thead><tr><th>Technique</th><th>Type</th><th>Mechanism</th><th>Example / notes</th></tr></thead>
 <tbody>
 <tr><td><strong>Fusion welding</strong></td><td>Permanent</td><td>Base metal melted; may use filler rod (MIG, TIG, arc)</td><td>Steel structures, pipelines</td></tr>
-<tr><td><strong>Solid-state welding</strong></td><td>Permanent</td><td>No melting — friction stir, ultrasonic, explosive</td><td>Dissimilar metals; aircraft fuselage panels</td></tr>
+<tr><td><strong>Solid-state welding</strong></td><td>Permanent</td><td>No melting: friction stir, ultrasonic, explosive</td><td>Dissimilar metals; aircraft fuselage panels</td></tr>
 <tr><td><strong>Soldering</strong></td><td>Permanent</td><td>Filler alloy melted below 450 °C; wets parent metals</td><td>PCB assembly (SAC305 lead-free solder per RoHS)</td></tr>
 <tr><td><strong>Brazing</strong></td><td>Permanent</td><td>Filler alloy melted above 450 °C; base metals not melted</td><td>Copper pipe joints; tool tips</td></tr>
 <tr><td><strong>Adhesives</strong></td><td>Permanent</td><td>Chemical bonding at surface (epoxy, cyanoacrylate, structural acrylic)</td><td>Aerospace composite bonds; automotive body panels</td></tr>
@@ -514,6 +536,9 @@ Study Guide
 </table>
 </div>
 </div>
+
+<div class="topic-link-blurb">The end-of-life implications of permanent versus temporary joining, including RoHS compliance and design for disassembly, are developed further in <a href="c2.2-circular-economy.html">C2.2 Design for a Circular Economy</a>.</div>
+
 </div>
 </div>
 
@@ -531,7 +556,7 @@ Study Guide
 <table class="curr-table">
 <thead><tr><th>Technique</th><th>Process</th><th>Material</th><th>Benefit</th><th>Examples</th></tr></thead>
 <tbody>
-<tr><td><strong>Anodising</strong></td><td>Electrochemical — aluminium becomes anode in sulphuric acid bath; oxide layer grows into surface</td><td>Aluminium alloys</td><td>Corrosion resistance; hard surface; accepts dyes</td><td>iPhone enclosures; bicycle frames; architectural cladding</td></tr>
+<tr><td><strong>Anodising</strong></td><td>Electrochemical: aluminium becomes anode in sulphuric acid bath; oxide layer grows into surface</td><td>Aluminium alloys</td><td>Corrosion resistance; hard surface; accepts dyes</td><td>iPhone enclosures; bicycle frames; architectural cladding</td></tr>
 <tr><td><strong>Electroplating</strong></td><td>DC current deposits metal ions (chrome, nickel, gold, silver) from solution onto workpiece (cathode)</td><td>Any conductive substrate</td><td>Decorative; corrosion / wear resistance; conductivity</td><td>Chrome taps; gold-plated connectors; nickel-plated steel</td></tr>
 <tr><td><strong>Hot-dip galvanising</strong></td><td>Steel immersed in molten zinc (450 °C); zinc-iron alloy layers bond; surface shows characteristic spangle</td><td>Steel</td><td>Sacrificial cathodic protection; very thick coating</td><td>Street furniture, motorway barriers, structural steelwork</td></tr>
 <tr><td><strong>Powder coating</strong></td><td>Dry polymer powder electrostatically applied then cured at 177–204 °C in oven</td><td>Metals</td><td>Thick, even coat; no VOC solvents; wide colour range</td><td>Garden furniture, bicycle frames, kitchen appliances</td></tr>
@@ -569,7 +594,7 @@ Study Guide
 <div class="bilingual-block">
 <div class="lang-col"><span class="lang-label">English</span>
 <p>No real product uses only one category of technique. The design team must reason about <em>why</em> each technique is selected by connecting material properties, geometry, volume, cost and sustainability.</p>
-<p><strong>Case study — smartphone (iPhone-type aluminium body):</strong></p>
+<p><strong>Case study (smartphone, iPhone-type aluminium body):</strong></p>
 <table class="curr-table">
 <thead><tr><th>Component</th><th>Technique(s)</th><th>Category</th><th>Rationale</th></tr></thead>
 <tbody>
@@ -636,7 +661,7 @@ Study Guide
 <div class="quiz-q" data-q="3">
 <p class="quiz-stem">3. In 4D printing, the "fourth dimension" refers to:</p>
 <label class="quiz-opt"><input type="radio" name="q3" value="A"> A. A fourth spatial axis of motion</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Time — the transformation of the printed object after printing</label>
+<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Time: the transformation of the printed object after printing</label>
 <label class="quiz-opt"><input type="radio" name="q3" value="C"> C. The use of four different materials simultaneously</label>
 <label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Printing at four times normal speed</label>
 </div>
@@ -721,11 +746,11 @@ Study Guide
 <summary>Sample answer</summary>
 <p><strong>Mark scheme guidance:</strong> One mark per category correctly named + example (4 categories awarded, maximum 4).</p>
 <ul>
-<li><strong>Additive</strong> — material is built up layer by layer. Example: FDM / SLA / SLS. (1)</li>
-<li><strong>Subtractive (wasting)</strong> — material is removed from a solid block. Example: CNC milling / turning / laser cutting. (1)</li>
-<li><strong>Forming</strong> — material is reshaped without adding or removing mass. Example: injection moulding / continuous casting / thermoforming. (1)</li>
-<li><strong>Joining</strong> — two or more parts are fastened together, permanently or temporarily. Example: MIG welding / SMT soldering / bolting. (1)</li>
-<li><strong>Finishing</strong> — surface is treated to protect or enhance it. Example: anodising / powder coating / electroplating. (1)</li>
+<li><strong>Additive</strong>: material is built up layer by layer. Example: FDM / SLA / SLS. (1)</li>
+<li><strong>Subtractive (wasting)</strong>: material is removed from a solid block. Example: CNC milling / turning / laser cutting. (1)</li>
+<li><strong>Forming</strong>: material is reshaped without adding or removing mass. Example: injection moulding / continuous casting / thermoforming. (1)</li>
+<li><strong>Joining</strong>: two or more parts are fastened together, permanently or temporarily. Example: MIG welding / SMT soldering / bolting. (1)</li>
+<li><strong>Finishing</strong>: surface is treated to protect or enhance it. Example: anodising / powder coating / electroplating. (1)</li>
 </ul>
 </details>
 </div>
@@ -736,15 +761,15 @@ Study Guide
 <summary>Sample answer</summary>
 <p><strong>Process description (up to 4 marks):</strong></p>
 <ul>
-<li>Molten steel from the ladle is transferred into a <strong>tundish</strong> — a buffer vessel that maintains a steady flow. (1)</li>
+<li>Molten steel from the ladle is transferred into a <strong>tundish</strong>: a buffer vessel that maintains a steady flow. (1)</li>
 <li>Steel flows from the tundish into an open-ended, <strong>water-cooled copper mould</strong> that defines the cross-sectional shape (slab, bloom or billet). (1)</li>
 <li>The outer skin solidifies in the mould while the interior remains liquid; the partially solidified strand is withdrawn downward by driven rollers. (1)</li>
 <li>Secondary cooling via water sprays solidifies the strand completely; it is then cut to length by a torch or shear. (1)</li>
 </ul>
 <p><strong>Two advantages (1 mark each, up to 2):</strong></p>
 <ul>
-<li><strong>No reheating required</strong> — ingot casting requires reheating cold ingots before rolling; continuous casting goes directly from liquid to rolled product, saving energy. (1)</li>
-<li><strong>Higher yield / less segregation</strong> — continuous strands have more uniform composition than ingots, where solidification causes elemental segregation toward the centre. (1)</li>
+<li><strong>No reheating required</strong>: ingot casting requires reheating cold ingots before rolling; continuous casting goes directly from liquid to rolled product, saving energy. (1)</li>
+<li><strong>Higher yield / less segregation</strong>: continuous strands have more uniform composition than ingots, where solidification causes elemental segregation toward the centre. (1)</li>
 </ul>
 </details>
 </div>
@@ -754,10 +779,10 @@ Study Guide
 <details class="p2-answer">
 <summary>Sample answer</summary>
 <ul>
-<li><strong>Stage 1 — Print:</strong> The SMP is printed in its <em>permanent (memory) shape</em> using a standard 3D printing process. At this point the object is in its stable, stress-free configuration. (1)</li>
-<li><strong>Stage 2 — Programme:</strong> The printed object is heated above T<sub>g</sub>. Above T<sub>g</sub>, the polymer chains have sufficient mobility to be deformed; the object is bent or compressed into a <em>temporary shape</em>. (1)</li>
-<li><strong>Stage 3 — Fix:</strong> While still deformed, the object is cooled below T<sub>g</sub>. Chain mobility is frozen, locking in the temporary shape. The object can be stored or shipped in this compact form. (1)</li>
-<li><strong>Stage 4 — Trigger:</strong> A stimulus (usually heat above T<sub>g</sub>) is applied. The stored elastic strain is released and the object recovers its original printed shape. Water, light or pH can act as triggers for certain SMP formulations. (1)</li>
+<li><strong>Stage 1 (Print):</strong> The SMP is printed in its <em>permanent (memory) shape</em> using a standard 3D printing process. At this point the object is in its stable, stress-free configuration. (1)</li>
+<li><strong>Stage 2 (Programme):</strong> The printed object is heated above T<sub>g</sub>. Above T<sub>g</sub>, the polymer chains have sufficient mobility to be deformed; the object is bent or compressed into a <em>temporary shape</em>. (1)</li>
+<li><strong>Stage 3 (Fix):</strong> While still deformed, the object is cooled below T<sub>g</sub>. Chain mobility is frozen, locking in the temporary shape. The object can be stored or shipped in this compact form. (1)</li>
+<li><strong>Stage 4 (Trigger):</strong> A stimulus (usually heat above T<sub>g</sub>) is applied. The stored elastic strain is released and the object recovers its original printed shape. Water, light or pH can act as triggers for certain SMP formulations. (1)</li>
 <li><strong>T<sub>g</sub> relevance:</strong> T<sub>g</sub> is the critical temperature threshold; below it the polymer behaves as a glass (rigid), above it as a rubber (flexible). The programming and recovery both rely on crossing T<sub>g</sub>. (1)</li>
 </ul>
 </details>
@@ -771,7 +796,7 @@ Study Guide
 <thead><tr><th>Aspect</th><th>Hot-chamber</th><th>Cold-chamber</th></tr></thead>
 <tbody>
 <tr><td>Molten metal location</td><td>Pot immersed <em>within</em> the machine; plunger forces metal directly (1)</td><td>Metal ladled into a <em>separate</em> cold shot chamber each cycle (1)</td></tr>
-<tr><td>Cycle speed</td><td>Fast (up to 500 shots/hour)</td><td>Slower — manual or automated ladling</td></tr>
+<tr><td>Cycle speed</td><td>Fast (up to 500 shots/hour)</td><td>Slower: manual or automated ladling</td></tr>
 <tr><td>Suitable alloys</td><td>Low melting point: zinc, tin, lead alloys (1)</td><td>High melting point: aluminium, magnesium, copper alloys (1)</td></tr>
 <tr><td>Reason for difference</td><td>High-temp alloys would attack the immersed plunger and pot</td><td>Cold chamber is isolated from the hot metal between shots</td></tr>
 </tbody>

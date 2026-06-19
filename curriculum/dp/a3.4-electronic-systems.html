@@ -66,8 +66,8 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body open" id="body-introduction">
-<p>Electronics are present in nearly every modern product — from the temperature sensor in a kettle to the microcontroller in a pacemaker. Designers who understand how electronic systems work can make informed decisions about component selection, energy efficiency, and responsible product design.</p>
-<p>This topic introduces the fundamental model of any electronic system — input, process, output, and feedback — and builds from basic analogue and digital concepts through to components, sensors, control circuits, operational amplifiers, embedded systems, and circuit diagrams. These foundations are applied and extended in B3.4 Electronic Systems Application and Selection.</p>
+<p>Electronics are present in nearly every modern product, from the temperature sensor in a kettle to the microcontroller in a pacemaker. Designers who understand how electronic systems work can make informed decisions about component selection, energy efficiency, and responsible product design.</p>
+<p>This topic introduces the fundamental model of any electronic system (input, process, output, and feedback) and builds from basic analogue and digital concepts through to components, sensors, control circuits, operational amplifiers, embedded systems, and circuit diagrams. These foundations are applied and extended in B3.4 Electronic Systems Application and Selection.</p>
 </div>
 </div>
 
@@ -107,12 +107,12 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p>Every electronic system can be described using the <strong>Input–Process–Output (IPO) model</strong>, often extended with a <strong>feedback loop</strong>:</p>
 <ul>
-<li><strong>Input</strong> — A sensor or transducer converts a physical quantity (light, temperature, sound, force, position) into an electrical signal the system can process. Examples: microphone, thermistor, photodiode, push-button switch.</li>
-<li><strong>Process</strong> — A control unit (microcontroller, logic circuit, or op-amp) receives the input signal and applies programmed logic or circuitry to decide on a response. This may involve amplification, comparison, timing, or computation.</li>
-<li><strong>Output</strong> — An actuator or output transducer converts the processed electrical signal back into a physical effect. Examples: LED (light), loudspeaker (sound), motor (movement), heater (heat).</li>
-<li><strong>Feedback</strong> — A signal from the output is returned to the input or process stage to modify behaviour. <em>Negative feedback</em> reduces the difference between desired and actual output, creating stable, self-regulating systems. Example: a thermostat monitors room temperature (feedback) and turns a heater on or off (output) to maintain a set point (input).</li>
+<li><strong>Input.</strong> A sensor or transducer converts a physical quantity (light, temperature, sound, force, position) into an electrical signal the system can process. Examples: microphone, thermistor, photodiode, push-button switch.</li>
+<li><strong>Process.</strong> A control unit (microcontroller, logic circuit, or op-amp) receives the input signal and applies programmed logic or circuitry to decide on a response. This may involve amplification, comparison, timing, or computation.</li>
+<li><strong>Output.</strong> An actuator or output transducer converts the processed electrical signal back into a physical effect. Examples: LED (light), loudspeaker (sound), motor (movement), heater (heat).</li>
+<li><strong>Feedback.</strong> A signal from the output is returned to the input or process stage to modify behaviour. <em>Negative feedback</em> reduces the difference between desired and actual output, creating stable, self-regulating systems. Example: a thermostat monitors room temperature (feedback) and turns a heater on or off (output) to maintain a set point (input).</li>
 </ul>
-<p><strong>Example — electric kettle:</strong> Temperature sensor (input) → microcontroller compares measured temperature to 100 °C target (process) → heating element on or off (output) → temperature reading returned to process (feedback).</p>
+<p><strong>Example (electric kettle):</strong> Temperature sensor (input) → microcontroller compares measured temperature to 100 °C target (process) → heating element on or off (output) → temperature reading returned to process (feedback).</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -140,14 +140,14 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Electronics are embedded in almost every product we use — smartphones, medical devices, household appliances, vehicles, infrastructure. This ubiquity creates both opportunity and responsibility for designers.</p>
+<p>Electronics are embedded in almost every product we use: smartphones, medical devices, household appliances, vehicles, infrastructure. This ubiquity creates both opportunity and responsibility for designers.</p>
 <p><strong>Responsible electronic design considers:</strong></p>
 <ul>
-<li><strong>Safety</strong> — Devices must not harm users or bystanders. Electrical insulation, thermal protection, overvoltage protection (fuses, circuit breakers), and regulatory compliance (CE marking in Europe, UL in the USA) are all safety measures. Medical devices face the most stringent safety standards.</li>
-<li><strong>Energy efficiency</strong> — Electronic products consume energy throughout their life. Sleep modes, LED lighting, variable-speed drives, and power factor correction all reduce consumption. The EU Ecodesign Directive requires manufacturers to demonstrate energy efficiency before products can be sold.</li>
-<li><strong>Minimal standby power</strong> — Many devices consume power even when not in active use (standby loss, "phantom load"). Efficient designs reduce this to near zero. EU regulations cap standby power at 0.5 W for most devices.</li>
-<li><strong>End-of-life</strong> — Electronic waste (e-waste) is the fastest-growing waste stream globally. Designers should minimise toxic materials (lead, mercury, cadmium — now restricted by RoHS), use recyclable materials, and design for disassembly so components can be recovered.</li>
-<li><strong>Data and privacy</strong> — Connected electronic products collect data. Designers have responsibilities around secure data storage, minimal data collection, and transparency with users.</li>
+<li><strong>Safety.</strong> Devices must not harm users or bystanders. Electrical insulation, thermal protection, overvoltage protection (fuses, circuit breakers), and regulatory compliance (CE marking in Europe, UL in the USA) are all safety measures. Medical devices face the most stringent safety standards.</li>
+<li><strong>Energy efficiency.</strong> Electronic products consume energy throughout their life. Sleep modes, LED lighting, variable-speed drives, and power factor correction all reduce consumption. The EU Ecodesign Directive requires manufacturers to demonstrate energy efficiency before products can be sold.</li>
+<li><strong>Minimal standby power.</strong> Many devices consume power even when not in active use (standby loss, "phantom load"). Efficient designs reduce this to near zero. EU regulations cap standby power at 0.5 W for most devices.</li>
+<li><strong>End-of-life.</strong> Electronic waste (e-waste) is the fastest-growing waste stream globally. Designers should minimise toxic materials (lead, mercury, cadmium, now restricted by RoHS), use recyclable materials, and design for disassembly so components can be recovered.</li>
+<li><strong>Data and privacy.</strong> Connected electronic products collect data. Designers have responsibilities around secure data storage, minimal data collection, and transparency with users.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -163,6 +163,9 @@ Show Chinese · 显示中文
 </ul>
 </div>
 </div>
+
+<div class="topic-link-blurb">The end-of-life concerns raised here (e-waste, RoHS, design for disassembly) are explored in depth, alongside take-back schemes and material recovery loops, in <a href="c2.2-circular-economy.html">C2.2 Design for a Circular Economy</a>.</div>
+
 </div>
 </div>
 
@@ -177,20 +180,20 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values. An analogue signal can take any value between a minimum and maximum — just like the physical world it represents. A microphone output, a temperature sensor voltage, and the position of a potentiometer are all analogue signals.</p>
-<p><strong>Digital systems</strong> represent and process information using only two discrete states: HIGH (logic 1, typically 3.3 V or 5 V) and LOW (logic 0, 0 V). All data — numbers, text, images, audio, video — is encoded as sequences of binary digits (bits). The binary system uses base 2 (only digits 0 and 1).</p>
+<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values. An analogue signal can take any value between a minimum and maximum, just like the physical world it represents. A microphone output, a temperature sensor voltage, and the position of a potentiometer are all analogue signals.</p>
+<p><strong>Digital systems</strong> represent and process information using only two discrete states: HIGH (logic 1, typically 3.3 V or 5 V) and LOW (logic 0, 0 V). All data (numbers, text, images, audio, video) is encoded as sequences of binary digits (bits). The binary system uses base 2 (only digits 0 and 1).</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Feature</th><th>Analogue</th><th>Digital</th></tr></thead>
 <tbody>
 <tr><td>Signal type</td><td>Continuously variable</td><td>Two discrete states (0 or 1)</td></tr>
-<tr><td>Noise sensitivity</td><td>High — noise degrades the signal</td><td>Low — noise rejected as long as threshold is not crossed</td></tr>
+<tr><td>Noise sensitivity</td><td>High: noise degrades the signal</td><td>Low: noise rejected as long as threshold is not crossed</td></tr>
 <tr><td>Processing</td><td>Op-amps, filters, oscillators</td><td>Logic gates, microcontrollers, processors</td></tr>
 <tr><td>Example</td><td>Vinyl record, analogue thermometer, AM radio</td><td>CD audio, digital thermometer, Wi-Fi</td></tr>
 </tbody>
 </table>
 </div>
-<p>Most modern systems are <strong>mixed signal</strong> — an analogue front-end (sensor, amplifier) converts real-world signals, then an Analogue-to-Digital Converter (ADC) converts them to digital form for processing. Digital-to-Analogue Converters (DAC) convert digital results back to analogue for output (e.g., speakers, actuators).</p>
+<p>Most modern systems are <strong>mixed signal</strong>: an analogue front-end (sensor, amplifier) converts real-world signals, then an Analogue-to-Digital Converter (ADC) converts them to digital form for processing. Digital-to-Analogue Converters (DAC) convert digital results back to analogue for output (e.g., speakers, actuators).</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -224,7 +227,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Analogue signals are characterised by quantities that vary continuously. The most common waveform is the <strong>sine wave</strong> — it models the output of AC generators, audio signals, and many natural phenomena. Key analogue quantities and their SI units:</p>
+<p>Analogue signals are characterised by quantities that vary continuously. The most common waveform is the <strong>sine wave</strong>: it models the output of AC generators, audio signals, and many natural phenomena. Key analogue quantities and their SI units:</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Quantity</th><th>Symbol</th><th>SI Unit</th><th>Definition</th></tr></thead>
@@ -305,7 +308,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Digital systems store, process, and transmit all information as binary (base-2) numbers — sequences of 0s and 1s. Each binary digit is a <strong>bit</strong>; 8 bits = 1 byte. Advantages of digital over analogue: noise immunity, perfect copying, easy storage, encryption, and compression.</p>
+<p>Digital systems store, process, and transmit all information as binary (base-2) numbers: sequences of 0s and 1s. Each binary digit is a <strong>bit</strong>; 8 bits = 1 byte. Advantages of digital over analogue: noise immunity, perfect copying, easy storage, encryption, and compression.</p>
 <p><strong>Logic gates</strong> are the fundamental building blocks of digital circuits. They take one or more binary inputs and produce a single binary output according to a defined Boolean function:</p>
 <div class="content-table-wrap">
 <table class="content-table">
@@ -314,13 +317,13 @@ Show Chinese · 显示中文
 <tr><td><strong>AND</strong></td><td>&amp;</td><td>Output HIGH only when ALL inputs are HIGH</td><td>A AND B → 1 only if A=1 and B=1</td></tr>
 <tr><td><strong>OR</strong></td><td>≥1</td><td>Output HIGH when ANY input is HIGH</td><td>A OR B → 1 if A=1 or B=1 (or both)</td></tr>
 <tr><td><strong>NOT</strong></td><td>1</td><td>Inverts the single input</td><td>NOT A → 1 if A=0; 0 if A=1</td></tr>
-<tr><td><strong>NAND</strong></td><td>&amp; with bubble</td><td>NOT AND — inverse of AND</td><td>Output LOW only when ALL inputs HIGH</td></tr>
-<tr><td><strong>NOR</strong></td><td>≥1 with bubble</td><td>NOT OR — inverse of OR</td><td>Output HIGH only when ALL inputs LOW</td></tr>
-<tr><td><strong>XOR</strong></td><td>=1</td><td>Exclusive OR — output HIGH when inputs differ</td><td>A XOR B → 1 only if A ≠ B</td></tr>
+<tr><td><strong>NAND</strong></td><td>&amp; with bubble</td><td>NOT AND: inverse of AND</td><td>Output LOW only when ALL inputs HIGH</td></tr>
+<tr><td><strong>NOR</strong></td><td>≥1 with bubble</td><td>NOT OR: inverse of OR</td><td>Output HIGH only when ALL inputs LOW</td></tr>
+<tr><td><strong>XOR</strong></td><td>=1</td><td>Exclusive OR: output HIGH when inputs differ</td><td>A XOR B → 1 only if A ≠ B</td></tr>
 </tbody>
 </table>
 </div>
-<p>Logic gates combine to form adders, comparators, flip-flops (memory cells), counters, and all the complex functions of a microprocessor. NAND and NOR are <em>universal gates</em> — any logic function can be built using only one type.</p>
+<p>Logic gates combine to form adders, comparators, flip-flops (memory cells), counters, and all the complex functions of a microprocessor. NAND and NOR are <em>universal gates</em>: any logic function can be built using only one type.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -356,18 +359,18 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Passive components</strong> do not require an external power supply to function and cannot amplify signals — they can only attenuate, store, or redirect energy:</p>
+<p><strong>Passive components</strong> do not require an external power supply to function and cannot amplify signals; they can only attenuate, store, or redirect energy:</p>
 <ul>
-<li><strong>Fixed resistors</strong> — Limit current flow according to Ohm's Law (V = IR). Used for biasing, current limiting (protecting LEDs), and voltage division. Measured in ohms (Ω). Colour codes indicate value.</li>
-<li><strong>Variable resistors (potentiometers / rheostats)</strong> — Resistance adjustable by turning a dial or sliding a wiper. Used for volume controls, dimmer switches, position sensors.</li>
-<li><strong>Capacitors</strong> — Store electrical charge (energy) in an electric field. Used for filtering, smoothing power supplies, timing circuits, and coupling/decoupling. Measured in farads (F), typically μF or pF. Electrolytic capacitors are polarised (must be connected the right way round).</li>
-<li><strong>Switches</strong> — Mechanically open or close a circuit. Types: SPST (single-pole single-throw — on/off), SPDT (changeover), DPDT, push-to-make, push-to-break, reed switches (activated by a magnet).</li>
-<li><strong>Relays</strong> — Electrically operated switches. A small current through an electromagnet coil controls a separate, larger-current switching contact. Used to allow a low-voltage microcontroller to switch mains-voltage circuits safely.</li>
+<li><strong>Fixed resistors.</strong> Limit current flow according to Ohm's Law (V = IR). Used for biasing, current limiting (protecting LEDs), and voltage division. Measured in ohms (Ω). Colour codes indicate value.</li>
+<li><strong>Variable resistors (potentiometers / rheostats).</strong> Resistance adjustable by turning a dial or sliding a wiper. Used for volume controls, dimmer switches, position sensors.</li>
+<li><strong>Capacitors.</strong> Store electrical charge (energy) in an electric field. Used for filtering, smoothing power supplies, timing circuits, and coupling/decoupling. Measured in farads (F), typically μF or pF. Electrolytic capacitors are polarised (must be connected the right way round).</li>
+<li><strong>Switches.</strong> Mechanically open or close a circuit. Types: SPST (single-pole single-throw: on/off), SPDT (changeover), DPDT, push-to-make, push-to-break, reed switches (activated by a magnet).</li>
+<li><strong>Relays.</strong> Electrically operated switches. A small current through an electromagnet coil controls a separate, larger-current switching contact. Used to allow a low-voltage microcontroller to switch mains-voltage circuits safely.</li>
 </ul>
 <p><strong>Active components</strong> require an external energy source and can amplify or switch signals:</p>
 <ul>
-<li><strong>Diodes</strong> — Allow current to flow in one direction only (anode to cathode). Used for rectification (AC to DC), voltage clamping, and protection. LED (Light Emitting Diode) emits light when forward biased.</li>
-<li><strong>Transistors (BJT and MOSFET)</strong> — Three-terminal devices that act as electronically controlled switches or amplifiers. A small base/gate signal controls a much larger collector/drain current. Fundamental to all digital and analogue circuits — a modern processor contains billions of MOSFET transistors.</li>
+<li><strong>Diodes.</strong> Allow current to flow in one direction only (anode to cathode). Used for rectification (AC to DC), voltage clamping, and protection. LED (Light Emitting Diode) emits light when forward biased.</li>
+<li><strong>Transistors (BJT and MOSFET).</strong> Three-terminal devices that act as electronically controlled switches or amplifiers. A small base/gate signal controls a much larger collector/drain current. Fundamental to all digital and analogue circuits: a modern processor contains billions of MOSFET transistors.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -406,13 +409,13 @@ Show Chinese · 显示中文
 <table class="content-table">
 <thead><tr><th>Sensor</th><th>Detects</th><th>Type</th><th>Application</th></tr></thead>
 <tbody>
-<tr><td>LDR (Light Dependent Resistor)</td><td>Light intensity</td><td>Analogue — resistance decreases with light</td><td>Automatic street lights, camera exposure</td></tr>
-<tr><td>Thermistor (NTC)</td><td>Temperature</td><td>Analogue — resistance decreases as temp rises</td><td>Thermostats, fire alarms, engine management</td></tr>
-<tr><td>Microphone</td><td>Sound (pressure waves)</td><td>Analogue — converts acoustic to electrical signal</td><td>Voice assistants, recording, alarms</td></tr>
-<tr><td>PIR (Passive Infrared)</td><td>Body heat / motion</td><td>Digital — detects IR changes from moving warm objects</td><td>Security lights, intruder alarms</td></tr>
-<tr><td>Ultrasonic sensor</td><td>Distance</td><td>Digital/analogue — measures echo time</td><td>Parking sensors, robotics, level sensing</td></tr>
-<tr><td>Push switch</td><td>Touch / physical press</td><td>Digital — open or closed</td><td>Keyboards, machine safety interlocks</td></tr>
-<tr><td>Potentiometer</td><td>Position / rotation</td><td>Analogue — voltage divider</td><td>Joysticks, rotary encoders, throttle control</td></tr>
+<tr><td>LDR (Light Dependent Resistor)</td><td>Light intensity</td><td>Analogue: resistance decreases with light</td><td>Automatic street lights, camera exposure</td></tr>
+<tr><td>Thermistor (NTC)</td><td>Temperature</td><td>Analogue: resistance decreases as temp rises</td><td>Thermostats, fire alarms, engine management</td></tr>
+<tr><td>Microphone</td><td>Sound (pressure waves)</td><td>Analogue: converts acoustic to electrical signal</td><td>Voice assistants, recording, alarms</td></tr>
+<tr><td>PIR (Passive Infrared)</td><td>Body heat / motion</td><td>Digital: detects IR changes from moving warm objects</td><td>Security lights, intruder alarms</td></tr>
+<tr><td>Ultrasonic sensor</td><td>Distance</td><td>Digital/analogue: measures echo time</td><td>Parking sensors, robotics, level sensing</td></tr>
+<tr><td>Push switch</td><td>Touch / physical press</td><td>Digital: open or closed</td><td>Keyboards, machine safety interlocks</td></tr>
+<tr><td>Potentiometer</td><td>Position / rotation</td><td>Analogue: voltage divider</td><td>Joysticks, rotary encoders, throttle control</td></tr>
 </tbody>
 </table>
 </div>
@@ -454,10 +457,10 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p>The <strong>process</strong> stage in an electronic system receives input signals, applies logic or computation, and generates output signals. Processing devices range in complexity:</p>
 <ul>
-<li><strong>Logic ICs</strong> — Integrated circuits containing fixed logic gates (AND, OR, NOT, etc.) in a single chip package. Examples: 74HC series (CMOS logic). Used for simple combinational logic — no programming required, but no flexibility.</li>
-<li><strong>Microcontrollers (MCUs)</strong> — A complete computer on a single chip: CPU, RAM, flash memory (for program storage), and programmable input/output pins. Program written in C, MicroPython, or a block-based language. Examples: Arduino (ATmega328), Raspberry Pi Pico (RP2040), PIC, STM32. Widely used in consumer electronics, automotive systems, and industrial control.</li>
-<li><strong>Single-board computers (SBCs)</strong> — Full Linux computers on one board. Examples: Raspberry Pi 4, BeagleBone. Have operating systems, USB, HDMI, ethernet — more powerful than MCUs but consume more power and require more time to boot.</li>
-<li><strong>FPGAs (Field-Programmable Gate Arrays)</strong> — Chips that can be configured to implement any digital circuit. Used in high-speed signal processing, prototyping, and aerospace/defence applications.</li>
+<li><strong>Logic ICs.</strong> Integrated circuits containing fixed logic gates (AND, OR, NOT, etc.) in a single chip package. Examples: 74HC series (CMOS logic). Used for simple combinational logic: no programming required, but no flexibility.</li>
+<li><strong>Microcontrollers (MCUs).</strong> A complete computer on a single chip: CPU, RAM, flash memory (for program storage), and programmable input/output pins. Program written in C, MicroPython, or a block-based language. Examples: Arduino (ATmega328), Raspberry Pi Pico (RP2040), PIC, STM32. Widely used in consumer electronics, automotive systems, and industrial control.</li>
+<li><strong>Single-board computers (SBCs).</strong> Full Linux computers on one board. Examples: Raspberry Pi 4, BeagleBone. Have operating systems, USB, HDMI, ethernet; more powerful than MCUs but consume more power and require more time to boot.</li>
+<li><strong>FPGAs (Field-Programmable Gate Arrays).</strong> Chips that can be configured to implement any digital circuit. Used in high-speed signal processing, prototyping, and aerospace/defence applications.</li>
 </ul>
 <p>For most embedded product designs, a <strong>microcontroller</strong> is the most common choice: it is purpose-built, inexpensive, energy-efficient, and available in a huge range of sizes and capabilities.</p>
 </div>
@@ -490,12 +493,12 @@ Show Chinese · 显示中文
 <p>A <strong>control circuit</strong> continuously monitors one or more inputs, applies logic, and switches outputs on or off to maintain a desired condition. Control circuits underpin all automated systems.</p>
 <p><strong>Examples of control circuits in everyday products:</strong></p>
 <ul>
-<li><strong>Thermostat (home heating)</strong> — Temperature sensor monitors room temperature. When temperature falls below the set point, the control circuit closes a relay to activate the boiler. When temperature reaches the set point, the relay opens, turning the boiler off. This is an example of <em>on–off control</em> (bang-bang control).</li>
-<li><strong>Automatic street lights</strong> — LDR monitors light level. When ambient light falls below a threshold (dusk), the control circuit switches the lamp on. At dawn, the lamp switches off. The time delay prevents flickering in brief cloud shadow.</li>
-<li><strong>Washing machine</strong> — Multiple control circuits manage water temperature, water level (pressure sensor), drum motor speed (tachometer feedback), door lock, and timer. The main microcontroller coordinates all these through a programmed wash cycle.</li>
-<li><strong>Battery management system (BMS)</strong> — Monitors cell voltage, current, and temperature in a lithium battery pack. Controls charging rate, prevents overcharging or over-discharging, and balances cells. Critical for safety in electric vehicles and portable electronics.</li>
+<li><strong>Thermostat (home heating).</strong> Temperature sensor monitors room temperature. When temperature falls below the set point, the control circuit closes a relay to activate the boiler. When temperature reaches the set point, the relay opens, turning the boiler off. This is an example of <em>on–off control</em> (bang-bang control).</li>
+<li><strong>Automatic street lights.</strong> LDR monitors light level. When ambient light falls below a threshold (dusk), the control circuit switches the lamp on. At dawn, the lamp switches off. The time delay prevents flickering in brief cloud shadow.</li>
+<li><strong>Washing machine.</strong> Multiple control circuits manage water temperature, water level (pressure sensor), drum motor speed (tachometer feedback), door lock, and timer. The main microcontroller coordinates all these through a programmed wash cycle.</li>
+<li><strong>Battery management system (BMS).</strong> Monitors cell voltage, current, and temperature in a lithium battery pack. Controls charging rate, prevents overcharging or over-discharging, and balances cells. Critical for safety in electric vehicles and portable electronics.</li>
 </ul>
-<p>Control circuits may be implemented as hardwired analogue circuits (comparators with hysteresis) or as software running on a microcontroller. Software-based control is more flexible — parameters can be changed by reprogramming rather than replacing components.</p>
+<p>Control circuits may be implemented as hardwired analogue circuits (comparators with hysteresis) or as software running on a microcontroller. Software-based control is more flexible: parameters can be changed by reprogramming rather than replacing components.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -524,7 +527,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Output devices convert an electrical signal into a physical effect — light, sound, motion, or heat. The output device chosen must match the application's requirements for power, speed, precision, and size.</p>
+<p>Output devices convert an electrical signal into a physical effect: light, sound, motion, or heat. The output device chosen must match the application's requirements for power, speed, precision, and size.</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Output Device</th><th>Physical Effect</th><th>Application</th></tr></thead>
@@ -578,15 +581,15 @@ Show Chinese · 显示中文
 <div class="lang-col">
 <span class="lang-label">English</span>
 <p><strong>Feedback</strong> is the process of routing part of the output signal back to the input, where it influences the system's behaviour. Feedback is fundamental to creating stable, accurate, self-correcting systems.</p>
-<p><strong>Negative feedback</strong> — The feedback signal opposes the change in output, reducing the difference between the desired (set point) and actual output. Negative feedback makes systems stable and predictable.</p>
+<p><strong>Negative feedback.</strong> The feedback signal opposes the change in output, reducing the difference between the desired (set point) and actual output. Negative feedback makes systems stable and predictable.</p>
 <ul>
 <li><em>Example</em>: A cruise control system measures actual vehicle speed (output), compares it to the set speed (set point), and adjusts the throttle (process) to reduce the error. If the car slows going uphill, the throttle opens; if it accelerates downhill, the throttle closes.</li>
 <li><em>Example</em>: An op-amp with negative feedback has its output fed back to its inverting input, dramatically improving linearity, bandwidth, and output stability compared to open-loop operation.</li>
 </ul>
-<p><strong>Positive feedback</strong> — The feedback signal reinforces the change, amplifying the output further in the same direction. Positive feedback leads to instability or latching behaviour — often used deliberately in oscillators and Schmitt triggers.</p>
+<p><strong>Positive feedback.</strong> The feedback signal reinforces the change, amplifying the output further in the same direction. Positive feedback leads to instability or latching behaviour, often used deliberately in oscillators and Schmitt triggers.</p>
 <ul>
-<li><em>Example</em>: Microphone held too close to a speaker — sound is picked up, amplified, played back, and picked up again — producing a loud squeal (runaway positive feedback).</li>
-<li><em>Example</em>: Schmitt trigger — uses positive feedback to create sharp, clean transitions between HIGH and LOW, eliminating noise-induced jitter on the edges of slowly changing input signals.</li>
+<li><em>Example</em>: Microphone held too close to a speaker: sound is picked up, amplified, played back, and picked up again, producing a loud squeal (runaway positive feedback).</li>
+<li><em>Example</em>: Schmitt trigger: uses positive feedback to create sharp, clean transitions between HIGH and LOW, eliminating noise-induced jitter on the edges of slowly changing input signals.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -618,14 +621,14 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>An <strong>operational amplifier (op-amp)</strong> is a high-gain, DC-coupled voltage amplifier with two inputs — a non-inverting input (+) and an inverting input (−) — and a single output. Op-amps are integrated circuits (the μA741 is the classic example; the LM358 and TL071 are widely used modern variants).</p>
+<p>An <strong>operational amplifier (op-amp)</strong> is a high-gain, DC-coupled voltage amplifier with two inputs, a non-inverting input (+) and an inverting input (−), and a single output. Op-amps are integrated circuits (the μA741 is the classic example; the LM358 and TL071 are widely used modern variants).</p>
 <p><strong>Ideal op-amp characteristics</strong>: infinite open-loop gain, infinite input impedance (draws no current), zero output impedance, zero offset voltage, infinite bandwidth. Real op-amps approach these ideals.</p>
 <p><strong>Common configurations:</strong></p>
 <ul>
-<li><strong>Comparator (open loop)</strong> — No feedback. Output swings to positive or negative rail depending on which input is higher. V+ &gt; V− → output HIGH; V− &gt; V+ → output LOW. Used to compare a sensor voltage to a reference (e.g., trigger an alarm when temperature exceeds a threshold).</li>
-<li><strong>Inverting amplifier (negative feedback)</strong> — Input resistor R₁ at the inverting input; feedback resistor R₂ from output to inverting input. Voltage gain A = −R₂/R₁ (negative = inverted). Example: R₁ = 1 kΩ, R₂ = 10 kΩ → gain = −10.</li>
-<li><strong>Non-inverting amplifier (negative feedback)</strong> — Input at non-inverting (+) terminal; feedback resistors R₁ and R₂ set gain. Voltage gain A = 1 + R₂/R₁ (always positive, output in phase with input). Example: R₁ = 1 kΩ, R₂ = 9 kΩ → gain = +10.</li>
-<li><strong>Voltage follower (unity gain buffer)</strong> — Output connected directly to inverting input. Gain = 1; used to buffer a high-impedance source without drawing current from it.</li>
+<li><strong>Comparator (open loop).</strong> No feedback. Output swings to positive or negative rail depending on which input is higher. V+ &gt; V− → output HIGH; V− &gt; V+ → output LOW. Used to compare a sensor voltage to a reference (e.g., trigger an alarm when temperature exceeds a threshold).</li>
+<li><strong>Inverting amplifier (negative feedback).</strong> Input resistor R₁ at the inverting input; feedback resistor R₂ from output to inverting input. Voltage gain A = −R₂/R₁ (negative = inverted). Example: R₁ = 1 kΩ, R₂ = 10 kΩ → gain = −10.</li>
+<li><strong>Non-inverting amplifier (negative feedback).</strong> Input at non-inverting (+) terminal; feedback resistors R₁ and R₂ set gain. Voltage gain A = 1 + R₂/R₁ (always positive, output in phase with input). Example: R₁ = 1 kΩ, R₂ = 9 kΩ → gain = +10.</li>
+<li><strong>Voltage follower (unity gain buffer).</strong> Output connected directly to inverting input. Gain = 1; used to buffer a high-impedance source without drawing current from it.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -658,12 +661,12 @@ Show Chinese · 显示中文
 <p>An <strong>embedded system</strong> is a dedicated computer system designed to perform a specific function within a larger product or system. Unlike a general-purpose computer, an embedded system runs a fixed program and is not intended to be reprogrammed by the end user.</p>
 <p><strong>Key characteristics</strong>: dedicated function, real-time response, constrained resources (limited RAM and flash memory), low power consumption, high reliability, long service life.</p>
 <p><strong>Examples</strong>: Engine control unit (ECU) in a car, anti-lock brake system, insulin pump controller, smart thermostat, industrial PLC (Programmable Logic Controller), washing machine control board.</p>
-<p><strong>Communication between embedded systems</strong> — Multiple embedded systems within a product or across products use standard serial communication protocols:</p>
+<p><strong>Communication between embedded systems.</strong> Multiple embedded systems within a product or across products use standard serial communication protocols:</p>
 <ul>
-<li><strong>I²C (Inter-Integrated Circuit)</strong> — Two-wire bus (SDA data, SCL clock). Supports multiple devices on one bus using addresses. Typical speed: 100 kHz or 400 kHz. Used for sensors, displays, EEPROMs in short-range connections.</li>
-<li><strong>SPI (Serial Peripheral Interface)</strong> — Four-wire bus (MOSI, MISO, SCK, CS). Higher speed than I²C, full-duplex. Used for SD cards, ADCs, and fast displays.</li>
-<li><strong>UART (Universal Asynchronous Receiver/Transmitter)</strong> — Two-wire (TX, RX). Simple, no clock line — devices must agree on baud rate. Used for GPS modules, Bluetooth serial links, debugging.</li>
-<li><strong>CAN bus (Controller Area Network)</strong> — Robust two-wire differential bus used in automotive and industrial applications. Supports up to 1 Mbit/s; resistant to electrical noise; each node can communicate with all others.</li>
+<li><strong>I²C (Inter-Integrated Circuit).</strong> Two-wire bus (SDA data, SCL clock). Supports multiple devices on one bus using addresses. Typical speed: 100 kHz or 400 kHz. Used for sensors, displays, EEPROMs in short-range connections.</li>
+<li><strong>SPI (Serial Peripheral Interface).</strong> Four-wire bus (MOSI, MISO, SCK, CS). Higher speed than I²C, full-duplex. Used for SD cards, ADCs, and fast displays.</li>
+<li><strong>UART (Universal Asynchronous Receiver/Transmitter).</strong> Two-wire (TX, RX). Simple, no clock line; devices must agree on baud rate. Used for GPS modules, Bluetooth serial links, debugging.</li>
+<li><strong>CAN bus (Controller Area Network).</strong> Robust two-wire differential bus used in automotive and industrial applications. Supports up to 1 Mbit/s; resistant to electrical noise; each node can communicate with all others.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -680,6 +683,9 @@ Show Chinese · 显示中文
 </ul>
 </div>
 </div>
+
+<div class="topic-link-blurb">Once a microcontroller or embedded system is designed, it still has to be assembled, soldered, and housed at scale. PCB assembly, surface-mount soldering, and enclosure manufacturing are covered in <a href="a4.1-manufacturing-techniques.html">A4.1 Manufacturing Techniques</a>.</div>
+
 </div>
 </div>
 
@@ -697,17 +703,17 @@ Show Chinese · 显示中文
 <p>A <strong>circuit diagram</strong> (schematic) is a standardised graphical representation of an electronic circuit, using universally recognised symbols defined by IEC 60617. Circuit diagrams allow engineers worldwide to communicate circuit designs unambiguously.</p>
 <p><strong>Key IEC schematic symbols</strong> (know these for examination):</p>
 <ul>
-<li>Battery / DC supply — long and short parallel lines; + terminal at long line</li>
-<li>Resistor — rectangle (IEC) or zigzag (ANSI)</li>
-<li>Capacitor — two parallel lines (electrolytic adds a + sign)</li>
-<li>Switch (SPST) — line with a gap and pivoting arm</li>
-<li>LED — diode triangle pointing to bar, with arrows indicating emitted light</li>
-<li>Transistor (NPN BJT) — three-terminal symbol with arrow on emitter pointing outward</li>
-<li>Op-amp — triangle with two inputs on left (+ and −) and output on right</li>
-<li>Ground — downward-pointing lines (horizontal bars decreasing in size)</li>
+<li>Battery / DC supply: long and short parallel lines; + terminal at long line</li>
+<li>Resistor: rectangle (IEC) or zigzag (ANSI)</li>
+<li>Capacitor: two parallel lines (electrolytic adds a + sign)</li>
+<li>Switch (SPST): line with a gap and pivoting arm</li>
+<li>LED: diode triangle pointing to bar, with arrows indicating emitted light</li>
+<li>Transistor (NPN BJT): three-terminal symbol with arrow on emitter pointing outward</li>
+<li>Op-amp: triangle with two inputs on left (+ and −) and output on right</li>
+<li>Ground: downward-pointing lines (horizontal bars decreasing in size)</li>
 </ul>
-<p><strong>Series circuits</strong>: Components connected end-to-end in a single path. Same current flows through all components. Total resistance = R₁ + R₂ + R₃. If one component fails (open), the entire circuit stops working. <em>Example</em>: Old-style Christmas lights in series — one blown bulb stops all.</p>
-<p><strong>Parallel circuits</strong>: Components connected across the same two nodes, providing multiple current paths. Same voltage across all branches. Total resistance is less than any individual resistor (1/R_total = 1/R₁ + 1/R₂ + ...). If one branch fails (open), others continue. <em>Example</em>: Household mains wiring — all appliances share the same 230 V, and switching one off does not affect others.</p>
+<p><strong>Series circuits</strong>: Components connected end-to-end in a single path. Same current flows through all components. Total resistance = R₁ + R₂ + R₃. If one component fails (open), the entire circuit stops working. <em>Example</em>: Old-style Christmas lights in series: one blown bulb stops all.</p>
+<p><strong>Parallel circuits</strong>: Components connected across the same two nodes, providing multiple current paths. Same voltage across all branches. Total resistance is less than any individual resistor (1/R_total = 1/R₁ + 1/R₂ + ...). If one branch fails (open), others continue. <em>Example</em>: Household mains wiring: all appliances share the same 230 V, and switching one off does not affect others.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -862,7 +868,7 @@ Show Chinese · 显示中文
 <p><strong>Input</strong>: A thermistor (NTC temperature sensor) continuously measures the actual room temperature. The resistance of the thermistor decreases as temperature rises, producing a proportional voltage at the input of the microcontroller or comparator circuit.</p>
 <p><strong>Process</strong>: The control circuit (microcontroller or comparator) compares the actual temperature (from the thermistor) to the user-set target temperature (set point). If the actual temperature is below the set point, the processor generates a signal to activate the heating output. If actual temperature equals or exceeds the set point, the output signal is removed.</p>
 <p><strong>Output</strong>: A relay (electrically controlled switch) is activated by the processor. The relay closes to switch on the boiler or heating element (mains voltage circuit). When the target temperature is reached, the relay opens, turning the boiler off.</p>
-<p><strong>Feedback</strong>: The thermistor continuously reports the room temperature back to the process stage. This is negative feedback — when the heater is on and the room warms up, the thermistor voltage changes in a direction that reduces the error between actual and set temperature, eventually switching the heater off. This creates a self-regulating system.</p>
+<p><strong>Feedback</strong>: The thermistor continuously reports the room temperature back to the process stage. This is negative feedback: when the heater is on and the room warms up, the thermistor voltage changes in a direction that reduces the error between actual and set temperature, eventually switching the heater off. This creates a self-regulating system.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct input device with explanation (thermistor, measures temperature); 1 mark for process stage (comparison to set point, decision logic); 1 mark for output device (relay switching heater/boiler); 1 mark for correct description of negative feedback as self-correcting (not just "feedback sends signal back").</p>
 </div>
 </details>
@@ -870,21 +876,21 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary class="p2-q-stem"><span class="p2-q-label">Question 2</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Compare analogue and digital electronic systems. In your answer, discuss signal characteristics, noise immunity, processing methods, and give one example application of each that demonstrates why that signal type is appropriate.</span></summary>
 <div class="p2-answer">
-<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values — like a smoothly changing voltage that mirrors a physical quantity exactly. An analogue microphone output rises and falls in direct proportion to air pressure changes from sound. Analogue signals can represent an infinite range of values between minimum and maximum.</p>
-<p><strong>Digital systems</strong> represent all information as sequences of binary digits (0 and 1). A digital signal switches sharply between LOW (0 V) and HIGH (3.3 V or 5 V). All data — numbers, text, images, audio — is encoded as patterns of bits.</p>
+<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values, like a smoothly changing voltage that mirrors a physical quantity exactly. An analogue microphone output rises and falls in direct proportion to air pressure changes from sound. Analogue signals can represent an infinite range of values between minimum and maximum.</p>
+<p><strong>Digital systems</strong> represent all information as sequences of binary digits (0 and 1). A digital signal switches sharply between LOW (0 V) and HIGH (3.3 V or 5 V). All data (numbers, text, images, audio) is encoded as patterns of bits.</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Feature</th><th>Analogue</th><th>Digital</th></tr></thead>
 <tbody>
 <tr><td>Signal values</td><td>Infinite continuous range</td><td>Only two states: 0 or 1</td></tr>
-<tr><td>Noise immunity</td><td>Low — any electrical noise corrupts the signal permanently</td><td>High — noise rejected as long as it does not cross the threshold; signal can be regenerated perfectly</td></tr>
-<tr><td>Processing</td><td>Op-amps, filters, oscillators — hardware-defined</td><td>Logic gates, microcontrollers — software-programmable</td></tr>
-<tr><td>Copying accuracy</td><td>Degrades with each copy (noise accumulates)</td><td>Perfect — digital copies are bit-for-bit identical</td></tr>
+<tr><td>Noise immunity</td><td>Low: any electrical noise corrupts the signal permanently</td><td>High: noise rejected as long as it does not cross the threshold; signal can be regenerated perfectly</td></tr>
+<tr><td>Processing</td><td>Op-amps, filters, oscillators: hardware-defined</td><td>Logic gates, microcontrollers: software-programmable</td></tr>
+<tr><td>Copying accuracy</td><td>Degrades with each copy (noise accumulates)</td><td>Perfect: digital copies are bit-for-bit identical</td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>Example — analogue</strong>: A vinyl record stores audio as a continuous groove in a disc. The groove's width and depth vary continuously, just as the original sound pressure varied. A stylus reads the groove as a continuous analogue signal. Digital conversion would be unnecessary overhead for this type of storage — the analogue medium directly captures all detail.</p>
-<p><strong>Example — digital</strong>: Wi-Fi transmits data as digital packets over radio waves. Because radio signals are subject to significant noise and interference, using a digital format means the receiver can reconstruct the original data perfectly using error-correction codes. The same data would be destroyed by noise if transmitted as an analogue signal without any error-correction.</p>
+<p><strong>Example (analogue)</strong>: A vinyl record stores audio as a continuous groove in a disc. The groove's width and depth vary continuously, just as the original sound pressure varied. A stylus reads the groove as a continuous analogue signal. Digital conversion would be unnecessary overhead for this type of storage: the analogue medium directly captures all detail.</p>
+<p><strong>Example (digital)</strong>: Wi-Fi transmits data as digital packets over radio waves. Because radio signals are subject to significant noise and interference, using a digital format means the receiver can reconstruct the original data perfectly using error-correction codes. The same data would be destroyed by noise if transmitted as an analogue signal without any error-correction.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct signal characteristic of each (continuous vs. discrete/binary); 1 mark for noise immunity comparison with explanation; 1 mark for processing methods contrast; 1 mark for correct analogue example with justification; 1 mark for correct digital example with justification; 1 mark for any additional developed comparison point (copying accuracy, storage density, programmability).</p>
 </div>
 </details>
@@ -897,7 +903,7 @@ Show Chinese · 显示中文
 <p>Optionally: a timer within the microcontroller's software delays the off signal so the light stays on for a set period (e.g., 30 seconds) after motion ceases. The thermistor on the PCB may also provide temperature feedback to prevent the relay from operating in conditions that could damage the circuit.</p>
 <p><strong>Why a relay is necessary:</strong></p>
 <p>A microcontroller's GPIO (general-purpose input/output) pin can supply only approximately 20–40 mA at 3.3 V or 5 V. An LED floodlight may require 500 mA to several amps at 12 V or 240 V mains. Connecting the floodlight directly to a GPIO pin would damage or destroy the microcontroller.</p>
-<p>A relay provides electrical isolation between the low-voltage microcontroller circuit and the high-power floodlight circuit. The microcontroller energises a small electromagnetic coil in the relay (typically 5–12 V, ~50–100 mA, within safe GPIO limits using a transistor driver). This coil magnetically closes the relay's switching contacts, which can safely carry the high current and voltage needed by the floodlight. The two circuits are electrically separate — mains voltage never reaches the microcontroller.</p>
+<p>A relay provides electrical isolation between the low-voltage microcontroller circuit and the high-power floodlight circuit. The microcontroller energises a small electromagnetic coil in the relay (typically 5–12 V, ~50–100 mA, within safe GPIO limits using a transistor driver). This coil magnetically closes the relay's switching contacts, which can safely carry the high current and voltage needed by the floodlight. The two circuits are electrically separate: mains voltage never reaches the microcontroller.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for a correct block diagram with all four components in correct sequence (PIR → MCU → relay → floodlight); 1 mark for correctly stating the GPIO current/voltage limitation (~40 mA, low voltage); 1 mark for explaining that the relay coil is controlled by a safe low current; 1 mark for explaining electrical isolation (mains voltage separated from microcontroller); 1 mark for any additional developed point (transistor driver, timer in software, protection diode across relay coil).</p>
 </div>
 </details>
@@ -907,10 +913,10 @@ Show Chinese · 显示中文
 <div class="p2-answer">
 <p><strong>Series circuits</strong> connect components end-to-end in a single, unbroken loop. The same current flows through every component. Total resistance is the sum of all individual resistances:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
-<p>If one component fails open circuit (breaks), the current path is interrupted and the entire circuit stops working. The failed component causes a complete loss of function. <em>Example</em>: Old-style series Christmas lights — one blown bulb stops the whole string.</p>
+<p>If one component fails open circuit (breaks), the current path is interrupted and the entire circuit stops working. The failed component causes a complete loss of function. <em>Example</em>: Old-style series Christmas lights: one blown bulb stops the whole string.</p>
 <p><strong>Parallel circuits</strong> connect components across the same two nodes, providing multiple independent current paths. The same voltage appears across every branch. Total resistance is calculated using the reciprocal formula:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1/R_total = 1/R₁ + 1/R₂ + 1/R₃ + …</p>
-<p>The total parallel resistance is always less than the smallest individual resistor. If one branch fails open circuit, current continues to flow through the remaining parallel branches — the rest of the circuit is unaffected. <em>Example</em>: House wiring — each room's lighting circuit is a separate parallel branch; one blown fuse does not affect other rooms.</p>
+<p>The total parallel resistance is always less than the smallest individual resistor. If one branch fails open circuit, current continues to flow through the remaining parallel branches: the rest of the circuit is unaffected. <em>Example</em>: House wiring: each room's lighting circuit is a separate parallel branch; one blown fuse does not affect other rooms.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for series definition (same current, single path) with correct total resistance formula; 1 mark for explanation of series open-circuit failure (complete loss of function); 1 mark for parallel definition (same voltage, multiple paths) with correct reciprocal resistance formula; 1 mark for explanation of parallel open-circuit failure (remaining branches unaffected).</p>
 </div>
 </details>
@@ -918,11 +924,11 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary class="p2-q-stem"><span class="p2-q-label">Question 5</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Evaluate the claim that "all modern electronic products should be redesigned to minimise their environmental impact." Refer to energy efficiency requirements, e-waste regulations, and the responsibilities of designers in your answer.</span></summary>
 <div class="p2-answer">
-<p><strong>The case for redesign:</strong> Electronic products are the fastest-growing waste stream globally (54 million tonnes of e-waste generated in 2019, according to the UN Global E-waste Monitor). Many older products contain hazardous materials — lead solder, mercury backlights, hexavalent chromium — now restricted under the EU RoHS Directive (2011). These substances leach into soil and groundwater if products are landfilled rather than properly recycled.</p>
-<p>Energy consumption is also significant. A poorly designed device with 5 W standby power left plugged in for 10 years consumes 5 × 87,600 hours = 438 kWh — equivalent to a long-haul flight's CO₂ equivalent per device. The EU Ecodesign Directive and the Australian Minimum Energy Performance Standards (MEPS) both require manufacturers to meet energy efficiency targets before products can be sold.</p>
-<p><strong>Designer responsibilities:</strong> Designers must now consider environmental impact across the full product life cycle — from material selection (avoiding restricted substances, using recycled content) through energy consumption in use, to end-of-life recyclability. Designing for disassembly (fasteners rather than adhesives, labelled materials, modularity) allows components to be separated and recovered. The EU's Right to Repair legislation (2021) extends this further — designers must make spare parts and repair documentation available for a minimum period.</p>
-<p><strong>Limitations of the claim:</strong> "All products" is too broad — the trade-off between environmental redesign cost and benefit varies widely. A device sold in millions of units (smartphone charger) benefits hugely from even a small efficiency improvement; a specialised industrial instrument sold in tens of units may not justify a complete redesign. Additionally, manufacturing a new product has its own environmental cost (embedded carbon, rare earth extraction) — if a redesign requires discarding functional existing devices, the net environmental benefit may be negative.</p>
-<p><strong>Conclusion:</strong> The claim is broadly valid as a design principle, but "all modern products should be redesigned" overstates the case. Priority should go to high-volume, high-energy-use, or high-hazard products. Regulations provide a minimum standard; responsible designers should aim beyond compliance — designing for longevity, repairability, and efficient end-of-life processing.</p>
+<p><strong>The case for redesign:</strong> Electronic products are the fastest-growing waste stream globally (54 million tonnes of e-waste generated in 2019, according to the UN Global E-waste Monitor). Many older products contain hazardous materials (lead solder, mercury backlights, hexavalent chromium) now restricted under the EU RoHS Directive (2011). These substances leach into soil and groundwater if products are landfilled rather than properly recycled.</p>
+<p>Energy consumption is also significant. A poorly designed device with 5 W standby power left plugged in for 10 years consumes 5 × 87,600 hours = 438 kWh, equivalent to a long-haul flight's CO₂ equivalent per device. The EU Ecodesign Directive and the Australian Minimum Energy Performance Standards (MEPS) both require manufacturers to meet energy efficiency targets before products can be sold.</p>
+<p><strong>Designer responsibilities:</strong> Designers must now consider environmental impact across the full product life cycle: from material selection (avoiding restricted substances, using recycled content) through energy consumption in use, to end-of-life recyclability. Designing for disassembly (fasteners rather than adhesives, labelled materials, modularity) allows components to be separated and recovered. The EU's Right to Repair legislation (2021) extends this further: designers must make spare parts and repair documentation available for a minimum period.</p>
+<p><strong>Limitations of the claim:</strong> "All products" is too broad: the trade-off between environmental redesign cost and benefit varies widely. A device sold in millions of units (smartphone charger) benefits hugely from even a small efficiency improvement; a specialised industrial instrument sold in tens of units may not justify a complete redesign. Additionally, manufacturing a new product has its own environmental cost (embedded carbon, rare earth extraction), if a redesign requires discarding functional existing devices, the net environmental benefit may be negative.</p>
+<p><strong>Conclusion:</strong> The claim is broadly valid as a design principle, but "all modern products should be redesigned" overstates the case. Priority should go to high-volume, high-energy-use, or high-hazard products. Regulations provide a minimum standard; responsible designers should aim beyond compliance: designing for longevity, repairability, and efficient end-of-life processing.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for relevant e-waste statistic or reference to e-waste problem; 1 mark for correct reference to a regulation (RoHS, Ecodesign, MEPS, Right to Repair) with explanation of its scope; 1 mark for designer responsibility in material selection or design for disassembly; 1 mark for energy efficiency point with a quantified example; 1 mark for a valid counter-argument or qualification of the claim (embedded carbon, cost-benefit analysis, high vs. low volume); 1 mark for a supported conclusion that evaluates the claim rather than simply restating it.</p>
 </div>
 </details>
@@ -958,7 +964,7 @@ Show Chinese · 显示中文
 
 <li class="ref-item">
 <span class="ref-item-title">EU RoHS Directive — European Commission Environment</span>
-<span class="ref-item-desc">Restriction of Hazardous Substances in electrical and electronic equipment — restricted substances list and compliance requirements. Search "EU RoHS Directive 2011/65/EU" for official text.</span>
+<span class="ref-item-desc">Restriction of Hazardous Substances in electrical and electronic equipment: restricted substances list and compliance requirements. Search "EU RoHS Directive 2011/65/EU" for official text.</span>
 </li>
 
 <li class="ref-item">
