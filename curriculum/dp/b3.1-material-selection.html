@@ -53,8 +53,8 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body open" id="body-intro">
-<p>Choosing the wrong material is one of the most costly mistakes a designer can make. A material that is too brittle fractures in service; too heavy, and the product fails its efficiency targets; too reactive, and it corrodes or leaches toxins. Material selection is not a single decision but a systematic process that weighs mechanical properties, aesthetics, cost, availability, sustainability, and manufacturability simultaneously — often with competing demands that require deliberate compromise.</p>
-<p>Topic B3.1 builds directly on A3.1 (material classification and properties) and introduces the tools and frameworks designers use to move from understanding properties to making justified, defensible choices. The most important of these tools is the <strong>Ashby chart</strong> — a graphical method for comparing materials across two properties at once, developed by Professor Michael Ashby at Cambridge University in the 1990s.</p>
+<p>Choosing the wrong material is one of the most costly mistakes a designer can make. A material that is too brittle fractures in service; too heavy, and the product fails its efficiency targets; too reactive, and it corrodes or leaches toxins. Material selection is not a single decision but a systematic process that weighs mechanical properties, aesthetics, cost, availability, sustainability, and manufacturability simultaneously, often with competing demands that require deliberate compromise.</p>
+<p>Topic B3.1 builds directly on <a href="a3.1-material-classification.html">A3.1 Material Classification</a> and introduces the tools and frameworks designers use to move from understanding properties to making justified, defensible choices. The most important of these tools is the <strong>Ashby chart</strong>: a graphical method for comparing materials across two properties at once, developed by Professor Michael Ashby at Cambridge University in the 1990s.</p>
 </div>
 </div>
 
@@ -64,7 +64,7 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-study">
-<p class="curr-section-intro">Material selection in Topic B moves from classification (A3.1) to applied decision-making — choosing materials based on properties, aesthetics, cost, availability, and sustainability, and justifying those choices through research.</p>
+<p class="curr-section-intro">Material selection in Topic B moves from classification (A3.1) to applied decision-making: choosing materials based on properties, aesthetics, cost, availability, and sustainability, and justifying those choices through research.</p>
 
 <div class="zh-toggle-wrap">
 <input type="checkbox" id="zh-toggle" class="zh-toggle-input">
@@ -99,30 +99,30 @@
 </tbody>
 </table>
 </div>
-<p>In most real applications, no single material excels across every property — selection requires <strong>compromise</strong>. High strength often comes with high density; good corrosion resistance often comes with higher cost. The challenge is to find the material that best satisfies the ranked priorities for a specific product.</p>
+<p>In most real applications, no single material excels across every property: selection requires <strong>compromise</strong>. High strength often comes with high density; good corrosion resistance often comes with higher cost. The challenge is to find the material that best satisfies the ranked priorities for a specific product.</p>
 
 <p><strong>Ashby charts (material selection charts)</strong></p>
-<p>Developed by Professor Michael Ashby of Cambridge University in the 1990s, Ashby charts plot two material properties against each other on <strong>logarithmic scales</strong>. Each material (or material family) appears as a bubble or region. Logarithmic scales are used because material properties span many orders of magnitude — plotting rubber (E ≈ 0.01 GPa) and diamond (E ≈ 1000 GPa) on the same linear axis would make most materials invisible.</p>
+<p>Developed by Professor Michael Ashby of Cambridge University in the 1990s, Ashby charts plot two material properties against each other on <strong>logarithmic scales</strong>. Each material (or material family) appears as a bubble or region. Logarithmic scales are used because material properties span many orders of magnitude: plotting rubber (E ≈ 0.01 GPa) and diamond (E ≈ 1000 GPa) on the same linear axis would make most materials invisible.</p>
 <p>Ashby charts allow designers to:</p>
 <ul>
-<li>Screen all candidate materials simultaneously — those in a target region of the chart pass the filter.</li>
-<li>Visualise trade-offs: for example, a strength-vs-density chart reveals that high-strength materials tend to be dense — but some (CFRP, titanium alloys) break this trend.</li>
+<li>Screen all candidate materials simultaneously: those in a target region of the chart pass the filter.</li>
+<li>Visualise trade-offs: for example, a strength-vs-density chart reveals that high-strength materials tend to be dense, but some (CFRP, titanium alloys) break this trend.</li>
 <li>Compare the efficiency of different material families for a specific function.</li>
 <li>Conduct substitution studies when a preferred material becomes unavailable or too expensive.</li>
 </ul>
-<p><strong>Example property pair — Strength vs. density:</strong> Plot ultimate tensile strength (y-axis) against density (x-axis). Materials in the top-left corner are strong and light — ideal for aerospace and sports equipment. Steel is strong but dense (bottom-right); CFRP and titanium alloys are strong and light (top-left).</p>
-<p><strong>Example property pair — Corrosion potential vs. corrosion current density:</strong> Materials with lower corrosion current density (i_corr) corrode more slowly; materials with higher (more noble) corrosion potential (E_corr) are more resistant to oxidation. Materials towards the upper-left of this chart are preferred for corrosive environments.</p>
+<p><strong>Example property pair (Strength vs. density):</strong> Plot ultimate tensile strength (y-axis) against density (x-axis). Materials in the top-left corner are strong and light: ideal for aerospace and sports equipment. Steel is strong but dense (bottom-right); CFRP and titanium alloys are strong and light (top-left).</p>
+<p><strong>Example property pair (Corrosion potential vs. corrosion current density):</strong> Materials with lower corrosion current density (i_corr) corrode more slowly; materials with higher (more noble) corrosion potential (E_corr) are more resistant to oxidation. Materials towards the upper-left of this chart are preferred for corrosive environments.</p>
 
 <p><strong>Performance indices</strong></p>
-<p>A performance index is a combination of material properties — a formula that quantifies how efficiently a material meets a specific design requirement. By drawing <strong>design lines</strong> (lines of constant performance index value) on an Ashby chart, designers can quickly rank materials for a given function.</p>
+<p>A performance index is a combination of material properties: a formula that quantifies how efficiently a material meets a specific design requirement. By drawing <strong>design lines</strong> (lines of constant performance index value) on an Ashby chart, designers can quickly rank materials for a given function.</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Index</th><th>Formula</th><th>Meaning</th><th>Application</th></tr></thead>
 <tbody>
-<tr><td><strong>Specific strength</strong></td><td>σᵤ / ρ</td><td>Strength per unit weight</td><td>Aircraft wings, racing car chassis — must be strong but light</td></tr>
+<tr><td><strong>Specific strength</strong></td><td>σᵤ / ρ</td><td>Strength per unit weight</td><td>Aircraft wings, racing car chassis: must be strong but light</td></tr>
 <tr><td><strong>Specific stiffness</strong></td><td>E / ρ</td><td>Stiffness per unit weight</td><td>Bicycle frames, sailing masts, wind turbine blades</td></tr>
 <tr><td><strong>Fracture toughness</strong></td><td>K<sub>Ic</sub> (MPa·m½)</td><td>Resistance to crack propagation</td><td>Pressure vessels, safety-critical parts, aircraft skin</td></tr>
-<tr><td><strong>Thermal conductivity / cost</strong></td><td>λ / Φ</td><td>Heat transfer per unit cost</td><td>Radiator fins, heat exchangers — maximise thermal performance within budget</td></tr>
+<tr><td><strong>Thermal conductivity / cost</strong></td><td>λ / Φ</td><td>Heat transfer per unit cost</td><td>Radiator fins, heat exchangers: maximise thermal performance within budget</td></tr>
 </tbody>
 </table>
 </div>
@@ -192,7 +192,7 @@
 <li><strong>Sound</strong>: The acoustic quality of a material affects perception of quality. The solid "thunk" of a closing car door signals robustness; the rattling of thin plastic signals cheapness. Premium headphone housings use dense materials to improve perceived build quality.</li>
 <li><strong>Smell</strong>: New leather, cut timber, and even fresh rubber carry olfactory associations. The "new car smell" is deliberately engineered; the smell of varnished wood is associated with luxury furniture.</li>
 </ul>
-<p>These factors differentiate a product from competitors and give it <strong>personality or character</strong> — important for brand identity and premium pricing.</p>
+<p>These factors differentiate a product from competitors and give it <strong>personality or character</strong>: important for brand identity and premium pricing.</p>
 <p><strong>Finishing techniques that enhance aesthetics:</strong></p>
 <div class="content-table-wrap">
 <table class="content-table">
@@ -207,7 +207,7 @@
 </tbody>
 </table>
 </div>
-<p><strong>Important distinction</strong>: Corrosion protection (galvanising, passivation, epoxy coating) is a <em>functional</em> finish, not an aesthetic one — it improves durability, not appearance. Similarly, a heat treatment to improve hardness is functional. Only finishes primarily chosen for their visual or tactile qualities are classified as aesthetic.</p>
+<p><strong>Important distinction</strong>: Corrosion protection (galvanising, passivation, epoxy coating) is a <em>functional</em> finish, not an aesthetic one: it improves durability, not appearance. Similarly, a heat treatment to improve hardness is functional. Only finishes primarily chosen for their visual or tactile qualities are classified as aesthetic.</p>
 <p>Aesthetic selection also applies to material finishes used in product interiors: the felt-lined interior of a jewellery box, the soft-touch rubber grip on a power tool, or the piano-black plastic of a premium remote control all use material choices to signal quality and create an emotional response.</p>
 </div>
 <div class="lang-col">
@@ -253,7 +253,7 @@
 <span class="lang-label">English</span>
 <p>Beyond properties and aesthetics, four contextual factors shape which material is ultimately chosen:</p>
 
-<p><strong>1. Cost — lifecycle, not just purchase price</strong></p>
+<p><strong>1. Cost: lifecycle, not just purchase price</strong></p>
 <p>The <strong>initial purchase price</strong> of a material is only part of the cost story. <strong>Lifecycle cost</strong> includes:</p>
 <ul>
 <li><em>Acquisition</em>: Raw material cost, processing, and transportation to the factory.</li>
@@ -267,14 +267,14 @@
 <ul>
 <li><em>Global vs. local sourcing</em>: A material available locally has lower transport emissions, shorter lead times, and less supply chain risk. Materials sourced from a single country or mine are vulnerable to geopolitical disruption.</li>
 <li><em>Renewable vs. finite</em>: Bamboo regenerates in 3–5 years; steel relies on iron ore mined from finite deposits. Renewable availability aligns with circular economy thinking.</li>
-<li><em>Recyclability</em>: Aluminium and steel can be recycled indefinitely without significant property loss. Many composite materials (CFRP) cannot yet be economically recycled — their fibres are landfilled or incinerated.</li>
+<li><em>Recyclability</em>: Aluminium and steel can be recycled indefinitely without significant property loss. Many composite materials (CFRP) cannot yet be economically recycled: their fibres are landfilled or incinerated.</li>
 <li><em>Form availability</em>: Some materials are only available in limited sizes or thicknesses. A designer may need to choose a different material if the required section size or form factor is not commercially available.</li>
 </ul>
 
 <p><strong>3. Environmental impact (sustainability)</strong></p>
 <ul>
 <li><em>Embodied energy and carbon footprint</em>: The energy consumed and CO₂ emitted to extract, process, and manufacture a material. Aluminium has high embodied energy in primary production but is low when made from recycled material. Timber sequesters carbon during growth, making it potentially carbon-negative.</li>
-<li><em>Resource depletion</em>: Rare earth elements, cobalt, and lithium are critical for electronics and batteries — their finite supply and geopolitically concentrated mining raise sustainability concerns.</li>
+<li><em>Resource depletion</em>: Rare earth elements, cobalt, and lithium are critical for electronics and batteries: their finite supply and geopolitically concentrated mining raise sustainability concerns.</li>
 <li><em>Pollution</em>: Processing some materials generates toxic byproducts (chrome plating, PVC production with vinyl chloride monomer). Environmental regulations may restrict or ban certain materials in specific markets.</li>
 <li><em>End-of-life pathway</em>: Does the material biodegrade, decompose into safe compounds, or persist in the environment? PLA bioplastic breaks down under industrial composting conditions; conventional polyethylene persists for hundreds of years.</li>
 </ul>
@@ -327,6 +327,24 @@
 </ul>
 </div>
 </div>
+
+<div class="concept-box">
+<div class="concept-box-label">Key concept</div>
+<div class="concept-box-title">The Triple Bottom Line: People, Planet, Profit</div>
+<p>The <strong>triple bottom line</strong> is a framework for judging a decision against three accounts rather than one. Traditional business decisions are judged on <strong>Profit</strong> alone: does this material cost less or perform better for the money? The triple bottom line adds two more accounts: <strong>People</strong> (does the material harm workers, users or communities, from extraction through to disposal?) and <strong>Planet</strong> (what is the carbon, water and waste footprint across the material's life?).</p>
+<p>The four contextual factors above map directly onto this framework: cost and manufacturability sit mostly under Profit, environmental impact sits under Planet, and availability and the safety implications of resource extraction sit partly under People. A material that wins on Profit but fails on Planet or People is not automatically the right choice; it is a trade-off that the designer must make explicit and justify, rather than ignore.</p>
+<div class="concept-box-examples">
+<div class="concept-box-examples-label">Applying the three accounts to a material choice</div>
+<ul>
+<li><strong>Profit:</strong> purchase price, processing cost, tooling, lifecycle cost</li>
+<li><strong>People:</strong> worker safety during extraction and manufacturing, user safety and health, community impact of mining or disposal</li>
+<li><strong>Planet:</strong> embodied energy, carbon footprint, resource depletion, end-of-life pathway</li>
+</ul>
+</div>
+</div>
+
+<div class="topic-link-blurb">Sustainability as a design driver in its own right, including the circular economy, is developed much further in <a href="c2.1-design-for-sustainability.html">C2.1 Design for Sustainability</a> and <a href="c2.2-circular-economy.html">C2.2 Circular Economy</a>.</div>
+
 </div>
 </div>
 
@@ -340,14 +358,14 @@
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Material choices must be <strong>justified</strong> — not simply asserted. A claim that "aluminium is the best material for this bracket" is incomplete without evidence comparing it to alternatives across the relevant criteria. Research provides that evidence.</p>
+<p>Material choices must be <strong>justified</strong>, not simply asserted. A claim that "aluminium is the best material for this bracket" is incomplete without evidence comparing it to alternatives across the relevant criteria. Research provides that evidence.</p>
 
 <p><strong>Primary research</strong> generates first-hand, original data through direct investigation. In material selection, primary research methods include:</p>
 <ul>
 <li><em>Physical testing of samples</em>: Tensile testing (measuring UTS and yield strength), Charpy or Izod impact testing (toughness), Brinell or Vickers hardness testing, bend tests, and corrosion resistance tests (salt spray chamber). First-hand data is specific to the actual material batch and condition in question.</li>
 <li><em>User testing</em>: Presenting material samples to target users and recording their aesthetic and tactile preferences. Which texture feels premium? Which weight feels right? This data cannot be found in a database.</li>
 <li><em>Prototype testing</em>: Building a physical prototype from the candidate material and testing it in conditions that simulate real use. A 3D-printed bracket made from PLA does not test steel, but a steel prototype does.</li>
-<li><em>Observation</em>: Examining how existing products have performed in the field — photographing corrosion, wear, or failure modes.</li>
+<li><em>Observation</em>: Examining how existing products have performed in the field: photographing corrosion, wear, or failure modes.</li>
 </ul>
 
 <p><strong>Secondary research</strong> uses existing published data, gathered by others. In material selection, secondary sources include:</p>
@@ -399,6 +417,9 @@
 </ol>
 </div>
 </div>
+
+<div class="topic-link-blurb">The general distinction between primary and secondary research, and between qualitative and quantitative data, is introduced in <a href="b2.1-design-process.html">B2.1 The Design Process</a> (2.1.2 Research Overview).</div>
+
 </div>
 </div>
 
@@ -528,12 +549,12 @@
 <p>An <strong>Ashby chart</strong> is a graphical tool developed by Professor Michael Ashby of Cambridge University in the 1990s. It plots two material properties against each other on <strong>logarithmic scales</strong>, so that materials spanning many orders of magnitude (from rubber to diamond) can be compared on the same axes. Each material or material family appears as a bubble or region positioned by its property values.</p>
 <p>Designers use Ashby charts to:</p>
 <ul>
-<li>Screen many materials simultaneously — those falling in a target zone of the chart meet the property requirements.</li>
+<li>Screen many materials simultaneously: those falling in a target zone of the chart meet the property requirements.</li>
 <li>Visualise trade-offs between competing properties (e.g., high strength often comes with high density).</li>
 <li>Draw <strong>design lines</strong> (lines of constant performance index) to rank materials by efficiency for a specific function.</li>
 <li>Conduct substitution studies when a preferred material is unavailable or too expensive.</li>
 </ul>
-<p><strong>Example property pair — Strength vs. density:</strong> A designer seeking a lightweight but strong material for an aerospace component would plot ultimate tensile strength (y-axis) against density (x-axis). Materials in the upper-left corner (high strength, low density) — such as CFRP and titanium alloys — are the best candidates. The chapter also describes a corrosion potential (E_corr) vs. corrosion current density (i_corr) Ashby chart for selecting materials in corrosive environments — materials with lower i_corr and more noble E_corr (upper-left) are preferred.</p>
+<p><strong>Example property pair (Strength vs. density):</strong> A designer seeking a lightweight but strong material for an aerospace component would plot ultimate tensile strength (y-axis) against density (x-axis). Materials in the upper-left corner (high strength, low density), such as CFRP and titanium alloys, are the best candidates. The chapter also describes a corrosion potential (E_corr) vs. corrosion current density (i_corr) Ashby chart for selecting materials in corrosive environments: materials with lower i_corr and more noble E_corr (upper-left) are preferred.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct definition (logarithmic scales, multiple materials compared simultaneously); 1 mark for naming at least two uses (screening, trade-off visualisation, design lines, substitution); 1 mark for correctly explaining the specific property pair example; 1 mark for the design line concept or the corrosion chart example.</p>
 </div>
 </details>
@@ -542,9 +563,9 @@
 <summary class="p2-q-stem"><span class="p2-q-label">Question 2</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Describe three different performance indices mentioned in the chapter. For each, explain what property combination it represents and in what application it would be useful.</span></summary>
 <div class="p2-answer">
 <ol>
-<li><strong>Specific strength (σᵤ/ρ)</strong>: Ultimate tensile strength divided by density. Measures how strong a material is for its weight — higher specific strength means more load-carrying ability per kilogram. <em>Application</em>: Aerospace (aircraft wing spars, fuselage skin) and motorsport (chassis, suspension components) where high structural loads must be carried with minimum mass. Carbon fibre composites and titanium alloys have excellent specific strength; mild steel does not, despite high absolute strength.</li>
-<li><strong>Specific stiffness (E/ρ)</strong>: Young's Modulus divided by density. Measures stiffness per unit weight — how much a material resists elastic deformation per kilogram. <em>Application</em>: Bicycle frames, sailing masts, wind turbine blades — structures that must not flex or vibrate under load, but must be as light as possible. CFRP excels here (high E, very low ρ); aluminium alloy is a common budget alternative.</li>
-<li><strong>Thermal conductivity to cost ratio (λ/Φ)</strong>: Thermal conductivity divided by material cost per unit volume. Measures heat-transfer performance per unit cost. <em>Application</em>: Heat exchangers, radiator fins, cooling systems — where maximising thermal performance within a budget matters. Copper has the best thermal conductivity (≈400 W/m·K) but is expensive; aluminium (≈230 W/m·K) is much cheaper, often giving a better λ/Φ for cost-sensitive designs. The chapter also notes fracture toughness (K_Ic, MPa·m½) as a fourth index — useful for pressure vessels and safety-critical components to resist crack propagation.</li>
+<li><strong>Specific strength (σᵤ/ρ)</strong>: Ultimate tensile strength divided by density. Measures how strong a material is for its weight: higher specific strength means more load-carrying ability per kilogram. <em>Application</em>: Aerospace (aircraft wing spars, fuselage skin) and motorsport (chassis, suspension components) where high structural loads must be carried with minimum mass. Carbon fibre composites and titanium alloys have excellent specific strength; mild steel does not, despite high absolute strength.</li>
+<li><strong>Specific stiffness (E/ρ)</strong>: Young's Modulus divided by density. Measures stiffness per unit weight: how much a material resists elastic deformation per kilogram. <em>Application</em>: Bicycle frames, sailing masts, wind turbine blades: structures that must not flex or vibrate under load, but must be as light as possible. CFRP excels here (high E, very low ρ); aluminium alloy is a common budget alternative.</li>
+<li><strong>Thermal conductivity to cost ratio (λ/Φ)</strong>: Thermal conductivity divided by material cost per unit volume. Measures heat-transfer performance per unit cost. <em>Application</em>: Heat exchangers, radiator fins, cooling systems: where maximising thermal performance within a budget matters. Copper has the best thermal conductivity (≈400 W/m·K) but is expensive; aluminium (≈230 W/m·K) is much cheaper, often giving a better λ/Φ for cost-sensitive designs. The chapter also notes fracture toughness (K_Ic, MPa·m½) as a fourth index: useful for pressure vessels and safety-critical components to resist crack propagation.</li>
 </ol>
 <p class="p2-marks-note"><em>Mark scheme</em>: 2 marks per performance index: 1 for correctly stating the formula/property combination; 1 for a relevant, specific application with explanation. Maximum 6 marks from three indices.</p>
 </div>
@@ -553,7 +574,7 @@
 <details class="p2-reveal">
 <summary class="p2-q-stem"><span class="p2-q-label">Question 3</span><span class="p2-q-marks">5 marks</span><span class="p2-q-text">A designer is selecting a material for a bicycle frame. They need a material that is stiff (high Young's Modulus) but also light (low density). Using the concept of performance indices, explain which index is most relevant and why. Then name two suitable materials and two unsuitable materials, justifying your choices.</span></summary>
 <div class="p2-answer">
-<p><strong>Most relevant index: Specific stiffness (E/ρ)</strong> — Young's Modulus divided by density. A bicycle frame must resist bending and torsion when the rider pedals or corners (requiring high stiffness, E), while being as light as possible (requiring low ρ). High specific stiffness means the frame will be responsive and efficient without being heavy to carry or accelerate. Using E or ρ alone would be insufficient — a dense but stiff material (steel) would be too heavy; a light but flexible material (rubber) would be useless.</p>
+<p><strong>Most relevant index: Specific stiffness (E/ρ)</strong>: Young's Modulus divided by density. A bicycle frame must resist bending and torsion when the rider pedals or corners (requiring high stiffness, E), while being as light as possible (requiring low ρ). High specific stiffness means the frame will be responsive and efficient without being heavy to carry or accelerate. Using E or ρ alone would be insufficient: a dense but stiff material (steel) would be too heavy; a light but flexible material (rubber) would be useless.</p>
 <p><strong>Suitable materials:</strong></p>
 <ol>
 <li><strong>Carbon fibre reinforced polymer (CFRP)</strong>: E ≈ 70–150 GPa, ρ ≈ 1.6 g/cm³. Exceptional specific stiffness; widely used in high-end racing bicycles. The fibre orientation can be tuned to resist specific load directions.</li>
@@ -561,10 +582,10 @@
 </ol>
 <p><strong>Unsuitable materials:</strong></p>
 <ol>
-<li><strong>Mild steel</strong>: E ≈ 200 GPa (high) but ρ ≈ 7.8 g/cm³ (very high). Specific stiffness is relatively poor. A steel frame would be strong but very heavy — acceptable for budget touring bikes but fails the lightweight requirement for performance applications.</li>
-<li><strong>Natural rubber</strong>: E ≈ 0.01–0.1 GPa (very low) despite low density. Extremely poor specific stiffness — a rubber frame would flex uncontrollably and cannot support the rider's weight. Unsuitable for any structural bicycle component.</li>
+<li><strong>Mild steel</strong>: E ≈ 200 GPa (high) but ρ ≈ 7.8 g/cm³ (very high). Specific stiffness is relatively poor. A steel frame would be strong but very heavy: acceptable for budget touring bikes but fails the lightweight requirement for performance applications.</li>
+<li><strong>Natural rubber</strong>: E ≈ 0.01–0.1 GPa (very low) despite low density. Extremely poor specific stiffness: a rubber frame would flex uncontrollably and cannot support the rider's weight. Unsuitable for any structural bicycle component.</li>
 </ol>
-<p>On an Ashby chart of E vs. ρ, the designer would draw a design line with slope = 1 (for the E/ρ index) and select materials above the line — CFRP and titanium appear clearly above mild steel and rubber.</p>
+<p>On an Ashby chart of E vs. ρ, the designer would draw a design line with slope = 1 (for the E/ρ index) and select materials above the line: CFRP and titanium appear clearly above mild steel and rubber.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correctly identifying specific stiffness (E/ρ) and explaining why both E and ρ matter simultaneously; 1 mark each for two suitable materials with valid property-based justification (2 marks); 1 mark each for two unsuitable materials with clear reasons (2 marks). Total 5 marks.</p>
 </div>
 </details>
@@ -572,15 +593,15 @@
 <details class="p2-reveal">
 <summary class="p2-q-stem"><span class="p2-q-label">Question 4</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Explain why designers must consider aesthetic factors when selecting materials, in addition to mechanical and physical properties. Use examples from the chapter.</span></summary>
 <div class="p2-answer">
-<p>A product that performs perfectly mechanically but looks, feels, or sounds wrong will fail commercially. Aesthetic considerations differentiate a product from competitors and give it <strong>personality or character</strong> — influencing consumer perception, willingness to pay, and brand identity.</p>
+<p>A product that performs perfectly mechanically but looks, feels, or sounds wrong will fail commercially. Aesthetic considerations differentiate a product from competitors and give it <strong>personality or character</strong>: influencing consumer perception, willingness to pay, and brand identity.</p>
 <p><strong>Aesthetic factors from the chapter:</strong></p>
 <ul>
 <li><strong>Wood grain</strong>: The natural pattern of timber veneer provides warmth and a crafted quality that plastic and metal cannot replicate. A designer choosing oak for luxury furniture prioritises its visual and tactile associations over moderate mechanical properties (E ≈ 11 GPa).</li>
-<li><strong>Polished marble</strong>: The reflective surface of marble conveys permanence and elegance. Hotel lobbies and monuments use it primarily for aesthetic effect — despite its weight and brittleness.</li>
+<li><strong>Polished marble</strong>: The reflective surface of marble conveys permanence and elegance. Hotel lobbies and monuments use it primarily for aesthetic effect, despite its weight and brittleness.</li>
 <li><strong>Brushed stainless steel</strong>: Fine directional surface scratches hide fingerprints, reduce glare, and signal precision and modernity. Common in kitchen appliances, surgical instruments, and consumer electronics.</li>
-<li><strong>Sound</strong>: The solid "thunk" of a quality car door closing signals robustness and precision engineering — this perception is engineered through panel mass and sealing material choices, not just appearance.</li>
+<li><strong>Sound</strong>: The solid "thunk" of a quality car door closing signals robustness and precision engineering: this perception is engineered through panel mass and sealing material choices, not just appearance.</li>
 </ul>
-<p><strong>Important distinction</strong>: The chapter explicitly notes that corrosion protection (galvanising, passivation, epoxy coating) is a <em>functional</em> finish, not an aesthetic one — it improves durability, not appearance. Designers must not confuse the two categories.</p>
+<p><strong>Important distinction</strong>: The chapter explicitly notes that corrosion protection (galvanising, passivation, epoxy coating) is a <em>functional</em> finish, not an aesthetic one: it improves durability, not appearance. Designers must not confuse the two categories.</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for explaining the commercial reason (differentiation, consumer perception, brand identity); 1 mark each for two or more specific aesthetic examples from the chapter with explanation (up to 2 marks); 1 mark for correctly distinguishing aesthetic from functional finishes (corrosion protection example).</p>
 </div>
 </details>
@@ -595,7 +616,7 @@
 <thead><tr><th>Factor</th><th>What it means</th><th>Trade-off example</th></tr></thead>
 <tbody>
 <tr><td><strong>Lifecycle cost</strong></td><td>Total cost from raw material extraction to disposal, not just purchase price</td><td>Stainless steel costs more upfront than plastic but lasts 10+ years, reducing replacement frequency and total lifecycle cost</td></tr>
-<tr><td><strong>Environmental impact</strong></td><td>Carbon footprint, resource use, pollution, recyclability</td><td>Bioplastic (PLA) is renewable and biodegradable but requires industrial composting facilities that may not be locally available — "biodegradable" does not mean it breaks down in landfill</td></tr>
+<tr><td><strong>Environmental impact</strong></td><td>Carbon footprint, resource use, pollution, recyclability</td><td>Bioplastic (PLA) is renewable and biodegradable but requires industrial composting facilities that may not be locally available: "biodegradable" does not mean it breaks down in landfill</td></tr>
 <tr><td><strong>Availability</strong></td><td>Local sourcing, renewability, recyclability of material</td><td>Bamboo is fast-growing and locally available in many Asian regions but must be processed with binding agents that may not be food-safe or recyclable; stainless steel is globally available and 100% recyclable</td></tr>
 <tr><td><strong>Manufacturability</strong></td><td>Ease of forming, joining, and quality control</td><td>Aluminium is easy to spin-form or extrude; glass requires high-temperature forming and is brittle during production, with higher rejection rates</td></tr>
 </tbody>
@@ -604,11 +625,11 @@
 <p><strong>Balanced recommendation: 304 stainless steel with ≥70% recycled content.</strong></p>
 <ul>
 <li><em>Lifecycle cost</em>: Higher upfront cost than plastic; lowest 10-year cost because it never needs replacement.</li>
-<li><em>Environmental impact</em>: Mitigated by recycled content (lower embodied energy than virgin steel); fully recyclable at end of life — closes the circular economy loop.</li>
+<li><em>Environmental impact</em>: Mitigated by recycled content (lower embodied energy than virgin steel); fully recyclable at end of life: closes the circular economy loop.</li>
 <li><em>Availability</em>: Globally available; recycled stainless steel supply chain well-established.</li>
 <li><em>Manufacturability</em>: Deep drawing, spinning, and laser welding are established for stainless steel; high-volume bottle production at competitive cost.</li>
 </ul>
-<p>This decision favours Planet (recyclability, durability, no microplastic leaching) and People (safe, non-toxic, durable) at a slightly higher Profit cost — an intentional, documented trade-off the designer can defend through both Ashby chart screening (specific strength, embodied energy) and primary research (user willingness-to-pay testing for a premium sustainable bottle).</p>
+<p>This decision favours Planet (recyclability, durability, no microplastic leaching) and People (safe, non-toxic, durable) at a slightly higher Profit cost: an intentional, documented trade-off the designer can defend through both Ashby chart screening (specific strength, embodied energy) and primary research (user willingness-to-pay testing for a premium sustainable bottle).</p>
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for each of the four factors correctly defined and illustrated with the product example (4 marks); 1 mark for a balanced, justified recommendation that explicitly acknowledges at least one trade-off; 1 mark for referencing both primary and secondary research methods or Ashby chart screening as part of the decision process.</p>
 </div>
 </details>

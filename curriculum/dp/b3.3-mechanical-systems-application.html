@@ -73,7 +73,7 @@
 </button>
 <div class="curr-body" id="body-study">
 <div class="curr-section-intro-wrap">
-<p class="curr-section-intro">Building on A3.3, this topic applies mechanical systems to real design contexts — computing mechanical advantage, velocity ratio and efficiency, and constructing gear, cam and lever systems. Calculations are central to this topic: expect to work through multi-step problems and explain your reasoning in terms of design decisions.</p>
+<p class="curr-section-intro">Building on <a href="a3.3-mechanical-systems.html">A3.3</a>, this topic applies mechanical systems to real design contexts: computing mechanical advantage, velocity ratio and efficiency, and constructing gear, cam and lever systems. Calculations are central to this topic: expect to work through multi-step problems and explain your reasoning in terms of design decisions.</p>
 <div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Mechanical Systems Application — B3.3"></div>
 </div>
 
@@ -100,15 +100,15 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Mechanical advantage (MA)</strong> is the ratio of the output load to the input effort in a machine. For a belt drive or pulley system, MA is determined by the ratio of pulley diameters — or equivalently by the inverse ratio of rotational speeds:</p>
+<p><strong>Mechanical advantage (MA)</strong> is the ratio of the output load to the input effort in a machine. For a belt drive or pulley system, MA is determined by the ratio of pulley diameters, or equivalently by the inverse ratio of rotational speeds:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">MA = Load / Effort = d₂ / d₁ = N₁ / N₂</p>
 <p>where d₂ is the <em>driven</em> (output) pulley diameter, d₁ is the <em>drive</em> (input) pulley diameter, N₁ is the input speed and N₂ is the output speed.</p>
 <p><strong>Effect on torque and speed:</strong></p>
 <ul>
-<li>If d₂ &gt; d₁ (MA &gt; 1): output torque increases, output speed decreases — a <em>force multiplier</em>.</li>
-<li>If d₂ &lt; d₁ (MA &lt; 1): output speed increases, output torque decreases — a <em>speed multiplier</em>.</li>
+<li>If d₂ &gt; d₁ (MA &gt; 1): output torque increases, output speed decreases: a <em>force multiplier</em>.</li>
+<li>If d₂ &lt; d₁ (MA &lt; 1): output speed increases, output torque decreases: a <em>speed multiplier</em>.</li>
 </ul>
-<p><strong>Characteristics of belt drives:</strong> Belts transmit power by friction between belt and pulley. They are quiet, cost-effective, and can span large distances between shafts. Under heavy loads, belts can slip — this protects components from shock overload but reduces efficiency and speed accuracy. V-belts wedge into grooves to increase friction and reduce slip.</p>
+<p><strong>Characteristics of belt drives:</strong> Belts transmit power by friction between belt and pulley. They are quiet, cost-effective, and can span large distances between shafts. Under heavy loads, belts can slip: this protects components from shock overload but reduces efficiency and speed accuracy. V-belts wedge into grooves to increase friction and reduce slip.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -124,7 +124,7 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example — belt drive MA</p>
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example (belt drive MA)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Given</th><th>Formula</th><th>Result</th></tr></thead>
@@ -153,10 +153,10 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>The <strong>velocity ratio (VR)</strong> describes how much the rotational speed changes from input to output. VR and MA are reciprocals — a system that multiplies force (MA &gt; 1) reduces speed (VR &lt; 1) by the same factor.</p>
+<p>The <strong>velocity ratio (VR)</strong> describes how much the rotational speed changes from input to output. VR and MA are reciprocals: a system that multiplies force (MA &gt; 1) reduces speed (VR &lt; 1) by the same factor.</p>
 <p>For a simple belt drive or pulley:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = N₂ / N₁ = d₁ / d₂</p>
-<p><strong>Crossed belt drives</strong> reverse the rotation direction of the driven pulley — the belt crosses between the two pulleys. The VR formula is unchanged; only the direction differs.</p>
+<p><strong>Crossed belt drives</strong> reverse the rotation direction of the driven pulley: the belt crosses between the two pulleys. The VR formula is unchanged; only the direction differs.</p>
 <p><strong>Compound belt drives</strong> connect multiple pulley pairs in series. Two pulleys share a common shaft so that when the first driven pulley rotates, it drives the next stage. The total VR is the product of each stage's VR:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
 <p><strong>For gear trains</strong>, VR is calculated using the number of teeth instead of pulley diameters:</p>
@@ -180,9 +180,9 @@ Show Chinese · 显示中文
 <thead><tr><th>System type</th><th>VR formula</th><th>Direction change?</th></tr></thead>
 <tbody>
 <tr><td><strong>Simple belt / pulley</strong></td><td>d₁ / d₂</td><td>No</td></tr>
-<tr><td><strong>Crossed belt</strong></td><td>d₁ / d₂</td><td>Yes — reverses</td></tr>
+<tr><td><strong>Crossed belt</strong></td><td>d₁ / d₂</td><td>Yes: reverses</td></tr>
 <tr><td><strong>Compound belt</strong></td><td>VR₁ × VR₂ × …</td><td>Depends on stages</td></tr>
-<tr><td><strong>Gear pair</strong></td><td>T_driver / T_driven</td><td>Yes — reverses</td></tr>
+<tr><td><strong>Gear pair</strong></td><td>T_driver / T_driven</td><td>Yes: reverses</td></tr>
 <tr><td><strong>Compound gear train</strong></td><td>VR₁ × VR₂ × …</td><td>Depends on stages</td></tr>
 </tbody>
 </table>
@@ -205,20 +205,20 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Efficiency (η)</strong> is the fraction of input power that reaches the output as useful work. No real machine reaches 100% — some energy is always lost to friction and heat.</p>
+<p><strong>Efficiency (η)</strong> is the fraction of input power that reaches the output as useful work. No real machine reaches 100%: some energy is always lost to friction and heat.</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">η = (P_out / P_in) × 100%</p>
-<p><strong>Power in gear systems</strong> — power is the product of torque and angular velocity:</p>
+<p><strong>Power in gear systems</strong> is the product of torque and angular velocity:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = τ × ω &nbsp;&nbsp; where ω = N × (2π / 60) rad/s</p>
 <p>To convert rpm to rad/s, multiply by 2π and divide by 60.</p>
-<p><strong>Power in belt drives</strong> — power is transmitted by the difference in belt tensions between the tight side and the slack side:</p>
+<p><strong>Power in belt drives</strong> is transmitted by the difference in belt tensions between the tight side and the slack side:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = F_E × v_belt &nbsp;&nbsp; where F_E = T₊ − T₋</p>
 <p>T₊ is the tight-side tension and T₋ is the slack-side tension. Belt speed v_belt = π × d₁ × N₁ / 60 (m/s, with d₁ in metres).</p>
 <p><strong>Why real systems fall short of 100%:</strong></p>
 <ul>
-<li><strong>Gear tooth friction</strong> — as teeth slide against each other, energy converts to heat. This is the primary loss in most gear trains.</li>
-<li><strong>Churning losses</strong> — gears and belts must push through lubricating oil or grease, creating resistance.</li>
-<li><strong>Bearing friction</strong> — shaft bearings absorb some input power.</li>
-<li><strong>Belt slip</strong> — the belt slides slightly on the pulley under heavy load, reducing speed accuracy and transmitting less power.</li>
+<li><strong>Gear tooth friction</strong>: as teeth slide against each other, energy converts to heat. This is the primary loss in most gear trains.</li>
+<li><strong>Churning losses</strong>: gears and belts must push through lubricating oil or grease, creating resistance.</li>
+<li><strong>Bearing friction</strong>: shaft bearings absorb some input power.</li>
+<li><strong>Belt slip</strong>: the belt slides slightly on the pulley under heavy load, reducing speed accuracy and transmitting less power.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -241,7 +241,9 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example — gear power and efficiency</p>
+<div class="topic-link-blurb">The choice of material affects every one of these loss mechanisms, from gear tooth wear resistance to belt friction coefficients, as discussed in <a href="b3.1-material-selection.html">B3.1 Material Selection</a>.</div>
+
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example (gear power and efficiency)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Step</th><th>Working</th><th>Result</th></tr></thead>
@@ -272,11 +274,11 @@ Show Chinese · 显示中文
 <div class="lang-col">
 <span class="lang-label">English</span>
 <p>Gear and belt systems are selected by designers to achieve specific combinations of speed, torque and direction. Choosing the right system requires calculating what will happen at each stage of the mechanism.</p>
-<p><strong>Direction of rotation in gear trains:</strong> In a simple gear train, adjacent gears rotate in opposite directions. An <em>idler gear</em> placed between two gears reverses direction again — the output then turns the same way as the input without changing the speed ratio. Belts and pulleys do not reverse direction (unless crossed).</p>
+<p><strong>Direction of rotation in gear trains:</strong> In a simple gear train, adjacent gears rotate in opposite directions. An <em>idler gear</em> placed between two gears reverses direction again: the output then turns the same way as the input without changing the speed ratio. Belts and pulleys do not reverse direction (unless crossed).</p>
 <p><strong>Compound gear trains</strong> mount two gears on a shared shaft. This allows large speed changes in a compact space. The total velocity ratio is the product of each gear pair's ratio:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
 <p><strong>Calculating speed at multiple stages:</strong> Work stage by stage. For each gear pair: N_out = N_in × (T_driver / T_driven). For each belt stage: N_out = N_in × (d_drive / d_driven).</p>
-<p><strong>Overdrive gearboxes</strong> have VR &lt; 1, meaning output speed is greater than input speed but output torque is reduced. Used in bicycle derailleur top gears and vehicle transmissions during motorway cruising — where higher speed and less force are needed.</p>
+<p><strong>Overdrive gearboxes</strong> have VR &lt; 1, meaning output speed is greater than input speed but output torque is reduced. Used in bicycle derailleur top gears and vehicle transmissions during motorway cruising, where higher speed and less force are needed.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -289,7 +291,9 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example — compound belt drive (multi-stage)</p>
+<div class="topic-link-blurb">Calculated gear ratios only hold up if the gears are manufactured to the required tolerances; how production systems achieve this precision is covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
+
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example (compound belt drive, multi-stage)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Stage</th><th>Pulley diameters</th><th>VR</th><th>Output speed</th></tr></thead>
@@ -300,7 +304,7 @@ Show Chinese · 显示中文
 </tbody>
 </table>
 </div>
-<p class="content-note">For compound belt drives, you cannot divide the final pulley diameter by the first — you must multiply individual stage VRs. A common exam mistake is treating it like a simple two-pulley system.</p>
+<p class="content-note">For compound belt drives, you cannot divide the final pulley diameter by the first: you must multiply individual stage VRs. A common exam mistake is treating it like a simple two-pulley system.</p>
 
 </div>
 </div><!-- /3.3.4 -->
@@ -319,19 +323,19 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>A <strong>cam</strong> is a specially shaped rotating component. A <strong>follower</strong> is held against its surface and is pushed up and down as the cam rotates — converting continuous <strong>rotary motion</strong> into <strong>reciprocating</strong> (back-and-forth) motion. The cam's profile (its outline shape) determines exactly how the follower moves.</p>
+<p>A <strong>cam</strong> is a specially shaped rotating component. A <strong>follower</strong> is held against its surface and is pushed up and down as the cam rotates, converting continuous <strong>rotary motion</strong> into <strong>reciprocating</strong> (back-and-forth) motion. The cam's profile (its outline shape) determines exactly how the follower moves.</p>
 <p><strong>Cam motion phases:</strong></p>
 <ul>
-<li><strong>Rise</strong> — the follower moves away from the cam centre as the cam radius increases.</li>
-<li><strong>Fall</strong> — the follower returns toward the centre as the radius decreases.</li>
-<li><strong>Dwell</strong> — the follower remains stationary while the cam radius stays constant.</li>
+<li><strong>Rise</strong>: the follower moves away from the cam centre as the cam radius increases.</li>
+<li><strong>Fall</strong>: the follower returns toward the centre as the radius decreases.</li>
+<li><strong>Dwell</strong>: the follower remains stationary while the cam radius stays constant.</li>
 </ul>
 <p><strong>Follower types:</strong> knife-edge (precise but wears quickly), roller (reduces friction, suited to most applications), flat-faced (suited to high-speed cams with gentle profiles).</p>
-<p><strong>Historical development:</strong> Trip hammers in <strong>Han Dynasty China</strong> (206 BCE–220 CE) used cams driven by water wheels to produce a hammering action — one of the earliest uses of rotary-to-reciprocating conversion. In the 12th century, <strong>Ismail al-Jazari</strong> described programmable camshafts in his <em>Book of Knowledge of Ingenious Mechanical Devices</em>. His "Mechanical Servant" automaton used cam lobes on a hidden shaft to produce a sequence of controlled movements — an early form of mechanical programming.</p>
+<p><strong>Historical development:</strong> Trip hammers in <strong>Han Dynasty China</strong> (206 BCE–220 CE) used cams driven by water wheels to produce a hammering action: one of the earliest uses of rotary-to-reciprocating conversion. In the 12th century, <strong>Ismail al-Jazari</strong> described programmable camshafts in his <em>Book of Knowledge of Ingenious Mechanical Devices</em>. His "Mechanical Servant" automaton used cam lobes on a hidden shaft to produce a sequence of controlled movements: an early form of mechanical programming.</p>
 <p><strong>Modern applications:</strong></p>
 <ul>
-<li><strong>Sewing machine stitch cams</strong> — interchangeable cam profiles produce different reciprocating needle patterns, creating different stitches (zigzag, blind hem) without altering any other part of the machine. Different cam shapes encode different stitch programs.</li>
-<li><strong>Internal combustion engine camshaft</strong> — driven at half the crankshaft speed, each cam lobe pushes open an intake or exhaust valve at a precisely timed moment. The cam profile controls valve lift (how far it opens), duration (how long), and timing (when). Once the lobe rotates past, a valve spring closes the valve.</li>
+<li><strong>Sewing machine stitch cams</strong>: interchangeable cam profiles produce different reciprocating needle patterns, creating different stitches (zigzag, blind hem) without altering any other part of the machine. Different cam shapes encode different stitch programs.</li>
+<li><strong>Internal combustion engine camshaft</strong>: driven at half the crankshaft speed, each cam lobe pushes open an intake or exhaust valve at a precisely timed moment. The cam profile controls valve lift (how far it opens), duration (how long), and timing (when). Once the lobe rotates past, a valve spring closes the valve.</li>
 </ul>
 </div>
 <div class="lang-col">
@@ -371,11 +375,11 @@ Show Chinese · 显示中文
 <div class="lang-col">
 <span class="lang-label">English</span>
 <p>A <strong>lever</strong> is a rigid beam that rotates about a fixed point called the <strong>fulcrum (F)</strong>. By varying the positions of the effort (E) and load (L) relative to the fulcrum, a lever can multiply force, speed, or distance.</p>
-<p><strong>Equilibrium condition</strong> — for a lever in balance, the turning moments on each side of the fulcrum must be equal:</p>
+<p><strong>Equilibrium condition</strong>: for a lever in balance, the turning moments on each side of the fulcrum must be equal:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">E × effort arm = L × load arm &nbsp;&nbsp; → &nbsp;&nbsp; MA = load arm / effort arm</p>
-<p><strong>Oblique forces</strong> — when a force acts at angle θ to the lever rather than perpendicular to it, only the perpendicular component creates a turning moment. Giovanni Batista Benedetti (16th century) recognised this and showed the effective force can be resolved using trigonometry:</p>
+<p><strong>Oblique forces</strong>: when a force acts at angle θ to the lever rather than perpendicular to it, only the perpendicular component creates a turning moment. Giovanni Batista Benedetti (16th century) recognised this and showed the effective force can be resolved using trigonometry:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">(E × sin θ) × effort arm = L × load arm</p>
-<p><strong>Biomechanics — Giovanni Alfonso Borelli (1608–1679)</strong>, the father of biomechanics, proved that most joints in the human body act as <em>third-class levers</em>. Muscle insertion points sit close to the joint (very short effort arm), so large muscular forces produce small loads but move the limb end through a large distance. Human body levers are <em>speed and distance magnifiers</em>, not force multipliers — a design essential for throwing, writing, reaching and all fine motor skills. If the body used second-class levers at the elbow, we would be extraordinarily strong but too slow for daily tasks.</p>
+<p><strong>Biomechanics (Giovanni Alfonso Borelli, 1608–1679)</strong>, the father of biomechanics, proved that most joints in the human body act as <em>third-class levers</em>. Muscle insertion points sit close to the joint (very short effort arm), so large muscular forces produce small loads but move the limb end through a large distance. Human body levers are <em>speed and distance magnifiers</em>, not force multipliers: a design essential for throwing, writing, reaching and all fine motor skills. If the body used second-class levers at the elbow, we would be extraordinarily strong but too slow for daily tasks.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -399,7 +403,7 @@ Show Chinese · 显示中文
 </table>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example — oblique force (bicep curl)</p>
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example (oblique force, bicep curl)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Step</th><th>Working</th><th>Result</th></tr></thead>
@@ -411,7 +415,7 @@ Show Chinese · 显示中文
 </tbody>
 </table>
 </div>
-<p class="content-note">MA = 0.11 confirms this is a third-class lever. The body exerts ~453 N to lift a 50 N load — but the hand moves ~35 cm for every ~3 cm of muscle contraction. Speed and range of motion are gained at the expense of force.</p>
+<p class="content-note">MA = 0.11 confirms this is a third-class lever. The body exerts ~453 N to lift a 50 N load, but the hand moves ~35 cm for every ~3 cm of muscle contraction. Speed and range of motion are gained at the expense of force.</p>
 
 </div>
 </div><!-- /3.3.6 -->
@@ -440,7 +444,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) MA = 3; driven pulley produces 3× torque and rotates 3× faster</button>
 <button class="quiz-option" data-opt="D">D) MA = 0.33; driven pulley produces 0.33× torque and rotates 0.33× slower</button>
 </div>
-<div class="quiz-answer">MA = d₂/d₁ = 300/100 = 3. A larger driven pulley increases torque but reduces speed by the same factor. Energy is conserved — you cannot gain both force and speed simultaneously.</div>
+<div class="quiz-answer">MA = d₂/d₁ = 300/100 = 3. A larger driven pulley increases torque but reduces speed by the same factor. Energy is conserved: you cannot gain both force and speed simultaneously.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -452,7 +456,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) At twice the speed of the drive pulley regardless of diameter</button>
 <button class="quiz-option" data-opt="D">D) Only when the belt is slack</button>
 </div>
-<div class="quiz-answer">Crossing the belt between the two pulleys reverses the rotation direction of the driven pulley. The velocity ratio formula (VR = d₁/d₂) is unchanged — only the direction of rotation differs.</div>
+<div class="quiz-answer">Crossing the belt between the two pulleys reverses the rotation direction of the driven pulley. The velocity ratio formula (VR = d₁/d₂) is unchanged; only the direction of rotation differs.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -464,19 +468,19 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Designed the first compound gear train</button>
 <button class="quiz-option" data-opt="D">D) Discovered the formula for mechanical advantage</button>
 </div>
-<div class="quiz-answer">Borelli proved in his 1680 treatise <em>De Motu Animalium</em> that most joints in the human body act as third-class levers, where muscles must exert large forces to produce small loads — but the limb moves through a large distance for a small muscle contraction. Speed, not force, is the primary output.</div>
+<div class="quiz-answer">Borelli proved in his 1680 treatise <em>De Motu Animalium</em> that most joints in the human body act as third-class levers, where muscles must exert large forces to produce small loads, but the limb moves through a large distance for a small muscle contraction. Speed, not force, is the primary output.</div>
 </div>
 
 <div class="quiz-q" data-answer="A">
 <div class="quiz-q-num">Q4 &middot; 3.3.4 Gear &amp; Belt Systems</div>
 <div class="quiz-q-text">A gear train has three gear pairs with individual velocity ratios of 0.43, 2.125, and 0.44. The overall velocity ratio is approximately:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) 0.4 — a speed increaser (overdrive)</button>
-<button class="quiz-option" data-opt="B">B) 2.5 — a speed reducer</button>
-<button class="quiz-option" data-opt="C">C) 1.0 — no change in speed</button>
+<button class="quiz-option" data-opt="A">A) 0.4: a speed increaser (overdrive)</button>
+<button class="quiz-option" data-opt="B">B) 2.5: a speed reducer</button>
+<button class="quiz-option" data-opt="C">C) 1.0: no change in speed</button>
 <button class="quiz-option" data-opt="D">D) 0.1</button>
 </div>
-<div class="quiz-answer">VR_total = 0.43 × 2.125 × 0.44 ≈ 0.40. Because VR &lt; 1, the output speed is greater than the input speed — this is an overdrive (speed increaser). Output torque is reduced by the same factor.</div>
+<div class="quiz-answer">VR_total = 0.43 × 2.125 × 0.44 ≈ 0.40. Because VR &lt; 1, the output speed is greater than the input speed: this is an overdrive (speed increaser). Output torque is reduced by the same factor.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -507,12 +511,12 @@ Show Chinese · 显示中文
 <div class="quiz-q-num">Q7 &middot; 3.3.6 Levers</div>
 <div class="quiz-q-text">In the human body, the bicep curl (flexing the forearm at the elbow) is an example of:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) First-class lever — magnifies force</button>
-<button class="quiz-option" data-opt="B">B) Second-class lever — magnifies force</button>
-<button class="quiz-option" data-opt="C">C) Third-class lever — magnifies speed and distance</button>
+<button class="quiz-option" data-opt="A">A) First-class lever: magnifies force</button>
+<button class="quiz-option" data-opt="B">B) Second-class lever: magnifies force</button>
+<button class="quiz-option" data-opt="C">C) Third-class lever: magnifies speed and distance</button>
 <button class="quiz-option" data-opt="D">D) A pulley system</button>
 </div>
-<div class="quiz-answer">The bicep muscle attaches close to the elbow (fulcrum), making this a third-class lever (effort between fulcrum and load). MA is less than 1 — the muscle exerts far more force than the load it lifts, but the hand moves through a much larger distance than the muscle contracts.</div>
+<div class="quiz-answer">The bicep muscle attaches close to the elbow (fulcrum), making this a third-class lever (effort between fulcrum and load). MA is less than 1: the muscle exerts far more force than the load it lifts, but the hand moves through a much larger distance than the muscle contracts.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
@@ -524,7 +528,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) 62.5 rpm</button>
 <button class="quiz-option" data-opt="D">D) 0.32 rpm</button>
 </div>
-<div class="quiz-answer">VR = N₂/N₁, so N₂ = N₁/VR = 20/0.32 = 62.5 rpm. VR &lt; 1 means the output speed is higher than the input — this is an overdrive configuration.</div>
+<div class="quiz-answer">VR = N₂/N₁, so N₂ = N₁/VR = 20/0.32 = 62.5 rpm. VR &lt; 1 means the output speed is higher than the input: this is an overdrive configuration.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -536,7 +540,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Discovering the formula for gear efficiency</button>
 <button class="quiz-option" data-opt="D">D) Building the first bicycle gear train</button>
 </div>
-<div class="quiz-answer">Al-Jazari described programmable camshafts in his <em>Book of Knowledge of Ingenious Mechanical Devices</em>. His "Mechanical Servant" used cam lobes on a hidden shaft — repositioning the cams changed the automaton's sequence of movements, making it an early form of mechanical programming.</div>
+<div class="quiz-answer">Al-Jazari described programmable camshafts in his <em>Book of Knowledge of Ingenious Mechanical Devices</em>. His "Mechanical Servant" used cam lobes on a hidden shaft: repositioning the cams changed the automaton's sequence of movements, making it an early form of mechanical programming.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -548,7 +552,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Only a single gear pair is available</button>
 <button class="quiz-option" data-opt="D">D) The input and output shafts must rotate in the same direction</button>
 </div>
-<div class="quiz-answer">Compound gear trains mount multiple gears on shared shafts, multiplying velocity ratios at each stage. This achieves large overall speed changes (high VR_total) without needing gears of impractical size — making them ideal for compact gearboxes such as vehicle transmissions and electric drill chucks.</div>
+<div class="quiz-answer">Compound gear trains mount multiple gears on shared shafts, multiplying velocity ratios at each stage. This achieves large overall speed changes (high VR_total) without needing gears of impractical size, making them ideal for compact gearboxes such as vehicle transmissions and electric drill chucks.</div>
 </div>
 
 <div class="quiz-footer">
@@ -568,7 +572,7 @@ Show Chinese · 显示中文
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example — then compare your approach, not just the content.</div>
+<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example, then compare your approach, not just the content.</div>
 
 <div class="p2-question">
 <div class="p2-q-num">Question 1 &middot; 3.3.2 Velocity Ratios &middot; 4 marks</div>
@@ -580,7 +584,7 @@ Show Chinese · 显示中文
 <p><strong>a) Velocity ratio:</strong><br>VR = d₂ / d₁ = 128 / 320 = <strong>0.4</strong></p>
 <p><strong>b) Driven pulley speed (ignoring belt thickness):</strong><br>N₂ = N₁ × (d₁ / d₂) = 20 × (320 / 128) = 20 × 2.5 = <strong>50 rpm</strong></p>
 <p><strong>c) Driven pulley speed (including belt thickness):</strong><br>When belt thickness is considered, the effective diameter becomes (diameter + thickness), as the belt's neutral axis sits at its mid-thickness:<br>N₂ = N₁ × (d₁ + t) / (d₂ + t) = 20 × (320 + 5) / (128 + 5) = 20 × 325 / 133 = <strong>48.87 rpm</strong></p>
-<p>The belt thickness slightly increases both effective diameters, but affects the smaller pulley proportionally more — reducing the final output speed slightly below the no-thickness result.</p>
+<p>The belt thickness slightly increases both effective diameters, but affects the smaller pulley proportionally more, reducing the final output speed slightly below the no-thickness result.</p>
 </div>
 </details>
 </div>
@@ -599,7 +603,7 @@ E × 0.03864 = 17.5<br>
 <strong>E = 17.5 / 0.03864 ≈ 452.9 N</strong></p>
 <p><strong>b) Mechanical advantage:</strong><br>MA = Load / Effort = 50 / 452.9 ≈ <strong>0.11</strong></p>
 <p><strong>c) Why the body uses third-class levers:</strong></p>
-<p>As Borelli proved in <em>De Motu Animalium</em> (1680), human body levers are primarily <strong>magnifiers of speed and distance</strong>, not force. Although the bicep must exert ~453 N to lift a 50 N load (MA = 0.11), the muscle only contracts approximately 2–3 cm to move the hand through ~35 cm. This large range of motion is essential for throwing, writing, reaching and fine motor skills. If the arm used a second-class lever (which would give MA &gt; 1), movements would require less muscular force but would be much slower — making everyday actions impossible to perform at the speed required.</p>
+<p>As Borelli proved in <em>De Motu Animalium</em> (1680), human body levers are primarily <strong>magnifiers of speed and distance</strong>, not force. Although the bicep must exert ~453 N to lift a 50 N load (MA = 0.11), the muscle only contracts approximately 2–3 cm to move the hand through ~35 cm. This large range of motion is essential for throwing, writing, reaching and fine motor skills. If the arm used a second-class lever (which would give MA &gt; 1), movements would require less muscular force but would be much slower, making everyday actions impossible to perform at the speed required.</p>
 </div>
 </details>
 </div>
@@ -615,8 +619,8 @@ E × 0.03864 = 17.5<br>
 <p>This value (22.6 W) differs from the given input power of 15 W. This suggests the torque and speed values correspond to a different operating point, or that 15 W is the power after accounting for losses external to the gearbox itself. When discrepancies arise, state your assumption and show all working.</p>
 <p><strong>c) Two reasons for efficiency less than 100%:</strong></p>
 <ol>
-<li><strong>Friction between meshing gear teeth</strong> — as teeth slide and roll against each other under load, kinetic friction converts mechanical energy into heat. This is the primary loss mechanism in most gear trains.</li>
-<li><strong>Churning losses</strong> — gears in a lubricated gearbox must push through oil or grease. The viscous resistance of the lubricant dissipates energy, particularly at high rotational speeds.</li>
+<li><strong>Friction between meshing gear teeth</strong>: as teeth slide and roll against each other under load, kinetic friction converts mechanical energy into heat. This is the primary loss mechanism in most gear trains.</li>
+<li><strong>Churning losses</strong>: gears in a lubricated gearbox must push through oil or grease. The viscous resistance of the lubricant dissipates energy, particularly at high rotational speeds.</li>
 </ol>
 </div>
 </details>
@@ -630,7 +634,7 @@ E × 0.03864 = 17.5<br>
 <div class="p2-answer">
 <p><strong>a) Velocity ratio of each stage:</strong><br>Stage 1: VR₁ = d₂ / d₁ = 200 / 400 = <strong>0.5</strong><br>Stage 2: VR₂ = d₄ / d₃ = 50 / 80 = <strong>0.625</strong></p>
 <p><strong>b) Overall velocity ratio:</strong><br>VR_total = VR₁ × VR₂ = 0.5 × 0.625 = <strong>0.3125</strong></p>
-<p><em>Note:</em> You cannot calculate this as d₄/d₁ = 50/400 = 0.125 — that formula only works for a simple two-pulley system. In a compound belt drive, each intermediate pulley pair contributes its own VR and all must be multiplied together.</p>
+<p><em>Note:</em> You cannot calculate this as d₄/d₁ = 50/400 = 0.125: that formula only works for a simple two-pulley system. In a compound belt drive, each intermediate pulley pair contributes its own VR and all must be multiplied together.</p>
 <p><strong>c) Final output speed:</strong><br>Stage by stage: N₂ = 60 × (400/200) = 120 rpm. Since d₃ is coaxial with d₂, N₃ = N₂ = 120 rpm.<br>N₄ = 120 × (80/50) = <strong>192 rpm</strong></p>
 <p>Verification: N₄ = N₁ / VR_total = 60 / 0.3125 = 192 rpm ✓</p>
 </div>
@@ -643,10 +647,10 @@ E × 0.03864 = 17.5<br>
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p>A <strong>cam and follower</strong> system converts rotary motion (the rotating cam) into reciprocating motion (the back-and-forth movement of the follower pressed against it). The cam profile — its shape — encodes a specific motion pattern through its rising, falling and dwell phases.</p>
-<p><strong>Historical development:</strong> Trip hammers in Han Dynasty China (206 BCE–220 CE) used water-wheel-driven cams to produce a hammering action, one of the earliest mechanical applications of the rotary-to-reciprocating principle. In the 12th century, Ismail al-Jazari described programmable camshafts in his automata — changing the position of pegs and lobes on the shaft changed the sequence of movements. This represents an early form of mechanical programming, where the cam profile acted as the stored instruction.</p>
-<p><strong>Modern application 1 — Sewing machine stitch cams:</strong> Before computerised sewing machines, interchangeable cam discs produced different stitch patterns. As the cam rotated, a follower translated the motion into the needle bar's side-to-side movement. Changing the cam changed the stitch pattern without modifying any other part of the machine — a mechanically elegant solution to programmable output.</p>
-<p><strong>Modern application 2 — Internal combustion engine camshaft:</strong> The camshaft rotates at half crankshaft speed. Each cam lobe pushes a follower (tappet or rocker arm) to open an intake or exhaust valve at a precisely timed moment. The cam profile controls valve lift (how far the valve opens), duration (how long) and timing (when relative to piston position). A valve spring closes the valve once the lobe passes. Precision here is critical: incorrect valve timing reduces power, increases emissions and can cause engine damage.</p>
+<p>A <strong>cam and follower</strong> system converts rotary motion (the rotating cam) into reciprocating motion (the back-and-forth movement of the follower pressed against it). The cam profile (its shape) encodes a specific motion pattern through its rising, falling and dwell phases.</p>
+<p><strong>Historical development:</strong> Trip hammers in Han Dynasty China (206 BCE–220 CE) used water-wheel-driven cams to produce a hammering action, one of the earliest mechanical applications of the rotary-to-reciprocating principle. In the 12th century, Ismail al-Jazari described programmable camshafts in his automata: changing the position of pegs and lobes on the shaft changed the sequence of movements. This represents an early form of mechanical programming, where the cam profile acted as the stored instruction.</p>
+<p><strong>Modern application 1 (Sewing machine stitch cams):</strong> Before computerised sewing machines, interchangeable cam discs produced different stitch patterns. As the cam rotated, a follower translated the motion into the needle bar's side-to-side movement. Changing the cam changed the stitch pattern without modifying any other part of the machine: a mechanically elegant solution to programmable output.</p>
+<p><strong>Modern application 2 (Internal combustion engine camshaft):</strong> The camshaft rotates at half crankshaft speed. Each cam lobe pushes a follower (tappet or rocker arm) to open an intake or exhaust valve at a precisely timed moment. The cam profile controls valve lift (how far the valve opens), duration (how long) and timing (when relative to piston position). A valve spring closes the valve once the lobe passes. Precision here is critical: incorrect valve timing reduces power, increases emissions and can cause engine damage.</p>
 <p><strong>Why cams remain relevant:</strong> Electronic control systems and servo motors can replicate cam motion, but mechanical cams offer reliability without sensors, controllers or software. In high-speed, high-temperature environments such as engines, cams require no electrical supply, tolerate oil and heat, and cannot suffer software failure. The internal combustion engine camshaft is one of the highest-volume precision mechanical components in manufacturing. "Camless" valvetrains exist but remain complex and costly by comparison.</p>
 </div>
 </details>

@@ -101,12 +101,12 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Drawings are the most fundamental form of design communication — they allow designers to share ideas with manufacturers, engineers, clients and users without requiring physical models. Different drawing types serve different audiences and purposes:</p>
+<p>Drawings are the most fundamental form of design communication: they allow designers to share ideas with manufacturers, engineers, clients and users without requiring physical models. Different drawing types serve different audiences and purposes:</p>
 <ul>
 <li><strong>Isometric drawings</strong> present an object from a corner viewpoint using 30° angles for all horizontal edges. The name comes from the Greek "equal measurement" because true dimensions are preserved along all three axes. Three sides of the object are visible simultaneously, making isometric drawings well suited for presentations to audiences with limited technical training.</li>
-<li><strong>Orthographic projection</strong> presents multiple 2D views — typically front, top and side — each projected perpendicularly onto a plane. Together, the views communicate exact dimensions, tolerances and surface specifications. This is the standard for manufacturing and engineering because it leaves no ambiguity about shape or size.</li>
+<li><strong>Orthographic projection</strong> presents multiple 2D views (typically front, top and side) each projected perpendicularly onto a plane. Together, the views communicate exact dimensions, tolerances and surface specifications. This is the standard for manufacturing and engineering because it leaves no ambiguity about shape or size.</li>
 <li><strong>Exploded drawings</strong> show how components separate along their assembly axes so the viewer can understand how parts fit together. One of the earliest known examples was created by Leonardo da Vinci around 1478–1480.</li>
-<li><strong>Assembly drawings</strong> show how multiple components come together into a functional system. They typically include a Bill of Materials (BoM) — a numbered list of every part — linked to callout labels on the drawing.</li>
+<li><strong>Assembly drawings</strong> show how multiple components come together into a functional system. They typically include a Bill of Materials (BoM), a numbered list of every part, linked to callout labels on the drawing.</li>
 <li><strong>Perspective renderings</strong> use one or more vanishing points to create a realistic sense of depth. They do not preserve true dimensions but communicate the overall appearance and feel of a product convincingly to non-technical clients and investors.</li>
 </ul>
 </div>
@@ -122,6 +122,8 @@ Show Chinese · 显示中文
 </ul>
 </div>
 </div>
+
+<div class="topic-link-blurb">The dimensioning, tolerancing and scale conventions that make an orthographic drawing manufacturing-ready are covered in <a href="b2.1-design-process.html">B2.1 The Design Process</a> (2.1.14 Technical Drawings).</div>
 
 </div>
 </div><!-- /2.2.1 -->
@@ -140,15 +142,15 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Physical prototypes exist on a spectrum of <strong>fidelity</strong> — how closely they match the final product in appearance, materials and function. Choosing the right fidelity for each stage of development is a critical design decision.</p>
+<p>Physical prototypes exist on a spectrum of <strong>fidelity</strong>: how closely they match the final product in appearance, materials and function. Choosing the right fidelity for each stage of development is a critical design decision.</p>
 <p><strong>Low-fidelity prototypes</strong> (cardboard, foam, tape, paper) are fast and cheap to build. They test core concepts, spatial relationships and rough proportions without committing to materials or manufacturing. Dyson famously used cardboard models extensively during development of the DC08 vacuum. The "fail fast, fail cheap" principle applies: expose problems early when changes cost almost nothing.</p>
 <p><strong>Medium-fidelity prototypes</strong> have more accurate shape and proportions and may include some working features, but often use substitute materials (e.g., 3D-printed plastic instead of die-cast aluminium). They provide a useful balance between cost and realism for user ergonomic testing and stakeholder review.</p>
-<p><strong>High-fidelity prototypes</strong> use final materials and, ideally, final manufacturing processes. They generate meaningful performance data — task completion rates, error rates, satisfaction scores — that earlier prototypes cannot. Changes at this stage are costly, so the concept must already be well-validated before investing here.</p>
+<p><strong>High-fidelity prototypes</strong> use final materials and, ideally, final manufacturing processes. They generate meaningful performance data (task completion rates, error rates, satisfaction scores) that earlier prototypes cannot. Changes at this stage are costly, so the concept must already be well-validated before investing here.</p>
 <p>Prototypes are also categorised by <strong>purpose</strong>:</p>
 <ul>
-<li><strong>Aesthetic prototypes</strong> — focus on look, feel, surface texture and visual identity; do not need to function</li>
-<li><strong>Functional prototypes</strong> — demonstrate working mechanisms and performance; may not look like the final product</li>
-<li><strong>Hybrid prototypes</strong> — combine both for comprehensive testing</li>
+<li><strong>Aesthetic prototypes</strong>: focus on look, feel, surface texture and visual identity; do not need to function</li>
+<li><strong>Functional prototypes</strong>: demonstrate working mechanisms and performance; may not look like the final product</li>
+<li><strong>Hybrid prototypes</strong>: combine both for comprehensive testing</li>
 </ul>
 <p>Considerations of <strong>scale</strong> (is it 1:1 or reduced?), <strong>shape</strong> (are ergonomic dimensions accurate?) and <strong>space</strong> (does it fit its intended environment?) affect which prototype type is appropriate at each stage.</p>
 </div>
@@ -167,6 +169,8 @@ Show Chinese · 显示中文
 <p><strong>比例</strong>（是否为1:1或缩小比例？）、<strong>形状</strong>（人体工程学尺寸是否准确？）和<strong>空间</strong>（是否适合预期环境？）的考量影响每个阶段适合使用哪种原型类型。</p>
 </div>
 </div>
+
+<div class="topic-link-blurb">Prototyping fidelity and the specific techniques used to build each level are introduced from a broader design perspective in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>.</div>
 
 </div>
 </div><!-- /2.2.2 -->
@@ -188,11 +192,11 @@ Show Chinese · 显示中文
 <p><strong>CAD (Computer-Aided Design)</strong> has become an integrated environment for ideation, refinement, simulation and communication. Rather than producing drawings alone, modern CAD platforms allow a single model to generate technical drawings, photorealistic renders, FEA simulations and manufacturing data.</p>
 <p>CAD models fall into three main categories:</p>
 <ul>
-<li><strong>Surface models</strong> represent only the outer "skin" of an object as a series of mathematically defined surfaces, without any enclosed volume. They are widely used for aerodynamic and organic shapes — automotive body panels, consumer electronics casings — where form and curvature quality are the primary concern. Surface models cannot directly calculate mass, volume or centre of gravity.</li>
-<li><strong>Solid models</strong> contain both surfaces and enclosed volume. They can calculate weight, centre of gravity, moments of inertia, and material volume — all critical for engineering analysis. Solid models support manufacturing simulations such as mould-fill analysis and CNC toolpath generation. They also export directly to FEA software. Most parametric CAD tools (SOLIDWORKS, Fusion 360, Onshape) work primarily with solid models.</li>
+<li><strong>Surface models</strong> represent only the outer "skin" of an object as a series of mathematically defined surfaces, without any enclosed volume. They are widely used for aerodynamic and organic shapes (automotive body panels, consumer electronics casings) where form and curvature quality are the primary concern. Surface models cannot directly calculate mass, volume or centre of gravity.</li>
+<li><strong>Solid models</strong> contain both surfaces and enclosed volume. They can calculate weight, centre of gravity, moments of inertia, and material volume: all critical for engineering analysis. Solid models support manufacturing simulations such as mould-fill analysis and CNC toolpath generation. They also export directly to FEA software. Most parametric CAD tools (SOLIDWORKS, Fusion 360, Onshape) work primarily with solid models.</li>
 <li><strong>Virtual models</strong> exist entirely in digital space but behave as if physical. They are analysed, tested and iterated without any physical materials. Combined with FEA and simulation software, virtual models allow designers to test failure modes, ergonomic fit and assembly sequences before any prototype is built.</li>
 </ul>
-<p><strong>Generative design</strong> is an emerging CAD approach in which the designer supplies constraints — load conditions, material, manufacturing method, weight targets — and an algorithm explores thousands of design permutations, often producing organic lattice structures that no human would draw intuitively, yet which meet all specifications at minimum material weight.</p>
+<p><strong>Generative design</strong> is an emerging CAD approach in which the designer supplies constraints (load conditions, material, manufacturing method, weight targets) and an algorithm explores thousands of design permutations, often producing organic lattice structures that no human would draw intuitively, yet which meet all specifications at minimum material weight.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -224,14 +228,14 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Finite Element Analysis (FEA)</strong> is a computer simulation technique that predicts how a virtual model will behave under applied forces, heat, pressure or motion. The software divides the model into a mesh of small, simple elements — triangles or tetrahedra — and mathematically calculates stress, strain and displacement at every node in the mesh. Results are typically displayed as colour contour plots: regions under the highest stress appear red, low-stress regions appear blue.</p>
+<p><strong>Finite Element Analysis (FEA)</strong> is a computer simulation technique that predicts how a virtual model will behave under applied forces, heat, pressure or motion. The software divides the model into a mesh of small, simple elements (triangles or tetrahedra) and mathematically calculates stress, strain and displacement at every node in the mesh. Results are typically displayed as colour contour plots: regions under the highest stress appear red, low-stress regions appear blue.</p>
 <p>Key failure modes FEA identifies:</p>
 <ul>
-<li><strong>Yielding</strong> — the point at which a material stops behaving elastically (returning to its original shape when load is removed) and begins to deform plastically (permanent deformation remains). Most structural components must remain below their yield strength in service. The chapter illustrates this with an FEA simulation of a mobile phone case dropped from 2 metres: red regions mark where the case would yield on impact.</li>
-<li><strong>High-stress regions</strong> — localised areas of stress concentration around holes, sharp corners, thin sections or abrupt geometry changes. Designers resolve these by adding fillets, ribs or additional material thickness.</li>
-<li><strong>Buckling</strong> — sudden structural instability under compressive load. Slender columns and thin-walled sections are particularly vulnerable; FEA predicts the critical buckling load before physical testing.</li>
+<li><strong>Yielding</strong>: the point at which a material stops behaving elastically (returning to its original shape when load is removed) and begins to deform plastically (permanent deformation remains). Most structural components must remain below their yield strength in service. The chapter illustrates this with an FEA simulation of a mobile phone case dropped from 2 metres: red regions mark where the case would yield on impact.</li>
+<li><strong>High-stress regions</strong>: localised areas of stress concentration around holes, sharp corners, thin sections or abrupt geometry changes. Designers resolve these by adding fillets, ribs or additional material thickness.</li>
+<li><strong>Buckling</strong>: sudden structural instability under compressive load. Slender columns and thin-walled sections are particularly vulnerable; FEA predicts the critical buckling load before physical testing.</li>
 </ul>
-<p>FEA allows designers to test and refine virtual models without building physical prototypes, significantly reducing development cost and time. However, results are only as reliable as the mesh quality, material data and boundary conditions — garbage in, garbage out.</p>
+<p>FEA allows designers to test and refine virtual models without building physical prototypes, significantly reducing development cost and time. However, results are only as reliable as the mesh quality, material data and boundary conditions: garbage in, garbage out.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -265,9 +269,9 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p><strong>Rapid prototyping</strong> uses digital CAD models to produce physical objects directly, without manual machining or tooling. The three principal additive manufacturing processes are:</p>
 <ul>
-<li><strong>Stereolithography (SLA)</strong> — an ultraviolet laser traces cross-sections of the model onto a vat of photosensitive resin, curing each layer. Produces very high surface quality and fine detail; widely used for aesthetic and dental/medical prototypes. Resin parts are typically brittle.</li>
-<li><strong>Fused Deposition Modelling (FDM)</strong> — a thermoplastic filament (PLA, ABS, PETG) is melted and extruded in successive layers. The most accessible and affordable process, available in desktop machines. Layer lines are visible; surface quality is lower than SLA but functional parts are tougher.</li>
-<li><strong>Selective Laser Sintering (SLS)</strong> — a laser fuses powder (nylon, glass-filled nylon, metal) layer by layer. No support structures are needed because unfused powder supports the part during build. Produces durable functional prototypes with complex internal geometries; expensive and requires specialist equipment.</li>
+<li><strong>Stereolithography (SLA)</strong>: an ultraviolet laser traces cross-sections of the model onto a vat of photosensitive resin, curing each layer. Produces very high surface quality and fine detail; widely used for aesthetic and dental/medical prototypes. Resin parts are typically brittle.</li>
+<li><strong>Fused Deposition Modelling (FDM)</strong>: a thermoplastic filament (PLA, ABS, PETG) is melted and extruded in successive layers. The most accessible and affordable process, available in desktop machines. Layer lines are visible; surface quality is lower than SLA but functional parts are tougher.</li>
+<li><strong>Selective Laser Sintering (SLS)</strong>: a laser fuses powder (nylon, glass-filled nylon, metal) layer by layer. No support structures are needed because unfused powder supports the part during build. Produces durable functional prototypes with complex internal geometries; expensive and requires specialist equipment.</li>
 </ul>
 <p><strong>CAD model requirements for rapid prototyping:</strong> The model must be a watertight solid with no open surfaces, gaps or self-intersecting geometry. It is exported as an STL (stereolithography) file, which approximates curved surfaces as a mesh of triangles. Resolution (triangle count) must be high enough to preserve fine details. Wall thickness must meet minimum thresholds for the chosen process to avoid fragile or failed builds.</p>
 </div>
@@ -282,6 +286,23 @@ Show Chinese · 显示中文
 <p><strong>快速原型制作的CAD模型要求：</strong>模型必须是无开放曲面、间隙或自相交几何形状的水密实体。它导出为STL（立体光固化）文件，将弯曲曲面近似为三角形网格。分辨率（三角形数量）必须足够高以保留精细细节。壁厚必须满足所选工艺的最小阈值，以避免构建失败或零件脆弱。</p>
 </div>
 </div>
+
+<div class="concept-box">
+<div class="concept-box-label">Key concept</div>
+<div class="concept-box-title">STL Files and Mesh Resolution</div>
+<p>An <strong>STL file</strong> (the name comes from "stereolithography", the process it was originally created for) describes a 3D shape using only flat triangles. A curved surface, such as a sphere or a fillet, has no exact triangular equivalent, so the STL format approximates it: the more triangles used, the closer the faceted surface gets to the true curve, at the cost of a larger file and longer processing time.</p>
+<p>This is the same trade-off that governs the mesh used in <a href="b2.1-design-process.html">FEA simulation</a>: a coarse mesh (or a low-triangle-count STL) is fast to process but blurs fine geometric detail, while a fine mesh captures detail accurately but takes longer to compute or print. Designers choose resolution based on what the model needs to show: a low-poly STL is fine for a rough proportion check, but a part with delicate curved features needs a high-resolution export to print correctly.</p>
+<div class="concept-box-examples">
+<div class="concept-box-examples-label">Spotting a low-resolution STL</div>
+<ul>
+<li><strong>Faceting:</strong> visible flat planes on what should be a smooth curve</li>
+<li><strong>Lost detail:</strong> small features (text, fillets, thin ribs) disappearing or becoming distorted</li>
+<li><strong>File size mismatch:</strong> a tiny file size for a geometrically complex part is a warning sign of under-resolved curves</li>
+</ul>
+</div>
+</div>
+
+<div class="topic-link-blurb">SLA, FDM and SLS are explored in far more technical depth, including material properties and process limitations, in <a href="a4.1-manufacturing-techniques.html">A4.1 Manufacturing Techniques</a>.</div>
 
 </div>
 </div><!-- /2.2.5 -->
@@ -302,12 +323,12 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p>No single prototype type is right for every audience or purpose. Selecting the appropriate modelling tool for each stakeholder group is a core design skill:</p>
 <ul>
-<li><strong>End users</strong> need to experience ergonomics, comfort and usability. Physical prototypes at appropriate fidelity — even rough foam — are more informative than drawings. Users generate qualitative feedback ("it feels too heavy") and quantitative data (task completion times, error counts).</li>
+<li><strong>End users</strong> need to experience ergonomics, comfort and usability. Physical prototypes at appropriate fidelity (even rough foam) are more informative than drawings. Users generate qualitative feedback ("it feels too heavy") and quantitative data (task completion times, error counts).</li>
 <li><strong>Clients</strong> respond to visual appearance and alignment with brief. High-quality perspective renderings, annotated CAD visualisations or aesthetic prototypes communicate brand identity and overall direction without requiring a functional model.</li>
 <li><strong>Engineers</strong> need dimensional accuracy, material data and performance predictions. Orthographic drawings, solid CAD models and FEA outputs give engineers the information needed to evaluate feasibility and identify manufacturing risks.</li>
 <li><strong>Manufacturers</strong> require production-ready technical drawings, tolerances, material specifications and assembly sequences. A bill of materials and detailed assembly drawing communicates everything needed to quote and produce the part.</li>
 </ul>
-<p>The iterative process means feedback from one stakeholder group informs the next prototype. A user session revealing grip problems triggers a shape change; the new shape is validated with FEA before a revised physical prototype is built. Matching prototype type to audience and question — not defaulting to the highest fidelity available — is what makes iteration efficient.</p>
+<p>The iterative process means feedback from one stakeholder group informs the next prototype. A user session revealing grip problems triggers a shape change; the new shape is validated with FEA before a revised physical prototype is built. Matching prototype type to audience and question (not defaulting to the highest fidelity available) is what makes iteration efficient.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -388,7 +409,7 @@ Show Chinese · 显示中文
 <p class="quiz-q-text">5. In Finite Element Analysis (FEA), what does "yielding" refer to?</p>
 <div class="quiz-options">
 <label class="quiz-option"><input type="radio" name="q5" value="A"> A. When the model fails to export correctly to STL format</label>
-<label class="quiz-option"><input type="radio" name="q5" value="B"> B. When a material stops behaving elastically and begins to deform plastically — permanent deformation remains after the load is removed</label>
+<label class="quiz-option"><input type="radio" name="q5" value="B"> B. When a material stops behaving elastically and begins to deform plastically: permanent deformation remains after the load is removed</label>
 <label class="quiz-option"><input type="radio" name="q5" value="C"> C. When the simulation runs out of available memory</label>
 <label class="quiz-option"><input type="radio" name="q5" value="D"> D. When two parts successfully fit together in an assembly</label>
 </div>
@@ -444,7 +465,7 @@ Show Chinese · 显示中文
 <div class="quiz-options">
 <label class="quiz-option"><input type="radio" name="q10" value="A"> A. High-fidelity functional prototype using final materials</label>
 <label class="quiz-option"><input type="radio" name="q10" value="B"> B. Medium-fidelity functional prototype using substitute materials</label>
-<label class="quiz-option"><input type="radio" name="q10" value="C"> C. Low-fidelity aesthetic prototype — a simple foam block only</label>
+<label class="quiz-option"><input type="radio" name="q10" value="C"> C. Low-fidelity aesthetic prototype: a simple foam block only</label>
 <label class="quiz-option"><input type="radio" name="q10" value="D"> D. Conceptual sketch on paper</label>
 </div>
 <div class="quiz-feedback"></div>
@@ -477,8 +498,8 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p>Orthographic drawings present several two-dimensional views of an object — typically front, top and side — where each view is projected perpendicularly onto a plane. All three views together communicate the exact three-dimensional form, with precise dimensions, tolerances and material specifications. The name reflects the perpendicular ("ortho") projection method. Orthographic drawings are most appropriate for manufacturers and engineers because they provide the dimensional accuracy and technical detail required for production.</p>
-<p>Isometric drawings are a 3D pictorial style where an object is viewed from a corner, using 30° angles for all horizontal edges. The name comes from the Greek "equal measurement" — actual dimensions are preserved along all three axes. Three sides of the object are visible simultaneously. Isometric drawings are most appropriate for presentations to clients and audiences with limited technical knowledge because they provide a recognisable sense of the object's form without perspective distortion.</p>
+<p>Orthographic drawings present several two-dimensional views of an object (typically front, top and side) where each view is projected perpendicularly onto a plane. All three views together communicate the exact three-dimensional form, with precise dimensions, tolerances and material specifications. The name reflects the perpendicular ("ortho") projection method. Orthographic drawings are most appropriate for manufacturers and engineers because they provide the dimensional accuracy and technical detail required for production.</p>
+<p>Isometric drawings are a 3D pictorial style where an object is viewed from a corner, using 30° angles for all horizontal edges. The name comes from the Greek "equal measurement": actual dimensions are preserved along all three axes. Three sides of the object are visible simultaneously. Isometric drawings are most appropriate for presentations to clients and audiences with limited technical knowledge because they provide a recognisable sense of the object's form without perspective distortion.</p>
 </div>
 </details>
 </div>
@@ -491,9 +512,9 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p><strong>1. Low-fidelity conceptual models</strong> (cardboard, foam, paper wireframes): Quick, simple representations used to explore early ideas and test basic proportions. Data collected is largely qualitative — user impressions, aesthetic preferences, conceptual clarity and basic spatial flow. Target audience: internal design teams and clients for rapid iteration and alignment on foundational direction before any significant investment.</p>
+<p><strong>1. Low-fidelity conceptual models</strong> (cardboard, foam, paper wireframes): Quick, simple representations used to explore early ideas and test basic proportions. Data collected is largely qualitative: user impressions, aesthetic preferences, conceptual clarity and basic spatial flow. Target audience: internal design teams and clients for rapid iteration and alignment on foundational direction before any significant investment.</p>
 <p><strong>2. Functional prototypes</strong> (working versions using substitute materials or breadboard electronics): Demonstrate working mechanisms and performance at moderate fidelity. Data collected includes performance metrics (task completion rates, error frequency, reliability), technical data (tolerances, material behaviour under load), and user interaction data. Target audience: engineers and beta testers to validate core functionality and uncover latent issues before final production.</p>
-<p><strong>3. High-fidelity aesthetic/visual prototypes</strong> (polished models using near-final materials, colours and finishes): Communicate intended appearance and brand identity. Data collected is largely qualitative — aesthetic feedback, emotional response, brand alignment and market appeal. Target audience: clients, marketing teams and investors to support funding pitches, promotional materials and strategic decision-making.</p>
+<p><strong>3. High-fidelity aesthetic/visual prototypes</strong> (polished models using near-final materials, colours and finishes): Communicate intended appearance and brand identity. Data collected is largely qualitative: aesthetic feedback, emotional response, brand alignment and market appeal. Target audience: clients, marketing teams and investors to support funding pitches, promotional materials and strategic decision-making.</p>
 </div>
 </details>
 </div>
@@ -506,7 +527,7 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p><strong>Low-fidelity prototypes</strong> (carved foam, clay or rough 3D-printed shells) are fast and cheap to produce. They are well suited to testing basic hand fit and overall proportions because the team can iterate through many different shapes quickly. However, low-fidelity prototypes cannot accurately test button click feel — foam and clay do not replicate the tactile snap of a micro-switch — nor surface texture, which feels completely different from injection-moulded plastic with overmoulding. Users may give misleading feedback because the prototype does not match the sensory experience of the final product.</p>
+<p><strong>Low-fidelity prototypes</strong> (carved foam, clay or rough 3D-printed shells) are fast and cheap to produce. They are well suited to testing basic hand fit and overall proportions because the team can iterate through many different shapes quickly. However, low-fidelity prototypes cannot accurately test button click feel (foam and clay do not replicate the tactile snap of a micro-switch) nor surface texture, which feels completely different from injection-moulded plastic with overmoulding. Users may give misleading feedback because the prototype does not match the sensory experience of the final product.</p>
 <p><strong>High-fidelity prototypes</strong> using final materials and manufacturing methods (e.g., injection-moulded ABS plastic with actual micro-switches and textured Santoprene overmoulding) are ideal for testing click feel and texture because they exactly replicate the final product's tactile properties. However, high-fidelity prototypes are expensive and time-consuming to produce, and changes are difficult and costly.</p>
 <p><strong>Best approach:</strong> Use low-fidelity models to rapidly iterate on hand fit across many shape variations. Once the shape is validated, build a small number of high-fidelity prototypes with actual switches and final surface textures for a focused evaluation of click feel and grip texture. This phased strategy balances speed and cost at the exploration stage with accuracy at the validation stage.</p>
 </div>
@@ -521,9 +542,9 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p>Finite Element Analysis (FEA) is a computer simulation technique that predicts how a virtual model will behave under applied forces, heat, pressure or motion. The software divides the model into a mesh of small elements and calculates stress, strain and displacement at every point, displaying results as colour contour plots — red indicates the highest stress, blue the lowest.</p>
-<p>FEA improves product safety by identifying <strong>yielding</strong> before any physical prototype is built. Yielding is the point at which a material stops behaving elastically — returning to its original shape when load is removed — and begins to deform plastically, meaning permanent deformation remains even after the load is removed. For most structural components, yielding is unacceptable because the part will no longer function as intended.</p>
-<p>For example, an FEA simulation of a mobile phone case dropped from 2 metres shows high-stress (red) regions at impact points. If calculated stress exceeds the material's yield strength in any region, the designer can add material, change the geometry — adding ribs or rounded fillets — or select a tougher material, all before investing in a physical prototype. This reduces both cost and safety risk.</p>
+<p>Finite Element Analysis (FEA) is a computer simulation technique that predicts how a virtual model will behave under applied forces, heat, pressure or motion. The software divides the model into a mesh of small elements and calculates stress, strain and displacement at every point, displaying results as colour contour plots: red indicates the highest stress, blue the lowest.</p>
+<p>FEA improves product safety by identifying <strong>yielding</strong> before any physical prototype is built. Yielding is the point at which a material stops behaving elastically (returning to its original shape when load is removed) and begins to deform plastically, meaning permanent deformation remains even after the load is removed. For most structural components, yielding is unacceptable because the part will no longer function as intended.</p>
+<p>For example, an FEA simulation of a mobile phone case dropped from 2 metres shows high-stress (red) regions at impact points. If calculated stress exceeds the material's yield strength in any region, the designer can add material, change the geometry (adding ribs or rounded fillets) or select a tougher material, all before investing in a physical prototype. This reduces both cost and safety risk.</p>
 </div>
 </details>
 </div>
@@ -536,9 +557,9 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p><strong>Low-fidelity prototypes</strong> (cardboard, foam, paper) require minimal resources — hours to build, negligible material cost, and easy to discard. Dyson's extensive use of cardboard models during DC08 development is a clear example: cheap models allowed rapid iteration without financial risk. User feedback quality is limited to broad impressions of shape, proportion and concept direction. Detailed ergonomic data, surface texture evaluation or performance testing is not possible. Decision-making at this stage addresses broad questions: "Is this the right concept?" and "Which of these five approaches is worth developing further?"</p>
-<p><strong>Medium-fidelity prototypes</strong> have more accurate geometry and may include working features in substitute materials. Resource requirements are moderate — days to weeks and higher material costs. User feedback quality improves substantially: participants can evaluate grip comfort, basic usability and relative proportions meaningfully. Decision-making becomes more specific: "Does this button placement work for 5th–95th percentile users?"</p>
-<p><strong>High-fidelity prototypes</strong> use final materials and manufacturing methods. Resources are significant — weeks or months, tooling costs of thousands of dollars. User feedback quality is highest: participants experience exact look, weight, feel and performance. Task completion rates, error rates and satisfaction scores are now valid and comparable. Decision-making addresses launch readiness: "Does this product meet all specifications? Are we ready to commit to production tooling?"</p>
+<p><strong>Low-fidelity prototypes</strong> (cardboard, foam, paper) require minimal resources: hours to build, negligible material cost, and easy to discard. Dyson's extensive use of cardboard models during DC08 development is a clear example: cheap models allowed rapid iteration without financial risk. User feedback quality is limited to broad impressions of shape, proportion and concept direction. Detailed ergonomic data, surface texture evaluation or performance testing is not possible. Decision-making at this stage addresses broad questions: "Is this the right concept?" and "Which of these five approaches is worth developing further?"</p>
+<p><strong>Medium-fidelity prototypes</strong> have more accurate geometry and may include working features in substitute materials. Resource requirements are moderate: days to weeks and higher material costs. User feedback quality improves substantially: participants can evaluate grip comfort, basic usability and relative proportions meaningfully. Decision-making becomes more specific: "Does this button placement work for 5th–95th percentile users?"</p>
+<p><strong>High-fidelity prototypes</strong> use final materials and manufacturing methods. Resources are significant: weeks or months, tooling costs of thousands of dollars. User feedback quality is highest: participants experience exact look, weight, feel and performance. Task completion rates, error rates and satisfaction scores are now valid and comparable. Decision-making addresses launch readiness: "Does this product meet all specifications? Are we ready to commit to production tooling?"</p>
 <p>The strategic insight is in the transition: explore broadly and cheaply with low fidelity, narrow down with medium fidelity, then validate precisely with high fidelity. This minimises total investment while maximising confidence at each decision point.</p>
 <div class="content-table-wrap">
 <table class="content-table">
@@ -546,9 +567,9 @@ Show Chinese · 显示中文
 <tr><th>Fidelity</th><th>Cost</th><th>Build time</th><th>Feedback quality</th><th>Key decision</th></tr>
 </thead>
 <tbody>
-<tr><td>Low</td><td>$</td><td>Hours–days</td><td>Basic — concept, proportion</td><td>Right direction?</td></tr>
-<tr><td>Medium</td><td>$$</td><td>Days–weeks</td><td>Good — ergonomics, usability</td><td>Right form?</td></tr>
-<tr><td>High</td><td>$$$</td><td>Weeks–months</td><td>Excellent — full validation</td><td>Ready to launch?</td></tr>
+<tr><td>Low</td><td>$</td><td>Hours–days</td><td>Basic: concept, proportion</td><td>Right direction?</td></tr>
+<tr><td>Medium</td><td>$$</td><td>Days–weeks</td><td>Good: ergonomics, usability</td><td>Right form?</td></tr>
+<tr><td>High</td><td>$$$</td><td>Weeks–months</td><td>Excellent: full validation</td><td>Ready to launch?</td></tr>
 </tbody>
 </table>
 </div>

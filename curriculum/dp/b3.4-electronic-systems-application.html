@@ -78,7 +78,7 @@
 </button>
 <div class="curr-body" id="body-study">
 <div class="curr-section-intro-wrap">
-<p class="curr-section-intro">Building on A3.4, this topic applies electronic systems to real product design — using test equipment, calculating V/I/R/P, working with resistors and capacitors, drawing flow and system diagrams, selecting sensors and outputs, and comparing wireless protocols. The Input–Process–Output model provides the organising framework throughout.</p>
+<p class="curr-section-intro">Building on <a href="a3.4-electronic-systems.html">A3.4</a>, this topic applies electronic systems to real product design: using test equipment, calculating V/I/R/P, working with resistors and capacitors, drawing flow and system diagrams, selecting sensors and outputs, and comparing wireless protocols. The Input–Process–Output model provides the organising framework throughout.</p>
 <div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Electronic Systems Application — B3.4"></div>
 </div>
 
@@ -107,9 +107,9 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p>The <strong>Input–Process–Output (IPO) model</strong> is the fundamental framework for understanding any electronic system. It breaks a complex product into three stages:</p>
 <ul>
-<li><strong>Input</strong> — sensors detect changes in the environment (light, temperature, pressure, motion, sound, user commands) and convert them into electrical signals for the process stage.</li>
-<li><strong>Process</strong> — a microcontroller, logic circuit, or embedded processor receives input signals, applies a programmed algorithm, and decides what to do next.</li>
-<li><strong>Output</strong> — actuators, displays, speakers, motors, or relays respond — communicating information to a user or physically controlling the environment.</li>
+<li><strong>Input</strong>: sensors detect changes in the environment (light, temperature, pressure, motion, sound, user commands) and convert them into electrical signals for the process stage.</li>
+<li><strong>Process</strong>: a microcontroller, logic circuit, or embedded processor receives input signals, applies a programmed algorithm, and decides what to do next.</li>
+<li><strong>Output</strong>: actuators, displays, speakers, motors, or relays respond, communicating information to a user or physically controlling the environment.</li>
 </ul>
 <p>Electronics are now embedded in almost every product category: <strong>home appliances</strong> (refrigerators, washing machines, microwaves), <strong>entertainment</strong> (TVs, game consoles), <strong>communication</strong> (smartphones, computers), <strong>automotive</strong> (engine control units, GPS, advanced driver assistance), and <strong>personal wearables</strong> (smartwatches, fitness trackers). When analysing a product, the first task is to identify which components serve which stage of the IPO model.</p>
 </div>
@@ -142,17 +142,17 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Choosing the right instrument — and connecting it correctly — is as important as the measurement itself. Using a current meter in parallel, for example, will short-circuit the component and may destroy the meter.</p>
-<p><strong>Digital multimeter (DMM)</strong> — the most versatile handheld instrument:</p>
+<p>Choosing the right instrument (and connecting it correctly) is as important as the measurement itself. Using a current meter in parallel, for example, will short-circuit the component and may destroy the meter.</p>
+<p><strong>Digital multimeter (DMM)</strong>, the most versatile handheld instrument:</p>
 <ul>
 <li><em>Voltage</em>: connect in <strong>parallel</strong> across the component. No circuit interruption needed.</li>
-<li><em>Current</em>: connect in <strong>series</strong> — the circuit must be broken and the meter inserted into the path so current flows through it.</li>
+<li><em>Current</em>: connect in <strong>series</strong>: the circuit must be broken and the meter inserted into the path so current flows through it.</li>
 <li><em>Resistance</em>: the component must be <strong>removed from the circuit</strong> entirely, then connected to the meter's Ω terminals. The meter applies its own small current and measures the voltage drop.</li>
 </ul>
-<p><strong>Digital storage oscilloscope (DSO)</strong> — visualises voltage waveforms over time (voltage on Y-axis, time on X-axis). Indispensable for diagnosing: <em>ringing</em> (damped oscillations indicating impedance problems), <em>distorted rising edges</em> (slow component or excessive capacitance), and <em>amplitude problems</em> (incorrect voltage levels indicating a faulty supply). A multimeter cannot reveal any of these — it only shows a single numerical value.</p>
-<p><strong>Function generator</strong> — produces test signals (sine, square, triangle waves) at a chosen frequency. Frequently used alongside a DSO: the generator provides a known input, the DSO captures the circuit's response.</p>
-<p><strong>Clamp meter</strong> — measures current without breaking the circuit by clamping around the conductor. For AC it uses a current transformer; for DC it uses the Hall effect (detecting the magnetic field produced by the current).</p>
-<p><strong>Other instruments:</strong> Megohmmeter (tests insulation resistance at high voltage — a downward trend indicates insulation breakdown); Wattmeter (measures real power P = VI); LCR meter (measures inductance, capacitance and resistance using AC test signals); Logic analyser (captures multiple digital signals simultaneously to debug timing and decode communication protocols such as I²C, SPI, UART).</p>
+<p><strong>Digital storage oscilloscope (DSO)</strong>: visualises voltage waveforms over time (voltage on Y-axis, time on X-axis). Indispensable for diagnosing: <em>ringing</em> (damped oscillations indicating impedance problems), <em>distorted rising edges</em> (slow component or excessive capacitance), and <em>amplitude problems</em> (incorrect voltage levels indicating a faulty supply). A multimeter cannot reveal any of these: it only shows a single numerical value.</p>
+<p><strong>Function generator</strong>: produces test signals (sine, square, triangle waves) at a chosen frequency. Frequently used alongside a DSO: the generator provides a known input, the DSO captures the circuit's response.</p>
+<p><strong>Clamp meter</strong>: measures current without breaking the circuit by clamping around the conductor. For AC it uses a current transformer; for DC it uses the Hall effect (detecting the magnetic field produced by the current).</p>
+<p><strong>Other instruments:</strong> Megohmmeter (tests insulation resistance at high voltage: a downward trend indicates insulation breakdown); Wattmeter (measures real power P = VI); LCR meter (measures inductance, capacitance and resistance using AC test signals); Logic analyser (captures multiple digital signals simultaneously to debug timing and decode communication protocols such as I²C, SPI, UART).</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -174,7 +174,7 @@ Show Chinese · 显示中文
 <table class="content-table">
 <thead><tr><th>Instrument</th><th>Measures</th><th>Connection</th><th>Key limitation</th></tr></thead>
 <tbody>
-<tr><td><strong>DMM</strong></td><td>V, I, R</td><td>V: parallel / I: series / R: removed</td><td>Only static values — no waveform</td></tr>
+<tr><td><strong>DMM</strong></td><td>V, I, R</td><td>V: parallel / I: series / R: removed</td><td>Only static values: no waveform</td></tr>
 <tr><td><strong>DSO</strong></td><td>Waveform over time</td><td>Parallel (high impedance probe)</td><td>Can miss very slow DC drift</td></tr>
 <tr><td><strong>Clamp meter</strong></td><td>Current only</td><td>Clamp around wire (no break)</td><td>Cannot measure very low currents</td></tr>
 <tr><td><strong>Megger</strong></td><td>Insulation resistance</td><td>High-voltage DC applied</td><td>Cannot test live circuits</td></tr>
@@ -208,8 +208,8 @@ Show Chinese · 显示中文
 <p>Use whichever form avoids an intermediate calculation step. If you know V and R but not I, use P = V²/R directly rather than calculating I first.</p>
 <p><strong>Single-phase vs three-phase power:</strong></p>
 <ul>
-<li><strong>Single-phase</strong> — one AC waveform (one active wire). Used in homes and small businesses. Voltage rises and falls to zero twice per cycle, producing a momentary dip in power.</li>
-<li><strong>Three-phase</strong> — three AC waveforms staggered 120° apart (three active wires). Used in industrial settings. The phases combine so that total power delivery is constant — one phase is always near its peak. More efficient for large motors and high-power equipment.</li>
+<li><strong>Single-phase</strong>: one AC waveform (one active wire). Used in homes and small businesses. Voltage rises and falls to zero twice per cycle, producing a momentary dip in power.</li>
+<li><strong>Three-phase</strong>: three AC waveforms staggered 120° apart (three active wires). Used in industrial settings. The phases combine so that total power delivery is constant: one phase is always near its peak. More efficient for large motors and high-power equipment.</li>
 </ul>
 <p><strong>IEC 60309 industrial plug colour coding:</strong> yellow = 100–130 V, blue = 200–250 V, red = 380–480 V. Colour coding prevents incorrect connection of equipment to incompatible voltages.</p>
 </div>
@@ -258,11 +258,11 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p><strong>Resistors in series</strong> — total resistance is the sum of all resistors. Current is the same through each.</p>
+<p><strong>Resistors in series</strong>: total resistance is the sum of all resistors. Current is the same through each.</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
-<p><strong>Resistors in parallel</strong> — total resistance is always less than the smallest individual resistor. Voltage is the same across each; current splits between branches.</p>
+<p><strong>Resistors in parallel</strong>: total resistance is always less than the smallest individual resistor. Voltage is the same across each; current splits between branches.</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1 / R_total = 1/R₁ + 1/R₂ + 1/R₃ + … &nbsp;&nbsp; (for equal R: R_total = R / n)</p>
-<p><strong>RC circuits</strong> — a resistor (R) and capacitor (C) together create time-dependent behaviour. The capacitor charges through the resistor; the time constant τ = R × C (in seconds when R is in Ω and C is in Farads) determines how quickly voltage rises or falls.</p>
+<p><strong>RC circuits</strong>: a resistor (R) and capacitor (C) together create time-dependent behaviour. The capacitor charges through the resistor; the time constant τ = R × C (in seconds when R is in Ω and C is in Farads) determines how quickly voltage rises or falls.</p>
 <p><strong>Low-pass filter</strong>: resistor in series, capacitor in parallel with the output. Passes low-frequency (slow) signals; attenuates high-frequency (fast) signals. The capacitor charges slowly, smoothing rapid fluctuations.</p>
 <p><strong>High-pass filter</strong>: capacitor in series, resistor in parallel with the output. Blocks low-frequency signals (capacitor blocks DC and very slow signals); passes high-frequency signals.</p>
 <p><strong>Contact bounce (chatter) elimination:</strong> when a mechanical switch closes, the contacts bounce and produce multiple rapid 1s and 0s before settling. A low-pass RC filter smooths this leading edge, so the logic gate receives a clean single transition rather than a burst of false triggers.</p>
@@ -280,7 +280,7 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked examples — resistor networks</p>
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked examples (resistor networks)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Configuration</th><th>Calculation</th><th>Result</th></tr></thead>
@@ -292,7 +292,7 @@ Show Chinese · 显示中文
 </tbody>
 </table>
 </div>
-<p class="content-note">For combination circuits, always resolve the parallel branches first, then add the series elements — just as you would apply BODMAS to arithmetic.</p>
+<p class="content-note">For combination circuits, always resolve the parallel branches first, then add the series elements, just as you would apply BODMAS to arithmetic.</p>
 
 </div>
 </div><!-- /3.4.4 -->
@@ -314,10 +314,10 @@ Show Chinese · 显示中文
 <p>A <strong>flow diagram (flowchart)</strong> maps the sequence of steps in an algorithm using standardised symbols. In electronics, flowcharts are used to plan and communicate how a microcontroller will respond to inputs.</p>
 <p><strong>Standard flowchart symbols:</strong></p>
 <ul>
-<li><strong>Rounded rectangle (oval) — Terminator</strong>: marks the Start or End of the program.</li>
-<li><strong>Rectangle — Process</strong>: a calculation or action (e.g., "Turn fan ON", "Increment counter").</li>
-<li><strong>Parallelogram — Input / Output</strong>: data entering or leaving the system (e.g., "Read temperature sensor", "Display value on LCD").</li>
-<li><strong>Diamond — Decision</strong>: a yes/no branch based on a condition (e.g., "Temperature &gt; 30°C?"). Two paths exit: one for Yes, one for No.</li>
+<li><strong>Terminator (rounded rectangle or oval)</strong>: marks the Start or End of the program.</li>
+<li><strong>Process (rectangle)</strong>: a calculation or action (e.g., "Turn fan ON", "Increment counter").</li>
+<li><strong>Input / Output (parallelogram)</strong>: data entering or leaving the system (e.g., "Read temperature sensor", "Display value on LCD").</li>
+<li><strong>Decision (diamond)</strong>: a yes/no branch based on a condition (e.g., "Temperature &gt; 30°C?"). Two paths exit: one for Yes, one for No.</li>
 </ul>
 <p>Flow diagrams are useful before writing code because they separate the logic of what the system must do from the syntax of how to code it. A well-drawn flowchart can be translated directly into any programming language.</p>
 </div>
@@ -354,10 +354,10 @@ Show Chinese · 显示中文
 <span class="lang-label">English</span>
 <p>Designers use different diagram types depending on the level of detail needed and the audience for the drawing:</p>
 <ul>
-<li><strong>Block diagram (functional diagram)</strong> — shows the major subsystems of a product and how they connect at a high level. No component values or symbols — just labelled boxes and arrows. Used to plan and explain system architecture before designing circuits.</li>
-<li><strong>Circuit diagram (schematic)</strong> — shows every component and its logical connection using standardised symbols (resistor, capacitor, switch, diode, transistor, relay, op-amp, IC). Values are specified. Used by engineers to build, troubleshoot and modify circuits.</li>
-<li><strong>Logic diagram</strong> — shows the arrangement of logic gates (AND, OR, NOT) and their interconnections. Used to represent the decision-making or processing stage of a digital system.</li>
-<li><strong>Flow diagram</strong> — as described in 3.4.5, maps the program algorithm. Not a circuit diagram — it represents behaviour, not physical connections.</li>
+<li><strong>Block diagram (functional diagram)</strong>: shows the major subsystems of a product and how they connect at a high level. No component values or symbols: just labelled boxes and arrows. Used to plan and explain system architecture before designing circuits.</li>
+<li><strong>Circuit diagram (schematic)</strong>: shows every component and its logical connection using standardised symbols (resistor, capacitor, switch, diode, transistor, relay, op-amp, IC). Values are specified. Used by engineers to build, troubleshoot and modify circuits.</li>
+<li><strong>Logic diagram</strong>: shows the arrangement of logic gates (AND, OR, NOT) and their interconnections. Used to represent the decision-making or processing stage of a digital system.</li>
+<li><strong>Flow diagram</strong>: as described in 3.4.5, maps the program algorithm. Not a circuit diagram; it represents behaviour, not physical connections.</li>
 </ul>
 <p>All four types are used in IB assessment. Block and flow diagrams are expected at a conceptual level; circuit and logic diagrams require correct use of standard symbols.</p>
 </div>
@@ -373,6 +373,8 @@ Show Chinese · 显示中文
 <p>IB评估中使用所有四种类型。框图和流程图在概念层面上考查；电路图和逻辑图需要正确使用标准符号。</p>
 </div>
 </div>
+
+<div class="topic-link-blurb">A circuit diagram is only useful if it can actually be manufactured; how circuit designs are translated into produced PCBs and assemblies is covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
 
 </div>
 </div><!-- /3.4.6 -->
@@ -391,7 +393,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Sensors are the input stage of the IPO model — they convert a physical quantity into an electrical signal that a microcontroller can read. The choice of sensor must match the physical quantity being measured and the output format the processor expects (analog voltage, or digital signal).</p>
+<p>Sensors are the input stage of the IPO model: they convert a physical quantity into an electrical signal that a microcontroller can read. The choice of sensor must match the physical quantity being measured and the output format the processor expects (analog voltage, or digital signal).</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -437,11 +439,11 @@ Show Chinese · 显示中文
 <p>An <strong>embedded system</strong> is a dedicated computer system designed to perform a specific function within a larger product. Unlike a general-purpose computer, it runs one fixed program stored in its memory.</p>
 <p>The heart of the process stage is a <strong>microcontroller (MCU)</strong>, also referred to as a programmable integrated circuit (PIC). A microcontroller integrates on a single chip:</p>
 <ul>
-<li>A <strong>processor</strong> — executes the program instructions</li>
-<li><strong>Flash memory (ROM)</strong> — stores the program permanently</li>
-<li><strong>RAM</strong> — holds variables and data during operation</li>
-<li><strong>Digital I/O pins</strong> — read digital sensors and control digital outputs</li>
-<li><strong>Analog inputs (ADC)</strong> — convert analog sensor voltages to digital values</li>
+<li>A <strong>processor</strong>: executes the program instructions</li>
+<li><strong>Flash memory (ROM)</strong>: stores the program permanently</li>
+<li><strong>RAM</strong>: holds variables and data during operation</li>
+<li><strong>Digital I/O pins</strong>: read digital sensors and control digital outputs</li>
+<li><strong>Analog inputs (ADC)</strong>: convert analog sensor voltages to digital values</li>
 <li><strong>Timers, PWM outputs, and communication interfaces</strong> (I²C, SPI, UART) for interacting with other components</li>
 </ul>
 <p>Educational platforms such as Arduino (AVR/ARM microcontrollers) and Raspberry Pi (single-board computer) make it accessible to prototype embedded systems. In industry, dedicated MCUs (e.g., STM32, PIC, ATmega) are chosen for their size, power consumption and cost.</p>
@@ -462,6 +464,8 @@ Show Chinese · 显示中文
 </div>
 </div>
 
+<div class="topic-link-blurb">Arduino and Raspberry Pi are explored as general-purpose prototyping tools, alongside other rapid prototyping methods, in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>.</div>
+
 </div>
 </div><!-- /3.4.8 -->
 
@@ -479,16 +483,16 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>All digital systems represent data using <strong>binary</strong> — a base-2 number system using only 0 and 1 (off and on). Multiple binary digits (bits) represent larger values: 8 bits = 1 byte, capable of representing 256 values (0–255).</p>
+<p>All digital systems represent data using <strong>binary</strong>: a base-2 number system using only 0 and 1 (off and on). Multiple binary digits (bits) represent larger values: 8 bits = 1 byte, capable of representing 256 values (0–255).</p>
 <p><strong>Boolean algebra</strong> defines how binary values are combined using logical operations. Three fundamental gates:</p>
 <ul>
 <li><strong>AND (A · B)</strong>: output is 1 only when both inputs are 1. Used for conditions that must all be true simultaneously.</li>
 <li><strong>OR (A + B)</strong>: output is 1 when at least one input is 1. Used when any one of several conditions triggers an output.</li>
-<li><strong>NOT (Ā)</strong>: inverts the input — 0 becomes 1, 1 becomes 0. Used to reverse a condition.</li>
+<li><strong>NOT (Ā)</strong>: inverts the input: 0 becomes 1, 1 becomes 0. Used to reverse a condition.</li>
 </ul>
 <p>A <strong>truth table</strong> lists every possible combination of inputs and the corresponding output. For n inputs there are 2ⁿ rows.</p>
-<p><strong>Combinational logic</strong>: the output depends only on the current inputs. No memory — the same input always produces the same output. Examples: AND, OR, NOT, NAND, NOR, XOR gates.</p>
-<p><strong>Sequential logic</strong>: the output depends on current inputs AND previous states. Uses memory elements (flip-flops). Examples: counters, registers, state machines — the basis of most microcontrollers.</p>
+<p><strong>Combinational logic</strong>: the output depends only on the current inputs. No memory: the same input always produces the same output. Examples: AND, OR, NOT, NAND, NOR, XOR gates.</p>
+<p><strong>Sequential logic</strong>: the output depends on current inputs AND previous states. Uses memory elements (flip-flops). Examples: counters, registers, state machines: the basis of most microcontrollers.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -505,7 +509,7 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Truth tables — AND, OR, NOT</p>
+<p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Truth tables (AND, OR, NOT)</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>A</th><th>B</th><th>A AND B</th><th>A OR B</th><th>NOT A</th></tr></thead>
@@ -535,7 +539,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
-<p>Output devices are the third stage of the IPO model — they convert the processed electrical signal into a physical action or visible/audible communication.</p>
+<p>Output devices are the third stage of the IPO model: they convert the processed electrical signal into a physical action or visible/audible communication.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -558,6 +562,21 @@ Show Chinese · 显示中文
 </div>
 <p class="content-note">When selecting an output device, consider three things: the type of action needed (motion, information, sound), the voltage and current required by the device, and whether the microcontroller can drive it directly or needs an amplifying component (transistor, relay, or motor driver IC).</p>
 
+<div class="concept-box">
+<div class="concept-box-label">Key concept</div>
+<div class="concept-box-title">PWM (Pulse Width Modulation)</div>
+<p>A microcontroller's digital output pin can only be fully on or fully off; it has no way to produce an intermediate voltage directly. <strong>PWM</strong> works around this by switching the pin on and off very rapidly and varying the proportion of time it spends on, called the <strong>duty cycle</strong>. A device that responds to average power rather than to the instant-by-instant signal, such as a motor or an LED, behaves as if it were receiving a steady intermediate voltage.</p>
+<p>A 0% duty cycle is equivalent to fully off, 100% is fully on, and 50% behaves roughly like half power. This is exactly how DC motor speed and servo position are controlled in the output device table above: a DC motor's average rotational speed scales with duty cycle, while a servo reads the pulse width of each cycle (not the average) to determine the angle it should hold.</p>
+<div class="concept-box-examples">
+<div class="concept-box-examples-label">PWM in everyday output devices</div>
+<ul>
+<li><strong>DC motor speed control:</strong> higher duty cycle, more average power, faster spin</li>
+<li><strong>LED dimming:</strong> the eye averages rapid flickering into a perceived brightness level</li>
+<li><strong>Servo positioning:</strong> the width of each individual pulse, not the duty cycle, encodes the target angle</li>
+</ul>
+</div>
+</div>
+
 </div>
 </div><!-- /3.4.10 -->
 
@@ -576,10 +595,10 @@ Show Chinese · 显示中文
 <div class="lang-col">
 <span class="lang-label">English</span>
 <p>Embedded systems often need to communicate with other devices or networks. The choice of wireless protocol depends on range, speed, power consumption and the infrastructure available.</p>
-<p><strong>Bluetooth</strong> — designed for low-power, short-range device-to-device communication. Operates at 2.4 GHz using frequency hopping to reduce interference. Typical range: ~10 m. Uses a layered <em>protocol stack</em>: the Controller layer (Radio, Link Manager, Voice CODEC) communicates with the Host layer (GAP, GATT, ATT, SMP, RFCOMM) via the HCI interface. <em>GAP (Generic Access Profile)</em> governs device discovery and connection setup. Used in: wireless earbuds, keyboards, fitness trackers, medical devices.</p>
-<p><strong>Wi-Fi</strong> — high-speed, medium-range local area network access. Connects devices to a router (and thus the internet). Higher power consumption than Bluetooth. Range: ~50 m indoors. Used in: laptops, smart home devices, IP cameras.</p>
-<p><strong>5G</strong> — fifth-generation cellular technology. Offers ultra-high data speeds, ultra-low latency, and the ability to connect massive numbers of devices simultaneously. Does not require a local router — connects directly to the cellular network. Used in: autonomous vehicles, smart cities, large-scale IoT deployments.</p>
-<p><strong>Case study — Australia's 3G shutdown (October 2024):</strong> Many 4G phones were designed to fall back to 3G for voice calls because 4G voice required a separate technology called <strong>VoLTE (Voice over LTE)</strong>. When Australia's ACMA shut down the 3G network, non-VoLTE phones lost all voice capability — including emergency calls. Even medical alarms and personal emergency response devices stopped working. The lesson for embedded systems designers: never assume that legacy infrastructure will remain available. Design for forward compatibility and include graceful upgrade paths.</p>
+<p><strong>Bluetooth</strong>: designed for low-power, short-range device-to-device communication. Operates at 2.4 GHz using frequency hopping to reduce interference. Typical range: ~10 m. Uses a layered <em>protocol stack</em>: the Controller layer (Radio, Link Manager, Voice CODEC) communicates with the Host layer (GAP, GATT, ATT, SMP, RFCOMM) via the HCI interface. <em>GAP (Generic Access Profile)</em> governs device discovery and connection setup. Used in: wireless earbuds, keyboards, fitness trackers, medical devices.</p>
+<p><strong>Wi-Fi</strong>: high-speed, medium-range local area network access. Connects devices to a router (and thus the internet). Higher power consumption than Bluetooth. Range: ~50 m indoors. Used in: laptops, smart home devices, IP cameras.</p>
+<p><strong>5G</strong>: fifth-generation cellular technology. Offers ultra-high data speeds, ultra-low latency, and the ability to connect massive numbers of devices simultaneously. Does not require a local router: connects directly to the cellular network. Used in: autonomous vehicles, smart cities, large-scale IoT deployments.</p>
+<p><strong>Case study (Australia's 3G shutdown, October 2024):</strong> Many 4G phones were designed to fall back to 3G for voice calls because 4G voice required a separate technology called <strong>VoLTE (Voice over LTE)</strong>. When Australia's ACMA shut down the 3G network, non-VoLTE phones lost all voice capability, including emergency calls. Even medical alarms and personal emergency response devices stopped working. The lesson for embedded systems designers: never assume that legacy infrastructure will remain available. Design for forward compatibility and include graceful upgrade paths.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -625,11 +644,11 @@ Show Chinese · 显示中文
 <div class="quiz-q-text">A technician needs to measure the current flowing through a specific component in a live circuit. Which instrument and connection method should they use?</div>
 <div class="quiz-options">
 <button class="quiz-option" data-opt="A">A) Multimeter connected in parallel across the component</button>
-<button class="quiz-option" data-opt="B">B) Multimeter connected in series — the circuit must be broken first</button>
+<button class="quiz-option" data-opt="B">B) Multimeter connected in series: the circuit must be broken first</button>
 <button class="quiz-option" data-opt="C">C) Clamp meter connected in series with the component</button>
 <button class="quiz-option" data-opt="D">D) Oscilloscope connected in parallel across the component</button>
 </div>
-<div class="quiz-answer">Current measurement requires the meter to be in the current path — connected in series, with the circuit broken so current flows through the meter. Connecting a current meter in parallel would short-circuit the component and likely destroy the meter. A clamp meter measures current without breaking the circuit, but it clamps around the wire — it is not connected in series.</div>
+<div class="quiz-answer">Current measurement requires the meter to be in the current path: connected in series, with the circuit broken so current flows through the meter. Connecting a current meter in parallel would short-circuit the component and likely destroy the meter. A clamp meter measures current without breaking the circuit, but it clamps around the wire; it is not connected in series.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
@@ -641,7 +660,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Digital storage oscilloscope (DSO)</button>
 <button class="quiz-option" data-opt="D">D) Megohmmeter</button>
 </div>
-<div class="quiz-answer">Only a DSO can visualise a waveform over time. Ringing (damped oscillations after a switching edge) is a time-domain phenomenon that a multimeter cannot detect — it only shows a single average or RMS value. A megohmmeter tests insulation resistance; a clamp meter measures current magnitude only.</div>
+<div class="quiz-answer">Only a DSO can visualise a waveform over time. Ringing (damped oscillations after a switching edge) is a time-domain phenomenon that a multimeter cannot detect: it only shows a single average or RMS value. A megohmmeter tests insulation resistance; a clamp meter measures current magnitude only.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -665,7 +684,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) In series with the resistor only</button>
 <button class="quiz-option" data-opt="D">D) Between the logic gate output and the power supply</button>
 </div>
-<div class="quiz-answer">A low-pass filter has the resistor in series with the signal path and the capacitor in parallel with the output. The capacitor charges through the resistor when the switch closes, producing a smooth rising voltage instead of the rapid bounce spikes — attenuating the high-frequency bounce while passing the slow, intended switch transition.</div>
+<div class="quiz-answer">A low-pass filter has the resistor in series with the signal path and the capacitor in parallel with the output. The capacitor charges through the resistor when the switch closes, producing a smooth rising voltage instead of the rapid bounce spikes, attenuating the high-frequency bounce while passing the slow, intended switch transition.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
@@ -689,7 +708,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Used the wrong SIM card standard</button>
 <button class="quiz-option" data-opt="D">D) Were blocked by Bluetooth interference on 2.4 GHz</button>
 </div>
-<div class="quiz-answer">Many 4G phones were designed to fall back to 3G for voice calls because carrying voice over 4G requires VoLTE (Voice over LTE) — a technology not all 4G devices included. When 3G was shut down, the fallback path disappeared. Non-VoLTE phones could not make or receive any calls, including emergency calls, despite having 4G data connectivity.</div>
+<div class="quiz-answer">Many 4G phones were designed to fall back to 3G for voice calls because carrying voice over 4G requires VoLTE (Voice over LTE), a technology not all 4G devices included. When 3G was shut down, the fallback path disappeared. Non-VoLTE phones could not make or receive any calls, including emergency calls, despite having 4G data connectivity.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
@@ -713,7 +732,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Total current equals the sum of currents through each branch</button>
 <button class="quiz-option" data-opt="D">D) Power is not conserved in parallel circuits</button>
 </div>
-<div class="quiz-answer">In a parallel circuit, voltage is the same across every branch, but current splits — I_total = I₁ + I₂ + ... Each branch carries a current determined by its own resistance and the common voltage (I = V/R). Total resistance is found using 1/R_total = 1/R₁ + 1/R₂ + ... — always less than the smallest individual resistor. Power is always conserved.</div>
+<div class="quiz-answer">In a parallel circuit, voltage is the same across every branch, but current splits: I_total = I₁ + I₂ + ... Each branch carries a current determined by its own resistance and the common voltage (I = V/R). Total resistance is found using 1/R_total = 1/R₁ + 1/R₂ + ..., always less than the smallest individual resistor. Power is always conserved.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -725,7 +744,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) Resistor and capacitor both in series</button>
 <button class="quiz-option" data-opt="D">D) Resistor and capacitor both in parallel</button>
 </div>
-<div class="quiz-answer">A high-pass filter places the capacitor in series (blocking DC and low-frequency signals) and the resistor in parallel with the output. High-frequency signals pass through the capacitor with little attenuation. The opposite arrangement — resistor in series, capacitor in parallel — is a low-pass filter.</div>
+<div class="quiz-answer">A high-pass filter places the capacitor in series (blocking DC and low-frequency signals) and the resistor in parallel with the output. High-frequency signals pass through the capacitor with little attenuation. The opposite arrangement (resistor in series, capacitor in parallel) is a low-pass filter.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -737,7 +756,7 @@ Show Chinese · 显示中文
 <button class="quiz-option" data-opt="C">C) The resistance of the conductor</button>
 <button class="quiz-option" data-opt="D">D) The temperature rise of the conductor</button>
 </div>
-<div class="quiz-answer">Any conductor carrying current produces a surrounding magnetic field (Ampere's law). A clamp meter's jaws close around the conductor and sense this field — using the Hall effect for DC currents and a current transformer (electromagnetic induction) for AC. No circuit interruption is needed, making it much safer and faster than breaking the circuit to insert a series ammeter.</div>
+<div class="quiz-answer">Any conductor carrying current produces a surrounding magnetic field (Ampere's law). A clamp meter's jaws close around the conductor and sense this field: using the Hall effect for DC currents and a current transformer (electromagnetic induction) for AC. No circuit interruption is needed, making it much safer and faster than breaking the circuit to insert a series ammeter.</div>
 </div>
 
 <div class="quiz-footer">
@@ -757,7 +776,7 @@ Show Chinese · 显示中文
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example — then compare your approach, not just the content.</div>
+<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example, then compare your approach, not just the content.</div>
 
 <div class="p2-question">
 <div class="p2-q-num">Question 1 &middot; 3.4.2 Test Equipment &middot; 4 marks</div>
@@ -765,8 +784,8 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>Voltage:</strong> The voltmeter probes are connected in <strong>parallel</strong> across the two points being measured. No circuit interruption is required — the meter has very high internal resistance so that almost no current flows through it and the circuit is not disturbed. The black probe connects to COM; the red probe to the V terminal.</p>
-<p><strong>Current:</strong> The meter must be connected in <strong>series</strong> — the circuit must be broken and the meter inserted into the break so that the full circuit current flows through it. The power must be switched off before breaking the circuit, then restored for the reading. The black probe connects to COM; the red probe to the A (or mA) terminal. Caution: connecting a current meter in parallel will short-circuit the component.</p>
+<p><strong>Voltage:</strong> The voltmeter probes are connected in <strong>parallel</strong> across the two points being measured. No circuit interruption is required: the meter has very high internal resistance so that almost no current flows through it and the circuit is not disturbed. The black probe connects to COM; the red probe to the V terminal.</p>
+<p><strong>Current:</strong> The meter must be connected in <strong>series</strong>: the circuit must be broken and the meter inserted into the break so that the full circuit current flows through it. The power must be switched off before breaking the circuit, then restored for the reading. The black probe connects to COM; the red probe to the A (or mA) terminal. Caution: connecting a current meter in parallel will short-circuit the component.</p>
 <p><strong>Resistance:</strong> The component to be measured must be <strong>removed from the circuit</strong> entirely. If left in circuit, parallel current paths will give a false reading. The dial is set to Ω; the meter sends its own small test current from its internal battery through the component and calculates resistance from the resulting voltage drop. The reading is meaningless if other components remain connected in parallel.</p>
 </div>
 </details>
@@ -778,9 +797,9 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously — the gate's output can briefly flicker to an incorrect state before settling to its correct value. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
-<p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly — it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
-<p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate — resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite — it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
+<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously: the gate's output can briefly flicker to an incorrect state before settling to its correct value. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
+<p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly: it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
+<p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate: resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite: it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
 </div>
 </details>
 </div>
@@ -791,14 +810,14 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>a) What a DSO shows that a multimeter cannot:</strong> A DSO visualises voltage as a waveform over time, displaying voltage on the vertical axis and time on the horizontal axis. It captures the shape, frequency, period, and timing of a signal. A multimeter — even a high-quality digital model — only displays a single numerical value (RMS voltage, average current, or resistance). It cannot reveal signal shape, timing relationships, or transient events.</p>
+<p><strong>a) What a DSO shows that a multimeter cannot:</strong> A DSO visualises voltage as a waveform over time, displaying voltage on the vertical axis and time on the horizontal axis. It captures the shape, frequency, period, and timing of a signal. A multimeter (even a high-quality digital model) only displays a single numerical value (RMS voltage, average current, or resistance). It cannot reveal signal shape, timing relationships, or transient events.</p>
 <p><strong>b) Three signal abnormalities a DSO can reveal:</strong></p>
 <ol>
-<li><strong>Ringing</strong> — damped oscillations that appear after a sharp rising or falling edge, indicating impedance mismatches. These can cause false triggering in digital circuits.</li>
-<li><strong>Distorted rising/falling edges</strong> — an edge that slopes too slowly suggests a slow component, excessive load capacitance, or a weak driver circuit.</li>
-<li><strong>Incorrect amplitude</strong> — a signal whose high level is too low or low level is too high reduces noise margins and may indicate a faulty power supply or excessive current draw.</li>
+<li><strong>Ringing</strong>: damped oscillations that appear after a sharp rising or falling edge, indicating impedance mismatches. These can cause false triggering in digital circuits.</li>
+<li><strong>Distorted rising/falling edges</strong>: an edge that slopes too slowly suggests a slow component, excessive load capacitance, or a weak driver circuit.</li>
+<li><strong>Incorrect amplitude</strong>: a signal whose high level is too low or low level is too high reduces noise margins and may indicate a faulty power supply or excessive current draw.</li>
 </ol>
-<p><strong>c) Why use both:</strong> The multimeter excels at steady-state DC measurements — precise voltage levels, continuity checking, and resistance values — quickly and portably. The DSO excels at dynamic, time-varying signals — capturing transients, measuring frequency and duty cycle, and debugging communication timing. The instruments complement each other: use the multimeter first to verify that power supply voltages are correct and there are no short circuits, then use the DSO to verify signal integrity and timing. A function generator paired with the DSO allows a technician to inject a known test signal and observe the circuit's response — a powerful combination for diagnosing filters, amplifiers and logic circuits.</p>
+<p><strong>c) Why use both:</strong> The multimeter excels at steady-state DC measurements (precise voltage levels, continuity checking, and resistance values) quickly and portably. The DSO excels at dynamic, time-varying signals: capturing transients, measuring frequency and duty cycle, and debugging communication timing. The instruments complement each other: use the multimeter first to verify that power supply voltages are correct and there are no short circuits, then use the DSO to verify signal integrity and timing. A function generator paired with the DSO allows a technician to inject a known test signal and observe the circuit's response: a powerful combination for diagnosing filters, amplifiers and logic circuits.</p>
 </div>
 </details>
 </div>
@@ -812,7 +831,7 @@ Show Chinese · 显示中文
 <p><strong>a) Series:</strong><br>R_total = 100 + 220 + 330 = <strong>650 Ω</strong></p>
 <p><strong>b) Two equal resistors in parallel (100 Ω ∥ 100 Ω):</strong><br>R_total = R / n = 100 / 2 = <strong>50 Ω</strong><br><em>Verification:</em> 1/R_total = 1/100 + 1/100 = 0.02; R_total = 1/0.02 = 50 Ω ✓</p>
 <p><strong>c) Two equal resistors in parallel (47 Ω ∥ 47 Ω):</strong><br>R_total = 47 / 2 = <strong>23.5 Ω</strong></p>
-<p><strong>d) Combination (100 Ω in series with 50 Ω ∥ 50 Ω):</strong><br>Step 1 — resolve the parallel branch first: R_parallel = 50 / 2 = 25 Ω<br>Step 2 — add the series resistor: R_total = 100 + 25 = <strong>125 Ω</strong></p>
+<p><strong>d) Combination (100 Ω in series with 50 Ω ∥ 50 Ω):</strong><br>Step 1 (resolve the parallel branch first): R_parallel = 50 / 2 = 25 Ω<br>Step 2 (add the series resistor): R_total = 100 + 25 = <strong>125 Ω</strong></p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Configuration</th><th>Result</th></tr></thead>
@@ -834,11 +853,11 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>a) Why 4G/5G phones stopped working:</strong> Many phones marketed as 4G-capable were designed to fall back to the older 3G network for voice calls, because carrying voice natively over 4G requires a separate technology (VoLTE) that not all devices included. When Australia's ACMA shut down the 3G network, this fallback path disappeared. The ACMA then blocked service to all non-VoLTE 4G phones. These phones lost voice calling, SMS and emergency services entirely — despite having functional 4G data radios — because their voice system had no network to connect to.</p>
-<p><strong>b) VoLTE and why it was critical:</strong> VoLTE (Voice over Long-Term Evolution) is a technology that carries voice calls as data packets over the 4G LTE network, rather than switching to a separate circuit-switched voice network (3G or 2G). VoLTE provides clearer HD voice quality, faster call connection times, and the ability to use mobile data simultaneously during a call. It was critical because without it, a 4G phone had no way to make or receive any call — including Triple Zero (000) emergency calls — once 3G was decommissioned.</p>
+<p><strong>a) Why 4G/5G phones stopped working:</strong> Many phones marketed as 4G-capable were designed to fall back to the older 3G network for voice calls, because carrying voice natively over 4G requires a separate technology (VoLTE) that not all devices included. When Australia's ACMA shut down the 3G network, this fallback path disappeared. The ACMA then blocked service to all non-VoLTE 4G phones. These phones lost voice calling, SMS and emergency services entirely (despite having functional 4G data radios) because their voice system had no network to connect to.</p>
+<p><strong>b) VoLTE and why it was critical:</strong> VoLTE (Voice over Long-Term Evolution) is a technology that carries voice calls as data packets over the 4G LTE network, rather than switching to a separate circuit-switched voice network (3G or 2G). VoLTE provides clearer HD voice quality, faster call connection times, and the ability to use mobile data simultaneously during a call. It was critical because without it, a 4G phone had no way to make or receive any call, including Triple Zero (000) emergency calls, once 3G was decommissioned.</p>
 <p><strong>c) Lessons for embedded systems designers:</strong></p>
 <ol>
-<li><strong>Do not design permanent dependencies on legacy infrastructure.</strong> The 3G network operated for over 20 years before shutdown. Devices that relied on it — medical alarms, vehicle trackers, personal emergency response systems — became inoperable overnight. Any device that connects to a network must have a migration path when that network is retired.</li>
+<li><strong>Do not design permanent dependencies on legacy infrastructure.</strong> The 3G network operated for over 20 years before shutdown. Devices that relied on it (medical alarms, vehicle trackers, personal emergency response systems) became inoperable overnight. Any device that connects to a network must have a migration path when that network is retired.</li>
 <li><strong>Regulatory decisions can disrupt products instantly.</strong> The ACMA's decision affected consumers who believed their 4G phones were fully compliant. Designers must monitor evolving standards and regulatory timelines, particularly for safety-critical devices.</li>
 <li><strong>Essential services must be future-proofed.</strong> Medical alarms and emergency calling systems are life-safety products. They require either guaranteed backward compatibility or mandatory upgrade paths that are tested before legacy networks close.</li>
 <li><strong>Fallback assumptions become liabilities.</strong> Designing "for robustness" by relying on an older technology introduces fragility when that technology is decommissioned. Modular communication hardware (replaceable radio modules) or software-defined radios offer greater long-term resilience.</li>
@@ -898,7 +917,7 @@ Show Chinese · 显示中文
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
 <li>How does the foundational understanding of electronic components introduced in A3.4 inform the selection and application of circuits in product design? <a href="a3.4-electronic-systems.html">(A3.4)</a></li>
-<li>In what ways can the IPO model be applied to the design of user-centred products — and what role do sensors play in gathering the data needed to meet user needs? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
+<li>In what ways can the IPO model be applied to the design of user-centred products, and what role do sensors play in gathering the data needed to meet user needs? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
 <li>To what extent does the choice of wireless communication protocol affect the sustainability, repairability and end-of-life strategy of a connected product? <a href="c2.1-design-for-sustainability.html">(C2.1)</a></li>
 <li>How might the increasing integration of electronics into everyday products change what designers must consider when conducting life cycle analyses? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
 <li>How do the design decisions made during electronic system selection affect the inclusivity of a product for users with varying technical literacy? <a href="c1.2-inclusive-design.html">(C1.2)</a></li>
