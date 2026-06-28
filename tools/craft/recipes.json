@@ -1,127 +1,886 @@
 {
   "recipes": [
-    { "id": "mithril", "ingredients": ["metal", "metal", "metal", "metal"] },
-    { "id": "unobtanium", "ingredients": ["metal", "carbon", "ceramic"] },
-    { "id": "vibranium", "ingredients": ["metal", "carbon", "polymer"] },
-    { "id": "adamantium", "ingredients": ["metal", "carbon", "ceramic", "polymer"] },
-    { "id": "nanomachines", "ingredients": ["metal", "organic_polymer", "carbon"] },
-    { "id": "the_one_ring", "ingredients": ["mithril", "gold"] },
-    { "id": "alloy", "ingredients": ["metal", "metal"] },
-    { "id": "steel", "ingredients": ["metal", "carbon"] },
-    { "id": "cermet", "ingredients": ["metal", "ceramic"] },
-    { "id": "metal_matrix_composite", "ingredients": ["metal", "polymer"] },
-    { "id": "ceramic_matrix_composite", "ingredients": ["ceramic", "ceramic"] },
-    { "id": "carbon_fiber", "ingredients": ["carbon", "polymer"] },
-    { "id": "oxide", "ingredients": ["ceramic", "carbon"] },
-    { "id": "organic_polymer", "ingredients": ["carbon", "carbon"] },
-    { "id": "glass", "ingredients": ["ceramic", "oxide"] },
-    { "id": "rubber", "ingredients": ["organic_polymer", "carbon"] },
-    { "id": "foam", "ingredients": ["polymer", "oxide"] },
-    { "id": "glue", "ingredients": ["organic_polymer", "ceramic"] },
-    { "id": "paint", "ingredients": ["oxide", "polymer"] },
-    { "id": "brick", "ingredients": ["ceramic", "ceramic"] },
-    { "id": "cement", "ingredients": ["ceramic", "oxide"] },
-    { "id": "silicon", "ingredients": ["ceramic", "carbon"] },
-    { "id": "copper", "ingredients": ["metal", "oxide"] },
-    { "id": "bronze", "ingredients": ["alloy", "metal"] },
-    { "id": "brass", "ingredients": ["alloy", "alloy"] },
-    { "id": "stainless_steel", "ingredients": ["steel", "metal"] },
-    { "id": "titanium_alloy", "ingredients": ["steel", "metal_matrix_composite"] },
-    { "id": "aluminum_alloy", "ingredients": ["alloy", "metal_matrix_composite"] },
-    { "id": "cast_iron", "ingredients": ["steel", "carbon"] },
-    { "id": "glass_ceramic", "ingredients": ["ceramic", "cermet"] },
-    { "id": "carbon_carbon_composite", "ingredients": ["carbon_fiber", "carbon"] },
-    { "id": "kevlar", "ingredients": ["organic_polymer", "carbon_fiber"] },
-    { "id": "fiberglass", "ingredients": ["ceramic", "polymer"] },
-    { "id": "epoxy_resin", "ingredients": ["organic_polymer", "oxide"] },
-    { "id": "concrete", "ingredients": ["cement", "ceramic"] },
-    { "id": "plywood", "ingredients": ["polymer", "carbon"] },
-    { "id": "latex", "ingredients": ["organic_polymer", "rubber"] },
-    { "id": "nylon", "ingredients": ["organic_polymer", "organic_polymer"] },
-    { "id": "polyester", "ingredients": ["organic_polymer", "oxide"] },
-    { "id": "acrylic", "ingredients": ["organic_polymer", "glass"] },
-    { "id": "teflon", "ingredients": ["carbon", "carbon", "oxide"] },
-    { "id": "silicone", "ingredients": ["ceramic", "polymer"] },
-    { "id": "basalt_fiber", "ingredients": ["ceramic", "ceramic"] },
-    { "id": "jute", "ingredients": ["carbon", "organic_polymer"] },
-    { "id": "chitosan", "ingredients": ["organic_polymer", "oxide"] },
-    { "id": "cellulose", "ingredients": ["carbon", "organic_polymer"] },
-    { "id": "lignin", "ingredients": ["cellulose", "carbon"] },
-    { "id": "spider_silk", "ingredients": ["organic_polymer", "rubber"] },
-    { "id": "thermal_paste", "ingredients": ["oxide", "silicone"] },
-    { "id": "pcb", "ingredients": ["copper", "glass", "epoxy_resin"] },
-    { "id": "inconel", "ingredients": ["titanium_alloy", "stainless_steel"] },
-    { "id": "magnesium_alloy", "ingredients": ["aluminum_alloy", "titanium_alloy"] },
-    { "id": "tungsten_carbide", "ingredients": ["cermet", "carbon_carbon_composite"] },
-    { "id": "boron_fiber", "ingredients": ["carbon_fiber", "glass_ceramic"] },
-    { "id": "peek", "ingredients": ["epoxy_resin", "carbon_fiber"] },
-    { "id": "silicon_carbide", "ingredients": ["glass_ceramic", "carbon"] },
-    { "id": "zirconia", "ingredients": ["glass_ceramic", "oxide"] },
-    { "id": "shape_memory_alloy", "ingredients": ["titanium_alloy", "magnesium_alloy"] },
-    { "id": "hybrid_composite", "ingredients": ["carbon_fiber", "kevlar"] },
-    { "id": "bio_glass", "ingredients": ["glass_ceramic", "oxide"] },
-    { "id": "graphene", "ingredients": ["carbon_fiber", "carbon"] },
-    { "id": "carbon_nanotube", "ingredients": ["graphene", "hybrid_composite"] },
-    { "id": "aerogel", "ingredients": ["glass", "carbon_carbon_composite"] },
-    { "id": "pyrolytic_carbon", "ingredients": ["carbon_carbon_composite", "oxide"] },
-    { "id": "diamond", "ingredients": ["carbon", "carbon"] },
-    { "id": "graphite", "ingredients": ["carbon", "carbon"] },
-    { "id": "boron_nitride", "ingredients": ["boron_fiber", "carbon"] },
-    { "id": "max_phase", "ingredients": ["cermet", "silicon_carbide"] },
-    { "id": "bulk_metallic_glass", "ingredients": ["alloy", "glass"] },
-    { "id": "high_entropy_alloy", "ingredients": ["inconel", "magnesium_alloy"] },
-    { "id": "lcd_screen", "ingredients": ["glass", "organic_polymer", "silicon"] },
-    { "id": "oled_screen", "ingredients": ["carbon", "glass", "organic_polymer"] },
-    { "id": "solar_panel", "ingredients": ["silicon", "glass", "aluminum_alloy"] },
-    { "id": "cpu", "ingredients": ["silicon", "copper", "thermal_paste"] },
-    { "id": "microcontroller", "ingredients": ["cpu", "pcb", "copper"] },
-    { "id": "turbine_blade", "ingredients": ["inconel", "hybrid_composite"] },
-    { "id": "aircraft_fuselage", "ingredients": ["aluminum_alloy", "carbon_fiber"] },
-    { "id": "rocket_nozzle", "ingredients": ["carbon_carbon_composite", "tungsten_carbide"] },
-    { "id": "bulletproof_vest", "ingredients": ["kevlar", "silicon_carbide"] },
-    { "id": "dental_implant", "ingredients": ["zirconia", "peek"] },
-    { "id": "brake_disc", "ingredients": ["carbon_carbon_composite", "silicon_carbide"] },
-    { "id": "wind_turbine_blade", "ingredients": ["fiberglass", "carbon_fiber"] },
-    { "id": "spacecraft_heat_shield", "ingredients": ["carbon_carbon_composite", "ceramic_matrix_composite"] },
-    { "id": "artificial_heart_valve", "ingredients": ["shape_memory_alloy", "peek"] },
-    { "id": "hydrogen_fuel_tank", "ingredients": ["hybrid_composite", "epoxy_resin"] },
-    { "id": "submarine_hull", "ingredients": ["titanium_alloy", "hybrid_composite"] },
-    { "id": "golf_club_shaft", "ingredients": ["boron_fiber", "epoxy_resin"] },
-    { "id": "tennis_racket", "ingredients": ["graphite", "carbon_fiber"] },
-    { "id": "bicycle_frame", "ingredients": ["carbon_fiber", "epoxy_resin"] },
-    { "id": "engine_block", "ingredients": ["aluminum_alloy", "inconel"] },
-    { "id": "knee_implant", "ingredients": ["titanium_alloy", "peek"] },
-    { "id": "bullet_train_nose", "ingredients": ["aluminum_alloy", "hybrid_composite"] },
-    { "id": "satellite_structure", "ingredients": ["aluminum_alloy", "carbon_carbon_composite"] },
-    { "id": "solar_panel_frame", "ingredients": ["aluminum_alloy", "silicon_carbide"] },
-    { "id": "robot_arm", "ingredients": ["carbon_fiber", "magnesium_alloy"] },
-    { "id": "crash_helmet", "ingredients": ["kevlar", "foam"] },
-    { "id": "boat_hull", "ingredients": ["fiberglass", "epoxy_resin"] },
-    { "id": "building_cladding", "ingredients": ["aluminum_alloy", "glass_ceramic"] },
-    { "id": "copper_clad_laminate", "ingredients": ["glass", "epoxy_resin", "copper"] },
-    { "id": "fuel_cell_bipolar_plate", "ingredients": ["carbon_carbon_composite", "graphite"] },
-    { "id": "drone", "ingredients": ["magnesium_alloy", "carbon_fiber", "cpu"] },
-    { "id": "nintendo_switch", "ingredients": ["lcd_screen", "cpu", "pcb"] },
-    { "id": "rtx_5090", "ingredients": ["silicon", "copper", "pcb", "thermal_paste"] },
-    { "id": "gaming_pc", "ingredients": ["rtx_5090", "cpu", "aluminum_alloy"] },
-    { "id": "datacenter", "ingredients": ["cpu", "copper", "fiberglass"] },
-    { "id": "iphone_17_pro", "ingredients": ["titanium_alloy", "oled_screen", "cpu"] },
-    { "id": "ferrari", "ingredients": ["carbon_fiber", "aluminum_alloy", "engine_block"] },
-    { "id": "byd_car", "ingredients": ["aluminum_alloy", "silicon_carbide", "battery"] },
-    { "id": "f1_car", "ingredients": ["carbon_carbon_composite", "hybrid_composite", "inconel"] },
-    { "id": "katana", "ingredients": ["steel", "carbon_fiber"] },
-    { "id": "mjolnir_mk_vii", "ingredients": ["titanium_alloy", "shape_memory_alloy", "vibranium"] },
-    { "id": "captain_america_shield", "ingredients": ["vibranium", "adamantium"] },
-    { "id": "gym_clothes", "ingredients": ["spandex", "polyester", "nylon"] },
-    { "id": "duct_tape", "ingredients": ["glue", "rubber", "fiber"] },
-    { "id": "cardboard", "ingredients": ["cellulose", "glue"] },
-    { "id": "silly_putty", "ingredients": ["silicone", "rubber"] },
-    { "id": "bubble_wrap", "ingredients": ["foam", "epoxy_resin"] },
-    { "id": "spandex", "ingredients": ["rubber", "nylon"] },
-    { "id": "flubber", "ingredients": ["rubber", "aerogel", "silly_putty"] },
-    { "id": "unobtanium_2", "ingredients": ["unobtanium", "duct_tape"] },
-    { "id": "student_loan", "ingredients": ["paper", "carbon"] },
-    { "id": "coffee", "ingredients": ["carbon", "oxide"] },
-    { "id": "bondo", "ingredients": ["polyester", "epoxy_resin"] }
+    {
+      "id": "alloy",
+      "ingredients": [
+        "metal",
+        "metal"
+      ]
+    },
+    {
+      "id": "steel",
+      "ingredients": [
+        "metal",
+        "carbon"
+      ]
+    },
+    {
+      "id": "cermet",
+      "ingredients": [
+        "metal",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "metal_matrix_composite",
+      "ingredients": [
+        "metal",
+        "polymer"
+      ]
+    },
+    {
+      "id": "organic_polymer",
+      "ingredients": [
+        "carbon",
+        "carbon"
+      ]
+    },
+    {
+      "id": "oxide",
+      "ingredients": [
+        "carbon",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "carbon_fiber",
+      "ingredients": [
+        "carbon",
+        "polymer"
+      ]
+    },
+    {
+      "id": "brick",
+      "ingredients": [
+        "ceramic",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "fiberglass",
+      "ingredients": [
+        "ceramic",
+        "polymer"
+      ]
+    },
+    {
+      "id": "silicone",
+      "ingredients": [
+        "polymer",
+        "polymer"
+      ]
+    },
+    {
+      "id": "copper",
+      "ingredients": [
+        "metal",
+        "oxide"
+      ]
+    },
+    {
+      "id": "glass",
+      "ingredients": [
+        "ceramic",
+        "oxide"
+      ]
+    },
+    {
+      "id": "rubber",
+      "ingredients": [
+        "organic_polymer",
+        "carbon"
+      ]
+    },
+    {
+      "id": "foam",
+      "ingredients": [
+        "oxide",
+        "polymer"
+      ]
+    },
+    {
+      "id": "glue",
+      "ingredients": [
+        "organic_polymer",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "gold",
+      "ingredients": [
+        "metal",
+        "copper"
+      ]
+    },
+    {
+      "id": "cellulose",
+      "ingredients": [
+        "organic_polymer",
+        "polymer"
+      ]
+    },
+    {
+      "id": "silicon",
+      "ingredients": [
+        "carbon",
+        "oxide"
+      ]
+    },
+    {
+      "id": "graphite",
+      "ingredients": [
+        "carbon",
+        "brick"
+      ]
+    },
+    {
+      "id": "diamond",
+      "ingredients": [
+        "carbon",
+        "graphite"
+      ]
+    },
+    {
+      "id": "cement",
+      "ingredients": [
+        "brick",
+        "oxide"
+      ]
+    },
+    {
+      "id": "ceramic_matrix_composite",
+      "ingredients": [
+        "ceramic",
+        "brick"
+      ]
+    },
+    {
+      "id": "basalt_fiber",
+      "ingredients": [
+        "ceramic",
+        "glass"
+      ]
+    },
+    {
+      "id": "paint",
+      "ingredients": [
+        "oxide",
+        "glue"
+      ]
+    },
+    {
+      "id": "paper",
+      "ingredients": [
+        "cellulose",
+        "cellulose"
+      ]
+    },
+    {
+      "id": "lignin",
+      "ingredients": [
+        "cellulose",
+        "carbon"
+      ]
+    },
+    {
+      "id": "coffee",
+      "ingredients": [
+        "oxide",
+        "cellulose"
+      ]
+    },
+    {
+      "id": "fiber",
+      "ingredients": [
+        "cellulose",
+        "polymer"
+      ]
+    },
+    {
+      "id": "bronze",
+      "ingredients": [
+        "alloy",
+        "metal"
+      ]
+    },
+    {
+      "id": "brass",
+      "ingredients": [
+        "alloy",
+        "alloy"
+      ]
+    },
+    {
+      "id": "stainless_steel",
+      "ingredients": [
+        "steel",
+        "metal"
+      ]
+    },
+    {
+      "id": "titanium_alloy",
+      "ingredients": [
+        "steel",
+        "metal_matrix_composite"
+      ]
+    },
+    {
+      "id": "aluminum_alloy",
+      "ingredients": [
+        "alloy",
+        "metal_matrix_composite"
+      ]
+    },
+    {
+      "id": "cast_iron",
+      "ingredients": [
+        "steel",
+        "carbon"
+      ]
+    },
+    {
+      "id": "glass_ceramic",
+      "ingredients": [
+        "ceramic",
+        "cermet"
+      ]
+    },
+    {
+      "id": "carbon_carbon_composite",
+      "ingredients": [
+        "carbon_fiber",
+        "carbon"
+      ]
+    },
+    {
+      "id": "kevlar",
+      "ingredients": [
+        "organic_polymer",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "epoxy_resin",
+      "ingredients": [
+        "organic_polymer",
+        "oxide"
+      ]
+    },
+    {
+      "id": "concrete",
+      "ingredients": [
+        "cement",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "plywood",
+      "ingredients": [
+        "lignin",
+        "glue"
+      ]
+    },
+    {
+      "id": "nylon",
+      "ingredients": [
+        "organic_polymer",
+        "organic_polymer"
+      ]
+    },
+    {
+      "id": "latex",
+      "ingredients": [
+        "organic_polymer",
+        "rubber"
+      ]
+    },
+    {
+      "id": "polyester",
+      "ingredients": [
+        "nylon",
+        "organic_polymer"
+      ]
+    },
+    {
+      "id": "acrylic",
+      "ingredients": [
+        "organic_polymer",
+        "glass"
+      ]
+    },
+    {
+      "id": "teflon",
+      "ingredients": [
+        "organic_polymer",
+        "silicone"
+      ]
+    },
+    {
+      "id": "jute",
+      "ingredients": [
+        "cellulose",
+        "lignin"
+      ]
+    },
+    {
+      "id": "chitosan",
+      "ingredients": [
+        "organic_polymer",
+        "cellulose"
+      ]
+    },
+    {
+      "id": "spider_silk",
+      "ingredients": [
+        "rubber",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "thermal_paste",
+      "ingredients": [
+        "oxide",
+        "silicone"
+      ]
+    },
+    {
+      "id": "graphene",
+      "ingredients": [
+        "graphite",
+        "graphite"
+      ]
+    },
+    {
+      "id": "cardboard",
+      "ingredients": [
+        "cellulose",
+        "glue"
+      ]
+    },
+    {
+      "id": "spandex",
+      "ingredients": [
+        "rubber",
+        "nylon"
+      ]
+    },
+    {
+      "id": "inconel",
+      "ingredients": [
+        "titanium_alloy",
+        "stainless_steel"
+      ]
+    },
+    {
+      "id": "magnesium_alloy",
+      "ingredients": [
+        "aluminum_alloy",
+        "titanium_alloy"
+      ]
+    },
+    {
+      "id": "tungsten_carbide",
+      "ingredients": [
+        "cermet",
+        "carbon_carbon_composite"
+      ]
+    },
+    {
+      "id": "boron_fiber",
+      "ingredients": [
+        "carbon_fiber",
+        "glass_ceramic"
+      ]
+    },
+    {
+      "id": "peek",
+      "ingredients": [
+        "epoxy_resin",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "silicon_carbide",
+      "ingredients": [
+        "glass_ceramic",
+        "carbon"
+      ]
+    },
+    {
+      "id": "zirconia",
+      "ingredients": [
+        "glass_ceramic",
+        "oxide"
+      ]
+    },
+    {
+      "id": "shape_memory_alloy",
+      "ingredients": [
+        "titanium_alloy",
+        "magnesium_alloy"
+      ]
+    },
+    {
+      "id": "hybrid_composite",
+      "ingredients": [
+        "carbon_fiber",
+        "kevlar"
+      ]
+    },
+    {
+      "id": "bio_glass",
+      "ingredients": [
+        "glass_ceramic",
+        "glass"
+      ]
+    },
+    {
+      "id": "carbon_nanotube",
+      "ingredients": [
+        "graphene",
+        "hybrid_composite"
+      ]
+    },
+    {
+      "id": "aerogel",
+      "ingredients": [
+        "glass",
+        "carbon_carbon_composite"
+      ]
+    },
+    {
+      "id": "pyrolytic_carbon",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "oxide"
+      ]
+    },
+    {
+      "id": "boron_nitride",
+      "ingredients": [
+        "boron_fiber",
+        "carbon"
+      ]
+    },
+    {
+      "id": "max_phase",
+      "ingredients": [
+        "cermet",
+        "silicon_carbide"
+      ]
+    },
+    {
+      "id": "bulk_metallic_glass",
+      "ingredients": [
+        "alloy",
+        "glass"
+      ]
+    },
+    {
+      "id": "high_entropy_alloy",
+      "ingredients": [
+        "inconel",
+        "magnesium_alloy"
+      ]
+    },
+    {
+      "id": "battery",
+      "ingredients": [
+        "graphite",
+        "oxide"
+      ]
+    },
+    {
+      "id": "copper_clad_laminate",
+      "ingredients": [
+        "glass",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "pcb",
+      "ingredients": [
+        "copper_clad_laminate",
+        "copper"
+      ]
+    },
+    {
+      "id": "lcd_screen",
+      "ingredients": [
+        "silicon",
+        "glass"
+      ]
+    },
+    {
+      "id": "oled_screen",
+      "ingredients": [
+        "lcd_screen",
+        "organic_polymer"
+      ]
+    },
+    {
+      "id": "solar_panel",
+      "ingredients": [
+        "silicon",
+        "aluminum_alloy"
+      ]
+    },
+    {
+      "id": "cpu",
+      "ingredients": [
+        "silicon",
+        "copper"
+      ]
+    },
+    {
+      "id": "microcontroller",
+      "ingredients": [
+        "cpu",
+        "pcb"
+      ]
+    },
+    {
+      "id": "turbine_blade",
+      "ingredients": [
+        "inconel",
+        "hybrid_composite"
+      ]
+    },
+    {
+      "id": "aircraft_fuselage",
+      "ingredients": [
+        "aluminum_alloy",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "rocket_nozzle",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "tungsten_carbide"
+      ]
+    },
+    {
+      "id": "bulletproof_vest",
+      "ingredients": [
+        "kevlar",
+        "silicon_carbide"
+      ]
+    },
+    {
+      "id": "dental_implant",
+      "ingredients": [
+        "zirconia",
+        "peek"
+      ]
+    },
+    {
+      "id": "brake_disc",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "silicon_carbide"
+      ]
+    },
+    {
+      "id": "wind_turbine_blade",
+      "ingredients": [
+        "fiberglass",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "spacecraft_heat_shield",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "ceramic_matrix_composite"
+      ]
+    },
+    {
+      "id": "artificial_heart_valve",
+      "ingredients": [
+        "shape_memory_alloy",
+        "peek"
+      ]
+    },
+    {
+      "id": "hydrogen_fuel_tank",
+      "ingredients": [
+        "hybrid_composite",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "submarine_hull",
+      "ingredients": [
+        "titanium_alloy",
+        "hybrid_composite"
+      ]
+    },
+    {
+      "id": "golf_club_shaft",
+      "ingredients": [
+        "boron_fiber",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "tennis_racket",
+      "ingredients": [
+        "graphite",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "bicycle_frame",
+      "ingredients": [
+        "carbon_fiber",
+        "titanium_alloy"
+      ]
+    },
+    {
+      "id": "engine_block",
+      "ingredients": [
+        "aluminum_alloy",
+        "inconel"
+      ]
+    },
+    {
+      "id": "knee_implant",
+      "ingredients": [
+        "titanium_alloy",
+        "peek"
+      ]
+    },
+    {
+      "id": "bullet_train_nose",
+      "ingredients": [
+        "aluminum_alloy",
+        "hybrid_composite"
+      ]
+    },
+    {
+      "id": "satellite_structure",
+      "ingredients": [
+        "aluminum_alloy",
+        "carbon_carbon_composite"
+      ]
+    },
+    {
+      "id": "solar_panel_frame",
+      "ingredients": [
+        "aluminum_alloy",
+        "silicon_carbide"
+      ]
+    },
+    {
+      "id": "robot_arm",
+      "ingredients": [
+        "carbon_fiber",
+        "magnesium_alloy"
+      ]
+    },
+    {
+      "id": "crash_helmet",
+      "ingredients": [
+        "kevlar",
+        "foam"
+      ]
+    },
+    {
+      "id": "boat_hull",
+      "ingredients": [
+        "fiberglass",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "building_cladding",
+      "ingredients": [
+        "aluminum_alloy",
+        "glass_ceramic"
+      ]
+    },
+    {
+      "id": "fuel_cell_bipolar_plate",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "graphite"
+      ]
+    },
+    {
+      "id": "katana",
+      "ingredients": [
+        "steel",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "drone",
+      "ingredients": [
+        "cpu",
+        "magnesium_alloy"
+      ]
+    },
+    {
+      "id": "nintendo_switch",
+      "ingredients": [
+        "lcd_screen",
+        "cpu"
+      ]
+    },
+    {
+      "id": "rtx_5090",
+      "ingredients": [
+        "cpu",
+        "thermal_paste"
+      ]
+    },
+    {
+      "id": "gaming_pc",
+      "ingredients": [
+        "rtx_5090",
+        "cpu"
+      ]
+    },
+    {
+      "id": "datacenter",
+      "ingredients": [
+        "gaming_pc",
+        "gaming_pc"
+      ]
+    },
+    {
+      "id": "iphone_17_pro",
+      "ingredients": [
+        "oled_screen",
+        "cpu"
+      ]
+    },
+    {
+      "id": "ferrari",
+      "ingredients": [
+        "engine_block",
+        "carbon_fiber"
+      ]
+    },
+    {
+      "id": "byd_car",
+      "ingredients": [
+        "battery",
+        "aluminum_alloy"
+      ]
+    },
+    {
+      "id": "f1_car",
+      "ingredients": [
+        "carbon_carbon_composite",
+        "hybrid_composite"
+      ]
+    },
+    {
+      "id": "student_loan",
+      "ingredients": [
+        "paper",
+        "carbon"
+      ]
+    },
+    {
+      "id": "bondo",
+      "ingredients": [
+        "polyester",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "silly_putty",
+      "ingredients": [
+        "silicone",
+        "rubber"
+      ]
+    },
+    {
+      "id": "bubble_wrap",
+      "ingredients": [
+        "foam",
+        "epoxy_resin"
+      ]
+    },
+    {
+      "id": "gym_clothes",
+      "ingredients": [
+        "spandex",
+        "polyester"
+      ]
+    },
+    {
+      "id": "duct_tape",
+      "ingredients": [
+        "glue",
+        "fiber"
+      ]
+    },
+    {
+      "id": "flubber",
+      "ingredients": [
+        "silly_putty",
+        "aerogel"
+      ]
+    },
+    {
+      "id": "mithril",
+      "ingredients": [
+        "gold",
+        "alloy"
+      ]
+    },
+    {
+      "id": "unobtanium",
+      "ingredients": [
+        "steel",
+        "ceramic"
+      ]
+    },
+    {
+      "id": "vibranium",
+      "ingredients": [
+        "carbon_fiber",
+        "metal"
+      ]
+    },
+    {
+      "id": "adamantium",
+      "ingredients": [
+        "steel",
+        "diamond"
+      ]
+    },
+    {
+      "id": "nanomachines",
+      "ingredients": [
+        "carbon_nanotube",
+        "metal"
+      ]
+    },
+    {
+      "id": "the_one_ring",
+      "ingredients": [
+        "mithril",
+        "gold"
+      ]
+    },
+    {
+      "id": "mjolnir_mk_vii",
+      "ingredients": [
+        "titanium_alloy",
+        "vibranium"
+      ]
+    },
+    {
+      "id": "captain_america_shield",
+      "ingredients": [
+        "vibranium",
+        "adamantium"
+      ]
+    }
   ]
 }

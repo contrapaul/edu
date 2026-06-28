@@ -90,6 +90,27 @@ body {
     padding: 0.625rem 0.75rem 0.4rem;
     border-bottom: 1px solid var(--border);
 }
+.craft-search {
+    margin: 0.5rem 0.5rem 0.3rem;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.78rem;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    outline: none;
+    flex-shrink: 0;
+}
+.craft-search:focus {
+    border-color: var(--accent);
+}
+.craft-inv-empty {
+    padding: 0.6rem 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-style: italic;
+}
 .craft-inv-list {
     flex: 1;
     overflow-y: auto;
@@ -112,6 +133,8 @@ body {
     font-size: 0.75rem;
     border: 1px solid transparent;
     color: var(--text);
+    user-select: none;
+    touch-action: none;
 }
 .craft-inv-item:hover {
     background: var(--surface);
@@ -138,6 +161,7 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
     padding: 0.75rem;
     min-width: 0;
     background: var(--bg);
@@ -147,14 +171,48 @@ body {
     flex: 1;
     border: 3px dashed var(--border);
     border-radius: 14px;
-    transition: border-color 0.25s, background 0.25s;
     background: var(--surface);
     min-height: 160px;
     overflow: hidden;
+    touch-action: none;
 }
-.craft-drop-zone.drag-over {
-    border-color: var(--accent);
-    background: var(--accent-bg);
+
+/* ── DEFINITION PANEL (persistent, below the canvas) ─────── */
+.craft-def-panel {
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+}
+.craft-def-emoji {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.craft-def-body {
+    min-width: 0;
+}
+.craft-def-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+.craft-def-text {
+    font-size: 0.82rem;
+    color: var(--text);
+    margin-top: 0.15rem;
+    line-height: 1.45;
+}
+.craft-def-meta {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
 }
 
 /* ── PLACEHOLDER (empty canvas) ──────────────────────────── */
@@ -192,6 +250,7 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.10);
     transition: box-shadow 0.15s, border-color 0.15s, opacity 0.15s;
     user-select: none;
+    touch-action: none;
     white-space: nowrap;
     z-index: 1;
     min-width: 60px;
@@ -201,15 +260,24 @@ body {
     border-color: var(--border-strong);
     z-index: 3;
 }
-.craft-card:active {
+.craft-card.dragging {
     cursor: grabbing;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+    opacity: 0.85;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+    z-index: 5;
 }
-.craft-card.drag-hover {
+.craft-card.combine-target {
     border-color: var(--accent);
     background: var(--accent-bg);
     box-shadow: 0 0 0 2px var(--accent), 0 4px 16px rgba(0,0,0,0.16);
     z-index: 2;
+}
+.craft-ghost {
+    pointer-events: none;
+    position: fixed;
+    opacity: 0.8;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
 }
 .craft-card-emoji {
     font-size: 1.3rem;
@@ -222,6 +290,47 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 120px;
+}
+.craft-card-del {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 0 0 0 0.1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.12s, color 0.12s;
+}
+.craft-card:hover .craft-card-del {
+    opacity: 1;
+}
+.craft-card-del:hover {
+    color: var(--text);
+}
+
+/* ── COMBINE FEEDBACK ────────────────────────────────────── */
+.craft-card.combined {
+    animation: craftPop 0.3s ease;
+}
+.craft-card.first-discovery {
+    animation: craftPop 0.3s ease;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent), 0 0 18px var(--accent);
+}
+.craft-card.no-reaction {
+    animation: craftShake 0.4s ease;
+}
+@keyframes craftPop {
+    0%   { transform: scale(0.4); opacity: 0; }
+    60%  { transform: scale(1.12); opacity: 1; }
+    100% { transform: scale(1); }
+}
+@keyframes craftShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-5px); }
+    75%      { transform: translateX(5px); }
 }
 
 /* ── TOAST / DISCOVERY POPUP ─────────────────────────────── */

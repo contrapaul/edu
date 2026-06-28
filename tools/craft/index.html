@@ -35,23 +35,30 @@
       <span class="craft-stat">&#x1F52C; <strong id="discoveryCount">0</strong> discovered</span>
       <span class="craft-stat">&#x1F3F7;&#xFE0F; Tier <strong id="maxTier">0</strong></span>
     </div>
+    <button class="craft-reset-btn" id="clearBtn">&#x1F9F9; Clear canvas</button>
     <button class="craft-reset-btn" id="resetBtn">&#x27F3; Reset</button>
   </div>
 
   <div class="craft-app">
     <aside class="craft-inventory">
-      <h2 class="craft-inv-title">&#x1F4E6; Inventory</h2>
+      <input type="search" class="craft-search" id="searchInput" placeholder="&#x1F50D; Search materials&#x2026;" autocomplete="off" />
       <div class="craft-inv-list" id="inventoryList"></div>
     </aside>
 
     <section class="craft-workbench">
       <div class="craft-drop-zone" id="dropZone"></div>
+      <div class="craft-def-panel" id="defPanel">
+        <span class="craft-def-emoji" id="defEmoji">&#x1F44B;</span>
+        <div class="craft-def-body">
+          <div class="craft-def-name" id="defName">Select a material to see its definition</div>
+          <div class="craft-def-text" id="defText">Click anything in your inventory, or drag two cards together on the canvas to discover something new.</div>
+          <div class="craft-def-meta" id="defMeta"></div>
+        </div>
+      </div>
     </section>
   </div>
 
 </main>
-
-<div class="craft-toast-container" id="toastContainer"></div>
 
 <footer class="site-footer">
 <div class="footer-inner">

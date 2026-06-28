@@ -12,6 +12,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["serve_nocache.py", "5501"],
       "port": 5501
+    },
+    {
+      "name": "edu-py3",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "5502"],
+      "port": 5502
     }
   ]
 }
