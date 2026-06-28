@@ -27,17 +27,17 @@ var MRK_FACTS = [
   {
     id: 2,
     text: "Mr. K's unfinished project list has never been empty.",
-    tags: ["classroom", "design"]
+    tags: ["classroom", "design", "personal"]
   },
   {
     id: 3,
     text: "Mr. K can and will pwn the whole class on Shellshockers or Ev.io.",
-    tags: ["classroom", "ib"]
+    tags: ["classroom", "personal"]
   },
   {
     id: 4,
     text: "The only thing Mr. K loves more than learning something new and awesome is sharing it with someone else.",
-    tags: ["classroom", "ib"]
+    tags: ["classroom", "personal"]
   },
   {
     id: 5,
@@ -52,7 +52,7 @@ var MRK_FACTS = [
   {
     id: 7,
     text: "Mr. K thinks troubleshooting should be an ATL skill.",
-    tags: ["classroom", "design"]
+    tags: ["classroom", "ib"]
   },
   {
     id: 8,
@@ -62,18 +62,16 @@ var MRK_FACTS = [
   {
     id: 9,
     text: "Young Mr. K would be extremely jealous of older Mr. K's technology.",
-    tags: ["classroom", "tech"]
+    tags: ["personal", "tech"]
   },
-
-  /* ── Design ───────────────────────────────────────────── */
   {
     id: 10,
-    text: "Mr. K would much rather design a thing for himself than spend less money to buy the same thing on Taobao.",
+    text: "Mr. K would much rather design a thing for himself than spend less money to buy the same thing online.",
     tags: ["design", "personal"]
   },
   {
     id: 11,
-    text: "Mr. K will spend way too long searching for the perfect font for an assessment and then go with Futura anyway.",
+    text: "Mr. K can tell you more than you wanted to know about font design and why fonts are annoying in Fusion.",
     tags: ["design", "personal"]
   },
   {
@@ -96,8 +94,6 @@ var MRK_FACTS = [
     text: "Mr. K will happily talk to you about how great the Microsoft Zune was!",
     tags: ["design", "personal", "tech"]
   },
-
-  /* ── Tech / Making ────────────────────────────────────── */
   {
     id: 16,
     text: "Mr. K built a Halo helmet with cardstock, wood glue, and very little else.",
@@ -133,8 +129,6 @@ var MRK_FACTS = [
     text: "Mr. K has had well over 100 rolls of filament at once before.",
     tags: ["tech", "classroom"]
   },
-
-  /* ── IB / Teaching ────────────────────────────────────── */
   {
     id: 23,
     text: "Mr. K hardly rememembers a time before he knew all the MYP design criteria.",
@@ -150,8 +144,6 @@ var MRK_FACTS = [
     text: "Mr. K loves building computers so much.",
     tags: ["ib", "tech", "personal"]
   },
-
-  /* ── Personal ─────────────────────────────────────────── */
   {
     id: 26,
     text: "Mr. K is a cat person. He and his wife have 4 cats- Oscar, Xiaolong, Goose, and Rufus.",
@@ -175,6 +167,11 @@ var MRK_FACTS = [
   {
     id: 30,
     text: "Mr. K wants you to explore this site. Go find the themes, then give 'Nightmare' a try.",
+    tags: ["personal", "design"]
+  },
+  {
+    id: 31,
+    text: "Mr. K loves few things as much as building PC's",
     tags: ["personal", "design"]
   }
 
