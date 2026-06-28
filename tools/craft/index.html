@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Composite Craft — contrapaul edu</title>
-<link rel="stylesheet" href="../style.css" />
-<link rel="stylesheet" href="../curriculum/themes.css" />
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/curriculum/themes.css" />
 <link rel="stylesheet" href="style.css" />
 <script>
   (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
@@ -37,7 +37,7 @@
 
   <div class="craft-app">
     <section class="craft-workbench">
-      <div class="craft-drop-zone" id="dropZone"></div>
+      <div class="craft-drop-zone" id="dropZone"><canvas class="craft-bg" id="bgCanvas"></canvas></div>
       <div class="craft-def-panel" id="defPanel">
         <span class="craft-def-emoji" id="defEmoji">&#x1F44B;</span>
         <div class="craft-def-body">
@@ -69,7 +69,8 @@
 </div>
 </footer>
 
-<script src="../curriculum/curriculum-themes.js"></script>
+<script src="/curriculum/curriculum-themes.js"></script>
 <script src="game.js"></script>
+<script src="background.js"></script>
 </body>
 </html>
