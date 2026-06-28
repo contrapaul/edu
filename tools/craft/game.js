@@ -193,6 +193,15 @@ function spawnCard(id, x, y) {
     return entry;
 }
 
+// Faux-random spot in the middle ~60% of the canvas, so clicked cards scatter
+// instead of stacking dead-centre but still stay comfortably in view.
+function randomCardPos(zone) {
+    const cardW = 110, cardH = 48;
+    const x = zone.width * 0.2 + Math.random() * Math.max(0, zone.width * 0.6 - cardW);
+    const y = zone.height * 0.2 + Math.random() * Math.max(0, zone.height * 0.6 - cardH);
+    return { x: Math.round(x), y: Math.round(y) };
+}
+
 // ═══════════════════════════════════════════════════════════════════
 //  DRAGGING — inventory → canvas (clone follows the pointer)
 // ═══════════════════════════════════════════════════════════════════
@@ -224,8 +233,9 @@ function startInventoryDrag(e, id) {
                        ev.clientY >= zone.top && ev.clientY <= zone.bottom;
 
         if (!dragging) {
-            // Treated as a click: spawn near the centre of the canvas.
-            spawnCard(id, zone.width / 2 - 45, zone.height / 2 - 22);
+            // Treated as a click: scatter around the centre so cards don't stack.
+            const pos = randomCardPos(zone);
+            spawnCard(id, pos.x, pos.y);
             renderWorkbench();
             return;
         }
