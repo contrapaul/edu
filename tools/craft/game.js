@@ -9,7 +9,8 @@ const DRAG_THRESHOLD = 5; // px of movement before a press counts as a drag
 // ── Data ──────────────────────────────────────────────────────────
 let DISCOVERIES = [];
 let discoveryMap = {};     // id -> discovery
-let recipeMap = {};        // "a|b" (sorted) -> product id
+let recipeMap = {};        // "a|b" (sorted) -> product id  (forward)
+let reverseMap = {};       // "product|ingredient" -> other ingredient  (decompose)
 
 // ── State ─────────────────────────────────────────────────────────
 let discovered = new Set();
@@ -46,6 +47,15 @@ async function loadData() {
             recipeMap[[...r.ingredients].sort().join('|')] = r.id;
         });
 
+        // Decomposition: A + B -> C also lets C + A -> B (and C + B -> A).
+        // Forward recipes win, so this only fills pairs nothing already covers.
+        reverseMap = {};
+        recipes.forEach((r) => {
+            const [a, b] = r.ingredients;
+            addReverse(r.id, a, b);
+            addReverse(r.id, b, a);
+        });
+
         initGame();
     } catch (err) {
         console.error('Failed to load data:', err);
@@ -53,6 +63,15 @@ async function loadData() {
             `<div class="craft-placeholder"><span class="craft-big-emoji">&#x26A0;&#xFE0F;</span>` +
             `Failed to load game data.<br>${err.message}</div>`;
     }
+}
+
+// Register one decomposition: using `used` on `product` yields `returned`.
+// Forward recipes take precedence; among ambiguous reverses, first wins.
+function addReverse(product, used, returned) {
+    const key = [product, used].sort().join('|');
+    if (recipeMap[key] !== undefined) return;
+    if (reverseMap[key] !== undefined) return;
+    reverseMap[key] = returned;
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -299,7 +318,13 @@ function combine(idA, targetInstanceId, x, y, sourceInstanceId) {
     const targetEntry = placed.find((p) => p.instanceId === targetInstanceId);
     if (!targetEntry) return;
 
-    const productId = recipeMap[[idA, targetEntry.id].sort().join('|')];
+    const key = [idA, targetEntry.id].sort().join('|');
+    let productId = recipeMap[key];
+    let isReverse = false;
+    if (!productId) {
+        productId = reverseMap[key];   // decomposition: reclaim the other ingredient
+        isReverse = true;
+    }
 
     if (!productId) {
         flashNoReaction(targetInstanceId);
@@ -323,7 +348,7 @@ function combine(idA, targetInstanceId, x, y, sourceInstanceId) {
     renderWorkbench();
 
     const el = dropZone.querySelector(`.craft-card[data-instance-id="${product.instanceId}"]`);
-    if (el) el.classList.add(isNew ? 'first-discovery' : 'combined');
+    if (el) el.classList.add(isNew ? 'first-discovery' : isReverse ? 'decomposed' : 'combined');
 }
 
 function flashNoReaction(instanceId) {

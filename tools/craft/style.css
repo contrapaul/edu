@@ -337,10 +337,18 @@ body {
 .craft-card.no-reaction {
     animation: craftShake 0.4s ease;
 }
+.craft-card.decomposed {
+    animation: craftReverse 0.4s ease;
+}
 @keyframes craftPop {
     0%   { transform: scale(0.4); opacity: 0; }
     60%  { transform: scale(1.12); opacity: 1; }
     100% { transform: scale(1); }
+}
+@keyframes craftReverse {
+    0%   { transform: scale(0.7) rotate(8deg); opacity: 0.2; }
+    60%  { transform: scale(1.08) rotate(-4deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); }
 }
 @keyframes craftShake {
     0%, 100% { transform: translateX(0); }
