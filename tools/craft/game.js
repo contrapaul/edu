@@ -21,7 +21,6 @@ const invList = document.getElementById('inventoryList');
 const searchInput = document.getElementById('searchInput');
 const dropZone = document.getElementById('dropZone');
 const discoveryCountEl = document.getElementById('discoveryCount');
-const maxTierEl = document.getElementById('maxTier');
 const defEmoji = document.getElementById('defEmoji');
 const defName = document.getElementById('defName');
 const defText = document.getElementById('defText');
@@ -74,20 +73,8 @@ function loadState() {
 // ═══════════════════════════════════════════════════════════════════
 //  STATS + DEFINITION PANEL
 // ═══════════════════════════════════════════════════════════════════
-function getMaxTier() {
-    let max = 0;
-    for (const id of discovered) {
-        const d = discoveryMap[id];
-        // Tier 0 = legendary endgame; rank it above everything for display.
-        const rank = d ? (d.tier === 0 ? 99 : d.tier) : 0;
-        if (rank > max) max = rank;
-    }
-    return max === 99 ? '★' : max;
-}
-
 function updateStats() {
     discoveryCountEl.textContent = discovered.size;
-    maxTierEl.textContent = getMaxTier();
 }
 
 // Persistent panel: keeps the last selection until a new one is shown.
@@ -97,8 +84,7 @@ function showDefinition(id) {
     defEmoji.textContent = d.emoji;
     defName.textContent = d.name;
     defText.textContent = d.definition;
-    const tierLabel = d.tier === 0 ? 'Legendary' : `Tier ${d.tier}`;
-    defMeta.textContent = `${tierLabel} · ${d.category}`;
+    defMeta.textContent = d.category;
 }
 
 // ═══════════════════════════════════════════════════════════════════
