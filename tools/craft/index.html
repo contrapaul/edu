@@ -31,20 +31,12 @@
 
   <div class="craft-toolbar">
     <h1 class="craft-title">&#x1F9EA; Composite Craft</h1>
-    <div class="craft-stats">
-      <span class="craft-stat">&#x1F52C; <strong id="discoveryCount">0</strong> discovered</span>
-      <span class="craft-stat">&#x1F3F7;&#xFE0F; Tier <strong id="maxTier">0</strong></span>
-    </div>
+    <span class="craft-stat">&#x1F3F7;&#xFE0F; Tier <strong id="maxTier">0</strong></span>
     <button class="craft-reset-btn" id="clearBtn">&#x1F9F9; Clear canvas</button>
     <button class="craft-reset-btn" id="resetBtn">&#x27F3; Reset</button>
   </div>
 
   <div class="craft-app">
-    <aside class="craft-inventory">
-      <input type="search" class="craft-search" id="searchInput" placeholder="&#x1F50D; Search materials&#x2026;" autocomplete="off" />
-      <div class="craft-inv-list" id="inventoryList"></div>
-    </aside>
-
     <section class="craft-workbench">
       <div class="craft-drop-zone" id="dropZone"></div>
       <div class="craft-def-panel" id="defPanel">
@@ -56,6 +48,17 @@
         </div>
       </div>
     </section>
+
+    <aside class="craft-inventory">
+      <div class="craft-inv-header">
+        <span class="craft-inv-title">Items</span>
+        <span class="craft-inv-count" id="discoveryCount">0</span>
+      </div>
+      <div class="craft-inv-list" id="inventoryList"></div>
+      <div class="craft-inv-footer">
+        <input type="search" class="craft-search" id="searchInput" placeholder="&#x1F50D; Search items&#x2026;" autocomplete="off" />
+      </div>
+    </aside>
   </div>
 
 </main>
