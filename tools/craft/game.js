@@ -16,6 +16,7 @@ let reverseMap = {};       // "product|ingredient" -> other ingredient  (decompo
 let discovered = new Set();
 let placed = [];           // [{ instanceId, id, x, y }]
 let instanceSeq = 1;
+let lastSelectedId = null;  // most-recently inspected item (for the recipe book)
 
 // ── DOM ───────────────────────────────────────────────────────────
 const invList = document.getElementById('inventoryList');
@@ -26,6 +27,10 @@ const defEmoji = document.getElementById('defEmoji');
 const defName = document.getElementById('defName');
 const defText = document.getElementById('defText');
 const defMeta = document.getElementById('defMeta');
+const recipesModal = document.getElementById('recipesModal');
+const recipeItemsEl = document.getElementById('recipeItems');
+const recipeDetailEl = document.getElementById('recipeDetail');
+const recipeSearch = document.getElementById('recipeSearch');
 
 // ═══════════════════════════════════════════════════════════════════
 //  LOAD
@@ -100,6 +105,7 @@ function updateStats() {
 function showDefinition(id) {
     const d = discoveryMap[id];
     if (!d) return;
+    lastSelectedId = id;
     defEmoji.textContent = d.emoji;
     defName.textContent = d.name;
     defText.textContent = d.definition;
@@ -407,6 +413,81 @@ function positionGhost(g, clientX, clientY) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+//  RECIPE BOOK — every revealed way to make an item
+// ═══════════════════════════════════════════════════════════════════
+// "Build"      = forward recipes  a + b  -> X
+// "Deconstruct"= decompositions   P + y -> X   (because P = X + y)
+// Only rows whose two ingredients are both discovered are shown ("revealed").
+function recipeRowsFor(id, map) {
+    const rows = [];
+    for (const key in map) {
+        if (map[key] !== id) continue;
+        const [a, b] = key.split('|');
+        if (discovered.has(a) && discovered.has(b)) rows.push([a, b]);
+    }
+    return rows.sort((p, q) => (discoveryMap[p[0]].tier - discoveryMap[q[0]].tier));
+}
+
+function chipHTML(id) {
+    const d = discoveryMap[id];
+    return `<button class="r-chip" data-id="${id}"><span class="emoji">${d.emoji}</span>${d.name}</button>`;
+}
+
+function renderRecipeItems() {
+    const q = (recipeSearch.value || '').trim().toLowerCase();
+    const items = DISCOVERIES
+        .filter((d) => discovered.has(d.id))
+        .filter((d) => !q || d.name.toLowerCase().includes(q))
+        .sort((a, b) => (a.tier === 0 ? 99 : a.tier) - (b.tier === 0 ? 99 : b.tier) || a.name.localeCompare(b.name));
+    recipeItemsEl.innerHTML = '';
+    items.forEach((d) => {
+        const el = document.createElement('div');
+        el.className = 'craft-inv-item' + (d.id === lastSelectedId ? ' r-active' : '');
+        el.dataset.id = d.id;
+        el.innerHTML = `<span class="emoji">${d.emoji}</span><span class="name">${d.name}</span>`;
+        el.addEventListener('click', () => selectRecipeItem(d.id));
+        recipeItemsEl.appendChild(el);
+    });
+}
+
+function selectRecipeItem(id) {
+    if (!discovered.has(id)) return;
+    lastSelectedId = id;
+    const d = discoveryMap[id];
+    const build = recipeRowsFor(id, recipeMap);
+    const decon = recipeRowsFor(id, reverseMap);
+    const row = ([a, b]) =>
+        `<div class="r-row">${chipHTML(a)}<span class="r-op">+</span>${chipHTML(b)}` +
+        `<span class="r-op">=</span>${chipHTML(id)}</div>`;
+    const section = (title, rows, empty) =>
+        `<div class="r-section-title">${title} <span class="r-count">${rows.length}</span></div>` +
+        (rows.length ? rows.map(row).join('') : `<div class="r-empty">${empty}</div>`);
+
+    recipeDetailEl.innerHTML =
+        `<div class="r-detail-head"><span class="r-detail-emoji">${d.emoji}</span>` +
+        `<div><div class="r-detail-name">${d.name}</div><div class="r-detail-def">${d.definition}</div></div></div>` +
+        section('Build', build, 'No revealed build recipes yet.') +
+        section('Deconstruct', decon, 'No revealed deconstruct recipes.');
+
+    recipeItemsEl.querySelectorAll('.craft-inv-item')
+        .forEach((e) => e.classList.toggle('r-active', e.dataset.id === id));
+    recipeDetailEl.querySelectorAll('.r-chip')
+        .forEach((c) => c.addEventListener('click', () => selectRecipeItem(c.dataset.id)));
+    recipeDetailEl.scrollTop = 0;
+}
+
+function openRecipes() {
+    recipesModal.hidden = false;
+    renderRecipeItems();
+    const start = (lastSelectedId && discovered.has(lastSelectedId))
+        ? lastSelectedId
+        : (DISCOVERIES.find((d) => discovered.has(d.id)) || {}).id;
+    if (start) selectRecipeItem(start);
+}
+
+function closeRecipes() { recipesModal.hidden = true; }
+
+// ═══════════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════════
 function initGame() {
@@ -418,6 +499,14 @@ function initGame() {
     searchInput.addEventListener('input', renderInventory);
     document.getElementById('clearBtn').addEventListener('click', clearCanvas);
     document.getElementById('resetBtn').addEventListener('click', resetGame);
+
+    document.getElementById('recipesBtn').addEventListener('click', openRecipes);
+    recipeSearch.addEventListener('input', renderRecipeItems);
+    recipesModal.querySelectorAll('[data-recipe-close]')
+        .forEach((el) => el.addEventListener('click', closeRecipes));
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !recipesModal.hidden) closeRecipes();
+    });
 }
 
 loadData();

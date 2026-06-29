@@ -37,7 +37,7 @@
 
   <div class="craft-app">
     <section class="craft-workbench">
-      <div class="craft-drop-zone" id="dropZone"><canvas class="craft-bg" id="bgCanvas"></canvas></div>
+      <div class="craft-drop-zone" id="dropZone"><canvas class="craft-bg" id="bgCanvas"></canvas><button class="craft-recipes-btn" id="recipesBtn" title="Recipe book">&#x1F4D6; Recipes</button></div>
       <div class="craft-def-panel" id="defPanel">
         <span class="craft-def-emoji" id="defEmoji">&#x1F44B;</span>
         <div class="craft-def-body">
@@ -61,6 +61,23 @@
   </div>
 
 </main>
+
+<div class="craft-modal" id="recipesModal" hidden>
+  <div class="craft-modal-backdrop" data-recipe-close></div>
+  <div class="craft-modal-box" role="dialog" aria-label="Recipes">
+    <div class="craft-modal-head">
+      <span class="craft-modal-title">&#x1F4D6; Recipes</span>
+      <button class="craft-modal-close" id="recipesClose" data-recipe-close aria-label="Close">&times;</button>
+    </div>
+    <div class="craft-modal-body">
+      <div class="craft-recipe-left">
+        <input type="search" class="craft-search" id="recipeSearch" placeholder="&#x1F50D; Search discovered items&#x2026;" autocomplete="off" />
+        <div class="craft-recipe-items" id="recipeItems"></div>
+      </div>
+      <div class="craft-recipe-detail" id="recipeDetail"></div>
+    </div>
+  </div>
+</div>
 
 <footer class="site-footer">
 <div class="footer-inner">
