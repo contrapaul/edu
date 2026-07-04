@@ -1,7 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
-//  You Should Play These Games — renders the swipeable cover gallery
-//  and the stacked detail sections from the GAMES data (games.js),
-//  and highlights whichever cover card is centered while swiping.
+//  You Should Play These Games.
+//
+//  Two axes: swipe/scroll sideways through the wheel of cover cards to
+//  pick a game, swipe/scroll down to read about whichever one is
+//  centered, swipe back up to return to the wheel. The detail pane is
+//  a single reusable block whose content is rebuilt to match whichever
+//  card is currently centered — it isn't a per-game page.
 // ═══════════════════════════════════════════════════════════════════
 (function () {
   const PLACEHOLDER_GLYPH = '\u{1F3AE}'; // 🎮 — obvious stand-in until real cover art is added.
@@ -30,9 +34,9 @@
   }
 
   function buildCard(game, { clone } = {}) {
-    const card = document.createElement('a');
+    const card = document.createElement('button');
+    card.type = 'button';
     card.className = 'gg-card';
-    card.href = `#${game.slug}`;
     card.style.setProperty('--accent', game.accent);
     if (clone) {
       // Duplicate cards exist only so the wheel can wrap seamlessly —
@@ -55,11 +59,9 @@
     return card;
   }
 
-  function buildDetail(game, index, all) {
-    const section = document.createElement('section');
-    section.className = 'gg-detail';
-    section.id = game.slug;
-    section.style.setProperty('--accent', game.accent);
+  function renderDetailPane(pane, game, index, total) {
+    pane.style.setProperty('--accent', game.accent);
+    pane.replaceChildren();
 
     const inner = document.createElement('div');
     inner.className = 'gg-detail-inner';
@@ -70,7 +72,7 @@
 
     const eyebrow = document.createElement('div');
     eyebrow.className = 'gg-detail-eyebrow';
-    eyebrow.textContent = `Game ${String(index + 1).padStart(2, '0')} of ${all.length}`;
+    eyebrow.textContent = `Game ${String(index + 1).padStart(2, '0')} of ${total}`;
     body.appendChild(eyebrow);
 
     const title = document.createElement('h2');
@@ -130,22 +132,8 @@
     ctaRow.appendChild(ctaNote);
     body.appendChild(ctaRow);
 
-    const navRow = document.createElement('div');
-    navRow.className = 'gg-detail-nav';
-    const back = document.createElement('a');
-    back.href = '#gallery';
-    back.textContent = '↑ Back to gallery';
-    navRow.appendChild(back);
-    const next = all[(index + 1) % all.length];
-    const nextLink = document.createElement('a');
-    nextLink.href = `#${next.slug}`;
-    nextLink.textContent = `Next: ${next.title} ↓`;
-    navRow.appendChild(nextLink);
-    body.appendChild(navRow);
-
     inner.appendChild(body);
-    section.appendChild(inner);
-    return section;
+    pane.appendChild(inner);
   }
 
   // The gallery is rendered as [clone set][real set][clone set] so that
@@ -156,8 +144,8 @@
   // of a wheel that scrolls forever in either direction.
   function render() {
     const gallery = document.getElementById('gallery');
-    const details = document.getElementById('details');
-    if (!gallery || !details || typeof GAMES === 'undefined') return;
+    const detailPane = document.getElementById('detail-page');
+    if (!gallery || !detailPane || typeof GAMES === 'undefined') return;
 
     const count = GAMES.length;
     const cards = [];
@@ -168,12 +156,19 @@
         cards.push(card);
       });
     });
-    GAMES.forEach((game, i) => details.appendChild(buildDetail(game, i, GAMES)));
+
+    let shownSlug = null;
+    function showDetailFor(cardsIndex) {
+      const game = GAMES[cardsIndex % count];
+      if (game.slug === shownSlug) return;
+      shownSlug = game.slug;
+      renderDetailPane(detailPane, game, GAMES.indexOf(game), count);
+    }
 
     // Which card is nearest the gallery's horizontal center, measured
-    // fresh from live geometry every time — used both to highlight the
-    // active card and to detect when a swipe has settled inside a clone
-    // region (see recenterIfInCloneRegion below).
+    // fresh from live geometry every time — used to highlight the active
+    // card, pick which game's detail to show, and detect when a swipe
+    // has settled inside a clone region (see recenterIfInCloneRegion).
     function centerMostCardIndex() {
       const galleryCenter = gallery.getBoundingClientRect().left + gallery.clientWidth / 2;
       let bestIdx = -1;
@@ -189,6 +184,7 @@
     function updateActiveCard() {
       const idx = centerMostCardIndex();
       cards.forEach((card, i) => card.classList.toggle('active', i === idx));
+      if (idx >= 0) showDetailFor(idx);
     }
 
     function recenterIfInCloneRegion() {
@@ -222,6 +218,17 @@
         settleTimer = setTimeout(recenterIfInCloneRegion, 120);
       });
     }
+
+    // Tapping a card both selects it (centers it in the wheel, in case it
+    // wasn't already) and jumps straight to its detail page — a shortcut
+    // alongside the swipe-sideways-then-swipe-down gesture.
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => {
+        card.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+        showDetailFor(i);
+        detailPane.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      });
+    });
 
     // Start centered on the first card of the real (middle) set, so
     // there's already a clone set to swipe backward into immediately.
