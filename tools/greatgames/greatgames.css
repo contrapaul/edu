@@ -77,27 +77,6 @@ nav.site-nav {
   background-clip: text;
   color: transparent;
 }
-.gg-hero-hint {
-  margin-top: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  animation: gg-hint-pulse 1.8s ease-in-out infinite;
-}
-.gg-hint-arrows { font-size: 0.9rem; letter-spacing: 0.3em; }
-@keyframes gg-hint-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .gg-hero-hint { animation: none; }
-}
-
 /* ── GALLERY (horizontal swipe) ───────────────────────────────── */
 .gg-gallery {
   display: flex;
