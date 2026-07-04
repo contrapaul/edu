@@ -322,6 +322,19 @@ nav.site-nav {
   .gg-detail-cover { align-self: flex-start; width: 280px; flex-shrink: 0; }
 }
 
+@media (max-width: 719px) {
+  .gg-hero {
+    padding: 10px 16px 4px;
+  }
+  .gg-hero h1 {
+    font-size: 6.2vw;
+    white-space: nowrap;
+  }
+  .gg-gallery {
+    padding-top: 8px;
+  }
+}
+
 /* ── FOOTER (matches DT-IA-Guide's style, placeholder content) ─── */
 footer {
   background: var(--bg-raised);

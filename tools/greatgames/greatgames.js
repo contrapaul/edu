@@ -170,24 +170,10 @@
     });
     GAMES.forEach((game, i) => details.appendChild(buildDetail(game, i, GAMES)));
 
-    const ratios = new Map();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => ratios.set(entry.target, entry.intersectionRatio));
-        let bestCard = null;
-        let bestRatio = 0;
-        ratios.forEach((ratio, card) => {
-          if (ratio > bestRatio) { bestRatio = ratio; bestCard = card; }
-        });
-        cards.forEach((card) => card.classList.toggle('active', card === bestCard));
-      },
-      { root: gallery, threshold: [0, 0.25, 0.5, 0.6, 0.75, 1] }
-    );
-    cards.forEach((card) => observer.observe(card));
-
-    // Computed fresh (not read from the IntersectionObserver, which
-    // updates asynchronously and can race with 'scrollend') so the wrap
-    // check always reflects exactly where the gallery has actually settled.
+    // Which card is nearest the gallery's horizontal center, measured
+    // fresh from live geometry every time — used both to highlight the
+    // active card and to detect when a swipe has settled inside a clone
+    // region (see recenterIfInCloneRegion below).
     function centerMostCardIndex() {
       const galleryCenter = gallery.getBoundingClientRect().left + gallery.clientWidth / 2;
       let bestIdx = -1;
@@ -200,6 +186,11 @@
       return bestIdx;
     }
 
+    function updateActiveCard() {
+      const idx = centerMostCardIndex();
+      cards.forEach((card, i) => card.classList.toggle('active', i === idx));
+    }
+
     function recenterIfInCloneRegion() {
       const idx = centerMostCardIndex();
       if (idx < 0) return;
@@ -208,8 +199,19 @@
       else if (idx >= count * 2) realIdx = idx - count;
       if (realIdx !== null) {
         cards[realIdx].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+        updateActiveCard();
       }
     }
+
+    let ticking = false;
+    gallery.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        updateActiveCard();
+        ticking = false;
+      });
+    });
 
     if ('onscrollend' in window) {
       gallery.addEventListener('scrollend', recenterIfInCloneRegion);
@@ -226,6 +228,7 @@
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         cards[count].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+        updateActiveCard();
       });
     });
   }
