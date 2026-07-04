@@ -1,1 +1,47 @@
-temp html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Swipe through recommended games with educational value, then scroll down to learn more about the ones that catch your eye.">
+<title>You Should Play These Games — contrapaul edu</title>
+<link rel="stylesheet" href="greatgames.css">
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Site navigation">
+  <span class="nav-attribution">A project by Mr. K. <a href="https://edu.contrapaul.com/tools">More at edu.contrapaul.com/tools</a></span>
+</nav>
+
+<main id="main-content">
+
+  <!-- ── HERO ───────────────────────────────────────────────────── -->
+  <header class="gg-hero">
+    <h1>You Should<br>Play These Games</h1>
+    <p class="gg-hero-sub">25 games worth your time — swipe sideways to browse, then scroll down on one you like to learn more.</p>
+    <div class="gg-hero-hint">
+      <span class="gg-hint-arrows" aria-hidden="true">&#8592;&nbsp;&nbsp;&#8594;</span> swipe
+    </div>
+  </header>
+
+  <!-- ── GALLERY (horizontal swipe/scroll) ───────────────────────── -->
+  <div class="gg-gallery" id="gallery" role="region" aria-label="Game list, swipe sideways to browse"></div>
+
+  <!-- ── DETAIL SECTIONS (stacked, one per game) ─────────────────── -->
+  <div id="details"></div>
+
+</main>
+
+<!-- ── FOOTER ───────────────────────────────────────────────────── -->
+<footer>
+  <p class="footer-source">Placeholder footer text — replace with real notes once this page is finalized.</p>
+  <p class="footer-disclaimer">More tools and resources at <a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
+</footer>
+
+<script src="games.js"></script>
+<script src="greatgames.js"></script>
+</body>
+</html>
