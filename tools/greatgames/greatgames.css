@@ -17,7 +17,10 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
+  /* proximity (not mandatory) so a small drag scrolls freely and only
+     gently settles when the user is already close to a page edge —
+     mandatory would force-complete every scroll into a hard jump. */
+  scroll-snap-type: y proximity;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -29,12 +32,9 @@ html {
   height: 100dvh;
   overflow-y: auto;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
-  scroll-margin-top: var(--nav-h);
   display: flex;
   flex-direction: column;
 }
-.gg-page-wheel { justify-content: center; }
 
 body {
   background: var(--bg);
@@ -42,7 +42,6 @@ body {
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.6;
-  padding-top: var(--nav-h);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -50,19 +49,25 @@ body {
 
 a { color: inherit; }
 
-/* ── NAV (minimal, matches DT-IA-Guide) ──────────────────────── */
+/* ── NAV (minimal, matches DT-IA-Guide) ─────────────────────────
+   Static, not fixed — a quiet "you came from here" reminder that
+   scrolls away with the page rather than staying pinned. */
 nav.site-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
   height: var(--nav-h);
   background: rgba(11,11,20,0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
   display: flex;
   align-items: center;
   padding: 0 28px;
-  z-index: 1000;
+  flex-shrink: 0;
+  /* Register the very top of the page as a snap point too — otherwise
+     proximity snapping treats the initial scrollY:0 as "unsnapped" and
+     immediately nudges down to the wheel page, hiding the nav on load. */
+  scroll-snap-align: start;
+}
+.gg-page-wheel {
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
 }
 .nav-attribution {
   font-size: 12px;
@@ -95,14 +100,16 @@ nav.site-nav {
 }
 /* ── GALLERY (horizontal swipe) ───────────────────────────────── */
 .gg-gallery {
+  flex: 1;
+  min-height: 0;
   display: flex;
+  align-items: flex-start;
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 20px calc(50vw - 100px) 40px;
+  padding: 8px calc(50vw - 100px);
   scroll-padding-inline: calc(50vw - 100px);
-  scroll-margin-top: var(--nav-h);
 }
 .gg-gallery::-webkit-scrollbar { height: 0; }
 .gg-gallery { scrollbar-width: none; }
@@ -330,9 +337,6 @@ nav.site-nav {
     font-size: 6.2vw;
     white-space: nowrap;
   }
-  .gg-gallery {
-    padding-top: 8px;
-  }
 }
 
 /* ── FOOTER (matches DT-IA-Guide's style, placeholder content) ─── */
@@ -351,7 +355,7 @@ footer a:hover { text-decoration: underline; }
 /* ── ACCESSIBILITY ────────────────────────────────────────────── */
 .skip-link { position: absolute; left: -9999px; top: 0; }
 .skip-link:focus {
-  left: 10px; top: 60px;
+  left: 10px; top: 10px;
   background: #4cc9ff;
   color: #0b0b14;
   padding: 8px 16px;

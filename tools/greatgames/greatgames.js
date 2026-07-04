@@ -136,26 +136,33 @@
     pane.appendChild(inner);
   }
 
-  // The gallery is rendered as [clone set][real set][clone set] so that
-  // swiping past either end reveals the wraparound neighbour (last game
-  // appears before the first, and vice versa). Once the swipe settles
-  // inside a clone set, we silently re-center on the equivalent real
-  // card — same content, so the jump is invisible — giving the illusion
-  // of a wheel that scrolls forever in either direction.
+  // The gallery is rendered as several clone sets on each side of one real
+  // set — [clone][clone][real][clone][clone] — so that even a fast, long
+  // fling lands well short of the actual scrollable edge; a single clone
+  // set on each side could be outrun by a strong swipe, which briefly
+  // exposes the hard boundary before the wraparound "catches up". Once a
+  // swipe settles anywhere in a clone set, we silently re-center on the
+  // equivalent real card — same content, so the jump is invisible —
+  // giving the illusion of a wheel that scrolls forever in either
+  // direction.
+  const COPIES = 5;
+  const MIDDLE_COPY = Math.floor(COPIES / 2);
+
   function render() {
     const gallery = document.getElementById('gallery');
     const detailPane = document.getElementById('detail-page');
     if (!gallery || !detailPane || typeof GAMES === 'undefined') return;
 
     const count = GAMES.length;
+    const middleStart = count * MIDDLE_COPY;
     const cards = [];
-    [GAMES, GAMES, GAMES].forEach((set, setIndex) => {
-      set.forEach((game) => {
-        const card = buildCard(game, { clone: setIndex !== 1 });
+    for (let setIndex = 0; setIndex < COPIES; setIndex++) {
+      GAMES.forEach((game) => {
+        const card = buildCard(game, { clone: setIndex !== MIDDLE_COPY });
         gallery.appendChild(card);
         cards.push(card);
       });
-    });
+    }
 
     let shownSlug = null;
     function showDetailFor(cardsIndex) {
@@ -190,11 +197,9 @@
     function recenterIfInCloneRegion() {
       const idx = centerMostCardIndex();
       if (idx < 0) return;
-      let realIdx = null;
-      if (idx < count) realIdx = idx + count;
-      else if (idx >= count * 2) realIdx = idx - count;
-      if (realIdx !== null) {
-        cards[realIdx].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+      const targetIdx = middleStart + (idx % count);
+      if (idx !== targetIdx) {
+        cards[targetIdx].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
         updateActiveCard();
       }
     }
@@ -231,10 +236,10 @@
     });
 
     // Start centered on the first card of the real (middle) set, so
-    // there's already a clone set to swipe backward into immediately.
+    // there's already clone sets to swipe into on either side immediately.
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        cards[count].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+        cards[middleStart].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
         updateActiveCard();
       });
     });
