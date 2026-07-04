@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Swipe through recommended games with educational value, then scroll down to learn more about the ones that catch your eye.">
+<meta name="description" content="Swipe through recommended games with educational value, then tap one to see more.">
 <title>You Should Play These Games — contrapaul edu</title>
 <link rel="stylesheet" href="greatgames.css">
 </head>
@@ -16,23 +16,31 @@
   <span class="nav-attribution">A project by Mr. K. <a href="https://edu.contrapaul.com/tools">More at edu.contrapaul.com/tools</a></span>
 </nav>
 
-<!-- ── WHEEL PAGE: hero + horizontal swipe gallery ─────────────── -->
-<div class="gg-page gg-page-wheel" id="main-content" role="main">
+<main id="main-content">
+
   <header class="gg-hero">
     <h1>Mr. K's recommended games</h1>
   </header>
 
+  <!-- ── GALLERY (horizontal swipe/scroll) ───────────────────────── -->
   <div class="gg-gallery" id="gallery" role="region" aria-label="Game list, swipe sideways to browse"></div>
-</div>
 
-<!-- ── DETAIL PAGE: content follows whichever card is centered ─── -->
-<div class="gg-page gg-page-detail" id="detail-page" role="region" aria-label="Selected game details"></div>
+</main>
 
 <!-- ── FOOTER ───────────────────────────────────────────────────── -->
 <footer>
   <p class="footer-source">Placeholder footer text — replace with real notes once this page is finalized.</p>
   <p class="footer-disclaimer">More tools and resources at <a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
 </footer>
+
+<!-- ── GAME DETAIL POPUP ────────────────────────────────────────── -->
+<div class="gg-modal" id="detailModal" hidden>
+  <div class="gg-modal-backdrop" data-modal-close></div>
+  <div class="gg-modal-box" role="dialog" aria-modal="true" aria-label="Game details" id="detailModalBox">
+    <button class="gg-modal-close" data-modal-close aria-label="Close">&times;</button>
+    <div class="gg-modal-content" id="detailModalContent"></div>
+  </div>
+</div>
 
 <script src="games.js"></script>
 <script src="greatgames.js"></script>

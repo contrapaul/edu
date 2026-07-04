@@ -1,11 +1,10 @@
 // ═══════════════════════════════════════════════════════════════════
 //  You Should Play These Games.
 //
-//  Two axes: swipe/scroll sideways through the wheel of cover cards to
-//  pick a game, swipe/scroll down to read about whichever one is
-//  centered, swipe back up to return to the wheel. The detail pane is
-//  a single reusable block whose content is rebuilt to match whichever
-//  card is currently centered — it isn't a per-game page.
+//  Swipe/scroll sideways through the wheel of cover cards to browse.
+//  Tap or click a card to pop up its details in a modal (same content
+//  and colors as the card); close it by tapping the X or clicking away
+//  to return to the wheel.
 // ═══════════════════════════════════════════════════════════════════
 (function () {
   const PLACEHOLDER_GLYPH = '\u{1F3AE}'; // 🎮 — obvious stand-in until real cover art is added.
@@ -59,9 +58,8 @@
     return card;
   }
 
-  function renderDetailPane(pane, game, index, total) {
-    pane.style.setProperty('--accent', game.accent);
-    pane.replaceChildren();
+  function renderDetailContent(container, game, index, total) {
+    container.replaceChildren();
 
     const inner = document.createElement('div');
     inner.className = 'gg-detail-inner';
@@ -133,7 +131,7 @@
     body.appendChild(ctaRow);
 
     inner.appendChild(body);
-    pane.appendChild(inner);
+    container.appendChild(inner);
   }
 
   // The gallery is rendered as several clone sets on each side of one real
@@ -150,8 +148,10 @@
 
   function render() {
     const gallery = document.getElementById('gallery');
-    const detailPane = document.getElementById('detail-page');
-    if (!gallery || !detailPane || typeof GAMES === 'undefined') return;
+    const modal = document.getElementById('detailModal');
+    const modalBox = document.getElementById('detailModalBox');
+    const modalContent = document.getElementById('detailModalContent');
+    if (!gallery || !modal || !modalBox || !modalContent || typeof GAMES === 'undefined') return;
 
     const count = GAMES.length;
     const middleStart = count * MIDDLE_COPY;
@@ -164,18 +164,23 @@
       });
     }
 
-    let shownSlug = null;
-    function showDetailFor(cardsIndex) {
-      const game = GAMES[cardsIndex % count];
-      if (game.slug === shownSlug) return;
-      shownSlug = game.slug;
-      renderDetailPane(detailPane, game, GAMES.indexOf(game), count);
+    function openDetailFor(game) {
+      modalBox.style.setProperty('--accent', game.accent);
+      renderDetailContent(modalContent, game, GAMES.indexOf(game), count);
+      modal.hidden = false;
     }
+    function closeDetail() { modal.hidden = true; }
+
+    modal.querySelectorAll('[data-modal-close]')
+      .forEach((el) => el.addEventListener('click', closeDetail));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.hidden) closeDetail();
+    });
 
     // Which card is nearest the gallery's horizontal center, measured
     // fresh from live geometry every time — used to highlight the active
-    // card, pick which game's detail to show, and detect when a swipe
-    // has settled inside a clone region (see recenterIfInCloneRegion).
+    // card and to detect when a swipe has settled inside a clone region
+    // (see recenterIfInCloneRegion).
     function centerMostCardIndex() {
       const galleryCenter = gallery.getBoundingClientRect().left + gallery.clientWidth / 2;
       let bestIdx = -1;
@@ -191,7 +196,6 @@
     function updateActiveCard() {
       const idx = centerMostCardIndex();
       cards.forEach((card, i) => card.classList.toggle('active', i === idx));
-      if (idx >= 0) showDetailFor(idx);
     }
 
     function recenterIfInCloneRegion() {
@@ -224,14 +228,12 @@
       });
     }
 
-    // Tapping a card both selects it (centers it in the wheel, in case it
-    // wasn't already) and jumps straight to its detail page — a shortcut
-    // alongside the swipe-sideways-then-swipe-down gesture.
+    // Tapping a card centers it in the wheel (in case it wasn't already)
+    // and pops up its details.
     cards.forEach((card, i) => {
       card.addEventListener('click', () => {
         card.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-        showDetailFor(i);
-        detailPane.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        openDetailFor(GAMES[i % count]);
       });
     });
 
