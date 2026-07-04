@@ -29,11 +29,17 @@
     return cover;
   }
 
-  function buildCard(game) {
+  function buildCard(game, { clone } = {}) {
     const card = document.createElement('a');
     card.className = 'gg-card';
     card.href = `#${game.slug}`;
     card.style.setProperty('--accent', game.accent);
+    if (clone) {
+      // Duplicate cards exist only so the wheel can wrap seamlessly —
+      // hide them from keyboard/screen-reader navigation.
+      card.setAttribute('aria-hidden', 'true');
+      card.tabIndex = -1;
+    }
     card.appendChild(buildCover(game));
 
     const title = document.createElement('div');
@@ -130,13 +136,11 @@
     back.href = '#gallery';
     back.textContent = '↑ Back to gallery';
     navRow.appendChild(back);
-    const next = all[index + 1];
-    if (next) {
-      const nextLink = document.createElement('a');
-      nextLink.href = `#${next.slug}`;
-      nextLink.textContent = `Next: ${next.title} ↓`;
-      navRow.appendChild(nextLink);
-    }
+    const next = all[(index + 1) % all.length];
+    const nextLink = document.createElement('a');
+    nextLink.href = `#${next.slug}`;
+    nextLink.textContent = `Next: ${next.title} ↓`;
+    navRow.appendChild(nextLink);
     body.appendChild(navRow);
 
     inner.appendChild(body);
@@ -144,15 +148,28 @@
     return section;
   }
 
+  // The gallery is rendered as [clone set][real set][clone set] so that
+  // swiping past either end reveals the wraparound neighbour (last game
+  // appears before the first, and vice versa). Once the swipe settles
+  // inside a clone set, we silently re-center on the equivalent real
+  // card — same content, so the jump is invisible — giving the illusion
+  // of a wheel that scrolls forever in either direction.
   function render() {
     const gallery = document.getElementById('gallery');
     const details = document.getElementById('details');
     if (!gallery || !details || typeof GAMES === 'undefined') return;
 
-    GAMES.forEach((game) => gallery.appendChild(buildCard(game)));
+    const count = GAMES.length;
+    const cards = [];
+    [GAMES, GAMES, GAMES].forEach((set, setIndex) => {
+      set.forEach((game) => {
+        const card = buildCard(game, { clone: setIndex !== 1 });
+        gallery.appendChild(card);
+        cards.push(card);
+      });
+    });
     GAMES.forEach((game, i) => details.appendChild(buildDetail(game, i, GAMES)));
 
-    const cards = Array.from(gallery.querySelectorAll('.gg-card'));
     const ratios = new Map();
     const observer = new IntersectionObserver(
       (entries) => {
@@ -167,6 +184,50 @@
       { root: gallery, threshold: [0, 0.25, 0.5, 0.6, 0.75, 1] }
     );
     cards.forEach((card) => observer.observe(card));
+
+    // Computed fresh (not read from the IntersectionObserver, which
+    // updates asynchronously and can race with 'scrollend') so the wrap
+    // check always reflects exactly where the gallery has actually settled.
+    function centerMostCardIndex() {
+      const galleryCenter = gallery.getBoundingClientRect().left + gallery.clientWidth / 2;
+      let bestIdx = -1;
+      let bestDist = Infinity;
+      cards.forEach((card, i) => {
+        const r = card.getBoundingClientRect();
+        const dist = Math.abs(r.left + r.width / 2 - galleryCenter);
+        if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+      });
+      return bestIdx;
+    }
+
+    function recenterIfInCloneRegion() {
+      const idx = centerMostCardIndex();
+      if (idx < 0) return;
+      let realIdx = null;
+      if (idx < count) realIdx = idx + count;
+      else if (idx >= count * 2) realIdx = idx - count;
+      if (realIdx !== null) {
+        cards[realIdx].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+      }
+    }
+
+    if ('onscrollend' in window) {
+      gallery.addEventListener('scrollend', recenterIfInCloneRegion);
+    } else {
+      let settleTimer;
+      gallery.addEventListener('scroll', () => {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(recenterIfInCloneRegion, 120);
+      });
+    }
+
+    // Start centered on the first card of the real (middle) set, so
+    // there's already a clone set to swipe backward into immediately.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        cards[count].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+      });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', render);
