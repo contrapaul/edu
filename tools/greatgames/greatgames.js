@@ -18,7 +18,7 @@
   const FILTER_CATEGORIES = [
     { key: "system", label: "System", field: "platforms", options: ["PC", "Mac", "Switch", "Mobile", "Consoles"] },
     { key: "type", label: "Type", field: "type", options: ["Action", "Puzzle", "Strategy", "RPG", "Simulation", "Sandbox/Building", "Platformer", "Sports/Racing", "Party/Multiplayer", "Educational"] },
-    { key: "violence", label: "Violence", field: "violence", options: ["None", "Some", "Lots"] },
+    { key: "violence", label: "Violence", field: "violence", options: ["None", "Low", "Some", "High"] },
     { key: "age", label: "Age", field: "age", options: ["7+", "10+", "13+", "16+"], cumulative: true },
     { key: "eduFocus", label: "Educational Focus", field: "eduFocus", options: ["Design & Engineering", "Logic & Math", "Creativity", "Strategy & Planning", "History & Culture"] },
   ];
