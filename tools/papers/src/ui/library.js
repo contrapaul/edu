@@ -33,6 +33,7 @@ export function openLibrary(onClose) {
               </div>
               <span class="reg-number">${r.number}</span>
               <p class="reg-plain">${r.plain}</p>
+              ${r.realWorld ? `<p class="reg-real"><b>🌍 Real world:</b> ${r.realWorld}</p>` : ''}
             </article>`).join('')}
       </div>
     </div>`;
