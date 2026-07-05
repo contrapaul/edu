@@ -19,6 +19,7 @@ import { openPortfolio, activeMarketCount } from '../ui/portfolio.js';
 import { openFinances } from '../ui/finances.js';
 import { openSandbox } from '../ui/sandbox.js';
 import { maybeTrigger } from './notify.js';
+import { canScout, scoutCost, scoutsRemaining, runScout } from './scout.js';
 
 const PHASE_LABELS = {
   brief: 'Brief', design: 'Design', testing: 'Testing',
@@ -133,6 +134,11 @@ function hudHTML(character, def) {
         <h3>GloboCorp${state.competitorProgress >= 70 ? ' ⚠' : ''}</h3>
         <div class="comp-bar"><span class="comp-fill" style="width:${state.competitorProgress}%"></span></div>
         <p class="comp-note">${state.competitorProgress >= 70 ? 'Closing in — they may beat you to market!' : 'Rival racing you to market'}</p>
+        <button class="scout-btn" data-tool="scout" title="Spend cash to learn where GloboCorp is stuck, then optionally pay more to press the advantage." ${canScout() ? '' : 'disabled'}>
+          ${scoutsRemaining() > 0
+            ? `🔍 Scout · ${money(scoutCost())} <span class="scout-left">(${scoutsRemaining()} left)</span>`
+            : '🔍 No scouts left this product'}
+        </button>
       </section>
     </aside>`;
 }
@@ -203,6 +209,7 @@ export function renderGame(root, onQuit) {
         state.phase = 'brief';
         state.product = null;
         state.competitorProgress = 0;   // a fresh competitor for the new product's dev race
+        state.competitor.intel = 0;     // fresh scouting budget too
         save();
         renderGame(root, onQuit);   // re-enter with the new product
       },
@@ -257,6 +264,7 @@ function bindTools(root, character, def, rerender) {
   const finances = root.querySelector('[data-tool="finances"]');
   const portfolio = root.querySelector('[data-tool="portfolio"]');
   const sandbox = root.querySelector('[data-tool="sandbox"]');
+  const scout = root.querySelector('[data-tool="scout"]');
   const hudRefresh = () => repaintHud(root, character, def, rerender);
   if (lib) lib.addEventListener('click', () => openLibrary(hudRefresh));
   if (inbox) inbox.addEventListener('click', () => openInbox(hudRefresh));
@@ -264,6 +272,7 @@ function bindTools(root, character, def, rerender) {
   if (portfolio) portfolio.addEventListener('click', () => openPortfolio(hudRefresh));
   // Sandbox changes can alter phase costs, so closing it re-renders the phase.
   if (sandbox) sandbox.addEventListener('click', () => openSandbox({ def, refreshHud: hudRefresh }, rerender));
+  if (scout) scout.addEventListener('click', () => runScout(hudRefresh));
   // Clickable stepper: jump back to an earlier phase. `rerender` is the full
   // phase repaint (paint), so changing state.phase then calling it re-mounts.
   root.querySelectorAll('.step.nav[data-phase]').forEach(li =>

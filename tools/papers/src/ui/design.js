@@ -3,18 +3,40 @@
 // process. Selections drive a live consequences panel and produce a
 // Preliminary Technical File that later phases consume.
 
-import { state, save } from '../state.js';
+import { state, save, canSpend } from '../state.js';
 import {
   SUPPLIERS, MANUFACTURING_PROCESSES,
   getMaterial, getPart, getProcess, materialsForSet
 } from '../content/materials.js';
-import { adjustMorale, advanceTime } from '../engine/events.js';
+import { adjustMorale, advanceTime, applyModifiers, logLedger } from '../engine/events.js';
 import { unitCost } from '../engine/economy.js';
 
 const money2 = (n) => '$' + n.toFixed(2);
+const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
 
 const stars = (n) => '★★★★★'.slice(0, n).padEnd(5, '☆');
 const dots  = (n) => '●●●●●'.slice(0, n).padEnd(5, '○');
+
+const INVESTIGATE_COST = 350;
+
+// The same risk logic gatherConsequences() uses for the *selected* option,
+// generalized to any option so it can be investigated before committing.
+const materialRisks = (m) => m.consequences.filter(c => c.kind === 'risk').map(c => c.text);
+const supplierRisk = (s, comp) => !s.docsComplete
+  ? `${s.name} can't supply complete certs${comp.critical ? ' — and this is a critical safety part.' : '.'}`
+  : null;
+
+// Renders either the revealed risk note (once paid for) or the investigate
+// button (before). `risks` is an array of strings — empty means "clean."
+function investigateHTML(revealed, risks, attrs) {
+  if (revealed) {
+    return risks.length
+      ? `<div class="opt-risk-note risk">🔍 ${risks.join(' ')}</div>`
+      : `<div class="opt-risk-note clean">🔍 No hidden risks found — this one's clean.</div>`;
+  }
+  const cost = applyModifiers('investigate-cost', INVESTIGATE_COST);
+  return `<button class="opt-investigate" ${attrs} ${canSpend(cost) ? '' : 'disabled'}>🔍 Investigate · ${money(cost)}</button>`;
+}
 
 export function renderDesign(container, ctx) {
   const { def } = ctx;
@@ -30,15 +52,18 @@ export function renderDesign(container, ctx) {
   // weigh and, if they get it wrong, discover in testing/certification.
   const materialCards = materials.map(m => {
     const on = p.selectedMaterials[matKey] === m.id ? ' on' : '';
-    return `<button class="opt material-opt${on}" data-material="${m.id}">
-      <span class="opt-name">${m.name}${typeof m.unitCost === 'number' ? `<span class="opt-unitcost">${money2(m.unitCost)}/unit</span>` : ''}</span>
-      <span class="opt-props">
-        <span>Cost ${dots(m.cost)}</span>
-        <span>Fire: ${m.fireRating}</span>
-        <span>Recycl. ${dots(m.recyclability)}</span>
-        <span>Tough ${dots(m.toughness)}</span>
-      </span>
-    </button>`;
+    return `<div class="opt-wrap">
+      <button class="opt material-opt${on}" data-material="${m.id}">
+        <span class="opt-name">${m.name}${typeof m.unitCost === 'number' ? `<span class="opt-unitcost">${money2(m.unitCost)}/unit</span>` : ''}</span>
+        <span class="opt-props">
+          <span>Cost ${dots(m.cost)}</span>
+          <span>Fire: ${m.fireRating}</span>
+          <span>Recycl. ${dots(m.recyclability)}</span>
+          <span>Tough ${dots(m.toughness)}</span>
+        </span>
+      </button>
+      ${investigateHTML(p.investigated.materials.includes(m.id), materialRisks(m), `data-inv-material="${m.id}"`)}
+    </div>`;
   }).join('');
 
   const supplierBlocks = supplierComps.map(comp => {
@@ -48,12 +73,17 @@ export function renderDesign(container, ctx) {
       const cost = typeof s.unitCost === 'number'
         ? `<span class="opt-unitcost">${money2(s.unitCost)}/unit</span>` : '';
       const mfr = s.mfr ? `<span class="opt-mfr">${s.mfr}</span>` : '';
-      return `<button class="opt supplier-opt${on}" data-comp="${comp.id}" data-supplier="${s.id}">
-        <span class="opt-name">${s.name}${cost}</span>
-        ${mfr}
-        <span class="opt-stars" title="Sourcing / compliance rating">${stars(s.rating)}</span>
-        <span class="opt-note">${s.note}</span>
-      </button>`;
+      const invKey = `${comp.id}:${s.id}`;
+      const risk = supplierRisk(s, comp);
+      return `<div class="opt-wrap">
+        <button class="opt supplier-opt${on}" data-comp="${comp.id}" data-supplier="${s.id}">
+          <span class="opt-name">${s.name}${cost}</span>
+          ${mfr}
+          <span class="opt-stars" title="Sourcing / compliance rating">${stars(s.rating)}</span>
+          <span class="opt-note">${s.note}</span>
+        </button>
+        ${investigateHTML(p.investigated.suppliers.includes(invKey), risk ? [risk] : [], `data-inv-supplier="${invKey}"`)}
+      </div>`;
     }).join('');
     return `<div class="supplier-block">
       <h3>${comp.name}${comp.critical ? ' <span class="crit">critical</span>' : ''}</h3>
@@ -221,6 +251,37 @@ export function renderDesign(container, ctx) {
       p.selectedSuppliers[comp] = btn.dataset.supplier;
       container.querySelectorAll(`[data-comp="${comp}"]`).forEach(b => b.classList.toggle('on', b === btn));
       refresh(); save();
+    });
+  });
+
+  // Pay to reveal an option's hidden risk BEFORE committing to it — a real
+  // trade-off between cash now and gambling blind. Re-renders the whole phase
+  // since the option card itself (not just the consequences panel) changes.
+  container.querySelectorAll('[data-inv-material]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cost = applyModifiers('investigate-cost', INVESTIGATE_COST);
+      if (!canSpend(cost)) return;
+      state.budget -= cost;
+      logLedger(`Investigate — ${getMaterial(btn.dataset.invMaterial)?.name || 'material'}`, -cost);
+      p.investigated.materials.push(btn.dataset.invMaterial);
+      save();
+      ctx.refreshHud();
+      renderDesign(container, ctx);
+    });
+  });
+  container.querySelectorAll('[data-inv-supplier]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cost = applyModifiers('investigate-cost', INVESTIGATE_COST);
+      if (!canSpend(cost)) return;
+      const [compId, supId] = btn.dataset.invSupplier.split(':');
+      const comp = supplierComps.find(c => c.id === compId);
+      const part = comp ? getPart(comp, supId) : null;
+      state.budget -= cost;
+      logLedger(`Investigate — ${part?.name || 'supplier'}`, -cost);
+      p.investigated.suppliers.push(btn.dataset.invSupplier);
+      save();
+      ctx.refreshHud();
+      renderDesign(container, ctx);
     });
   });
 

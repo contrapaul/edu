@@ -77,6 +77,7 @@ export function initProduct(def) {
     selectedMaterials: {},
     selectedSuppliers: {},  // slot id -> selected part-option id (or legacy supplier id)
     selectedProcess: null,
+    investigated: { materials: [], suppliers: [] },  // ids paid to reveal hidden risk on, before committing
     technicalFile: null,
     testResults: [],
     certification: null,    // { resolved: {id:'corrected'|'argued'}, deskCleared, granted }
