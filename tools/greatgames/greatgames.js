@@ -4,10 +4,41 @@
 //  Swipe/scroll sideways through the wheel of cover cards to browse.
 //  Tap or click a card to pop up its details in a modal (same content
 //  and colors as the card); close it by tapping the X or clicking away
-//  to return to the wheel.
+//  to return to the wheel. An expandable filter bar (System, Type,
+//  Violence, Age, Educational Focus) narrows which games appear in
+//  the wheel.
 // ═══════════════════════════════════════════════════════════════════
 (function () {
   const PLACEHOLDER_GLYPH = '\u{1F3AE}'; // 🎮 — obvious stand-in until real cover art is added.
+
+  // ── FILTER CATEGORIES ────────────────────────────────────────────
+  // `field` is the matching property on each game object in games.js.
+  // `cumulative` (age only) means selecting an option shows that option
+  // AND every "younger" option too, rather than an exact-match toggle.
+  const FILTER_CATEGORIES = [
+    { key: "system", label: "System", field: "platforms", options: ["PC", "Mac", "Switch", "Mobile", "Consoles"] },
+    { key: "type", label: "Type", field: "type", options: ["Action", "Puzzle", "Strategy", "RPG", "Simulation", "Sandbox/Building", "Platformer", "Sports/Racing", "Party/Multiplayer", "Educational"] },
+    { key: "violence", label: "Violence", field: "violence", options: ["None", "Some", "Lots"] },
+    { key: "age", label: "Age", field: "age", options: ["7+", "10+", "13+", "16+"], cumulative: true },
+    { key: "eduFocus", label: "Educational Focus", field: "eduFocus", options: ["Design & Engineering", "Logic & Math", "Creativity", "Strategy & Planning", "History & Culture"] },
+  ];
+  const AGE_ORDER = ["7+", "10+", "13+", "16+"];
+
+  const filterState = {};
+  FILTER_CATEGORIES.forEach((cat) => { filterState[cat.key] = new Set(); });
+
+  function matchesFilters(game) {
+    return FILTER_CATEGORIES.every((cat) => {
+      const selected = filterState[cat.key];
+      if (selected.size === 0) return true;
+      if (cat.cumulative) {
+        const maxRank = Math.max(...Array.from(selected).map((v) => AGE_ORDER.indexOf(v)));
+        return AGE_ORDER.indexOf(game[cat.field]) <= maxRank;
+      }
+      const values = Array.isArray(game[cat.field]) ? game[cat.field] : [game[cat.field]];
+      return values.some((v) => selected.has(v));
+    });
+  }
 
   function buildCover(game, { big } = {}) {
     const cover = document.createElement('div');
@@ -58,7 +89,26 @@
     return card;
   }
 
-  function renderDetailContent(container, game, index, total) {
+  function buildTagRow(game) {
+    const row = document.createElement('div');
+    row.className = 'gg-tag-row';
+    const tags = [
+      ...(game.platforms || []),
+      ...(game.type || []),
+      game.violence ? `${game.violence} Violence` : null,
+      game.age ? `Age ${game.age}` : null,
+      ...(game.eduFocus || []),
+    ].filter(Boolean);
+    tags.forEach((t) => {
+      const pill = document.createElement('span');
+      pill.className = 'gg-tag-pill';
+      pill.textContent = t;
+      row.appendChild(pill);
+    });
+    return row;
+  }
+
+  function renderDetailContent(container, game) {
     container.replaceChildren();
 
     const inner = document.createElement('div');
@@ -68,10 +118,7 @@
     const body = document.createElement('div');
     body.className = 'gg-detail-body';
 
-    const eyebrow = document.createElement('div');
-    eyebrow.className = 'gg-detail-eyebrow';
-    eyebrow.textContent = `Game ${String(index + 1).padStart(2, '0')} of ${total}`;
-    body.appendChild(eyebrow);
+    body.appendChild(buildTagRow(game));
 
     const title = document.createElement('h2');
     title.className = 'gg-detail-title';
@@ -82,18 +129,6 @@
     tagline.className = 'gg-detail-tagline';
     tagline.textContent = game.tagline;
     body.appendChild(tagline);
-
-    if (game.platforms && game.platforms.length) {
-      const pills = document.createElement('div');
-      pills.className = 'gg-platforms';
-      game.platforms.forEach((p) => {
-        const pill = document.createElement('span');
-        pill.className = 'gg-platform-pill';
-        pill.textContent = p;
-        pills.appendChild(pill);
-      });
-      body.appendChild(pills);
-    }
 
     const desc = document.createElement('p');
     desc.className = 'gg-detail-desc';
@@ -151,22 +186,20 @@
     const modal = document.getElementById('detailModal');
     const modalBox = document.getElementById('detailModalBox');
     const modalContent = document.getElementById('detailModalContent');
-    if (!gallery || !modal || !modalBox || !modalContent || typeof GAMES === 'undefined') return;
+    const filtersToggle = document.getElementById('filtersToggle');
+    const filtersCollapse = document.getElementById('filtersCollapse');
+    const filtersPanel = document.getElementById('filtersPanel');
+    const filtersCount = document.getElementById('filtersCount');
+    const filtersClear = document.getElementById('filtersClear');
+    if (!gallery || !modal || !modalBox || !modalContent || !filtersPanel || typeof GAMES === 'undefined') return;
 
-    const count = GAMES.length;
-    const middleStart = count * MIDDLE_COPY;
-    const cards = [];
-    for (let setIndex = 0; setIndex < COPIES; setIndex++) {
-      GAMES.forEach((game) => {
-        const card = buildCard(game, { clone: setIndex !== MIDDLE_COPY });
-        gallery.appendChild(card);
-        cards.push(card);
-      });
-    }
+    let cards = [];
+    let count = 0;
+    let middleStart = 0;
 
     function openDetailFor(game) {
       modalBox.style.setProperty('--accent', game.accent);
-      renderDetailContent(modalContent, game, GAMES.indexOf(game), count);
+      renderDetailContent(modalContent, game);
       modal.hidden = false;
     }
     function closeDetail() { modal.hidden = true; }
@@ -199,6 +232,7 @@
     }
 
     function recenterIfInCloneRegion() {
+      if (count === 0) return;
       const idx = centerMostCardIndex();
       if (idx < 0) return;
       const targetIdx = middleStart + (idx % count);
@@ -228,23 +262,119 @@
       });
     }
 
-    // Tapping a card centers it in the wheel (in case it wasn't already)
-    // and pops up its details.
-    cards.forEach((card, i) => {
-      card.addEventListener('click', () => {
-        card.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
-        openDetailFor(GAMES[i % count]);
+    // Rebuilds the wheel from scratch for the given (already-filtered)
+    // list of games — called on load and every time a filter changes.
+    function buildWheel(gamesList) {
+      gallery.replaceChildren();
+      cards = [];
+      count = gamesList.length;
+      middleStart = count * MIDDLE_COPY;
+
+      if (count === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'gg-empty-state';
+        empty.textContent = 'No games match these filters.';
+        gallery.appendChild(empty);
+        return;
+      }
+
+      for (let setIndex = 0; setIndex < COPIES; setIndex++) {
+        gamesList.forEach((game) => {
+          const card = buildCard(game, { clone: setIndex !== MIDDLE_COPY });
+          card.addEventListener('click', () => {
+            card.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+            openDetailFor(game);
+          });
+          gallery.appendChild(card);
+          cards.push(card);
+        });
+      }
+
+      // Start centered on the first card of the real (middle) set, so
+      // there's already clone sets to swipe into on either side immediately.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          cards[middleStart].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
+          updateActiveCard();
+        });
       });
+    }
+
+    function applyFilters() {
+      buildWheel(GAMES.filter(matchesFilters));
+    }
+
+    // ── FILTER BAR ────────────────────────────────────────────────
+    function refreshChipStates() {
+      filtersPanel.querySelectorAll('.gg-filter-chip').forEach((chip) => {
+        const selected = filterState[chip.dataset.category].has(chip.dataset.value);
+        chip.setAttribute('aria-pressed', String(selected));
+      });
+    }
+
+    function updateFilterCount() {
+      const total = FILTER_CATEGORIES.reduce((sum, cat) => sum + filterState[cat.key].size, 0);
+      filtersCount.textContent = String(total);
+      filtersCount.hidden = total === 0;
+      filtersClear.hidden = total === 0;
+    }
+
+    function toggleFilterValue(cat, value) {
+      const set = filterState[cat.key];
+      if (cat.cumulative) {
+        // Ordinal threshold, not an independent toggle: picking a value
+        // replaces any previous one; picking the same value again clears it.
+        const wasOnlySelection = set.has(value) && set.size === 1;
+        set.clear();
+        if (!wasOnlySelection) set.add(value);
+      } else if (set.has(value)) {
+        set.delete(value);
+      } else {
+        set.add(value);
+      }
+      refreshChipStates();
+      updateFilterCount();
+      applyFilters();
+    }
+
+    FILTER_CATEGORIES.forEach((cat) => {
+      const group = document.createElement('div');
+      group.className = 'gg-filter-group';
+
+      const label = document.createElement('span');
+      label.className = 'gg-filter-label';
+      label.textContent = cat.label;
+      group.appendChild(label);
+
+      cat.options.forEach((opt) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'gg-filter-chip';
+        chip.textContent = opt;
+        chip.dataset.category = cat.key;
+        chip.dataset.value = opt;
+        chip.setAttribute('aria-pressed', 'false');
+        chip.addEventListener('click', () => toggleFilterValue(cat, opt));
+        group.appendChild(chip);
+      });
+
+      filtersPanel.appendChild(group);
     });
 
-    // Start centered on the first card of the real (middle) set, so
-    // there's already clone sets to swipe into on either side immediately.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        cards[middleStart].scrollIntoView({ behavior: 'auto', inline: 'center', block: 'nearest' });
-        updateActiveCard();
-      });
+    filtersToggle.addEventListener('click', () => {
+      const expanded = filtersToggle.getAttribute('aria-expanded') === 'true';
+      filtersToggle.setAttribute('aria-expanded', String(!expanded));
+      filtersCollapse.classList.toggle('expanded', !expanded);
     });
+
+    filtersClear.addEventListener('click', () => {
+      FILTER_CATEGORIES.forEach((cat) => filterState[cat.key].clear());
+      refreshChipStates();
+      updateFilterCount();
+      applyFilters();
+    });
+
+    buildWheel(GAMES);
   }
 
   document.addEventListener('DOMContentLoaded', render);
