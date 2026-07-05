@@ -61,7 +61,7 @@ nav.site-nav {
 .gg-hero {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 40px 24px 32px;
+  padding: 40px 24px 16px;
   text-align: center;
 }
 .gg-hero h1 {
@@ -82,7 +82,10 @@ nav.site-nav {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 8px calc(50vw - 100px) 48px;
+  /* overflow-x:auto forces overflow-y to auto too, so the active card's
+     scale+glow (which extends above its own box) needs real padding
+     here or it gets clipped in a hard flat line at the gallery's edge. */
+  padding: 28px calc(50vw - 100px) 48px;
   scroll-padding-inline: calc(50vw - 100px);
 }
 .gg-gallery::-webkit-scrollbar { height: 0; }
@@ -119,7 +122,7 @@ nav.site-nav {
 
 .gg-cover {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 3;
   border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(160deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #05050c));
@@ -220,8 +223,8 @@ nav.site-nav {
 
 .gg-detail-cover {
   align-self: center;
-  width: min(220px, 60vw);
-  aspect-ratio: 3 / 4;
+  width: min(300px, 80vw);
+  aspect-ratio: 4 / 3;
   border-radius: 16px;
   overflow: hidden;
   background: linear-gradient(160deg, var(--accent), color-mix(in srgb, var(--accent) 30%, #05050c));
@@ -335,7 +338,7 @@ nav.site-nav {
 
 @media (max-width: 719px) {
   .gg-hero {
-    padding: 10px 16px 20px;
+    padding: 10px 16px 8px;
   }
   .gg-hero h1 {
     font-size: 6.2vw;
