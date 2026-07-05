@@ -170,6 +170,49 @@
     ctaRow.appendChild(ctaNote);
     body.appendChild(ctaRow);
 
+    if (game.contentNotes) {
+      const notesTitle = document.createElement('div');
+      notesTitle.className = 'gg-why-title';
+      notesTitle.textContent = 'Content Notes';
+      body.appendChild(notesTitle);
+
+      const notesText = document.createElement('p');
+      notesText.className = 'gg-detail-desc';
+      notesText.textContent = game.contentNotes;
+      body.appendChild(notesText);
+    }
+
+    if (game.parentsNote || (game.discussionQuestions && game.discussionQuestions.length)) {
+      const guideTitle = document.createElement('div');
+      guideTitle.className = 'gg-why-title';
+      guideTitle.textContent = 'Parents Guide';
+      body.appendChild(guideTitle);
+
+      if (game.parentsNote) {
+        const noteText = document.createElement('p');
+        noteText.className = 'gg-detail-desc';
+        noteText.textContent = game.parentsNote;
+        body.appendChild(noteText);
+      }
+
+      if (game.discussionQuestions && game.discussionQuestions.length) {
+        const qTitle = document.createElement('div');
+        qTitle.className = 'gg-discussion-subtitle';
+        qTitle.textContent = 'Discussion Questions';
+        body.appendChild(qTitle);
+
+        const qList = document.createElement('ul');
+        qList.className = 'gg-why-list';
+        game.discussionQuestions.forEach((q) => {
+          const li = document.createElement('li');
+          li.className = 'gg-why-item';
+          li.textContent = q;
+          qList.appendChild(li);
+        });
+        body.appendChild(qList);
+      }
+    }
+
     inner.appendChild(body);
     container.appendChild(inner);
   }
