@@ -86,6 +86,11 @@
     tagline.textContent = game.tagline;
     card.appendChild(tagline);
 
+    const desc = document.createElement('div');
+    desc.className = 'gg-card-desc';
+    desc.textContent = game.description;
+    card.appendChild(desc);
+
     return card;
   }
 
