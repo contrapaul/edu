@@ -184,6 +184,17 @@ Each chunk is independently demoable. ✅ = done.
 - **Verify:** ✅ Automated Playwright run: brief→design transition fired the "Northline bundle" popup with 3 real choices; picking "Sign the bundle deal" animated the HUD budget $143,000→$141,500 with the cost flash. A second, unrelated notification (school sponsorship ask) fired independently on entering the Testing phase, confirming interrupts aren't tied to one transition. All 4 Testing test cards render distinct why/skip text.
 - **Not done (future work):** the 7 notification templates are generic across all 9 products/3 characters rather than bespoke per product — a natural place to add more voice once the illustrator's character art exists. Bespoke test ids (speed, GDPR, food-contact, etc. from Chunk 8) fall back to the generic engine text unless a product author adds its own `why`/`skipNote`.
 
+### Chunk 11b — Regulatory Library real-world examples  ✅
+- [x] `content/regulations.js`: every one of the 16 standards now carries a `realWorld` field alongside `plain` — a concrete case, origin story, or consequence (RoHS ↔ Sony's 2001 cadmium-cable recall, the EU's USB-C mandate under the Radio Equipment Directive, the FTC's "bamboo" greenwashing fines, Japan's 2006 "PSE shock," etc).
+- [x] Rendered in `ui/library.js` under a dashed divider so it reads as an optional second layer, not clutter on the core definition.
+- **Verify:** ✅ Screenshot-confirmed rendering in the Library modal; all entries carry real, checkable facts.
+
+### Chunk 12 — Strategic depth: espionage + pay-to-de-risk  ✅
+- [x] **Design-phase investigation** (`ui/design.js`): every material and supplier option can be investigated for a flat fee (`applyModifiers('investigate-cost', 350)`) *before* committing to it — reveals that option's hidden `kind:'risk'` consequences (or confirms "no hidden risks found" for a clean one). Persisted per-product on `product.investigated.{materials,suppliers}`. Turns the previously-invisible risk system into an active buy-information-or-gamble decision instead of a silent trap.
+  - Card markup changed from a single `<button class="opt">` to a `<div class="opt-wrap">` holding the original select-button plus a sibling `<button class="opt-investigate">` — avoids nesting a button inside a button; no changes needed to the existing selection click handlers.
+- [x] **Competitor scouting** (`content/scouting.js` + `engine/scout.js`): a HUD button on the GloboCorp panel spends cash (cost rises each use, capped at 3 per product) to get a flavor "field report" via the popup component, then a real choice — press the advantage (extra cost, −12 competitor progress) or just bank the intel for free. Reuses `state.competitor.intel`, a field reserved for exactly this in the original state shape but never wired up until now.
+- **Verify:** ✅ Automated Playwright run: investigating Bamboo Composite ($350) revealed both its real risk lines; investigating PC/ABS Blend confirmed the "clean" path; a scout ($600) + "press the advantage" ($1,200) dropped competitor progress 30%→18% and budget by $1,800 total, with the next scout's cost escalating to $900 and remaining count ticking 3→2.
+
 ---
 
 ## 3. Content authoring template

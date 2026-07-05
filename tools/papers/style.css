@@ -289,6 +289,8 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .reg-market { font-family: var(--font-mono); font-size: 0.66rem; color: var(--muted); white-space: nowrap; }
 .reg-number { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); }
 .reg-plain { font-size: 0.82rem; color: #33373f; margin-top: 0.3rem; }
+.reg-real { font-size: 0.8rem; color: #33373f; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--line); }
+.reg-real b { color: var(--accent); }
 
 /* sandbox / operations panel */
 .sandbox-body { overflow-y: auto; padding: 0.5rem 1.3rem 1.3rem; }
@@ -354,6 +356,15 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .comp-bar { height: 7px; background: rgba(255,255,255,0.12); border-radius: 4px; overflow: hidden; }
 .comp-fill { display: block; height: 100%; background: linear-gradient(90deg,#e0a04f,#e05f5f); }
 .comp-note { font-size: 0.68rem; color: var(--muted); margin-top: 0.4rem; }
+.scout-btn {
+  width: 100%; margin-top: 0.6rem; background: rgba(244,241,234,0.08);
+  border: 1px solid rgba(244,241,234,0.2); border-radius: 5px;
+  color: var(--paper); font-size: 0.74rem; padding: 0.4rem 0.5rem;
+  transition: background var(--transition);
+}
+.scout-btn:hover:not(:disabled) { background: rgba(244,241,234,0.18); }
+.scout-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.scout-left { color: #aeb6c2; }
 
 /* --- phase stub --- */
 .phase-stub {
@@ -471,6 +482,22 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .opt-warn { color: var(--stamp-red); font-weight: 700; }
 .opt-stars { color: #d29a00; font-size: 0.85rem; letter-spacing: 0.05em; }
 .opt-note { font-size: 0.74rem; color: var(--muted); }
+
+/* Pay-to-reveal-risk (Design phase): the option button plus a sibling
+   investigate control, wrapped so opt-grid still lays out one item per option. */
+.opt-wrap { display: flex; flex-direction: column; gap: 0.35rem; }
+.opt-wrap .opt { flex: 1; }
+.opt-investigate {
+  align-self: flex-start; font-size: 0.72rem; font-family: var(--font-mono);
+  background: #fff; border: 1px dashed var(--line); border-radius: 4px;
+  padding: 0.3rem 0.55rem; color: var(--muted);
+  transition: border-color var(--transition), color var(--transition);
+}
+.opt-investigate:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.opt-investigate:disabled { opacity: 0.4; cursor: not-allowed; }
+.opt-risk-note { font-size: 0.72rem; border-radius: 4px; padding: 0.4rem 0.6rem; }
+.opt-risk-note.risk  { background: #fbeeec; color: #8a2c22; border: 1px solid var(--stamp-red); }
+.opt-risk-note.clean { background: #e9f6ec; color: #175c37; border: 1px solid var(--stamp-grn); }
 
 /* Production: assembly-partner lock-in states */
 .opt[disabled] { cursor: default; }
