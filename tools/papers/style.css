@@ -186,6 +186,13 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .hud-budget.warn .hud-budget-l { color: var(--stamp-red); }
 @keyframes budgetpulse { 50% { opacity: 0.5; } }
 
+/* Momentary color cue while a HUD number is animating toward its new value —
+   the "money ticking" feel instead of a snap between phases. */
+.hud-budget-n, .hud-clock-n { transition: color 200ms ease; }
+.hud-budget-n.flash-up   { color: #6fe0a0; }
+.hud-budget-n.flash-down { color: #ff9a7a; }
+.hud-clock-n.flash-up, .hud-clock-n.flash-down { color: #fff; }
+
 /* Finances panel */
 .fin-summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem 1rem; padding: 0.9rem 1.3rem; }
 .fin-stat { display: flex; justify-content: space-between; font-size: 0.85rem; border-bottom: 1px solid var(--paper-2); padding-bottom: 0.3rem; }
@@ -233,6 +240,45 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .pp-close { background: none; border: none; font-size: 1.1rem; color: var(--muted); cursor: pointer; }
 .pp-close:hover { color: var(--ink); }
 .pp-empty { color: var(--muted); font-style: italic; padding: 1.5rem 1.3rem; }
+
+/* --- character popup (docked portrait + speech bubble) ---
+   The one place a character "pops up" to say something and ask a real
+   question. `.popup-portrait` is a plain colored circle + initial today —
+   the seam for the illustrator's art to drop into later (swap the <span>
+   for an <img>, or set a background-image on the circle; the layout doesn't
+   need to change). */
+.popup-overlay { align-items: flex-end; justify-content: center; padding: 2rem 1.5rem; }
+.popup-card {
+  display: flex; align-items: flex-end; gap: 0.9rem;
+  max-width: 620px; width: 100%;
+  animation: popup-in 220ms ease-out;
+}
+@keyframes popup-in { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.popup-portrait {
+  flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--pc-accent, var(--accent)); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+.popup-bubble {
+  background: var(--paper); color: var(--ink); border-radius: var(--radius);
+  padding: 1rem 1.2rem; box-shadow: 0 18px 50px rgba(0,0,0,0.5);
+  display: flex; flex-direction: column; gap: 0.7rem; flex: 1;
+}
+.popup-head { display: flex; align-items: baseline; gap: 0.5rem; }
+.popup-head b { font-family: var(--font-display); font-size: 1.05rem; }
+.popup-head span { font-size: 0.72rem; color: var(--muted); }
+.popup-text { font-size: 0.9rem; color: #33373f; }
+.popup-choices { display: flex; flex-direction: column; gap: 0.4rem; }
+.popup-choice {
+  text-align: left; background: #fff; border: 1px solid var(--line); border-radius: 5px;
+  padding: 0.5rem 0.7rem; display: flex; flex-direction: column; gap: 0.1rem;
+  transition: border-color var(--transition), background var(--transition);
+}
+.popup-choice:hover { border-color: var(--accent); background: var(--paper-2); }
+.popup-choice-label { font-size: 0.86rem; font-weight: 600; }
+.popup-choice-hint { font-size: 0.74rem; color: var(--muted); }
 
 /* library */
 .library-sub { font-size: 0.8rem; color: var(--muted); padding: 0.8rem 1.3rem 0; }
@@ -474,8 +520,11 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .test-head h3 { font-size: 0.98rem; }
 .test-tag { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--hl); background: var(--hl-bg); padding: 0.1rem 0.4rem; border-radius: 3px; }
-.test-desc { font-size: 0.8rem; color: #44484f; flex: 1; }
-.test-run { align-self: flex-start; font-size: 0.82rem; }
+.test-desc { font-size: 0.8rem; color: #44484f; }
+.test-why, .test-skip { font-size: 0.76rem; color: var(--muted); border-left: 2px solid var(--line); padding-left: 0.55rem; }
+.test-why b, .test-skip b { color: #33373f; }
+.test-skip { border-left-color: #d8b98a; }
+.test-run { align-self: flex-start; font-size: 0.82rem; margin-top: auto; }
 .test-result { display: flex; flex-direction: column; gap: 0.3rem; padding: 0.5rem 0.7rem; border-radius: 4px; border-left: 3px solid var(--muted); }
 .test-badge { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; }
 .test-details { font-size: 0.8rem; color: #33373f; }
