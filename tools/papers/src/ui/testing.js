@@ -13,6 +13,19 @@ import { productCaps } from '../engine/economy.js';
 const CAP_LABELS = { bluetooth: 'Bluetooth', wifi: 'Wi-Fi' };
 const capLabel = (c) => CAP_LABELS[c] || c;
 
+// Why each common test matters and what skipping it costs you later — so
+// "Run" reads as an informed choice, not a box you must click. A product can
+// override either line per-test with `why` / `skipNote` on its test def;
+// these are the fallback for the common test ids shared across products.
+const TEST_NOTES = {
+  emc:          { why: 'Confirms the product won’t jam other devices or blow past the radio-emissions limit for the markets you picked.', skip: 'Submit blind — a certifier who finds emissions issues later can reject the whole filing.' },
+  flammability: { why: 'Confirms the enclosure self-extinguishes fast enough to meet the fire-safety standard.', skip: 'A real fire risk can surface at certification (or worse, in the field) instead of here, where it’s cheap to fix.' },
+  mechanical:   { why: 'Confirms the housing survives drop and load stress instead of cracking in someone’s bag.', skip: 'A weak point ships hidden and can turn into a field failure and a reputation hit.' },
+  chemical:     { why: 'Screens materials for restricted substances (RoHS, Prop 65) before a regulator finds them for you.', skip: 'A flagged substance found at certification means a late redesign, not a quick fix.' },
+  battery:      { why: 'Confirms the cells carry real safety/transport documentation and won’t overheat under normal charging.', skip: 'Bad cells are a genuine safety and air-freight blocker — this is the cheapest place to catch it.' },
+  droptest:     { why: 'Finds the weak point in the housing before a customer does.', skip: 'Ships as-is; a crack shows up later as a field issue instead of a design fix now.' }
+};
+
 const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
 const STATUS_LABEL = { pass: 'PASS', conditional: 'CONDITIONAL', fail: 'FAIL' };
 
@@ -110,9 +123,14 @@ export function renderTesting(container, ctx) {
         : `<button class="btn-primary test-run" data-run="${t.id}" ${affordable ? '' : 'disabled'}>
              Run · ${money(cost)}${surcharge} · ${t.days}d${affordable ? '' : ' (over budget)'}
            </button>`;
+      const notes = TEST_NOTES[t.id] || {};
+      const why = t.why || notes.why;
+      const skipNote = t.skipNote || notes.skip;
       return `<div class="test-card${res ? ' done' : ''}">
         <div class="test-head"><h3>${t.name}</h3>${t.interactive ? '<span class="test-tag">interactive</span>' : ''}</div>
         <p class="test-desc">${t.desc}</p>
+        ${why ? `<p class="test-why"><b>Why it matters:</b> ${why}</p>` : ''}
+        ${!res && skipNote ? `<p class="test-skip"><b>If you skip it:</b> ${skipNote}</p>` : ''}
         ${body}
       </div>`;
     }).join('');

@@ -175,6 +175,15 @@ Each chunk is independently demoable. ✅ = done.
 - [ ] SME content review — external/human task; regulations modelled faithfully but should be spot-checked by a subject expert before classroom use.
 - **Verify:** ✅ Card → game loads; glyphs render ✕✕✕✓ with per-peak aria-labels; Escape closes modals; 375 px overflow = 0; clean console.
 
+### Chunk 11 — "Real time" feel: ambient interrupts + explained choices  ✅
+- [x] `ui/popup.js`: generic docked-portrait + speech-bubble component. The portrait is a colored circle + initial today — this is the seam for the student illustrator's art (swap the `<span>` for an `<img>`, no layout change needed). Reusable beyond notifications (staff barks, audits, etc.) later.
+- [x] `content/notifications.js` + `engine/notify.js`: a pool of interactive mid-development notifications (partner/bundle offers, fan & influencer asks, shady offers to turn down — bribes, fake reviews, knockoff licensing) that interrupt whatever phase the player is on, not just phase transitions. Each fires at most once per game, spaced by a cooldown (`state.lastNotifyDay`) and gated by day-eligibility (`minDay`), so it reads as ambient rather than a spam wall. Every notification always has a free "decline" choice — nothing is a trap.
+- [x] Wired into `engine/phases.js`: `maybeTrigger` runs on phase entry (`paint`) and after any HUD-affecting action (`repaintHud`, which every phase module already calls via `ctx.refreshHud`) — no changes needed to individual phase UIs.
+- [x] HUD budget/clock numbers animate (count up/down + a brief color flash) instead of snapping between values, so time/money read as continuously ticking rather than a lump-sum jump on "advance."
+- [x] `ui/testing.js`: each test card now shows "Why it matters" / "If you skip it" — a shared `TEST_NOTES` map by test id, overridable per-test via `why`/`skipNote` fields on the content data — so Running a test (or not) reads as an informed trade-off instead of a mandatory click.
+- **Verify:** ✅ Automated Playwright run: brief→design transition fired the "Northline bundle" popup with 3 real choices; picking "Sign the bundle deal" animated the HUD budget $143,000→$141,500 with the cost flash. A second, unrelated notification (school sponsorship ask) fired independently on entering the Testing phase, confirming interrupts aren't tied to one transition. All 4 Testing test cards render distinct why/skip text.
+- **Not done (future work):** the 7 notification templates are generic across all 9 products/3 characters rather than bespoke per product — a natural place to add more voice once the illustrator's character art exists. Bespoke test ids (speed, GDPR, food-contact, etc. from Chunk 8) fall back to the generic engine text unless a product author adds its own `why`/`skipNote`.
+
 ---
 
 ## 3. Content authoring template
