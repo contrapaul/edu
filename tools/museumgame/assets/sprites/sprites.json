@@ -1,0 +1,20 @@
+{
+  "sprites": [
+    {
+      "key": "player",
+      "file": "assets/sprites/player.png",
+      "frameWidth": 16,
+      "frameHeight": 24,
+      "anims": [
+        { "key": "walk-down",  "frames": [0, 1, 2, 3],     "frameRate": 8, "repeat": -1 },
+        { "key": "walk-left",  "frames": [4, 5, 6, 7],     "frameRate": 8, "repeat": -1 },
+        { "key": "walk-right", "frames": [8, 9, 10, 11],   "frameRate": 8, "repeat": -1 },
+        { "key": "walk-up",    "frames": [12, 13, 14, 15], "frameRate": 8, "repeat": -1 },
+        { "key": "idle-down",  "frames": [0],  "frameRate": 1, "repeat": -1 },
+        { "key": "idle-left",  "frames": [4],  "frameRate": 1, "repeat": -1 },
+        { "key": "idle-right", "frames": [8],  "frameRate": 1, "repeat": -1 },
+        { "key": "idle-up",    "frames": [12], "frameRate": 1, "repeat": -1 }
+      ]
+    }
+  ]
+}
