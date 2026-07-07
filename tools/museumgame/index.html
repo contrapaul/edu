@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <title>Museum of Mr. K's Technology — 2D</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Match the site's light/dark theme for popup content surfaces.
+    document.documentElement.dataset.theme = localStorage.getItem('edu-theme') || 'dark';
+  </script>
+</head>
+<body>
+  <div id="game"></div>
+
+  <a id="back-link" href="/tools/">&larr; Tools</a>
+
+  <div id="prompt" hidden>
+    <span id="prompt-title"></span>
+    <span class="prompt-keys"><kbd>E</kbd> Read <span class="dot">&middot;</span> <kbd>F</kbd> Listen</span>
+  </div>
+
+  <div id="toast" hidden></div>
+
+  <div id="touch">
+    <div id="dpad">
+      <button data-dir="up" aria-label="Move up">&#9650;</button>
+      <button data-dir="left" aria-label="Move left">&#9664;</button>
+      <button data-dir="right" aria-label="Move right">&#9654;</button>
+      <button data-dir="down" aria-label="Move down">&#9660;</button>
+    </div>
+    <div id="actions">
+      <button id="btn-interact" aria-label="Interact">E</button>
+      <button id="btn-audio" aria-label="Audio guide">F</button>
+    </div>
+  </div>
+
+  <div id="popup-backdrop" hidden>
+    <div id="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+      <header>
+        <div>
+          <span id="popup-zone"></span>
+          <h2 id="popup-title"></h2>
+        </div>
+        <button id="popup-close" aria-label="Close">&times;</button>
+      </header>
+      <div id="popup-body"></div>
+      <footer>
+        <button id="popup-audio">&#9654; Play audio guide <kbd>F</kbd></button>
+      </footer>
+    </div>
+  </div>
+
+  <div id="loading">Loading the museum&hellip;</div>
+
+  <script src="lib/phaser-3.90.0.min.js"></script>
+  <script src="controls.js"></script>
+  <script src="ui.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
