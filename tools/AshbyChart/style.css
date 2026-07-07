@@ -1,0 +1,444 @@
+/* ── MATERIAL CLASS COLORS ───────────────────────────────────
+   Categorical palette validated for light + dark surfaces
+   (CVD-safe adjacent pairs; legend labels + score table give
+   relief for the sub-3:1 yellow on light). */
+.ashby-main {
+    --mat-metal:     #2a78d6;
+    --mat-polymer:   #eda100;
+    --mat-ceramic:   #e34948;
+    --mat-composite: #4a3aa7;
+    --mat-natural:   #008300;
+}
+[data-theme="dark"] .ashby-main,
+[data-theme="dos"] .ashby-main,
+[data-theme="xbox"] .ashby-main {
+    --mat-metal:     #3987e5;
+    --mat-polymer:   #c98500;
+    --mat-ceramic:   #e66767;
+    --mat-composite: #9085e9;
+    --mat-natural:   #008300;
+}
+
+/* ── MAIN LAYOUT ─────────────────────────────────────────── */
+.ashby-main {
+    /* Clean sans game font, matching tools/craft — independent of the site serif. */
+    --ashby-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 1.5rem;
+    font-family: var(--ashby-font);
+}
+
+/* ── TOOLBAR ─────────────────────────────────────────────── */
+.ashby-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.75rem 0.25rem;
+}
+.ashby-title {
+    font-family: var(--ashby-font);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.01em;
+    margin-right: auto;
+}
+.ashby-stat {
+    font-size: 0.82rem;
+    background: var(--surface-2);
+    color: var(--muted);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+}
+.ashby-stat strong {
+    color: var(--accent);
+    font-weight: 700;
+}
+.ashby-btn {
+    font-family: var(--ashby-font);
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.ashby-btn:hover:not(:disabled) {
+    color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--surface);
+}
+.ashby-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+.ashby-btn-finish:not(:disabled) {
+    background: var(--accent-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* ── GAME LAYOUT: CHART (left) + POOL (right) ────────────── */
+.ashby-app {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+}
+.ashby-chart-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* ── CHART ───────────────────────────────────────────────── */
+.ashby-chart-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    touch-action: none;
+}
+#ashbyCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: crosshair;
+}
+.ashby-tooltip {
+    position: absolute;
+    z-index: 5;
+    pointer-events: none;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+    padding: 0.25rem 0.55rem;
+    font-size: 0.74rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+/* ── LEGEND ──────────────────────────────────────────────── */
+.ashby-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.1rem;
+    padding: 0 0.25rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+.ashby-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.ashby-legend-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── DEFINITION / FEEDBACK PANEL (as in tools/craft) ─────── */
+.ashby-def-panel {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+}
+.ashby-def-emoji {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.ashby-def-body { min-width: 0; }
+.ashby-def-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+.ashby-def-text {
+    font-size: 0.82rem;
+    color: var(--text);
+    margin-top: 0.15rem;
+    line-height: 1.45;
+}
+.ashby-def-meta {
+    font-family: var(--ashby-font);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    margin-top: 0.3rem;
+}
+.ashby-def-meta .good { color: var(--green); }
+.ashby-def-meta .warn { color: var(--amber); }
+
+/* ── MATERIAL POOL (RIGHT SIDEBAR) ───────────────────────── */
+.ashby-pool-panel {
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    min-height: 0;
+}
+.ashby-pool-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.75rem 0.9rem 0.5rem;
+    flex-shrink: 0;
+}
+.ashby-pool-title {
+    font-family: var(--ashby-font);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+.ashby-pool-count {
+    font-family: var(--ashby-font);
+    font-size: 1rem;
+    color: var(--muted);
+}
+.ashby-pool-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 0.75rem 0.75rem;
+    min-height: 0;
+}
+.ashby-pool-list::-webkit-scrollbar { width: 6px; }
+.ashby-pool-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
+.ashby-pool-group-label {
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    margin: 0.6rem 0 0.3rem 0.1rem;
+}
+.ashby-pool-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+.mat-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    cursor: grab;
+    font-size: 0.8rem;
+    font-family: var(--ashby-font);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    white-space: nowrap;
+    transition: background 0.1s, border-color 0.1s, transform 0.05s;
+}
+.mat-card:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+}
+.mat-card:active {
+    cursor: grabbing;
+    transform: scale(0.97);
+}
+.mat-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.mat-ghost {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0.85;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+}
+.ashby-pool-footer {
+    flex-shrink: 0;
+    padding: 0.5rem 0.9rem 0.7rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.72rem;
+    color: var(--muted);
+}
+.ashby-pool-empty {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+    padding: 0.6rem 0.1rem;
+}
+
+/* ── SCORE CARD MODAL (as in tools/craft) ────────────────── */
+.ashby-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ashby-modal[hidden] { display: none; }
+.ashby-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+}
+.ashby-modal-box {
+    position: relative;
+    width: min(560px, 92vw);
+    max-height: 84vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    overflow: hidden;
+    font-family: var(--ashby-font);
+}
+.ashby-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+.ashby-modal-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+.ashby-modal-close {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.25rem;
+}
+.ashby-modal-close:hover { color: var(--text); }
+.ashby-modal-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1rem;
+}
+.ashby-modal-foot {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.ashby-score-hero {
+    text-align: center;
+    padding: 0.25rem 0 0.9rem;
+}
+.ashby-score-total {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+}
+.ashby-score-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+}
+.ashby-score-rank {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 0.35rem;
+}
+.ashby-score-table-wrap { overflow-x: auto; }
+.ashby-score-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+.ashby-score-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    padding: 0.35rem 0.5rem;
+    border-bottom: 1px solid var(--border-strong);
+}
+.ashby-score-table td {
+    padding: 0.32rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+.ashby-score-table td:nth-child(3),
+.ashby-score-table td:nth-child(4),
+.ashby-score-table th:nth-child(3),
+.ashby-score-table th:nth-child(4) { text-align: right; }
+.ashby-score-table .pts { font-weight: 700; }
+.ashby-score-class {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 860px) {
+    /* Stack, with the pool right under the chart so a touch drag never
+       needs to scroll: chart → pool → legend → definition panel. */
+    .ashby-app { flex-direction: column; }
+    .ashby-chart-col { display: contents; }
+    .ashby-chart-wrap { order: 1; aspect-ratio: 5 / 4; }
+    .ashby-pool-panel { order: 2; width: auto; }
+    .ashby-legend { order: 3; }
+    .ashby-def-panel { order: 4; }
+    .ashby-pool-list { max-height: 32vh; }
+    .ashby-main { padding: 0 0.6rem 1rem; }
+    .ashby-toolbar { gap: 0.5rem; padding: 0.6rem 0.1rem; }
+    .ashby-title { font-size: 1rem; width: 100%; }
+    .ashby-stat { font-size: 0.74rem; padding: 0.18rem 0.55rem; }
+    .ashby-btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+    .ashby-def-emoji { font-size: 1.4rem; }
+    .ashby-def-text { font-size: 0.76rem; }
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.15rem;
+    }
+}
+@media (max-width: 480px) {
+    .ashby-chart-wrap { aspect-ratio: 1 / 1; }
+    .mat-card { font-size: 0.74rem; padding: 0.25rem 0.45rem; }
+}
