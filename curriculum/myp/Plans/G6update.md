@@ -107,16 +107,19 @@ Task blocks:
 - **Task sheet downloads** — `ref-list` cards for the three student-facing PDFs (Criteria B, C, D; add A when available). Decide whether to keep the dated filenames or produce year-agnostic copies like the G10 PDF ("No specific year info").
 - **Command terms table** — optional; G10 includes the full MYP command-term table. For G6, a trimmed set (state / outline / describe / explain / create / evaluate) may fit the audience better.
 
-## Open questions before building
+## Decisions (answered)
 
-1. **Criterion A task sheet** — can you provide the pamphlet/task sheet so the A section and rubric are real rather than reconstructed?
-2. **Dates** — G10's page is year-agnostic. Strip specific dates (Nov 6, Nov 11) from the G6 page in favor of lesson counts?
-3. **C task sheet cleanup** — should fixing the stale G7 "machine" text in the source Canva/PDF be part of this work, or page-only for now?
-4. **Class-count chips** — MB says 6 weeks / 40 hours but the lesson table runs ~42 days; confirm which framing you want on the hero chips.
+1. **Criterion A task sheet** — not yet downloaded; A section built from MB lesson notes with a clearly marked placeholder for full task details and rubric.
+2. **Daily planner** — presented as a *suggestion*, not a hard requirement; per-criterion "Suggested Lessons" drop-downs.
+3. **Dates** — all specific dates removed.
+4. **G7 references in C source** — ignored (fixed in Canva); page uses G6 set-design language throughout.
+5. **Chinese text** — omitted from the page (English only).
+6. **Reference Materials** — new final section with Bricklink Studio file download placeholders, rendered image gallery placeholder, and external links (Bricklink Studio, Lego.com, Brickipedia, BrickLink, Rebrickable).
 
-## Build checklist
+## Build status
 
-1. Draft new `g6-lego-designers.html` following this plan → verify: structure matches G10 (TOC, collapsibles, rubrics render).
-2. Copy student-facing PDFs referenced by download cards into `curriculum/myp/` (or link into `Plans/`) → verify: links download.
-3. Add page script if needed for expand/collapse parity → verify: behavior matches the G10 page in browser preview.
-4. Update `curriculum/myp/index.html` card text for G6 if it repeats the stale intro → verify: grep for old wording.
+- [x] `g6-lego-designers.html` rebuilt on the G10 framework: hero + SOI, sticky TOC with sub-items, unit-at-a-glance table, collapsible criterion sections with task blocks and rubric tables, per-criterion lesson sub-drop-downs (native `<details>`), Reference Materials section, next-page nav to G7.
+- [x] Verified in browser preview: no console errors, no broken `aria-controls`, no duplicate IDs, accordions and lesson drop-downs toggle correctly.
+- [ ] Criterion A: add full task details + rubric when task sheet is available.
+- [ ] Reference Materials: replace "coming soon" placeholders with hosted .io files and render gallery links.
+- [ ] Note: `.myp-logistics` / `.logistics-chip` / `.myp-subtitle` classes are unstyled in curriculum.css (also true on the G10 page) — hero chips render as plain text on both pages.

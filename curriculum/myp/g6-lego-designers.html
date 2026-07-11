@@ -1,14 +1,28 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lego Designers — Grade 6 MYP Design — contrapaul edu</title>
+<title>Lego Designers | G6 — MYP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* Lesson sub-drop-downs (native details, page-scoped) */
+.lesson-list { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0; }
+.lesson-list details { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.lesson-list summary { cursor: pointer; padding: 0.6rem 0.9rem; font-size: 0.87rem; font-weight: 500; list-style: none; display: flex; align-items: center; gap: 0.6rem; }
+.lesson-list summary::-webkit-details-marker { display: none; }
+.lesson-list summary::after { content: "▾"; margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+.lesson-list details[open] summary::after { content: "▴"; }
+.lesson-num { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 1.7rem; height: 1.7rem; padding: 0 0.35rem; border-radius: 6px; background: var(--surface-2); color: var(--muted); font-size: 0.72rem; font-weight: 600; }
+.lesson-body { padding: 0 0.9rem 0.75rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.lesson-body p { margin: 0.3rem 0; }
+.lesson-note { font-size: 0.8rem; color: var(--muted); font-style: italic; margin: 0.4rem 0 0.8rem; }
+</style>
 </head>
-<body>
+<body data-curr-type="myp" data-curr-page="g6-lego-designers">
+
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -21,73 +35,1049 @@
 <div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#myp">MYP Design</a><span class="sep">/</span>Grade 6</div>
 <div class="myp-meta"><span class="myp-grade">Grade 6 · Year 1</span><span class="myp-audience-tag">Teacher Resource</span></div>
 <h1 class="myp-title">Lego Designers</h1>
-<p class="myp-intro">Students are introduced to the design cycle through a structured Lego building challenge. Working with constraints of time, budget and materials, they develop empathy for users, generate and test ideas, and reflect on outcomes using the MYP design criteria.</p>
+<p class="myp-subtitle"><em>Statement of Inquiry:</em> Designers must develop research, planning, and evaluation skills to create good products.</p>
+<p class="myp-intro">Students engage with the design cycle and learn about product design to plan and create a new Lego set. They develop research, planning, and evaluation skills, and use Bricklink Studio to construct sets, render images, and create instruction booklets. The skills students learn lay a foundation for success across MYP and even DP design.</p>
+<div class="myp-logistics">
+  <span class="logistics-chip">6 weeks · 40 hours</span>
+  <span class="logistics-chip">Bricklink Studio</span>
+  <span class="logistics-chip">4 summative assessments (A–D)</span>
+  <span class="logistics-chip">Suggested lesson sequence included</span>
 </div>
-</div>
-
-<main><div class="curr-main">
-
-<div class="curr-section crit-a" id="crit-a">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-a">
-<div class="curr-trigger-left"><span class="curr-badge">A</span><h2>Criterion A — Inquiring and Analysing</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-a">
-<p class="curr-section-intro">Students explain the need for a solution, analyse existing Lego products, and develop a design brief that outlines the requirements for a solution.</p>
-<p class="content-placeholder">Criterion A teacher notes and task guidance will be added here.</p>
 </div>
 </div>
 
-<div class="curr-section crit-b" id="crit-b">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-b">
-<div class="curr-trigger-left"><span class="curr-badge">B</span><h2>Criterion B — Developing Ideas</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-b">
-<p class="curr-section-intro">Students develop a design specification, present a range of design ideas using annotated sketches, and select a preferred design with justification.</p>
-<p class="content-placeholder">Criterion B teacher notes and task guidance will be added here.</p>
-</div>
-</div>
+<main>
+<div class="curr-page-layout">
 
-<div class="curr-section crit-c" id="crit-c">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-c">
-<div class="curr-trigger-left"><span class="curr-badge">C</span><h2>Criterion C — Creating the Solution</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-c">
-<p class="curr-section-intro">Students construct the Lego solution following a plan, demonstrate technical skills, and record the creation process with evidence of decision-making and changes.</p>
-<p class="content-placeholder">Criterion C teacher notes and task guidance will be added here.</p>
-</div>
-</div>
-
-<div class="curr-section crit-d" id="crit-d">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-d">
-<div class="curr-trigger-left"><span class="curr-badge">D</span><h2>Criterion D — Evaluating</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-d">
-<p class="curr-section-intro">Students evaluate the success of the solution against the design specification, reflect on the impact of the product, and suggest improvements based on testing and feedback.</p>
-<p class="content-placeholder">Criterion D teacher notes and task guidance will be added here.</p>
-</div>
-</div>
-
-<div class="curr-section crit-refs" id="references">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
-<div class="curr-trigger-left"><span class="curr-badge">↗</span><h2>References &amp; Resources</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-refs">
-<p class="content-placeholder">Reference links and resources for this unit will be added here.</p>
-</div>
-</div>
-
-<nav class="topic-page-nav nav-next-only">
-<a class="nav-next" href="g7-lego-engineers.html"><span class="nav-dir">Next →</span><span class="nav-title">Lego Engineers (Grade 7)</span></a>
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul class="curr-toc-list">
+  <li class="curr-toc-item" data-section="introduction"><a href="#introduction">Introduction</a></li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-a">
+    <a href="#crit-a">Criterion A</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-a">
+      <li data-section="task-a-research"><a href="#task-a-research">Lego Set Research</a></li>
+      <li data-section="lessons-a"><a href="#lessons-a">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-b">
+    <a href="#crit-b">Criterion B</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-b">
+      <li data-section="task-b-what"><a href="#task-b-what">What &amp; Why</a></li>
+      <li data-section="task-b-criteria"><a href="#task-b-criteria">Success Criteria</a></li>
+      <li data-section="task-b-inspiration"><a href="#task-b-inspiration">Inspiration</a></li>
+      <li data-section="task-b-drafts"><a href="#task-b-drafts">Rough Drafts</a></li>
+      <li data-section="task-b-specs"><a href="#task-b-specs">Design Specifications</a></li>
+      <li data-section="task-b-rubric"><a href="#task-b-rubric">Rubric</a></li>
+      <li data-section="lessons-b"><a href="#lessons-b">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-c">
+    <a href="#crit-c">Criterion C</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-c">
+      <li data-section="task-c-workflow"><a href="#task-c-workflow">Workflow &amp; Criteria Carry-Over</a></li>
+      <li data-section="task-c-plan"><a href="#task-c-plan">Production Plan</a></li>
+      <li data-section="task-c-daily"><a href="#task-c-daily">Daily Documentation</a></li>
+      <li data-section="task-c-deliverables"><a href="#task-c-deliverables">Final Deliverables</a></li>
+      <li data-section="task-c-rubric"><a href="#task-c-rubric">Rubric</a></li>
+      <li data-section="lessons-c"><a href="#lessons-c">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-d">
+    <a href="#crit-d">Criterion D</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-d">
+      <li data-section="task-d-survey"><a href="#task-d-survey">Survey Questions</a></li>
+      <li data-section="task-d-success"><a href="#task-d-success">Was it a Success?</a></li>
+      <li data-section="task-d-improve"><a href="#task-d-improve">How Can I Improve?</a></li>
+      <li data-section="task-d-goal"><a href="#task-d-goal">Accomplishing the Goal</a></li>
+      <li data-section="task-d-rubric"><a href="#task-d-rubric">Rubric</a></li>
+      <li data-section="lessons-d"><a href="#lessons-d">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item" data-section="reference-materials"><a href="#reference-materials">Reference Materials</a></li>
+</ul>
 </nav>
 
-</div></main>
+<div class="curr-main">
+
+<!-- Unit at a Glance -->
+<div class="unit-glance">
+  <p class="unit-glance-note">The unit opens with Bricklink Studio skill training before moving through the four MYP design criteria in order. Each criterion is assessed with its own summative task. The lesson sequence shown on this page is a <strong>suggestion</strong>, not a hard requirement — adjust pacing to fit the class.</p>
+  <div class="content-table-wrap">
+    <table class="content-table">
+      <thead><tr><th>Phase</th><th>Focus</th><th>Suggested Classes</th></tr></thead>
+      <tbody>
+        <tr><td>Studio Training</td><td>Bricklink Studio tutorials, guided builds, rendering, Part Designer</td><td>7</td></tr>
+        <tr><td>Criterion A — Inquiring &amp; Analysing</td><td>Lego research: set analysis and research pamphlet</td><td>5–6</td></tr>
+        <tr><td>Criterion B — Developing Ideas</td><td>Planning: success criteria, inspiration, rough drafts, specifications</td><td>7</td></tr>
+        <tr><td>Criterion C — Creating the Solution</td><td>Building the set, daily documentation, box design, renders, instructions</td><td>12–13</td></tr>
+        <tr><td>Criterion D — Evaluating</td><td>Surveys, interviews, success criteria review, improvements</td><td>4</td></tr>
+        <tr><td>Final Revisions</td><td>Incorporate feedback and complete the design cycle</td><td>3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 00 — INTRODUCTION
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="introduction" style="--curr-color:#5c5470;">
+  <button class="curr-trigger" aria-expanded="true" aria-controls="body-introduction">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">00</span>
+      <h2>Introduction</h2>
+      <span class="curr-sec-sub">Unit overview, inquiry questions, ATL skills &amp; Studio training</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body open" id="body-introduction">
+
+    <p class="obj-outcome"><span class="obj-outcome-label">Unit Overview</span>Students follow the complete design cycle to design a brand-new Lego set: researching real Lego products, planning with success criteria and specifications, building and rendering their set in Bricklink Studio, and evaluating the result with real user feedback. The finished project includes a box design, instruction pages, and rendered images — the goal is a set that looks like it could really be sold by Lego.</p>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Key Concept, Related Concepts &amp; Global Context</p>
+    <div class="content-table-wrap">
+      <table class="content-table">
+        <thead><tr><th>Key Concept</th><th>Related Concepts</th><th>Global Context</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Systems</strong> — sets of interacting or interdependent components that provide structure and order in human, natural and built environments.</td><td>Evaluation, Form</td><td>Personal and Cultural Expression</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Inquiry Questions</p>
+    <div class="content-table-wrap">
+      <table class="content-table">
+        <thead><tr><th>Type</th><th>Question</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Factual</strong></td><td>What are some of the main Lego product lines available, and how are they different?</td></tr>
+          <tr><td><strong>Factual</strong></td><td>How does Bricklink Studio help in creating 3D models of Lego sets?</td></tr>
+          <tr><td><strong>Factual</strong></td><td>What are the key elements of product design in the context of Lego sets?</td></tr>
+          <tr><td><strong>Conceptual</strong></td><td>Why is research important before designing a product?</td></tr>
+          <tr><td><strong>Conceptual</strong></td><td>What makes a Lego set engaging to build and play with?</td></tr>
+          <tr><td><strong>Conceptual</strong></td><td>How can user feedback and evaluation improve the design of a Lego set?</td></tr>
+          <tr><td><strong>Debatable</strong></td><td>Why is package design important?</td></tr>
+          <tr><td><strong>Debatable</strong></td><td>Is Lego educational to build with or just a toy? Why or why not?</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">ATL Skills in Focus</p>
+    <p>The ATL skills of <strong>Research: Information Literacy</strong> and <strong>Thinking: Creative Thinking</strong> are central to this unit. Students access and evaluate information about real Lego products, make connections between sources, and present information in a variety of formats. Creative thinking is developed through brainstorming, designing improvements to existing products, and applying existing knowledge to generate original set designs.</p>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Where to Submit</p>
+    <ul>
+      <li><strong>Criterion A</strong> — completed research pamphlet handed in on paper.</li>
+      <li><strong>Criterion B</strong> — Canva workbook exported and uploaded to <strong>ManageBac</strong> as a PDF.</li>
+      <li><strong>Criterion C</strong> — Canva PDF, box design PDF, 2 pages of instructions, <em>and</em> the Studio file (.io) uploaded to ManageBac.</li>
+      <li><strong>Criterion D</strong> — paper worksheet completed in class; photograph each side and upload to ManageBac, then hand in the paper.</li>
+    </ul>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Suggested Lessons — Studio Training</p>
+    <p class="lesson-note">Before Criterion A begins, students build core Bricklink Studio skills. Pacing is a suggestion, not a hard requirement.</p>
+    <div class="lesson-list">
+      <details>
+        <summary><span class="lesson-num">1</span> Introductions &amp; academic integrity writing sample</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> complete a 'get to know me' writing page using a form provided in class.</p>
+          <p><strong>Why:</strong> provides an academic integrity reference sample for the year.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">2</span> Introduction to Bricklink Studio &amp; Moodle</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> complete the tutorial in Studio and open Moodle for an exit ticket.</p>
+          <p><strong>Why:</strong> important to learn where to find resources and tasks.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">3</span> Building with instructions</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> assemble an official Lego set in Studio, building along with downloaded instructions.</p>
+          <p><strong>Why:</strong> teaches typical Lego construction and where to find pieces.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">4</span> Guided build — six-sided die</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> flip pieces around and manipulate them with shortcuts, following the teacher step by step.</p>
+          <p><strong>Why:</strong> core Studio and 3D manipulation skills.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">5</span> Studio building projects</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> follow instructions to build sets independently.</p>
+          <p><strong>Why:</strong> reinforces construction skills and piece-finding.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">6</span> Building projects — rendering &amp; special colors</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> continue building projects while adding rendering and special colors.</p>
+          <p><strong>Why:</strong> introduces the rendering workflow used for the final box design.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="lesson-num">7</span> Part Designer — custom pieces</summary>
+        <div class="lesson-body">
+          <p><strong>Students will:</strong> build custom pieces in Part Designer, following a teacher example.</p>
+          <p><strong>Why:</strong> shows how to add totally custom pieces to their work.</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION A — CRITERION A
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-a" style="--curr-color:#1a5cb8;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-a">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">A</span>
+      <h2>Criterion A — Inquiring and Analysing</h2>
+      <span class="curr-sec-sub">Lego research · Set analysis · Research pamphlet</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-a">
+
+    <p class="curr-section-intro">Students research real Lego products to understand what makes a good set before designing their own. They explore product lines, analyse existing sets, and gather the information they need to choose a direction for their project. A formative research task is completed first so students know exactly what to do on the summative.</p>
+
+    <!-- A · Research -->
+    <div class="curr-section" id="task-a-research">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-a-research">
+        <div class="obj-trigger-left">
+          <span class="obj-code">A1</span>
+          <h3>Lego Set Research</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-a-research">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Choose Lego sets to explore using Lego.com, Brickipedia, and Bricklink Studio, and complete analysis of <strong>4 different sets</strong> that could inspire your own work. The completed research pamphlet is handed in on paper.</p>
+
+        <p>Research begins with a formative example task using the Lego website, so students practice identifying key product details (theme, piece count, price, target age, features) before the assessed work. The sets chosen for analysis should help determine the direction of the student's own project.</p>
+
+        <p><em>⚠ Full task details and the task-specific rubric will be added when the Criterion A task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- A · Lessons -->
+    <div class="curr-section" id="lessons-a">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-a">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-a">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">1</span> Introduce Criterion A — formative research task</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> identify elements on the Lego website by completing a provided example research task.</p>
+              <p><strong>Why:</strong> learn the skills to be used on the summative.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">2</span> Summative introduction</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> understand what tasks will be completed during the assessment by working through it with the teacher.</p>
+              <p><strong>Why:</strong> prepares students to succeed at the summative.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">3</span> Research tasks — day 1</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> choose a Lego set to explore using the Lego website or Bricklink Studio.</p>
+              <p><strong>Resources:</strong> Brickipedia, Lego.com, Criterion A assessment.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">4</span> Research tasks — day 2</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete analysis for 4 different sets that will help inspire their work.</p>
+              <p><strong>Why:</strong> determines the direction of the project.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">5</span> Criterion A due at end of class</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete the paper research assessment.</p>
+              <p><strong>Why:</strong> prepares students to move into planning.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">6</span> Design challenge — build a set from images</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> create as much of a set as possible from image references only, with no instructions.</p>
+              <p><strong>Why:</strong> useful to gauge piece recognition before planning begins.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-a -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION B — CRITERION B
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-b" style="--curr-color:#3d6b4a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-b">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">B</span>
+      <h2>Criterion B — Developing Ideas</h2>
+      <span class="curr-sec-sub">What &amp; Why · Success criteria · Inspiration · Drafts · Specifications</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-b">
+
+    <p class="curr-section-intro">Students plan their new Lego set in a structured Canva workbook. Every page includes a completed example — Mr. K's fantasy football set, "Anvil Mountain Stadium" — which demonstrates work at the 7–8 level. Example pages are marked in yellow and must be deleted before submitting. When finished, students upload a PDF print copy to ManageBac.</p>
+
+    <!-- B · What and Why -->
+    <div class="curr-section" id="task-b-what">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-what">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B1</span>
+          <h3>What and Why</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-what">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Explain <strong>WHAT</strong> you want to design (1 sentence) and <strong>WHY</strong> you think it is a good idea (3–4 sentences).</p>
+        <p><em>Worked example:</em> "I want to create a fantasy football set for Lego. Lego doesn't sell many fantasy or castle themed sets right now, and I think that a new fantasy theme would be successful. I am inspired by the board game 'Blood Bowl', and think that many Lego pieces and minifigures would fit the designs of that game. A Lego version would be much faster to put together so people could play the game in less time!"</p>
+      </div>
+    </div>
+
+    <!-- B · Success Criteria -->
+    <div class="curr-section" id="task-b-criteria">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-criteria">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B2</span>
+          <h3>Success Criteria</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-criteria">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Create <strong>4 or more success criteria</strong> for the product, each explained in 1–2 sentences. Criteria must be <strong>achievable</strong> and <strong>measurable</strong> — they are reviewed after the set is finished to judge whether the work was a success.</p>
+
+        <p>Success criteria are how we know the work is a 'success'. For example, a success criterion for making pizza would be that 'the pizza tastes good'. These criteria carry forward: they steer the build in Criterion C and are the basis of the evaluation in Criterion D.</p>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:1.2rem 0 0.4rem;">Example Success Criteria</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>Success Criteria</th><th>Explanation</th></tr></thead>
+            <tbody>
+              <tr><td>My Lego set must include 2 teams of 11 players each.</td><td>Each team has 11 players in this game, and I want people to be able to play.</td></tr>
+              <tr><td>My Lego set must look fun to play.</td><td>No one will buy it if it looks boring, and a fun set will encourage more people to check it out.</td></tr>
+              <tr><td>My Lego set must include ways to customize the players and field.</td><td>People should be able to build many parts of the set the way they want, and rebuild it when they want a change.</td></tr>
+              <tr><td>My Lego set must be able to be packed up and moved around.</td><td>People must be able to bring the game to different places to play without needing to take apart the set.</td></tr>
+              <tr><td>My Lego set must cost less than $150.</td><td>If it is too expensive no one will buy the set. I will need to check how many pieces sets have at different prices.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- B · Inspiration -->
+    <div class="curr-section" id="task-b-inspiration">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-inspiration">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B3</span>
+          <h3>Inspiration &amp; Bits and Pieces</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-inspiration">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Collect pictures from the Lego website and Brickipedia that will help inspire the design of the new set, plus a "bits and pieces" page of specific parts and construction details worth borrowing.</p>
+        <p>Inspiration images help identify pieces and construction methods before building begins. Example images in the workbook must be replaced with the student's own finds.</p>
+      </div>
+    </div>
+
+    <!-- B · Rough Drafts -->
+    <div class="curr-section" id="task-b-drafts">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-drafts">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B4</span>
+          <h3>Rough Drafts</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-drafts">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Share <strong>3 rough pictures</strong> from Bricklink Studio showing how the set could look when finished in the next project (Criterion C).</p>
+        <p>Rough drafts are hands-on exploration of methods and pieces — not the finished product. In Criterion C, students start the final build fresh; the drafts show where the project began.</p>
+      </div>
+    </div>
+
+    <!-- B · Design Specifications -->
+    <div class="curr-section" id="task-b-specs">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-specs">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B5</span>
+          <h3>Design Specifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-specs">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Complete the design specification table: specific details about what will be made, like requirements. If you plan a birthday party and say you want to eat pizza, go to Happy Valley, and invite 5 friends — you've just made birthday specifications!</p>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:1.2rem 0 0.4rem;">Example — Anvil Mountain Stadium</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <tbody>
+              <tr><td><strong>Name of Set</strong></td><td>Anvil Mountain Stadium</td></tr>
+              <tr><td><strong>Estimated Pieces</strong></td><td>1500 pieces</td></tr>
+              <tr><td><strong>Theme</strong></td><td>Brick Bowl (new theme)</td></tr>
+              <tr><td><strong>Price (RMB and USD)</strong></td><td>¥1100 RMB / $149.99</td></tr>
+              <tr><td><strong>Features</strong></td><td>26+ minifigures, folding football pitch, scoreboard, extra parts for team customization, concessions stand, bleachers, 2 sets of dice</td></tr>
+              <tr><td><strong>Description</strong></td><td>The dwarf hammer-lads face off against the ork big stompas in another thrilling game of Brick Bowl! It's a home game for the dwarf team at their very own Anvil Mountain Stadium! Each team features 11 players and has their own custom dugout. Everything you need to play a game of Brick Bowl is included in the box!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- B · Rubric -->
+    <div class="curr-section" id="task-b-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-rubric">
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:0 0 0.4rem;">B1 — Design Specification</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>You include a few general ideas of what your Lego set should have (like size, number of pieces), but the details are vague. You give little or no explanation of why these points are important.</td>
+              <td>You list several points about your Lego set (e.g., size, colors, themes) but some are unclear or missing. You explain why some of these points are important but not all.</td>
+              <td>You create a clear list of detailed design points (e.g., number of pieces, types of minifigures, themes). You explain why each point is important to the success of the Lego set.</td>
+              <td>You produce a highly detailed, precise list of design specifications covering all important points (size, colors, themes, playability, customization). You fully explain why each point matters and connect it to what makes a great Lego set.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:1.2rem 0 0.4rem;">B2 — Develop Design Ideas</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>You create one or two simple ideas but they are similar to existing sets or lack creativity. Your sketches or descriptions are basic, missing many details.</td>
+              <td>You develop two or three different ideas, but they are not fully explained. Sketches or descriptions include some details, but might still be hard to understand.</td>
+              <td>You develop a range (at least 3–4) of creative, realistic design ideas that show some variety. Each idea is described with clear sketches and explanations.</td>
+              <td>You create a wide range of unique, innovative design ideas. Your sketches and descriptions are very detailed, showing you've thought carefully about different ways to solve the design challenge.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:1.2rem 0 0.4rem;">B3 — Present Chosen Design</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>You choose one idea, but you don't clearly explain why it is better than others. There is little or no connection to your success criteria.</td>
+              <td>You choose one idea and give a basic reason why you selected it. Some connection to your design specification but lacks deep explanation.</td>
+              <td>You choose one design and clearly explain why it meets your specification better than the others. You include comparisons between ideas.</td>
+              <td>You select your best design and give a deep, well-supported explanation. You critically compare how each idea matches your success criteria and explain why this design is the strongest.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#3d6b4a;margin:1.2rem 0 0.4rem;">B4 — Planning Drawings / Diagrams</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>You create one rough draft or diagram, but it's missing labels, measurements, or instructions. Hard to understand how to build your set from your drawing.</td>
+              <td>You include basic drawings with some labels or measurements. Instructions are brief or unclear.</td>
+              <td>You provide well-drawn diagrams with clear labels, measurements, materials, and basic steps. Someone could mostly follow your instructions to build the set.</td>
+              <td>Your diagrams are clear, detailed, and fully labeled, with accurate measurements and thorough instructions. Anyone could easily follow your diagrams to build the Lego set exactly as planned.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- B · Lessons -->
+    <div class="curr-section" id="lessons-b">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-b">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-b">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">1</span> Introduce Criterion B — formative planning task</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> create specifications and success criteria for a sample project.</p>
+              <p><strong>Why:</strong> prepares students for the Criterion B assessment.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">2</span> Summative introduction</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> begin working on the planning assessment in the Canva workbook.</p>
+              <p><strong>Why:</strong> develop individual specifications for the project.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">3</span> Planning day 1 — success criteria</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete their success criteria, referring to the sample criteria and preparing their own.</p>
+              <p><strong>Why:</strong> establishes individual criteria for the set.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">4</span> Planning day 2 — inspiration page</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete the inspiration page using images from Lego or Brickipedia.</p>
+              <p><strong>Why:</strong> helps identify pieces and construction methods.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">5</span> Planning day 3 — rough draft</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> work on the rough draft, using Studio to build out ideas.</p>
+              <p><strong>Why:</strong> hands-on with methods and pieces.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">6</span> Planning day 4 — continue rough draft</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> continue the rough draft of parts of their set in Studio.</p>
+              <p><strong>Why:</strong> continued exploration of methods and pieces.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">7</span> Criterion B due at end of class</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete design specifications and finish the workbook in Canva, with the rough draft in Studio.</p>
+              <p><strong>Why:</strong> ensures all elements are in place for Criterion C.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-b -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION C — CRITERION C
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-c" style="--curr-color:#8b4a1a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-c">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">C</span>
+      <h2>Criterion C — Creating the Solution</h2>
+      <span class="curr-sec-sub">Plan · Build · Document daily · Box design · Renders · Instructions</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-c">
+
+    <p class="curr-section-intro">Students build their Lego set in Bricklink Studio over roughly 10 working classes, documenting progress every day. The finished project must look and feel like a real Lego set: a complete box design, organized building instructions, and carefully planned rendered images. <strong>No AI use at all for this assessment.</strong></p>
+
+    <!-- C · Workflow -->
+    <div class="curr-section" id="task-c-workflow">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-workflow">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C1</span>
+          <h3>Workflow &amp; Success Criteria Carry-Over</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-workflow">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Copy your success criteria from the Criterion B planning assessment to the front of the workbook — they steer every decision during the build.</p>
+        <ol class="checklist">
+          <li><strong>Step 1</strong> — Copy your success criteria.</li>
+          <li><strong>Step 2</strong> — Read through the whole workbook before starting.</li>
+          <li><strong>Step 3</strong> — Make your plans, and update them as you go.</li>
+          <li><strong>Step 4</strong> — Work on your set each day; update each page with answers, notes, and pictures.</li>
+          <li><strong>Step 5</strong> — Complete the finished set poster.</li>
+          <li><strong>Step 6</strong> — Upload your Canva PDF to ManageBac and present your set in class.</li>
+        </ol>
+        <p><strong>Start fresh:</strong> upload one picture of the Criterion B rough draft to the "before you start" page, then begin the final build from scratch. The rough draft shows where the project began — reusing it as the finished product will significantly hurt the grade.</p>
+      </div>
+    </div>
+
+    <!-- C · Plan -->
+    <div class="curr-section" id="task-c-plan">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-plan">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C2</span>
+          <h3>Production Plan</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-plan">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Complete a day-by-day plan for the ~10 working classes before building, and keep it updated as the project progresses. Make a 'to do' list for the set that includes your own steps plus the required items below.</p>
+        <ul>
+          <li>Check the model for stability / strength, and fix any issues</li>
+          <li>Make sure it's possible to build in real life — built like a real Lego set</li>
+          <li>Create instructions — put pieces into steps</li>
+          <li>Pose figures and add any background details</li>
+          <li>Render images (lots of them!)</li>
+          <li>Create the final poster of your model</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- C · Daily documentation -->
+    <div class="curr-section" id="task-c-daily">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-daily">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C3</span>
+          <h3>Daily Documentation</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-daily">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Complete a documentation page for <strong>every working day</strong> — all parts finished before working on the next day. Each daily page includes:</p>
+        <ul>
+          <li><strong>Daily pictures</strong> — upload 1–3 pictures of the day's work</li>
+          <li><strong>What are you supposed to finish today?</strong> — expand the plan entry with specific details for the day</li>
+          <li><strong>Did you finish today's work?</strong> — if yes, explain what was finished; if no, why not, and what's the plan to make up the work</li>
+          <li><strong>Did you make any changes to your plans or ideas?</strong> — if yes, what changed and why; if no, double-check that nothing actually changed</li>
+        </ul>
+        <p>Documenting changes, sharing images, and piecing together the set day by day teaches students to 'show their work' and proceed thoughtfully rather than rushing to a finished model.</p>
+      </div>
+    </div>
+
+    <!-- C · Deliverables -->
+    <div class="curr-section" id="task-c-deliverables">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-deliverables">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C4</span>
+          <h3>Final Deliverables</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-deliverables">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Submit to ManageBac: the <strong>Canva workbook PDF</strong>, the <strong>box design PDF</strong>, <strong>2 pages of building instructions</strong>, and the <strong>Studio file (.io)</strong>.</p>
+        <ul>
+          <li><strong>Box design</strong> — built from the provided template, using rendered images; should look like a 'real Lego set' box.</li>
+          <li><strong>Instructions</strong> — 2 pages of logically organized building steps generated from the Studio model.</li>
+          <li><strong>Renders</strong> — 6+ carefully planned images that show off the set (a formative rendering challenge earlier in the unit practices matching reference images).</li>
+          <li><strong>Final poster</strong> — 2 pictures of the finished model, labels showing important parts, and 1 paragraph explaining the set. Any design is fine as long as it is attractive and easy to read.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- C · Rubric -->
+    <div class="curr-section" id="task-c-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-rubric">
+
+        <p style="font-size:0.82rem;font-weight:600;color:#8b4a1a;margin:0 0 0.4rem;">C1 — Planning</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>I did not complete my plan or add any specific details.</td>
+              <td>I listed the main steps for my plan but didn't add details. My plan doesn't show much critical thinking about time and might be difficult for classmates to understand.</td>
+              <td>I listed steps on my plan that can be understood by others, are mostly logical, and might show some critical thinking.</td>
+              <td>I outlined a plan that can be understood by others, is logical, and shows critical thinking.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#8b4a1a;margin:1.2rem 0 0.4rem;">C2 — Construction</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>My Lego set has serious issues with stability or construction.</td>
+              <td>I created a Lego set that has some stability or construction issues.</td>
+              <td>I created a Lego set that is mostly strong, stable, and could be built in real life.</td>
+              <td>I created a Lego set that is strong, stable, and could be built in real life.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#8b4a1a;margin:1.2rem 0 0.4rem;">C3 — Following the Plan &amp; Presentation</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>I did not meet my success criteria and my final poster is incomplete. I may not have rendered any images, or the images I rendered are sloppy and show little care for my work.</td>
+              <td>I created the set and met some of my success criteria. My poster is mostly complete, but not very neat. I followed some of my plan to make my set, but didn't explain any changes to it.</td>
+              <td>I mostly followed my plan to create the set, which meets my success criteria. My box design is complete and highlights some details. It mostly looks like a 'real Lego set'. I rendered 6+ images that are carefully planned and show off my set. I created logically organized instructions.</td>
+              <td>I followed my plan to create the set — or explained why I was not following it — and my set meets my success criteria. My box design is complete and detailed, looking like a 'real Lego set'. I created logically organized instructions.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.82rem;font-weight:600;color:#8b4a1a;margin:1.2rem 0 0.4rem;">C4 — Documenting Changes</p>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>1–2</th><th>3–4</th><th>5–6</th><th>7–8</th></tr></thead>
+            <tbody><tr>
+              <td>I did not state changes made to my set, or they are trivial changes.</td>
+              <td>I stated only a couple of small changes made to my design when building my set.</td>
+              <td>I stated a few changes made to my design and plan when making the set.</td>
+              <td>I listed many changes made to my design and plans when making my set.</td>
+            </tr></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- C · Lessons -->
+    <div class="curr-section" id="lessons-c">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-c">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-c">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">1</span> Introduce Criterion C — formative rendering tasks</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete renders that attempt to match specific reference images, testing their recall of rendering.</p>
+              <p><strong>Why:</strong> necessary to produce attractive box designs.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">2</span> Creating tasks — day 1</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> start building their Lego set in Studio — documenting changes, sharing images, and piecing together the set.</p>
+              <p><strong>Why:</strong> teaches 'showing their work' and proceeding thoughtfully.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">3–7</span> Creating tasks — days 2–6</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> continue building their set each class — documenting changes, sharing images, and completing a daily documentation page before moving on.</p>
+              <p><strong>Why:</strong> slowing down and learning the build process.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">8</span> Creating tasks — day 7 (begin box design)</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> continue building while starting work with the box design template.</p>
+              <p><strong>Why:</strong> moving the rough project toward a finished state.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">9</span> Creating tasks — day 8 (rendering)</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> begin rendering work for the box design.</p>
+              <p><strong>Why:</strong> renders are the core of a professional-looking box.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">10</span> Creating tasks — day 9 (renders &amp; instructions)</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> complete renders for the box design and create instructions using the render tool in Studio.</p>
+              <p><strong>Why:</strong> moving the project to a completed state.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">11</span> Criterion C due at end of class</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> finish all parts of the Criterion C assessment in Studio and Canva.</p>
+              <p><strong>Why:</strong> ensures tasks for all strands are complete.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">12–13</span> Polishing projects</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> revise work before presenting to others, using Studio and the box design template.</p>
+              <p><strong>Why:</strong> ensures work is quality for an audience.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-c -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION D — CRITERION D
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-d" style="--curr-color:#4a3d7a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-d">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">D</span>
+      <h2>Criterion D — Evaluating</h2>
+      <span class="curr-sec-sub">Surveys · Success criteria review · Improvements · Goal reflection</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-d">
+
+    <p class="curr-section-intro">Students test and evaluate their finished set against two measures: does it look like a set Lego would really sell, and does it meet their own success criteria from Criterion B? Evaluation is completed on a paper worksheet — photograph each side and upload to ManageBac, then hand in the paper. After the assessment, students spend several classes on final revisions, incorporating feedback to complete the design cycle.</p>
+
+    <!-- D · Survey -->
+    <div class="curr-section" id="task-d-survey">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-survey">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D1</span>
+          <h3>Survey Questions &amp; Answers</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-survey">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Choose <strong>5 survey questions</strong> to ask people at school who are not in your homeroom, then interview <strong>3 students and 2 teachers</strong> and record their answers. Keep asking follow-up questions if they don't give complete answers!</p>
+        <p>Questions must give useful information about the Lego set — how do other people feel about the work? Remember the two goals: the set looks like a real Lego set, <em>and</em> it meets your success criteria. Mr. K's question-helper tool supports choosing strong questions, and there is space on the worksheet for extra interview notes.</p>
+      </div>
+    </div>
+
+    <!-- D · Success -->
+    <div class="curr-section" id="task-d-success">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-success">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D2</span>
+          <h3>Was it a Success?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-success">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Look at the success criteria from the Criterion B planning assessment, write a short version of each criterion, then respond to each one. Was the work a success? Was each success criterion achieved? Give details and explain why or why not.</p>
+      </div>
+    </div>
+
+    <!-- D · Improve -->
+    <div class="curr-section" id="task-d-improve">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-improve">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D3</span>
+          <h3>How Can I Improve My Work?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-improve">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>Write a bulleted list — with explanations — of ways the work could be improved. Be detailed!</p>
+      </div>
+    </div>
+
+    <!-- D · Goal -->
+    <div class="curr-section" id="task-d-goal">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-goal">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D4</span>
+          <h3>Did You Accomplish the Goal?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-goal">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span>The goal was to design a set that looks like it could be sold by Lego. How did you do? Write <strong>120+ words</strong> exploring this idea — be detailed.</p>
+        <p>If YES — give many reasons why! If NO — why not? Prompts to get reflecting: Do the renders look realistic? Are there stability issues? Is it built strongly? Does it look fun?</p>
+      </div>
+    </div>
+
+    <!-- D · Rubric -->
+    <div class="curr-section" id="task-d-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-rubric">
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>Score</th><th>Descriptors</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>1–2</strong></td>
+                <td>i. Writes a few simple interview questions that may not all relate to their success criteria.<br>ii. Partially or incorrectly states the success of the Lego set based on success criteria.</td>
+              </tr>
+              <tr>
+                <td><strong>3–4</strong></td>
+                <td>i. Writes 4 questions which mostly relate to and help answer their success criteria.<br>ii. States how the Lego set was a success based on the success criteria.<br>iii. States a few limited ways they could improve their set.<br>iv. States how their set did or did not accomplish the goal.</td>
+              </tr>
+              <tr>
+                <td><strong>5–6</strong></td>
+                <td>i. Writes 4 interview questions that directly help to measure their success criteria.<br>ii. States the success of the Lego set based on interviews and testing.<br>iii. Outlines a few ways in which the set could be improved.<br>iv. Outlines how their set did or did not accomplish the goal.</td>
+              </tr>
+              <tr>
+                <td><strong>7–8</strong></td>
+                <td>i. Writes 4 strong interview questions that will measure the success of the set.<br>ii. Outlines the success of the set against the success criteria and design specifications.<br>iii. Outlines how the solution could be improved.<br>iv. Outlines the impact of the solution on the audience.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- D · Lessons -->
+    <div class="curr-section" id="lessons-d">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-d">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-d">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">1</span> Evaluating — day 1: choose testing methods</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> choose testing methods for their work using the interview question-helper tool.</p>
+              <p><strong>Why:</strong> qualitative questions help students gather useful data.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">2</span> Evaluating — day 2: interviews</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> interview people at school to collect data, walking around in groups and presenting work to others.</p>
+              <p><strong>Why:</strong> important to learn how to interview and collect feedback.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">3</span> Evaluating — day 3: assess against success criteria</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> review their personal success criteria and respond to each one.</p>
+              <p><strong>Why:</strong> students answer whether they followed their own guidelines.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">4</span> Criterion D due at end of class</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> identify improvements and critically evaluate the set, finishing parts 3 and 4 of the assessment.</p>
+              <p><strong>Why:</strong> a core part of the design cycle.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span class="lesson-num">5–7</span> Final revisions</summary>
+            <div class="lesson-body">
+              <p><strong>Students will:</strong> incorporate feedback and evaluation findings into their designs, uploading final work at the end of the last class.</p>
+              <p><strong>Why:</strong> completes the design cycle.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-d -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION: REFERENCE MATERIALS
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="reference-materials" style="--curr-color:#2d7a6a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-reference-materials">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">↗</span>
+      <h2>Reference Materials</h2>
+      <span class="curr-sec-sub">Studio file downloads · Rendered images · External sites</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-reference-materials">
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:0 0 0.4rem;">Bricklink Studio Downloads</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">.IO · Studio File</div>
+        <div class="ref-item-title">Guided Build — Six-Sided Die</div>
+        <span class="ref-item-url">Download link coming soon</span>
+        <div class="ref-item-desc">The guided-lesson build used to practice flipping and manipulating pieces with shortcuts.</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-tag">.IO · Studio File</div>
+        <div class="ref-item-title">Example Set Files</div>
+        <span class="ref-item-url">Download links coming soon</span>
+        <div class="ref-item-desc">Studio files from training builds and Mr. K's example projects, for reference while building.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">Rendered Images</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">Images · Gallery</div>
+        <div class="ref-item-title">Additional Rendered Images</div>
+        <span class="ref-item-url">Gallery coming soon</span>
+        <div class="ref-item-desc">Example renders showing lighting, camera angles, and special colors — reference targets for the formative rendering challenge and box design work.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">External Sites</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">Software · Free</div>
+        <div class="ref-item-title">Bricklink Studio</div>
+        <a class="ref-item-url" href="https://www.bricklink.com/v3/studio/download.page" target="_blank" rel="noopener">bricklink.com/v3/studio</a>
+        <div class="ref-item-desc">The free 3D Lego design program used throughout the unit — building, rendering, Part Designer, and instruction generation.</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-tag">Research · Official</div>
+        <div class="ref-item-title">Lego.com</div>
+        <a class="ref-item-url" href="https://www.lego.com" target="_blank" rel="noopener">lego.com</a>
+        <div class="ref-item-desc">Official Lego site — product lines, set details, pricing, and box design references used in Criterion A research and Criterion B inspiration.</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-tag">Research · Wiki</div>
+        <div class="ref-item-title">Brickipedia</div>
+        <a class="ref-item-url" href="https://brickipedia.fandom.com" target="_blank" rel="noopener">brickipedia.fandom.com</a>
+        <div class="ref-item-desc">Community encyclopedia of Lego sets, themes, and minifigures — useful for exploring retired sets and theme history.</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-tag">Research · Marketplace</div>
+        <div class="ref-item-title">BrickLink</div>
+        <a class="ref-item-url" href="https://www.bricklink.com" target="_blank" rel="noopener">bricklink.com</a>
+        <div class="ref-item-desc">Marketplace and parts catalog — helpful for checking real piece names, colors, and prices.</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-tag">Research · Database</div>
+        <div class="ref-item-title">Rebrickable</div>
+        <a class="ref-item-url" href="https://rebrickable.com" target="_blank" rel="noopener">rebrickable.com</a>
+        <div class="ref-item-desc">Set and part database with piece counts and alternate builds — useful when estimating pieces for design specifications.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">Policies</p>
+    <ul>
+      <li><strong>No AI use at all</strong> on assessed work in this unit.</li>
+      <li>Delete all of Mr. K's example pages (marked in yellow) before submitting workbooks.</li>
+    </ul>
+
+  </div>
+</div><!-- /reference-materials -->
+
+<nav class="topic-page-nav nav-next-only">
+  <a class="nav-next" href="g7-lego-engineers.html"><span class="nav-dir">Next →</span><span class="nav-title">Lego Engineers (Grade 7)</span></a>
+</nav>
+
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="../curr-toc.js"></script>
 <script src="../curriculum-themes.js"></script>
 </body>
 </html>
