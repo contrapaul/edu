@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashby Chart Challenge — contrapaul edu</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/curriculum/themes.css" />
+<link rel="stylesheet" href="style.css" />
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand">
+<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
+</div>
+<nav class="nav">
+<a href="/curriculum">Curriculum</a>
+<a href="/tools">Tools</a>
+<a href="/about">About</a>
+<a href="https://contrapaul.com" class="nav-external">← Main site</a>
+</nav>
+</div>
+</header>
+
+<main class="ashby-main">
+
+  <div class="ashby-toolbar">
+    <h1 class="ashby-title">&#x1F4CA; Ashby Chart Challenge</h1>
+    <span class="ashby-stat">&#x1F3C6; <strong id="scoreStat">0</strong> pts</span>
+    <span class="ashby-stat"><strong id="placedStat">0</strong>/<span id="totalStat">0</span> placed</span>
+    <button class="ashby-btn ashby-btn-finish" id="finishBtn" disabled>&#x1F3C1; Finish</button>
+    <button class="ashby-btn" id="resetBtn">&#x27F3; Reset</button>
+  </div>
+
+  <div class="ashby-app">
+
+    <section class="ashby-chart-col">
+      <div class="ashby-chart-wrap" id="chartWrap">
+        <canvas id="ashbyCanvas"></canvas>
+        <div class="ashby-tooltip" id="chartTooltip" hidden></div>
+      </div>
+      <div class="ashby-legend" id="legend"></div>
+      <div class="ashby-def-panel">
+        <span class="ashby-def-emoji" id="defEmoji">&#x1F44B;</span>
+        <div class="ashby-def-body">
+          <div class="ashby-def-name" id="defName">Where does each material belong?</div>
+          <div class="ashby-def-text" id="defText">Drag a material from the pool onto the chart — the closer you land to its real strength and service temperature, the more points you earn (up to 100 each). You get <strong>2 attempts</strong> per material: after the first drop you'll get a hint, and you can drag the marker once more. When every material is placed, hit <em>Finish</em> for your score card.</div>
+          <div class="ashby-def-meta" id="defMeta"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ashby-pool-panel">
+      <div class="ashby-pool-header">
+        <span class="ashby-pool-title">Material pool</span>
+        <span class="ashby-pool-count" id="poolCount"></span>
+      </div>
+      <div class="ashby-pool-list" id="poolList"></div>
+      <div class="ashby-pool-footer">Drag onto the chart &#x2022; tap to inspect</div>
+    </aside>
+
+  </div>
+
+</main>
+
+<div class="ashby-modal" id="scoreModal" hidden>
+  <div class="ashby-modal-backdrop" data-score-close></div>
+  <div class="ashby-modal-box ashby-score-panel" role="dialog" aria-label="Score card">
+    <div class="ashby-modal-head">
+      <span class="ashby-modal-title">&#x1F4CB; Score card</span>
+      <button class="ashby-modal-close" data-score-close aria-label="Close">&times;</button>
+    </div>
+    <div class="ashby-modal-body">
+      <div class="ashby-score-hero" id="scoreHero"></div>
+      <div class="ashby-score-table-wrap">
+        <table class="ashby-score-table">
+          <thead><tr><th>Material</th><th>Class</th><th>Attempts</th><th>Points</th></tr></thead>
+          <tbody id="scoreRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ashby-modal-foot">
+      <button class="ashby-btn" id="playAgainBtn">&#x1F504; Play again</button>
+      <button class="ashby-btn" data-score-close>Study the chart</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<script src="/curriculum/curriculum-themes.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

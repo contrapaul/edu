@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Swipe through recommended games with educational value, then tap one to see more.">
+<title>You Should Play These Games — contrapaul edu</title>
+<link rel="stylesheet" href="greatgames.css">
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Site navigation">
+  <span class="nav-attribution">A project by Mr. K. <a href="https://edu.contrapaul.com/tools">More at edu.contrapaul.com/tools</a></span>
+</nav>
+
+<main id="main-content">
+
+  <header class="gg-hero">
+    <h1>Mr. K's recommended games</h1>
+  </header>
+
+  <!-- ── FILTERS (collapsed by default) ──────────────────────────── -->
+  <div class="gg-filters">
+    <button class="gg-filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersCollapse">
+      <svg class="gg-filters-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2.2"/><line x1="4" y1="17" x2="20" y2="17"/><circle cx="16" cy="17" r="2.2"/></svg>
+      <span>Filters</span>
+      <span class="gg-filters-count" id="filtersCount" hidden>0</span>
+      <svg class="gg-filters-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="gg-filters-collapse" id="filtersCollapse">
+      <div class="gg-filters-collapse-inner">
+        <div class="gg-filters-panel" id="filtersPanel"></div>
+        <button class="gg-filters-clear" id="filtersClear" hidden>Clear all filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GALLERY (horizontal swipe/scroll) ───────────────────────── -->
+  <div class="gg-gallery" id="gallery" role="region" aria-label="Game list, swipe sideways to browse"></div>
+
+</main>
+
+<!-- ── FOOTER ───────────────────────────────────────────────────── -->
+<footer>
+  <p class="footer-source">Placeholder footer text — replace with real notes once this page is finalized.</p>
+  <p class="footer-disclaimer">More tools and resources at <a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
+</footer>
+
+<!-- ── GAME DETAIL POPUP ────────────────────────────────────────── -->
+<div class="gg-modal" id="detailModal" hidden>
+  <div class="gg-modal-backdrop" data-modal-close></div>
+  <div class="gg-modal-box" role="dialog" aria-modal="true" aria-label="Game details" id="detailModalBox">
+    <button class="gg-modal-close" data-modal-close aria-label="Close">&times;</button>
+    <div class="gg-modal-content" id="detailModalContent"></div>
+  </div>
+</div>
+
+<script src="games.js"></script>
+<script src="greatgames.js"></script>
+</body>
+</html>

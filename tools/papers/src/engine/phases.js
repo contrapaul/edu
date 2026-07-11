@@ -18,6 +18,8 @@ import { unlockedCount, openLibrary } from '../ui/library.js';
 import { openPortfolio, activeMarketCount } from '../ui/portfolio.js';
 import { openFinances } from '../ui/finances.js';
 import { openSandbox } from '../ui/sandbox.js';
+import { maybeTrigger } from './notify.js';
+import { canScout, scoutCost, scoutsRemaining, runScout } from './scout.js';
 
 const PHASE_LABELS = {
   brief: 'Brief', design: 'Design', testing: 'Testing',
@@ -40,6 +42,28 @@ const clockLabel = (day) => {
   const wk = Math.floor(day / 7);
   return wk > 0 ? `Wk ${wk} · d${day % 7}` : `Day ${day}`;
 };
+
+// Tracks the last-painted HUD values so budget/day read as a live company
+// ledger ticking in real time, rather than snapping between phases. Reset
+// whenever renderGame starts fresh (see below) so a new game/product never
+// animates from a stale prior value.
+let lastBudget = null;
+let lastDay = null;
+
+function animateValue(el, from, to, formatter, duration = 550) {
+  if (!el) return;
+  if (from === to) { el.textContent = formatter(to); return; }
+  el.classList.add(to > from ? 'flash-up' : 'flash-down');
+  const start = performance.now();
+  function frame(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = formatter(from + (to - from) * eased);
+    if (t < 1) requestAnimationFrame(frame);
+    else { el.textContent = formatter(to); setTimeout(() => el.classList.remove('flash-up', 'flash-down'), 400); }
+  }
+  requestAnimationFrame(frame);
+}
 
 function hudHTML(character, def) {
   const curIdx = PHASES.indexOf(state.phase);
@@ -110,6 +134,11 @@ function hudHTML(character, def) {
         <h3>GloboCorp${state.competitorProgress >= 70 ? ' ⚠' : ''}</h3>
         <div class="comp-bar"><span class="comp-fill" style="width:${state.competitorProgress}%"></span></div>
         <p class="comp-note">${state.competitorProgress >= 70 ? 'Closing in — they may beat you to market!' : 'Rival racing you to market'}</p>
+        <button class="scout-btn" data-tool="scout" title="Spend cash to learn where GloboCorp is stuck, then optionally pay more to press the advantage." ${canScout() ? '' : 'disabled'}>
+          ${scoutsRemaining() > 0
+            ? `🔍 Scout · ${money(scoutCost())} <span class="scout-left">(${scoutsRemaining()} left)</span>`
+            : '🔍 No scouts left this product'}
+        </button>
       </section>
     </aside>`;
 }
@@ -129,16 +158,27 @@ export function renderGame(root, onQuit) {
   }
 
   initProduct(def);
+  // First paint of a fresh game/product never animates from a stale value.
+  lastBudget = null;
+  lastDay = null;
 
   function paint() {
     if (state.bankrupt) return renderBankrupt(root, character, onQuit);
     enqueuePhaseEmails(def);
+
+    const prevBudget = lastBudget;
+    const prevDay = lastDay;
 
     root.innerHTML = `
       <div class="game">
         ${hudHTML(character, def)}
         <main class="phase-content" id="phase-content"></main>
       </div>`;
+
+    animateValue(root.querySelector('.hud-budget-n'), prevBudget ?? state.budget, state.budget, money);
+    animateValue(root.querySelector('.hud-clock-n'), prevDay ?? state.clock.day, state.clock.day, (v) => clockLabel(Math.round(v)));
+    lastBudget = state.budget;
+    lastDay = state.clock.day;
 
     const container = root.querySelector('#phase-content');
     const ctx = {
@@ -169,6 +209,7 @@ export function renderGame(root, onQuit) {
         state.phase = 'brief';
         state.product = null;
         state.competitorProgress = 0;   // a fresh competitor for the new product's dev race
+        state.competitor.intel = 0;     // fresh scouting budget too
         save();
         renderGame(root, onQuit);   // re-enter with the new product
       },
@@ -183,6 +224,10 @@ export function renderGame(root, onQuit) {
     } else {
       stubPhase(container, ctx);
     }
+
+    // A partner offer, an eager fan, or a shady broker can interrupt mid-phase —
+    // this is the ambient "things arrive while you work" pulse of the game.
+    maybeTrigger(character, () => repaintHud(root, character, def, paint));
   }
 
   paint();
@@ -203,6 +248,13 @@ function repaintHud(root, character, def, rerender) {
   game.querySelector('.hud-top').replaceWith(tmp.querySelector('.hud-top'));
   game.querySelector('.hud-side').replaceWith(tmp.querySelector('.hud-side'));
   bindTools(root, character, def, rerender);
+
+  animateValue(game.querySelector('.hud-budget-n'), lastBudget ?? state.budget, state.budget, money);
+  animateValue(game.querySelector('.hud-clock-n'), lastDay ?? state.clock.day, state.clock.day, (v) => clockLabel(Math.round(v)));
+  lastBudget = state.budget;
+  lastDay = state.clock.day;
+
+  maybeTrigger(character, () => repaintHud(root, character, def, rerender));
 }
 
 // Wire the toolbar buttons. Re-bound after every HUD repaint.
@@ -212,6 +264,7 @@ function bindTools(root, character, def, rerender) {
   const finances = root.querySelector('[data-tool="finances"]');
   const portfolio = root.querySelector('[data-tool="portfolio"]');
   const sandbox = root.querySelector('[data-tool="sandbox"]');
+  const scout = root.querySelector('[data-tool="scout"]');
   const hudRefresh = () => repaintHud(root, character, def, rerender);
   if (lib) lib.addEventListener('click', () => openLibrary(hudRefresh));
   if (inbox) inbox.addEventListener('click', () => openInbox(hudRefresh));
@@ -219,6 +272,7 @@ function bindTools(root, character, def, rerender) {
   if (portfolio) portfolio.addEventListener('click', () => openPortfolio(hudRefresh));
   // Sandbox changes can alter phase costs, so closing it re-renders the phase.
   if (sandbox) sandbox.addEventListener('click', () => openSandbox({ def, refreshHud: hudRefresh }, rerender));
+  if (scout) scout.addEventListener('click', () => runScout(hudRefresh));
   // Clickable stepper: jump back to an earlier phase. `rerender` is the full
   // phase repaint (paint), so changing state.phase then calling it re-mounts.
   root.querySelectorAll('.step.nav[data-phase]').forEach(li =>

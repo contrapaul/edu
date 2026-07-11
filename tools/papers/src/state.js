@@ -30,6 +30,10 @@ function blankState() {
     markets: [],            // post-launch ongoing per-product sales states (concurrent)
     companyFixes: [],       // company-level fixes that persist across products (e.g. 'address')
 
+    // --- ambient interactive notifications (mid-phase popups) ---
+    seenNotifications: [],  // notification ids already fired (each fires once per game)
+    lastNotifyDay: -999,    // clock.day of the last notification, for cooldown spacing
+
     // --- sandbox hooks (inert in v1) ---
     countryPresence: {},
     facilities: [],
@@ -73,6 +77,7 @@ export function initProduct(def) {
     selectedMaterials: {},
     selectedSuppliers: {},  // slot id -> selected part-option id (or legacy supplier id)
     selectedProcess: null,
+    investigated: { materials: [], suppliers: [] },  // ids paid to reveal hidden risk on, before committing
     technicalFile: null,
     testResults: [],
     certification: null,    // { resolved: {id:'corrected'|'argued'}, deskCleared, granted }
