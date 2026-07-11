@@ -2021,3 +2021,36 @@ details.p2-reveal summary::before { content: "▼ "; }
   text-decoration: none;
 }
 .topic-link-blurb a:hover { text-decoration: underline; }
+
+/* ── DP HUB: compact hero + 3-column topic layout ────────────── */
+.prog-hero--compact { padding: 1.75rem 2rem 1.5rem; }
+.prog-hero--compact .prog-hero-title { font-size: 1.35rem; margin-bottom: 0.35rem; }
+.prog-hero--compact .prog-hero-desc { font-size: 0.8rem; line-height: 1.6; }
+.prog-hero--compact .prog-hero-back { margin-bottom: 0.75rem; }
+
+.dp-hub { max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+.dp-hub .hub-programme { border-bottom: none; }
+.dp-hub .hub-programme:not(:last-child) { margin-bottom: 3rem; }
+.dp-hub .hub-programme-inner { max-width: none; padding: 0; }
+.dp-hub .hub-prog-header { margin-bottom: 1.5rem; }
+.dp-hub .hub-prog-title { font-size: 1.15rem; }
+.dp-hub .hub-prog-desc { font-size: 0.8rem; }
+.dp-hub .hub-group { margin-bottom: 1.75rem; }
+.dp-hub .topic-cards-grid { grid-template-columns: 1fr; }
+.dp-hub .topic-card { border-left: 3px solid var(--accent); }
+.dp-hub .topic-card.is-hl { border-left-color: var(--hl); }
+
+@media (min-width: 1100px) {
+  .dp-hub {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .dp-hub .hub-programme:not(:last-child) { margin-bottom: 0; }
+}
+
+@media (max-width: 640px) {
+  .prog-hero--compact { padding: 1.5rem 1.25rem 1.25rem; }
+  .dp-hub { padding: 2rem 1.25rem 3rem; }
+}
