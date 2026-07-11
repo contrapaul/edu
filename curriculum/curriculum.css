@@ -872,31 +872,18 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 .hub-hero {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 4rem 2rem;
+  padding: 1.75rem 2rem 1.5rem;
 }
 .hub-hero-inner { max-width: var(--max-w); margin: 0 auto; }
-.hub-badge {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 1px solid #b8d0f0;
-  padding: 0.28rem 0.75rem;
-  border-radius: 2px;
-  margin-bottom: 1.25rem;
-}
 .hub-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-size: 1.55rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.35rem;
 }
-.hub-desc { font-size: 0.95rem; color: var(--muted); max-width: 56ch; line-height: 1.7; }
+.hub-desc { font-size: 0.8rem; color: var(--muted); max-width: 60ch; line-height: 1.6; }
 
 .hub-programme { border-bottom: 1px solid var(--border); }
 .hub-programme-inner { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem 2rem; }
@@ -1773,7 +1760,7 @@ details.p2-reveal summary::before { content: "▼ "; }
   .topic-hero,
   .myp-hero  { padding: 2rem 1.25rem; }
   .curr-main { padding: 0 1.25rem 4rem; }
-  .hub-hero  { padding: 2.5rem 1.25rem; }
+  .hub-hero  { padding: 1.5rem 1.25rem 1.25rem; }
   .hub-programme-inner { padding: 2.5rem 1.25rem; }
   .topic-page-nav { grid-template-columns: 1fr; }
   .topic-page-nav .nav-prev-only,
@@ -2024,9 +2011,8 @@ details.p2-reveal summary::before { content: "▼ "; }
 
 /* ── DP HUB: compact hero + 3-column topic layout ────────────── */
 .prog-hero--compact { padding: 1.75rem 2rem 1.5rem; }
-.prog-hero--compact .prog-hero-title { font-size: 1.35rem; margin-bottom: 0.35rem; }
+.prog-hero--compact .prog-hero-title { font-size: 1.55rem; margin-bottom: 0.35rem; }
 .prog-hero--compact .prog-hero-desc { font-size: 0.8rem; line-height: 1.6; }
-.prog-hero--compact .prog-hero-back { margin-bottom: 0.75rem; }
 
 .dp-hub { max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
 .dp-hub .hub-programme { border-bottom: none; }
