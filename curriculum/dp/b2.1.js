@@ -27,6 +27,15 @@
 
   openButtons.forEach(function (btn) {
     btn.addEventListener('click', function () { openModal(btn.dataset.modal); });
+    /* Cards are not native buttons, so handle keyboard activation */
+    if (btn.tagName !== 'BUTTON') {
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(btn.dataset.modal);
+        }
+      });
+    }
   });
 
   closeButtons.forEach(function (btn) {
