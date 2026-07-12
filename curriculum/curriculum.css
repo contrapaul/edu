@@ -1780,6 +1780,14 @@ details.p2-reveal summary::before { content: "▼ "; }
   min-width: 0;
 }
 
+/* Below this width, reclaim the empty right spacer column so content
+   keeps its size instead of shrinking or wrapping early */
+@media (max-width: 1450px) {
+  .curr-page-layout {
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+}
+
 .curr-toc {
   position: sticky;
   top: calc(var(--curr-nav-h) + 1rem);
