@@ -145,6 +145,30 @@
 }
 .case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
 
+/* Image lightbox */
+.case-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5vmin;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.case-lightbox.open { display: flex; }
+.case-lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: modal-in 0.2s ease;
+}
+
 .case-modal-body .case-iteration {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;
@@ -1482,6 +1506,10 @@ Show Chinese · 显示中文
 
     </div>
   </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
 </div>
 
 </main>
