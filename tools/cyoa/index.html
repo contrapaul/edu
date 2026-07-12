@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A choose-your-own-adventure storybook. Read, choose, and turn to the page of your next move — with optional narration.">
+<title>Choose Your Own Adventure — contrapaul edu</title>
+<link rel="stylesheet" href="cyoa.css">
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ── NAV ──────────────────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Site navigation">
+  <span class="nav-attribution">A project by Mr. K. <a href="https://edu.contrapaul.com/tools">More at edu.contrapaul.com/tools</a></span>
+</nav>
+
+<main id="main-content">
+
+  <!-- ── NARRATION BAR ────────────────────────────────────────────── -->
+  <div class="narr-bar">
+    <label class="narr-toggle">
+      <input type="checkbox" id="narrToggle">
+      <span class="narr-slider" aria-hidden="true"></span>
+      <span class="narr-label">Narration</span>
+    </label>
+    <div class="narr-status" id="narrStatus" hidden>
+      <button class="narr-btn" id="narrPlayBtn" hidden>&#9654; Play</button>
+      <button class="narr-btn" id="narrPauseBtn" hidden>&#10074;&#10074; Pause</button>
+      <button class="narr-btn" id="narrReplayBtn" hidden>&#8635; Replay</button>
+      <span class="narr-note" id="narrNote" hidden></span>
+    </div>
+  </div>
+
+  <!-- ── BOOK ─────────────────────────────────────────────────────── -->
+  <div class="book" id="book">
+
+    <!-- Cover, shown before reading begins -->
+    <div class="cover" id="cover">
+      <div class="cover-frame">
+        <div class="cover-ornament" aria-hidden="true">&#10086;</div>
+        <h1 class="cover-title" id="coverTitle"></h1>
+        <p class="cover-sub" id="coverSub"></p>
+        <button class="begin-btn" id="beginBtn">Begin the adventure</button>
+      </div>
+    </div>
+
+    <!-- Open spread: two facing pages -->
+    <div class="spread" id="spread" hidden>
+      <section class="page page-left" aria-label="Left page">
+        <div class="page-header" id="headerLeft"></div>
+        <div class="page-body" id="bodyLeft"></div>
+        <div class="page-number" id="numLeft"></div>
+      </section>
+      <section class="page page-right" aria-label="Right page">
+        <div class="page-header" id="headerRight"></div>
+        <div class="page-body" id="bodyRight"></div>
+        <div class="page-number" id="numRight"></div>
+      </section>
+      <div class="flip-flap" id="flipFlap" aria-hidden="true" hidden></div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- ── FOOTER ───────────────────────────────────────────────────── -->
+<footer>
+  <p class="footer-disclaimer">More tools and resources at <a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
+</footer>
+
+<audio id="narrAudio" preload="auto"></audio>
+
+<script src="pages.js"></script>
+<script src="cyoa.js"></script>
+</body>
+</html>

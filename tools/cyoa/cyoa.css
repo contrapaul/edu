@@ -1,0 +1,348 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Choose Your Own Adventure — book styling.
+   Standalone stylesheet (no site theme dependency), like greatgames.
+   ═══════════════════════════════════════════════════════════════════ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+:root {
+  --desk: #2b2320;
+  --desk-edge: #1c1614;
+  --paper: #f4ecd8;
+  --paper-edge: #e5d9bc;
+  --ink: #3a2f28;
+  --ink-soft: #7a6a58;
+  --accent: #8c2f1b;
+  --accent-soft: #b8552f;
+  --gold: #c9a24b;
+}
+
+html { height: 100%; }
+
+body {
+  min-height: 100%;
+  font-family: Georgia, 'Times New Roman', serif;
+  background: radial-gradient(ellipse at 50% 20%, var(--desk) 0%, var(--desk-edge) 100%);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Skip link + nav (site convention) ─────────────────────────── */
+.skip-link {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--paper); color: var(--ink); padding: 0.5rem 1rem; z-index: 50;
+}
+.skip-link:focus { left: 0; }
+
+.site-nav {
+  padding: 0.55rem 1rem;
+  background: rgba(0,0,0,0.35);
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.72rem;
+  color: #b6a892;
+}
+.site-nav a { color: #d8c9a8; }
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2.5rem;
+}
+
+/* ── Narration bar ─────────────────────────────────────────────── */
+.narr-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.25rem;
+  min-height: 3rem;
+}
+
+.narr-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  user-select: none;
+  color: #d8c9a8;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+.narr-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px; height: 1px;
+}
+.narr-slider {
+  width: 44px; height: 24px;
+  border-radius: 12px;
+  background: #4a3d33;
+  border: 1px solid #6b5a49;
+  position: relative;
+  transition: background 0.2s;
+  flex: none;
+}
+.narr-slider::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #d8c9a8;
+  transition: transform 0.2s;
+}
+.narr-toggle input:checked + .narr-slider { background: var(--accent-soft); }
+.narr-toggle input:checked + .narr-slider::after { transform: translateX(20px); }
+.narr-toggle input:focus-visible + .narr-slider {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.narr-status { display: inline-flex; align-items: center; gap: 0.5rem; }
+.narr-btn {
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #6b5a49;
+  background: rgba(0,0,0,0.25);
+  color: #e8dcc0;
+  cursor: pointer;
+}
+.narr-btn:hover { background: rgba(0,0,0,0.45); }
+.narr-note { font-size: 0.78rem; font-style: italic; color: #a08e75; }
+
+/* ── Book ──────────────────────────────────────────────────────── */
+.book {
+  position: relative;
+  border-radius: 10px;
+}
+
+/* Cover */
+.cover {
+  max-width: 480px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(160deg, #5c1f12 0%, #7a2a17 45%, #4a180d 100%);
+  border: 2px solid #3a120a;
+  border-radius: 8px 14px 14px 8px;
+  box-shadow:
+    inset 0 0 60px rgba(0,0,0,0.45),
+    12px 14px 0 -4px #3a2c24,
+    12px 14px 0 -2px #241a15,
+    0 24px 50px rgba(0,0,0,0.6);
+  padding: 2.5rem 2rem;
+}
+.cover-frame {
+  border: 2px solid var(--gold);
+  border-radius: 6px;
+  padding: 2.6rem 1.6rem;
+  text-align: center;
+  color: #f0dfb4;
+}
+.cover-ornament { font-size: 1.6rem; color: var(--gold); margin-bottom: 1.2rem; }
+.cover-title {
+  font-size: clamp(1.6rem, 4.5vw, 2.3rem);
+  line-height: 1.2;
+  font-weight: normal;
+  font-variant: small-caps;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+}
+.cover-sub {
+  font-style: italic;
+  font-size: 0.92rem;
+  color: #d8bf8d;
+  margin-bottom: 2.2rem;
+}
+.begin-btn {
+  font-family: inherit;
+  font-size: 1rem;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  padding: 0.7rem 1.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: rgba(0,0,0,0.25);
+  color: #f0dfb4;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.begin-btn:hover { background: rgba(201,162,75,0.25); transform: translateY(-2px); }
+
+/* Spread */
+.spread {
+  position: relative;
+  display: flex;
+  perspective: 2200px;
+  border-radius: 6px 10px 10px 6px;
+  box-shadow: 0 26px 60px rgba(0,0,0,0.65);
+}
+
+.page {
+  flex: 1 1 50%;
+  min-width: 0;
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+  padding: 2.2rem 2.4rem 1.6rem;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.0) 92%, rgba(0,0,0,0.06) 100%),
+    var(--paper);
+  color: var(--ink);
+}
+.page-left {
+  border-radius: 6px 0 0 6px;
+  border-right: 1px solid rgba(0,0,0,0.18);
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.0) 12%, rgba(0,0,0,0.12) 100%),
+    var(--paper);
+}
+.page-right {
+  border-radius: 0 10px 10px 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.0) 10%, rgba(0,0,0,0.03) 100%),
+    var(--paper);
+}
+
+.page-header {
+  font-size: 0.72rem;
+  font-variant: small-caps;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+  text-align: center;
+  padding-bottom: 1.2rem;
+}
+
+.page-body {
+  flex: 1;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.page-body p { margin-bottom: 1.1em; text-indent: 1.4em; }
+.page-body p:first-child { text-indent: 0; }
+
+.page-number {
+  padding-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+.page-left  .page-number { text-align: left; }
+.page-right .page-number { text-align: right; }
+
+/* Choices */
+.choices {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.choices-rule {
+  border: none;
+  border-top: 1px solid rgba(58,47,40,0.25);
+  width: 60%;
+  margin: 0 auto 1rem;
+}
+.choice-btn {
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(58,47,40,0.4);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.35);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  text-decoration: none;
+  display: block;
+}
+.choice-btn:hover {
+  background: #fffdf4;
+  border-color: var(--accent);
+  transform: translateX(3px);
+}
+.choice-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.the-end {
+  text-align: center;
+  font-variant: small-caps;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  margin: 0.5rem 0 1.2rem;
+}
+.the-end::before, .the-end::after { content: ' \2766 '; color: var(--gold); }
+
+/* ── Page-turn flap (desktop) ──────────────────────────────────── */
+.flip-flap {
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%; height: 100%;
+  border-radius: 0 10px 10px 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.0) 12%, rgba(0,0,0,0.05) 100%),
+    var(--paper);
+  transform-origin: left center;
+  backface-visibility: hidden;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: -6px 0 18px rgba(0,0,0,0.2);
+}
+.flip-flap.flipping { animation: pageflip 0.46s ease-in-out both; }
+
+@keyframes pageflip {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(-180deg); }
+}
+
+/* Mobile content fade */
+.spread.fade-in .page { animation: pagefade 0.35s ease-out both; }
+@keyframes pagefade {
+  from { opacity: 0.25; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-flap.flipping { animation: none; }
+  .spread.fade-in .page { animation: none; }
+  .choice-btn, .begin-btn { transition: none; }
+}
+
+/* ── Mobile: stack the two pages ───────────────────────────────── */
+@media (max-width: 719px) {
+  .spread {
+    flex-direction: column;
+    gap: 0.9rem;
+    box-shadow: none;
+    perspective: none;
+  }
+  .page {
+    min-height: 0;
+    border-radius: 6px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+    padding: 1.6rem 1.4rem 1.2rem;
+  }
+  .page-left, .page-right {
+    border-right: none;
+    background: var(--paper);
+  }
+  .flip-flap { display: none; }
+  .narr-bar { justify-content: center; }
+}
+
+/* ── Footer (site convention) ──────────────────────────────────── */
+footer {
+  padding: 1.2rem 1rem 2rem;
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.72rem;
+  color: #8f8069;
+}
+footer a { color: #c2b090; }
