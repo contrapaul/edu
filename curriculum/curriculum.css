@@ -175,6 +175,7 @@
   border-left: 8px solid var(--curr-color, var(--border));
   border-radius: 0 var(--radius) var(--radius) 0;
   padding-left: 20px;
+  padding-right: 20px;
   scroll-margin-top: var(--curr-nav-h);
   margin-top: 0.75rem;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
@@ -343,7 +344,7 @@
   color: var(--curr-color, var(--accent));
 }
 
-.obj-body { display: none; padding: 0.25rem 0 1.25rem 4rem; }
+.obj-body { display: none; padding: 0.25rem 0 1.25rem; }
 .obj-body.open { display: block; }
 
 .obj-figure {
@@ -1765,7 +1766,6 @@ details.p2-reveal summary::before { content: "▼ "; }
   .topic-page-nav { grid-template-columns: 1fr; }
   .topic-page-nav .nav-prev-only,
   .topic-page-nav .nav-next-only { grid-column: 1; }
-  .obj-body { padding-left: 2rem; }
 }
 
 /* ── IN-PAGE TOC LAYOUT ──────────────────────────────────────── */
