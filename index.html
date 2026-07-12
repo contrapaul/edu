@@ -77,11 +77,12 @@
 .lp-block-2 { animation-delay: 0.20s; }
 .lp-block-3 { animation-delay: 0.34s; }
 .lp-block-4 { animation-delay: 0.48s; }
+.lp-block-5 { animation-delay: 0.62s; }
 
 /* ── Typography ─────────────────────────────────────────── */
 .lp-welcome {
   font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(1.65rem, 3.7vw, 3.0rem);
+  font-size: clamp(1rem, 2.2vw, 1.8rem);
   font-weight: 700;
   line-height: 1.55;
   letter-spacing: -0.025em;
@@ -91,7 +92,7 @@
 
 .lp-text {
   font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
-  font-size: clamp(1.65rem, 3.7vw, 3.0rem);
+  font-size: clamp(1rem, 2.2vw, 1.8rem);
   line-height: 1.55;
   font-weight: 300;
   color: var(--text);
@@ -154,18 +155,12 @@
 
 <main class="lp-main">
 
-  <!-- ── Block 1: Welcome + MYP ─────────────────────────── -->
+  <!-- ── Block: Welcome ─────────────────────────────────── -->
   <div class="lp-block lp-block-1">
     <p class="lp-welcome">Welcome to my website.</p>
-    <p class="lp-text">
-      I've also shared several 
-      <a href="/curriculum/myp" class="lp-link lp-c1">MYP Design units</a>,
-      such as <a href="#" id="lp-myp-link" class="lp-link lp-c2">—</a>,
-      where students <span id="lp-myp-desc" class="lp-inject">—</span>.
-    </p>
   </div>
 
-  <!--── Block 2: DP ────────────────────────────────────── -->
+  <!--── Block 1: DP ────────────────────────────────────── -->
   <div class="lp-block lp-block-2">
     <p class="lp-text">
       A great place to start is by reading through some <a href="/curriculum/dp" class="lp-link lp-c3">DP Design Technology material</a>
@@ -173,8 +168,18 @@
     </p>
   </div>
 
-  <!--── Block 3: Tools ─────────────────────────────────── -->
+  <!--── Block 2: MYP ───────────────────────────────────── -->
   <div class="lp-block lp-block-3">
+    <p class="lp-text">
+      I've also shared several
+      <a href="/curriculum/myp" class="lp-link lp-c1">MYP Design units</a>,
+      such as <a href="#" id="lp-myp-link" class="lp-link lp-c2">—</a>,
+      where students <span id="lp-myp-desc" class="lp-inject">—</span>.
+    </p>
+  </div>
+
+  <!--── Block 3: Tools ─────────────────────────────────── -->
+  <div class="lp-block lp-block-4">
     <p class="lp-text">
       My <a href="/tools" class="lp-link lp-c5">tools</a> page has something for everyone, whether you're into <a href="#" id="lp-tool1-link" class="lp-link lp-c6"><span id="lp-tool1-text">—</span></a>
       or would rather <a href="#" id="lp-tool2-link" class="lp-link lp-c7"><span id="lp-tool2-text">—</span></a>.
@@ -182,9 +187,9 @@
   </div>
 
   <!--── Block 4: About ─────────────────────────────────── -->
-  <div class="lp-block lp-block-4">
+  <div class="lp-block lp-block-5">
     <p class="lp-text">
-      If you've actually come here to learn about <em>me</em>, then the <a href="/about" class="lp-link lp-c8">'about'</a> page is worth a read, and even has a 'Mr. K facts' generator with such gems as 
+      If you've actually come here to learn about <em>me</em>, then the <a href="/about" class="lp-link lp-c8">'about'</a> page is worth a read, and even has a 'Mr. K facts' generator with such gems as
     </p>
   </div>
 
