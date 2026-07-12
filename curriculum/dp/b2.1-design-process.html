@@ -11,7 +11,7 @@
 /* ── B2.1.1 CASE STUDY CARDS & MODALS ────────────────────────── */
 .case-study-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -186,8 +186,11 @@
 }
 .case-modal-body .case-iteration p { font-size: 0.85rem; line-height: 1.65; color: var(--muted); margin: 0; }
 
-@media (max-width: 600px) {
+/* Case-study cards: 3 across on desktop, stacked once the TOC drops away */
+@media (max-width: 960px) {
   .case-study-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
   .case-modal-content { width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
   .case-modal-header { padding: 0.75rem 1rem; }
   .case-modal-body { padding: 1rem; }
