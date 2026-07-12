@@ -1,14 +1,28 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Toy Design — Grade 9 MYP Design — contrapaul edu</title>
+<title>Toy Design | G9 — MYP Design — contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* Lesson sub-drop-downs (native details, page-scoped) */
+.lesson-list { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0; }
+.lesson-list details { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.lesson-list summary { cursor: pointer; padding: 0.6rem 0.9rem; font-size: 0.87rem; font-weight: 500; list-style: none; display: flex; align-items: center; gap: 0.6rem; }
+.lesson-list summary::-webkit-details-marker { display: none; }
+.lesson-list summary::after { content: "▾"; margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+.lesson-list details[open] summary::after { content: "▴"; }
+.lesson-num { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 1.7rem; height: 1.7rem; padding: 0 0.35rem; border-radius: 6px; background: var(--surface-2); color: var(--muted); font-size: 0.72rem; font-weight: 600; }
+.lesson-body { padding: 0 0.9rem 0.75rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.lesson-body p { margin: 0.3rem 0; }
+.lesson-note { font-size: 0.8rem; color: var(--muted); font-style: italic; margin: 0.4rem 0 0.8rem; }
+</style>
 </head>
-<body>
+<body data-curr-type="myp" data-curr-page="g9-toy-design">
+
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -21,74 +35,617 @@
 <div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#myp">MYP Design</a><span class="sep">/</span>Grade 9</div>
 <div class="myp-meta"><span class="myp-grade">Grade 9 · Year 4</span><span class="myp-audience-tag">Teacher Resource</span></div>
 <h1 class="myp-title">Toy Design</h1>
+<p class="myp-subtitle"><em>Statement of Inquiry:</em> <em>To be added from the G9 unit plan.</em></p>
 <p class="myp-intro">Students design and produce a physical toy for a specified age group, integrating user-centred research, material selection and prototype fabrication. The unit emphasises safety considerations, inclusive design principles and the relationship between form and function.</p>
+<div class="myp-logistics">
+  <span class="logistics-chip">Toy prototype project</span>
+  <span class="logistics-chip">4 summative assessments (A–D)</span>
+  <span class="logistics-chip">Suggested lesson sequence included</span>
 </div>
-</div>
-
-<main><div class="curr-main">
-
-<div class="curr-section crit-a" id="crit-a">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-a">
-<div class="curr-trigger-left"><span class="curr-badge">A</span><h2>Criterion A — Inquiring and Analysing</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-a">
-<p class="curr-section-intro">Students identify a target user group, conduct primary and secondary research into toy design, analyse existing products, and develop a design brief with safety and usability requirements.</p>
-<p class="content-placeholder">Criterion A teacher notes and task guidance will be added here.</p>
 </div>
 </div>
 
-<div class="curr-section crit-b" id="crit-b">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-b">
-<div class="curr-trigger-left"><span class="curr-badge">B</span><h2>Criterion B — Developing Ideas</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-b">
-<p class="curr-section-intro">Students develop a detailed design specification, present a range of concept designs with material considerations, and select a final design justified against the specification.</p>
-<p class="content-placeholder">Criterion B teacher notes and task guidance will be added here.</p>
-</div>
-</div>
+<main>
+<div class="curr-page-layout">
 
-<div class="curr-section crit-c" id="crit-c">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-c">
-<div class="curr-trigger-left"><span class="curr-badge">C</span><h2>Criterion C — Creating the Solution</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-c">
-<p class="curr-section-intro">Students fabricate the toy prototype using appropriate tools and materials, document the manufacturing process, record deviations from the plan, and apply finishing techniques.</p>
-<p class="content-placeholder">Criterion C teacher notes and task guidance will be added here.</p>
-</div>
-</div>
-
-<div class="curr-section crit-d" id="crit-d">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-d">
-<div class="curr-trigger-left"><span class="curr-badge">D</span><h2>Criterion D — Evaluating</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-crit-d">
-<p class="curr-section-intro">Students test the toy with target users, evaluate against the specification, consider safety and sustainability impacts, and propose evidence-based improvements.</p>
-<p class="content-placeholder">Criterion D teacher notes and task guidance will be added here.</p>
-</div>
-</div>
-
-<div class="curr-section crit-refs" id="references">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
-<div class="curr-trigger-left"><span class="curr-badge">↗</span><h2>References &amp; Resources</h2></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-refs">
-<p class="content-placeholder">Reference links and resources for this unit will be added here.</p>
-</div>
-</div>
-
-<nav class="topic-page-nav">
-<a href="g8-3d-modeling.html"><span class="nav-dir">← Previous</span><span class="nav-title">3D Modeling (Grade 8)</span></a>
-<a class="nav-next" href="g9-electronics.html"><span class="nav-dir">Next →</span><span class="nav-title">Electronics (Grade 9)</span></a>
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul class="curr-toc-list">
+  <li class="curr-toc-item" data-section="introduction"><a href="#introduction">Introduction</a></li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-a">
+    <a href="#crit-a">Criterion A</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-a">
+      <li data-section="task-a-research"><a href="#task-a-research">Research</a></li>
+      <li data-section="lessons-a"><a href="#lessons-a">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-b">
+    <a href="#crit-b">Criterion B</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-b">
+      <li data-section="task-b-what"><a href="#task-b-what">What &amp; Why</a></li>
+      <li data-section="task-b-criteria"><a href="#task-b-criteria">Success Criteria</a></li>
+      <li data-section="task-b-inspiration"><a href="#task-b-inspiration">Inspiration</a></li>
+      <li data-section="task-b-drafts"><a href="#task-b-drafts">Rough Drafts</a></li>
+      <li data-section="task-b-specs"><a href="#task-b-specs">Design Specifications</a></li>
+      <li data-section="task-b-rubric"><a href="#task-b-rubric">Rubric</a></li>
+      <li data-section="lessons-b"><a href="#lessons-b">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-c">
+    <a href="#crit-c">Criterion C</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-c">
+      <li data-section="task-c-workflow"><a href="#task-c-workflow">Workflow &amp; Criteria Carry-Over</a></li>
+      <li data-section="task-c-plan"><a href="#task-c-plan">Production Plan</a></li>
+      <li data-section="task-c-daily"><a href="#task-c-daily">Daily Documentation</a></li>
+      <li data-section="task-c-deliverables"><a href="#task-c-deliverables">Final Deliverables</a></li>
+      <li data-section="task-c-rubric"><a href="#task-c-rubric">Rubric</a></li>
+      <li data-section="lessons-c"><a href="#lessons-c">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-d">
+    <a href="#crit-d">Criterion D</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-d">
+      <li data-section="task-d-survey"><a href="#task-d-survey">Survey Questions</a></li>
+      <li data-section="task-d-success"><a href="#task-d-success">Was it a Success?</a></li>
+      <li data-section="task-d-improve"><a href="#task-d-improve">How Can I Improve?</a></li>
+      <li data-section="task-d-goal"><a href="#task-d-goal">Accomplishing the Goal</a></li>
+      <li data-section="task-d-rubric"><a href="#task-d-rubric">Rubric</a></li>
+      <li data-section="lessons-d"><a href="#lessons-d">Suggested Lessons</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item" data-section="reference-materials"><a href="#reference-materials">Reference Materials</a></li>
+</ul>
 </nav>
 
-</div></main>
+<div class="curr-main">
+
+<!-- Unit at a Glance -->
+<div class="unit-glance">
+  <p class="unit-glance-note">The unit moves through the four MYP design criteria in order, with each criterion assessed by its own summative task. The lesson sequence shown on this page is a <strong>suggestion</strong>, not a hard requirement — adjust pacing to fit the class. <em>Phase details will be completed when the G9 unit documents are available.</em></p>
+  <div class="content-table-wrap">
+    <table class="content-table">
+      <thead><tr><th>Phase</th><th>Focus</th><th>Suggested Classes</th></tr></thead>
+      <tbody>
+        <tr><td>Skills Training</td><td>Materials, fabrication &amp; toy-safety basics</td><td>TBD</td></tr>
+        <tr><td>Criterion A — Inquiring &amp; Analysing</td><td>Research task</td><td>TBD</td></tr>
+        <tr><td>Criterion B — Developing Ideas</td><td>Planning: success criteria, inspiration, rough drafts, specifications</td><td>TBD</td></tr>
+        <tr><td>Criterion C — Creating the Solution</td><td>Fabricating the toy, daily documentation, final deliverables</td><td>TBD</td></tr>
+        <tr><td>Criterion D — Evaluating</td><td>Testing, feedback, success criteria review, improvements</td><td>TBD</td></tr>
+        <tr><td>Final Revisions</td><td>Incorporate feedback and complete the design cycle</td><td>TBD</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 00 — INTRODUCTION
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="introduction" style="--curr-color:#5c5470;">
+  <button class="curr-trigger" aria-expanded="true" aria-controls="body-introduction">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">00</span>
+      <h2>Introduction</h2>
+      <span class="curr-sec-sub">Unit overview, inquiry questions, ATL skills &amp; skills training</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body open" id="body-introduction">
+
+    <p class="obj-outcome"><span class="obj-outcome-label">Unit Overview</span>Students follow the complete design cycle to design and produce a physical toy for a specified age group: researching users and existing products, planning with success criteria and specifications, fabricating and documenting the prototype, and evaluating the result with user testing and feedback.</p>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Key Concept, Related Concepts &amp; Global Context</p>
+    <div class="content-table-wrap">
+      <table class="content-table">
+        <thead><tr><th>Key Concept</th><th>Related Concepts</th><th>Global Context</th></tr></thead>
+        <tbody>
+          <tr><td><em>To be added from the G9 unit plan.</em></td><td><em>To be added from the G9 unit plan.</em></td><td><em>To be added from the G9 unit plan.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Inquiry Questions</p>
+    <div class="content-table-wrap">
+      <table class="content-table">
+        <thead><tr><th>Type</th><th>Question</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Factual</strong></td><td><em>To be added from the G9 unit plan.</em></td></tr>
+          <tr><td><strong>Conceptual</strong></td><td><em>To be added from the G9 unit plan.</em></td></tr>
+          <tr><td><strong>Debatable</strong></td><td><em>To be added from the G9 unit plan.</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">ATL Skills in Focus</p>
+    <p><em>ATL skills in focus will be added from the G9 unit plan.</em></p>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Where to Submit</p>
+    <ul>
+      <li><strong>Criterion A</strong> — <em>to be added.</em></li>
+      <li><strong>Criterion B</strong> — <em>to be added.</em></li>
+      <li><strong>Criterion C</strong> — <em>to be added.</em></li>
+      <li><strong>Criterion D</strong> — <em>to be added.</em></li>
+    </ul>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#5c5470;margin:1.2rem 0 0.4rem;">Suggested Lessons — Skills Training</p>
+    <p class="lesson-note">Pacing is a suggestion, not a hard requirement. Lessons will be added from the G9 unit plan.</p>
+    <div class="lesson-list">
+      <details>
+        <summary><span class="lesson-num">…</span> Skills training lessons to be added</summary>
+        <div class="lesson-body">
+          <p><em>Lesson details will be added when the G9 unit documents are available.</em></p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION A — CRITERION A
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-a" style="--curr-color:#1a5cb8;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-a">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">A</span>
+      <h2>Criterion A — Inquiring and Analysing</h2>
+      <span class="curr-sec-sub">Research · Analysis</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-a">
+
+    <p class="curr-section-intro">Students identify a target user group, conduct primary and secondary research into toy design, analyse existing products, and develop a design brief with safety and usability requirements. <em>Section details will be completed when the G9 task sheet is available.</em></p>
+
+    <!-- A · Research -->
+    <div class="curr-section" id="task-a-research">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-a-research">
+        <div class="obj-trigger-left">
+          <span class="obj-code">A1</span>
+          <h3>Research</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-a-research">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details and the task-specific rubric will be added when the G9 Criterion A task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- A · Lessons -->
+    <div class="curr-section" id="lessons-a">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-a">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-a">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">…</span> Lessons to be added</summary>
+            <div class="lesson-body">
+              <p><em>Lesson details will be added when the G9 unit documents are available.</em></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-a -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION B — CRITERION B
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-b" style="--curr-color:#3d6b4a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-b">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">B</span>
+      <h2>Criterion B — Developing Ideas</h2>
+      <span class="curr-sec-sub">What &amp; Why · Success criteria · Inspiration · Drafts · Specifications</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-b">
+
+    <p class="curr-section-intro">Students develop a detailed design specification, present a range of concept designs with material considerations, and select a final design justified against the specification. <em>Task details will be completed when the G9 task sheet is available.</em></p>
+
+    <!-- B · What and Why -->
+    <div class="curr-section" id="task-b-what">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-what">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B1</span>
+          <h3>What and Why</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-what">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion B task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- B · Success Criteria -->
+    <div class="curr-section" id="task-b-criteria">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-criteria">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B2</span>
+          <h3>Success Criteria</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-criteria">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion B task sheet is available.</em> Success criteria carry forward: they steer the build in Criterion C and are the basis of the evaluation in Criterion D.</p>
+      </div>
+    </div>
+
+    <!-- B · Inspiration -->
+    <div class="curr-section" id="task-b-inspiration">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-inspiration">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B3</span>
+          <h3>Inspiration</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-inspiration">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion B task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- B · Rough Drafts -->
+    <div class="curr-section" id="task-b-drafts">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-drafts">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B4</span>
+          <h3>Rough Drafts</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-drafts">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion B task sheet is available.</em> Rough drafts are exploration — in Criterion C, students start the final build fresh; the drafts show where the project began.</p>
+      </div>
+    </div>
+
+    <!-- B · Design Specifications -->
+    <div class="curr-section" id="task-b-specs">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-specs">
+        <div class="obj-trigger-left">
+          <span class="obj-code">B5</span>
+          <h3>Design Specifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-specs">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion B task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- B · Rubric -->
+    <div class="curr-section" id="task-b-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-b-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-b-rubric">
+        <p><em>The B1–B4 task-specific clarifications (1–2 / 3–4 / 5–6 / 7–8 bands) will be added when the G9 Criterion B task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- B · Lessons -->
+    <div class="curr-section" id="lessons-b">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-b">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-b">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">…</span> Lessons to be added</summary>
+            <div class="lesson-body">
+              <p><em>Lesson details will be added when the G9 unit documents are available.</em></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-b -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION C — CRITERION C
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-c" style="--curr-color:#8b4a1a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-c">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">C</span>
+      <h2>Criterion C — Creating the Solution</h2>
+      <span class="curr-sec-sub">Plan · Build · Document daily · Final deliverables</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-c">
+
+    <p class="curr-section-intro">Students fabricate the toy prototype using appropriate tools and materials, document the manufacturing process, record deviations from the plan, and apply finishing techniques. <em>Section details will be completed when the G9 task sheet is available.</em></p>
+
+    <!-- C · Workflow -->
+    <div class="curr-section" id="task-c-workflow">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-workflow">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C1</span>
+          <h3>Workflow &amp; Success Criteria Carry-Over</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-workflow">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion C task sheet is available.</em> Success criteria from the Criterion B planning assessment carry over — they steer every decision during the build.</p>
+      </div>
+    </div>
+
+    <!-- C · Plan -->
+    <div class="curr-section" id="task-c-plan">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-plan">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C2</span>
+          <h3>Production Plan</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-plan">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion C task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- C · Daily documentation -->
+    <div class="curr-section" id="task-c-daily">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-daily">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C3</span>
+          <h3>Daily Documentation</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-daily">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion C task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- C · Deliverables -->
+    <div class="curr-section" id="task-c-deliverables">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-deliverables">
+        <div class="obj-trigger-left">
+          <span class="obj-code">C4</span>
+          <h3>Final Deliverables</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-deliverables">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion C task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- C · Rubric -->
+    <div class="curr-section" id="task-c-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-c-rubric">
+        <p><em>The Criterion C task-specific clarifications (1–2 / 3–4 / 5–6 / 7–8 bands) will be added when the G9 task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- C · Lessons -->
+    <div class="curr-section" id="lessons-c">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-c">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-c">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">…</span> Lessons to be added</summary>
+            <div class="lesson-body">
+              <p><em>Lesson details will be added when the G9 unit documents are available.</em></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-c -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION D — CRITERION D
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="crit-d" style="--curr-color:#4a3d7a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-d">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">D</span>
+      <h2>Criterion D — Evaluating</h2>
+      <span class="curr-sec-sub">Testing · Success criteria review · Improvements · Goal reflection</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-crit-d">
+
+    <p class="curr-section-intro">Students test the toy with target users, evaluate against the specification, consider safety and sustainability impacts, and propose evidence-based improvements. <em>Section details will be completed when the G9 task sheet is available.</em></p>
+
+    <!-- D · Survey -->
+    <div class="curr-section" id="task-d-survey">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-survey">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D1</span>
+          <h3>Survey Questions &amp; Answers</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-survey">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion D task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- D · Success -->
+    <div class="curr-section" id="task-d-success">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-success">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D2</span>
+          <h3>Was it a Success?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-success">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion D task sheet is available.</em> Expected to mirror earlier years: restate each success criterion from Criterion B and respond with details and reasons.</p>
+      </div>
+    </div>
+
+    <!-- D · Improve -->
+    <div class="curr-section" id="task-d-improve">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-improve">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D3</span>
+          <h3>How Can I Improve My Work?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-improve">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion D task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- D · Goal -->
+    <div class="curr-section" id="task-d-goal">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-goal">
+        <div class="obj-trigger-left">
+          <span class="obj-code">D4</span>
+          <h3>Did You Accomplish the Goal?</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-goal">
+        <p class="obj-outcome"><span class="obj-outcome-label">Requirement</span><em>Task details will be added when the G9 Criterion D task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- D · Rubric -->
+    <div class="curr-section" id="task-d-rubric">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-d-rubric">
+        <div class="obj-trigger-left">
+          <span class="obj-code">✓</span>
+          <h3>Rubric — Task-Specific Clarifications</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-task-d-rubric">
+        <p><em>The Criterion D task-specific clarifications (1–2 / 3–4 / 5–6 / 7–8 bands) will be added when the G9 task sheet is available.</em></p>
+      </div>
+    </div>
+
+    <!-- D · Lessons -->
+    <div class="curr-section" id="lessons-d">
+      <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-d">
+        <div class="obj-trigger-left">
+          <span class="obj-code">▤</span>
+          <h3>Suggested Lessons</h3>
+        </div>
+        <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="obj-body" id="body-lessons-d">
+        <p class="lesson-note">A suggested sequence — adjust pacing as needed.</p>
+        <div class="lesson-list">
+          <details>
+            <summary><span class="lesson-num">…</span> Lessons to be added</summary>
+            <div class="lesson-body">
+              <p><em>Lesson details will be added when the G9 unit documents are available.</em></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /crit-d -->
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION: REFERENCE MATERIALS
+     ═══════════════════════════════════════════════════════ -->
+<div class="curr-section" id="reference-materials" style="--curr-color:#2d7a6a;">
+  <button class="curr-trigger" aria-expanded="false" aria-controls="body-reference-materials">
+    <div class="curr-trigger-left">
+      <span class="curr-badge">↗</span>
+      <h2>Reference Materials</h2>
+      <span class="curr-sec-sub">Downloads · Images · External sites</span>
+    </div>
+    <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="curr-body" id="body-reference-materials">
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:0 0 0.4rem;">Downloads</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">Files</div>
+        <div class="ref-item-title">Unit Files &amp; Templates</div>
+        <span class="ref-item-url">Download links coming soon</span>
+        <div class="ref-item-desc">Reference files for the G9 unit — to be added with the G9 documents.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">Images</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">Images · Gallery</div>
+        <div class="ref-item-title">Example Toy Images</div>
+        <span class="ref-item-url">Gallery coming soon</span>
+        <div class="ref-item-desc">Example toys and prototypes — to be added with the G9 documents.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">External Sites</p>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-item-tag">Research</div>
+        <div class="ref-item-title">Research &amp; Inspiration Sites</div>
+        <span class="ref-item-url">Links coming soon</span>
+        <div class="ref-item-desc">External research and inspiration sites — to be added with the G9 documents.</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.82rem;font-weight:600;color:#2d7a6a;margin:1.2rem 0 0.4rem;">Policies</p>
+    <ul>
+      <li><em>Unit policies (e.g., AI use) will be added from the G9 unit plan.</em></li>
+    </ul>
+
+  </div>
+</div><!-- /reference-materials -->
+
+<nav class="topic-page-nav">
+  <a href="g8-3d-modeling.html"><span class="nav-dir">← Previous</span><span class="nav-title">3D Modeling (Grade 8)</span></a>
+  <a class="nav-next" href="g9-electronics.html"><span class="nav-dir">Next →</span><span class="nav-title">Electronics (Grade 9)</span></a>
+</nav>
+
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
+<script src="../curr-toc.js"></script>
 <script src="../curriculum-themes.js"></script>
 </body>
 </html>
