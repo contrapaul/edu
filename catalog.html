@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Catalog — Component & Effect Reference</title>
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    /* Colors */
+    --color-primary:        #4f46e5;
+    --color-primary-light:  #818cf8;
+    --color-primary-dark:   #3730a3;
+    --color-secondary:      #0ea5e9;
+    --color-accent:         #f59e0b;
+    --color-success:        #22c55e;
+    --color-warning:        #f97316;
+    --color-danger:         #ef4444;
+
+    /* Neutrals */
+    --color-bg:             #f8fafc;
+    --color-surface:        #ffffff;
+    --color-border:         #e2e8f0;
+    --color-text:           #1e293b;
+    --color-text-muted:     #64748b;
+    --color-text-inverse:   #ffffff;
+
+    /* Typography */
+    --font-sans:  'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono:  'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    --fs-xs:   0.75rem;
+    --fs-sm:   0.875rem;
+    --fs-base: 1rem;
+    --fs-md:   1.125rem;
+    --fs-lg:   1.25rem;
+    --fs-xl:   1.5rem;
+    --fs-2xl:  2rem;
+    --fs-3xl:  2.5rem;
+
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12:3rem;
+
+    /* Borders & Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+
+    /* Transitions */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --duration-fast:   150ms;
+    --duration-normal: 250ms;
+    --duration-slow:   400ms;
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  /* ============================================================
+     LAYOUT — SIDEBAR + MAIN
+     ============================================================ */
+  .catalog-layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar Navigation */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    padding: var(--space-6) 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-brand {
+    padding: 0 var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .sidebar-brand h2 {
+    font-size: var(--fs-lg);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .sidebar-brand p {
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  .sidebar-nav { list-style: none; }
+
+  .sidebar-nav li a {
+    display: block;
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all var(--duration-fast) ease;
+  }
+
+  .sidebar-nav li a:hover {
+    color: var(--color-primary);
+    background: rgba(79, 70, 229, 0.05);
+    border-left-color: var(--color-primary-light);
+  }
+
+  .sidebar-nav li a.active {
+    color: var(--color-primary);
+    background: rgba(79, 70, 229, 0.08);
+    border-left-color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .sidebar-nav .nav-section {
+    padding: var(--space-4) var(--space-6) var(--space-2);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    font-weight: 700;
+  }
+
+  /* Main Content */
+  .main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: var(--space-8) var(--space-12);
+    max-width: 960px;
+  }
+
+  /* ============================================================
+     PAGE HEADER
+     ============================================================ */
+  .page-header {
+    margin-bottom: var(--space-12);
+    padding-bottom: var(--space-8);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .page-header h1 {
+    font-size: var(--fs-3xl);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-header p {
+    font-size: var(--fs-md);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
+  }
+
+  /* ============================================================
+     SECTIONS
+     ============================================================ */
+  .catalog-section {
+    margin-bottom: var(--space-12);
+    scroll-margin-top: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .section-header h2 {
+    font-size: var(--fs-2xl);
+    font-weight: 700;
+  }
+
+  .section-header .badge {
+    font-size: var(--fs-xs);
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .section-desc {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+    font-size: var(--fs-sm);
+  }
+
+  /* ============================================================
+     DEMO BLOCKS
+     ============================================================ */
+  .demo-block {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-6);
+    overflow: hidden;
+  }
+
+  .demo-block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    background: #f1f5f9;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .demo-block-header code {
+    font-family: var(--font-mono);
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--color-primary);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
+  }
+
+  .demo-block-body {
+    padding: var(--space-8);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .demo-block-body.column {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .demo-block-body.center {
+    justify-content: center;
+  }
+
+  /* ============================================================
+     CODE SNIPPET BLOCKS
+     ============================================================ */
+  .code-snippet {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    line-height: 1.7;
+    overflow-x: auto;
+    margin-top: var(--space-4);
+  }
+
+  .code-snippet .tag { color: #f472b6; }
+  .code-snippet .attr { color: #38bdf8; }
+  .code-snippet .val { color: #a5f3fc; }
+  .code-snippet .prop { color: #818cf8; }
+  .code-snippet .comment { color: #64748b; font-style: italic; }
+
+  /* ============================================================
+     EXPLANATORY CALLOUTS
+     ============================================================ */
+  .callout {
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+    border-left: 4px solid;
+  }
+
+  .callout.info {
+    background: rgba(14, 165, 233, 0.08);
+    border-color: var(--color-secondary);
+    color: #0c4a6e;
+  }
+
+  .callout.tip {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: var(--color-success);
+    color: #14532d;
+  }
+
+  .callout.warning {
+    background: rgba(249, 115, 22, 0.08);
+    border-color: var(--color-warning);
+    color: #7c2d12;
+  }
+
+  .callout strong { font-weight: 700; }
+
+  /* ============================================================
+     1. BUTTONS
+     ============================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.625rem 1.25rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    font-family: inherit;
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) ease;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .btn:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
+  }
+
+  /* Primary */
+  .btn-primary {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+  }
+  .btn-primary:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  /* Secondary */
+  .btn-secondary {
+    background: var(--color-secondary);
+    color: var(--color-text-inverse);
+  }
+  .btn-secondary:hover {
+    background: #0284c7;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+  }
+
+  /* Outline */
+  .btn-outline {
+    background: transparent;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .btn-outline:hover {
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+    transform: translateY(-1px);
+  }
+
+  /* Ghost */
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-text-muted);
+  }
+  .btn-ghost:hover {
+    background: rgba(0,0,0,0.05);
+    color: var(--color-text);
+  }
+
+  /* Danger */
+  .btn-danger {
+    background: var(--color-danger);
+    color: white;
+  }
+  .btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  }
+
+  /* Sizes */
+  .btn-sm { padding: 0.375rem 0.875rem; font-size: var(--fs-xs); }
+  .btn-lg { padding: 0.875rem 2rem; font-size: var(--fs-md); }
+  .btn-xl { padding: 1rem 2.5rem; font-size: var(--fs-lg); }
+
+  /* Pill */
+  .btn-pill { border-radius: var(--radius-full); }
+
+  /* Icon Button */
+  .btn-icon {
+    width: 40px; height: 40px;
+    padding: 0;
+    border-radius: var(--radius-md);
+  }
+
+  /* Loading */
+  .btn-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+  }
+  .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  /* ============================================================
+     2. HOVER EFFECTS — CARDS
+     ============================================================ */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    width: 240px;
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  /* Lift on hover */
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Scale on hover */
+  .card-scale:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Border glow on hover */
+  .card-glow:hover {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15), var(--shadow-md);
+  }
+
+  /* Gradient border on hover */
+  .card-gradient {
+    position: relative;
+    background: var(--color-surface);
+  }
+  .card-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-normal) ease;
+  }
+  .card-gradient:hover::before { opacity: 1; }
+
+  /* Underline reveal */
+  .card-underline {
+    position: relative;
+    overflow: hidden;
+  }
+  .card-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+  .card-underline:hover::after { transform: scaleX(1); }
+
+  /* ============================================================
+     3. HOVER EFFECTS — LINKS & TEXT
+     ============================================================ */
+  .link-underline {
+    color: var(--color-primary);
+    text-decoration: none;
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+  .link-underline:hover::after { transform: scaleX(1); }
+
+  /* Slide underline */
+  .link-slide {
+    color: var(--color-primary);
+    text-decoration: none;
+    position: relative;
+  }
+  .link-slide::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--color-primary);
+    transform: translateX(-100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+  .link-slide:hover::after { transform: translateX(0); }
+
+  /* Color shift */
+  .link-colorshift {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+  .link-colorshift:hover { color: var(--color-primary); }
+
+  /* Arrow link */
+  .link-arrow {
+    color: var(--color-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .link-arrow .arrow {
+    transition: transform var(--duration-fast) var(--ease-spring);
+  }
+  .link-arrow:hover .arrow { transform: translateX(4px); }
+
+  /* ============================================================
+     4. HOVER EFFECTS — IMAGES / THUMBNAILS
+     ============================================================ */
+  .thumb {
+    width: 180px; height: 120px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .thumb-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .thumb-zoom:hover .thumb-img { transform: scale(1.1); }
+
+  /* Overlay on hover */
+  .thumb-overlay { position: relative; }
+  .thumb-overlay .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(79, 70, 229, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity var(--duration-normal) ease;
+  }
+  .thumb-overlay:hover .overlay { opacity: 1; }
+
+  /* ============================================================
+     5. CLICK / ACTIVE EFFECTS
+     ============================================================ */
+  .click-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .click-ripple .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: scale(0);
+    animation: ripple-anim 0.6s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes ripple-anim {
+    to { transform: scale(4); opacity: 0; }
+  }
+
+  /* Press effect */
+  .click-press {
+    transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+  .click-press:active {
+    transform: scale(0.96);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Toggle / Switch */
+  .toggle {
+    position: relative;
+    width: 48px; height: 26px;
+    background: #cbd5e1;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background var(--duration-fast) ease;
+  }
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 20px; height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform var(--duration-fast) var(--ease-spring);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle.active {
+    background: var(--color-primary);
+  }
+  .toggle.active::after {
+    transform: translateX(22px);
+  }
+
+  /* Checkbox custom */
+  .checkbox-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    font-size: var(--fs-sm);
+  }
+  .checkbox-custom input { display: none; }
+  .checkmark {
+    width: 20px; height: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration-fast) ease;
+  }
+  .checkmark svg {
+    width: 12px; height: 12px;
+    stroke: white;
+    stroke-width: 3;
+    fill: none;
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--duration-fast) var(--ease-spring);
+  }
+  .checkbox-custom input:checked + .checkmark {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  .checkbox-custom input:checked + .checkmark svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Radio custom */
+  .radio-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    font-size: var(--fs-sm);
+  }
+  .radio-custom input { display: none; }
+  .radiomark {
+    width: 20px; height: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration-fast) ease;
+  }
+  .radiomark::after {
+    content: '';
+    width: 10px; height: 10px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform var(--duration-fast) var(--ease-spring);
+  }
+  .radio-custom input:checked + .radiomark {
+    border-color: var(--color-primary);
+  }
+  .radio-custom input:checked + .radiomark::after {
+    transform: scale(1);
+  }
+
+  /* ============================================================
+     6. FORM INPUTS
+     ============================================================ */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .input-group label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .input {
+    padding: 0.625rem var(--space-4);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    font-family: inherit;
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: all var(--duration-fast) ease;
+    outline: none;
+  }
+
+  .input:hover { border-color: #cbd5e1; }
+
+  .input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+
+  .input::placeholder { color: #94a3b8; }
+
+  /* Input with icon */
+  .input-wrapper {
+    position: relative;
+  }
+  .input-wrapper .icon {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+  }
+  .input-wrapper .input { padding-left: 2.5rem; }
+
+  /* Input states */
+  .input-error {
+    border-color: var(--color-danger);
+  }
+  .input-error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+
+  .input-success {
+    border-color: var(--color-success);
+  }
+  .input-success:focus {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  }
+
+  /* ============================================================
+     7. BADGES & TAGS
+     ============================================================ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 10px;
+    font-size: var(--fs-xs);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    line-height: 1.5;
+  }
+
+  .badge-primary { background: rgba(79,70,229,0.1); color: var(--color-primary); }
+  .badge-success { background: rgba(34,197,94,0.1); color: var(--color-success); }
+  .badge-warning { background: rgba(249,115,22,0.1); color: var(--color-warning); }
+  .badge-danger  { background: rgba(239,68,68,0.1); color: var(--color-danger); }
+  .badge-info    { background: rgba(14,165,233,0.1); color: var(--color-secondary); }
+
+  /* Solid badges */
+  .badge-solid {
+    color: white;
+  }
+  .badge-solid.badge-primary { background: var(--color-primary); }
+  .badge-solid.badge-success { background: var(--color-success); }
+  .badge-solid.badge-danger  { background: var(--color-danger); }
+
+  /* Dot badge */
+  .badge-dot::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ============================================================
+     8. TOOLTIPS
+     ============================================================ */
+  .tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip-wrapper .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--color-text);
+    color: white;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-xs);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--duration-fast) ease;
+  }
+
+  .tooltip-wrapper .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--color-text);
+  }
+
+  .tooltip-wrapper:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ============================================================
+     9. ALERTS / NOTIFICATIONS
+     ============================================================ */
+  .alert {
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .alert-icon { font-size: var(--fs-lg); flex-shrink: 0; margin-top: 1px; }
+
+  .alert-info {
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.2);
+    color: #0c4a6e;
+  }
+
+  .alert-success {
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.2);
+    color: #14532d;
+  }
+
+  .alert-warning {
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.2);
+    color: #7c2d12;
+  }
+
+  .alert-danger {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    color: #7f1d1d;
+  }
+
+  /* ============================================================
+     10. LOADING STATES
+     ============================================================ */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spinner {
+    width: 24px; height: 24px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .spinner-sm { width: 16px; height: 16px; border-width: 2px; }
+  .spinner-lg { width: 40px; height: 40px; border-width: 4px; }
+
+  /* Skeleton */
+  .skeleton {
+    background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Pulse */
+  .pulse {
+    animation: pulse-anim 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-anim {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: var(--radius-full);
+    transition: width 0.5s ease;
+  }
+
+  /* ============================================================
+     11. NAVIGATION ELEMENTS
+     ============================================================ */
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .nav-tab {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all var(--duration-fast) ease;
+    cursor: pointer;
+  }
+
+  .nav-tab:hover { color: var(--color-text); }
+
+  .nav-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+  }
+
+  /* Breadcrumbs */
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-sm);
+  }
+
+  .breadcrumbs a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .breadcrumbs a:hover { color: var(--color-primary); }
+
+  .breadcrumbs .separator {
+    color: var(--color-border);
+    font-size: var(--fs-xs);
+  }
+
+  .breadcrumbs .current { color: var(--color-text); font-weight: 600; }
+
+  /* ============================================================
+     12. TYPOGRAPHY SCALE
+     ============================================================ */
+  .type-sample {
+    margin-bottom: var(--space-4);
+  }
+
+  .type-label {
+    font-size: var(--fs-xs);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 2px;
+  }
+
+  /* ============================================================
+     13. ANIMATIONS & TRANSITIONS REFERENCE
+     ============================================================ */
+  .anim-demo {
+    width: 60px; height: 60px;
+    background: var(--color-primary);
+    border-radius: var(--radius-md);
+  }
+
+  .anim-fade-in { animation: fadeIn 0.5s ease both; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .anim-slide-up { animation: slideUp 0.5s var(--ease-out) both; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .anim-scale-in { animation: scaleIn 0.4s var(--ease-spring) both; }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+  .anim-bounce { animation: bounce 0.6s var(--ease-spring) both; }
+  @keyframes bounce {
+    0% { transform: scale(0); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  .anim-shake { animation: shake 0.5s ease both; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+
+  /* ============================================================
+     14. AVATAR & USER ELEMENTS
+     ============================================================ */
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    flex-shrink: 0;
+  }
+
+  .avatar-sm { width: 32px; height: 32px; font-size: var(--fs-xs); }
+  .avatar-lg { width: 56px; height: 56px; font-size: var(--fs-lg); }
+  .avatar-xl { width: 80px; height: 80px; font-size: var(--fs-2xl); }
+
+  .avatar-group {
+    display: flex;
+  }
+  .avatar-group .avatar {
+    border: 3px solid var(--color-surface);
+    margin-left: -10px;
+  }
+  .avatar-group .avatar:first-child { margin-left: 0; }
+
+  /* ============================================================
+     15. DIVIDERS & SPACING HELPERS
+     ============================================================ */
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--color-border);
+    margin: var(--space-6) 0;
+  }
+
+  .divider-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--fs-sm);
+  }
+
+  .divider-text::before,
+  .divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; padding: var(--space-6); }
+    .demo-block-body { gap: var(--space-3); }
+  }
+
+  /* ============================================================
+     SCROLLBAR STYLING
+     ============================================================ */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+  /* ============================================================
+     PRINT STYLES
+     ============================================================ */
+  @media print {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="catalog-layout">
+
+  <!-- ============================================================
+       SIDEBAR NAVIGATION
+       ============================================================ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>🎨 Style Catalog</h2>
+      <p>Component &amp; Effect Reference</p>
+    </div>
+    <ul class="sidebar-nav">
+      <li class="nav-section">Foundation</li>
+      <li><a href="#typography" class="active">Typography Scale</a></li>
+      <li><a href="#colors">Color Tokens</a></li>
+
+      <li class="nav-section">Components</li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#forms">Form Inputs</a></li>
+      <li><a href="#badges">Badges &amp; Tags</a></li>
+      <li><a href="#alerts">Alerts &amp; Notifications</a></li>
+      <li><a href="#avatars">Avatars</a></li>
+
+      <li class="nav-section">Hover Effects</li>
+      <li><a href="#hover-cards">Card Hover Effects</a></li>
+      <li><a href="#hover-links">Link Hover Effects</a></li>
+      <li><a href="#hover-images">Image Hover Effects</a></li>
+
+      <li class="nav-section">Click &amp; Active</li>
+      <li><a href="#click-effects">Press &amp; Ripple Effects</a></li>
+      <li><a href="#toggles">Toggles &amp; Checkboxes</a></li>
+
+      <li class="nav-section">Navigation</li>
+      <li><a href="#nav-tabs">Tabs &amp; Breadcrumbs</a></li>
+      <li><a href="#tooltips">Tooltips</a></li>
+
+      <li class="nav-section">Feedback</li>
+      <li><a href="#loading">Loading States</a></li>
+      <li><a href="#animations">Animations &amp; Transitions</a></li>
+    </ul>
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="main-content">
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Style Catalog</h1>
+      <p>A living reference of UI components, hover effects, click interactions, and design tokens for consistent site building.</p>
+    </header>
+
+    <!-- ============================================================
+         SECTION: TYPOGRAPHY
+         ============================================================ -->
+    <section class="catalog-section" id="typography">
+      <div class="section-header">
+        <h2>Typography Scale</h2>
+        <span class="badge">Foundation</span>
+      </div>
+      <p class="section-desc">The type scale defines all heading and body text sizes used across the site. Each size includes its CSS variable name for easy reference.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Type Scale Preview</div>
+        <div class="demo-block-body column">
+          <div class="type-sample">
+            <div class="type-label">fs-3xl — 2.5rem / 40px</div>
+            <h1 style="font-size:var(--fs-3xl); font-weight:800; line-height:1.2;">The Quick Brown Fox</h1>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-2xl — 2rem / 32px</div>
+            <h2 style="font-size:var(--fs-2xl); font-weight:700; line-height:1.3;">The Quick Brown Fox</h2>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-xl — 1.5rem / 24px</div>
+            <h3 style="font-size:var(--fs-xl); font-weight:700; line-height:1.4;">The Quick Brown Fox</h3>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-lg — 1.25rem / 20px</div>
+            <h4 style="font-size:var(--fs-lg); font-weight:600; line-height:1.4;">The Quick Brown Fox</h4>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-md — 1.125rem / 18px</div>
+            <p style="font-size:var(--fs-md); line-height:1.6;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-base — 1rem / 16px</div>
+            <p style="font-size:var(--fs-base); line-height:1.6;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-sm — 0.875rem / 14px</div>
+            <p style="font-size:var(--fs-sm); line-height:1.6;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+          <div class="type-sample">
+            <div class="type-label">fs-xs — 0.75rem / 12px</div>
+            <p style="font-size:var(--fs-xs); line-height:1.6;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>💡 Tip:</strong> Use CSS custom properties (e.g., <code>--fs-lg</code>) instead of hard-coded values. This makes global font-size adjustments trivial — change one variable, update the entire site.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: COLORS
+         ============================================================ -->
+    <section class="catalog-section" id="colors">
+      <div class="section-header">
+        <h2>Color Tokens</h2>
+        <span class="badge">Foundation</span>
+      </div>
+      <p class="section-desc">The design system color palette. Each swatch shows the CSS variable name and hex value.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Brand Colors</div>
+        <div class="demo-block-body" style="gap: var(--space-3);">
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#4f46e5;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-primary</code><br>
+            <span style="font-size:var(--fs-xs);color:var(--color-text-muted);">#4f46e5</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#818cf8;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-primary-light</code><br>
+            <span style="font-size:var(--fs-xs);color:var(--color-text-muted);">#818cf8</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#3730a3;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-primary-dark</code><br>
+            <span style="font-size:var(--fs-xs);color:var(--color-text-muted);">#3730a3</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#0ea5e9;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-secondary</code><br>
+            <span style="font-size:var(--fs-xs);color:var(--color-text-muted);">#0ea5e9</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#f59e0b;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-accent</code><br>
+            <span style="font-size:var(--fs-xs);color:var(--color-text-muted);">#f59e0b</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Semantic Colors</div>
+        <div class="demo-block-body" style="gap: var(--space-3);">
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#22c55e;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-success</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#f97316;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-warning</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#ef4444;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-danger</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Neutral Scale</div>
+        <div class="demo-block-body" style="gap: var(--space-3);">
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#f8fafc;border:1px solid #e2e8f0;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-bg</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#ffffff;border:1px solid #e2e8f0;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-surface</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#e2e8f0;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-border</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#1e293b;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-text</code>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:80px;height:56px;border-radius:var(--radius-md);background:#64748b;margin-bottom:4px;"></div>
+            <code style="font-size:var(--fs-xs);">--color-text-muted</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: BUTTONS
+         ============================================================ -->
+    <section class="catalog-section" id="buttons">
+      <div class="section-header">
+        <h2>Buttons</h2>
+        <span class="badge">Components</span>
+      </div>
+      <p class="section-desc">Buttons are the primary call-to-action elements. Each variant has distinct hover, focus, and active states.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Variants <code>.btn-{variant}</code></div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-outline">Outline</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-danger">Danger</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Sizes <code>.btn-{sm,lg,xl}</code></div>
+        <div class="demo-block-body" style="align-items:center;">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary btn-xl">Extra Large</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Pill Shape <code>.btn-pill</code></div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary btn-pill">Pill Button</button>
+          <button class="btn btn-outline btn-pill">Outline Pill</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Icon Button <code>.btn-icon</code></div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary btn-icon" aria-label="Settings">⚙</button>
+          <button class="btn btn-outline btn-icon" aria-label="Search">🔍</button>
+          <button class="btn btn-ghost btn-icon" aria-label="Menu">☰</button>
+          <button class="btn btn-danger btn-icon" aria-label="Delete">🗑</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Loading State <code>.btn-loading</code></div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary btn-loading">Submit</button>
+          <button class="btn btn-secondary btn-loading">Processing</button>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>ℹ️ Hover &amp; Active Behavior:</strong><br>
+        • <strong>Hover</strong> — lifts 1px with a colored shadow matching the button's brand color.<br>
+        • <strong>Active (click)</strong> — returns to baseline position with no shadow, giving a "pressed" feel.<br>
+        • <strong>Focus-visible</strong> — shows a 3px outline ring for keyboard accessibility.
+      </div>
+
+      <div class="code-snippet">
+<span class="comment">/* Primary button hover effect */</span>
+.<span class="tag">btn-primary</span>:<span class="attr">hover</span> {
+  <span class="prop">background</span>: <span class="val">var(--color-primary-dark)</span>;
+  <span class="prop">transform</span>: <span class="val">translateY(-1px)</span>;
+  <span class="prop">box-shadow</span>: <span class="val">0 4px 12px rgba(79, 70, 229, 0.4)</span>;
+}
+
+.<span class="tag">btn-primary</span>:<span class="attr">active</span> {
+  <span class="prop">transform</span>: <span class="val">translateY(0)</span>;
+  <span class="prop">box-shadow</span>: <span class="val">none</span>;
+}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: FORM INPUTS
+         ============================================================ -->
+    <section class="catalog-section" id="forms">
+      <div class="section-header">
+        <h2>Form Inputs</h2>
+        <span class="badge">Components</span>
+      </div>
+      <p class="section-desc">Input fields with hover, focus, error, and success states. All inputs use a 2px border that transitions on interaction.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Default &amp; States</div>
+        <div class="demo-block-body column" style="width:100%; max-width:400px;">
+          <div class="input-group">
+            <label>Default Input</label>
+            <input type="text" class="input" placeholder="Type something...">
+          </div>
+          <div class="input-group">
+            <label>With Icon</label>
+            <div class="input-wrapper">
+              <span class="icon">🔍</span>
+              <input type="text" class="input" placeholder="Search...">
+            </div>
+          </div>
+          <div class="input-group">
+            <label>Error State</label>
+            <input type="text" class="input input-error" value="Invalid email address">
+          </div>
+          <div class="input-group">
+            <label>Success State</label>
+            <input type="text" class="input input-success" value="Username available!">
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>ℹ️ Focus Ring:</strong> On focus, inputs receive a 2px border in the primary color plus a 3px outer glow ring (<code>box-shadow</code>) for clear visual feedback. The transition is 150ms for snappy feel.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: BADGES & TAGS
+         ============================================================ -->
+    <section class="catalog-section" id="badges">
+      <div class="section-header">
+        <h2>Badges &amp; Tags</h2>
+        <span class="badge">Components</span>
+      </div>
+      <p class="section-desc">Small status indicators and labels. Available in outline (default) and solid variants, with an optional dot prefix.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Outline Badges</div>
+        <div class="demo-block-body">
+          <span class="badge badge-primary">Primary</span>
+          <span class="badge badge-success">Success</span>
+          <span class="badge badge-warning">Warning</span>
+          <span class="badge badge-danger">Danger</span>
+          <span class="badge badge-info">Info</span>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Solid Badges <code>.badge-solid</code></div>
+        <div class="demo-block-body">
+          <span class="badge badge-solid badge-primary">Primary</span>
+          <span class="badge badge-solid badge-success">Success</span>
+          <span class="badge badge-solid badge-danger">Danger</span>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Dot Badges <code>.badge-dot</code></div>
+        <div class="demo-block-body">
+          <span class="badge badge-success badge-dot">Online</span>
+          <span class="badge badge-warning badge-dot">Away</span>
+          <span class="badge badge-danger badge-dot">Offline</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: ALERTS
+         ============================================================ -->
+    <section class="catalog-section" id="alerts">
+      <div class="section-header">
+        <h2>Alerts &amp; Notifications</h2>
+        <span class="badge">Components</span>
+      </div>
+      <p class="section-desc">Contextual feedback messages with semantic color coding.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Alert Variants</div>
+        <div class="demo-block-body column" style="width:100%;">
+          <div class="alert alert-info">
+            <span class="alert-icon">ℹ️</span>
+            <div><strong>Info:</strong> A new version of the application is available for download.</div>
+          </div>
+          <div class="alert alert-success">
+            <span class="alert-icon">✅</span>
+            <div><strong>Success:</strong> Your changes have been saved successfully.</div>
+          </div>
+          <div class="alert alert-warning">
+            <span class="alert-icon">⚠️</span>
+            <div><strong>Warning:</strong> Your trial expires in 3 days. Upgrade to continue.</div>
+          </div>
+          <div class="alert alert-danger">
+            <span class="alert-icon">🚨</span>
+            <div><strong>Error:</strong> Failed to connect to the server. Please try again.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: AVATARS
+         ============================================================ -->
+    <section class="catalog-section" id="avatars">
+      <div class="section-header">
+        <h2>Avatars</h2>
+        <span class="badge">Components</span>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Sizes</div>
+        <div class="demo-block-body" style="align-items:center;">
+          <div class="avatar avatar-sm">A</div>
+          <div class="avatar">AB</div>
+          <div class="avatar avatar-lg">ABC</div>
+          <div class="avatar avatar-xl">ABCD</div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Avatar Group</div>
+        <div class="demo-block-body">
+          <div class="avatar-group">
+            <div class="avatar" style="background:linear-gradient(135deg,#f472b6,#ec4899);">A</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#60a5fa,#3b82f6);">B</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#34d399,#10b981);">C</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#fbbf24,#f59e0b);">D</div>
+            <div class="avatar" style="background:linear-gradient(135deg,#94a3b8,#64748b);">+3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: HOVER EFFECTS — CARDS
+         ============================================================ -->
+    <section class="catalog-section" id="hover-cards">
+      <div class="section-header">
+        <h2>Card Hover Effects</h2>
+        <span class="badge">Hover</span>
+      </div>
+      <p class="section-desc">Cards respond to hover with various visual treatments. Hover over each card below to see the effect.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Lift Effect <code>.card-lift</code></div>
+        <div class="demo-block-body">
+          <div class="card card-lift">
+            <h4 style="margin-bottom:var(--space-2);">Lift Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Hover to see the card lift with a shadow.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Scale Effect <code>.card-scale</code></div>
+        <div class="demo-block-body">
+          <div class="card card-scale">
+            <h4 style="margin-bottom:var(--space-2);">Scale Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Hover to see the card scale up slightly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Glow Border <code>.card-glow</code></div>
+        <div class="demo-block-body">
+          <div class="card card-glow">
+            <h4 style="margin-bottom:var(--space-2);">Glow Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Hover to see a colored border glow appear.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Gradient Border Reveal <code>.card-gradient</code></div>
+        <div class="demo-block-body">
+          <div class="card card-gradient">
+            <h4 style="margin-bottom:var(--space-2);">Gradient Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Hover to reveal a gradient border.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Underline Reveal <code>.card-underline</code></div>
+        <div class="demo-block-body">
+          <div class="card card-underline">
+            <h4 style="margin-bottom:var(--space-2);">Underline Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Hover to see a gradient bar animate in from the left.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>💡 Best Practice:</strong> Use <code>cubic-bezier(0.16, 1, 0.3, 1)</code> (our <code>--ease-out</code>) for hover transitions. It starts fast and decelerates smoothly, feeling more natural than linear easing.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: HOVER EFFECTS — LINKS
+         ============================================================ -->
+    <section class="catalog-section" id="hover-links">
+      <div class="section-header">
+        <h2>Link Hover Effects</h2>
+        <span class="badge">Hover</span>
+      </div>
+      <p class="section-desc">Subtle link hover effects that enhance interactivity without overwhelming the user.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Underline Reveal (from right) <code>.link-underline</code></div>
+        <div class="demo-block-body">
+          <a href="#" class="link-underline" style="font-size:var(--fs-lg);">Hover to underline</a>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Slide Underline (from left) <code>.link-slide</code></div>
+        <div class="demo-block-body">
+          <a href="#" class="link-slide" style="font-size:var(--fs-lg);">Hover to slide underline</a>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Color Shift <code>.link-colorshift</code></div>
+        <div class="demo-block-body">
+          <a href="#" class="link-colorshift" style="font-size:var(--fs-lg);">Hover to change color</a>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Arrow Nudge <code>.link-arrow</code></div>
+        <div class="demo-block-body">
+          <a href="#" class="link-arrow" style="font-size:var(--fs-lg);">
+            Read more <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>ℹ️ Accessibility Note:</strong> Always ensure hover states don't remove underlines from links entirely — screen reader users and keyboard navigators rely on visual link indicators. The color-shift variant should be paired with an underline for WCAG compliance.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: HOVER EFFECTS — IMAGES
+         ============================================================ -->
+    <section class="catalog-section" id="hover-images">
+      <div class="section-header">
+        <h2>Image Hover Effects</h2>
+        <span class="badge">Hover</span>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Zoom on Hover <code>.thumb-zoom</code></div>
+        <div class="demo-block-body">
+          <div class="thumb thumb-zoom">
+            <div class="thumb-img"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Overlay Reveal <code>.thumb-overlay</code></div>
+        <div class="demo-block-body">
+          <div class="thumb thumb-overlay">
+            <div class="thumb-img" style="background:linear-gradient(135deg,#f093fb,#f5576c);"></div>
+            <div class="overlay">View Details</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>💡 Performance Tip:</strong> Always apply transforms to the image element itself, not the container. This uses GPU compositing and avoids layout thrashing. Use <code>will-change: transform</code> sparingly on elements that animate frequently.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: CLICK / ACTIVE EFFECTS
+         ============================================================ -->
+    <section class="catalog-section" id="click-effects">
+      <div class="section-header">
+        <h2>Click &amp; Active Effects</h2>
+        <span class="badge">Interaction</span>
+      </div>
+      <p class="section-desc">Visual feedback when elements are pressed or clicked.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Press / Scale Down <code>.click-press</code></div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary click-press" style="min-width:140px;">Click Me</button>
+          <button class="btn btn-secondary click-press" style="min-width:140px;">Click Me</button>
+          <div class="card card-lift click-press" style="width:200px;cursor:pointer;">
+            <h4 style="margin-bottom:var(--space-2);">Pressable Card</h4>
+            <p style="font-size:var(--fs-sm);color:var(--color-text-muted);">Click to see scale-down effect.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Ripple Effect <code>.click-ripple</code> (JavaScript)</div>
+        <div class="demo-block-body">
+          <button class="btn btn-primary click-ripple" style="min-width:140px;overflow:hidden;" onclick="createRipple(event)">
+            Ripple Button
+          </button>
+          <button class="btn btn-secondary click-ripple" style="min-width:140px;overflow:hidden;" onclick="createRipple(event)">
+            Ripple Button
+          </button>
+        </div>
+      </div>
+
+      <div class="code-snippet">
+<span class="comment">// Ripple effect — attach to click handler</span>
+<span class="tag">function</span> <span class="attr">createRipple</span>(event) {
+  <span class="tag">const</span> btn = event.currentTarget;
+  <span class="tag">const</span> ripple = document.<span class="attr">createElement</span>(<span class="val">'span'</span>);
+  ripple.className = <span class="val">'ripple'</span>;
+
+  <span class="tag">const</span> rect = btn.<span class="attr">getBoundingClientRect</span>();
+  <span class="tag">const</span> size = Math.<span class="attr">max</span>(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + <span class="val">'px'</span>;
+  ripple.style.left = (event.clientX - rect.left - size / <span class="val">2</span>) + <span class="val">'px'</span>;
+  ripple.style.top = (event.clientY - rect.top - size / <span class="val">2</span>) + <span class="val">'px'</span>;
+
+  btn.<span class="attr">appendChild</span>(ripple);
+  ripple.<span class="attr">addEventListener</span>(<span class="val">'animationend'</span>, () => ripple.<span class="attr">remove</span>());
+}
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: TOGGLES & CHECKBOXES
+         ============================================================ -->
+    <section class="catalog-section" id="toggles">
+      <div class="section-header">
+        <h2>Toggles &amp; Checkboxes</h2>
+        <span class="badge">Interaction</span>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Toggle Switch</div>
+        <div class="demo-block-body">
+          <div class="toggle" onclick="this.classList.toggle('active')" role="switch" aria-checked="false" tabindex="0"></div>
+          <div class="toggle active" onclick="this.classList.toggle('active')" role="switch" aria-checked="true" tabindex="0"></div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Custom Checkbox</div>
+        <div class="demo-block-body column">
+          <label class="checkbox-custom">
+            <input type="checkbox" checked>
+            <span class="checkmark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Checked item
+          </label>
+          <label class="checkbox-custom">
+            <input type="checkbox">
+            <span class="checkmark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>
+            Unchecked item
+          </label>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Custom Radio</div>
+        <div class="demo-block-body column">
+          <label class="radio-custom">
+            <input type="radio" name="demo-radio" checked>
+            <span class="radiomark"></span>
+            Option A (selected)
+          </label>
+          <label class="radio-custom">
+            <input type="radio" name="demo-radio">
+            <span class="radiomark"></span>
+            Option B
+          </label>
+          <label class="radio-custom">
+            <input type="radio" name="demo-radio">
+            <span class="radiomark"></span>
+            Option C
+          </label>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>ℹ️ Toggle Animation:</strong> The toggle switch uses a spring easing curve (<code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>) so the knob overshoots slightly and settles — mimicking a physical switch.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: NAVIGATION
+         ============================================================ -->
+    <section class="catalog-section" id="nav-tabs">
+      <div class="section-header">
+        <h2>Navigation Elements</h2>
+        <span class="badge">Navigation</span>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Tab Navigation</div>
+        <div class="demo-block-body column" style="width:100%;">
+          <nav class="nav-tabs">
+            <a class="nav-tab active" href="#">Overview</a>
+            <a class="nav-tab" href="#">Features</a>
+            <a class="nav-tab" href="#">Pricing</a>
+            <a class="nav-tab" href="#">Documentation</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Breadcrumbs</div>
+        <div class="demo-block-body column" style="width:100%;">
+          <nav class="breadcrumbs">
+            <a href="#">Home</a>
+            <span class="separator">›</span>
+            <a href="#">Products</a>
+            <span class="separator">›</span>
+            <a href="#">Electronics</a>
+            <span class="separator">›</span>
+            <span class="current">Wireless Headphones</span>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: TOOLTIPS
+         ============================================================ -->
+    <section class="catalog-section" id="tooltips">
+      <div class="section-header">
+        <h2>Tooltips</h2>
+        <span class="badge">Navigation</span>
+      </div>
+      <p class="section-desc">Hover over the buttons below to see tooltip popups. Tooltips fade in and slide up from below.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Tooltip on Hover</div>
+        <div class="demo-block-body center" style="gap: var(--space-8);">
+          <div class="tooltip-wrapper">
+            <button class="btn btn-primary">Hover me</button>
+            <span class="tooltip">This is a tooltip!</span>
+          </div>
+          <div class="tooltip-wrapper">
+            <button class="btn btn-outline">And me</button>
+            <span class="tooltip">Tooltips fade + slide up</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <strong>⚠️ Accessibility:</strong> Pure CSS tooltips are not accessible to keyboard-only users. For production, use <code>title</code> attributes as a fallback or implement JavaScript-based tooltips that respond to <code>:focus-visible</code>.
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: LOADING STATES
+         ============================================================ -->
+    <section class="catalog-section" id="loading">
+      <div class="section-header">
+        <h2>Loading States</h2>
+        <span class="badge">Feedback</span>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Spinners</div>
+        <div class="demo-block-body" style="align-items:center;">
+          <div class="spinner spinner-sm"></div>
+          <div class="spinner"></div>
+          <div class="spinner spinner-lg"></div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Skeleton Loading</div>
+        <div class="demo-block-body column" style="width:100%; max-width:400px;">
+          <div style="display:flex;gap:var(--space-4);align-items:center;margin-bottom:var(--space-4);">
+            <div class="skeleton" style="width:48px;height:48px;border-radius:50%;flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="height:14px;width:60%;margin-bottom:var(--space-2);"></div>
+              <div class="skeleton" style="height:10px;width:40%;"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="height:12px;width:100%;margin-bottom:var(--space-2);"></div>
+          <div class="skeleton" style="height:12px;width:85%;margin-bottom:var(--space-2);"></div>
+          <div class="skeleton" style="height:12px;width:70%;"></div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Progress Bar</div>
+        <div class="demo-block-body column" style="width:100%; max-width:400px;">
+          <div class="progress-bar" style="margin-bottom:var(--space-3);">
+            <div class="progress-bar-fill" style="width:25%;"></div>
+          </div>
+          <div class="progress-bar" style="margin-bottom:var(--space-3);">
+            <div class="progress-bar-fill" style="width:50%;"></div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-bar-fill" style="width:80%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Pulse Animation</div>
+        <div class="demo-block-body center">
+          <div style="width:40px;height:40px;border-radius:50%;background:var(--color-primary);opacity:0.2;" class="pulse"></div>
+          <span style="font-size:var(--fs-sm);color:var(--color-text-muted);">Pulsing indicator</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION: ANIMATIONS & TRANSITIONS
+         ============================================================ -->
+    <section class="catalog-section" id="animations">
+      <div class="section-header">
+        <h2>Animations &amp; Transitions</h2>
+        <span class="badge">Feedback</span>
+      </div>
+      <p class="section-desc">Reusable entrance and feedback animations. Click the "Replay" button to re-trigger each animation.</p>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Fade In</div>
+        <div class="demo-block-body center" style="gap:var(--space-6);">
+          <div class="anim-demo anim-fade-in" id="demo-fade"></div>
+          <button class="btn btn-ghost btn-sm" onclick="replayAnim('demo-fade','anim-fade')">Replay</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Slide Up</div>
+        <div class="demo-block-body center" style="gap:var(--space-6);">
+          <div class="anim-demo anim-slide-up" id="demo-slide"></div>
+          <button class="btn btn-ghost btn-sm" onclick="replayAnim('demo-slide','anim-slide-up')">Replay</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Scale In</div>
+        <div class="demo-block-body center" style="gap:var(--space-6);">
+          <div class="anim-demo anim-scale-in" id="demo-scale"></div>
+          <button class="btn btn-ghost btn-sm" onclick="replayAnim('demo-scale','anim-scale-in')">Replay</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Bounce</div>
+        <div class="demo-block-body center" style="gap:var(--space-6);">
+          <div class="anim-demo anim-bounce" id="demo-bounce"></div>
+          <button class="btn btn-ghost btn-sm" onclick="replayAnim('demo-bounce','anim-bounce')">Replay</button>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <div class="demo-block-header">Shake (Error Feedback)</div>
+        <div class="demo-block-body center" style="gap:var(--space-6);">
+          <div class="anim-demo anim-shake" id="demo-shake" style="background:var(--color-danger);"></div>
+          <button class="btn btn-ghost btn-sm" onclick="replayAnim('demo-shake','anim-shake')">Replay</button>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <strong>💡 Easing Reference:</strong><br>
+        • <code>--ease-out</code> — <code>cubic-bezier(0.16, 1, 0.3, 1)</code> — Fast start, smooth landing. Use for most UI transitions.<br>
+        • <code>--ease-spring</code> — <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> — Overshoots and settles. Use for toggles, popups, and playful interactions.<br>
+        • <strong>Durations:</strong> Fast = 150ms (micro-interactions), Normal = 250ms (standard transitions), Slow = 400ms (page-level animations).
+      </div>
+
+      <hr class="divider">
+
+      <div class="demo-block">
+        <div class="demo-block-header">Transition Timing Comparison</div>
+        <div class="demo-block-body column" style="width:100%;">
+          <p style="font-size:var(--fs-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">Hover each bar to see different easing curves:</p>
+          <div style="display:flex;flex-direction:column;gap:var(--space-3);width:100%;">
+            <div style="display:flex;align-items:center;gap:var(--space-4);">
+              <span style="font-size:var(--fs-xs);width:80px;font-family:var(--font-mono);color:var(--color-text-muted);">linear</span>
+              <div style="flex:1;height:32px;background:#f1f5f9;border-radius:var(--radius-sm);overflow:hidden;position:relative;">
+                <div style="width:40px;height:100%;background:var(--color-primary);border-radius:var(--radius-sm);transition:transform 0.6s linear;position:absolute;left:0;" onmouseenter="this.style.transform='translateX(260px)'" onmouseleave="this.style.transform='translateX(0)'"></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-4);">
+              <span style="font-size:var(--fs-xs);width:80px;font-family:var(--font-mono);color:var(--color-text-muted);">ease-out</span>
+              <div style="flex:1;height:32px;background:#f1f5f9;border-radius:var(--radius-sm);overflow:hidden;position:relative;">
+                <div style="width:40px;height:100%;background:var(--color-secondary);border-radius:var(--radius-sm);transition:transform 0.6s cubic-bezier(0.16,1,0.3,1);position:absolute;left:0;" onmouseenter="this.style.transform='translateX(260px)'" onmouseleave="this.style.transform='translateX(0)'"></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-4);">
+              <span style="font-size:var(--fs-xs);width:80px;font-family:var(--font-mono);color:var(--color-text-muted);">spring</span>
+              <div style="flex:1;height:32px;background:#f1f5f9;border-radius:var(--radius-sm);overflow:hidden;position:relative;">
+                <div style="width:40px;height:100%;background:var(--color-accent);border-radius:var(--radius-sm);transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1);position:absolute;left:0;" onmouseenter="this.style.transform='translateX(260px)'" onmouseleave="this.style.transform='translateX(0)'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer style="margin-top:var(--space-12);padding-top:var(--space-8);border-top:2px solid var(--color-border);text-align:center;color:var(--color-text-muted);font-size:var(--fs-sm);">
+      <p><strong>Style Catalog</strong> — A living design reference for consistent site building.</p>
+      <p style="margin-top:var(--space-2);">All components use CSS custom properties for easy theming. Copy classes and tokens directly into your projects.</p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT — Minimal interactivity for demos
+     ============================================================ -->
+<script>
+  // Ripple effect
+  function createRipple(event) {
+    const btn = event.currentTarget;
+    const existing = btn.querySelector('.ripple');
+    if (existing) existing.remove();
+
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
+  }
+
+  // Replay animation helper
+  function replayAnim(id, className) {
+    const el = document.getElementById(id);
+    el.style.animation = 'none';
+    // Force reflow
+    void el.offsetWidth;
+    el.style.animation = '';
+    el.classList.remove(className);
+    void el.offsetWidth;
+    el.classList.add(className);
+  }
+
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('.catalog-section');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+
+  // Tab click handler
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      tab.parentElement.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Toggle keyboard support
+  document.querySelectorAll('.toggle').forEach(toggle => {
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.classList.toggle('active');
+        const isActive = toggle.classList.contains('active');
+        toggle.setAttribute('aria-checked', isActive);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
