@@ -575,10 +575,8 @@ main { flex: 1; }
 }
 
 .elsewhere-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1.75rem;
+  display: block;
+  padding: 0.8rem 1.05rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -591,30 +589,13 @@ main { flex: 1; }
   box-shadow: 0 2px 12px rgba(26,92,184,0.08);
   text-decoration: none;
 }
-.elsewhere-card-icon { font-size: 1.75rem; flex-shrink: 0; line-height: 1; margin-top: 0.1rem; }
-.elsewhere-card-body { flex: 1; }
-.elsewhere-card-label {
-  font-family: var(--font-mono);
-  font-size: 0.63rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 0.4rem;
-}
 .elsewhere-card-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
-.elsewhere-card-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-.elsewhere-card-arrow {
-  font-size: 1.1rem;
-  color: var(--border-strong);
-  flex-shrink: 0;
-  transition: color var(--transition), transform var(--transition);
-}
-.elsewhere-card:hover .elsewhere-card-arrow { color: var(--accent); transform: translate(2px, -2px); }
+.elsewhere-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
 
 .contact-block .section-title { margin-bottom: 0.75rem; }
 .contact-block p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; max-width: 52ch; }
