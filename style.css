@@ -52,6 +52,34 @@
   font-display: swap;
 }
 
+/* JetBrains Mono — self-hosted. Replaces Courier New for --font-mono (legibility).
+   © JetBrains, SIL Open Font License 1.1. Only weights in use are declared;
+   the browser downloads a weight only when it is actually applied. */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+       url('./fonts/Jetbrains/woff/JetBrainsMono-Regular.woff')   format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/Jetbrains/woff2/JetBrainsMono-Medium.woff2') format('woff2'),
+       url('./fonts/Jetbrains/woff/JetBrainsMono-Medium.woff')   format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2'),
+       url('./fonts/Jetbrains/woff/JetBrainsMono-Bold.woff')   format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ============================================
    contrapaul.com/edu — education resources
    Clean, structured, utilitarian-precise.
@@ -76,7 +104,7 @@
   --amber-bg:   #fef3c7;
   --font-display: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
   --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono:    "Courier New", Courier, monospace;
+  --font-mono:    'JetBrains Mono', ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
   --max-w:        1100px;
   --radius:       6px;
   --transition:   160ms ease;
