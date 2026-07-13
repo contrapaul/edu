@@ -41,7 +41,7 @@ var MRK_FACTS = [
   },
   {
     id: 5,
-    text: "Mr. K has explained the Design Cycle enough times that he occasionally does it in his sleep.",
+    text: "Mr. K really, really likes doing things himself, especially if a subscription can be avoided.",
     tags: ["classroom", "ib", "design"]
   },
   {
@@ -126,7 +126,7 @@ var MRK_FACTS = [
   },
   {
     id: 22,
-    text: "Mr. K has had well over 100 rolls of filament at once before.",
+    text: "Mr. K has had well over 100 rolls of 3D printing filament at once before.",
     tags: ["tech", "classroom"]
   },
   {
@@ -136,8 +136,8 @@ var MRK_FACTS = [
   },
   {
     id: 24,
-    text: "Mr. K is great a painting miniatures, he just doesn't do it that often.",
-    tags: ["ib", "personal"]
+    text: "Mr. K can tell you a lot more than you wanted to know about setting up a home server.",
+    tags: ["personal"]
   },
   {
     id: 25,
@@ -171,8 +171,32 @@ var MRK_FACTS = [
   },
   {
     id: 31,
-    text: "Mr. K loves few things as much as building PC's",
+    text: "Mr. K occcasionally bakes the whole class cookies, and they have attained a bit of a reputation at school.",
     tags: ["personal", "design"]
+  },
+
+  {
+    id: 32,
+    text: "Mr. K hiked the tour du Mont Blanc in 2026 with his wife and ate so much cheese.",
+    tags: ["personal"]
+  },
+
+  {
+    id: 33,
+    text: "Mr. K started building and painting miniatures when he was 12, and still does it when he has time. ",
+    tags: ["personal"]
+  },
+
+  {
+    id: 34,
+    text: "Mr. K highly recommends Brandon Sanderson's books, especially the Stormlight Archive series.",
+    tags: ["personal"]
+  },
+
+  {
+    id: 35,
+    text: "Mr. K would probably go by 'Mr. Kwiatkowski', but it's not that easy to learn",
+    tags: ["personal"]
   }
 
 ];
