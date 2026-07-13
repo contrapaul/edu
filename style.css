@@ -436,8 +436,36 @@ main { flex: 1; }
   letter-spacing: 0.02em;
   margin-bottom: 1.25rem;
 }
+/* --- ABOUT: two-column layout (article + sidebar) --- */
+.about-body-section { border-bottom: 1px solid var(--border); }
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 3rem;
+  align-items: start;
+}
+.about-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+/* Sidebar contact block, styled to match the cards */
+.about-side .contact-block {
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.about-side .contact-block .section-title { font-size: 1.15rem; margin-bottom: 0.5rem; }
+.about-side .contact-block p { font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+/* Collapse to a single column — sidebar stacks below the article */
+@media (max-width: 860px) {
+  .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-side { max-width: 620px; }
+}
+
 /* --- ABOUT ARTICLE (curriculum-style body prose) --- */
-.about-article-section { border-bottom: 1px solid var(--border); }
 .about-article { max-width: 860px; }
 .about-article::after { content: ""; display: block; clear: both; }
 .about-body {
@@ -495,12 +523,6 @@ main { flex: 1; }
   .about-photo-inline { float: none; max-width: 100%; margin: 0 0 1.5rem; }
 }
 
-.elsewhere-section { border-bottom: 1px solid var(--border); }
-.elsewhere-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.25rem;
-}
 .elsewhere-card {
   display: flex;
   align-items: flex-start;
@@ -543,7 +565,6 @@ main { flex: 1; }
 }
 .elsewhere-card:hover .elsewhere-card-arrow { color: var(--accent); transform: translate(2px, -2px); }
 
-.about-contact-section { border-bottom: 1px solid var(--border); }
 .contact-block .section-title { margin-bottom: 0.75rem; }
 .contact-block p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; max-width: 52ch; }
 
@@ -606,8 +627,6 @@ main { flex: 1; }
 }
 
 /* --- MR. K FACTS GENERATOR --- */
-.mrk-section { border-bottom: 1px solid var(--border); }
-
 /* Modular "machine" panel */
 .mrk-module {
   max-width: 620px;
