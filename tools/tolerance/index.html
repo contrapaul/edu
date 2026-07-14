@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Tolerance Run — IB Design Technology</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #1a1a2e; font-family: 'Segoe UI', Arial, sans-serif; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<script>
+(function() {
+  "use strict";
+
+  var canvas = document.getElementById("gameCanvas");
+  var ctx = canvas.getContext("2d");
+
+  /* ──────────────────────────────────────────────
+     Game Object — all state and logic in one place
+     ────────────────────────────────────────────── */
+  var Game = {
+    state: "start",          // start | playing | paused | gameover
+    score: 0,
+    lives: 3,
+    level: 1,
+    partsProcessed: 0,
+    correctCalls: 0,
+    beltSpeed: 120,          // pixels per second
+    baseTolerance: 2.0,      // mm tolerance at level 1
+    currentPart: null,
+    nextSpawnTimer: 0,
+    spawnInterval: 3.5,      // seconds between parts at level 1
+    feedbacks: [],           // active feedback animations
+    particles: [],           // particle effects
+    beltOffset: 0,           // for roller animation
+    highScore: 0,
+    lastTime: 0,
+    dpr: 1,
+
+    /* ── Initialise ── */
+    init: function() {
+      this.highScore = parseInt(localStorage.getItem("toleranceRunHighScore")) || 0;
+      this.resize();
+      window.addEventListener("resize", function() { Game.resize(); });
+      document.addEventListener("keydown", function(e) { Game.handleKey(e); });
+      canvas.addEventListener("touchstart", function(e) { e.preventDefault(); Game.handleTouch(e); }, { passive: false });
+      canvas.addEventListener("mousedown", function(e) { Game.handleMouse(e); });
+      this.lastTime = performance.now();
+      requestAnimationFrame(function(t) { Game.gameLoop(t); });
+    },
+
+    /* ── Responsive resize ── */
+    resize: function() {
+      this.dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * this.dpr;
+      canvas.height = window.innerHeight * this.dpr;
+      ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    },
+
+    /* ── Start / Reset ── */
+    startGame: function() {
+      this.state = "playing";
+      this.score = 0;
+      this.lives = 3;
+      this.level = 1;
+      this.partsProcessed = 0;
+      this.correctCalls = 0;
+      this.beltSpeed = 120;
+      this.baseTolerance = 2.0;
+      this.spawnInterval = 3.5;
+      this.currentPart = null;
+      this.nextSpawnTimer = 1.0;
+      this.feedbacks = [];
+      this.particles = [];
+    },
+
+    resetGame: function() {
+      this.startGame();
+    },
+
+    /* ── Part Generation ── */
+    generatePart: function() {
+      var target = Math.round((Math.random() * 40 + 10) * 10) / 10; // 10.0 – 50.0
+      var tol = Math.max(0.3, this.baseTolerance - (this.level - 1) * 0.2);
+      var inTol = Math.random() < 0.6;
+      var measured;
+
+      if (inTol) {
+        // Within tolerance band
+        measured = target + (Math.random() * 2 - 1) * tol;
+      } else {
+        // Out of tolerance — but close: between 1.0× and 2.0× the tolerance
+        var sign = Math.random() < 0.5 ? -1 : 1;
+        measured = target + sign * tol * (1.0 + Math.random() * 1.0);
+      }
+
+      measured = Math.round(measured * 10) / 10;
+      var deviation = measured - target;
+
+      // Shape type for visual variety
+      var shapeType = Math.floor(Math.random() * 3); // 0=rect, 1=circle, 2=hex
+
+      return {
+        target: target,
+        tolerance: tol,
+        measured: measured,
+        deviation: deviation,
+        inTolerance: Math.abs(deviation) <= tol,
+        shapeType: shapeType,
+        x: -80,
+        y: 0, // set in update based on belt position
+        width: 60 + Math.random() * 30,
+        height: 40 + Math.random() * 25,
+        color: this.partColor(shapeType),
+        processed: false
+      };
+    },
+
+    partColor: function(type) {
+      var colors = ["#4a90d9", "#e8a735", "#6db86b"];
+      return colors[type] || colors[0];
+    },
+
+    /* ── Input Handling ── */
+    handleKey: function(e) {
+      var key = e.key.toLowerCase();
+
+      if (this.state === "start") {
+        if (key === "enter" || key === " ") this.startGame();
+        return;
+      }
+
+      if (this.state === "gameover") {
+        if (key === "enter" || key === " ") this.resetGame();
+        return;
+      }
+
+      if (key === "p") {
+        if (this.state === "playing") this.state = "paused";
+        else if (this.state === "paused") this.state = "playing";
+        return;
+      }
+
+      if (this.state !== "playing" || !this.currentPart || this.currentPart.processed) return;
+
+      if (key === "a") {
+        e.preventDefault();
+        this.evaluateCall(true);
+      } else if (key === "r") {
+        e.preventDefault();
+        this.evaluateCall(false);
+      }
+    },
+
+    handleTouch: function(e) {
+      if (this.state === "start") { this.startGame(); return; }
+      if (this.state === "gameover") { this.resetGame(); return; }
+
+      var touch = e.touches[0];
+      if (!touch) return;
+      this.handleTap(touch.clientX, touch.clientY);
+    },
+
+    handleMouse: function(e) {
+      if (this.state === "start") { this.startGame(); return; }
+      if (this.state === "gameover") { this.resetGame(); return; }
+      this.handleTap(e.clientX, e.clientY);
+    },
+
+    handleTap: function(cx, cy) {
+      if (this.state !== "playing" || !this.currentPart || this.currentPart.processed) return;
+      var halfW = window.innerWidth / 2;
+      if (cx < halfW) {
+        this.evaluateCall(false); // left = reject
+      } else {
+        this.evaluateCall(true);  // right = accept
+      }
+    },
+
+    /* ── Evaluate Player Decision ── */
+    evaluateCall: function(accepted) {
+      var part = this.currentPart;
+      if (!part || part.processed) return;
+      part.processed = true;
+
+      var correct = false;
+      var message = "";
+
+      if (accepted && part.inTolerance) {
+        correct = true;
+        message = "✓ ACCEPTED — In Tolerance";
+      } else if (!accepted && !part.inTolerance) {
+        correct = true;
+        message = "✓ REJECTED — Out of Tolerance";
+      } else if (accepted && !part.inTolerance) {
+        correct = false;
+        message = "✗ BAD ACCEPT — Out of Tolerance!";
+      } else {
+        correct = false;
+        message = "✗ BAD REJECT — Was In Tolerance!";
+      }
+
+      this.partsProcessed++;
+      if (correct) {
+        this.correctCalls++;
+        var points = 10 * this.level;
+        this.score += points;
+      } else {
+        this.lives--;
+      }
+
+      // Difficulty ramp every 10 parts
+      if (this.partsProcessed % 10 === 0) {
+        this.level++;
+        this.beltSpeed = Math.min(400, 120 + (this.level - 1) * 35);
+        this.spawnInterval = Math.max(1.2, 3.5 - (this.level - 1) * 0.3);
+      }
+
+      // Feedback animation
+      var partScreenX = part.x + 40;
+      var beltY = this.getBeltY();
+      this.feedbacks.push({
+        x: partScreenX,
+        y: beltY - 60,
+        text: message,
+        correct: correct,
+        life: 1.0,
+        maxLife: 1.5
+      });
+
+      // Particles
+      this.spawnParticles(partScreenX, beltY - 30, correct ? "#4caf50" : "#f44336", 12);
+
+      // Check game over
+      if (this.lives <= 0) {
+        this.state = "gameover";
+        if (this.score > this.highScore) {
+          this.highScore = this.score;
+          localStorage.setItem("toleranceRunHighScore", this.highScore);
+        }
+      }
+
+      // Clear current part after short delay
+      this.currentPart = null;
+    },
+
+    spawnParticles: function(x, y, color, count) {
+      for (var i = 0; i < count; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = 40 + Math.random() * 120;
+        this.particles.push({
+          x: x, y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 30,
+          life: 1.0,
+          maxLife: 0.6 + Math.random() * 0.4,
+          color: color,
+          size: 2 + Math.random() * 4
+        });
+      }
+    },
+
+    /* ── Belt Y position (responsive) ── */
+    getBeltY: function() {
+      return window.innerHeight * 0.62;
+    },
+
+    /* ── Game Loop ── */
+    gameLoop: function(timestamp) {
+      var dt = Math.min((timestamp - this.lastTime) / 1000, 0.1);
+      this.lastTime = timestamp;
+
+      if (this.state === "playing") {
+        this.update(dt);
+      }
+
+      this.draw();
+      requestAnimationFrame(function(t) { Game.gameLoop(t); });
+    },
+
+    /* ── Update Logic ── */
+    update: function(dt) {
+      // Belt animation offset
+      this.beltOffset = (this.beltOffset + this.beltSpeed * dt) % 40;
+
+      // Spawn parts
+      if (!this.currentPart) {
+        this.nextSpawnTimer -= dt;
+        if (this.nextSpawnTimer <= 0) {
+          this.currentPart = this.generatePart();
+          this.nextSpawnTimer = this.spawnInterval;
+        }
+      }
+
+      // Move current part
+      if (this.currentPart && !this.currentPart.processed) {
+        this.currentPart.x += this.beltSpeed * dt;
+
+        // Check if part reached the end without a decision
+        var beltY = this.getBeltY();
+        if (this.currentPart.x > window.innerWidth + 50) {
+          // Missed — count as wrong call, lose a life
+          this.partsProcessed++;
+          this.lives--;
+          this.feedbacks.push({
+            x: window.innerWidth - 80,
+            y: beltY - 60,
+            text: "✗ MISSED!",
+            correct: false,
+            life: 1.0,
+            maxLife: 1.5
+          });
+          this.spawnParticles(window.innerWidth - 40, beltY - 30, "#f44336", 8);
+          this.currentPart = null;
+
+          if (this.lives <= 0) {
+            this.state = "gameover";
+            if (this.score > this.highScore) {
+              this.highScore = this.score;
+              localStorage.setItem("toleranceRunHighScore", this.highScore);
+            }
+          }
+        }
+      }
+
+      // Update feedbacks
+      for (var i = this.feedbacks.length - 1; i >= 0; i--) {
+        var fb = this.feedbacks[i];
+        fb.life -= dt / fb.maxLife;
+        fb.y -= 20 * dt; // float upward
+        if (fb.life <= 0) this.feedbacks.splice(i, 1);
+      }
+
+      // Update particles
+      for (var j = this.particles.length - 1; j >= 0; j--) {
+        var p = this.particles[j];
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vy += 200 * dt; // gravity
+        p.life -= dt / p.maxLife;
+        if (p.life <= 0) this.particles.splice(j, 1);
+      }
+    },
+
+    /* ── Drawing ── */
+    draw: function() {
+      var W = window.innerWidth;
+      var H = window.innerHeight;
+
+      // Background gradient
+      var bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+      bgGrad.addColorStop(0, "#1a1a2e");
+      bgGrad.addColorStop(1, "#16213e");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      if (this.state === "start") {
+        this.drawStartScreen(W, H);
+      } else if (this.state === "playing" || this.state === "paused") {
+        this.drawGame(W, H);
+        if (this.state === "paused") this.drawPauseOverlay(W, H);
+      } else if (this.state === "gameover") {
+        this.drawGame(W, H);
+        this.drawGameOverOverlay(W, H);
+      }
+    },
+
+    /* ── Start Screen ── */
+    drawStartScreen: function(W, H) {
+      ctx.textAlign = "center";
+
+      // Title
+      ctx.fillStyle = "#e8a735";
+      ctx.font = "bold " + Math.min(48, W * 0.07) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("⚙ TOLERANCE RUN ⚙", W / 2, H * 0.15);
+
+      ctx.fillStyle = "#8899aa";
+      ctx.font = Math.min(16, W * 0.03) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("IB Design Technology — Quality Assurance Simulator", W / 2, H * 0.21);
+
+      // Instructions box
+      var boxW = Math.min(560, W * 0.85);
+      var boxH = Math.min(340, H * 0.45);
+      var boxX = (W - boxW) / 2;
+      var boxY = H * 0.27;
+
+      ctx.fillStyle = "rgba(30, 40, 60, 0.9)";
+      ctx.strokeStyle = "#4a90d9";
+      ctx.lineWidth = 2;
+      this.roundRect(boxX, boxY, boxW, boxH, 12);
+
+      ctx.fillStyle = "#ccd6e0";
+      var fontSize = Math.min(15, W * 0.028);
+      ctx.font = fontSize + "px 'Segoe UI', Arial, sans-serif";
+
+      var lines = [
+        "",
+        "You run a factory QA station. Parts slide across",
+        "the conveyor belt with target and measured dimensions.",
+        "",
+        "  • Press A or tap RIGHT to ACCEPT a part",
+        "  • Press R or tap LEFT to REJECT a part",
+        "",
+        "A part is IN TOLERANCE if:",
+        "  |Measured − Target| ≤ Tolerance",
+        "",
+        "Correct calls earn points. Wrong calls cost a life.",
+        "You have 3 lives. Difficulty increases every 10 parts!",
+        "",
+        "Press P to pause."
+      ];
+
+      var lineH = fontSize * 1.5;
+      for (var i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], W / 2, boxY + 30 + i * lineH);
+      }
+
+      // High score
+      if (this.highScore > 0) {
+        ctx.fillStyle = "#e8a735";
+        ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText("High Score: " + this.highScore, W / 2, boxY + boxH + 30);
+      }
+
+      // Start prompt
+      var pulse = 0.7 + 0.3 * Math.sin(performance.now() / 400);
+      ctx.globalAlpha = pulse;
+      ctx.fillStyle = "#e8a735";
+      ctx.font = "bold " + Math.min(22, W * 0.04) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Press ENTER or tap to start", W / 2, H * 0.85);
+      ctx.globalAlpha = 1;
+    },
+
+    /* ── Game Scene ── */
+    drawGame: function(W, H) {
+      var beltY = this.getBeltY();
+
+      // Draw factory background elements
+      this.drawFactoryBg(W, H);
+
+      // Conveyor belt structure
+      this.drawConveyorBelt(W, H, beltY);
+
+      // Draw current part
+      if (this.currentPart && !this.currentPart.processed) {
+        this.drawPart(this.currentPart, beltY);
+      }
+
+      // Draw particles
+      for (var i = 0; i < this.particles.length; i++) {
+        var p = this.particles[i];
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // Draw feedbacks
+      for (var j = 0; j < this.feedbacks.length; j++) {
+        var fb = this.feedbacks[j];
+        ctx.globalAlpha = Math.max(0, fb.life);
+        ctx.textAlign = "center";
+
+        var fbSize = Math.min(18, W * 0.035);
+        ctx.font = "bold " + fbSize + "px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = fb.correct ? "#4caf50" : "#f44336";
+        ctx.fillText(fb.text, fb.x, fb.y);
+
+        // Draw check or X icon
+        var iconSize = fbSize * 1.5;
+        ctx.strokeStyle = fb.correct ? "#4caf50" : "#f44336";
+        ctx.lineWidth = 3;
+        if (fb.correct) {
+          // Check mark
+          ctx.beginPath();
+          ctx.moveTo(fb.x - iconSize * 0.3, fb.y + iconSize * 0.1);
+          ctx.lineTo(fb.x - iconSize * 0.05, fb.y + iconSize * 0.35);
+          ctx.lineTo(fb.x + iconSize * 0.4, fb.y - iconSize * 0.25);
+          ctx.stroke();
+        } else {
+          // X mark
+          ctx.beginPath();
+          ctx.moveTo(fb.x - iconSize * 0.3, fb.y - iconSize * 0.2);
+          ctx.lineTo(fb.x + iconSize * 0.3, fb.y + iconSize * 0.2);
+          ctx.moveTo(fb.x + iconSize * 0.3, fb.y - iconSize * 0.2);
+          ctx.lineTo(fb.x - iconSize * 0.3, fb.y + iconSize * 0.2);
+          ctx.stroke();
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // HUD
+      this.drawHUD(W, H);
+
+      // Touch zone indicators (subtle)
+      if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+        ctx.globalAlpha = 0.15;
+        ctx.fillStyle = "#f44336";
+        ctx.fillRect(0, H * 0.75, W / 2, H * 0.25);
+        ctx.fillStyle = "#4caf50";
+        ctx.fillRect(W / 2, H * 0.75, W / 2, H * 0.25);
+        ctx.globalAlpha = 1;
+
+        ctx.textAlign = "center";
+        ctx.font = Math.min(20, W * 0.04) + "px 'Segoe UI', Arial, sans-serif";
+        ctx.fillStyle = "#f44336";
+        ctx.globalAlpha = 0.5;
+        ctx.fillText("REJECT (R)", W / 4, H * 0.88);
+        ctx.fillStyle = "#4caf50";
+        ctx.fillText("ACCEPT (A)", W * 3 / 4, H * 0.88);
+        ctx.globalAlpha = 1;
+      }
+
+      // Decision zone marker on belt
+      var decisionX = W * 0.75;
+      ctx.strokeStyle = "rgba(232, 167, 53, 0.4)";
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.moveTo(decisionX, beltY - 80);
+      ctx.lineTo(decisionX, beltY + 30);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = "rgba(232, 167, 53, 0.5)";
+      ctx.font = Math.min(12, W * 0.02) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("DECISION ZONE", decisionX, beltY - 85);
+    },
+
+    drawFactoryBg: function(W, H) {
+      // Subtle grid pattern
+      ctx.strokeStyle = "rgba(74, 144, 217, 0.06)";
+      ctx.lineWidth = 1;
+      var gridSize = 40;
+      for (var x = 0; x < W; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, H);
+        ctx.stroke();
+      }
+      for (var y = 0; y < H; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(W, y);
+        ctx.stroke();
+      }
+
+      // Wall panels at top
+      ctx.fillStyle = "rgba(30, 45, 70, 0.6)";
+      ctx.fillRect(0, 0, W, H * 0.12);
+
+      // Warning stripes at top edge
+      var stripeW = 30;
+      for (var sx = 0; sx < W; sx += stripeW * 2) {
+        ctx.fillStyle = "rgba(232, 167, 53, 0.3)";
+        ctx.fillRect(sx, 0, stripeW, H * 0.12);
+      }
+    },
+
+    drawConveyorBelt: function(W, H, beltY) {
+      var beltH = 24;
+
+      // Belt shadow
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      this.roundRect(20, beltY + 4, W - 40, beltH + 6, 6);
+
+      // Belt surface
+      var beltGrad = ctx.createLinearGradient(0, beltY - 4, 0, beltY + beltH);
+      beltGrad.addColorStop(0, "#555");
+      beltGrad.addColorStop(0.3, "#666");
+      beltGrad.addColorStop(1, "#444");
+      ctx.fillStyle = beltGrad;
+      this.roundRect(20, beltY - 4, W - 40, beltH + 8, 6);
+
+      // Belt texture lines (animated)
+      ctx.strokeStyle = "rgba(255,255,255,0.1)";
+      ctx.lineWidth = 1;
+      for (var lx = -this.beltOffset % 40; lx < W; lx += 40) {
+        ctx.beginPath();
+        ctx.moveTo(lx, beltY - 2);
+        ctx.lineTo(lx, beltY + beltH);
+        ctx.stroke();
+      }
+
+      // Rollers underneath
+      var rollerY = beltY + beltH + 10;
+      for (var rx = 40 - this.beltOffset % 60; rx < W - 20; rx += 60) {
+        ctx.fillStyle = "#3a3a4a";
+        ctx.beginPath();
+        ctx.arc(rx, rollerY, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#555";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Roller spokes (animated)
+        var angle = this.beltOffset * 0.1;
+        ctx.strokeStyle = "rgba(255,255,255,0.15)";
+        ctx.lineWidth = 1;
+        for (var s = 0; s < 4; s++) {
+          var a = angle + (s * Math.PI / 2);
+          ctx.beginPath();
+          ctx.moveTo(rx, rollerY);
+          ctx.lineTo(rx + Math.cos(a) * 8, rollerY + Math.sin(a) * 8);
+          ctx.stroke();
+        }
+      }
+
+      // Belt supports (legs)
+      var legPositions = [60, W / 2 - 30, W - 80];
+      for (var l = 0; l < legPositions.length; l++) {
+        var lx = legPositions[l];
+        ctx.fillStyle = "#3a4a5a";
+        ctx.fillRect(lx - 6, beltY + beltH + 18, 12, H - beltY - beltH - 30);
+        ctx.fillStyle = "#4a5a6a";
+        ctx.fillRect(lx - 10, beltY + beltH + 16, 20, 8);
+      }
+
+      // End markers
+      ctx.fillStyle = "#e8a735";
+      ctx.fillRect(10, beltY - 20, 6, beltH + 48);
+      ctx.fillRect(W - 16, beltY - 20, 6, beltH + 48);
+    },
+
+    drawPart: function(part, beltY) {
+      var cx = part.x;
+      var cy = beltY - 10; // center of part on belt
+
+      // Part shadow
+      ctx.fillStyle = "rgba(0,0,0,0.25)";
+      this.roundRect(cx - part.width / 2 + 3, cy - part.height / 2 + 3, part.width, part.height, 4);
+
+      // Part body
+      ctx.fillStyle = part.color;
+      if (part.shapeType === 0) {
+        // Rectangle
+        this.roundRect(cx - part.width / 2, cy - part.height / 2, part.width, part.height, 4);
+      } else if (part.shapeType === 1) {
+        // Circle
+        var r = Math.min(part.width, part.height) / 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Hexagon-ish (rounded rect with different proportions)
+        this.roundRect(cx - part.width / 2, cy - part.height / 2, part.width, part.height, 8);
+      }
+
+      // Part border
+      ctx.strokeStyle = "rgba(255,255,255,0.3)";
+      ctx.lineWidth = 1.5;
+      if (part.shapeType === 1) {
+        var r2 = Math.min(part.width, part.height) / 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r2, 0, Math.PI * 2);
+        ctx.stroke();
+      } else {
+        this.roundRect(cx - part.width / 2, cy - part.height / 2, part.width, part.height,
+          part.shapeType === 2 ? 8 : 4);
+      }
+
+      // Dimension labels above part
+      ctx.textAlign = "center";
+      var labelY = cy - part.height / 2 - 14;
+      var fontSize = Math.min(13, window.innerWidth * 0.022);
+
+      // Target label
+      ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      var targetText = "Target: " + part.target.toFixed(1) + " mm ±" + part.tolerance.toFixed(1);
+      ctx.fillText(targetText, cx, labelY - 8);
+
+      // Measured label
+      var measuredColor = Math.abs(part.deviation) <= part.tolerance ? "#4caf50" :
+                          Math.abs(part.deviation) <= part.tolerance * 2 ? "#ff9800" : "#f44336";
+      ctx.fillStyle = measuredColor;
+      var measText = "Measured: " + part.measured.toFixed(1) + " mm";
+      ctx.fillText(measText, cx, labelY + 8);
+
+      // Deviation indicator
+      var devSign = part.deviation >= 0 ? "+" : "";
+      ctx.font = (fontSize - 2) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillStyle = "#aab";
+      ctx.fillText("Δ " + devSign + part.deviation.toFixed(1) + " mm", cx, labelY + 24);
+
+      // Progress bar showing how close to decision zone
+      var progress = Math.min(1, (cx - (-80)) / (window.innerWidth * 0.75 + 80));
+      var barW = part.width;
+      var barH = 4;
+      var barX = cx - barW / 2;
+      var barY = cy + part.height / 2 + 8;
+
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      ctx.fillRect(barX, barY, barW, barH);
+
+      var progColor = progress < 0.7 ? "#4caf50" : progress < 0.9 ? "#ff9800" : "#f44336";
+      ctx.fillStyle = progColor;
+      ctx.fillRect(barX, barY, barW * progress, barH);
+    },
+
+    /* ── HUD ── */
+    drawHUD: function(W, H) {
+      var hudH = Math.min(56, H * 0.1);
+      var hudY = 8;
+
+      // HUD background
+      ctx.fillStyle = "rgba(20, 30, 50, 0.85)";
+      this.roundRect(10, hudY, W - 20, hudH, 8);
+      ctx.strokeStyle = "rgba(74, 144, 217, 0.3)";
+      ctx.lineWidth = 1;
+      this.roundRect(10, hudY, W - 20, hudH, 8);
+
+      var fontSize = Math.min(16, W * 0.025);
+      ctx.font = fontSize + "px 'Segoe UI', Arial, sans-serif";
+      var itemW = (W - 40) / 5;
+
+      // Score
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#e8a735";
+      ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Score: " + this.score, 20, hudY + hudH / 2 + 5);
+
+      // Lives
+      ctx.textAlign = "center";
+      var livesX = 20 + itemW;
+      ctx.fillStyle = "#f44336";
+      var livesText = "";
+      for (var i = 0; i < 3; i++) {
+        livesText += i < this.lives ? "♥ " : "♡ ";
+      }
+      ctx.fillText(livesText, livesX + itemW / 2 - 10, hudY + hudH / 2 + 5);
+
+      // Level
+      ctx.textAlign = "center";
+      var levelX = 20 + itemW * 2;
+      ctx.fillStyle = "#4a90d9";
+      ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Level: " + this.level, levelX + itemW / 2, hudY + hudH / 2 + 5);
+
+      // Accuracy
+      ctx.textAlign = "center";
+      var accX = 20 + itemW * 3;
+      var accuracy = this.partsProcessed > 0 ? Math.round((this.correctCalls / this.partsProcessed) * 100) : 100;
+      ctx.fillStyle = accuracy >= 80 ? "#4caf50" : accuracy >= 60 ? "#ff9800" : "#f44336";
+      ctx.fillText("Accuracy: " + accuracy + "%", accX + itemW / 2, hudY + hudH / 2 + 5);
+
+      // High Score
+      ctx.textAlign = "right";
+      var hsX = W - 20;
+      ctx.fillStyle = "#8899aa";
+      ctx.font = fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Best: " + this.highScore, hsX, hudY + hudH / 2 + 5);
+
+      // Tolerance info
+      ctx.textAlign = "center";
+      var tolFontSize = Math.min(12, W * 0.018);
+      ctx.font = tolFontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillStyle = "#667788";
+      var tolInfo = "Tolerance: ±" + Math.max(0.3, this.baseTolerance - (this.level - 1) * 0.2).toFixed(1) + " mm | Speed: " + Math.round(this.beltSpeed / 120 * 100) + "%";
+      ctx.fillText(tolInfo, W / 2, hudY + hudH + 14);
+    },
+
+    /* ── Pause Overlay ── */
+    drawPauseOverlay: function(W, H) {
+      ctx.fillStyle = "rgba(10, 15, 30, 0.75)";
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#e8a735";
+      var fontSize = Math.min(42, W * 0.07);
+      ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("PAUSED", W / 2, H * 0.45);
+
+      ctx.fillStyle = "#8899aa";
+      var subSize = Math.min(18, W * 0.03);
+      ctx.font = subSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Press P to resume", W / 2, H * 0.53);
+    },
+
+    /* ── Game Over Overlay ── */
+    drawGameOverOverlay: function(W, H) {
+      ctx.fillStyle = "rgba(10, 15, 30, 0.8)";
+      ctx.fillRect(0, 0, W, H);
+
+      var boxW = Math.min(480, W * 0.85);
+      var boxH = Math.min(320, H * 0.5);
+      var boxX = (W - boxW) / 2;
+      var boxY = (H - boxH) / 2;
+
+      ctx.fillStyle = "rgba(30, 40, 60, 0.95)";
+      ctx.strokeStyle = "#e8a735";
+      ctx.lineWidth = 2;
+      this.roundRect(boxX, boxY, boxW, boxH, 12);
+
+      ctx.textAlign = "center";
+      var fontSize = Math.min(36, W * 0.06);
+      ctx.fillStyle = "#f44336";
+      ctx.font = "bold " + fontSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("GAME OVER", W / 2, boxY + 50);
+
+      var statSize = Math.min(18, W * 0.032);
+      ctx.font = statSize + "px 'Segoe UI', Arial, sans-serif";
+
+      var accuracy = this.partsProcessed > 0 ? Math.round((this.correctCalls / this.partsProcessed) * 100) : 0;
+
+      ctx.fillStyle = "#ccd6e0";
+      var lineY = boxY + 95;
+      ctx.fillText("Final Score: " + this.score, W / 2, lineY);
+      ctx.fillText("Level Reached: " + this.level, W / 2, lineY + 30);
+      ctx.fillText("Parts Processed: " + this.partsProcessed, W / 2, lineY + 60);
+      ctx.fillText("Accuracy: " + accuracy + "%", W / 2, lineY + 90);
+
+      if (this.score >= this.highScore && this.score > 0) {
+        ctx.fillStyle = "#e8a735";
+        ctx.font = "bold " + statSize + "px 'Segoe UI', Arial, sans-serif";
+        ctx.fillText("★ NEW HIGH SCORE! ★", W / 2, lineY + 125);
+      } else {
+        ctx.fillStyle = "#8899aa";
+        ctx.fillText("High Score: " + this.highScore, W / 2, lineY + 125);
+      }
+
+      // Play Again button
+      var btnW = Math.min(240, boxW * 0.6);
+      var btnH = 44;
+      var btnX = (W - btnW) / 2;
+      var btnY = boxY + boxH - 65;
+
+      ctx.fillStyle = "#4a90d9";
+      this.roundRect(btnX, btnY, btnW, btnH, 8);
+
+      ctx.fillStyle = "#ffffff";
+      var btnSize = Math.min(16, W * 0.028);
+      ctx.font = "bold " + btnSize + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Play Again", W / 2, btnY + btnH / 2 + 5);
+
+      ctx.fillStyle = "#667";
+      ctx.font = (btnSize - 2) + "px 'Segoe UI', Arial, sans-serif";
+      ctx.fillText("Press ENTER or tap", W / 2, btnY + btnH + 18);
+    },
+
+    /* ── Utility: Rounded Rectangle ── */
+    roundRect: function(x, y, w, h, r) {
+      if (typeof r === "undefined") r = 4;
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+      if (ctx.fillStyle && !ctx.strokeStyle) {
+        // fill only — but we always stroke after, so just close path
+      }
+    }
+  };
+
+  /* ── Boot ── */
+  Game.init();
+
+})();
+</script>
+</body>
+</html>
