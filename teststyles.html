@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Effect Playground</title>
+<style>
+  /* ============================================================
+     CSS CUSTOM PROPERTIES (Design Tokens)
+     ============================================================ */
+  :root {
+    /* Colors - Light Theme Default */
+    --bg:           #f8fafc;
+    --surface:      #ffffff;
+    --text:         #0f172a;
+    --text-muted:   #64748b;
+    --border:       #e2e8f0;
+    --primary:      #4f46e5;
+    --primary-rgb:  79, 70, 229;
+    --secondary:    #0ea5e9;
+    --accent:       #f59e0b;
+    --success:      #22c55e;
+
+    /* Spacing & Sizing */
+    --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+    --space-4: 1rem;   --space-6: 1.5rem; --space-8: 2rem;
+    --space-12:3rem;   --space-16:4rem;
+
+    /* Borders & Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+
+    /* Transitions */
+    --transition-duration: 250ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Dark Theme Overrides */
+  .theme-dark {
+    --bg: #0b1120;
+    --surface: #1e293b;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -2px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4), 0 4px 6px -4px rgba(0,0,0,0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.4), 0 8px 10px -6px rgba(0,0,0,0.3);
+  }
+
+  /* ============================================================
+     RESET & BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: #0f172a; /* App background */
+  }
+
+  /* ============================================================
+     LAYOUT: SIDEBAR + PREVIEW
+     ============================================================ */
+  .app-container { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 340px;
+    background: #1e293b;
+    color: #f8fafc;
+    padding: var(--space-6);
+    overflow-y: auto;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid #334155;
+    z-index: 10;
+  }
+
+  .sidebar-header { margin-bottom: var(--space-8); padding-bottom: var(--space-4); border-bottom: 1px solid #334155; }
+  .sidebar-header h2 { font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: var(--space-2); }
+  .sidebar-header p { font-size: 0.8rem; color: #94a3b8; margin-top: var(--space-1); }
+
+  .control-group { margin-bottom: var(--space-8); }
+  .control-group-title {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: #64748b; font-weight: 700; margin-bottom: var(--space-3);
+    display: flex; align-items: center; gap: var(--space-2);
+  }
+
+  /* Toggle Switch */
+  .control-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--space-3) 0; cursor: pointer; user-select: none;
+  }
+  .control-toggle input { display: none; }
+  .toggle-slider {
+    width: 40px; height: 22px; background: #334155; border-radius: var(--radius-full);
+    position: relative; transition: background 0.2s ease; flex-shrink: 0;
+  }
+  .toggle-slider::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 16px; height: 16px; background: white; border-radius: 50%;
+    transition: transform 0.2s var(--ease-spring);
+  }
+  .control-toggle input:checked + .toggle-slider { background: var(--primary); }
+  .control-toggle input:checked + .toggle-slider::after { transform: translateX(18px); }
+  .control-label { font-size: 0.9rem; color: #cbd5e1; }
+
+  /* Button Group */
+  .btn-group { display: flex; gap: var(--space-2); margin-top: var(--space-2); }
+  .btn-group-btn {
+    flex: 1; padding: var(--space-2) var(--space-3); font-size: 0.8rem;
+    background: #334155; border: 1px solid transparent; color: #cbd5e1;
+    border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s ease;
+    font-family: inherit; text-align: center;
+  }
+  .btn-group-btn:hover { background: #475569; }
+  .btn-group-btn.active { background: var(--primary); color: white; border-color: rgba(255,255,255,0.1); }
+
+  .reset-btn {
+    width: 100%; padding: var(--space-3); margin-top: var(--space-4);
+    background: transparent; border: 1px solid #475569; color: #94a3b8;
+    border-radius: var(--radius-sm); cursor: pointer; font-size: 0.85rem;
+    transition: all 0.2s ease; font-family: inherit;
+  }
+  .reset-btn:hover { background: #334155; color: white; border-color: #64748b; }
+
+  /* Main Preview Area */
+  .main-preview {
+    margin-left: 340px; flex: 1; background: var(--bg);
+    transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    min-height: 100vh; position: relative; overflow-x: hidden;
+  }
+
+  /* ============================================================
+     EFFECT MODIFIERS (Applied to .main-preview)
+     ============================================================ */
+
+  /* Hover: Lift */
+  .effect-hover-lift .card, .effect-hover-lift .btn-primary {
+    transition: transform var(--transition-duration) var(--ease-out), box-shadow var(--transition-duration) ease;
+  }
+  .effect-hover-lift .card:hover, .effect-hover-lift .btn-primary:hover {
+    transform: translateY(-6px); box-shadow: var(--shadow-lg);
+  }
+
+  /* Hover: Scale */
+  .effect-hover-scale .card, .effect-hover-scale .btn-primary {
+    transition: transform var(--transition-duration) var(--ease-out), box-shadow var(--transition-duration) ease;
+  }
+  .effect-hover-scale .card:hover, .effect-hover-scale .btn-primary:hover {
+    transform: scale(1.03); box-shadow: var(--shadow-lg);
+  }
+
+  /* Hover: Glow Borders */
+  .effect-glow-borders .card { border: 2px solid transparent; transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease; }
+  .effect-glow-borders .card:hover { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15); }
+
+  /* Links: Underline Reveal */
+  .effect-link-underline a { position: relative; text-decoration: none; transition: color var(--transition-duration) ease; }
+  .effect-link-underline a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px;
+    background: var(--primary); transform: scaleX(0); transform-origin: right;
+    transition: transform var(--transition-duration) var(--ease-out);
+  }
+  .effect-link-underline a:hover::after { transform: scaleX(1); }
+
+  /* Transition Speed Overrides */
+  .speed-fast * { --transition-duration: 120ms !important; }
+  .speed-slow * { --transition-duration: 450ms !important; }
+
+  /* Border Radius Overrides */
+  .radius-sharp { --radius-sm: 0 !important; --radius-md: 0 !important; --radius-lg: 0 !important; }
+  .radius-rounded { --radius-sm: 1rem !important; --radius-md: 1.25rem !important; --radius-lg: 1.5rem !important; }
+
+  /* ============================================================
+     PROTOTYPE PAGE COMPONENTS
+     ============================================================ */
+  .preview-container { max-width: 1080px; margin: 0 auto; padding: var(--space-8); }
+
+  /* Nav */
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: var(--space-4) 0; margin-bottom: var(--space-12); }
+  .nav-logo { font-weight: 800; font-size: 1.25rem; color: var(--primary); }
+  .nav-links { display: flex; gap: var(--space-6); list-style: none; }
+  .nav-links a { color: var(--text-muted); font-weight: 500; font-size: 0.95rem; }
+  .nav-cta { padding: var(--space-2) var(--space-4); background: var(--primary); color: white; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: all var(--transition-duration) ease; }
+  .nav-cta:hover { background: #4338ca; transform: translateY(-1px); }
+
+  /* Hero */
+  .hero { text-align: center; padding: var(--space-12) 0; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: var(--space-4); font-weight: 800; }
+  .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto var(--space-8); }
+  .hero-actions { display: flex; gap: var(--space-4); justify-content: center; }
+  .btn { padding: var(--space-3) var(--space-6); border-radius: var(--radius-md); font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: all var(--transition-duration) ease; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  /* Cards Grid */
+  .section-title { font-size: 1.75rem; font-weight: 700; margin-bottom: var(--space-6); text-align: center; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-6); margin-bottom: var(--space-12); }
+  .card { background: var(--surface); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-sm); transition: all var(--transition-duration) ease; }
+  .card-icon { width: 48px; height: 48px; background: rgba(var(--primary-rgb), 0.1); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: var(--space-4); }
+  .card h3 { font-size: 1.2rem; margin-bottom: var(--space-2); }
+  .card p { color: var(--text-muted); font-size: 0.95rem; }
+
+  /* Content Section */
+  .content-section { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center; margin-bottom: var(--space-12); }
+  .content-text h2 { font-size: 2rem; margin-bottom: var(--space-4); }
+  .content-text p { color: var(--text-muted); margin-bottom: var(--space-4); }
+  .content-image { background: linear-gradient(135deg, var(--primary), var(--secondary)); height: 320px; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+
+  /* Stats/CTA */
+  .cta-section { background: var(--surface); border-radius: var(--radius-lg); padding: var(--space-12) var(--space-8); text-align: center; box-shadow: var(--shadow-md); margin-bottom: var(--space-12); }
+  .cta-section h2 { font-size: 2rem; margin-bottom: var(--space-4); }
+  .cta-section p { color: var(--text-muted); max-width: 500px; margin: 0 auto var(--space-6); }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border); padding: var(--space-8) 0; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+  .footer-links { display: flex; justify-content: center; gap: var(--space-6); margin-bottom: var(--space-4); list-style: none; }
+  .footer-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+  .footer-links a:hover { color: var(--primary); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .sidebar { width: 280px; }
+    .main-preview { margin-left: 280px; }
+    .content-section { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .sidebar { display: none; } /* Hide sidebar on mobile for this demo */
+    .main-preview { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- ============================================================
+       SIDEBAR CONTROLS
+       ============================================================ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>⚡ Effect Playground</h2>
+      <p>Toggles & settings to preview interactions live.</p>
+    </div>
+
+    <!-- Theme -->
+    <div class="control-group">
+      <div class="control-group-title">🎨 Theme & Appearance</div>
+      <label class="control-toggle">
+        <span class="control-label">Dark Mode</span>
+        <input type="checkbox" data-effect="theme-dark">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Hover Effects -->
+    <div class="control-group">
+      <div class="control-group-title">🖱️ Hover Effects</div>
+      <label class="control-toggle">
+        <span class="control-label">Lift on Hover</span>
+        <input type="checkbox" data-effect="effect-hover-lift">
+        <span class="toggle-slider"></span>
+      </label>
+      <label class="control-toggle">
+        <span class="control-label">Scale on Hover</span>
+        <input type="checkbox" data-effect="effect-hover-scale">
+        <span class="toggle-slider"></span>
+      </label>
+      <label class="control-toggle">
+        <span class="control-label">Glow Borders</span>
+        <input type="checkbox" data-effect="effect-glow-borders">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Links -->
+    <div class="control-group">
+      <div class="control-group-title">🔗 Link Behavior</div>
+      <label class="control-toggle">
+        <span class="control-label">Underline Reveal</span>
+        <input type="checkbox" data-effect="effect-link-underline">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <!-- Transitions -->
+    <div class="control-group">
+      <div class="control-group-title">⏱️ Transition Speed</div>
+      <div class="btn-group" data-group="speed">
+        <button class="btn-group-btn active" data-value="">Normal</button>
+        <button class="btn-group-btn" data-value="speed-fast">Fast</button>
+        <button class="btn-group-btn" data-value="speed-slow">Slow</button>
+      </div>
+    </div>
+
+    <!-- Radius -->
+    <div class="control-group">
+      <div class="control-group-title">📐 Border Radius</div>
+      <div class="btn-group" data-group="radius">
+        <button class="btn-group-btn active" data-value="">Moderate</button>
+        <button class="btn-group-btn" data-value="radius-sharp">Sharp</button>
+        <button class="btn-group-btn" data-value="radius-rounded">Rounded</button>
+      </div>
+    </div>
+
+    <button class="reset-btn" id="resetBtn">↺ Reset All Settings</button>
+  </aside>
+
+  <!-- ============================================================
+       MAIN PREVIEW AREA (Prototype Page)
+       ============================================================ -->
+  <main class="main-preview" id="preview">
+    <div class="preview-container">
+      <!-- Navigation -->
+      <nav class="nav">
+        <div class="nav-logo">NexusUI</div>
+        <ul class="nav-links">
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Docs</a></li>
+        </ul>
+        <a href="#" class="nav-cta">Get Started</a>
+      </nav>
+
+      <!-- Hero -->
+      <section class="hero">
+        <h1>Build faster with<br><span style="color:var(--primary)">modern components</span></h1>
+        <p>A production-ready design system with consistent spacing, accessible interactions, and smooth micro-animations.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary">Start Building</button>
+          <button class="btn btn-outline">View Documentation</button>
+        </div>
+      </section>
+
+      <!-- Features Grid -->
+      <h2 class="section-title">Core Capabilities</h2>
+      <div class="cards-grid">
+        <article class="card">
+          <div class="card-icon">🚀</div>
+          <h3>Lightning Fast</h3>
+          <p>Optimized CSS transitions and GPU-accelerated transforms ensure 60fps interactions across all devices.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Fully Themeable</h3>
+          <p>Built on CSS custom properties. Switch between light/dark modes or customize your brand palette in seconds.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">♿</div>
+          <h3>Accessible First</h3>
+          <p>Semantic HTML, proper focus states, and keyboard navigation built into every component by default.</p>
+        </article>
+      </div>
+
+      <!-- Content Section -->
+      <section class="content-section">
+        <div class="content-text">
+          <h2>Designed for developers</h2>
+          <p>Clean, predictable class names. No framework lock-in. Copy-paste ready components that adapt to your project's design tokens.</p>
+          <a href="#" style="color:var(--primary); font-weight:600; text-decoration:none;">Read the architecture guide →</a>
+        </div>
+        <div class="content-image"></div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to ship?</h2>
+        <p>Join thousands of developers building consistent, beautiful interfaces with our open-source component library.</p>
+        <button class="btn btn-primary">Download Free</button>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <ul class="footer-links">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter</a></li>
+        </ul>
+        <p>&copy; 2024 NexusUI Playground. All rights reserved.</p>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<script>
+  // ============================================================
+  // INTERACTIVE CONTROLS LOGIC
+  // ============================================================
+  const preview = document.getElementById('preview');
+
+  // Toggle Switches
+  document.querySelectorAll('.control-toggle input').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const effectClass = e.target.dataset.effect;
+      if (!effectClass) return;
+      
+      preview.classList.toggle(effectClass, e.target.checked);
+    });
+  });
+
+  // Button Groups (Radio-like behavior)
+  document.querySelectorAll('.btn-group').forEach(group => {
+    const buttons = group.querySelectorAll('.btn-group-btn');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Remove active state from siblings
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Remove all classes from this group on preview
+        const groupKey = group.dataset.group;
+        if (groupKey === 'speed') {
+          preview.classList.remove('speed-fast', 'speed-slow');
+        } else if (groupKey === 'radius') {
+          preview.classList.remove('radius-sharp', 'radius-rounded');
+        }
+
+        // Add selected class if not empty
+        const value = btn.dataset.value;
+        if (value) preview.classList.add(value);
+      });
+    });
+  });
+
+  // Reset Button
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    // Uncheck all toggles
+    document.querySelectorAll('.control-toggle input').forEach(input => {
+      input.checked = false;
+      preview.classList.remove(input.dataset.effect);
+    });
+
+    // Reset button groups to first option
+    document.querySelectorAll('.btn-group').forEach(group => {
+      const buttons = group.querySelectorAll('.btn-group-btn');
+      buttons.forEach((b, i) => b.classList.toggle('active', i === 0));
+    });
+
+    // Remove all modifier classes from preview
+    const modifiers = [
+      'theme-dark', 'effect-hover-lift', 'effect-hover-scale', 
+      'effect-glow-borders', 'effect-link-underline',
+      'speed-fast', 'speed-slow', 'radius-sharp', 'radius-rounded'
+    ];
+    preview.classList.remove(...modifiers);
+  });
+
+  // Optional: Add subtle entrance animation on load (respects transition settings)
+  window.addEventListener('load', () => {
+    const elements = document.querySelectorAll('.card, .hero h1, .hero p, .btn');
+    elements.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      setTimeout(() => {
+        el.style.transition = `opacity 0.5s ease ${i * 0.05}s, transform 0.5s var(--ease-out) ${i * 0.05}s`;
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 50);
+    });
+  });
+</script>
+
+</body>
+</html>
