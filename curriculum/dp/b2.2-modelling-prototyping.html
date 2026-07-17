@@ -7,6 +7,63 @@
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* ── DRAWING-TYPE SUB-HEADINGS (2.2.1) ────────────────────────── */
+.lang-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  margin: 1.25rem 0 0.5rem;
+}
+.lang-col h4:first-child { margin-top: 0; }
+
+/* ── CAPTIONED PHOTOS WITH ZOOM (pattern from B2.1 case studies) ── */
+.case-photo {
+  width: 60%;
+  margin: 1.25rem auto;
+  text-align: center;
+}
+.case-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
+.case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+.case-photo figcaption a { color: var(--muted); text-decoration: underline; }
+.case-photo figcaption a:hover { color: var(--accent); }
+@media (max-width: 640px) {
+  .case-photo { width: 100%; }
+}
+
+/* Image lightbox — enlarge photos in-page instead of a new tab */
+.case-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5vmin;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.case-lightbox.open { display: flex; }
+.case-lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: modal-in 0.2s ease;
+}
+@keyframes modal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+</style>
 </head>
 <body data-curr-type="dp" data-curr-page="b2.2">
 
@@ -96,19 +153,35 @@ Show Chinese · 显示中文
 <div class="obj-body" id="obj-body-b2.2.1">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Construct and interpret 2D drawings and 3D models, including isometric, orthographic projection, assembly and exploded drawings.</p>
 
-<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
-
 <div class="bilingual-block">
 <div class="lang-col">
 <span class="lang-label">English</span>
 <p>Drawings are the most fundamental form of design communication: they allow designers to share ideas with manufacturers, engineers, clients and users without requiring physical models. Different drawing types serve different audiences and purposes:</p>
-<ul>
-<li><strong>Isometric drawings</strong> present an object from a corner viewpoint using 30° angles for all horizontal edges. The name comes from the Greek "equal measurement" because true dimensions are preserved along all three axes. Three sides of the object are visible simultaneously, making isometric drawings well suited for presentations to audiences with limited technical training.</li>
-<li><strong>Orthographic projection</strong> presents multiple 2D views (typically front, top and side) each projected perpendicularly onto a plane. Together, the views communicate exact dimensions, tolerances and surface specifications. This is the standard for manufacturing and engineering because it leaves no ambiguity about shape or size.</li>
-<li><strong>Exploded drawings</strong> show how components separate along their assembly axes so the viewer can understand how parts fit together. One of the earliest known examples was created by Leonardo da Vinci around 1478–1480.</li>
-<li><strong>Assembly drawings</strong> show how multiple components come together into a functional system. They typically include a Bill of Materials (BoM), a numbered list of every part, linked to callout labels on the drawing.</li>
-<li><strong>Perspective renderings</strong> use one or more vanishing points to create a realistic sense of depth. They do not preserve true dimensions but communicate the overall appearance and feel of a product convincingly to non-technical clients and investors.</li>
-</ul>
+
+<h4>Isometric drawings</h4>
+<p>Isometric drawings present an object from a corner viewpoint using 30° angles for all horizontal edges. The name comes from the Greek "equal measurement" because true dimensions are preserved along all three axes. Three sides of the object are visible simultaneously, making isometric drawings well suited for presentations to audiences with limited technical training.</p>
+
+<h4>Orthographic projection</h4>
+<p>Orthographic projection presents multiple 2D views (typically front, top and side) each projected perpendicularly onto a plane. Together, the views communicate exact dimensions, tolerances and surface specifications. This is the standard for manufacturing and engineering because it leaves no ambiguity about shape or size.</p>
+
+<h4>Exploded drawings</h4>
+<p>Exploded drawings show how components separate along their assembly axes so the viewer can understand how parts fit together. One of the earliest known examples was created by Leonardo da Vinci around 1478–1480.</p>
+
+<figure class="case-photo">
+<a href="B2.2/assembly.png"><img src="B2.2/assembly.png" alt="Assembly print example" loading="lazy"></a>
+<figcaption><a href="https://wtcs.pressbooks.pub/blueprintreading/chapter/13-assembly-prints/" target="_blank" rel="noopener">Assembly Prints: Wistech Open | Free Educational Resources</a></figcaption>
+</figure>
+
+<h4>Assembly drawings</h4>
+<p>Assembly drawings show how multiple components come together into a functional system. They typically include a Bill of Materials (BoM), a numbered list of every part, linked to callout labels on the drawing.</p>
+
+<figure class="case-photo">
+<a href="B2.2/perspective.png"><img src="B2.2/perspective.png" alt="Sketching to perspective rendering" loading="lazy"></a>
+<figcaption><a href="https://www.youtube.com/watch?v=0aKB1oZt8Y0" target="_blank" rel="noopener">Sketching to perspective rendering: Eric Strebel | Youtube</a></figcaption>
+</figure>
+
+<h4>Perspective renderings</h4>
+<p>Perspective renderings use one or more vanishing points to create a realistic sense of depth. They do not preserve true dimensions but communicate the overall appearance and feel of a product convincingly to non-technical clients and investors.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
@@ -591,8 +664,8 @@ Show Chinese · 显示中文
 <div class="curr-body" id="body-refs">
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">1</span><span class="ref-item-title">YouTube – "Isometric vs. Orthographic Drawing Explained" (The Engineering Mindset)</span></div>
-<p class="ref-item-desc">Five-minute animated video comparing drawing types with clear examples. Search: "Engineering Mindset isometric orthographic drawing YouTube".</p>
+<div class="ref-item-head"><span class="ref-item-num">1</span><span class="ref-item-title"><a href="https://www.youtube.com/watch?v=0aKB1oZt8Y0" target="_blank" rel="noopener">YouTube – "Sketching to Perspective Rendering" (Eric Strebel)</a></span></div>
+<p class="ref-item-desc">Demonstration of moving from a rough sketch to a finished perspective rendering, referenced in 2.2.1.</p>
 </div>
 
 <div class="ref-item">
@@ -626,8 +699,8 @@ Show Chinese · 显示中文
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">8</span><span class="ref-item-title">Wikimedia Commons – Leonardo da Vinci reciprocating motion machine (c.1478–1480)</span></div>
-<p class="ref-item-desc">Historical image of the exploded drawing by da Vinci referenced in the chapter. Search: "Leonardo da Vinci reciprocating machine exploded drawing Wikimedia".</p>
+<div class="ref-item-head"><span class="ref-item-num">8</span><span class="ref-item-title"><a href="https://wtcs.pressbooks.pub/blueprintreading/" target="_blank" rel="noopener">Wisconsin Technical Colleges – "Blueprint Reading" (Mark Lorier)</a></span></div>
+<p class="ref-item-desc">Learn way more about assembly drawings by reading Mark Lorier's excellent book: "Blueprint Reading".</p>
 </div>
 
 <div class="ref-item">
@@ -666,6 +739,11 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
