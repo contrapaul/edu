@@ -68,6 +68,8 @@
   --font-body:     'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
   --font-mono:     'Courier New', 'Lucida Console', monospace;
   --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
   --transition:    0ms;
 }
 
@@ -190,6 +192,8 @@
   --font-body:     'IBM VGA 8x16', monospace;
   --font-mono:     'IBM VGA 8x16', monospace;
   --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
   --transition:    0ms;
 }
 
@@ -220,12 +224,12 @@
   color: #FFFFFF !important;
 }
 [data-theme="dos"] .gq-label {
-  color: #55FF55 !important;
+  color: #AAAAAA !important;
 }
 [data-theme="dos"] .topic-title {
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #55FF55 !important;
+  color: #FFFFFF !important;
 }
 [data-theme="dos"] .topic-sub { color: #AAAAAA !important; }
 /* Hub/curriculum index page */
@@ -257,7 +261,7 @@
 [data-theme="dos"] .curr-section:has(.curr-body.open) .curr-trigger::before {
   content: 'C:\\> DIR ';
 }
-[data-theme="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #55FF55 !important; }
+[data-theme="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #FFFFFF !important; }
 [data-theme="dos"] .obj-section { border-color: #333333; }
 [data-theme="dos"] .obj-trigger h3 { color: #FFFFFF !important; }
 [data-theme="dos"] .activity-block {
@@ -268,11 +272,11 @@
   background: #000080;
   border-right: 1px solid #55FF55;
 }
-[data-theme="dos"] .csb-group-label { color: #55FF55 !important; }
+[data-theme="dos"] .csb-group-label { color: #AAAAAA !important; }
 [data-theme="dos"] .csb-link { color: #FFFFFF; }
 [data-theme="dos"] .csb-code { color: #AAAAAA; }
 [data-theme="dos"] .csb-current .csb-link { background: #1a1a1a; border-right-color: #55FF55; }
-[data-theme="dos"] .csb-current .csb-title { color: #55FF55; }
+[data-theme="dos"] .csb-current .csb-title { color: #FFFFFF; }
 [data-theme="dos"] .csb-home { color: #FFFFFF; }
 [data-theme="dos"] input,
 [data-theme="dos"] textarea,
