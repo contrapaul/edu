@@ -632,6 +632,7 @@
   --green-bg:      #ffd6e7;
   --amber:         #e75480;   /* deep pink stand-in for warning */
   --amber-bg:      #ffeef5;
+  --radius:        22px;      /* extra-round — hannah's signature */
 }
 
 /* Site header */
@@ -665,7 +666,7 @@
 [data-theme="hannah"] .gq-label { color: #ff1493 !important; }
 
 /* Collapsible sections — pink title-bar gradient */
-[data-theme="hannah"] .curr-section { border-left-color: #ff69b4 !important; }
+[data-theme="hannah"] .curr-section { border-left-color: #ff69b4 !important; overflow: hidden; }
 [data-theme="hannah"] .curr-trigger {
   background: linear-gradient(90deg, #ff69b4 0%, #ff1493 100%);
 }
