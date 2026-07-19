@@ -109,6 +109,9 @@
   --radius:       14px;
   --radius-sm:    8px;
   --radius-pill:  999px;
+  --shadow-sm:    0 1px 3px rgba(17,20,24,0.05);   /* resting card/hero depth */
+  --shadow-md:    0 6px 18px rgba(17,20,24,0.10);  /* hover / raised depth */
+  --lift:         -2px;                            /* hover translateY */
   --transition:   160ms ease;
 }
 
@@ -127,7 +130,7 @@ main { flex: 1; }
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 1px 10px rgba(17,20,24,0.06);
+  box-shadow: var(--shadow-sm);
 }
 
 .header-inner {

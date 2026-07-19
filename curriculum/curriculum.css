@@ -40,7 +40,7 @@
 /* ── TOPIC HERO ──────────────────────────────────────────────── */
 .topic-hero {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   padding: 3rem 2rem 2.5rem;
 }
 .topic-hero-inner {
@@ -179,12 +179,12 @@
   padding-right: 20px;
   scroll-margin-top: var(--curr-nav-h);
   margin-top: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-sm);
   transition: box-shadow var(--transition);
 }
-.curr-section:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+.curr-section:hover { box-shadow: var(--shadow-md); }
 .curr-section:has(.curr-body.open) {
-  box-shadow: 0 4px 18px rgba(0,0,0,0.11);
+  box-shadow: var(--shadow-md);
   border-color: var(--curr-color, var(--border));
 }
 
@@ -813,7 +813,7 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 /* ── MYP UNIT HERO ───────────────────────────────────────────── */
 .myp-hero {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   padding: 3rem 2rem 2.5rem;
 }
 .myp-hero-inner { max-width: var(--curr-max-w); margin: 0 auto; }
@@ -873,7 +873,7 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 /* ── CURRICULUM HUB ──────────────────────────────────────────── */
 .hub-hero {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   padding: 1.75rem 2rem 1.5rem;
 }
 .hub-hero-inner { max-width: var(--max-w); margin: 0 auto; }
@@ -931,17 +931,17 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
   border-radius: var(--radius);
   text-decoration: none;
   color: var(--text);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 .topic-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 6px 18px rgba(26,92,184,0.12);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(var(--lift));
   text-decoration: none;
 }
 .topic-card.is-hl { border-left: 3px solid var(--hl); }
-.topic-card.is-hl:hover { border-color: var(--hl); box-shadow: 0 6px 18px rgba(124,58,237,0.12); }
+.topic-card.is-hl:hover { border-color: var(--hl); }
 
 .topic-card-top {
   display: flex;
@@ -1012,13 +1012,13 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
   border-radius: var(--radius);
   text-decoration: none;
   color: var(--text);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 .myp-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 6px 18px rgba(26,92,184,0.12);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(var(--lift));
   text-decoration: none;
 }
 .myp-card-grade {
@@ -1733,7 +1733,7 @@ details.p2-reveal summary::before { content: "▼ "; }
 /* ── PROGRAMME LANDING HERO ──────────────────────────────────── */
 .prog-hero {
   background: var(--surface);
-  box-shadow: 0 1px 3px rgba(17,20,24,0.05);
+  box-shadow: var(--shadow-sm);
   padding: 3.5rem 2rem 2.5rem;
 }
 .prog-hero-inner { max-width: var(--max-w); margin: 0 auto; }
