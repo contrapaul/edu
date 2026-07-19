@@ -43,8 +43,15 @@
 
 /* Themed link overrides */
 [data-theme="win95"] .lp-link { color: #000080 !important; }
-[data-theme="dos"]   .lp-link { color: #00ff00 !important; }
+/* DOS: light-gray prose with bright-white "highlighted" links; green stays rare */
+[data-theme^="dos"]   .lp-text { color: #AAAAAA; }
+[data-theme^="dos"]   .lp-link { color: #FFFFFF !important; }
 [data-theme="xbox"]  .lp-link { color: #76e800 !important; }
+[data-theme="blueprint"] .lp-link { color: #4fc3f7 !important; }
+[data-theme="gameboy"] .lp-link { color: #0f380f !important; text-decoration: underline; }
+/* Monochrome reading themes: links are ink, underlined for affordance */
+[data-theme="paper"] .lp-link,
+[data-theme="exam"]  .lp-link { color: var(--text) !important; text-decoration: underline; }
 /* Nightmare keeps individual chaos colours */
 [data-theme="nightmare"] .lp-c1 { color: #ff1493 !important; }
 [data-theme="nightmare"] .lp-c2 { color: #0000ee !important; }
