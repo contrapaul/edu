@@ -13,13 +13,19 @@
   var STORAGE_KEY = 'edu-theme';
 
   var THEMES = [
-    { id: 'light',     label: 'Default',           emoji: '☀️'  },
-    { id: 'dark',      label: 'Dark',               emoji: '🌙'  },
-    { id: 'win95',     label: 'Windows 95',         emoji: '🖥️'  },
-    { id: 'dos',       label: 'MS-DOS',             emoji: '⌨️'  },
-    { id: 'xbox',      label: 'Xbox OG',            emoji: '🎮'  },
-    { id: 'nightmare', label: 'Nightmare',          emoji: '🌈'  },
-    { id: 'hannah',    label: "Hannah's request",   emoji: '🎀'  }
+    { id: 'light',      label: 'Default',           emoji: '☀️'  },
+    { id: 'dark',       label: 'Dark',               emoji: '🌙'  },
+    { id: 'paper',      label: 'Paper',              emoji: '📄'  },
+    { id: 'sketchbook', label: 'Sketchbook',         emoji: '✏️'  },
+    { id: 'blueprint',  label: 'Blueprint',          emoji: '📐'  },
+    { id: 'exam',       label: 'Exam Paper',         emoji: '📝'  },
+    { id: 'win95',      label: 'Windows 95',         emoji: '🖥️'  },
+    { id: 'dos',        label: 'MS-DOS',             emoji: '⌨️'  },
+    { id: 'dos-amber',  label: 'MS-DOS Amber',       emoji: '🟠'  },
+    { id: 'gameboy',    label: 'Game Boy',           emoji: '🕹️'  },
+    { id: 'xbox',       label: 'Xbox OG',            emoji: '🎮'  },
+    { id: 'nightmare',  label: 'Nightmare',          emoji: '🌈'  },
+    { id: 'hannah',     label: "Hannah's request",   emoji: '🎀'  }
   ];
 
   /* ── Apply theme immediately (before paint) ─────────────── */

@@ -28,6 +28,10 @@
   --green-bg:      #0d2b15;
   --amber:         #d29922;
   --amber-bg:      #2b1f0a;
+  /* Black shadows vanish on a near-black bg — raise the opacity so
+     resting depth and the hover lift stay legible in dark mode */
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md:     0 8px 24px rgba(0,0,0,0.55);
 }
 
 /* Override inline --topic-color/--topic-bg which are set per-page in the HTML
@@ -68,6 +72,11 @@
   --font-body:     'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
   --font-mono:     'Courier New', 'Lucida Console', monospace;
   --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
+  --shadow-sm:     none;   /* no soft shadows in 1995 — panels use bevels */
+  --shadow-md:     none;
+  --lift:          0px;
   --transition:    0ms;
 }
 
@@ -125,6 +134,25 @@
 [data-theme="win95"] .curr-trigger .curr-chevron { color: #ffffff !important; }
 [data-theme="win95"] .obj-trigger { background: #d4d0c8; }
 [data-theme="win95"] .obj-section { border-color: #808080; }
+/* Cards as classic raised panels (same bevel the buttons use) */
+[data-theme="win95"] .topic-card,
+[data-theme="win95"] .myp-card {
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 1px 1px 0 #000;
+  background: #c0c0c0;
+}
+[data-theme="win95"] .topic-card:hover,
+[data-theme="win95"] .topic-card.is-hl,
+[data-theme="win95"] .topic-card.is-hl:hover,
+[data-theme="win95"] .myp-card:hover {
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 1px 1px 0 #000;
+}
+/* Heroes lost their border-bottom to shadow tokens — restore a divider */
+[data-theme="win95"] .hub-hero,
+[data-theme="win95"] .prog-hero,
+[data-theme="win95"] .myp-hero { border-bottom: 2px solid #808080; }
 [data-theme="win95"] .topic-hero {
   background: #c0c0c0;
   border: 2px solid;
@@ -170,7 +198,7 @@
 
 
 /* ── 3. MS-DOS ───────────────────────────────────────────── */
-[data-theme="dos"] {
+[data-theme^="dos"] {
   --bg:            #000000;
   --surface:       #000000;
   --surface-2:     #111111;   /* very dark gray — card surfaces */
@@ -190,124 +218,146 @@
   --font-body:     'IBM VGA 8x16', monospace;
   --font-mono:     'IBM VGA 8x16', monospace;
   --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
+  --shadow-sm:     none;   /* terminals don't cast shadows */
+  --shadow-md:     none;
+  --lift:          0px;
   --transition:    0ms;
 }
 
-[data-theme="dos"] .site-header {
+/* CRT phosphor bloom — shadow colour omitted so it glows in currentColor */
+[data-theme^="dos"] main,
+[data-theme^="dos"] .site-header,
+[data-theme^="dos"] .site-footer { text-shadow: 0 0 4px; }
+
+/* Blinking block cursor after page titles */
+[data-theme^="dos"] .topic-title::after,
+[data-theme^="dos"] .hub-title::after,
+[data-theme^="dos"] .prog-hero-title::after,
+[data-theme^="dos"] .myp-title::after,
+[data-theme^="dos"] .lp-welcome::after {
+  content: '▌';
+  margin-left: 0.15em;
+  animation: dos-cursor 1s steps(1) infinite;
+}
+@keyframes dos-cursor { 50% { opacity: 0; } }
+
+/* Heroes lost their border-bottom to shadow tokens — restore a divider */
+[data-theme^="dos"] .hub-hero,
+[data-theme^="dos"] .prog-hero,
+[data-theme^="dos"] .myp-hero { border-bottom: 1px solid #333333; }
+
+[data-theme^="dos"] .site-header {
   background: #0000AA;  /* CGA dark blue — classic DOS header bar */
   border-bottom: 2px solid #AAAAAA;
 }
-[data-theme="dos"] .wordmark { color: #55FF55; }   /* green accent on brand only */
-[data-theme="dos"] .brand-sub { color: #AAAAAA; }
-[data-theme="dos"] .nav a { color: #FFFFFF; }       /* white nav text */
-[data-theme="dos"] .nav a:hover { color: #55FF55; background: transparent; }  /* green on hover */
-[data-theme="dos"] .footer-brand,
-[data-theme="dos"] .footer-brand a,
-[data-theme="dos"] .footer-note { color: #AAAAAA; }
-[data-theme="dos"] .topic-hero {
+[data-theme^="dos"] .wordmark { color: #55FF55; }   /* green accent on brand only */
+[data-theme^="dos"] .brand-sub { color: #AAAAAA; }
+[data-theme^="dos"] .nav a { color: #FFFFFF; }       /* white nav text */
+[data-theme^="dos"] .nav a:hover { color: #55FF55; background: transparent; }  /* green on hover */
+[data-theme^="dos"] .footer-brand,
+[data-theme^="dos"] .footer-brand a,
+[data-theme^="dos"] .footer-note { color: #AAAAAA; }
+[data-theme^="dos"] .topic-hero {
   background: #000000;
   border-bottom: 1px solid #333333;
 }
 /* Override inline --topic-bg so .topic-code and .topic-guiding-q don't go white */
-[data-theme="dos"] .topic-code {
+[data-theme^="dos"] .topic-code {
   background: #111111 !important;
   color: #55FF55 !important;   /* code strings in green — deliberate accent */
   border-color: #333333 !important;
 }
-[data-theme="dos"] .topic-guiding-q {
+[data-theme^="dos"] .topic-guiding-q {
   background: #111111 !important;
   border-left-color: #55FF55 !important;  /* green accent border — deliberate */
   color: #FFFFFF !important;
 }
-[data-theme="dos"] .gq-label {
-  color: #55FF55 !important;
+[data-theme^="dos"] .gq-label {
+  color: #AAAAAA !important;
 }
-[data-theme="dos"] .topic-title {
+[data-theme^="dos"] .topic-title {
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #55FF55 !important;
+  color: #FFFFFF !important;
 }
-[data-theme="dos"] .topic-sub { color: #AAAAAA !important; }
+[data-theme^="dos"] .topic-sub { color: #AAAAAA !important; }
 /* Hub/curriculum index page */
-[data-theme="dos"] .hub-title,
-[data-theme="dos"] .hub-desc,
-[data-theme="dos"] .prog-hero-title,
-[data-theme="dos"] .prog-hero-desc,
-[data-theme="dos"] .hub-prog-title,
-[data-theme="dos"] .hub-prog-desc,
-[data-theme="dos"] .hub-group-label,
-[data-theme="dos"] .topic-card-title,
-[data-theme="dos"] .topic-card-q,
-[data-theme="dos"] .prog-card-title,
-[data-theme="dos"] .prog-card-desc { color: #FFFFFF !important; }
-[data-theme="dos"] .prog-card-label { color: #55FF55 !important; }
-[data-theme="dos"] .prog-card-cta { color: #55FF55 !important; }
-[data-theme="dos"] .prog-card-meta { color: #AAAAAA !important; }
-[data-theme="dos"] .curr-section {
+[data-theme^="dos"] .hub-title,
+[data-theme^="dos"] .hub-desc,
+[data-theme^="dos"] .prog-hero-title,
+[data-theme^="dos"] .prog-hero-desc,
+[data-theme^="dos"] .hub-prog-title,
+[data-theme^="dos"] .hub-prog-desc,
+[data-theme^="dos"] .hub-group-label,
+[data-theme^="dos"] .topic-card-title,
+[data-theme^="dos"] .topic-card-q { color: #FFFFFF !important; }
+[data-theme^="dos"] .curr-section {
   border-left-color: #55FF55 !important;  /* green accent — section marker */
   border-color: #333333;
   background: #000;
 }
-[data-theme="dos"] .curr-trigger::before {
+[data-theme^="dos"] .curr-trigger::before {
   content: 'C:\\> ';
   color: #55FF55;
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
-[data-theme="dos"] .curr-section:has(.curr-body.open) .curr-trigger::before {
+[data-theme^="dos"] .curr-section:has(.curr-body.open) .curr-trigger::before {
   content: 'C:\\> DIR ';
 }
-[data-theme="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #55FF55 !important; }
-[data-theme="dos"] .obj-section { border-color: #333333; }
-[data-theme="dos"] .obj-trigger h3 { color: #FFFFFF !important; }
-[data-theme="dos"] .activity-block {
+[data-theme^="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #FFFFFF !important; }
+[data-theme^="dos"] .obj-section { border-color: #333333; }
+[data-theme^="dos"] .obj-trigger h3 { color: #FFFFFF !important; }
+[data-theme^="dos"] .activity-block {
   border-color: #333333;
   background: #000;
 }
-[data-theme="dos"] .curr-sidebar {
+[data-theme^="dos"] .curr-sidebar {
   background: #000080;
   border-right: 1px solid #55FF55;
 }
-[data-theme="dos"] .csb-group-label { color: #55FF55 !important; }
-[data-theme="dos"] .csb-link { color: #FFFFFF; }
-[data-theme="dos"] .csb-code { color: #AAAAAA; }
-[data-theme="dos"] .csb-current .csb-link { background: #1a1a1a; border-right-color: #55FF55; }
-[data-theme="dos"] .csb-current .csb-title { color: #55FF55; }
-[data-theme="dos"] .csb-home { color: #FFFFFF; }
-[data-theme="dos"] input,
-[data-theme="dos"] textarea,
-[data-theme="dos"] select,
-[data-theme="dos"] input[type="checkbox"] + label,
-[data-theme="dos"] label {
+[data-theme^="dos"] .csb-group-label { color: #AAAAAA !important; }
+[data-theme^="dos"] .csb-link { color: #FFFFFF; }
+[data-theme^="dos"] .csb-code { color: #AAAAAA; }
+[data-theme^="dos"] .csb-current .csb-link { background: #1a1a1a; border-right-color: #55FF55; }
+[data-theme^="dos"] .csb-current .csb-title { color: #FFFFFF; }
+[data-theme^="dos"] .csb-home { color: #FFFFFF; }
+[data-theme^="dos"] input,
+[data-theme^="dos"] textarea,
+[data-theme^="dos"] select,
+[data-theme^="dos"] input[type="checkbox"] + label,
+[data-theme^="dos"] label {
   background: #000 !important;
   color: #FFFFFF !important;
   border-color: #333333 !important;
   accent-color: #55FF55;
 }
 /* Fix white boxes in tools — focus group, task map nodes, any card */
-[data-theme="dos"] .ta-node,
-[data-theme="dos"] .ta-node-hta,
-[data-theme="dos"] .fg-output,
-[data-theme="dos"] .quiz-q,
-[data-theme="dos"] .persona-card,
-[data-theme="dos"] .likert-tool,
-[data-theme="dos"] [class*="-card"],
-[data-theme="dos"] [class*="-panel"],
-[data-theme="dos"] [class*="-block"] {
+[data-theme^="dos"] .ta-node,
+[data-theme^="dos"] .ta-node-hta,
+[data-theme^="dos"] .fg-output,
+[data-theme^="dos"] .quiz-q,
+[data-theme^="dos"] .persona-card,
+[data-theme^="dos"] .likert-tool,
+[data-theme^="dos"] [class*="-card"],
+[data-theme^="dos"] [class*="-panel"],
+[data-theme^="dos"] [class*="-block"] {
   background: #000 !important;
   border-color: #333333 !important;
   color: #FFFFFF !important;
 }
-[data-theme="dos"] .tool-btn,
-[data-theme="dos"] .tool-btn-sm,
-[data-theme="dos"] .quiz-submit-btn {
+[data-theme^="dos"] .tool-btn,
+[data-theme^="dos"] .tool-btn-sm,
+[data-theme^="dos"] .quiz-submit-btn {
   background: #000080;
   color: #55FF55;
   border: 1px solid #55FF55;
   border-radius: 0;
 }
-[data-theme="dos"] .tool-btn:hover,
-[data-theme="dos"] .tool-btn-sm:hover { background: #004400; }
+[data-theme^="dos"] .tool-btn:hover,
+[data-theme^="dos"] .tool-btn-sm:hover { background: #004400; }
 
 /* ── DOS font assignments ────────────────────────────────────
    8x16-2x → --font-display (h1, h2, page/modal titles)
@@ -317,27 +367,64 @@
 ──────────────────────────────────────────────────────────── */
 
 /* Site header + footer: IBM VGA 8x14 */
-[data-theme="dos"] .wordmark,
-[data-theme="dos"] .brand-sub,
-[data-theme="dos"] .nav a,
-[data-theme="dos"] .nav-external,
-[data-theme="dos"] .footer-brand,
-[data-theme="dos"] .footer-brand a,
-[data-theme="dos"] .footer-note { font-family: 'IBM VGA 8x14', monospace !important; }
+[data-theme^="dos"] .wordmark,
+[data-theme^="dos"] .brand-sub,
+[data-theme^="dos"] .nav a,
+[data-theme^="dos"] .nav-external,
+[data-theme^="dos"] .footer-brand,
+[data-theme^="dos"] .footer-brand a,
+[data-theme^="dos"] .footer-note { font-family: 'IBM VGA 8x14', monospace !important; }
 
 /* Sub-headers and small labels: IBM VGA 8x14 2x */
-[data-theme="dos"] h3,
-[data-theme="dos"] h4,
-[data-theme="dos"] .obj-trigger h3,
-[data-theme="dos"] .topic-sub,
-[data-theme="dos"] .prog-card-label,
-[data-theme="dos"] .csb-group-label,
-[data-theme="dos"] .csb-code,
-[data-theme="dos"] .ta-card-label,
-[data-theme="dos"] .ta-cog-label,
-[data-theme="dos"] .ta-goal-card-label,
-[data-theme="dos"] .ta-menu-btn,
-[data-theme="dos"] .ta-act-btn { font-family: 'IBM VGA 8x14 2x', monospace !important; }
+[data-theme^="dos"] h3,
+[data-theme^="dos"] h4,
+[data-theme^="dos"] .obj-trigger h3,
+[data-theme^="dos"] .topic-sub,
+[data-theme^="dos"] .csb-group-label,
+[data-theme^="dos"] .csb-code,
+[data-theme^="dos"] .ta-card-label,
+[data-theme^="dos"] .ta-cog-label,
+[data-theme^="dos"] .ta-goal-card-label,
+[data-theme^="dos"] .ta-menu-btn,
+[data-theme^="dos"] .ta-act-btn { font-family: 'IBM VGA 8x14 2x', monospace !important; }
+
+
+/* ── 3b. MS-DOS AMBER ────────────────────────────────────────
+   Amber phosphor monitor variant. The theme id "dos-amber"
+   matches every [data-theme^="dos"] rule above, so it inherits
+   the full DOS treatment (fonts, prompt, layout, cursor); this
+   block only re-tints the green accents amber and drops the CGA
+   blue chrome a monochrome monitor never had. */
+[data-theme="dos-amber"] {
+  --accent:        #FFB000;   /* amber phosphor */
+  --accent-bg:     #1a1200;
+  --hl:            #FFD75E;   /* bright amber for highlights */
+  --hl-bg:         #1a1500;
+  --green:         #FFB000;
+  --green-bg:      #1a1200;
+}
+[data-theme="dos-amber"] .site-header { background: #331f00; }
+[data-theme="dos-amber"] .wordmark { color: #FFB000; }
+[data-theme="dos-amber"] .nav a:hover { color: #FFB000; }
+[data-theme="dos-amber"] .topic-code { color: #FFB000 !important; }
+[data-theme="dos-amber"] .topic-guiding-q { border-left-color: #FFB000 !important; }
+[data-theme="dos-amber"] .curr-section { border-left-color: #FFB000 !important; }
+[data-theme="dos-amber"] .curr-trigger::before { color: #FFB000; }
+[data-theme="dos-amber"] .curr-sidebar { background: #1a1200; border-right-color: #FFB000; }
+[data-theme="dos-amber"] .csb-current .csb-link { border-right-color: #FFB000; }
+[data-theme="dos-amber"] .tool-btn,
+[data-theme="dos-amber"] .tool-btn-sm,
+[data-theme="dos-amber"] .quiz-submit-btn {
+  background: #331f00;
+  color: #FFB000;
+  border-color: #FFB000;
+}
+[data-theme="dos-amber"] .tool-btn:hover,
+[data-theme="dos-amber"] .tool-btn-sm:hover { background: #442a00; }
+[data-theme="dos-amber"] input,
+[data-theme="dos-amber"] textarea,
+[data-theme="dos-amber"] select,
+[data-theme="dos-amber"] label { accent-color: #FFB000; }
 
 
 /* ── 4. XBOX OG ──────────────────────────────────────────── */
@@ -360,6 +447,9 @@
   --font-display:  'XBOX Original', 'Verdana', 'Arial', sans-serif;
   --font-body:     'Verdana', 'Arial', sans-serif;
   --font-mono:     'Courier New', monospace;
+  /* Depth reads as neon glow, not drop shadow, on the near-black bg */
+  --shadow-sm:     0 0 10px rgba(118,232,0,0.10);
+  --shadow-md:     0 0 22px rgba(118,232,0,0.30);
 }
 
 [data-theme="xbox"] .site-header {
@@ -519,6 +609,13 @@
   --transition:    80ms;
 }
 
+/* Every corner a different radius — as nature never intended */
+[data-theme="nightmare"] .topic-card,
+[data-theme="nightmare"] .myp-card { border-radius: 30px 4px 18px 0; }
+[data-theme="nightmare"] .topic-card:nth-child(even),
+[data-theme="nightmare"] .myp-card:nth-child(even) { border-radius: 0 24px 6px 36px; }
+[data-theme="nightmare"] .curr-section { border-radius: 0 42px 0 20px; }
+
 [data-theme="nightmare"] .site-header {
   background-size: 300% 300%;
   background-image: linear-gradient(90deg, #ff0000, #ff8c00, #ffd700, #00ff00, #0000ff, #8b00ff, #ff0000);
@@ -628,7 +725,11 @@
   --green-bg:      #ffd6e7;
   --amber:         #e75480;   /* deep pink stand-in for warning */
   --amber-bg:      #ffeef5;
+  --radius:        22px;      /* extra-round — hannah's signature */
 }
+
+/* Heart bullets in study-guide lists (ul only — ol keeps its numbers) */
+[data-theme="hannah"] .curr-body ul > li::marker { content: '♡ '; color: #ff1493; }
 
 /* Site header */
 [data-theme="hannah"] .site-header {
@@ -661,7 +762,7 @@
 [data-theme="hannah"] .gq-label { color: #ff1493 !important; }
 
 /* Collapsible sections — pink title-bar gradient */
-[data-theme="hannah"] .curr-section { border-left-color: #ff69b4 !important; }
+[data-theme="hannah"] .curr-section { border-left-color: #ff69b4 !important; overflow: hidden; }
 [data-theme="hannah"] .curr-trigger {
   background: linear-gradient(90deg, #ff69b4 0%, #ff1493 100%);
 }
@@ -864,6 +965,270 @@
 }
 
 
+/* ── 7. BLUEPRINT ─────────────────────────────────────────────
+   Technical drawing on drafting-blue stock. Self-hosted
+   JetBrains Mono stands in for single-stroke drafting lettering.
+   Line work carries the structure — no shadows, sharp corners. */
+[data-theme="blueprint"] {
+  --bg:            #0c2340;
+  --surface:       #102c4f;
+  --surface-2:     #16365d;
+  --border:        #2e5f8a;
+  --border-strong: #7fb3d9;
+  --text:          #dcecf7;
+  --muted:         #8fb8d9;
+  --accent:        #4fc3f7;   /* cyan line work */
+  --accent-bg:     #0f3a5c;
+  --hl:            #ffca6b;   /* annotation yellow */
+  --hl-bg:         #3a2e10;
+  --green:         #6fdc8c;
+  --green-bg:      #11402a;
+  --amber:         #ffca6b;
+  --amber-bg:      #3a2e10;
+  --font-display:  'JetBrains Mono', ui-monospace, monospace;
+  --radius:        4px;
+  --radius-sm:     2px;
+  --radius-pill:   4px;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+  --lift:          0px;
+}
+/* Drafting grid over the page background */
+[data-theme="blueprint"] body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(79,195,247,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,195,247,0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+[data-theme="blueprint"] h1,
+[data-theme="blueprint"] h2 { text-transform: uppercase; letter-spacing: 0.04em; }
+/* Cards read as drawn boxes — transparent so the grid shows through */
+[data-theme="blueprint"] .topic-card,
+[data-theme="blueprint"] .myp-card { background: transparent; }
+[data-theme="blueprint"] .hub-hero,
+[data-theme="blueprint"] .prog-hero,
+[data-theme="blueprint"] .myp-hero,
+[data-theme="blueprint"] .topic-hero { border-bottom: 1px solid var(--border); }
+/* Neutralise per-page inline --topic-color pastels (designed for light bg) */
+[data-theme="blueprint"] .topic-code {
+  background: var(--accent-bg) !important;
+  color: var(--accent) !important;
+  border-color: var(--border-strong) !important;
+}
+[data-theme="blueprint"] .topic-guiding-q {
+  background: var(--accent-bg) !important;
+  border-left-color: var(--accent) !important;
+  color: var(--muted) !important;
+}
+[data-theme="blueprint"] .gq-label { color: var(--accent) !important; }
+
+
+/* ── 8. SKETCHBOOK ────────────────────────────────────────────
+   Designer's notebook: cream stock, faint graph grid, wobbly
+   hand-drawn corners. Handwriting comes from system fonts only
+   (Segoe Print / Bradley Hand) — swap in a self-hosted hand font
+   later if desired. Body text stays default for readability.   */
+[data-theme="sketchbook"] {
+  --bg:            #faf7ef;
+  --surface:       #fffdf7;
+  --surface-2:     #f3eee1;
+  --border:        #d8cfba;
+  --border-strong: #a89a7e;
+  --text:          #3a3427;
+  --muted:         #8a7d63;
+  --accent:        #46628c;   /* pencil blue */
+  --accent-bg:     #e9eef7;
+  --hl:            #b0563c;   /* sanguine red pencil */
+  --hl-bg:         #f7e8e2;
+  --green:         #5a7d4a;
+  --green-bg:      #e6efdd;
+  --amber:         #a8742c;
+  --amber-bg:      #f5ecd7;
+  --font-display:  'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
+  --shadow-sm:     0 1px 2px rgba(58,52,39,0.12);
+  --shadow-md:     0 4px 10px rgba(58,52,39,0.18);
+}
+/* Graph-paper grid */
+[data-theme="sketchbook"] body {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(70,98,140,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(70,98,140,0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+/* Slightly uneven, hand-drawn corners (elliptical radii = wobble) */
+[data-theme="sketchbook"] .topic-card,
+[data-theme="sketchbook"] .myp-card {
+  border-color: var(--border-strong);
+  border-radius: 12px 18px 14px 20px / 18px 12px 20px 14px;
+}
+[data-theme="sketchbook"] .curr-section { border-radius: 0 16px 12px 0 / 0 22px 15px 0; }
+
+
+/* ── 9. PAPER / E-INK ─────────────────────────────────────────
+   Warm grayscale reading mode: serif body, no shadows, no
+   motion. Doubles as a print-friendly view for study guides.  */
+[data-theme="paper"] {
+  --bg:            #f4f1ea;
+  --surface:       #faf8f2;
+  --surface-2:     #eceae2;
+  --border:        #d5d2c8;
+  --border-strong: #9b978c;
+  --text:          #1c1b18;
+  --muted:         #5f5c54;
+  --accent:        #1c1b18;   /* e-ink: links are just ink */
+  --accent-bg:     #e6e4dc;
+  --hl:            #44413a;
+  --hl-bg:         #e6e4dc;
+  --green:         #3d4f3d;
+  --green-bg:      #e3e8e3;
+  --amber:         #5c4a28;
+  --amber-bg:      #ece5d5;
+  --font-display:  Georgia, 'Times New Roman', serif;
+  --font-body:     Georgia, 'Times New Roman', serif;
+  --radius:        6px;
+  --radius-sm:     4px;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+  --lift:          0px;
+  --transition:    0ms;      /* e-ink doesn't animate */
+}
+[data-theme="paper"] .hub-hero,
+[data-theme="paper"] .prog-hero,
+[data-theme="paper"] .myp-hero,
+[data-theme="paper"] .topic-hero { border-bottom: 1px solid var(--border); }
+/* Black-on-paper links need an underline for affordance in prose */
+[data-theme="paper"] main a:not([class]) { text-decoration: underline; }
+/* Grayscale the per-page inline topic pastels */
+[data-theme="paper"] .topic-code {
+  background: var(--surface-2) !important;
+  color: var(--text) !important;
+  border-color: var(--border-strong) !important;
+}
+[data-theme="paper"] .topic-guiding-q {
+  background: var(--surface-2) !important;
+  border-left-color: var(--border-strong) !important;
+  color: var(--text) !important;
+}
+[data-theme="paper"] .gq-label { color: var(--muted) !important; }
+/* Beat the per-section inline style="--curr-color:..." pastels */
+[data-theme="paper"] .curr-section { --curr-color: #44413a !important; }
+
+
+/* ── 10. GAME BOY ─────────────────────────────────────────────
+   Four shades of DMG-01 olive, chunky pixel type (VT323 via
+   cdnfonts, same source as the DOS fallback font).            */
+[data-theme="gameboy"] {
+  --bg:            #9bbc0f;
+  --surface:       #8bac0f;
+  --surface-2:     #9bbc0f;
+  --border:        #306230;
+  --border-strong: #0f380f;
+  --text:          #0f380f;
+  --muted:         #306230;
+  --accent:        #0f380f;
+  --accent-bg:     #8bac0f;
+  --hl:            #306230;
+  --hl-bg:         #8bac0f;
+  --green:         #0f380f;
+  --green-bg:      #8bac0f;
+  --amber:         #306230;
+  --amber-bg:      #9bbc0f;
+  --font-display:  'VT323', 'Courier New', monospace;
+  --font-body:     'VT323', 'Courier New', monospace;
+  --font-mono:     'VT323', 'Courier New', monospace;
+  --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+  --lift:          0px;
+  --transition:    0ms;
+}
+[data-theme="gameboy"] .site-header { background: #0f380f; border-bottom: 4px solid #306230; }
+[data-theme="gameboy"] .wordmark,
+[data-theme="gameboy"] .brand-sub,
+[data-theme="gameboy"] .nav a { color: #9bbc0f; }
+[data-theme="gameboy"] .nav a:hover { background: #306230; color: #9bbc0f; }
+[data-theme="gameboy"] .topic-card,
+[data-theme="gameboy"] .myp-card,
+[data-theme="gameboy"] .curr-section { border: 2px solid #0f380f; }
+/* Beat the per-section inline style="--curr-color:..." pastels */
+[data-theme="gameboy"] .curr-section { --curr-color: #0f380f !important; }
+[data-theme="gameboy"] .hub-hero,
+[data-theme="gameboy"] .prog-hero,
+[data-theme="gameboy"] .myp-hero,
+[data-theme="gameboy"] .topic-hero { border-bottom: 2px solid #0f380f; }
+/* Force the four-shade palette over inline topic colours */
+[data-theme="gameboy"] .topic-code {
+  background: #8bac0f !important;
+  color: #0f380f !important;
+  border-color: #0f380f !important;
+}
+[data-theme="gameboy"] .topic-guiding-q {
+  background: #8bac0f !important;
+  border-left-color: #0f380f !important;
+  color: #0f380f !important;
+}
+[data-theme="gameboy"] .gq-label { color: #0f380f !important; }
+
+
+/* ── 11. EXAM PAPER ───────────────────────────────────────────
+   IB exam booklet parody: Times on white, hard black rules,
+   double-rule dividers, zero decoration. Quiz feedback keeps
+   muted real colours so correct/incorrect stay readable.      */
+[data-theme="exam"] {
+  --bg:            #ffffff;
+  --surface:       #ffffff;
+  --surface-2:     #f2f2f2;
+  --border:        #1a1a1a;
+  --border-strong: #000000;
+  --text:          #111111;
+  --muted:         #444444;
+  --accent:        #111111;
+  --accent-bg:     #efefef;
+  --hl:            #111111;
+  --hl-bg:         #e5e5e5;
+  --green:         #1e5c2e;
+  --green-bg:      #e9f2ec;
+  --amber:         #7a5c1e;
+  --amber-bg:      #f5efe0;
+  --font-display:  'Times New Roman', Times, Georgia, serif;
+  --font-body:     'Times New Roman', Times, Georgia, serif;
+  --font-mono:     'Courier New', monospace;
+  --radius:        0px;
+  --radius-sm:     0px;
+  --radius-pill:   0px;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+  --lift:          0px;
+  --transition:    0ms;
+}
+[data-theme="exam"] .site-header { border-bottom: 3px double #000; }
+[data-theme="exam"] .hub-hero,
+[data-theme="exam"] .prog-hero,
+[data-theme="exam"] .myp-hero,
+[data-theme="exam"] .topic-hero { border-bottom: 3px double #000; }
+[data-theme="exam"] .curr-trigger h2 { font-weight: 700; }
+[data-theme="exam"] .hub-group-label { color: #111; border-bottom-color: #000; }
+/* Guiding question styled as the italic instructions box */
+[data-theme="exam"] .topic-code {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #000 !important;
+}
+[data-theme="exam"] .topic-guiding-q {
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  color: #111 !important;
+  font-style: italic;
+}
+[data-theme="exam"] .gq-label { color: #444 !important; }
+/* Beat the per-section inline style="--curr-color:..." pastels */
+[data-theme="exam"] .curr-section { --curr-color: #111111 !important; }
+
+
 /* ── THEME PICKER CSS ────────────────────────────────────── */
 .theme-picker-wrap {
   position: fixed;
@@ -899,6 +1264,8 @@
   border-radius: var(--radius);
   box-shadow: 0 6px 24px rgba(0,0,0,0.16);
   overflow: hidden;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 }
 .theme-picker-title {
   padding: 0.55rem 0.875rem 0.35rem;
@@ -934,9 +1301,9 @@
 /* ── LANDING PAGE: theme font overrides ──────────────────────
    The landing page uses Lexend by default; themed modes should
    use their own display font so the character is consistent.   */
-[data-theme="dos"] .lp-welcome,
-[data-theme="dos"] .lp-text,
-[data-theme="dos"] .lp-link,
+[data-theme^="dos"] .lp-welcome,
+[data-theme^="dos"] .lp-text,
+[data-theme^="dos"] .lp-link,
 [data-theme="win95"] .lp-welcome,
 [data-theme="win95"] .lp-text,
 [data-theme="win95"] .lp-link,
@@ -945,5 +1312,20 @@
 [data-theme="xbox"] .lp-link,
 [data-theme="nightmare"] .lp-welcome,
 [data-theme="nightmare"] .lp-text,
-[data-theme="nightmare"] .lp-link { font-family: var(--font-display) !important; }
+[data-theme="nightmare"] .lp-link,
+[data-theme="blueprint"] .lp-welcome,
+[data-theme="blueprint"] .lp-text,
+[data-theme="blueprint"] .lp-link,
+[data-theme="sketchbook"] .lp-welcome,
+[data-theme="sketchbook"] .lp-text,
+[data-theme="sketchbook"] .lp-link,
+[data-theme="paper"] .lp-welcome,
+[data-theme="paper"] .lp-text,
+[data-theme="paper"] .lp-link,
+[data-theme="gameboy"] .lp-welcome,
+[data-theme="gameboy"] .lp-text,
+[data-theme="gameboy"] .lp-link,
+[data-theme="exam"] .lp-welcome,
+[data-theme="exam"] .lp-text,
+[data-theme="exam"] .lp-link { font-family: var(--font-display) !important; }
 
