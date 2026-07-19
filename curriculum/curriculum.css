@@ -1746,6 +1746,28 @@ details.p2-reveal summary::before { content: "▼ "; }
   max-width: 60ch;
   line-height: 1.7;
 }
+.quick-links { margin-bottom: 1.25rem; }
+.quick-links-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.quick-links-nav { font-size: 0.85rem; }
+.quick-links-nav a {
+  color: var(--text);
+  text-decoration: none;
+}
+.quick-links-nav a:hover { color: var(--accent); text-decoration: underline; }
+.quick-links-nav a:not(:last-child)::after {
+  content: "|";
+  color: var(--border);
+  margin: 0 0.5rem;
+}
+
 .prog-hero-back {
   font-family: var(--font-mono);
   font-size: 0.68rem;
