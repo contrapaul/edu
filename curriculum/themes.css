@@ -1229,6 +1229,97 @@
 [data-theme="exam"] .curr-section { --curr-color: #111111 !important; }
 
 
+/* ── 12. LIVE IMAGE FILTERS ───────────────────────────────────
+   Re-tint real content photos (case-study covers, section intro
+   photos, "Five E's" photos, tool promo shots) per theme with
+   plain CSS filter — no separate image assets. Skips Default and
+   Dark, which show the untouched originals. Recipes prototyped
+   and explained in curriculum/dp/testpage.html; kept identical
+   here. Most chain grayscale -> sepia -> hue-rotate -> saturate:
+   grayscale removes the photo's own colour, sepia gives the
+   filter a mid-tone it can rotate, hue-rotate spins that tone to
+   the theme's hue, and saturate brings it back up to a usable
+   intensity (the chain alone looks washed out otherwise). */
+[data-theme="paper"] .obj-img,
+[data-theme="paper"] .curr-section-intro-img,
+[data-theme="paper"] .e-applied-img,
+[data-theme="paper"] .case-study-img img,
+[data-theme="paper"] .tool-promo-img {
+  filter: grayscale(0.4) sepia(0.15) contrast(0.95) brightness(1.05);
+}
+[data-theme="sketchbook"] .obj-img,
+[data-theme="sketchbook"] .curr-section-intro-img,
+[data-theme="sketchbook"] .e-applied-img,
+[data-theme="sketchbook"] .case-study-img img,
+[data-theme="sketchbook"] .tool-promo-img {
+  filter: grayscale(0.85) sepia(0.2) hue-rotate(180deg) saturate(1.4) contrast(1.05);
+}
+[data-theme="blueprint"] .obj-img,
+[data-theme="blueprint"] .curr-section-intro-img,
+[data-theme="blueprint"] .e-applied-img,
+[data-theme="blueprint"] .case-study-img img,
+[data-theme="blueprint"] .tool-promo-img {
+  filter: grayscale(1) sepia(1) hue-rotate(180deg) saturate(4) brightness(0.85) contrast(1.1);
+}
+[data-theme="exam"] .obj-img,
+[data-theme="exam"] .curr-section-intro-img,
+[data-theme="exam"] .e-applied-img,
+[data-theme="exam"] .case-study-img img,
+[data-theme="exam"] .tool-promo-img {
+  filter: grayscale(1) contrast(1.3) brightness(1.05);
+}
+[data-theme="win95"] .obj-img,
+[data-theme="win95"] .curr-section-intro-img,
+[data-theme="win95"] .e-applied-img,
+[data-theme="win95"] .case-study-img img,
+[data-theme="win95"] .tool-promo-img {
+  filter: saturate(0.7) hue-rotate(-8deg) contrast(1.05) brightness(1.05);
+}
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .obj-img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .curr-section-intro-img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .e-applied-img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .case-study-img img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .tool-promo-img {
+  filter: grayscale(1) sepia(1) hue-rotate(90deg) saturate(3.5) brightness(0.9) contrast(1.15);
+}
+[data-theme="dos-amber"] .obj-img,
+[data-theme="dos-amber"] .curr-section-intro-img,
+[data-theme="dos-amber"] .e-applied-img,
+[data-theme="dos-amber"] .case-study-img img,
+[data-theme="dos-amber"] .tool-promo-img {
+  filter: grayscale(1) sepia(1) saturate(2.5) brightness(0.95) contrast(1.15);
+}
+[data-theme="gameboy"] .obj-img,
+[data-theme="gameboy"] .curr-section-intro-img,
+[data-theme="gameboy"] .e-applied-img,
+[data-theme="gameboy"] .case-study-img img,
+[data-theme="gameboy"] .tool-promo-img {
+  filter: grayscale(1) sepia(1) hue-rotate(60deg) saturate(3) brightness(0.95) contrast(1.05);
+  image-rendering: pixelated;
+}
+[data-theme="xbox"] .obj-img,
+[data-theme="xbox"] .curr-section-intro-img,
+[data-theme="xbox"] .e-applied-img,
+[data-theme="xbox"] .case-study-img img,
+[data-theme="xbox"] .tool-promo-img {
+  filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(4) brightness(0.75) contrast(1.2);
+}
+[data-theme="nightmare"] .obj-img,
+[data-theme="nightmare"] .curr-section-intro-img,
+[data-theme="nightmare"] .e-applied-img,
+[data-theme="nightmare"] .case-study-img img,
+[data-theme="nightmare"] .tool-promo-img {
+  filter: invert(0.85) hue-rotate(180deg) saturate(1.8) contrast(1.15);
+}
+[data-theme="hannah"] .obj-img,
+[data-theme="hannah"] .curr-section-intro-img,
+[data-theme="hannah"] .e-applied-img,
+[data-theme="hannah"] .case-study-img img,
+[data-theme="hannah"] .tool-promo-img {
+  filter: grayscale(1) sepia(1) hue-rotate(300deg) saturate(2.5) brightness(1.05) contrast(0.95);
+}
+
+
 /* ── THEME PICKER CSS ────────────────────────────────────── */
 .theme-picker-wrap {
   position: fixed;
