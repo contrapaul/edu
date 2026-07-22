@@ -9,8 +9,12 @@
   if (!expandBtn || !audios.length) return;
 
   /* ── TOOLBAR ──────────────────────────────────────────────── */
-  var toolbar = document.createElement('div');
-  toolbar.className = 'audio-toolbar';
+  /* Wrap expand-all together with the new controls in one flex
+     row so they all sit inline instead of wrapping to their own line. */
+  var row = document.createElement('div');
+  row.className = 'curr-toolbar-row';
+  expandBtn.parentNode.insertBefore(row, expandBtn);
+  row.appendChild(expandBtn);
 
   var toggleBtn = document.createElement('button');
   toggleBtn.type = 'button';
@@ -28,10 +32,9 @@
   downloadLink.setAttribute('download', '');
   downloadLink.textContent = 'Download audio';
 
-  toolbar.appendChild(toggleBtn);
-  toolbar.appendChild(listenAllBtn);
-  toolbar.appendChild(downloadLink);
-  expandBtn.parentNode.insertBefore(toolbar, expandBtn.nextSibling);
+  row.appendChild(toggleBtn);
+  row.appendChild(listenAllBtn);
+  row.appendChild(downloadLink);
 
   /* ── SHOW / HIDE AUDIO PLAYERS (visible by default) ──────────── */
   toggleBtn.addEventListener('click', function () {
