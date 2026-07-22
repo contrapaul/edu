@@ -1,12 +1,108 @@
 /* testpage-audio.js — experimental audio-player toolbar for testpage.html
    Adds a "show/hide audio players", "listen to all topics" and
-   "download audio" control next to Expand All Sections. */
+   "download audio" control next to Expand All Sections, and replaces
+   each native <audio> with a small custom player styled from the
+   site's theme variables (so it recolors live with the theme picker). */
 (function () {
   'use strict';
 
   var expandBtn = document.querySelector('.curr-expand-all-btn');
   var audios = Array.prototype.slice.call(document.querySelectorAll('.topic-audio'));
   if (!expandBtn || !audios.length) return;
+
+  /* ── CUSTOM PLAYER (built from var(--accent) etc., not native controls) */
+  var PLAY_SVG  = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>';
+  var PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+  function formatTime(sec) {
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  function enhanceAudio(audio) {
+    var wrap = document.createElement('div');
+    wrap.className = 'audio-player';
+
+    var playBtn = document.createElement('button');
+    playBtn.type = 'button';
+    playBtn.className = 'audio-play-btn';
+    playBtn.setAttribute('aria-label', 'Play audio');
+    playBtn.innerHTML = PLAY_SVG;
+
+    var track = document.createElement('div');
+    track.className = 'audio-progress';
+    track.setAttribute('role', 'slider');
+    track.setAttribute('aria-label', 'Seek');
+    track.setAttribute('aria-valuemin', '0');
+    track.setAttribute('aria-valuemax', '100');
+    track.setAttribute('aria-valuenow', '0');
+    track.tabIndex = 0;
+
+    var fill = document.createElement('div');
+    fill.className = 'audio-progress-fill';
+    track.appendChild(fill);
+
+    var time = document.createElement('span');
+    time.className = 'audio-time';
+    time.textContent = '0:00 / 0:00';
+
+    wrap.appendChild(playBtn);
+    wrap.appendChild(track);
+    wrap.appendChild(time);
+
+    /* Move the real <audio> inside the wrap — it stays in the DOM
+       (still driving playback/events) but is visually hidden by CSS. */
+    audio.parentNode.insertBefore(wrap, audio);
+    wrap.appendChild(audio);
+
+    function updateProgress() {
+      if (wrap.classList.contains('is-unavailable')) return;
+      var dur = audio.duration || 0;
+      var cur = audio.currentTime || 0;
+      var pct = dur ? (cur / dur) * 100 : 0;
+      fill.style.width = pct + '%';
+      track.setAttribute('aria-valuenow', String(Math.round(pct)));
+      time.textContent = formatTime(cur) + ' / ' + formatTime(dur);
+    }
+
+    function seekFromClientX(clientX) {
+      if (!audio.duration) return;
+      var rect = track.getBoundingClientRect();
+      var pct = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    }
+
+    playBtn.addEventListener('click', function () {
+      if (playBtn.disabled) return;
+      if (audio.paused) audio.play().catch(function () {}); else audio.pause();
+    });
+
+    audio.addEventListener('play',  function () { wrap.classList.add('is-playing');    playBtn.innerHTML = PAUSE_SVG; playBtn.setAttribute('aria-label', 'Pause audio'); });
+    audio.addEventListener('pause', function () { wrap.classList.remove('is-playing'); playBtn.innerHTML = PLAY_SVG;  playBtn.setAttribute('aria-label', 'Play audio'); });
+    audio.addEventListener('ended', function () { wrap.classList.remove('is-playing'); playBtn.innerHTML = PLAY_SVG;  playBtn.setAttribute('aria-label', 'Play audio'); });
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', updateProgress);
+
+    track.addEventListener('click', function (e) { seekFromClientX(e.clientX); });
+    track.addEventListener('keydown', function (e) {
+      if (!audio.duration) return;
+      if (e.key === 'ArrowRight') audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+      else if (e.key === 'ArrowLeft') audio.currentTime = Math.max(0, audio.currentTime - 5);
+    });
+
+    /* Missing/未录制 files: <source> errors don't bubble, so listen on
+       the capture phase to disable this player gracefully. */
+    audio.addEventListener('error', function () {
+      playBtn.disabled = true;
+      wrap.classList.add('is-unavailable');
+      playBtn.title = 'Audio not available yet';
+      time.textContent = 'Not recorded yet';
+    }, true);
+  }
+
+  audios.forEach(enhanceAudio);
 
   /* ── TOOLBAR ──────────────────────────────────────────────── */
   /* Wrap expand-all together with the new controls in one flex
@@ -57,32 +153,38 @@
   var queueActive = false;
   var queueIndex = -1;
 
+  function clearQueueHighlight() {
+    audios.forEach(function (a) { a.parentNode.classList.remove('is-queued'); });
+  }
+
   function stopQueue() {
     queueActive = false;
     queueIndex = -1;
-    audios.forEach(function (a) { a.classList.remove('is-queued'); });
+    clearQueueHighlight();
     listenAllBtn.textContent = 'Listen to all topics';
     listenAllBtn.classList.remove('is-active');
   }
 
   function playNextInQueue() {
     if (!queueActive) return;
-    audios.forEach(function (a) { a.classList.remove('is-queued'); });
+    clearQueueHighlight();
     queueIndex++;
     if (queueIndex >= audios.length) { stopQueue(); return; }
 
     var next = audios[queueIndex];
-    next.classList.add('is-queued');
+    next.parentNode.classList.add('is-queued');
     next.currentTime = 0;
-    next.play().catch(function () { stopQueue(); });
+    /* A missing file rejects this promise, but the dedicated 'error'
+       listener below (bound to the same audio element) still fires
+       and advances the queue — don't also stopQueue() here, or a
+       single missing track would abort the whole run. */
+    next.play().catch(function () {});
   }
 
   audios.forEach(function (a) {
     a.addEventListener('ended', function () {
       if (queueActive && audios[queueIndex] === a) playNextInQueue();
     });
-    /* Missing/未录制 files: <source> errors don't bubble, so listen on
-       the capture phase to still advance the queue past them. */
     a.addEventListener('error', function () {
       if (queueActive && audios[queueIndex] === a) playNextInQueue();
     }, true);

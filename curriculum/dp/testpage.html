@@ -223,17 +223,70 @@
   padding-bottom: 0.65rem;
   border-bottom: 1px solid var(--border);
 }
-.topic-audio {
-  display: block;
-  width: 100%;
-  max-width: 420px;
-  height: 34px;
-}
+/* The real <audio> stays in the DOM (it still drives playback and
+   fires events) but is visually replaced by the custom player below. */
+.topic-audio { display: none; }
 body.audio-players-hidden .lang-audio-bar { display: none; }
-.topic-audio.is-queued {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 8px;
+
+/* Custom player — built entirely from theme variables, so it
+   recolors live with the site's theme picker (see themes.css). */
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  max-width: 420px;
+  padding: 0.4rem 0.7rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  transition: border-color var(--transition);
+}
+.audio-player.is-playing { border-color: var(--accent); }
+.audio-player.is-queued { outline: 2px solid var(--accent); outline-offset: 3px; }
+.audio-player.is-unavailable { opacity: 0.55; }
+
+.audio-play-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+.audio-play-btn:hover:not(:disabled) { opacity: 0.85; }
+.audio-play-btn:disabled { background: var(--muted); cursor: not-allowed; }
+.audio-play-btn svg { width: 13px; height: 13px; }
+
+.audio-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.audio-progress:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.audio-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.audio-time {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 76px;
+  text-align: right;
 }
 
 .curr-toolbar-row {
@@ -353,7 +406,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.1"><source src="B2.1/B2-1-1.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.1" src="B2.1/B2-1-1.mp3"></audio>
 </div>
 <p>The design process is an iterative, human-centred framework comprising five phases:</p>
 <br>
@@ -435,7 +488,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.2"><source src="B2.1/B2-1-2.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.2" src="B2.1/B2-1-2.mp3"></audio>
 </div>
 <p>Research is not a one-off activity at the start of a project; it runs throughout every phase of the design process. Designers collect data to identify opportunities, understand users, generate ideas and validate solutions. Two fundamental distinctions structure all design research:</p>
 <p><strong>Primary vs Secondary research:</strong></p>
@@ -485,7 +538,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.3"><source src="B2.1/B2-1-3.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.3" src="B2.1/B2-1-3.mp3"></audio>
 </div>
 <p>Primary research produces first-hand data that is specific to your design context and your users. Common methods include:</p>
 <br>
@@ -531,7 +584,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.4"><source src="B2.1/B2-1-4.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.4" src="B2.1/B2-1-4.mp3"></audio>
 </div>
 <p>Secondary research uses data collected and published by others. Designers turn to secondary sources to build background knowledge, validate primary findings, and access data at scales impossible to collect directly.</p>
 <p>Common secondary sources in design include:</p>
@@ -577,7 +630,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.5"><source src="B2.1/B2-1-5.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.5" src="B2.1/B2-1-5.mp3"></audio>
 </div>
 <p>A <strong>persona</strong> is a research-based fictional character that represents a specific group of end-users. Unlike marketing demographics (age, gender, income), an effective persona captures the full human picture: goals and motivations, frustrations and pain points, behaviours and daily routines, and the context in which they interact with products.</p>
 <p>Personas serve two critical functions: they focus the design team on real human needs rather than assumed needs, and they prevent "design by committee" where everyone designs for themselves.</p>
@@ -626,7 +679,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.6"><source src="B2.1/B2-1-6.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.6" src="B2.1/B2-1-6.mp3"></audio>
 </div>
 <p><strong>User observation</strong> involves watching users perform real tasks in their actual environment: a technique that reveals behaviours, workarounds and frustrations that users themselves may not consciously recognise or articulate in an interview.</p>
 <p>A <strong>storyboard</strong> is a visual tool used to map a user's journey through a product experience or task sequence. Like a comic strip, it breaks the journey into discrete frames: each showing the user, their action, their environment and their emotional state at that moment. Storyboards make user journeys visible, shareable and open to critique within the design team.</p>
@@ -659,7 +712,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.7"><source src="B2.1/B2-1-7.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.7" src="B2.1/B2-1-7.mp3"></audio>
 </div>
 <p><strong>Product analysis</strong> is a structured examination of an existing product to understand how it solves (or fails to solve) a problem. It is used during both the Empathise phase (understanding the current state of the world) and the Ideate phase (finding inspiration for new solutions).</p>
 <p>A thorough product analysis examines:</p>
@@ -706,7 +759,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.8"><source src="B2.1/B2-1-8.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.8" src="B2.1/B2-1-8.mp3"></audio>
 </div>
 <p>The first and most critical step in moving from Empathise to Define is writing a clear <strong>problem statement</strong>. A problem statement answers: <em>who is experiencing what difficulty, in what context, and why does it matter?</em></p>
 <p>A well-formed problem statement:</p>
@@ -749,7 +802,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.9"><source src="B2.1/B2-1-9.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.9" src="B2.1/B2-1-9.mp3"></audio>
 </div>
 <p>A <strong>design brief</strong> is the formal document produced at the end of the Define phase. It translates the problem statement into actionable direction and aligns all stakeholders (client, designers, engineers and manufacturers) around what the solution must achieve.</p>
 <p>A design brief typically includes:</p>
@@ -794,7 +847,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.10"><source src="B2.1/B2-1-10.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.10" src="B2.1/B2-1-10.mp3"></audio>
 </div>
 <p>The Ideation phase asks designers to generate as many diverse, creative solutions as possible before evaluating any of them. Several structured tools help prevent mental blocks:</p>
 <ul>
@@ -837,7 +890,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.11"><source src="B2.1/B2-1-11.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.11" src="B2.1/B2-1-11.mp3"></audio>
 </div>
 <p><strong>Iterative evaluation</strong> means systematically comparing each design idea against the design specifications and user needs, not once, but repeatedly as ideas evolve. At each stage, designers ask:</p>
 <ul>
@@ -880,7 +933,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.12"><source src="B2.1/B2-1-12.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.12" src="B2.1/B2-1-12.mp3"></audio>
 </div>
 <p>The <strong>model–test–refine cycle</strong> is the engine of the Design a Solution phase. Rather than developing a finished product in a single pass, designers move through repeated loops:</p>
 <ol>
@@ -923,7 +976,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.13"><source src="B2.1/B2-1-13.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.13" src="B2.1/B2-1-13.mp3"></audio>
 </div>
 <p>A <strong>prototype</strong> is a physical or virtual model built to test a specific aspect of a design before committing to full production. Prototypes are categorised by <strong>fidelity</strong>: how closely they resemble the final product.</p>
 <p><strong>Low-fidelity (lo-fi) prototypes:</strong></p>
@@ -982,7 +1035,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.14"><source src="B2.1/B2-1-14.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.14" src="B2.1/B2-1-14.mp3"></audio>
 </div>
 <p><strong>Technical drawings</strong> (also called engineering or working drawings) are the formal language of manufacturing: they convey exact dimensions, tolerances, materials, scale and assembly instructions to manufacturers anywhere in the world.</p>
 <p>Key conventions include:</p>
@@ -1027,7 +1080,7 @@ Show Chinese · 显示中文
 <div class="bilingual-block">
 <div class="lang-col">
 <div class="lang-audio-bar">
-<audio class="topic-audio" controls preload="none" data-topic="2.1.15"><source src="B2.1/B2-1-15.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+<audio class="topic-audio" preload="none" data-topic="2.1.15" src="B2.1/B2-1-15.mp3"></audio>
 </div>
 <p>The <strong>Present a Solution</strong> phase is the designer's opportunity to communicate the full value of their work to clients, stakeholders and users. An effective presentation goes beyond "here is what it looks like"; it tells the story of the design: the user problem, the research journey, the key design decisions, and the evidence that the solution meets its specifications.</p>
 <p>Tools for presenting solutions include:</p>
