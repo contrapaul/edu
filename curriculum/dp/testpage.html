@@ -302,6 +302,100 @@ body.audio-players-hidden .lang-audio-bar { display: none; }
   border-color: var(--accent);
   background: var(--accent-bg);
 }
+
+/* ── THEME IMAGE-FILTER DEMO ──────────────────────────────────
+   Experimental: can case-study photos be re-tinted per theme
+   with plain CSS filter() instead of shipping separate image
+   assets? Each row below applies one filter recipe to the same
+   three B2.1.1 cover photos so they can be compared side by
+   side. Static reference gallery — not wired to the live theme
+   picker. */
+.filter-demo {
+  margin: 3rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.filter-demo-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+.filter-demo-intro {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 68ch;
+  margin-bottom: 2rem;
+}
+.filter-demo-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.filter-demo-row:last-child { border-bottom: none; }
+.filter-demo-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+.filter-demo-code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--accent);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.6rem;
+  word-break: break-word;
+}
+.filter-demo-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.filter-demo-images {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.filter-demo-images img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+/* One filter recipe per theme. grayscale -> sepia -> hue-rotate is
+   the standard CSS "duotone" trick: sepia gives filter a mid-tone
+   brown it can rotate; hue-rotate then spins that tone to whichever
+   hue the theme needs; saturate pushes it back up to a usable
+   intensity, since grayscale+sepia+hue-rotate alone looks washed out. */
+.fd-paper img       { filter: grayscale(0.4) sepia(0.15) contrast(0.95) brightness(1.05); }
+.fd-sketchbook img  { filter: grayscale(0.85) sepia(0.2) hue-rotate(180deg) saturate(1.4) contrast(1.05); }
+.fd-blueprint img   { filter: grayscale(1) sepia(1) hue-rotate(180deg) saturate(4) brightness(0.85) contrast(1.1); }
+.fd-exam img        { filter: grayscale(1) contrast(1.3) brightness(1.05); }
+.fd-win95 img        { filter: saturate(0.7) hue-rotate(-8deg) contrast(1.05) brightness(1.05); }
+.fd-dos img         { filter: grayscale(1) sepia(1) hue-rotate(90deg) saturate(3.5) brightness(0.9) contrast(1.15); }
+.fd-dos-amber img   { filter: grayscale(1) sepia(1) saturate(2.5) brightness(0.95) contrast(1.15); }
+.fd-gameboy img     { filter: grayscale(1) sepia(1) hue-rotate(60deg) saturate(3) brightness(0.95) contrast(1.05); image-rendering: pixelated; }
+.fd-xbox img        { filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(4) brightness(0.75) contrast(1.2); }
+.fd-nightmare img   { filter: invert(0.85) hue-rotate(180deg) saturate(1.8) contrast(1.15); }
+.fd-hannah img      { filter: grayscale(1) sepia(1) hue-rotate(300deg) saturate(2.5) brightness(1.05) contrast(0.95); }
+
+@media (max-width: 700px) {
+  .filter-demo-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
   <body data-curr-type="dp" data-curr-page="b2.1">
@@ -1637,6 +1731,155 @@ Show Chinese · 显示中文
 <div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
   <img src="" alt="">
 </div>
+
+<section class="filter-demo curr-main" id="filter-demo">
+<h2 class="filter-demo-title">Theme-matched image filter experiment</h2>
+<p class="filter-demo-intro">Can the B2.1.1 case-study photos be re-tinted to match a page theme with plain CSS <code>filter</code>, instead of shipping a separately edited image per theme? Below is the same three photos (Xbox, iPhone, Walkman) run through one filter recipe per theme, skipping Default and Dark since those already show the untouched originals. Most recipes chain <code>grayscale &rarr; sepia &rarr; hue-rotate &rarr; saturate</code>: grayscale removes the photo's own colour, sepia gives the filter a mid-tone it can rotate, hue-rotate spins that tone to whatever hue the theme needs, and saturate pushes the result back up to a usable intensity (the chain alone looks washed out otherwise). <code>contrast</code>/<code>brightness</code> fine-tune legibility, and Game Boy adds <code>image-rendering: pixelated</code> for the blocky LCD look.</p>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Paper</div>
+<code class="filter-demo-code">grayscale(0.4) sepia(0.15) contrast(0.95) brightness(1.05)</code>
+<p class="filter-demo-desc">Light touch only &mdash; a mild desaturation with a faint warm cast, closer to a printed page than a full duotone.</p>
+</div>
+<div class="filter-demo-images fd-paper">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, paper filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, paper filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, paper filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Sketchbook</div>
+<code class="filter-demo-code">grayscale(0.85) sepia(0.2) hue-rotate(180deg) saturate(1.4) contrast(1.05)</code>
+<p class="filter-demo-desc">Mostly desaturated with a cool pencil-blue undertone, echoing the theme's blue/sanguine-red pencil accents.</p>
+</div>
+<div class="filter-demo-images fd-sketchbook">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, sketchbook filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, sketchbook filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, sketchbook filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Blueprint</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) hue-rotate(180deg) saturate(4) brightness(0.85) contrast(1.1)</code>
+<p class="filter-demo-desc">Full blue duotone, darkened and heavily saturated to read like white line-work on a blueprint sheet.</p>
+</div>
+<div class="filter-demo-images fd-blueprint">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, blueprint filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, blueprint filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, blueprint filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Exam Paper</div>
+<code class="filter-demo-code">grayscale(1) contrast(1.3) brightness(1.05)</code>
+<p class="filter-demo-desc">Plain grayscale with contrast pushed hard &mdash; no hue at all, matching the theme's pure black-on-white palette.</p>
+</div>
+<div class="filter-demo-images fd-exam">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, exam paper filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, exam paper filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, exam paper filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Windows 95</div>
+<code class="filter-demo-code">saturate(0.7) hue-rotate(-8deg) contrast(1.05) brightness(1.05)</code>
+<p class="filter-demo-desc">No duotone here &mdash; just a mild desaturation and a slight cool shift, closer to what a limited-colour-depth display of the era could actually show.</p>
+</div>
+<div class="filter-demo-images fd-win95">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, Windows 95 filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, Windows 95 filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, Windows 95 filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">MS-DOS</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) hue-rotate(90deg) saturate(3.5) brightness(0.9) contrast(1.15)</code>
+<p class="filter-demo-desc">Green-phosphor duotone &mdash; sepia's brown tone rotated 90&deg; to land on the theme's CGA green.</p>
+</div>
+<div class="filter-demo-images fd-dos">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, MS-DOS filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, MS-DOS filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, MS-DOS filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">MS-DOS Amber</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) saturate(2.5) brightness(0.95) contrast(1.15)</code>
+<p class="filter-demo-desc">Same recipe as MS-DOS but with <strong>no hue-rotate</strong> &mdash; sepia's natural orange-brown tone already sits close to amber phosphor, just saturated further.</p>
+</div>
+<div class="filter-demo-images fd-dos-amber">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, MS-DOS amber filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, MS-DOS amber filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, MS-DOS amber filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Game Boy</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) hue-rotate(60deg) saturate(3) brightness(0.95) contrast(1.05); image-rendering: pixelated</code>
+<p class="filter-demo-desc">Yellow-green LCD duotone, plus <code>image-rendering: pixelated</code> so any scaling looks blocky rather than smoothed, closer to the original screen.</p>
+</div>
+<div class="filter-demo-images fd-gameboy">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, Game Boy filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, Game Boy filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, Game Boy filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Xbox OG</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) hue-rotate(75deg) saturate(4) brightness(0.75) contrast(1.2)</code>
+<p class="filter-demo-desc">A darker, more saturated green duotone than Game Boy's &mdash; tuned toward the theme's near-black background and neon-lime accent rather than an LCD screen.</p>
+</div>
+<div class="filter-demo-images fd-xbox">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, Xbox OG filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, Xbox OG filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, Xbox OG filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Nightmare</div>
+<code class="filter-demo-code">invert(0.85) hue-rotate(180deg) saturate(1.8) contrast(1.15)</code>
+<p class="filter-demo-desc">Not a duotone &mdash; a near-full colour inversion plus a hue spin and extra saturation, aiming for the theme's deliberately clashing, oversaturated palette rather than any single tone.</p>
+</div>
+<div class="filter-demo-images fd-nightmare">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, Nightmare filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, Nightmare filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, Nightmare filter" loading="lazy">
+</div>
+</div>
+
+<div class="filter-demo-row">
+<div>
+<div class="filter-demo-name">Hannah's request</div>
+<code class="filter-demo-code">grayscale(1) sepia(1) hue-rotate(300deg) saturate(2.5) brightness(1.05) contrast(0.95)</code>
+<p class="filter-demo-desc">Soft pink/rose duotone with contrast eased down slightly, matching the theme's blush background and hot-pink accents.</p>
+</div>
+<div class="filter-demo-images fd-hannah">
+<img src="B2.1/OGxbox.jpg" alt="Xbox, Hannah's request filter" loading="lazy">
+<img src="B2.1/iphone5.png" alt="iPhone, Hannah's request filter" loading="lazy">
+<img src="B2.1/walk1.png" alt="Walkman, Hannah's request filter" loading="lazy">
+</div>
+</div>
+
+</section>
 
 </main>
 
