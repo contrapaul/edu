@@ -3,12 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C2.1 Design for Sustainability | DP Design | contrapaul edu</title>
+<title>B2.1 The Design Process | DP Design | contrapaul edu</title>
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* ── B2.1.1 CASE STUDY CARDS & MODALS ────────────────────────── */
+.case-study-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.case-study-card {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.case-study-card:hover,
+.case-study-card:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.case-study-img {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.case-study-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.case-study-card:hover .case-study-img img { transform: scale(1.03); }
+.case-study-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  padding: 0.35rem 0.6rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: #fff;
+  text-align: center;
+}
+.case-study-content { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+.case-study-content h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin: 0;
+}
+.case-study-content p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.case-study-btn { margin-top: auto; align-self: flex-start; }
+
+/* Modal */
+.case-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  contain: layout style;
+}
+.case-modal.open { display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.case-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.case-modal-content {
+  position: relative;
+  width: min(95vw, 880px);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: modal-in 0.2s ease;
+}
+@keyframes modal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.case-modal-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  z-index: 1;
+}
+.case-modal-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 400;
+}
+.case-modal-close {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text);
+}
+.case-modal-close:hover { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.case-modal-body { padding: 1.5rem; max-height: calc(90vh - 80px); overflow-y: auto; }
+
+/* Textbook-style content */
+.case-modal-body .case-phase { margin-bottom: 2rem; }
+.case-modal-body .case-phase h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.case-modal-body .case-phase p { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 0.75rem; }
+.case-modal-body .case-phase ol { padding-left: 1.5rem; margin: 0.75rem 0; }
+.case-modal-body .case-phase li { font-size: 0.88rem; line-height: 1.65; margin-bottom: 0.4rem; }
+.case-modal-body .case-phase strong { font-weight: 600; }
+.case-modal-body .case-phase em { font-style: italic; }
+
+.case-modal-body .case-photo { margin: 0 0 1rem; text-align: center; }
+.case-modal-body .case-photo img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 340px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
+.case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+/* Image lightbox */
+.case-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5vmin;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out;
+}
+.case-lightbox.open { display: flex; }
+.case-lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: modal-in 0.2s ease;
+}
+
+.case-modal-body .case-iteration {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.case-modal-body .case-iteration h4 {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.case-modal-body .case-iteration p { font-size: 0.85rem; line-height: 1.65; color: var(--muted); margin: 0; }
+
+/* Case-study cards: 3 across on desktop, stacked once the TOC drops away */
+@media (max-width: 960px) {
+  .case-study-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .case-modal-content { width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
+  .case-modal-header { padding: 0.75rem 1rem; }
+  .case-modal-body { padding: 1rem; }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .case-study-caption { background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
+[data-theme="win95"] .case-study-card,
+[data-theme="dos"] .case-study-card,
+[data-theme="xbox"] .case-study-card,
+[data-theme="nightmare"] .case-study-card,
+[data-theme="hannah"] .case-study-card { box-shadow: none; }
+[data-theme="win95"] .case-modal-content,
+[data-theme="dos"] .case-modal-content,
+[data-theme="xbox"] .case-modal-content,
+[data-theme="nightmare"] .case-modal-content,
+[data-theme="hannah"] .case-modal-content { box-shadow: 4px 4px 0 #000; }
+[data-theme="win95"] .case-modal-close,
+[data-theme="dos"] .case-modal-close,
+[data-theme="xbox"] .case-modal-close,
+[data-theme="nightmare"] .case-modal-close,
+[data-theme="hannah"] .case-modal-close { border-radius: 0; }
+
+/* ── AUDIO EXPERIMENT ─────────────────────────────────────────
+   Replaces the "English" lang-label + rule with an inline
+   audio player for each sub-topic, plus a toolbar (show/hide,
+   listen to all, download) next to "Expand all sections". */
+.lang-audio-bar {
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border);
+}
+.topic-audio {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 34px;
+}
+body.audio-players-hidden .lang-audio-bar { display: none; }
+.topic-audio.is-queued {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.audio-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 0.75rem;
+}
+.audio-toolbar .curr-expand-all-btn { margin: 0; text-decoration: none; }
+.audio-toolbar .curr-expand-all-btn.is-active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+</style>
 </head>
-<body data-curr-type="dp" data-curr-page="c2.1">
+  <body data-curr-type="dp" data-curr-page="b2.1">
 
 <header class="site-header">
 <div class="header-inner">
@@ -17,11 +260,11 @@
 </div>
 </header>
 
-<div class="topic-hero" style="--topic-color:#3d6b4a;--topic-bg:#e8f2eb;--topic-border:#c4d8ca;">
+<div class="topic-hero" style="--topic-color:#1a5cb8;--topic-bg:#e8eef8;--topic-border:#c4d0e8;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum/dp/">DP Design</a><span class="sep">/</span>C2.1 Design for Sustainability</div>
-<h1 class="topic-title">Design for Sustainability | C2.1</h1>
-<p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How can design for sustainability ensure we meet our current needs without compromising our future existence?</p>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum/dp/">DP Design</a><span class="sep">/</span>B2.1 The Design Process</div>
+<h1 class="topic-title">The Design Process | B2.1</h1>
+<p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How do designers approach problem-solving?</p>
 </div>
 </div>
 
@@ -35,10 +278,21 @@
   <li class="curr-toc-item curr-toc-has-sub" data-section="study-guide">
     <a href="#study-guide">Study Guide</a>
     <ul class="curr-toc-sub" id="toc-sub-study">
-      <li data-section="obj-2.1.1"><a href="#obj-2.1.1">2.1.1 Sustainability Strategies</a></li>
-      <li data-section="obj-2.1.2"><a href="#obj-2.1.2">2.1.2 Datschefski's Five Principles</a></li>
-      <li data-section="obj-2.1.3"><a href="#obj-2.1.3">2.1.3 Triple Bottom Line</a></li>
-      <li data-section="obj-2.1.4"><a href="#obj-2.1.4">2.1.4 Balancing the Three Ps</a></li>
+      <li data-section="obj-2.1.1"><a href="#obj-2.1.1">2.1.1 Five-Phase Process</a></li>
+      <li data-section="obj-2.1.2"><a href="#obj-2.1.2">2.1.2 Research Overview</a></li>
+      <li data-section="obj-2.1.3"><a href="#obj-2.1.3">2.1.3 Primary Research</a></li>
+      <li data-section="obj-2.1.4"><a href="#obj-2.1.4">2.1.4 Secondary Research</a></li>
+      <li data-section="obj-2.1.5"><a href="#obj-2.1.5">2.1.5 Personas</a></li>
+      <li data-section="obj-2.1.6"><a href="#obj-2.1.6">2.1.6 User Journey Mapping</a></li>
+      <li data-section="obj-2.1.7"><a href="#obj-2.1.7">2.1.7 Product Analysis</a></li>
+      <li data-section="obj-2.1.8"><a href="#obj-2.1.8">2.1.8 Problem Statement</a></li>
+      <li data-section="obj-2.1.9"><a href="#obj-2.1.9">2.1.9 Design Specifications</a></li>
+      <li data-section="obj-2.1.10"><a href="#obj-2.1.10">2.1.10 Ideation Tools</a></li>
+      <li data-section="obj-2.1.11"><a href="#obj-2.1.11">2.1.11 Iterative Evaluation</a></li>
+      <li data-section="obj-2.1.12"><a href="#obj-2.1.12">2.1.12 Model–Test–Refine</a></li>
+      <li data-section="obj-2.1.13"><a href="#obj-2.1.13">2.1.13 Prototyping</a></li>
+      <li data-section="obj-2.1.14"><a href="#obj-2.1.14">2.1.14 Technical Drawings</a></li>
+      <li data-section="obj-2.1.15"><a href="#obj-2.1.15">2.1.15 Presenting Solutions</a></li>
     </ul>
   </li>
   <li class="curr-toc-item" data-section="quiz"><a href="#quiz">Quiz</a></li>
@@ -52,7 +306,7 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!--  SECTION 00 — INTRODUCTION                                -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="curr-section" id="introduction" style="--curr-color:#3d6b4a;">
+<div class="curr-section" id="introduction" style="--curr-color:#1a5cb8;">
 <button class="curr-trigger" aria-expanded="true" aria-controls="body-introduction">
 <div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2><span class="curr-sec-sub">Topic introduction &amp; teacher notes</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -65,15 +319,15 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <!--  SECTION 01 — STUDY GUIDE                                 -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<div class="curr-section" id="study-guide" style="--curr-color:#3d6b4a;">
+<div class="curr-section" id="study-guide" style="--curr-color:#1a5cb8;">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-study">
 <div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Study Guide and Classroom Activities</h2><span class="curr-sec-sub">EN / 中文</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-study">
 <div class="curr-section-intro-wrap">
-<p class="curr-section-intro">Design for sustainability asks designers to consider not just whether a product works, but whether it can be made, used, and disposed of without depleting resources or harming people. This topic introduces two frameworks (Datschefski's five principles and the Triple Bottom Line) as practical tools for evaluating and improving a product's sustainability credentials.</p>
-<div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Design for Sustainability — C2.1"></div>
+<p class="curr-section-intro">The design process is a five-phase iterative framework (Empathise, Define, Ideate and Model, Design a Solution, Present a Solution) that structures how designers move from a user problem to a refined, validated solution.</p>
+<div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="The Design Process — B2.1"></div>
 </div>
 
 <div class="lang-toggle-bar">
@@ -87,50 +341,81 @@ Show Chinese · 显示中文
 
 <!-- 2.1.1 ─────────────────────────────────────────────────── -->
 <div class="obj-section" id="obj-2.1.1">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c2.1.1">
-<div class="obj-trigger-left"><span class="obj-code">2.1.1</span><h3>Design for sustainability involves the choices and decisions made for developing designs (products) and design methodologies.</h3></div>
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.1">
+<div class="obj-trigger-left"><span class="obj-code">2.1.1</span><h3>The design process represents a design thinking model and is comprised of five sections.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-c2.1.1">
-<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss strategies to achieve sustainability and the importance of decision-making when addressing issues related to sustainable design, including waste, pollution and energy consumption.</p>
+<div class="obj-body" id="obj-body-b2.1.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline each stage of the design process (empathize; defining the project; ideation and modelling; designing a solution; presenting a solution).</p>
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
 <div class="bilingual-block">
 <div class="lang-col">
-<span class="lang-label">English</span>
-<p><strong>Sustainable development</strong> was defined by the <strong>Brundtland Commission</strong> (1987) in its report <em>Our Common Future</em> as: <em>"meeting the needs of the present without compromising the ability of future generations to meet their own needs."</em> This definition underpins all design-for-sustainability thinking: designers must consider not just the user in front of them but the long-term impact on resources, ecosystems, and communities.</p>
-<p>Designers apply sustainability through two complementary approaches:</p>
-<ul>
-<li><strong>Top-down strategies</strong>: implemented at global or national level. Governments and international bodies set sustainability targets, resource-use limits, carbon reduction commitments, and waste regulations. The Brundtland Report itself is a top-down document: it establishes the framework and goals. A criticism of top-down approaches is that they often lack clear methodologies for achieving goals and are ambiguous about who is responsible for implementation.</li>
-<li><strong>Bottom-up strategies</strong>: implemented at regional or local level. These shift focus from the global problem to the impact of local action ("Think Globally, Act Locally"). Examples from the chapter include the <strong>Clean-up Australia Campaign</strong> (mobilising local schools and community clubs to preserve bushland) and <strong>Landcare</strong> initiatives (planting native trees and grasses to stabilise coastal dunes against erosion). These grassroots efforts promote environmental stewardship and community pride without waiting for national policy.</li>
-</ul>
-<p><strong>Key decision areas for designers</strong>: When developing a product, sustainability-conscious decision-making covers:</p>
-<ul>
-<li><strong>Waste</strong>: minimise material waste in manufacture; design for disassembly so end-of-life materials can be separated and recovered</li>
-<li><strong>Pollution</strong>: specify materials and processes that do not release toxic by-products; avoid hazardous finishes, solvents, and adhesives</li>
-<li><strong>Energy consumption</strong>: reduce energy in manufacture and in product operation; specify renewable energy sources</li>
-<li><strong>Longevity</strong>: design for upgrade, repair, and reuse so products remain in service longer and reduce replacement demand</li>
-<li><strong>Material selection</strong>: prefer low-impact, recycled, or renewable materials over virgin non-renewable inputs</li>
-</ul>
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.1"><source src="B2.1/B2-1-1.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>The design process is an iterative, human-centred framework comprising five phases:</p>
+<br>
+<ol>
+<li><strong>Empathise</strong>: understand user needs, feelings and behaviour through qualitative and quantitative research. This phase cannot be skipped: research shows that 42% of startups fail due to lack of market need, a direct consequence of insufficient user understanding.</li>
+<li><strong>Define</strong>: synthesise research into a clear problem statement and design brief with measurable specifications, constraints, budgets and timelines.</li>
+<li><strong>Ideate and Model</strong>: generate creative solutions using structured tools, then build prototypes at various levels of fidelity to test core concepts.</li>
+<li><strong>Design a Solution</strong>: develop and refine the chosen concept through repeated model–test–refine cycles, incorporating feedback from users and stakeholders.</li>
+<li><strong>Present a Solution</strong>: communicate the final design using technical drawings, virtual models and annotated renders, demonstrating how it meets the design specifications.</li>
+</ol>
+<p>The process is <strong>iterative</strong>, not linear. Designers regularly cycle back to earlier phases as new information emerges: re-empathising after a prototype test reveals an unexpected user need, or redefining specifications when a material constraint changes the problem.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
-<p><strong>可持续发展</strong>由<strong>布伦特兰委员会</strong>（1987年）在其报告《我们共同的未来》中定义为：<em>"在满足当代人需求的同时，不损害后代人满足其自身需求的能力。"</em>这一定义支撑了所有可持续设计思维：设计师必须考虑的不仅是眼前的用户，还有对资源、生态系统和社区的长期影响。</p>
-<p>设计师通过两种互补方式实现可持续性：</p>
-<ul>
-<li><strong>自上而下的策略</strong> — 在全球或国家层面实施。政府和国际机构设定可持续发展目标、资源使用限制、碳减排承诺和废物法规。布伦特兰报告本身就是一份自上而下的文件。自上而下方法的一个批评是，它们往往缺乏明确的实现目标的方法，并且关于谁负责实施也不明确。</li>
-<li><strong>自下而上的策略</strong> — 在区域或地方层面实施。这些策略将焦点从全球问题转移到地方行动的影响（"全球思考，本地行动"）。章节中的例子包括<strong>澳大利亚清洁运动</strong>（动员当地学校和社区俱乐部保护灌木丛）和<strong>土地保护</strong>倡议（种植本地树木和草类以稳定沿海沙丘抵御侵蚀）。这些草根努力促进环境管理和社区自豪感，无需等待国家政策。</li>
-</ul>
-<p><strong>设计师的关键决策领域</strong>：开发产品时，注重可持续性的决策涵盖：</p>
-<ul>
-<li><strong>废物</strong> — 最小化制造中的材料浪费；设计可拆卸性，以便报废材料可以分离和回收</li>
-<li><strong>污染</strong> — 指定不释放有毒副产品的材料和工艺；避免使用危险涂料、溶剂和粘合剂</li>
-<li><strong>能源消耗</strong> — 减少制造和产品运营中的能源；指定可再生能源</li>
-<li><strong>耐久性</strong> — 为升级、维修和再利用设计，以便产品保持更长时间使用，减少更换需求</li>
-<li><strong>材料选择</strong> — 优先选择低影响、回收或可再生材料，而非原生不可再生材料</li>
-</ul>
+<p>设计过程是一个迭代的、以人为本的框架，包含五个阶段：</p>
+<ol>
+<li><strong>共情</strong> — 通过定性和定量研究了解用户的需求、感受和行为。这一阶段不可跳过：研究表明，42%的初创企业因缺乏市场需求而失败，这直接源于对用户了解不足。</li>
+<li><strong>定义</strong> — 将研究综合为清晰的问题陈述和设计简报，包含可测量的规格、约束条件、预算和时间表。</li>
+<li><strong>构思与建模</strong> — 使用结构化工具生成创意解决方案，然后在不同保真度水平上构建原型以测试核心概念。</li>
+<li><strong>设计解决方案</strong> — 通过反复的"建模–测试–改进"循环，整合用户和利益相关者的反馈，开发和完善所选概念。</li>
+<li><strong>呈现解决方案</strong> — 使用技术图纸、虚拟模型和标注渲染传达最终设计，展示其如何满足设计规格。</li>
+</ol>
+<p>这个过程是<strong>迭代的</strong>，而非线性的。随着新信息的出现，设计师会循环回到较早的阶段——在原型测试揭示意外的用户需求后重新共情，或在材料约束改变问题时重新定义规格。</p>
 </div>
+  </div>
+
+<div class="case-study-grid">
+  <article class="case-study-card" data-case="xbox" data-modal="modal-xbox" role="button" tabindex="0" aria-haspopup="dialog">
+    <figure class="case-study-img">
+      <img src="B2.1/OGxbox.jpg" alt="Original Xbox console (2001)" loading="lazy">
+      <figcaption class="case-study-caption">Original Xbox — 2001</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <h4>Microsoft Xbox (2001)</h4>
+      <p>From PC brute force to living-room console: anthropometric crises, hard-drive gambles, and the Controller S pivot.</p>
+      <span class="case-study-btn tool-btn-sm">Read case study →</span>
+    </div>
+  </article>
+
+  <article class="case-study-card" data-case="iphone" data-modal="modal-iphone" role="button" tabindex="0" aria-haspopup="dialog">
+    <figure class="case-study-img">
+      <img src="B2.1/iphone5.png" alt="Original iPhone (2007)" loading="lazy">
+      <figcaption class="case-study-caption">iPhone 2G — 2007</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <h4>Apple iPhone (2007)</h4>
+      <p>Project Purple: killing the stylus, inventing multi-touch, and the last-minute Gorilla Glass pivot.</p>
+      <span class="case-study-btn tool-btn-sm">Read case study →</span>
+    </div>
+  </article>
+
+  <article class="case-study-card" data-case="walkman" data-modal="modal-walkman" role="button" tabindex="0" aria-haspopup="dialog">
+    <figure class="case-study-img">
+      <img src="B2.1/walk1.png" alt="Sony Walkman TPS-L2 (1979)" loading="lazy">
+      <figcaption class="case-study-caption">Walkman TPS-L2 — 1979</figcaption>
+    </figure>
+    <div class="case-study-content">
+      <h4>Sony Walkman (1979)</h4>
+      <p>Removing features to create a revolution: the hacked Pressman prototype and the birth of private audio.</p>
+      <span class="case-study-btn tool-btn-sm">Read case study →</span>
+    </div>
+  </article>
 </div>
 
 </div>
@@ -138,41 +423,48 @@ Show Chinese · 显示中文
 
 <!-- 2.1.2 ─────────────────────────────────────────────────── -->
 <div class="obj-section" id="obj-2.1.2">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c2.1.2">
-<div class="obj-trigger-left"><span class="obj-code">2.1.2</span><h3>The five principles of sustainable design are that a product must be cyclic, solar, safe, efficient and social (Datschefski, 2001).</h3></div>
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.2">
+<div class="obj-trigger-left"><span class="obj-code">2.1.2</span><h3>Research is an ongoing activity throughout the design process, critical to identifying design opportunities, understanding user needs and generating feasible real-world solutions to problems.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-c2.1.2">
-<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse sustainable products to demonstrate how they meet Datschefski's principles.</p>
+<div class="obj-body" id="obj-body-b2.1.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between primary and secondary sources, qualitative and quantitative data and how they are used to identify design opportunities, develop an understanding of users and generate ideas for solutions to problems.</p>
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
 <div class="bilingual-block">
 <div class="lang-col">
-<span class="lang-label">English</span>
-<p><strong>Greenwashing</strong> is the practice of promoting products with minor or superficial environmental credentials as genuinely sustainable — misleading consumers through advertising and media. A company might market a product as "eco-friendly" because it contains 5% recycled material, while the remaining 95% uses virgin non-renewable inputs. In response to this, <strong>Edwin Datschefski</strong> (2001) developed five principles to judge a product's true sustainability and provide a clear benchmark rather than vague terms like "green" or "natural."</p>
-<p>The <strong>five principles of sustainable design</strong> are:</p>
-<ol>
-<li><strong>Cyclic</strong>: Products must be part of a recycling system, either through natural processes (composting of organic materials) or recycling as part of the material stream (metals, plastics, glass). A product that ends in landfill fails this principle. Example: a backpack made from recycled PET bottles, designed for recycling again at end of life.</li>
-<li><strong>Solar</strong>: Energy required for manufacturing and product operation must come from renewable sources (solar, wind, hydro, geothermal). Fossil-fuel-powered production fails this principle. Example: a solar-powered calculator requiring no batteries or grid electricity.</li>
-<li><strong>Safe</strong>: Products must not contain hazardous materials or produce hazardous by-products during creation, use, or disposal. This includes avoiding <a href="c1.1-responsibility-of-designer.html">PFAS ("forever chemicals")</a> in waterproof clothing, lead solder in electronics, and brominated flame retardants. Example: furniture using non-toxic water-based adhesives rather than solvent-based formaldehyde products.</li>
-<li><strong>Efficient</strong>: Designs should use one-tenth the materials and energy of previous designs. Multifunctional products reduce the cumulative impact of several separate devices. Example: a smartphone that replaces a camera, GPS device, music player, and phone, reducing material and energy use compared to owning four separate devices.</li>
-<li><strong>Social</strong>: Production must incorporate safe work practices, fair trade principles, human rights, and community development. This includes conflict-free mineral sourcing and living wages in supply chains. Example: Fair Trade certified goods where farmers and producers receive equitable payment and work in safe conditions.</li>
-</ol>
-<p>Datschefski proposed a <strong>"100-cubed project"</strong>: the aspirational goal that 100% of products become 100% sustainable by the year 2100. While no product currently satisfies all five principles fully, they provide a measurable framework for incremental progress and a challenge to greenwashing.</p>
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.2"><source src="B2.1/B2-1-2.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>Research is not a one-off activity at the start of a project; it runs throughout every phase of the design process. Designers collect data to identify opportunities, understand users, generate ideas and validate solutions. Two fundamental distinctions structure all design research:</p>
+<p><strong>Primary vs Secondary research:</strong></p>
+<br>
+<ul>
+<li><strong>Primary research</strong>: first-hand data collected directly by the designer (interviews, surveys, observations). Authentic and context-specific, but time-consuming and costly.</li>
+<li><strong>Secondary research</strong>: data collected by a third party and published for others to use (textbooks, academic journals, government statistics). Faster and cheaper, but may not match your specific context.</li>
+</ul>
+<p><strong>Qualitative vs Quantitative data:</strong></p>
+<ul>
+<li><strong>Qualitative data</strong>: descriptive and non-numerical. Captures emotions, motivations and experiences (e.g., "the handle feels slippery"). Tells designers <em>why</em> users behave as they do.</li>
+<li><strong>Quantitative data</strong>: numerical and measurable (e.g., "78% of users failed the task within the time limit"). Enables comparison, benchmarking and target-setting.</li>
+</ul>
+<p>Effective design research combines both types: qualitative data explains the problem; quantitative data measures progress toward solving it.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
-<p><strong>漂绿</strong>是将具有微小或表面性环境特点的产品宣传为真正可持续的行为——通过广告和媒体误导消费者。一家公司可能因为其产品含有5%的回收材料就将其标榜为"环保"，而剩余95%使用原生不可再生原料。针对这一现象，<strong>埃德温·达切夫斯基</strong>（2001年）制定了五项原则，以判断产品的真正可持续性，并提供一个明确的基准，而非模糊的"绿色"或"天然"等术语。</p>
-<p><strong>可持续设计五原则</strong>是：</p>
-<ol>
-<li><strong>循环的</strong> — 产品必须成为回收系统的一部分，通过自然过程（有机材料堆肥）或材料流回收（金属、塑料、玻璃）。最终进入垃圾填埋场的产品违背此原则。例如：由回收PET瓶制成的背包，设计为报废时可再次回收。</li>
-<li><strong>太阳能的</strong> — 制造和产品运营所需的能源必须来自可再生资源（太阳能、风能、水电、地热）。化石燃料驱动的生产违背此原则。例如：不需要电池或电网的太阳能计算器。</li>
-<li><strong>安全的</strong> — 产品在创造、使用或处置过程中不得含有有害材料或产生有害副产品。这包括避免在防水服装中使用PFAS（"永久性化学品"）、在电子产品中使用铅焊接以及溴化阻燃剂。例如：使用无毒水性粘合剂而非溶剂基甲醛产品的家具。</li>
-<li><strong>高效的</strong> — 设计应使用以往设计十分之一的材料和能源。多功能产品减少几个单独设备的累积影响。例如：替代相机、GPS设备、音乐播放器和电话的智能手机——与拥有四个单独设备相比，减少了材料和能源使用。</li>
-<li><strong>社会的</strong> — 生产必须包含安全工作实践、公平贸易原则、人权和社区发展。这包括无冲突矿物采购和供应链中的生活工资。例如：公平贸易认证商品，生产者获得公平报酬并在安全条件下工作。</li>
-</ol>
-<p>达切夫斯基提出了<strong>"100立方项目"</strong>：到2100年100%的产品达到100%可持续性的宏伟目标。虽然目前没有任何产品能完全满足所有五项原则，但它们为渐进式进步提供了可衡量的框架，并对漂绿行为发起了挑战。</p>
+<p>研究不是项目开始时的一次性活动——它贯穿设计过程的每个阶段。设计师收集数据以识别机会、了解用户、产生想法并验证解决方案。两个基本区分构成所有设计研究的框架：</p>
+<p><strong>一手研究与二手研究：</strong></p>
+<ul>
+<li><strong>一手研究</strong> — 由设计师直接收集的第一手数据（访谈、调查、观察）。真实且针对具体情境，但耗时且成本较高。</li>
+<li><strong>二手研究</strong> — 由第三方收集并公开供他人使用的数据（教科书、学术期刊、政府统计数据）。更快、更便宜，但可能与您的具体情境不完全匹配。</li>
+</ul>
+<p><strong>定性数据与定量数据：</strong></p>
+<ul>
+<li><strong>定性数据</strong> — 描述性、非数值性。捕捉情感、动机和体验（如"把手摸起来很滑"）。告诉设计师用户<em>为何</em>有某种行为。</li>
+<li><strong>定量数据</strong> — 数值性且可测量（如"78%的用户在规定时间内未能完成任务"）。支持比较、基准测试和目标设定。</li>
+</ul>
+<p>有效的设计研究将两种类型结合：定性数据解释问题；定量数据衡量解决进展。</p>
 </div>
 </div>
 
@@ -181,57 +473,44 @@ Show Chinese · 显示中文
 
 <!-- 2.1.3 ─────────────────────────────────────────────────── -->
 <div class="obj-section" id="obj-2.1.3">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c2.1.3">
-<div class="obj-trigger-left"><span class="obj-code">2.1.3</span><h3>The triple bottom line (TBL) measures levels of success of a product in relation to social (people), economic (profit) and environmental (planet).</h3></div>
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.3">
+<div class="obj-trigger-left"><span class="obj-code">2.1.3</span><h3>Primary research involves the collection of first-hand data relevant to the design context.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-c2.1.3">
-<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the TBL and the relationship between the three Ps (people, profit, planet), which includes conflict and compromise.</p>
+<div class="obj-body" id="obj-body-b2.1.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Apply primary research methods to gather first-hand data (user observations, interviews, surveys, questionnaires, focus groups, material testing and product analysis) and analyse the data to establish user requirements and design specifications, develop a persona and suggest further developments of a solution.</p>
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
 <div class="bilingual-block">
 <div class="lang-col">
-<span class="lang-label">English</span>
-<p>The <strong>Triple Bottom Line (TBL)</strong> was attributed to <strong>John Elkington</strong> (1995). It measures an organisation's or product's level of success across three dimensions (the three Ps) rather than on financial performance alone:</p>
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.3"><source src="B2.1/B2-1-3.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>Primary research produces first-hand data that is specific to your design context and your users. Common methods include:</p>
+<br>
 <ul>
-<li><strong>People</strong> (social): social equity, fair labour practices, worker health and safety, community well-being, and human rights in the supply chain</li>
-<li><strong>Planet</strong> (environmental): environmental health, biodiversity, resource conservation, pollution reduction, carbon footprint, and responsible waste management</li>
-<li><strong>Profit</strong> (economic): economic viability, responsible growth, and long-term financial health of the organisation</li>
+<li><strong>User interviews</strong>: open-ended conversations that reveal motivations, frustrations and hidden needs. Best for depth over breadth.</li>
+<li><strong>Surveys and questionnaires</strong>: structured sets of questions delivered to many users simultaneously. A <strong>Likert scale</strong> (e.g., 1–5 ratings) converts qualitative feelings into quantitative scores that can be aggregated and compared, a technique explored further in <a href="b1.1-user-centred-design.html">B1.1 User-centred Design</a>.</li>
+<li><strong>User observation</strong>: watching users perform tasks in their natural environment. Reveals behaviour that users cannot or do not report in interviews.</li>
+<li><strong>Focus groups</strong>: facilitated group discussions that generate ideas and surface shared concerns, though dominant voices can skew results.</li>
+<li><strong>Material testing</strong>: physically testing materials for properties relevant to the design (strength, flexibility, weight, durability).</li>
+<li><strong>Product analysis</strong>: systematically examining an existing product for its function, form, user experience and manufacturing method.</li>
 </ul>
-<p>The three Ps are often visualised as three overlapping circles (a Venn diagram). The intersection of all three is the zone of genuine sustainability: where a design meets social, environmental, and economic criteria simultaneously. Products or businesses that satisfy only one or two dimensions are not fully sustainable:</p>
-<ul>
-<li>A product that is profitable and environmentally sound but relies on exploited labour satisfies Profit + Planet but fails People</li>
-<li>A product that is profitable and socially fair but creates significant pollution satisfies Profit + People but fails Planet</li>
-<li>A product that is environmentally sound and socially responsible but cannot be sold at a viable price satisfies Planet + People but fails Profit</li>
-</ul>
-<p><strong>Conflicts between the three Ps</strong> are common and central to the designer's challenge:</p>
-<ul>
-<li><strong>Profit vs. Planet</strong>: Transitioning to sustainable manufacturing requires new materials, processes, and equipment: all of which cost money and reduce short-term profit. A mining corporation expanding into a protected rainforest maximises Profit while destroying Planet.</li>
-<li><strong>Profit vs. People</strong>: Fair Trade programs guarantee living wages and safe conditions for workers, but increase operational costs and may reduce profit margins. The chapter notes: <em>"Similar conflicts exist between meeting social needs through such programmes as 'Fair Trade', increasing operational costs and potentially affecting profit margins."</em></li>
-<li><strong>Planet vs. People</strong>: Closing a polluting factory improves Planet but eliminates the livelihoods of the community that depended on it (People).</li>
-</ul>
+<p>Primary data is authentic and directly relevant to your project, but it requires time, access to users and ethical consideration, particularly when working with minors or vulnerable groups.</p>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
-<p><strong>三重底线（TBL）</strong>由<strong>约翰·埃尔金顿</strong>（1995年）提出。它衡量一个组织或产品在三个维度——三个P——上的成功水平，而不仅仅是财务绩效：</p>
+<p>一手研究能产生针对您的设计情境和用户的第一手数据。常用方法包括：</p>
 <ul>
-<li><strong>人（社会）</strong> — 社会公平、公平劳动实践、工人健康与安全、社区福祉以及供应链中的人权</li>
-<li><strong>地球（环境）</strong> — 环境健康、生物多样性、资源保护、污染减少、碳足迹和负责任的废物管理</li>
-<li><strong>利润（经济）</strong> — 经济可行性、负责任增长和组织的长期财务健康</li>
+<li><strong>用户访谈</strong> — 开放式对话，揭示动机、挫折和隐藏的需求。最适合深度而非广度。</li>
+<li><strong>调查和问卷</strong> — 同时向多位用户发放的结构化问题集。<strong>李克特量表</strong>（如1-5评分）将定性感受转化为可汇总和比较的定量分数。</li>
+<li><strong>用户观察</strong> — 在用户自然环境中观察其执行任务。揭示用户在访谈中无法或不会报告的行为。</li>
+<li><strong>焦点小组</strong> — 有引导的小组讨论，产生想法并揭示共同关注点，但主导声音可能会扭曲结果。</li>
+<li><strong>材料测试</strong> — 对材料进行与设计相关的物理性能测试（强度、柔韧性、重量、耐久性）。</li>
+<li><strong>产品分析</strong> — 系统地检查现有产品的功能、形式、用户体验和制造方法。</li>
 </ul>
-<p>三个P通常被可视化为三个重叠的圆（维恩图）。所有三个圆的交集是真正可持续性的区域——设计同时满足社会、环境和经济标准。只满足一个或两个维度的产品或企业并非完全可持续：</p>
-<ul>
-<li>盈利且环保但依赖受剥削劳动力的产品满足利润+地球但在人方面失败</li>
-<li>盈利且社会公平但造成重大污染的产品满足利润+人但在地球方面失败</li>
-<li>环保且社会负责但无法以可行价格销售的产品满足地球+人但在利润方面失败</li>
-</ul>
-<p><strong>三个P之间的冲突</strong>是常见的，也是设计师挑战的核心：</p>
-<ul>
-<li><strong>利润vs.地球</strong>：向可持续制造转型需要新材料、工艺和设备——所有这些都需要花钱，会减少短期利润。一家矿业公司扩展到受保护的雨林，在最大化利润的同时破坏了地球。</li>
-<li><strong>利润vs.人</strong>：公平贸易计划保障工人的生活工资和安全条件，但增加了运营成本，可能降低利润率。</li>
-<li><strong>地球vs.人</strong>：关闭一家污染工厂改善了地球，但消除了依赖它的社区的生计（人）。</li>
-</ul>
+<p>一手数据真实且与项目直接相关，但需要时间、访问用户的渠道和伦理考量——尤其是在与未成年人或弱势群体合作时。</p>
 </div>
 </div>
 
@@ -240,71 +519,542 @@ Show Chinese · 显示中文
 
 <!-- 2.1.4 ─────────────────────────────────────────────────── -->
 <div class="obj-section" id="obj-2.1.4">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-c2.1.4">
-<div class="obj-trigger-left"><span class="obj-code">2.1.4</span><h3>Designers make decisions by considering the balance between the three Ps of the TBL.</h3></div>
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.4">
+<div class="obj-trigger-left"><span class="obj-code">2.1.4</span><h3>Secondary research involves the collection of data provided by a third party and is used to support or validate primary research.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-c2.1.4">
-<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how the TBL can help designers to prioritize the needs of clients, communities and the environment to discover design opportunities.</p>
+<div class="obj-body" id="obj-body-b2.1.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse secondary data sources (internet-based research, government data and statistics research, university research and literature search) to establish user requirements and design specifications, develop a persona and suggest further developments for a solution.</p>
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
 <div class="bilingual-block">
 <div class="lang-col">
-<span class="lang-label">English</span>
-<p>Because the three Ps of the TBL are frequently in conflict, designers cannot optimise all three simultaneously: they must make informed trade-off decisions. The TBL framework helps by making these trade-offs explicit and visible, rather than hiding environmental or social costs inside a single profit figure.</p>
-<p><strong>How designers use the TBL for decision-making:</strong></p>
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.4"><source src="B2.1/B2-1-4.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>Secondary research uses data collected and published by others. Designers turn to secondary sources to build background knowledge, validate primary findings, and access data at scales impossible to collect directly.</p>
+<p>Common secondary sources in design include:</p>
+<br>
 <ul>
-<li><strong>Identifying design opportunities</strong>: Where a product currently scores poorly on Planet or People, there is a design opportunity to improve that dimension. For example, a product with a large carbon footprint offers an opportunity to redesign manufacture using renewable energy (Solar principle).</li>
-<li><strong>Prioritising stakeholder needs</strong>: The TBL forces designers to consider clients (Profit), workers and communities (People), and ecosystems (Planet) together, not as an afterthought. This aligns with User-Centred Design but extends concern beyond the immediate user.</li>
-<li><strong>Communicating trade-offs</strong>: Using the TBL framework, a designer can present a client with a clear analysis: "Option A increases profit but harms Planet; Option B costs more upfront but saves Planet and People over the product's lifetime." This supports evidence-based stakeholder conversations.</li>
+<li><strong>Internet-based research</strong>: company websites, news articles, industry reports. Fast and free, but quality varies; always evaluate source credibility.</li>
+<li><strong>Government data and statistics</strong>: census data, public health records, safety standards. High reliability, but may lag behind current conditions.</li>
+<li><strong>University research and literature</strong>: peer-reviewed academic papers accessed through databases such as Google Scholar. Rigorous methodology, but technical language can be challenging.</li>
+<li><strong>Textbooks and standards documents</strong>: authoritative subject knowledge and official specifications.</li>
 </ul>
-<p><strong>Strategies for resolving TBL conflicts:</strong></p>
-<ul>
-<li><strong>Phased implementation</strong>: spread the cost of sustainable transitions over extended timeframes to mitigate investor and shareholder concerns about short-term profit reduction</li>
-<li><strong>Stakeholder education</strong>: communicate the long-term financial benefits of sustainability: reduced material costs, lower regulatory risk, stronger brand loyalty, and access to growing markets for sustainable products</li>
-<li><strong>Life-cycle thinking</strong>: costs that appear expensive at the design stage (e.g., specifying recycled inputs or renewable energy) are often offset by savings over the full product lifetime (reduced waste, lower energy bills, end-of-life material recovery value)</li>
-<li><strong>Demonstrating viability</strong>: using real examples (Framework Laptop, Patagonia, Interface flooring) to show clients that sustainable businesses can remain financially competitive</li>
-</ul>
-<p>The TBL is not a checklist but a thinking tool. No product will score perfectly across all three dimensions; the goal is conscious, evidence-based decision-making that moves toward the TBL intersection rather than away from it.</p>
+<p>The key limitation of secondary research is relevance: data collected for a different purpose, population or context may not match your design situation. Secondary research should support (not replace) primary research.</p>
+
+<div class="topic-link-blurb">A broader overview of primary and secondary research methods, including field research and questionnaire design, is covered in <a href="a2.1-user-centred-research.html">A2.1 User-centred Research Methods</a>.</div>
 </div>
 <div class="lang-col">
 <span class="lang-label">中文</span>
-<p>由于TBL的三个P经常存在冲突，设计师无法同时优化所有三个——他们必须做出明智的权衡决策。TBL框架通过使这些权衡明确可见来提供帮助，而不是将环境或社会成本隐藏在单一利润数字中。</p>
-<p><strong>设计师如何使用TBL进行决策：</strong></p>
+<p>二手研究使用他人收集和发布的数据。设计师转向二手资料的目的是积累背景知识、验证一手研究结论，以及获取无法直接收集的规模数据。</p>
+<p>设计中常见的二手资料来源包括：</p>
 <ul>
-<li><strong>识别设计机会</strong>：产品在地球或人方面得分较低的地方，就有改善该维度的设计机会。例如，具有大碳足迹的产品提供了使用可再生能源重新设计制造的机会（太阳能原则）。</li>
-<li><strong>优先考虑利益相关者的需求</strong>：TBL迫使设计师一起考虑客户（利润）、工人和社区（人）以及生态系统（地球）——而不是事后考虑。这与以用户为中心的设计一致，但将关注扩展到直接用户之外。</li>
-<li><strong>传达权衡</strong>：使用TBL框架，设计师可以向客户提供清晰分析："方案A增加利润但损害地球；方案B前期成本更高，但在产品生命周期内节省地球和人的成本。"这支持基于证据的利益相关者对话。</li>
+<li><strong>互联网研究</strong> — 公司网站、新闻文章、行业报告。快速且免费，但质量参差不齐；需始终评估信息来源的可信度。</li>
+<li><strong>政府数据和统计</strong> — 人口普查数据、公共卫生记录、安全标准。可靠性高，但可能落后于当前情况。</li>
+<li><strong>大学研究和文献</strong> — 通过Google Scholar等数据库获取的经同行评审的学术论文。方法论严谨，但技术语言可能较难理解。</li>
+<li><strong>教科书和标准文件</strong> — 权威的学科知识和官方规格。</li>
 </ul>
-<p><strong>解决TBL冲突的策略：</strong></p>
-<ul>
-<li><strong>分阶段实施</strong> — 在较长时间内分摊可持续转型的成本，以减轻投资者和股东对短期利润减少的担忧</li>
-<li><strong>利益相关者教育</strong> — 传达可持续性的长期财务收益：降低材料成本、降低监管风险、增强品牌忠诚度以及进入不断增长的可持续产品市场</li>
-<li><strong>生命周期思考</strong> — 在设计阶段看起来昂贵的成本（例如，指定回收材料或可再生能源）通常会被整个产品生命周期的节省所抵消（减少废物、降低能源账单、报废材料回收价值）</li>
-<li><strong>证明可行性</strong> — 使用实际案例（Framework笔记本电脑、巴塔哥尼亚、Interface地板）向客户展示可持续企业可以保持财务竞争力</li>
-</ul>
-<p>TBL不是一个清单，而是一个思维工具。没有任何产品会在所有三个维度上得分完美；目标是有意识的、基于证据的决策，朝着TBL交叉点移动，而不是远离它。</p>
-</div>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">Key concept</div>
-<div class="concept-box-title">Stakeholders</div>
-<p>A <strong>stakeholder</strong> is any person or group with an interest in, or affected by, a design decision: not just the client who commissions the work or the end user who buys it. In a TBL analysis, the three Ps map almost directly onto three stakeholder groups: Profit concerns the client and investors, People concerns workers, communities and end users, and Planet concerns everyone who shares the environment the product is made and disposed in, including people who will never use the product at all.</p>
-<p>Recognising the full set of stakeholders is what makes a TBL trade-off visible in the first place. A decision that looks purely financial when the only stakeholder considered is the client (cheaper materials, lower wages, faster disposal) reveals hidden costs as soon as workers, neighbouring communities and future generations are counted as stakeholders too.</p>
-<div class="concept-box-examples">
-<div class="concept-box-examples-label">Stakeholders in a typical product decision</div>
-<ul>
-<li><strong>Direct stakeholders:</strong> the client, the end user, the manufacturer</li>
-<li><strong>Indirect stakeholders:</strong> factory workers, the local community near a factory or disposal site, competitors</li>
-<li><strong>Diffuse stakeholders:</strong> future generations, ecosystems and communities far from the point of manufacture or use</li>
-</ul>
+<p>二手研究的主要局限在于相关性：为不同目的、人群或情境收集的数据可能与您的设计情况不匹配。二手研究应辅助——而非取代——一手研究。</p>
 </div>
 </div>
 
 </div>
 </div><!-- /2.1.4 -->
+
+<!-- 2.1.5 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.5">
+<div class="obj-trigger-left"><span class="obj-code">2.1.5</span><h3>When empathizing with the user, designers develop a persona used to represent a group of end-users they are solving a problem for.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify issues, problems and challenges using user-centred research methods and techniques, and identify user needs for specific user groups to understand their experience, motivations and interactions with products and environments.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.5"><source src="B2.1/B2-1-5.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>A <strong>persona</strong> is a research-based fictional character that represents a specific group of end-users. Unlike marketing demographics (age, gender, income), an effective persona captures the full human picture: goals and motivations, frustrations and pain points, behaviours and daily routines, and the context in which they interact with products.</p>
+<p>Personas serve two critical functions: they focus the design team on real human needs rather than assumed needs, and they prevent "design by committee" where everyone designs for themselves.</p>
+<p><strong>The demographics trap:</strong> The chapter warns against relying on demographics alone. Consider two male Europeans born in the late 19th century (both leading professionals and public figures): Albert Einstein and Charlie Chaplin. Their demographic profiles are identical, yet their product needs, preferences and lifestyles differ enormously. Similarly, Marie Curie and Florence Nightingale share a female professional demographic, yet represent vastly different users.</p>
+<p>Demographics tell you <em>who</em> someone is categorically, not <em>what they need</em> or <em>how they behave</em>. Effective personas require psychographic data: values, attitudes, lifestyle and context of use.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>角色模型</strong>是一个基于研究的虚构角色，代表特定的最终用户群体。与营销人口统计（年龄、性别、收入）不同，有效的角色模型捕捉完整的人物形象：目标和动机、挫折和痛点、行为和日常习惯，以及他们与产品互动的情境。</p>
+<p>角色模型有两个关键功能：让设计团队专注于真实的人的需求而非假设的需求，并防止"委员会式设计"——即每个人都为自己设计。</p>
+<p><strong>人口统计陷阱：</strong>章节警告不要单独依赖人口统计数据。考虑两位19世纪末出生的欧洲男性——均为各自领域的领导专业人士和公众人物：阿尔伯特·爱因斯坦和查理·卓别林。他们的人口统计资料完全相同，但产品需求、偏好和生活方式却大相径庭。同样，居里夫人和弗洛伦斯·南丁格尔拥有相同的女性职业人口统计，却代表着截然不同的用户群体。</p>
+<p>人口统计数据告诉您某人<em>在分类上是谁</em>——而非<em>他们需要什么</em>或<em>他们如何行为</em>。有效的角色模型需要心理图像数据：价值观、态度、生活方式和使用情境。</p>
+</div>
+</div>
+
+<div class="concept-box">
+<div class="concept-box-label">Key concept</div>
+<div class="concept-box-title">Psychographics</div>
+<p><strong>Psychographic data</strong> describes a person's values, attitudes, interests, lifestyle and motivations, the internal factors that shape how they think and behave. It sits alongside demographic data (age, gender, income, location) but answers a different question: demographics describe who someone is categorically, while psychographics describe why they make the choices they make.</p>
+<p>Two users with identical demographics can have opposite psychographics. Two retired adults of the same age, income and location might differ completely: one is risk-averse and values routine, the other is adventurous and seeks novelty. A persona built only from demographic data would treat them as the same user; psychographic data is what makes a persona specific enough to design for.</p>
+<div class="concept-box-examples">
+<div class="concept-box-examples-label">Psychographic categories used in persona building</div>
+<ul>
+<li><strong>Values:</strong> what matters to this person (sustainability, status, convenience, tradition)</li>
+<li><strong>Attitudes:</strong> their disposition toward technology, risk, change or unfamiliar products</li>
+<li><strong>Lifestyle:</strong> how they spend their time, money and attention day to day</li>
+<li><strong>Context of use:</strong> the specific situation in which they would actually use the product</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.5 -->
+
+<!-- 2.1.6 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.6">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.6">
+<div class="obj-trigger-left"><span class="obj-code">2.1.6</span><h3>Designers engage in user observation, mapping the user's journey as they carry out a task.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.6">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Map a user's journey using a storyboard and identify pain points within that journey that provide design opportunities.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.6"><source src="B2.1/B2-1-6.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p><strong>User observation</strong> involves watching users perform real tasks in their actual environment: a technique that reveals behaviours, workarounds and frustrations that users themselves may not consciously recognise or articulate in an interview.</p>
+<p>A <strong>storyboard</strong> is a visual tool used to map a user's journey through a product experience or task sequence. Like a comic strip, it breaks the journey into discrete frames: each showing the user, their action, their environment and their emotional state at that moment. Storyboards make user journeys visible, shareable and open to critique within the design team.</p>
+<p><strong>Pain points</strong> are moments in the journey where the user experiences friction, frustration or failure. They are design opportunities: each pain point is a place where a better design could improve the experience. A storyboard is an effective tool for identifying and communicating pain points because it preserves the sequence and context of the problem, not just the problem itself.</p>
+
+<div class="topic-link-blurb">Breaking a journey into steps to find friction points is the same principle behind Hierarchical Task Analysis, covered in <a href="b1.1-user-centred-design.html">B1.1 User-centred Design</a> (1.1.5 Task Analysis).</div>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>用户观察</strong>涉及在用户实际环境中观察其执行真实任务——这种技术揭示了用户自己可能无法有意识地认识或在访谈中表达的行为、变通方法和挫折。</p>
+<p><strong>故事板</strong>是一种视觉工具，用于描绘用户在产品体验或任务序列中的旅程。像漫画一样，它将旅程分解为若干独立的画面——每个画面展示用户、其行动、所处环境以及彼时的情感状态。故事板使用户旅程在设计团队内可视化、可分享且可供批判性评估。</p>
+<p><strong>痛点</strong>是用户在旅程中遇到摩擦、挫折或失败的时刻。它们是设计机会：每个痛点都是更好的设计可以改善体验的地方。故事板是识别和传达痛点的有效工具，因为它保留了问题的顺序和情境，而不仅仅是问题本身。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.6 -->
+
+<!-- 2.1.7 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.7">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.7">
+<div class="obj-trigger-left"><span class="obj-code">2.1.7</span><h3>Product analysis is a tool used by designers to gain insight into the function, performance and features of an existing product.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.7">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse a range of products that either provides a solution to a problem or can inspire a solution to a problem.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.7"><source src="B2.1/B2-1-7.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p><strong>Product analysis</strong> is a structured examination of an existing product to understand how it solves (or fails to solve) a problem. It is used during both the Empathise phase (understanding the current state of the world) and the Ideate phase (finding inspiration for new solutions).</p>
+<p>A thorough product analysis examines:</p>
+<ul>
+<li><strong>Function</strong>: what is it designed to do? Does it do it effectively?</li>
+<li><strong>Performance</strong>: how well does it meet its functional requirements? Where does it fall short?</li>
+<li><strong>Form and aesthetics</strong>: shape, material, surface finish, colour, size. How do these contribute to or detract from the user experience?</li>
+<li><strong>User interface</strong>: how does the user interact with it? Are controls intuitive? Is feedback clear?</li>
+<li><strong>Manufacturing</strong>: how is it made? What materials are used? Could manufacturing explain any design limitations?</li>
+<li><strong>Target user</strong>: who was it designed for? Does it meet that user's needs?</li>
+</ul>
+<p>Product analysis produces data that feeds directly into design specifications: what this product does well that must be matched, and where it fails that the new design must address.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>产品分析</strong>是对现有产品的结构化检查，以了解它如何解决——或未能解决——某个问题。它在共情阶段（了解当前世界状态）和构思阶段（寻找新解决方案的灵感）都会使用。</p>
+<p>全面的产品分析检查以下方面：</p>
+<ul>
+<li><strong>功能</strong> — 它被设计来做什么？它是否有效地做到了这一点？</li>
+<li><strong>性能</strong> — 它在多大程度上满足其功能要求？在哪些方面存在不足？</li>
+<li><strong>形式和美学</strong> — 形状、材料、表面处理、颜色、尺寸。这些如何促进或损害用户体验？</li>
+<li><strong>用户界面</strong> — 用户如何与之互动？控件是否直观？反馈是否清晰？</li>
+<li><strong>制造</strong> — 它是如何制造的？使用了哪些材料？制造过程能否解释某些设计限制？</li>
+<li><strong>目标用户</strong> — 它是为谁设计的？它是否满足了该用户的需求？</li>
+</ul>
+<p>产品分析产生的数据直接用于设计规格：该产品哪些方面做得好需要匹配，以及哪些方面失败了新设计必须解决。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.7 -->
+
+<!-- 2.1.8 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.8">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.8">
+<div class="obj-trigger-left"><span class="obj-code">2.1.8</span><h3>The first step in solving a problem is to define it.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.8">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain the nature of a problem by writing a problem statement that clearly defines their design intentions.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.8"><source src="B2.1/B2-1-8.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>The first and most critical step in moving from Empathise to Define is writing a clear <strong>problem statement</strong>. A problem statement answers: <em>who is experiencing what difficulty, in what context, and why does it matter?</em></p>
+<p>A well-formed problem statement:</p>
+<ul>
+<li>Names the specific user group (not "users" in general)</li>
+<li>Describes the specific challenge or pain point</li>
+<li>States the context where the problem occurs</li>
+<li>Does <strong>not</strong> prescribe a solution (a statement beginning "we need to build…" is a solution statement, not a problem statement)</li>
+</ul>
+<p><strong>Design intention</strong> is the goal the solution must achieve, derived directly from the problem statement. Clear design intentions make subsequent decisions (about materials, features and form) much easier to justify: a feature either serves the design intention or it doesn't. Without a precise problem statement, every design decision becomes arbitrary.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>从"共情"过渡到"定义"阶段的第一步，也是最关键的一步，是撰写清晰的<strong>问题陈述</strong>。问题陈述回答：<em>谁在什么情境下遇到了什么困难，为什么这很重要？</em></p>
+<p>一个完善的问题陈述：</p>
+<ul>
+<li>指明具体的用户群体（不是泛泛的"用户"）</li>
+<li>描述具体的挑战或痛点</li>
+<li>说明问题发生的情境</li>
+<li><strong>不</strong>规定解决方案（以"我们需要建造……"开头的陈述是解决方案陈述，而非问题陈述）</li>
+</ul>
+<p><strong>设计意图</strong>是解决方案必须实现的目标，直接从问题陈述中得出。清晰的设计意图使后续的决策——关于材料、功能和形式——更容易证明是合理的：一个功能要么服务于设计意图，要么不服务。没有精确的问题陈述，每个设计决策都将变得随意。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.8 -->
+
+<!-- 2.1.9 ─────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.9">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.9">
+<div class="obj-trigger-left"><span class="obj-code">2.1.9</span><h3>Defining clear design specifications leads to clear parameters for the development of a solution.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.9">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Construct design specifications based on primary and secondary research that communicate the essential and desirable success criteria of the redesigned product.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.9"><source src="B2.1/B2-1-9.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>A <strong>design brief</strong> is the formal document produced at the end of the Define phase. It translates the problem statement into actionable direction and aligns all stakeholders (client, designers, engineers and manufacturers) around what the solution must achieve.</p>
+<p>A design brief typically includes:</p>
+<ul>
+<li><strong>Problem statement</strong>: the context and user need being addressed</li>
+<li><strong>Design intentions</strong>: the overarching goals of the solution</li>
+<li><strong>Specifications</strong>: measurable success criteria (e.g., "must fit users aged 6–12 using 5th–95th percentile hand dimensions")</li>
+<li><strong>Constraints</strong>: non-negotiable limits (budget, materials, manufacturing methods, regulatory standards)</li>
+<li><strong>Timeline</strong>: key milestones and deadlines</li>
+</ul>
+<p>Specifications are divided into <strong>essential criteria</strong> (must be met; non-negotiable) and <strong>desirable criteria</strong> (would improve the product but are optional and can be traded against cost or time). Without clear specifications, it is impossible to evaluate whether any design iteration has succeeded.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>设计简报</strong>是在"定义"阶段结束时产生的正式文件。它将问题陈述转化为可操作的方向，并使所有利益相关者——客户、设计师、工程师和制造商——对解决方案必须实现的目标达成共同理解。</p>
+<p>设计简报通常包括：</p>
+<ul>
+<li><strong>问题陈述</strong> — 所解决的情境和用户需求</li>
+<li><strong>设计意图</strong> — 解决方案的总体目标</li>
+<li><strong>规格</strong> — 可测量的成功标准（如"必须适合使用第5至第95百分位手部尺寸的6至12岁用户"）</li>
+<li><strong>约束条件</strong> — 不可妥协的限制（预算、材料、制造方法、法规标准）</li>
+<li><strong>时间表</strong> — 关键里程碑和截止日期</li>
+</ul>
+<p>规格分为<strong>基本标准</strong>（必须满足；不可妥协）和<strong>期望标准</strong>（会改善产品但属可选项，可以与成本或时间进行权衡）。没有清晰的规格，就无法评估任何设计迭代是否成功。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.9 -->
+
+<!-- 2.1.10 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.10">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.10">
+<div class="obj-trigger-left"><span class="obj-code">2.1.10</span><h3>The ideation and modelling stage involves developing distinct ways to solve a particular problem that demonstrate different approaches to develop a solution.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.10">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Apply ideation techniques to develop a range of diverse and appropriate ideas that address a problem statement and respond to design specifications.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.10"><source src="B2.1/B2-1-10.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>The Ideation phase asks designers to generate as many diverse, creative solutions as possible before evaluating any of them. Several structured tools help prevent mental blocks:</p>
+<ul>
+<li><strong>Brainstorming</strong>: rapid, uncritical generation of ideas in a group. The rule: no evaluation during generation. Quantity before quality.</li>
+<li><strong>Mind mapping</strong>: a radiating diagram that branches from a central concept. Useful for exploring connections and revealing overlooked areas.</li>
+<li><strong>SCAMPER</strong>: a checklist of directed questions: <em>Substitute, Combine, Adjust, Magnify/Minify, Put to other uses, Eliminate, Reverse/Reorder</em>. Each letter is a thought trigger applied to an existing solution to generate variants.</li>
+<li><strong>Six Thinking Hats</strong> (Edward De Bono): six coloured hats representing different thinking modes: White (facts), Red (emotions), Black (critical), Yellow (positive), Green (creative), Blue (process). Separating thinking modes prevents groups from mixing criticism with creativity.</li>
+<li><strong>TRIZ</strong>: systematic innovation methodology based on 40 inventive principles derived from analysis of thousands of patents. Useful for technical problems with conflicting requirements.</li>
+<li><strong>Morphological analysis (Zwicky box)</strong>: a grid of design parameters (rows) against possible solutions for each parameter (columns). Every intersection represents a different combination; unexpected combinations reveal novel solutions.</li>
+</ul>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p>构思阶段要求设计师在评估任何方案之前尽可能多地生成多样化的创意解决方案。几种结构化工具有助于防止思维障碍：</p>
+<ul>
+<li><strong>头脑风暴</strong> — 在小组中快速、无批判性地产生想法。规则：在生成阶段不进行评估。数量先于质量。</li>
+<li><strong>思维导图</strong> — 从中心概念向外辐射的图表。用于探索联系，揭示被忽视的领域。</li>
+<li><strong>SCAMPER</strong> — 一套定向问题清单：<em>替代、组合、调整、放大/缩小、改变用途、消除、颠倒/重排</em>。每个字母是应用于现有解决方案以生成变体的思维触发器。</li>
+<li><strong>六顶思考帽</strong>（爱德华·德·波诺）— 六顶代表不同思维模式的彩色帽子：白色（事实）、红色（情感）、黑色（批判性）、黄色（积极）、绿色（创意）、蓝色（过程）。分离思维模式可防止团队将批评与创意混淆。</li>
+<li><strong>TRIZ</strong> — 基于对数千项专利分析所得的40条发明原理的系统性创新方法论。适用于具有相互冲突要求的技术设计问题。</li>
+<li><strong>形态分析（茨威基盒）</strong> — 设计参数（行）与每个参数可能解决方案（列）的网格。每个交叉点代表不同的组合；意想不到的组合揭示新颖的解决方案。</li>
+</ul>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.10 -->
+
+<!-- 2.1.11 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.11">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.11">
+<div class="obj-trigger-left"><span class="obj-code">2.1.11</span><h3>Iterative analyses and evaluation of design ideas lead to improved design ideas.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.11">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Compare their ideas with the design specifications and user needs as they refine their solutions.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.11"><source src="B2.1/B2-1-11.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p><strong>Iterative evaluation</strong> means systematically comparing each design idea against the design specifications and user needs, not once, but repeatedly as ideas evolve. At each stage, designers ask:</p>
+<ul>
+<li>Does this idea meet all essential criteria? If not, it cannot proceed.</li>
+<li>How well does it meet the desirable criteria?</li>
+<li>Which specific aspects need to change to better satisfy user needs?</li>
+<li>Which of several competing ideas best balances the full set of requirements?</li>
+</ul>
+<p><strong>Design matrices</strong> (decision matrices) formalise this process: specifications are listed as rows, ideas as columns, and each cell receives a weighted score. The matrix makes trade-offs visible and defensible against stakeholder challenge.</p>
+<p>Iterative evaluation drives targeted refinement: weak areas are identified with enough precision that the next iteration can address them specifically. This is far more efficient than building a complete prototype and discovering at that point that a fundamental specification has not been met.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>迭代评估</strong>意味着系统地将每个设计想法与设计规格和用户需求进行比较——不是一次，而是随着想法的演变反复进行。在每个阶段，设计师会问：</p>
+<ul>
+<li>这个想法是否满足所有基本标准？如果不满足，则无法继续。</li>
+<li>它在多大程度上满足期望标准？</li>
+<li>需要改变哪些具体方面以更好地满足用户需求？</li>
+<li>在几个竞争性想法中，哪一个最能平衡完整的需求集？</li>
+</ul>
+<p><strong>设计矩阵</strong>（决策矩阵）将这一过程正式化：规格列为行，想法列为列，每个单元格得到加权分数。矩阵使权衡可见且可在面对利益相关者质疑时加以辩护。</p>
+<p>迭代评估推动有针对性的改进：弱点被足够精确地识别，以便下一次迭代可以针对性地解决它们。这比构建一个完整的原型后才发现不满足基本规格要高效得多。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.11 -->
+
+<!-- 2.1.12 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.12">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.12">
+<div class="obj-trigger-left"><span class="obj-code">2.1.12</span><h3>When developing a solution, designers use an iterative model, test, refine cycle until all major design specifications and user requirements are satisfied.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.12">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Demonstrate iterative development of a design using the model, test, refine cycle.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.12"><source src="B2.1/B2-1-12.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>The <strong>model–test–refine cycle</strong> is the engine of the Design a Solution phase. Rather than developing a finished product in a single pass, designers move through repeated loops:</p>
+<ol>
+<li><strong>Model</strong>: build a version of the solution at an appropriate level of fidelity</li>
+<li><strong>Test</strong>: put the model in front of real users or subject it to performance tests</li>
+<li><strong>Refine</strong>: use the data from testing to identify specific improvements</li>
+<li>Return to step 1 with a better-informed model</li>
+</ol>
+<p>This maps onto the <strong>PDSA (Plan-Do-Study-Act)</strong> cycle from quality management: Plan what to test and how; Do by building and running the test; Study what the data shows; Act by implementing changes before the next cycle.</p>
+<p>Stakeholder feedback (from clients, users and technical experts) is incorporated at every cycle. Each iteration reduces uncertainty. A product that has been through five test–refine cycles is far better aligned with real user needs than one developed in a single extended phase.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>建模–测试–改进循环</strong>是"设计解决方案"阶段的引擎。设计师不是一次性开发完成品，而是通过反复循环推进：</p>
+<ol>
+<li><strong>建模</strong> — 在适当的保真度水平上构建解决方案的版本</li>
+<li><strong>测试</strong> — 让真实用户使用该模型或对其进行性能测试</li>
+<li><strong>改进</strong> — 使用测试数据识别具体改进点</li>
+<li>以更充分的信息回到步骤1</li>
+</ol>
+<p>这对应质量管理中的<strong>PDSA（计划-执行-研究-行动）</strong>循环：计划要测试的内容和方式；执行构建和运行测试；研究数据显示的内容；行动在下一个循环之前实施改进。</p>
+<p>利益相关者反馈——来自客户、用户和技术专家——在每个循环中加以整合。每次迭代都降低不确定性。经过五个测试–改进循环的产品，比在单一漫长阶段开发的产品更符合真实用户需求。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.12 -->
+
+<!-- 2.1.13 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.13">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.13">
+<div class="obj-trigger-left"><span class="obj-code">2.1.13</span><h3>Models, prototypes and mock-ups of solutions are created to test their effectiveness and to gather feedback for further refinement and development.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.13">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Create feasible models of an intended solution at appropriate levels of fidelity that generate performance data when tested with end-users.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.13"><source src="B2.1/B2-1-13.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>A <strong>prototype</strong> is a physical or virtual model built to test a specific aspect of a design before committing to full production. Prototypes are categorised by <strong>fidelity</strong>: how closely they resemble the final product.</p>
+<p><strong>Low-fidelity (lo-fi) prototypes:</strong></p>
+<ul>
+<li>Made from quick, cheap materials: cardboard, paper, foam, tape</li>
+<li>Built in hours; cost almost nothing</li>
+<li>Test core concepts and spatial relationships, not finish or performance</li>
+<li>Purpose: "fail fast, fail cheap": expose fundamental problems before investing in higher-quality models</li>
+</ul>
+<p><strong>High-fidelity (hi-fi) prototypes:</strong></p>
+<ul>
+<li>Closely resemble the final product in appearance and, ideally, function</li>
+<li>May use the actual intended materials and manufacturing processes</li>
+<li>Generate meaningful performance data: task completion rates, error rates, user satisfaction scores</li>
+<li>Purpose: validate that the refined concept meets specifications before production begins</li>
+</ul>
+<p>The sequence is always lo-fi to hi-fi: only invest in expensive prototyping once a concept has survived lo-fi testing. Every prototype exists to generate test data that feeds the next iteration.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>原型</strong>是在正式投入全面生产之前，为测试设计的某个具体方面而建造的物理或虚拟模型。原型按<strong>保真度</strong>分类——即它们与最终产品的相似程度。</p>
+<p><strong>低保真（lo-fi）原型：</strong></p>
+<ul>
+<li>用快速、廉价的材料制成：纸板、纸张、泡沫、胶带</li>
+<li>几小时内完成；几乎不花费成本</li>
+<li>测试核心概念和空间关系，而非表面处理或性能</li>
+<li>目的："快速失败，低成本失败"——在投资更高质量的模型之前暴露根本问题</li>
+</ul>
+<p><strong>高保真（hi-fi）原型：</strong></p>
+<ul>
+<li>在外观上，理想情况下在功能上也与最终产品非常相似</li>
+<li>可能使用实际预期的材料和制造工艺</li>
+<li>产生有意义的性能数据：任务完成率、错误率、用户满意度评分</li>
+<li>目的：在生产开始之前验证改进后的概念是否符合规格</li>
+</ul>
+<p>顺序始终是从低保真到高保真：只有在概念通过低保真测试后，才投资昂贵的原型制作。每个原型的存在都是为了产生测试数据，以推动下一次迭代。</p>
+</div>
+</div>
+
+<div class="topic-link-blurb">Fidelity levels, modelling materials and the full model–test–refine workflow are covered in much greater depth in <a href="b2.2-modelling-prototyping.html">B2.2 Modelling and Prototyping</a>.</div>
+
+</div>
+</div><!-- /2.1.13 -->
+
+<!-- 2.1.14 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.14">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.14">
+<div class="obj-trigger-left"><span class="obj-code">2.1.14</span><h3>The physical details of a new product need to be communicated for it to be manufactured.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.14">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Create detailed drawings of components and assembled products that communicate dimensions, scale and assembly details.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.14"><source src="B2.1/B2-1-14.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p><strong>Technical drawings</strong> (also called engineering or working drawings) are the formal language of manufacturing: they convey exact dimensions, tolerances, materials, scale and assembly instructions to manufacturers anywhere in the world.</p>
+<p>Key conventions include:</p>
+<ul>
+<li><strong>Orthographic projection</strong>: three views (front, side, top) drawn at right angles to each other on the same sheet, showing exact dimensions. The standard in engineering and manufacturing.</li>
+<li><strong>Dimensions</strong>: all critical measurements annotated in millimetres (or specified units), including tolerances (acceptable ranges) for manufactured components.</li>
+<li><strong>Scale</strong>: the ratio of drawing size to real size (e.g., 1:10 means the drawing is ten times smaller than reality). Always stated on the drawing.</li>
+<li><strong>Assembly drawings</strong>: show how components fit together, with part numbers linked to a bill of materials.</li>
+<li><strong>Detail drawings</strong>: zoomed views of complex features that would be unclear at full scale.</li>
+</ul>
+<p>Without accurate technical drawings, the gap between a prototype and a manufactured product cannot be closed. Every dimension becomes a specification that manufacturing must achieve.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>技术图纸</strong>（也称为工程图纸或工作图纸）是制造业的正式语言——它们向世界各地的制造商传达精确的尺寸、公差、材料、比例和装配说明。</p>
+<p>主要惯例包括：</p>
+<ul>
+<li><strong>正交投影</strong> — 在同一页上以直角绘制的三个视图（正面、侧面、顶面），显示精确尺寸。这是工程和制造领域的标准。</li>
+<li><strong>尺寸</strong> — 所有关键测量值以毫米（或指定单位）标注，包括制造零件的公差（可接受范围）。</li>
+<li><strong>比例</strong> — 图纸尺寸与实际尺寸的比率（如1:10表示图纸比实际小十倍）。始终在图纸上注明。</li>
+<li><strong>装配图</strong> — 显示组件如何组合在一起，零件编号与物料清单相关联。</li>
+<li><strong>详图</strong> — 对于在全尺寸下不清晰的复杂特征进行放大显示。</li>
+</ul>
+<p>没有精确的技术图纸，原型与制造产品之间的差距无法缩小。图纸上的每个尺寸都成为制造必须实现的规格。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.14 -->
+
+<!-- 2.1.15 ────────────────────────────────────────────────── -->
+<div class="obj-section" id="obj-2.1.15">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-b2.1.15">
+<div class="obj-trigger-left"><span class="obj-code">2.1.15</span><h3>When presenting a solution, it is important to communicate clearly the need for the solution, and the key features that demonstrate how it solves a given problem.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-b2.1.15">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Create virtual representations of a solution, highlighting key usability features, and explain how it meets the design specifications and achieves the design intentions as a proposed solution or as an improvement to an existing product.</p>
+
+<figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
+
+<div class="bilingual-block">
+<div class="lang-col">
+<div class="lang-audio-bar">
+<audio class="topic-audio" controls preload="none" data-topic="2.1.15"><source src="B2.1/B2-1-15.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+</div>
+<p>The <strong>Present a Solution</strong> phase is the designer's opportunity to communicate the full value of their work to clients, stakeholders and users. An effective presentation goes beyond "here is what it looks like"; it tells the story of the design: the user problem, the research journey, the key design decisions, and the evidence that the solution meets its specifications.</p>
+<p>Tools for presenting solutions include:</p>
+<ul>
+<li><strong>Virtual representations</strong>: CAD renders, 3D models and animated walkthroughs that show the product in realistic environments and demonstrate how it functions</li>
+<li><strong>Annotated renders</strong>: visual labels pointing to specific features and explaining their function or design rationale</li>
+<li><strong>Appearance prototypes</strong>: physical objects made to look like the final product, useful for client presentations and user testing</li>
+<li><strong>Usability testing evidence</strong>: task completion data, user quotes and satisfaction scores demonstrating that the solution has been validated with real users</li>
+</ul>
+<p>An effective presentation clearly states the user need being addressed, shows how key features directly respond to specific design specifications, and acknowledges limitations with a plan for future refinement. The goal is not to sell the design but to demonstrate that it is evidence-based and can withstand scrutiny.</p>
+</div>
+<div class="lang-col">
+<span class="lang-label">中文</span>
+<p><strong>呈现解决方案</strong>阶段是设计师向客户、利益相关者和用户传达其工作全部价值的机会。有效的呈现不仅仅是"这是它的外观"——它讲述了设计的故事：用户问题、研究旅程、关键设计决策以及解决方案满足规格的证据。</p>
+<p>呈现解决方案的工具包括：</p>
+<ul>
+<li><strong>虚拟表现</strong> — CAD渲染、3D模型和动画演示，在真实环境中展示产品并演示其功能</li>
+<li><strong>标注渲染</strong> — 指向特定功能并解释其功能或设计理由的视觉标签</li>
+<li><strong>外观原型</strong> — 制作得像最终产品的物理对象，适用于客户演示和用户测试</li>
+<li><strong>可用性测试证据</strong> — 任务完成数据、用户引语和满意度评分，证明解决方案已通过真实用户验证</li>
+</ul>
+<p>有效的呈现清晰地陈述所解决的用户需求，展示关键功能如何直接响应特定设计规格，并承认局限性，提出未来改进计划。目标不是推销设计，而是证明设计有证据支撑，能够经受审查。</p>
+</div>
+</div>
+
+</div>
+</div><!-- /2.1.15 -->
 
 </div><!-- /obj-list -->
 </div><!-- /curr-body body-study -->
@@ -319,114 +1069,114 @@ Show Chinese · 显示中文
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-quiz">
-<p class="quiz-intro">Ten questions covering sustainability strategies, Datschefski's five principles, the Triple Bottom Line, and TBL trade-offs. Select one answer per question, then check all at once.</p>
+<p class="quiz-intro">Ten questions covering the five-phase design process, research methods, ideation tools and iterative development. Select one answer per question, then check all at once.</p>
 
 <div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">1. Who is credited with coining the term "Triple Bottom Line" (TBL)?</p>
+<p class="quiz-q-text">1. According to the chapter, what percentage of startups fail due to lack of market need?</p>
 <div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q1" value="A"> A. Edwin Datschefski</label>
-<label class="quiz-option"><input type="radio" name="q1" value="B"> B. John Elkington</label>
-<label class="quiz-option"><input type="radio" name="q1" value="C"> C. Gro Harlem Brundtland</label>
-<label class="quiz-option"><input type="radio" name="q1" value="D"> D. Ron Mace</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">2. Which of the following best describes a "bottom-up" sustainability strategy?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q2" value="A"> A. International treaties setting carbon reduction targets</label>
-<label class="quiz-option"><input type="radio" name="q2" value="B"> B. Local actions such as Clean-up Australia or Landcare tree-planting initiatives</label>
-<label class="quiz-option"><input type="radio" name="q2" value="C"> C. UN Brundtland Commission reports</label>
-<label class="quiz-option"><input type="radio" name="q2" value="D"> D. National government recycling mandates</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">3. According to Datschefski's five principles, a product that uses solar energy for manufacturing and operation would satisfy which principle?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q3" value="A"> A. Cyclic</label>
-<label class="quiz-option"><input type="radio" name="q3" value="B"> B. Solar</label>
-<label class="quiz-option"><input type="radio" name="q3" value="C"> C. Safe</label>
-<label class="quiz-option"><input type="radio" name="q3" value="D"> D. Efficient</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">4. "Greenwashing" refers to:</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q4" value="A"> A. Manufacturing products from recycled green glass</label>
-<label class="quiz-option"><input type="radio" name="q4" value="B"> B. Promoting products with minor environmental credentials as sustainable, misleading consumers</label>
-<label class="quiz-option"><input type="radio" name="q4" value="C"> C. Using only green-coloured packaging</label>
-<label class="quiz-option"><input type="radio" name="q4" value="D"> D. Composting biodegradable waste</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">5. Which scenario best illustrates a conflict between the "Profit" and "Planet" dimensions of the Triple Bottom Line?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q5" value="A"> A. A company installs solar panels, reducing energy costs and carbon emissions</label>
-<label class="quiz-option"><input type="radio" name="q5" value="B"> B. A mining corporation expands operations into a protected rainforest to extract valuable minerals</label>
-<label class="quiz-option"><input type="radio" name="q5" value="C"> C. A factory increases wages to improve employee satisfaction</label>
-<label class="quiz-option"><input type="radio" name="q5" value="D"> D. A startup uses recycled materials that cost the same as virgin materials</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">6. What is Datschefski's "100-cubed project"?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q6" value="A"> A. 100 products that are 100% recyclable by 2025</label>
-<label class="quiz-option"><input type="radio" name="q6" value="B"> B. 100% of products become 100% sustainable by the year 2100</label>
-<label class="quiz-option"><input type="radio" name="q6" value="C"> C. 100 companies reducing energy use by 100% in 100 days</label>
-<label class="quiz-option"><input type="radio" name="q6" value="D"> D. 100 designers creating 100 sustainable products for $100 each</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<p class="quiz-q-text">7. The Brundtland Commission's definition of sustainable development is most closely associated with which type of strategy?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q7" value="A"> A. Bottom-up strategy</label>
-<label class="quiz-option"><input type="radio" name="q7" value="B"> B. Top-down strategy</label>
-<label class="quiz-option"><input type="radio" name="q7" value="C"> C. Grassroots strategy</label>
-<label class="quiz-option"><input type="radio" name="q7" value="D"> D. Linear economy strategy</label>
-</div>
-<div class="quiz-feedback"></div>
-</div>
-
-<div class="quiz-q" data-answer="D">
-<p class="quiz-q-text">8. Which of Datschefski's principles is violated when a factory uses child labor or pays below living wages?</p>
-<div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q8" value="A"> A. Cyclic</label>
-<label class="quiz-option"><input type="radio" name="q8" value="B"> B. Solar</label>
-<label class="quiz-option"><input type="radio" name="q8" value="C"> C. Safe</label>
-<label class="quiz-option"><input type="radio" name="q8" value="D"> D. Social</label>
+<label class="quiz-option"><input type="radio" name="q1" value="A"> A. 25%</label>
+<label class="quiz-option"><input type="radio" name="q1" value="B"> B. 42%</label>
+<label class="quiz-option"><input type="radio" name="q1" value="C"> C. 63%</label>
+<label class="quiz-option"><input type="radio" name="q1" value="D"> D. 78%</label>
 </div>
 <div class="quiz-feedback"></div>
 </div>
 
 <div class="quiz-q" data-answer="C">
-<p class="quiz-q-text">9. A designer specifies that a product should use one-tenth the materials of previous designs. This addresses which of Datschefski's principles?</p>
+<p class="quiz-q-text">2. Which of the following is an example of primary research?</p>
 <div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q9" value="A"> A. Cyclic</label>
-<label class="quiz-option"><input type="radio" name="q9" value="B"> B. Solar</label>
-<label class="quiz-option"><input type="radio" name="q9" value="C"> C. Efficient</label>
-<label class="quiz-option"><input type="radio" name="q9" value="D"> D. Social</label>
+<label class="quiz-option"><input type="radio" name="q2" value="A"> A. Reading a textbook about anthropometric data</label>
+<label class="quiz-option"><input type="radio" name="q2" value="B"> B. Analysing a competitor's published market report</label>
+<label class="quiz-option"><input type="radio" name="q2" value="C"> C. Conducting your own user interviews and surveys</label>
+<label class="quiz-option"><input type="radio" name="q2" value="D"> D. Reviewing academic journal articles</label>
 </div>
 <div class="quiz-feedback"></div>
 </div>
 
 <div class="quiz-q" data-answer="C">
-<p class="quiz-q-text">10. The Triple Bottom Line framework forces organisations to consider:</p>
+<p class="quiz-q-text">3. The SCAMPER technique is used primarily during which phase of the design process?</p>
 <div class="quiz-options">
-<label class="quiz-option"><input type="radio" name="q10" value="A"> A. Only economic profitability</label>
-<label class="quiz-option"><input type="radio" name="q10" value="B"> B. Only environmental impact</label>
-<label class="quiz-option"><input type="radio" name="q10" value="C"> C. Economic, environmental, and social dimensions together</label>
-<label class="quiz-option"><input type="radio" name="q10" value="D"> D. Only social equity</label>
+<label class="quiz-option"><input type="radio" name="q3" value="A"> A. Empathise</label>
+<label class="quiz-option"><input type="radio" name="q3" value="B"> B. Define</label>
+<label class="quiz-option"><input type="radio" name="q3" value="C"> C. Ideation and Modelling</label>
+<label class="quiz-option"><input type="radio" name="q3" value="D"> D. Presenting a Solution</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">4. A Likert scale questionnaire is designed to collect:</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q4" value="A"> A. Only qualitative data</label>
+<label class="quiz-option"><input type="radio" name="q4" value="B"> B. Quantitative data by assigning numerical values to attitude ratings</label>
+<label class="quiz-option"><input type="radio" name="q4" value="C"> C. Observational data from user behaviour</label>
+<label class="quiz-option"><input type="radio" name="q4" value="D"> D. Biographical information about users</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">5. Which of the following best describes the purpose of a design brief?</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q5" value="A"> A. To advertise the final product to customers</label>
+<label class="quiz-option"><input type="radio" name="q5" value="B"> B. To align all stakeholders with project objectives and establish measurable specifications</label>
+<label class="quiz-option"><input type="radio" name="q5" value="C"> C. To replace the need for user research</label>
+<label class="quiz-option"><input type="radio" name="q5" value="D"> D. To list every possible feature the product could have</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<p class="quiz-q-text">6. In the Six Thinking Hats method, which hat is associated with feelings and emotions?</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q6" value="A"> A. White hat</label>
+<label class="quiz-option"><input type="radio" name="q6" value="B"> B. Black hat</label>
+<label class="quiz-option"><input type="radio" name="q6" value="C"> C. Red hat</label>
+<label class="quiz-option"><input type="radio" name="q6" value="D"> D. Green hat</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">7. The PDSA cycle (Plan-Do-Study-Act) is an example of:</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q7" value="A"> A. A one-time design process with no repetition</label>
+<label class="quiz-option"><input type="radio" name="q7" value="B"> B. A continuous iterative improvement process used in model–test–refine cycles</label>
+<label class="quiz-option"><input type="radio" name="q7" value="C"> C. A marketing strategy for product launch</label>
+<label class="quiz-option"><input type="radio" name="q7" value="D"> D. A type of orthographic drawing</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">8. A morphological analysis (Zwicky box) helps designers to:</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q8" value="A"> A. Create realistic 3D renderings of products</label>
+<label class="quiz-option"><input type="radio" name="q8" value="B"> B. Examine combinations of features that may not have been considered before</label>
+<label class="quiz-option"><input type="radio" name="q8" value="C"> C. Conduct user interviews more effectively</label>
+<label class="quiz-option"><input type="radio" name="q8" value="D"> D. Calculate manufacturing costs</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">9. Which statement correctly distinguishes primary from secondary research?</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q9" value="A"> A. Primary research is always quantitative; secondary research is always qualitative</label>
+<label class="quiz-option"><input type="radio" name="q9" value="B"> B. Primary research involves collecting first-hand data; secondary research uses data collected by others</label>
+<label class="quiz-option"><input type="radio" name="q9" value="C"> C. Primary research is always faster and cheaper than secondary research</label>
+<label class="quiz-option"><input type="radio" name="q9" value="D"> D. Secondary research does not require any analysis</label>
+</div>
+<div class="quiz-feedback"></div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<p class="quiz-q-text">10. Why does the chapter warn against relying on demographics alone when developing personas?</p>
+<div class="quiz-options">
+<label class="quiz-option"><input type="radio" name="q10" value="A"> A. Demographics are always inaccurate and should not be used</label>
+<label class="quiz-option"><input type="radio" name="q10" value="B"> B. People with identical demographics can have profoundly different needs, tastes and behaviours, for example, Einstein and Chaplin</label>
+<label class="quiz-option"><input type="radio" name="q10" value="C"> C. Demographics only apply to male users</label>
+<label class="quiz-option"><input type="radio" name="q10" value="D"> D. Demographics cannot be reliably measured</label>
 </div>
 <div class="quiz-feedback"></div>
 </div>
@@ -453,13 +1203,13 @@ Show Chinese · 显示中文
 <div class="p2-question">
 <div class="p2-q-header">
 <span class="p2-q-marks">4 marks</span>
-<p class="p2-q-text">Explain the difference between top-down and bottom-up strategies for sustainability. Provide one example of each from the chapter.</p>
+<p class="p2-q-text">Explain the difference between primary research and secondary research in the context of product design. Give one example of each.</p>
 </div>
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p><strong>Top-down strategies</strong> are implemented at global or national levels to address sustainability issues. They prioritise meeting present needs without compromising future generations, aligning with the Brundtland Commission's principles. These strategies involve comprehensive evaluations of resource availability, depletion rates, energy consumption, pollution, and waste management. An example is the Brundtland Report itself (1987), which set global sustainability targets and defined sustainable development. A criticism of top-down strategies is the absence of clear methodologies for achieving goals and ambiguity about responsibility for implementation.</p>
-<p><strong>Bottom-up strategies</strong> are implemented at regional or local levels. They encourage local action by temporarily shifting focus away from the broad global problem to emphasise the impact of local changes. Examples from the chapter include the <strong>Clean-up Australia Campaign</strong> (mobilising local schools and clubs to preserve bushland) and <strong>Landcare</strong> initiatives (planting native trees and grasses to stabilise coastal dunes against erosion). These grassroots efforts promote environmental stewardship and community pride and reflect the "Think Globally, Act Locally" philosophy.</p>
+<p>Primary research involves the collection of first-hand data directly from sources relevant to the design context. This data is original and has not been interpreted by anyone else. An example is designers gathering anthropometric measurements directly from a proposed user group: the data is specific to those users and that context.</p>
+<p>Secondary research involves the collection of data provided by a third party, such as information from textbooks, academic journals, market reports or government databases. An example is referencing a national anthropometric database rather than measuring users directly. Primary research provides authentic, context-specific data but takes time and money. Secondary research is faster and cheaper but may not perfectly match the specific design context and can become outdated.</p>
 </div>
 </details>
 </div>
@@ -467,17 +1217,14 @@ Show Chinese · 显示中文
 <div class="p2-question">
 <div class="p2-q-header">
 <span class="p2-q-marks">6 marks</span>
-<p class="p2-q-text">Describe Datschefski's five principles of sustainable design. For each principle, provide a brief explanation and one example.</p>
+<p class="p2-q-text">Describe three different creativity and ideation tools from the chapter. For each tool, explain how it helps designers generate innovative solutions.</p>
 </div>
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p>Edwin Datschefski (2001) developed five principles to judge a product's sustainability credentials and to counter greenwashing: promoting products with minor environmental claims as truly sustainable.</p>
-<p><strong>1. Cyclic</strong>: Products must be part of a recycling system, either through natural processes (composting) or recycling as part of the material stream. Example: a backpack constructed from recycled PET bottles that can be recycled again at end of life.</p>
-<p><strong>2. Solar</strong>: Energy required for manufacturing and product operation must come from renewable sources (solar, wind, hydro, etc.). Example: a solar-powered calculator that requires no batteries or grid electricity.</p>
-<p><strong>3. Safe</strong>: Products must not contain hazardous materials or produce hazardous by-products during creation, use, or disposal. Example: avoiding PFAS ("forever chemicals") in waterproof clothing or using non-toxic adhesives in furniture.</p>
-<p><strong>4. Efficient</strong>: Designs should use one-tenth the materials and energy of previous designs. Multifunctional products reduce the impact of several separate devices. Example: a smartphone that replaces a camera, GPS device, music player, and phone, reducing material and energy use compared to owning four separate devices.</p>
-<p><strong>5. Social</strong>: Production must incorporate safe work practices, fair trade principles, and support human rights and community development. Example: Fair Trade certified goods where producers receive living wages and work in safe conditions.</p>
+<p><strong>1. SCAMPER:</strong> An acronym for Substitute, Combine, Adjust, Magnify/Minify, Put to other uses, Eliminate, Reverse/Reorder. This tool helps designers by providing a structured checklist of "thought triggers." For example, a designer might ask "What can I eliminate?" or "What happens if I reverse the order of operations?" This prevents designers from getting stuck and ensures they consider multiple angles systematically.</p>
+<p><strong>2. Six Thinking Hats</strong> (Edward De Bono): Each coloured hat represents a different thinking mode: White (facts), Red (emotions), Black (negative/critical), Yellow (positive/optimistic), Green (new ideas), Blue (big picture/management). This tool helps teams separate different types of thinking so they do not mix criticism with creativity. Using only the Green hat, the team generates ideas without negative judgment; switching to Black hat allows evaluation.</p>
+<p><strong>3. Morphological analysis (Zwicky box):</strong> A visual grid that organises design parameters as rows and possible solutions for each parameter as columns. The chapter illustrates this with a bread example: flour types, leavening methods, shapes, crust types and baking methods. Every intersection of a row and column represents a different combination, revealing novel solutions that emerge from mixing parameters in unexpected ways.</p>
 </div>
 </details>
 </div>
@@ -485,16 +1232,20 @@ Show Chinese · 显示中文
 <div class="p2-question">
 <div class="p2-q-header">
 <span class="p2-q-marks">5 marks</span>
-<p class="p2-q-text">Analyse the potential conflicts between the three dimensions of the Triple Bottom Line (People, Planet, Profit). Use specific examples to illustrate each conflict.</p>
+<p class="p2-q-text">A design team has collected the following feedback from user interviews about a new kitchen faucet: "The handle is stiff," "I like the brushed nickel finish," "The spray button is hard to find," "It looks expensive," and "Installation took three hours." Categorise each piece of feedback as either qualitative or quantitative. Then explain why both types of data are necessary for effective product design.</p>
 </div>
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p>The Triple Bottom Line (TBL) requires balancing <strong>People</strong> (social equity), <strong>Planet</strong> (environmental health), and <strong>Profit</strong> (economic viability). Conflicts arise when pursuing one dimension negatively impacts another.</p>
-<p><strong>Conflict 1 (Profit vs. Planet)</strong>: Transitioning to sustainable practices costs money: new materials, manufacturing techniques, and equipment all reduce short-term profitability. A mining corporation expanding operations into a protected rainforest increases Profit while destroying biodiversity and increasing carbon emissions. A factory switching to renewable energy may face high upfront costs that reduce short-term profit margin.</p>
-<p><strong>Conflict 2 (Profit vs. People)</strong>: Fair Trade programmes that guarantee living wages and safe conditions for workers increase operational costs and reduce profit margins. The chapter states: <em>"Similar conflicts exist between meeting social needs through such programmes as 'Fair Trade', increasing operational costs and potentially affecting profit margins."</em></p>
-<p><strong>Conflict 3 (Planet vs. People)</strong>: Closing a polluting factory improves environmental health (Planet) but eliminates jobs and livelihoods in the community that depended on it (People). Carbon pricing may benefit Planet while disproportionately burdening low-income households.</p>
-<p><strong>Resolution strategies</strong>: The chapter identifies phased implementation over extended timeframes (to mitigate investor concern), stakeholder education about long-term benefits, and demonstrating that sustainable businesses remain financially viable and competitive as key approaches to managing TBL conflicts.</p>
+<p><strong>Categorisation:</strong></p>
+<ul>
+<li>"The handle is stiff" → Qualitative (describes a quality or feeling)</li>
+<li>"I like the brushed nickel finish" → Qualitative (expresses preference)</li>
+<li>"The spray button is hard to find" → Qualitative (describes a usability difficulty)</li>
+<li>"It looks expensive" → Qualitative (perception or aesthetic judgement)</li>
+<li>"Installation took three hours" → Quantitative (numerical measurement of time)</li>
+</ul>
+<p><strong>Why both types are necessary:</strong> Qualitative data tells designers the "why" behind user behaviour: it reveals emotions, frustrations, preferences and motivations. The qualitative feedback above tells the team that users value aesthetics but struggle to find the spray button and experience the handle as stiff. Without qualitative data, the team would not know <em>why</em> users are dissatisfied. Quantitative data provides measurable, comparable numbers. The three-hour installation time is an objective metric that can be benchmarked against competitors and used to set measurable improvement targets. Together, qualitative data identifies the problem and quantitative data measures progress toward solving it. Using only one type would leave the design incomplete.</p>
 </div>
 </details>
 </div>
@@ -502,14 +1253,13 @@ Show Chinese · 显示中文
 <div class="p2-question">
 <div class="p2-q-header">
 <span class="p2-q-marks">4 marks</span>
-<p class="p2-q-text">Explain what "greenwashing" is and why Edwin Datschefski developed his five principles of sustainable design in response to it.</p>
+<p class="p2-q-text">Explain why the chapter warns that "relying on demographics alone" when developing personas is problematic. Use the examples of Albert Einstein and Charlie Chaplin in your answer.</p>
 </div>
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p><strong>Greenwashing</strong> is the practice of promoting products with minor environmental or "green" credentials as genuinely sustainable, misleading consumers through advertising and media. For example, a product containing 5% recycled material marketed as "eco-friendly" while the remaining 95% uses virgin non-renewable inputs is a form of greenwashing.</p>
-<p>Datschefski observed that consumers were being deceived by superficial environmental claims and that existing language ("green," "natural," "eco-friendly") provided no measurable standard against which products could be honestly assessed. He developed his five principles (Cyclic, Solar, Safe, Efficient, Social) as a framework providing specific, measurable criteria rather than vague terminology.</p>
-<p>Using the framework, designers and consumers can ask five concrete questions: Is the product cyclic (part of a recycling system)? Is it solar (using renewable energy)? Is it safe (no hazardous materials)? Is it efficient (using one-tenth the materials and energy)? Is it social (supporting human rights and fair labour)? A product claiming sustainability but failing four of these five tests is clearly not as sustainable as advertised, cutting through greenwashing with evidence rather than claims.</p>
+<p>The chapter warns that relying on demographics alone is problematic because people with identical demographic profiles can have profoundly different needs, tastes and behaviours. The chapter provides the example of a male demographic profile: European nationality, born in the late 19th century, leading professional in their field, public figure, cultural icon. Based on demographics alone, Albert Einstein (physicist) and Charlie Chaplin (actor and comedian) would be grouped together as the same "user." Yet their product preferences, lifestyles and needs would differ enormously: Einstein might prioritise quiet, functional workspaces while Chaplin would value expressive, theatrical environments.</p>
+<p>Demographics tell you <em>who</em> users are categorically, but not <em>what they need</em> or <em>how they behave</em>. Effective personas require richer psychographic data: goals, motivations, frustrations, daily activities and context of use. Without this additional layer, a persona based on demographics alone risks designing for an average that no real person represents.</p>
 </div>
 </details>
 </div>
@@ -517,33 +1267,15 @@ Show Chinese · 显示中文
 <div class="p2-question">
 <div class="p2-q-header">
 <span class="p2-q-marks">6 marks</span>
-<p class="p2-q-text">Evaluate how a designer might balance the five principles of sustainable design (Cyclic, Solar, Safe, Efficient, Social) when developing a new laptop computer. Identify potential conflicts between principles and propose solutions.</p>
+<p class="p2-q-text">Analyse how the iterative nature of the design process (model–test–refine cycles) helps designers avoid the 42% startup failure rate due to lack of market need mentioned in the chapter. Refer to low-fidelity and high-fidelity prototyping in your answer.</p>
 </div>
 <details class="p2-reveal">
 <summary>Show sample response</summary>
 <div class="p2-answer">
-<p>Designing a sustainable laptop requires balancing Datschefski's five principles, which often conflict with each other and with performance and cost requirements.</p>
-<p><strong>Applying each principle to a laptop:</strong></p>
-<ul>
-<li><strong>Cyclic</strong>: Laptop must be recyclable at end of life: components should be designed for disassembly (easy to separate plastics, metals, circuit boards).</li>
-<li><strong>Solar</strong>: Manufacturing and operation should use renewable energy. The laptop itself could be designed for low power consumption, charged via a solar-powered grid.</li>
-<li><strong>Safe</strong>: No hazardous materials such as brominated flame retardants, lead solder, or PFAS in cables; no toxic by-products during manufacturing.</li>
-<li><strong>Efficient</strong>: Use one-tenth the materials and energy of previous designs: smaller size, fanless design, integrated components.</li>
-<li><strong>Social</strong>: Fair labour practices in factories (safe conditions, living wages); conflict-free minerals (no tin, tantalum, tungsten, or gold from war zones).</li>
-</ul>
-<p><strong>Potential conflicts and solutions:</strong></p>
-<div class="content-table-wrap">
-<table class="content-table">
-<thead><tr><th>Conflict</th><th>Explanation</th><th>Proposed solution</th></tr></thead>
-<tbody>
-<tr><td><strong>Efficient vs. Cyclic</strong></td><td>Soldering RAM directly to the motherboard (efficient space/material use) makes it impossible to remove for recycling.</td><td>Modular design with standardised connectors: slight increase in size allows removable, recyclable components.</td></tr>
-<tr><td><strong>Efficient vs. Social</strong></td><td>Automating production reduces material waste and energy (efficient) but eliminates jobs (social).</td><td>Phased automation with worker retraining programmes; keep assembly in regions needing employment.</td></tr>
-<tr><td><strong>Safe vs. Cyclic</strong></td><td>Some safe, non-toxic adhesives are not recyclable; some recyclable adhesives contain VOCs.</td><td>Use mechanical fasteners (screws, clips) instead of adhesives; design for snap-fit assembly.</td></tr>
-<tr><td><strong>Solar vs. Profit</strong></td><td>Renewable energy for manufacturing costs more upfront.</td><td>Phased transition over 5–10 years; long-term energy savings offset upfront costs.</td></tr>
-</tbody>
-</table>
-</div>
-<p><strong>Overall strategy</strong>: No laptop will achieve 100% on all five principles simultaneously. The designer must prioritise based on context. For a premium sustainable laptop, Cyclic (design for disassembly) and Social (conflict-free minerals) might take highest priority. For a budget model, Efficient (low material use) may take precedence because it reduces cost and environmental impact simultaneously. The Framework Laptop (real-world example) uses modular, user-replaceable components (Cyclic), avoids soldered RAM (balancing Efficient and Cyclic), publishes factory conditions (Social), and uses recycled aluminium, demonstrating that transparent trade-offs, not perfection, are the realistic goal.</p>
+<p>The 42% failure rate due to lack of market need occurs when companies build products nobody wants, typically because they developed in isolation without testing assumptions against real users. The iterative design process directly prevents this by forcing designers to test assumptions repeatedly rather than investing in a complete product first.</p>
+<p><strong>Low-fidelity prototyping</strong> (cardboard, paper sketches, foam models) allows designers to test basic concepts within hours at negligible cost. If users say "I don't understand where the handle goes" or "This doesn't fit my context," the team has wasted almost nothing. They discard the cardboard and try a different configuration. This "fail fast, fail cheap" approach ensures bad ideas are eliminated before costly resources are committed.</p>
+<p><strong>High-fidelity prototyping</strong> (functional models resembling the final product) comes later, after the core concept has already survived multiple rounds of lo-fi testing. Hi-fi prototypes generate meaningful performance data (task completion rates, error rates, user satisfaction scores) that lo-fi testing cannot. If problems are found at this stage, they can still be addressed before mass production at manageable cost.</p>
+<p><strong>The iterative cycle (PDSA)</strong> ensures every round of feedback drives refinement, then another round of testing. Each iteration reduces the risk of building a product the market does not want. A concept that has survived five user-testing cycles with genuine feedback at each stage is fundamentally less likely to fail due to lack of market need than one developed without iteration.</p>
 </div>
 </details>
 </div>
@@ -562,53 +1294,48 @@ Show Chinese · 显示中文
 <div class="curr-body" id="body-refs">
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">1</span><span class="ref-item-title">Brundtland Report – "Our Common Future" (1987) summary</span></div>
-<p class="ref-item-desc">UN document that defined sustainable development and introduced top-down sustainability thinking. Search: "Brundtland Report Our Common Future key points".</p>
+<div class="ref-item-head"><span class="ref-item-num">1</span><span class="ref-item-title">Interaction Design Foundation – "Design Thinking"</span></div>
+<p class="ref-item-desc">Free article providing a clear overview of the five-phase design thinking process with real-world examples. Search: "Interaction Design Foundation design thinking five stages".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">2</span><span class="ref-item-title">John Elkington – Triple Bottom Line (Harvard Business Review article)</span></div>
-<p class="ref-item-desc">Elkington's 2018 HBR article reflecting on TBL 25 years later, including his own criticisms of how it was misused. Search: "Elkington Triple Bottom Line HBR 2018".</p>
+<div class="ref-item-head"><span class="ref-item-num">2</span><span class="ref-item-title">YouTube – "SCAMPER Technique Explained" (MindTools channel)</span></div>
+<p class="ref-item-desc">Three-minute animated video showing how to apply each letter of SCAMPER to real problems. Search: "MindTools SCAMPER technique YouTube".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">3</span><span class="ref-item-title">Edwin Datschefski – "The Total Beauty of Sustainable Products" (book summary)</span></div>
-<p class="ref-item-desc">Overview of the five principles and the "100-cubed project." Search: "Datschefski Total Beauty Sustainable Products five principles".</p>
+<div class="ref-item-head"><span class="ref-item-num">3</span><span class="ref-item-title">Edward De Bono's Six Thinking Hats – Quick Reference</span></div>
+<p class="ref-item-desc">Printable one-page summary of each hat's purpose and typical questions. Search: "Six Thinking Hats quick reference cheat sheet".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">4</span><span class="ref-item-title">YouTube – "What is Greenwashing?" (TED-Ed or explainer video)</span></div>
-<p class="ref-item-desc">Short animated video explaining how companies mislead consumers with false or exaggerated environmental claims. Search: "greenwashing explained YouTube TED-Ed".</p>
+<div class="ref-item-head"><span class="ref-item-num">4</span><span class="ref-item-title">TRIZ – "40 Inventive Principles" (triz40.com)</span></div>
+<p class="ref-item-desc">Free list of all 40 TRIZ principles with examples for students exploring systematic innovation. Search: "TRIZ 40 inventive principles triz40".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">5</span><span class="ref-item-title">Clean Up Australia – official website</span></div>
-<p class="ref-item-desc">Example of a bottom-up sustainability strategy. Explains the campaign structure and community involvement. Search: "Clean Up Australia official website".</p>
+<div class="ref-item-head"><span class="ref-item-num">5</span><span class="ref-item-title">CB Insights – "Why Startups Fail" (original report)</span></div>
+<p class="ref-item-desc">Short article explaining the research behind the statistic that 42% of startups fail due to lack of market need. Search: "CB Insights why startups fail top reasons".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">6</span><span class="ref-item-title">Fair Trade International – "What is Fair Trade?"</span></div>
-<p class="ref-item-desc">Explanation of social sustainability principles including fair wages, safe conditions, and community development. Covers the Social principle of Datschefski's framework. Search: "Fairtrade International what is fair trade".</p>
+<div class="ref-item-head"><span class="ref-item-num">6</span><span class="ref-item-title">Google Scholar (scholar.google.com)</span></div>
+<p class="ref-item-desc">Free search engine for academic papers. Teaches students how to conduct secondary research literature searches. Search: "Google Scholar" or navigate directly to scholar.google.com.</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">7</span><span class="ref-item-title">Triple Bottom Line diagram (search: "TBL Venn diagram")</span></div>
-<p class="ref-item-desc">Visual showing the overlap of People, Planet, and Profit as three intersecting circles. Clarifies why a product must satisfy all three to be truly sustainable. Search: "Triple Bottom Line Venn diagram People Planet Profit".</p>
+<div class="ref-item-head"><span class="ref-item-num">7</span><span class="ref-item-title">SurveyMonkey – "How to Write a Likert Scale Question"</span></div>
+<p class="ref-item-desc">Practical guide with good and bad examples for students designing their own questionnaires. Search: "SurveyMonkey how to write Likert scale question".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">8</span><span class="ref-item-title">Ellen MacArthur Foundation – "Circular Economy vs. Linear Economy"</span></div>
-<p class="ref-item-desc">Comparative diagrams showing take-make-dispose versus cyclic systems. Prepares students for C2.2 Circular Economy. Search: "Ellen MacArthur Foundation circular economy linear economy diagram".</p>
+<div class="ref-item-head"><span class="ref-item-num">8</span><span class="ref-item-title">Baidu Baike – 设计思维 (Design Thinking)</span></div>
+<p class="ref-item-desc">Chinese-language reference covering the five-phase design process. Search: "百度百科 设计思维".</p>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">9</span><span class="ref-item-title">Baidu Baike – 三重底线 (Triple Bottom Line)</span></div>
-<p class="ref-item-desc">Chinese-language reference covering TBL and Elkington's framework with examples. Search: "百度百科 三重底线".</p>
-</div>
-
-<div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">10</span><span class="ref-item-title">Baidu Baike – 漂绿 (Greenwashing)</span></div>
-<p class="ref-item-desc">Chinese-language explanation of greenwashing with examples and its relationship to sustainability claims. Search: "百度百科 漂绿".</p>
+<div class="ref-item-head"><span class="ref-item-num">9</span><span class="ref-item-title">YouTube – "Persona Development in UCD" (Nielsen Norman Group)</span></div>
+<p class="ref-item-desc">Nielsen Norman Group's four-minute video on creating effective, research-based personas. Search: "NNgroup persona development UCD YouTube".</p>
 </div>
 
 </div><!-- /curr-body body-refs -->
@@ -617,30 +1344,254 @@ Show Chinese · 显示中文
 <section class="linking-qs">
 <p class="linking-qs-label">Linking Questions</p>
 <ul>
-<li>What are the advantages of using virtual prototyping techniques over physical prototyping techniques when developing sustainable products? <a href="a2.2-prototyping-techniques.html">(A2.2)</a></li>
-<li>Does material classification suggest the sustainability of a material? <a href="a3.1-material-classification.html">(A3.1)</a></li>
-<li>To what extent does a user-centred design (UCD) strategy promote the development of a sustainable product? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
-<li>How important is material selection when creating products that are designed to be sustainable? <a href="b3.1-material-selection.html">(B3.1)</a></li>
-<li>What complications do electronic systems introduce to the sustainability of a product? <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
-<li>Why are certain production systems considered less sustainable than others? <a href="b4.1-production-systems.html">(B4.1)</a></li>
-<li>To what extent is design for sustainability the responsibility of the designer? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
-<li>How does a product developed using a design for sustainability strategy tend to perform under a life-cycle analysis? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
+<li>What ergonomic considerations are important to be able to engage successfully with the design process? <a href="a1.1-ergonomics.html">(A1.1)</a></li>
+<li>How do design technology students ensure they engage with user-centred research methods? <a href="a2.1-user-centred-research.html">(A2.1)</a></li>
+<li>To what extent are the goals of the design process aligned with the goals of a user-centred design (UCD) process? <a href="b1.1-user-centred-design.html">(B1.1)</a></li>
+<li>To what extent does the model, test, refine cycle require full engagement with modelling and prototyping at several levels of fidelity? <a href="b2.2-modelling-prototyping.html">(B2.2)</a></li>
+<li>Which aspects of the design process require engagement with material selection? <a href="b3.1-material-selection.html">(B3.1)</a></li>
+<li>How do the requirements of the design process ensure students are addressing the responsibility of the designer? <a href="c1.1-responsibility-of-designer.html">(C1.1)</a></li>
+<li>Why is product analysis and evaluation important in the design process? <a href="c3.1-product-analysis.html">(C3.1)</a></li>
+<li>To what extent does the design process require the exploration of design for manufacture strategies? <a href="c4.1-design-for-manufacture.html">(C4.1)</a></li>
 </ul>
 </section>
 
 <nav class="topic-page-nav">
-<a href="c1.3-beyond-usability.html"><span class="nav-dir">← Previous</span><span class="nav-title">C1.3 Beyond Usability</span></a>
-<a class="nav-next" href="c2.2-circular-economy.html"><span class="nav-dir">Next →</span><span class="nav-title">C2.2 Design for a Circular Economy</span></a>
+<a href="b1.1-user-centred-design.html"><span class="nav-dir">← Previous</span><span class="nav-title">B1.1 User-centred Design</span></a>
+<a class="nav-next" href="b2.2-modelling-prototyping.html"><span class="nav-dir">Next →</span><span class="nav-title">B2.2 Modelling and Prototyping</span></a>
 </nav>
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  CASE STUDY MODALS                                       -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+<div class="case-modal" id="modal-xbox" role="dialog" aria-modal="true" aria-labelledby="modal-xbox-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-xbox-title">Case Study: Microsoft Xbox (2001)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="B2.1/OGxbox.jpg" target="_blank" rel="noopener"><img src="B2.1/OGxbox.jpg" alt="The Xbox console with original 'Duke' controller" loading="lazy"></a>
+        <figcaption><em>The Xbox console with original 'Duke' controller, released in late 2001.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <h3>1. Empathize</h3>
+        <p>In the late '90s, PC gamers enjoyed cutting-edge graphics and online multiplayer, but they paid a steep price: endless troubleshooting, driver conflicts, and complex hardware setups. Meanwhile, console gamers enjoyed seamless plug-and-play simplicity but lacked a robust online infrastructure. Microsoft saw an opportunity in this gap, but first, they had to understand the users they were designing for.</p>
+        <p>Through intensive ethnographic playtests and user observations, the team noted critical friction points. Gamers hated long loading screens that broke immersion. They desperately wanted a unified "friends list" rather than managing separate accounts for every game. More alarmingly, during international testing, the team discovered a glaring anthropometric mismatch: the massive initial controller design was physically uncomfortable for users with smaller hands, particularly in the vital Asian market.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/devkit1.jpg" target="_blank" rel="noopener"><img src="B2.1/devkit1.jpg" alt="Two prototype Xbox development kits with prototype controllers" loading="lazy"></a>
+          <figcaption><em>2 prototype development kits alongside prototype controllers.</em></figcaption>
+        </figure>
+        <h3>2. Define</h3>
+        <p>Armed with user data, the engineering and design teams sat down to transform abstract frustrations into concrete Design Specifications. They established a clear problem statement: <em>How might we design a console that brings the raw processing power of a gaming PC into the living room while maintaining the seamless, plug-and-play simplicity of a traditional console?</em></p>
+        <p>This led to a radical departure from industry norms. The team defined strict technical specifications to address user pain points: a built-in 8GB Hard Disk Drive (eliminating the need for expensive, easy-to-lose memory cards) and a built-in broadband Ethernet port, anticipating a future dominated by online networks.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/Devkit2.webp" target="_blank" rel="noopener"><img src="B2.1/Devkit2.webp" alt="A range of Xbox prototypes and development kits" loading="lazy"></a>
+          <figcaption><em>A range of Xbox prototypes and development kits.</em></figcaption>
+        </figure>
+        <h3>3. Ideate &amp; Model</h3>
+        <p>The ideation phase was a clash of cultures between hardware engineers and industrial designers. The earliest physical models weren't sleek consoles; they were literally beige, off-the-shelf PC towers repurposed to prove the internal architecture could handle the heat and processing demands.</p>
+        <p>Early concept sketches explored wild, futuristic aesthetics, including literal "X"-shaped metallic enclosures. Industrial designers generated over 50 distinct sketches and physical foam models to explore branding, venting layouts, and ergonomic button placements before settling on the iconic black box with the glowing green jewel.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/dukevsS.webp" target="_blank" rel="noopener"><img src="B2.1/dukevsS.webp" alt="The original 'Duke' controller next to the smaller 'S' controller" loading="lazy"></a>
+          <figcaption><em>The original 'Duke' controller compared with the smaller, sleeker 'S' model.</em></figcaption>
+        </figure>
+        <h3>4. Design a Solution</h3>
+        <p>Designing the final solution forced the team into brutal compromise. When the massive internal hardware (including a custom NVIDIA GPU and a desktop-grade Intel CPU) was crammed into the final shell, prototype units began overheating and melting internal plastics. Designers had to re-engineer the internal airflow, implementing dual high-performance fans and custom heat sinks.</p>
+        <p>Furthermore, user feedback from field tests forced a dramatic split in the design output: the giant, heavy "Duke" controller was kept for the North American market, but a radically downsized "Controller S" was rapidly engineered to satisfy international ergonomic requirements.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/Gates.png" target="_blank" rel="noopener"><img src="B2.1/Gates.png" alt="Bill Gates and Dwayne 'The Rock' Johnson presenting the Xbox at CES 2001" loading="lazy"></a>
+          <figcaption><em>Bill Gates and The Rock want YOU to buy this machine!</em></figcaption>
+        </figure>
+        <h3>5. Present a Solution</h3>
+        <p>In January 2001, Bill Gates took the stage at the Consumer Electronics Show (CES) alongside wrestling superstar The Rock to unveil the final product. The presentation relied heavily on transparency and technical dominance.</p>
+        <p>Microsoft distributed detailed cutaway technical drawings to the press, highlighting the clean layout of the motherboard, the intentional routing of IDE cables to minimize interference, and the sheer scale of the power supply. The marketing message was tailored perfectly to the demographic they had researched: <em>"Built by gamers, for gamers."</em></p>
+        <p><em><a href="https://en.wikipedia.org/wiki/Xbox_(console)" target="_blank" rel="noopener">Learn more about the original Xbox, development, and games. (Wikipedia)</a></em></p>
+        <p><em><a href="https://www.youtube.com/watch?v=Lu7o3exy00Q" target="_blank" rel="noopener">Watch the cringeworthy Bill Gates and Dwayne 'The Rock' Johnson presentation here. (Youtube)</a></em></p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The Xbox design process highlights that the design cycle is rarely linear. After initial playtests, the team had to completely re-empathize with Japanese players, re-define their controller specifications, and re-ideate a smaller layout, leading to the Controller S. Additionally, the hard drive was initially deemed a luxury "optional" component due to cost constraints. However, testing showed that the competitors' memory card limitations heavily frustrated users, prompting a late-stage loop back to the definition phase to lock the 8GB HDD in as a core specification.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-iphone" role="dialog" aria-modal="true" aria-labelledby="modal-iphone-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-iphone-title">Case Study: Apple iPhone (2007)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="B2.1/iphone1.jpg" target="_blank" rel="noopener"><img src="B2.1/iphone1.jpg" alt="BlackBerry 8700, a leading smartphone before the iPhone" loading="lazy"></a>
+        <figcaption><em><a href="https://www.retromobe.com/2015/11/blackberry-8700-2005.html" target="_blank" rel="noopener">Learn more about the 'top phone' before the iPhone came along at Retromobe</a></em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <h3>1. Empathize</h3>
+        <p>Apple's design team, led by Jony Ive, spent hundreds of hours conducting ethnographic studies watching people interact with their mobile devices. They noticed a recurring pattern of frustration: users constantly misplaced their styluses, text entry on tiny plastic keyboards was error-prone, and the mobile internet was a stripped-down, text-only ghost of the real web.</p>
+        <p>Designers mapped out "thumb reach zones" on physical devices, realizing that mobile interaction shouldn't force the human hand to adapt to rigid plastic buttons; the device should adapt to the hand.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/iphone2.png" target="_blank" rel="noopener"><img src="B2.1/iphone2.png" alt="Early iPhone development board" loading="lazy"></a>
+          <figcaption><em><a href="https://archive.ph/glvX3" target="_blank" rel="noopener">Learn about this iPhone dev board at the Verge</a></em></figcaption>
+        </figure>
+        <h3>2. Define</h3>
+        <p>The design brief was distilled by Steve Jobs into a historic, three-pronged problem statement: <em>Design a widescreen iPod with touch controls, a revolutionary mobile phone, and a breakthrough internet communications device: all integrated into a single, seamless product.</em></p>
+        <p>The constraints were uncompromising: No physical keyboard. No stylus. The user's finger would be the primary input tool. The minimum product specifications required a massive 3.5-inch capacitive screen, multi-touch gestures, and a fully functional desktop-class operating system (OS X) scaled down for a pocket device.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/iphone3.jpg" target="_blank" rel="noopener"><img src="B2.1/iphone3.jpg" alt="A collection of early iPhone prototypes" loading="lazy"></a>
+          <figcaption><em><a href="https://www.cultofmac.com/news/every-iphone-prototype-apple-ever-made-before-released-the-first-iphone-gallery" target="_blank" rel="noopener">See more prototypes at CultofMac</a></em></figcaption>
+        </figure>
+        <h3>3. Ideate &amp; Model</h3>
+        <p>The ideation phase was incredibly chaotic, generating over 200 distinct physical and digital prototypes. Apple split into two competing design tracks. One track, codenamed P1, tried to adapt the existing iPod click-wheel into a phone dialer (which failed miserably during user testing).</p>
+        <p>The second track, P2, experimented with experimental multi-touch glass panels. Designers built giant, iPad-sized plastic slabs bolted to workbenches, wired to external computer towers, just to simulate what scrolling through a list with a finger might feel like. They even used dummy plastic blocks with taped-over screens to test weight, thickness, and pocketability without revealing the software.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/iphone4.png" target="_blank" rel="noopener"><img src="B2.1/iphone4.png" alt="The iPhone user interface demonstrated on stage" loading="lazy"></a>
+          <figcaption><em>UI in action during the iPhone announcement by Steve Jobs.</em></figcaption>
+        </figure>
+        <h3>4. Design a Solution</h3>
+        <p>Developing the iPhone required massive breakthroughs in material science and user interface testing. Originally, the screen was meant to be heavy-duty plastic. However, after Steve Jobs carried a prototype in his pocket for a few weeks, he realized keys easily scratched the surface. The design team looped back to source an entirely unreleased material from Corning: Gorilla Glass.</p>
+        <p>Engineers ran over 100 UI tests just to perfect the "rubber-band scrolling" effect (where a list bounces when it hits the bottom), ensuring the software felt physically responsive. Hardware designers redesigned the internal steel band (which doubled as the device's antenna) five times to maintain structural integrity while ensuring cellular reception.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/iphone5.png" target="_blank" rel="noopener"><img src="B2.1/iphone5.png" alt="Steve Jobs introducing the iPhone on stage in 2007" loading="lazy"></a>
+          <figcaption><em>Apple CEO Steve Jobs introduces the world to iPhone.</em></figcaption>
+        </figure>
+        <h3>5. Present a Solution</h3>
+        <p>On January 9, 2007, the iPhone was presented to the world in what is widely considered the most successful product keynote in history. To convince a skeptical public used to physical keyboards, the presentation focused heavily on user interface feedback mechanisms.</p>
+        <p>The live demo highlighted the intuitive "slide to unlock" animation and the magical "pinch-to-zoom" gesture. Technical documentation released alongside the launch illustrated the highly complex layered construction of the display: an LCD screen, a digitizer grid, and a capacitive touch sensor stack working in perfect harmony.</p>
+        <p><em><a href="https://www.youtube.com/watch?v=VQKMoT-6XSg" target="_blank" rel="noopener">Watch Steve Jobs predict the future when introducing the world to the iPhone. (Youtube)</a></em></p>
+        <p><em><a href="https://en.wikipedia.org/wiki/IPhone_(1st_generation)" target="_blank" rel="noopener">Learn more about the iPhone's development and hardware. (Wikipedia)</a></em></p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The iPhone's development was a masterclass in design agility. Just two months before the official launch, the team realized that the plastic screen formulation was fundamentally flawed for daily use, forcing a sudden loop from the Design a Solution phase back to Material Specifications. Furthermore, early testing with users who had larger fingers revealed high error rates on digital keys, forcing designers to loop back, re-empathize, and rewrite the software algorithms to create a dynamic "invisible" 44-point touch target area that anticipated which letter the user intended to hit next.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-walkman" role="dialog" aria-modal="true" aria-labelledby="modal-walkman-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-walkman-title">Case Study: Sony Walkman TPS-L2 (1979)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="B2.1/walk1.png" target="_blank" rel="noopener"><img src="B2.1/walk1.png" alt="The original Sony Walkman device" loading="lazy"></a>
+        <figcaption><em>The original Sony Walkman device</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <h3>1. Empathize</h3>
+        <p>Masaru Ibuka closely observed the daily habits of urban commuters and teenagers. He noticed business executives carrying heavy, briefcase-sized tape recorders just to listen to audio on trains. Even more fascinatingly, he observed that young people were misusing existing technology: they would press the "record" button on heavy portable dictation machines just to use them as playback devices, completely ignoring the microphone.</p>
+        <p>The deep user insight was clear: there was a massive, unaddressed emotional and functional need for private audio spaces in crowded, public environments.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/walk2.png" target="_blank" rel="noopener"><img src="B2.1/walk2.png" alt="A 1970's briefcase cassette player" loading="lazy"></a>
+          <figcaption><em>A 1970's briefcase cassette player</em></figcaption>
+        </figure>
+        <h3>2. Define</h3>
+        <p>The design brief was highly restrictive and completely flipped the audio industry on its head: <em>Design a stereo cassette playback device under 500 grams that runs on standard AA batteries and can comfortably fit into a coat pocket.</em></p>
+        <p>Crucially, the engineering team made a radical choice during the definition phase: remove the recording function entirely. In 1979, an audio device that couldn't record was seen as commercial suicide, but the team defined the lack of a microphone as a feature, not a bug, to keep the device compact, lightweight, and entirely focused on high-quality playback.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/walk3.png" target="_blank" rel="noopener"><img src="B2.1/walk3.png" alt="The Sony Pressman alongside the first Walkman device" loading="lazy"></a>
+          <figcaption><em>The Sony Pressman alongside the first Walkman device</em></figcaption>
+        </figure>
+        <h3>3. Ideate &amp; Model</h3>
+        <p>To move quickly, the engineering team bypassed building a prototype from scratch. Instead, they used a donor device: the Sony Pressman, a rugged, mono dictation recorder built for journalists.</p>
+        <p>Engineers hacked the Pressman by ripping out the internal speaker and recording head, replacing them with a custom-engineered stereo amplifier circuit. They built crude physical models using lightweight foam padding and fake leather straps to test how comfortably the device could be worn on a user's hip or shoulder. As a last-minute ideation breakthrough to promote sharing, they added a second headphone jack so two people could listen at once.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/walk4.png" target="_blank" rel="noopener"><img src="B2.1/walk4.png" alt="A vintage magazine ad for the first Walkman" loading="lazy"></a>
+          <figcaption><em>A vintage magazine ad for the first Walkman</em></figcaption>
+        </figure>
+        <h3>4. Design a Solution</h3>
+        <p>Translating the hacked prototype into a consumer product meant overcoming intense engineering constraints. Traditional headphones of the era were massive, heavy, and weighed more than the Walkman itself. Sony had to concurrently design a new lightweight headphone line (weighing just 50 grams).</p>
+        <p>To maximize battery life, engineers meticulously adjusted the internal electrical impedance of the system from 8&Omega; to 16&Omega;. They also re-engineered the main housing, moving from the heavy machined metal of the Pressman prototype to a high-impact ABS plastic chassis, which drastically lowered manufacturing costs and overall product weight.</p>
+      </div>
+
+      <div class="case-phase">
+        <figure class="case-photo">
+          <a href="B2.1/walk5.jpg" target="_blank" rel="noopener"><img src="B2.1/walk5.jpg" alt="A vintage advertisement for the Walkman" loading="lazy"></a>
+          <figcaption><em>A vintage advertisement for the Walkman</em></figcaption>
+        </figure>
+        <h3>5. Present a Solution</h3>
+        <p>Sony launched the Walkman using an incredibly aggressive, experiential marketing campaign targeted squarely at youth culture. Instead of traditional static advertisements detailing technical specs, Sony hired actors, skateboarders, and joggers to traverse the busy streets of Tokyo, handing headphones to pedestrians so they could experience high-fidelity, portable stereo sound for themselves.</p>
+        <p>The technical drawings distributed to distributors emphasized the beautifully compact, folded gear train and the precision spring-loaded pinch rollers that allowed the tape mechanism to play smoothly even while the user was running.</p>
+        <p><em><a href="https://www.nippon.com/en/japan-topics/g00726/walkman-story-the-early-years-of-the-iconic-personal-cassette-player.html" target="_blank" rel="noopener">Learn more about the development of the Walkman (Nippon.com)</a></em></p>
+        <p><em><a href="http://archive.today/J1eVT" target="_blank" rel="noopener">Read about the history of the Walkman (SCMP.com)</a></em></p>
+        <p><em><a href="https://en.wikipedia.org/wiki/Walkman" target="_blank" rel="noopener">Discover the full range of Walkman devices (Wikipedia)</a></em></p>
+      </div>
+
+      <div class="case-iteration">
+        <h4>The True Iteration Loop</h4>
+        <p>The Walkman's journey showcases how material and market testing alters a product's DNA. The project shifted from a metal chassis to high-impact ABS plastic after structural stress testing showed that metal dented easily when dropped by active users. Additionally, during real-world user testing, the team realized that isolation could feel antisocial or dangerous on busy city streets. They looped back to the ideation phase and designed a mechanical orange button called the "Hot Line": when pressed, it lowered the music volume and activated a small built-in microphone so users could talk to each other without removing their headphones.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
-<script src="c2.1.js"></script>
+<script src="b2.1.js"></script>
 <script src="../curriculum-themes.js"></script>
+<script src="testpage-audio.js"></script>
 </body>
 </html>
