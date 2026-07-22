@@ -471,6 +471,29 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
   font-style: italic;
 }
 
+/* ── BARE PROSE SPACING (unclassed p/ul/ol inside lang-col) ──────
+   Global reset zeroes all margin/padding, so plain <p>/<ul>/<ol>
+   written directly into study-guide copy touch their neighbours
+   and bullets hang past the text edge. Scoped to lang-col (rather
+   than a component's own class) so it only reaches bare tags and
+   never overrides a component's own spacing (e.g. .concept-box > p,
+   .checklist, .product-card ul). */
+.lang-col p:not([class]) { margin: 0 0 1rem; }
+.lang-col p:not([class]):last-child { margin-bottom: 0; }
+
+.lang-col ul:not([class]),
+.lang-col ol:not([class]) {
+  margin: 0.5rem 0 1.1rem;
+  padding-left: 1.4rem;
+}
+.lang-col ul:not([class]) li,
+.lang-col ol:not([class]) li {
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
+}
+.lang-col ul:not([class]) li:last-child,
+.lang-col ol:not([class]) li:last-child { margin-bottom: 0; }
+
 /* ── QUIZ COMPONENT ──────────────────────────────────────────── */
 .quiz-wrap { margin-top: 0.25rem; }
 
@@ -1068,6 +1091,32 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 .content-table tr:nth-child(even) td { background: var(--surface-2); }
 .content-table-wrap { overflow-x: auto; margin: 1.25rem 0; }
 .content-table-wrap .content-table { margin: 0; }
+
+/* Bilingual inline data tables (lang-col). Same treatment as
+   .content-table, plus roomier cell padding and width:100% so
+   narrow tables (2-4 cols) don't sit flush-left with a wall of
+   empty space to the right of the last column. */
+.curr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+  line-height: 1.55;
+  margin: 1rem 0 1.25rem;
+}
+.curr-table th {
+  background: var(--surface-2);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.curr-table td {
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  vertical-align: top;
+}
+.curr-table tr:nth-child(even) td { background: var(--surface-2); }
 
 .content-note {
   font-size: 0.82rem;
