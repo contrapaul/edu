@@ -17,8 +17,11 @@
 }
 .case-study-grid.spotlight-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 640px;
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
 }
+.case-study-grid.spotlight-grid .case-study-img { aspect-ratio: 8/5; }
 .case-study-card {
   cursor: pointer;
   display: flex;
@@ -47,16 +50,6 @@
   transition: transform 0.3s ease;
 }
 .case-study-card:hover .case-study-img img { transform: scale(1.03); }
-.case-study-caption {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  padding: 0.35rem 0.6rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
-  color: #fff;
-  text-align: center;
-}
 .case-study-content { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 .case-study-content h4 {
   font-family: var(--font-display);
@@ -139,6 +132,14 @@
   border-radius: var(--radius);
   cursor: zoom-in;
 }
+.case-modal-body .case-photo video {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 340px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
 .case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
 
 /* Image lightbox */
@@ -166,7 +167,7 @@
 }
 
 @media (max-width: 960px) {
-  .case-study-grid.spotlight-grid { grid-template-columns: 1fr; max-width: 380px; }
+  .case-study-grid.spotlight-grid { grid-template-columns: 1fr; max-width: 456px; }
 }
 @media (max-width: 600px) {
   .case-modal-content { width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
@@ -175,7 +176,6 @@
 }
 
 /* Dark mode adjustments */
-[data-theme="dark"] .case-study-caption { background: linear-gradient(transparent, rgba(0,0,0,0.8)); }
 [data-theme="win95"] .case-study-card,
 [data-theme="dos"] .case-study-card,
 [data-theme="xbox"] .case-study-card,
@@ -531,7 +531,6 @@ The product is manufactured in multiple fixed sizes. Users select the size close
 <article class="case-study-card" data-case="xbox-controller" data-modal="modal-xbox-controller" role="button" tabindex="0" aria-haspopup="dialog">
   <figure class="case-study-img">
     <img src="A1.1/controller1.png" alt="The original Xbox 'Duke' controller" loading="lazy">
-    <figcaption class="case-study-caption">Xbox Controller Redesign</figcaption>
   </figure>
   <div class="case-study-content">
     <h4>Xbox Controller Redesign</h4>
@@ -543,7 +542,6 @@ The product is manufactured in multiple fixed sizes. Users select the size close
 <article class="case-study-card" data-case="standing-desk" data-modal="modal-standing-desk" role="button" tabindex="0" aria-haspopup="dialog">
   <figure class="case-study-img">
     <img src="A1.1/desk1.png" alt="An adjustable standing desk" loading="lazy">
-    <figcaption class="case-study-caption">Adjustable Standing Desks</figcaption>
   </figure>
   <div class="case-study-content">
     <h4>Adjustable Standing Desks</h4>
@@ -998,7 +996,7 @@ The product is manufactured in multiple fixed sizes. Users select the size close
     <div class="case-modal-body">
 
       <figure class="case-photo">
-        <a href="A1.1/desk1.png" target="_blank" rel="noopener"><img src="A1.1/desk1.png" alt="An adjustable standing desk" loading="lazy"></a>
+        <video src="A1.1/desk2.mp4" autoplay muted loop playsinline></video>
         <figcaption><em>Placeholder caption.</em></figcaption>
       </figure>
 
@@ -1007,7 +1005,7 @@ The product is manufactured in multiple fixed sizes. Users select the size close
       </div>
 
       <figure class="case-photo">
-        <a href="A1.1/desk2.png" target="_blank" rel="noopener"><img src="A1.1/desk2.png" alt="An adjustable standing desk, second view" loading="lazy"></a>
+        <a href="A1.1/desk1.png" target="_blank" rel="noopener"><img src="A1.1/desk1.png" alt="An adjustable standing desk" loading="lazy"></a>
         <figcaption><em>Placeholder caption.</em></figcaption>
       </figure>
 
