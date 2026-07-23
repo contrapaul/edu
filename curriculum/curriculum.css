@@ -2120,6 +2120,23 @@ details.p2-reveal summary::before { content: "▼ "; }
   .dp-hub .hub-programme:not(:last-child) { margin-bottom: 0; }
 }
 
+/* ── CURRICULUM PAGE: DP dropdown, same 3-column topic layout, tightened to fit ── */
+#body-dp .dp-topics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+#body-dp .hub-prog-header { margin-bottom: 1.25rem; }
+#body-dp .hub-prog-title { font-size: 1.1rem; }
+#body-dp .hub-prog-desc { font-size: 0.78rem; }
+#body-dp .hub-group { margin-bottom: 1.5rem; }
+#body-dp .topic-cards-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 800px) {
+  #body-dp .dp-topics-grid { grid-template-columns: 1fr; gap: 0; }
+}
+
 @media (max-width: 640px) {
   .prog-hero--compact { padding: 1.5rem 1.25rem 1.25rem; }
   .dp-hub { padding: 2rem 1.25rem 3rem; }
