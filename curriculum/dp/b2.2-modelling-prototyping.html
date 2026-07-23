@@ -307,6 +307,22 @@ Show Chinese · 显示中文
 </div>
 </div>
 
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="airbus-partition" data-modal="modal-airbus-partition" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="Airbus's generative-design bionic cabin partition">
+  </figure>
+  <div class="case-study-content">
+    <h4>Airbus's Bionic Partition</h4>
+    <p>A cabin wall redesigned by an algorithm, inspired by slime mould.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
+
 </div>
 </div><!-- /2.2.3 -->
 
@@ -344,6 +360,12 @@ Show Chinese · 显示中文
 </ul>
 <p>FEA允许设计师在不构建物理原型的情况下测试和完善虚拟模型，显著降低开发成本和时间。然而，结果的可靠性取决于网格质量、材料数据和边界条件——输入垃圾，输出垃圾。</p>
 </div>
+</div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Stress heatmap demo</div>
+<p>A simplified visual FEA demo: click to place a load on a simple shape (a bracket, a beam) and see a colour-coded stress heatmap update in real time, red at the highest-stress regions, blue at the lowest, without any of the real underlying maths.</p>
 </div>
 
 </div>
@@ -399,6 +421,22 @@ Show Chinese · 显示中文
 </div>
 
 <div class="topic-link-blurb">SLA, FDM and SLS are explored in far more technical depth, including material properties and process limitations, in <a href="a4.1-manufacturing-techniques.html">A4.1 Manufacturing Techniques</a>.</div>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="starship-testing" data-modal="modal-starship-testing" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A SpaceX Starship prototype on the test stand">
+  </figure>
+  <div class="case-study-content">
+    <h4>Built to Fail, on Purpose</h4>
+    <p>Full-scale rocket prototypes, tested until something breaks.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+</div>
 
 </div>
 </div><!-- /2.2.5 -->
@@ -762,6 +800,68 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-airbus-partition" role="dialog" aria-modal="true" aria-labelledby="modal-airbus-partition-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-airbus-partition-title">Case Study: Airbus's Bionic Partition</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="Airbus's generative-design bionic cabin partition"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Airbus needed to replace a cabin partition, the wall separating economy seats from the galley, on the A320. The part had one job: survive an emergency load case, a fully loaded drink cart slamming into it during turbulence or a hard landing, without breaking. Rather than sketching a shape and checking it against that load in FEA, Airbus's design team gave a generative design algorithm the load case, the material, the mounting points and a maximum weight, then let it explore. The algorithm reportedly generated well over a thousand candidate geometries.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The final branching, lattice-like geometry of the printed partition"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The winning shape looks nothing like a wall a person would draw: a lattice of branching, organic struts that resembles bone structure or the growth pattern of slime mould, because the algorithm was, in effect, solving the same problem biology has already solved many times over, put material only where load actually needs to travel. Manufactured by 3D printing in titanium, the finished partition weighs 45% less than the original design while passing the identical certification load tests. Airbus estimated that fitting every A320 in its fleet with this design would save hundreds of thousands of tonnes of CO2 emissions a year, purely from carrying less weight.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-starship-testing" role="dialog" aria-modal="true" aria-labelledby="modal-starship-testing-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-starship-testing-title">Product Spotlight: Built to Fail, on Purpose</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A SpaceX Starship prototype on the test stand"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Most companies test a rocket prototype as gently as they can afford to, trying to protect an expensive asset. SpaceX's Starship programme does close to the opposite: it builds full-scale, flight-sized steel prototypes deliberately faster and cheaper than they need to be, then pressurises, fuels and flies them specifically to find out where they fail. Several early prototypes ruptured during cryogenic pressure testing, crumpled on landing, or exploded on the pad, on camera, in front of a live stream audience.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A Starship prototype's structure after a pressure test failure"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Each failure is instrumented: sensors capture exactly where and how the structure gave way, and that data feeds directly into the next prototype, which is often already under construction before the previous one is tested. It's the same "test to failure" logic behind any rapid-prototyping cycle, just applied at a scale and cost most industries would consider reckless. The bet is that many cheap, fast, physical failures teach a design team more per dollar than a smaller number of cautious, expensive ones.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
   <img src="" alt="">

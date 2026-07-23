@@ -294,6 +294,29 @@
 
 <div class="topic-link-blurb">FEA, including mesh resolution, yielding and how to interpret stress contour plots, is covered in greater technical depth in <a href="b2.2-modelling-prototyping.html">B2.2 Modelling and Prototyping</a> (2.2.4 Finite Element Analysis).</div>
 
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="hyatt-regency" data-modal="modal-hyatt-regency" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="The Hyatt Regency Kansas City walkways before collapse">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Hyatt Regency Walkway Collapse</h4>
+    <p>A one-word change to a connection detail, and the safety factor it quietly erased.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">How does a safety factor disappear without anyone noticing?</div>
+<p>None of the four failure categories above quite describe the Hyatt Regency collapse: the walkways weren't overloaded beyond their intended design capacity, the steel wasn't the wrong material, and nothing buckled from slenderness. A connection detail was changed during construction in a way that looked equivalent on the drawing but roughly doubled the load on a single set of box-beam welds, cutting their safety factor to barely above 1.</p>
+<p>Read the case study, then discuss: at what point in a project should a "simple" fabrication change to a structural connection require the same level of recalculation as a change to the main structure itself? Whose job should it be to catch that kind of change: the structural engineer, the fabricator, a third-party checker, or all three?</p>
+</div>
+
 </div>
 </div>
 
@@ -374,6 +397,13 @@
 <p><strong>悬臂梁：</strong>一端固定，另一端自由。最大弯矩发生在固定端。带UDL的悬臂梁：M_max = w × L² / 2。</p>
 </div>
 </div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Numeric load simulator</div>
+<p>An interactive beam: set the span, support types and a point load or UDL, and the tool draws the free body diagram, calculates the support reactions, and plots the shear force and bending moment diagrams live, the same worked example above but with numbers you choose.</p>
+</div>
+
 </div>
 </div>
 
@@ -764,7 +794,44 @@ The bridge had an unprecedented slenderness: depth-to-span ratio of 1:350 (typic
 <a class="nav-next" href="b3.3-mechanical-systems-application.html"><span class="nav-dir">Next →</span><span class="nav-title">B3.3 Mechanical Systems Application</span></a>
 </nav>
 
-</div></main>
+</div>
+
+<div class="case-modal" id="modal-hyatt-regency" role="dialog" aria-modal="true" aria-labelledby="modal-hyatt-regency-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-hyatt-regency-title">Case Study: The Hyatt Regency Walkway Collapse</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The Hyatt Regency Kansas City atrium walkways before collapse"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>On the evening of July 17, 1981, two suspended walkways crossing the atrium of the Kansas City Hyatt Regency collapsed onto a crowded tea dance below, killing 114 people. It remains the deadliest structural failure in US history outside of a deliberate attack. The walkways had been open for barely a year.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="Diagram comparing the original single-rod connection design to the modified two-rod design"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The original design hung both walkways from a single set of steel rods running continuously from the roof, through the fourth-floor walkway, down to the second-floor walkway below it, each floor's box-beam connection carrying only its own walkway's share of that one rod's load. During construction, the steel fabricator found threading and lifting a rod that long impractical and proposed a simpler fix: two separate, shorter rods instead of one continuous one, with the second rod hanging directly off the fourth-floor walkway rather than passing through it. On paper it looked like the same connection repeated twice. In reality, it meant the fourth-floor box beam now had to carry the weight of both walkways instead of just its own, roughly doubling the load on a connection that had almost no spare capacity to begin with. The change was approved without the full recalculation that would have caught it, and on a night when the walkways were packed with spectators, the connection finally gave way.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
+</main>
 
 </div>
 

@@ -184,6 +184,17 @@ Show Chinese · 显示中文
 </table>
 </div>
 
+<a class="tool-promo-card" href="/tools/macropad/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Macropad Builder preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Macropad Builder</div>
+<p class="tool-promo-desc">Plan the switches, wiring and components for a real macropad, then generate downloadable code to build it with an ESP32: a genuine circuit to point a multimeter at once it's built. Try it →</p>
+</div>
+</a>
+
 </div>
 </div><!-- /3.4.2 -->
 
@@ -239,6 +250,12 @@ Show Chinese · 显示中文
 <tr><td>V = 12 V, R = 470 Ω</td><td>P (direct)</td><td>P = V² / R</td><td>P = 144 / 470 = <strong>0.306 W</strong></td></tr>
 </tbody>
 </table>
+</div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Ohm's law / power calculator</div>
+<p>Enter any two of V, I, R (and P where relevant) and the tool rearranges the formulas above to solve for the rest, with the working shown step by step, the same worked examples above but for any values a student enters.</p>
 </div>
 
 </div>
@@ -375,6 +392,22 @@ Show Chinese · 显示中文
 </div>
 
 <div class="topic-link-blurb">A circuit diagram is only useful if it can actually be manufactured; how circuit designs are translated into produced PCBs and assemblies is covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="smoke-detector" data-modal="modal-smoke-detector" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A photoelectric smoke detector opened to show its internal sensor chamber">
+  </figure>
+  <div class="case-study-content">
+    <h4>Mapping a Smoke Detector</h4>
+    <p>One tiny circuit, four completely different diagrams.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
 
 </div>
 </div><!-- /3.4.6 -->
@@ -931,6 +964,42 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-smoke-detector" role="dialog" aria-modal="true" aria-labelledby="modal-smoke-detector-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-smoke-detector-title">Case Study: Mapping a Smoke Detector</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A photoelectric smoke detector opened to show its internal sensor chamber"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>A household photoelectric smoke detector is small enough to hold in one hand, but a full technical description of it needs several different diagrams, exactly the four types described above, because no single diagram answers every question a designer, technician or programmer might have about it.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The internal sensor chamber, LED and photodiode of a smoke detector"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>A block diagram shows the shape of the problem at a glance: a light source and a light sensor sit inside a dark chamber, watching for smoke particles to scatter light onto the sensor; a comparator IC checks that reading against a threshold; a piezo siren sounds if it's exceeded. A circuit diagram would replace those labelled boxes with the actual IR LED, photodiode, op-amp comparator and their component values, everything a technician would need to build or repair the board. A flow diagram, the kind introduced in 3.4.5, would instead describe the microcontroller's behaviour: read sensor, is the light level above threshold, if yes sound the alarm and flash the LED, if no wait and read again. Three completely different pictures of the same 2-centimetre circuit board, each one answering a different question about it.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>

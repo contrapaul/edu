@@ -83,80 +83,80 @@ coded for those. Discussions use the new `.discussion-box` component.
 
 ---
 
-## Topic B — Design & Application
+## Topic B — Design & Application ✅ built
 
 *(B1.1 and B2.1 already substantially expanded — skipped.)*
 
 ### B2.2 Modelling & Prototyping
-- [ ] **Interactive** (2.2.4 FEA) — A simplified visual "stress heatmap" demo: click load points on a shape, see a colour-coded result, without real FEA maths.
-- [ ] **Feature** — Reuse the existing `case-study-grid`/modal component (already built for B2.1) for a small "prototyping mishaps" gallery (e.g. early iPhone screen-crack testing, rocket static-fire failures).
-- [ ] **Case study** — A CAD/FEA-driven redesign story (e.g. an F1 front wing revision cycle).
+- [x] **Interactive** (2.2.4) — *(planned)* FEA stress-heatmap demo note, as scoped.
+- [x] **Spotlight** (2.2.5) — "Built to Fail, on Purpose" (SpaceX Starship prototypes), built in place of the planned "prototyping mishaps" gallery — a single strong narrative fit the spotlight card format better than a multi-item gallery.
+- [x] **Case study** (2.2.3) — "Airbus's Bionic Partition" (generative-design/FEA-driven redesign), swapped in for the originally suggested F1 front-wing story since it's a cleaner, better-documented CAD/FEA narrative. Reused the same `case-study-grid` component already built for B2.1, per the original plan.
 
 ### B3.1 Material Selection
-- [ ] **Feature** (3.1.1–3.1.4) — Add `tool-promo-card` links for all three tools you named: `/tools/AshbyChart/`, `/tools/craft/`, and `/tools/materialsactivity.html`. None are linked from this page yet.
-- [ ] **Interactive** (3.1.1–3.1.3) — Link `/tools/central-middlezhong-adventure.html` (Material Selection Text Adventure) — applies selection criteria in a narrative context.
-- [ ] **Feature/Case study** (3.1.3/3.1.4) — Link `/tools/papers/`; its material/cost/sustainability trade-off decisions fit the "additional factors" and "justify selection through research" objectives directly.
+- [x] **Feature** (3.1.1) — `tool-promo-card` → `/tools/AshbyChart/` and `/tools/materialsactivity.html`.
+- [x] **Feature** (3.1.3) — `tool-promo-card` → `/tools/papers/`.
+- [x] **Interactive/Feature** (3.1.4) — `tool-promo-card` → `/tools/central-middlezhong-adventure.html`.
 
 ### B3.2 Structural Systems: Application & Selection
-- [ ] **Interactive** (3.2.4) — Numeric version of A3.2's load simulator, with real beam-sizing and force-diagram values.
-- [ ] **Case study** (3.2.3) — A documented structural failure/redesign post-mortem (crane collapse, bicycle frame recall).
-- [ ] **Discussion** (3.2.5) — Safety-factor cost trade-off worked example.
+- [x] **Interactive** (3.2.4) — *(planned)* Numeric load simulator note, as scoped.
+- [x] **Case study** (3.2.3) — "The Hyatt Regency Walkway Collapse," chosen over a generic crane collapse since the page already covers Quebec Bridge, Tacoma Narrows, and the Genoa Morandi bridge in prose — this needed to be a fourth, distinct failure mode (fabrication-detail/connection failure, not resonance or fatigue).
+- [x] **Discussion** (3.2.3) — Tied directly to the Hyatt Regency case (safety-factor/connection-detail trade-off), rather than a separate standalone worked example at 3.2.5 — kept the discussion anchored to the case study it follows.
 
 ### B3.3 Mechanical Systems: Application & Selection
-- [ ] **Interactive** (3.3.1/3.3.2) — Gear/velocity-ratio calculator: input teeth counts or pulley diameters, get ratio plus the speed/torque trade-off.
-- [ ] **Spotlight** (3.3.4) — Bicycle derailleur or car gearbox teardown.
-- [ ] **Discussion** (3.3.3) — Why no real machine hits 100% efficiency — friction and heat losses.
+- [x] **Interactive** (3.3.1) — *(planned)* Gear/velocity-ratio calculator note, as scoped.
+- [x] **Discussion** (3.3.3) — "Chasing the last few percent," extending the page's existing efficiency-loss content rather than repeating it.
+- [x] **Spotlight** (3.3.4) — "The Bicycle Derailleur" teardown, as scoped.
 
 ### B3.4 Electronic Systems: Application & Selection
-- [ ] **Interactive** (3.4.3) — Ohm's law / power mini-calculator (V = IR, P = VI) with a few worked circuit examples.
-- [ ] **Feature** (3.4.2/3.4.6) — This is arguably the better home for `/tools/macropad/` than A3.4, since it's the "application" topic — link it here instead or in addition.
-- [ ] **Case study** (3.4.5/3.4.6) — A consumer-electronics teardown mapped onto a system diagram (Echo Dot, again via the museum exhibit).
+- [x] **Interactive** (3.4.3) — *(planned)* Ohm's law / power calculator note, as scoped.
+- [x] **Feature** (3.4.2) — `tool-promo-card` → `/tools/macropad/`, placed here as the better "application" home per the original note.
+- [x] **Case study** (3.4.6) — "Mapping a Smoke Detector" onto a system diagram, swapped in for the suggested Echo Dot since the Echo Dot teardown was already used at A3.4.
 
 ### B4.1 Production Systems
-- [ ] **Feature** (4.1.1–4.1.3) — Link `/tools/papers/`; its own documentation explicitly maps to "final production" and "innovation & markets" DP content.
-- [ ] **Interactive** (4.1.2/4.1.3) — Production-system matcher: match a product (bespoke furniture, smartphone, soft drink) to job/batch/mass/continuous production.
-- [ ] **Discussion** (4.1.4/4.1.6) — Mass customisation case study (Nike By You, print-on-demand).
+- [x] **Feature** (4.1.1) — `tool-promo-card` → `/tools/papers/`.
+- [x] **Interactive** (4.1.3) — *(planned)* Production-system matcher note, as scoped.
+- [x] **Discussion** (4.1.3) — "Is mass customisation actually customisation?", critically interrogating the Nike By You/Dell/Invisalign examples the page already names, rather than a separate case study — sharpened from the original "mass customisation case study" framing into a direct discussion prompt.
 
 ---
 
-## Topic C — Design, Society & Sustainability
+## Topic C — Design, Society & Sustainability ✅ built
 
 ### C1.1 Responsibility of the Designer
-- [ ] **Discussion** (1.1.3) — Planned obsolescence debate (battery throttling, printer-cartridge lockouts).
-- [ ] **Case study** (1.1.1/1.1.2) — A designer-responsibility failure (Boeing 737 MAX MCAS, or the Therac-25 for a starker safety-responsibility case).
-- [ ] **Feature** — Cross-link `/tools/papers/`'s recall/consequence mechanic as a "what happens when responsibility fails" tie-in.
+- [x] **Feature** (1.1.1) — `tool-promo-card` → `/tools/papers/`.
+- [x] **Case study** (1.1.2) — "The Therac-25," taking the starker safety-responsibility option over Boeing 737 MAX MCAS, and written carefully given the sensitive subject matter to match the page's existing measured tone around Minamata disease.
+- [x] **Discussion** (1.1.3) — Planned-obsolescence debate, using the Apple battery-throttling settlement and printer-cartridge DRM as the concrete examples.
 
 ### C1.2 Inclusive Design
-- [ ] **Case study** (1.2.1/1.2.3) — OXO Good Grips origin story (arthritis-friendly tool that became a mainstream best-seller — a clean "design for extremes" example).
-- [ ] **Discussion** (1.2.3) — The "curb-cut effect": who beyond the original target group benefits from disability-driven design.
-- [ ] **Feature** — Cross-link back to A1.1's percentile/anthropometric content.
+- [x] **Case study** (1.2.1) — "The Typewriter" (Pellegrino Turri, 1808), swapped in for OXO Good Grips since 1.2.3 already covers OXO in depth elsewhere on the page — needed a distinct example rather than a duplicate.
+- [x] **Discussion** (1.2.3) — "Find the next curb cut," as scoped.
+- [x] **Feature** (1.2.3) — `topic-link-blurb` cross-link back to A1.1's anthropometric content, as scoped.
 
 ### C1.3 Beyond Usability
-- [ ] **Interactive** (1.3.1) — Four-pleasure framework card sort: sort product features into physio/socio/psycho/ideo pleasure categories.
-- [ ] **Case study** (1.3.2) — ACT model applied to a retail store or an app's onboarding flow.
-- [ ] **Discussion** — "Products we love vs products that just work" — students bring their own example of each.
+- [x] **Interactive** (1.3.1) — *(planned)* Four-pleasure framework card-sort note, as scoped.
+- [x] **Case study** (1.3.2) — "ACT in a Retail Space" (Apple Store/Genius Bar), applying the ACT model as scoped.
+- [x] **Discussion** (1.3.2) — "Products we love vs. products that just work," paired directly with the ACT case study rather than left standalone.
 
 ### C2.1 Design for Sustainability
-- [ ] **Interactive** (2.1.3/2.1.4) — Triple Bottom Line scoring tool: score a chosen product on People/Planet/Profit sliders.
-- [ ] **Case study** (2.1.2) — Patagonia's Worn Wear repair programme, mapped against Datschefski's five principles.
-- [ ] **Feature** — Link `/tools/papers/`'s FTC Green Guides / green-claim-substantiation content as real-world grounding.
+- [x] **Feature** (2.1.1) — `tool-promo-card` → `/tools/papers/`.
+- [x] **Case study** (2.1.2) — "Patagonia's Worn Wear," mapped against Datschefski's five principles as scoped.
+- [x] **Interactive** (2.1.3) — *(planned)* Triple Bottom Line scoring-tool note, as scoped.
 
 ### C2.2 Circular Economy
-- [ ] **Interactive** (2.2.1/2.2.2) — Closed-loop diagram builder: drag stages (extract, make, use, recover) into circular vs linear flows.
-- [ ] **Case study** (2.2.3/2.2.4) — Fairphone (modular, repairable, recyclable-by-design).
-- [ ] **Discussion** (2.2.2) — Is recycling actually circular economy, or just a "less bad" linear economy?
+- [x] **Interactive** (2.2.1) — *(planned)* Closed-loop diagram-builder note, as scoped.
+- [x] **Discussion** (2.2.2) — "Is recycling actually circular, or just a slower line?", building on the page's existing Jevons Paradox content rather than repeating it.
+- [x] **Case study** (2.2.4) — "Fairphone," as scoped.
 
 ### C3.1 Product Analysis
-- [ ] **Interactive** (3.1.3) — SWOT quadrant builder for a chosen product.
-- [ ] **Spotlight** (3.1.4) — Guided teardown of a `/tools/museumgame/` exhibit (Game Boy or Polaroid OneStep both teardown well).
-- [ ] **Discussion** (3.1.6) — "Constructive discontent": list three things about a daily-use product that mildly annoy you.
+- [x] **Interactive** (3.1.3) — *(planned)* SWOT quadrant-builder note, as scoped.
+- [x] **Spotlight** (3.1.4) — "Teardown: Game Boy vs. Game Gear," expanded from a single-exhibit teardown into a comparative spotlight for a sharper contrast (battery life/cost vs. backlit colour screen trade-off).
+- [x] **Discussion** (3.1.6) — "Practise constructive discontent, right now," as scoped.
 
 ### C3.2 Life-cycle Analysis
-- [ ] **Interactive** (3.2.2) — Cradle-to-grave stage sorter/timeline builder for a chosen product.
-- [ ] **Case study** (3.2.1) — Single-use vs reusable coffee cup LCA comparison (real published data exists for this).
-- [ ] **Feature** — Cross-link to C2.2's closed-loop tool — LCA and circular economy pair naturally.
+- [x] **Case study** (3.2.1) — "The Reusable Cup Problem," the single-use vs. reusable LCA comparison as scoped.
+- [x] **Interactive** (3.2.2) — *(planned)* Cradle-to-grave stage-sorter note, as scoped.
+- [x] **Feature** (3.2.2) — `topic-link-blurb` cross-link to C2.2's closed-loop content, as scoped.
 
 ### C4.1 Design for Manufacture
-- [ ] **Interactive** (4.1.3/4.1.4) — Exploded-diagram teardown challenge: count fasteners/joints, estimate assembly/disassembly difficulty.
-- [ ] **Case study** (4.1.3–4.1.5) — Fairphone again, or an iFixit repairability-score case, for design-for-disassembly.
-- [ ] **Feature** (4.1.2) — Link `/tools/tolerance/` here too — DfM strategy connects directly to manufacturing tolerance.
+- [x] **Feature** (4.1.2) — `tool-promo-card` → `/tools/tolerance/`, as scoped.
+- [x] **Interactive** (4.1.3) — *(planned)* Exploded-diagram teardown-challenge note, as scoped.
+- [x] **Case study** (4.1.4) — "iFixit's Repairability Score," taking the iFixit angle specifically rather than Fairphone, since Fairphone was already used as the C2.2 case study.

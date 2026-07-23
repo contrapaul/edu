@@ -143,6 +143,17 @@ Show Chinese · 显示中文
 </div>
 </div>
 
+<a class="tool-promo-card" href="/tools/papers/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Regulatory Papers, Please preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Regulatory Papers, Please</div>
+<p class="tool-promo-desc">See what happens when a responsibility gets skipped: run a product from concept to market and watch a corner cut early resurface as a failed safety test, a certification refusal or a recall. Try it →</p>
+</div>
+</a>
+
 </div>
 </div><!-- /1.1.1 -->
 
@@ -186,6 +197,22 @@ Show Chinese · 显示中文
 
 <div class="topic-link-blurb">Standardised, interchangeable parts are also what makes high-volume automated production possible; see <a href="b4.1-production-systems.html">B4.1 Production Systems</a> for how this plays out in modern manufacturing.</div>
 
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="therac-25" data-modal="modal-therac-25" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="The Therac-25 radiation therapy machine">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Therac-25</h4>
+    <p>A safety interlock removed in software, and the overdoses that followed.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
+
 </div>
 </div><!-- /1.1.2 -->
 
@@ -225,6 +252,13 @@ Show Chinese · 显示中文
 <p><strong>凡勃伦效应</strong>描述了一种相关的消费者行为：随着价格上涨，需求反而<em>增加</em>的商品，因为高价本身就传递了社会声望的信号。这在样式报废循环中被奢侈品牌所利用。</p>
 <p><strong>三重底线影响</strong>：计划性报废以短期企业<em>利润</em>换取对<em>人</em>的伤害（财务浪费、暴露于可能含有有害材料的替代产品）和对<em>地球</em>的伤害（废物增加、资源耗尽、制造替代品的CO₂）。<strong>改善（Kaizen）</strong>——通过小的渐进式变化进行持续改进的日本哲学——代表了一种负责任的设计对应物：产品通过迭代随时间改进，而不是被设计为被替换。</p>
 </div>
+</div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">Where's the line between obsolescence and honest engineering?</div>
+<p>In 2017, Apple admitted to throttling processor speed on older iPhones with degraded batteries, and later paid over $500 million to settle the resulting lawsuits. Apple's explanation was that this prevented unexpected shutdowns as battery chemistry aged; critics called it a disguised way to push people toward buying a new phone. Printer manufacturers embed chips in ink cartridges that stop a printer working with refilled or third-party ink, officially framed as protecting print quality, while regulators in several countries have investigated the practice as anticompetitive.</p>
+<p>Both companies have a genuine technical justification and a strong financial incentive pointing the same direction. Does a plausible engineering reason mean a practice isn't obsolescence, even when the company also benefits financially from it? What test, something you could point to and say "this proves it either way", would actually distinguish honest engineering from obsolescence dressed up as one?</p>
 </div>
 
 </div>
@@ -538,6 +572,42 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-therac-25" role="dialog" aria-modal="true" aria-labelledby="modal-therac-25-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-therac-25-title">Case Study: The Therac-25</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The Therac-25 radiation therapy machine and control console"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Between 1985 and 1987, at least six patients receiving what should have been routine radiation therapy were given massive overdoses by a machine called the Therac-25, in some cases roughly a hundred times the intended dose. Several died from the injuries. The machine had passed every test its manufacturer had run on it.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The Therac-25 operator console showing an error message"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The cause was a race condition: a specific, unlucky sequence of keystrokes, entering treatment settings and then correcting a mistake within about eight seconds, could let the machine fire its highest-power electron beam without moving a metal plate into place that was supposed to spread and weaken the beam to safe levels. Two earlier machines from the same manufacturer had the identical software bug, but a hardware interlock, a physical mechanism, stopped the beam from firing if the plate wasn't positioned correctly. The Therac-25 removed that hardware safeguard entirely and trusted the software alone to enforce it. When the bug triggered, the console displayed a cryptic message reading only "Malfunction 54," with no explanation of what had gone wrong, and operators who had grown used to frequent, harmless error codes often simply pressed the button to continue.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>

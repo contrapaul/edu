@@ -136,6 +136,12 @@ Show Chinese · 显示中文
 </table>
 </div>
 
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Gear / velocity-ratio calculator</div>
+<p>Enter teeth counts or pulley diameters for a simple or compound drive and the tool calculates MA and VR live, plus the resulting output speed and torque, the same worked example above but for any numbers a student enters.</p>
+</div>
+
 </div>
 </div><!-- /3.3.1 -->
 
@@ -256,6 +262,13 @@ Show Chinese · 显示中文
 </div>
 <p class="content-note">When a torque-based power calculation gives a different value from a given input power, the figures likely represent different operating conditions (e.g., theoretical vs. measured). State your assumptions and show all working.</p>
 
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">Chasing the last few percent</div>
+<p>A well-lubricated gear train can run at 95–98% efficient; a worm gear can sit under 50%. A petrol engine typically wastes 70–80% of its fuel energy as heat before any of it reaches the wheels; an electric drivetrain converts roughly 85–90% of its input into motion. Closing that gap almost always costs something: precision-ground gears cost more than stamped ones, better bearings cost more than bushings, and most loss-reduction measures add mass, complexity or price.</p>
+<p>Find a real machine's published efficiency figure. Is the gap between that number and 100% a design failure, or the correct trade-off given what a more efficient version would cost, weigh or take to manufacture? At what point does chasing the last few percent of efficiency stop being worth it?</p>
+</div>
+
 </div>
 </div><!-- /3.3.3 -->
 
@@ -305,6 +318,22 @@ Show Chinese · 显示中文
 </table>
 </div>
 <p class="content-note">For compound belt drives, you cannot divide the final pulley diameter by the first: you must multiply individual stage VRs. A common exam mistake is treating it like a simple two-pulley system.</p>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="derailleur" data-modal="modal-derailleur" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A bicycle rear derailleur shifting between sprockets">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Bicycle Derailleur</h4>
+    <p>A dozen gear ratios, chosen with a lever instead of a gearbox.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+</div>
 
 </div>
 </div><!-- /3.3.4 -->
@@ -721,6 +750,42 @@ E × 0.03864 = 17.5<br>
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-derailleur" role="dialog" aria-modal="true" aria-labelledby="modal-derailleur-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-derailleur-title">Product Spotlight: The Bicycle Derailleur</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A bicycle rear derailleur shifting between sprockets"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>A bicycle doesn't have a gearbox in the way a car does. Instead, a rear derailleur is a small linkage that physically pushes the chain sideways off one sprocket and onto another, each one a different diameter, giving a different velocity ratio, while a spring and a parallelogram linkage keep the derailleur's jockey wheels tracking the chain at a constant distance no matter which sprocket it's sitting on.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A bicycle cassette showing sprockets of different sizes"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The sprockets themselves are just the gear side of the velocity-ratio formula from this section, VR = T_driven / T_driver, applied a dozen times over on a single wheel: a modern cassette might run from a 10-tooth sprocket up to a 50-tooth one, so shifting from the smallest to the largest changes the velocity ratio by a factor of 5, without a single gear tooth ever meshing with another gear tooth. The chain is really acting as a flexible belt drive between the crankset sprocket and whichever rear sprocket the derailleur has selected, and the rider changes gear simply by choosing where on that range the chain sits.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>

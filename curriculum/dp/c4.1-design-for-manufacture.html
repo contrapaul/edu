@@ -156,6 +156,18 @@ Show Chinese · 显示中文
 <p><strong>案例研究——苹果Unibody MacBook：</strong>笔记本电脑机身由一整块铝经CNC加工而成（"一体式"）。这消除了连接或焊接多个机身部件的需要。效果：比多部件组件更坚固、更刚性；公差更精细；表面光滑无缝；降低装配复杂性。权衡：CNC加工会去除30–50%的铝锭作为废料，但这些废料是可回收的。</p>
 </div>
 </div>
+
+<a class="tool-promo-card" href="/tools/tolerance/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Tolerance Run game preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Tolerance Run</div>
+<p class="tool-promo-desc">The "finer tolerances" the Unibody process achieves aren't free: accept or reject parts against a tolerance band and feel the trade-off between precision and throughput directly. Try it →</p>
+</div>
+</a>
+
 </div>
 </div>
 
@@ -208,6 +220,12 @@ Show Chinese · 显示中文
 </div>
 
 <div class="topic-link-blurb">Standardising fasteners and components is also central to interchangeable parts in mass production, covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Exploded-diagram teardown challenge</div>
+<p>Given an exploded diagram of a real product, count the fasteners and joint types visible, then estimate an assembly-time and a disassembly-difficulty score before checking your answer against the DFA/DFD principles above.</p>
+</div>
 
 </div>
 </div>
@@ -267,6 +285,23 @@ Show Chinese · 显示中文
 <p><strong>新兴解决方案：</strong>弗劳恩霍夫IFF的<em>iDEAR</em>项目使用机器学习和计算机视觉自动化拆卸；智能拆卸使用3D成像和选择性化学分层处理PCB。Fairphone是专为可维修性而设计的消费级智能手机——每个主要模块只需标准螺丝刀即可更换。</p>
 </div>
 </div>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="ifixit" data-modal="modal-ifixit" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A technician disassembling a smartphone with iFixit tools">
+  </figure>
+  <div class="case-study-content">
+    <h4>iFixit's Repairability Score</h4>
+    <p>Turning "how hard is this to take apart" into a number manufacturers can't ignore.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
+
 </div>
 </div>
 
@@ -555,6 +590,42 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-ifixit" role="dialog" aria-modal="true" aria-labelledby="modal-ifixit-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-ifixit-title">Case Study: iFixit's Repairability Score</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A technician disassembling a smartphone with iFixit tools"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>iFixit started in 2003 as two Cal Poly students writing repair guides for their own broken laptops because no manufacturer would tell them how. Two decades later, the company tears down nearly every major phone, laptop and gadget release, publishes the guide for free, and scores each device out of 10 on how repairable it actually is.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A comparison of repairability scores across several devices"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The score isn't a vibe, it's built from specific, checkable criteria: can the battery be replaced without a heat gun and specialised tools, does opening the case destroy it, are screens and other high-failure parts independently replaceable, are the screws standard or proprietary. Devices built for disassembly, the Fairphone mentioned above, or Framework's modular laptops, routinely score 9 or 10. Devices with glued-in batteries and fused components have scored as low as 0. iFixit publishes every teardown for free specifically to put that number in front of a customer before they buy, turning a hidden manufacturing decision into a visible, comparison-shoppable one, and uses the same data to lobby lawmakers directly for Right to Repair legislation.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
