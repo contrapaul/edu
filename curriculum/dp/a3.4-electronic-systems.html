@@ -126,6 +126,23 @@ Show Chinese · 显示中文
 <p><strong>示例——电热水壶：</strong>温度传感器（输入）→ 微控制器将测量温度与100°C目标值比较（处理）→ 加热元件开关（输出）→ 温度读数返回处理阶段（反馈）。</p>
 </div>
 </div>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="tech-history" data-modal="modal-tech-history" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="An Amazon Echo Dot smart speaker">
+  </figure>
+  <div class="case-study-content">
+    <h4>The IPO Loop, Decades Apart</h4>
+    <p>A 1985 games console and a modern smart speaker, run through the same four boxes.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+</div>
+
 </div>
 </div>
 
@@ -213,6 +230,14 @@ Show Chinese · 显示中文
 <p>大多数现代系统是<strong>混合信号</strong>系统——模拟前端（传感器、放大器）转换现实世界的信号，然后模数转换器（ADC）将其转换为数字形式进行处理。数模转换器（DAC）将数字结果转换回模拟信号输出（如扬声器、执行器）。</p>
 </div>
 </div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">Vinyl vs. streaming: does analogue actually sound better?</div>
+<p>A vinyl record stores sound as a continuously varying groove, an analogue waveform with no theoretical ceiling on resolution. A streamed track is sampled thousands of times a second and stored as discrete binary numbers, throwing away everything between samples. On paper, digital should be the more faithful copy: no surface noise, no wear, no needle skating across a physical groove degrading a little more with every play.</p>
+<p>So why do so many people insist vinyl sounds "warmer" or "more real"? Is this a genuine property of analogue signals, a side effect of how vinyl masters are mixed differently from streaming masters, or closer to a placebo effect built on the ritual of the format? What would a fair, blind test to settle this actually need to control for?</p>
+</div>
+
 </div>
 </div>
 
@@ -390,6 +415,18 @@ Show Chinese · 显示中文
 </ul>
 </div>
 </div>
+
+<a class="tool-promo-card" href="/tools/macropad/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Macropad Builder preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Macropad Builder</div>
+<p class="tool-promo-desc">Plan the switches, wiring and components for a real macropad, then generate downloadable code to build it with an ESP32. A hands-on way to see resistors, switches and a microcontroller working together in one circuit. Try it →</p>
+</div>
+</a>
+
 </div>
 </div>
 
@@ -685,6 +722,17 @@ Show Chinese · 显示中文
 </div>
 
 <div class="topic-link-blurb">Once a microcontroller or embedded system is designed, it still has to be assembled, soldered, and housed at scale. PCB assembly, surface-mount soldering, and enclosure manufacturing are covered in <a href="a4.1-manufacturing-techniques.html">A4.1 Manufacturing Techniques</a>.</div>
+
+<a class="tool-promo-card" href="/tools/microprocessors/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Computer Parts: A History preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Further Reading</div>
+<div class="tool-promo-title">Computer Parts: A History</div>
+<p class="tool-promo-desc">Fifty years of computer components, from the earliest microprocessors to today's embedded systems, and how each generation solved the same input-process-output problem with less power and less space. Explore it →</p>
+</div>
+</a>
 
 </div>
 </div>
@@ -999,6 +1047,42 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-tech-history" role="dialog" aria-modal="true" aria-labelledby="modal-tech-history-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-tech-history-title">Product Spotlight: The IPO Loop, Decades Apart</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="An Amazon Echo Dot smart speaker"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Say "set a timer for five minutes" to an Amazon Echo Dot and it runs through the exact same four-stage loop as every electronic system in this topic. Input: the microphone array converts your voice into an electrical signal. Process: the device streams that signal to cloud servers, which run speech recognition and decide what you actually asked for. Output: a chime plays, and later a synthesised voice announces the timer is done. Feedback: the system keeps listening for a follow-up ("cancel the timer"), closing the loop.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A Nintendo Entertainment System console and controller"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Go back to 1985 and the Nintendo Entertainment System runs the same model with none of the cloud. Input: the controller's buttons complete or break circuits, sending digital HIGH/LOW signals to the console. Process: the 8-bit CPU inside reads those signals dozens of times a second and updates the game state in memory. Output: the picture processing unit converts that state into a video signal for the TV. Feedback: the player watches the screen and reacts, generating the next input. Different hardware entirely, decades apart, and the same four boxes every time: it's the model that doesn't change, only what's inside each box.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>

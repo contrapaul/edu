@@ -283,6 +283,22 @@ Show Chinese · 显示中文
 <p>在实践中，大多数结构构件同时承受这些力的组合。承受中心荷载的梁经历弯曲（拉伸+压缩）和支座处的剪切。钻头同时承受扭转（旋转）和压缩（推进）。</p>
 </div>
 </div>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="tacoma-narrows" data-modal="modal-tacoma-narrows" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="The Tacoma Narrows Bridge twisting shortly before collapse">
+  </figure>
+  <div class="case-study-content">
+    <h4>Tacoma Narrows Bridge</h4>
+    <p>A steady wind, not a storm, and a bridge that tore itself apart.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
 </div>
 </div>
 
@@ -450,6 +466,13 @@ Show Chinese · 显示中文
 </ol>
 </div>
 </div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Load and equilibrium clicker</div>
+<p>An interactive diagram of a simple beam or truss: click to apply a force at different points and magnitudes, and see in real time whether ΣF and ΣM stay at zero (stable) or push the structure into rotation or collapse.</p>
+</div>
+
 </div>
 </div>
 
@@ -566,6 +589,14 @@ Show Chinese · 显示中文
 </ol>
 </div>
 </div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">How much safety factor is enough?</div>
+<p>A higher safety factor is never free. It usually means more material, more mass, more cost, and sometimes a worse product on every axis except the one that matters most in a failure. Aircraft structures are designed to safety factors as low as 1.5, tuned that tight because every extra kilogram of margin costs fuel and payload for the entire operational life of the plane. Elevator cables, by contrast, are commonly built to a safety factor of 10 or more.</p>
+<p>Find a real recall or failure caused by a safety factor that turned out to be too low (a bridge, a piece of furniture, a phone battery). What would it have cost, in money, weight or performance, to have built in more margin? Who should decide where that line sits: the engineer, the company, a regulator, or the customer?</p>
+</div>
+
 </div>
 </div>
 
@@ -901,6 +932,42 @@ A = π × (d/2)² = π × (0.015)² = π × 2.25 × 10⁻⁴ = 7.069 × 10⁻⁴
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-tacoma-narrows" role="dialog" aria-modal="true" aria-labelledby="modal-tacoma-narrows-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-tacoma-narrows-title">Case Study: Tacoma Narrows Bridge (1940)</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The Tacoma Narrows Bridge twisting shortly before collapse"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>On July 1, 1940, the Tacoma Narrows Bridge opened as the third-longest suspension span in the world, and almost immediately it earned the nickname "Galloping Gertie." Its deck was unusually slender and shallow, built with solid plate girders instead of the open lattice trusses used on earlier long-span bridges, which made it cheap and elegant but turned the deck into something close to an airfoil. Even moderate winds set it rolling in slow, visible waves, a motion drivers reportedly enjoyed as a novelty for the four months the bridge stood.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The bridge deck twisting apart during the November 1940 collapse"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>On November 7, 1940, a steady 42 mph wind, nothing close to a storm, excited a twisting mode the bridge had never shown before. The deck began to rotate about its centreline in wider and wider arcs until the structure tore itself apart, filmed in full by a local camera shop owner testing new equipment. The cause wasn't a wind gust matching the bridge's resonant frequency, the popular explanation in almost every retelling, but a self-reinforcing effect called aeroelastic flutter, the same phenomenon engineers study in aircraft wings: as the deck twisted, it changed the airflow around it in a way that fed more energy into the twisting. The failure rewrote how every long-span bridge since has been wind-tunnel tested before construction.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>

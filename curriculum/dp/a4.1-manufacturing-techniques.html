@@ -127,6 +127,14 @@ Show Chinese · 显示中文
 <p>这五类并不相互排斥；单个产品通常需要按顺序应用多个类别的工艺。</p>
 </div>
 </div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">Why not just 3D print everything?</div>
+<p>Additive manufacturing can build almost any geometry with no tooling cost, so in theory it should be replacing subtractive, forming and joining across the board. In practice, most mass-market products still aren't printed. A subtractively-machined aluminium part is stronger and cheaper than a printed one at high volume; an injection-moulded polymer part can be produced in seconds once the mould exists, where a printed equivalent takes hours.</p>
+<p>For a product you use daily, work out which of the five categories actually made it, and why. What would have to change, materially, economically or technologically, before additive manufacturing became the default rather than the exception for that product?</p>
+</div>
+
 </div>
 </div>
 
@@ -174,6 +182,22 @@ Show Chinese · 显示中文
 <p>A material is isotropic if its mechanical properties, such as strength and stiffness, are the same in every direction. It is anisotropic if those properties vary depending on the direction in which a load is applied. FDM parts are anisotropic because each layer bonds well within itself but only partially fuses to the layer above it, so the part is weaker when pulled apart along the layer lines (the Z-axis) than when loaded in the X-Y plane.</p>
 <p>This connects to the discussion of material properties in <a href="a3.1-material-classification.html">A3.1 Material Classification</a>: most bulk metals and polymers are treated as isotropic, but processes that build a part from oriented layers, fibres or grains (3D printing, composite lay-up, wood grain, rolled sheet metal) introduce direction-dependent behaviour that a designer must account for when orienting a part for printing or loading.</p>
 <figure class="obj-figure"><img class="obj-img" src="" alt="Diagram comparing isotropic strength, uniform in all directions, with anisotropic strength, weaker along the layer lines of a 3D-printed part"></figure>
+</div>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="makerbot" data-modal="modal-makerbot" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A MakerBot Replicator 3D printer">
+  </figure>
+  <div class="case-study-content">
+    <h4>The MakerBot Replicator</h4>
+    <p>The machine that brought FDM printing out of the lab and onto a desk.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
 </div>
 
 </div>
@@ -429,6 +453,17 @@ Show Chinese · 显示中文
 <figure class="obj-figure"><img class="obj-img" src="" alt="CNC mill removing material from a metal block while following a programmed toolpath"></figure>
 </div>
 
+<a class="tool-promo-card" href="/tools/tolerance/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="" alt="Tolerance Run game preview">
+</div>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Tolerance Run</div>
+<p class="tool-promo-desc">Parts come off the line with small random deviations from spec: accept or reject each one against a shrinking tolerance band before it passes, the same call a QC inspector makes on a real production line. Try it →</p>
+</div>
+</a>
+
 </div>
 </div>
 
@@ -537,6 +572,22 @@ Show Chinese · 显示中文
 </div>
 
 <div class="topic-link-blurb">The end-of-life implications of permanent versus temporary joining, including RoHS compliance and design for disassembly, are developed further in <a href="c2.2-circular-economy.html">C2.2 Design for a Circular Economy</a>.</div>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="ikea-camlock" data-modal="modal-ikea-camlock" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="An IKEA cam-lock fastener joining two furniture panels">
+  </figure>
+  <div class="case-study-content">
+    <h4>IKEA's Cam Lock</h4>
+    <p>One cam, one dowel, and the flat-pack industry it built.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div>
 
 </div>
 </div>
@@ -854,6 +905,73 @@ Show Chinese · 显示中文
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-makerbot" role="dialog" aria-modal="true" aria-labelledby="modal-makerbot-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-makerbot-title">Product Spotlight: The MakerBot Replicator</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A MakerBot Replicator 3D printer"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>MakerBot's Replicator, launched in 2012, was many people's first encounter with a 3D printer that wasn't behind a lab door. Founded three years earlier in a Brooklyn hackerspace, MakerBot built its early machines directly on RepRap, an open-source project aiming to build a 3D printer that could print most of its own parts. The Replicator took that hobbyist hardware and packaged it as a roughly two-thousand-dollar desktop appliance, dual extruders included, right as the wider public was starting to hear the words "3D printing" for the first time.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="Close-up of visible layer lines on an FDM-printed part"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Under the plastic shell, it's textbook FDM exactly as described above: a heated nozzle melts PLA or ABS filament and deposits it one layer at a time, tracing out a cross-section of the model before the build plate drops slightly and the next layer begins. Look closely at anything printed on one and the anisotropy is visible directly: a print feels smooth in the direction each layer was drawn, but the layers themselves are the printed object's weakest plane, exactly where a part is most likely to snap if it fails.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-ikea-camlock" role="dialog" aria-modal="true" aria-labelledby="modal-ikea-camlock-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-ikea-camlock-title">Case Study: IKEA's Cam Lock</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="An exploded diagram of an IKEA cam-lock joint"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>In 1956, an IKEA employee named Gillis Lundgren struggled to fit a wooden table into his car and had the idea that started flat-pack furniture: unscrew the legs, and the same table takes a fraction of the space. That single insight turned joining technique into a shipping strategy. If a product could be joined by the customer instead of the factory, it could travel disassembled, stacked flat in a shipping container at a density solid furniture never achieves.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A cam-lock fastener being tightened with a hex key"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The joint that makes it work at IKEA's scale is the cam lock: a barrel-shaped cam sits in one panel, a dowel or screw sits in the other, and turning the cam with nothing more than a coin or the supplied hex key pulls the two panels together and locks them tight. It's a mechanical fastener exactly as described above, chosen specifically because it needs no glue, no welding equipment and almost no skill, and because it's fully reversible: the same joint that assembles a wardrobe in an apartment can be undone just as easily when it's time to move house or take it apart for recycling.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>

@@ -7,191 +7,6 @@
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
-<style>
-/* ── A1.1.5 PRODUCT SPOTLIGHT CARDS & MODALS ─────────────────── */
-.case-study-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-.case-study-grid.spotlight-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.case-study-grid.spotlight-grid .case-study-img { aspect-ratio: 8/5; }
-.case-study-card {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.case-study-card:hover,
-.case-study-card:focus-visible {
-  border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-}
-.case-study-img {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: var(--surface-2);
-}
-.case-study-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-.case-study-card:hover .case-study-img img { transform: scale(1.03); }
-.case-study-content { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-.case-study-content h4 {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 400;
-  margin: 0;
-}
-.case-study-content p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
-.case-study-btn { margin-top: auto; align-self: flex-start; }
-
-/* Modal */
-.case-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: none;
-  contain: layout style;
-}
-.case-modal.open { display: flex; align-items: center; justify-content: center; padding: 1rem; }
-.case-modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-}
-.case-modal-content {
-  position: relative;
-  width: min(95vw, 880px);
-  max-height: 90vh;
-  overflow-y: auto;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  animation: modal-in 0.2s ease;
-}
-@keyframes modal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-.case-modal-header {
-  position: sticky;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-  z-index: 1;
-}
-.case-modal-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
-  font-weight: 400;
-}
-.case-modal-close {
-  width: 36px; height: 36px;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: var(--surface-2);
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--text);
-}
-.case-modal-close:hover { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
-.case-modal-body { padding: 1.5rem; max-height: calc(90vh - 80px); overflow-y: auto; }
-
-/* Textbook-style content */
-.case-modal-body .case-phase { margin-bottom: 2rem; }
-.case-modal-body .case-phase p { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 0.75rem; }
-.case-modal-body .case-phase strong { font-weight: 600; }
-.case-modal-body .case-phase em { font-style: italic; }
-
-.case-modal-body .case-photo { margin: 0 0 1rem; text-align: center; }
-.case-modal-body .case-photo img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 340px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  cursor: zoom-in;
-}
-.case-modal-body .case-photo video {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 340px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-.case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
-
-/* Image lightbox */
-.case-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 2.5vmin;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  cursor: zoom-out;
-}
-.case-lightbox.open { display: flex; }
-.case-lightbox img {
-  max-width: 95vw;
-  max-height: 95vh;
-  width: auto;
-  height: auto;
-  border-radius: var(--radius);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  animation: modal-in 0.2s ease;
-}
-
-@media (max-width: 960px) {
-  .case-study-grid.spotlight-grid { grid-template-columns: 1fr; max-width: 456px; }
-}
-@media (max-width: 600px) {
-  .case-modal-content { width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
-  .case-modal-header { padding: 0.75rem 1rem; }
-  .case-modal-body { padding: 1rem; }
-}
-
-/* Dark mode adjustments */
-[data-theme="win95"] .case-study-card,
-[data-theme="dos"] .case-study-card,
-[data-theme="xbox"] .case-study-card,
-[data-theme="nightmare"] .case-study-card,
-[data-theme="hannah"] .case-study-card { box-shadow: none; }
-[data-theme="win95"] .case-modal-content,
-[data-theme="dos"] .case-modal-content,
-[data-theme="xbox"] .case-modal-content,
-[data-theme="nightmare"] .case-modal-content,
-[data-theme="hannah"] .case-modal-content { box-shadow: 4px 4px 0 #000; }
-[data-theme="win95"] .case-modal-close,
-[data-theme="dos"] .case-modal-close,
-[data-theme="xbox"] .case-modal-close,
-[data-theme="nightmare"] .case-modal-close,
-[data-theme="hannah"] .case-modal-close { border-radius: 0; }
-</style>
 </head>
 <body data-curr-type="dp" data-curr-page="a1.1">
 
@@ -435,6 +250,12 @@ Show Chinese · 显示中文
 </table>
 </div>
 
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Percentile lookup tool</div>
+<p>An interactive tool where students pick a body dimension (standing height, seated eye height, hand length...), a population (child, adult male, adult female, elderly), and a target percentile (5th / 50th / 95th), then read back a realistic value drawn from real anthropometric tables. Turns the abstract "design to the 5th or 95th percentile" rule into something students can actually query rather than just read about.</p>
+</div>
+
 </div>
 </div><!-- /1.1.3 -->
 
@@ -550,6 +371,17 @@ The product is manufactured in multiple fixed sizes. Users select the size close
   </div>
 </article>
 
+<article class="case-study-card" data-case="office-chair" data-modal="modal-office-chair" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="Herman Miller Aeron office chair">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Aeron's Three Frames</h4>
+    <p>When adjustment alone isn't enough, and you need three different frames instead of one.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
 </div>
 
 </div>
@@ -644,6 +476,13 @@ The product is manufactured in multiple fixed sizes. Users select the size close
 </div>
 
 <div class="topic-link-blurb">The sensory design principles covered here are applied in user-centred design practice. <a href="b1.1-user-centred-design.html">B1.1 User-centred Design</a> covers how psychological research informs product development. <a href="c1.2-inclusive-design.html">C1.2 Inclusive Design</a> addresses how sensory diversity shapes design requirements.</div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">The Wrong Body</div>
+<p>Every sensory or physiological design decision is really a bet about who the user is, and sometimes that bet is wrong. A red-green traffic light relies on colour vision that roughly 1 in 12 men don't fully have. A smoke alarm's high-pitched beep sits right in the frequency range that <strong>presbycusis</strong> (age-related hearing loss, a physiological decline) erodes first, making it least audible to the older adults most at risk from a house fire.</p>
+<p>Pick a product you use every day and find the sensory or physiological assumption built into it. Whose body was it designed around? Who does that assumption quietly exclude, and which research method from A2.1 would have caught the problem before the product ever shipped?</p>
+</div>
 
 </div>
 </div><!-- /1.1.7 -->
@@ -1011,6 +850,37 @@ The product is manufactured in multiple fixed sizes. Users select the size close
 
       <div class="case-phase">
         <p class="content-placeholder">Placeholder text to be written.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-office-chair" role="dialog" aria-modal="true" aria-labelledby="modal-office-chair-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-office-chair-title">Product Spotlight: The Aeron's Three Frames</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="Herman Miller Aeron office chair"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Most office chairs handle a wide range of bodies through adjustment alone: seat height, armrest position, tilt tension, lumbar depth. Herman Miller's engineers found a limit to that approach while developing the Aeron in the early 1990s. A single frame, however adjustable, still has one seat pan shape and one set of proportions. Stretch it to fit a 5th percentile woman and a 95th percentile man equally well, and it fits neither particularly well.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The Aeron's three frame sizes compared"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Their answer was to stop treating the chair as one product. The Aeron ships in three frame sizes (A, B and C), each scaled to a different band of the population rather than uniformly scaled up or down, since skeletal proportions don't grow in the same ratio as height does. Adjustability still handles the fine-tuning within a size; the size itself does the work that no armrest lever ever could. It's a clean example of choosing "a range of sizes" over "adjustable" (see 1.1.4) precisely because adjustment alone couldn't cover the full percentile spread on its own.</p>
       </div>
 
     </div>

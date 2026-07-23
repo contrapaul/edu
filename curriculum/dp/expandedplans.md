@@ -29,51 +29,57 @@ them from scratch later.
 
 ---
 
-## Topic A — Knowledge & Theory
+## Topic A — Knowledge & Theory ✅ built
+
+All items below are live on their pages: case studies/spotlights are real card+modal
+components with placeholder images (`src=""`) awaiting real photos; items marked
+*(planned)* are `.planned-feature` notes only, per the no-code rule — nothing was
+coded for those. Discussions use the new `.discussion-box` component.
 
 ### A1.1 Ergonomics
 *(1.1.5 already has the Xbox Controller / Standing Desk spotlights — skip)*
-- [ ] **Interactive** (1.1.2/1.1.3) — Percentile lookup tool: pick a body dimension, a population, and a target percentile (5th/50th/95th), and read back a realistic value. Turns the abstract "design to 5th or 95th %ile" rule into something students can actually query.
-- [ ] **Discussion** (1.1.6/1.1.7) — "The Wrong Body": show a product designed around the wrong sensory/physiological assumption (colour-blind-unfriendly signage, an alarm pitched above older adults' hearing range) and have students diagnose the failure.
-- [ ] **Spotlight** (1.1.4) — Adjustable office chair (e.g. Aeron) as a second spotlight alongside the existing controller/desk pair — adjustability vs range-of-sizes, a natural partner to the standing desk spotlight already in progress.
+- [x] **Interactive** (1.1.3) — *(planned)* Percentile lookup tool.
+- [x] **Discussion** (1.1.7) — "The Wrong Body": colour-blind signage, presbycusis and alarm pitch, cross-links to A2.1 for the research method that would catch it.
+- [x] **Spotlight** (1.1.4) — Added as a third card to the existing 1.1.5 spotlight-grid: "The Aeron's Three Frames" (Herman Miller Aeron, range-of-sizes vs adjustability).
 
 ### A2.1 User-centred Research Methods
-- [ ] **Case study** (2.1.1–2.1.3) — IDEO's shopping cart redesign (classic, well-documented UCD process video/case).
-- [ ] **Interactive** (2.1.4) — "Match the method to the question" drag-sort: given a research question, choose field research vs interview vs questionnaire vs focus group.
-- [ ] **Feature** (2.1.5) — Don't rebuild a persona tool here — cross-link forward to B1.1's existing Persona Builder activity once a student reaches this point.
+- [x] **Case study** (2.1.1) — IDEO's Shopping Cart ("The Deep Dive", Nightline 1999).
+- [x] **Interactive** (2.1.4) — *(planned)* Match-the-method drag-sort.
+- [x] **Feature** (2.1.5) — `topic-link-blurb` cross-link to B1.1's Persona Builder activity (`b1.1-user-centred-design.html#act-1.1.3-a`).
 
 ### A2.2 Prototyping Techniques
-- [ ] **Interactive** (2.2.1) — Fidelity ladder sorter: drag prototype photos (sketch → foam model → 3D print → functional prototype) into low-to-high fidelity order.
-- [ ] **Case study** (2.2.3/2.2.4) — Dyson's 5,127-prototype vacuum story, for physical iterative prototyping.
-- [ ] **Feature** — Simple before/after image-compare slider contrasting an early physical mock-up with a CAD render of the same product.
+- [x] **Interactive** (2.2.1) — *(planned)* Fidelity ladder sorter.
+- [x] **Case study** (2.2.4) — Dyson's 5,127 Prototypes (expands the one-line mention already in the base text).
+- [x] **Interactive** (2.2.3) — *(planned, reclassified from Feature)* Physical vs. CAD compare slider — needs real interactivity, so it got a planned-addition note rather than being built.
 
 ### A3.1 Material Classification & Properties
-- [ ] **Feature** (3.1.1–3.1.6) — Link `/tools/AshbyChart/` and `/tools/materialsactivity.html` in with a `tool-promo-card` (same pattern as B1.1's task-analysis link-out).
-- [ ] **Feature** (3.1.7 Composites) — Link `/tools/craft/` (Infinite Composites).
-- [ ] **Spotlight** (3.1.8 Smart materials) — Shape-memory alloy example (NASA Mars rover wheel, or self-adjusting eyeglass frames).
-- [ ] **Discussion** (3.1.9) — "Compostable" plastic greenwashing: what "biodegradable" actually requires vs marketing claims.
+- [x] **Feature** (3.1.1) — `tool-promo-card` → `/tools/materialsactivity.html`.
+- [x] **Feature** (3.1.6) — `tool-promo-card` → `/tools/AshbyChart/`.
+- [x] **Feature** (3.1.7) — `tool-promo-card` → `/tools/craft/` (Infinite Composites).
+- [x] **Spotlight** (3.1.8) — NASA's Shape-Memory Tyre (Nitinol superelastic mesh tyre; picked over the eyeglass-frame/stent angle since those are already covered in the base text).
+- [x] **Discussion** (3.1.9) — "Is 'compostable' a lie?" greenwashing prompt.
 
 ### A3.2 Structural Systems
-- [ ] **Interactive** (3.2.4/3.2.7) — Simple load/equilibrium clicker: apply a force to a beam or truss shape and see whether it stays in equilibrium or fails.
-- [ ] **Case study** (3.2.4) — Tacoma Narrows Bridge collapse (dynamic/resonant forces).
-- [ ] **Discussion** (3.2.9/3.2.10) — How much safety factor is "enough"? Cost-vs-risk discussion anchored to a real product recall.
+- [x] **Interactive** (3.2.7) — *(planned)* Load/equilibrium clicker.
+- [x] **Case study** (3.2.4) — Tacoma Narrows Bridge, explicitly correcting the "wind-induced resonance" simplification already stated at 3.2.7 (real cause: aeroelastic flutter).
+- [x] **Discussion** (3.2.9) — "How much safety factor is enough?"
 
 ### A3.3 Mechanical Systems
-- [ ] **Interactive** (3.3.1–3.3.5) — Drag-match mechanism type (cam, lever, gear, linkage) to the real product that uses it (can opener, umbrella, bike derailleur).
-- [ ] **Spotlight** (3.3.5) — Teardown of a wind-up toy or salad spinner, showing several motion types combined in one product.
-- [ ] **Discussion/hands-on** — Physical Lego Technic gear-ratio build as an in-class supplement.
+- [x] **Interactive** (3.3.1) — *(planned)* Match-the-mechanism drag-match.
+- [x] **Spotlight** (3.3.5) — Inside a Salad Spinner (cord/spindle/gear teardown).
+- [x] **Discussion/hands-on** (3.3.6) — Physical Lego Technic gear-ratio build, written as a real hands-on activity (no code needed, so not a planned-addition note).
 
 ### A3.4 Electronic Systems
-- [ ] **Spotlight** (3.4.1, 3.4.7–3.4.11) — Reuse `/tools/museumgame/` exhibits (Echo Dot as input–process–output–feedback; C64/NES as analogue-vs-digital era markers).
-- [ ] **Feature** (3.4.6/3.4.13/3.4.14) — Link `/tools/macropad/` for a real embedded-systems/circuit project.
-- [ ] **Discussion** (3.4.3/3.4.4) — Analogue vs digital signal quality: vinyl vs streaming debate.
-- [ ] **Feature** — Link `/tools/microprocessors/` (Computer Parts: A History) as further reading for the digital-systems subtopics.
+- [x] **Spotlight** (3.4.1) — "The IPO Loop, Decades Apart" (Amazon Echo Dot vs. NES), retitled from "Fifty Years Apart" once the actual date gap was checked.
+- [x] **Feature** (3.4.6) — `tool-promo-card` → `/tools/macropad/`.
+- [x] **Feature** (3.4.13) — `tool-promo-card` → `/tools/microprocessors/`.
+- [x] **Discussion** (3.4.3) — Vinyl vs. streaming, extends the existing analogue/digital comparison table into a debate prompt.
 
 ### A4.1 Manufacturing Techniques
-- [ ] **Feature** (4.1.7/4.1.10) — Link `/tools/tolerance/` (Tolerance Run) for finishing/QC tolerance content.
-- [ ] **Spotlight** (4.1.2–4.1.6) — MakerBot Replicator, already an exhibit in `/tools/museumgame/`, as an additive-manufacturing spotlight.
-- [ ] **Case study** (4.1.9 Joining) — IKEA flat-pack fastener systems, or Boeing 787 composite fuselage joining.
-- [ ] **Discussion** — "Why not just 3D print everything?" additive vs subtractive vs forming trade-offs.
+- [x] **Discussion** (4.1.1) — "Why not just 3D print everything?"
+- [x] **Spotlight** (4.1.2) — The MakerBot Replicator, ties directly into the isotropic/anisotropic concept box already on the page.
+- [x] **Feature** (4.1.7) — `tool-promo-card` → `/tools/tolerance/`.
+- [x] **Case study** (4.1.9) — IKEA's Cam Lock (chose the flat-pack fastener angle over Boeing 787 joining, since it's a cleaner match for the temporary/permanent fastener table right above it).
 
 ---
 

@@ -115,6 +115,13 @@ Show Chinese · 显示中文
 <p><strong>运动类型转换</strong>是机械设计的核心任务之一。汽油发动机将活塞往复运动转换为曲轴旋转运动。齿条齿轮将旋转转换为直线。凸轮将旋转转换为往复。理解哪种机构实现哪种转换对设计功能性产品至关重要。</p>
 </div>
 </div>
+
+<div class="planned-feature">
+<div class="planned-feature-label">Planned Addition</div>
+<div class="planned-feature-title">Match the mechanism</div>
+<p>An interactive drag-match: given a real product (a can opener, an umbrella, a bicycle derailleur, a sewing machine), drag it onto the mechanism type it relies on, cam, lever, gear train or linkage, and onto the motion conversion it performs.</p>
+</div>
+
 </div>
 </div>
 
@@ -306,6 +313,23 @@ Show Chinese · 显示中文
 <p><strong>设计原则</strong>：分析复杂机构时，识别从输入到输出的链条。在每个阶段问：什么类型的运动进入？什么类型必须离开？什么机构执行该转换？这种系统分解是机构设计的基础。</p>
 </div>
 </div>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="salad-spinner" data-modal="modal-salad-spinner" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="" alt="A salad spinner with its lid removed, showing the internal gear">
+  </figure>
+  <div class="case-study-content">
+    <h4>Inside a Salad Spinner</h4>
+    <p>Three motion conversions, one pull cord, no batteries.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+</div>
+
 </div>
 </div>
 
@@ -352,6 +376,14 @@ Show Chinese · 显示中文
 </ol>
 </div>
 </div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion &amp; Hands-on</div>
+<div class="discussion-box-title">Build a gear ratio, physically</div>
+<p>Using Lego Technic (or any compatible gear set), build a simple gear train and measure it rather than just calculating it: count the teeth on your driving and driven gears, predict the ratio, then turn the input a fixed number of times and count how many times the output actually turns.</p>
+<p>Now add a third gear as an idler between the two. Does the ratio you measured change? Does the direction of rotation change? Push the gear train further: how many gears can you add in a compound train before backlash and friction losses make your prediction visibly wrong?</p>
+</div>
+
 </div>
 </div>
 
@@ -856,6 +888,42 @@ New F<sub>in</sub> = 490.5 × sin 18° = 490.5 × 0.310 = <strong>152.0 N</stron
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+
+<div class="case-modal" id="modal-salad-spinner" role="dialog" aria-modal="true" aria-labelledby="modal-salad-spinner-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-salad-spinner-title">Product Spotlight: Inside a Salad Spinner</h2>
+      <button class="case-modal-close" aria-label="Close product spotlight">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="A salad spinner lid mechanism with the pull cord and spindle visible"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Pop the lid off a pull-cord salad spinner and the mechanism inside is a compact lesson in motion conversion. Pulling the cord is linear motion. The cord is wound around a small spindle, so pulling it converts that linear pull into fast rotary motion, the same trick a pull-start lawnmower uses. A return spring winds the cord back in after every pull, ready to go again.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="" alt="The internal gear train connecting the spindle to the basket"></a>
+        <figcaption><em>Placeholder caption.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>That spindle drives a small gear meshed with a much larger gear fixed to the basket shaft, a simple gear ratio that trades speed for distance: one pull produces several rotations of the basket for every rotation of the spindle, spinning the inner colander fast enough that centrifugal force flings water off the lettuce and through the holes into the outer bowl. A ratchet inside the spindle lets the cord be pulled again and again without the basket unwinding in reverse between pulls, so each yank adds more speed instead of cancelling out the last one.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
