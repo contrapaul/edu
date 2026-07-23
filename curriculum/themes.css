@@ -298,13 +298,13 @@
   border-color: #333333;
   background: #000;
 }
-[data-theme^="dos"] .curr-trigger::before {
+[data-theme^="dos"] .curr-trigger-left::before {
   content: 'C:\\> ';
   color: #55FF55;
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
-[data-theme^="dos"] .curr-section:has(.curr-body.open) .curr-trigger::before {
+[data-theme^="dos"] .curr-section:has(.curr-body.open) .curr-trigger-left::before {
   content: 'C:\\> DIR ';
 }
 [data-theme^="dos"] .curr-trigger h2 { letter-spacing: 0.06em; color: #FFFFFF !important; }
@@ -409,7 +409,7 @@
 [data-theme="dos-amber"] .topic-code { color: #FFB000 !important; }
 [data-theme="dos-amber"] .topic-guiding-q { border-left-color: #FFB000 !important; }
 [data-theme="dos-amber"] .curr-section { border-left-color: #FFB000 !important; }
-[data-theme="dos-amber"] .curr-trigger::before { color: #FFB000; }
+[data-theme="dos-amber"] .curr-trigger-left::before { color: #FFB000; }
 [data-theme="dos-amber"] .curr-sidebar { background: #1a1200; border-right-color: #FFB000; }
 [data-theme="dos-amber"] .csb-current .csb-link { border-right-color: #FFB000; }
 [data-theme="dos-amber"] .tool-btn,
