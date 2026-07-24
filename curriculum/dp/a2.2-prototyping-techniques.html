@@ -144,10 +144,19 @@ Show Chinese · 显示中文
 
 <div class="topic-link-blurb">Fidelity decisions depend on what aspect of the design is being tested. See <a href="a2.1-user-centred-research.html">A2.1 User-centred Research Methods</a> for how research stage determines the prototype type needed, and <a href="b2.2-modelling-prototyping.html">B2.2 Modelling and Prototyping</a> for how fidelity choices are applied in practice.</div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Fidelity ladder sorter</div>
-<p>An interactive sorter: drag a set of prototype photos (pencil sketch, cardboard mockup, 3D-printed shell, working electronic prototype) into order from lowest to highest fidelity, then check the answer against the table above.</p>
+<div class="drag-sort" id="sort-fidelity">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Fidelity Ladder Sorter</div>
+<p class="drag-sort-intro">Select a prototype below, then select the rung of the ladder it belongs on, lowest fidelity to highest.</p>
+
+<div class="drag-sort-section-label">Prototypes</div>
+<div class="drag-sort-bank" id="sort-fidelity-bank"></div>
+
+<div class="drag-sort-section-label">Fidelity ladder</div>
+<div class="drag-sort-zones" id="sort-fidelity-zones"></div>
+
+<div class="drag-sort-status" id="sort-fidelity-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-fidelity-reset">Reset</button>
 </div>
 
 </div>
@@ -241,10 +250,24 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Physical vs. CAD compare slider</div>
-<p>A before/after image-compare slider: drag to reveal an early physical mock-up of a product on one side and its CAD render on the other, making the tangibility gap between physical and virtual prototyping visible rather than just described.</p>
+<div class="compare-slider-widget" id="compare-a22">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Physical vs. CAD Compare Slider</div>
+<p class="drag-sort-intro">Drag the handle (or use the arrow keys) to reveal the early physical mock-up on one side and the finished CAD render on the other.</p>
+
+<div class="compare-slider" id="compare-a22-slider">
+<div class="compare-slider-image compare-slider-after">
+<img src="" alt="A finished CAD render of the product concept: precise, photorealistic, final surfacing">
+<span class="compare-slider-tag">CAD render</span>
+</div>
+<div class="compare-slider-image compare-slider-before" id="compare-a22-before">
+<img src="" alt="An early foam or cardboard mock-up of the same product concept: rough, hand-shaped, no finish">
+<span class="compare-slider-tag">Physical mock-up</span>
+</div>
+<div class="compare-slider-handle" id="compare-a22-handle" role="slider" aria-label="Reveal physical mock-up vs CAD render" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+<span class="compare-slider-handle-grip">⟺</span>
+</div>
+</div>
 </div>
 
 </div>
@@ -798,6 +821,7 @@ Show Chinese · 显示中文
 </div>
 </footer>
 
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="a2.2.js"></script>
 <script src="../curr-toc.js"></script>

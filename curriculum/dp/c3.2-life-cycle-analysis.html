@@ -256,10 +256,19 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Cradle-to-grave stage sorter</div>
-<p>Given a jumbled list of activities and impacts for a chosen product, drag each one into the correct stage, pre-production, production, distribution, utilisation or disposal, then compare your timeline against the hotspot data above to see whether you'd have guessed right about where the biggest impact actually falls.</p>
+<div class="drag-sort" id="sort-lca">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Cradle-to-Grave Stage Sorter</div>
+<p class="drag-sort-intro">A smartphone's lifecycle, jumbled up. Select an activity, then select the stage it belongs to.</p>
+
+<div class="drag-sort-section-label">Activities</div>
+<div class="drag-sort-bank" id="sort-lca-bank"></div>
+
+<div class="drag-sort-section-label">Stages</div>
+<div class="drag-sort-zones" id="sort-lca-zones"></div>
+
+<div class="drag-sort-status" id="sort-lca-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-lca-reset">Reset</button>
 </div>
 
 <div class="topic-link-blurb">Once a product's stages are mapped, closing the loop between disposal and pre-production is exactly what <a href="c2.2-circular-economy.html">C2.2 Circular Economy</a> is about.</div>
@@ -526,6 +535,7 @@ Show Chinese · 显示中文
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="c3.2.js"></script>
 <script src="../curr-toc.js"></script>

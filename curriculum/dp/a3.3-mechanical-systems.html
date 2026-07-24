@@ -116,10 +116,22 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Match the mechanism</div>
-<p>An interactive drag-match: given a real product (a can opener, an umbrella, a bicycle derailleur, a sewing machine), drag it onto the mechanism type it relies on, cam, lever, gear train or linkage, and onto the motion conversion it performs.</p>
+<div class="drag-sort" id="sort-mechanism">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Match the Mechanism</div>
+<p class="drag-sort-intro">Select a product below, then match it to both its mechanism type <em>and</em> the motion type it produces — both parts need to be right before it's fully matched. (Mechanism types are covered in more depth in 3.3.4, further down this page.)</p>
+
+<div class="drag-sort-section-label">Products</div>
+<div class="drag-sort-bank" id="sort-mechanism-bank"></div>
+
+<div class="drag-sort-zones-label">Mechanism type</div>
+<div class="drag-sort-zones" id="sort-mechanism-zones-1"></div>
+
+<div class="drag-sort-zones-label">Motion type</div>
+<div class="drag-sort-zones" id="sort-mechanism-zones-2"></div>
+
+<div class="drag-sort-status" id="sort-mechanism-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-mechanism-reset">Reset</button>
 </div>
 
 </div>
@@ -927,6 +939,7 @@ New F<sub>in</sub> = 490.5 × sin 18° = 490.5 × 0.310 = <strong>152.0 N</stron
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="a3.3.js"></script>
 <script src="../curr-toc.js"></script>

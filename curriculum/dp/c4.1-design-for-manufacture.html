@@ -221,10 +221,29 @@ Show Chinese · 显示中文
 
 <div class="topic-link-blurb">Standardising fasteners and components is also central to interchangeable parts in mass production, covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Exploded-diagram teardown challenge</div>
-<p>Given an exploded diagram of a real product, count the fasteners and joint types visible, then estimate an assembly-time and a disassembly-difficulty score before checking your answer against the DFA/DFD principles above.</p>
+<div class="live-calc" id="teardown-c41">
+<div class="live-calc-label">Interactive</div>
+<div class="live-calc-title">Exploded-Diagram Teardown Challenge</div>
+<p class="live-calc-intro">A pair of wireless earbuds, teardown-style. Before you see the real numbers: how many fasteners do you think hold the charging case together, and how repairable do you think it is?</p>
+
+<figure class="obj-figure">
+<img class="obj-img" src="" alt="An exploded-view teardown diagram of a wireless earbuds charging case">
+</figure>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="teardown-c41-fasteners">Your fastener-count guess</label>
+<input class="live-calc-input" type="number" id="teardown-c41-fasteners" min="0" step="1" placeholder="e.g. 6">
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="teardown-c41-difficulty">Your repairability guess (0 = glued shut, 10 = easy)</label>
+<input class="live-calc-input" type="number" id="teardown-c41-difficulty" min="0" max="10" step="1" placeholder="e.g. 5">
+</div>
+</div>
+
+<button class="live-calc-reset-btn" type="button" id="teardown-c41-reveal">Reveal the real numbers</button>
+<div class="live-calc-output"><div class="live-calc-working" id="teardown-c41-result"></div></div>
+<div class="live-calc-illustrative-flag">Illustrative numbers for teaching purposes — not yet pulled from a real teardown</div>
 </div>
 
 </div>
@@ -629,6 +648,7 @@ Show Chinese · 显示中文
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../live-calc.js"></script>
 <script src="../curriculum.js"></script>
 <script src="c4.1.js"></script>
 <script src="../curr-toc.js"></script>

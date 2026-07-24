@@ -222,10 +222,19 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Production-system matcher</div>
-<p>An interactive matcher: given a product and a target volume (a bespoke wedding dress, a limited sneaker drop, a family car, crude oil), drag it onto the production system and scale it actually calls for, then check the reasoning against the table above.</p>
+<div class="drag-sort" id="sort-production">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Production-System Matcher</div>
+<p class="drag-sort-intro">Select a product below, then select the production system and scale it actually calls for.</p>
+
+<div class="drag-sort-section-label">Products</div>
+<div class="drag-sort-bank" id="sort-production-bank"></div>
+
+<div class="drag-sort-section-label">Production systems</div>
+<div class="drag-sort-zones" id="sort-production-zones"></div>
+
+<div class="drag-sort-status" id="sort-production-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-production-reset">Reset</button>
 </div>
 
 <div class="discussion-box">
@@ -625,6 +634,7 @@ Show Chinese · 显示中文
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="b4.1.js"></script>
 <script src="../curr-toc.js"></script>

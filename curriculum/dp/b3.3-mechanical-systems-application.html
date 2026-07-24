@@ -136,10 +136,82 @@ Show Chinese · 显示中文
 </table>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Gear / velocity-ratio calculator</div>
-<p>Enter teeth counts or pulley diameters for a simple or compound drive and the tool calculates MA and VR live, plus the resulting output speed and torque, the same worked example above but for any numbers a student enters.</p>
+<div class="live-calc" id="calc-gear">
+<div class="live-calc-label">Interactive</div>
+<div class="live-calc-title">Gear / Velocity-Ratio Calculator</div>
+<p class="live-calc-intro">Enter driver and driven sizes (teeth count or diameter, any consistent unit) for one stage, or add stages for a compound drive. Add an input speed and/or torque to see the output.</p>
+
+<div class="live-calc-stage" data-stage="1">
+<div class="live-calc-stage-label">Stage 1</div>
+<div class="live-calc-fields">
+<div class="live-calc-field" id="gear-field-driver-1">
+<label class="live-calc-field-label" for="gear-driver-1">Driver size</label>
+<input class="live-calc-input" type="number" id="gear-driver-1" inputmode="decimal" step="any" placeholder="e.g. 100">
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="gear-field-driven-1">
+<label class="live-calc-field-label" for="gear-driven-1">Driven size</label>
+<input class="live-calc-input" type="number" id="gear-driven-1" inputmode="decimal" step="any" placeholder="e.g. 300">
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+</div>
+
+<div class="live-calc-stage" data-stage="2" hidden>
+<div class="live-calc-stage-label">Stage 2 <button class="live-calc-remove-stage-btn" type="button" data-remove-stage="2">− Remove</button></div>
+<div class="live-calc-fields">
+<div class="live-calc-field" id="gear-field-driver-2">
+<label class="live-calc-field-label" for="gear-driver-2">Driver size</label>
+<input class="live-calc-input" type="number" id="gear-driver-2" inputmode="decimal" step="any" placeholder="e.g. 20">
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="gear-field-driven-2">
+<label class="live-calc-field-label" for="gear-driven-2">Driven size</label>
+<input class="live-calc-input" type="number" id="gear-driven-2" inputmode="decimal" step="any" placeholder="e.g. 60">
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+</div>
+
+<div class="live-calc-stage" data-stage="3" hidden>
+<div class="live-calc-stage-label">Stage 3 <button class="live-calc-remove-stage-btn" type="button" data-remove-stage="3">− Remove</button></div>
+<div class="live-calc-fields">
+<div class="live-calc-field" id="gear-field-driver-3">
+<label class="live-calc-field-label" for="gear-driver-3">Driver size</label>
+<input class="live-calc-input" type="number" id="gear-driver-3" inputmode="decimal" step="any" placeholder="e.g. 20">
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="gear-field-driven-3">
+<label class="live-calc-field-label" for="gear-driven-3">Driven size</label>
+<input class="live-calc-input" type="number" id="gear-driven-3" inputmode="decimal" step="any" placeholder="e.g. 60">
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+</div>
+
+<button class="live-calc-add-stage-btn" type="button" id="gear-add-stage">+ Add another stage (compound drive)</button>
+
+<div class="live-calc-fields">
+<div class="live-calc-field" id="gear-field-n1">
+<label class="live-calc-field-label" for="gear-n1">Input speed (optional)</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="gear-n1" inputmode="decimal" step="any" placeholder="e.g. 300">
+<span class="live-calc-field-unit">rpm</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="gear-field-t1">
+<label class="live-calc-field-label" for="gear-t1">Input torque (optional)</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="gear-t1" inputmode="decimal" step="any" placeholder="e.g. 5">
+<span class="live-calc-field-unit">N·m</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+
+<div class="live-calc-output"><div class="live-calc-working" id="gear-working"></div></div>
+<button class="live-calc-reset-btn" type="button" id="gear-reset">Clear all</button>
 </div>
 
 </div>
@@ -788,6 +860,7 @@ E × 0.03864 = 17.5<br>
 
 </main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../live-calc.js"></script>
 <script src="../curriculum.js"></script>
 <script src="b3.3.js"></script>
 <script src="../curr-toc.js"></script>

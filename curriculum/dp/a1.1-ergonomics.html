@@ -250,10 +250,37 @@ Show Chinese · 显示中文
 </table>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Percentile lookup tool</div>
-<p>An interactive tool where students pick a body dimension (standing height, seated eye height, hand length...), a population (child, adult male, adult female, elderly), and a target percentile (5th / 50th / 95th), then read back a realistic value drawn from real anthropometric tables. Turns the abstract "design to the 5th or 95th percentile" rule into something students can actually query rather than just read about.</p>
+<div class="live-calc" id="calc-percentile">
+<div class="live-calc-label">Interactive</div>
+<div class="live-calc-title">Percentile Lookup Tool</div>
+<p class="live-calc-intro">Pick a body dimension, a population, and a target percentile — the tool looks up a value using the same 5th/50th/95th logic taught above.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-dimension">Dimension</label>
+<select class="live-calc-select" id="pct-dimension"></select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-population">Population</label>
+<select class="live-calc-select" id="pct-population">
+<option value="male">Adult male</option>
+<option value="female">Adult female</option>
+<option value="child">Child (8–12)</option>
+<option value="elderly">Older adult (65+)</option>
+</select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-percentile">Percentile</label>
+<select class="live-calc-select" id="pct-percentile">
+<option value="5">5th</option>
+<option value="50" selected>50th</option>
+<option value="95">95th</option>
+</select>
+</div>
+</div>
+
+<div class="live-calc-output"><div class="live-calc-working" id="pct-working"></div></div>
+<div class="live-calc-illustrative-flag">Illustrative values for teaching purposes only — not measured data</div>
 </div>
 
 </div>
@@ -900,6 +927,7 @@ The product is manufactured in multiple fixed sizes. Users select the size close
 </div>
 </footer>
 
+<script src="../live-calc.js"></script>
 <script src="../curriculum.js"></script>
 <script src="a1.1.js"></script>
 <script src="../curr-toc.js"></script>

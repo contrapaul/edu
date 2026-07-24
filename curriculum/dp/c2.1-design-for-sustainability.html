@@ -262,10 +262,42 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Triple Bottom Line scoring tool</div>
-<p>Score a chosen product on three sliders, People, Planet, Profit, then see the result plotted on the Venn diagram above and read a short explanation of which dimension the product trades away and why.</p>
+<div class="tbl-tool" id="tbl-c21">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Triple Bottom Line Scoring Tool</div>
+<p class="drag-sort-intro">Score a product on People, Planet and Profit — or load one of the examples below — and watch the balance (or imbalance) shift on the diagram.</p>
+
+<div class="tbl-presets" id="tbl-c21-presets">
+<button class="tbl-preset-btn" type="button" data-preset="fastfashion">Fast-fashion T-shirt</button>
+<button class="tbl-preset-btn" type="button" data-preset="repair">A repaired jacket, not replaced</button>
+<button class="tbl-preset-btn" type="button" data-preset="artisan">Small-batch artisan furniture</button>
+</div>
+
+<div class="tbl-sliders">
+<div class="tbl-slider-row">
+<label class="tbl-slider-label" for="tbl-c21-people">People <span class="tbl-slider-value" id="tbl-c21-people-val">5</span></label>
+<input class="tbl-slider" type="range" min="0" max="10" value="5" id="tbl-c21-people">
+</div>
+<div class="tbl-slider-row">
+<label class="tbl-slider-label" for="tbl-c21-planet">Planet <span class="tbl-slider-value" id="tbl-c21-planet-val">5</span></label>
+<input class="tbl-slider" type="range" min="0" max="10" value="5" id="tbl-c21-planet">
+</div>
+<div class="tbl-slider-row">
+<label class="tbl-slider-label" for="tbl-c21-profit">Profit <span class="tbl-slider-value" id="tbl-c21-profit-val">5</span></label>
+<input class="tbl-slider" type="range" min="0" max="10" value="5" id="tbl-c21-profit">
+</div>
+</div>
+
+<svg class="tbl-venn" id="tbl-c21-venn" viewBox="0 0 320 260" aria-hidden="true">
+<circle id="tbl-c21-circle-people" cx="160" cy="95" r="85"></circle>
+<circle id="tbl-c21-circle-planet" cx="115" cy="165" r="85"></circle>
+<circle id="tbl-c21-circle-profit" cx="205" cy="165" r="85"></circle>
+<text x="160" y="35" class="tbl-venn-label">People</text>
+<text x="55" y="245" class="tbl-venn-label">Planet</text>
+<text x="265" y="245" class="tbl-venn-label">Profit</text>
+</svg>
+
+<p class="tbl-verdict" id="tbl-c21-verdict"></p>
 </div>
 
 </div>

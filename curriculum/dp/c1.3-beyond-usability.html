@@ -133,10 +133,19 @@ Show Chinese · 显示中文
 
 <div class="topic-link-blurb">Physio-pleasure draws directly on the sensory and anthropometric factors (touch, sound, fit) introduced in <a href="a1.1-ergonomics.html">A1.1 Ergonomics</a>.</div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Four-pleasure card sort</div>
-<p>An interactive card sort: drag specific product features (a satisfying click, a loyalty badge, an intuitive menu, a recycled-material label) onto the pleasure category, physio, socio, psycho or ideo, they're actually designed to trigger, with immediate feedback on borderline cases that arguably belong to more than one.</p>
+<div class="drag-sort" id="sort-pleasures">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Four-Pleasure Card Sort</div>
+<p class="drag-sort-intro">Select a product feature below, then select which pleasure it's actually designed to trigger. A couple of these genuinely fit more than one category — placing them in either counts.</p>
+
+<div class="drag-sort-section-label">Product features</div>
+<div class="drag-sort-bank" id="sort-pleasures-bank"></div>
+
+<div class="drag-sort-section-label">Pleasure categories</div>
+<div class="drag-sort-zones" id="sort-pleasures-zones"></div>
+
+<div class="drag-sort-status" id="sort-pleasures-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-pleasures-reset">Reset</button>
 </div>
 
 </div>
@@ -579,6 +588,7 @@ Show Chinese · 显示中文
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
 <script src="c1.3.js"></script>

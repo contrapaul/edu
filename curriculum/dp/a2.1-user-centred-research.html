@@ -321,10 +321,19 @@ Show Chinese · 显示中文
 
 <div class="topic-link-blurb">The research data collected here feeds into prototyping decisions. See <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a> for how research outputs shape prototype fidelity choices, and <a href="c3.1-product-analysis.html">C3.1 Product Analysis</a> for how evaluation methods connect back to user research.</div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Match the method to the question</div>
-<p>An interactive drag-sort: students are given a research question (e.g. "why do users abandon this checkout flow?") and drag it onto the method that would actually answer it: field research, task analysis, user observation, interviews, surveys, or a focus group. Immediate feedback explains why the chosen method fits, or doesn't.</p>
+<div class="drag-sort" id="sort-methods">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Match the Method to the Question</div>
+<p class="drag-sort-intro">Select a research question below, then select the method that would actually answer it.</p>
+
+<div class="drag-sort-section-label">Research questions</div>
+<div class="drag-sort-bank" id="sort-methods-bank"></div>
+
+<div class="drag-sort-section-label">Methods</div>
+<div class="drag-sort-zones" id="sort-methods-zones"></div>
+
+<div class="drag-sort-status" id="sort-methods-status" aria-live="polite"></div>
+<button class="drag-sort-reset-btn" type="button" id="sort-methods-reset">Reset</button>
 </div>
 
 </div>
@@ -775,6 +784,7 @@ Show Chinese · 显示中文
 </div>
 </footer>
 
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="a2.1.js"></script>
 <script src="../curr-toc.js"></script>

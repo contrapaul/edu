@@ -252,10 +252,48 @@ Show Chinese · 显示中文
 </table>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Ohm's law / power calculator</div>
-<p>Enter any two of V, I, R (and P where relevant) and the tool rearranges the formulas above to solve for the rest, with the working shown step by step, the same worked examples above but for any values a student enters.</p>
+<div class="live-calc" id="calc-ohm">
+<div class="live-calc-label">Interactive</div>
+<div class="live-calc-title">Ohm's Law / Power Calculator</div>
+<p class="live-calc-intro">Enter any two of V, I and R — or one of them plus P — and the rest solve automatically, with the working shown below.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field" id="ohm-field-V">
+<label class="live-calc-field-label" for="ohm-V">Voltage</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="ohm-V" inputmode="decimal" step="any" placeholder="e.g. 12">
+<span class="live-calc-field-unit">V</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="ohm-field-I">
+<label class="live-calc-field-label" for="ohm-I">Current</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="ohm-I" inputmode="decimal" step="any" placeholder="e.g. 0.0255">
+<span class="live-calc-field-unit">A</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="ohm-field-R">
+<label class="live-calc-field-label" for="ohm-R">Resistance</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="ohm-R" inputmode="decimal" step="any" placeholder="e.g. 470">
+<span class="live-calc-field-unit">Ω</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field" id="ohm-field-P">
+<label class="live-calc-field-label" for="ohm-P">Power</label>
+<div class="live-calc-field-input-wrap">
+<input class="live-calc-input" type="number" id="ohm-P" inputmode="decimal" step="any" placeholder="e.g. 0.306">
+<span class="live-calc-field-unit">W</span>
+</div>
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+
+<div class="live-calc-output"><div class="live-calc-working" id="ohm-working"></div></div>
+<button class="live-calc-reset-btn" type="button" id="ohm-reset">Clear all</button>
 </div>
 
 </div>
@@ -1002,6 +1040,7 @@ Show Chinese · 显示中文
 
 </main>
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../live-calc.js"></script>
 <script src="../curriculum.js"></script>
 <script src="b3.4.js"></script>
 <script src="../curr-toc.js"></script>
