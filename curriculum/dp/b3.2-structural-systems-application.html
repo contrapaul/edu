@@ -398,10 +398,57 @@
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Numeric load simulator</div>
-<p>An interactive beam: set the span, support types and a point load or UDL, and the tool draws the free body diagram, calculates the support reactions, and plots the shear force and bending moment diagrams live, the same worked example above but with numbers you choose.</p>
+<div class="diagram-widget" id="simulator-b324">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Numeric Load Simulator</div>
+<p class="drag-sort-intro">A simply-supported beam (pinned at A, roller at B). Set the span and load, then read the reactions, shear force diagram and bending moment diagram live. Defaults match the worked example above.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="sim-b324-span">Span L</label>
+<div class="live-calc-field-input-wrap"><input class="live-calc-input" type="number" id="sim-b324-span" min="0.1" step="any" value="6"><span class="live-calc-field-unit">m</span></div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="sim-b324-loadtype">Load type</label>
+<select class="live-calc-select" id="sim-b324-loadtype">
+<option value="point" selected>Point load</option>
+<option value="udl">UDL (full span)</option>
+</select>
+</div>
+</div>
+
+<div class="live-calc-fields" id="sim-b324-point-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="sim-b324-point-mag">Point load P</label>
+<div class="live-calc-field-input-wrap"><input class="live-calc-input" type="number" id="sim-b324-point-mag" min="0.1" step="any" value="10"><span class="live-calc-field-unit">kN</span></div>
+<span class="live-calc-field-error"></span>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="sim-b324-point-pos">Position from A</label>
+<div class="live-calc-field-input-wrap"><input class="live-calc-input" type="number" id="sim-b324-point-pos" min="0" step="any" value="2"><span class="live-calc-field-unit">m</span></div>
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+
+<div class="live-calc-fields" id="sim-b324-udl-fields" hidden>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="sim-b324-udl-mag">UDL intensity w</label>
+<div class="live-calc-field-input-wrap"><input class="live-calc-input" type="number" id="sim-b324-udl-mag" min="0.1" step="any" value="5"><span class="live-calc-field-unit">kN/m</span></div>
+<span class="live-calc-field-error"></span>
+</div>
+</div>
+
+<div class="diagram-svg-label">Free body diagram</div>
+<svg class="diagram-canvas" id="sim-b324-fbd" viewBox="0 0 600 150" role="img" aria-label="Free body diagram of the beam"></svg>
+
+<div class="diagram-svg-label">Shear force diagram</div>
+<svg class="diagram-canvas" id="sim-b324-sfd" viewBox="0 0 600 130" role="img" aria-label="Shear force diagram"></svg>
+
+<div class="diagram-svg-label">Bending moment diagram</div>
+<svg class="diagram-canvas" id="sim-b324-bmd" viewBox="0 0 600 130" role="img" aria-label="Bending moment diagram"></svg>
+
+<div class="diagram-readout" id="sim-b324-readout"></div>
 </div>
 
 </div>
@@ -836,6 +883,8 @@ The bridge had an unprecedented slenderness: depth-to-span ratio of 1:350 (typic
 </div>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../diagram-utils.js"></script>
+<script src="../live-calc.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
 <script src="b3.2.js"></script>

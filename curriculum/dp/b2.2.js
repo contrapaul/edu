@@ -101,3 +101,45 @@
     });
   });
 })();
+
+/* ── STRESS HEATMAP DEMO (2.2.4) — purely illustrative, no real FEA.
+   Establishes the click-on-SVG + live-redraw pattern the other two
+   diagram widgets (A3.2.7, B3.2.4) reuse. ───────────────────────── */
+(function () {
+  'use strict';
+  var svg = document.getElementById('heatmap-b224-svg');
+  if (!svg || !window.DiagramUtils) return;
+  var DU = window.DiagramUtils;
+
+  var PLATE = { x: 60, y: 60, width: 380, height: 180 };
+  var HOLE = { cx: 100, cy: 150 };
+  var MAX_DIST = 330; // roughly the plate's far corner, for scaling the readout %
+
+  var gradient = document.getElementById('heatmap-b224-gradient');
+  var fillRect = document.getElementById('heatmap-b224-fill');
+  var marker = document.getElementById('heatmap-b224-marker');
+  var readout = document.getElementById('heatmap-b224-readout');
+
+  function placeLoad(evt) {
+    var p = DU.svgPoint(svg, evt);
+    var x = DU.clamp(p.x, PLATE.x + 8, PLATE.x + PLATE.width - 8);
+    var y = DU.clamp(p.y, PLATE.y + 8, PLATE.y + PLATE.height - 8);
+
+    gradient.setAttribute('cx', x);
+    gradient.setAttribute('cy', y);
+    fillRect.style.opacity = '0.85';
+
+    marker.style.display = '';
+    marker.setAttribute('transform', 'translate(' + x + ',' + y + ')');
+
+    var dist = Math.sqrt(Math.pow(x - HOLE.cx, 2) + Math.pow(y - HOLE.cy, 2));
+    var pct = Math.round(DU.clamp(dist / MAX_DIST, 0, 1) * 100);
+    readout.innerHTML = '';
+    var line = document.createElement('p');
+    line.className = 'diagram-readout-line';
+    line.textContent = 'Illustrative peak stress near the fixed hole: ' + pct + '% — the further the load is from the mounting point, the higher this reads, the same lever-arm intuition behind a real bending-moment calculation, just without the real numbers.';
+    readout.appendChild(line);
+  }
+
+  svg.addEventListener('click', placeLoad);
+})();

@@ -362,10 +362,34 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Stress heatmap demo</div>
-<p>A simplified visual FEA demo: click to place a load on a simple shape (a bracket, a beam) and see a colour-coded stress heatmap update in real time, red at the highest-stress regions, blue at the lowest, without any of the real underlying maths.</p>
+<div class="diagram-widget" id="heatmap-b224">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Stress Heatmap Demo</div>
+<p class="drag-sort-intro">This bracket is fixed at the mounting hole. Click anywhere on the plate to place a load and see where the (illustrative) stress concentrates.</p>
+
+<svg class="diagram-canvas" id="heatmap-b224-svg" viewBox="0 0 500 300" role="img" aria-label="Click to place a load on the bracket">
+<defs>
+<radialGradient id="heatmap-b224-gradient" gradientUnits="userSpaceOnUse" cx="250" cy="150" r="90">
+<stop offset="0%" stop-color="#dc2626"></stop>
+<stop offset="35%" stop-color="#f59e0b"></stop>
+<stop offset="70%" stop-color="#eab308"></stop>
+<stop offset="100%" stop-color="#3b82f6" stop-opacity="0.35"></stop>
+</radialGradient>
+</defs>
+<rect x="60" y="60" width="380" height="180" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)" stroke-width="2"></rect>
+<rect id="heatmap-b224-fill" x="60" y="60" width="380" height="180" rx="6" fill="url(#heatmap-b224-gradient)" opacity="0"></rect>
+<rect x="60" y="60" width="380" height="180" rx="6" fill="none" stroke="var(--border-strong)" stroke-width="2"></rect>
+<circle cx="100" cy="150" r="14" fill="var(--surface)" stroke="var(--text)" stroke-width="2"></circle>
+<text x="100" y="200" text-anchor="middle" class="diagram-svg-label" style="margin:0;">FIXED</text>
+<g id="heatmap-b224-marker" style="display:none;">
+<circle r="6" fill="#111418" stroke="#fff" stroke-width="2"></circle>
+</g>
+</svg>
+
+<div class="diagram-readout" id="heatmap-b224-readout">
+<p class="diagram-readout-line">Click the plate to place a load.</p>
+</div>
+<div class="diagram-caveat">Illustrative colour gradient — not a real FEA solve</div>
 </div>
 
 </div>
@@ -870,6 +894,7 @@ Show Chinese · 显示中文
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../diagram-utils.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
 <script src="b2.2.js"></script>

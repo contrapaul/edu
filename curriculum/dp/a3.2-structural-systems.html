@@ -467,10 +467,27 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Load and equilibrium clicker</div>
-<p>An interactive diagram of a simple beam or truss: click to apply a force at different points and magnitudes, and see in real time whether ΣF and ΣM stay at zero (stable) or push the structure into rotation or collapse.</p>
+<div class="diagram-widget" id="equilibrium-a327">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Load and Equilibrium Clicker</div>
+<p class="drag-sort-intro">A beam balanced on a single central pivot, like a seesaw. Click anywhere on the beam to add a downward load; adjust or remove loads below. ΣF is automatically satisfied here (the pivot supplies whatever vertical reaction is needed) — the question is whether ΣM about the pivot stays at zero.</p>
+
+<svg class="diagram-canvas" id="equilibrium-a327-svg" viewBox="0 0 500 220" role="img" aria-label="Click to place a load on the beam">
+<g id="equilibrium-a327-beamgroup">
+<rect id="equilibrium-a327-beam" x="60" y="90" width="380" height="16" rx="3" fill="var(--surface-2)" stroke="var(--border-strong)" stroke-width="2"></rect>
+<g id="equilibrium-a327-loads"></g>
+</g>
+<polygon points="250,106 234,140 266,140" fill="var(--text)"></polygon>
+<line x1="220" y1="142" x2="280" y2="142" stroke="var(--text)" stroke-width="3"></line>
+</svg>
+
+<div class="drag-sort-section-label" id="equilibrium-a327-list-label" style="display:none;">Loads on the beam</div>
+<div id="equilibrium-a327-list"></div>
+
+<div class="diagram-readout" id="equilibrium-a327-readout">
+<p class="diagram-readout-line">No loads placed yet — click the beam to add one.</p>
+</div>
+<button class="drag-sort-reset-btn" type="button" id="equilibrium-a327-reset">Clear all loads</button>
 </div>
 
 </div>
@@ -971,6 +988,7 @@ A = π × (d/2)² = π × (0.015)² = π × 2.25 × 10⁻⁴ = 7.069 × 10⁻⁴
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../diagram-utils.js"></script>
 <script src="../curriculum.js"></script>
 <script src="a3.2.js"></script>
 <script src="../curr-toc.js"></script>

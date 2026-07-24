@@ -218,9 +218,8 @@ get lost, not acted on:
 
 ## Suggested build steps — planned interactive features
 
-*(Phases 1–4 ✅ built 2026-07-23 — see "Suggested build order" below. Phase 5
-and the Deferred items are still planning only; review before any of those turn
-into code.)*
+*(All 5 phases ✅ built 2026-07-23 — see "Suggested build order" below. Only the
+Deferred items (SWOT, Closed-loop) are still planning only.)*
 
 ### Decisions locked in (2026-07-23)
 
@@ -334,10 +333,20 @@ helpers. Three widgets built on it: B3.4.3 Ohm's law/power calculator, B3.3.1
 gear/velocity-ratio calculator (supports up to 3 compound stages), A1.1.3
 percentile lookup tool.
 
-None of the "interactive diagram" items (load clicker, stress heatmap, numeric
-load simulator) share enough to justify one engine — see the build-order note
-below instead, which sequences them so each one's rendering approach can be
-reused by the next.
+**4. Diagram widgets** (covers 3 features) — ✅ **built 2026-07-23.** These don't
+share enough physics or markup to justify a real engine the way drag-sort and
+live-calc do — each is genuinely bespoke SVG plus its own maths. The one thing
+they do share is converting a click's screen coordinates into the SVG's own
+viewBox coordinate space, which is why `curriculum/diagram-utils.js` exists:
+a two-function helper (`svgPoint`, `clamp`), nothing more. B2.2.4 was written
+first and used a local copy of both functions; once A3.2.7 needed the same
+logic a second time, it was worth extracting rather than tripling it, so
+B2.2.4 was refactored to use the shared version too (all three now share it).
+Built in the order the original plan specified, each one's approach informing
+the next: stress heatmap (B2.2.4, click → radial gradient, no real maths) →
+equilibrium clicker (A3.2.7, click → live ΣM check, a seesaw-style single
+pivot) → numeric load simulator (B3.2.4, full statics solver, real FBD/SFD/BMD
+rendering). See each one's per-feature note below for specifics.
 
 ### Suggested build order
 
@@ -366,11 +375,12 @@ Closed-loop are deliberately absent from this list — see "Deferred" below.
    Venn diagram, not a static image — see its note below), Exploded-diagram
    teardown challenge (C4.1, product confirmed as wireless earbuds, real data
    still needed — see its note below).
-5. **Diagram/physics trio, build in this order because each reuses the last one's
-   rendering approach:** Stress heatmap demo (B2.2, purely illustrative, no real
-   maths per its own spec) → Load and equilibrium clicker (A3.2, qualitative
-   stable/unstable check) → Numeric load simulator (B3.2, full reaction + SFD/BMD
-   solver — the most complex item on this whole list).
+5. ✅ **Built (2026-07-23).** Diagram/physics trio, built in this order: Stress
+   heatmap demo (B2.2, purely illustrative, no real maths) → Load and
+   equilibrium clicker (A3.2, qualitative stable/unstable check) → Numeric load
+   simulator (B3.2, full reaction + SFD/BMD solver — the most complex item on
+   this whole list, verified against the worked example above it). This is
+   the last phase — only the two Deferred items remain unbuilt.
 
 ### Per-feature notes
 
@@ -439,14 +449,22 @@ handle, and that a stray pointermove after release no longer moves it. No
 console errors.
 
 #### A3.2.7 — Load and equilibrium clicker
-**Status:** Phase 5 (second of the diagram trio). Pattern: bespoke interactive
-diagram (see build-order note — do this after B2.2's
-heatmap so the SVG-redraw approach is already proven). Steps: (1) a simple SVG
-beam or truss, (2) click a point on it to place a force, drag or use +/- to set
-magnitude, (3) live ΣF/ΣM readout, (4) visual state change (diagram tints or
-shows a rotation arrow) when the structure goes unstable, (5) keep the maths
-genuinely simple — 2D, single or two applied forces, not a general structural
-solver.
+**Status:** ✅ Built 2026-07-23. Pattern: bespoke interactive diagram, second of
+the trio. Lives in `a3.2.js`. **Design note:** reframed as a beam balanced on
+a single central pivot (a seesaw) rather than a generic "beam or truss" —
+this makes ΣF=0 automatically true (the pivot supplies whatever vertical
+reaction is needed), so the interactive challenge is entirely about ΣM,
+which matches the page's own key insight ("When ΣF = 0 but ΣM ≠ 0, the
+structure will rotate") more directly than a multi-support setup would.
+Click the beam to add a load; each load gets its own magnitude +/− and
+remove controls in a list below the diagram (plain HTML buttons, not
+SVG-embedded — easier to make accessible). The beam visually tilts
+(CSS `transform: rotate()` on the group containing both beam and load
+arrows, so they rotate together) proportional to net moment, capped at 14°
+so it reads as "tipping" rather than spinning. Verified in-browser: a single
+load correctly reads unbalanced and tips, a symmetric second load correctly
+brings it back to balanced and level, the magnitude steppers and remove
+button recompute correctly, reset clears everything. No console errors.
 
 #### A3.3.1 — Match the mechanism
 **Status:** ✅ Built 2026-07-23. Pattern: drag-sort-to-category engine, dual-axis
@@ -470,24 +488,46 @@ correctly holding two different products (gear-driven, oscillating) — see the
 engine's multi-item-per-zone note above. No console errors.
 
 #### B2.2.4 — Stress heatmap demo
-**Status:** Phase 5 (first of the diagram trio). Pattern: bespoke interactive
-diagram, build this one **first** among the
-diagram trio — it's explicitly scoped as illustrative only ("without any of the
-real underlying maths" per its own note), so it's the cheapest way to prove out
-the SVG/canvas redraw-on-click approach the other two diagram items reuse. Steps:
-(1) a simple shape (bracket or beam) as SVG, (2) click to place a load, (3) a
-canned/interpolated colour gradient radiating from the load point (not a real FEA
-solve), (4) explicitly label it as a simplified illustration somewhere in the UI
-so students don't mistake it for real analysis.
+**Status:** ✅ Built 2026-07-23. Pattern: bespoke interactive diagram, first of
+the trio, establishing the click-on-SVG pattern the other two reuse. Lives in
+`b2.2.js`; a simple rectangular plate with a fixed mounting hole — click
+anywhere to place a load, an SVG radial gradient (red at the click point,
+fading to blue) fills in, plus a text readout giving an "illustrative peak
+stress %" that scales with distance from the fixed hole (further load =
+higher reading, echoing real bending-moment/lever-arm intuition without any
+real FEA maths), and an amber flag making clear it's not a real solve. **Bug
+caught during verification, not just eyeballed:** the first version's own
+`clamp` reference broke when the file was refactored to use the new shared
+`diagram-utils.js` helper — one call site inside the click handler still
+called the old (now-deleted) local `clamp` function instead of `DU.clamp`,
+so the stress-% text silently stopped updating after a click while the
+gradient and marker still moved correctly (they'd already been fixed).
+Console logging didn't surface it in the same tool call as the click for
+timing reasons; re-checking console immediately after the interaction (not
+just on page load) caught it. Fixed and re-verified: distance-based scaling
+confirmed correct at both a near-hole click (4%) and a far-corner click
+(100%). No console errors after the fix.
 
 #### B3.2.4 — Numeric load simulator
-**Status:** Phase 5 (last of the diagram trio). Pattern: bespoke interactive
-diagram — the most complex item on the list, build
-last in the diagram trio once the rendering approach is proven. Steps: (1) inputs
-for span, support types, and a point load or UDL, (2) compute support reactions,
-(3) draw the free body diagram, (4) plot shear force and bending moment diagrams
-live as inputs change, (5) this is real statics, so the maths needs checking
-against the worked example already on the page, not just eyeballed.
+**Status:** ✅ Built 2026-07-23. Pattern: bespoke interactive diagram, last and
+most complex of the trio — real statics, not illustrative. Lives in `b3.2.js`.
+Simply-supported beam only (pinned at A, roller at B); toggle between a point
+load or a full-span UDL. Draws three aligned SVGs (FBD, SFD, BMD) sharing a
+horizontal scale, plus a text readout in the same "show your working" style
+as the Phase 1 calculators. **Scope note:** cantilever support (which the
+page's prose also covers) was deliberately left out — the page's own worked
+example is specifically the simply-supported case, so that's the one with a
+precise answer to verify against; adding cantilever without an equally solid
+verification anchor felt like breadth at the expense of correctness. **Maths
+verified two ways:** (1) against the page's own worked example, exactly —
+default inputs (L=6, P=10 at a=2) reproduce R_B=3.333 kN, R_A=6.667 kN,
+max moment 13.333 kN·m at x=2m, character-for-character; (2) UDL mode checked
+against the standard w·L²/8 result independently (w=4, L=6 → R_A=R_B=12 kN,
+M_max=18 kN·m at midspan — matches). Also verified: switching load types
+toggles the right input fields, invalid inputs (position outside the span,
+negative span) show inline errors and freeze the diagrams rather than
+rendering garbage, and correcting the input recomputes back to the exact
+worked-example values. No console errors.
 
 #### B3.3.1 — Gear/velocity-ratio calculator
 **Status:** ✅ Built 2026-07-23. Pattern: live-calculator engine. Lives in
