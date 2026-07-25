@@ -749,6 +749,9 @@
             cursor: pointer;
             transition: all var(--transition);
             text-align: left;
+            color: var(--fg);
+            font-family: inherit;
+            font-size: 0.9rem;
         }
 
         .quiz-option:hover { border-color: var(--accent); background: var(--accent-dim); }
@@ -1512,60 +1515,35 @@
                         <div class="quiz-question active" data-question="0" id="q0">
                             <h3>Question 1/5</h3>
                             <p><strong>What does "Garbage In, Garbage Out" mean in the context of AI data?</strong></p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-correct="false">The model will clean bad data automatically</button>
-                                <button class="quiz-option" data-correct="true">Poor quality training data leads to poor model performance</button>
-                                <button class="quiz-option" data-correct="false">You need garbage data to train robust models</button>
-                                <button class="quiz-option" data-correct="false">Data quantity matters more than quality</button>
-                            </div>
+                            <div class="quiz-options"></div>
                             <div class="quiz-feedback" id="fb0"></div>
                         </div>
 
                         <div class="quiz-question" data-question="1" id="q1">
                             <h3>Question 2/5</h3>
                             <p><strong>What is the primary purpose of a loss function during training?</strong></p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-correct="false">To make the model run faster</button>
-                                <button class="quiz-option" data-correct="true">To measure how wrong the model's predictions are</button>
-                                <button class="quiz-option" data-correct="false">To add randomness to the training process</button>
-                                <button class="quiz-option" data-correct="false">To prevent the model from learning</button>
-                            </div>
+                            <div class="quiz-options"></div>
                             <div class="quiz-feedback" id="fb1"></div>
                         </div>
 
                         <div class="quiz-question" data-question="2" id="q2">
                             <h3>Question 3/5</h3>
                             <p><strong>If your training accuracy is 99% but test accuracy is 65%, what's happening?</strong></p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-correct="false">The model is perfectly trained</button>
-                                <button class="quiz-option" data-correct="true">The model is overfitting (memorizing training data)</button>
-                                <button class="quiz-option" data-correct="false">The test data is corrupted</button>
-                                <button class="quiz-option" data-correct="false">You need a more complex model</button>
-                            </div>
+                            <div class="quiz-options"></div>
                             <div class="quiz-feedback" id="fb2"></div>
                         </div>
 
                         <div class="quiz-question" data-question="3" id="q3">
                             <h3>Question 4/5</h3>
                             <p><strong>Why is transfer learning (fine-tuning) often better than training from scratch?</strong></p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-correct="false">It requires more data and compute</button>
-                                <button class="quiz-option" data-correct="true">Pre-trained models already learned useful features from massive datasets</button>
-                                <button class="quiz-option" data-correct="false">It guarantees 100% accuracy</button>
-                                <button class="quiz-option" data-correct="false">It eliminates the need for any training data</button>
-                            </div>
+                            <div class="quiz-options"></div>
                             <div class="quiz-feedback" id="fb3"></div>
                         </div>
 
                         <div class="quiz-question" data-question="4" id="q4">
                             <h3>Question 5/5</h3>
                             <p><strong>What is "model drift" and why does it matter?</strong></p>
-                            <div class="quiz-options">
-                                <button class="quiz-option" data-correct="false">The model physically moves in server memory</button>
-                                <button class="quiz-option" data-correct="true">Real-world data changes over time, making the model's predictions less accurate</button>
-                                <button class="quiz-option" data-correct="false">The model's weights randomly change</button>
-                                <button class="quiz-option" data-correct="false">A new optimization technique</button>
-                            </div>
+                            <div class="quiz-options"></div>
                             <div class="quiz-feedback" id="fb4"></div>
                         </div>
 
@@ -1689,7 +1667,8 @@
             dataGame: {
                 items: [],
                 cleanCount: 0,
-                totalSorted: 0
+                totalSorted: 0,
+                initialized: false
             },
             neurons: {
                 activeInput: null,
@@ -1704,12 +1683,16 @@
                 lr: 0.05,
                 momentum: 0.9,
                 velocity: 0,
-                history: []
+                history: [],
+                canvasInitialized: false
             },
             biasDemo: {
                 balancedRun: false,
                 biasedRun: false
-            }
+            },
+            training: { initialized: false },
+            improvement: { initialized: false },
+            glossary: { initialized: false }
         };
 
         const sections = ['intro', 'data', 'training', 'evaluation', 'improvement', 'glossary'];
@@ -1737,6 +1720,42 @@
         function playComplete() { playTone(523, 0.1, 'sine', 0.1); playTone(659, 0.1, 'sine', 0.1); playTone(784, 0.2, 'sine', 0.1); }
 
         // ============ NAVIGATION ============
+        const sectionInitializers = {
+            data: () => {
+                if (!state.dataGame.initialized) {
+                    initDataGame();
+                    state.dataGame.initialized = true;
+                }
+            },
+            training: () => {
+                if (!state.training.initialized) {
+                    initNeuronNetwork();
+                    if (!state.lossViz.canvasInitialized) {
+                        // lossCanvas is already initialized at module level
+                        state.lossViz.canvasInitialized = true;
+                    }
+                    // Ensure canvas is drawn with correct size
+                    requestAnimationFrame(() => getLossCanvas().draw());
+                    state.training.initialized = true;
+                }
+            },
+            evaluation: () => {
+                // bias demo doesn't need special init
+            },
+            improvement: () => {
+                if (!state.improvement.initialized) {
+                    initQuiz();
+                    state.improvement.initialized = true;
+                }
+            },
+            glossary: () => {
+                if (!state.glossary.initialized) {
+                    initGlossary();
+                    state.glossary.initialized = true;
+                }
+            }
+        };
+
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1752,6 +1771,14 @@
             updateProgress();
             updateMobileNav();
             window.scrollTo(0, 0);
+
+            // Lazy initialize section-specific interactives
+            if (sectionInitializers[sectionId]) {
+                // Use requestAnimationFrame to ensure section is rendered
+                requestAnimationFrame(() => {
+                    sectionInitializers[sectionId]();
+                });
+            }
         }
 
         function updateProgress() {
@@ -1831,6 +1858,9 @@
         ];
 
         function initDataGame() {
+            if (state.dataGame.initialized) return;
+            state.dataGame.initialized = true;
+            
             const batch = document.getElementById('dataBatch');
             batch.innerHTML = '';
             state.dataGame.items = [...dataSamples].sort(() => Math.random() - 0.5);
@@ -1959,6 +1989,9 @@
         const connections = [];
 
         function initNeuronNetwork() {
+            if (state.training.initialized) return;
+            state.training.initialized = true;
+
             const svg = document.getElementById('connectionsSVG');
             const container = document.getElementById('neuronNetwork');
             const neurons = container.querySelectorAll('.neuron');
@@ -2197,7 +2230,13 @@
             return { ctx, draw: drawLossCurve };
         }
 
-        const lossCanvas = initLossCanvas();
+        let lossCanvas = null;
+        function getLossCanvas() {
+            if (!lossCanvas) {
+                lossCanvas = initLossCanvas();
+            }
+            return lossCanvas;
+        }
 
         // Sliders
         document.getElementById('learningRateSlider').addEventListener('input', (e) => {
@@ -2234,7 +2273,7 @@
             }
 
             updateTrainingDisplay();
-            lossCanvas.draw();
+            getLossCanvas().draw();
         }
 
         function updateTrainingDisplay() {
@@ -2290,7 +2329,7 @@
             state.lossViz.velocity = 0;
             state.lossViz.history = [];
             updateTrainingDisplay();
-            lossCanvas.draw();
+            getLossCanvas().draw();
         });
 
         // ============ PHASE 3: BIAS DEMO ============
@@ -2394,9 +2433,8 @@
         ];
 
         function initQuiz() {
-            const container = document.getElementById('quizContainer');
-            const questionsDiv = container.querySelector('.quiz-question.active');
-            if (questionsDiv) return; // Already initialized
+            if (state.improvement.initialized) return;
+            state.improvement.initialized = true;
 
             quizQuestions.forEach((q, i) => {
                 const qDiv = document.getElementById(`q${i}`);
@@ -2576,6 +2614,9 @@
         ];
 
         function initGlossary() {
+            if (state.glossary.initialized) return;
+            state.glossary.initialized = true;
+
             const grid = document.getElementById('glossaryGrid');
             grid.innerHTML = '';
 
@@ -2604,11 +2645,6 @@
 
         // ============ INITIALIZATION ============
         function init() {
-            initDataGame();
-            initNeuronNetwork();
-            initQuiz();
-            initGlossary();
-
             // Handle hash navigation
             window.addEventListener('hashchange', () => {
                 const hash = window.location.hash.slice(1);
@@ -2621,6 +2657,9 @@
             const initialHash = window.location.hash.slice(1);
             if (sections.includes(initialHash)) {
                 showSection(initialHash);
+            } else {
+                // No hash, show intro and initialize its section
+                showSection('intro');
             }
 
             // Resize handler for neuron connections
@@ -2628,8 +2667,10 @@
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    initNeuronNetwork();
-                    lossCanvas.draw();
+                    if (state.currentSection === 'training') {
+                        initNeuronNetwork();
+                    }
+                    getLossCanvas().draw();
                 }, 200);
             });
         }

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Styles 21–32 — showroom</title>
+<style>
+body { background:#15151f; color:#e8e8f0; font-family:-apple-system,'Segoe UI',sans-serif; padding:2rem 1rem 5rem; }
+h1 { text-align:center; font-size:1.5rem; margin-bottom:0.4rem; }
+.sub { text-align:center; opacity:0.6; font-size:0.85rem; margin-bottom:2.5rem; }
+.tool-cards-grid { display:grid; grid-template-columns:repeat(3,360px); justify-content:center; gap:2.75rem 1.25rem; }
+.tool-card {
+  display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  gap:0.5rem; padding:1.75rem 2rem; height:200px;
+  background:var(--card-bg,#1c1c2c); border:var(--card-border-width,2px) solid var(--card-border,#333);
+  border-radius:10px; text-decoration:none; color:#e8e8f0;
+  transition:transform .25s, box-shadow .25s;
+}
+.tool-card:hover { transform:translateY(-3px); }
+.tool-card-title { font-size:var(--card-title-size,1.15rem); color:var(--card-title-color,#fff); margin:0; font-weight:700; }
+.tool-card-sub { font-size:var(--card-sub-size,0.82rem); color:var(--card-sub-color,#aaa); margin:0; line-height:1.5; }
+.label { text-align:center; font-family:ui-monospace,monospace; font-size:0.65rem; letter-spacing:.1em;
+         text-transform:uppercase; opacity:.55; margin-top:.6rem; }
+.tool-card[class*="cs-"] { position:relative; }
+
+/* ═══ 21 — Risograph misregistration ═══════════════════════════ */
+.cs-riso {
+  background:#f2ede1 !important; border:none !important; border-radius:4px !important;
+  overflow:hidden; isolation:isolate;
+}
+.cs-riso::before, .cs-riso::after {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:radial-gradient(circle at 1px 1px, currentColor 1.4px, transparent 0);
+  background-size:9px 9px; mix-blend-mode:multiply; opacity:.42;
+  transition:transform .35s ease, opacity .35s ease;
+}
+.cs-riso::before { color:#ff4a3d; transform:translate(-6px,-5px); }
+.cs-riso::after  { color:#0a7cff; transform:translate(6px,5px); }
+.cs-riso:hover::before, .cs-riso:hover::after { transform:translate(0,0); opacity:.26; }
+/* keep the copy above the ink layers */
+.cs-riso .tool-card-title, .cs-riso .tool-card-sub { position:relative; z-index:1; }
+
+/* ═══ 22 — Frosted glass ═══════════════════════════════════════ */
+.cs-frost {
+  /* the colour lives on the card itself; the pane above frosts it */
+  background:
+    radial-gradient(circle at 20% 25%, #FA16C2 0 78px, transparent 79px),
+    radial-gradient(circle at 82% 32%, #FFE536 0 64px, transparent 65px),
+    radial-gradient(circle at 58% 92%, #2dd4bf 0 82px, transparent 83px),
+    #241d3a !important;
+  background-size:200% 200%; background-position:30% 30%;
+  border:1px solid rgba(255,255,255,0.28) !important;
+  border-radius:20px !important;
+  overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,0.45);
+  transition:background-position .9s ease, box-shadow .3s !important;
+}
+.cs-frost::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  backdrop-filter:blur(18px) saturate(170%);
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+  background:rgba(255,255,255,0.10);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.45);
+}
+.cs-frost .tool-card-title, .cs-frost .tool-card-sub { position:relative; z-index:1; }
+.cs-frost:hover { background-position:70% 60%; }
+
+/* ═══ 23 — Letterpress ═════════════════════════════════════════ */
+.cs-press {
+  background:#dcd7cb !important;
+  border:1px solid #c3bcac !important; border-radius:3px !important;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,0.18), inset 0 -1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,0,0.2);
+}
+.cs-press .tool-card-title, .cs-press .tool-card-sub {
+  text-shadow:0 1px 0 rgba(255,255,255,0.75), 0 -1px 1px rgba(0,0,0,0.35);
+}
+.cs-press:hover { box-shadow:inset 0 4px 10px rgba(0,0,0,0.26), inset 0 -1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.2) !important; }
+
+/* ═══ 24 — Ticket stub ═════════════════════════════════════════ */
+.cs-ticket {
+  background:#fdf6e3 !important; border:none !important; border-radius:0 !important;
+  padding-left:3.25rem !important;
+  --notch:radial-gradient(circle at 0 50%, transparent 9px, #fdf6e3 9px);
+  background-image:var(--notch); background-repeat:no-repeat; background-size:100% 100%;
+  mask-image:radial-gradient(circle 9px at 0 25%,transparent 99%,#000),
+             radial-gradient(circle 9px at 0 50%,transparent 99%,#000),
+             radial-gradient(circle 9px at 0 75%,transparent 99%,#000);
+  mask-composite:intersect; -webkit-mask-composite:source-in;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+.cs-ticket::before {
+  content:''; position:absolute; left:2.1rem; top:8%; bottom:8%;
+  border-left:2px dashed rgba(0,0,0,0.28);
+}
+.cs-ticket::after {
+  content:'ADMIT ONE'; position:absolute; left:2.1rem; top:50%;
+  transform:translate(-50%,-50%) rotate(-90deg); transform-origin:center;
+  font-size:.5rem; letter-spacing:.22em; color:#8a7a4a; white-space:nowrap;
+}
+.cs-ticket:hover { filter:drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
+
+/* ═══ 25 — Isometric extrusion ═════════════════════════════════ */
+.cs-iso {
+  background:#FFE536 !important; border:2px solid #1a1a2e !important; border-radius:8px !important;
+  box-shadow:2px 2px 0 #d9b800, 4px 4px 0 #c4a600, 6px 6px 0 #a88f00,
+             8px 8px 0 #8c7600, 10px 10px 0 #1a1a2e;
+  transition:transform .18s, box-shadow .18s !important;
+}
+.cs-iso:hover {
+  transform:translate(6px,6px) !important;
+  box-shadow:1px 1px 0 #d9b800, 2px 2px 0 #c4a600, 3px 3px 0 #a88f00, 4px 4px 0 #1a1a2e !important;
+}
+
+/* ═══ 26 — Topographic contours ════════════════════════════════ */
+.cs-topo {
+  background-color:#132b25 !important;
+  background-image:repeating-radial-gradient(circle at 30% 120%,
+    transparent 0 13px, rgba(120,220,180,0.18) 13px 14px);
+  border:1px solid rgba(120,220,180,0.3) !important; border-radius:14px !important;
+  overflow:hidden; transition:background-size .6s, background-position .6s !important;
+  background-size:100% 100%;
+}
+.cs-topo:hover { background-size:135% 135%; background-position:20% -10%; }
+
+/* ═══ 27 — VHS chromatic split ═════════════════════════════════ */
+.cs-vhs {
+  background:#0e0b18 !important; border:1px solid #3a2a5a !important; border-radius:6px !important;
+  overflow:hidden;
+}
+.cs-vhs .tool-card-title { text-shadow:-2px 0 rgba(255,0,80,0.85), 2px 0 rgba(0,220,255,0.85); }
+.cs-vhs::before {
+  content:''; position:absolute; left:0; right:0; height:14px; top:-14px;
+  background:linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0));
+  pointer-events:none;
+}
+.cs-vhs:hover::before { animation:cs-track 1.1s linear infinite; }
+@keyframes cs-track { to { top:100%; } }
+.cs-vhs::after {
+  content:'\25B6 PLAY  SP'; position:absolute; top:8px; left:12px;
+  font-family:ui-monospace,monospace; font-size:.5rem; letter-spacing:.14em;
+  color:rgba(255,255,255,0.5);
+}
+
+/* ═══ 28 — Die-cut sticker ═════════════════════════════════════ */
+.cs-sticker {
+  background:#7c3aed !important; border:none !important; border-radius:22px !important;
+  transform:rotate(-2.5deg);
+  box-shadow:0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 10px 22px rgba(0,0,0,0.4);
+  transition:transform .25s, box-shadow .25s !important;
+}
+.cs-sticker::after {
+  content:''; position:absolute; right:0; bottom:0; width:0; height:0;
+  border-style:solid; border-width:0 0 0 0; border-color:transparent;
+  transition:.3s;
+}
+.cs-sticker:hover {
+  transform:rotate(0deg) scale(1.03) !important;
+  box-shadow:0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 16px 34px rgba(0,0,0,0.5) !important;
+}
+.cs-sticker:hover::after {
+  border-width:0 0 42px 42px;
+  border-color:transparent transparent rgba(255,255,255,0.92) transparent;
+  filter:drop-shadow(-3px -3px 4px rgba(0,0,0,0.3));
+}
+
+/* ═══ 29 — Woven fabric ════════════════════════════════════════ */
+.cs-weave {
+  background-color:#8c3b3b !important;
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(255,255,255,0.07) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.16) 0 6px, transparent 6px 12px);
+  border:1px solid #5e2626 !important; border-radius:6px !important;
+  outline:2px dashed rgba(255,255,255,0.4); outline-offset:-10px;
+  transition:outline-offset .3s !important;
+}
+.cs-weave:hover { outline-offset:-6px; }
+
+/* ═══ 30 — Brushed chrome ══════════════════════════════════════ */
+.cs-chrome {
+  border:none !important; border-radius:12px !important; overflow:hidden; isolation:isolate;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.10) 0 1px, transparent 1px 3px),
+    linear-gradient(160deg,#6e7480 0%,#c9ced8 22%,#8b929e 42%,#eef1f6 58%,#7d838f 78%,#aeb4c0 100%) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.35), 0 8px 22px rgba(0,0,0,0.45);
+}
+.cs-chrome::before {
+  content:''; position:absolute; inset:-50%; z-index:-1;
+  background:conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.9), transparent);
+  animation:cs-spin 4s linear infinite paused; opacity:0; transition:opacity .3s;
+}
+.cs-chrome:hover::before { opacity:.6; animation-play-state:running; }
+@keyframes cs-spin { to { transform:rotate(360deg); } }
+.cs-chrome .tool-card-title { text-shadow:0 1px 0 rgba(255,255,255,0.9), 0 -1px 1px rgba(0,0,0,0.4); }
+
+/* ═══ 31 — Marquee bulbs ═══════════════════════════════════════ */
+.cs-marquee {
+  background:#1a1030 !important; border:2px solid #2e1f52 !important; border-radius:10px !important;
+  padding:2.2rem 2rem !important;
+}
+.cs-marquee::before {
+  content:''; position:absolute; inset:7px; border-radius:6px; pointer-events:none;
+  background:
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x    left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x    left bottom / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y    left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y    right top   / 19px 19px;
+  filter:drop-shadow(0 0 3px rgba(255,229,54,0.8)); opacity:.65;
+}
+.cs-marquee:hover::before { animation:cs-bulbs .55s steps(2) infinite; }
+@keyframes cs-bulbs { 50% { opacity:1; filter:drop-shadow(0 0 7px rgba(255,229,54,1)); } }
+
+/* ═══ 32 — Ruled index card ════════════════════════════════════ */
+.cs-ruled {
+  background-color:#fffdf5 !important;
+  background-image:repeating-linear-gradient(transparent 0 25px, #bcd6e8 25px 26px);
+  background-position:0 14px;
+  border:1px solid #d8d2bf !important; border-radius:3px !important;
+  box-shadow:0 3px 12px rgba(0,0,0,0.3);
+  padding-left:3rem !important;
+}
+.cs-ruled::before {
+  content:''; position:absolute; left:2.15rem; top:0; bottom:0; border-left:1.5px solid #e8a0a0;
+}
+.cs-ruled::after {
+  content:''; position:absolute; left:0.75rem; top:0; bottom:0; width:12px;
+  background:radial-gradient(circle, #15151f 5px, transparent 5.5px) repeat-y center / 12px 52px;
+  opacity:.85;
+}
+.cs-ruled:hover { transform:translateY(-3px) rotate(-.6deg) !important; }
+</style>
+</head>
+<body>
+
+<h1>Card Styles 21 – 32</h1>
+<p class="sub">Twelve new techniques, none reusing an approach already in the tools page. Hover each one.</p>
+
+<div class="tool-cards-grid">
+
+<a class="tool-card cs-riso" href="#" style="--card-title-color:#1a1a1a; --card-sub-color:#55504a;">
+  <h3 class="tool-card-title">Risograph</h3>
+  <p class="tool-card-sub">Two halftone ink layers printed out of register. They snap into alignment on hover.</p>
+</a>
+
+<a class="tool-card cs-frost" href="#" style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.82);">
+  <h3 class="tool-card-title">Frosted Glass</h3>
+  <p class="tool-card-sub">A genuine backdrop-filter pane over colour blobs that drift behind the glass on hover.</p>
+</a>
+
+<a class="tool-card cs-press" href="#" style="--card-title-color:#3b3730; --card-sub-color:#6a6458;">
+  <h3 class="tool-card-title">Letterpress</h3>
+  <p class="tool-card-sub">Debossed into the stock rather than glowing off it. Presses deeper on hover.</p>
+</a>
+
+<a class="tool-card cs-ticket" href="#" style="--card-title-color:#3a3020; --card-sub-color:#6d6047;">
+  <h3 class="tool-card-title">Ticket Stub</h3>
+  <p class="tool-card-sub">Punched perforation notches cut with a CSS mask, plus a tear-off line.</p>
+</a>
+
+<a class="tool-card cs-iso" href="#" style="--card-title-color:#1a1a2e; --card-sub-color:#4a4432;">
+  <h3 class="tool-card-title">Isometric Block</h3>
+  <p class="tool-card-sub">A stacked shadow extrusion that compresses as you press it down.</p>
+</a>
+
+<a class="tool-card cs-topo" href="#" style="--card-title-color:#a7f3d0; --card-sub-color:#6ee7b7;">
+  <h3 class="tool-card-title">Topographic</h3>
+  <p class="tool-card-sub">Contour rings instead of a square grid. The terrain zooms as you approach.</p>
+</a>
+
+<a class="tool-card cs-vhs" href="#" style="--card-title-color:#f0e6ff; --card-sub-color:#9d8ec4;">
+  <h3 class="tool-card-title">VHS Tracking</h3>
+  <p class="tool-card-sub">Chromatic split on the title and a tracking band that rolls up the tape.</p>
+</a>
+
+<a class="tool-card cs-sticker" href="#" style="--card-title-color:#ffffff; --card-sub-color:#e2d4ff;">
+  <h3 class="tool-card-title">Die-Cut Sticker</h3>
+  <p class="tool-card-sub">Thick vinyl outline, sitting crooked, with a corner that peels up on hover.</p>
+</a>
+
+<a class="tool-card cs-weave" href="#" style="--card-title-color:#ffe8e8; --card-sub-color:#e0b8b8;">
+  <h3 class="tool-card-title">Woven Fabric</h3>
+  <p class="tool-card-sub">A crosshatch weave with a stitched border that tightens toward the edge.</p>
+</a>
+
+<a class="tool-card cs-chrome" href="#" style="--card-title-color:#1c1f26; --card-sub-color:#3d434e;">
+  <h3 class="tool-card-title">Brushed Chrome</h3>
+  <p class="tool-card-sub">Machined metal fill with a specular highlight that sweeps around the edge.</p>
+</a>
+
+<a class="tool-card cs-marquee" href="#" style="--card-title-color:#FFE536; --card-sub-color:#c9b8e8;">
+  <h3 class="tool-card-title">Marquee Bulbs</h3>
+  <p class="tool-card-sub">A theatre frame of glowing bulbs that blink when you step up to it.</p>
+</a>
+
+<a class="tool-card cs-ruled" href="#" style="--card-title-color:#22303c; --card-sub-color:#5a6b78;">
+  <h3 class="tool-card-title">Ruled Index Card</h3>
+  <p class="tool-card-sub">Notepaper with a red margin rule and punched holes down the binding edge.</p>
+</a>
+
+</div>
+</body>
+</html>
