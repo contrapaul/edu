@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Model Deep Dive - An interactive journey through the AI model lifecycle">
+    <title>AI Model Deep Dive | Build, Train, Test & Improve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0f1a;
+            --bg-elevated: #111827;
+            --bg-card: #161f33;
+            --fg: #e8edf5;
+            --fg-muted: #8b95a6;
+            --accent: #00d4aa;
+            --accent-dim: #00d4aa33;
+            --accent-strong: #00ffcc;
+            --warning: #ffb800;
+            --danger: #ff4d6a;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --border: #253047;
+            --border-light: #314058;
+            --shadow: 0 10px 40px -15px rgba(0,0,0,0.5);
+            --shadow-lg: 0 20px 60px -20px rgba(0,0,0,0.6);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 200ms ease;
+            --sidebar-width: 280px;
+            --header-height: 64px;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f5f7fb;
+                --bg-elevated: #ffffff;
+                --bg-card: #edf1f7;
+                --fg: #1a202c;
+                --fg-muted: #5a6578;
+                --accent: #00a885;
+                --accent-dim: #00a88522;
+                --accent-strong: #008f72;
+                --warning: #d49400;
+                --danger: #d43d5a;
+                --blue: #2563eb;
+                --purple: #9333ea;
+                --border: #d1d9e6;
+                --border-light: #e4e9f0;
+                --shadow: 0 10px 40px -15px rgba(0,0,0,0.1);
+                --shadow-lg: 0 20px 60px -20px rgba(0,0,0,0.15);
+            }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            z-index: 10000;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .skip-link:focus { top: 1rem; }
+
+        /* Background Atmosphere */
+        .bg-atmosphere {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation-delay: 0s; }
+        .orb-2 { width: 300px; height: 300px; background: var(--blue); bottom: 20%; left: -50px; animation-delay: -7s; }
+        .orb-3 { width: 250px; height: 250px; background: var(--purple); top: 40%; right: 10%; animation-delay: -14s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+
+        /* Layout */
+        .app-shell {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg) 100%);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .logo-text { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+
+        .progress-section { margin-bottom: 2rem; }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--fg-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--blue));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; width: 40px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4));
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+        }
+
+        .progress-phases {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.65rem;
+            color: var(--fg-muted);
+        }
+
+        .progress-phases span { transition: color var(--transition); }
+        .progress-phases span.active { color: var(--accent); font-weight: 600; }
+
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--fg-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent), var(--blue));
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 300ms ease;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-card);
+            color: var(--fg);
+        }
+
+        .nav-item.active {
+            background: var(--accent-dim);
+            color: var(--accent-strong);
+        }
+
+        .nav-item.active::before { transform: scaleY(1); }
+
+        .nav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+        .nav-tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .nav-item:hover .nav-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 3rem;
+            overflow-y: auto;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 400ms ease;
+        }
+
+        .section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        h4 { font-size: 1rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }
+
+        p { color: var(--fg-muted); margin-bottom: 1rem; max-width: 75ch; }
+        strong { color: var(--fg); }
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color var(--transition); }
+        a:hover { border-bottom-color: var(--accent); }
+
+        .lead { font-size: 1.25rem; color: var(--fg); margin-bottom: 2rem; max-width: 65ch; }
+
+        /* Cards */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            transition: all var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .card-icon {
+            width: 48px; height: 48px;
+            background: var(--accent-dim);
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .card h3 { color: var(--fg); }
+        .card p { font-size: 0.9rem; margin-bottom: 0; }
+
+        /* Interactive Elements Base */
+        .interactive-demo {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .demo-title { font-size: 1.125rem; font-weight: 600; }
+        .demo-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.625rem;
+            border-radius: 999px;
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            color: var(--bg);
+        }
+
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px -5px var(--accent); }
+
+        .btn-secondary {
+            background: var(--bg);
+            color: var(--fg);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { border-color: var(--border-light); background: var(--bg-card); }
+
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        /* Phase 1: Data Filter Game */
+        .data-filter-game { position: relative; }
+        .data-batch {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-item {
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: grab;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            transition: all var(--transition);
+            user-select: none;
+        }
+
+        .data-item:hover { border-color: var(--accent); transform: scale(1.02); }
+        .data-item.dragging { opacity: 0.5; cursor: grabbing; }
+        .data-item.clean { border-color: var(--accent); background: var(--accent-dim); }
+        .data-item.noisy { border-color: var(--danger); background: rgba(255,77,106,0.1); }
+
+        .data-item-icon { font-size: 2rem; }
+        .data-item-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .drop-zones {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .drop-zone.active { border-color: var(--accent); background: var(--accent-dim); }
+        .drop-zone h4 { margin-bottom: 0; }
+        .drop-zone-items { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; min-height: 60px; }
+        .drop-zone-item {
+            font-size: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        .drop-zone-item.clean { border-color: var(--accent); color: var(--accent); }
+        .drop-zone-item.noisy { border-color: var(--danger); color: var(--danger); }
+
+        .game-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat { text-align: center; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+        .stat-label { font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+        /* Phase 2: Neuron Clicker */
+        .neuron-network {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .layer {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .layer-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--fg-muted);
+            margin-bottom: 0.5rem;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .neuron {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            z-index: 2;
+        }
+
+        .neuron:hover { border-color: var(--accent); transform: scale(1.1); }
+        .neuron.active { border-color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 20px var(--accent-dim); }
+        .neuron.firing { animation: pulse 0.5s ease; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 var(--accent); }
+            50% { transform: scale(1.2); box-shadow: 0 0 30px var(--accent); }
+            100% { transform: scale(1); box-shadow: 0 0 0 var(--accent); }
+        }
+
+        .neuron-icon { font-size: 1.5rem; transition: transform var(--transition); }
+        .neuron.firing .neuron-icon { animation: iconSpin 0.5s ease; }
+
+        @keyframes iconSpin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+
+        .connections {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: var(--border);
+            stroke-width: 1.5;
+            stroke-dasharray: 8 4;
+            transition: stroke var(--transition), stroke-width var(--transition);
+        }
+
+        .connection-line.active {
+            stroke: var(--accent);
+            stroke-width: 2.5;
+            stroke-dasharray: 0;
+            filter: drop-shadow(0 0 4px var(--accent));
+        }
+
+        .neuron-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .output-display {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            min-width: 200px;
+        }
+
+        .output-label { font-size: 0.75rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        .output-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; margin: 0.5rem 0; }
+        .output-confidence { font-size: 0.875rem; color: var(--fg-muted); }
+
+        /* Phase 3: Error Minimizer */
+        .loss-visualizer {
+            height: 300px;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .loss-canvas { width: 100%; height: 100%; display: block; }
+
+        .slider-group {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-label { font-size: 0.875rem; color: var(--fg-muted); min-width: 120px; }
+        .slider-wrapper { flex: 1; min-width: 200px; }
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--bg);
+            border-radius: 3px;
+            outline: none;
+            border: 1px solid var(--border);
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            cursor: pointer;
+            transition: transform var(--transition);
+        }
+
+        .slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .slider::-moz-range-thumb {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-value { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--accent); min-width: 50px; text-align: right; }
+
+        .epoch-controls { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .epoch-info { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; }
+        .epoch-stat { color: var(--fg-muted); }
+        .epoch-stat span { color: var(--fg); font-weight: 600; }
+
+        /* Phase 4: Bias Demo */
+        .bias-scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .scenario-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-title { font-weight: 600; }
+        .scenario-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .scenario-badge.balanced { background: var(--accent-dim); color: var(--accent); }
+        .scenario-badge.biased { background: rgba(255,77,106,0.15); color: var(--danger); }
+
+        .demographic-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .demographic-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .demo-name { min-width: 100px; font-size: 0.875rem; font-weight: 500; }
+        .demo-bar-wrapper { flex: 1; height: 24px; background: var(--bg); border-radius: 12px; overflow: hidden; position: relative; border: 1px solid var(--border); }
+        .demo-bar {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 800ms cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            padding-right: 0.75rem;
+            justify-content: flex-end;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--bg);
+        }
+        .demo-bar.balanced { background: linear-gradient(90deg, var(--accent), var(--blue)); }
+        .demo-bar.biased-high { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+        .demo-bar.biased-low { background: linear-gradient(90deg, var(--danger), #ff8fab); }
+
+        .demo-percentage { position: absolute; right: 0.75rem; font-size: 0.7rem; font-weight: 600; color: var(--bg); pointer-events: none; }
+
+        .predict-btn { width: 100%; margin-top: 1rem; }
+
+        .prediction-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+
+        .prediction-result.show { display: block; animation: slideDown 300ms ease; }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Phase 5: Build Your Model Quiz */
+        .quiz-container { max-width: 600px; margin: 0 auto; }
+        .quiz-progress { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+        .quiz-step {
+            flex: 1; height: 4px; background: var(--bg); border-radius: 2px; border: 1px solid var(--border);
+        }
+        .quiz-step.active { background: linear-gradient(90deg, var(--accent), var(--blue)); border-color: transparent; }
+        .quiz-step.completed { background: var(--accent); border-color: transparent; }
+
+        .quiz-question { display: none; animation: fadeIn 300ms ease; }
+        .quiz-question.active { display: block; }
+
+        .quiz-question h3 { margin-bottom: 1.5rem; }
+        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .quiz-option {
+            padding: 1rem 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-align: left;
+        }
+
+        .quiz-option:hover { border-color: var(--accent); background: var(--accent-dim); }
+        .quiz-option.selected { border-color: var(--accent); background: var(--accent-dim); }
+        .quiz-option.correct { border-color: var(--accent); background: var(--accent-dim); }
+        .quiz-option.incorrect { border-color: var(--danger); background: rgba(255,77,106,0.1); }
+
+        .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: var(--radius-sm); display: none; }
+        .quiz-feedback.show { display: block; animation: slideDown 300ms ease; }
+        .quiz-feedback.correct { background: var(--accent-dim); border: 1px solid var(--accent); color: var(--accent-strong); }
+        .quiz-feedback.incorrect { background: rgba(255,77,106,0.1); border: 1px solid var(--danger); color: var(--danger); }
+
+        .quiz-nav { display: flex; justify-content: space-between; margin-top: 2rem; }
+
+        .quiz-results {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .quiz-results.show { display: block; animation: fadeIn 400ms ease; }
+        .results-score { font-size: 4rem; font-weight: 700; color: var(--accent); font-family: 'JetBrains Mono', monospace; line-height: 1; }
+        .results-title { font-size: 1.5rem; margin: 1rem 0; }
+        .results-desc { color: var(--fg-muted); max-width: 400px; margin: 0 auto 2rem; }
+
+        /* Glossary */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .glossary-term {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .glossary-term:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+
+        .glossary-term-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.5rem; }
+        .glossary-term-name { font-weight: 600; font-size: 1.0625rem; }
+        .glossary-expand { color: var(--fg-muted); transition: transform var(--transition); }
+        .glossary-term.open .glossary-expand { transform: rotate(180deg); }
+        .glossary-definition { color: var(--fg-muted); font-size: 0.875rem; line-height: 1.6; display: none; }
+        .glossary-term.open .glossary-definition { display: block; animation: slideDown 200ms ease; }
+
+        /* Footer */
+        .footer {
+            padding: 2rem 3rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { font-size: 0.875rem; color: var(--fg-muted); }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* Mobile Sidebar Toggle */
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--blue));
+            border: none;
+            color: var(--bg);
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 200;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .sidebar-overlay.visible { opacity: 1; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { position: fixed; left: 0; top: 0; z-index: 100; transform: translateX(-100%); transition: transform 300ms ease; }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.visible { display: block; }
+            .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+            .main-content { padding: 1.5rem; }
+            .footer { padding: 1.5rem; }
+            .drop-zones { grid-template-columns: 1fr; }
+            .neuron-network { gap: 1.5rem; }
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2rem; }
+            .lead { font-size: 1rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .slider-group { flex-direction: column; align-items: stretch; }
+            .slider-label { min-width: auto; }
+            .epoch-info { flex-direction: column; gap: 0.5rem; }
+            .quiz-nav { flex-direction: column; gap: 1rem; }
+            .quiz-nav .btn { width: 100%; }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* Focus Visible */
+        :focus:not(:focus-visible) { outline: none; }
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Sound Toggle */
+        .sound-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--fg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 200;
+            transition: all var(--transition);
+        }
+        .sound-toggle:hover { border-color: var(--accent); background: var(--bg-elevated); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="bg-atmosphere" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-pattern"></div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="logo">
+                <div class="logo-icon" aria-hidden="true">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <span class="logo-text">AI Deep Dive</span>
+            </div>
+
+            <div class="progress-section" aria-live="polite" aria-label="Learning progress">
+                <div class="progress-label">
+                    <span>Journey Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-phases" id="progressPhases">
+                    <span data-phase="intro">Intro</span>
+                    <span data-phase="data">Data</span>
+                    <span data-phase="training">Training</span>
+                    <span data-phase="eval">Eval</span>
+                    <span data-phase="improve">Improve</span>
+                    <span data-phase="glossary">Glossary</span>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="nav-list" role="list">
+                    <li>
+                        <a href="#intro" class="nav-item active" data-section="intro" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </span>
+                            <span>Introduction</span>
+                            <span class="nav-tooltip">What is AI and why it matters</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#data" class="nav-item" data-section="data" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                            </span>
+                            <span>Phase 1: Data</span>
+                            <span class="nav-tooltip">Collection, cleaning & labeling</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#training" class="nav-item" data-section="training" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </span>
+                            <span>Phase 2: Training</span>
+                            <span class="nav-tooltip">Neural networks, weights & loss</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#evaluation" class="nav-item" data-section="evaluation" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </span>
+                            <span>Phase 3: Evaluation</span>
+                            <span class="nav-tooltip">Testing, bias & fairness</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#improvement" class="nav-item" data-section="improvement" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                            </span>
+                            <span>Phase 4: Improvement</span>
+                            <span class="nav-tooltip">Feedback loops & fine-tuning</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#glossary" class="nav-item" data-section="glossary" role="button" tabindex="0">
+                            <span class="nav-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            </span>
+                            <span>Glossary</span>
+                            <span class="nav-tooltip">Key terms & definitions</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content" role="main">
+            <!-- Introduction Section -->
+            <section class="section active" id="intro" aria-labelledby="intro-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="intro-heading">Welcome to the AI Model Deep Dive</h1>
+                    <p class="lead">An interactive journey through the complete lifecycle of an AI model—from raw data to deployed intelligence. Let's build, train, test, and improve together.</p>
+                </header>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3>Learn by Doing</h3>
+                        <p>Every concept includes hands-on interactives. Drag, slide, click, and experiment to build real intuition.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <h3>Visual Mental Models</h3>
+                        <p>Complex topics like gradient descent and backpropagation become clear through animated, interactive visualizations.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3>Ethical AI Focus</h3>
+                        <p>Understand bias, fairness, and responsibility—critical concepts for the next generation of AI builders.</p>
+                    </article>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-header">
+                        <span class="demo-title">Your Journey Map</span>
+                        <span class="demo-badge">Overview</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                        <div style="padding: 1.5rem; background: var(--bg); border-radius: var(--radius); border: 1px solid var(--border);">
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem;">📊 Phase 1: Data</h4>
+                            <p style="font-size: 0.9rem; margin: 0;">Collection, cleaning, labeling, augmentation. Garbage in, garbage out.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg); border-radius: var(--radius); border: 1px solid var(--border);">
+                            <h4 style="color: var(--blue); margin-bottom: 0.5rem;">🧠 Phase 2: Training</h4>
+                            <p style="font-size: 0.9rem; margin: 0;">Neural networks, weights, biases, loss functions, gradient descent.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg); border-radius: var(--radius); border: 1px solid var(--border);">
+                            <h4 style="color: var(--purple); margin-bottom: 0.5rem;">🧪 Phase 3: Evaluation</h4>
+                            <p style="font-size: 0.9rem; margin: 0;">Train/test splits, overfitting, bias detection, fairness metrics.</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: var(--bg); border-radius: var(--radius); border: 1px solid var(--border);">
+                            <h4 style="color: var(--warning); margin-bottom: 0.5rem;">🌱 Phase 4: Improvement</h4>
+                            <p style="font-size: 0.9rem; margin: 0;">Feedback loops, fine-tuning, transfer learning, drift monitoring.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="#data" class="btn btn-primary" data-section="data" role="button">Start Your Journey →</a>
+                </div>
+            </section>
+
+            <!-- Phase 1: Data -->
+            <section class="section" id="data" aria-labelledby="data-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="data-heading">Phase 1: Building the Brain — Data Collection & Preparation</h1>
+                    <p class="lead">Before an AI can learn, it needs quality ingredients. This phase is all about gathering, cleaning, and labeling data—the foundation everything else rests on.</p>
+                </header>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <h3>Collection & Scraping</h3>
+                        <p>Gathering raw data from web, sensors, APIs, or human input. Scale matters, but so does source diversity.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                        </div>
+                        <h3>Cleaning & Deduplication</h3>
+                        <p>Removing duplicates, fixing errors, handling missing values. Clean data prevents the model from learning noise.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M16 21h5v-5"/><path d="M8 21H3v-5"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                        </div>
+                        <h3>Labeling & Annotation</h3>
+                        <p>Humans teach the model what things are. Bounding boxes, categories, segmentation masks—ground truth for learning.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"/><path d="M3 12h18"/><path d="M12 3a6 6 0 0 0 0 12"/><path d="M12 3a6 6 0 0 1 0 12"/></svg>
+                        </div>
+                        <h3>Augmentation & Features</h3>
+                        <p>Expanding datasets through transformations. Extracting meaningful features helps the model generalize better.</p>
+                    </article>
+                </div>
+
+                <div class="interactive-demo data-filter-game" id="dataFilterGame">
+                    <div class="demo-header">
+                        <span class="demo-title">Interactive: The Garbage Filter</span>
+                        <span class="demo-badge">Drag & Drop</span>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; max-width: 600px;">Drag each data sample to the correct bin. Clean, well-labeled data goes to <strong>Training Set</strong>. Noisy, mislabeled, or corrupted data goes to <strong>Discard</strong>. This simulates the critical data curation step.</p>
+
+                    <div class="data-batch" id="dataBatch" role="list" aria-label="Data samples to sort"></div>
+
+                    <div class="drop-zones">
+                        <div class="drop-zone" id="cleanZone" data-type="clean" role="region" aria-label="Training set drop zone" tabindex="0">
+                            <h4>✅ Training Set (Clean)</h4>
+                            <p style="font-size: 0.875rem; color: var(--fg-muted); margin: 0;">Well-labeled, diverse, representative samples</p>
+                            <div class="drop-zone-items" id="cleanItems" aria-live="polite"></div>
+                        </div>
+                        <div class="drop-zone" id="noisyZone" data-type="noisy" role="region" aria-label="Discard drop zone" tabindex="0">
+                            <h4>🗑️ Discard (Noisy)</h4>
+                            <p style="font-size: 0.875rem; color: var(--fg-muted); margin: 0;">Corrupted, mislabeled, duplicate, or biased samples</p>
+                            <div class="drop-zone-items" id="noisyItems" aria-live="polite"></div>
+                        </div>
+                    </div>
+
+                    <div class="game-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="cleanCount">0</div>
+                            <div class="stat-label">Correctly Sorted</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="totalCount">0</div>
+                            <div class="stat-label">Total Samples</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="accuracyStat">0%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <button class="btn btn-secondary" id="resetDataGame" type="button">Reset Game</button>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 3rem;">Key Takeaways</h3>
+                <ul style="max-width: 75ch; color: var(--fg-muted); line-height: 2;">
+                    <li><strong>Data quality > Data quantity:</strong> 1,000 clean samples beat 100,000 noisy ones.</li>
+                    <li><strong>Labeling is expensive but critical:</strong> Human annotation is often the bottleneck.</li>
+                    <li><strong>Bias enters here:</strong> If your data underrepresents a group, your model will too.</li>
+                    <li><strong>Augmentation stretches budgets:</strong> Rotations, crops, noise injection multiply effective dataset size.</li>
+                </ul>
+            </section>
+
+            <!-- Phase 2: Training -->
+            <section class="section" id="training" aria-labelledby="training-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="training-heading">Phase 2: Training the Brain — The Learning Process</h1>
+                    <p class="lead">How does a model actually learn? It's not magic—it's math. Weights adjust, loss decreases, and patterns emerge through iteration.</p>
+                </header>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="13"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
+                        </div>
+                        <h3>Neural Network Anatomy</h3>
+                        <p>Layers of neurons connected by weights. Input → Hidden Layers → Output. Each connection has a weight that determines signal strength.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        </div>
+                        <h3>Weights & Biases</h3>
+                        <p>Weights = connection strengths. Biases = neuron thresholds. Together they're the "knobs" the model turns during training.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+                        </div>
+                        <h3>Loss Function</h3>
+                        <p>The "score" measuring how wrong the model is. Mean Squared Error, Cross-Entropy—different tasks need different loss functions.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/><path d="M12 3v18"/></svg>
+                        </div>
+                        <h3>Gradient Descent</h3>
+                        <p>The optimization algorithm. Calculate gradient (direction of steepest error increase), step opposite. Learning rate controls step size.</p>
+                    </article>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-header">
+                        <span class="demo-title">Interactive: The Neuron Clicker</span>
+                        <span class="demo-badge">Visualization</span>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; max-width: 600px;">Click an input neuron to see how activation flows through the network. Watch weighted connections light up as the signal propagates to the output layer.</p>
+
+                    <div class="neuron-network" id="neuronNetwork" role="application" aria-label="Neural network visualization">
+                        <svg class="connections" id="connectionsSVG" aria-hidden="true"></svg>
+
+                        <div class="layer">
+                            <div class="layer-label">Input Layer</div>
+                            <div class="neuron" data-layer="input" data-index="0" role="button" tabindex="0" aria-label="Input neuron 1: Feature 1">
+                                <span class="neuron-icon">📊</span>
+                            </div>
+                            <div class="neuron" data-layer="input" data-index="1" role="button" tabindex="0" aria-label="Input neuron 2: Feature 2">
+                                <span class="neuron-icon">📈</span>
+                            </div>
+                            <div class="neuron" data-layer="input" data-index="2" role="button" tabindex="0" aria-label="Input neuron 3: Feature 3">
+                                <span class="neuron-icon">📉</span>
+                            </div>
+                            <div class="neuron" data-layer="input" data-index="3" role="button" tabindex="0" aria-label="Input neuron 4: Feature 4">
+                                <span class="neuron-icon">🔢</span>
+                            </div>
+                        </div>
+
+                        <div class="layer">
+                            <div class="layer-label">Hidden Layer 1</div>
+                            <div class="neuron" data-layer="hidden1" data-index="0" aria-label="Hidden neuron 1">
+                                <span class="neuron-icon">⚡</span>
+                            </div>
+                            <div class="neuron" data-layer="hidden1" data-index="1" aria-label="Hidden neuron 2">
+                                <span class="neuron-icon">⚡</span>
+                            </div>
+                            <div class="neuron" data-layer="hidden1" data-index="2" aria-label="Hidden neuron 3">
+                                <span class="neuron-icon">⚡</span>
+                            </div>
+                        </div>
+
+                        <div class="layer">
+                            <div class="layer-label">Hidden Layer 2</div>
+                            <div class="neuron" data-layer="hidden2" data-index="0" aria-label="Hidden neuron 4">
+                                <span class="neuron-icon">⚡</span>
+                            </div>
+                            <div class="neuron" data-layer="hidden2" data-index="1" aria-label="Hidden neuron 5">
+                                <span class="neuron-icon">⚡</span>
+                            </div>
+                        </div>
+
+                        <div class="layer">
+                            <div class="layer-label">Output Layer</div>
+                            <div class="neuron" data-layer="output" data-index="0" aria-label="Output neuron: Cat">
+                                <span class="neuron-icon">🐱</span>
+                            </div>
+                            <div class="neuron" data-layer="output" data-index="1" aria-label="Output neuron: Dog">
+                                <span class="neuron-icon">🐶</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="neuron-controls">
+                        <div class="output-display" id="outputDisplay" aria-live="polite">
+                            <div class="output-label">Prediction</div>
+                            <div class="output-value" id="outputValue">—</div>
+                            <div class="output-confidence" id="outputConfidence">Click an input neuron to begin</div>
+                        </div>
+                        <button class="btn btn-secondary" id="resetNeurons" type="button">Reset Network</button>
+                    </div>
+                </div>
+
+                <div class="interactive-demo loss-visualizer" id="lossVisualizer">
+                    <div class="demo-header">
+                        <span class="demo-title">Interactive: The Error Minimizer</span>
+                        <span class="demo-badge">Slider Control</span>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; max-width: 600px;">Adjust the learning rate and watch how the loss curve behaves. Too high = overshooting (divergence). Too low = painfully slow. Just right = smooth convergence.</p>
+
+                    <canvas class="loss-canvas" id="lossCanvas" aria-label="Loss curve visualization showing training loss over epochs"></canvas>
+
+                    <div class="slider-group">
+                        <span class="slider-label">Learning Rate</span>
+                        <div class="slider-wrapper">
+                            <input type="range" class="slider" id="learningRateSlider" min="0.001" max="1" step="0.001" value="0.05" aria-label="Learning rate slider">
+                        </div>
+                        <span class="slider-value" id="lrValue">0.05</span>
+                    </div>
+
+                    <div class="slider-group">
+                        <span class="slider-label">Momentum</span>
+                        <div class="slider-wrapper">
+                            <input type="range" class="slider" id="momentumSlider" min="0" max="0.99" step="0.01" value="0.9" aria-label="Momentum slider">
+                        </div>
+                        <span class="slider-value" id="momentumValue">0.90</span>
+                    </div>
+
+                    <div class="epoch-controls">
+                        <button class="btn btn-primary" id="startTraining" type="button">Start Training</button>
+                        <button class="btn btn-secondary" id="pauseTraining" type="button" disabled>Pause</button>
+                        <button class="btn btn-secondary" id="resetTraining" type="button">Reset</button>
+                    </div>
+
+                    <div class="epoch-info" aria-live="polite">
+                        <div class="epoch-stat">Epoch: <span id="currentEpoch">0</span></div>
+                        <div class="epoch-stat">Loss: <span id="currentLoss">—</span></div>
+                        <div class="epoch-stat">Best Loss: <span id="bestLoss">—</span></div>
+                        <div class="epoch-stat">Status: <span id="trainingStatus">Ready</span></div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 3rem;">Key Takeaways</h3>
+                <ul style="max-width: 75ch; color: var(--fg-muted); line-height: 2;">
+                    <li><strong>Weights start random:</strong> Training is the process of discovering useful patterns from noise.</li>
+                    <li><strong>Loss guides the way:</strong> Without a loss function, the model has no concept of "better."</li>
+                    <li><strong>Learning rate is critical:</strong> The #1 hyperparameter to tune. Start with 0.001-0.01 for most tasks.</li>
+                    <li><strong>Momentum helps:</strong> It smooths the path, helping escape local minima and accelerate convergence.</li>
+                </ul>
+            </section>
+
+            <!-- Phase 3: Evaluation -->
+            <section class="section" id="evaluation" aria-labelledby="evaluation-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="evaluation-heading">Phase 3: Testing the Brain — Evaluation & Deployment</h1>
+                    <p class="lead">A model that memorizes training data but fails on new data is useless. Evaluation separates learning from memorization—and reveals hidden biases.</p>
+                </header>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+                        </div>
+                        <h3>Train vs Test Split</h3>
+                        <p>Hold out 20-30% of data never seen during training. This is the "final exam"—if the model passes, it learned patterns, not answers.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3>Overfitting Detection</h3>
+                        <p>Training loss drops but test loss rises = memorization. Regularization, dropout, more data, or early stopping can fix this.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="20" x2="12" y2="10"/><path d="M18 20c0-3.866 3-6 7-6 2.079 0 3.818 1.376 4.5 2.5 2 3.5-2 6-5.5 6"/></svg>
+                        </div>
+                        <h3>Bias & Fairness</h3>
+                        <p>Models reflect their training data. If data has societal biases, the model amplifies them. Test across demographics!</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h3>Metrics That Matter</h3>
+                        <p>Accuracy isn't enough. Precision, recall, F1, AUC-ROC—choose metrics that match real-world costs of errors.</p>
+                    </article>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-header">
+                        <span class="demo-title">Interactive: The Skewed Data Demo</span>
+                        <span class="demo-badge">Bias Visualization</span>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; max-width: 600px;">Compare two scenarios: a balanced dataset vs. a biased one. Click "Run Evaluation" to see how model performance differs across demographic groups. This demonstrates why diverse training data is non-negotiable.</p>
+
+                    <div class="bias-scenarios">
+                        <article class="scenario-card">
+                            <div class="scenario-header">
+                                <h4 class="scenario-title">Scenario A: Balanced Dataset</h4>
+                                <span class="scenario-badge balanced">Balanced</span>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-bottom: 1.5rem; color: var(--fg-muted);">Equal representation across all demographic groups in training data.</p>
+                            <div class="demographic-bars" id="balancedBars">
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group A</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar balanced" id="balBarA" style="width: 0%" data-target="92"></div>
+                                        <span class="demo-percentage" id="balPctA">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group B</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar balanced" id="balBarB" style="width: 0%" data-target="91"></div>
+                                        <span class="demo-percentage" id="balPctB">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group C</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar balanced" id="balBarC" style="width: 0%" data-target="93"></div>
+                                        <span class="demo-percentage" id="balPctC">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group D</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar balanced" id="balBarD" style="width: 0%" data-target="90"></div>
+                                        <span class="demo-percentage" id="balPctD">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary predict-btn" id="evalBalanced" type="button">Run Evaluation</button>
+                            <div class="prediction-result" id="resultBalanced" role="status" aria-live="polite"></div>
+                        </article>
+
+                        <article class="scenario-card">
+                            <div class="scenario-header">
+                                <h4 class="scenario-title">Scenario B: Biased Dataset</h4>
+                                <span class="scenario-badge biased">Biased</span>
+                            </div>
+                            <p style="font-size: 0.875rem; margin-bottom: 1.5rem; color: var(--fg-muted);">Training data heavily skewed toward Group A (80% of samples).</p>
+                            <div class="demographic-bars" id="biasedBars">
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group A</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar biased-high" id="biasBarA" style="width: 0%" data-target="94"></div>
+                                        <span class="demo-percentage" id="biasPctA">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group B</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar biased-low" id="biasBarB" style="width: 0%" data-target="67"></div>
+                                        <span class="demo-percentage" id="biasPctB">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group C</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar biased-low" id="biasBarC" style="width: 0%" data-target="58"></div>
+                                        <span class="demo-percentage" id="biasPctC">0%</span>
+                                    </div>
+                                </div>
+                                <div class="demographic-row">
+                                    <span class="demo-name">Group D</span>
+                                    <div class="demo-bar-wrapper">
+                                        <div class="demo-bar biased-low" id="biasBarD" style="width: 0%" data-target="52"></div>
+                                        <span class="demo-percentage" id="biasPctD">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary predict-btn" id="evalBiased" type="button">Run Evaluation</button>
+                            <div class="prediction-result" id="resultBiased" role="status" aria-live="polite"></div>
+                        </article>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg); border-radius: var(--radius); border: 1px solid var(--border);">
+                        <h4 style="margin-bottom: 0.75rem;">💡 What This Shows</h4>
+                        <p style="margin: 0; color: var(--fg-muted);">The model trained on biased data performs well on the majority group but fails dramatically on underrepresented groups. This isn't a model flaw—it's a <strong>data flaw</strong>. Fix the data, fix the fairness.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 3rem;">Key Takeaways</h3>
+                <ul style="max-width: 75ch; color: var(--fg-muted); line-height: 2;">
+                    <li><strong>Always hold out a test set:</strong> Never touch it until final evaluation. No peeking!</li>
+                    <li><strong>Disaggregate your metrics:</strong> Overall accuracy can hide catastrophic failures on subgroups.</li>
+                    <li><strong>Overfitting = memorization:</strong> If train accuracy ≫ test accuracy, add regularization or data.</li>
+                    <li><strong>Bias is a data problem:</strong> The model is a mirror. Clean the mirror, don't blame the reflection.</li>
+                </ul>
+            </section>
+
+            <!-- Phase 4: Improvement -->
+            <section class="section" id="improvement" aria-labelledby="improvement-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="improvement-heading">Phase 4: Keeping it Sharp — Improvement & Maintenance</h1>
+                    <p class="lead">AI models rot. The world changes, data drifts, and user needs evolve. Continuous improvement isn't optional—it's survival.</p>
+                </header>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <h3>Feedback Loops</h3>
+                        <p>Collect predictions, outcomes, and corrections in production. This real-world data becomes the next training set.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M8 11h8"/><path d="M8 7h8"/><path d="M4 19v-6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"/></svg>
+                        </div>
+                        <h3>Fine-Tuning & Transfer Learning</h3>
+                        <p>Start with a pre-trained giant (BERT, GPT, ResNet), then train just the last layers on your specific task. Faster, cheaper, better.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        <h3>Monitoring Drift</h3>
+                        <p>Track input distributions, prediction confidence, and performance over time. When metrics shift, it's retraining time.</p>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M12 3v4"/></svg>
+                        </div>
+                        <h3>Active Learning</h3>
+                        <p>Model flags uncertain predictions for human review. Label those, retrain. Maximum improvement per labeling dollar.</p>
+                    </article>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-header">
+                        <span class="demo-title">Interactive: Build Your Own Model Quiz</span>
+                        <span class="demo-badge">Gamified</span>
+                    </div>
+                    <p style="margin-bottom: 1.5rem; max-width: 600px;">Test your understanding with 5 questions. Your score represents your "model's initial weights"—the better you do, the better your model starts. Can you reach 100%?</p>
+
+                    <div class="quiz-container" id="quizContainer">
+                        <div class="quiz-progress" id="quizProgress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5" aria-label="Quiz progress">
+                            <div class="quiz-step active" data-step="0"></div>
+                            <div class="quiz-step" data-step="1"></div>
+                            <div class="quiz-step" data-step="2"></div>
+                            <div class="quiz-step" data-step="3"></div>
+                            <div class="quiz-step" data-step="4"></div>
+                        </div>
+
+                        <div class="quiz-question active" data-question="0" id="q0">
+                            <h3>Question 1/5</h3>
+                            <p><strong>What does "Garbage In, Garbage Out" mean in the context of AI data?</strong></p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-correct="false">The model will clean bad data automatically</button>
+                                <button class="quiz-option" data-correct="true">Poor quality training data leads to poor model performance</button>
+                                <button class="quiz-option" data-correct="false">You need garbage data to train robust models</button>
+                                <button class="quiz-option" data-correct="false">Data quantity matters more than quality</button>
+                            </div>
+                            <div class="quiz-feedback" id="fb0"></div>
+                        </div>
+
+                        <div class="quiz-question" data-question="1" id="q1">
+                            <h3>Question 2/5</h3>
+                            <p><strong>What is the primary purpose of a loss function during training?</strong></p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-correct="false">To make the model run faster</button>
+                                <button class="quiz-option" data-correct="true">To measure how wrong the model's predictions are</button>
+                                <button class="quiz-option" data-correct="false">To add randomness to the training process</button>
+                                <button class="quiz-option" data-correct="false">To prevent the model from learning</button>
+                            </div>
+                            <div class="quiz-feedback" id="fb1"></div>
+                        </div>
+
+                        <div class="quiz-question" data-question="2" id="q2">
+                            <h3>Question 3/5</h3>
+                            <p><strong>If your training accuracy is 99% but test accuracy is 65%, what's happening?</strong></p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-correct="false">The model is perfectly trained</button>
+                                <button class="quiz-option" data-correct="true">The model is overfitting (memorizing training data)</button>
+                                <button class="quiz-option" data-correct="false">The test data is corrupted</button>
+                                <button class="quiz-option" data-correct="false">You need a more complex model</button>
+                            </div>
+                            <div class="quiz-feedback" id="fb2"></div>
+                        </div>
+
+                        <div class="quiz-question" data-question="3" id="q3">
+                            <h3>Question 4/5</h3>
+                            <p><strong>Why is transfer learning (fine-tuning) often better than training from scratch?</strong></p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-correct="false">It requires more data and compute</button>
+                                <button class="quiz-option" data-correct="true">Pre-trained models already learned useful features from massive datasets</button>
+                                <button class="quiz-option" data-correct="false">It guarantees 100% accuracy</button>
+                                <button class="quiz-option" data-correct="false">It eliminates the need for any training data</button>
+                            </div>
+                            <div class="quiz-feedback" id="fb3"></div>
+                        </div>
+
+                        <div class="quiz-question" data-question="4" id="q4">
+                            <h3>Question 5/5</h3>
+                            <p><strong>What is "model drift" and why does it matter?</strong></p>
+                            <div class="quiz-options">
+                                <button class="quiz-option" data-correct="false">The model physically moves in server memory</button>
+                                <button class="quiz-option" data-correct="true">Real-world data changes over time, making the model's predictions less accurate</button>
+                                <button class="quiz-option" data-correct="false">The model's weights randomly change</button>
+                                <button class="quiz-option" data-correct="false">A new optimization technique</button>
+                            </div>
+                            <div class="quiz-feedback" id="fb4"></div>
+                        </div>
+
+                        <div class="quiz-nav">
+                            <button class="btn btn-secondary" id="quizPrev" type="button" disabled>← Previous</button>
+                            <button class="btn btn-primary" id="quizNext" type="button">Next →</button>
+                            <button class="btn btn-primary" id="quizSubmit" type="button" style="display: none;">See Results</button>
+                        </div>
+
+                        <div class="quiz-results" id="quizResults">
+                            <div class="results-score" id="finalScore">0%</div>
+                            <h2 class="results-title" id="resultsTitle">Model Initialized</h2>
+                            <p class="results-desc" id="resultsDesc">Your model is ready for training!</p>
+                            <button class="btn btn-secondary" id="quizRestart" type="button" style="margin-top: 1.5rem;">Retake Quiz</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 3rem;">Key Takeaways</h3>
+                <ul style="max-width: 75ch; color: var(--fg-muted); line-height: 2;">
+                    <li><strong>Models degrade in production:</strong> Data drift, concept drift, and changing user behavior all erode performance.</li>
+                    <li><strong>Feedback loops are gold:</strong> Production data + human corrections = the best possible training set.</li>
+                    <li><strong>Fine-tune, don't retrain:</strong> Leverage massive pre-trained models. Adapt them cheaply to your domain.</li>
+                    <li><strong>Monitor everything:</strong> Input distributions, prediction confidence, latency, error rates. Alert on anomalies.</li>
+                </ul>
+            </section>
+
+            <!-- Glossary -->
+            <section class="section" id="glossary" aria-labelledby="glossary-heading">
+                <header style="margin-bottom: 3rem;">
+                    <h1 id="glossary-heading">Glossary & Resources</h1>
+                    <p class="lead">Key terms you'll encounter on your AI journey. Click any term to expand its definition.</p>
+                </header>
+
+                <div class="glossary-grid" id="glossaryGrid"></div>
+
+                <h3 style="margin-top: 3rem;">Further Learning</h3>
+                <div class="card-grid">
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        </div>
+                        <h3>Courses</h3>
+                        <ul style="color: var(--fg-muted); line-height: 2; font-size: 0.9rem;">
+                            <li><a href="https://www.coursera.org/learn/machine-learning" target="_blank" rel="noopener">Andrew Ng's Machine Learning (Coursera)</a></li>
+                            <li><a href="https://course.fast.ai/" target="_blank" rel="noopener">Practical Deep Learning (fast.ai)</a></li>
+                            <li><a href="https://www.deeplearning.ai/" target="_blank" rel="noopener">DeepLearning.AI Specializations</a></li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        </div>
+                        <h3>Key Papers to Explore</h3>
+                        <ul style="color: var(--fg-muted); line-height: 2; font-size: 0.9rem;">
+                            <li>"Attention Is All You Need" (Transformer)</li>
+                            <li>"Deep Residual Learning" (ResNet)</li>
+                            <li>"BERT: Pre-training of Deep Bidirectional Transformers"</li>
+                            <li>"Scaling Laws for Neural Language Models"</li>
+                        </ul>
+                    </article>
+                    <article class="card">
+                        <div class="card-icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                        </div>
+                        <h3>Hands-On Tools</h3>
+                        <ul style="color: var(--fg-muted); line-height: 2; font-size: 0.9rem;">
+                            <li><a href="https://colab.research.google.com/" target="_blank" rel="noopener">Google Colab (Free GPU)</a></li>
+                            <li><a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face (Models & Datasets)</a></li>
+                            <li><a href="https://wandb.ai/" target="_blank" rel="noopener">Weights & Biases (Experiment Tracking)</a></li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer" role="contentinfo">
+        <p style="color: var(--fg-muted); font-size: 0.875rem;">AI Model Deep Dive — Built for curious minds</p>
+        <nav class="footer-links" aria-label="Footer links">
+            <a href="#intro">Introduction</a>
+            <a href="#data">Data</a>
+            <a href="#training">Training</a>
+            <a href="#evaluation">Evaluation</a>
+            <a href="#improvement">Improvement</a>
+            <a href="#glossary">Glossary</a>
+        </nav>
+    </footer>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Open navigation" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound effects" aria-pressed="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="soundIconOn">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="soundIconOff" style="display: none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+    </button>
+
+    <script>
+        // ============ STATE & UTILITIES ============
+        const state = {
+            currentSection: 'intro',
+            visitedSections: new Set(['intro']),
+            soundEnabled: true,
+            quiz: {
+                currentQuestion: 0,
+                answers: {},
+                score: 0
+            },
+            dataGame: {
+                items: [],
+                cleanCount: 0,
+                totalSorted: 0
+            },
+            neurons: {
+                activeInput: null,
+                animating: false
+            },
+            lossViz: {
+                animating: false,
+                animationId: null,
+                epoch: 0,
+                loss: 2.5,
+                bestLoss: Infinity,
+                lr: 0.05,
+                momentum: 0.9,
+                velocity: 0,
+                history: []
+            },
+            biasDemo: {
+                balancedRun: false,
+                biasedRun: false
+            }
+        };
+
+        const sections = ['intro', 'data', 'training', 'evaluation', 'improvement', 'glossary'];
+        const phaseLabels = { intro: 'Intro', data: 'Data', training: 'Training', evaluation: 'Eval', improvement: 'Improve', glossary: 'Glossary' };
+
+        // Sound effects using Web Audio API
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTone(freq, duration, type = 'sine', volume = 0.1) {
+            if (!state.soundEnabled) return;
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.type = type;
+            oscillator.frequency.value = freq;
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+        }
+
+        function playSuccess() { playTone(880, 0.15, 'sine', 0.15); playTone(1320, 0.15, 'sine', 0.1); }
+        function playError() { playTone(220, 0.2, 'sawtooth', 0.1); }
+        function playClick() { playTone(660, 0.05, 'square', 0.05); }
+        function playComplete() { playTone(523, 0.1, 'sine', 0.1); playTone(659, 0.1, 'sine', 0.1); playTone(784, 0.2, 'sine', 0.1); }
+
+        // ============ NAVIGATION ============
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            const section = document.getElementById(sectionId);
+            const navItem = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+
+            if (section) section.classList.add('active');
+            if (navItem) navItem.classList.add('active');
+
+            state.currentSection = sectionId;
+            state.visitedSections.add(sectionId);
+            updateProgress();
+            updateMobileNav();
+            window.scrollTo(0, 0);
+        }
+
+        function updateProgress() {
+            const idx = sections.indexOf(state.currentSection);
+            const progress = ((idx + 1) / sections.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressPercent').textContent = `${Math.round(progress)}%`;
+
+            document.querySelectorAll('.progress-phases span').forEach((span, i) => {
+                span.classList.toggle('active', i <= idx);
+            });
+        }
+
+        function updateMobileNav() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const toggle = document.getElementById('mobileToggle');
+
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('visible');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        // Navigation event listeners
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                playClick();
+                showSection(item.dataset.section);
+            });
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    playClick();
+                    showSection(item.dataset.section);
+                }
+            });
+        });
+
+        document.getElementById('mobileToggle').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const toggle = document.getElementById('mobileToggle');
+            const isOpen = sidebar.classList.toggle('open');
+            overlay.classList.toggle('visible', isOpen);
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        document.getElementById('sidebarOverlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebarOverlay').classList.remove('visible');
+            document.getElementById('mobileToggle').setAttribute('aria-expanded', 'false');
+        });
+
+        // Sound toggle
+        document.getElementById('soundToggle').addEventListener('click', () => {
+            state.soundEnabled = !state.soundEnabled;
+            document.getElementById('soundIconOn').style.display = state.soundEnabled ? 'block' : 'none';
+            document.getElementById('soundIconOff').style.display = state.soundEnabled ? 'none' : 'block';
+            document.getElementById('soundToggle').setAttribute('aria-pressed', state.soundEnabled);
+        });
+
+        // ============ PHASE 1: DATA FILTER GAME ============
+        const dataSamples = [
+            { id: 1, type: 'clean', icon: '🐱', label: 'Cat Photo', desc: 'Clear, labeled correctly' },
+            { id: 2, type: 'clean', icon: '🐶', label: 'Dog Photo', desc: 'Clear, labeled correctly' },
+            { id: 3, type: 'clean', icon: '🚗', label: 'Car Image', desc: 'Clear, labeled correctly' },
+            { id: 4, type: 'clean', icon: '🌲', label: 'Tree Photo', desc: 'Clear, labeled correctly' },
+            { id: 5, type: 'clean', icon: '🏠', label: 'House Image', desc: 'Clear, labeled correctly' },
+            { id: 6, type: 'noisy', icon: '🌫️', label: 'Blurry Photo', desc: 'Too blurry to identify' },
+            { id: 7, type: 'noisy', icon: '❓', label: 'Mislabeled', desc: 'Cat labeled as Dog' },
+            { id: 8, type: 'noisy', icon: '📋', label: 'Duplicate', desc: 'Exact copy of Sample 1' },
+            { id: 9, type: 'noisy', icon: '💥', label: 'Corrupted', desc: 'File damaged, artifacts' },
+            { id: 10, type: 'noisy', icon: '⚖️', label: 'Biased Sample', desc: 'Only light-skinned faces' },
+        ];
+
+        function initDataGame() {
+            const batch = document.getElementById('dataBatch');
+            batch.innerHTML = '';
+            state.dataGame.items = [...dataSamples].sort(() => Math.random() - 0.5);
+            state.dataGame.cleanCount = 0;
+            state.dataGame.totalSorted = 0;
+
+            state.dataGame.items.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'data-item';
+                el.draggable = true;
+                el.dataset.id = item.id;
+                el.dataset.type = item.type;
+                el.setAttribute('role', 'listitem');
+                el.setAttribute('aria-label', `${item.label}, ${item.desc}`);
+                el.innerHTML = `
+                    <span class="data-item-icon">${item.icon}</span>
+                    <span class="data-item-label">${item.label}</span>
+                `;
+                batch.appendChild(el);
+            });
+
+            updateDataStats();
+            attachDragEvents();
+        }
+
+        function attachDragEvents() {
+            const items = document.querySelectorAll('.data-item');
+            const zones = document.querySelectorAll('.drop-zone');
+
+            items.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    item.classList.add('dragging');
+                    e.dataTransfer.setData('text/plain', item.dataset.id);
+                    e.dataTransfer.effectAllowed = 'move';
+                });
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                });
+
+                // Keyboard support
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        // Show zone selection modal or auto-sort
+                        const correctZone = item.dataset.type === 'clean' ? 'cleanZone' : 'noisyZone';
+                        handleDrop(item, document.getElementById(correctZone));
+                    }
+                });
+            });
+
+            zones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                    zone.classList.add('active');
+                });
+                zone.addEventListener('dragleave', () => zone.classList.remove('active'));
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    zone.classList.remove('active');
+                    const id = e.dataTransfer.getData('text/plain');
+                    const item = document.querySelector(`.data-item[data-id="${id}"]`);
+                    if (item) handleDrop(item, zone);
+                });
+
+                // Keyboard support for zones
+                zone.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        zone.classList.toggle('active');
+                    }
+                });
+            });
+        }
+
+        function handleDrop(item, zone) {
+            const itemType = item.dataset.type;
+            const zoneType = zone.dataset.type;
+            const isCorrect = itemType === zoneType;
+
+            // Remove from batch
+            item.remove();
+
+            // Add to zone
+            const itemsContainer = zone.querySelector('.drop-zone-items');
+            const tag = document.createElement('span');
+            tag.className = `drop-zone-item ${itemType}`;
+            tag.textContent = item.querySelector('.data-item-label').textContent;
+            itemsContainer.appendChild(tag);
+
+            // Update stats
+            state.dataGame.totalSorted++;
+            if (isCorrect) {
+                state.dataGame.cleanCount++;
+                playSuccess();
+            } else {
+                playError();
+            }
+
+            updateDataStats();
+
+            // Check completion
+            if (state.dataGame.totalSorted === dataSamples.length) {
+                setTimeout(() => playComplete(), 300);
+            }
+        }
+
+        function updateDataStats() {
+            document.getElementById('cleanCount').textContent = state.dataGame.cleanCount;
+            document.getElementById('totalCount').textContent = state.dataGame.totalSorted;
+            const acc = state.dataGame.totalSorted > 0
+                ? Math.round((state.dataGame.cleanCount / state.dataGame.totalSorted) * 100)
+                : 0;
+            document.getElementById('accuracyStat').textContent = `${acc}%`;
+        }
+
+        document.getElementById('resetDataGame').addEventListener('click', () => {
+            playClick();
+            initDataGame();
+            document.getElementById('cleanItems').innerHTML = '';
+            document.getElementById('noisyItems').innerHTML = '';
+        });
+
+        // ============ PHASE 2: NEURON CLICKER ============
+        const neuronPositions = {};
+        const connections = [];
+
+        function initNeuronNetwork() {
+            const svg = document.getElementById('connectionsSVG');
+            const container = document.getElementById('neuronNetwork');
+            const neurons = container.querySelectorAll('.neuron');
+
+            // Calculate positions
+            const layers = ['input', 'hidden1', 'hidden2', 'output'];
+            neurons.forEach(n => {
+                const rect = n.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                neuronPositions[`${n.dataset.layer}-${n.dataset.index}`] = {
+                    x: rect.left - containerRect.left + rect.width / 2,
+                    y: rect.top - containerRect.top + rect.height / 2
+                };
+            });
+
+            // Create connections
+            svg.innerHTML = '';
+            layers.forEach((layer, li) => {
+                if (li === layers.length - 1) return;
+                const nextLayer = layers[li + 1];
+                const currentNeurons = [...neurons].filter(n => n.dataset.layer === layer);
+                const nextNeurons = [...neurons].filter(n => n.dataset.layer === nextLayer);
+
+                currentNeurons.forEach((n, ni) => {
+                    nextNeurons.forEach((nn, nni) => {
+                        const from = neuronPositions[`${layer}-${ni}`];
+                        const to = neuronPositions[`${nextLayer}-${nni}`];
+                        if (from && to) {
+                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            line.className.baseVal = 'connection-line';
+                            line.setAttribute('x1', from.x);
+                            line.setAttribute('y1', from.y);
+                            line.setAttribute('x2', to.x);
+                            line.setAttribute('y2', to.y);
+                            line.dataset.from = `${layer}-${ni}`;
+                            line.dataset.to = `${nextLayer}-${nni}`;
+                            svg.appendChild(line);
+                            connections.push(line);
+                        }
+                    });
+                });
+            });
+
+            attachNeuronEvents();
+        }
+
+        function attachNeuronEvents() {
+            const inputNeurons = document.querySelectorAll('.neuron[data-layer="input"]');
+
+            inputNeurons.forEach(neuron => {
+                neuron.addEventListener('click', () => activateNeuron(neuron));
+                neuron.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        activateNeuron(neuron);
+                    }
+                });
+            });
+
+            document.getElementById('resetNeurons').addEventListener('click', () => {
+                playClick();
+                resetNeurons();
+            });
+        }
+
+        function activateNeuron(neuron) {
+            if (state.neurons.animating) return;
+            state.neurons.animating = true;
+            playClick();
+
+            // Deactivate previous
+            document.querySelectorAll('.neuron.active, .neuron.firing').forEach(n => {
+                n.classList.remove('active', 'firing');
+            });
+            connections.forEach(c => c.classList.remove('active'));
+
+            neuron.classList.add('active', 'firing');
+            state.neurons.activeInput = neuron;
+
+            // Animate forward pass
+            const layers = ['hidden1', 'hidden2', 'output'];
+            let delay = 0;
+
+            layers.forEach((layer, li) => {
+                const layerNeurons = document.querySelectorAll(`.neuron[data-layer="${layer}"]`);
+                layerNeurons.forEach((n, ni) => {
+                    setTimeout(() => {
+                        n.classList.add('firing');
+                        // Activate connections
+                        connections.forEach(c => {
+                            if (c.dataset.from.startsWith(li === 0 ? 'input' : layers[li-1]) &&
+                                c.dataset.to.startsWith(layer)) {
+                                c.classList.add('active');
+                            }
+                        });
+                    }, delay);
+                });
+                delay += 300;
+            });
+
+            // Show output
+            setTimeout(() => {
+                const outputs = ['🐱 Cat', '🐶 Dog'];
+                const choice = Math.floor(Math.random() * 2);
+                const confidence = (85 + Math.random() * 10).toFixed(1);
+                document.getElementById('outputValue').textContent = outputs[choice];
+                document.getElementById('outputConfidence').textContent = `Confidence: ${confidence}%`;
+
+                // Highlight chosen output
+                const outputNeurons = document.querySelectorAll('.neuron[data-layer="output"]');
+                outputNeurons.forEach((n, i) => {
+                    if (i === choice) n.classList.add('active', 'firing');
+                });
+
+                state.neurons.animating = false;
+                playSuccess();
+            }, delay + 100);
+        }
+
+        function resetNeurons() {
+            document.querySelectorAll('.neuron').forEach(n => n.classList.remove('active', 'firing'));
+            connections.forEach(c => c.classList.remove('active'));
+            document.getElementById('outputValue').textContent = '—';
+            document.getElementById('outputConfidence').textContent = 'Click an input neuron to begin';
+            state.neurons.activeInput = null;
+        }
+
+        // ============ PHASE 2: LOSS VISUALIZER ============
+        function initLossCanvas() {
+            const canvas = document.getElementById('lossCanvas');
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+
+            function resize() {
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+                drawLossCurve();
+            }
+
+            function drawLossCurve() {
+                const width = canvas.width / dpr;
+                const height = canvas.height / dpr;
+                const padding = 40;
+
+                ctx.clearRect(0, 0, width, height);
+
+                // Grid
+                ctx.strokeStyle = 'var(--border)';
+                ctx.lineWidth = 1;
+                for (let i = 0; i <= 10; i++) {
+                    const y = padding + (height - 2 * padding) * i / 10;
+                    ctx.beginPath();
+                    ctx.moveTo(padding, y);
+                    ctx.lineTo(width - padding, y);
+                    ctx.stroke();
+                }
+                for (let i = 0; i <= 10; i++) {
+                    const x = padding + (width - 2 * padding) * i / 10;
+                    ctx.beginPath();
+                    ctx.moveTo(x, padding);
+                    ctx.lineTo(x, height - padding);
+                    ctx.stroke();
+                }
+
+                // Axes
+                ctx.strokeStyle = 'var(--fg-muted)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(padding, padding);
+                ctx.lineTo(padding, height - padding);
+                ctx.lineTo(width - padding, height - padding);
+                ctx.stroke();
+
+                // Labels
+                ctx.fillStyle = 'var(--fg-muted)';
+                ctx.font = '11px Space Grotesk';
+                ctx.textAlign = 'right';
+                ctx.fillText('Loss', padding - 10, padding + 15);
+                ctx.textAlign = 'center';
+                ctx.fillText('Epochs', width / 2, height - 10);
+
+                // History line
+                if (state.lossViz.history.length > 1) {
+                    const maxLoss = Math.max(...state.lossViz.history, 2.5);
+                    const minLoss = Math.min(...state.lossViz.history, 0);
+                    const range = maxLoss - minLoss || 1;
+
+                    ctx.strokeStyle = 'var(--accent)';
+                    ctx.lineWidth = 2.5;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    ctx.beginPath();
+
+                    state.lossViz.history.forEach((loss, i) => {
+                        const x = padding + (width - 2 * padding) * i / Math.max(99, state.lossViz.history.length - 1);
+                        const y = height - padding - (height - 2 * padding) * (loss - minLoss) / range;
+                        if (i === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
+                    });
+                    ctx.stroke();
+
+                    // Current point
+                    const lastLoss = state.lossViz.history[state.lossViz.history.length - 1];
+                    const lastX = padding + (width - 2 * padding) * (state.lossViz.history.length - 1) / Math.max(99, state.lossViz.history.length - 1);
+                    const lastY = height - padding - (height - 2 * padding) * (lastLoss - minLoss) / range;
+
+                    ctx.fillStyle = 'var(--accent)';
+                    ctx.beginPath();
+                    ctx.arc(lastX, lastY, 6, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = 'var(--bg)';
+                    ctx.beginPath();
+                    ctx.arc(lastX, lastY, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Target line (zero loss)
+                ctx.strokeStyle = 'var(--danger)';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                const zeroY = height - padding - (height - 2 * padding) * (0 - minLoss) / range;
+                ctx.moveTo(padding, zeroY);
+                ctx.lineTo(width - padding, zeroY);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            return { ctx, draw: drawLossCurve };
+        }
+
+        const lossCanvas = initLossCanvas();
+
+        // Sliders
+        document.getElementById('learningRateSlider').addEventListener('input', (e) => {
+            state.lossViz.lr = parseFloat(e.target.value);
+            document.getElementById('lrValue').textContent = state.lossViz.lr.toFixed(3);
+        });
+
+        document.getElementById('momentumSlider').addEventListener('input', (e) => {
+            state.lossViz.momentum = parseFloat(e.target.value);
+            document.getElementById('momentumValue').textContent = state.lossViz.momentum.toFixed(2);
+        });
+
+        function simulateTrainingStep() {
+            // Simplified loss simulation with learning rate and momentum
+            const lr = state.lossViz.lr;
+            const momentum = state.lossViz.momentum;
+
+            // Gradient approximation (simplified)
+            const gradient = (Math.random() - 0.3) * state.lossViz.loss * 0.5;
+
+            state.lossViz.velocity = momentum * state.lossViz.velocity - lr * gradient;
+            state.lossViz.loss += state.lossViz.velocity;
+
+            // Add noise
+            state.lossViz.loss += (Math.random() - 0.5) * 0.05;
+            state.lossViz.loss = Math.max(0.01, state.lossViz.loss);
+
+            state.lossViz.epoch++;
+            state.lossViz.history.push(state.lossViz.loss);
+            if (state.lossViz.history.length > 100) state.lossViz.history.shift();
+
+            if (state.lossViz.loss < state.lossViz.bestLoss) {
+                state.lossViz.bestLoss = state.lossViz.loss;
+            }
+
+            updateTrainingDisplay();
+            lossCanvas.draw();
+        }
+
+        function updateTrainingDisplay() {
+            document.getElementById('currentEpoch').textContent = state.lossViz.epoch;
+            document.getElementById('currentLoss').textContent = state.lossViz.loss.toFixed(4);
+            document.getElementById('bestLoss').textContent = state.lossViz.bestLoss.toFixed(4);
+
+            let status = 'Training...';
+            if (state.lossViz.loss > 10) status = 'Diverging! ⚠️';
+            else if (state.lossViz.loss < 0.05) status = 'Converged ✓';
+            else if (state.lossViz.epoch > 80) status = 'Slow convergence';
+            document.getElementById('trainingStatus').textContent = status;
+        }
+
+        let trainingInterval = null;
+
+        document.getElementById('startTraining').addEventListener('click', () => {
+            if (state.lossViz.animating) return;
+            playClick();
+            state.lossViz.animating = true;
+            document.getElementById('startTraining').disabled = true;
+            document.getElementById('pauseTraining').disabled = false;
+            document.getElementById('learningRateSlider').disabled = true;
+            document.getElementById('momentumSlider').disabled = true;
+
+            trainingInterval = setInterval(() => {
+                simulateTrainingStep();
+                if (state.lossViz.loss > 10 || state.lossViz.epoch >= 100) {
+                    pauseTraining();
+                }
+            }, 80);
+        });
+
+        document.getElementById('pauseTraining').addEventListener('click', pauseTraining);
+
+        function pauseTraining() {
+            if (!state.lossViz.animating) return;
+            state.lossViz.animating = false;
+            clearInterval(trainingInterval);
+            document.getElementById('startTraining').disabled = false;
+            document.getElementById('pauseTraining').disabled = true;
+            document.getElementById('learningRateSlider').disabled = false;
+            document.getElementById('momentumSlider').disabled = false;
+            playClick();
+        }
+
+        document.getElementById('resetTraining').addEventListener('click', () => {
+            playClick();
+            pauseTraining();
+            state.lossViz.epoch = 0;
+            state.lossViz.loss = 2.5;
+            state.lossViz.bestLoss = Infinity;
+            state.lossViz.velocity = 0;
+            state.lossViz.history = [];
+            updateTrainingDisplay();
+            lossCanvas.draw();
+        });
+
+        // ============ PHASE 3: BIAS DEMO ============
+        function animateBars(containerId, resultId, callback) {
+            const bars = document.querySelectorAll(`#${containerId} .demo-bar`);
+            let completed = 0;
+
+            bars.forEach((bar, i) => {
+                const target = parseInt(bar.dataset.target);
+                let current = 0;
+                const duration = 800;
+                const start = performance.now();
+
+                function animate(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    current = target * eased;
+                    bar.style.width = `${current}%`;
+                    document.getElementById(bar.id.replace('Bar', 'Pct')).textContent = `${Math.round(current)}%`;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        completed++;
+                        if (completed === bars.length && callback) callback();
+                    }
+                }
+                requestAnimationFrame(animate);
+            });
+        }
+
+        document.getElementById('evalBalanced').addEventListener('click', () => {
+            playClick();
+            state.biasDemo.balancedRun = true;
+            animateBars('balancedBars', 'resultBalanced', () => {
+                const result = document.getElementById('resultBalanced');
+                result.className = 'prediction-result show correct';
+                result.innerHTML = '<strong>✅ Fair Performance:</strong> All groups achieve 90%+ accuracy. The model treats everyone equally because it learned from balanced data.';
+                playSuccess();
+            });
+        });
+
+        document.getElementById('evalBiased').addEventListener('click', () => {
+            playClick();
+            state.biasDemo.biasedRun = true;
+            animateBars('biasedBars', 'resultBiased', () => {
+                const result = document.getElementById('resultBiased');
+                result.className = 'prediction-result show incorrect';
+                result.innerHTML = '<strong>⚠️ Unfair Performance:</strong> Group A: 94% | Group B: 67% | Group C: 58% | Group D: 52%. The model fails underrepresented groups because it never learned their patterns.';
+                playError();
+            });
+        });
+
+        // ============ PHASE 4: QUIZ ============
+        const quizQuestions = [
+            {
+                q: "What does 'Garbage In, Garbage Out' mean in the context of AI data?",
+                options: [
+                    { text: "The model will clean bad data automatically", correct: false },
+                    { text: "Poor quality training data leads to poor model performance", correct: true },
+                    { text: "You need garbage data to train robust models", correct: false },
+                    { text: "Data quantity matters more than quality", correct: false }
+                ]
+            },
+            {
+                q: "What is the primary purpose of a loss function during training?",
+                options: [
+                    { text: "To make the model run faster", correct: false },
+                    { text: "To measure how wrong the model's predictions are", correct: true },
+                    { text: "To add randomness to the training process", correct: false },
+                    { text: "To prevent the model from learning", correct: false }
+                ]
+            },
+            {
+                q: "If your training accuracy is 99% but test accuracy is 65%, what's happening?",
+                options: [
+                    { text: "The model is perfectly trained", correct: false },
+                    { text: "The model is overfitting (memorizing training data)", correct: true },
+                    { text: "The test data is corrupted", correct: false },
+                    { text: "You need a more complex model", correct: false }
+                ]
+            },
+            {
+                q: "Why is transfer learning (fine-tuning) often better than training from scratch?",
+                options: [
+                    { text: "It requires more data and compute", correct: false },
+                    { text: "Pre-trained models already learned useful features from massive datasets", correct: true },
+                    { text: "It guarantees 100% accuracy", correct: false },
+                    { text: "It eliminates the need for any training data", correct: false }
+                ]
+            },
+            {
+                q: "What is 'model drift' and why does it matter?",
+                options: [
+                    { text: "The model physically moves in server memory", correct: false },
+                    { text: "Real-world data changes over time, making the model's predictions less accurate", correct: true },
+                    { text: "The model's weights randomly change", correct: false },
+                    { text: "A new optimization technique", correct: false }
+                ]
+            }
+        ];
+
+        function initQuiz() {
+            const container = document.getElementById('quizContainer');
+            const questionsDiv = container.querySelector('.quiz-question.active');
+            if (questionsDiv) return; // Already initialized
+
+            quizQuestions.forEach((q, i) => {
+                const qDiv = document.getElementById(`q${i}`);
+                const optionsDiv = qDiv.querySelector('.quiz-options');
+                optionsDiv.innerHTML = '';
+
+                q.options.forEach((opt, oi) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option';
+                    btn.dataset.correct = opt.correct;
+                    btn.textContent = opt.text;
+                    btn.addEventListener('click', () => selectOption(qDiv, btn, opt.correct));
+                    optionsDiv.appendChild(btn);
+                });
+            });
+
+            document.getElementById('quizNext').addEventListener('click', nextQuestion);
+            document.getElementById('quizPrev').addEventListener('click', prevQuestion);
+            document.getElementById('quizSubmit').addEventListener('click', submitQuiz);
+            document.getElementById('quizRestart').addEventListener('click', restartQuiz);
+        }
+
+        function selectOption(qDiv, btn, isCorrect) {
+            const options = qDiv.querySelectorAll('.quiz-option');
+            options.forEach(o => o.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            const feedback = qDiv.querySelector('.quiz-feedback');
+            feedback.className = 'quiz-feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect
+                ? `<strong>✅ Correct!</strong> ${getExplanation(qDiv.dataset.question, true)}`
+                : `<strong>❌ Incorrect.</strong> ${getExplanation(qDiv.dataset.question, false)}`;
+
+            playSound(isCorrect);
+        }
+
+        function getExplanation(qIndex, isCorrect) {
+            const explanations = [
+                "Models learn patterns from data. If the data is noisy, biased, or wrong, the model learns those flaws.",
+                "The loss function quantifies error. Gradient descent uses this to know which direction to adjust weights.",
+                "Overfitting means the model memorized training examples instead of learning generalizable patterns.",
+                "Pre-trained models have already learned edges, textures, language structures, etc. from massive datasets.",
+                "Model drift happens when the real world changes (e.g., new slang, economic shifts) but the model stays frozen."
+            ];
+            return explanations[qIndex];
+        }
+
+        function playSound(correct) {
+            if (correct) playSuccess(); else playError();
+        }
+
+        function nextQuestion() {
+            if (state.quiz.currentQuestion < 4) {
+                playClick();
+                goToQuestion(state.quiz.currentQuestion + 1);
+            }
+        }
+
+        function prevQuestion() {
+            if (state.quiz.currentQuestion > 0) {
+                playClick();
+                goToQuestion(state.quiz.currentQuestion - 1);
+            }
+        }
+
+        function goToQuestion(index) {
+            document.querySelectorAll('.quiz-question').forEach((q, i) => {
+                q.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.quiz-step').forEach((s, i) => {
+                s.classList.toggle('active', i === index);
+                s.classList.toggle('completed', i < index);
+            });
+
+            state.quiz.currentQuestion = index;
+            updateQuizNav();
+        }
+
+        function updateQuizNav() {
+            const prev = document.getElementById('quizPrev');
+            const next = document.getElementById('quizNext');
+            const submit = document.getElementById('quizSubmit');
+
+            prev.disabled = state.quiz.currentQuestion === 0;
+
+            if (state.quiz.currentQuestion === 4) {
+                next.style.display = 'none';
+                submit.style.display = 'inline-flex';
+            } else {
+                next.style.display = 'inline-flex';
+                submit.style.display = 'none';
+            }
+        }
+
+        function submitQuiz() {
+            playClick();
+            let score = 0;
+            quizQuestions.forEach((q, i) => {
+                const selected = document.querySelector(`#q${i} .quiz-option.selected`);
+                if (selected && selected.dataset.correct === 'true') score++;
+            });
+
+            state.quiz.score = score;
+            const percent = Math.round((score / 5) * 100);
+
+            document.getElementById('finalScore').textContent = `${percent}%`;
+            document.getElementById('quizContainer').querySelector('.quiz-nav').style.display = 'none';
+            document.getElementById('quizResults').classList.add('show');
+
+            let title, desc;
+            if (percent === 100) {
+                title = 'Perfect Model! 🎉';
+                desc = 'Your model starts with optimal weights. Ready for deployment!';
+                playComplete();
+            } else if (percent >= 80) {
+                title = 'Strong Initialization';
+                desc = 'Good understanding! A few epochs of training and you\'ll converge.';
+                playSuccess();
+            } else if (percent >= 60) {
+                title = 'Needs Training';
+                desc = 'Your model has random-ish weights. More study (epochs) needed!';
+            } else {
+                title = 'Random Initialization';
+                desc = 'Back to the drawing board. Review the phases and try again!';
+                playError();
+            }
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('resultsDesc').textContent = desc;
+        }
+
+        function restartQuiz() {
+            playClick();
+            state.quiz.currentQuestion = 0;
+            state.quiz.score = 0;
+            state.quiz.answers = {};
+
+            document.querySelectorAll('.quiz-question').forEach((q, i) => {
+                q.classList.toggle('active', i === 0);
+            });
+            document.querySelectorAll('.quiz-step').forEach((s, i) => {
+                s.classList.toggle('active', i === 0);
+                s.classList.remove('completed');
+            });
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected', 'correct', 'incorrect'));
+            document.querySelectorAll('.quiz-feedback').forEach(f => f.className = 'quiz-feedback');
+            document.getElementById('quizContainer').querySelector('.quiz-nav').style.display = 'flex';
+            document.getElementById('quizResults').classList.remove('show');
+            updateQuizNav();
+        }
+
+        // ============ GLOSSARY ============
+        const glossaryTerms = [
+            { term: "Neural Network", def: "A computing system inspired by biological brains, composed of layers of interconnected nodes (neurons) that process information through weighted connections." },
+            { term: "Weights", def: "Numerical values that determine the strength of connections between neurons. Adjusted during training to minimize loss." },
+            { term: "Bias (Neuron)", def: "A constant added to a neuron's weighted input before activation. Allows the neuron to shift its activation threshold." },
+            { term: "Loss Function", def: "A mathematical function that measures the difference between predicted and actual outputs. The optimization target during training." },
+            { term: "Gradient Descent", def: "An optimization algorithm that iteratively adjusts weights in the direction that reduces loss, using the gradient (derivative) of the loss function." },
+            { term: "Learning Rate", def: "A hyperparameter controlling the step size during weight updates. Too high causes divergence; too low slows training." },
+            { term: "Backpropagation", def: "The algorithm for computing gradients of the loss with respect to each weight by applying the chain rule backward through the network." },
+            { term: "Epoch", def: "One complete pass through the entire training dataset. Training typically runs for many epochs." },
+            { term: "Batch Size", def: "Number of training samples processed before updating weights. Smaller batches = noisier gradients but more frequent updates." },
+            { term: "Overfitting", def: "When a model memorizes training data (including noise) instead of learning generalizable patterns. High train accuracy, low test accuracy." },
+            { term: "Regularization", def: "Techniques (L1/L2, dropout, early stopping) that prevent overfitting by constraining model complexity." },
+            { term: "Train/Test Split", def: "Dividing data into separate sets: training (to learn) and testing (to evaluate). Critical for measuring generalization." },
+            { term: "Precision", def: "Of all positive predictions, how many are actually correct? TP / (TP + FP). Important when false positives are costly." },
+            { term: "Recall", def: "Of all actual positives, how many did we find? TP / (TP + FN). Important when false negatives are costly." },
+            { term: "F1 Score", def: "Harmonic mean of precision and recall. Balances both when you need a single metric." },
+            { term: "Bias (Fairness)", def: "Systematic error causing unfair outcomes for certain groups. Often originates from skewed training data." },
+            { term: "Transfer Learning", def: "Using a pre-trained model on a new task. Fine-tunes only the final layers, leveraging learned features." },
+            { term: "Fine-Tuning", def: "Continued training of a pre-trained model on domain-specific data with a lower learning rate." },
+            { term: "Data Drift", def: "Change in the statistical distribution of input data over time, causing model performance to degrade." },
+            { term: "Concept Drift", def: "Change in the relationship between inputs and targets (e.g., spam patterns evolve). Requires retraining." },
+            { term: "Active Learning", def: "Model identifies uncertain predictions for human labeling. Maximizes learning per labeling effort." },
+            { term: "Feature Engineering", def: "Creating meaningful input representations from raw data. Critical for traditional ML; less needed for deep learning." },
+            { term: "Data Augmentation", def: "Artificially expanding datasets by applying transformations (rotation, noise, crops) that preserve labels." },
+            { term: "Hyperparameter", def: "Configuration set before training (learning rate, layers, batch size). Not learned from data." },
+        ];
+
+        function initGlossary() {
+            const grid = document.getElementById('glossaryGrid');
+            grid.innerHTML = '';
+
+            glossaryTerms.forEach(({ term, def }) => {
+                const card = document.createElement('div');
+                card.className = 'glossary-term';
+                card.innerHTML = `
+                    <div class="glossary-term-header">
+                        <span class="glossary-term-name">${term}</span>
+                        <span class="glossary-expand" aria-hidden="true">▼</span>
+                    </div>
+                    <div class="glossary-definition">${def}</div>
+                `;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('open');
+                });
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.classList.toggle('open');
+                    }
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        // ============ INITIALIZATION ============
+        function init() {
+            initDataGame();
+            initNeuronNetwork();
+            initQuiz();
+            initGlossary();
+
+            // Handle hash navigation
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash.slice(1);
+                if (sections.includes(hash)) {
+                    showSection(hash);
+                }
+            });
+
+            // Initial hash check
+            const initialHash = window.location.hash.slice(1);
+            if (sections.includes(initialHash)) {
+                showSection(initialHash);
+            }
+
+            // Resize handler for neuron connections
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    initNeuronNetwork();
+                    lossCanvas.draw();
+                }, 200);
+            });
+        }
+
+        // Start everything
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
