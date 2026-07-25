@@ -471,6 +471,11 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
   font-style: italic;
 }
 
+/* Topic introduction prose: bare <p> written straight into a section body,
+   which the global reset would otherwise leave with no spacing at all. */
+.curr-body > p:not([class]) { margin-bottom: 1.1rem; }
+.curr-body > p:not([class]):last-child { margin-bottom: 0; }
+
 /* ── BARE PROSE SPACING (unclassed p/ul/ol inside lang-col) ──────
    Global reset zeroes all margin/padding, so plain <p>/<ul>/<ol>
    written directly into study-guide copy touch their neighbours
