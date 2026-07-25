@@ -2905,6 +2905,13 @@ details.p2-reveal summary::before { content: "▼ "; }
   padding: 0.3rem 0.6rem;
   border-radius: var(--radius-sm);
 }
+.diagram-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.875rem;
+}
+.diagram-actions .live-calc-reset-btn { margin-top: 0; }
 .diagram-svg-label {
   font-family: var(--font-mono);
   font-size: 0.62rem;

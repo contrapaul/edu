@@ -551,106 +551,131 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-quiz">
-<p class="quiz-intro">Test your understanding of B3.2 Structural Systems Application. Select one answer per question, then submit to see your score.</p>
-<div class="quiz-form">
+<p class="quiz-intro">Ten questions covering the learning objectives for this topic. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
 
-<div class="quiz-q" id="q1">
-<p class="quiz-stem">1. Which type of stress is highest at the surface of a material and tends to zero at the centre, explaining why hollow shafts are as strong as solid ones?</p>
-<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Tension</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Compression</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Shear</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Torsion</label>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q1 &middot; 3.2.1 Forces on structures</div>
+<div class="quiz-q-text">Which type of stress is highest at the surface of a material and tends to zero at the centre, explaining why hollow shafts are as strong as solid ones?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Tension</button>
+<button class="quiz-option" data-opt="B">B) Compression</button>
+<button class="quiz-option" data-opt="C">C) Shear</button>
+<button class="quiz-option" data-opt="D">D) Torsion</button>
+</div>
+<div class="quiz-answer">Torsional shear stress is greatest at the outer surface and falls to zero at the axis, so material at the centre of a shaft contributes almost nothing. Removing it gives a hollow shaft nearly the same torsional strength at much lower weight.</div>
 </div>
 
-<div class="quiz-q" id="q2">
-<p class="quiz-stem">2. The Quebec Bridge collapsed in 1907 primarily due to:</p>
-<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Wind-induced aeroelastic flutter</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Underestimated weight calculations and buckling of compression chords</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Corrosion of steel cables</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. An earthquake</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q2 &middot; 3.2.3 Structural failure & FEA</div>
+<div class="quiz-q-text">The Quebec Bridge collapsed in 1907 primarily due to:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Wind-induced aeroelastic flutter</button>
+<button class="quiz-option" data-opt="B">B) Underestimated weight calculations and buckling of compression chords</button>
+<button class="quiz-option" data-opt="C">C) Corrosion of steel cables</button>
+<button class="quiz-option" data-opt="D">D) An earthquake</button>
+</div>
+<div class="quiz-answer">The dead weight of the bridge had been underestimated and never rechecked when the span was lengthened, and the overloaded compression chords buckled. It remains a standard case study in the duty to recalculate after a design change.</div>
 </div>
 
-<div class="quiz-q" id="q3">
-<p class="quiz-stem">3. The Tacoma Narrows Bridge collapsed because of:</p>
-<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. Overloading from too many vehicles</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. Aeroelastic flutter (wind-induced twisting) due to an unprecedented slenderness ratio</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. A ship striking the bridge tower</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. Corrosion of the suspension cables</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q3 &middot; 3.2.3 Structural failure & FEA</div>
+<div class="quiz-q-text">The Tacoma Narrows Bridge collapsed because of:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Overloading from too many vehicles</button>
+<button class="quiz-option" data-opt="B">B) Aeroelastic flutter (wind-induced twisting) due to an unprecedented slenderness ratio</button>
+<button class="quiz-option" data-opt="C">C) A ship striking the bridge tower</button>
+<button class="quiz-option" data-opt="D">D) Corrosion of the suspension cables</button>
+</div>
+<div class="quiz-answer">The deck was far more slender than any previous suspension bridge, and wind induced a self-reinforcing twisting oscillation known as aeroelastic flutter. The failure was aerodynamic rather than a simple overload.</div>
 </div>
 
-<div class="quiz-q" id="q4">
-<p class="quiz-stem">4. Young's Modulus (E) is defined as:</p>
-<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Stress multiplied by strain (σ × ε)</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Stress divided by strain (σ / ε) within the elastic region</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Strain divided by stress (ε / σ)</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Force divided by cross-sectional area (F / A)</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q4 &middot; 3.2.2 Young's Modulus & stress-strain</div>
+<div class="quiz-q-text">Young's Modulus (E) is defined as:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Stress multiplied by strain (σ × ε)</button>
+<button class="quiz-option" data-opt="B">B) Stress divided by strain (σ / ε) within the elastic region</button>
+<button class="quiz-option" data-opt="C">C) Strain divided by stress (ε / σ)</button>
+<button class="quiz-option" data-opt="D">D) Force divided by cross-sectional area (F / A)</button>
+</div>
+<div class="quiz-answer">Young's Modulus is stress divided by strain, taken from the straight-line elastic portion of the stress-strain graph. Force divided by area is stress alone, not the modulus.</div>
 </div>
 
-<div class="quiz-q" id="q5">
-<p class="quiz-stem">5. A material that does not show a clearly defined yield point (e.g., aluminium, titanium, copper) requires the use of:</p>
-<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. Ultimate tensile strength only</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. Proof stress (offset method, typically 0.2% strain)</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Fracture toughness</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Elastic limit only</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q5 &middot; 3.2.2 Young's Modulus & stress-strain</div>
+<div class="quiz-q-text">A material that does not show a clearly defined yield point (e.g., aluminium, titanium, copper) requires the use of:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Ultimate tensile strength only</button>
+<button class="quiz-option" data-opt="B">B) Proof stress (offset method, typically 0.2% strain)</button>
+<button class="quiz-option" data-opt="C">C) Fracture toughness</button>
+<button class="quiz-option" data-opt="D">D) Elastic limit only</button>
+</div>
+<div class="quiz-answer">Materials without a distinct yield point need proof stress, conventionally the stress at 0.2% permanent strain, so a usable design limit can still be quoted.</div>
 </div>
 
-<div class="quiz-q" id="q6">
-<p class="quiz-stem">6. The reaction at a roller support is always:</p>
-<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. In any direction</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Horizontal only</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. Perpendicular to the plane the roller rests on (vertical for a horizontal beam)</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. At a 45° angle</label>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q6 &middot; 3.2.4 Force diagrams</div>
+<div class="quiz-q-text">The reaction at a roller support is always:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) In any direction</button>
+<button class="quiz-option" data-opt="B">B) Horizontal only</button>
+<button class="quiz-option" data-opt="C">C) Perpendicular to the plane the roller rests on (vertical for a horizontal beam)</button>
+<button class="quiz-option" data-opt="D">D) At a 45° angle</button>
+</div>
+<div class="quiz-answer">A roller can move along the surface it sits on, so it can only push perpendicular to that surface. For a horizontal beam this means a vertical reaction and no horizontal one.</div>
 </div>
 
-<div class="quiz-q" id="q7">
-<p class="quiz-stem">7. In a shear force diagram, the maximum bending moment always occurs where:</p>
-<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. The shear force is at its maximum</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. The shear force equals zero</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. The shear force is negative</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. The shear force equals the dead load</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q7 &middot; 3.2.4 Force diagrams</div>
+<div class="quiz-q-text">In a shear force diagram, the maximum bending moment always occurs where:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) The shear force is at its maximum</button>
+<button class="quiz-option" data-opt="B">B) The shear force equals zero</button>
+<button class="quiz-option" data-opt="C">C) The shear force is negative</button>
+<button class="quiz-option" data-opt="D">D) The shear force equals the dead load</button>
+</div>
+<div class="quiz-answer">Bending moment is the accumulated area under the shear force diagram, so it stops increasing exactly where the shear force crosses zero. That crossing point is where you look for the maximum.</div>
 </div>
 
-<div class="quiz-q" id="q8">
-<p class="quiz-stem">8. Necking refers to:</p>
-<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. The elastic deformation of a material</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. The localised reduction in cross-sectional area in a ductile material before fracture</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. The point where a material returns to its original shape</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. The corrosion of steel cables</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q8 &middot; 3.2.2 Young's Modulus & stress-strain</div>
+<div class="quiz-q-text">Necking refers to:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) The elastic deformation of a material</button>
+<button class="quiz-option" data-opt="B">B) The localised reduction in cross-sectional area in a ductile material before fracture</button>
+<button class="quiz-option" data-opt="C">C) The point where a material returns to its original shape</button>
+<button class="quiz-option" data-opt="D">D) The corrosion of steel cables</button>
+</div>
+<div class="quiz-answer">Necking is the localised thinning that appears in a ductile material after its ultimate tensile strength, concentrating further deformation into one narrow region until it fractures there.</div>
 </div>
 
-<div class="quiz-q" id="q9">
-<p class="quiz-stem">9. As temperature increases, Young's Modulus for plain carbon steels:</p>
-<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. Increases</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. Decreases</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. Fluctuates wildly</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. Remains unchanged</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q9 &middot; 3.2.2 Young's Modulus & stress-strain</div>
+<div class="quiz-q-text">As temperature increases, Young's Modulus for plain carbon steels:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Increases</button>
+<button class="quiz-option" data-opt="B">B) Decreases</button>
+<button class="quiz-option" data-opt="C">C) Fluctuates wildly</button>
+<button class="quiz-option" data-opt="D">D) Remains unchanged</button>
+</div>
+<div class="quiz-answer">Heat increases atomic vibration and weakens interatomic bonding, so stiffness falls as temperature rises. This is why structural fire ratings matter: steel softens well before it melts.</div>
 </div>
 
-<div class="quiz-q" id="q10">
-<p class="quiz-stem">10. The Genoa Morandi Bridge collapsed primarily due to:</p>
-<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Aeroelastic flutter from wind</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Corrosion of steel cables and deterioration of prestressed concrete</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. A design error in the original weight calculations</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. An earthquake</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q10 &middot; 3.2.3 Structural failure & FEA</div>
+<div class="quiz-q-text">The Genoa Morandi Bridge collapsed primarily due to:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Aeroelastic flutter from wind</button>
+<button class="quiz-option" data-opt="B">B) Corrosion of steel cables and deterioration of prestressed concrete</button>
+<button class="quiz-option" data-opt="C">C) A design error in the original weight calculations</button>
+<button class="quiz-option" data-opt="D">D) An earthquake</button>
+</div>
+<div class="quiz-answer">Corroded stay cables inside the deteriorating prestressed concrete lost section over decades until one stay failed. The collapse is usually discussed as a maintenance and inspection failure rather than a design one.</div>
 </div>
 
-<div class="quiz-actions">
-<button class="quiz-submit-btn" type="button">Submit answers</button>
-<span class="quiz-score" aria-live="polite"></span>
-</div>
-</div>
-
-<div class="quiz-answers" aria-label="Answer key" hidden>
-<span data-answer="q1">D</span>
-<span data-answer="q2">B</span>
-<span data-answer="q3">B</span>
-<span data-answer="q4">B</span>
-<span data-answer="q5">B</span>
-<span data-answer="q6">C</span>
-<span data-answer="q7">B</span>
-<span data-answer="q8">B</span>
-<span data-answer="q9">B</span>
-<span data-answer="q10">B</span>
+<div class="quiz-footer">
+<button class="quiz-submit-btn" id="quiz-submit">Check all answers</button>
+<div class="quiz-score" id="quiz-score"></div>
 </div>
 </div>
 </div>

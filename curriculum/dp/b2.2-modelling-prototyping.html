@@ -363,35 +363,68 @@ Show Chinese · 显示中文
 </div>
 </div>
 
-<div class="diagram-widget" id="heatmap-b224">
+<div class="diagram-widget" id="fea-b224">
 <div class="drag-sort-label">Interactive</div>
-<div class="drag-sort-title">Stress Heatmap Demo</div>
-<p class="drag-sort-intro">This bracket is fixed at the mounting hole. Click anywhere on the plate to place a load and see where the (illustrative) stress concentrates.</p>
+<div class="drag-sort-title">Read the FEA Result</div>
+<p class="drag-sort-intro">This L-bracket is bolted to the wall on the left and loaded at the free end. The solve is already done, so your job is the one the syllabus actually asks for: read the plot. Click the place you think fails first.</p>
 
-<svg class="diagram-canvas" id="heatmap-b224-svg" viewBox="0 0 500 300" role="img" aria-label="Click to place a load on the bracket">
+<svg class="diagram-canvas" id="fea-b224-svg" viewBox="0 0 500 300" role="img" aria-label="Stress contour plot of a loaded L-bracket. Click the region you think will fail first.">
 <defs>
-<radialGradient id="heatmap-b224-gradient" gradientUnits="userSpaceOnUse" cx="250" cy="150" r="90">
+<clipPath id="fea-b224-clip"><path id="fea-b224-clipshape" d="M60,50 L400,50 L400,95 L110,95 L110,250 L60,250 Z"></path></clipPath>
+<radialGradient id="fea-b224-hot" gradientUnits="userSpaceOnUse" cx="112" cy="97" r="95">
 <stop offset="0%" stop-color="#dc2626"></stop>
-<stop offset="35%" stop-color="#f59e0b"></stop>
-<stop offset="70%" stop-color="#eab308"></stop>
-<stop offset="100%" stop-color="#3b82f6" stop-opacity="0.35"></stop>
+<stop offset="28%" stop-color="#f97316"></stop>
+<stop offset="52%" stop-color="#eab308"></stop>
+<stop offset="76%" stop-color="#4ade80"></stop>
+<stop offset="100%" stop-color="#60a5fa"></stop>
 </radialGradient>
+<linearGradient id="fea-b224-scale" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0%" stop-color="#60a5fa"></stop>
+<stop offset="35%" stop-color="#4ade80"></stop>
+<stop offset="60%" stop-color="#eab308"></stop>
+<stop offset="82%" stop-color="#f97316"></stop>
+<stop offset="100%" stop-color="#dc2626"></stop>
+</linearGradient>
 </defs>
-<rect x="60" y="60" width="380" height="180" rx="6" fill="var(--surface-2)" stroke="var(--border-strong)" stroke-width="2"></rect>
-<rect id="heatmap-b224-fill" x="60" y="60" width="380" height="180" rx="6" fill="url(#heatmap-b224-gradient)" opacity="0"></rect>
-<rect x="60" y="60" width="380" height="180" rx="6" fill="none" stroke="var(--border-strong)" stroke-width="2"></rect>
-<circle cx="100" cy="150" r="14" fill="var(--surface)" stroke="var(--text)" stroke-width="2"></circle>
-<text x="100" y="200" text-anchor="middle" class="diagram-svg-label" style="margin:0;">FIXED</text>
-<g id="heatmap-b224-marker" style="display:none;">
-<circle r="6" fill="#111418" stroke="#fff" stroke-width="2"></circle>
+
+<rect x="30" y="40" width="30" height="220" fill="var(--surface-2)" stroke="var(--border-strong)" stroke-width="2"></rect>
+<path d="M30,60 L60,40 M30,90 L60,70 M30,120 L60,100 M30,150 L60,130 M30,180 L60,160 M30,210 L60,190 M30,240 L60,220 M30,260 L60,250" stroke="var(--border-strong)" stroke-width="1.5" fill="none"></path>
+<text x="45" y="278" text-anchor="middle" class="diagram-svg-label" style="margin:0;">FIXED</text>
+
+<path id="fea-b224-part" d="M60,50 L400,50 L400,95 L110,95 L110,250 L60,250 Z" fill="#60a5fa"></path>
+<rect x="55" y="45" width="352" height="212" fill="url(#fea-b224-hot)" clip-path="url(#fea-b224-clip)"></rect>
+<path id="fea-b224-outline" d="M60,50 L400,50 L400,95 L110,95 L110,250 L60,250 Z" fill="none" stroke="var(--text)" stroke-width="2" stroke-linejoin="round"></path>
+
+<circle cx="82" cy="80" r="5" fill="none" stroke="var(--text)" stroke-width="2"></circle>
+<circle cx="82" cy="220" r="5" fill="none" stroke="var(--text)" stroke-width="2"></circle>
+
+<line x1="370" y1="14" x2="370" y2="38" stroke="var(--text)" stroke-width="3"></line>
+<polygon points="364,34 376,34 370,46" fill="var(--text)"></polygon>
+<text x="392" y="30" text-anchor="middle" class="diagram-svg-label" style="margin:0;">LOAD</text>
+
+<g id="fea-b224-marker" style="display:none;">
+<circle r="9" fill="none" stroke="var(--text)" stroke-width="3"></circle>
 </g>
+
+<rect x="300" y="262" width="140" height="11" fill="url(#fea-b224-scale)" stroke="var(--border-strong)" stroke-width="1"></rect>
+<text x="292" y="271" text-anchor="end" class="diagram-svg-label" style="margin:0;">LOW</text>
+<text x="448" y="271" class="diagram-svg-label" style="margin:0;">HIGH</text>
 </svg>
 
-<div class="diagram-readout" id="heatmap-b224-readout">
-<p class="diagram-readout-line">Click the plate to place a load.</p>
+<div class="diagram-actions" id="fea-b224-actions" style="display:none;">
+<button type="button" class="live-calc-reset-btn" data-fix="fillet">Fillet the corner</button>
+<button type="button" class="live-calc-reset-btn" data-fix="rib">Add a gusset</button>
+<button type="button" class="live-calc-reset-btn" data-fix="thicker">Thicken 2 mm</button>
+<button type="button" class="live-calc-reset-btn" data-fix="base">Reset</button>
 </div>
-<div class="diagram-caveat">Illustrative colour gradient — not a real FEA solve</div>
+
+<div class="diagram-readout" id="fea-b224-readout">
+<p class="diagram-readout-line">Red is high stress, blue is low. Click the region you think fails first.</p>
 </div>
+<div class="diagram-caveat">Illustrative contour plot, not a real FEA solve</div>
+</div>
+
+<p>One thing the colours will never tell you: an FEA result is only as good as what the analyst told it. Bolt this bracket at one hole instead of two, refine the mesh, or swap the material, and the same geometry returns a different answer. The software makes none of those choices, which is why "the simulation says it is fine" is a claim you should always ask questions about.</p>
 
 </div>
 </div><!-- /2.2.4 -->

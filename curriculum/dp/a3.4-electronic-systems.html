@@ -795,106 +795,131 @@ Show Chinese · 显示中文
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-quiz">
-<p class="quiz-intro">Test your understanding of A3.4 Introduction to Electronic Systems. Select one answer per question, then submit to see your score.</p>
-<div class="quiz-form">
+<p class="quiz-intro">Ten questions covering the learning objectives for this topic. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
 
-<div class="quiz-q" id="q1">
-<p class="quiz-stem">1. In the IPO model of an electronic system, which stage receives signals from sensors and decides on an appropriate response?</p>
-<label class="quiz-opt"><input type="radio" name="q1" value="A"> A. Input</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="B"> B. Output</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="C"> C. Process</label>
-<label class="quiz-opt"><input type="radio" name="q1" value="D"> D. Feedback</label>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q1 &middot; 3.4.1 Input-Process-Output model</div>
+<div class="quiz-q-text">In the IPO model of an electronic system, which stage receives signals from sensors and decides on an appropriate response?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Input</button>
+<button class="quiz-option" data-opt="B">B) Output</button>
+<button class="quiz-option" data-opt="C">C) Process</button>
+<button class="quiz-option" data-opt="D">D) Feedback</button>
+</div>
+<div class="quiz-answer">The process stage takes the signal from the input devices, applies the system's logic or control rules, and decides what the output should do. Input senses, output acts, feedback reports the result back.</div>
 </div>
 
-<div class="quiz-q" id="q2">
-<p class="quiz-stem">2. Which type of signal varies continuously over a range of values, such as the voltage from a microphone?</p>
-<label class="quiz-opt"><input type="radio" name="q2" value="A"> A. Analogue signal</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="B"> B. Digital signal</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="C"> C. Binary signal</label>
-<label class="quiz-opt"><input type="radio" name="q2" value="D"> D. Pulse-width modulated signal</label>
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q2 &middot; 3.4.3 Analogue and digital systems</div>
+<div class="quiz-q-text">Which type of signal varies continuously over a range of values, such as the voltage from a microphone?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Analogue signal</button>
+<button class="quiz-option" data-opt="B">B) Digital signal</button>
+<button class="quiz-option" data-opt="C">C) Binary signal</button>
+<button class="quiz-option" data-opt="D">D) Pulse-width modulated signal</button>
+</div>
+<div class="quiz-answer">An analogue signal varies continuously and can take any value in its range, which is exactly what a microphone produces from sound pressure. A digital signal is restricted to discrete levels.</div>
 </div>
 
-<div class="quiz-q" id="q3">
-<p class="quiz-stem">3. Australian mains electricity runs at 230 V and 50 Hz. What is the period (time for one complete cycle) of this AC signal?</p>
-<label class="quiz-opt"><input type="radio" name="q3" value="A"> A. 50 ms</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="B"> B. 20 ms</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="C"> C. 5 ms</label>
-<label class="quiz-opt"><input type="radio" name="q3" value="D"> D. 230 ms</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q3 &middot; 3.4.4 Analogue signals and SI units</div>
+<div class="quiz-q-text">Australian mains electricity runs at 230 V and 50 Hz. What is the period (time for one complete cycle) of this AC signal?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) 50 ms</button>
+<button class="quiz-option" data-opt="B">B) 20 ms</button>
+<button class="quiz-option" data-opt="C">C) 5 ms</button>
+<button class="quiz-option" data-opt="D">D) 230 ms</button>
+</div>
+<div class="quiz-answer">Period is the reciprocal of frequency: T = 1 / f = 1 / 50 = 0.02 s, which is 20 ms. The 230 V figure is the voltage and plays no part in the calculation.</div>
 </div>
 
-<div class="quiz-q" id="q4">
-<p class="quiz-stem">4. A capacitor's main function in a circuit is to:</p>
-<label class="quiz-opt"><input type="radio" name="q4" value="A"> A. Limit current flow in one direction</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="B"> B. Store electrical charge and energy in an electric field</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="C"> C. Amplify a signal</label>
-<label class="quiz-opt"><input type="radio" name="q4" value="D"> D. Convert rotary motion to linear motion</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q4 &middot; 3.4.6 Electronic components</div>
+<div class="quiz-q-text">A capacitor's main function in a circuit is to:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Limit current flow in one direction</button>
+<button class="quiz-option" data-opt="B">B) Store electrical charge and energy in an electric field</button>
+<button class="quiz-option" data-opt="C">C) Amplify a signal</button>
+<button class="quiz-option" data-opt="D">D) Convert rotary motion to linear motion</button>
+</div>
+<div class="quiz-answer">A capacitor stores charge in the electric field between its plates and releases it later, which is what makes it useful for smoothing supplies, timing and coupling. Limiting current in one direction is a diode's job.</div>
 </div>
 
-<div class="quiz-q" id="q5">
-<p class="quiz-stem">5. A diode in a circuit allows current to flow:</p>
-<label class="quiz-opt"><input type="radio" name="q5" value="A"> A. In both directions equally</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="B"> B. In one direction only (anode to cathode when forward biased)</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="C"> C. Only when the voltage exceeds 12 V</label>
-<label class="quiz-opt"><input type="radio" name="q5" value="D"> D. Only in AC circuits</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q5 &middot; 3.4.5 Digital signals and logic gates</div>
+<div class="quiz-q-text">A diode in a circuit allows current to flow:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) In both directions equally</button>
+<button class="quiz-option" data-opt="B">B) In one direction only (anode to cathode when forward biased)</button>
+<button class="quiz-option" data-opt="C">C) Only when the voltage exceeds 12 V</button>
+<button class="quiz-option" data-opt="D">D) Only in AC circuits</button>
+</div>
+<div class="quiz-answer">A diode conducts only when forward biased, from anode to cathode, and blocks current the other way. That one-way behaviour is what makes rectification and reverse-polarity protection possible.</div>
 </div>
 
-<div class="quiz-q" id="q6">
-<p class="quiz-stem">6. A thermistor (NTC type) used as a temperature sensor has the following characteristic:</p>
-<label class="quiz-opt"><input type="radio" name="q6" value="A"> A. Its resistance decreases as temperature rises</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="B"> B. Its resistance increases as temperature rises</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="C"> C. It emits light proportional to temperature</label>
-<label class="quiz-opt"><input type="radio" name="q6" value="D"> D. Its resistance is constant regardless of temperature</label>
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q6 &middot; 3.4.7 Input devices and sensors</div>
+<div class="quiz-q-text">A thermistor (NTC type) used as a temperature sensor has the following characteristic:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Its resistance decreases as temperature rises</button>
+<button class="quiz-option" data-opt="B">B) Its resistance increases as temperature rises</button>
+<button class="quiz-option" data-opt="C">C) It emits light proportional to temperature</button>
+<button class="quiz-option" data-opt="D">D) Its resistance is constant regardless of temperature</button>
+</div>
+<div class="quiz-answer">NTC stands for negative temperature coefficient, so resistance falls as temperature rises. A PTC thermistor does the opposite, and knowing which you have matters when you design the potential divider around it.</div>
 </div>
 
-<div class="quiz-q" id="q7">
-<p class="quiz-stem">7. A NOT logic gate with a HIGH (logic 1) input produces:</p>
-<label class="quiz-opt"><input type="radio" name="q7" value="A"> A. HIGH output</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="B"> B. LOW output</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="C"> C. No output</label>
-<label class="quiz-opt"><input type="radio" name="q7" value="D"> D. The same output as an AND gate</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q7 &middot; 3.4.5 Digital signals and logic gates</div>
+<div class="quiz-q-text">A NOT logic gate with a HIGH (logic 1) input produces:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) HIGH output</button>
+<button class="quiz-option" data-opt="B">B) LOW output</button>
+<button class="quiz-option" data-opt="C">C) No output</button>
+<button class="quiz-option" data-opt="D">D) The same output as an AND gate</button>
+</div>
+<div class="quiz-answer">A NOT gate inverts its input, so HIGH in gives LOW out. It is the simplest logic gate and takes only a single input.</div>
 </div>
 
-<div class="quiz-q" id="q8">
-<p class="quiz-stem">8. Negative feedback in an electronic control system (such as a thermostat) acts to:</p>
-<label class="quiz-opt"><input type="radio" name="q8" value="A"> A. Amplify the error between set point and actual output</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="B"> B. Reduce the error between set point and actual output, creating stability</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="C"> C. Increase the gain of the system without limit</label>
-<label class="quiz-opt"><input type="radio" name="q8" value="D"> D. Switch the output permanently to maximum</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q8 &middot; 3.4.11 Feedback</div>
+<div class="quiz-q-text">Negative feedback in an electronic control system (such as a thermostat) acts to:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Amplify the error between set point and actual output</button>
+<button class="quiz-option" data-opt="B">B) Reduce the error between set point and actual output, creating stability</button>
+<button class="quiz-option" data-opt="C">C) Increase the gain of the system without limit</button>
+<button class="quiz-option" data-opt="D">D) Switch the output permanently to maximum</button>
+</div>
+<div class="quiz-answer">Negative feedback subtracts a portion of the output from the input, shrinking the error between the set point and the actual value. That self-correction is what makes a thermostat settle at a temperature rather than oscillate.</div>
 </div>
 
-<div class="quiz-q" id="q9">
-<p class="quiz-stem">9. An inverting amplifier uses an op-amp with R₁ = 2 kΩ and R₂ = 20 kΩ. What is the voltage gain?</p>
-<label class="quiz-opt"><input type="radio" name="q9" value="A"> A. +10</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="B"> B. −10</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="C"> C. +0.1</label>
-<label class="quiz-opt"><input type="radio" name="q9" value="D"> D. −0.1</label>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q9 &middot; 3.4.12 Operational amplifiers</div>
+<div class="quiz-q-text">An inverting amplifier uses an op-amp with R₁ = 2 kΩ and R₂ = 20 kΩ. What is the voltage gain?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) +10</button>
+<button class="quiz-option" data-opt="B">B) −10</button>
+<button class="quiz-option" data-opt="C">C) +0.1</button>
+<button class="quiz-option" data-opt="D">D) −0.1</button>
+</div>
+<div class="quiz-answer">For an inverting amplifier, gain = -R2 / R1 = -20 kΩ / 2 kΩ = -10. The minus sign means the output signal is inverted relative to the input, not that it is smaller.</div>
 </div>
 
-<div class="quiz-q" id="q10">
-<p class="quiz-stem">10. An embedded system differs from a general-purpose computer in that it:</p>
-<label class="quiz-opt"><input type="radio" name="q10" value="A"> A. Always runs at higher clock speeds</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="B"> B. Cannot use any form of memory</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="C"> C. Is dedicated to a specific task, with fixed programming not intended to be changed by the end user</label>
-<label class="quiz-opt"><input type="radio" name="q10" value="D"> D. Must always be connected to the internet</label>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q10 &middot; 3.4.13 Embedded systems</div>
+<div class="quiz-q-text">An embedded system differs from a general-purpose computer in that it:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Always runs at higher clock speeds</button>
+<button class="quiz-option" data-opt="B">B) Cannot use any form of memory</button>
+<button class="quiz-option" data-opt="C">C) Is dedicated to a specific task, with fixed programming not intended to be changed by the end user</button>
+<button class="quiz-option" data-opt="D">D) Must always be connected to the internet</button>
+</div>
+<div class="quiz-answer">An embedded system is built to do one job, with programming fixed at manufacture and not intended for the user to change. Clock speed, memory and connectivity vary enormously and none of them define the category.</div>
 </div>
 
-<div class="quiz-actions">
-<button class="quiz-submit-btn" type="button">Submit answers</button>
-<span class="quiz-score" aria-live="polite"></span>
-</div>
-</div>
-
-<div class="quiz-answers" aria-label="Answer key" hidden>
-<span data-answer="q1">C</span>
-<span data-answer="q2">A</span>
-<span data-answer="q3">B</span>
-<span data-answer="q4">B</span>
-<span data-answer="q5">B</span>
-<span data-answer="q6">A</span>
-<span data-answer="q7">B</span>
-<span data-answer="q8">B</span>
-<span data-answer="q9">B</span>
-<span data-answer="q10">C</span>
+<div class="quiz-footer">
+<button class="quiz-submit-btn" id="quiz-submit">Check all answers</button>
+<div class="quiz-score" id="quiz-score"></div>
 </div>
 </div>
 </div>

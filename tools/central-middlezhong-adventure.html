@@ -8,15 +8,26 @@
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap');
 
   :root {
-    --green: #00ff41;
-    --green-dim: #00aa2a;
-    --green-dark: #003310;
-    --green-glow: rgba(0,255,65,0.15);
-    --amber: #ffb000;
-    --red: #ff3c3c;
-    --blue: #00cfff;
-    --bg: #030d03;
-    --scanline: rgba(0,0,0,0.35);
+    --green: #00ff55;
+    --green-bright: #66ff88;
+    --green-dim: #00cc33;
+    --green-dark: #004411;
+    --green-glow: rgba(0,255,85,0.2);
+    --amber: #ffb800;
+    --amber-dim: #cc9200;
+    --red: #ff4444;
+    --blue: #00dfff;
+    --blue-dim: #00aacc;
+    --bg: #020a02;
+    --bg-panel: rgba(0,40,0,0.7);
+    --bg-panel-border: #00551a;
+    --scanline: rgba(0,0,0,0.12);
+    --vignette: rgba(0,0,0,0.25);
+    --text-main: #d4ffdb;
+    --text-dim: #88cc99;
+    --panel-width: 280px;
+    --panel-width-collapsed: 0;
+    --gap: 16px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,9 +35,11 @@
   html, body {
     height: 100%;
     background: var(--bg);
-    color: var(--green);
+    color: var(--text-main);
     font-family: 'Share Tech Mono', monospace;
     overflow: hidden;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   body::before {
@@ -48,19 +61,347 @@
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.7) 100%);
+    background: radial-gradient(ellipse at center, transparent 60%, var(--vignette) 100%);
     pointer-events: none;
     z-index: 999;
   }
 
-  #container {
-    display: flex;
-    flex-direction: column;
+  #app-grid {
+    display: grid;
+    grid-template-columns: var(--panel-width) 1fr var(--panel-width);
+    grid-template-rows: auto 1fr auto;
     height: 100vh;
-    padding: 16px;
-    max-width: 960px;
+    gap: var(--gap);
+    padding: var(--gap);
+    max-width: 1600px;
     margin: 0 auto;
     position: relative;
+    z-index: 1;
+  }
+
+  #container {
+    grid-column: 2;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 4px;
+    padding: 16px;
+  }
+
+  #left-panel {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 4px;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  #right-panel {
+    grid-column: 3;
+    grid-row: 1 / 4;
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 4px;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .panel-section {
+    border-bottom: 1px solid var(--green-dark);
+    padding-bottom: 12px;
+  }
+
+  .panel-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .panel-section h3 {
+    font-family: 'VT323', monospace;
+    font-size: 0.95em;
+    color: var(--green-bright);
+    text-shadow: 0 0 8px var(--green);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .panel-item {
+    font-size: 0.8em;
+    line-height: 1.7;
+    color: var(--text-dim);
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-item .icon {
+    color: var(--green);
+    font-family: 'VT323', monospace;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+
+  .panel-item.complete .icon { color: var(--green-bright); }
+  .panel-item.complete { color: var(--text-main); }
+  .panel-item.pending { opacity: 0.5; }
+  .panel-item.current { color: var(--amber); }
+  .panel-item.current .icon { color: var(--amber); animation: blink 1s step-end infinite; }
+
+  .panel-item.failed .icon { color: var(--red); }
+  .panel-item.failed { color: var(--red); }
+
+  .panel-list { display: flex; flex-direction: column; gap: 4px; }
+
+  .reference-card {
+    font-size: 0.75em;
+    line-height: 1.6;
+    color: var(--text-dim);
+    background: rgba(0,255,85,0.03);
+    border: 1px solid var(--green-dark);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+
+  .reference-card h4 {
+    color: var(--green-bright);
+    font-family: 'VT323', monospace;
+    font-size: 1.1em;
+    margin-bottom: 6px;
+    text-shadow: 0 0 6px var(--green);
+  }
+
+  .reference-card .prop {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 0;
+  }
+
+  .reference-card .prop-name { color: var(--amber-dim); }
+  .reference-card .prop-value { color: var(--text-main); font-family: 'VT323', monospace; }
+
+  .decision-log-entry {
+    font-size: 0.75em;
+    line-height: 1.5;
+    color: var(--text-dim);
+    padding: 6px 8px;
+    border-left: 2px solid var(--green-dark);
+    margin-bottom: 6px;
+    background: rgba(0,255,85,0.02);
+  }
+
+  .decision-log-entry .decision-time { color: var(--blue-dim); font-size: 0.9em; }
+  .decision-log-entry .decision-text { color: var(--text-main); margin-top: 2px; }
+  .decision-log-entry .decision-outcome { color: var(--green-bright); font-size: 0.9em; margin-top: 2px; }
+  .decision-log-entry.failed .decision-outcome { color: var(--red); }
+
+  .hint-box {
+    font-size: 0.75em;
+    line-height: 1.5;
+    color: var(--amber-dim);
+    background: rgba(255,184,0,0.05);
+    border: 1px solid var(--amber-dim);
+    border-radius: 3px;
+    padding: 10px;
+  }
+
+  .hint-box .hint-title { color: var(--amber); font-family: 'VT323', monospace; margin-bottom: 6px; }
+
+  #header {
+    text-align: center;
+    padding: 10px 0 8px;
+    border-bottom: 1px solid var(--green-dark);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  #header h1 {
+    font-family: 'VT323', monospace;
+    font-size: 2.2em;
+    color: var(--green);
+    text-shadow: 0 0 10px var(--green), 0 0 20px var(--green-dim);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  #header .subtitle {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65em;
+    color: var(--green-dim);
+    letter-spacing: 3px;
+    margin-top: 3px;
+  }
+
+  #status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    border: 1px solid var(--green-dark);
+    background: rgba(0,255,85,0.03);
+    font-size: 0.75em;
+    color: var(--green-dim);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  #status-bar .location { color: var(--amber); }
+  #status-bar .score { color: var(--blue); }
+
+  #output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 8px;
+    border: 1px solid var(--green-dark);
+    background: var(--bg-panel);
+    margin-bottom: 8px;
+    scroll-behavior: smooth;
+  }
+
+  #output::-webkit-scrollbar { width: 6px; }
+  #output::-webkit-scrollbar-track { background: var(--bg); }
+  #output::-webkit-scrollbar-thumb { background: var(--green-dark); }
+
+  .line {
+    font-size: 0.95em;
+    line-height: 1.7;
+    margin-bottom: 3px;
+    animation: fadein 0.3s ease;
+  }
+
+  .line.narrator { color: var(--text-main); }
+  .line.character { color: var(--amber); }
+  .line.system { color: var(--blue); font-size: 0.85em; }
+  .line.error { color: var(--red); }
+  .line.success { color: var(--green-bright); text-shadow: 0 0 6px var(--green); }
+  .line.hint { color: #aaffaa; font-size: 0.85em; padding-left: 12px; border-left: 2px solid var(--green-dark); }
+  .line.big { font-family: 'VT323', monospace; font-size: 1.5em; color: var(--green-bright); text-shadow: 0 0 12px var(--green); letter-spacing: 2px; }
+  .line.fail { font-family: 'VT323', monospace; font-size: 1.3em; color: var(--red); text-shadow: 0 0 10px var(--red); }
+  .line.divider { color: var(--green-dark); letter-spacing: 2px; margin: 8px 0; }
+  .line.player { color: #fffde8; opacity: 0.8; font-size: 0.9em; }
+
+  @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  #input-row {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--green-dim);
+    background: rgba(0,255,85,0.04);
+    padding: 6px 10px;
+    flex-shrink: 0;
+  }
+
+  #prompt-symbol {
+    color: var(--green);
+    font-size: 1em;
+    margin-right: 8px;
+    text-shadow: 0 0 8px var(--green);
+    flex-shrink: 0;
+  }
+
+  #input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95em;
+    caret-color: var(--green);
+    text-transform: lowercase;
+  }
+
+  #input::placeholder { color: var(--green-dark); }
+
+  #footer {
+    text-align: center;
+    font-size: 0.6em;
+    color: var(--green-dark);
+    padding-top: 5px;
+    flex-shrink: 0;
+    letter-spacing: 2px;
+  }
+
+  .flicker { animation: flicker 0.15s ease 2; }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.1; } }
+
+  .cursor-blink::after { content: '█'; animation: blink 1s step-end infinite; color: var(--green); }
+
+  #title-art {
+    font-family: 'VT323', monospace;
+    font-size: 0.85em;
+    color: var(--green-dim);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 6px var(--green-dark);
+  }
+
+  .panel-toggle {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 3px;
+    padding: 8px 12px;
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8em;
+    cursor: pointer;
+  }
+
+  #toggle-left { top: var(--gap); left: var(--gap); }
+  #toggle-right { top: var(--gap); right: var(--gap); }
+
+  @media (max-width: 1199px) {
+    :root { --panel-width: 260px; --gap: 12px; }
+    #app-grid { grid-template-columns: var(--panel-width) 1fr var(--panel-width); }
+  }
+
+  @media (max-width: 999px) {
+    :root { --panel-width: 0; --gap: 8px; }
+    #app-grid { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; padding: 8px; }
+    #left-panel, #right-panel {
+      position: fixed;
+      top: 0; bottom: 0;
+      z-index: 200;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+    }
+    #right-panel { left: auto; right: 0; transform: translateX(100%); box-shadow: -4px 0 20px rgba(0,0,0,0.5); }
+    #left-panel.open, #right-panel.open { transform: translateX(0); }
+    #container { grid-column: 1; grid-row: 1 / 4; border-radius: 0; height: 100vh; max-height: 100vh; }
+    .panel-toggle { display: flex; align-items: center; gap: 6px; }
+    .panel-toggle:hover { background: rgba(0,255,85,0.1); }
+  }
+
+  @media (max-width: 599px) {
+    :root { --gap: 6px; }
+    #header h1 { font-size: 1.8em; }
+    .line { font-size: 0.9em; }
+    #input { font-size: 0.9em; }
   }
 
   #header {
@@ -257,26 +598,117 @@
 </style>
 </head>
 <body>
-<div id="container">
-  <div id="header">
-    <h1>CENTRAL MIDDLEZHONG</h1>
-    <div class="subtitle">▸ AN IB DP DESIGN TECHNOLOGY ADVENTURE ◂</div>
+<button class="panel-toggle" id="toggle-left" aria-label="Toggle progress panel">▸ PROGRESS</button>
+<button class="panel-toggle" id="toggle-right" aria-label="Toggle reference panel">▸ REFERENCE</button>
+
+<div id="app-grid">
+  <aside id="left-panel" aria-label="Progress Tracker">
+    <div class="panel-section">
+      <h3>▸ PROJECT STATUS</h3>
+      <div class="panel-list" id="panel-project">
+        <div class="panel-item pending"><span class="icon">▸</span><span>No project selected</span></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>▸ DECISIONS MADE</h3>
+      <div class="panel-list" id="panel-decisions">
+        <div class="panel-item pending"><span class="icon">▸</span><span>Start a project to track decisions</span></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>▸ MATERIALS SELECTED</h3>
+      <div class="panel-list" id="panel-materials">
+        <div class="panel-item pending"><span class="icon">▸</span><span>No materials chosen yet</span></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>▸ LESSONS LEARNED</h3>
+      <div class="panel-list" id="panel-lessons">
+        <div class="panel-item pending"><span class="icon">▸</span><span>Complete a project to unlock lessons</span></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <h3>▸ SCORE</h3>
+      <div class="panel-list">
+        <div class="panel-item"><span class="icon">◆</span><span>Decisions: <strong id="panel-score-decisions">0</strong></span></div>
+        <div class="panel-item"><span class="icon">◆</span><span>Projects: <strong id="panel-score-projects">0</strong></span></div>
+      </div>
+    </div>
+  </aside>
+
+  <div id="container">
+    <div id="header">
+      <h1>CENTRAL MIDDLEZHONG</h1>
+      <div class="subtitle">▸ AN IB DP DESIGN TECHNOLOGY ADVENTURE ◂</div>
+    </div>
+
+    <div id="status-bar">
+      <span>IB DP DT — TOPIC B3.1: MATERIAL SELECTION</span>
+      <span class="location" id="status-location">LOCATION: UNKNOWN</span>
+      <span class="score" id="status-score">DECISIONS: 0</span>
+    </div>
+
+    <div id="output"></div>
+
+    <div id="input-row">
+      <span id="prompt-symbol">▸</span>
+      <input id="input" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="type your response and press ENTER..." />
+    </div>
+
+    <div id="footer">TYPE  [hint]  OR  [/hint]  AT ANY TIME TO SEE AVAILABLE COMMANDS &nbsp;|&nbsp; IB DP DESIGN TECHNOLOGY — B3.1 MATERIAL SELECTION</div>
   </div>
 
-  <div id="status-bar">
-    <span>IB DP DT — TOPIC B3.1: MATERIAL SELECTION</span>
-    <span class="location" id="status-location">LOCATION: UNKNOWN</span>
-    <span class="score" id="status-score">DECISIONS: 0</span>
-  </div>
+  <aside id="right-panel" aria-label="Reference & Decision Log">
+    <div class="panel-section">
+      <h3>▸ MATERIAL REFERENCE</h3>
+      <div id="panel-reference">
+        <div class="reference-card">
+          <h4>▸ QUICK REFERENCE</h4>
+          <div class="prop"><span class="prop-name">Steel S275</span><span class="prop-value">Yield: 275 MPa | Standard structural</span></div>
+          <div class="prop"><span class="prop-name">Steel S355</span><span class="prop-value">Yield: 355 MPa | 25% stronger, 15% cost premium</span></div>
+          <div class="prop"><span class="prop-name">Weathering Steel</span><span class="prop-value">Forms protective patina | Zero painting</span></div>
+          <div class="prop"><span class="prop-name">Galvanised Steel</span><span class="prop-value">Zinc coating | 20-50 yr protection</span></div>
+          <div class="prop"><span class="prop-name">HDPE (Recycled)</span><span class="prop-value">Plastic lumber | Rot-proof | Sustainable</span></div>
+          <div class="prop"><span class="prop-name">Wetpour Rubber</span><span class="prop-value">EN 1177 impact | Seamless | 15+ yr</span></div>
+          <div class="prop"><span class="prop-name">PU Resin Holds</span><span class="prop-value">Climbing standard | Textured | Replaceable</span></div>
+          <div class="prop"><span class="prop-name">Structural Ply</span><span class="prop-value">17-18mm birch/hardwood | T-nut ready</span></div>
+        </div>
+      </div>
+    </div>
 
-  <div id="output"></div>
+    <div class="panel-section">
+      <h3>▸ DECISION LOG</h3>
+      <div id="panel-decision-log">
+        <div class="decision-log-entry pending">Start a project to record decisions</div>
+      </div>
+    </div>
 
-  <div id="input-row">
-    <span id="prompt-symbol">▸</span>
-    <input id="input" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="type your response and press ENTER..." />
-  </div>
+    <div class="panel-section">
+      <h3>▸ IB DT B3.1 CHECKLIST</h3>
+      <div class="panel-list" id="panel-checklist">
+        <div class="panel-item pending"><span class="icon">□</span><span>Functional requirements identified</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Mechanical properties matched</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Durability/environment considered</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Budget constraints addressed</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Sustainability evaluated</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Local sourcing explored</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Safety standards met (EN/BS)</span></div>
+        <div class="panel-item pending"><span class="icon">□</span><span>Whole-life cost analysed</span></div>
+      </div>
+    </div>
 
-  <div id="footer">TYPE  [hint]  OR  [/hint]  AT ANY TIME TO SEE AVAILABLE COMMANDS &nbsp;|&nbsp; IB DP DESIGN TECHNOLOGY — B3.1 MATERIAL SELECTION</div>
+    <div class="panel-section">
+      <h3>▸ CONTEXTUAL HINTS</h3>
+      <div class="hint-box" id="panel-hints">
+        <div class="hint-title">▸ AVAILABLE ACTIONS</div>
+        <div>Type <strong>hint</strong> or <strong>/hint</strong> anytime to see available commands for the current scene.</div>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <script>
@@ -342,6 +774,102 @@ function setLocation(loc) {
 function incrementDecisions() {
   decisionsCount++;
   statusScore.textContent = 'DECISIONS: ' + decisionsCount;
+  updateProgressPanel();
+}
+
+function recordDecision(decision, outcome, success = true) {
+  state.decisions.push({ decision, outcome, success, time: new Date().toLocaleTimeString() });
+  updateProgressPanel();
+  updateDecisionLog();
+}
+
+function recordMaterial(material, context) {
+  state.materials.push({ material, context, time: new Date().toLocaleTimeString() });
+  updateProgressPanel();
+}
+
+function recordLesson(lesson) {
+  if (!state.lessons.includes(lesson)) {
+    state.lessons.push(lesson);
+    updateProgressPanel();
+  }
+}
+
+function updateChecklist(criterion) {
+  const item = document.querySelector(`#panel-checklist .panel-item[data-criterion="${criterion}"]`);
+  if (item) {
+    item.classList.remove('pending');
+    item.classList.add('complete');
+    item.querySelector('.icon').textContent = '✓';
+  }
+}
+
+function updateProgressPanel() {
+  const projectEl = document.getElementById('panel-project-list');
+  const decisionsEl = document.getElementById('panel-decisions-list');
+  const materialsEl = document.getElementById('panel-materials-list');
+  const lessonsEl = document.getElementById('panel-lessons-list');
+  const decisionsCountEl = document.getElementById('panel-score-decisions');
+  const projectsCountEl = document.getElementById('panel-score-projects');
+
+  if (state.project) {
+    const projectNames = { bridge: 'Zhong Footbridge', playground: 'Riverside Playground', climbing: 'North Quarter Climbing Centre' };
+    projectEl.innerHTML = `<div class="panel-item current"><span class="icon">▸</span><span>${projectNames[state.project] || state.project}</span></div>`;
+  } else {
+    projectEl.innerHTML = '<div class="panel-item pending"><span class="icon">▸</span><span>No project selected</span></div>';
+  }
+
+  if (state.decisions.length > 0) {
+    decisionsEl.innerHTML = state.decisions.slice(-5).map(d => `
+      <div class="panel-item ${d.success ? 'complete' : 'failed'}">
+        <span class="icon">${d.success ? '✓' : '✗'}</span>
+        <span>${d.decision} → ${d.outcome}</span>
+      </div>
+    `).join('');
+  } else {
+    decisionsEl.innerHTML = '<div class="panel-item pending"><span class="icon">▸</span><span>No decisions yet</span></div>';
+  }
+
+  if (state.materials.length > 0) {
+    materialsEl.innerHTML = state.materials.map(m => `
+      <div class="panel-item complete"><span class="icon">✓</span><span>${m.material} (${m.context})</span></div>
+    `).join('');
+  } else {
+    materialsEl.innerHTML = '<div class="panel-item pending"><span class="icon">▸</span><span>No materials chosen yet</span></div>';
+  }
+
+  if (state.lessons.length > 0) {
+    lessonsEl.innerHTML = state.lessons.map(l => `
+      <div class="panel-item complete"><span class="icon">✓</span><span>${l}</span></div>
+    `).join('');
+  } else {
+    lessonsEl.innerHTML = '<div class="panel-item pending"><span class="icon">▸</span><span>Complete a project to unlock lessons</span></div>';
+  }
+
+  if (decisionsCountEl) decisionsCountEl.textContent = decisionsCount;
+  if (projectsCountEl) projectsCountEl.textContent = state.projectsCompleted || 0;
+}
+
+function updateDecisionLog() {
+  const logEl = document.getElementById('panel-decision-log-content');
+  if (state.decisions.length > 0) {
+    logEl.innerHTML = state.decisions.map(d => `
+      <div class="decision-log-entry ${d.success ? '' : 'failed'}">
+        <div class="decision-time">[${d.time}]</div>
+        <div class="decision-text">${d.decision}</div>
+        <div class="decision-outcome">${d.success ? '✓' : '✗'} ${d.outcome}</div>
+      </div>
+    `).join('');
+  } else {
+    logEl.innerHTML = '<div class="decision-log-entry pending">No decisions recorded yet</div>';
+  }
+}
+
+function updateHints(title, content) {
+  const hintEl = document.getElementById('panel-hints');
+  if (hintEl) {
+    hintEl.innerHTML = `<div class="hint-title">${title}</div>${content}`;
+  }
 }
 
 function setHints(hints) {
@@ -362,6 +890,128 @@ function showHints() {
   printBlank();
 }
 
+// ── Panel Update Functions ────────────────────────────────────
+
+function updateProgressPanel() {
+  const projectEl = document.getElementById('panel-project');
+  const decisionsEl = document.getElementById('panel-decisions');
+  const materialsEl = document.getElementById('panel-materials');
+  const lessonsEl = document.getElementById('panel-lessons');
+  const decisionsCountEl = document.getElementById('panel-score-decisions');
+  const projectsCountEl = document.getElementById('panel-score-projects');
+
+  if (decisionsCountEl) decisionsCountEl.textContent = decisionsCount;
+  if (projectsCountEl) projectsCountEl.textContent = state.projectsCompleted || 0;
+
+  if (state.project) {
+    const projectNames = { bridge: 'Zhong Footbridge', playground: 'Riverside Playground', climbing: 'North Quarter Climbing Centre' };
+    projectEl.innerHTML = `<div class="panel-item current"><span class="icon">▸</span><span>${projectNames[state.project] || state.project}</span></div>`;
+  }
+
+  if (state.decisions && state.decisions.length > 0) {
+    decisionsEl.innerHTML = state.decisions.map((d, i) => `
+      <div class="panel-item ${d.outcome === 'fail' ? 'failed' : 'complete'}">
+        <span class="icon">${d.outcome === 'fail' ? '✗' : '✓'}</span>
+        <span>${d.text}</span>
+      </div>
+    `).join('');
+  }
+
+  if (state.materials && state.materials.length > 0) {
+    materialsEl.innerHTML = state.materials.map(m => `
+      <div class="panel-item complete"><span class="icon">✓</span><span>${m}</span></div>
+    `).join('');
+  }
+
+  if (state.lessons && state.lessons.length > 0) {
+    lessonsEl.innerHTML = state.lessons.map(l => `
+      <div class="panel-item complete"><span class="icon">✓</span><span>${l}</span></div>
+    `).join('');
+  }
+}
+
+function addDecision(text, outcome = 'success') {
+  if (!state.decisions) state.decisions = [];
+  state.decisions.push({ text, outcome, time: new Date().toLocaleTimeString() });
+
+  const logEl = document.getElementById('panel-decision-log-content');
+  if (logEl) {
+    const entry = document.createElement('div');
+    entry.className = 'decision-log-entry' + (outcome === 'fail' ? ' failed' : '');
+    entry.innerHTML = `
+      <div class="decision-time">${new Date().toLocaleTimeString()}</div>
+      <div class="decision-text">${text}</div>
+      <div class="decision-outcome">${outcome === 'fail' ? '✗ REJECTED' : '✓ ACCEPTED'}</div>
+    `;
+    logEl.insertBefore(entry, logEl.firstChild);
+  }
+
+  updateProgressPanel();
+}
+
+function addMaterial(material) {
+  if (!state.materials) state.materials = [];
+  if (!state.materials.includes(material)) {
+    state.materials.push(material);
+    updateProgressPanel();
+  }
+}
+
+function addLesson(lesson) {
+  if (!state.lessons) state.lessons = [];
+  if (!state.lessons.includes(lesson)) {
+    state.lessons.push(lesson);
+    updateProgressPanel();
+  }
+}
+
+function updateCriteriaChecklist(criteria) {
+  const checks = {
+    functional: 'Functional requirements met',
+    durability: 'Durability & environment considered',
+    cost: 'Cost & budget constraints addressed',
+    sustainability: 'Sustainability & lifecycle assessed',
+    safety: 'Safety standards satisfied',
+    availability: 'Local availability verified'
+  };
+  criteria.forEach(c => {
+    const el = document.querySelector(`[data-criterion="${c}"]`);
+    if (el) {
+      el.classList.remove('pending');
+      el.classList.add('complete');
+      el.querySelector('.icon').textContent = '✓';
+    }
+  });
+}
+
+function setContextualHint(html) {
+  const hintEl = document.getElementById('panel-hint-content');
+  if (hintEl) hintEl.innerHTML = html;
+}
+
+// ── Panel Toggle (Mobile) ────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleLeft = document.getElementById('toggle-left');
+  const toggleRight = document.getElementById('toggle-right');
+  const leftPanel = document.getElementById('left-panel');
+  const rightPanel = document.getElementById('right-panel');
+
+  if (toggleLeft && leftPanel) {
+    toggleLeft.addEventListener('click', () => leftPanel.classList.toggle('open'));
+  }
+  if (toggleRight && rightPanel) {
+    toggleRight.addEventListener('click', () => rightPanel.classList.toggle('open'));
+  }
+
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 999) {
+      if (!leftPanel.contains(e.target) && !toggleLeft.contains(e.target)) leftPanel.classList.remove('open');
+      if (!rightPanel.contains(e.target) && !toggleRight.contains(e.target)) rightPanel.classList.remove('open');
+    }
+  });
+});
+
 // ── Input Handler ───────────────────────────────────────────
 
 input.addEventListener('keydown', async (e) => {
@@ -380,6 +1030,20 @@ input.addEventListener('keydown', async (e) => {
       await currentScene(norm);
     }
   }
+});
+
+// Panel toggle for mobile
+const leftPanel = document.getElementById('left-panel');
+const rightPanel = document.getElementById('right-panel');
+const toggleLeft = document.getElementById('toggle-left');
+const toggleRight = document.getElementById('toggle-right');
+
+toggleLeft.addEventListener('click', () => leftPanel.classList.toggle('open'));
+toggleRight.addEventListener('click', () => rightPanel.classList.toggle('open'));
+
+document.addEventListener('click', (e) => {
+  if (!leftPanel.contains(e.target) && !toggleLeft.contains(e.target)) leftPanel.classList.remove('open');
+  if (!rightPanel.contains(e.target) && !toggleRight.contains(e.target)) rightPanel.classList.remove('open');
 });
 
 // ── Scene Registry ──────────────────────────────────────────
@@ -428,6 +1092,12 @@ async function sceneTitleScreen() {
 
 async function sceneIntro(name) {
   setLocation('CENTRAL STATION');
+  state.project = null;
+  state.decisions = [];
+  state.materials = [];
+  state.lessons = [];
+  state.projectsCompleted = state.projectsCompleted || 0;
+  updateProgressPanel();
   await printLines([
     `Welcome, ${name}.`,
     '',
@@ -492,6 +1162,9 @@ async function sceneBridgeStart() {
 async function sceneBridge_StructureMaterial(inp) {
   if (inp.includes('steel') || inp.includes('structural steel')) {
     state.bridgeStructure = 'steel';
+    addDecision('Chose structural steel for bridge main span (18m)', 'success');
+    addMaterial('Structural Steel (S355)');
+    updateCriteriaChecklist(['functional', 'durability']);
     await printLines([
       '',
       'Mayor Chen nods slowly.',
@@ -603,6 +1276,9 @@ async function sceneBridge_Corrosion(inp) {
   let handled = false;
   if (inp.includes('galvanis') || inp.includes('galvanize') || inp.includes('zinc')) {
     state.bridgeCorrosion = 'galvanised';
+    addDecision('Chose hot-dip galvanising for corrosion protection', 'success');
+    addMaterial('Hot-dip Galvanising');
+    updateCriteriaChecklist(['durability', 'cost']);
     await printLines([
       '',
       '"Hot-dip galvanising! Excellent," the Mayor says.',
@@ -617,6 +1293,9 @@ async function sceneBridge_Corrosion(inp) {
     handled = true;
   } else if (inp.includes('paint') || inp.includes('painted') || inp.includes('coating') || inp.includes('epoxy')) {
     state.bridgeCorrosion = 'painted';
+    addDecision('Chose paint coating for corrosion protection', 'success');
+    addMaterial('Epoxy Paint System');
+    updateCriteriaChecklist(['durability']);
     await printLines([
       '',
       '"Paint coatings work," the Mayor says, "but they',
@@ -631,6 +1310,9 @@ async function sceneBridge_Corrosion(inp) {
     handled = true;
   } else if (inp.includes('weathering') || inp.includes('cor-ten') || inp.includes('corten')) {
     state.bridgeCorrosion = 'weathering steel';
+    addDecision('Chose weathering steel (Cor-Ten) for corrosion protection', 'success');
+    addMaterial('Weathering Steel (Cor-Ten)');
+    updateCriteriaChecklist(['durability', 'cost', 'sustainability']);
     await printLines([
       '',
       '"Weathering steel — also called Cor-Ten!" the Mayor',
@@ -686,6 +1368,9 @@ async function sceneBridge_Deck(inp) {
       'durable than softwoods for external use.',
       'Ensure end-grain sealing to slow moisture uptake."',
     ];
+    addDecision('Chose hardwood timber decking', 'success');
+    addMaterial('Hardwood Timber Decking');
+    updateCriteriaChecklist(['durability', 'sustainability']);
   } else if (inp.includes('composite') || inp.includes('wpc') || inp.includes('recycled plastic')) {
     good = true;
     feedback = [
@@ -695,6 +1380,9 @@ async function sceneBridge_Deck(inp) {
       'Slightly higher upfront cost than timber, but lower',
       'lifetime maintenance. Very suitable for river use."',
     ];
+    addDecision('Chose composite (WPC) decking', 'success');
+    addMaterial('Wood-Plastic Composite Decking');
+    updateCriteriaChecklist(['durability', 'sustainability', 'cost']);
   } else if (inp.includes('grating') || inp.includes('steel grating') || inp.includes('open grating')) {
     good = true;
     feedback = [
@@ -704,6 +1392,9 @@ async function sceneBridge_Deck(inp) {
       '(especially with young children) but it\'s cost-effective',
       'and widely used on utility footbridges. Accepted."',
     ];
+    addDecision('Chose steel grating decking', 'success');
+    addMaterial('Steel Grating');
+    updateCriteriaChecklist(['durability', 'cost']);
   } else if (inp.includes('concrete')) {
     good = false;
     feedback = [
@@ -774,6 +1465,8 @@ async function sceneBridge_BudgetChoice(inp) {
       'LESSON: Reducing functional dimensions to save material',
       'cost has long-term usability consequences.',
     ], 'character', 0, 28);
+    addDecision('Reduced bridge width from 3m to 2m to save budget', 'success');
+    addLesson('Reducing functional dimensions to save material cost has long-term usability consequences');
     state.bridgeBudgetChoice = 'width';
     await goTo(sceneBridge_LocalMaterial);
 
@@ -794,6 +1487,9 @@ async function sceneBridge_BudgetChoice(inp) {
       'higher lifetime maintenance cost. The better choice',
       'depends on the client\'s priorities.',
     ], 'character', 0, 28);
+    addDecision('Switched decking from hardwood to treated softwood to save budget', 'success');
+    addMaterial('Treated Softwood (Pine) Decking');
+    addLesson('Lower upfront material cost can mean higher lifetime maintenance cost');
     state.bridgeBudgetChoice = 'softwood';
     await goTo(sceneBridge_LocalMaterial);
 
@@ -849,6 +1545,10 @@ async function sceneBridge_SteelChoice(inp) {
       'Reclaimed materials = lower cost + lower embodied energy.',
       'Risk = unknown load history. Mitigation = inspection.',
     ], 'character', 0, 28);
+    addDecision('Specified reclaimed structural steel (with inspection requirement)', 'success');
+    addMaterial('Reclaimed Structural Steel (certified)');
+    addLesson('Reclaimed materials offer lower cost and embodied carbon with proper verification');
+    updateCriteriaChecklist(['sustainability', 'cost', 'availability']);
   } else if (inp.includes('new')) {
     await printLines([
       '',
@@ -861,6 +1561,10 @@ async function sceneBridge_SteelChoice(inp) {
       'New certified steel = known properties, full traceability.',
       'Higher embodied energy than reclaimed.',
     ], 'character', 0, 28);
+    addDecision('Specified new certified structural steel (S355)', 'success');
+    addMaterial('New Structural Steel S355 (BS EN 10025)');
+    addLesson('New certified steel provides full traceability and known properties');
+    updateCriteriaChecklist(['functional', 'durability', 'availability']);
   } else {
     print('"Which do you want — new steel or reclaimed steel?"', 'character', 0);
     return;
@@ -899,7 +1603,7 @@ async function sceneBridge_Finale() {
     '',
     '─────────────────────────────────────────────────────',
     '',
-    'IB DT B3.1 SKILLS PRACTISED:',
+'IB DT B3.1 SKILLS PRACTISED:',
     '  • Selecting materials based on functional requirements',
     '  • Considering mechanical and durability properties',
     '  • Responding to budget constraints with alternatives',
@@ -907,6 +1611,19 @@ async function sceneBridge_Finale() {
     '',
     'Type  restart  to play again, or choose a new project.',
   ], 'narrator', 100, 25);
+  state.projectsCompleted = (state.projectsCompleted || 0) + 1;
+  state.project = null;
+  state.decisions = [];
+  state.materials = [];
+  state.lessons = [
+    'Steel is ideal for medium-span bridge structures',
+    'Corrosion protection is essential in wet environments',
+    'Deck materials must balance durability, comfort, maintenance and weight',
+    'Budget constraints require trade-off analysis: upfront vs whole-life cost',
+    'Reclaimed materials are valid with appropriate verification'
+  ];
+  updateProgressPanel();
+  updateCriteriaChecklist(['functional', 'durability', 'cost', 'sustainability', 'safety', 'availability']);
   setHints(['restart', 'bridge', 'playground', 'climbing']);
   currentScene = async (inp) => {
     if (inp === 'restart' || inp === 'play again') { await goTo(sceneTitleScreen); }
@@ -954,6 +1671,9 @@ async function scenePlaygroundStart() {
 async function scenePlayground_Frame(inp) {
   if (inp.includes('timber') || inp.includes('wood') || inp.includes('oak') || inp.includes('pine') || inp.includes('softwood')) {
     state.playFrame = 'timber';
+    addDecision('Chose pressure-treated timber for playground structural frame', 'success');
+    addMaterial('Pressure-treated Softwood (Pine)');
+    updateCriteriaChecklist(['functional', 'safety', 'sustainability']);
     await printLines([
       '',
       '"Timber! A classic choice for playgrounds," Huang says.',
@@ -978,6 +1698,9 @@ async function scenePlayground_Frame(inp) {
 
   } else if (inp.includes('steel')) {
     state.playFrame = 'steel';
+    addDecision('Chose powder-coated steel for playground structural frame', 'success');
+    addMaterial('Powder-coated Structural Steel');
+    updateCriteriaChecklist(['functional', 'durability', 'cost']);
     await printLines([
       '',
       '"Steel frame. Strong, widely available," Huang considers.',
@@ -999,6 +1722,9 @@ async function scenePlayground_Frame(inp) {
 
   } else if (inp.includes('aluminium')) {
     state.playFrame = 'aluminium';
+    addDecision('Chose aluminium for playground structural frame', 'success');
+    addMaterial('Aluminium Alloy');
+    updateCriteriaChecklist(['functional', 'durability', 'sustainability']);
     await printLines([
       '"Aluminium — interesting choice," Huang says.',
       '"Lightweight, naturally corrosion-resistant.',
@@ -1015,6 +1741,9 @@ async function scenePlayground_Frame(inp) {
 
   } else if (inp.includes('hdpe') || inp.includes('plastic') || inp.includes('recycled plastic') || inp.includes('poly')) {
     state.playFrame = 'hdpe';
+    addDecision('Chose recycled HDPE plastic for playground structural frame', 'success');
+    addMaterial('Recycled HDPE (High-Density Polyethylene)');
+    updateCriteriaChecklist(['functional', 'sustainability', 'cost']);
     await printLines([
       '"Recycled HDPE plastic posts!" Huang lights up.',
       '"High-density polyethylene — it\'s increasingly popular.',
@@ -1053,6 +1782,9 @@ async function scenePlayground_Slide(inp) {
       'I\'ll accept it IF you add a shade canopy over the slide.',
       'Factor that into the budget."',
     ], 'character', 0, 28);
+    addDecision('Chose stainless steel slide with shade canopy (safety compromise)', 'success');
+    addMaterial('Stainless Steel + Shade Canopy');
+    updateCriteriaChecklist(['safety', 'cost']);
     state.playSlide = 'stainless steel + canopy';
 
   } else if (inp.includes('hdpe') || inp.includes('plastic') || inp.includes('poly') || inp.includes('moulded')) {
@@ -1065,6 +1797,9 @@ async function scenePlayground_Slide(inp) {
       'Great choice for a child-safe, low-maintenance finish.',
       'UV-stabilised grades won\'t fade or crack for 15+ years."',
     ], 'character', 0, 28);
+    addDecision('Chose HDPE plastic slide (safe, low heat absorption)', 'success');
+    addMaterial('HDPE Plastic Slide');
+    updateCriteriaChecklist(['safety', 'durability', 'cost']);
     state.playSlide = 'hdpe plastic';
 
   } else if (inp.includes('fibre') || inp.includes('fibreglass') || inp.includes('grp') || inp.includes('frp')) {
@@ -1076,6 +1811,9 @@ async function scenePlayground_Slide(inp) {
       'hold colour well. More expensive than HDPE but',
       'premium-looking finish. Accepted."',
     ], 'character', 0, 28);
+    addDecision('Chose fibreglass (GRP) slide', 'success');
+    addMaterial('Fibreglass / GRP Slide');
+    updateCriteriaChecklist(['safety', 'durability']);
     state.playSlide = 'fibreglass';
 
   } else if (inp.includes('aluminium') || inp.includes('aluminum')) {
@@ -1132,6 +1870,7 @@ async function scenePlayground_SurfaceChoice(inp) {
       '',
       'Please reconsider the surface material.',
     ], 'fail', 0, 25);
+    addDecision('Proposed concrete surface under play equipment', 'fail');
     setHints(['rubber mulch', 'sand', 'wetpour rubber', 'bark chips']);
     return;
 
@@ -1148,6 +1887,10 @@ async function scenePlayground_SurfaceChoice(inp) {
       '"Acceptable for a budget install, but high maintenance.',
       'You\'d need to specify min 300mm depth, regularly raked."',
     ], 'character', 0, 28);
+    addDecision('Chose sand as impact-absorbing surface', 'success');
+    addMaterial('Sand (300mm depth, EN 1177)');
+    addLesson('Sand is low-cost but high-maintenance; compaction reduces impact absorption');
+    updateCriteriaChecklist(['safety', 'cost']);
     state.playSurface = 'sand';
 
   } else if (inp.includes('bark') || inp.includes('wood chip') || inp.includes('mulch') || inp.includes('wood mulch')) {
@@ -1161,6 +1904,10 @@ async function scenePlayground_SurfaceChoice(inp) {
       'Lasts much longer, drains well. Sustainability question:',
       'is recycled rubber a positive material story? Discuss."',
     ], 'character', 0, 28);
+    addDecision('Chose bark chips / rubber mulch as impact surface', 'success');
+    addMaterial('Bark Chips / Rubber Mulch (EN 1177)');
+    addLesson('Loose-fill surfaces need regular maintenance; rubber mulch offers sustainability benefits');
+    updateCriteriaChecklist(['safety', 'sustainability', 'cost']);
     state.playSurface = 'mulch';
 
   } else if (inp.includes('wetpour') || inp.includes('wet pour') || inp.includes('rubber') || inp.includes('rubber tile') || inp.includes('safety tile')) {
@@ -1175,6 +1922,10 @@ async function scenePlayground_SurfaceChoice(inp) {
       '"Higher upfront cost, but minimal maintenance.',
       'Best whole-life value for a quality installation."',
     ], 'character', 0, 28);
+    addDecision('Chose wetpour rubber as impact-absorbing surface', 'success');
+    addMaterial('Wetpour Rubber (recycled rubber crumb + PU binder)');
+    addLesson('Wetpour rubber offers best whole-life value: seamless, accessible, EN 1177 compliant');
+    updateCriteriaChecklist(['safety', 'durability', 'cost', 'availability']);
     state.playSurface = 'wetpour rubber';
 
   } else if (inp.includes('grass') || inp.includes('artificial grass') || inp.includes('astroturf')) {
@@ -1229,6 +1980,10 @@ async function scenePlayground_Budget() {
         'aesthetic choices and functional requirements.',
         'Safety-critical specifications should not be compromised.',
       ], 'character', 0, 28);
+      addDecision('Chose plain grey wetpour rubber (safety maintained, cost reduced)', 'success');
+      addMaterial('Wetpour Rubber (Plain Grey)');
+      addLesson('When budgets are tight, target aesthetic choices before functional/safety specifications');
+      updateCriteriaChecklist(['cost', 'safety']);
     } else if (inp.includes('climb') || inp.includes('wall') || inp.includes('remove') || inp.includes('drop')) {
       await printLines([
         '',
@@ -1242,6 +1997,9 @@ async function scenePlayground_Budget() {
         'should inform what you cut, not just cost.',
         'The coloured surface option was a better cut."',
       ], 'character', 0, 28);
+      addDecision('Removed climbing wall to keep premium coloured surface', 'success');
+      addLesson('User research should inform budget cuts, not just cost analysis');
+      updateCriteriaChecklist(['functional', 'cost']);
     } else {
       print('"Please choose between the surface saving or removing the climbing wall."', 'character', 0);
       return;
@@ -1280,14 +2038,28 @@ async function scenePlayground_Finale() {
     '',
     '─────────────────────────────────────────────────────',
     '',
-    'IB DT B3.1 SKILLS PRACTISED:',
+'IB DT B3.1 SKILLS PRACTISED:',
     '  • Material selection against safety/durability criteria',
     '  • Sustainability considerations in material choice',
     '  • Budget trade-off analysis: aesthetic vs functional',
     '  • Properties of polymers, metals, and timber compared',
     '',
+
     'Type  restart  to play again or choose another project.',
   ], 'narrator', 100, 25);
+  state.projectsCompleted = (state.projectsCompleted || 0) + 1;
+  state.project = null;
+  state.decisions = [];
+  state.materials = [];
+  state.lessons = [
+    'Material selection must consider user safety first (heat, sharp edges, toxic treatments)',
+    'Impact-absorbing surfaces are a safety requirement, not optional (EN 1177)',
+    'Polymer materials (HDPE, recycled rubber) offer durability + sustainability',
+    'Budget trade-offs should target aesthetic choices before functional/safety specs',
+    'Whole-life cost matters: low maintenance = long-term value'
+  ];
+  updateProgressPanel();
+  updateCriteriaChecklist(['functional', 'durability', 'cost', 'sustainability', 'safety', 'availability']);
   setHints(['restart', 'bridge', 'playground', 'climbing']);
   currentScene = async (inp) => {
     if (inp === 'restart') { await goTo(sceneTitleScreen); }
@@ -1333,6 +2105,9 @@ async function sceneClimbingStart() {
 async function sceneClimbing_Wall(inp) {
   if (inp.includes('plywood') || inp.includes('ply')) {
     state.climbWall = 'plywood';
+    addDecision('Chose 17-18mm structural plywood (birch/hardwood-faced) for climbing wall panels', 'success');
+    addMaterial('Structural Plywood (17-18mm, birch/hardwood-faced)');
+    updateCriteriaChecklist(['functional', 'durability', 'cost']);
     await printLines([
       '',
       '"Plywood! Correct industry standard choice," Mei says.',
@@ -1385,6 +2160,7 @@ async function sceneClimbing_Wall(inp) {
       '',
       'Think about what properties climbing wall panels need.',
     ], 'fail', 0, 25);
+    addDecision('Proposed steel sheet panels for climbing walls', 'fail');
     setHints(['plywood', 'fibreglass']);
     return;
 
@@ -1407,6 +2183,7 @@ async function sceneClimbing_Wall(inp) {
       '',
       'What material is used in actual climbing centres?',
     ], 'fail', 0, 25);
+    addDecision('Proposed concrete panels for climbing walls', 'fail');
     setHints(['plywood', 'fibreglass']);
     return;
 
@@ -1420,6 +2197,10 @@ async function sceneClimbing_Wall(inp) {
 async function sceneClimbing_Floor(inp) {
   if (inp.includes('foam') || inp.includes('crash mat') || inp.includes('mat') || inp.includes('bouldering mat') || inp.includes('pad')) {
     state.climbFloor = 'foam crash mats';
+    addDecision('Chose layered foam crash mat system for bouldering fall zone', 'success');
+    addMaterial('Layered Foam Crash Mats (300-400mm, open/closed cell)');
+    addLesson('Impact-absorbing surfaces must be engineered for fall height; sacrificial foam needs replacement');
+    updateCriteriaChecklist(['safety', 'durability', 'cost']);
     await printLines([
       '',
       '"Foam crash mat system. Correct," Mei confirms.',
@@ -1443,6 +2224,7 @@ async function sceneClimbing_Floor(inp) {
       '"You\'d need dedicated bouldering crash mat systems.',
       'Rubber flooring is appropriate in the walking areas."',
     ], 'character', 0, 28);
+    addDecision('Proposed rubber gym flooring alone for bouldering fall zone', 'fail');
     setHints(['foam crash mats', 'foam', 'layered foam mats']);
     return;
 
@@ -1460,6 +2242,7 @@ async function sceneClimbing_Floor(inp) {
       'with certified impact attenuation performance.',
       'Do not use loose fill for bouldering floors."',
     ], 'fail', 0, 25);
+    addDecision('Proposed sand/loose fill for bouldering fall zone', 'fail');
     setHints(['foam crash mats', 'foam pads']);
     return;
 
@@ -1475,6 +2258,7 @@ async function sceneClimbing_Floor(inp) {
       'SAFETY CRITICAL: Fall zones beneath climbing require',
       'engineered impact-absorbing surfaces. No exceptions.',
     ], 'fail', 0, 25);
+    addDecision('Proposed hard surface (concrete/wood) for bouldering fall zone', 'fail');
     setHints(['foam crash mats', 'foam pads']);
     return;
 
@@ -1522,6 +2306,10 @@ async function sceneClimbing_SteelGrade(inp) {
       'and you\'ll have zero maintenance for 25+ years.",',
       '"No need to pay premium for S355 in this application."',
     ], 'character', 0, 28);
+    addDecision('Chose S275 mild steel for climbing wall sub-frame', 'success');
+    addMaterial('S275 Mild Steel (powder-coated)');
+    addLesson('For indoor dry environments, S275 with powder coating provides adequate corrosion resistance at lower cost');
+    updateCriteriaChecklist(['functional', 'cost', 'durability']);
     state.climbSteel = 's275';
 
   } else if (inp.includes('b') || inp.includes('s355') || inp.includes('high strength') || inp.includes('stronger')) {
@@ -1535,6 +2323,10 @@ async function sceneClimbing_SteelGrade(inp) {
       '"15% cost premium is reasonable for this application.",',
       '"A well-reasoned choice."',
     ], 'character', 0, 28);
+    addDecision('Chose S355 high-strength steel for climbing wall sub-frame', 'success');
+    addMaterial('S355 High-Strength Steel');
+    addLesson('Higher strength steel allows lighter sections, reducing foundation loads and material use');
+    updateCriteriaChecklist(['functional', 'durability', 'cost']);
     state.climbSteel = 's355';
 
   } else if (inp.includes('c') || inp.includes('stainless')) {
@@ -1576,6 +2368,9 @@ async function sceneClimbing_Holds() {
 async function sceneClimbing_HoldsMaterial(inp) {
   if (inp.includes('polyurethane') || inp.includes('pu') || inp.includes('resin') || inp.includes('plastic') || inp.includes('polymer')) {
     state.climbHolds = 'polyurethane';
+    addDecision('Chose polyurethane (PU) resin for climbing holds', 'success');
+    addMaterial('Polyurethane Resin Holds');
+    updateCriteriaChecklist(['functional', 'durability', 'cost']);
     await printLines([
       '',
       '"Polyurethane resin holds. Industry standard," Mei confirms.',
@@ -1589,6 +2384,9 @@ async function sceneClimbing_HoldsMaterial(inp) {
 
   } else if (inp.includes('wood') || inp.includes('wooden') || inp.includes('timber')) {
     state.climbHolds = 'wood';
+    addDecision('Chose wooden holds for training board', 'success');
+    addMaterial('Hardwood (Oak/Beech) Climbing Holds');
+    updateCriteriaChecklist(['functional', 'sustainability']);
     await printLines([
       '"Wooden holds — a niche but legitimate choice!" Mei grins.',
       '"Used mainly on training boards — campuses, system boards.",',
@@ -1656,6 +2454,10 @@ async function sceneClimbing_Budget() {
         'increasingly specified for sustainability. Certification',
         'and inspection are non-negotiable.',
       ], 'character', 0, 28);
+      addDecision('Chose reclaimed structural steel for sub-frame (certified, inspected)', 'success');
+      addMaterial('Reclaimed Structural Steel S275 (certified)');
+      addLesson('Reclaimed structural steel is legitimate with proper certification and inspection');
+      updateCriteriaChecklist(['sustainability', 'cost', 'availability']);
     } else if (inp.includes('b') || inp.includes('height') || inp.includes('9') || inp.includes('reduce') || inp.includes('shorter')) {
       await printLines([
         '',
@@ -1668,6 +2470,9 @@ async function sceneClimbing_Budget() {
         'but you\'ve closed a door unnecessarily.",',
         '"Noted. We proceed with your decision."',
       ], 'character', 0, 28);
+      addDecision('Reduced wall height from 12m to 9m to save budget', 'success');
+      addLesson('Reducing functional scope to save budget closes future opportunities');
+      updateCriteriaChecklist(['functional', 'cost']);
     } else {
       print('"Please choose Option A or B."', 'character', 0);
       return;
@@ -1707,15 +2512,29 @@ async function sceneClimbing_Finale() {
     '',
     '─────────────────────────────────────────────────────',
     '',
-    'IB DT B3.1 SKILLS PRACTISED:',
+'IB DT B3.1 SKILLS PRACTISED:',
     '  • Matching material properties to functional requirements',
     '  • Understanding steel grades and when to specify each',
     '  • Polymer material properties (PU, foam grades)',
     '  • Budget trade-offs and whole-life cost thinking',
     '  • Safety-critical specification decisions',
     '',
+
     'Type  restart  to play again or try another project.',
   ], 'narrator', 100, 25);
+  state.projectsCompleted = (state.projectsCompleted || 0) + 1;
+  state.project = null;
+  state.decisions = [];
+  state.materials = [];
+  state.lessons = [
+    'Material selection must match the specific mechanism of use (T-nuts, impact, grip, workability)',
+    'Overspecification wastes budget: stainless steel indoors = unnecessary premium',
+    'Impact-absorbing materials must be engineered for the fall height involved',
+    'Reclaimed materials offer cost + sustainability benefits with appropriate certification',
+    'Polymer materials (PU resin, HDPE foam) are designed for specific performance characteristics'
+  ];
+  updateProgressPanel();
+  updateCriteriaChecklist(['functional', 'durability', 'cost', 'sustainability', 'safety', 'availability']);
   setHints(['restart', 'bridge', 'playground', 'climbing']);
   currentScene = async (inp) => {
     if (inp === 'restart') { await goTo(sceneTitleScreen); }
