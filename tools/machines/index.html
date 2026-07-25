@@ -1871,6 +1871,7 @@
                 const el = document.createElement('div');
                 el.className = 'data-item';
                 el.draggable = true;
+                el.tabIndex = 0;
                 el.dataset.id = item.id;
                 el.dataset.type = item.type;
                 el.setAttribute('role', 'listitem');
@@ -1889,22 +1890,40 @@
         function attachDragEvents() {
             const items = document.querySelectorAll('.data-item');
             const zones = document.querySelectorAll('.drop-zone');
+            let draggedItem = null;
 
             items.forEach(item => {
                 item.addEventListener('dragstart', (e) => {
+                    draggedItem = item;
                     item.classList.add('dragging');
                     e.dataTransfer.setData('text/plain', item.dataset.id);
                     e.dataTransfer.effectAllowed = 'move';
                 });
                 item.addEventListener('dragend', () => {
                     item.classList.remove('dragging');
+                    draggedItem = null;
+                });
+
+                // Touch support for mobile
+                item.addEventListener('touchstart', (e) => {
+                    draggedItem = item;
+                    item.classList.add('dragging');
+                }, { passive: true });
+                item.addEventListener('touchend', (e) => {
+                    item.classList.remove('dragging');
+                    const touch = e.changedTouches[0];
+                    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+                    const zone = target?.closest('.drop-zone');
+                    if (zone && draggedItem) {
+                        handleDrop(draggedItem, zone);
+                    }
+                    draggedItem = null;
                 });
 
                 // Keyboard support
                 item.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        // Show zone selection modal or auto-sort
                         const correctZone = item.dataset.type === 'clean' ? 'cleanZone' : 'noisyZone';
                         handleDrop(item, document.getElementById(correctZone));
                     }
@@ -1925,6 +1944,10 @@
                     const item = document.querySelector(`.data-item[data-id="${id}"]`);
                     if (item) handleDrop(item, zone);
                 });
+
+                // Touch support for zones
+                zone.addEventListener('touchstart', () => zone.classList.add('active'), { passive: true });
+                zone.addEventListener('touchend', () => zone.classList.remove('active'));
 
                 // Keyboard support for zones
                 zone.addEventListener('keydown', (e) => {
@@ -1995,6 +2018,9 @@
             const svg = document.getElementById('connectionsSVG');
             const container = document.getElementById('neuronNetwork');
             const neurons = container.querySelectorAll('.neuron');
+
+            // Clear previous connections
+            connections.length = 0;
 
             // Calculate positions
             const layers = ['input', 'hidden1', 'hidden2', 'output'];
@@ -2457,7 +2483,7 @@
             document.getElementById('quizRestart').addEventListener('click', restartQuiz);
         }
 
-        function selectOption(qDiv, btn, isCorrect) {
+function selectOption(qDiv, btn, isCorrect) {
             const options = qDiv.querySelectorAll('.quiz-option');
             options.forEach(o => o.classList.remove('selected'));
             btn.classList.add('selected');
@@ -2469,6 +2495,7 @@
                 : `<strong>❌ Incorrect.</strong> ${getExplanation(qDiv.dataset.question, false)}`;
 
             playSound(isCorrect);
+            updateQuizNav();
         }
 
         function getExplanation(qIndex, isCorrect) {
@@ -2520,12 +2547,16 @@
 
             prev.disabled = state.quiz.currentQuestion === 0;
 
+            const currentQuestion = document.querySelector(`#q${state.quiz.currentQuestion}`);
+            const hasSelection = currentQuestion && currentQuestion.querySelector('.quiz-option.selected');
+
             if (state.quiz.currentQuestion === 4) {
                 next.style.display = 'none';
                 submit.style.display = 'inline-flex';
             } else {
                 next.style.display = 'inline-flex';
                 submit.style.display = 'none';
+                next.disabled = !hasSelection;
             }
         }
 
@@ -2668,9 +2699,10 @@
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
                     if (state.currentSection === 'training') {
+                        state.training.initialized = false;
                         initNeuronNetwork();
                     }
-                    lossCanvas.draw();
+                    if (lossCanvas) lossCanvas.draw();
                 }, 200);
             });
         }
