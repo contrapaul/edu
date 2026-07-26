@@ -18,53 +18,9 @@
 }
 .lang-col h4:first-child { margin-top: 0; }
 
-/* ── CAPTIONED PHOTOS WITH ZOOM (pattern from B2.1 case studies) ── */
-.case-photo {
-  width: 60%;
-  margin: 1.25rem auto;
-  text-align: center;
-}
-.case-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  cursor: zoom-in;
-}
-.case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
-.case-photo figcaption a { color: var(--muted); text-decoration: underline; }
-.case-photo figcaption a:hover { color: var(--accent); }
-.case-photo--sm { width: 30%; }
-@media (max-width: 640px) {
-  .case-photo { width: 100%; }
-  .case-photo--sm { width: 60%; }
-}
-
-/* Image lightbox — enlarge photos in-page instead of a new tab */
-.case-lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 2.5vmin;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(6px);
-  cursor: zoom-out;
-}
-.case-lightbox.open { display: flex; }
-.case-lightbox img {
-  max-width: 95vw;
-  max-height: 95vh;
-  width: auto;
-  height: auto;
-  border-radius: var(--radius);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  animation: modal-in 0.2s ease;
-}
-@keyframes modal-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+/* .case-photo and .case-lightbox (captioned photos with click-to-enlarge)
+   now live in curriculum.css so every topic page can use the same pattern,
+   not just this one. */
 </style>
 </head>
 <body data-curr-type="dp" data-curr-page="b2.2">

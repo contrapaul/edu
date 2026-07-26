@@ -2289,6 +2289,33 @@ details.p2-reveal summary::before { content: "▼ "; }
 }
 .case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
 
+/* Captioned photo used directly in page body copy, outside a case-study
+   modal — e.g. the drawing-type examples in B2.2, the focus-group photo
+   in B1.1. Lower specificity than .case-modal-body .case-photo above, so
+   modal photos are unaffected; this only styles photos that aren't inside
+   a modal. Pairs with the .case-lightbox click-to-enlarge behaviour below. */
+.case-photo {
+  width: 60%;
+  margin: 1.25rem auto;
+  text-align: center;
+}
+.case-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: zoom-in;
+}
+.case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+.case-photo figcaption a { color: var(--muted); text-decoration: underline; }
+.case-photo figcaption a:hover { color: var(--accent); }
+.case-photo--sm { width: 30%; }
+@media (max-width: 640px) {
+  .case-photo { width: 100%; }
+  .case-photo--sm { width: 60%; }
+}
+
 /* Image lightbox */
 .case-lightbox {
   position: fixed;
