@@ -688,39 +688,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })();
 
-/* ── IMAGE LIGHTBOX (1.1.2 focus-group photo) ──────────────────────
-   Enlarges .case-photo images in-page instead of opening a new tab.
-   B1.1 has no case-study modals, so — unlike the other topic pages —
-   this doesn't need to track whether a modal is also open. ────────── */
-(function () {
-  'use strict';
-  var lightbox = document.getElementById('case-lightbox');
-  if (!lightbox) return;
-  var lightboxImg = lightbox.querySelector('img');
-
-  document.querySelectorAll('.case-photo > a').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var img = link.querySelector('img');
-      lightboxImg.src = link.getAttribute('href');
-      lightboxImg.alt = img ? img.alt : '';
-      lightbox.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-
-  function closeLightbox() {
-    lightbox.classList.remove('open');
-    lightboxImg.src = '';
-    document.body.style.overflow = '';
-  }
-
-  lightbox.addEventListener('click', closeLightbox);
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
-      e.stopPropagation();
-      closeLightbox();
-    }
-  }, true);
-})();
+/* Case-study modals and the .case-photo image lightbox (used by the
+   1.1.2 focus-group photo) are handled globally by curriculum.js. */

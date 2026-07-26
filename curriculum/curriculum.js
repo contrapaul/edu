@@ -89,6 +89,118 @@
     });
   });
 
+  /* ── CASE-STUDY MODALS + IMAGE LIGHTBOX ─────────────────────
+     Generic engine for two patterns used across topic pages:
+       - Case-study / product-spotlight modals: any element with
+         [data-modal="modal-id"] opens the .case-modal with that id.
+       - .case-photo images (inside a modal, or written directly into
+         page copy) open in a full-screen lightbox instead of a new tab.
+     Both are optional per page — every selector below simply matches
+     nothing on a page that doesn't use the feature, so this runs
+     unconditionally on every topic page rather than being copied into
+     each page's own script. A page just needs the markup: a
+     [data-modal]/.case-modal pair for modals, a <figure class="case-photo">
+     for a lightbox photo, and #case-lightbox somewhere in the body if
+     any .case-photo is used. ─────────────────────────────────────── */
+  var openButtons  = document.querySelectorAll('[data-modal]');
+  var modals       = document.querySelectorAll('.case-modal');
+  var closeButtons = document.querySelectorAll('.case-modal-close');
+  var overlays     = document.querySelectorAll('.case-modal-overlay');
+
+  function openCaseModal(id) {
+    var modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var closeBtn = modal.querySelector('.case-modal-close');
+    setTimeout(function () { if (closeBtn) closeBtn.focus(); }, 50);
+  }
+
+  function closeCaseModal(modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    var caseId = modal.id.replace('modal-', '');
+    var trigger = document.querySelector('[data-modal="modal-' + caseId + '"]');
+    if (trigger) trigger.focus();
+  }
+
+  openButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () { openCaseModal(btn.dataset.modal); });
+    if (btn.tagName !== 'BUTTON') {
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCaseModal(btn.dataset.modal);
+        }
+      });
+    }
+  });
+
+  closeButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () { closeCaseModal(btn.closest('.case-modal')); });
+  });
+
+  overlays.forEach(function (overlay) {
+    overlay.addEventListener('click', function () { closeCaseModal(overlay.closest('.case-modal')); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      modals.forEach(function (m) {
+        if (m.classList.contains('open')) closeCaseModal(m);
+      });
+    }
+  });
+
+  var lightbox = document.getElementById('case-lightbox');
+  if (lightbox) {
+    var lightboxImg = lightbox.querySelector('img');
+
+    document.querySelectorAll('.case-photo > a').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var img = link.querySelector('img');
+        lightboxImg.src = link.getAttribute('href');
+        lightboxImg.alt = img ? img.alt : '';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+      /* Restore scroll lock only if a case-study modal is still open */
+      var modalOpen = Array.prototype.some.call(modals, function (m) {
+        return m.classList.contains('open');
+      });
+      document.body.style.overflow = modalOpen ? 'hidden' : '';
+    }
+
+    lightbox.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+        e.stopPropagation();
+        closeLightbox();
+      }
+    }, true);
+  }
+
+  /* Basic focus trapping inside an open case-study modal */
+  modals.forEach(function (modal) {
+    modal.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') {
+        var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  });
+
   /* ── QUIZ MCQ — BATCH SUBMIT ───────────────────────────────── */
   var quizBody   = document.querySelector('#body-quiz');
   var submitBtn  = document.getElementById('quiz-submit');
