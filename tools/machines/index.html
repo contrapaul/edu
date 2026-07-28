@@ -1268,14 +1268,16 @@
                     </div>
                 </div>
 
-                <div class="interactive-demo loss-visualizer" id="lossVisualizer">
+                <div class="interactive-demo" id="lossVisualizer">
                     <div class="demo-header">
                         <span class="demo-title">Interactive: The Error Minimizer</span>
                         <span class="demo-badge">Slider Control</span>
                     </div>
                     <p style="margin-bottom: 1.5rem; max-width: 600px;">Adjust the learning rate and watch how the loss curve behaves. Too high = overshooting (divergence). Too low = painfully slow. Just right = smooth convergence.</p>
 
-                    <canvas class="loss-canvas" id="lossCanvas" aria-label="Loss curve visualization showing training loss over epochs"></canvas>
+                    <div class="loss-visualizer">
+                        <canvas class="loss-canvas" id="lossCanvas" aria-label="Loss curve visualization showing training loss over epochs"></canvas>
+                    </div>
 
                     <div class="slider-group">
                         <span class="slider-label">Learning Rate</span>
