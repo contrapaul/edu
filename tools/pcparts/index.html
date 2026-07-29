@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC History Interactive - Learn Computer Component Evolution</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/panel.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>🖥️ PC History Interactive</h1>
+        <p class="subtitle">Explore the evolution of computer components through interactive 3D visualization</p>
+    </header>
+
+    <main class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <nav class="component-nav">
+                <h2>Components</h2>
+                <ul class="component-list">
+                    <li class="component-item" data-component="cpu">
+                        <input type="checkbox" id="toggle-cpu" checked>
+                        <label for="toggle-cpu">🔲 CPU</label>
+                    </li>
+                    <li class="component-item" data-component="gpu">
+                        <input type="checkbox" id="toggle-gpu" checked>
+                        <label for="toggle-gpu">🎮 GPU</label>
+                    </li>
+                    <li class="component-item" data-component="ram">
+                        <input type="checkbox" id="toggle-ram" checked>
+                        <label for="toggle-ram">💾 RAM</label>
+                    </li>
+                    <li class="component-item" data-component="storage">
+                        <input type="checkbox" id="toggle-storage" checked>
+                        <label for="toggle-storage">💿 Storage</label>
+                    </li>
+                    <li class="component-item" data-component="psu">
+                        <input type="checkbox" id="toggle-psu" checked>
+                        <label for="toggle-psu">⚡ PSU</label>
+                    </li>
+                    <li class="component-item" data-component="mobo">
+                        <input type="checkbox" id="toggle-mobo" checked>
+                        <label for="toggle-mobo">🔧 Motherboard</label>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-controls">
+                <h2>Controls</h2>
+                <div class="control-group">
+                    <label for="view-mode">View Mode:</label>
+                    <select id="view-mode">
+                        <option value="exploded">Exploded View</option>
+                        <option value="assembled">Assembled</option>
+                        <option value="wireframe">Wireframe</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="difficulty">Difficulty Level:</label>
+                    <select id="difficulty">
+                        <option value="beginner">Beginner</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                <button id="reset-view" class="btn">Reset Camera</button>
+                <button id="export-research" class="btn btn-secondary">Export Research</button>
+            </div>
+        </aside>
+
+        <!-- 3D Viewport -->
+        <section class="viewport" id="viewport">
+            <div class="loading-overlay" id="loading">
+                <div class="spinner"></div>
+                <p>Loading 3D Scene...</p>
+            </div>
+            <canvas id="scene-canvas"></canvas>
+            <div class="viewport-hints">
+                <p>🖱️ Drag to rotate • Scroll to zoom • Click components to inspect</p>
+            </div>
+        </section>
+
+        <!-- Info Panel (Hidden by default) -->
+        <aside class="info-panel" id="info-panel">
+            <button class="close-panel" id="close-panel" aria-label="Close info panel">✕</button>
+            
+            <div class="panel-tabs" id="panel-tabs">
+                <button class="tab-btn active" data-tab="specs">Specs</button>
+                <button class="tab-btn" data-tab="history">History</button>
+                <button class="tab-btn" data-tab="evolution">Evolution</button>
+                <button class="tab-btn" data-tab="simulator">Simulator</button>
+            </div>
+
+            <div class="panel-content">
+                <!-- Specs Tab -->
+                <div class="tab-content active" id="tab-specs">
+                    <div class="component-info" id="component-info">
+                        <h2 id="component-title">Select a Component</h2>
+                        <p class="component-description" id="component-desc">Click on any component in the 3D view to see its specifications and history.</p>
+                        <div class="specs-grid" id="specs-grid"></div>
+                    </div>
+                </div>
+
+                <!-- History Tab -->
+                <div class="tab-content" id="tab-history">
+                    <div class="timeline" id="component-timeline"></div>
+                </div>
+
+                <!-- Evolution Tab -->
+                <div class="tab-content" id="tab-evolution">
+                    <div class="evolution-visualizer" id="evolution-visualizer"></div>
+                </div>
+
+                <!-- Simulator Tab -->
+                <div class="tab-content" id="tab-simulator">
+                    <div class="simulator-container" id="simulator-container"></div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Research Modal -->
+    <div class="modal" id="research-modal" hidden>
+        <div class="modal-content">
+            <button class="close-modal" id="close-research" aria-label="Close modal">✕</button>
+            <h2>📝 PC Component History Research</h2>
+            <p>Fill in your research findings and export as Markdown.</p>
+            <div class="research-editor" id="research-editor"></div>
+            <button id="download-research" class="btn">Download Research (.md)</button>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

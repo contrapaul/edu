@@ -1,0 +1,324 @@
+{
+  "cpu": {
+    "examples": [
+      {
+        "model": "Intel 486DX2-66",
+        "year": 1991,
+        "socket": "Socket 3",
+        "process": "1.2μm",
+        "cores": 1,
+        "threads": 1,
+        "clockSpeed": "66 MHz",
+        "tdp": "5W",
+        "transistorCount": "1.2M",
+        "cache": "8KB L1",
+        "keyFeature": "First x86 with 32-bit internals and onboard FPU"
+      },
+      {
+        "model": "AMD K6-2 450",
+        "year": 1997,
+        "socket": "Socket 7",
+        "process": "0.25μm",
+        "cores": 1,
+        "threads": 1,
+        "clockSpeed": "450 MHz",
+        "tdp": "7W",
+        "transistorCount": "6.8M",
+        "cache": "64KB L1",
+        "keyFeature": "3DNow! SIMD instructions"
+      },
+      {
+        "model": "Intel Pentium 4 3.2GHz HT",
+        "year": 2002,
+        "socket": "Socket 478",
+        "process": "0.13μm",
+        "cores": 1,
+        "threads": 2,
+        "clockSpeed": "3.2 GHz",
+        "tdp": "89W",
+        "transistorCount": "125M",
+        "cache": "512KB L2",
+        "keyFeature": "First x86 with Hyper-Threading"
+      },
+      {
+        "model": "Intel Core 2 Duo E6600",
+        "year": 2006,
+        "socket": "LGA 775",
+        "process": "65nm",
+        "cores": 2,
+        "threads": 2,
+        "clockSpeed": "2.33 GHz",
+        "tdp": "65W",
+        "transistorCount": "291M",
+        "cache": "2MB L2",
+        "keyFeature": "Dual-core, uncored architecture"
+      },
+      {
+        "model": "AMD Ryzen 5 3600",
+        "year": 2017,
+        "socket": "AM4",
+        "process": "12nm",
+        "cores": 6,
+        "threads": 12,
+        "clockSpeed": "3.6 GHz",
+        "tdp": "65W",
+        "transistorCount": "10.4B",
+        "cache": "32MB L3 + 3MB L2",
+        "keyFeature": "MCM (CCD + I/O die)"
+      },
+      {
+        "model": "Apple M1",
+        "year": 2020,
+        "socket": "BGA (SoC)",
+        "process": "5nm",
+        "cores": 8,
+        "threads": 8,
+        "clockSpeed": "3.2 GHz",
+        "tdp": "10W",
+        "transistorCount": "16B",
+        "cache": "8MB L2 + 16MB shared",
+        "keyFeature": "Unified memory, ARM architecture"
+      },
+      {
+        "model": "Intel Core i9-13900K",
+        "year": 2022,
+        "socket": "LGA 1700",
+        "process": "10nm (Intel 4)",
+        "cores": 24,
+        "threads": 32,
+        "clockSpeed": "5.8 GHz",
+        "tdp": "125W",
+        "transistorCount": "22.4B",
+        "cache": "32MB L2 + 32MB L3",
+        "keyFeature": "Hybrid P/E cores"
+      },
+      {
+        "model": "AMD Ryzen 7 7800X3D",
+        "year": 2022,
+        "socket": "AM5",
+        "process": "5nm",
+        "cores": 8,
+        "threads": 16,
+        "clockSpeed": "5.0 GHz",
+        "tdp": "120W",
+        "transistorCount": "16.8B",
+        "cache": "96MB 3D V-Cache (L3)",
+        "keyFeature": "3D V-Cache"
+      }
+    ]
+  },
+  "gpu": {
+    "examples": [
+      {
+        "model": "NVIDIA GeForce 256",
+        "year": 1999,
+        "vram": "32MB SDR SDRAM",
+        "memoryBandwidth": "1.6 GB/s",
+        "pixelRate": "25 Mpix/s",
+        "tdp": "70W",
+        "keyFeature": "First GPU with hardware T&L"
+      },
+      {
+        "model": "AMD Radeon HD 5870",
+        "year": 2009,
+        "vram": "1GB GDDR5",
+        "memoryBandwidth": "115.2 GB/s",
+        "pixelRate": "16 Gpix/s",
+        "tdp": "188W",
+        "keyFeature": "First GDDR5, DX11"
+      },
+      {
+        "model": "NVIDIA RTX 2080 Ti",
+        "year": 2018,
+        "vram": "11GB GDDR6X",
+        "memoryBandwidth": "616 GB/s",
+        "pixelRate": "43 Gpix/s",
+        "tdp": "250W",
+        "keyFeature": "Real-time ray tracing (RT cores)"
+      },
+      {
+        "model": "AMD RX 7900 XTX",
+        "year": 2022,
+        "vram": "24GB GDDR6",
+        "memoryBandwidth": "960 GB/s",
+        "pixelRate": "97 Gpix/s",
+        "tdp": "355W",
+        "keyFeature": "320-bit bus, 24GB GDDR6"
+      },
+      {
+        "model": "Apple M3 Max",
+        "year": 2023,
+        "vram": "128GB Unified Memory",
+        "memoryBandwidth": "460.8 GB/s",
+        "pixelRate": "30 Gpix/s",
+        "tdp": "100W",
+        "keyFeature": "Hardware ray tracing, unified memory"
+      }
+    ]
+  },
+  "ram": {
+    "examples": [
+      {
+        "model": "DDR1 (PC2700)",
+        "year": 2000,
+        "type": "DDR1",
+        "capacity": "256MB - 2GB",
+        "speed": "2700 MT/s",
+        "busWidth": "128-bit",
+        "voltage": "2.6V",
+        "keyFeature": "First DDR. Double Data Rate."
+      },
+      {
+        "model": "DDR2 (PC2-6400)",
+        "year": 2003,
+        "type": "DDR2",
+        "capacity": "256MB - 8GB",
+        "speed": "6400 MT/s",
+        "busWidth": "64-bit",
+        "voltage": "1.8V",
+        "keyFeature": "Lower voltage, notch moved"
+      },
+      {
+        "model": "DDR3 (PC3-12800)",
+        "year": 2007,
+        "type": "DDR3",
+        "capacity": "512MB - 32GB",
+        "speed": "12800 MT/s",
+        "busWidth": "64-bit",
+        "voltage": "1.5V",
+        "keyFeature": "XMP profiles introduced"
+      },
+      {
+        "model": "DDR4 (PC4-25600)",
+        "year": 2014,
+        "type": "DDR4",
+        "capacity": "2GB - 128GB",
+        "speed": "25600 MT/s",
+        "busWidth": "64-bit",
+        "voltage": "1.2V",
+        "keyFeature": "On-die training, ECC optional"
+      },
+      {
+        "model": "DDR5 (PC5-4800)",
+        "year": 2021,
+        "type": "DDR5",
+        "capacity": "8GB - 192GB",
+        "speed": "4800 MT/s",
+        "busWidth": "64-bit",
+        "voltage": "1.1V",
+        "keyFeature": "On-board PMIC, dual 32-bit sub-channels"
+      }
+    ]
+  },
+  "storage": {
+    "examples": [
+      {
+        "model": "Seagate ST340014A",
+        "year": 1994,
+        "interface": "IDE/ATA-2",
+        "capacity": "4.3GB",
+        "seqRead": 7,
+        "seqWrite": 7,
+        "latency": "9.3ms",
+        "keyFeature": "One of the first 4GB hard drives"
+      },
+      {
+        "model": "WD Raptor 150GB",
+        "year": 2003,
+        "interface": "SATA 1.5 Gb/s",
+        "capacity": "150GB",
+        "seqRead": 55,
+        "seqWrite": 55,
+        "latency": "4.5ms",
+        "keyFeature": "First 10000 RPM SATA drive"
+      },
+      {
+        "model": "Samsung 840 EVO 128GB",
+        "year": 2014,
+        "interface": "SATA 6 Gb/s",
+        "capacity": "128GB",
+        "seqRead": 520,
+        "seqWrite": 320,
+        "latency": "0.1ms",
+        "keyFeature": "First mainstream SSD with TurboWrite SLC cache"
+      },
+      {
+        "model": "Samsung 970 EVO Plus 1TB",
+        "year": 2018,
+        "interface": "PCIe 3.0 x4 NVMe",
+        "capacity": "1TB",
+        "seqRead": 3500,
+        "seqWrite": 3300,
+        "latency": "0.08ms",
+        "keyFeature": "NVMe protocol, 4x SATA bandwidth"
+      },
+      {
+        "model": "WD Black SN850X 2TB",
+        "year": 2021,
+        "interface": "PCIe 4.0 x4 NVMe",
+        "capacity": "2TB",
+        "seqRead": 7300,
+        "seqWrite": 6600,
+        "latency": "0.06ms",
+        "keyFeature": "PCIe 4.0, 2x faster than PCIe 3.0"
+      },
+      {
+        "model": "Crucial T700 4TB",
+        "year": 2024,
+        "interface": "PCIe 5.0 x4 NVMe",
+        "capacity": "4TB",
+        "seqRead": 14500,
+        "seqWrite": 13500,
+        "latency": "0.04ms",
+        "keyFeature": "PCIe 5.0, 4x faster than PCIe 3.0"
+      }
+    ]
+  },
+  "motherboard": {
+    "sockets": [
+      { "name": "Socket 3", "year": 1991, "cpu": "486DX2, DX4", "pins": 273, "slots": "1-2 ISA" },
+      { "name": "Socket 7", "year": 1995, "cpu": "Pentium, K6", "pins": 321, "slots": "1-2 ISA, 1 PCI" },
+      { "name": "Socket 478", "year": 2001, "cpu": "Pentium 4", "pins": 478, "slots": "5 PCI, 1 AGP" },
+      { "name": "LGA 775", "year": 2004, "cpu": "Core 2 Duo, Core i7", "pins": 775, "slots": "1-2 PCI-E x16, 4 PCI" },
+      { "name": "AM2", "year": 2006, "cpu": "Athlon 64 X2", "pins": 940, "slots": "1 PCI-E x16, 2 PCI" },
+      { "name": "AM3", "year": 2009, "cpu": "Athlon II, Phenom II", "pins": 938, "slots": "1-2 PCI-E x16, 2 PCI" },
+      { "name": "AM4", "year": 2016, "cpu": "Ryzen 1000-5000", "pins": 1331, "slots": "1-2 PCI-E x16, 1-4 M.2" },
+      { "name": "LGA 1700", "year": 2021, "cpu": "Core 12th/13th/14th Gen", "pins": 1700, "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2" },
+      { "name": "AM5", "year": 2022, "cpu": "Ryzen 7000/9000", "pins": 1718, "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2" }
+    ],
+    "vrms": [
+      { "year": 2005, "phases": 4, "name": "Early Athlon 64" },
+      { "year": 2010, "phases": 6, "name": "DDR2 era" },
+      { "year": 2014, "phases": 8, "name": "DDR4 transition" },
+      { "year": 2018, "phases": 12, "name": "Ryzen/Intel 8th gen" },
+      { "year": 2023, "phases": 16, "name": "High-end Z790/X670" }
+    ]
+  },
+  "timelineEvents": [
+    { "year": 1971, "event": "Intel 4004 - First microprocessor" },
+    { "year": 1981, "event": "IBM PC launched with Intel 8088" },
+    { "year": 1991, "event": "Intel 486DX2 - First x86 with 32-bit internals" },
+    { "year": 1993, "event": "Intel Pentium - First x86 with superscalar" },
+    { "year": 1994, "event": "Seagate ST340014A - Large capacity HDD" },
+    { "year": 1995, "event": "AMD K6 - 3DNow! SIMD instructions" },
+    { "year": 1999, "event": "NVIDIA GeForce 256 - First GPU" },
+    { "year": 2000, "event": "DDR memory released" },
+    { "year": 2002, "event": "Pentium 4 HT - Hyper-Threading" },
+    { "year": 2003, "event": "WD Raptor - 10000 RPM SATA" },
+    { "year": 2006, "event": "Core 2 Duo - Multi-core mainstream" },
+    { "year": 2007, "event": "DDR3 memory released" },
+    { "year": 2009, "event": "Radeon HD 5870 - First DX11 GPU" },
+    { "year": 2014, "event": "Samsung 840 EVO - Mainstream SSD" },
+    { "year": 2014, "event": "DDR4 memory released" },
+    { "year": 2017, "event": "Ryzen 5 3600 - Zen+ chiplet design" },
+    { "year": 2018, "event": "RTX 2080 Ti - Real-time ray tracing" },
+    { "year": 2018, "event": "Samsung 970 EVO - NVMe mainstream" },
+    { "year": 2020, "event": "Apple M1 - ARM-based PC" },
+    { "year": 2021, "event": "DDR5 and PCIe 5.0 released" },
+    { "year": 2021, "event": "WD SN850X - PCIe 4.0 SSD" },
+    { "year": 2022, "event": "AM5 socket - LGA, DDR5, PCIe 5.0" },
+    { "year": 2022, "event": "Ryzen 7 7800X3D - 3D V-Cache" },
+    { "year": 2023, "event": "Apple M3 Max - 40 GPU cores" },
+    { "year": 2024, "event": "Crucial T700 - PCIe 5.0 SSD" }
+  ]
+}
