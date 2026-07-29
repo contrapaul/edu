@@ -28,10 +28,8 @@ spinal discs. Adjustable armrests support the arms and
 shoulders, reducing tension in the upper body. Properly
 positioned armrests help maintain a relaxed posture,
 preventing strain on the neck and shoulders.
-The ergonomic design of office chairs plays a vital role in
-enhancing comfort, promoting good posture and reducing
-the risk of back pain for users who spend extended periods
-seated.
+The ergonomic design of office chairs plays a vital role in enhancing comfort, promoting good posture and reducing
+the risk of back pain for users who spend extended periods seated.
 Keyboards and Mice:
 Keyboard features such as wrist support, alternative
 keyboard arrangements and button placements on mice
@@ -80,10 +78,7 @@ such as height, mass and volume and is used extensively in
 the design of consumer goods. In a report titled ‘Physical
 status: the use and interpretation of anthropometry,
 (1995), the World Health Organisation (WHO) views
-anthropometry as, “the single most universally applicable,
-inexpensive and non-invasive method available to assess
-the size, proportions, and composition of the human
-body”
+anthropometry as, “the single most universally applicable, inexpensive and non-invasive method available to assess the size, proportions, and composition of the human body”
 Structural or static anthropometry includes data from
 measurements such as those made between joints. Data is
 recorded using standardised equipment such as calipers.
@@ -95,8 +90,7 @@ data obtained while the subject is moving, and while
 quantitative data is more difficult to obtain, is often of
 greater use because it demonstrates the range and ease
 with which movements can be made. Reaction times,
-reach arcs, grip strengths, etc, are all examples of dynamic
-data.
+reach arcs, grip strengths, etc, are all examples of dynamic data.
 A range of instruments is used to obtain anthropometric
 data. The main criteria for such instruments are that they
 are calibrated and are of sturdy design to ensure they
@@ -124,10 +118,9 @@ and denser than those of females. The maximum bone
 mass of men is around 50% greater than women’s, and
 women lose bone more quickly as they age, adding to
 the discrepancy over time.
-+ Body Composition: women generally have a higher
+« Body Composition: women generally have a higher
 percentage of body fat. This difference is important for
-understanding and interpreting variations in health-
-related metrics such as Body Mass Index (BMI).
+understanding and interpreting variations in health-related metrics such as Body Mass Index (BMI).
 Ethnicity
 « Body proportions differ between ethnic groups, eg
 individuals of African descent tend to have higher
@@ -535,8 +528,7 @@ importance.
 Environmental psychology studies the relationship
 between an environment and how it affects its inhabitants.
 Typical psychological human factors to be considered
-when designing an indoor office environment, it would
-include:
+when designing an indoor office environment, it would include:
 lighting
 acoustics
 air quality
@@ -596,7 +588,7 @@ provide more public space, there also exists a need for
 individuals to have their own space. The amount of
 personal space an individual requires varies and may be
 influenced by culture or upbringing. This comfort zone or
-personal space is also known as, ‘defensible space) a term
+personal space is also known as, ‘defensible space' a term
 coined by John Calhoun in the 1940s. Defensible space
 is incorporated into office design to overcome the sense
 of overcrowding and the negative behaviours or feelings
@@ -654,11 +646,11 @@ use and provide an ease of learnability?
 When planning the user-centered design (UCD) process,
 designers must address several critical considerations,
 including:
-+ Determining optimal methods for gathering and
+« Determining optimal methods for gathering and
 incorporating user feedback.
-+ Selecting appropriate techniques for data collection,
+« Selecting appropriate techniques for data collection,
 analysis and presentation.
-+ Ensuring insights, decisions and iterations derived
+« Ensuring insights, decisions and iterations derived
 from user data are effectively integrated into the overall
 design process.
 These elements are pivotal in developing a design that
@@ -673,7 +665,7 @@ in the design process. Techniques commonly employed
 include:
 « field trials
 « ethnographic' interviews
-+ observation of everyday activities.
+« observation of everyday activities.
 Because field research is conducted in the natural
 environment
 data is obtained in the context of use
@@ -1041,11 +1033,11 @@ process.
 B1.1.4
 Often known as the Five E's, these tools help establish specific goals specific to usability.
 
-1. Effective (Functionality)
-2. Efficient (Memorability)
-3. Engaging (Satisfaction)
-4. Error tolerant (Errors)
-5. Easy to learn (Learnability)
+1 Effective (Functionality)
+2 Efficient (Memorability)
+3 Engaging (Satisfaction)
+4 Error tolerant (Errors)
+5 Easy to learn (Learnability)
 Separating usability into specific features allows designers
 to focus on the individual components of the design
 independent of each other before bringing the design
@@ -1323,7 +1315,7 @@ Examples of eco-friendly products:
 « Reusable bags: Made from organic
 cotton, these bags are a cost-
 effective alternative to plastic bags.
-+ Recycled Plastic Bottles: While
+« Recycled Plastic Bottles: While
 products made from PET
 (Polyethylene Terephthalate) such as
 plastic bottles are initially
@@ -1334,7 +1326,7 @@ repeatedly recycled into new
 products reduces the use of new, virgin plastic and
 reduces the likelihood of them ending up in landfills or
 polluting the environment.
-+ Solar energy devices: These devices
+« Solar energy devices: These devices
 use naturally renewable solar
 energy, which can reduce reliance £
 on finite fossil fuels such as oil, coal
@@ -1349,7 +1341,7 @@ ecosystem such as fungi and
 bacteria, or are compostable, can
 reduce plastic waste and promote a
 circular economy.
-+ Recycled clothing: Made from
+« Recycled clothing: Made from
 recycled materials like cotton, these
 products can reduce the carbon
 footprint of the supply chain. By
@@ -1634,8 +1626,7 @@ by Plasma flat screen displays which themselves have
 largely been replaced by Liquid Crystal Displays
 (LCD) and Organic Light Emitting Diode Displays
 (OLED).
-Sound recording: Edison’s cylinders were introduced in
-1877. These were superseded by Shellac records, known
+Sound recording: Edison’s cylinders were introduced in 1877. These were superseded by Shellac records, known
 as 78s (1898). In their turn these were superseded by
 Polyvinyl plastic discs which introduced the 45 rpm
 and 33 rpm formats (1948). More recently these were
@@ -1692,7 +1683,7 @@ reflects the needs of a variety of users and makes
 accommodations for this range.
 The main features of Universal Design may be interpreted
 as:
-+ equity in use
+« equity in use
 « flexibility in service
 « allowing tolerance for error
 « simple and intuitive operation
@@ -1765,7 +1756,7 @@ a wider range of users.
 « Incorporating adjustable features into products
 whenever possible, allowing users to customise the fit
 to their specific needs.
-+ Depending on the product or service, identifying
+« Depending on the product or service, identifying
 specific user groups and tailoring the design to fit
 their needs, considering factors like gender, age and
 potential physical limitations.
@@ -5468,16 +5459,16 @@ parallelism) to maintain design intent.
 Build 3D features
 « Extrude, revolve, loft or sweep sketches to create solid
 bodies.
-+ Use parametric modelling to allow easy updates and
+« Use parametric modelling to allow easy updates and
 iterations.
 Assemble components (if applicable)
-+ Combine multiple parts into an assembly.
+« Combine multiple parts into an assembly.
 « Define relationships like mates, joints, and motion
 constraints.
 Apply materials and properties
 « Assign material types to simulate weight, strength and
 thermal behaviour.
-+ Include surface finishes or textures if needed for
+« Include surface finishes or textures if needed for
 appearance or performance.
 Check manufacturability
 « Ensure the model meets the requirements of the
@@ -5493,15 +5484,15 @@ Testing CAD models for rapid prototyping
 Geometric Validation
 « Watertightness: Ensure the model is a closed solid
 with no gaps or holes.
-+ Non-manifold geometry: Check for overlapping
+« Non-manifold geometry: Check for overlapping
 surfaces or edges that could confuse slicing software.
 Dimensional Accuracy
 « Confirm that critical dimensions match design
 specifications.
-+ Use measurement tools within the CAD software to
+« Use measurement tools within the CAD software to
 validate tolerances and fit.
 Material and Wall Thickness Checks
-+ Ensure wall thickness meets minimum requirements
+« Ensure wall thickness meets minimum requirements
 for the chosen prototyping method (e.g., 1.2 mm for
 FDM).
 » Avoid thin features that may warp or break during
@@ -5512,9 +5503,9 @@ overhangs > 45°).
 « Optimise orientation to reduce the need for supports
 and improve surface quality.
 Simulation and Stress Testing (Optional)
-+ Run finite element analysis (FEA) to predict how the
+« Run finite element analysis (FEA) to predict how the
 prototype will respond to forces, heat or motion.
-+ Use results to refine geometry before fabrication.
+« Use results to refine geometry before fabrication.
 Export and slicing compatibility
 « Export the model in a suitable format (e.g., STL, OB]J,
 STEP).
@@ -5624,7 +5615,7 @@ designs. For example, “windows must face north” or
 « Optimisation & ”: These use trial-and-error techniques
 like genetic algorithms (inspired by evolution!) to
 improve designs step by step.
-+ Machine Learning: This includes advanced tools like
+« Machine Learning: This includes advanced tools like
 neural networks (CNNs, transformers, GANs) that
 learn from data and can generate new ideas based on
 patterns.
@@ -5974,7 +5965,7 @@ Design for longevity focuses on creating longer-lasting
 products, thusreducing waste and improving sustainability.
 There are many overlaps with other strategies, but the key
 considerations involve designers:
-+ incorporating
+« incorporating
 pathways
 repairability and upgradability
 « specifying high-quality materials to withstand wear
@@ -6120,10 +6111,10 @@ for virgin new material
 improve recyclability.
 Collection methods vary depending on the products
 under consideration and include:
-+ drop-off sites
+« drop-off sites
 « point-of-purchase collection bins
 « curbside collection
-+ combined/coordinated collection
+« combined/coordinated collection
 « permanent collection depot.
 End-of-life legislation
 In 2000, the European Union (EU) introduced the End-
@@ -6141,7 +6132,7 @@ take back the vehicle. The manufacturer is not required to
 physically retrieve vehicles, but must provide a network of
 authorised treatment facilities, ensuring:
 safe handling and dismantling of vehicles
-+ hazardous materials such as oils, acids and a variety
+« hazardous materials such as oils, acids and a variety
 of fluids are removed and readied for appropriate
 disposal
 » recovery of components and materials such as metals,
@@ -6543,9 +6534,9 @@ due to collisions with the positive ions of the metal lattice.
 According to this theory, resistivity arises from any
 phenomenon that disturbs the motion of electrons, such
 as:
-+ Collisions with lattice imperfections (eg, caused by
+« Collisions with lattice imperfections (eg, caused by
 cold working).
-+ Collisions with solute atoms (e.g. impurities)
+« Collisions with solute atoms (e.g. impurities)
 « Collisions with thermally-induced lattice vibrations
 (e.g. temperature)
 Temperature has the greatest effect on resistivity.
@@ -6862,12 +6853,12 @@ and wear. As might be expected, a variety of tests has been
 developed to measure hardness. These tests fall into three
 broad groups, consisting of:
 « Scratch Hardness
-Pencil)
+Pencil
 (e.g. Mohs, Bierbaum,
 « Static Indentation Hardness (eg Brinell, Rockwell,
 Vickers, Knoop, Janka, Durometer, Ultrasonic
 Contact impedance)
-+ Dynamic Hardness (Scleroscope, Leeb)
+« Dynamic Hardness (Scleroscope, Leeb)
 A selection of commonly used hardness tests is described
 below, along with the indentors used for some of these
 tests. The requirements for surface preparation vary, but
@@ -7130,7 +7121,7 @@ occur in several ways, but generally speaking, there are
 three basic categories of composite:
 « particle reinforced
 « fibre-reinforced
-+ laminar
+« laminar
 Particle-reinforced composites
 These composites consist of a relatively soft matrix in
 which hard particles of relatively uniform dimensions
@@ -7460,7 +7451,7 @@ and shows the reversible change back to austenite on the
 removal of the applied stress.
 Pseudo-elasticity can be represented symbolically as
 shown below in Figure A3.8.1e.
-Austenitic [+fitce} Martensitic - focee Austenitic
+Austenitic [+fitce Martensitic - focee Austenitic
 Structure Structure T Structure
 stimulus remove stimulus
 Figure A3.1.8e Symbolic representation of Pseudo-
@@ -7685,7 +7676,7 @@ shapes that provide strength with minimal material.
 In product design, frame structures are:
 « favoured for their lightweight strength
 « used in furniture, tents and aircraft seats
-+ chosen when maximum rigidity with minimal weight
+« chosen when maximum rigidity with minimal weight
 and material cost is required
 Shell Structures
 Shells are hollow and curved structures that distribute
@@ -7939,14 +7930,14 @@ forces and moments (torques) acting on it are balanced.
 This means the structure is stable and not accelerating or
 rotating unexpectedly. There are two key conditions for
 equilibrium:
-1. Translational Equilibrium: The sum of all forces
+1 Translational Equilibrium: The sum of all forces
 acting on the structure in every direction must be
 zero, This means that the sum of all vertical forces
 equals zero, and the sum of all horizontal forces
 equals zero.
 In equation form, it reads: ~ ZF, =0 and ZF =0
 This ensures the structure doesn’t move linearly.
-2. Rotational Equilibrium: The sum of all moments
+2 Rotational Equilibrium: The sum of all moments
 (torques) about any point must also be zero.
 In equation form, this reads: M =0
 This prevents any unwanted spinning or tipping.
@@ -7961,7 +7952,7 @@ strength, it can collapse or deform.
 « Uneven force distribution: If loads aren't spread
 evenly, parts of the structure may experience excessive
 stress or torque.
-+ Foundation instability: If the supporting base
+« Foundation instability: If the supporting base
 structure or foundations shift or sink, a disruption in
 the force balance will occur.
 » Dynamic impacts: Sudden forces like earthquakes
@@ -8024,7 +8015,7 @@ stable and resist deformation.
 compression, ideal for bridges and roofs.
 « Corrugation: Wavy or ribbed surfaces (like corrugated
 metal) increase stiffness without adding weight.
-+ I-beams: Concentrate material where stress is highest
+« I-beams: Concentrate material where stress is highest
 (top and bottom flanges), minimising weight.
 Examples of applications include geodesic domes, vaulted
 ceilings and structural beams in buildings.
@@ -8118,8 +8109,7 @@ concrete during its manufacture, CLT is a cost-effective,
 stable and durable alternative to traditional structural
 building materials. CLT can be used for long spans and
 assemblies, such as those found in floors, walls or roofs.
-Cross-laminated timber (CLT) has emerged as a transformative material in contemporary archltecture, offering both structural integrity and environmental benefits. A pioneering example of it's applications is the Forte building in Victoria Harbour, Melbourne, completed in
-2012. At the time of its construction, Forté was recognised
+Cross-laminated timber (CLT) has emerged as a transformative material in contemporary archltecture, offering both structural integrity and environmental benefits. A pioneering example of it's applications is the Forte building in Victoria Harbour, Melbourne, completed in 2012. At the time of its construction, Forté was recognised
 asthe tallest residential timber building globally, marking a
 significant milestone in sustainable urban development.
 Internationally, several landmark projects have further
@@ -8254,7 +8244,7 @@ fail at 1500 N, then:
 Designing with a factor of safety of one is risky because it
 assumes:
 « Perfect material quality
-+ No unexpected loads (e.g, wind, earthquakes,
+« No unexpected loads (e.g, wind, earthquakes,
 misuse)
 « No degradation over time (e.g., corrosion, fatigue)
 This is rarely realistic in the real world.
@@ -8339,7 +8329,7 @@ fail at 1500 N, then:
 Designing with a factor of safety of one is risky because it
 assumes:
 « Perfect material quality
-+ No unexpected loads (e.g, wind, earthquakes,
+« No unexpected loads (e.g, wind, earthquakes,
 misuse)
 « No degradation over time (e.g., corrosion, fatigue)
 This is rarely realistic in the real world.
@@ -8389,8 +8379,8 @@ All of today’s complicated machines are based on the six
 ‘simple machines’ listed below:
 « inclined plane
 « wedge
-o lever
-+ wheel
+« lever
+« wheel
 « pulley
 . screw
 In plain terms, simple machines help us to do work
@@ -8579,7 +8569,7 @@ known as a moment or the torque (t). The lever arm is
 therefore sometimes described as the moment arm or
 torque arm. When in balance, the sum of these moments
 will be zero:
-> Moments = ()
+ Moments = ()
 EffortxLength of Effort Arm-LoadxLength of Load Arm =0
 This is also known as Archimedes’ Law of the Lever,
 which states that ‘for a system to be in equilibrium, the
@@ -8837,7 +8827,7 @@ effort % Time
 Effort x Velocity of Effort (VE)
 = Load x Velocity of Load (VL)
 Rearranging:
-Effort = [‘\‘,";{d
+Effort 
 _ Load X VL
 N VE
 _ Output power
@@ -8867,7 +8857,7 @@ Since: ‘Work = Force x Distance
 = effort X distance moved by effort arm
 MA
 VR
-> 100
+ 100
 MA = Efficiency x VR
 For an ideal machine, where no energy losses occur due
 to friction or gravity, the efficiency is 100%. In an ideal,
@@ -8884,7 +8874,7 @@ efficiency.
 Example 1:
 ‘What is the Mechanical Advantage (MA) of the pulley
 system shown in Figure A 3.3.3b, and what effort would
-be required to lift a 40 kg load (assuming 100% efficiency
+be required to lift a 40 kg load assuming 100% efficiency
 and gravity=10 Nkg™' (N/kg)?
 iven:
 Load Weight =30kg
@@ -9993,12 +9983,8 @@ Note: The circuit diagram in Figure A3.4.4b shows current
 flow to be from the positive terminal to the negative
 terminal. This is often designated as the conventional
 current direction. This direction of flow was proposed
-in a theory developed by Benjamin Franklin (1706-
-1790) before the existence of electrons was known. The
-conventional current direction described above (from
-positive to negative) is still used today, even though
-electron flow around a circuit proceeds from negative to
-positive.
+in a theory developed by Benjamin Franklin before the existence of electrons was known. The conventional current direction described above (from
+positive to negative) is still used today, even though electron flow around a circuit proceeds from negative to positive.
 Direct current can be produced from a generator or
 batteries, where it can be stored chemically for use as an
 unchanging supply, as illustrated in Figure A3.4.4c. In a
@@ -10034,7 +10020,7 @@ Figure A3.4.4d
 Resistors are components within an electrical circuit
 that retard or resist the free flow of electrons. Resistance
 is measured in ohms and is symbolised by the Greek
-letter omega ((2). When drawing circuits, resistors are
+letter omega (2). When drawing circuits, resistors are
 represented by a saw tooth line or rectangle (Figure
 A3.44e).
 A simple electric circuit is presented in Figure A3.4.4f in
@@ -12884,7 +12870,7 @@ power (P, ..) is 13.8W and the input power (P,) is
 15wW?
 Power Output
 Efficiency(1) = ~Pwer Tt * 100
-- _fil?‘ss X 100
+ _fil?‘ss X 100
 =92
 Efficiency (n) of a belt drive system
 ‘While both gear and belt systems share the same basic
@@ -17605,37 +17591,13 @@ approach particularly well-suited to the demands of
 modern, rapidly changing markets.
 A key feature of hybrid production is its ability to
 combine the customisation and adaptability of craft
-production with the speed, precision and consistency
-offered by mechanised and automated systems. This
-enables manufacturers to produce both standardised
-and bespoke products efficiently, catering to a broader
-range of consumer needs without sacrificing quality or
-responsiveness.
-Human-machine collaboration is another feature of hybrid
-systems. Here, workers are typically assigned tasks that
-require creativity, fine motor skills, or complex decision-
-making, while machines handle repetitive, high-volume,
-or precision-driven dirty or dangerous operations. This
-division of labour enhances productivity, preserves the
-value of human craftsmanship and assures the appropriate
-health and safety in areas where OH&S' issues may arise.
+production with the speed, precision and consistency offered by mechanised and automated systems. This enables manufacturers to produce both standardised and bespoke products efficiently, catering to a broader range of consumer needs without sacrificing quality or responsiveness.
+Human-machine collaboration is another feature of hybrid systems. Here, workers are typically assigned tasks that
+require creativity, fine motor skills, or complex decision-making, while machines handle repetitive, high-volume, or precision-driven dirty or dangerous operations. This division of labour enhances productivity, preserves the value of human craftsmanship and assures the appropriate health and safety in areas where OH&S' issues may arise.
 Hybrid systems are also inherently scalable and adaptable.
-They can be configured to support large-scale mass
-production or adjusted for small-batch and custom
-manufacturing, responding to market demand.
-Hybrid production systems often incorporate advanced
-technologies and robotics. Enabling real-time data
-collection, predictive analytics and intelligent automation,
-creating a data-driven production environment. Hybrid
-systems, therefore, may improve efficiency and enhance
-strategic planning across the production lifecycle.
-Hybrid manufacturing systems offer a blend of benefits,
-including the ability to balance cost and quality. The
-strategic application of automation, where it is most
-efficient while retaining human input where precision or
-creativity is required, can deliver high-quality products
-without incurring the full costs associated with either
-extreme.
+They can be configured to support large-scale mass production or adjusted for small-batch and custom manufacturing, responding to market demand.
+Hybrid production systems often incorporate advanced technologies and robotics. Enabling real-time data collection, predictive analytics and intelligent automation, creating a data-driven production environment. Hybrid systems, therefore, may improve efficiency and enhance strategic planning across the production lifecycle.
+Hybrid manufacturing systems offer a blend of benefits, including the ability to balance cost and quality. The strategic application of automation, where it is most efficient while retaining human input where precision or creativity is required, can deliver high-quality products without incurring the full costs associated with either extreme.
 A key benefit is the system’s ability to respond to market
 changes. Hybrid systems are more easily reconfigured
 than fully automated lines, allowing manufacturers
@@ -17666,8 +17628,7 @@ The benefits attributed to this approach can enly be
 achieved through seamless communication and workflow
 continuity across the range of system components
 employed.
-COMPUTER-INTEGRATED
-MANUFACTURING
+COMPUTER-INTEGRATED MANUFACTURING
 With the advent of the technological age, computers and
 numerical devices heralded a new era of more sophisticated
 control of machinery and processes. Robotic arms replaced
@@ -17690,7 +17651,7 @@ quickly and efficiently respond to changes. CIM systems
 control and link the following components:
 « personnel
 « marketing
-+ materials handling
+« materials handling
 « product design (CAD)
 « computer management
 « machine tools and equipment (CAM).
@@ -17711,78 +17672,29 @@ and flexibility and reduces warehousing, allowing for JIT
 variety of computer-controlled machines may be arranged
 to sequentially perform arange of operations. Components
 are often transferred automatically from station to station,
-PropucTiON SYSTEMS
+Production Systems
 where machines, in teams, perform their programmed
 tasks, e.g., holding, rotating, welding, painting, etc. These
 processes are performed along what are known as ‘flow’ or
 ‘transfer’ lines, the control of which is flexibly managed by a
 computer. Employing this networked system, components
-are transferred between stations using robot assistance.
-Movement of components through their various stages of
-assembly is managed by a computer ‘hands off” system,
-and assemblies are monitored for quality control at every
-stage, reducing wastage and improving consistency. Data
-from process control points is also logged and stored for
-reporting and review purposes.
-IM systems provide many advantages and benefits
-to manufacturers, including lower inventories and
-reduced warehousing requirements, Computer-managed
-machinery improves machine utilisation, offers greater
-scheduling & flexibility and reduces manufacturing and
-lead times. Labour and its associated on-costs should
-be reduced and have a flow-on effect to overall cost
-efficiencies. These systems also allow greater control of
-complex and sometimes dangerous tasks using their
-ability to act in environments potentially hazardous to
-human health. Improved access to production data also
-allows managerial reviews for historical comparison and
-analysis.
-As early as 2001, Gunasekaran et al. recognised that
-“companies undertake projects in automation and
-CIM for a variety of reasons, not the least of which is to
-achieve a competitive advantage” In a connected world,
-cooperation and collaboration twenty-four hours a day,
-seven days a week, are an imperative. The use of CIM
-systems enables real-time data exchange between design
-and manufacturing teams at both planning and execution
-stages. CIM systems also monitor production quotas and
-quality control, thus ensuring the meeting of deadlines
-while minimising waste. The interconnected nature of these systems means that this data is not only available
-to manufacturers but distributors and clients around the
-world.
-Manufacturers, however, may find some disadvantages
-associated with CIM systems, including high initial
-setup costs. The challenges of computerisation and staff
-restructuring, however, may have negative effects on
-staff and morale. Customers should benefit from price
-reductions and improved quality. Mass customisation is
-easier within CIM production plants. Consumers may
-even be able to follow the production of their order
-through online interfaces with the plant.
-Production system selection
-criteria
-The selection of a production system involves a wide
-number of interconnected considerations such as:
-materials, process flow, employee training, manufacturing
-efficiency, health and safety, process control and flexibility,
-waste and emissions controls, etc., to create an effective,
-efficient and robust production system.
+are transferred between stations using robot assistance. 
+Movement of components through their various stages of assembly is managed by a computer ‘hands off” system, and assemblies are monitored for quality control at every stage, reducing wastage and improving consistency. Data from process control points is also logged and stored for reporting and review purposes.
+IM systems provide many advantages and benefits to manufacturers, including lower inventories and reduced warehousing requirements, Computer-managed machinery improves machine utilisation, offers greater scheduling & flexibility and reduces manufacturing and lead times. Labour and its associated on-costs should be reduced and have a flow-on effect to overall cost efficiencies. These systems also allow greater control of complex and sometimes dangerous tasks using their ability to act in environments potentially hazardous to human health. Improved access to production data also allows managerial reviews for historical comparison and analysis.
+As early as 2001, Gunasekaran et al. recognised that “companies undertake projects in automation and CIM for a variety of reasons, not the least of which is to achieve a competitive advantage” In a connected world, cooperation and collaboration twenty-four hours a day, seven days a week, are an imperative. The use of CIM systems enables real-time data exchange between design and manufacturing teams at both planning and execution stages. CIM systems also monitor production quotas and quality control, thus ensuring the meeting of deadlines while minimising waste. The interconnected nature of these systems means that this data is not only available to manufacturers but distributors and clients around the world.
+Manufacturers, however, may find some disadvantages associated with CIM systems, including high initial setup costs. The challenges of computerisation and staff restructuring, however, may have negative effects on staff and morale. Customers should benefit from price reductions and improved quality. Mass customisation is easier within CIM production plants. Consumers may even be able to follow the production of their order through online interfaces with the plant.
+Production system selection criteria
+The selection of a production system involves a wide number of interconnected considerations such as: materials, process flow, employee training, manufacturing efficiency, health and safety, process control and flexibility, waste and emissions controls, etc., to create an effective, efficient and robust production system.
 
 B4.1.3 and B4.1.4
 Handmade furniture introduces variations in skill
-levels of craftsmen, quality of design, selection of and
-understanding of materials, etc. Traditional furniture-
-making practices involve handcrafting of individual
-pieces by skilled artisans. Handcrafted items are unique.
+levels of craftsmen, quality of design, selection of and understanding of materials, etc. Traditional furniture- making practices involve handcrafting of individual pieces by skilled artisans. Handcrafted items are unique.
 No two pieces of wood are the same, and craftsmen take
 great care in selecting exactly the right piece of wood for
 a particular use, taking into consideration colour, grain
 density. Even pieces created as parts of matched sets will
 have minor variations. While they may look similar, on
-closer inspection, minor variations in grain, colour and
-ornamental detail will be evident. Figure B.4.1.4 shows an
-antique, highly ornate, handmade, chestnut ceremonial
-chair.
+closer inspection, minor variations in grain, colour and ornamental detail will be evident. Figure B.4.1.4 shows an antique, highly ornate, handmade chestnut ceremonial chair.
 Consumers may purchase expensive one-of-a-kind,
 handcrafted pieces of furniture as an investment, with
 plans to keep the furniture for an extended period of time,
@@ -17859,7 +17771,7 @@ manufacturing processes can significantly reduce the time
 required to complete product development and, at the
 same time, reduce costs and improve time-to-market.
 'The following process is one approach that maybe adopted
-to reverse El'lgil'lEEl' a pruduct.
+to reverse El'lgil'lEEl' a product.
 External visual examination: This process allows for
 identification of materials, joining techniques, use of
 fasteners and potential ways to disassemble the device.
@@ -17879,47 +17791,19 @@ of the entire device? How does this component interact
 with others, and are there considerations for wear in the
 materials selection or component design? Lastly, could
 this component be made redundant?
-Manufacturing Analysis: Analyse the manufacturing
-process for each component thoroughly and identify
-alternative methods where applicable, or recognise how
-the current process enhances the material properties or
-functionality, such as through work hardening. Be aware
-of the cost implications associated with these decisions.
-Clearly define the chosen materials and justify your
-selections; materials should be categorised by their mass,
-colour and magnetism. Additionally, confirm whether
-any surface finishes, e.g. paint or anodising, have been
-applied.
-Assembly analysis: record the assembly sequence. How
-was the product assembled, by hand or machine? Is the
-product even designed to be disassembled or is it single-
-use only?
-Redundancy: Are there unnecessary parts? Are some
-parts overdesigned?
-Tools that may help in the process include tweezers,
-a magnifying glass, a magnet, screwdrivers and a
-voltmeter.
+Manufacturing Analysis: Analyse the manufacturing process for each component thoroughly and identify alternative methods where applicable, or recognise how the current process enhances the material properties or functionality, such as through work hardening. Be aware of the cost implications associated with these decisions.
+Clearly define the chosen materials and justify your selections; materials should be categorised by their mass,
+colour and magnetism. Additionally, confirm whether any surface finishes, e.g. paint or anodising, have been applied.
+Assembly analysis: record the assembly sequence. How was the product assembled, by hand or machine? Is the product even designed to be disassembled or is it single-use only?
+Redundancy: Are there unnecessary parts? Are some parts overdesigned?
+Tools that may help in the process include tweezers, a magnifying glass, a magnet, screwdrivers and a voltmeter.
 Patent mining
-Another technique commonly used forreverse engineering
-is patent mining.
+Another technique commonly used forreverse engineering is patent mining.
 Patent mining involves: searching patent databases (like
-Google Patents, WIPO, USPTO) to analyse potential
-innovations and product trends to extract insights into the
-technical knowledge behind new developments. Through
-the examination of technical illustrations, a product’s
-inner workings may be revealed or, at least, give some
-guide to future product trends. Through the study of these
-documents, a company may plan a development strategy
-that avoids legal issues.
+Google Patents, WIPO, USPTO) to analyse potential innovations and product trends to extract insights into the technical knowledge behind new developments. Through the examination of technical illustrations, a product’s inner workings may be revealed or, at least, give some guide to future product trends. Through the study of these documents, a company may plan a development strategy that avoids legal issues.
 Businesses employ this strategy to collect competitive
 intelligence and identify trends in innovation.
-Examples of this approach include pharmaceutical firms
-reviewing pending expiring drug patents to allow time
-to develop a generic alternative, thus avoiding costly
-research and development. Automotive companies
-exploring battery patents to examine new formulations
-and manufacturing methodologies that extend battery
-life and reduce costs. New applications may also reveal
+Examples of this approach include pharmaceutical firms reviewing pending expiring drug patents to allow time to develop a generic alternative, thus avoiding costly research and development. Automotive companies exploring battery patents to examine new formulations and manufacturing methodologies that extend battery life and reduce costs. New applications may also reveal
 approaches that allow for diversification.
 
 B4.1.6
@@ -17927,7 +17811,7 @@ Production methods significantly influence both the
 function and aesthetics of a product. Here's how:
 Function: How the product works.
 Production methods determine:
-1. Material Properties:
+1 Material Properties:
 « Injection moulding allows for lightweight, durable
 plastics
 « Work hardening or heat treatment can improve a
@@ -17938,18 +17822,18 @@ properties
 « Annealing of glass and metals can be used to reduce
 internal stresses.
 2 Structural Integrity:
-+ Methods like welding or casting influence how strong
+«Methods like welding or casting influence how strong
 or seamless a product is
 « Poor production can lead to weak joints or
 misalignments.
-3. Precision and Tolerances:
+3 Precision and Tolerances:
 « High-precision methods (e.g., laser cutting) ensure
 parts fit together perfectly, which is crucial for
 mechanical or electronic products.
 « Powder metallurgy produces precise and complex
 designs with opportunities to modify porosity, but
 potentially low strength.
-4. Scalability and Consistency:
+4 Scalability and Consistency:
 « Automated methods (like robotic assembly) ensure
 consistent quality across large volumes, which affects
 reliability and performance.
@@ -18308,7 +18192,7 @@ DEesIGN FOR MAUFACTURE STRATEGIES
 « Environmental impacts are reduced through lower
 energy consumption, materials use and material
 waste.
-+ Well-designed, flexible manufacturing processes allow
+« Well-designed, flexible manufacturing processes allow
 for scalability, i.e. manufacturing may be ramped up or
 scaled down based on need.
 Design for process example:
