@@ -5,7 +5,7 @@
         "model": "Intel 8088",
         "year": 1979,
         "socket": "DIP-40 (soldered/socketed)",
-        "process": "3μm",
+        "process": "3\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "4.77 MHz",
@@ -19,7 +19,7 @@
         "model": "Intel 80286",
         "year": 1982,
         "socket": "PLCC/PGA-68",
-        "process": "1.5μm",
+        "process": "1.5\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "12.5 MHz",
@@ -33,7 +33,7 @@
         "model": "Intel 80386DX",
         "year": 1985,
         "socket": "PGA-132",
-        "process": "1.5μm",
+        "process": "1.5\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "33 MHz",
@@ -47,7 +47,7 @@
         "model": "Intel 486DX2-66",
         "year": 1992,
         "socket": "Socket 2 / Socket 3",
-        "process": "0.8μm",
+        "process": "0.8\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "66 MHz",
@@ -55,13 +55,13 @@
         "transistorCount": "1.2M",
         "cache": "8KB L1",
         "architecture": "i486",
-        "keyFeature": "First mainstream x86 with an on-die FPU and L1 cache; \"clock doubling\" ran the core at 2x the external bus speed (revised from an earlier draft that misattributed \"32-bit internals\" to the 486 — that milestone belongs to the 80386, 1985)"
+        "keyFeature": "First mainstream x86 with an on-die FPU and L1 cache; \"clock doubling\" ran the core at 2x the external bus speed (revised from an earlier draft that misattributed \"32-bit internals\" to the 486 \u2014 that milestone belongs to the 80386, 1985)"
       },
       {
         "model": "Intel Pentium 60",
         "year": 1993,
         "socket": "Socket 4",
-        "process": "0.8μm",
+        "process": "0.8\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "60 MHz",
@@ -75,7 +75,7 @@
         "model": "AMD K6-2 450",
         "year": 1997,
         "socket": "Socket 7",
-        "process": "0.25μm",
+        "process": "0.25\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "450 MHz",
@@ -89,7 +89,7 @@
         "model": "AMD Athlon 1000 (Thunderbird)",
         "year": 2000,
         "socket": "Socket A (462)",
-        "process": "0.18μm",
+        "process": "0.18\u03bcm",
         "cores": 1,
         "threads": 1,
         "clockSpeed": "1 GHz",
@@ -103,7 +103,7 @@
         "model": "Intel Pentium 4 3.2GHz HT",
         "year": 2002,
         "socket": "Socket 478",
-        "process": "0.13μm",
+        "process": "0.13\u03bcm",
         "cores": 1,
         "threads": 2,
         "clockSpeed": "3.2 GHz",
@@ -111,7 +111,8 @@
         "transistorCount": "125M",
         "cache": "512KB L2",
         "architecture": "NetBurst",
-        "keyFeature": "First x86 CPU with Hyper-Threading, exposing two logical cores from one physical core"
+        "keyFeature": "First x86 CPU with Hyper-Threading, exposing two logical cores from one physical core",
+        "expertNote": "Hyper-Threading exposed one physical core as two logical cores to the OS scheduler, letting it interleave a second instruction stream during pipeline stalls \u2014 a preview of SMT that wouldn't become mainstream again until Core i7 in 2008."
       },
       {
         "model": "AMD Athlon 64 3200+",
@@ -139,7 +140,8 @@
         "transistorCount": "291M",
         "cache": "2MB L2",
         "architecture": "Core (Conroe)",
-        "keyFeature": "Dual-core, unified L2 cache architecture that let Intel reclaim the performance crown from Athlon 64 X2"
+        "keyFeature": "Dual-core, unified L2 cache architecture that let Intel reclaim the performance crown from Athlon 64 X2",
+        "expertNote": "Replaced the deeply-pipelined NetBurst design with a wider, shorter pipeline derived from the mobile Pentium M line \u2014 proof that clock speed alone (the strategy behind Pentium 4) was the wrong axis to compete on once thermal limits capped frequency scaling."
       },
       {
         "model": "Intel Core i7-920",
@@ -237,7 +239,8 @@
         "transistorCount": "3.9B (CCD) + 2.09B (I/O die)",
         "cache": "3MB L2 + 32MB L3",
         "architecture": "Zen 2 (Matisse)",
-        "keyFeature": "MCM chiplet design (CCD + I/O die) on 7nm brought huge IPC and efficiency gains; revised from an earlier draft that listed this as a 2017 \"Zen+\" part — it actually launched July 2019 on Zen 2"
+        "keyFeature": "MCM chiplet design (CCD + I/O die) on 7nm brought huge IPC and efficiency gains; revised from an earlier draft that listed this as a 2017 \"Zen+\" part \u2014 it actually launched July 2019 on Zen 2",
+        "expertNote": "First mainstream Ryzen built as a multi-chip module: a 7nm compute die (CCD) for cores/cache paired with a separate 12nm I/O die, connected over AMD's Infinity Fabric \u2014 trading a small latency penalty for much better manufacturing yields than a monolithic die."
       },
       {
         "model": "Apple M1",
@@ -251,7 +254,8 @@
         "transistorCount": "16B",
         "cache": "8MB L2 + 16MB shared",
         "architecture": "Apple Silicon (Firestorm/Icestorm)",
-        "keyFeature": "Unified memory architecture and ARM instruction set brought x86-competitive performance to a fanless laptop chip"
+        "keyFeature": "Unified memory architecture and ARM instruction set brought x86-competitive performance to a fanless laptop chip",
+        "expertNote": "Unified memory means the CPU, GPU, and Neural Engine all address the same physical RAM pool over a very wide on-package bus, eliminating the PCIe-speed copy needed on a discrete-GPU PC to move data between separate CPU and VRAM pools."
       },
       {
         "model": "AMD Ryzen 7 5700X",
@@ -279,7 +283,8 @@
         "transistorCount": "22.4B",
         "cache": "32MB L2 + 32MB L3",
         "architecture": "Raptor Lake (hybrid P/E)",
-        "keyFeature": "Hybrid Performance/Efficiency core design (8P + 16E) mixed high-clock cores with power-sipping cores for background tasks"
+        "keyFeature": "Hybrid Performance/Efficiency core design (8P + 16E) mixed high-clock cores with power-sipping cores for background tasks",
+        "expertNote": "Hybrid design pairs Performance-cores (deep pipeline, high clocks) with Efficiency-cores (simpler, denser, lower power) on one die; Intel's Thread Director hints the OS scheduler about which core type should run which thread."
       },
       {
         "model": "Apple M2",
@@ -307,7 +312,8 @@
         "transistorCount": "16.8B",
         "cache": "96MB 3D V-Cache (L3)",
         "architecture": "Zen 4 (3D V-Cache)",
-        "keyFeature": "A second 3D-stacked SRAM die triples L3 cache, making this the go-to gaming CPU; revised from an earlier draft that dated this to 2022 — it actually launched April 2023"
+        "keyFeature": "A second 3D-stacked SRAM die triples L3 cache, making this the go-to gaming CPU; revised from an earlier draft that dated this to 2022 \u2014 it actually launched April 2023",
+        "expertNote": "3D V-Cache stacks an extra 64MB L3 die directly on top of the compute die using through-silicon vias, roughly tripling total L3 \u2014 huge for cache-sensitive workloads like games, at the cost of a slightly lower max clock than the non-3D part."
       },
       {
         "model": "Intel Core i9-14900K",
@@ -366,7 +372,8 @@
         "busWidth": "128-bit",
         "transistorCount": "23M",
         "coreClock": "120 MHz",
-        "keyFeature": "First chip NVIDIA marketed as a \"GPU\"; added hardware transform & lighting, offloading that work from the CPU (fillrate corrected from an earlier draft's implausible 25 Mpix/s to the commonly cited 480 Mpix/s for 4 pixel pipelines at 120MHz)"
+        "keyFeature": "First chip NVIDIA marketed as a \"GPU\"; added hardware transform & lighting, offloading that work from the CPU (fillrate corrected from an earlier draft's implausible 25 Mpix/s to the commonly cited 480 Mpix/s for 4 pixel pipelines at 120MHz)",
+        "expertNote": "NVIDIA coined the term \"GPU\" for this card specifically because it moved transform & lighting math off the CPU and onto dedicated fixed-function hardware for the first time in a consumer part."
       },
       {
         "model": "3dfx Voodoo3 3000",
@@ -444,7 +451,7 @@
         "busWidth": "256-bit",
         "transistorCount": "956M",
         "coreClock": "750 MHz",
-        "keyFeature": "First GPU to ship with GDDR5 memory — a full generation before the Radeon HD 5870, which is often (incorrectly) credited as GDDR5's debut"
+        "keyFeature": "First GPU to ship with GDDR5 memory \u2014 a full generation before the Radeon HD 5870, which is often (incorrectly) credited as GDDR5's debut"
       },
       {
         "model": "AMD Radeon HD 5870",
@@ -457,7 +464,8 @@
         "busWidth": "256-bit",
         "transistorCount": "2.15B",
         "coreClock": "850 MHz",
-        "keyFeature": "First DirectX 11 GPU; note GDDR5 itself had already debuted the year before on the Radeon HD 4870, so this entry's earlier \"first GDDR5\" claim has been corrected (fillrate also corrected to 27.2 Gpix/s from 32 ROPs x 850MHz)"
+        "keyFeature": "First DirectX 11 GPU; note GDDR5 itself had already debuted the year before on the Radeon HD 4870, so this entry's earlier \"first GDDR5\" claim has been corrected (fillrate also corrected to 27.2 Gpix/s from 32 ROPs x 850MHz)",
+        "expertNote": "First GPU with GDDR5, which doubled the effective data rate per pin versus GDDR3 \u2014 a bandwidth jump that mattered more than core clock as shader counts kept climbing."
       },
       {
         "model": "NVIDIA GeForce GTX 680",
@@ -509,7 +517,8 @@
         "busWidth": "352-bit",
         "transistorCount": "18.6B",
         "coreClock": "1350 MHz base / 1635 MHz boost",
-        "keyFeature": "Real-time ray tracing (RT cores) and AI-accelerated upscaling (Tensor cores / DLSS) debuted here"
+        "keyFeature": "Real-time ray tracing (RT cores) and AI-accelerated upscaling (Tensor cores / DLSS) debuted here",
+        "expertNote": "Added dedicated RT cores (BVH traversal/intersection in hardware) and Tensor cores (matrix math for DLSS upscaling) alongside traditional shader cores \u2014 the first consumer GPU built for three different workloads on one die."
       },
       {
         "model": "AMD Radeon RX 5700 XT",
@@ -574,7 +583,8 @@
         "busWidth": "320-bit",
         "transistorCount": "57.7B (graphics chiplet + 6 memory chiplets combined)",
         "coreClock": "1855 MHz base / 2500 MHz boost",
-        "keyFeature": "First chiplet-based gaming GPU, splitting the graphics compute die (GCD) from six memory-cache dies (MCDs) on 320-bit GDDR6"
+        "keyFeature": "First chiplet-based gaming GPU, splitting the graphics compute die (GCD) from six memory-cache dies (MCDs) on 320-bit GDDR6",
+        "expertNote": "Split the GPU into a monolithic graphics compute die plus separate memory-controller dies (MCDs) on an interposer \u2014 GPUs adopting the same chiplet trade-off CPUs made years earlier."
       },
       {
         "model": "Apple M3 Max",
@@ -587,7 +597,8 @@
         "busWidth": "512-bit (unified memory)",
         "transistorCount": "92B",
         "coreClock": "Up to ~1.4 GHz (integrated GPU, SoC-managed)",
-        "keyFeature": "Hardware-accelerated ray tracing plus a unified memory pool shared by CPU and GPU, avoiding a separate VRAM copy"
+        "keyFeature": "Hardware-accelerated ray tracing plus a unified memory pool shared by CPU and GPU, avoiding a separate VRAM copy",
+        "expertNote": "Hardware ray tracing plus the same unified-memory model as Apple's CPUs means the GPU can read geometry and textures the CPU just wrote without a driver-managed copy into dedicated VRAM."
       },
       {
         "model": "AMD Radeon RX 9070 XT",
@@ -701,7 +712,8 @@
         "voltage": "1.1V",
         "bandwidth": "38.4 GB/s",
         "casLatency": "CL40",
-        "keyFeature": "On-board PMIC and dual independent 32-bit sub-channels per module; corrected the module designation from the invented \"PC5-4800\" (not a real JEDEC label) to the correct PC5-38400, and fixed the mismatched bandwidth figure"
+        "keyFeature": "On-board PMIC and dual independent 32-bit sub-channels per module; corrected the module designation from the invented \"PC5-4800\" (not a real JEDEC label) to the correct PC5-38400, and fixed the mismatched bandwidth figure",
+        "expertNote": "Moved voltage regulation from the motherboard onto the DIMM itself (on-module PMIC) and split each module into two independent 32-bit sub-channels instead of one 64-bit channel, improving access parallelism."
       },
       {
         "model": "DDR5-6000",
@@ -713,7 +725,8 @@
         "voltage": "1.35V (EXPO/XMP)",
         "bandwidth": "48.0 GB/s",
         "casLatency": "CL30",
-        "keyFeature": "The de facto \"sweet spot\" speed on AM5 (matches a 1:1 Infinity Fabric ratio) and a common target for LGA1700/1851 gaming builds"
+        "keyFeature": "The de facto \"sweet spot\" speed on AM5 (matches a 1:1 Infinity Fabric ratio) and a common target for LGA1700/1851 gaming builds",
+        "expertNote": "Moved voltage regulation from the motherboard onto the DIMM itself (on-module PMIC) and split each module into two independent 32-bit sub-channels instead of one 64-bit channel, improving access parallelism."
       },
       {
         "model": "LPDDR5X",
@@ -725,7 +738,8 @@
         "voltage": "0.5V (low power)",
         "bandwidth": "~136 GB/s (multi-channel package aggregate)",
         "casLatency": "N/A (package-on-package, not user-installable)",
-        "keyFeature": "Soldered directly onto the SoC substrate in devices like Apple's M-series and flagship phones, trading upgradability for shorter traces and much lower power"
+        "keyFeature": "Soldered directly onto the SoC substrate in devices like Apple's M-series and flagship phones, trading upgradability for shorter traces and much lower power",
+        "expertNote": "Low-power DDR variants solder memory directly next to (or in-package with) the SoC, trading user-upgradeability for shorter traces that allow higher transfer rates at a fraction of the power of socketed DIMMs \u2014 the same tradeoff unified-memory CPUs make."
       }
     ]
   },
@@ -806,7 +820,7 @@
         "seqWrite": 70,
         "latency": "0.085ms",
         "formFactor": "2.5\" SATA SSD",
-        "keyFeature": "First mainstream SSD to deliver desktop-class random I/O performance, using Intel/Micron 50nm MLC NAND (appended after the original six drives, so it appears out of chronological order in this array — see note in accompanying summary)"
+        "keyFeature": "First mainstream SSD to deliver desktop-class random I/O performance, using Intel/Micron 50nm MLC NAND (appended after the original six drives, so it appears out of chronological order in this array \u2014 see note in accompanying summary)"
       },
       {
         "model": "Intel Optane SSD 900P 280GB",
@@ -845,87 +859,389 @@
   },
   "motherboard": {
     "sockets": [
-      { "name": "Socket 3", "year": 1991, "cpu": "486DX2, DX4", "pins": 237, "slots": "1-2 ISA", "memorySupport": "FPM/EDO DRAM (via SIMM, board-dependent)" },
-      { "name": "Socket 7", "year": 1995, "cpu": "Pentium, K6", "pins": 321, "slots": "1-2 ISA, 1 PCI", "memorySupport": "EDO/SDRAM (via SIMM/DIMM, board-dependent)" },
-      { "name": "Socket A (462)", "year": 1999, "cpu": "Athlon, Duron", "pins": 462, "slots": "1 AGP, 5-6 PCI", "memorySupport": "SDRAM / DDR (board-dependent)" },
-      { "name": "Socket 478", "year": 2001, "cpu": "Pentium 4", "pins": 478, "slots": "5 PCI, 1 AGP", "memorySupport": "SDRAM / DDR (board-dependent)" },
-      { "name": "Socket 754", "year": 2003, "cpu": "Athlon 64 (single-channel)", "pins": 754, "slots": "1 AGP, 3-5 PCI", "memorySupport": "DDR (single-channel, on-die controller)" },
-      { "name": "LGA 775", "year": 2004, "cpu": "Core 2 Duo, Core i7", "pins": 775, "slots": "1-2 PCI-E x16, 4 PCI", "memorySupport": "DDR2 / DDR3 (board-dependent)" },
-      { "name": "AM2", "year": 2006, "cpu": "Athlon 64 X2", "pins": 940, "slots": "1 PCI-E x16, 2 PCI", "memorySupport": "DDR2" },
-      { "name": "LGA 1366", "year": 2008, "cpu": "Core i7 9xx (Nehalem)", "pins": 1366, "slots": "1-2 PCI-E 2.0 x16, triple-channel DDR3", "memorySupport": "DDR3 (triple-channel)" },
-      { "name": "AM3", "year": 2009, "cpu": "Athlon II, Phenom II", "pins": 941, "slots": "1-2 PCI-E x16, 2 PCI", "memorySupport": "DDR3" },
-      { "name": "AM3+", "year": 2011, "cpu": "FX-Series (Bulldozer/Piledriver)", "pins": 942, "slots": "1-2 PCI-E 2.0 x16, 2 PCI", "memorySupport": "DDR3" },
-      { "name": "LGA 1155", "year": 2011, "cpu": "Core 2nd/3rd Gen (Sandy/Ivy Bridge)", "pins": 1155, "slots": "1-2 PCI-E 2.0/3.0 x16, 1-2 PCIe x1", "memorySupport": "DDR3" },
-      { "name": "LGA 1150", "year": 2013, "cpu": "Core 4th/5th Gen (Haswell/Broadwell)", "pins": 1150, "slots": "1-2 PCI-E 3.0 x16, 1-2 M.2", "memorySupport": "DDR3 / DDR3L" },
-      { "name": "AM4", "year": 2016, "cpu": "Ryzen 1000-5000", "pins": 1331, "slots": "1-2 PCI-E x16, 1-4 M.2", "memorySupport": "DDR4" },
-      { "name": "LGA 1700", "year": 2021, "cpu": "Core 12th/13th/14th Gen", "pins": 1700, "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2", "memorySupport": "DDR4 or DDR5 (board-dependent)" },
-      { "name": "AM5", "year": 2022, "cpu": "Ryzen 7000/9000", "pins": 1718, "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2", "memorySupport": "DDR5" },
-      { "name": "LGA 1851", "year": 2024, "cpu": "Core Ultra 200S (Arrow Lake)", "pins": 1851, "slots": "1-2 PCI-E 5.0 x16, 3-4 M.2", "memorySupport": "DDR5" }
+      {
+        "name": "Socket 3",
+        "year": 1991,
+        "cpu": "486DX2, DX4",
+        "pins": 237,
+        "slots": "1-2 ISA",
+        "memorySupport": "FPM/EDO DRAM (via SIMM, board-dependent)"
+      },
+      {
+        "name": "Socket 7",
+        "year": 1995,
+        "cpu": "Pentium, K6",
+        "pins": 321,
+        "slots": "1-2 ISA, 1 PCI",
+        "memorySupport": "EDO/SDRAM (via SIMM/DIMM, board-dependent)"
+      },
+      {
+        "name": "Socket A (462)",
+        "year": 1999,
+        "cpu": "Athlon, Duron",
+        "pins": 462,
+        "slots": "1 AGP, 5-6 PCI",
+        "memorySupport": "SDRAM / DDR (board-dependent)"
+      },
+      {
+        "name": "Socket 478",
+        "year": 2001,
+        "cpu": "Pentium 4",
+        "pins": 478,
+        "slots": "5 PCI, 1 AGP",
+        "memorySupport": "SDRAM / DDR (board-dependent)"
+      },
+      {
+        "name": "Socket 754",
+        "year": 2003,
+        "cpu": "Athlon 64 (single-channel)",
+        "pins": 754,
+        "slots": "1 AGP, 3-5 PCI",
+        "memorySupport": "DDR (single-channel, on-die controller)"
+      },
+      {
+        "name": "LGA 775",
+        "year": 2004,
+        "cpu": "Core 2 Duo, Core i7",
+        "pins": 775,
+        "slots": "1-2 PCI-E x16, 4 PCI",
+        "memorySupport": "DDR2 / DDR3 (board-dependent)"
+      },
+      {
+        "name": "AM2",
+        "year": 2006,
+        "cpu": "Athlon 64 X2",
+        "pins": 940,
+        "slots": "1 PCI-E x16, 2 PCI",
+        "memorySupport": "DDR2"
+      },
+      {
+        "name": "LGA 1366",
+        "year": 2008,
+        "cpu": "Core i7 9xx (Nehalem)",
+        "pins": 1366,
+        "slots": "1-2 PCI-E 2.0 x16, triple-channel DDR3",
+        "memorySupport": "DDR3 (triple-channel)"
+      },
+      {
+        "name": "AM3",
+        "year": 2009,
+        "cpu": "Athlon II, Phenom II",
+        "pins": 941,
+        "slots": "1-2 PCI-E x16, 2 PCI",
+        "memorySupport": "DDR3"
+      },
+      {
+        "name": "AM3+",
+        "year": 2011,
+        "cpu": "FX-Series (Bulldozer/Piledriver)",
+        "pins": 942,
+        "slots": "1-2 PCI-E 2.0 x16, 2 PCI",
+        "memorySupport": "DDR3"
+      },
+      {
+        "name": "LGA 1155",
+        "year": 2011,
+        "cpu": "Core 2nd/3rd Gen (Sandy/Ivy Bridge)",
+        "pins": 1155,
+        "slots": "1-2 PCI-E 2.0/3.0 x16, 1-2 PCIe x1",
+        "memorySupport": "DDR3"
+      },
+      {
+        "name": "LGA 1150",
+        "year": 2013,
+        "cpu": "Core 4th/5th Gen (Haswell/Broadwell)",
+        "pins": 1150,
+        "slots": "1-2 PCI-E 3.0 x16, 1-2 M.2",
+        "memorySupport": "DDR3 / DDR3L"
+      },
+      {
+        "name": "AM4",
+        "year": 2016,
+        "cpu": "Ryzen 1000-5000",
+        "pins": 1331,
+        "slots": "1-2 PCI-E x16, 1-4 M.2",
+        "memorySupport": "DDR4"
+      },
+      {
+        "name": "LGA 1700",
+        "year": 2021,
+        "cpu": "Core 12th/13th/14th Gen",
+        "pins": 1700,
+        "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2",
+        "memorySupport": "DDR4 or DDR5 (board-dependent)"
+      },
+      {
+        "name": "AM5",
+        "year": 2022,
+        "cpu": "Ryzen 7000/9000",
+        "pins": 1718,
+        "slots": "1-2 PCI-E 5.0 x16, 2-4 M.2",
+        "memorySupport": "DDR5"
+      },
+      {
+        "name": "LGA 1851",
+        "year": 2024,
+        "cpu": "Core Ultra 200S (Arrow Lake)",
+        "pins": 1851,
+        "slots": "1-2 PCI-E 5.0 x16, 3-4 M.2",
+        "memorySupport": "DDR5"
+      }
     ],
     "vrms": [
-      { "year": 2001, "phases": 2, "name": "Socket A reference boards" },
-      { "year": 2005, "phases": 4, "name": "Early Athlon 64" },
-      { "year": 2010, "phases": 6, "name": "DDR2 era" },
-      { "year": 2014, "phases": 8, "name": "DDR4 transition" },
-      { "year": 2018, "phases": 12, "name": "Ryzen/Intel 8th gen" },
-      { "year": 2023, "phases": 16, "name": "High-end Z790/X670" },
-      { "year": 2024, "phases": 20, "name": "LGA1851 flagship (Z890)" }
+      {
+        "year": 2001,
+        "phases": 2,
+        "name": "Socket A reference boards"
+      },
+      {
+        "year": 2005,
+        "phases": 4,
+        "name": "Early Athlon 64"
+      },
+      {
+        "year": 2010,
+        "phases": 6,
+        "name": "DDR2 era"
+      },
+      {
+        "year": 2014,
+        "phases": 8,
+        "name": "DDR4 transition"
+      },
+      {
+        "year": 2018,
+        "phases": 12,
+        "name": "Ryzen/Intel 8th gen"
+      },
+      {
+        "year": 2023,
+        "phases": 16,
+        "name": "High-end Z790/X670"
+      },
+      {
+        "year": 2024,
+        "phases": 20,
+        "name": "LGA1851 flagship (Z890)"
+      }
     ]
   },
   "timelineEvents": [
-    { "year": 1971, "event": "Intel 4004 - First microprocessor" },
-    { "year": 1979, "event": "Intel 8088 - CPU chosen for the original IBM PC" },
-    { "year": 1981, "event": "IBM PC launched with Intel 8088" },
-    { "year": 1982, "event": "Intel 80286 - Protected mode introduced" },
-    { "year": 1985, "event": "Intel 80386DX - First x86 with full 32-bit internals" },
-    { "year": 1991, "event": "Intel 486DX2 - On-die FPU and clock-doubling" },
-    { "year": 1993, "event": "Intel Pentium - First x86 with superscalar" },
-    { "year": 1994, "event": "Seagate ST340014A - Large capacity HDD" },
-    { "year": 1995, "event": "AMD K6 - 3DNow! SIMD instructions" },
-    { "year": 1998, "event": "SDRAM PC100 standardized on Intel 440BX" },
-    { "year": 1999, "event": "NVIDIA GeForce 256 - First GPU" },
-    { "year": 1999, "event": "3dfx Voodoo3 - Last major 3dfx flagship before NVIDIA acquisition" },
-    { "year": 2000, "event": "DDR memory released" },
-    { "year": 2000, "event": "AMD Athlon 'Thunderbird' - First x86 CPU to reach 1GHz" },
-    { "year": 2001, "event": "GeForce 3 - First programmable vertex/pixel shaders (DirectX 8)" },
-    { "year": 2002, "event": "Pentium 4 HT - Hyper-Threading" },
-    { "year": 2003, "event": "WD Raptor - 10000 RPM SATA" },
-    { "year": 2003, "event": "AMD Athlon 64 - First x86-64 (AMD64) desktop CPU" },
-    { "year": 2003, "event": "GeForce FX 5700 - Mid-range DirectX 9 GPU" },
-    { "year": 2004, "event": "GeForce 6800 Ultra - Shader Model 3.0 debut" },
-    { "year": 2006, "event": "Core 2 Duo - Multi-core mainstream" },
-    { "year": 2006, "event": "GeForce 8800 GTX - First unified shader architecture, first DirectX 10 GPU" },
-    { "year": 2007, "event": "DDR3 memory released" },
-    { "year": 2008, "event": "Radeon HD 4870 - First GPU with GDDR5 memory" },
-    { "year": 2008, "event": "Intel Core i7-920 - Nehalem debuts on-die memory controller and QPI" },
-    { "year": 2008, "event": "Intel X25-M - First mainstream high-performance consumer SSD" },
-    { "year": 2009, "event": "Radeon HD 5870 - First DirectX 11 GPU" },
-    { "year": 2012, "event": "GeForce GTX 680 - Kepler architecture efficiency leap" },
-    { "year": 2014, "event": "Samsung 840 EVO - Mainstream SSD" },
-    { "year": 2014, "event": "DDR4 memory released" },
-    { "year": 2016, "event": "GeForce GTX 1070 - Pascal architecture mainstream flagship" },
-    { "year": 2017, "event": "AMD Ryzen 7 1800X - Zen architecture debut" },
-    { "year": 2017, "event": "GeForce GTX 1080 Ti - Last great pre-ray-tracing flagship" },
-    { "year": 2017, "event": "Intel Optane SSD 900P - 3D XPoint memory reaches consumer SSDs" },
-    { "year": 2018, "event": "RTX 2080 Ti - Real-time ray tracing" },
-    { "year": 2018, "event": "Samsung 970 EVO - NVMe mainstream" },
-    { "year": 2019, "event": "Ryzen 5 3600 - Zen 2 chiplet design mainstream" },
-    { "year": 2019, "event": "Radeon RX 5700 XT - RDNA 1 architecture debut" },
-    { "year": 2020, "event": "Apple M1 - ARM-based PC" },
-    { "year": 2020, "event": "RTX 3070 / RTX 3090 - Ampere architecture, GDDR6X on the flagship" },
-    { "year": 2021, "event": "DDR5 and PCIe 5.0 released" },
-    { "year": 2021, "event": "WD SN850X - PCIe 4.0 SSD" },
-    { "year": 2022, "event": "AM5 socket - LGA-style, DDR5, PCIe 5.0" },
-    { "year": 2022, "event": "RTX 4090 - Ada Lovelace, first consumer GPU past 16K CUDA cores" },
-    { "year": 2022, "event": "Apple M2 - Second-generation Apple Silicon" },
-    { "year": 2022, "event": "Samsung 990 Pro - Flagship PCIe 4.0 consumer SSD" },
-    { "year": 2023, "event": "Apple M3 Max - 40 GPU cores" },
-    { "year": 2023, "event": "Ryzen 7 7800X3D - 3D V-Cache" },
-    { "year": 2024, "event": "Crucial T700 - PCIe 5.0 SSD" },
-    { "year": 2024, "event": "AMD Ryzen 9 9950X - Zen 5 flagship" },
-    { "year": 2024, "event": "Apple M4 - Third-gen 3nm Apple Silicon" },
-    { "year": 2024, "event": "LGA 1851 socket - Arrow Lake desktop platform" },
-    { "year": 2025, "event": "NVIDIA RTX 5090 - Blackwell architecture, GDDR7, 32GB flagship" },
-    { "year": 2025, "event": "AMD Radeon RX 9070 XT - RDNA 4 architecture" }
+    {
+      "year": 1971,
+      "event": "Intel 4004 - First microprocessor"
+    },
+    {
+      "year": 1979,
+      "event": "Intel 8088 - CPU chosen for the original IBM PC"
+    },
+    {
+      "year": 1981,
+      "event": "IBM PC launched with Intel 8088"
+    },
+    {
+      "year": 1982,
+      "event": "Intel 80286 - Protected mode introduced"
+    },
+    {
+      "year": 1985,
+      "event": "Intel 80386DX - First x86 with full 32-bit internals"
+    },
+    {
+      "year": 1991,
+      "event": "Intel 486DX2 - On-die FPU and clock-doubling"
+    },
+    {
+      "year": 1993,
+      "event": "Intel Pentium - First x86 with superscalar"
+    },
+    {
+      "year": 1994,
+      "event": "Seagate ST340014A - Large capacity HDD"
+    },
+    {
+      "year": 1995,
+      "event": "AMD K6 - 3DNow! SIMD instructions"
+    },
+    {
+      "year": 1998,
+      "event": "SDRAM PC100 standardized on Intel 440BX"
+    },
+    {
+      "year": 1999,
+      "event": "NVIDIA GeForce 256 - First GPU"
+    },
+    {
+      "year": 1999,
+      "event": "3dfx Voodoo3 - Last major 3dfx flagship before NVIDIA acquisition"
+    },
+    {
+      "year": 2000,
+      "event": "DDR memory released"
+    },
+    {
+      "year": 2000,
+      "event": "AMD Athlon 'Thunderbird' - First x86 CPU to reach 1GHz"
+    },
+    {
+      "year": 2001,
+      "event": "GeForce 3 - First programmable vertex/pixel shaders (DirectX 8)"
+    },
+    {
+      "year": 2002,
+      "event": "Pentium 4 HT - Hyper-Threading"
+    },
+    {
+      "year": 2003,
+      "event": "WD Raptor - 10000 RPM SATA"
+    },
+    {
+      "year": 2003,
+      "event": "AMD Athlon 64 - First x86-64 (AMD64) desktop CPU"
+    },
+    {
+      "year": 2003,
+      "event": "GeForce FX 5700 - Mid-range DirectX 9 GPU"
+    },
+    {
+      "year": 2004,
+      "event": "GeForce 6800 Ultra - Shader Model 3.0 debut"
+    },
+    {
+      "year": 2006,
+      "event": "Core 2 Duo - Multi-core mainstream"
+    },
+    {
+      "year": 2006,
+      "event": "GeForce 8800 GTX - First unified shader architecture, first DirectX 10 GPU"
+    },
+    {
+      "year": 2007,
+      "event": "DDR3 memory released"
+    },
+    {
+      "year": 2008,
+      "event": "Radeon HD 4870 - First GPU with GDDR5 memory"
+    },
+    {
+      "year": 2008,
+      "event": "Intel Core i7-920 - Nehalem debuts on-die memory controller and QPI"
+    },
+    {
+      "year": 2008,
+      "event": "Intel X25-M - First mainstream high-performance consumer SSD"
+    },
+    {
+      "year": 2009,
+      "event": "Radeon HD 5870 - First DirectX 11 GPU"
+    },
+    {
+      "year": 2012,
+      "event": "GeForce GTX 680 - Kepler architecture efficiency leap"
+    },
+    {
+      "year": 2014,
+      "event": "Samsung 840 EVO - Mainstream SSD"
+    },
+    {
+      "year": 2014,
+      "event": "DDR4 memory released"
+    },
+    {
+      "year": 2016,
+      "event": "GeForce GTX 1070 - Pascal architecture mainstream flagship"
+    },
+    {
+      "year": 2017,
+      "event": "AMD Ryzen 7 1800X - Zen architecture debut"
+    },
+    {
+      "year": 2017,
+      "event": "GeForce GTX 1080 Ti - Last great pre-ray-tracing flagship"
+    },
+    {
+      "year": 2017,
+      "event": "Intel Optane SSD 900P - 3D XPoint memory reaches consumer SSDs"
+    },
+    {
+      "year": 2018,
+      "event": "RTX 2080 Ti - Real-time ray tracing"
+    },
+    {
+      "year": 2018,
+      "event": "Samsung 970 EVO - NVMe mainstream"
+    },
+    {
+      "year": 2019,
+      "event": "Ryzen 5 3600 - Zen 2 chiplet design mainstream"
+    },
+    {
+      "year": 2019,
+      "event": "Radeon RX 5700 XT - RDNA 1 architecture debut"
+    },
+    {
+      "year": 2020,
+      "event": "Apple M1 - ARM-based PC"
+    },
+    {
+      "year": 2020,
+      "event": "RTX 3070 / RTX 3090 - Ampere architecture, GDDR6X on the flagship"
+    },
+    {
+      "year": 2021,
+      "event": "DDR5 and PCIe 5.0 released"
+    },
+    {
+      "year": 2021,
+      "event": "WD SN850X - PCIe 4.0 SSD"
+    },
+    {
+      "year": 2022,
+      "event": "AM5 socket - LGA-style, DDR5, PCIe 5.0"
+    },
+    {
+      "year": 2022,
+      "event": "RTX 4090 - Ada Lovelace, first consumer GPU past 16K CUDA cores"
+    },
+    {
+      "year": 2022,
+      "event": "Apple M2 - Second-generation Apple Silicon"
+    },
+    {
+      "year": 2022,
+      "event": "Samsung 990 Pro - Flagship PCIe 4.0 consumer SSD"
+    },
+    {
+      "year": 2023,
+      "event": "Apple M3 Max - 40 GPU cores"
+    },
+    {
+      "year": 2023,
+      "event": "Ryzen 7 7800X3D - 3D V-Cache"
+    },
+    {
+      "year": 2024,
+      "event": "Crucial T700 - PCIe 5.0 SSD"
+    },
+    {
+      "year": 2024,
+      "event": "AMD Ryzen 9 9950X - Zen 5 flagship"
+    },
+    {
+      "year": 2024,
+      "event": "Apple M4 - Third-gen 3nm Apple Silicon"
+    },
+    {
+      "year": 2024,
+      "event": "LGA 1851 socket - Arrow Lake desktop platform"
+    },
+    {
+      "year": 2025,
+      "event": "NVIDIA RTX 5090 - Blackwell architecture, GDDR7, 32GB flagship"
+    },
+    {
+      "year": 2025,
+      "event": "AMD Radeon RX 9070 XT - RDNA 4 architecture"
+    }
   ]
 }

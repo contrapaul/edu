@@ -1,0 +1,63 @@
+name: Build & Deploy Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/pcparts/**'
+      - '.github/workflows/deploy-pcparts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: tools/pcparts/package-lock.json
+
+      - name: Install pcparts dependencies
+        run: npm ci
+        working-directory: tools/pcparts
+
+      - name: Build pcparts
+        run: npm run build
+        working-directory: tools/pcparts
+
+      - name: Assemble deploy artifact
+        run: |
+          mkdir -p _site
+          rsync -a --exclude 'tools/pcparts' --exclude '.git' --exclude '_site' ./ _site/
+          mkdir -p _site/tools/pcparts
+          rsync -a tools/pcparts/dist/ _site/tools/pcparts/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

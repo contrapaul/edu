@@ -1,6 +1,7 @@
 // 3D Scene Manager - Three.js setup and rendering
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { appState } from './utils/state.js';
 
 class Scene3D {
   constructor(canvas) {
@@ -358,6 +359,7 @@ class Scene3D {
     }
 
     this.selectedComponent = name;
+    appState.set('selectedComponent', name);
 
     // Highlight selected
     if (mesh.material && mesh.material.emissive) {
@@ -377,6 +379,7 @@ class Scene3D {
       }
     }
     this.selectedComponent = null;
+    appState.set('selectedComponent', null);
     this.closeInfoPanel();
   }
 
@@ -390,6 +393,7 @@ class Scene3D {
 
     // Set title and description
     const componentNames = {
+      case: 'PC Case',
       cpu: 'Central Processing Unit (CPU)',
       gpu: 'Graphics Processing Unit (GPU)',
       ram: 'Random Access Memory (RAM)',
@@ -399,8 +403,9 @@ class Scene3D {
     };
 
     title.textContent = componentNames[componentName] || componentName.toUpperCase();
-    
+
     const descriptions = {
+      case: 'The enclosure housing and protecting every other component, and shaping airflow for cooling.',
       cpu: 'The brain of the computer. Executes instructions and processes data.',
       gpu: 'Handles graphics rendering, parallel processing, and AI computations.',
       ram: 'Temporary fast-access memory for active programs and data.',
@@ -430,6 +435,14 @@ class Scene3D {
 
   getComponentSpecs(componentName) {
     const specs = {
+      case: [
+        { label: 'Form Factor', value: 'Mid-tower ATX' },
+        { label: 'Drive Bays', value: '2-4x 3.5"/2.5"' },
+        { label: 'Expansion Slots', value: '7x PCIe' },
+        { label: 'Front I/O', value: 'USB-A, USB-C, Audio' },
+        { label: 'Airflow', value: '2-3 intake, 1-2 exhaust fans' },
+        { label: 'Max GPU Length', value: '330-400mm' }
+      ],
       cpu: [
         { label: 'Socket', value: 'LGA 1700 / AM5' },
         { label: 'Process', value: '5nm - 10nm' },

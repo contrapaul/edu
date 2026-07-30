@@ -1,5 +1,6 @@
 // CPU Module - Interactive visualization and education
 import data from '../../data/hardware-specs.json';
+import { appState } from '../utils/state.js';
 
 class CPUModule {
   constructor(container) {
@@ -7,32 +8,45 @@ class CPUModule {
     this.currentCPU = 0;
     this.historyContainer = document.getElementById('component-timeline');
     this.evolutionContainer = document.getElementById('evolution-visualizer');
-    this.init();
+
+    appState.subscribe('difficulty', () => {
+      if (appState.get('selectedComponent') !== 'cpu') return;
+      if (document.getElementById('tab-specs')?.classList.contains('active')) this.renderSpecs();
+      if (document.getElementById('tab-evolution')?.classList.contains('active')) this.renderEvolution();
+    });
   }
 
   get cpu() { return data.cpu; }
   get timelineEvents() { return data.timelineEvents; }
 
-  init() {
-    this.renderSpecs();
-    this.renderTimeline();
-    this.renderEvolution();
-  }
-
   renderSpecs() {
     const specsGrid = document.getElementById('specs-grid');
     const cpuData = this.cpu.examples[this.currentCPU];
-    
+    const tier = appState.get('difficulty') || 'beginner';
+    specsGrid.dataset.tier = tier;
+
     specsGrid.innerHTML = `
+      <div class="era-select-row">
+        <label for="cpu-era-select">Era</label>
+        <select id="cpu-era-select" class="era-select">
+          ${this.cpu.examples.map((ex, i) => `<option value="${i}" ${i === this.currentCPU ? 'selected' : ''}>${ex.year} — ${ex.model}</option>`).join('')}
+        </select>
+      </div>
       <div class="spec-card"><h3>Socket</h3><p>${cpuData.socket}</p></div>
-      <div class="spec-card"><h3>Process Node</h3><p>${cpuData.process}</p></div>
       <div class="spec-card"><h3>Cores/Threads</h3><p>${cpuData.cores}/${cpuData.threads}</p></div>
       <div class="spec-card"><h3>Clock Speed</h3><p>${cpuData.clockSpeed}</p></div>
       <div class="spec-card"><h3>TDP</h3><p>${cpuData.tdp}</p></div>
-      <div class="spec-card"><h3>Transistors</h3><p>${cpuData.transistorCount}</p></div>
-      <div class="spec-card"><h3>Cache</h3><p>${cpuData.cache}</p></div>
-      <div class="spec-card"><h3>Key Feature</h3><p>${cpuData.keyFeature}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Process Node</h3><p>${cpuData.process}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Transistors</h3><p>${cpuData.transistorCount}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Cache</h3><p>${cpuData.cache}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Architecture</h3><p>${cpuData.architecture || '—'}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Key Feature</h3><p>${cpuData.keyFeature}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Deep Dive</h3><p>${cpuData.expertNote || cpuData.keyFeature}</p></div>
     `;
+
+    document.getElementById('cpu-era-select').addEventListener('change', (e) => {
+      this.updateCPU(parseInt(e.target.value, 10));
+    });
   }
 
   renderTimeline() {
@@ -57,6 +71,14 @@ class CPUModule {
 
   renderEvolution() {
     if (!this.evolutionContainer) return;
+    this.evolutionContainer.innerHTML = '';
+
+    if ((appState.get('difficulty') || 'beginner') === 'beginner') {
+      this.evolutionContainer.innerHTML = `
+        <p class="tier-locked-note">Switch to Advanced or Expert difficulty (sidebar) to see evolution charts.</p>
+      `;
+      return;
+    }
 
     const cpuExamples = this.cpu.examples;
     const chartContainer = document.createElement('div');
@@ -103,7 +125,7 @@ class CPUModule {
       const y = height - 30 - barHeight;
 
       // Draw bar
-      ctx.fillStyle = '#4a9eff';
+      ctx.fillStyle = i === this.currentCPU ? '#f59e0b' : '#4a9eff';
       ctx.fillRect(x, y, barWidth, barHeight);
 
       // Label
@@ -179,9 +201,10 @@ class CPUModule {
       const y = 20 + chartHeight - ((Math.log10(d.transistors) / maxTrans) * chartHeight);
 
       // Point
+      const isSelected = i === this.currentCPU;
       ctx.beginPath();
-      ctx.arc(x, y, 6, 0, Math.PI * 2);
-      ctx.fillStyle = '#00d4ff';
+      ctx.arc(x, y, isSelected ? 8 : 6, 0, Math.PI * 2);
+      ctx.fillStyle = isSelected ? '#f59e0b' : '#00d4ff';
       ctx.fill();
 
       // Label
@@ -204,6 +227,9 @@ class CPUModule {
   updateCPU(index) {
     this.currentCPU = index;
     this.renderSpecs();
+    if (document.getElementById('tab-evolution')?.classList.contains('active')) {
+      this.renderEvolution();
+    }
   }
 }
 

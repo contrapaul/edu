@@ -1,33 +1,51 @@
 // GPU Module - Graphics card history and visualization
 import data from '../../data/hardware-specs.json';
+import { appState } from '../utils/state.js';
 
 class GPUModule {
   constructor(container) {
     this.container = container;
     this.currentGPU = 0;
-    this.init();
+    this.historyContainer = document.getElementById('component-timeline');
+    this.evolutionContainer = document.getElementById('evolution-visualizer');
+
+    appState.subscribe('difficulty', () => {
+      if (appState.get('selectedComponent') !== 'gpu') return;
+      if (document.getElementById('tab-specs')?.classList.contains('active')) this.renderSpecs();
+      if (document.getElementById('tab-evolution')?.classList.contains('active')) this.renderEvolution();
+    });
   }
 
   get gpu() { return data.gpu; }
 
-  init() {
-    this.renderSpecs();
-    this.renderTimeline();
-    this.renderEvolution();
-  }
-
   renderSpecs() {
     const specsGrid = document.getElementById('specs-grid');
     const gpuData = this.gpu.examples[this.currentGPU];
+    const tier = appState.get('difficulty') || 'beginner';
+    specsGrid.dataset.tier = tier;
 
     specsGrid.innerHTML = `
+      <div class="era-select-row">
+        <label for="gpu-era-select">Era</label>
+        <select id="gpu-era-select" class="era-select">
+          ${this.gpu.examples.map((ex, i) => `<option value="${i}" ${i === this.currentGPU ? 'selected' : ''}>${ex.year} — ${ex.model}</option>`).join('')}
+        </select>
+      </div>
       <div class="spec-card"><h3>Model</h3><p>${gpuData.model}</p></div>
       <div class="spec-card"><h3>VRAM</h3><p>${gpuData.vram}</p></div>
-      <div class="spec-card"><h3>Memory Bandwidth</h3><p>${gpuData.memoryBandwidth}</p></div>
-      <div class="spec-card"><h3>Pixel Rate</h3><p>${gpuData.pixelRate}</p></div>
       <div class="spec-card"><h3>TDP</h3><p>${gpuData.tdp}</p></div>
-      <div class="spec-card"><h3>Key Feature</h3><p>${gpuData.keyFeature}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Memory Bandwidth</h3><p>${gpuData.memoryBandwidth}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Pixel Rate</h3><p>${gpuData.pixelRate}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Bus Width</h3><p>${gpuData.busWidth || '—'}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Core Clock</h3><p>${gpuData.coreClock || '—'}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Architecture</h3><p>${gpuData.architecture || '—'}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Key Feature</h3><p>${gpuData.keyFeature}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Deep Dive</h3><p>${gpuData.expertNote || gpuData.keyFeature}</p></div>
     `;
+
+    document.getElementById('gpu-era-select').addEventListener('change', (e) => {
+      this.updateGPU(parseInt(e.target.value, 10));
+    });
   }
 
   renderTimeline() {
@@ -61,6 +79,14 @@ class GPUModule {
 
   renderEvolution() {
     if (!this.evolutionContainer) return;
+    this.evolutionContainer.innerHTML = '';
+
+    if ((appState.get('difficulty') || 'beginner') === 'beginner') {
+      this.evolutionContainer.innerHTML = `
+        <p class="tier-locked-note">Switch to Advanced or Expert difficulty (sidebar) to see evolution charts.</p>
+      `;
+      return;
+    }
 
     const chartContainer = document.createElement('div');
     chartContainer.className = 'comparison-chart';
@@ -107,11 +133,15 @@ class GPUModule {
       const x = 60 + i * (barWidth + 10);
       const y = height - 30 - barHeight;
 
-      // Gradient bar
-      const gradient = ctx.createLinearGradient(x, y, x, height - 30);
-      gradient.addColorStop(0, '#8b5cf6');
-      gradient.addColorStop(1, '#4a9eff');
-      ctx.fillStyle = gradient;
+      // Gradient bar (highlight the currently selected era)
+      if (i === this.currentGPU) {
+        ctx.fillStyle = '#f59e0b';
+      } else {
+        const gradient = ctx.createLinearGradient(x, y, x, height - 30);
+        gradient.addColorStop(0, '#8b5cf6');
+        gradient.addColorStop(1, '#4a9eff');
+        ctx.fillStyle = gradient;
+      }
       ctx.fillRect(x, y, barWidth, barHeight);
 
       // Label
@@ -134,6 +164,9 @@ class GPUModule {
   updateGPU(index) {
     this.currentGPU = index;
     this.renderSpecs();
+    if (document.getElementById('tab-evolution')?.classList.contains('active')) {
+      this.renderEvolution();
+    }
   }
 }
 

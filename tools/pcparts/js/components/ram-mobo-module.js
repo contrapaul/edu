@@ -1,9 +1,19 @@
 // RAM & Motherboard Module
 import data from '../../data/hardware-specs.json';
+import { appState } from '../utils/state.js';
 
 class RAMMoboModule {
   constructor() {
     this.currentRAM = 0;
+    this.historyContainer = document.getElementById('component-timeline');
+    this.evolutionContainer = document.getElementById('evolution-visualizer');
+
+    appState.subscribe('difficulty', () => {
+      const selected = appState.get('selectedComponent');
+      if (selected !== 'ram' && selected !== 'mobo') return;
+      if (document.getElementById('tab-specs')?.classList.contains('active')) this.renderSpecs(selected);
+      if (selected === 'mobo' && document.getElementById('tab-evolution')?.classList.contains('active')) this.renderEvolution();
+    });
   }
 
   get ram() { return data.ram; }
@@ -13,22 +23,38 @@ class RAMMoboModule {
     const specsGrid = document.getElementById('specs-grid');
     if (!specsGrid) return;
 
+    const tier = appState.get('difficulty') || 'beginner';
+    specsGrid.dataset.tier = tier;
+
     if (componentType === 'ram') {
       const ramData = this.ram.examples[this.currentRAM];
       specsGrid.innerHTML = `
+        <div class="era-select-row">
+          <label for="ram-era-select">Era</label>
+          <select id="ram-era-select" class="era-select">
+            ${this.ram.examples.map((ex, i) => `<option value="${i}" ${i === this.currentRAM ? 'selected' : ''}>${ex.year} — ${ex.type}</option>`).join('')}
+          </select>
+        </div>
         <div class="spec-card"><h3>Type</h3><p>${ramData.type}</p></div>
         <div class="spec-card"><h3>Capacity</h3><p>${ramData.capacity}</p></div>
         <div class="spec-card"><h3>Speed</h3><p>${ramData.speed}</p></div>
-        <div class="spec-card"><h3>Bus Width</h3><p>${ramData.busWidth}</p></div>
-        <div class="spec-card"><h3>Voltage</h3><p>${ramData.voltage}</p></div>
-        <div class="spec-card"><h3>Key Feature</h3><p>${ramData.keyFeature}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>Bus Width</h3><p>${ramData.busWidth}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>Voltage</h3><p>${ramData.voltage}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>CAS Latency</h3><p>${ramData.casLatency || '—'}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>Bandwidth</h3><p>${ramData.bandwidth || '—'}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>Key Feature</h3><p>${ramData.keyFeature}</p></div>
+        <div class="spec-card" data-tier="expert"><h3>Deep Dive</h3><p>${ramData.expertNote || ramData.keyFeature}</p></div>
       `;
+
+      document.getElementById('ram-era-select').addEventListener('change', (e) => {
+        this.updateRAM(parseInt(e.target.value, 10));
+      });
     } else if (componentType === 'mobo') {
-      this.renderMotherboardSpecs();
+      this.renderMotherboardSpecs(tier);
     }
   }
 
-  renderMotherboardSpecs() {
+  renderMotherboardSpecs(tier) {
     const specsGrid = document.getElementById('specs-grid');
     if (!specsGrid) return;
 
@@ -39,9 +65,9 @@ class RAMMoboModule {
       <div class="spec-card"><h3>Current Socket</h3><p>${currentSocket.name}</p></div>
       <div class="spec-card"><h3>Supported CPU</h3><p>${currentSocket.cpu}</p></div>
       <div class="spec-card"><h3>Year</h3><p>${currentSocket.year}</p></div>
-      <div class="spec-card"><h3>Max Slots</h3><p>${currentSocket.slots}</p></div>
-      <div class="spec-card"><h3>VRM Phases</h3><p>16-18 phase</p></div>
-      <div class="spec-card"><h3>PCIe Version</h3><p>PCIe 5.0</p></div>
+      <div class="spec-card" data-tier="expert"><h3>Max Slots</h3><p>${currentSocket.slots}</p></div>
+      <div class="spec-card" data-tier="expert"><h3>VRM Phases</h3><p>16-18 phase</p></div>
+      <div class="spec-card" data-tier="expert"><h3>PCIe Version</h3><p>PCIe 5.0</p></div>
     `;
   }
 
@@ -66,6 +92,14 @@ class RAMMoboModule {
 
   renderEvolution() {
     if (!this.evolutionContainer) return;
+    this.evolutionContainer.innerHTML = '';
+
+    if ((appState.get('difficulty') || 'beginner') === 'beginner') {
+      this.evolutionContainer.innerHTML = `
+        <p class="tier-locked-note">Switch to Advanced or Expert difficulty (sidebar) to see evolution charts.</p>
+      `;
+      return;
+    }
 
     const vrms = this.motherboard.vrms;
     const chartContainer = document.createElement('div');
@@ -115,6 +149,11 @@ class RAMMoboModule {
     ctx.lineTo(50, height - 30);
     ctx.lineTo(width - 10, height - 30);
     ctx.stroke();
+  }
+
+  updateRAM(index) {
+    this.currentRAM = index;
+    this.renderSpecs('ram');
   }
 }
 

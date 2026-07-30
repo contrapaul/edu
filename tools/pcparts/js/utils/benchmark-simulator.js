@@ -1,11 +1,17 @@
-// Benchmark Simulator for storage drives
+// Storage Race Simulator - multiple drives copy the same file concurrently,
+// each animated at a speed proportional to its real seqRead spec, so the
+// finish order always matches real-world relative performance.
 import data from '../../data/hardware-specs.json';
+
+const MAX_LANES = 4;
+const LANE_COLORS = ['#4a9eff', '#8b5cf6', '#10b981', '#f59e0b'];
 
 class BenchmarkSimulator {
   constructor(container) {
     this.container = container;
-    this.currentDrive = 0;
+    this.selectedDrives = [0, 3, 5]; // a sane default spread: HDD, SATA SSD, modern NVMe
     this.isRunning = false;
+    this.lanes = [];
     this.init();
   }
 
@@ -14,15 +20,16 @@ class BenchmarkSimulator {
   init() {
     this.container.innerHTML = `
       <div class="simulator-controls">
-        <label for="drive-select">Select Drive:</label>
-        <select id="drive-select">
-          <option value="0">Seagate ST340014A (1994) - 4.3GB IDE</option>
-          <option value="1">WD Raptor 150GB (2003) - 150GB SATA</option>
-          <option value="2">Samsung 840 EVO 128GB (2014) - 128GB SATA SSD</option>
-          <option value="3">Samsung 970 EVO Plus 1TB (2018) - 1TB NVMe</option>
-          <option value="4">WD Black SN850X 2TB (2021) - 2TB NVMe</option>
-          <option value="5">Crucial T700 4TB (2024) - 4TB NVMe</option>
-        </select>
+        <label>Select Drives to Race (2-${MAX_LANES}):</label>
+        <div class="drive-checklist" id="drive-checklist">
+          ${this.storage.examples.map((d, i) => `
+            <label class="drive-checkbox">
+              <input type="checkbox" value="${i}" ${this.selectedDrives.includes(i) ? 'checked' : ''}>
+              <span>${d.year} — ${d.model} (${d.interface})</span>
+            </label>
+          `).join('')}
+        </div>
+        <p class="drive-checklist-hint" id="drive-checklist-hint"></p>
 
         <label for="file-size">File Size to Copy:</label>
         <select id="file-size">
@@ -31,92 +38,197 @@ class BenchmarkSimulator {
           <option value="50">50 GB</option>
         </select>
 
-        <button id="run-benchmark" class="simulate-btn">Run Benchmark</button>
+        <button id="run-benchmark" class="simulate-btn">Run Race</button>
       </div>
 
       <div class="benchmark-display" id="benchmark-display" hidden>
-        <h3>Copy Progress</h3>
-        <div class="progress-bar-container">
-          <div class="progress-bar" id="progress-bar"></div>
-        </div>
+        <h3>Copy Race</h3>
+        <div class="race-lanes" id="race-lanes"></div>
         <div class="benchmark-results" id="benchmark-results"></div>
         <div class="latency-visualization" id="latency-viz"></div>
       </div>
     `;
 
-    this.progressBar = document.getElementById('progress-bar');
+    this.checklist = document.getElementById('drive-checklist');
+    this.hint = document.getElementById('drive-checklist-hint');
+    this.laneContainer = document.getElementById('race-lanes');
     this.resultsContainer = document.getElementById('benchmark-results');
     this.latencyContainer = document.getElementById('latency-viz');
     this.benchmarkDisplay = document.getElementById('benchmark-display');
+    this.runButton = document.getElementById('run-benchmark');
 
-    document.getElementById('run-benchmark').addEventListener('click', () => this.runBenchmark());
-    document.getElementById('drive-select').addEventListener('change', (e) => {
-      this.currentDrive = parseInt(e.target.value);
-    });
+    this.checklist.addEventListener('change', () => this.onChecklistChange());
+    this.runButton.addEventListener('click', () => this.runRace());
+
+    this.updateChecklistState();
   }
 
-  runBenchmark() {
-    if (this.isRunning) return;
+  getCheckedIndices() {
+    return [...this.checklist.querySelectorAll('input[type="checkbox"]:checked')]
+      .map(cb => parseInt(cb.value, 10));
+  }
 
-    const driveData = this.storage.examples[this.currentDrive];
-    const fileSizeGB = parseInt(document.getElementById('file-size').value);
+  onChecklistChange() {
+    this.selectedDrives = this.getCheckedIndices();
+    this.updateChecklistState();
+  }
+
+  updateChecklistState() {
+    const checked = this.getCheckedIndices();
+    const atMax = checked.length >= MAX_LANES;
+
+    this.checklist.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.disabled = atMax && !cb.checked;
+    });
+
+    if (atMax) {
+      this.hint.textContent = `Maximum ${MAX_LANES} drives per race — uncheck one to swap.`;
+    } else if (checked.length < 2) {
+      this.hint.textContent = 'Pick at least 2 drives to race.';
+    } else {
+      this.hint.textContent = '';
+    }
+
+    this.runButton.disabled = checked.length < 2;
+  }
+
+  runRace() {
+    if (this.isRunning) return;
+    const drives = this.selectedDrives.map(i => ({ index: i, data: this.storage.examples[i] }));
+    if (drives.length < 2) return;
+
+    const fileSizeGB = parseInt(document.getElementById('file-size').value, 10);
 
     this.isRunning = true;
-    document.getElementById('run-benchmark').disabled = true;
+    this.runButton.disabled = true;
     this.benchmarkDisplay.hidden = false;
+    this.resultsContainer.innerHTML = '';
+    this.latencyContainer.innerHTML = '';
 
-    const speedMBps = driveData.seqRead;
-    const actualTime = fileSizeGB / (speedMBps / 1024);
-    const animTime = Math.min(actualTime * 0.5, 10);
+    // Real transfer time per drive (shown as-is in the results table, so the
+    // true real-world gap is still taught even though the animation is
+    // compressed). Selected drives can span 3 orders of magnitude in speed
+    // (a 1994 HDD vs a 2024 NVMe drive), so the animation is placed on a LOG
+    // scale between the slowest and fastest *selected* drive: this keeps the
+    // finish order always correct (log is monotonic) while guaranteeing every
+    // lane is comfortably spaced out on screen, instead of the fastest drives
+    // collapsing into the same sub-frame instant.
+    const withRealTime = drives.map(drive => ({
+      ...drive,
+      actualTime: fileSizeGB / (drive.data.seqRead / 1024)
+    }));
+    const times = withRealTime.map(d => d.actualTime);
+    const maxActual = Math.max(...times);
+    const minActual = Math.min(...times);
+    const DEMO_MIN_SECONDS = 1;
+    const DEMO_MAX_SECONDS = 8;
 
-    let progress = 0;
-    const startTime = Date.now();
-
-    const animate = () => {
-      const elapsed = (Date.now() - startTime) / 1000;
-      progress = Math.min((elapsed / animTime) * 100, 100);
-
-      this.progressBar.style.width = `${progress}%`;
-      this.progressBar.classList.add('running');
-
-      if (progress < 100) {
-        requestAnimationFrame(animate);
+    this.lanes = withRealTime.map((drive, laneIndex) => {
+      let animTime;
+      if (maxActual === minActual) {
+        animTime = (DEMO_MIN_SECONDS + DEMO_MAX_SECONDS) / 2;
       } else {
-        this.showResults(driveData, fileSizeGB, actualTime);
-        this.isRunning = false;
-        document.getElementById('run-benchmark').disabled = false;
-        this.progressBar.classList.remove('running');
+        const t = (Math.log(drive.actualTime) - Math.log(minActual)) / (Math.log(maxActual) - Math.log(minActual));
+        animTime = DEMO_MIN_SECONDS + t * (DEMO_MAX_SECONDS - DEMO_MIN_SECONDS);
       }
-    };
+      return {
+        ...drive,
+        color: LANE_COLORS[laneIndex % LANE_COLORS.length],
+        animTime,
+        startTime: null,
+        finished: false,
+        finishOrder: null
+      };
+    });
 
-    requestAnimationFrame(animate);
+    this.laneContainer.innerHTML = this.lanes.map((lane, i) => `
+      <div class="race-lane" id="race-lane-${i}">
+        <div class="race-lane-label">
+          <span class="race-lane-rank" id="race-lane-rank-${i}"></span>
+          <span>${lane.data.year} — ${lane.data.model}</span>
+        </div>
+        <div class="progress-bar-container race-lane-track">
+          <div class="progress-bar running" id="race-lane-bar-${i}" style="background: ${lane.color};"></div>
+        </div>
+        <span class="race-lane-readout" id="race-lane-readout-${i}">0 MB/s</span>
+      </div>
+    `).join('');
+
+    this.finishedCount = 0;
+    const startTime = Date.now();
+    this.lanes.forEach(lane => { lane.startTime = startTime; });
+
+    // setInterval rather than requestAnimationFrame: a progress-bar race
+    // doesn't need frame-perfect smoothness, and unlike rAF it keeps running
+    // (throttled, not paused) if the tab loses focus mid-demo.
+    this.raceInterval = setInterval(() => {
+      let allDone = true;
+      const justFinished = [];
+
+      this.lanes.forEach((lane, i) => {
+        if (lane.finished) return;
+        allDone = false;
+
+        const elapsed = (Date.now() - lane.startTime) / 1000;
+        const progress = Math.min((elapsed / lane.animTime) * 100, 100);
+
+        const bar = document.getElementById(`race-lane-bar-${i}`);
+        const readout = document.getElementById(`race-lane-readout-${i}`);
+        if (bar) bar.style.width = `${progress}%`;
+        if (readout) readout.textContent = `${lane.data.seqRead.toLocaleString()} MB/s`;
+
+        if (progress >= 100) {
+          lane.finished = true;
+          justFinished.push(lane);
+        }
+      });
+
+      // A throttled/delayed tick (e.g. a backgrounded tab) can let several
+      // lanes cross their finish line within the same callback. Rank those by
+      // their real completion time (== animTime, since every lane shares the
+      // same startTime) rather than by array/iteration order.
+      justFinished
+        .sort((a, b) => a.animTime - b.animTime)
+        .forEach(lane => {
+          lane.finishOrder = ++this.finishedCount;
+          const i = this.lanes.indexOf(lane);
+          const bar = document.getElementById(`race-lane-bar-${i}`);
+          if (bar) bar.classList.remove('running');
+          const rankEl = document.getElementById(`race-lane-rank-${i}`);
+          if (rankEl) rankEl.textContent = `#${lane.finishOrder}`;
+          const laneEl = document.getElementById(`race-lane-${i}`);
+          if (laneEl) laneEl.addEventListener('click', () => this.showLatency(lane.data));
+        });
+
+      if (allDone) {
+        clearInterval(this.raceInterval);
+        this.showResults(fileSizeGB);
+        this.isRunning = false;
+        this.runButton.disabled = false;
+      }
+    }, 50);
   }
 
-  showResults(drive, fileSizeGB, actualTime) {
-    const timeStr = actualTime < 1 
-      ? `${(actualTime * 1000).toFixed(0)}ms`
-      : `${actualTime.toFixed(1)}s`;
+  showResults(fileSizeGB) {
+    const ranked = [...this.lanes].sort((a, b) => a.finishOrder - b.finishOrder);
 
     this.resultsContainer.innerHTML = `
-      <div class="result-item">
-        <span>Drive</span>
-        <strong>${drive.model}</strong>
-      </div>
-      <div class="result-item">
-        <span>File Size</span>
-        <strong>${fileSizeGB} GB</strong>
-      </div>
-      <div class="result-item">
-        <span>Transfer Speed</span>
-        <strong>${drive.seqRead} MB/s</strong>
-      </div>
-      <div class="result-item">
-        <span>Total Time</span>
-        <strong>${timeStr}</strong>
-      </div>
+      <h3 class="race-results-title">Results — ${fileSizeGB} GB copy</h3>
+      ${ranked.map(lane => {
+        const timeStr = lane.actualTime < 1
+          ? `${(lane.actualTime * 1000).toFixed(0)}ms`
+          : `${lane.actualTime.toFixed(1)}s`;
+        return `
+          <div class="result-item">
+            <span>#${lane.finishOrder} ${lane.data.model}</span>
+            <strong>${timeStr} @ ${lane.data.seqRead.toLocaleString()} MB/s</strong>
+          </div>
+        `;
+      }).join('')}
     `;
 
-    this.showLatency(drive);
+    // Default to the winner's latency breakdown; user can click any finished lane to inspect another.
+    this.showLatency(ranked[0].data);
   }
 
   showLatency(drive) {
@@ -130,7 +242,7 @@ class BenchmarkSimulator {
     const maxLatency = 15;
 
     this.latencyContainer.innerHTML = `
-      <h3>Latency Breakdown</h3>
+      <h3>Latency Breakdown — ${drive.model}</h3>
       ${latencies.map(l => `
         <div class="latency-bar">
           <span class="latency-label">${l.label}</span>
@@ -140,6 +252,7 @@ class BenchmarkSimulator {
           <span class="latency-value">${l.value}ms</span>
         </div>
       `).join('')}
+      <p class="latency-hint">Click any finished lane above to inspect its latency breakdown.</p>
     `;
   }
 }

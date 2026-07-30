@@ -121,7 +121,16 @@ The site includes real hardware specifications for:
 
 ## Deployment
 
-### GitHub Pages
+### GitHub Pages (current setup)
+
+A GitHub Actions workflow (`.github/workflows/deploy-pcparts.yml` at the repo
+root) builds this project with Vite and deploys it automatically on every push
+to `main` that touches `tools/pcparts/`. No manual build/upload step is needed
+as long as that workflow exists and GitHub Pages is set to deploy from
+"GitHub Actions" (Settings → Pages → Source). Manual steps below are only for
+deploying to a different host.
+
+### Manual GitHub Pages
 
 ```bash
 npm run build
