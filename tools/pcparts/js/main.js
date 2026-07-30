@@ -411,3 +411,6 @@ status: "Draft"
 }
 
 export default App;
+
+const app = new App();
+app.init();

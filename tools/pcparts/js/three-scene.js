@@ -26,7 +26,8 @@ class Scene3D {
     this.scene.background = new THREE.Color(0x0a0e17);
 
     // Camera
-    const aspect = this.canvas.clientWidth / this.canvas.clientHeight;
+    const { width, height } = this.getContainerSize();
+    const aspect = width / height;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
     this.camera.position.set(5, 4, 6);
     this.camera.lookAt(0, 0, 0);
@@ -37,7 +38,7 @@ class Scene3D {
       antialias: true,
       alpha: true
     });
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -65,6 +66,17 @@ class Scene3D {
     // Hide loading overlay
     const loading = document.getElementById('loading');
     if (loading) loading.classList.add('hidden');
+  }
+
+  // The canvas is sized via CSS (width/height: 100%), and three.js writes
+  // its resolved pixel size back onto the canvas as an inline style. Reading
+  // canvas.clientWidth/Height would then read that inline style back instead
+  // of the actual available space, so measure the parent container instead.
+  getContainerSize() {
+    return {
+      width: this.canvas.parentElement.clientWidth,
+      height: this.canvas.parentElement.clientHeight
+    };
   }
 
   setupLighting() {
@@ -295,8 +307,7 @@ class Scene3D {
   }
 
   onResize() {
-    const width = this.canvas.clientWidth;
-    const height = this.canvas.clientHeight;
+    const { width, height } = this.getContainerSize();
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height);
