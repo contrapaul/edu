@@ -289,6 +289,8 @@ Need to add ELV Directive recovery-rate chart (85% by 2006, 95% by 2015) and a W
 
 - **C3.1.5** (Benchmarking & opportunities) — ⚠️ Adequate but thin. The weakness-to-opportunity relationship, value proposition mapping and customer reviews are all covered with a good original decision-framework (invest/leave unchanged/discontinue) addition. Missing: MD's discussion of in-house testing's confirmation-bias risk and the case for commissioning independent external labs.
 
+Need to add case study on in-house testing confirmation-bias risk vs. commissioning independent external labs.
+
 - **C3.1.6** (Constructive discontent) — ✅ Comprehensive. The definition (properly quoted), a simple-criticism-vs-constructive-discontent comparison table, and an excellent original knife-block example are all present. MD's specific illustrative techniques (the 90-second-startup example, observing body language, and watching for user "workarounds") aren't individually named, though the general mechanism is well taught.
 
 - **C3.1.7** (Product analysis outcomes) — ✅ Comprehensive. A clean Observe→Analyse→Decide→Iterate synthesis captures MD's intent about as well as or better than the source's own more diffuse treatment.
@@ -301,9 +303,13 @@ Need to add ELV Directive recovery-rate chart (85% by 2006, 95% by 2015) and a W
 
 - **C3.2.1** (LCA and environmental impacts) — ✅ Comprehensive, exceeds MD in technical precision. The LCA definition cites the specific ISO 14040:2006 standard (more precise than MD), the environmental impact categories are presented with named mechanisms and metrics (e.g., kg CO₂e, CTUe) that MD doesn't provide, and there's an excellent bonus "Functional Unit" Key Concept sidebar with worked examples (light bulbs, packaging, vehicles). Missing: MD's narrative about LCA's historical development (it became popular in the early 1990s, and was initially — incorrectly — seen as a marketing tool), the EU's Integrated Product Policy (IPP) concept, and the Fortune 500 sustainability-reporting statistic (with its PRé Consultants citation).
 
+Need to add LCA historical-development timeline (early-1990s origin, EU Integrated Product Policy) and a Fortune 500 sustainability-reporting stat graphic.
+
 - **C3.2.2** (Five stages of LCA) — ✅ Comprehensive, substantially exceeds MD's own quite thin C3.2.2. The five-stage cradle-to-grave table and the hotspot-analysis comparison (conventional vehicle vs. Prius vs. consumer electronics) are detailed and well-sourced, both properly quoting the chapter's own conclusions. A bonus interactive Cradle-to-Grave Stage Sorter reinforces the material well.
 
 - **The missing piece: C3.2.3's Environmental Impact Assessment Matrix** — ❌ Needs expansion. MD's C3.2.3 introduces a specific analytical *technique* — a weighted 0-4 scoring matrix for comparing environmental impact across life-cycle stages, illustrated with a worked fuel-comparison example (diesel vs. biodiesel vs. hydrogen) and a Streamlined LCA (SLCA) concept — that has no equivalent anywhere on the page. Also missing: the designer/manufacturer/user role-responsibility framing (each party's distinct obligations across the product life cycle), and the two named real-world reports MD cites (the EPA Automotive Trends Report and the Transportation Energy Institute's Life Cycle Analysis Comparison). *Expand: the impact-assessment matrix is a genuinely distinct practical technique, not just supporting narrative — it's the one significant structural gap in an otherwise very strong page.*
+
+Need to add Environmental Impact Assessment Matrix worked example (diesel vs. biodiesel vs. hydrogen, 0-4 scoring) and an SLCA (Streamlined LCA) concept graphic.
 
 **C3.2 overall:** Strong on LCA fundamentals and hotspot analysis, but the specific SLCA/impact-assessment-matrix methodology from C3.2.3 — a hands-on technique students could actually apply, not just a concept to know — has no home on the page.
 
