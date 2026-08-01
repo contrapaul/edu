@@ -869,7 +869,7 @@ Show Chinese · 显示中文
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously: the gate's output can briefly flicker to an incorrect state before settling to its correct value. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
+<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously, so for a brief moment the output can sit at the wrong value before it catches up and settles where it should be. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
 <p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly: it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
 <p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate: resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite: it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
 </div>
@@ -915,25 +915,6 @@ Show Chinese · 显示中文
 </tbody>
 </table>
 </div>
-</div>
-</details>
-</div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 5 &middot; 3.4.11 Communication Protocols &middot; 6 marks</div>
-<div class="p2-q-text">Australia shut down its 3G mobile network in October 2024. Even some phones advertised as 4G/5G were blocked from all services, including emergency calls.<br><br>a) Explain why these 4G/5G phones stopped working.<br>b) What is VoLTE and why was it critical for continued service?<br>c) What lessons does this experience hold for designers of embedded systems and connected devices?</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>a) Why 4G/5G phones stopped working:</strong> Many phones marketed as 4G-capable were designed to fall back to the older 3G network for voice calls, because carrying voice natively over 4G requires a separate technology (VoLTE) that not all devices included. When Australia's ACMA shut down the 3G network, this fallback path disappeared. The ACMA then blocked service to all non-VoLTE 4G phones. These phones lost voice calling, SMS and emergency services entirely (despite having functional 4G data radios) because their voice system had no network to connect to.</p>
-<p><strong>b) VoLTE and why it was critical:</strong> VoLTE (Voice over Long-Term Evolution) is a technology that carries voice calls as data packets over the 4G LTE network, rather than switching to a separate circuit-switched voice network (3G or 2G). VoLTE provides clearer HD voice quality, faster call connection times, and the ability to use mobile data simultaneously during a call. It was critical because without it, a 4G phone had no way to make or receive any call, including Triple Zero (000) emergency calls, once 3G was decommissioned.</p>
-<p><strong>c) Lessons for embedded systems designers:</strong></p>
-<ol>
-<li><strong>Do not design permanent dependencies on legacy infrastructure.</strong> The 3G network operated for over 20 years before shutdown. Devices that relied on it (medical alarms, vehicle trackers, personal emergency response systems) became inoperable overnight. Any device that connects to a network must have a migration path when that network is retired.</li>
-<li><strong>Regulatory decisions can disrupt products instantly.</strong> The ACMA's decision affected consumers who believed their 4G phones were fully compliant. Designers must monitor evolving standards and regulatory timelines, particularly for safety-critical devices.</li>
-<li><strong>Essential services must be future-proofed.</strong> Medical alarms and emergency calling systems are life-safety products. They require either guaranteed backward compatibility or mandatory upgrade paths that are tested before legacy networks close.</li>
-<li><strong>Fallback assumptions become liabilities.</strong> Designing "for robustness" by relying on an older technology introduces fragility when that technology is decommissioned. Modular communication hardware (replaceable radio modules) or software-defined radios offer greater long-term resilience.</li>
-</ol>
 </div>
 </details>
 </div>

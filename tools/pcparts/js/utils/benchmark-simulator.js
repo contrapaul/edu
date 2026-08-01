@@ -1,10 +1,31 @@
-// Storage Race Simulator - multiple drives copy the same file concurrently,
-// each animated at a speed proportional to its real seqRead spec, so the
-// finish order always matches real-world relative performance.
+// Storage Race Simulator - multiple drives copy the same file concurrently.
+// Each lane's animation duration is exactly its real transfer time (fileSize /
+// seqRead) - no artificial compression - so what you watch matches the
+// calculated time. Drives too small to hold the selected file are called out
+// instead of racing, which keeps every real transfer time on-screen bounded
+// to something actually watchable.
 import data from '../../data/hardware-specs.json';
 
 const MAX_LANES = 4;
 const LANE_COLORS = ['#4a9eff', '#8b5cf6', '#10b981', '#f59e0b'];
+
+const FILE_SIZES_MB = [
+  { value: 10, label: '10 MB' },
+  { value: 100, label: '100 MB' },
+  { value: 1024, label: '1 GB' },
+  { value: 10240, label: '10 GB' },
+  { value: 102400, label: '100 GB' }
+];
+
+function capacityToMB(capacityStr) {
+  const match = String(capacityStr).match(/([\d.]+)\s*(MB|GB|TB)/i);
+  if (!match) return Infinity;
+  const value = parseFloat(match[1]);
+  const unit = match[2].toUpperCase();
+  if (unit === 'TB') return value * 1024 * 1024;
+  if (unit === 'GB') return value * 1024;
+  return value;
+}
 
 class BenchmarkSimulator {
   constructor(container) {
@@ -33,9 +54,7 @@ class BenchmarkSimulator {
 
         <label for="file-size">File Size to Copy:</label>
         <select id="file-size">
-          <option value="1">1 GB</option>
-          <option value="10" selected>10 GB</option>
-          <option value="50">50 GB</option>
+          ${FILE_SIZES_MB.map(f => `<option value="${f.value}" ${f.value === 100 ? 'selected' : ''}>${f.label}</option>`).join('')}
         </select>
 
         <button id="run-benchmark" class="simulate-btn">Run Race</button>
@@ -97,7 +116,8 @@ class BenchmarkSimulator {
     const drives = this.selectedDrives.map(i => ({ index: i, data: this.storage.examples[i] }));
     if (drives.length < 2) return;
 
-    const fileSizeGB = parseInt(document.getElementById('file-size').value, 10);
+    const fileSizeMB = parseInt(document.getElementById('file-size').value, 10);
+    const fileSizeLabel = FILE_SIZES_MB.find(f => f.value === fileSizeMB)?.label || `${fileSizeMB} MB`;
 
     this.isRunning = true;
     this.runButton.disabled = true;
@@ -105,58 +125,54 @@ class BenchmarkSimulator {
     this.resultsContainer.innerHTML = '';
     this.latencyContainer.innerHTML = '';
 
-    // Real transfer time per drive (shown as-is in the results table, so the
-    // true real-world gap is still taught even though the animation is
-    // compressed). Selected drives can span 3 orders of magnitude in speed
-    // (a 1994 HDD vs a 2024 NVMe drive), so the animation is placed on a LOG
-    // scale between the slowest and fastest *selected* drive: this keeps the
-    // finish order always correct (log is monotonic) while guaranteeing every
-    // lane is comfortably spaced out on screen, instead of the fastest drives
-    // collapsing into the same sub-frame instant.
-    const withRealTime = drives.map(drive => ({
-      ...drive,
-      actualTime: fileSizeGB / (drive.data.seqRead / 1024)
-    }));
-    const times = withRealTime.map(d => d.actualTime);
-    const maxActual = Math.max(...times);
-    const minActual = Math.min(...times);
-    const DEMO_MIN_SECONDS = 1;
-    const DEMO_MAX_SECONDS = 8;
-
-    this.lanes = withRealTime.map((drive, laneIndex) => {
-      let animTime;
-      if (maxActual === minActual) {
-        animTime = (DEMO_MIN_SECONDS + DEMO_MAX_SECONDS) / 2;
-      } else {
-        const t = (Math.log(drive.actualTime) - Math.log(minActual)) / (Math.log(maxActual) - Math.log(minActual));
-        animTime = DEMO_MIN_SECONDS + t * (DEMO_MAX_SECONDS - DEMO_MIN_SECONDS);
-      }
+    // A drive smaller than the file being copied can't run this race at all -
+    // skip the math/animation for it entirely rather than trying to compress
+    // an impossible transfer into a plausible time.
+    this.lanes = drives.map((drive, laneIndex) => {
+      const capacityMB = capacityToMB(drive.data.capacity);
+      const tooLarge = fileSizeMB > capacityMB;
       return {
         ...drive,
         color: LANE_COLORS[laneIndex % LANE_COLORS.length],
-        animTime,
+        tooLarge,
+        capacityMB,
+        // Real transfer time, unscaled - the animation IS the calculated time.
+        actualTime: tooLarge ? null : fileSizeMB / drive.data.seqRead,
         startTime: null,
-        finished: false,
+        finished: tooLarge,
         finishOrder: null
       };
     });
 
     this.laneContainer.innerHTML = this.lanes.map((lane, i) => `
-      <div class="race-lane" id="race-lane-${i}">
+      <div class="race-lane ${lane.tooLarge ? 'race-lane-blocked' : ''}" id="race-lane-${i}">
         <div class="race-lane-label">
           <span class="race-lane-rank" id="race-lane-rank-${i}"></span>
           <span>${lane.data.year} — ${lane.data.model}</span>
         </div>
-        <div class="progress-bar-container race-lane-track">
-          <div class="progress-bar running" id="race-lane-bar-${i}" style="background: ${lane.color};"></div>
-        </div>
-        <span class="race-lane-readout" id="race-lane-readout-${i}">0 MB/s</span>
+        ${lane.tooLarge ? `
+          <p class="race-lane-blocked-note">Too large for this drive — ${lane.data.capacity} capacity can't hold a ${fileSizeLabel} file.</p>
+        ` : `
+          <div class="progress-bar-container race-lane-track">
+            <div class="progress-bar running" id="race-lane-bar-${i}" style="background: ${lane.color};"></div>
+          </div>
+          <span class="race-lane-readout" id="race-lane-readout-${i}">0 MB/s</span>
+        `}
       </div>
     `).join('');
 
+    const racingLanes = this.lanes.filter(lane => !lane.tooLarge);
+
+    if (racingLanes.length === 0) {
+      this.isRunning = false;
+      this.runButton.disabled = false;
+      this.resultsContainer.innerHTML = `<p class="tier-locked-note">None of the selected drives can hold a ${fileSizeLabel} file. Pick a smaller file size or larger drives.</p>`;
+      return;
+    }
+
     this.finishedCount = 0;
     const startTime = Date.now();
-    this.lanes.forEach(lane => { lane.startTime = startTime; });
+    racingLanes.forEach(lane => { lane.startTime = startTime; });
 
     // setInterval rather than requestAnimationFrame: a progress-bar race
     // doesn't need frame-perfect smoothness, and unlike rAF it keeps running
@@ -165,12 +181,13 @@ class BenchmarkSimulator {
       let allDone = true;
       const justFinished = [];
 
-      this.lanes.forEach((lane, i) => {
+      racingLanes.forEach(lane => {
         if (lane.finished) return;
         allDone = false;
 
+        const i = this.lanes.indexOf(lane);
         const elapsed = (Date.now() - lane.startTime) / 1000;
-        const progress = Math.min((elapsed / lane.animTime) * 100, 100);
+        const progress = Math.min((elapsed / lane.actualTime) * 100, 100);
 
         const bar = document.getElementById(`race-lane-bar-${i}`);
         const readout = document.getElementById(`race-lane-readout-${i}`);
@@ -185,10 +202,10 @@ class BenchmarkSimulator {
 
       // A throttled/delayed tick (e.g. a backgrounded tab) can let several
       // lanes cross their finish line within the same callback. Rank those by
-      // their real completion time (== animTime, since every lane shares the
-      // same startTime) rather than by array/iteration order.
+      // their real completion time (== actualTime, since every lane shares
+      // the same startTime) rather than by array/iteration order.
       justFinished
-        .sort((a, b) => a.animTime - b.animTime)
+        .sort((a, b) => a.actualTime - b.actualTime)
         .forEach(lane => {
           lane.finishOrder = ++this.finishedCount;
           const i = this.lanes.indexOf(lane);
@@ -202,22 +219,26 @@ class BenchmarkSimulator {
 
       if (allDone) {
         clearInterval(this.raceInterval);
-        this.showResults(fileSizeGB);
+        this.showResults(fileSizeLabel);
         this.isRunning = false;
         this.runButton.disabled = false;
       }
     }, 50);
   }
 
-  showResults(fileSizeGB) {
-    const ranked = [...this.lanes].sort((a, b) => a.finishOrder - b.finishOrder);
+  showResults(fileSizeLabel) {
+    const finished = this.lanes.filter(lane => !lane.tooLarge);
+    const ranked = [...finished].sort((a, b) => a.finishOrder - b.finishOrder);
+    const blocked = this.lanes.filter(lane => lane.tooLarge);
 
     this.resultsContainer.innerHTML = `
-      <h3 class="race-results-title">Results — ${fileSizeGB} GB copy</h3>
+      <h3 class="race-results-title">Results — ${fileSizeLabel} copy</h3>
       ${ranked.map(lane => {
         const timeStr = lane.actualTime < 1
           ? `${(lane.actualTime * 1000).toFixed(0)}ms`
-          : `${lane.actualTime.toFixed(1)}s`;
+          : lane.actualTime < 60
+            ? `${lane.actualTime.toFixed(1)}s`
+            : `${Math.floor(lane.actualTime / 60)}m ${Math.round(lane.actualTime % 60)}s`;
         return `
           <div class="result-item">
             <span>#${lane.finishOrder} ${lane.data.model}</span>
@@ -225,10 +246,16 @@ class BenchmarkSimulator {
           </div>
         `;
       }).join('')}
+      ${blocked.map(lane => `
+        <div class="result-item result-item-blocked">
+          <span>${lane.data.model}</span>
+          <strong>Too large (${lane.data.capacity} capacity)</strong>
+        </div>
+      `).join('')}
     `;
 
     // Default to the winner's latency breakdown; user can click any finished lane to inspect another.
-    this.showLatency(ranked[0].data);
+    if (ranked.length) this.showLatency(ranked[0].data);
   }
 
   showLatency(drive) {

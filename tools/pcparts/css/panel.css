@@ -370,6 +370,23 @@
   text-align: right;
 }
 
+.race-lane-blocked {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.race-lane-blocked-note {
+  font-size: 0.8rem;
+  color: var(--accent-red);
+  background: var(--bg-dark);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+}
+
+.result-item-blocked strong {
+  color: var(--text-secondary);
+}
+
 .race-results-title {
   grid-column: 1 / -1;
   margin-bottom: 0.5rem;
