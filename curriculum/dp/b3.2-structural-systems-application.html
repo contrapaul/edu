@@ -67,11 +67,6 @@
 <div class="curr-body" id="body-study">
 <p class="curr-section-intro">Building on the structural theory in <a href="a3.2-structural-systems.html">A3.2</a>, this topic applies structural analysis to real products: calculating stress, interpreting stress-strain graphs, reading force diagrams, and designing with safety factors.</p>
 
-<div class="zh-toggle-wrap">
-<input type="checkbox" id="zh-toggle" class="zh-toggle-input">
-<label for="zh-toggle" class="zh-toggle">显示中文 Show Chinese</label>
-</div>
-
 <div class="obj-list">
 
 <div class="obj-section" id="obj-3.2.1">
@@ -81,9 +76,6 @@
 </button>
 <div class="obj-body" id="obj-body-b3.2.1">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Analyse and model the forces acting on and within the structure of existing products and be able to suggest how existing structures can be strengthened.</p>
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>A <strong>structure</strong> is any system of interconnected parts designed to support loads and resist forces without unacceptable deformation or failure. Structures appear in every product: a chair's legs, a mobile phone's chassis, a bicycle frame, a bridge deck, and a skyscraper's core are all structures serving the same fundamental purpose.</p>
 
 <p><strong>Five types of stress act on structures:</strong></p>
@@ -109,35 +101,6 @@
 <li><strong>Other loads</strong>: Foundation settlement, machinery vibration, impact (collision), blast.</li>
 </ul>
 <p>Designers analyse structures by identifying all load types, determining how they combine in the worst-case scenario, and ensuring every structural member can carry its share of those combined loads with an adequate safety margin.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>结构</strong>是任何旨在承受荷载和抵抗力而不发生不可接受变形或失效的互连部件系统。结构出现在每件产品中：椅腿、手机底盘、自行车车架、桥面板和摩天大楼核心筒都是服务于同一基本目的的结构。</p>
-
-<p><strong>五种应力类型作用于结构：</strong></p>
-<ol>
-<li><strong>拉伸</strong>——试图拉长材料的拉力。拉伸应力在横截面上<em>均匀</em>分布。<em>例子</em>：悬索桥缆绳；拔河绳；桁架下弦杆。</li>
-<li><strong>压缩</strong>——试图缩短材料的推力。与拉伸一样，压缩应力在横截面上<em>均匀</em>分布。<em>例子</em>：建筑柱；椅腿；桁架上弦杆；坝中混凝土。</li>
-<li><strong>剪切</strong>——使一部分在相邻部分上滑动的力。剪切应力<em>不均匀</em>——在<strong>中性轴处最大</strong>，在<strong>外表面为零</strong>。剪切有三种形式：
-<ul>
-<li><em>单剪切</em>：单个剪切面——如连接两个重叠板的单个螺栓。τ = F / A</li>
-<li><em>双剪切</em>：两个剪切面——如叉形接头中的销。τ = F / 2A</li>
-<li><em>冲切剪力</em>：冲头穿过板。τ = F / (π × d × t)</li>
-</ul>
-</li>
-<li><strong>扭转</strong>——使一端相对于另一端旋转的扭曲力（扭矩）。扭转应力在<strong>表面最大</strong>，在<strong>中心为零</strong>。这就是为什么<em>空心轴</em>在扭转方面与相同外径的实心轴强度相同——中心处的材料几乎没有贡献——但空心轴明显更轻。<em>例子</em>：汽车传动轴；螺丝刀刀头；钻头。</li>
-<li><strong>弯曲（挠曲应力）</strong>——在梁的一个面上产生<em>拉伸</em>，在对面产生<em>压缩</em>，由<strong>中性轴</strong>（零应力）分隔。弯曲应力在<strong>最外层纤维处最大</strong>。这就是工字梁将材料集中在翼缘（顶部和底部）的原因——那里弯曲应力最高——而腹板保持薄以抵抗剪切。</li>
-</ol>
-
-<p><strong>荷载类型：</strong></p>
-<ul>
-<li><strong>恒载</strong>：永久、恒定的重量——结构本身加固定附件。不随时间变化。</li>
-<li><strong>活载</strong>：可变、临时的荷载——人、家具、车辆、存储货物。必须估计最坏的可信情况。</li>
-<li><strong>环境荷载</strong>：风压、雨、积雪、地震地面运动、热膨胀和收缩。动态且不可预测。</li>
-<li><strong>其他荷载</strong>：基础沉降、机械振动、冲击（碰撞）、爆炸。</li>
-</ul>
-</div>
-</div>
 
 <div class="topic-link-blurb">Structures rarely act alone: how a structural frame supports and constrains the moving mechanical parts within a product is developed in <a href="b3.3-mechanical-systems-application.html">B3.3 Mechanical Systems Application</a>.</div>
 
@@ -151,9 +114,6 @@
 </button>
 <div class="obj-body" id="obj-body-b3.2.2">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate Young's Modulus using the formula E = σ / ε, and interpret stress-strain graphs identifying Young's Modulus, yield strength, ultimate strength and fracture.</p>
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>Stress (σ)</strong> is the internal force per unit cross-sectional area that a material develops in response to an applied load:</p>
 <p class="content-formula">σ = F / A &nbsp;&nbsp; [Pa or MPa; note: 1 N/mm² = 1 MPa]</p>
 <p>Where F = applied force (N) and A = cross-sectional area (m² for Pa; mm² for MPa). Use mm² consistently to work in MPa directly.</p>
@@ -184,32 +144,7 @@
 <p class="content-formula">σ = F / A = 80,000 N / 20 mm² = 4,000 MPa</p>
 <p class="content-formula">ε = ΔL / L₀ = 0.1 mm / 50 mm = 0.002</p>
 <p class="content-formula">E = σ / ε = 4,000 MPa / 0.002 = 2,000,000 MPa = 200 GPa ✓ (consistent with steel)</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>应力（σ）</strong>是材料响应施加荷载而产生的单位横截面积内力：</p>
-<p class="content-formula">σ = F / A &nbsp;&nbsp; [Pa或MPa；注：1 N/mm² = 1 MPa]</p>
 
-<p><strong>应变（ε）</strong>是由该应力引起的长度分数变化：</p>
-<p class="content-formula">ε = ΔL / L₀ &nbsp;&nbsp; [无量纲——无单位]</p>
-
-<p><strong>杨氏模量（E）</strong>——刚度——是应力-应变图弹性（线性）区域中应力与应变的比值：</p>
-<p class="content-formula">E = σ / ε &nbsp;&nbsp; [GPa或MPa]</p>
-<p>E是应力-应变曲线直线部分的斜率。斜率越陡 = 材料越刚硬。钢：E ≈ 200 GPa。铝：E ≈ 70 GPa。橡胶：E ≈ 0.01–0.1 GPa。</p>
-
-<p><strong>读取应力-应变图——关键点：</strong></p>
-<ol>
-<li><strong>弹性（线性）区域</strong>：应力和应变成正比（胡克定律）。斜率 = E。移除荷载后材料恢复原始形状。</li>
-<li><strong>弹性极限/比例极限</strong>：应力-应变关系不再线性的应力点。低于此点，变形完全可逆。</li>
-<li><strong>屈服点（屈服强度，σ_y）</strong>：永久（塑性）变形开始的应力。一旦超过，卸载后材料不会恢复原始形状。</li>
-<li><strong>验证应力（无明显屈服点的材料）</strong>：铝合金、钛合金和铜没有明确的屈服点。<strong>0.2%验证应力</strong>通过在应变轴上偏移0.2%绘制平行于弹性区域的线来确定。该线与应力-应变曲线的交点即为验证应力。</li>
-<li><strong>极限抗拉强度（UTS）</strong>：图表上的最大应力——曲线的峰值。超过此点，材料开始颈缩（局部变薄）。</li>
-<li><strong>颈缩</strong>：韧性材料在UTS后发生的局部横截面积减小。材料在一点变薄，承载能力下降。</li>
-<li><strong>断裂点</strong>：材料最终断裂的位置。在韧性材料中，屈服和断裂之间有显著的塑性变形。在脆性材料中，断裂几乎没有塑性变形。</li>
-</ol>
-<p><strong>温度影响</strong>：对于普通碳钢，杨氏模量随温度升高而<em>降低</em>。</p>
-</div>
-</div>
 </div>
 </div>
 
@@ -220,9 +155,6 @@
 </button>
 <div class="obj-body" id="obj-body-b3.2.3">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Identify why a structure has failed, including interpreting data from finite element analysis (FEA).</p>
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>Structural failure occurs when stress in any part of a structure exceeds the material's capacity to resist it. Failure modes fall into four main categories:</p>
 <ol>
 <li><strong>Overloading</strong>: Applied loads exceed what the structure was designed for. Causes include unexpected live loads, dynamic impacts, or failure to account for cumulative loading.</li>
@@ -252,30 +184,6 @@
 <li>Verify that a proposed design meets safety factor requirements.</li>
 </ul>
 <p>Interpreting FEA output: a region shown in red that coincides with a geometric feature (hole, fillet, notch) is a stress concentration: the designer should increase the radius of the fillet, add a gusset plate, or choose a stronger material for that region. A large region of uniform low stress (blue) indicates over-engineered material that could be removed to reduce weight.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>结构失效发生在结构任何部分的应力超过材料抵抗能力时。失效模式分为四个主要类别：</p>
-<ol>
-<li><strong>超载</strong>：施加的荷载超过结构设计承受的范围。原因包括意外活载、动力冲击或未能考虑累积荷载。</li>
-<li><strong>错误的材料选择</strong>：强度、韧性或耐腐蚀性不足以应对使用环境的材料。</li>
-<li><strong>错误的尺寸或形状</strong>：对于荷载过薄的截面，或在缺口、孔或截面突变（应力集中点）处集中应力的几何形状。疲劳裂纹几乎总是在应力集中处萌生。</li>
-<li><strong>屈曲</strong>：细长受压构件特有的失效模式。当细长柱在压缩下加载时，它可能突然横向偏转并在远低于其抗压强度的荷载下倒塌。</li>
-</ol>
-
-<p><strong>案例研究——魁北克大桥坍塌（1907年）：</strong></p>
-<p>在建设中，南锚臂坍塌，86名工人中75人遇难。主要原因是<strong>严重低估了结构自重</strong>——计算重量为30,857吨，但实际重量后来发现为36,408吨。这导致下弦杆中的压缩应力超过材料的屈曲抵抗力。屈曲迹象已被观察到并报告了近一个月，但工作继续进行。在正式向总工程师报告屈曲后两小时，桥梁坍塌。</p>
-
-<p><strong>案例研究——塔科马海峡大桥坍塌（1940年）：</strong></p>
-<p>塔科马海峡大桥以其细长著称：高跨比为1:350（当时典型值为1:84）。其浅板梁侧面对风起实墙作用，而不是像开放桁架那样让气流通过。一场67千米/小时的大风引发了耦合弯扭振荡（气动弹性颤振）——路面以增大的幅度扭转直到桥面撕裂。</p>
-
-<p><strong>案例研究——热那亚莫兰迪大桥坍塌（2018年）：</strong></p>
-<p>失效原因是桥梁独特的钢筋混凝土桥塔内<strong>钢缆数十年的腐蚀</strong>，以及<strong>预应力混凝土的劣化</strong>。原始设计将斜拉索嵌入混凝土护套内——这种设计阻止了对钢材的检查或更换。腐蚀隐蔽地发展，直到缆索系统无法承载桥梁的恒载。</p>
-
-<p><strong>有限元分析（FEA）：</strong></p>
-<p>FEA是一种将复杂结构划分为数千个微小元素的计算方法。软件施加荷载和约束，然后计算每个元素处的应力、应变和位移。结果以<strong>色彩图</strong>（应力等值线图）显示：红色/橙色区域表示最高应力，绿色和蓝色表示较低应力。设计师使用FEA识别应力集中点、优化截面形状并验证安全系数要求。</p>
-</div>
-</div>
 
 <div class="concept-box">
 <div class="concept-box-label">Key concept</div>
@@ -327,9 +235,6 @@
 </button>
 <div class="obj-body" id="obj-body-b3.2.4">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Interpret simple force diagrams for a given structure.</p>
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>Engineers represent forces and their effects using standardised diagrams. Three types are essential for structural analysis:</p>
 
 <p><strong>1. Free Body Diagrams (FBDs)</strong></p>
@@ -367,36 +272,6 @@
 <p><strong>Uniformly distributed loads (UDL):</strong> Expressed in kN/m. A UDL of 5 kN/m over 4 m is equivalent to a point load of 20 kN at the midpoint of the span for the purpose of calculating support reactions. The total UDL force = w × L where w is load intensity (kN/m) and L is span length (m).</p>
 
 <p><strong>Cantilever beams:</strong> Fixed at one end, free at the other. The fixed support must resist both vertical force and bending moment. The maximum bending moment in a cantilever occurs at the fixed end, not in the middle. <em>Examples</em>: Stadium roof canopies, balconies, aircraft wings. A UDL on a cantilever of length L and intensity w gives: maximum bending moment M_max = w × L² / 2 at the fixed end.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>工程师使用标准化图表表示力及其效果。结构分析有三种必备类型：</p>
-
-<p><strong>1. 自由体图（FBD）</strong></p>
-<p>自由体图将单个物体（或结构截面）隔离，并以向量形式显示所有作用于其上的外力——箭头表示方向和大小。FBD是每次结构计算的起点。规则：孤立地绘制物体；显示每个外力（施加荷载、支座反力）；标记每个力的大小和方向；显示坐标系统。</p>
-
-<p><strong>2. 力多边形（首尾相接的向量加法）</strong></p>
-<p>当多个力作用于一点时，可以用图解法找到它们的合力。将每个力向量按比例绘制，将每个箭头的尾部放在前一个的尖端。合力是从起点到最终尖端的向量。如果力处于平衡状态，多边形闭合——这是ΣF = 0的图形等价。</p>
-
-<p><strong>3. 支座反力</strong></p>
-<p>必须使用两个平衡方程找到所有支座的反力：</p>
-<p class="content-formula">ΣF = 0 &nbsp;&nbsp; 和 &nbsp;&nbsp; ΣM = 0</p>
-<ul>
-<li><strong>滚轴支座</strong>：仅提供垂直于表面的反力。一个未知数：R_垂直。</li>
-<li><strong>铰支座</strong>：提供任意方向的反力——垂直和水平分量。两个未知数。</li>
-</ul>
-
-<p><strong>4. 剪力图（SFD）</strong></p>
-<p>剪力图绘制梁沿长度每个截面处的内部剪力。集中荷载在图中引起垂直跳跃；均布荷载引起线性斜坡。</p>
-
-<p><strong>5. 弯矩图（BMD）</strong></p>
-<p>弯矩图绘制每个截面的内部弯矩。关键规则：<strong>最大弯矩发生在剪力为零处</strong>。BMD是SFD下的面积。集中荷载产生三角形形状；均布荷载产生抛物线曲线。</p>
-
-<p><strong>均布荷载（UDL）：</strong>以kN/m表示。总UDL力 = w × L。</p>
-
-<p><strong>悬臂梁：</strong>一端固定，另一端自由。最大弯矩发生在固定端。带UDL的悬臂梁：M_max = w × L² / 2。</p>
-</div>
-</div>
 
 <div class="diagram-widget" id="simulator-b324">
 <div class="drag-sort-label">Interactive</div>
@@ -461,9 +336,6 @@
 </button>
 <div class="obj-body" id="obj-body-b3.2.5">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Calculate SFs using the formula SF = Ultimate Load (Stress) / Allowable Load (Stress); calculate maximum intended loads for given structures; and design structures with an SF.</p>
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>The <strong>safety factor</strong> (also called factor of safety, FOS) is the ratio of a structure's ultimate strength to the maximum stress it is designed to carry in service:</p>
 <p class="content-formula">SF = Ultimate Load (or Stress) / Allowable Load (or Stress)</p>
 <p>Rearranged to find allowable working stress:</p>
@@ -512,34 +384,7 @@
 
 <p><strong>Safety factors degrade over time (the Genoa Morandi lesson):</strong></p>
 <p>The Morandi Bridge was designed with an adequate SF at opening in 1967. Over 50 years, corrosion of the embedded steel cables progressively reduced their cross-sectional area and tensile strength, effectively lowering the actual SF year by year. By 2018, the SF for the corroded cables had fallen below 1, and the bridge collapsed. The lesson: the SF at the time of construction is not the SF in service. Infrastructure monitoring, regular inspection, and maintenance are required to keep the actual SF above the design SF throughout the structure's intended life.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>安全系数</strong>（FOS）是结构极限强度与设计服务中承载最大应力的比值：</p>
-<p class="content-formula">SF = 极限荷载（或应力）/ 许用荷载（或应力）</p>
-<p>整理以找到许用工作应力：</p>
-<p class="content-formula">σ_工作 = UTS / SF</p>
-<p>最大工作荷载：</p>
-<p class="content-formula">F_工作 = σ_工作 × A = (UTS / SF) × A</p>
 
-<p><strong>为什么使用安全系数？</strong>真实结构在不完美、不可预测且不断变化的条件下运行。SF在九个类别中吸收不确定性：荷载确定性、设计寿命、制造质量、失效后果、环境影响、关键性、可修复性、材料性能确定性和法规要求。</p>
-
-<div class="content-table-wrap">
-<table class="content-table">
-<thead><tr><th>应用</th><th>典型SF</th><th>主要原因</th></tr></thead>
-<tbody>
-<tr><td>桥梁和建筑</td><td>1.5–3</td><td>长设计寿命；公共安全；难以检查</td></tr>
-<tr><td>飞机结构</td><td>1.2–2</td><td>重量关键；冗余系统；严格认证</td></tr>
-<tr><td>起重设备</td><td>4–6</td><td>动力冲击荷载；无冗余；钢缆磨损</td></tr>
-<tr><td>压力容器</td><td>3.5–5</td><td>灾难性爆炸性失效；内容物腐蚀</td></tr>
-</tbody>
-</table>
-</div>
-
-<p><strong>安全系数随时间退化——热那亚莫兰迪的教训：</strong></p>
-<p>莫兰迪大桥在1967年开放时设计了足够的SF。在50年里，嵌入式钢缆的腐蚀逐渐减小了其横截面积和抗拉强度——实际上逐年降低了实际SF。到2018年，腐蚀钢缆的SF已降至1以下，桥梁坍塌。教训：施工时的SF不是使用中的SF。需要基础设施监测、定期检查和维护，以在结构设计寿命内将实际SF保持在设计SF以上。</p>
-</div>
-</div>
 </div>
 </div>
 
@@ -838,11 +683,6 @@ The bridge had an unprecedented slenderness: depth-to-span ratio of 1:350 (typic
 <li class="ref-item">
 <span class="ref-item-title">Hooke's Law and Young's Modulus — PhET interactive simulation</span>
 <span class="ref-item-desc">University of Colorado simulation showing elastic deformation. Available free at phet.colorado.edu; search "Hooke's Law".</span>
-</li>
-
-<li class="ref-item">
-<span class="ref-item-title">百度百科 — 杨氏模量 (Young's Modulus)</span>
-<span class="ref-item-desc">中文参考，涵盖刚度、应力-应变关系和典型材料属性值。在百度百科搜索"杨氏模量"。</span>
 </li>
 
 </ol>

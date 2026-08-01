@@ -78,13 +78,6 @@
 <div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Mechanical Systems Application — B3.3"></div>
 </div>
 
-<div class="lang-toggle-bar">
-<label class="lang-toggle-label">
-<input type="checkbox" id="zh-toggle" class="lang-toggle-checkbox">
-Show Chinese · 显示中文
-</label>
-</div>
-
 <div class="obj-list">
 
 <!-- 3.3.1 ─────────────────────────────────────────────────── -->
@@ -98,9 +91,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Belt drive diagram showing drive pulley, driven pulley, and belt"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>Mechanical advantage (MA)</strong> is the ratio of the output load to the input effort in a machine. For a belt drive or pulley system, MA is determined by the ratio of pulley diameters, or equivalently by the inverse ratio of rotational speeds:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">MA = Load / Effort = d₂ / d₁ = N₁ / N₂</p>
 <p>where d₂ is the <em>driven</em> (output) pulley diameter, d₁ is the <em>drive</em> (input) pulley diameter, N₁ is the input speed and N₂ is the output speed.</p>
@@ -110,20 +100,6 @@ Show Chinese · 显示中文
 <li>If d₂ &lt; d₁ (MA &lt; 1): output speed increases, output torque decreases: a <em>speed multiplier</em>.</li>
 </ul>
 <p><strong>Characteristics of belt drives:</strong> Belts transmit power by friction between belt and pulley. They are quiet, cost-effective, and can span large distances between shafts. Under heavy loads, belts can slip: this protects components from shock overload but reduces efficiency and speed accuracy. V-belts wedge into grooves to increase friction and reduce slip.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>机械优势（MA）</strong>是机器输出载荷与输入力之比。对于带传动或滑轮系统，MA由带轮直径之比决定，也等于转速之反比：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">MA = 载荷 / 力 = d₂ / d₁ = N₁ / N₂</p>
-<p>其中 d₂ 为从动（输出）带轮直径，d₁ 为主动（输入）带轮直径，N₁ 为输入转速，N₂ 为输出转速。</p>
-<p><strong>对扭矩和转速的影响：</strong></p>
-<ul>
-<li>若 d₂ &gt; d₁（MA &gt; 1）：输出扭矩增大，输出转速降低——起<em>力的放大</em>作用。</li>
-<li>若 d₂ &lt; d₁（MA &lt; 1）：输出转速增大，输出扭矩减小——起<em>速度放大</em>作用。</li>
-</ul>
-<p><strong>带传动特点：</strong>皮带依靠与带轮之间的摩擦力传递动力。传动噪音小、成本低，且能跨越轴间较大距离。在重载下皮带可能打滑，这在保护机构免受冲击的同时会降低效率和速度精度。V形带楔入槽内，可增大摩擦力并减少打滑。</p>
-</div>
-</div>
 
 <p style="font-size:0.82rem;font-weight:600;margin:1.25rem 0 0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-family:var(--font-mono);">Worked example (belt drive MA)</p>
 <div class="content-table-wrap">
@@ -229,9 +205,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Crossed belt drive and compound belt drive diagrams"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>The <strong>velocity ratio (VR)</strong> describes how much the rotational speed changes from input to output. VR and MA are reciprocals: a system that multiplies force (MA &gt; 1) reduces speed (VR &lt; 1) by the same factor.</p>
 <p>For a simple belt drive or pulley:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = N₂ / N₁ = d₁ / d₂</p>
@@ -240,19 +213,6 @@ Show Chinese · 显示中文
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
 <p><strong>For gear trains</strong>, VR is calculated using the number of teeth instead of pulley diameters:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = T_driven / T_driver = N_driver / N_driven</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>速比（VR）</strong>描述旋转速度从输入到输出的变化程度。VR与MA互为倒数——放大力的系统（MA &gt; 1）会以同等比例降低转速（VR &lt; 1）。</p>
-<p>对于简单带传动或滑轮：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = N₂ / N₁ = d₁ / d₂</p>
-<p><strong>交叉带传动</strong>使从动带轮的旋转方向相反——皮带在两带轮间交叉。速比公式不变，仅方向不同。</p>
-<p><strong>复合带传动</strong>将多组带轮串联。两个带轮共用同一轴，当第一个从动带轮转动时驱动下一级。总速比为各级速比之积：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
-<p><strong>对于齿轮系</strong>，速比用齿数代替带轮直径计算：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = 从动齿轮齿数 / 主动齿轮齿数 = 主动转速 / 从动转速</p>
-</div>
-</div>
 
 <div class="content-table-wrap">
 <table class="content-table">
@@ -281,9 +241,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Power flow diagram showing input power, losses and output power"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>Efficiency (η)</strong> is the fraction of input power that reaches the output as useful work. No real machine reaches 100%: some energy is always lost to friction and heat.</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">η = (P_out / P_in) × 100%</p>
 <p><strong>Power in gear systems</strong> is the product of torque and angular velocity:</p>
@@ -299,26 +256,6 @@ Show Chinese · 显示中文
 <li><strong>Bearing friction</strong>: shaft bearings absorb some input power.</li>
 <li><strong>Belt slip</strong>: the belt slides slightly on the pulley under heavy load, reducing speed accuracy and transmitting less power.</li>
 </ul>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>效率（η）</strong>是输出功率占输入功率的比例。任何真实机械都无法达到100%效率——总有部分能量因摩擦转化为热量而损失。</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">η = （P_out / P_in）× 100%</p>
-<p><strong>齿轮系统功率</strong>——功率是扭矩与角速度的乘积：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = τ × ω &nbsp;&nbsp; 其中 ω = N × (2π / 60) rad/s</p>
-<p>将rpm转换为rad/s，需乘以2π再除以60。</p>
-<p><strong>带传动功率</strong>——功率由皮带紧边与松边张力之差传递：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">P = F_E × v_belt &nbsp;&nbsp; 其中 F_E = T₊ − T₋</p>
-<p>T₊ 为紧边张力，T₋ 为松边张力。带速 v_belt = π × d₁ × N₁ / 60（m/s，d₁ 单位为米）。</p>
-<p><strong>实际系统功率损失原因：</strong></p>
-<ul>
-<li><strong>齿面摩擦</strong>——齿面相互滑动时，能量转化为热量，是大多数齿轮系的主要损耗。</li>
-<li><strong>搅油损失</strong>——齿轮和皮带在润滑油或润滑脂中运动产生阻力。</li>
-<li><strong>轴承摩擦</strong>——轴承吸收部分输入功率。</li>
-<li><strong>皮带打滑</strong>——重载时皮带在带轮上轻微滑动，降低速度精度并减少功率传递。</li>
-</ul>
-</div>
-</div>
 
 <div class="topic-link-blurb">The choice of material affects every one of these loss mechanisms, from gear tooth wear resistance to belt friction coefficients, as discussed in <a href="b3.1-material-selection.html">B3.1 Material Selection</a>.</div>
 
@@ -356,26 +293,12 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Compound gear train diagram showing multiple gear pairs on shared shafts"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>Gear and belt systems are selected by designers to achieve specific combinations of speed, torque and direction. Choosing the right system requires calculating what will happen at each stage of the mechanism.</p>
 <p><strong>Direction of rotation in gear trains:</strong> In a simple gear train, adjacent gears rotate in opposite directions. An <em>idler gear</em> placed between two gears reverses direction again: the output then turns the same way as the input without changing the speed ratio. Belts and pulleys do not reverse direction (unless crossed).</p>
 <p><strong>Compound gear trains</strong> mount two gears on a shared shaft. This allows large speed changes in a compact space. The total velocity ratio is the product of each gear pair's ratio:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
 <p><strong>Calculating speed at multiple stages:</strong> Work stage by stage. For each gear pair: N_out = N_in × (T_driver / T_driven). For each belt stage: N_out = N_in × (d_drive / d_driven).</p>
 <p><strong>Overdrive gearboxes</strong> have VR &lt; 1, meaning output speed is greater than input speed but output torque is reduced. Used in bicycle derailleur top gears and vehicle transmissions during motorway cruising, where higher speed and less force are needed.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>设计师通过选择齿轮和带传动系统来实现特定的转速、扭矩和旋转方向组合。选择合适的系统需要计算机构中每个阶段的变化。</p>
-<p><strong>齿轮系中的旋转方向：</strong>在简单齿轮系中，相邻齿轮旋转方向相反。在两齿轮之间加入<em>惰轮</em>可再次反转方向，使输出与输入同向旋转，而不改变总速比。皮带和带轮不会改变旋转方向（除非使用交叉带传动）。</p>
-<p><strong>复合齿轮系</strong>将两个齿轮安装在同一轴上，可在紧凑空间内实现大幅度的速度变化。总速比是每对齿轮速比的乘积：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
-<p><strong>多级转速计算：</strong>逐级计算。对每对齿轮：N_out = N_in × （T_driver / T_driven）。对每级带传动：N_out = N_in × （d_drive / d_driven）。</p>
-<p><strong>超速传动</strong>的VR &lt; 1，即输出转速大于输入转速，但输出扭矩减小。应用于自行车变速器最高挡和汽车高速公路行驶档——此时需要较高速度而非较大力。</p>
-</div>
-</div>
 
 <div class="topic-link-blurb">Calculated gear ratios only hold up if the gears are manufactured to the required tolerances; how production systems achieve this precision is covered in <a href="b4.1-production-systems.html">B4.1 Production Systems</a>.</div>
 
@@ -422,9 +345,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Cam and follower diagram showing cam profile with rise, fall and dwell phases"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>A <strong>cam</strong> is a specially shaped rotating component. A <strong>follower</strong> is held against its surface and is pushed up and down as the cam rotates, converting continuous <strong>rotary motion</strong> into <strong>reciprocating</strong> (back-and-forth) motion. The cam's profile (its outline shape) determines exactly how the follower moves.</p>
 <p><strong>Cam motion phases:</strong></p>
 <ul>
@@ -439,25 +359,6 @@ Show Chinese · 显示中文
 <li><strong>Sewing machine stitch cams</strong>: interchangeable cam profiles produce different reciprocating needle patterns, creating different stitches (zigzag, blind hem) without altering any other part of the machine. Different cam shapes encode different stitch programs.</li>
 <li><strong>Internal combustion engine camshaft</strong>: driven at half the crankshaft speed, each cam lobe pushes open an intake or exhaust valve at a precisely timed moment. The cam profile controls valve lift (how far it opens), duration (how long), and timing (when). Once the lobe rotates past, a valve spring closes the valve.</li>
 </ul>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>凸轮</strong>是一种形状特殊的旋转零件。<strong>从动件</strong>紧压其表面，随凸轮旋转而上下运动——将连续的<strong>旋转运动</strong>转换为<strong>往复运动</strong>（来回运动）。凸轮的轮廓（外形）决定了从动件的运动方式。</p>
-<p><strong>凸轮运动阶段：</strong></p>
-<ul>
-<li><strong>升程</strong>——随凸轮半径增大，从动件远离凸轮中心。</li>
-<li><strong>回程</strong>——随凸轮半径减小，从动件回向中心。</li>
-<li><strong>停歇</strong>——凸轮半径恒定时，从动件保持静止。</li>
-</ul>
-<p><strong>从动件类型：</strong>尖端从动件（精确但磨损快）、滚子从动件（减小摩擦，适用于大多数场合）、平底从动件（适用于轮廓平缓的高速凸轮）。</p>
-<p><strong>历史发展：</strong><strong>中国汉朝</strong>（公元前206年至公元220年）的舂碓（动力锤）利用水车驱动凸轮产生锤击动作——这是旋转运动转换为往复运动最早的应用之一。12世纪，<strong>伊斯梅尔·贾扎里</strong>在其著作《精妙机械装置知识之书》中描述了可编程凸轮轴。他的"机械侍者"自动机利用隐藏轴上的凸轮叶产生一系列受控动作——这是机械编程的早期形式。</p>
-<p><strong>现代应用：</strong></p>
-<ul>
-<li><strong>缝纫机线迹凸轮</strong>——可更换的凸轮轮廓为针杆产生不同的往复运动，形成不同的线迹（锯齿形、暗缝），无需更换机器其他部件。不同的凸轮形状编码不同的线迹程序。</li>
-<li><strong>内燃机凸轮轴</strong>——以曲轴一半的转速运转，每个凸轮叶在精确时刻推开进气阀或排气阀。凸轮轮廓控制阀门升程（开启程度）、持续时间（开启时长）和正时（开启时刻）。凸轮叶转过后，阀门弹簧将阀门关闭。</li>
-</ul>
-</div>
-</div>
 
 </div>
 </div><!-- /3.3.5 -->
@@ -473,26 +374,12 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Three classes of levers showing positions of fulcrum, effort and load with examples"></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>A <strong>lever</strong> is a rigid beam that rotates about a fixed point called the <strong>fulcrum (F)</strong>. By varying the positions of the effort (E) and load (L) relative to the fulcrum, a lever can multiply force, speed, or distance.</p>
 <p><strong>Equilibrium condition</strong>: for a lever in balance, the turning moments on each side of the fulcrum must be equal:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">E × effort arm = L × load arm &nbsp;&nbsp; → &nbsp;&nbsp; MA = load arm / effort arm</p>
 <p><strong>Oblique forces</strong>: when a force acts at angle θ to the lever rather than perpendicular to it, only the perpendicular component creates a turning moment. Giovanni Batista Benedetti (16th century) recognised this and showed the effective force can be resolved using trigonometry:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">(E × sin θ) × effort arm = L × load arm</p>
 <p><strong>Biomechanics (Giovanni Alfonso Borelli, 1608–1679)</strong>, the father of biomechanics, proved that most joints in the human body act as <em>third-class levers</em>. Muscle insertion points sit close to the joint (very short effort arm), so large muscular forces produce small loads but move the limb end through a large distance. Human body levers are <em>speed and distance magnifiers</em>, not force multipliers: a design essential for throwing, writing, reaching and all fine motor skills. If the body used second-class levers at the elbow, we would be extraordinarily strong but too slow for daily tasks.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>杠杆</strong>是绕固定点旋转的刚性杆——固定点即<strong>支点（F）</strong>。通过改变力（E）和载荷（L）相对于支点的位置，杠杆可以放大力、速度或距离。</p>
-<p><strong>平衡条件</strong>——杠杆处于平衡时，支点两侧的转矩必须相等：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">力 × 力臂 = 载荷 × 阻力臂 &nbsp;&nbsp; → &nbsp;&nbsp; MA = 阻力臂 / 力臂</p>
-<p><strong>斜向力</strong>——当力以角度θ作用于杠杆（而非垂直）时，只有其垂直分量产生转矩。乔瓦尼·巴蒂斯塔·贝内代蒂（16世纪）认识到这一点，并证明可用三角法求有效力：</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">（E × sin θ）× 力臂 = 载荷 × 阻力臂</p>
-<p><strong>生物力学——乔瓦尼·阿尔方索·博雷利（1608–1679）</strong>，生物力学之父，他证明了人体大多数关节作为<em>第三类杠杆</em>运作。肌肉附着点靠近关节（极短力臂），因此大肌肉力产生较小的载荷，但肢体末端移动较大距离。人体杠杆是<em>速度和距离的放大器</em>，而非力的放大器——这对于投掷、书写、伸展和所有精细运动技能至关重要。</p>
-</div>
-</div>
 
 <div class="content-table-wrap">
 <table class="content-table">

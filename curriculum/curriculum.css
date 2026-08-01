@@ -399,72 +399,6 @@
   margin-bottom: 0.3rem;
 }
 
-/* ── CHINESE LANGUAGE TOGGLE ─────────────────────────────────── */
-.lang-toggle-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0 0 1.25rem;
-}
-.lang-toggle-label {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  cursor: pointer;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-  user-select: none;
-  transition: color var(--transition);
-}
-.lang-toggle-label:hover { color: var(--text); }
-.lang-toggle-checkbox {
-  accent-color: var(--curr-color, var(--accent));
-  width: 14px; height: 14px;
-  cursor: pointer;
-}
-
-/* ── BILINGUAL BLOCK ─────────────────────────────────────────── */
-.bilingual-block {
-  display: grid;
-  grid-template-columns: 1fr;   /* single-column by default (ZH hidden) */
-  gap: 1rem;
-  margin: 1rem 0;
-}
-body.zh-on .bilingual-block {
-  grid-template-columns: 1fr 1fr;
-}
-/* Hide the second lang-col (Chinese) by default */
-.bilingual-block .lang-col:last-child { display: none; }
-body.zh-on .bilingual-block .lang-col:last-child { display: block; }
-
-.lang-col {
-  padding: 1.1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-}
-.lang-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 0.65rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
-}
-.lang-en { font-size: 0.88rem; line-height: 1.7; color: var(--text); }
-.lang-zh {
-  font-size: 0.92rem;
-  line-height: 1.85;
-  color: var(--text);
-  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
-               'Segoe UI', Arial, sans-serif;
-}
 .content-placeholder {
   font-size: 0.82rem;
   color: var(--muted);
@@ -476,28 +410,28 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 .curr-body > p:not([class]) { margin-bottom: 1.1rem; }
 .curr-body > p:not([class]):last-child { margin-bottom: 0; }
 
-/* ── BARE PROSE SPACING (unclassed p/ul/ol inside lang-col) ──────
+/* ── BARE PROSE SPACING (unclassed p/ul/ol inside study-guide copy) ──
    Global reset zeroes all margin/padding, so plain <p>/<ul>/<ol>
    written directly into study-guide copy touch their neighbours
-   and bullets hang past the text edge. Scoped to lang-col (rather
+   and bullets hang past the text edge. Scoped to .obj-body (rather
    than a component's own class) so it only reaches bare tags and
    never overrides a component's own spacing (e.g. .concept-box > p,
    .checklist, .product-card ul). */
-.lang-col p:not([class]) { margin: 0 0 1rem; }
-.lang-col p:not([class]):last-child { margin-bottom: 0; }
+.obj-body p:not([class]) { margin: 0 0 1rem; }
+.obj-body p:not([class]):last-child { margin-bottom: 0; }
 
-.lang-col ul:not([class]),
-.lang-col ol:not([class]) {
+.obj-body ul:not([class]),
+.obj-body ol:not([class]) {
   margin: 0.5rem 0 1.1rem;
   padding-left: 1.4rem;
 }
-.lang-col ul:not([class]) li,
-.lang-col ol:not([class]) li {
+.obj-body ul:not([class]) li,
+.obj-body ol:not([class]) li {
   margin-bottom: 0.4rem;
   line-height: 1.65;
 }
-.lang-col ul:not([class]) li:last-child,
-.lang-col ol:not([class]) li:last-child { margin-bottom: 0; }
+.obj-body ul:not([class]) li:last-child,
+.obj-body ol:not([class]) li:last-child { margin-bottom: 0; }
 
 /* ── QUIZ COMPONENT ──────────────────────────────────────────── */
 .quiz-wrap { margin-top: 0.25rem; }
@@ -1097,10 +1031,10 @@ body.zh-on .bilingual-block .lang-col:last-child { display: block; }
 .content-table-wrap { overflow-x: auto; margin: 1.25rem 0; }
 .content-table-wrap .content-table { margin: 0; }
 
-/* Bilingual inline data tables (lang-col). Same treatment as
-   .content-table, plus roomier cell padding and width:100% so
-   narrow tables (2-4 cols) don't sit flush-left with a wall of
-   empty space to the right of the last column. */
+/* Wide table variant: same treatment as .content-table, plus
+   roomier cell padding and width:100% so narrow tables (2-4 cols)
+   don't sit flush-left with a wall of empty space to the right
+   of the last column. */
 .curr-table {
   width: 100%;
   border-collapse: collapse;

@@ -291,14 +291,6 @@
     });
   });
 
-  /* ── CHINESE LANGUAGE TOGGLE ───────────────────────────────── */
-  var zhToggle = document.getElementById('zh-toggle');
-  if (zhToggle) {
-    zhToggle.addEventListener('change', function () {
-      document.body.classList.toggle('zh-on', this.checked);
-    });
-  }
-
   /* ── EXPAND ALL / COLLAPSE ALL ──────────────────────────────── */
   var currMain = document.querySelector('.curr-main');
   if (currMain && sectionTriggers.length) {

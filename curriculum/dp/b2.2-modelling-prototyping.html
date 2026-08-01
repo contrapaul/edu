@@ -9,14 +9,14 @@
 <link rel="stylesheet" href="../themes.css">
 <style>
 /* ── DRAWING-TYPE SUB-HEADINGS (2.2.1) ────────────────────────── */
-.lang-col h4 {
+.obj-body h4 {
   font-family: var(--font-display);
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text);
   margin: 1.25rem 0 0.5rem;
 }
-.lang-col h4:first-child { margin-top: 0; }
+.obj-body h4:first-of-type { margin-top: 0; }
 
 /* .case-photo and .case-lightbox (captioned photos with click-to-enlarge)
    now live in curriculum.css so every topic page can use the same pattern,
@@ -94,13 +94,6 @@
 <div class="curr-section-intro-photo"><img class="curr-section-intro-img" src="" alt="Modelling and Prototyping — B2.2"></div>
 </div>
 
-<div class="lang-toggle-bar">
-<label class="lang-toggle-label">
-<input type="checkbox" id="zh-toggle" class="lang-toggle-checkbox">
-Show Chinese · 显示中文
-</label>
-</div>
-
 <div class="obj-list">
 
 <!-- 2.2.1 ─────────────────────────────────────────────────── -->
@@ -112,9 +105,6 @@ Show Chinese · 显示中文
 <div class="obj-body" id="obj-body-b2.2.1">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Construct and interpret 2D drawings and 3D models, including isometric, orthographic projection, assembly and exploded drawings.</p>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>Drawings are the most fundamental form of design communication: they allow designers to share ideas with manufacturers, engineers, clients and users without requiring physical models. Different drawing types serve different audiences and purposes:</p>
 
 <figure class="case-photo">
@@ -162,19 +152,6 @@ Show Chinese · 显示中文
 
 <h4>Perspective renderings</h4>
 <p>Perspective renderings use one or more vanishing points to create a realistic sense of depth. They do not preserve true dimensions but communicate the overall appearance and feel of a product convincingly to non-technical clients and investors. They're <em>also</em> a great excuse to use way more colors in your work.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>图纸是最基本的设计交流形式——它们允许设计师与制造商、工程师、客户和用户分享想法，无需物理模型。不同的图纸类型服务于不同的受众和目的：</p>
-<ul>
-<li><strong>等轴测图</strong>从角落视角展示物体，所有水平边缘使用30°角。该名称来源于希腊语"等量测量"，因为沿三个轴的真实尺寸都得以保留。物体的三个面同时可见，使等轴测图非常适合向技术培训有限的受众展示。</li>
-<li><strong>正交投影图</strong>展示多个二维视图——通常是正面、顶部和侧面——每个视图垂直投影到平面上。这些视图共同传达精确的尺寸、公差和表面规格。这是制造业和工程领域的标准，因为它对形状和尺寸没有任何歧义。</li>
-<li><strong>爆炸图</strong>展示零件如何沿装配轴分离，以便观看者了解零件如何组合在一起。最早已知的例子之一由列奥纳多·达·芬奇在约1478-1480年创作。</li>
-<li><strong>装配图</strong>展示多个组件如何组合成一个功能系统。它们通常包含物料清单（BoM）——每个零件的编号列表——与图纸上的标注标签相关联。</li>
-<li><strong>透视渲染图</strong>使用一个或多个消失点创造真实的深度感。它们不保留真实尺寸，但能令非技术客户和投资者信服地传达产品的整体外观和感觉。</li>
-</ul>
-</div>
-</div>
 
 <div class="topic-link-blurb">The dimensioning, tolerancing and scale conventions that make an orthographic drawing manufacturing-ready are covered in <a href="b2.1-design-process.html">B2.1 The Design Process</a> (2.1.14 Technical Drawings).</div>
 
@@ -192,9 +169,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>Physical prototypes exist on a spectrum of <strong>fidelity</strong>: how closely they match the final product in appearance, materials and function. Choosing the right fidelity for each stage of development is a critical design decision.</p>
 <p><strong>Low-fidelity prototypes</strong> (cardboard, foam, tape, paper) are fast and cheap to build. They test core concepts, spatial relationships and rough proportions without committing to materials or manufacturing. Dyson famously used cardboard models extensively during development of the DC08 vacuum. The "fail fast, fail cheap" principle applies: expose problems early when changes cost almost nothing.</p>
 <p><strong>Medium-fidelity prototypes</strong> have more accurate shape and proportions and may include some working features, but often use substitute materials (e.g., 3D-printed plastic instead of die-cast aluminium). They provide a useful balance between cost and realism for user ergonomic testing and stakeholder review.</p>
@@ -206,22 +180,6 @@ Show Chinese · 显示中文
 <li><strong>Hybrid prototypes</strong>: combine both for comprehensive testing</li>
 </ul>
 <p>Considerations of <strong>scale</strong> (is it 1:1 or reduced?), <strong>shape</strong> (are ergonomic dimensions accurate?) and <strong>space</strong> (does it fit its intended environment?) affect which prototype type is appropriate at each stage.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>物理原型存在于<strong>保真度</strong>的连续谱上——即它们在外观、材料和功能上与最终产品的匹配程度。为每个开发阶段选择合适的保真度是一个关键的设计决策。</p>
-<p><strong>低保真原型</strong>（纸板、泡沫、胶带、纸张）快速且廉价。它们测试核心概念、空间关系和粗略比例，而无需在材料或制造上做出承诺。戴森在DC08吸尘器的开发过程中大量使用纸板模型。"快速失败，低成本失败"原则在此适用：在改变几乎不需要任何成本时就早早暴露问题。</p>
-<p><strong>中保真原型</strong>具有更准确的形状和比例，可能包括一些功能部件，但通常使用替代材料（例如，3D打印塑料代替压铸铝）。它们在成本和真实性之间提供了有效的平衡，适用于用户人体工程学测试和利益相关者审查。</p>
-<p><strong>高保真原型</strong>使用最终材料，理想情况下使用最终制造工艺。它们产生有意义的性能数据——任务完成率、错误率、满意度评分——这是早期原型无法做到的。此阶段的更改成本高昂，因此在此投资之前，概念必须已经得到充分验证。</p>
-<p>原型还按<strong>目的</strong>分类：</p>
-<ul>
-<li><strong>美学原型</strong> — 专注于外观、手感、表面纹理和视觉标识；无需发挥功能</li>
-<li><strong>功能原型</strong> — 演示工作机制和性能；外观可能与最终产品不同</li>
-<li><strong>混合原型</strong> — 结合两者以进行全面测试</li>
-</ul>
-<p><strong>比例</strong>（是否为1:1或缩小比例？）、<strong>形状</strong>（人体工程学尺寸是否准确？）和<strong>空间</strong>（是否适合预期环境？）的考量影响每个阶段适合使用哪种原型类型。</p>
-</div>
-</div>
 
 <div class="topic-link-blurb">Prototyping fidelity and the specific techniques used to build each level are introduced from a broader design perspective in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>.</div>
 
@@ -239,9 +197,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>CAD (Computer-Aided Design)</strong> has become an integrated environment for ideation, refinement, simulation and communication. Rather than producing drawings alone, modern CAD platforms allow a single model to generate technical drawings, photorealistic renders, FEA simulations and manufacturing data.</p>
 <p>CAD models fall into three main categories:</p>
 <ul>
@@ -250,19 +205,6 @@ Show Chinese · 显示中文
 <li><strong>Virtual models</strong> exist entirely in digital space but behave as if physical. They require the designer to set parameters for the model, such as what material a part is made with. They are analysed, tested and iterated without any physical materials. Combined with FEA and simulation software, virtual models allow designers to test failure modes, ergonomic fit and assembly sequences before any prototype is built.</li>
 </ul>
 <p><strong>Generative design</strong> is an emerging CAD approach in which the designer supplies constraints (load conditions, material, manufacturing method, weight targets) and an algorithm explores thousands of design permutations, often producing organic lattice structures that no human would draw intuitively, yet which meet all specifications at minimum material weight. Depending on your specific CAD program you might be able to try using this feature, but note that it isn't typically <em>free</em>, and that it isn't necessarily suitable for 3D printing applications.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>CAD（计算机辅助设计）</strong>已成为构思、完善、模拟和交流的综合环境。现代CAD平台允许单一模型生成技术图纸、照片级渲染图、FEA模拟和制造数据，而不仅仅是绘图。</p>
-<p>CAD模型分为三个主要类别：</p>
-<ul>
-<li><strong>曲面模型</strong>仅将物体的外部"皮肤"表示为一系列数学定义的曲面，没有任何封闭体积。它们广泛用于空气动力学和有机形状——汽车车身面板、消费电子外壳——其中形态和曲率质量是主要关注点。曲面模型无法直接计算质量、体积或重心。</li>
-<li><strong>实体模型</strong>同时包含曲面和封闭体积。它们可以计算重量、重心、惯性矩和材料体积——所有这些对工程分析都至关重要。实体模型支持制造模拟，如模具填充分析和数控刀具路径生成，也可直接导出到FEA软件。大多数参数化CAD工具（SOLIDWORKS、Fusion 360、Onshape）主要使用实体模型。</li>
-<li><strong>虚拟模型</strong>完全存在于数字空间中，但表现得如同物理模型。它们在不使用任何物理材料的情况下进行分析、测试和迭代。结合FEA和模拟软件，虚拟模型允许设计师在构建任何原型之前测试故障模式、人体工程学适配和装配序列。</li>
-</ul>
-<p><strong>生成式设计</strong>是一种新兴的CAD方法，设计师提供约束条件——载荷条件、材料、制造方法、重量目标——然后算法探索数千种设计组合，通常产生有机格状结构，这是人类直觉上不会绘制的，但在最小材料重量下满足所有规格。</p>
-</div>
-</div>
 
 <div class="hub-group-label"><span>Case Study</span></div>
 <div class="case-study-grid">
@@ -294,9 +236,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>Finite Element Analysis (FEA)</strong> is a computer simulation technique that predicts how a virtual model will behave under applied forces, heat, pressure or motion. The software divides the model into a mesh of small, simple elements (triangles or tetrahedra) and mathematically calculates stress, strain and displacement at every node in the mesh. Results are typically displayed as colour contour plots: regions under the highest stress appear red, low-stress regions appear blue.</p>
 <p>Key failure modes FEA identifies:</p>
 <ul>
@@ -305,19 +244,6 @@ Show Chinese · 显示中文
 <li><strong>Buckling</strong>: sudden structural instability under compressive load. Slender columns and thin-walled sections are particularly vulnerable; FEA predicts the critical buckling load before physical testing.</li>
 </ul>
 <p>FEA allows designers to test and refine virtual models without building physical prototypes, significantly reducing development cost and time. However, results are only as reliable as the mesh quality, material data and boundary conditions: garbage in, garbage out.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>有限元分析（FEA）</strong>是一种计算机模拟技术，用于预测虚拟模型在施加力、热、压力或运动下的行为。该软件将模型划分为小型简单元素的网格——三角形或四面体——并在网格中的每个节点处数学计算应力、应变和位移。结果通常显示为彩色等值线图：承受最高应力的区域显示为红色，低应力区域显示为蓝色。</p>
-<p>FEA识别的关键失效模式：</p>
-<ul>
-<li><strong>屈服</strong> — 材料停止弹性行为（卸载后恢复原始形状）并开始塑性变形（卸载后残留永久变形）的时刻。大多数结构部件在使用中必须保持在屈服强度以下。章节用一个手机壳从2米高度跌落的FEA模拟说明了这一点：红色区域标记了壳体在撞击时会屈服的位置。</li>
-<li><strong>高应力区域</strong> — 孔洞、尖锐角、薄截面或几何形状突变周围的局部应力集中区域。设计师通过添加倒角、加强筋或增加材料厚度来解决这些问题。</li>
-<li><strong>屈曲</strong> — 在压缩载荷下突然发生的结构不稳定性。细长柱和薄壁截面尤其容易发生；FEA在物理测试之前预测临界屈曲载荷。</li>
-</ul>
-<p>FEA允许设计师在不构建物理原型的情况下测试和完善虚拟模型，显著降低开发成本和时间。然而，结果的可靠性取决于网格质量、材料数据和边界条件——输入垃圾，输出垃圾。</p>
-</div>
-</div>
 
 <div class="diagram-widget" id="fea-b224">
 <div class="drag-sort-label">Interactive</div>
@@ -396,9 +322,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p><strong>Rapid prototyping</strong> uses digital CAD models to produce physical objects directly, without manual machining or tooling. The three principal additive manufacturing processes are:</p>
 <ul>
 <li><strong>Stereolithography (SLA)</strong>: an ultraviolet laser traces cross-sections of the model onto a vat of photosensitive resin, curing each layer. Produces very high surface quality and fine detail; widely used for aesthetic and dental/medical prototypes. Resin parts are typically brittle.</li>
@@ -406,18 +329,6 @@ Show Chinese · 显示中文
 <li><strong>Selective Laser Sintering (SLS)</strong>: a laser fuses powder (nylon, glass-filled nylon, metal) layer by layer. No support structures are needed because unfused powder supports the part during build. Produces durable functional prototypes with complex internal geometries; expensive and requires specialist equipment.</li>
 </ul>
 <p><strong>CAD model requirements for rapid prototyping:</strong> The model must be a watertight solid with no open surfaces, gaps or self-intersecting geometry. It is exported as an STL (stereolithography) file, which approximates curved surfaces as a mesh of triangles. Resolution (triangle count) must be high enough to preserve fine details. Wall thickness must meet minimum thresholds for the chosen process to avoid fragile or failed builds.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p><strong>快速原型制作</strong>使用数字CAD模型直接生产物理对象，无需手动加工或工装。三种主要的增材制造工艺是：</p>
-<ul>
-<li><strong>立体光固化（SLA）</strong> — 紫外激光在光敏树脂槽上描绘模型的横截面，固化每一层。产生非常高的表面质量和精细细节；广泛用于美学和牙科/医疗原型。树脂零件通常较脆。</li>
-<li><strong>熔融沉积建模（FDM）</strong> — 热塑性细丝（PLA、ABS、PETG）被熔化并逐层挤出。最易获得且最实惠的工艺，桌面机器即可使用。层线可见；表面质量低于SLA，但功能零件更坚韧。</li>
-<li><strong>选择性激光烧结（SLS）</strong> — 激光逐层烧结粉末（尼龙、玻纤尼龙、金属）。由于未烧结的粉末在构建过程中支撑零件，因此不需要支撑结构。可生产具有复杂内部几何形状的耐用功能原型；成本高昂，需要专业设备。</li>
-</ul>
-<p><strong>快速原型制作的CAD模型要求：</strong>模型必须是无开放曲面、间隙或自相交几何形状的水密实体。它导出为STL（立体光固化）文件，将弯曲曲面近似为三角形网格。分辨率（三角形数量）必须足够高以保留精细细节。壁厚必须满足所选工艺的最小阈值，以避免构建失败或零件脆弱。</p>
-</div>
-</div>
 
 <div class="concept-box">
 <div class="concept-box-label">Key concept</div>
@@ -466,9 +377,6 @@ Show Chinese · 显示中文
 
 <figure class="obj-figure"><img class="obj-img" src="" alt=""></figure>
 
-<div class="bilingual-block">
-<div class="lang-col">
-<span class="lang-label">English</span>
 <p>No single prototype type is right for every audience or purpose. Selecting the appropriate modelling tool for each stakeholder group is a core design skill:</p>
 <ul>
 <li><strong>End users</strong> need to experience ergonomics, comfort and usability. Physical prototypes at appropriate fidelity (even rough foam) are more informative than drawings. Users generate qualitative feedback ("it feels too heavy") and quantitative data (task completion times, error counts).</li>
@@ -477,19 +385,6 @@ Show Chinese · 显示中文
 <li><strong>Manufacturers</strong> require production-ready technical drawings, tolerances, material specifications and assembly sequences. A bill of materials and detailed assembly drawing communicates everything needed to quote and produce the part.</li>
 </ul>
 <p>The iterative process means feedback from one stakeholder group informs the next prototype. A user session revealing grip problems triggers a shape change; the new shape is validated with FEA before a revised physical prototype is built. Matching prototype type to audience and question (not defaulting to the highest fidelity available) is what makes iteration efficient.</p>
-</div>
-<div class="lang-col">
-<span class="lang-label">中文</span>
-<p>没有单一的原型类型适合每种受众或目的。为每个利益相关者群体选择合适的建模工具是核心设计技能：</p>
-<ul>
-<li><strong>最终用户</strong>需要体验人体工程学、舒适度和可用性。适当保真度的物理原型——即使是粗糙的泡沫——也比图纸更有信息量。用户产生定性反馈（"感觉太重了"）和定量数据（任务完成时间、错误计数）。</li>
-<li><strong>客户</strong>会对视觉外观和与简报的一致性做出反应。高质量的透视渲染图、标注的CAD可视化或美学原型在不需要功能模型的情况下传达品牌标识和整体方向。</li>
-<li><strong>工程师</strong>需要尺寸精度、材料数据和性能预测。正交图纸、实体CAD模型和FEA输出为工程师提供评估可行性和识别制造风险所需的信息。</li>
-<li><strong>制造商</strong>需要生产就绪的技术图纸、公差、材料规格和装配顺序。物料清单和详细的装配图传达了报价和生产零件所需的一切。</li>
-</ul>
-<p>迭代过程意味着一个利益相关者群体的反馈会指导下一个原型。用户测试发现握持问题触发形状更改；新形状在构建修订后的物理原型之前通过FEA验证。将原型类型与受众和问题相匹配——而不是默认使用最高保真度——才能使迭代高效。</p>
-</div>
-</div>
 
 </div>
 </div><!-- /2.2.6 -->
@@ -790,11 +685,6 @@ Show Chinese · 显示中文
 <div class="ref-item">
 <div class="ref-item-head"><span class="ref-item-num">9</span><span class="ref-item-title"><a href="https://designjournalsos.blogspot.com/2013/01/drawing-basics-isometric-drawing.html" target="_blank" rel="noopener">Designjournalsos – "Drawing Basics: Isometric Drawing"</a></span></div>
 <p class="ref-item-desc">A Design and Technology blog by Daniel Lim with clear visual examples of isometric drawing, referenced in 2.2.1.</p>
-</div>
-
-<div class="ref-item">
-<div class="ref-item-head"><span class="ref-item-num">10</span><span class="ref-item-title">Baidu Baike – 有限元分析 (Finite Element Analysis)</span></div>
-<p class="ref-item-desc">Chinese-language reference covering FEA principles and the concept of yielding. Search: "百度百科 有限元分析".</p>
 </div>
 
 </div><!-- /curr-body body-refs -->
