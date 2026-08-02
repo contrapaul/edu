@@ -104,7 +104,7 @@
 <!-- Contact -->
 <div class="contact-block">
 <h2 class="section-title">Get in touch</h2>
-<p>Suggestions, corrections, collaboration — always happy to hear from teachers and students.</p>
+<p>Whether you share suggestions, corrections, or ideas for collaboration, I'm always happy to hear from teachers and students.</p>
 <form class="contact-form" id="contact-form" novalidate>
 <label class="contact-field">
 <span class="contact-label">Name</span>
@@ -213,7 +213,7 @@
 
     /* Honeypot: real users never fill this hidden field */
     if ((fd.get('company') || '').trim()) {
-      setStatus('Thanks — your message has been sent.', 'success');
+      setStatus('Thanks! Your message has been sent.', 'success');
       form.reset();
       return;
     }
@@ -239,7 +239,7 @@
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (res.ok) {
-          setStatus('Thanks — your message has been sent.', 'success');
+          setStatus('Thanks! Your message has been sent.', 'success');
           form.reset();
         } else {
           setStatus(body.error || 'Something went wrong. Please use the email link below.', 'error');
