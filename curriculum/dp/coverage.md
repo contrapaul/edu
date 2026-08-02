@@ -423,7 +423,7 @@ Need to add Jacquard's 1804 punch-card loom historical image — direct ancestor
 
 - **A3.1.1** (Classifying materials) — ⚠️ Adequate but thin. The physical/chemical/mechanical three-category framework, Aristotle's four-element system, and the advantages of classification (CES EduPack, Ashby charts) are all covered well, with a bonus Interactive Material Selection Game. Missing: the Three-Ages System (C.J. Thomsen, 1826, Stone/Bronze/Iron Age) and the periodic table's development as a classification tool (Mendeleev 1869, Moseley's 1913 revision to atomic number) — both distinct historical classification systems MD covers at length that have no equivalent on the page.
 
-Need to add periodic table of elements- can build as an activity that shows course-related uses of elements.
+Complete! Need to add periodic table of elements- can build as an activity that shows course-related uses of elements.
 
 Need to add metal classificiation chart showing ferrous and non-ferrous. 
 
@@ -431,11 +431,11 @@ Need to add a chart of composites that breaks down by matrix or reinforcement.
 
 - **A3.1.2** (Material categories, frame/shell/solid) — ✅ Comprehensive. Natural/human-made origin categories (timbers, polymers, metals, glass, textiles, composites, smart materials, biomaterials) are all covered, and the frame/shell/solid/combination structural forms are sensibly summarised here with a pointer to full depth in A3.2, where MD's own content on this topic actually lives in more detail.
 
-Need to add images showing solid, shell, and combination structures. 
+Need to add images showing solid, Complete! shell, Complete! frame and combination structures. 
 
 - **A3.1.3** (Material selection) — ✅ Comprehensive, exceeds MD. MD's treatment is thin (a paragraph on CAD property tables); the HTML adds a proper Ashby chart explainer (with a worked "stiffness above 50 GPa and density below 3000 kg/m³" example) and a structured six-factor selection framework MD never lays out explicitly.
 
-Ensure students are linked to central-middlezhong-adventure.html on this. 
+Complete! Need to ensure students are linked to central-middlezhong-adventure.html on this. 
 
 - **A3.1.4** (Physical properties) — ⚠️ Adequate but thin. Density, thermal expansion, thermal conductivity, melting point and electrical conductivity/resistivity are all covered with good quantitative examples (aluminium vs. steel density, the mild-steel expansion coefficient). Missing: the deeper explanatory mechanisms MD provides — why intermolecular/metallic bond strength determines melting point (with the ice/hydrogen-bond and mercury examples), and the electron-scattering explanation of why resistivity rises with temperature.
 
@@ -499,7 +499,7 @@ Need to create an activity allowing students to explore forces on a structure.
 
 - **A3.2.6** (Young's Modulus in material selection) — ✅ Comprehensive, exceeds MD. Reconstructs MD's missing "table of structural materials by modulus" (an MD limitation) from scratch with ten materials from rubber to graphene, and adds clear design-implication guidance MD only gestures at.
 
-Add a table detailing materials, modulus of elasticity, and applications.
+Need to add a table detailing materials, modulus of elasticity, and applications.
 
 - **A3.2.7** (Equilibrium and structural failure) — ✅ Comprehensive, exceeds MD. Both equilibrium conditions (ΣF=0, ΣM=0) and all four failure causes match MD, plus a fatigue/de Havilland Comet example MD doesn't include and an interactive Load and Equilibrium Clicker.
 
@@ -537,7 +537,7 @@ Need to create a Lego representation of a salad spinner and others.
 
 - **A3.3.6** (Gear systems) — ⚠️ Adequate but thin, bordering on needing expansion. Spur, bevel, hypoid, rack and pinion, worm, ratchet and pawl, idler and compound gears are all covered accurately with applications. Missing: helical gears as a distinct category (a gear type MD gives significant advantages/disadvantages/applications detail to, and one of the most common real-world gear types in automotive transmissions), ring/girth gears, and spline shafts — three named categories from MD's eleven-part gear taxonomy with no equivalent on the page. *Expand: helical gears are the most consequential omission here given their prevalence in the real world MD is drawing examples from.*
 
-Need to create many gear representations using Lego gears. 
+Complete! Need to create many gear representations using Lego gears. 
 
 - **A3.3.7** (Belt and chain drives) — ✅ Comprehensive, exceeds MD. Flat/V/toothed belt types, chain drives, and the 19th-century lineshaft history are all covered accurately and organised more clearly than MD's own paragraph structure.
 
@@ -545,7 +545,7 @@ Need to create belt demonstrations using Lego technic.
 
 - **A3.3.8** (Cams) — ⚠️ Adequate but thin. Pear, circular/eccentric, triangular, oval and snail cam profiles are all covered accurately with good applications (including retaining the Agricola cam-and-hammer connection). Missing: the heart-shaped cam — a seventh, distinct MD profile (Post Office master clocks, sewing-machine bobbin winders, modern dishwasher/washing-machine controllers) with no equivalent on the page.
 
-Need to create a demonstration of cams using Lego technic. 
+Complete! Need to create a demonstration of cams using Lego technic. 
 
 - **A3.3.9** (Levers) — ✅ Comprehensive. All three lever classes are covered with the core human-body examples (head/neck for 1st class, tiptoe/calf for 2nd class, bicep curl and knee extension for 3rd class) and correct MA reasoning. MD's Archimedes attribution/quote and a couple of secondary body examples (ankle plantarflexion, elbow extension via triceps) are dropped but the essential teaching content is intact.
 
