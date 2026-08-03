@@ -281,6 +281,57 @@
 <p>A <strong>storyboard</strong> is a visual tool used to map a user's journey through a product experience or task sequence. Like a comic strip, it breaks the journey into discrete frames: each showing the user, their action, their environment and their emotional state at that moment. Storyboards make user journeys visible, shareable and open to critique within the design team.</p>
 <p><strong>Pain points</strong> are moments in the journey where the user experiences friction, frustration or failure. They are design opportunities: each pain point is a place where a better design could improve the experience. A storyboard is an effective tool for identifying and communicating pain points because it preserves the sequence and context of the problem, not just the problem itself.</p>
 
+<div class="mclass-diagram">
+<div class="mclass-diagram-label">Storyboard</div>
+<h4 class="mclass-diagram-title">User journey: the fridge door that won't quite seal</h4>
+<p class="mclass-diagram-hint">Hover or focus a frame for a quick note, or click it for the full story beat, including the pain point it reveals.</p>
+<div class="storyboard-strip">
+
+<button type="button" class="storyboard-frame" data-modal="modal-frame-shop" data-tip="Home from the shop with exactly the bottles the door shelves were designed for.">
+<span class="storyboard-frame-num">1</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">Home from the shop</span>
+</button>
+<span class="storyboard-arrow" aria-hidden="true">&rarr;</span>
+
+<button type="button" class="storyboard-frame" data-modal="modal-frame-loading" data-tip="Every door shelf filled with bottles, exactly as intended.">
+<span class="storyboard-frame-num">2</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">Loading the door shelves</span>
+</button>
+<span class="storyboard-arrow" aria-hidden="true">&rarr;</span>
+
+<button type="button" class="storyboard-frame" data-modal="modal-frame-closing" data-tip="The loaded door swings heavier and needs an extra push to feel shut.">
+<span class="storyboard-frame-num">3</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">Pushing the door shut</span>
+</button>
+<span class="storyboard-arrow" aria-hidden="true">&rarr;</span>
+
+<button type="button" class="storyboard-frame storyboard-frame--pain" data-modal="modal-frame-gap" data-tip="Pain point: the loaded shelves flex the door just enough to break the seal.">
+<span class="storyboard-frame-num">4</span>
+<span class="storyboard-frame-tag">Pain point</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">The gap nobody notices</span>
+</button>
+<span class="storyboard-arrow" aria-hidden="true">&rarr;</span>
+
+<button type="button" class="storyboard-frame" data-modal="modal-frame-frost" data-tip="Warm air leaking in makes the compressor run constantly and frosts the freezer.">
+<span class="storyboard-frame-num">5</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">Frost and a warm shelf</span>
+</button>
+<span class="storyboard-arrow" aria-hidden="true">&rarr;</span>
+
+<button type="button" class="storyboard-frame" data-modal="modal-frame-workaround" data-tip="The user adapts around the fault instead of the product being fixed.">
+<span class="storyboard-frame-num">6</span>
+<span class="storyboard-frame-img"><img src="" alt=""></span>
+<span class="storyboard-frame-caption">Working around it</span>
+</button>
+
+</div>
+</div>
+
 <div class="topic-link-blurb">Breaking a journey into steps to find friction points is the same principle behind Hierarchical Task Analysis, covered in <a href="b1.1-user-centred-design.html">B1.1 User-centred Design</a> (1.1.5 Task Analysis).</div>
 
 </div>
@@ -1042,6 +1093,68 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- ── 2.1.6 storyboard pop-ups: fridge door seal journey ── -->
+<div class="case-modal mclass-modal" id="modal-frame-shop" role="dialog" aria-modal="true" aria-labelledby="modal-frame-shop-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-shop-title">Frame 1: Home from the shop</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p>It is a normal grocery run: juice, a couple of sauce bottles, oat milk, salad dressing. All exactly the kind of tall, narrow items the fridge door shelves were designed to hold, so packing them into the door instead of the main shelves feels like using the product exactly as intended.</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="case-modal mclass-modal" id="modal-frame-loading" role="dialog" aria-modal="true" aria-labelledby="modal-frame-loading-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-loading-title">Frame 2: Loading the door shelves</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p>Every door shelf gets filled edge to edge with bottles. It looks efficient: the main shelves stay free for plates and leftovers, and the door does the job it was clearly designed to do.</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="case-modal mclass-modal" id="modal-frame-closing" role="dialog" aria-modal="true" aria-labelledby="modal-frame-closing-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-closing-title">Frame 3: Pushing the door shut</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p>Closing the door takes a firmer push than usual. The added weight of a fully loaded set of shelves makes the door swing differently, and it takes a second shove before it feels like it has clicked shut.</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="case-modal mclass-modal" id="modal-frame-gap" role="dialog" aria-modal="true" aria-labelledby="modal-frame-gap-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-gap-title">Frame 4: The gap nobody notices</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p><strong>Pain point.</strong> Under a full load of bottles, the door shelves sag by just a few millimetres, enough to nudge the door slightly proud of the cabinet along one edge. The magnetic gasket no longer sits flush there, leaving a hairline gap that looks closed but isn't sealed. Nobody in the household can see or hear the fault: the door looks and sounds shut.</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="case-modal mclass-modal" id="modal-frame-frost" role="dialog" aria-modal="true" aria-labelledby="modal-frame-frost-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-frost-title">Frame 5: Frost and a warm shelf</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p>A day later, the milk carton feels warmer than it should, and a thin layer of frost has built up on the back wall of the freezer. Neither symptom points obviously back to the door; they just read as a fridge working hard, not a seal that is failing.</p>
+    </div></div>
+  </div>
+</div>
+
+<div class="case-modal mclass-modal" id="modal-frame-workaround" role="dialog" aria-modal="true" aria-labelledby="modal-frame-workaround-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header"><h2 id="modal-frame-workaround-title">Frame 6: Working around it</h2><button class="case-modal-close" aria-label="Close">&times;</button></header>
+    <div class="case-modal-body"><div class="case-phase">
+      <p>Over the next few weeks, the household starts leaving a couple of door shelves half empty, without anyone deciding to. Nobody diagnosed the gap; they just noticed the fridge worked better with less on the door and quietly adapted around it, giving up on storage the product was designed to offer.</p>
+      <p>That silent workaround is the real design opportunity: a shelf structure or gasket geometry that keeps sealing under the load the product itself invites the user to add.</p>
+    </div></div>
   </div>
 </div>
 

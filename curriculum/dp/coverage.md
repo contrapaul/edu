@@ -79,6 +79,8 @@ Need to add driving-side history timeline/map and UK/Australia plug earth-pin sa
 
 - **A2.2.2** (Drawings) — ⚠️ Adequate but thin. All five drawing types (freehand, isometric, orthographic, exploded, perspective) are covered with a useful comparison table. Missing: the annotation-practices discussion (MD's four specific reasons designers annotate sketches), the general-assembly vs sub-assembly drawing hierarchy for complex products, the deeper first/third-angle mechanics (MD's HP/VP notation and folding-line explanation, and the full country list — MD says Australia/Canada/US use third-angle, HTML only says "USA and UK"), and the historical grounding for perspective drawing (Albrecht Dürer and "Dürer's window"). *Expand: add annotation practices and the assembly/sub-assembly drawing concept.*
 
+Need to add pictures from old textbook.
+
 Need to add general-assembly vs sub-assembly drawing example and a Dürer's-window historical image.
 
 - **A2.2.3** (Physical vs Virtual / purpose of prototyping) — ✅ Comprehensive for what it covers. This section doesn't correspond to a single dedicated MD passage, so it's judged on whether it satisfies the stated learning objective ("discuss the purpose of prototyping") — it does, clearly and with good structure (exploration/communication/user testing/validation), plus a bonus interactive compare-slider.
@@ -108,6 +110,8 @@ Need to add haptic-technology taxonomy diagram (graspable/wearable/touchable) wi
 - **B1.1.1** (UCD Planning) — ✅ Comprehensive, restructured. MD presents a bank of ~16 sample planning questions across four fixed categories (Understanding User Needs / Context of Use / User Experience / Usability and Accessibility). HTML replaces this with an original, arguably more practical 7-step research-plan framework plus a substantial bonus activity: four fully worked planning scenarios (school elevator, social media redesign, sports drink, power drill), each with its own inquiry strategy. The specific MD question bank is gone, but the stated learning objective (construct a UCD research plan) is served at least as well.
 
 - **B1.1.2** (Research Methods) — ⚠️ Adequate but thin. Field research, observation, interviews, questionnaires and focus groups are all covered, backed by a strong original "Observer Effect" deep-dive and three interactive tools (field-assignment generator, focus-group question generator, Likert survey simulator) that MD doesn't have. But MD's **"Method of extremes"** — a distinctly named concept (95th-percentile doorways/ladders/escape hatches, 5th-percentile control forces, and its relationship to universal design) — is completely absent here. Also missing: the Likert scale's origin (Rensis Likert, 1932), the System Usability Scale's attribution (John Brooke, 1986 — SUS itself is covered, just later, under 1.1.4) and its odd/even scoring-alternation mechanic, and the focus-group facilitator's four specific duties. *Expand: add the Method of Extremes as a named concept — it's a real gap, not just thinning.*
+
+Need to add a likert survey specific to my site to get actual feedback. 
 
 Need to add Method of Extremes diagram (95th-percentile doorway/escape hatch, 5th-percentile control force).
 
@@ -144,6 +148,10 @@ Need to add accessibility-technology example images (text-to-speech, braille ban
 Need to add research-bias taxonomy chart (cognitive: confirmation/framing/anchoring/availability; social: social desirability/Hawthorne/cultural; researcher: selection/leading questions/interpretation) with worked examples.
 
 - **B2.1.6** (User Journey Mapping) — ✅ Comprehensive. Storyboard definition, purpose and pain-point identification all match MD, with a good comic-strip framing and a sensible cross-reference to HTA. Only the specific 4-stage "journey" framework (exposure → evaluation → purchase → usage) isn't itemized by name.
+
+Need to add walkthrough for user journey storyboard. 
+
+Use the same idea and create a 'comic strip' to represent the user journey storyboard, focusing on a refrigerator that doesn't fully seal when the shelves inside the door are loaded with bottles (as intended)
 
 - **B2.1.7** (Product Analysis) — ⚠️ Adequate but differently framed. HTML organizes product analysis around six *dimensions* (function, performance, form, UI, manufacturing, target user), while MD organizes it around six *techniques* (market assessment, A/B comparison, benchmarking, SWOT, usability testing, market performance). Both are valid, complementary lenses, but MD's named techniques — A/B testing, benchmarking and SWOT specifically — don't appear under this topic (SWOT is taught in C3.1, a different subject area a B2-only student wouldn't necessarily reach). *Expand: name-check A/B testing, benchmarking and SWOT as techniques, even briefly.*
 
@@ -196,6 +204,8 @@ Need to add surface vs solid modelling technique diagram (NURBS, polygon meshes,
 Need to add 7-step CAD-construction workflow diagram and a testing checklist (1.2mm min wall thickness, 45° overhang threshold).
 
 - **B2.2.6** (Prototypes & Feedback) — ⚠️ Adequate but thin. The stakeholder-matching principle (end users/clients/engineers/manufacturers, each needing different prototype types) is taught well, though MD's fifth stakeholder category ("design teams") is dropped, and MD's four-type data taxonomy (quantitative/qualitative/technical/behavioural) isn't itemized. More notably, MD's rich **"Generative AI modelling"** content — the three computational approaches (rule-based systems, optimisation/genetic algorithms, machine learning) and the detailed 2019 Philippe Starck/Kartell/Autodesk AI-designed chair narrative — doesn't appear here or in 2.2.3 (which covers generative design more briefly, via the Airbus case study instead).
+
+Purpose, Target Audience, Data Collected.
 
 Need to add generative-AI modelling case study images (2019 Starck/Kartell/Autodesk AI-designed chair).
 

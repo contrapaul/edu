@@ -2881,4 +2881,296 @@ details.p2-reveal summary::before { content: "▼ "; }
   color: var(--muted);
   margin: 1rem 0 0.4rem;
 }
+
+/* ── MATERIAL CLASSIFICATION TREE DIAGRAMS (A3.1.1) ─────────────
+   Two-branch org-chart style diagrams: a root node connects to two
+   labelled branches, each holding clickable example chips. Hovering
+   or focusing a chip shows a quick CSS-only tooltip; clicking opens
+   a .case-modal (engine already provided by curriculum.js) with a
+   longer note on the material's relevance to design technology.
+   Built entirely from theme variables so it reskins automatically
+   across every [data-theme]. ─────────────────────────────────── */
+.mclass-diagram {
+  margin: 1.75rem 0 1.5rem;
+  padding: 1.5rem 1.5rem 1.75rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--curr-color, var(--accent));
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.mclass-diagram-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--curr-color, var(--accent));
+  margin-bottom: 0.3rem;
+}
+.mclass-diagram-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.mclass-diagram-hint { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+
+.mclass-tree { display: flex; flex-direction: column; align-items: center; }
+
+.mclass-root {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  padding: 0.55rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.mclass-trunk { width: 2px; height: 22px; background: var(--border-strong); }
+
+.mclass-branches {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  width: 100%;
+  padding-top: 22px;
+}
+.mclass-branches::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 25%; right: 25%;
+  height: 2px;
+  background: var(--border-strong);
+}
+.mclass-branch { position: relative; flex: 1 1 0; min-width: 0; max-width: 280px; }
+.mclass-branch::before {
+  content: "";
+  position: absolute;
+  top: -22px; left: 50%;
+  width: 2px; height: 22px;
+  background: var(--border-strong);
+  transform: translateX(-50%);
+}
+.mclass-branch-head {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: var(--branch-c, var(--accent));
+  background: var(--branch-c-bg, var(--accent-bg));
+  border: 1px solid var(--branch-c, var(--accent));
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+}
+.mclass-branch-desc {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  margin: 0.6rem 0 0;
+}
+.mclass-nodes { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+
+.mclass-node {
+  position: relative;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  text-align: left;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--branch-c, var(--accent));
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+.mclass-node:hover,
+.mclass-node:focus-visible {
+  background: var(--branch-c-bg, var(--accent-bg));
+  border-color: var(--branch-c, var(--accent));
+  transform: translateX(2px);
+  outline: none;
+}
+.mclass-node::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: 220px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 5;
+}
+.mclass-node:hover::after,
+.mclass-node:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Shorter modal for a single short paragraph of context */
+.mclass-modal .case-modal-content { width: min(92vw, 520px); }
+
+@media (max-width: 640px) {
+  .mclass-branches { flex-direction: column; align-items: stretch; gap: 1.75rem; padding-top: 0; }
+  .mclass-branches::before,
+  .mclass-branch::before { display: none; }
+  .mclass-branch { max-width: none; }
+  .mclass-node::after { left: 0; transform: translateY(4px); }
+  .mclass-node:hover::after,
+  .mclass-node:focus-visible::after { transform: translateY(0); }
+}
+
+/* Retro/flat themes: flatten shadows to match their blocky aesthetic */
+[data-theme="win95"] .mclass-root,
+[data-theme="dos"] .mclass-root,
+[data-theme="xbox"] .mclass-root,
+[data-theme="nightmare"] .mclass-root,
+[data-theme="hannah"] .mclass-root { box-shadow: none; }
+[data-theme="win95"] .mclass-node::after,
+[data-theme="dos"] .mclass-node::after,
+[data-theme="xbox"] .mclass-node::after,
+[data-theme="nightmare"] .mclass-node::after,
+[data-theme="hannah"] .mclass-node::after { box-shadow: none; border: 1px solid var(--border-strong); }
 .diagram-svg-label:first-of-type { margin-top: 0.5rem; }
+
+/* ── STORYBOARD / COMIC-STRIP USER JOURNEY (B2.1.6) ──────────────
+   Sits inside the same .mclass-diagram card used for the A3.1.1
+   classification trees. A horizontally-scrolling strip of numbered
+   frames, each a [data-modal] trigger for the shared .case-modal
+   engine, with a CSS-only hover/focus tooltip like .mclass-node.
+   One frame can carry .storyboard-frame--pain to flag the beat
+   where the pain point actually lands. ─────────────────────────── */
+.storyboard-strip {
+  display: flex;
+  align-items: stretch;
+  gap: 0.15rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.15rem 0.75rem;
+}
+.storyboard-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.1rem;
+  color: var(--border-strong);
+  font-size: 1.1rem;
+}
+.storyboard-frame {
+  position: relative;
+  flex: 0 0 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--frame-c, var(--curr-color, var(--accent)));
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.85rem 0.9rem;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.storyboard-frame:hover,
+.storyboard-frame:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--frame-c, var(--curr-color, var(--accent)));
+  outline: none;
+}
+.storyboard-frame-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.storyboard-frame-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.storyboard-frame-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.storyboard-frame-img:has(img[src=""]) { display: none; }
+.storyboard-frame-caption { font-size: 0.85rem; line-height: 1.4; font-weight: 600; color: var(--text); }
+
+.storyboard-frame--pain { --frame-c: var(--amber); }
+.storyboard-frame-tag {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  background: var(--amber-bg);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.55rem;
+}
+
+.storyboard-frame::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  width: max-content;
+  max-width: 210px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 5;
+}
+.storyboard-frame:hover::after,
+.storyboard-frame:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+[data-theme="win95"] .storyboard-frame::after,
+[data-theme="dos"] .storyboard-frame::after,
+[data-theme="xbox"] .storyboard-frame::after,
+[data-theme="nightmare"] .storyboard-frame::after,
+[data-theme="hannah"] .storyboard-frame::after { box-shadow: none; border: 1px solid var(--border-strong); }
+
+@media (max-width: 640px) {
+  .storyboard-frame { flex-basis: 160px; }
+  .storyboard-frame::after { left: 0; transform: translateY(4px); }
+  .storyboard-frame:hover::after,
+  .storyboard-frame:focus-visible::after { transform: translateY(0); }
+}
