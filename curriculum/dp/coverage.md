@@ -205,8 +205,6 @@ Need to add 7-step CAD-construction workflow diagram and a testing checklist (1.
 
 - **B2.2.6** (Prototypes & Feedback) — ⚠️ Adequate but thin. The stakeholder-matching principle (end users/clients/engineers/manufacturers, each needing different prototype types) is taught well, though MD's fifth stakeholder category ("design teams") is dropped, and MD's four-type data taxonomy (quantitative/qualitative/technical/behavioural) isn't itemized. More notably, MD's rich **"Generative AI modelling"** content — the three computational approaches (rule-based systems, optimisation/genetic algorithms, machine learning) and the detailed 2019 Philippe Starck/Kartell/Autodesk AI-designed chair narrative — doesn't appear here or in 2.2.3 (which covers generative design more briefly, via the Airbus case study instead).
 
-Purpose, Target Audience, Data Collected.
-
 Need to add generative-AI modelling case study images (2019 Starck/Kartell/Autodesk AI-designed chair).
 
 **B2.2 overall:** A tale of two halves — 2.2.1 and 2.2.4 are among the strongest sub-points in the whole review (excellent original interactive/narrative content), while 2.2.5's loss of the practical CAD-construction workflow is a clear, fixable gap. Combined with B2.1, this topic has the most total content to restore of anything reviewed so far, concentrated in a small number of well-defined blocks: the B2.1 bias/ethics taxonomy, the B2.1.15 case studies, and the B2.2.5 rapid-prototyping workflow.
@@ -266,6 +264,10 @@ Need to add named-fad images (Troll Dolls, Pet Rocks, Beanie Babies, Tamagotchi)
 ### C2.2 Design for a Circular Economy — [c2.2-circular-economy.html](c2.2-circular-economy.html) vs [C2.md](C2.md)
 
 - **C2.2.1** (Linear vs Circular Economy) — ✅ Comprehensive. Linear/circular contrast, the Kirchherr et al. (2017) definition, PET/paper-cardboard examples and EU/China policy context all match MD, with a genuinely valuable bonus Discussion prompt on downcycling ("is recycling actually circular, or just a slower line?"). One interactive tool (a closed-loop diagram builder) is explicitly marked "Planned Addition" — a gap the page's own author is already tracking, not a silent omission.
+
+Need to add a circular economy diagram. A circle with 8 steps representing a circular economy, again with hover descriptions that provide additional contents. If possible have the elements slowly orbit the circle. 
+
+Change use, recyle, and recover to Design, Manufacture, Distribution, Sale, Maintenance, Reuse, Refurbish, Recycle, Resource Recovery
 
 - **C2.2.2** (Design-for Strategies) — ✅ Comprehensive. Design for materials/process/assembly/longevity, dematerialisation and Jevons' Paradox all match MD closely and accurately (this section was also directly verified during the earlier duplication-fix pass on this page).
 
