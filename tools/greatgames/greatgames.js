@@ -91,6 +91,26 @@
     desc.textContent = game.description;
     card.appendChild(desc);
 
+    const footer = document.createElement('div');
+    footer.className = 'gg-card-footer';
+
+    const age = document.createElement('span');
+    age.className = `gg-card-age gg-age-${game.age.replace('+', '')}`;
+    age.textContent = game.age;
+    footer.appendChild(age);
+
+    const systems = document.createElement('div');
+    systems.className = 'gg-card-systems';
+    (game.platforms || []).forEach((platform) => {
+      const tag = document.createElement('span');
+      tag.className = 'gg-card-system-tag';
+      tag.textContent = platform;
+      systems.appendChild(tag);
+    });
+    footer.appendChild(systems);
+
+    card.appendChild(footer);
+
     return card;
   }
 
@@ -162,11 +182,11 @@
     const cta = document.createElement('a');
     cta.className = 'gg-cta';
     cta.href = game.link || '#';
-    cta.textContent = 'Where to Play →';
+    cta.textContent = 'Learn More →';
     ctaRow.appendChild(cta);
-    const ctaNote = document.createElement('span');
+    const ctaNote = document.createElement('em');
     ctaNote.className = 'gg-cta-note';
-    ctaNote.textContent = 'Store link coming soon';
+    ctaNote.textContent = "Content on external websites not created by Mr. K. Don't click 'learn more' in class, in fact, you shouldn't even be on this part of the site during class!";
     ctaRow.appendChild(ctaNote);
     body.appendChild(ctaRow);
 
