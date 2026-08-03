@@ -100,10 +100,75 @@
 </ul>
 <p><strong>Policy context:</strong> In 2020, the European Commission adopted a <strong>Circular Economy Action Plan</strong> as part of the <strong>European Green Deal</strong>, targeting climate neutrality (net-zero greenhouse gas emissions) by 2050 and a halt to biodiversity loss by 2025. China uses <strong>five-year plan cycles</strong> to review and revise its sustainability goals and circular economy targets, embedding them into national economic planning.</p>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">Closed-loop diagram builder</div>
-<p>Drag stages, extract, make, use, dispose, recover, reuse, recycle, into a flow diagram and connect them; the tool checks whether what you've built is actually a closed loop or still a straight line with an extra arrow tacked on the end.</p>
+<div class="ce-orbit-layout">
+<div class="ce-orbit">
+<div class="ce-orbit-ring" aria-hidden="true"></div>
+<div class="ce-orbit-hub" aria-hidden="true">Circular<br>Economy</div>
+
+<div class="ce-orbit-item" style="--angle:0deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Design" data-desc="Decisions made here, material choice, joining method, how easily the product comes apart, decide almost everything that happens later in the loop. A glued seam or a mixed polymer blend can quietly break the loop before it starts.">
+<span class="ce-node-label">Design</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:40deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Manufacture" data-desc="Manufacturing turns that design intent into a physical product. Efficient processes and reusing offcuts keep waste out of the loop at the point it is easiest to control.">
+<span class="ce-node-label">Manufacture</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:80deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Distribution" data-desc="Getting the product from factory to customer has its own footprint: packaging, transport mode and warehousing all add up. Lighter packaging and consolidated shipping stop this stage from quietly undoing good work done earlier in the loop.">
+<span class="ce-node-label">Distribution</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:120deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Sale" data-desc="The point of purchase is also a point of influence. Take-back pledges, extended warranties and clear repair information, offered right here, shape how the product gets treated for the rest of its life.">
+<span class="ce-node-label">Sale</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:160deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Maintenance" data-desc="Keeping a product working, through servicing, cleaning and small repairs, is usually the single biggest lever for extending its life. A product designed for easy maintenance stays useful long after a sealed, disposable equivalent would already be in landfill.">
+<span class="ce-node-label">Maintenance</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:200deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Reuse" data-desc="A product, or its components, finds a new user without needing to be broken down first. Second-hand markets, hand-me-downs and component harvesting keep material in active use at its highest value, with no reprocessing required.">
+<span class="ce-node-label">Reuse</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:240deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Refurbish" data-desc="A used product is restored, and sometimes upgraded, to a like-new condition rather than replaced outright. Refurbishment recovers most of the value locked into manufacturing, which recycling alone never can.">
+<span class="ce-node-label">Refurbish</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:280deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Recycle" data-desc="Material that cannot be reused or refurbished is broken down and reprocessed into a form that can become a new product again. PET bottles shredded and remanufactured into new bottles or textiles are already running at this scale.">
+<span class="ce-node-label">Recycle</span>
+</div>
+</div>
+
+<div class="ce-orbit-item" style="--angle:320deg;">
+<div class="ce-node" role="button" tabindex="0" data-title="Resource Recovery" data-desc="Whatever is left after reuse, refurbishment and recycling can still hold value: energy from incineration, metals reclaimed from ash, nutrients composted from biodegradable content. Resource recovery is the last chance to pull something usable out of what would otherwise just be waste.">
+<span class="ce-node-label">Resource Recovery</span>
+</div>
+</div>
+
+</div>
+
+<div class="ce-detail" id="ce-detail" aria-live="polite">
+<p class="ce-detail-placeholder">Hover, focus or tap a stage to see what actually happens there.</p>
+<div class="ce-detail-body" hidden>
+<h5 class="ce-detail-title"></h5>
+<p class="ce-detail-text"></p>
+</div>
+</div>
+
 </div>
 
 </div>

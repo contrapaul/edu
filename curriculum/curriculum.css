@@ -3059,7 +3059,15 @@ details.p2-reveal summary::before { content: "▼ "; }
    child holds the full detail and is hidden until the trigger is
    hovered, focused, or toggled open by curriculum.js (so a click
    or tap works the same as hover, for touch devices). ───────────── */
-.hover-reveal { position: relative; cursor: pointer; }
+.hover-reveal { position: relative; cursor: pointer; z-index: 1; }
+.hover-reveal:hover,
+.hover-reveal:focus,
+.hover-reveal.is-open {
+  /* Lift the whole trigger above sibling cards so its panel, which
+     overflows the trigger's own box, is never painted behind the
+     cards that follow it in the grid/row. */
+  z-index: 30;
+}
 .hover-reveal-panel {
   position: absolute;
   top: calc(100% + 10px);
@@ -3141,7 +3149,7 @@ details.p2-reveal summary::before { content: "▼ "; }
   height: 1.3rem;
   border-radius: 50%;
   background: var(--curr-color, var(--accent));
-  color: var(--surface);
+  color: #fff;
   font-family: var(--font-mono);
   font-size: 0.66rem;
   font-weight: 700;
@@ -3206,3 +3214,192 @@ details.p2-reveal summary::before { content: "▼ "; }
   margin-bottom: 0.2rem;
 }
 .protomenu-field p { font-size: 0.8rem; line-height: 1.5; color: var(--text); margin: 0; }
+
+/* ── CIRCULAR ECONOMY ORBIT (C2.2.1) ──────────────────────────────
+   Nine stage-nodes drift slowly around a central hub. Each
+   .ce-orbit-item is the moving pivot (rotate + translate out to
+   the radius); its .ce-node child carries an equal and opposite
+   counter-rotation so the node itself always stays upright on
+   screen no matter where it currently sits on the ring. Every
+   colour comes from the same theme variables as the rest of the
+   page, so it reskins for free. The whole ring pauses on
+   hover/focus/tap so a node holds still while its detail is open,
+   and prefers-reduced-motion freezes it at fixed positions.
+
+   Sizing is fluid rather than a set of fixed breakpoints: --orbit-d
+   is the one value that responds to the viewport (clamped between a
+   safe minimum and maximum), and the ring radius, hub and node size
+   are all expressed as a fixed proportion of it via calc(). Because
+   every dimension scales off the same number, the ring and the
+   nodes riding it can never drift out of proportion with each other
+   at any width, so nothing overlaps or overflows when the page is
+   resized or viewed on a small screen.
+
+   The description for whichever stage is active renders in .ce-detail,
+   a plain static panel beside the ring (below it once the layout
+   wraps), populated by c2.2.js rather than floating off the node
+   itself. A tooltip nested inside the rotating nodes would live
+   inside two stacked transform contexts (the orbit spin and the
+   node's own counter-spin), and .obj-body/.curr-body need
+   overflow-x:auto for other content on these pages, which the CSS
+   overflow spec silently turns into an effective overflow-y:auto
+   too, and between the two, a nested tooltip could end up clipped or
+   painted behind later sections depending on where in the loop a
+   node happened to be. A static side panel isn't a descendant of
+   anything that rotates or clips, so that failure mode can't happen. */
+.ce-orbit-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0 0.5rem;
+}
+.ce-orbit {
+  --orbit-d: clamp(230px, 55vw, 420px);
+  --orbit-r: calc(var(--orbit-d) * 0.375);
+  --node-w: calc(var(--orbit-d) * 0.2);
+  --node-h: calc(var(--orbit-d) * 0.155);
+  --hub-d: calc(var(--orbit-d) * 0.2455);
+  position: relative;
+  width: var(--orbit-d);
+  height: var(--orbit-d);
+  flex: 0 0 auto;
+  margin: 0 auto;
+}
+.ce-orbit-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px dashed var(--border-strong);
+  border-radius: 50%;
+}
+.ce-orbit-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--hub-d);
+  height: var(--hub-d);
+  margin: calc(var(--hub-d) / -2) 0 0 calc(var(--hub-d) / -2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at 35% 30%, var(--surface) 0%, var(--curr-color, var(--accent)) 72%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, calc(var(--orbit-d) * 0.0298), 0.85rem);
+  font-weight: 600;
+  line-height: 1.25;
+  box-shadow: var(--shadow-md);
+}
+.ce-orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: ce-orbit-spin 54s linear infinite;
+}
+.ce-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--node-w);
+  min-height: var(--node-h);
+  margin: calc(var(--node-h) / -2) 0 0 calc(var(--node-w) / -2);
+  padding: calc(var(--node-h) * 0.14) calc(var(--node-w) * 0.1);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: clamp(0.5rem, calc(var(--orbit-d) * 0.02), 0.62rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  cursor: pointer;
+  animation: ce-orbit-counter 54s linear infinite;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+/* Longer stage names get a smaller size than the shared default so they
+   read as a single word instead of wrapping onto extra lines. */
+.ce-node[data-title="Maintenance"],
+.ce-node[data-title="Distribution"],
+.ce-node[data-title="Refurbish"],
+.ce-node[data-title="Manufacture"],
+.ce-node[data-title="Resource Recovery"] {
+  font-size: clamp(0.42rem, calc(var(--orbit-d) * 0.0165), 0.52rem);
+}
+.ce-node:hover,
+.ce-node:focus,
+.ce-node.is-active {
+  border-color: var(--curr-color, var(--accent));
+  background: var(--surface-2);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+}
+
+@keyframes ce-orbit-spin {
+  from { transform: rotate(var(--angle)) translateX(var(--orbit-r)); }
+  to   { transform: rotate(calc(var(--angle) + 360deg)) translateX(var(--orbit-r)); }
+}
+@keyframes ce-orbit-counter {
+  from { transform: rotate(calc(var(--angle) * -1)); }
+  to   { transform: rotate(calc((var(--angle) + 360deg) * -1)); }
+}
+
+/* Hovering, focusing or activating any stage pauses the whole ring
+   so it holds still while its detail is showing. */
+.ce-orbit:has(.ce-node:hover) .ce-orbit-item,
+.ce-orbit:has(.ce-node:hover) .ce-node,
+.ce-orbit:has(.ce-node:focus) .ce-orbit-item,
+.ce-orbit:has(.ce-node:focus) .ce-node,
+.ce-orbit:has(.ce-node.is-active) .ce-orbit-item,
+.ce-orbit:has(.ce-node.is-active) .ce-node {
+  animation-play-state: paused;
+}
+
+[data-theme="win95"] .ce-orbit-hub,
+[data-theme="dos"] .ce-orbit-hub,
+[data-theme="xbox"] .ce-orbit-hub,
+[data-theme="nightmare"] .ce-orbit-hub,
+[data-theme="hannah"] .ce-orbit-hub { box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ce-orbit-item, .ce-node { animation: none; }
+  .ce-orbit-item { transform: rotate(var(--angle)) translateX(var(--orbit-r)); }
+  .ce-node { transform: rotate(calc(var(--angle) * -1)); }
+}
+
+/* ── CIRCULAR ECONOMY ORBIT: side detail panel ────────────────────
+   A plain, non-floating panel: see the big comment above .ce-orbit
+   for why it lives beside the ring instead of nested inside it. */
+.ce-detail {
+  flex: 1 1 240px;
+  max-width: 320px;
+  min-height: 11rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.ce-detail-placeholder { font-size: 0.85rem; line-height: 1.65; color: var(--muted); }
+.ce-detail-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--curr-color, var(--accent));
+  margin-bottom: 0.6rem;
+}
+.ce-detail-text { font-size: 0.85rem; line-height: 1.65; color: var(--text); }
+
+[data-theme="win95"] .ce-detail,
+[data-theme="dos"] .ce-detail,
+[data-theme="xbox"] .ce-detail,
+[data-theme="nightmare"] .ce-detail,
+[data-theme="hannah"] .ce-detail { box-shadow: none; }
