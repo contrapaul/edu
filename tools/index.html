@@ -379,6 +379,28 @@
 .cs-chrome:hover::before { opacity: 0.6; animation-play-state: running; }
 @keyframes cs-spin { to { transform: rotate(360deg); } }
 .cs-chrome .tool-card-title { text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 -1px 1px rgba(0,0,0,0.4); }
+
+/* 33 — Ember Tablet (Flashstone) */
+.cs-ember {
+  background: radial-gradient(ellipse at 50% 25%, #3a2712 0%, #170f08 75%) !important;
+  border: 1px solid #a9812e !important;
+  border-radius: 6px !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 4px 18px rgba(0,0,0,0.5);
+  transition: box-shadow 0.35s, border-color 0.35s !important;
+}
+.cs-ember .tool-card-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 10px rgba(230,190,90,0.55), 0 0 24px rgba(230,150,40,0.35);
+  transition: text-shadow 0.35s;
+}
+.cs-ember .tool-card-sub { font-family: Georgia, serif; font-style: italic; }
+.cs-ember:hover {
+  border-color: #e8c96a !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 26px rgba(212,160,60,0.35), 0 4px 18px rgba(0,0,0,0.6) !important;
+}
+.cs-ember:hover .tool-card-title { text-shadow: 0 0 14px rgba(240,205,110,0.85), 0 0 34px rgba(230,150,40,0.5); }
 </style>
 </head>
 <body>
@@ -533,6 +555,12 @@
    style="--card-bg:#0a0a1a; --card-border:#7c3aed; --card-title-color:#c4b5fd; --card-title-size:1.4rem; --card-sub-color:#a78bfa;">
   <h3 class="tool-card-title">Tech Museum Test</h3>
   <p class="tool-card-sub">An early test of three.js</p>
+</a>
+
+<a class="tool-card cs-ember" href="https://flashstone.contrapaul.com/"
+   style="--card-title-color:#f2d896; --card-sub-color:#c9ad7a; --card-title-size:2.1rem;">
+  <h3 class="tool-card-title">Flashstone</h3>
+  <p class="tool-card-sub">Turn any flashcard deck into a duel. Import your cards and play to actually remember them.</p>
 </a>
 
 </div>

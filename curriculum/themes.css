@@ -1229,7 +1229,236 @@
 [data-theme="exam"] .curr-section { --curr-color: #111111 !important; }
 
 
-/* ── 12. LIVE IMAGE FILTERS ───────────────────────────────────
+/* ── 12. PC GAMER ────────────────────────────────────────────────
+   Dark cyberpunk/neon RGB-battlestation mode. Palette is deliberately
+   two-tone (electric cyan + hot magenta, the same pairing the
+   reference "make" card's badge uses) rather than literal rainbow
+   everywhere, so solid --accent/--text usage stays readable across
+   every component built on the shared token set. The rainbow itself
+   is reserved for a handful of signature animated touches: a flowing
+   RGB strip along the header and hero edges, a slow breathing glow
+   on titles and the open study-guide section, and a spinning conic
+   ring around the theme-toggle button, the same technique the make
+   card's border uses. All three keyframes are slow and gentle by
+   design (the brief asked for slowly pulsing LEDs, not a strobe). */
+[data-theme="gamer"] {
+  --bg:            #0a0612;
+  --surface:       #120a1f;
+  --surface-2:     #1c1030;
+  --border:        #3d2265;
+  --border-strong: #ff2fd6;
+  --text:          #eae3ff;
+  --muted:         #9c86c9;
+  --accent:        #00e5ff;
+  --accent-bg:     #072633;
+  --hl:            #ff2fd6;
+  --hl-bg:         #2a0a28;
+  --green:         #39ff6a;
+  --green-bg:      #0a2614;
+  --amber:         #ffcc00;
+  --amber-bg:      #2a2205;
+  --font-display:  'JetBrains Mono', ui-monospace, monospace;
+  --font-body:     'JetBrains Mono', ui-monospace, monospace;
+  --font-mono:     'JetBrains Mono', ui-monospace, monospace;
+  --radius:        16px;
+  --radius-sm:     10px;
+  /* Depth reads as neon bloom, not drop shadow, on the near-black bg */
+  --shadow-sm:     0 0 10px rgba(0,229,255,0.22);
+  --shadow-md:     0 0 22px rgba(0,229,255,0.28), 0 0 40px rgba(255,47,214,0.16);
+}
+
+@property --gamer-spin-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes gamer-spin { to { --gamer-spin-angle: 360deg; } }
+@keyframes gamer-rgb-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+@keyframes gamer-text-pulse {
+  0%, 100% { text-shadow: 0 0 6px rgba(0,229,255,0.5), 0 0 16px rgba(255,47,214,0.3); }
+  50%      { text-shadow: 0 0 14px rgba(0,229,255,0.9), 0 0 28px rgba(255,47,214,0.55); }
+}
+@keyframes gamer-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(0,229,255,0.35), 0 0 12px rgba(255,47,214,0.18); }
+  50%      { box-shadow: 0 0 0 1px rgba(0,229,255,0.7), 0 0 26px rgba(255,47,214,0.4); }
+}
+
+/* Flowing RGB strip along the header and every page-hero's bottom
+   edge — the "glowing around some edges" LED strip. */
+[data-theme="gamer"] .site-header {
+  background: linear-gradient(180deg, #150a26 0%, #0a0512 100%);
+  position: relative;
+}
+[data-theme="gamer"] .hub-hero,
+[data-theme="gamer"] .prog-hero,
+[data-theme="gamer"] .myp-hero,
+[data-theme="gamer"] .topic-hero {
+  background: radial-gradient(ellipse at 30% 0%, #1c0f30 0%, #0a0512 70%);
+  border-bottom: none;
+  position: relative;
+}
+[data-theme="gamer"] .site-header::after,
+[data-theme="gamer"] .hub-hero::after,
+[data-theme="gamer"] .prog-hero::after,
+[data-theme="gamer"] .myp-hero::after,
+[data-theme="gamer"] .topic-hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff003c, #ff2fd6, #7a1aff, #00e5ff, #39ff6a, #ffcc00, #ff003c);
+  background-size: 300% 100%;
+  animation: gamer-rgb-flow 7s linear infinite;
+  box-shadow: 0 0 10px rgba(0,229,255,0.55), 0 0 10px rgba(255,47,214,0.45);
+}
+[data-theme="gamer"] .wordmark { color: #00e5ff; animation: gamer-text-pulse 3.6s ease-in-out infinite; }
+[data-theme="gamer"] .brand-sub { color: #9c86c9; }
+[data-theme="gamer"] .nav a { color: #eae3ff; }
+[data-theme="gamer"] .nav a:hover { color: #00e5ff; background: rgba(0,229,255,0.1); }
+
+/* Override inline --topic-bg vars so the hero area shows no white */
+[data-theme="gamer"] .topic-code {
+  background: #072633 !important;
+  color: #00e5ff !important;
+  border-color: rgba(0,229,255,0.35) !important;
+}
+[data-theme="gamer"] .topic-guiding-q {
+  background: #2a0a28 !important;
+  border-left-color: #ff2fd6 !important;
+  color: #eae3ff !important;
+}
+[data-theme="gamer"] .gq-label { color: #ff2fd6 !important; }
+[data-theme="gamer"] .topic-title,
+[data-theme="gamer"] .hub-title,
+[data-theme="gamer"] .prog-hero-title,
+[data-theme="gamer"] .hub-prog-title {
+  color: #00e5ff !important;
+  animation: gamer-text-pulse 3.6s ease-in-out infinite;
+}
+[data-theme="gamer"] .topic-sub,
+[data-theme="gamer"] .hub-desc,
+[data-theme="gamer"] .prog-hero-desc,
+[data-theme="gamer"] .hub-prog-desc,
+[data-theme="gamer"] .topic-card-title,
+[data-theme="gamer"] .topic-card-q,
+[data-theme="gamer"] .prog-card-desc { color: #d8c9ff !important; }
+[data-theme="gamer"] .prog-card-cta,
+[data-theme="gamer"] .prog-card-title,
+[data-theme="gamer"] .hub-group-label { color: #ff2fd6 !important; }
+
+/* Study-guide sections: neon border always wins over the per-topic
+   inline pastel, and the open section breathes gently while active. */
+[data-theme="gamer"] .curr-section {
+  border-left-color: #00e5ff !important;
+  border-color: rgba(0,229,255,0.18) !important;
+  background: linear-gradient(135deg, rgba(0,229,255,0.05), transparent 60%);
+  box-shadow: 0 0 0 1px rgba(255,47,214,0.12), 0 2px 10px rgba(0,0,0,0.6) !important;
+}
+[data-theme="gamer"] .curr-section:has(.curr-body.open) {
+  animation: gamer-glow-pulse 4s ease-in-out infinite;
+}
+[data-theme="gamer"] .curr-trigger h2 { color: #eae3ff !important; }
+[data-theme="gamer"] .curr-trigger[aria-expanded="true"] h2 {
+  color: #00e5ff !important;
+  animation: gamer-text-pulse 3.6s ease-in-out infinite;
+}
+[data-theme="gamer"] .curr-badge,
+[data-theme="gamer"] .curr-sec-sub { color: #ff2fd6 !important; }
+[data-theme="gamer"] .obj-code { color: #00e5ff !important; }
+[data-theme="gamer"] .obj-trigger h3 { color: #eae3ff !important; }
+[data-theme="gamer"] .obj-section { border-color: rgba(0,229,255,0.14); }
+[data-theme="gamer"] .activity-block { border-color: rgba(0,229,255,0.2); background: #120a1f; }
+[data-theme="gamer"] .activity-label { color: #ff2fd6 !important; }
+[data-theme="gamer"] .activity-title { color: #00e5ff !important; }
+
+[data-theme="gamer"] .curr-sidebar {
+  background: linear-gradient(180deg, #120a1f, #0a0512);
+  border-right: 1px solid rgba(0,229,255,0.2);
+}
+[data-theme="gamer"] .csb-group-label { color: #ff2fd6 !important; }
+[data-theme="gamer"] .csb-link { color: #cdb8ef; }
+[data-theme="gamer"] .csb-current .csb-link { background: rgba(0,229,255,0.12); border-right-color: #00e5ff; }
+[data-theme="gamer"] .csb-current .csb-title { color: #00e5ff; }
+
+/* Fix white boxes in tools and generic cards */
+[data-theme="gamer"] .ta-node,
+[data-theme="gamer"] .ta-node-hta,
+[data-theme="gamer"] .fg-output,
+[data-theme="gamer"] .quiz-q,
+[data-theme="gamer"] .persona-card,
+[data-theme="gamer"] .likert-tool,
+[data-theme="gamer"] [class*="-card"],
+[data-theme="gamer"] [class*="-panel"],
+[data-theme="gamer"] [class*="-block"] {
+  background: #120a1f !important;
+  border-color: rgba(0,229,255,0.18) !important;
+  color: #eae3ff !important;
+}
+[data-theme="gamer"] input,
+[data-theme="gamer"] textarea,
+[data-theme="gamer"] select,
+[data-theme="gamer"] label {
+  background: #0a0512 !important;
+  color: #eae3ff !important;
+  border-color: rgba(0,229,255,0.3) !important;
+  accent-color: #00e5ff;
+}
+[data-theme="gamer"] th {
+  background: rgba(0,229,255,0.12) !important;
+  color: #00e5ff !important;
+  border-color: rgba(0,229,255,0.2) !important;
+}
+[data-theme="gamer"] td {
+  background: #120a1f !important;
+  border-color: rgba(0,229,255,0.15) !important;
+  color: #eae3ff !important;
+}
+[data-theme="gamer"] tr:nth-child(even) td { background: #1c1030 !important; }
+
+[data-theme="gamer"] .tool-btn,
+[data-theme="gamer"] .tool-btn-sm,
+[data-theme="gamer"] .quiz-submit-btn {
+  background: rgba(0,229,255,0.1);
+  border-color: rgba(0,229,255,0.5);
+  color: #00e5ff;
+}
+[data-theme="gamer"] .tool-btn:hover,
+[data-theme="gamer"] .tool-btn-sm:hover {
+  background: rgba(0,229,255,0.2);
+  border-color: #00e5ff;
+  box-shadow: 0 0 14px rgba(0,229,255,0.4), 0 0 14px rgba(255,47,214,0.25);
+}
+[data-theme="gamer"] .quiz-option { background: #120a1f; border-color: rgba(0,229,255,0.2); color: #eae3ff; }
+[data-theme="gamer"] .quiz-option:hover:not(:disabled) { background: #1c1030; }
+
+/* Theme toggle: a spinning conic RGB ring behind the button, the
+   same @property angle trick the make card's border spin uses. */
+[data-theme="gamer"] .theme-toggle-btn {
+  position: relative;
+  z-index: 0;
+  background: #0a0512;
+  border: none;
+}
+[data-theme="gamer"] .theme-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(from var(--gamer-spin-angle), #ff003c, #ff2fd6, #7a1aff, #00e5ff, #39ff6a, #ffcc00, #ff003c);
+  animation: gamer-spin 4s linear infinite;
+  z-index: -1;
+}
+[data-theme="gamer"] .theme-picker-panel {
+  background: #120a1f;
+  border-color: rgba(0,229,255,0.3);
+  box-shadow: 0 0 24px rgba(0,229,255,0.25), 0 0 40px rgba(255,47,214,0.15);
+}
+
+
+/* ── 13. LIVE IMAGE FILTERS ───────────────────────────────────
    Re-tint real content photos (case-study covers, section intro
    photos, "Five E's" photos, tool promo shots) per theme with
    plain CSS filter — no separate image assets. Skips Default and
@@ -1288,6 +1517,13 @@
 [data-theme="dos-amber"] .case-study-img img,
 [data-theme="dos-amber"] .tool-promo-img {
   filter: grayscale(1) sepia(1) saturate(2.5) brightness(0.95) contrast(1.15);
+}
+[data-theme="gamer"] .obj-img,
+[data-theme="gamer"] .curr-section-intro-img,
+[data-theme="gamer"] .e-applied-img,
+[data-theme="gamer"] .case-study-img img,
+[data-theme="gamer"] .tool-promo-img {
+  filter: saturate(1.6) contrast(1.1) hue-rotate(-8deg) brightness(0.92);
 }
 [data-theme="gameboy"] .obj-img,
 [data-theme="gameboy"] .curr-section-intro-img,
@@ -1401,6 +1637,9 @@
 [data-theme="xbox"] .lp-welcome,
 [data-theme="xbox"] .lp-text,
 [data-theme="xbox"] .lp-link,
+[data-theme="gamer"] .lp-welcome,
+[data-theme="gamer"] .lp-text,
+[data-theme="gamer"] .lp-link,
 [data-theme="nightmare"] .lp-welcome,
 [data-theme="nightmare"] .lp-text,
 [data-theme="nightmare"] .lp-link,

@@ -24,6 +24,7 @@
     { id: 'dos-amber',  label: 'MS-DOS Amber',       emoji: '🟠'  },
     { id: 'gameboy',    label: 'Game Boy',           emoji: '🕹️'  },
     { id: 'xbox',       label: 'Xbox OG',            emoji: '🎮'  },
+    { id: 'gamer',      label: 'PC Gamer',           emoji: '💡'  },
     { id: 'nightmare',  label: 'Nightmare',          emoji: '🌈'  },
     { id: 'hannah',     label: "Hannah's request",   emoji: '🎀'  }
   ];

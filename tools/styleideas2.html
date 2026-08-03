@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card Styles 21–32 — showroom</title>
+<title>Card Styles 21–35 — showroom</title>
 <style>
 body { background:#15151f; color:#e8e8f0; font-family:-apple-system,'Segoe UI',sans-serif; padding:2rem 1rem 5rem; }
 h1 { text-align:center; font-size:1.5rem; margin-bottom:0.4rem; }
@@ -227,12 +227,73 @@ h1 { text-align:center; font-size:1.5rem; margin-bottom:0.4rem; }
   opacity:.85;
 }
 .cs-ruled:hover { transform:translateY(-3px) rotate(-.6deg) !important; }
+
+/* ═══ 33 — Ember Tablet (Flashstone) ════════════════════════════
+   Straight from the site itself: a torch-lit stone slab with the
+   wordmark glowing rather than sitting flat on the surface. ═════ */
+.cs-ember {
+  background:radial-gradient(ellipse at 50% 25%, #3a2712 0%, #170f08 75%) !important;
+  border:1px solid #a9812e !important; border-radius:6px !important;
+  box-shadow:inset 0 0 40px rgba(0,0,0,0.6), 0 4px 18px rgba(0,0,0,0.5);
+  transition:box-shadow .35s, border-color .35s !important;
+}
+.cs-ember .tool-card-title {
+  font-family:Georgia,'Times New Roman',serif; text-transform:uppercase; letter-spacing:.1em;
+  text-shadow:0 0 10px rgba(230,190,90,0.55), 0 0 24px rgba(230,150,40,0.35);
+  transition:text-shadow .35s;
+}
+.cs-ember .tool-card-sub { font-family:Georgia,serif; font-style:italic; }
+.cs-ember:hover {
+  border-color:#e8c96a !important;
+  box-shadow:inset 0 0 40px rgba(0,0,0,0.5), 0 0 26px rgba(212,160,60,0.35), 0 4px 18px rgba(0,0,0,0.6) !important;
+}
+.cs-ember:hover .tool-card-title { text-shadow:0 0 14px rgba(240,205,110,0.85), 0 0 34px rgba(230,150,40,0.5); }
+
+/* ═══ 34 — Mana Hex (Flashstone) ════════════════════════════════
+   The hex icons and gold/blue duel colours from the actual match
+   screen, cropped into the corner like a card peeking off-frame. */
+.cs-hex {
+  background:linear-gradient(160deg, #161c2e 0%, #100b18 70%) !important;
+  border:1px solid #7d94b8 !important; border-radius:10px !important;
+  overflow:hidden; isolation:isolate;
+}
+.cs-hex::before {
+  content:''; position:absolute; top:-34px; right:-34px; width:120px; height:120px;
+  background:conic-gradient(from 30deg, #d4af37, #274b7a, #d4af37);
+  clip-path:polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  opacity:.22; z-index:-1; transition:opacity .35s, transform .6s;
+}
+.cs-hex:hover::before { opacity:.4; transform:rotate(25deg) scale(1.08); }
+.cs-hex .tool-card-title { letter-spacing:.05em; }
+.cs-hex::after {
+  content:'\25C6 \25C6 \25C6 \25C6 \25C6'; position:absolute; bottom:12px; left:0; right:0;
+  text-align:center; font-size:.5rem; letter-spacing:.3em; color:#d4af37; opacity:.45;
+}
+
+/* ═══ 35 — Card Fan (Flashstone) ═════════════════════════════════
+   The fanned hand of cards from the bottom of a match, at rest,
+   spreading further open on hover like it's about to be played. */
+.cs-fan {
+  background:linear-gradient(180deg, #2a1f14 0%, #140d08 100%) !important;
+  border:1px solid #8a6a35 !important; border-radius:8px !important;
+  isolation:isolate; transition:transform .3s !important;
+}
+.cs-fan::before, .cs-fan::after {
+  content:''; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg, #2a1f14 0%, #140d08 100%);
+  border:1px solid #8a6a35; border-radius:8px; transition:transform .3s;
+}
+.cs-fan::before { transform:rotate(-6deg) translateY(2px); }
+.cs-fan::after  { transform:rotate(6deg) translateY(2px); }
+.cs-fan:hover::before { transform:rotate(-11deg) translateY(4px); }
+.cs-fan:hover::after  { transform:rotate(11deg) translateY(4px); }
+.cs-fan:hover { transform:translateY(-4px); }
 </style>
 </head>
 <body>
 
-<h1>Card Styles 21 – 32</h1>
-<p class="sub">Twelve new techniques, none reusing an approach already in the tools page. Hover each one.</p>
+<h1>Card Styles 21 – 35</h1>
+<p class="sub">Fifteen techniques, none reusing an approach already in the tools page. Hover each one. 33–35 are three style takes on one real card, the upcoming Flashstone link.</p>
 
 <div class="tool-cards-grid">
 
@@ -294,6 +355,21 @@ h1 { text-align:center; font-size:1.5rem; margin-bottom:0.4rem; }
 <a class="tool-card cs-ruled" href="#" style="--card-title-color:#22303c; --card-sub-color:#5a6b78;">
   <h3 class="tool-card-title">Ruled Index Card</h3>
   <p class="tool-card-sub">Notepaper with a red margin rule and punched holes down the binding edge.</p>
+</a>
+
+<a class="tool-card cs-ember" href="https://flashstone.contrapaul.com/" target="_blank" rel="noopener" style="--card-title-color:#f2d896; --card-sub-color:#c9ad7a;">
+  <h3 class="tool-card-title">Flashstone</h3>
+  <p class="tool-card-sub">Turn any flashcard deck into a duel. Import your cards and play to actually remember them.</p>
+</a>
+
+<a class="tool-card cs-hex" href="https://flashstone.contrapaul.com/" target="_blank" rel="noopener" style="--card-title-color:#e7ecf7; --card-sub-color:#9fb0cc;">
+  <h3 class="tool-card-title">Flashstone</h3>
+  <p class="tool-card-sub">Turn any flashcard deck into a duel. Import your cards and play to actually remember them.</p>
+</a>
+
+<a class="tool-card cs-fan" href="https://flashstone.contrapaul.com/" target="_blank" rel="noopener" style="--card-title-color:#f0dcb0; --card-sub-color:#c2a276;">
+  <h3 class="tool-card-title">Flashstone</h3>
+  <p class="tool-card-sub">Turn any flashcard deck into a duel. Import your cards and play to actually remember them.</p>
 </a>
 
 </div>
