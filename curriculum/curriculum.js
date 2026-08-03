@@ -201,6 +201,46 @@
     });
   });
 
+  /* ── HOVER-REVEAL CARDS ──────────────────────────────────────
+     Generic engine for small cards/chips that reveal extra detail
+     on hover or focus (plain CSS) and also toggle open on click or
+     Enter/Space, so touch devices without hover get the same detail.
+     Markup: a [role="button"][tabindex="0"] with class .hover-reveal,
+     containing a .hover-reveal-panel with the detail to show. Only
+     one card stays open at a time; clicking outside or pressing
+     Escape closes whichever is open. ─────────────────────────────── */
+  var hoverReveals = document.querySelectorAll('.hover-reveal');
+
+  function closeHoverReveals(except) {
+    hoverReveals.forEach(function (el) {
+      if (el !== except) el.classList.remove('is-open');
+    });
+  }
+
+  hoverReveals.forEach(function (el) {
+    el.addEventListener('click', function () {
+      var wasOpen = el.classList.contains('is-open');
+      closeHoverReveals(el);
+      el.classList.toggle('is-open', !wasOpen);
+    });
+    if (el.tagName !== 'BUTTON') {
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.hover-reveal')) closeHoverReveals();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeHoverReveals();
+  });
+
   /* ── QUIZ MCQ — BATCH SUBMIT ───────────────────────────────── */
   var quizBody   = document.querySelector('#body-quiz');
   var submitBtn  = document.getElementById('quiz-submit');

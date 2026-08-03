@@ -3053,124 +3053,156 @@ details.p2-reveal summary::before { content: "▼ "; }
 [data-theme="hannah"] .mclass-node::after { box-shadow: none; border: 1px solid var(--border-strong); }
 .diagram-svg-label:first-of-type { margin-top: 0.5rem; }
 
+/* ── HOVER-REVEAL CARDS (generic) ─────────────────────────────────
+   Shared by the B2.1.6 storyboard and the B2.2.6 prototype menu.
+   .hover-reveal is the trigger chip/card; its .hover-reveal-panel
+   child holds the full detail and is hidden until the trigger is
+   hovered, focused, or toggled open by curriculum.js (so a click
+   or tap works the same as hover, for touch devices). ───────────── */
+.hover-reveal { position: relative; cursor: pointer; }
+.hover-reveal-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  z-index: 20;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  padding: 0.85rem 1rem;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
+  transition: opacity var(--transition), transform var(--transition);
+}
+.hover-reveal:hover .hover-reveal-panel,
+.hover-reveal:focus .hover-reveal-panel,
+.hover-reveal.is-open .hover-reveal-panel {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+.hover-reveal-panel p { font-size: 0.82rem; line-height: 1.6; color: var(--text); font-weight: 400; margin: 0 0 0.6rem; }
+.hover-reveal-panel p:last-child { margin-bottom: 0; }
+
+[data-theme="win95"] .hover-reveal-panel,
+[data-theme="dos"] .hover-reveal-panel,
+[data-theme="xbox"] .hover-reveal-panel,
+[data-theme="nightmare"] .hover-reveal-panel,
+[data-theme="hannah"] .hover-reveal-panel { box-shadow: none; border: 1px solid var(--border-strong); }
+
+@media (max-width: 480px) {
+  .hover-reveal-panel { left: 0; max-width: calc(100vw - 3.5rem); transform: translateY(-6px); }
+  .hover-reveal:hover .hover-reveal-panel,
+  .hover-reveal:focus .hover-reveal-panel,
+  .hover-reveal.is-open .hover-reveal-panel { transform: translateY(0); }
+}
+
 /* ── STORYBOARD / COMIC-STRIP USER JOURNEY (B2.1.6) ──────────────
    Sits inside the same .mclass-diagram card used for the A3.1.1
-   classification trees. A horizontally-scrolling strip of numbered
-   frames, each a [data-modal] trigger for the shared .case-modal
-   engine, with a CSS-only hover/focus tooltip like .mclass-node.
-   One frame can carry .storyboard-frame--pain to flag the beat
-   where the pain point actually lands. ─────────────────────────── */
+   classification trees. A wrapping row of small numbered chips;
+   wraps onto multiple lines rather than scrolling, so it never
+   needs horizontal scrolling at any width. ─────────────────────── */
 .storyboard-strip {
   display: flex;
-  align-items: stretch;
-  gap: 0.15rem;
-  overflow-x: auto;
-  padding: 0.25rem 0.15rem 0.75rem;
-}
-.storyboard-arrow {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 0.1rem;
-  color: var(--border-strong);
-  font-size: 1.1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
 }
 .storyboard-frame {
-  position: relative;
-  flex: 0 0 190px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-top: 3px solid var(--frame-c, var(--curr-color, var(--accent)));
-  border-radius: var(--radius-sm);
-  padding: 0.75rem 0.85rem 0.9rem;
-  cursor: pointer;
+  border-radius: var(--radius-pill);
+  padding: 0.35rem 0.85rem 0.35rem 0.35rem;
   transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 .storyboard-frame:hover,
-.storyboard-frame:focus-visible {
-  transform: translateY(-3px);
+.storyboard-frame:focus,
+.storyboard-frame.is-open {
+  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
-  border-color: var(--frame-c, var(--curr-color, var(--accent)));
+  border-color: var(--curr-color, var(--accent));
   outline: none;
 }
 .storyboard-frame-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: var(--curr-color, var(--accent));
+  color: var(--surface);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--muted);
 }
-.storyboard-frame-img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-}
-.storyboard-frame-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.storyboard-frame-img:has(img[src=""]) { display: none; }
-.storyboard-frame-caption { font-size: 0.85rem; line-height: 1.4; font-weight: 600; color: var(--text); }
+.storyboard-frame-title { white-space: nowrap; }
+.storyboard-frame .hover-reveal-panel { width: 280px; max-width: 80vw; }
 
-.storyboard-frame--pain { --frame-c: var(--amber); }
-.storyboard-frame-tag {
-  align-self: flex-start;
+/* ── PROTOTYPE MENU (B2.2.6) ──────────────────────────────────────
+   A grid of prototype-type cards. Hovering, focusing or tapping a
+   card reveals Purpose / Target audience / Data collected as three
+   small labelled fields, stacked like a spec sheet rather than a
+   table, using the same .hover-reveal engine as the storyboard. ── */
+.protomenu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+.protomenu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1rem;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.protomenu-card:hover,
+.protomenu-card:focus,
+.protomenu-card.is-open {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--curr-color, var(--accent));
+  outline: none;
+}
+.protomenu-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--curr-color, var(--accent));
+}
+.protomenu-card-name {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.protomenu-card .hover-reveal-panel { width: min(300px, 80vw); }
+.protomenu-field { margin-bottom: 0.7rem; }
+.protomenu-field:last-child { margin-bottom: 0; }
+.protomenu-field-label {
+  display: block;
   font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--amber);
-  background: var(--amber-bg);
-  border: 1px solid var(--amber);
-  border-radius: var(--radius-pill);
-  padding: 0.15rem 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--curr-color, var(--accent));
+  margin-bottom: 0.2rem;
 }
-
-.storyboard-frame::after {
-  content: attr(data-tip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 10px);
-  transform: translateX(-50%) translateY(4px);
-  width: max-content;
-  max-width: 210px;
-  background: var(--text);
-  color: var(--bg);
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: 400;
-  line-height: 1.45;
-  text-align: left;
-  padding: 0.55rem 0.7rem;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition), transform var(--transition);
-  z-index: 5;
-}
-.storyboard-frame:hover::after,
-.storyboard-frame:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-[data-theme="win95"] .storyboard-frame::after,
-[data-theme="dos"] .storyboard-frame::after,
-[data-theme="xbox"] .storyboard-frame::after,
-[data-theme="nightmare"] .storyboard-frame::after,
-[data-theme="hannah"] .storyboard-frame::after { box-shadow: none; border: 1px solid var(--border-strong); }
-
-@media (max-width: 640px) {
-  .storyboard-frame { flex-basis: 160px; }
-  .storyboard-frame::after { left: 0; transform: translateY(4px); }
-  .storyboard-frame:hover::after,
-  .storyboard-frame:focus-visible::after { transform: translateY(0); }
-}
+.protomenu-field p { font-size: 0.8rem; line-height: 1.5; color: var(--text); margin: 0; }
