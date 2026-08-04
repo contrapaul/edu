@@ -12,8 +12,7 @@
 
   // All tracked IDs in document order (deepest item wins when multiple are in view).
   var SECTION_IDS = [
-    'introduction',
-    'study-guide',
+    'course-notes',
     'obj-1.1.1', 'act-1.1.1-a',
     'obj-1.1.2', 'act-1.1.2-a', 'act-1.1.2-b', 'act-1.1.2-c',
     'obj-1.1.3', 'act-1.1.3-a',
