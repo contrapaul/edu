@@ -269,6 +269,7 @@
       modalBox.style.setProperty('--accent', game.accent);
       renderDetailContent(modalContent, game);
       modal.hidden = false;
+      modalBox.scrollTop = 0;
     }
     function closeDetail() { modal.hidden = true; }
 
