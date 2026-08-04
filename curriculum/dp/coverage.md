@@ -265,9 +265,8 @@ Need to add named-fad images (Troll Dolls, Pet Rocks, Beanie Babies, Tamagotchi)
 
 - **C2.2.1** (Linear vs Circular Economy) — ✅ Comprehensive. Linear/circular contrast, the Kirchherr et al. (2017) definition, PET/paper-cardboard examples and EU/China policy context all match MD, with a genuinely valuable bonus Discussion prompt on downcycling ("is recycling actually circular, or just a slower line?"). One interactive tool (a closed-loop diagram builder) is explicitly marked "Planned Addition" — a gap the page's own author is already tracking, not a silent omission.
 
-Need to add a circular economy diagram. A circle with 8 steps representing a circular economy, again with hover descriptions that provide additional contents. If possible have the elements slowly orbit the circle. 
+Complete! Need to add a circular economy diagram. A circle with 8 steps representing a circular economy, again with hover descriptions that provide additional contents. If possible have the elements slowly orbit the circle. 
 
-Change use, recyle, and recover to Design, Manufacture, Distribution, Sale, Maintenance, Reuse, Refurbish, Recycle, Resource Recovery
 
 - **C2.2.2** (Design-for Strategies) — ✅ Comprehensive. Design for materials/process/assembly/longevity, dematerialisation and Jevons' Paradox all match MD closely and accurately (this section was also directly verified during the earlier duplication-fix pass on this page).
 

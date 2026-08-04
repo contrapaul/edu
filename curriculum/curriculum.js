@@ -336,12 +336,11 @@
   if (currMain && sectionTriggers.length) {
     var expandBtn = document.createElement('button');
     expandBtn.className = 'curr-expand-all-btn';
-    expandBtn.textContent = 'Expand all sections';
     currMain.insertBefore(expandBtn, currMain.firstChild);
 
     var allExpanded = false;
-    expandBtn.addEventListener('click', function () {
-      allExpanded = !allExpanded;
+    function setAllExpanded(expand) {
+      allExpanded = expand;
 
       if (allExpanded) {
         sectionTriggers.forEach(openSection);
@@ -362,7 +361,16 @@
         expandBtn.textContent = 'Expand all sections';
         expandBtn.classList.remove('is-expanded');
       }
+    }
+
+    expandBtn.addEventListener('click', function () {
+      setAllExpanded(!allExpanded);
     });
+
+    /* Pages load with everything open, so the button starts in the
+       state that matches — "Collapse all sections" — rather than
+       offering to expand what's already expanded. */
+    setAllExpanded(true);
   }
 
 })();

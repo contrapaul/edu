@@ -1922,11 +1922,6 @@ details.p2-reveal summary::before { content: "▼ "; }
 .curr-section {
   overflow-x: hidden;
 }
-/* Scroll within accordion bodies when content is wider than container */
-.curr-body,
-.obj-body {
-  overflow-x: auto;
-}
 
 /* ── CONCEPT INTRODUCTION BOX ────────────────────────────────── */
 .concept-box {
@@ -3240,11 +3235,8 @@ details.p2-reveal summary::before { content: "▼ "; }
    wraps), populated by c2.2.js rather than floating off the node
    itself. A tooltip nested inside the rotating nodes would live
    inside two stacked transform contexts (the orbit spin and the
-   node's own counter-spin), and .obj-body/.curr-body need
-   overflow-x:auto for other content on these pages, which the CSS
-   overflow spec silently turns into an effective overflow-y:auto
-   too, and between the two, a nested tooltip could end up clipped or
-   painted behind later sections depending on where in the loop a
+   node's own counter-spin), so a nested tooltip could end up clipped
+   or painted behind later sections depending on where in the loop a
    node happened to be. A static side panel isn't a descendant of
    anything that rotates or clips, so that failure mode can't happen. */
 .ce-orbit-layout {
