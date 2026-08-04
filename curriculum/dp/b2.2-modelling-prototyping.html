@@ -325,10 +325,11 @@
 <p><strong>Rapid prototyping</strong> uses digital CAD models to produce physical objects directly, without manual machining or tooling. The three principal additive manufacturing processes are:</p>
 <ul>
 <li><strong>Stereolithography (SLA)</strong>: an ultraviolet laser traces cross-sections of the model onto a vat of photosensitive resin, curing each layer. Produces very high surface quality and fine detail; widely used for aesthetic and dental/medical prototypes. Resin parts are typically brittle.</li>
-<li><strong>Fused Deposition Modelling (FDM)</strong>: a thermoplastic filament (PLA, ABS, PETG) is melted and extruded in successive layers. The most accessible and affordable process, available in desktop machines. Layer lines are visible; surface quality is lower than SLA but functional parts are tougher.</li>
-<li><strong>Selective Laser Sintering (SLS)</strong>: a laser fuses powder (nylon, glass-filled nylon, metal) layer by layer. No support structures are needed because unfused powder supports the part during build. Produces durable functional prototypes with complex internal geometries; expensive and requires specialist equipment.</li>
+<li><strong>Fused Deposition Modelling (FDM)</strong>: a thermoplastic filament (PLA, ABS, PETG) is melted and extruded in successive layers. The most accessible and affordable process, available in desktop machines. (Note, all of our school machines are FDM machines). Layer lines are visible; surface quality is lower than SLA but functional parts are tougher.</li>
+<li><strong>Selective Laser Sintering (SLS)</strong>: a laser fuses powder (nylon, glass-filled nylon, metal) layer by layer. No support structures are needed because unfused powder supports the part during build. Produces durable functional prototypes with complex internal geometries; expensive and requires specialist equipment. Not yet something that can be done at home.</li>
 </ul>
 <p><strong>CAD model requirements for rapid prototyping:</strong> The model must be a watertight solid with no open surfaces, gaps or self-intersecting geometry. It is exported as an STL (stereolithography) file, which approximates curved surfaces as a mesh of triangles. Resolution (triangle count) must be high enough to preserve fine details. Wall thickness must meet minimum thresholds for the chosen process to avoid fragile or failed builds.</p>
+<p>STEP, OBJ, and 3MF files may also be used, and offer additional features and compatibility. An example of meeting a <strong>minimum threshold</strong> is ensuring that model walls are thicker than the nozzle size on an FDM printer. For example, the machines we use at school have .4mm nozzles, so model walls must be at <em>least</em> 4mm thick, and in reality, they should be closer to 1mm to guarantee successful printing.</p>
 
 <div class="concept-box">
 <div class="concept-box-label">Key concept</div>
@@ -356,7 +357,7 @@
   </figure>
   <div class="case-study-content">
     <h4>Shaken Apart, on Purpose</h4>
-    <p>A full-scale building, deliberately shaken until it collapses.</p>
+    <p>E-Defense's shake table is a powerful tool for testing the seismic resilience of buildings and infrastructure.</p>
     <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
   </div>
 </article>
@@ -844,21 +845,22 @@
     <div class="case-modal-body">
 
       <figure class="case-photo">
-        <a href="" target="_blank" rel="noopener"><img src="" alt="The E-Defense shake table with a full-scale multi-storey test building mounted on top"></a>
-        <figcaption><em>Placeholder caption.</em></figcaption>
+        <a href="https://www.bosai.go.jp/e/facilities/edefense.html" target="_blank" rel="noopener"><img src="B2.2/shaketable.png" alt="The E-Defense shake table with a test building mounted on top"></a>
+        <figcaption><em><a href="https://www.bosai.go.jp/e/facilities/edefense.html">E-Defense official website</a></em></figcaption>
       </figure>
 
       <div class="case-phase">
-        <p>Most seismic engineering leans on small-scale models and computer simulation, because building and then destroying a full-size structure is expensive. E-Defense, a research facility in Miki, Japan, built after the 1995 Kobe earthquake exposed how much standard building codes still got wrong, does the opposite: it bolts a complete, realistically-built structure, a full-scale house, apartment block, hospital or office building, onto the world's largest shake table, then reproduces the exact ground motion recorded during a real earthquake at full intensity until the structure is damaged or collapses.</p>
+        <p>Most seismic engineering leans on small-scale models and computer simulation, because building and then destroying a full-size structure is expensive. E-Defense, a research facility in Miki, Japan, built after the 1995 Kobe earthquake exposed how much standard building codes still got wrong, does the opposite. Engineers can bolt a complete, realistically-built structure, like a full-scale house, apartment block, or office building onto the world's largest shake table. They are able to reproduce the exact ground motion recorded during a real earthquake at full intensity until the structure is damaged or collapses.</p>
       </div>
 
       <figure class="case-photo">
-        <a href="" target="_blank" rel="noopener"><img src="" alt="A test structure partially collapsed after an E-Defense shake test"></a>
-        <figcaption><em>Placeholder caption.</em></figcaption>
+        <a href="https://en.wikipedia.org/wiki/E-Defense" target="_blank" rel="noopener"><img src="B2.2/edefense.jpg" alt="E-Defense shake test"></a>
+        <figcaption><em><a href="https://en.wikipedia.org/wiki/E-Defense">E-Defense on Wikipedia</a></em></figcaption>
       </figure>
 
       <div class="case-phase">
-        <p>Every test structure is instrumented with hundreds of sensors that record exactly how forces travel through the building and precisely where and when a beam, joint or wall gives way: the kind of failure sequence a small-scale model or a simulation can only estimate. Footage of a full-size building crumpling floor by floor, filmed head-on and shared widely after each major test, has repeatedly overturned assumptions baked into existing seismic codes, feeding directly into revised standards for joints, base isolation and retrofits. It's the same logic behind any destructive prototype test: break a full-scale, realistic version of the real thing on purpose, because the failure teaches you something a survived test never could, just applied at building scale instead of product scale.</p>
+        <p>Every test structure is has with hundreds of sensors installed that record exactly how forces travel through the building. They can show precisely where and when a beam, joint or wall gives way. This is the kind of failure sequence that a small-scale model or a simulation can only estimate. Footage of a full-size building crumpling floor by floor, filmed head-on and shared widely after each major test, has repeatedly challenged assumptions baked into existing seismic codes, and led to revised standards for joints, base isolation and retrofits. The same logic applies to any destructive prototype test. Breaking a full-scale, realistic version of something on purpose teaches you something a survived test never could, whether it's a product or a building.</p>
+        <p><a href="https://www.youtube.com/watch?v=Cq3_4nT1BC0&list=PLsqR2u2_cqLB7V4M8tPoIPYERmhyczx8N"><em>A playlist of videos from E-Defense tests: Youtube</em></a></p>
       </div>
 
     </div>
