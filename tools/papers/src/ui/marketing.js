@@ -3,7 +3,7 @@
 // demand. Channels trade reach against credibility and audience fit; pouring
 // money into hype channels behind an overpriced, low-quality product backfires.
 
-import { state, save } from '../state.js';
+import { state, save, spendable } from '../state.js';
 import { getPart, getMaterial } from '../content/materials.js';
 import { MARKETING_CHANNELS, computeMarketing } from '../content/marketing.js';
 
@@ -51,8 +51,8 @@ export function renderMarketing(container, ctx) {
         <div class="mkt-channels">${rows}</div>
         <aside class="mkt-summary">
           <div class="mkt-card">
-            <span class="mkt-label">Cash available</span>
-            <span class="mkt-cash" id="mkt-cash">${money(state.budget)}</span>
+            <span class="mkt-label">Available to spend</span>
+            <span class="mkt-cash" id="mkt-cash">${money(spendable())}</span>
           </div>
           <div class="mkt-meter">
             <span class="mkt-label">Projected demand boost</span>
@@ -74,9 +74,14 @@ export function renderMarketing(container, ctx) {
   function refresh() {
     const total = totalSpend();
     const res = computeMarketing(p.marketing, p.selectedMarkets, value);
-    const overBudget = total > state.budget;
+    // Marketing spends against cash + credit line, exactly like Production and
+    // Testing. Gating on raw cash would lock the phase shut whenever the
+    // production run was financed into the red — which is the normal path.
+    const room = spendable();
+    const overBudget = total > room;
 
-    container.querySelector('#mkt-cash').textContent = money(state.budget - total) + ' left';
+    container.querySelector('#mkt-cash').textContent =
+      money(room - total) + (state.budget < 0 ? ' credit left' : ' left');
     container.querySelector('#mkt-mult').textContent = '×' + res.reachMult.toFixed(2);
 
     const warn = container.querySelector('#mkt-warn');
@@ -94,7 +99,9 @@ export function renderMarketing(container, ctx) {
     const btn = container.querySelector('#mkt-launch');
     const msg = container.querySelector('#mkt-msg');
     btn.disabled = overBudget;
-    msg.textContent = overBudget ? `Over budget by ${money(total - state.budget)}.` : '';
+    msg.textContent = overBudget
+      ? `Spend of ${money(total)} is beyond your ${money(room)} of cash + credit.`
+      : '';
   }
 
   container.querySelectorAll('[data-ch]').forEach(inp => {

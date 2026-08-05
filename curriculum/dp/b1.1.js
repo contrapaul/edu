@@ -14,7 +14,7 @@ var FR_TASKS = [
       'Count how many students abandon the queue before reaching the front',
       'Note signage: can you tell what\'s on the menu before joining the queue?'
     ],
-    tip: 'Stand near the exit, not the entrance — you\'ll see the full flow without blocking it.'
+    tip: 'Stand near the exit, not the entrance, so you see the full flow without blocking it.'
   },
   {
     setting: 'Bus stop or train platform during peak hours',
@@ -44,7 +44,7 @@ var FR_TASKS = [
       'Note which directional signs, if any, are consulted',
       'Count how many people ask staff for directions vs. navigate independently'
     ],
-    tip: 'Focus on people who pause and look around — these are moments of navigational uncertainty.'
+    tip: 'Focus on people who pause and look around. Those are moments of navigational uncertainty.'
   },
   {
     setting: 'Gym or fitness centre, free weights or machine area',
@@ -52,7 +52,7 @@ var FR_TASKS = [
     collect: [
       'Note how users figure out how to adjust seat height, weight or resistance',
       'Count how many read the instruction sticker vs. just guess',
-      'Observe whether users re-rack weights — and if not, where they leave them'
+      'Observe whether users re-rack weights, and if not, where they leave them'
     ],
     tip: 'Equipment that is regularly misadjusted is a design problem, not a user problem.'
   },
@@ -62,7 +62,7 @@ var FR_TASKS = [
     collect: [
       'Map the most congested points in the corridor',
       'Time how long it takes a student to access their locker and move on',
-      'Note whether any students skip their locker entirely — and why'
+      'Note whether any students skip their locker entirely, and why'
     ],
     tip: 'Arrive 2 minutes before a class ends so you observe the full wave of movement.'
   },
@@ -72,7 +72,7 @@ var FR_TASKS = [
     collect: [
       'Time the average wait between ordering and receiving a drink or food',
       'Note where customers position themselves while waiting and whether this causes confusion',
-      'Record how customers know their order is ready — name called, number, app notification?'
+      'Record how customers know their order is ready: name called, number, app notification?'
     ],
     tip: 'Identify behavior in line and note how attention or lack of attention contributes to overall order speed.'
   },
@@ -118,12 +118,12 @@ var FG_QUESTIONS = [
   'What words come to mind when you first think about {topic}?',                                             // 1
   'When was the last time you used or encountered {topic}? Walk us through what that experience was like.', // 2
   'What is the single most frustrating thing about {topic} as it currently exists?',                        // 3
-  'If you could change one thing about {topic}, what would it be — and why that one thing in particular?',  // 4
+  'If you could change one thing about {topic}, what would it be, and why that one thing in particular?',  // 4
   'How does {topic} compare to alternatives you\'ve tried? What does it do better or worse?',               // 5
   'Who do you think {topic} is designed for? Does that match your own experience using it?',                // 6
   'What would need to be true for you to trust {topic} more than you currently do?',                        // 7
   'Imagine you\'re describing {topic} to a friend who has never heard of it. What would you say?',          // 8
-  'What would need to be true for {topic} to become something you used — or relied on — every day?',        // 9
+  'What would need to be true for {topic} to become something you used, or relied on, every day?',        // 9
   'Think about the last time {topic} let you down. What happened, and what did you do next?',               // 10
   'Is there anything about {topic} that you\'ve simply given up trying to figure out?',                     // 11
   'If you could redesign {topic} from scratch, what would be the very first thing you\'d change?',          // 12

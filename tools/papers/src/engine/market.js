@@ -5,7 +5,7 @@
 // decays with novelty, drops once that product's rival ships, and can be propped
 // up with more marketing. Markets are ticked by the clock, not by hand.
 
-import { state, save } from '../state.js';
+import { state, save, canSpend } from '../state.js';
 import { logLedger } from './events.js';
 
 const DECAY = 0.78;            // monthly novelty decay
@@ -52,7 +52,9 @@ export const openMarkets = () => state.markets.filter(m => !m.closed);
 // Spend cash now to lift a market's marketing strength (diminishing returns).
 export function boostMarketing(productId, amount) {
   const m = getMarket(productId);
-  if (!m || m.closed || amount <= 0 || amount > state.budget) return false;
+  // Chargeable against the credit line: a launch usually leaves you in the red,
+  // and topping up marketing is how you sell your way back out.
+  if (!m || m.closed || amount <= 0 || !canSpend(amount)) return false;
   state.budget -= amount;
   logLedger(`Marketing top-up — ${m.name}`, -amount);
   m.adSpentThisMonth += amount;
