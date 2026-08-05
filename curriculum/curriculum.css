@@ -832,6 +832,21 @@
 .crit-d { --curr-color: #2d7a6a; }
 .crit-refs { --curr-color: #64748b; }
 
+/* ── MYP LESSON SUB-DROP-DOWNS ───────────────────────────────────
+   Native <details> lists used inside the suggested-lesson sections
+   of the MYP unit pages. Shared by every unit page that lists a
+   lesson sequence. ─────────────────────────────────────────────── */
+.lesson-list { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.75rem 0; }
+.lesson-list details { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.lesson-list summary { cursor: pointer; padding: 0.6rem 0.9rem; font-size: 0.87rem; font-weight: 500; list-style: none; display: flex; align-items: center; gap: 0.6rem; }
+.lesson-list summary::-webkit-details-marker { display: none; }
+.lesson-list summary::after { content: "▾"; margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+.lesson-list details[open] summary::after { content: "▴"; }
+.lesson-num { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 1.7rem; height: 1.7rem; padding: 0 0.35rem; border-radius: 6px; background: var(--surface-2); color: var(--muted); font-size: 0.72rem; font-weight: 600; }
+.lesson-body { padding: 0 0.9rem 0.75rem; font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.lesson-body p { margin: 0.3rem 0; }
+.lesson-note { font-size: 0.8rem; color: var(--muted); font-style: italic; margin: 0.4rem 0 0.8rem; }
+
 /* ── CURRICULUM HUB ──────────────────────────────────────────── */
 .hub-hero {
   background: var(--surface);
