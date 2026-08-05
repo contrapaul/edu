@@ -1416,23 +1416,6 @@
 .persona-product-display { display: none; margin-bottom: 1.25rem; padding: 0.875rem 1.1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 .persona-product-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; }
 .persona-product-context { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
-.persona-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 1rem 0; }
-.pb-field { display: flex; flex-direction: column; gap: 0.2rem; }
-.pb-field-full { grid-column: 1 / -1; }
-.pb-label { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-.pb-input { font-family: var(--font-body); font-size: 0.84rem; padding: 0.4rem 0.65rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); }
-.pb-input:focus { outline: none; border-color: var(--accent); }
-.persona-output { display: none; margin-top: 1.5rem; }
-.persona-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-.persona-card-header { padding: 1.25rem 1.5rem; background: var(--accent); color: white; }
-.persona-card-product { font-family: var(--font-mono); font-size: 0.6rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
-.persona-card-name { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.2rem; }
-.persona-card-tagline { font-size: 0.84rem; opacity: 0.85; }
-.persona-card-body { padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
-.persona-card-section-title { font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.6rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); }
-.persona-card-row { display: flex; flex-direction: column; gap: 0.1rem; margin-bottom: 0.5rem; }
-.persona-card-row > span:first-child { font-size: 0.7rem; color: var(--muted); }
-.persona-card-row > span:last-child { font-size: 0.84rem; }
 
 /* Task analysis */
 .ta-column-hint { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.875rem; line-height: 1.6; }
@@ -1485,7 +1468,6 @@
 
 @media (max-width: 800px) {
   .likert-tool { grid-template-columns: 1fr; }
-  .persona-card-body { grid-template-columns: 1fr 1fr; }
   .curr-section-intro-wrap { grid-template-columns: 1fr; }
   .curr-section-intro-photo { display: none; }
   .e-applied-photo { width: 140px; }
@@ -1500,8 +1482,6 @@
   }
 }
 @media (max-width: 560px) {
-  .persona-form-grid { grid-template-columns: 1fr; }
-  .persona-card-body { grid-template-columns: 1fr; }
 }
 
 /* ── QUIZ SECTION ────────────────────────────────────────────── */

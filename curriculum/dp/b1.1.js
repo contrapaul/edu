@@ -354,74 +354,8 @@ function initLikert() {
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   PERSONA BUILDER
-═══════════════════════════════════════════════════════════ */
-
-var PB_COLORS = {
-  elevator: '#2c6e8a',
-  social:   '#1a5cb8',
-  drink:    '#6b3d9a',
-  drill:    '#7a4520'
-};
-
-var PB_NAMES = {
-  elevator: 'Elevator at an international school',
-  social:   'Social media app redesign',
-  drink:    'New isotonic sports drink',
-  drill:    'Battery-powered drill'
-};
-
-function initPersonaBuilder() {
-  var btn    = document.getElementById('pb-finish');
-  var output = document.getElementById('pb-output');
-  if (!btn) return;
-
-  btn.addEventListener('click', function () {
-    var name         = (document.getElementById('pb-name').value || '').trim();
-    var age          = (document.getElementById('pb-age').value || '').trim();
-    var role         = (document.getElementById('pb-role').value || '').trim();
-    var goals        = (document.getElementById('pb-goals').value || '').trim();
-    var frustrations = (document.getElementById('pb-frustrations').value || '').trim();
-    var scenario     = (document.getElementById('pb-scenario').value || '').trim();
-    var product      = document.getElementById('pb-product').value;
-
-    if (!name || !role) {
-      alert('Please fill in at least a name and role before finishing.');
-      return;
-    }
-
-    var color       = PB_COLORS[product] || '#1a5cb8';
-    var productName = PB_NAMES[product]  || product;
-    var tagline     = age ? age + (role ? ' · ' + role : '') : role;
-
-    function section(title, text) {
-      if (!text) return '';
-      return '<div>' +
-        '<div class="persona-card-section-title">' + title + '</div>' +
-        '<div class="persona-card-row"><span>' + escHtml(text) + '</span></div>' +
-        '</div>';
-    }
-
-    var card = document.createElement('div');
-    card.className = 'persona-card';
-    card.innerHTML =
-      '<div class="persona-card-header" style="background:' + color + ';">' +
-        '<div class="persona-card-product">Primary persona · ' + escHtml(productName) + '</div>' +
-        '<div class="persona-card-name">' + escHtml(name) + '</div>' +
-        '<div class="persona-card-tagline">' + escHtml(tagline) + '</div>' +
-      '</div>' +
-      '<div class="persona-card-body">' +
-        section('Goals', goals) +
-        section('Pain points', frustrations) +
-        section('Typical scenario', scenario) +
-      '</div>';
-
-    output.innerHTML = '';
-    output.appendChild(card);
-    output.style.display = 'block';
-  });
-}
+/* The inline persona builder that used to live here was replaced by the
+   full tool at /tools/personae/. B1.1.3 now links to it with a promo card. */
 
 function escHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -682,7 +616,6 @@ document.addEventListener('DOMContentLoaded', function () {
   initFieldResearch();
   initFocusGroup();
   initLikert();
-  initPersonaBuilder();
   initTaskAnalysis();
 });
 

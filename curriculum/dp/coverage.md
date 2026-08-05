@@ -9,39 +9,43 @@ Cross-references each HTML page's content against the corresponding source markd
 
 **Note on A3/B3:** those markdown files had equations, tables, and figures stripped out during conversion, which sometimes leaves the *markdown* reading as incomplete, confusing, or interrupted. Where that's the case, it's flagged as an MD limitation and the HTML is judged on its own merits rather than penalized against a broken baseline.
 
+**Revision passes completed** (ESL readability rewrite + text-gap closure, in the order they were done): **A2.1**, **B1.1**, **A1.1**. Each of these is now ✅ across every sub-point, with only image/graphic requests outstanding. Pages not on this list have not yet had a readability pass.
+
 ---
 
 ## A1 — Human Factors: Ergonomics
 
 ### A1.1 Ergonomics — [a1.1-ergonomics.html](a1.1-ergonomics.html) vs [A1.md](A1.md)
 
-- **A1.1.1** (Ergonomics / application examples) — ⚠️ Adequate but thin. The HTML's definitional framework (three disciplines: anthropometrics/physiology/psychology; five qualities: efficient/usable/functional/effective/safe) is clear and arguably better structured than the MD, but MD's category-by-category worked examples — office chairs, keyboards & mice, medical devices, automotive HUDs, consumer electronics, kitchen knife ergonomics — are entirely absent. *Expand: add 2-3 more applied product examples beyond the single-line quality table.*
+*Revision pass, Aug 2026: all seven sub-points reviewed for ESL readability (long stacked-clause sentences broken up, idioms removed, new technical terms defined inline: non-invasive, calipers, calibrated, fovea, peripheral vision, lumbar support, biofidelic, arthritis, Parkinson's, MS) and every text-based content gap below was closed. Remaining notes are image/graphic requests only.*
+
+- **A1.1.1** (Ergonomics / application examples) — ✅ Comprehensive. The definitional framework (three disciplines: anthropometrics/physiology/psychology; five qualities: efficient/usable/functional/effective/safe) is clear and better structured than the MD, and MD's six worked product categories are now present as a dedicated "Ergonomics applied" block: office chairs (height/lumbar/armrest reasoning), keyboards and mice, medical devices, automotive HUDs, consumer electronics, and kitchen knives (balance, weight distribution, non-slip materials).
 
 Need to add applied product example images (office chair, keyboard/mouse, medical device, automotive HUD, kitchen knife).
 
-- **A1.1.2** (Anthropometrics) — ⚠️ Adequate but thin. Static/dynamic distinction and age/gender/ethnicity/disability factors are present but surface-level (one sentence each). Missing: the WHO's formal definition/citation, the instrumentation/calibration discussion, data-reliability caveats (e.g. skinfold calipers being unreliable), the nude-body measurement convention and clothing allowances, and the specific factual depth under demographic factors (bone-density percentages, fracture-rate differences, wheelchair-user strength/proportion differences). *Expand: add data-collection methodology and demographic specifics.*
+- **A1.1.2** (Anthropometrics) — ✅ Comprehensive. Static/dynamic is now labelled with MD's alternative names (structural/functional) and explains why dynamic data is harder to collect but more useful. Gaps closed: the WHO 1995 definition is quoted and its key term explained, a "how the data is collected" block covers instruments, calibration and the skinfold-caliper reliability caveat, the nude-body convention and clothing allowance is explained, and the demographic factors now carry MD's specifics (50% peak bone-mass difference, body-fat/BMI note, bone-density and waist-ratio variation by ethnicity, cerebral palsy/muscular dystrophy and wheelchair-user proportions).
 
 Need to add chart of anthropometric measurement methods (calipers, 3D scanning) and demographic data ranges.
 
-- **A1.1.3** (Percentiles) — ⚠️ Adequate but thin, with strong interactive additions (percentile lookup tool, design-concern reference table not in the MD). Percentile logic, reach/clearance framing, and the crash-test-dummy case study are all present. Missing: the standard-deviation / 68–95% normal-distribution rule, and part of the crash-dummy timeline (the Sierra Sam predecessor, the 1980s first female dummy, the 2022 Swedish dummy) and the children's-furniture percentile example. *Expand: add the SD/68-95% statistical foundation and complete the crash-dummy timeline.*
+- **A1.1.3** (Percentiles) — ✅ Comprehensive, exceeds MD. Percentile logic, reach/clearance framing, the design-concern reference table and the percentile lookup tool remain. Added: a "statistics behind the curve" block (mean, standard deviation/sigma, the 68% and 95% rules, and why this makes percentile tables usable), MD's mixed-population arithmetic (2.5% + 2.5% = 5% excluded, so 5th–95th covers ~95% of a half-male/half-female group), the full crash-dummy timeline as a dated list (Sierra Sam 1949 aviation 95th-percentile male, Hybrid I 1971, the 1980s scaled-down female dummy, the 2022 Swedish dummy, THOR 5th ATD), and the children's computer-furniture percentile example.
 
 Need to add crash-test-dummy timeline graphic (Sierra Sam, first female dummy 1980s, 2022 Swedish dummy) and an SD/68-95% distribution chart.
 
-- **A1.1.4** (Adjustability) — ✅ Comprehensive. Clear adjustability-vs-range-of-sizes structure with good examples on both sides; only a minor, skippable gap is MD's fashion-industry-specific example (drawstrings/elastic bands/belts).
+- **A1.1.4** (Adjustability) — ✅ Comprehensive. Clear adjustability-vs-range-of-sizes structure with good examples on both sides. MD's fashion-industry example (drawstrings, elastic bands, belts, adjustable straps) and the "design for more types" term with its cost trade-off have both been added.
 
-- **A1.1.5** (Work envelopes / reach / clearance) — ⚠️ Adequate, different emphasis. Strong original treatment of work envelope/reach/clearance plus three bonus product-spotlight case studies (Xbox controller, standing desk, Aeron chair), but omits MD's multivariate-analysis point (that body dimensions aren't proportional, so one percentile choice doesn't guarantee coverage on other dimensions) and the data-collection-methods list (anthropometric tables, dynamic measurement, software simulation, video). *Expand: add a short section on why single-percentile assumptions break down across multiple dimensions.*
+- **A1.1.5** (Work envelopes / reach / clearance) — ✅ Comprehensive. Strong original treatment of work envelope/reach/clearance plus three bonus product-spotlight case studies (Xbox controller, standing desk, Aeron chair). Added: a "why one percentile is never enough" block covering multivariate variation (body dimensions are not proportional, so a 5th–95th range on several dimensions at once still excludes more than 5% of users, and the cost of covering every combination is not justified), and MD's four data sources (anthropometric tables, dynamic measurement, software simulation, video) with the clothing caveat.
 
 Need to add diagram showing multivariate body-dimension variation (why one percentile choice doesn't guarantee coverage across dimensions).
 
-- **A1.1.6** (Physiology) — ❌ Needs expansion. The physiological-limits framework (vision, muscle strength/fatigue, motor control, hearing thresholds) is solid and well-exampled (jar opener). But MD's sporting-equipment biomechanics examples (tennis racquets, golf clubs, swimsuits, javelins), named medical conditions (Arthritis, Parkinson's, MS), the colour-in-branding/safety/camouflage discussion, the visual-signage design principles (push/pull door example), and hearing-related design applications (volume limiters, soundproofing, alarm acoustics) have no equivalent anywhere on the page — colour and orange-lifeboat content resurfaced under 1.1.7 instead, but the rest is simply missing. *Expand: add sporting-equipment examples, named conditions, and hearing/visual design-application content, not just the physiological limits themselves.*
+- **A1.1.6** (Physiology) — ✅ Comprehensive, and now the largest section on the page. The physiological-limits framework (vision, muscle strength/fatigue, motor control, hearing thresholds) and the jar-opener example remain. Added: an "every design contains a biomechanical assumption" block with the three named conditions (arthritis, Parkinson's, MS) and adaptive technologies, MD's older-consumer packaging problem (jar lids, bottle tops, ring pulls, child-resistant caps), the helmet/neck-load case including HUD and night-vision attachments; a sporting-equipment biomechanics block (tennis racquets, golf clubs, swimsuits, javelin damping) with the elite-to-mass-market pipeline and the design-for-inclusion link; a five-purpose colour block (appeal, legibility, inclusion, brand identity with the gold/silver/black association, context and safety with camouflage vs. high-visibility); the push/pull door signage principle; and a four-purpose hearing block (volume limiters, soundproofing, alarm acoustics, acoustic treatment of environments).
 
 Need to add sporting-equipment ergonomics images (tennis racquet, golf club, javelin) and visual/hearing design-application examples (push/pull door signage, volume limiters, alarm acoustics).
 
-- **A1.1.7** (Psychology) — ⚠️ Adequate, restructured. The five-senses framework is well-exampled and includes strong bonus content not in the MD (a full haptic-feedback deep dive, a reflective discussion prompt). But the formal office-environment 4-factor model (lighting/acoustics/air quality/worker density), the "80% comfort" satisfaction threshold, the PWESQ questionnaire tool, the Calhoun attribution for "defensible space," and the mobile-phone-design psychology example are all missing. *Expand: add the formal office-comfort model and tool references.*
+- **A1.1.7** (Psychology) — ✅ Comprehensive. The five-senses framework, the haptic-feedback deep dive and the reflective discussion prompt all remain. Added: the Calhoun (1940s) attribution and the cultural-variation note on defensible space, MD's mobile-phone psychological-design example, and a full "environmental psychology and the office" block covering all five named factors (lighting, acoustics, air quality, temperature, worker density), the 80% "reasonable comfort" threshold with the caveat that air temperature alone is not a valid indicator, the open-plan trade-off list, and the PWESQ questionnaire as a named measurement tool. Thermal comfort stays in 1.1.6 with a cross-reference rather than being duplicated.
 
 Need to add office-environment comfort model chart (lighting/acoustics/air quality/worker density).
 
-**A1 overall:** Usable as a standalone resource for the core concepts and assessment objectives, and in some places clearer than the MD. The recurring gap is worked/named examples — sporting equipment, named medical conditions, specific historical timeline details, and named tools/models (PWESQ, Calhoun) that add authority but aren't strictly required to teach the concept.
+**A1 overall:** Now comprehensive across all seven sub-points, and in several places (the crash-dummy timeline, the SD/percentile link, the multivariate-variation explanation) clearer and more complete than the MD. Everything outstanding on this page is a graphic, not text. Two proofreading fixes were made in the same pass: a garbled sentence in quiz Q4's jar-opener explanation ("the lever principle provides the mechanical advantage of a larger radius produces greater torque"), and a comma-splice ending in quiz Q8, which was also updated to reference the new 80% comfort threshold.
 
 ---
 
@@ -91,17 +95,19 @@ Need to add general-assembly vs sub-assembly drawing example and a Dürer's-wind
 
 Need to add clay-modelling (automotive design) and architectural-model scale-convention images (1:100 landscape vs 1:20 building).
 
-- **A2.2.5** (Virtual prototypes / CAD) — ❌ Needs expansion, the weakest sub-point in A2. This is MD's largest and densest section — covering CAD basics, surface vs solid modelling, generative design, digital humans, motion capture, haptic technology, animation, VR, AR and FEA, each with extensive named real-world applications (Formula One fuel-mixture modelling, 3D scanning, Matsushita kitchen design, 4D cinema, NASA Goddard star-motion simulation, a Zuckerberg VR quote, aviation HUD history). HTML covers the same technology list at a basic, accurate level but is roughly a third of the length. Most notably, **generative design is named explicitly in the page's own "Students must be able to" objective line but is never actually explained in the body content** — a genuine gap against the page's own stated learning objective, not just against the MD. Haptic technology is also thinned dramatically: MD's three-category taxonomy (graspable/wearable/touchable) with named devices (haptic rings for visually impaired users, GPS-direction smartwatches, telepresence systems) collapses into a single generic paragraph in HTML. *Expand: add a generative-design explanation (required — it's in the stated objective), and restore the haptic-technology taxonomy.*
+- **A2.2.5** (Virtual prototypes / CAD) — ⚠️ Adequate but thin. *Aug 2026: the generative-design gap below is now closed.* The page carries a full generative-design explanation built around the constraint set (preserve geometry, obstacle geometry, load cases, material and manufacturing method, goals), the optimisation loop that follows, and why the output looks organic. Autodesk Fusion is named as the tool students are most likely to reach, with its actual workflow and two honest warnings (paid extension, and results that are awkward to 3D print because of support material). A Key Concept box then distinguishes generative design from agentic modelling, using the Claude and Blender connector (Blender MCP, 2025) as the worked example: what the Model Context Protocol does, the fact that the model writes Python for Blender to execute rather than manipulating geometry directly, and why the observe-and-correct loop is what makes it agentic. The box closes on the exam-relevant distinction, that generative design optimises against physics while agentic modelling only accelerates authoring, plus an IA documentation note. A cross-reference sends students to the Airbus Bionic Partition case study in B2.2.3 rather than duplicating it. **Still outstanding:** the haptic-technology taxonomy below, and the general thinness against MD's named real-world applications. The original assessment follows.
 
-Need to add generative-design explainer graphic (required per stated objective).
+  This is MD's largest and densest section — covering CAD basics, surface vs solid modelling, generative design, digital humans, motion capture, haptic technology, animation, VR, AR and FEA, each with extensive named real-world applications (Formula One fuel-mixture modelling, 3D scanning, Matsushita kitchen design, 4D cinema, NASA Goddard star-motion simulation, a Zuckerberg VR quote, aviation HUD history). HTML covers the same technology list at a basic, accurate level but is roughly a third of the length. Most notably, **generative design is named explicitly in the page's own "Students must be able to" objective line but is never actually explained in the body content** — a genuine gap against the page's own stated learning objective, not just against the MD. Haptic technology is also thinned dramatically: MD's three-category taxonomy (graspable/wearable/touchable) with named devices (haptic rings for visually impaired users, GPS-direction smartwatches, telepresence systems) collapses into a single generic paragraph in HTML. *Expand: add a generative-design explanation (required — it's in the stated objective), and restore the haptic-technology taxonomy.*
+
+The generative-design *text* is now written, so this is no longer a required fix. Still worth adding a graphic: a before/after of a solid bracket next to its optimised lattice version, and ideally a screenshot of the Fusion outcome-comparison scatter plot.
 
 Need to add haptic-technology taxonomy diagram (graspable/wearable/touchable) with named devices.
 
 - **A2.2.6** (Rapid prototyping) — ✅ Comprehensive. SLA, FDM and SLS are all covered accurately with clear advantages/disadvantages and a comparison table plus "when to use each" guidance that mirrors MD's own comparison discussion. Only minor omissions: MD's hot-melt-glue-gun analogy for FDM, the ±0.15% FDM accuracy figure, and a couple of secondary SLS/FDM materials (investment casting wax, sand wax).
 
-**A2.2 overall:** Strong at both ends (fidelity and rapid prototyping) but drops off sharply in the middle for virtual prototyping — 2.2.5 is the single largest coverage gap found across A1 and A2 so far, and includes a direct miss against the page's own listed learning objective (generative design).
+**A2.2 overall:** Strong at both ends (fidelity and rapid prototyping), with virtual prototyping still the thinnest part of the middle. The direct miss against the page's own listed learning objective has been fixed: generative design is now taught properly in 2.2.5, alongside a contrast with agentic AI modelling (Claude and Blender) that has no MD equivalent and is genuinely current. What remains in 2.2.5 is depth rather than absence, mainly the haptic-technology taxonomy and MD's bank of named real-world applications.
 
-**A2 overall:** Consistent with A1's pattern — clear, accurate teaching of core concepts, often with good original structural additions (tables, interactive tools, case studies) — but real depth is lost wherever the MD source material was unusually dense (A2.1.3's discipline list, A2.2.5's virtual-prototyping technologies). A2.2.5 is the first sub-point across the whole review so far that would leave a student under-prepared against the page's own stated objectives, not just against the source text.
+**A2 overall:** Consistent with A1's pattern before its revision pass. Clear, accurate teaching of core concepts, often with good original structural additions (tables, interactive tools, case studies), but real depth is lost wherever the MD source material was unusually dense. A2.1 has since been brought to full coverage, and A2.2.5 no longer leaves a student under-prepared against the page's own stated objectives. A2.2.2 (drawings, missing annotation practices and the assembly/sub-assembly hierarchy) and A2.2.4 (physical prototypes, missing the explicit advantages list and architectural scale conventions) are now the largest remaining text gaps in this topic.
 
 ---
 
@@ -119,7 +125,7 @@ Need to add a likert survey specific to my site to get actual feedback.
 
 Need to add Method of Extremes diagram (95th-percentile doorway/escape hatch, 5th-percentile control force).
 
-- **B1.1.3** (Personae) — ✅ Comprehensive. Primary/secondary/anti-persona types, the Nielsen Norman Group anti-persona quote, and the original additions (persona-building interview questions, a common-mistakes table, a student-project template, an interactive Persona Builder) all remain. Added: MD's three named real-world anti-persona examples (McDonald's and vegan customers, Trainline's non-purchaser flow, cybersecurity/hacker defence) and the **use case** concept, framed against personas and scenarios so the three terms are distinguishable. The 12-item persona profile checklist lives in A2.1.5; the template here is deliberately shorter because students fill it in by hand.
+- **B1.1.3** (Personae) — ✅ Comprehensive. Primary/secondary/anti-persona types, the Nielsen Norman Group anti-persona quote, and the original additions (persona-building interview questions, a common-mistakes table, a student-project template) all remain. *Aug 2026: the thin inline Persona Builder form was removed and replaced by a promo card linking to the full tool at [/tools/personae/](/tools/personae/), which runs a six-step guided wizard and outputs a printable A4 sheet in five templates.* Added: MD's three named real-world anti-persona examples (McDonald's and vegan customers, Trainline's non-purchaser flow, cybersecurity/hacker defence) and the **use case** concept, framed against personas and scenarios so the three terms are distinguishable. The 12-item persona profile checklist lives in A2.1.5; the template here is deliberately shorter because students fill it in by hand.
 
 Need to add anti-persona real-world example graphic (McDonald's/vegan customers, Trainline non-purchaser flow, cybersecurity hacker defence).
 
@@ -269,7 +275,7 @@ Need to add named-fad images (Troll Dolls, Pet Rocks, Beanie Babies, Tamagotchi)
 
 - **C2.2.1** (Linear vs Circular Economy) — ✅ Comprehensive. Linear/circular contrast, the Kirchherr et al. (2017) definition, PET/paper-cardboard examples and EU/China policy context all match MD, with a genuinely valuable bonus Discussion prompt on downcycling ("is recycling actually circular, or just a slower line?"). One interactive tool (a closed-loop diagram builder) is explicitly marked "Planned Addition" — a gap the page's own author is already tracking, not a silent omission.
 
-Complete! Need to add a circular economy diagram. A circle with 8 steps representing a circular economy, again with hover descriptions that provide additional contents. If possible have the elements slowly orbit the circle. 
+✅ Done. The orbiting circular-economy diagram is built (`ce-orbit` markup in the page, animation logic in [c2.2.js](c2.2.js)): nine stages arranged on a slowly rotating ring, each with a hover description and its own counter-rotation so the labels stay upright.
 
 
 - **C2.2.2** (Design-for Strategies) — ✅ Comprehensive. Design for materials/process/assembly/longevity, dematerialisation and Jevons' Paradox all match MD closely and accurately (this section was also directly verified during the earlier duplication-fix pass on this page).
@@ -438,7 +444,7 @@ Need to add Jacquard's 1804 punch-card loom historical image — direct ancestor
 
 - **A3.1.1** (Classifying materials) — ⚠️ Adequate but thin. The physical/chemical/mechanical three-category framework, Aristotle's four-element system, and the advantages of classification (CES EduPack, Ashby charts) are all covered well, with a bonus Interactive Material Selection Game. Missing: the Three-Ages System (C.J. Thomsen, 1826, Stone/Bronze/Iron Age) and the periodic table's development as a classification tool (Mendeleev 1869, Moseley's 1913 revision to atomic number) — both distinct historical classification systems MD covers at length that have no equivalent on the page.
 
-Complete! Need to add periodic table of elements- can build as an activity that shows course-related uses of elements.
+Still open (checked Aug 2026: this line was marked "Complete!" but the page contains no periodic-table content and there is no matching page under `tools/`). Need to add periodic table of elements, which can be built as an activity that shows course-related uses of elements.
 
 Need to add metal classificiation chart showing ferrous and non-ferrous. 
 
@@ -446,11 +452,11 @@ Need to add a chart of composites that breaks down by matrix or reinforcement.
 
 - **A3.1.2** (Material categories, frame/shell/solid) — ✅ Comprehensive. Natural/human-made origin categories (timbers, polymers, metals, glass, textiles, composites, smart materials, biomaterials) are all covered, and the frame/shell/solid/combination structural forms are sensibly summarised here with a pointer to full depth in A3.2, where MD's own content on this topic actually lives in more detail.
 
-Need to add images showing solid, Complete! shell, Complete! frame and combination structures. 
+Need to add images showing **solid** and **combination** structures. (Shell and frame are done: `A3.2/shell.jpg` and `A3.2/frame.jpg`, though both are currently used only on the A3.2 page, not on A3.1.)
 
 - **A3.1.3** (Material selection) — ✅ Comprehensive, exceeds MD. MD's treatment is thin (a paragraph on CAD property tables); the HTML adds a proper Ashby chart explainer (with a worked "stiffness above 50 GPa and density below 3000 kg/m³" example) and a structured six-factor selection framework MD never lays out explicitly.
 
-Complete! Need to ensure students are linked to central-middlezhong-adventure.html on this. 
+✅ Done. A tool promo card links to [central-middlezhong-adventure.html](/tools/central-middlezhong-adventure.html) with a preview image.
 
 - **A3.1.4** (Physical properties) — ⚠️ Adequate but thin. Density, thermal expansion, thermal conductivity, melting point and electrical conductivity/resistivity are all covered with good quantitative examples (aluminium vs. steel density, the mild-steel expansion coefficient). Missing: the deeper explanatory mechanisms MD provides — why intermolecular/metallic bond strength determines melting point (with the ice/hydrogen-bond and mercury examples), and the electron-scattering explanation of why resistivity rises with temperature.
 
@@ -474,7 +480,7 @@ Need to create Young's Modulus activity/chart.
 
 - **A3.1.7** (Composites) — ⚠️ Adequate but thin. All three composite categories (particle, fibre, laminar) are covered with strong matching examples (concrete, cemented carbide, CFRP, GFRP, plywood, laminated glass, cardboard, sailcloth). Missing: tempered/toughened glass as a distinct process (MD gives it real detail — 2-3× the strength of annealed glass, the "dicing" fracture pattern, why it can't be cut after tempering) is absent even though laminated glass is covered; also missing are prestressed/post-tensioned concrete and free-machining steel's MnS-stringer mechanism.
 
-Link to tools/craft for infinite composites game.
+✅ Done. A tool promo card links to the Infinite Composites craft game with a preview image.
 
 Provide videos and pictures of composites in action. 
 
@@ -496,11 +502,11 @@ Add a table detailing biodegradeable materials, how long they take to decompose,
 
 - **A3.2.1** (Structures in nature and built environment) — ✅ Comprehensive. Swaps MD's spider-web/beehive/DNA examples for bones, eggshells, honeycombs and tapered tree-trunk cantilevers — a different but equally valid natural-example set — and matches all of MD's built-environment examples (pyramids, Eiffel Tower, Sydney Opera House).
 
-Need to add visuals for shell structure, frame structures, solid structures.
+Shell and frame visuals are in place (`A3.2/shell.jpg`, `A3.2/frame.jpg`). Still need a **solid** structure visual, and one for **combination** structures.
 
 - **A3.2.2** (Structure classification) — ✅ Comprehensive. Solid/frame/shell/combination structures are covered with clean design-implication notes for each, matching MD's product-design examples closely.
 
-Need to add visuals for shell structure, frame structures, solid structures.
+Shell and frame visuals are in place (`A3.2/shell.jpg`, `A3.2/frame.jpg`). Still need a **solid** structure visual, and one for **combination** structures.
 
 - **A3.2.3** (Structural members) — ✅ Comprehensive, exceeds MD. Simply-supported, fixed and cantilever beams all match MD, and the HTML adds a fourth beam type (continuously supported) plus the Junkers J 1 (1915) cantilever-wing aviation history that MD itself references only briefly.
 
@@ -552,7 +558,7 @@ Need to create a Lego representation of a salad spinner and others.
 
 - **A3.3.6** (Gear systems) — ⚠️ Adequate but thin, bordering on needing expansion. Spur, bevel, hypoid, rack and pinion, worm, ratchet and pawl, idler and compound gears are all covered accurately with applications. Missing: helical gears as a distinct category (a gear type MD gives significant advantages/disadvantages/applications detail to, and one of the most common real-world gear types in automotive transmissions), ring/girth gears, and spline shafts — three named categories from MD's eleven-part gear taxonomy with no equivalent on the page. *Expand: helical gears are the most consequential omission here given their prevalence in the real world MD is drawing examples from.*
 
-Complete! Need to create many gear representations using Lego gears. 
+✅ Done. The page now carries fourteen gear images and animations in [A3.3/](A3.3) (spur, bevel, hypoid, rack and pinion, worm/screw, idler, compound, internal teeth, gear direction), several of them Lego Technic builds. Note the helical-gear gap above is a *text* gap and is still open.
 
 - **A3.3.7** (Belt and chain drives) — ✅ Comprehensive, exceeds MD. Flat/V/toothed belt types, chain drives, and the 19th-century lineshaft history are all covered accurately and organised more clearly than MD's own paragraph structure.
 
@@ -560,7 +566,7 @@ Need to create belt demonstrations using Lego technic.
 
 - **A3.3.8** (Cams) — ⚠️ Adequate but thin. Pear, circular/eccentric, triangular, oval and snail cam profiles are all covered accurately with good applications (including retaining the Agricola cam-and-hammer connection). Missing: the heart-shaped cam — a seventh, distinct MD profile (Post Office master clocks, sewing-machine bobbin winders, modern dishwasher/washing-machine controllers) with no equivalent on the page.
 
-Complete! Need to create a demonstration of cams using Lego technic. 
+✅ Done. Cam still and animation (`A3.3/cams.png`, `A3.3/cams.gif`) are both in place. The heart-cam gap above is a *text* gap and is still open.
 
 - **A3.3.9** (Levers) — ✅ Comprehensive. All three lever classes are covered with the core human-body examples (head/neck for 1st class, tiptoe/calf for 2nd class, bicep curl and knee extension for 3rd class) and correct MA reasoning. MD's Archimedes attribution/quote and a couple of secondary body examples (ankle plantarflexion, elbow extension via triceps) are dropped but the essential teaching content is intact.
 

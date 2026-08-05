@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Build a primary user persona step by step, then present it on a printable A4 sheet in one of five templates. For IB DP Design Technology Criterion A.">
+<title>User Persona Builder  -  contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/tools/personae/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="User Persona Builder  -  contrapaul edu">
+<meta property="og:description" content="Build a primary user persona step by step, then present it on a printable A4 sheet in one of five templates.">
+<meta property="og:url" content="https://edu.contrapaul.com/tools/personae/">
+<meta name="twitter:card" content="summary">
+
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../curriculum/themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════
+   USER PERSONA BUILDER
+   Chrome (wizard, controls) uses the site's theme variables.
+   The A4 sheet itself uses hardcoded colours on purpose, so the
+   exported PNG looks the same in light and dark mode.
+═══════════════════════════════════════════════════════════ */
+
+.pw-page {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* ── Intro ──────────────────────────────────────────────── */
+.pw-intro { text-align: center; margin-bottom: 2rem; }
+.pw-intro h1 {
+  font-family: var(--font-display, inherit);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.pw-intro p {
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+
+/* ── Progress ───────────────────────────────────────────── */
+.pw-progress { margin-bottom: 2rem; }
+.pw-progress-track {
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.pw-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+.pw-progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+  gap: 0.5rem;
+}
+.pw-progress-step {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+  flex: 1;
+  line-height: 1.3;
+}
+.pw-progress-step.is-active { color: var(--accent); font-weight: 600; }
+.pw-progress-step.is-done { color: var(--text); }
+
+/* ── Wizard card ────────────────────────────────────────── */
+.pw-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+.pw-step-num {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.pw-step-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.pw-step-lead {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  max-width: 62ch;
+}
+
+.pw-fields { display: flex; flex-direction: column; gap: 1.5rem; }
+.pw-field-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.pw-field-row > .pw-field { flex: 1 1 200px; }
+
+.pw-field label.pw-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+}
+.pw-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+.pw-input, .pw-textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.pw-input:focus, .pw-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+.pw-textarea { resize: vertical; min-height: 76px; line-height: 1.55; }
+.pw-count {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: right;
+  margin-top: 0.2rem;
+}
+.pw-count.is-full { color: #b45309; }
+
+/* Guidance blocks */
+.pw-guide {
+  margin-top: 0.6rem;
+  border-left: 3px solid var(--border);
+  padding: 0.1rem 0 0.1rem 0.85rem;
+}
+.pw-guide-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.pw-guide p, .pw-guide li { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+.pw-guide ul { margin: 0; padding-left: 1.1rem; }
+.pw-guide em { color: var(--text); font-style: italic; }
+
+.pw-stuck { margin-top: 0.55rem; }
+.pw-stuck summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  list-style: none;
+}
+.pw-stuck summary::-webkit-details-marker { display: none; }
+.pw-stuck summary::before { content: "? "; }
+.pw-stuck-body {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 0.5rem 0 0 0.9rem;
+}
+
+/* Sliders */
+.pw-slider-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.pw-slider-row input[type=range] { flex: 1 1 220px; accent-color: var(--accent); }
+.pw-slider-val {
+  min-width: 8.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.pw-slider-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
+/* Photo picker */
+.pw-photo-wrap { display: flex; gap: 1.25rem; align-items: flex-start; flex-wrap: wrap; }
+.pw-photo-drop {
+  width: 150px;
+  height: 180px;
+  border: 2px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 0.5rem;
+  background-size: cover;
+  background-position: center;
+}
+.pw-photo-drop:hover { border-color: var(--accent); color: var(--accent); }
+.pw-photo-drop.has-photo { border-style: solid; border-color: var(--border); }
+.pw-photo-drop.has-photo span { display: none; }
+.pw-photo-icon { font-size: 1.5rem; }
+
+/* Wizard nav */
+.pw-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.pw-btn {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.pw-btn:hover { background: var(--surface-2); }
+.pw-btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.pw-btn-primary:hover { filter: brightness(1.08); background: var(--accent); }
+.pw-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pw-btn-ghost { border-color: transparent; background: transparent; color: var(--muted); }
+.pw-btn-ghost:hover { color: var(--text); background: var(--surface-2); }
+
+.pw-saved-note { font-size: 0.75rem; color: var(--muted); }
+
+/* ── Result view ────────────────────────────────────────── */
+.pw-result { display: none; }
+.pw-result.is-on { display: block; }
+.pw-wizard.is-off { display: none; }
+
+.pw-toolbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.pw-toolbar-group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.pw-toolbar-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+}
+.pw-tmpl-btn {
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+.pw-tmpl-btn:hover { color: var(--text); }
+.pw-tmpl-btn.is-on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.pw-swatch {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  padding: 0;
+}
+.pw-swatch.is-on { border-color: var(--text); transform: scale(1.15); }
+.pw-swatch:disabled { opacity: 0.25; cursor: not-allowed; }
+
+/* Sheet stage */
+.pw-stage {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding: 0.5rem 0 1.5rem;
+}
+.pw-stage-inner { transform-origin: top center; }
+
+/* ═══════════════════════════════════════════════════════════
+   THE A4 SHEET
+   210 x 297mm at 96dpi = 794 x 1123 px.
+   Hardcoded colours only. No CSS variables inside the sheet.
+═══════════════════════════════════════════════════════════ */
+.sheet {
+  width: 794px;
+  height: 1123px;
+  background: #ffffff;
+  color: #111111;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 30px rgba(0,0,0,0.16);
+  box-sizing: border-box;
+}
+.sheet * { box-sizing: border-box; }
+.sheet .ph {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #e8eaed;
+}
+.sheet .ph-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9aa0a6;
+  border: 1px dashed #b6bcc4;
+  background: #fafbfc;
+  padding: 8px;
+  line-height: 1.5;
+}
+
+/* ── Template 1: REPORT (plain, Word-like) ──────────────── */
+.t-report { font-family: Georgia, "Times New Roman", Times, serif; padding: 52px 60px 70px; }
+.t-report .r-head { border-bottom: 2px solid #111; padding-bottom: 8px; margin-bottom: 5px; }
+.t-report .r-doctype {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif; color: #555;
+}
+.t-report .r-title { font-size: 25px; font-weight: 700; margin-top: 5px; }
+.t-report .r-sub { font-size: 12.5px; color: #444; font-style: italic; margin-top: 2px; }
+.t-report .r-project {
+  font-size: 10.5px; color: #555; margin-top: 8px; margin-bottom: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.t-report .r-top { display: flex; gap: 20px; margin-bottom: 14px; }
+.t-report .ph { width: 118px; height: 144px; flex: none; border: 1px solid #999; }
+.t-report .r-facts { flex: 1; }
+.t-report .r-fact { display: flex; font-size: 11.5px; padding: 2.5px 0; border-bottom: 1px dotted #bbb; }
+.t-report .r-fact-k { width: 106px; flex: none; font-weight: 700; }
+.t-report .r-fact-v { flex: 1; }
+.t-report h2 {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid #111; padding-bottom: 2px; margin: 11px 0 5px;
+}
+.t-report p.r-body { font-size: 11.5px; line-height: 1.5; text-align: justify; }
+.t-report .r-two { display: flex; gap: 22px; }
+.t-report .r-two > div { flex: 1; }
+.t-report .r-quote {
+  font-size: 12px; font-style: italic; border-left: 3px solid #111;
+  padding-left: 11px; margin-top: 10px;
+}
+.t-report .r-scale { font-size: 11.5px; padding: 1px 0; }
+.t-report .r-foot {
+  position: absolute; left: 60px; right: 60px; bottom: 30px;
+  border-top: 1px solid #999; padding-top: 6px;
+  font-size: 9.5px; color: #666; font-family: Arial, Helvetica, sans-serif;
+  display: flex; justify-content: space-between;
+}
+
+/* ── Template 2: DOSSIER (plain, form-like grid) ────────── */
+.t-dossier { font-family: Arial, Helvetica, sans-serif; padding: 38px 44px 60px; }
+.t-dossier .d-head {
+  border: 2px solid #111; padding: 9px 14px; margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.t-dossier .d-title { font-size: 20px; font-weight: 700; letter-spacing: 0.02em; }
+.t-dossier .d-stamp {
+  font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+  border: 1px solid #111; padding: 3px 8px;
+}
+.t-dossier .d-grid { display: flex; gap: 11px; margin-bottom: 10px; }
+.t-dossier .ph { width: 134px; height: 162px; flex: none; border: 1px solid #111; }
+.t-dossier .d-rows { flex: 1; border: 1px solid #111; }
+.t-dossier .d-row { display: flex; border-bottom: 1px solid #111; }
+.t-dossier .d-row:last-child { border-bottom: 0; }
+.t-dossier .d-k {
+  width: 104px; flex: none; background: #efefef; border-right: 1px solid #111;
+  font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+  font-weight: 700; padding: 4.5px 7px;
+}
+.t-dossier .d-v { flex: 1; font-size: 11px; padding: 4.5px 8px; }
+.t-dossier .d-block { border: 1px solid #111; margin-bottom: 8px; }
+.t-dossier .d-block-h {
+  background: #111; color: #fff; font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 9px;
+}
+.t-dossier .d-block-b { padding: 7px 10px; font-size: 11px; line-height: 1.5; }
+.t-dossier .d-cols { display: flex; gap: 8px; }
+.t-dossier .d-cols > .d-block { flex: 1; margin-bottom: 8px; }
+.t-dossier .d-scale { display: flex; justify-content: space-between; font-size: 11px; padding: 2px 0; }
+.t-dossier .d-scale b { font-weight: 700; }
+.t-dossier .d-foot {
+  position: absolute; left: 44px; right: 44px; bottom: 24px;
+  font-size: 9px; color: #555; border-top: 1px solid #111; padding-top: 5px;
+  display: flex; justify-content: space-between;
+}
+
+/* ── Template 3: EDITORIAL (magazine) ───────────────────── */
+.t-editorial { font-family: Georgia, "Times New Roman", serif; }
+.t-editorial .e-band { height: 14px; }
+.t-editorial .e-inner { padding: 40px 56px 0; }
+.t-editorial .e-kicker {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 12px;
+}
+.t-editorial .e-name { font-size: 62px; line-height: 0.95; font-weight: 700; letter-spacing: -0.02em; }
+.t-editorial .e-role { font-size: 15px; font-style: italic; color: #444; margin-top: 10px; }
+.t-editorial .e-rule { height: 3px; background: #111; margin: 18px 0 20px; }
+.t-editorial .e-top { display: flex; gap: 26px; margin-bottom: 18px; }
+.t-editorial .ph { width: 196px; height: 236px; flex: none; }
+.t-editorial .e-lead { flex: 1; }
+.t-editorial .e-quote {
+  font-size: 20px; line-height: 1.35; font-style: italic; margin-bottom: 14px;
+}
+.t-editorial .e-meta { font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.9; color: #333; }
+.t-editorial .e-meta b { letter-spacing: 0.05em; text-transform: uppercase; font-size: 9.5px; color: #777; }
+.t-editorial .e-cols { display: flex; gap: 26px; }
+.t-editorial .e-col { flex: 1; }
+.t-editorial h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 700; margin: 0 0 5px;
+}
+.t-editorial p.e-body { font-size: 12.5px; line-height: 1.62; margin-bottom: 14px; }
+.t-editorial .e-scale { margin-bottom: 9px; }
+.t-editorial .e-scale-top {
+  display: flex; justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif; font-size: 10px; margin-bottom: 3px;
+}
+.t-editorial .e-bar { height: 6px; background: #e3e3e3; }
+.t-editorial .e-bar-fill { height: 6px; }
+.t-editorial .e-foot {
+  position: absolute; left: 56px; right: 56px; bottom: 30px;
+  font-family: Arial, Helvetica, sans-serif; font-size: 9px; color: #888;
+  display: flex; justify-content: space-between;
+  border-top: 1px solid #ddd; padding-top: 7px;
+}
+
+/* ── Template 4: DASHBOARD (card grid) ──────────────────── */
+.t-dashboard { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; background: #f2f4f7; padding: 34px 36px; }
+.t-dashboard .b-head { display: flex; gap: 20px; margin-bottom: 16px; }
+.t-dashboard .ph { width: 152px; height: 152px; flex: none; border-radius: 12px; }
+.t-dashboard .b-headcard {
+  flex: 1; border-radius: 12px; padding: 20px 22px; color: #fff;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.t-dashboard .b-tag {
+  font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+  opacity: 0.85; margin-bottom: 7px;
+}
+.t-dashboard .b-name { font-size: 36px; font-weight: 700; line-height: 1.05; }
+.t-dashboard .b-role { font-size: 13.5px; margin-top: 7px; opacity: 0.94; }
+.t-dashboard .b-chips { display: flex; gap: 6px; margin-top: 13px; flex-wrap: wrap; }
+.t-dashboard .b-chip {
+  font-size: 10px; padding: 3px 9px; border-radius: 999px;
+  background: rgba(255,255,255,0.22);
+}
+.t-dashboard .b-row { display: flex; gap: 14px; margin-bottom: 14px; }
+.t-dashboard .b-card {
+  background: #fff; border-radius: 12px; padding: 14px 16px; flex: 1;
+  border-top: 4px solid #ccc;
+}
+.t-dashboard .b-card h3 {
+  font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: #6b7280; font-weight: 700; margin: 0 0 6px;
+}
+.t-dashboard .b-card p { font-size: 12px; line-height: 1.55; color: #1f2937; margin: 0; }
+.t-dashboard .b-scale { margin-bottom: 10px; }
+.t-dashboard .b-scale-top {
+  display: flex; justify-content: space-between; font-size: 10.5px; color: #374151; margin-bottom: 4px;
+}
+.t-dashboard .b-bar { height: 8px; background: #e5e7eb; border-radius: 999px; }
+.t-dashboard .b-bar-fill { height: 8px; border-radius: 999px; }
+.t-dashboard .b-quote {
+  background: #fff; border-radius: 12px; padding: 16px 20px;
+  font-size: 15px; font-style: italic; color: #1f2937; line-height: 1.45;
+}
+.t-dashboard .b-foot {
+  position: absolute; left: 36px; right: 36px; bottom: 22px;
+  font-size: 9px; color: #9ca3af; display: flex; justify-content: space-between;
+}
+
+/* ── Template 5: FIELD NOTES ────────────────────────────── */
+.t-field { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; background: #f7f4ec; padding: 44px 52px; }
+.t-field .f-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.t-field .f-label {
+  font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #8a7f66;
+}
+.t-field .f-name { font-size: 40px; font-weight: 300; letter-spacing: -0.01em; color: #2a2620; margin-top: 5px; }
+.t-field .f-role { font-size: 13px; color: #6b6252; margin-top: 5px; }
+.t-field .f-date {
+  font-size: 10px; color: #8a7f66; text-align: right; line-height: 1.7;
+  border-left: 2px solid #ddd4bf; padding-left: 11px;
+}
+.t-field .f-top { display: flex; gap: 24px; margin-bottom: 20px; }
+.t-field .ph { width: 168px; height: 200px; flex: none; border: 6px solid #fff; }
+.t-field .f-topbody { flex: 1; }
+.t-field .f-quote {
+  font-size: 17px; line-height: 1.4; color: #2a2620; font-style: italic;
+  border-left: 3px solid #c9bda1; padding-left: 15px; margin-bottom: 15px;
+}
+.t-field .f-facts { font-size: 11.5px; color: #4a4437; line-height: 1.95; }
+.t-field .f-facts b { color: #8a7f66; font-weight: 600; }
+.t-field .f-sec { margin-bottom: 15px; }
+.t-field .f-sec-h {
+  font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: #8a7f66; font-weight: 700; margin-bottom: 5px;
+  border-bottom: 1px solid #e2dac8; padding-bottom: 3px;
+}
+.t-field .f-sec p { font-size: 12px; line-height: 1.6; color: #3d382e; margin: 0; }
+.t-field .f-cols { display: flex; gap: 24px; }
+.t-field .f-cols > .f-sec { flex: 1; }
+.t-field .f-scale { display: flex; align-items: center; gap: 9px; margin-bottom: 6px; }
+.t-field .f-scale-name { font-size: 11px; color: #4a4437; width: 138px; flex: none; }
+.t-field .f-dots { display: flex; gap: 4px; }
+.t-field .f-dot { width: 9px; height: 9px; border-radius: 50%; background: #ddd4bf; }
+.t-field .f-foot {
+  position: absolute; left: 52px; right: 52px; bottom: 28px;
+  font-size: 9px; color: #a1957c; display: flex; justify-content: space-between;
+  border-top: 1px solid #e2dac8; padding-top: 6px;
+}
+
+/* ── Download modal ─────────────────────────────────────── */
+.pw-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  display: none; align-items: center; justify-content: center; z-index: 300;
+  padding: 1rem;
+}
+.pw-overlay.is-on { display: flex; }
+.pw-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 440px; width: 100%;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+}
+.pw-modal h3 { font-size: 1.15rem; margin-bottom: 0.4rem; color: var(--text); }
+.pw-modal p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.1rem; }
+.pw-modal-filerow { display: flex; align-items: center; gap: 0.5rem; }
+.pw-modal-filerow .pw-input { flex: 1; }
+.pw-modal-ext { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+.pw-modal-actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1.4rem; }
+
+.pw-hidden-file { display: none; }
+
+@media print {
+  body > *:not(main), .pw-toolbar, .pw-intro, .pw-progress, .site-header, .site-footer { display: none !important; }
+  .pw-page { padding: 0; max-width: none; }
+  .pw-stage { overflow: visible; padding: 0; }
+  .pw-stage-inner { transform: none !important; }
+  .sheet { box-shadow: none; }
+}
+
+@media (max-width: 700px) {
+  .pw-page { padding: 1.5rem 1rem 3rem; }
+  .pw-card { padding: 1.25rem; }
+  .pw-progress-step { font-size: 0.62rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<main>
+<div class="pw-page">
+
+<div class="pw-intro">
+  <h1>User Persona Builder</h1>
+  <p>Answer the questions one screen at a time. When you finish, your primary persona is laid out on a printable A4 sheet, and you can switch between five templates before you download it.</p>
+</div>
+
+<!-- ══ WIZARD ══════════════════════════════════════════ -->
+<div class="pw-wizard" id="pw-wizard">
+
+  <div class="pw-progress">
+    <div class="pw-progress-track"><div class="pw-progress-fill" id="pw-progress-fill"></div></div>
+    <div class="pw-progress-steps" id="pw-progress-steps"></div>
+  </div>
+
+  <div class="pw-card">
+    <div class="pw-step-num" id="pw-step-num"></div>
+    <div class="pw-step-title" id="pw-step-title"></div>
+    <p class="pw-step-lead" id="pw-step-lead"></p>
+    <div class="pw-fields" id="pw-fields"></div>
+
+    <div class="pw-nav">
+      <button class="pw-btn" id="pw-back">← Back</button>
+      <span class="pw-saved-note" id="pw-saved-note"></span>
+      <button class="pw-btn pw-btn-primary" id="pw-next">Next →</button>
+    </div>
+  </div>
+
+  <div class="pw-nav" style="border-top:0;padding-top:0.75rem;">
+    <span class="pw-saved-note">Your answers stay on this computer. Nothing is uploaded.</span>
+    <span class="pw-toolbar-group">
+      <button class="pw-btn pw-btn-ghost" id="pw-load-json">Load saved file</button>
+      <button class="pw-btn pw-btn-ghost" id="pw-reset">Start over</button>
+    </span>
+  </div>
+
+</div>
+
+<!-- ══ RESULT ══════════════════════════════════════════ -->
+<div class="pw-result" id="pw-result">
+
+  <div class="pw-toolbar">
+    <div class="pw-toolbar-group">
+      <span class="pw-toolbar-label">Template</span>
+      <button class="pw-tmpl-btn" data-tmpl="report">Report</button>
+      <button class="pw-tmpl-btn" data-tmpl="dossier">Dossier</button>
+      <button class="pw-tmpl-btn" data-tmpl="editorial">Editorial</button>
+      <button class="pw-tmpl-btn" data-tmpl="dashboard">Dashboard</button>
+      <button class="pw-tmpl-btn" data-tmpl="field">Field Notes</button>
+    </div>
+    <div class="pw-toolbar-group">
+      <span class="pw-toolbar-label">Accent</span>
+      <span id="pw-swatches"></span>
+    </div>
+    <div class="pw-toolbar-group">
+      <button class="pw-btn" id="pw-edit">Edit answers</button>
+      <button class="pw-btn" id="pw-save-json">Save file</button>
+      <button class="pw-btn" id="pw-print">Print</button>
+      <button class="pw-btn pw-btn-primary" id="pw-download">↓ Download PNG</button>
+    </div>
+  </div>
+
+  <div class="pw-stage" id="pw-stage">
+    <div class="pw-stage-inner" id="pw-stage-inner">
+      <div class="sheet" id="pw-sheet"></div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+</main>
+
+<!-- ══ DOWNLOAD MODAL ════════════════════════════════════ -->
+<div class="pw-overlay" id="pw-overlay">
+  <div class="pw-modal">
+    <h3>Name your file</h3>
+    <p>The sheet will be saved as a PNG image at 300dpi, ready to print or drop into your IA.</p>
+    <div class="pw-modal-filerow">
+      <input class="pw-input" id="pw-filename" type="text" value="user persona" autocomplete="off">
+      <span class="pw-modal-ext">.png</span>
+    </div>
+    <div class="pw-modal-actions">
+      <button class="pw-btn" id="pw-cancel">Cancel</button>
+      <button class="pw-btn pw-btn-primary" id="pw-confirm">Save image</button>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="pw-photo-input" accept="image/*" class="pw-hidden-file">
+<input type="file" id="pw-json-input" accept="application/json,.json" class="pw-hidden-file">
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════ */
+var STORE_KEY = 'edu-persona-v1';
+
+var state = {
+  project: '', name: '', age: '', occupation: '', location: '',
+  education: '', living: '', interests: '',
+  goals: '', needs: '', wants: '',
+  frustrations: '', limitations: '',
+  scenario: '', quote: '',
+  s_tech: 3, s_budget: 3, s_freq: 3, s_patience: 3,
+  photo: '',
+  template: 'editorial',
+  accent: '#1a5cb8'
+};
+
+var ACCENTS = ['#1a5cb8', '#0f766e', '#b45309', '#9333ea', '#be123c', '#334155'];
+
+var SCALES = [
+  { key: 's_tech',     label: 'Confidence with technology', low: 'Avoids it',      high: 'Early adopter' },
+  { key: 's_budget',   label: 'Price sensitivity',          low: 'Price no object', high: 'Counts every cent' },
+  { key: 's_freq',     label: 'How often they would use it', low: 'Rarely',        high: 'Several times a day' },
+  { key: 's_patience', label: 'Patience with new products', low: 'Gives up fast',  high: 'Will read the manual' }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   WIZARD DEFINITION
+   Each field: key, label, hint, type, guidance (why / examples / stuck)
+═══════════════════════════════════════════════════════════ */
+var STEPS = [
+{
+  short: 'Who',
+  title: 'Who is this person?',
+  lead: 'A persona is one specific, believable individual who stands for a group of real users you researched. Give them enough detail that two people reading the profile would picture the same person.',
+  fields: [
+    { key: 'project', label: 'What product or project is this persona for?', type: 'text', max: 70,
+      placeholder: 'e.g. A water bottle for secondary school students',
+      why: 'A persona only makes sense next to a design problem. The same person is a different persona for a kettle than for a bus timetable app.',
+      stuck: 'Write the design context you are working on for your IA. One line is enough.' },
+    { key: 'name', label: 'Name', type: 'text', max: 28, placeholder: 'e.g. Maya Okonkwo',
+      why: 'Naming the persona is what stops your team saying "the user" and starting to say "would Maya manage this?".',
+      examples: ['Maya Okonkwo', 'Tomás Herrera', 'Wei Zhang'],
+      stuck: 'Use a made-up name. Do not use the real name of the person you interviewed, because a persona is a composite of several people rather than a portrait of one.' },
+    { key: 'age', label: 'Age', type: 'text', max: 14, placeholder: 'e.g. 34',
+      why: 'Age connects your persona to anthropometric and demographic data. Reach, grip strength and visual acuity all vary predictably with it.',
+      stuck: 'Give a single number rather than a range. A persona is one person, so "34" beats "30 to 40".' },
+    { key: 'occupation', label: 'Occupation or role', type: 'text', max: 42, placeholder: 'e.g. Ward nurse, night shift',
+      why: 'Occupation tells you about the environment the product will be used in, how much time the user has, and what they already know how to do.',
+      examples: ['Year 11 student, plays football', 'Ward nurse, night shift', 'Retired carpenter'],
+      stuck: 'Add the detail that matters for your product. "Nurse" is fine, but "ward nurse on night shift" already explains why a bright screen is a problem.' },
+    { key: 'location', label: 'Where they live', type: 'text', max: 42, placeholder: 'e.g. Small flat, central Shanghai',
+      why: 'Location sets constraints you might otherwise forget: climate, space, distance to shops, whether they own a car, what infrastructure they can rely on.',
+      stuck: 'Think about the space the product has to live in. "Small flat, no garage" changes a design more than a city name does.' }
+  ]
+},
+{
+  short: 'Their life',
+  title: 'Their life and background',
+  lead: 'These are the demographic details the course asks you to record. They are not decoration. Each one should be a fact you could defend from your research.',
+  fields: [
+    { key: 'education', label: 'Education', type: 'text', max: 46, placeholder: 'e.g. Vocational diploma in engineering',
+      why: 'Education shapes how much technical language a product can use and how confident someone feels working something out for themselves.',
+      stuck: 'If you did not ask about this, say so honestly in your IA rather than inventing something precise. "Left school at 16" is a legitimate answer.' },
+    { key: 'living', label: 'Household', type: 'text', max: 46, placeholder: 'e.g. Lives with two young children',
+      why: 'Who else is in the house changes the design. Small children mean safety catches; shared kitchens mean storage space matters.',
+      stuck: 'Ask yourself who else touches this product. That person is usually a secondary persona.' },
+    { key: 'interests', label: 'Interests and activities', type: 'textarea', max: 130,
+      placeholder: 'e.g. Cycles to work, cooks most evenings, follows three football teams online',
+      why: 'Interests make a persona feel like a person rather than a form. They also reveal habits you can design around.',
+      stuck: 'List two or three concrete activities. "Enjoys sport" is vague; "cycles 8km to work in all weather" is something you can design for.' }
+  ]
+},
+{
+  short: 'Goals',
+  title: 'What they are trying to achieve',
+  lead: 'Separate goals from needs and wants. Goals are what the person is ultimately after. Needs are non-negotiable. Wants can be traded away when something has to give.',
+  fields: [
+    { key: 'goals', label: 'Goals', type: 'textarea', max: 190,
+      placeholder: 'e.g. Get out of the house in the morning without forgetting anything, and stay hydrated through a nine-hour shift.',
+      why: 'A goal is about the person’s life, not about your product. "Stay hydrated at work" is a goal. "Buy a bottle" is just the method.',
+      examples: ['Finish the school run without being late', 'Keep tools organised so a job never stops halfway'],
+      stuck: 'Ask "why?" of any answer that mentions your product. Keep asking until the answer is about their day rather than your design.' },
+    { key: 'needs', label: 'Needs (non-negotiable)', type: 'textarea', max: 170,
+      placeholder: 'e.g. Must be openable with one hand while holding something else. Must not leak in a bag.',
+      why: 'Needs become the essential criteria in your design specification. If the product fails one of these, it has failed completely.',
+      stuck: 'A need is something that, if missing, makes the person put the product down and walk away. Everything else is a want.' },
+    { key: 'wants', label: 'Wants (nice to have)', type: 'textarea', max: 170,
+      placeholder: 'e.g. Would prefer it in a colour that does not look like sports equipment.',
+      why: 'Wants become your desirable criteria. Naming them separately stops you spending your budget on the wrong things.',
+      stuck: 'Look at what the person said they liked about a competing product. That is usually a want.' }
+  ]
+},
+{
+  short: 'Barriers',
+  title: 'What gets in their way',
+  lead: 'This is the most useful screen on the form. Frustrations point straight at design opportunities, and limitations keep your solution honest.',
+  fields: [
+    { key: 'frustrations', label: 'Frustrations and pain points', type: 'textarea', max: 190,
+      placeholder: 'e.g. Existing bottles are too wide for the cup holder on her bike, and the lid needs two hands to open.',
+      why: 'Every frustration is a design opportunity written from the user’s side. Most of your best ideas will come from this box.',
+      examples: ['The handle gets slippery when hands are wet', 'Cannot tell how much is left without opening it'],
+      stuck: 'Think about the workarounds you saw during observation. A user who has invented their own fix is telling you about a frustration without using words.' },
+    { key: 'limitations', label: 'Limitations and constraints', type: 'textarea', max: 170,
+      placeholder: 'e.g. Reduced grip strength in her right hand. Budget under 15 dollars. No dishwasher at home.',
+      why: 'Limitations are the physical, mental, cultural and financial boundaries on what this person can actually do or buy. They rule ideas out early, which saves time.',
+      stuck: 'Cover three kinds: what their body can do, what their money and time allow, and what their environment makes impossible.' }
+  ]
+},
+{
+  short: 'Behaviour',
+  title: 'How they behave',
+  lead: 'Set each scale where your research puts this person. You are making a judgement here, and being forced to pick a number is the point: it is much harder to hide behind vague wording.',
+  fields: [
+    { key: '__scales', type: 'scales',
+      why: 'These four ratings capture behaviour that is hard to describe in a sentence but easy to design around. A user who gives up fast needs a product that works on the first try, with no manual.',
+      stuck: 'If you genuinely do not know, leave it at the middle and say so in your IA. An honest gap is worth more marks than a confident guess.' }
+  ]
+},
+{
+  short: 'In their words',
+  title: 'Scenario, quote and photo',
+  lead: 'Finish with the parts that make the persona usable in a design review: a short story showing the product in use, and a line in the person’s own voice.',
+  fields: [
+    { key: 'scenario', label: 'Scenario', type: 'textarea', max: 330,
+      placeholder: 'e.g. It is 6:40am. Maya is holding her bag in one hand and her keys in the other, filling her bottle at the kitchen tap before the school run. She has about forty seconds before she has to leave.',
+      why: 'A scenario is a short story describing how the persona uses the product to reach a goal in a specific situation. It exposes awkward cases that a list of requirements hides.',
+      examples: ['Set a time, a place and a distraction. The distraction is what makes it useful.'],
+      stuck: 'Start with a time of day and what their hands are doing. Most usability problems appear the moment both hands are already full.' },
+    { key: 'quote', label: 'Quote', type: 'text', max: 120,
+      placeholder: 'e.g. "If I have to put my bag down to open it, I just will not bother."',
+      why: 'One line in the user’s voice does more to keep a design team honest than a page of analysis. Use a real sentence from your interviews if you have one.',
+      stuck: 'Look through your interview notes for the sentence that made you change your mind about something. That is the quote.' },
+    { key: 'photo', type: 'photo', label: 'Photo',
+      why: 'A face makes the persona easier to hold in mind. It is optional, and the sheet is designed to look complete without one.',
+      stuck: 'Do not use a photo of the person you interviewed. Use a stock portrait, an illustration, or leave it empty.' }
+  ]
+}
+];
+
+/* ═══════════════════════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════════════════════ */
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+function nl2br(s) { return esc(s).replace(/\n/g, '<br>'); }
+function or(v, fallback) {
+  var t = (v || '').trim();
+  return t ? t : fallback;
+}
+function el(id) { return document.getElementById(id); }
+
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+function load() {
+  try {
+    var raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return false;
+    var obj = JSON.parse(raw);
+    for (var k in state) if (obj.hasOwnProperty(k)) state[k] = obj[k];
+    return true;
+  } catch (e) { return false; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WIZARD RENDERING
+═══════════════════════════════════════════════════════════ */
+var stepIndex = 0;
+
+function renderProgress() {
+  el('pw-progress-fill').style.width = ((stepIndex) / STEPS.length * 100) + '%';
+  var html = '';
+  for (var i = 0; i < STEPS.length; i++) {
+    var cls = i === stepIndex ? 'is-active' : (i < stepIndex ? 'is-done' : '');
+    html += '<div class="pw-progress-step ' + cls + '">' + esc(STEPS[i].short) + '</div>';
+  }
+  el('pw-progress-steps').innerHTML = html;
+}
+
+function guideHtml(f) {
+  var h = '';
+  if (f.why) {
+    h += '<div class="pw-guide"><div class="pw-guide-label">Why this matters</div><p>' + f.why + '</p>';
+    if (f.examples && f.examples.length) {
+      h += '<div class="pw-guide-label" style="margin-top:0.5rem;">Examples</div><ul>';
+      for (var i = 0; i < f.examples.length; i++) h += '<li><em>' + esc(f.examples[i]) + '</em></li>';
+      h += '</ul>';
+    }
+    h += '</div>';
+  }
+  if (f.stuck) {
+    h += '<details class="pw-stuck"><summary>Stuck on this one</summary>' +
+         '<div class="pw-stuck-body">' + f.stuck + '</div></details>';
+  }
+  return h;
+}
+
+function fieldHtml(f) {
+  if (f.type === 'scales') {
+    var s = '<div class="pw-field">';
+    for (var i = 0; i < SCALES.length; i++) {
+      var sc = SCALES[i];
+      s += '<div style="margin-bottom:1.1rem;">' +
+        '<label class="pw-label">' + esc(sc.label) + '</label>' +
+        '<div class="pw-slider-row">' +
+          '<input type="range" min="1" max="5" step="1" data-scale="' + sc.key + '" value="' + state[sc.key] + '">' +
+          '<span class="pw-slider-val" id="val-' + sc.key + '"></span>' +
+        '</div>' +
+        '<div class="pw-slider-ends"><span>' + esc(sc.low) + '</span><span>' + esc(sc.high) + '</span></div>' +
+      '</div>';
+    }
+    s += guideHtml(f) + '</div>';
+    return s;
+  }
+
+  if (f.type === 'photo') {
+    var has = !!state.photo;
+    return '<div class="pw-field">' +
+      '<label class="pw-label">Photo (optional)</label>' +
+      '<div class="pw-hint">Stored on this computer only. It is never uploaded anywhere.</div>' +
+      '<div class="pw-photo-wrap">' +
+        '<div class="pw-photo-drop' + (has ? ' has-photo' : '') + '" id="pw-photo-drop"' +
+          (has ? ' style="background-image:url(' + state.photo + ')"' : '') + '>' +
+          '<span class="pw-photo-icon">🖼</span><span>Attach Personae Photo</span>' +
+        '</div>' +
+        '<div style="flex:1;min-width:180px;">' +
+          '<button class="pw-btn" id="pw-photo-clear"' + (has ? '' : ' disabled') + '>Remove photo</button>' +
+          guideHtml(f) +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  var input;
+  if (f.type === 'textarea') {
+    input = '<textarea class="pw-textarea" data-key="' + f.key + '" maxlength="' + f.max + '" rows="3" placeholder="' +
+      esc(f.placeholder || '') + '">' + esc(state[f.key]) + '</textarea>';
+  } else {
+    input = '<input class="pw-input" type="text" data-key="' + f.key + '" maxlength="' + f.max + '" value="' +
+      esc(state[f.key]) + '" placeholder="' + esc(f.placeholder || '') + '">';
+  }
+
+  return '<div class="pw-field">' +
+    '<label class="pw-label">' + esc(f.label) + '</label>' +
+    input +
+    '<div class="pw-count" data-count-for="' + f.key + '"></div>' +
+    guideHtml(f) +
+  '</div>';
+}
+
+function renderStep() {
+  var st = STEPS[stepIndex];
+  el('pw-step-num').textContent = 'Step ' + (stepIndex + 1) + ' of ' + STEPS.length;
+  el('pw-step-title').textContent = st.title;
+  el('pw-step-lead').textContent = st.lead;
+
+  var html = '';
+  for (var i = 0; i < st.fields.length; i++) {
+    var f = st.fields[i];
+    // Group the short identity fields two-per-row
+    html += fieldHtml(f);
+  }
+  el('pw-fields').innerHTML = html;
+
+  el('pw-back').disabled = stepIndex === 0;
+  el('pw-next').textContent = stepIndex === STEPS.length - 1 ? 'Create persona sheet →' : 'Next →';
+
+  wireStepInputs();
+  renderProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateCount(key, node, max) {
+  var c = document.querySelector('[data-count-for="' + key + '"]');
+  if (!c) return;
+  var used = node.value.length;
+  c.textContent = used + ' / ' + max;
+  c.className = 'pw-count' + (used >= max ? ' is-full' : '');
+}
+
+function wireStepInputs() {
+  var inputs = el('pw-fields').querySelectorAll('[data-key]');
+  Array.prototype.forEach.call(inputs, function (node) {
+    var key = node.getAttribute('data-key');
+    var max = parseInt(node.getAttribute('maxlength'), 10);
+    updateCount(key, node, max);
+    node.addEventListener('input', function () {
+      state[key] = node.value;
+      updateCount(key, node, max);
+      save();
+      flashSaved();
+    });
+  });
+
+  var ranges = el('pw-fields').querySelectorAll('[data-scale]');
+  Array.prototype.forEach.call(ranges, function (node) {
+    var key = node.getAttribute('data-scale');
+    var out = el('val-' + key);
+    function paint() {
+      var v = parseInt(node.value, 10);
+      state[key] = v;
+      out.textContent = v + ' of 5';
+      save();
+    }
+    paint();
+    node.addEventListener('input', paint);
+  });
+
+  var drop = el('pw-photo-drop');
+  if (drop) {
+    drop.addEventListener('click', function () { el('pw-photo-input').click(); });
+    var clear = el('pw-photo-clear');
+    clear.addEventListener('click', function () {
+      state.photo = '';
+      save();
+      renderStep();
+    });
+  }
+}
+
+var savedTimer = null;
+function flashSaved() {
+  var n = el('pw-saved-note');
+  n.textContent = 'Saved';
+  clearTimeout(savedTimer);
+  savedTimer = setTimeout(function () { n.textContent = ''; }, 1400);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SHEET TEMPLATES
+═══════════════════════════════════════════════════════════ */
+function photoBlock(cls) {
+  if (state.photo) {
+    return '<div class="ph ' + cls + '" style="background-image:url(' + state.photo + ')"></div>';
+  }
+  return '<div class="ph ph-empty ' + cls + '">Attach Personae Photo</div>';
+}
+function scaleVal(key) { return parseInt(state[key], 10) || 3; }
+function footLeft() { return esc(or(state.project, 'User persona')); }
+function footRight() { return 'Primary persona · IB DP Design Technology'; }
+
+function tplReport() {
+  function sec(title, body) {
+    if (!(body || '').trim()) return '';
+    return '<h2>' + esc(title) + '</h2><p class="r-body">' + nl2br(body) + '</p>';
+  }
+  function fact(k, v) {
+    return '<div class="r-fact"><div class="r-fact-k">' + esc(k) + '</div><div class="r-fact-v">' + esc(or(v, 'Not given')) + '</div></div>';
+  }
+  var scales = '';
+  for (var i = 0; i < SCALES.length; i++) {
+    scales += '<div class="r-scale"><b>' + esc(SCALES[i].label) + ':</b> ' + scaleVal(SCALES[i].key) + ' out of 5</div>';
+  }
+  return '' +
+  '<div class="r-head">' +
+    '<div class="r-doctype">Primary user persona</div>' +
+    '<div class="r-title">' + esc(or(state.name, 'Unnamed persona')) + '</div>' +
+    '<div class="r-sub">' + esc(or(state.occupation, 'Role not specified')) + '</div>' +
+  '</div>' +
+  '<div class="r-project">Project: ' + esc(or(state.project, 'Not specified')) + '</div>' +
+  '<div class="r-top">' +
+    photoBlock('') +
+    '<div class="r-facts">' +
+      fact('Age', state.age) + fact('Occupation', state.occupation) + fact('Location', state.location) +
+      fact('Education', state.education) + fact('Household', state.living) + fact('Interests', state.interests) +
+    '</div>' +
+  '</div>' +
+  sec('Goals', state.goals) +
+  '<div class="r-two">' +
+    '<div>' + sec('Needs', state.needs) + '</div>' +
+    '<div>' + sec('Wants', state.wants) + '</div>' +
+  '</div>' +
+  sec('Frustrations', state.frustrations) +
+  sec('Limitations', state.limitations) +
+  '<h2>Behavioural profile</h2>' + scales +
+  sec('Scenario', state.scenario) +
+  (state.quote.trim() ? '<div class="r-quote">' + esc(state.quote) + '</div>' : '') +
+  '<div class="r-foot"><span>' + footLeft() + '</span><span>' + footRight() + '</span></div>';
+}
+
+function tplDossier() {
+  function row(k, v) {
+    return '<div class="d-row"><div class="d-k">' + esc(k) + '</div><div class="d-v">' + esc(or(v, 'Not given')) + '</div></div>';
+  }
+  function block(title, body) {
+    if (!(body || '').trim()) return '';
+    return '<div class="d-block"><div class="d-block-h">' + esc(title) + '</div>' +
+      '<div class="d-block-b">' + nl2br(body) + '</div></div>';
+  }
+  var scales = '';
+  for (var i = 0; i < SCALES.length; i++) {
+    scales += '<div class="d-scale"><span>' + esc(SCALES[i].label) + '</span><b>' + scaleVal(SCALES[i].key) + ' / 5</b></div>';
+  }
+  return '' +
+  '<div class="d-head">' +
+    '<div><div class="d-title">' + esc(or(state.name, 'Unnamed persona')) + '</div></div>' +
+    '<div class="d-stamp">Primary persona</div>' +
+  '</div>' +
+  '<div class="d-grid">' +
+    photoBlock('') +
+    '<div class="d-rows">' +
+      row('Project', state.project) + row('Age', state.age) + row('Occupation', state.occupation) +
+      row('Location', state.location) + row('Education', state.education) + row('Household', state.living) +
+      row('Interests', state.interests) +
+    '</div>' +
+  '</div>' +
+  block('Goals', state.goals) +
+  '<div class="d-cols">' + block('Needs', state.needs) + block('Wants', state.wants) + '</div>' +
+  '<div class="d-cols">' + block('Frustrations', state.frustrations) + block('Limitations', state.limitations) + '</div>' +
+  '<div class="d-block"><div class="d-block-h">Behavioural profile</div><div class="d-block-b">' + scales + '</div></div>' +
+  block('Scenario', state.scenario) +
+  (state.quote.trim() ? block('In their words', '"' + state.quote + '"') : '') +
+  '<div class="d-foot"><span>' + footLeft() + '</span><span>' + footRight() + '</span></div>';
+}
+
+function tplEditorial() {
+  var a = state.accent;
+  function sec(title, body) {
+    if (!(body || '').trim()) return '';
+    return '<h3 style="color:' + a + '">' + esc(title) + '</h3><p class="e-body">' + nl2br(body) + '</p>';
+  }
+  var scales = '';
+  for (var i = 0; i < SCALES.length; i++) {
+    var v = scaleVal(SCALES[i].key);
+    scales += '<div class="e-scale">' +
+      '<div class="e-scale-top"><span>' + esc(SCALES[i].label) + '</span><span>' + v + '/5</span></div>' +
+      '<div class="e-bar"><div class="e-bar-fill" style="width:' + (v * 20) + '%;background:' + a + '"></div></div>' +
+    '</div>';
+  }
+  function meta(k, v) {
+    if (!(v || '').trim()) return '';
+    return '<div><b>' + esc(k) + '</b> &nbsp;' + esc(v) + '</div>';
+  }
+  return '' +
+  '<div class="e-band" style="background:' + a + '"></div>' +
+  '<div class="e-inner">' +
+    '<div class="e-kicker" style="color:' + a + '">Primary persona · ' + esc(or(state.project, 'Design project')) + '</div>' +
+    '<div class="e-name">' + esc(or(state.name, 'Unnamed')) + '</div>' +
+    '<div class="e-role">' + esc(or(state.occupation, 'Role not specified')) +
+      (state.age.trim() ? ', ' + esc(state.age) : '') + '</div>' +
+    '<div class="e-rule" style="background:' + a + '"></div>' +
+    '<div class="e-top">' +
+      photoBlock('') +
+      '<div class="e-lead">' +
+        (state.quote.trim() ? '<div class="e-quote">"' + esc(state.quote) + '"</div>' : '') +
+        '<div class="e-meta">' +
+          meta('Lives', state.location) + meta('Household', state.living) +
+          meta('Education', state.education) + meta('Interests', state.interests) +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="e-cols">' +
+      '<div class="e-col">' +
+        sec('Goals', state.goals) +
+        sec('Needs', state.needs) +
+        sec('Wants', state.wants) +
+      '</div>' +
+      '<div class="e-col">' +
+        sec('Frustrations', state.frustrations) +
+        sec('Limitations', state.limitations) +
+        '<h3 style="color:' + a + '">Behaviour</h3>' + scales +
+      '</div>' +
+    '</div>' +
+    (state.scenario.trim() ? sec('Scenario', state.scenario) : '') +
+  '</div>' +
+  '<div class="e-foot"><span>' + footLeft() + '</span><span>' + footRight() + '</span></div>';
+}
+
+function tplDashboard() {
+  var a = state.accent;
+  function card(title, body) {
+    if (!(body || '').trim()) return '';
+    return '<div class="b-card" style="border-top-color:' + a + '"><h3>' + esc(title) + '</h3><p>' + nl2br(body) + '</p></div>';
+  }
+  var scales = '';
+  for (var i = 0; i < SCALES.length; i++) {
+    var v = scaleVal(SCALES[i].key);
+    scales += '<div class="b-scale">' +
+      '<div class="b-scale-top"><span>' + esc(SCALES[i].label) + '</span><span>' + v + '/5</span></div>' +
+      '<div class="b-bar"><div class="b-bar-fill" style="width:' + (v * 20) + '%;background:' + a + '"></div></div>' +
+    '</div>';
+  }
+  var chips = '';
+  [state.age, state.location, state.education, state.living].forEach(function (t) {
+    if ((t || '').trim()) chips += '<span class="b-chip">' + esc(t) + '</span>';
+  });
+  return '' +
+  '<div class="b-head">' +
+    photoBlock('') +
+    '<div class="b-headcard" style="background:' + a + '">' +
+      '<div class="b-tag">Primary persona · ' + esc(or(state.project, 'Design project')) + '</div>' +
+      '<div class="b-name">' + esc(or(state.name, 'Unnamed')) + '</div>' +
+      '<div class="b-role">' + esc(or(state.occupation, 'Role not specified')) + '</div>' +
+      (chips ? '<div class="b-chips">' + chips + '</div>' : '') +
+    '</div>' +
+  '</div>' +
+  '<div class="b-row">' + card('Goals', state.goals) + card('Frustrations', state.frustrations) + '</div>' +
+  '<div class="b-row">' + card('Needs', state.needs) + card('Wants', state.wants) + '</div>' +
+  '<div class="b-row">' +
+    card('Limitations', state.limitations) +
+    '<div class="b-card" style="border-top-color:' + a + '"><h3>Behaviour</h3>' + scales + '</div>' +
+  '</div>' +
+  (state.scenario.trim() ? '<div class="b-row">' + card('Scenario', state.scenario) + '</div>' : '') +
+  (state.quote.trim() ? '<div class="b-quote">"' + esc(state.quote) + '"</div>' : '') +
+  '<div class="b-foot"><span>' + footLeft() + '</span><span>' + footRight() + '</span></div>';
+}
+
+function tplField() {
+  var a = state.accent;
+  function sec(title, body) {
+    if (!(body || '').trim()) return '';
+    return '<div class="f-sec"><div class="f-sec-h">' + esc(title) + '</div><p>' + nl2br(body) + '</p></div>';
+  }
+  var scales = '';
+  for (var i = 0; i < SCALES.length; i++) {
+    var v = scaleVal(SCALES[i].key);
+    var dots = '';
+    for (var d = 1; d <= 5; d++) {
+      dots += '<div class="f-dot"' + (d <= v ? ' style="background:' + a + '"' : '') + '></div>';
+    }
+    scales += '<div class="f-scale"><div class="f-scale-name">' + esc(SCALES[i].label) + '</div><div class="f-dots">' + dots + '</div></div>';
+  }
+  function fact(k, v) {
+    if (!(v || '').trim()) return '';
+    return '<div><b>' + esc(k) + '</b>&nbsp;&nbsp;' + esc(v) + '</div>';
+  }
+  return '' +
+  '<div class="f-head">' +
+    '<div>' +
+      '<div class="f-label">Field notes · primary persona</div>' +
+      '<div class="f-name">' + esc(or(state.name, 'Unnamed')) + '</div>' +
+      '<div class="f-role">' + esc(or(state.occupation, 'Role not specified')) +
+        (state.age.trim() ? ' · ' + esc(state.age) : '') + '</div>' +
+    '</div>' +
+    '<div class="f-date">' + esc(or(state.project, 'Design project')) + '</div>' +
+  '</div>' +
+  '<div class="f-top">' +
+    photoBlock('') +
+    '<div class="f-topbody">' +
+      (state.quote.trim() ? '<div class="f-quote">"' + esc(state.quote) + '"</div>' : '') +
+      '<div class="f-facts">' +
+        fact('Lives', state.location) + fact('Household', state.living) +
+        fact('Education', state.education) + fact('Interests', state.interests) +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+  sec('Goals', state.goals) +
+  '<div class="f-cols">' + sec('Needs', state.needs) + sec('Wants', state.wants) + '</div>' +
+  '<div class="f-cols">' + sec('Frustrations', state.frustrations) + sec('Limitations', state.limitations) + '</div>' +
+  '<div class="f-sec"><div class="f-sec-h">Behaviour</div>' + scales + '</div>' +
+  sec('Scenario', state.scenario) +
+  '<div class="f-foot"><span>' + footLeft() + '</span><span>' + footRight() + '</span></div>';
+}
+
+var TEMPLATES = {
+  report:    { fn: tplReport,    cls: 't-report',    accent: false },
+  dossier:   { fn: tplDossier,   cls: 't-dossier',   accent: false },
+  editorial: { fn: tplEditorial, cls: 't-editorial', accent: true },
+  dashboard: { fn: tplDashboard, cls: 't-dashboard', accent: true },
+  field:     { fn: tplField,     cls: 't-field',     accent: true }
+};
+
+function renderSheet() {
+  var t = TEMPLATES[state.template] || TEMPLATES.editorial;
+  var sheet = el('pw-sheet');
+  sheet.className = 'sheet ' + t.cls;
+  sheet.innerHTML = t.fn();
+
+  Array.prototype.forEach.call(document.querySelectorAll('.pw-tmpl-btn'), function (b) {
+    b.classList.toggle('is-on', b.getAttribute('data-tmpl') === state.template);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.pw-swatch'), function (b) {
+    b.disabled = !t.accent;
+    b.classList.toggle('is-on', b.getAttribute('data-accent') === state.accent);
+  });
+  save();
+}
+
+function fitStage() {
+  var stage = el('pw-stage');
+  var inner = el('pw-stage-inner');
+  if (!stage || !inner) return;
+  var avail = stage.clientWidth - 8;
+  var scale = Math.min(1, avail / 794);
+  inner.style.transform = 'scale(' + scale + ')';
+  inner.style.height = (1123 * scale) + 'px';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VIEW SWITCHING
+═══════════════════════════════════════════════════════════ */
+function showResult() {
+  el('pw-wizard').classList.add('is-off');
+  el('pw-result').classList.add('is-on');
+  renderSheet();
+  fitStage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function showWizard() {
+  el('pw-result').classList.remove('is-on');
+  el('pw-wizard').classList.remove('is-off');
+  renderStep();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   EXPORT
+═══════════════════════════════════════════════════════════ */
+function safeName(s) {
+  var t = (s || '').trim().replace(/[\\/:*?"<>|]+/g, '').replace(/\s+/g, ' ');
+  return t || 'user persona';
+}
+
+function doDownload() {
+  if (typeof html2canvas === 'undefined') {
+    alert('The image library did not load, so the PNG cannot be created. Check your internet connection and reload the page. You can still use the Print button and save as PDF.');
+    return;
+  }
+  var btn = el('pw-confirm');
+  var inner = el('pw-stage-inner');
+  var prevTransform = inner.style.transform;
+  var prevHeight = inner.style.height;
+  var filename = safeName(el('pw-filename').value);
+
+  btn.disabled = true;
+  btn.textContent = 'Rendering…';
+
+  // Render unscaled so the export is not affected by the preview transform.
+  inner.style.transform = 'none';
+  inner.style.height = 'auto';
+
+  html2canvas(el('pw-sheet'), {
+    scale: 3.125,          // 794px * 3.125 = 2481px wide, i.e. A4 at ~300dpi
+    backgroundColor: '#ffffff',
+    useCORS: true,
+    logging: false,
+    width: 794,
+    height: 1123,
+    windowWidth: 794,
+    windowHeight: 1123
+  }).then(function (cvs) {
+    var link = document.createElement('a');
+    link.download = filename + '.png';
+    link.href = cvs.toDataURL('image/png');
+    link.click();
+    closeModal();
+  }).catch(function (e) {
+    alert('The image could not be created: ' + e.message);
+  }).finally(function () {
+    inner.style.transform = prevTransform;
+    inner.style.height = prevHeight;
+    btn.disabled = false;
+    btn.textContent = 'Save image';
+  });
+}
+
+function openModal() {
+  el('pw-overlay').classList.add('is-on');
+  var f = el('pw-filename');
+  f.focus();
+  f.select();
+}
+function closeModal() { el('pw-overlay').classList.remove('is-on'); }
+
+/* ═══════════════════════════════════════════════════════════
+   WIRE UP
+═══════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function () {
+
+  // Accent swatches
+  var sw = '';
+  for (var i = 0; i < ACCENTS.length; i++) {
+    sw += '<button class="pw-swatch" data-accent="' + ACCENTS[i] + '" style="background:' + ACCENTS[i] +
+          '" title="Accent colour" aria-label="Accent colour ' + (i + 1) + '"></button>';
+  }
+  el('pw-swatches').innerHTML = sw;
+
+  load();
+  renderStep();
+
+  el('pw-next').addEventListener('click', function () {
+    if (stepIndex === STEPS.length - 1) { showResult(); return; }
+    stepIndex++;
+    renderStep();
+  });
+  el('pw-back').addEventListener('click', function () {
+    if (stepIndex === 0) return;
+    stepIndex--;
+    renderStep();
+  });
+
+  el('pw-edit').addEventListener('click', showWizard);
+
+  el('pw-reset').addEventListener('click', function () {
+    if (!confirm('Clear all your answers and start again? This cannot be undone.')) return;
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    location.reload();
+  });
+
+  // Template + accent
+  Array.prototype.forEach.call(document.querySelectorAll('.pw-tmpl-btn'), function (b) {
+    b.addEventListener('click', function () {
+      state.template = b.getAttribute('data-tmpl');
+      renderSheet();
+    });
+  });
+  el('pw-swatches').addEventListener('click', function (e) {
+    var b = e.target.closest('.pw-swatch');
+    if (!b || b.disabled) return;
+    state.accent = b.getAttribute('data-accent');
+    renderSheet();
+  });
+
+  // Photo
+  el('pw-photo-input').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (file.size > 6 * 1024 * 1024) {
+      alert('That image is larger than 6MB. Please use a smaller one so it saves properly.');
+      e.target.value = '';
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      state.photo = ev.target.result;
+      save();
+      renderStep();
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  });
+
+  // Download
+  el('pw-download').addEventListener('click', openModal);
+  el('pw-cancel').addEventListener('click', closeModal);
+  el('pw-confirm').addEventListener('click', doDownload);
+  el('pw-overlay').addEventListener('click', function (e) {
+    if (e.target === el('pw-overlay')) closeModal();
+  });
+  el('pw-filename').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') doDownload();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  el('pw-print').addEventListener('click', function () { window.print(); });
+
+  // JSON save / load
+  el('pw-save-json').addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = safeName(state.name || 'user persona') + '.json';
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(link.href); }, 1000);
+  });
+  el('pw-load-json').addEventListener('click', function () { el('pw-json-input').click(); });
+  el('pw-json-input').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      try {
+        var obj = JSON.parse(ev.target.result);
+        for (var k in state) if (obj.hasOwnProperty(k)) state[k] = obj[k];
+        save();
+        stepIndex = 0;
+        renderStep();
+        alert('Persona loaded.');
+      } catch (err) {
+        alert('That file could not be read. Make sure it is a persona file saved from this tool.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  window.addEventListener('resize', fitStage);
+});
+</script>
+<script src="../../curriculum/curriculum-themes.js"></script>
+</body>
+</html>
