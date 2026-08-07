@@ -674,6 +674,18 @@
       </div>
     </div>
 
+    <!-- C · Render gallery launch card -->
+    <article class="case-study-card gallery-launch" data-modal="modal-render-gallery" role="button" tabindex="0" aria-haspopup="dialog">
+      <figure class="case-study-img">
+        <img src="Plans/G6Lego/Lighting%20test%20for%20lego.png" alt="Rendered Lego scene lit with warm side lighting">
+      </figure>
+      <div class="case-study-content">
+        <h4>Using the Render Tool in Bricklink Studio</h4>
+        <p>A walk-through gallery of rendered examples. Click through page by page to see how quality settings, camera angle, and lighting change the finished image.</p>
+        <span class="case-study-btn tool-btn-sm">Open gallery →</span>
+      </div>
+    </article>
+
     <!-- C · Rubric -->
     <div class="curr-section" id="task-c-rubric">
       <button class="obj-trigger" aria-expanded="false" aria-controls="body-task-c-rubric">
@@ -740,79 +752,6 @@
       </div>
     </div>
 
-<!-- ═══════════════════════════════════════════════════════
-     RENDER GALLERY MODAL
-     To add a page: copy one whole <div class="gallery-page"> block
-     below, paste it after the last one, and fill in the four spots
-     marked in the template. Leave "is-active" only on the FIRST
-     page - the script handles the rest. The counter and arrows
-     update themselves.
-
-     TEMPLATE (copy from here) ────────────────────────────────
-       <div class="gallery-page">
-         <figure class="case-photo gallery-photo">
-           <a href="IMAGE PATH"><img src="IMAGE PATH" alt="ALT TEXT"></a>
-         </figure>
-         <div class="gallery-text">
-           <h4>PAGE TITLE</h4>
-           <p>DESCRIPTION.</p>
-         </div>
-       </div>
-     ──────────────────────────────────────────────────────── -->
-<div class="case-modal gallery-modal" id="modal-render-gallery" role="dialog" aria-modal="true" aria-labelledby="modal-render-gallery-title">
-  <div class="case-modal-overlay" tabindex="-1"></div>
-  <div class="case-modal-content">
-    <header class="case-modal-header">
-      <h2 id="modal-render-gallery-title">Using the Render Tool in Bricklink Studio</h2>
-      <button class="case-modal-close" aria-label="Close gallery">&times;</button>
-    </header>
-    <div class="case-modal-body">
-      <div class="gallery-viewport">
-
-        <!-- ── GALLERY PAGE 1 ── -->
-        <div class="gallery-page is-active">
-          <figure class="case-photo gallery-photo">
-            <a href="Plans/G6Lego/Lighting%20test%20for%20lego.png"><img src="Plans/G6Lego/Lighting%20test%20for%20lego.png" alt="Lighting test render of a Lego scene"></a>
-          </figure>
-          <div class="gallery-text">
-            <h4>Placeholder title — opening the render tool</h4>
-            <p>Placeholder description. Replace this text with the explanation for this page. Click the image to expand it; click outside the enlarged image or press Esc to go back.</p>
-          </div>
-        </div>
-
-        <!-- ── GALLERY PAGE 2 ── -->
-        <div class="gallery-page">
-          <figure class="case-photo gallery-photo">
-            <a href="Plans/G6Lego/Islandcastle.png"><img src="Plans/G6Lego/Islandcastle.png" alt="Rendered island castle scene"></a>
-          </figure>
-          <div class="gallery-text">
-            <h4>Placeholder title — camera angle and framing</h4>
-            <p>Placeholder description. Replace this text with the explanation for this page.</p>
-          </div>
-        </div>
-
-        <!-- ── GALLERY PAGE 3 ── -->
-        <div class="gallery-page">
-          <figure class="case-photo gallery-photo">
-            <a href="Plans/G6Lego/Forest%20Road.png"><img src="Plans/G6Lego/Forest%20Road.png" alt="Rendered forest road scene"></a>
-          </figure>
-          <div class="gallery-text">
-            <h4>Placeholder title — lighting and background</h4>
-            <p>Placeholder description. Replace this text with the explanation for this page.</p>
-          </div>
-        </div>
-
-      </div>
-      <div class="gallery-nav">
-        <button class="gallery-arrow gallery-prev" aria-label="Previous page">&#8249;</button>
-        <span class="gallery-counter" aria-live="polite"></span>
-        <button class="gallery-arrow gallery-next" aria-label="Next page">&#8250;</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image"><img src="" alt=""></div>
     <!-- C · Lessons -->
     <div class="curr-section" id="lessons-c">
       <button class="obj-trigger" aria-expanded="false" aria-controls="body-lessons-c">
@@ -1142,6 +1081,80 @@
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
 </main>
+
+<!-- ═══════════════════════════════════════════════════════
+     RENDER GALLERY MODAL
+     To add a page: copy one whole <div class="gallery-page"> block
+     below, paste it after the last one, and fill in the four spots
+     marked in the template. Leave "is-active" only on the FIRST
+     page - the script handles the rest. The counter and arrows
+     update themselves.
+
+     TEMPLATE (copy from here) ────────────────────────────────
+       <div class="gallery-page">
+         <figure class="case-photo gallery-photo">
+           <a href="IMAGE PATH"><img src="IMAGE PATH" alt="ALT TEXT"></a>
+         </figure>
+         <div class="gallery-text">
+           <h4>PAGE TITLE</h4>
+           <p>DESCRIPTION.</p>
+         </div>
+       </div>
+     ──────────────────────────────────────────────────────── -->
+<div class="case-modal gallery-modal" id="modal-render-gallery" role="dialog" aria-modal="true" aria-labelledby="modal-render-gallery-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-render-gallery-title">Using the Render Tool in Bricklink Studio</h2>
+      <button class="case-modal-close" aria-label="Close gallery">&times;</button>
+    </header>
+    <div class="case-modal-body">
+      <div class="gallery-viewport">
+
+        <!-- ── GALLERY PAGE 1 ── -->
+        <div class="gallery-page is-active">
+          <figure class="case-photo gallery-photo">
+            <a href="Plans/G6Lego/Lighting%20test%20for%20lego.png"><img src="Plans/G6Lego/Lighting%20test%20for%20lego.png" alt="Lighting test render of a Lego scene"></a>
+          </figure>
+          <div class="gallery-text">
+            <h4>Placeholder title — opening the render tool</h4>
+            <p>Placeholder description. Replace this text with the explanation for this page. Click the image to expand it; click outside the enlarged image or press Esc to go back.</p>
+          </div>
+        </div>
+
+        <!-- ── GALLERY PAGE 2 ── -->
+        <div class="gallery-page">
+          <figure class="case-photo gallery-photo">
+            <a href="Plans/G6Lego/Islandcastle.png"><img src="Plans/G6Lego/Islandcastle.png" alt="Rendered island castle scene"></a>
+          </figure>
+          <div class="gallery-text">
+            <h4>Placeholder title — camera angle and framing</h4>
+            <p>Placeholder description. Replace this text with the explanation for this page.</p>
+          </div>
+        </div>
+
+        <!-- ── GALLERY PAGE 3 ── -->
+        <div class="gallery-page">
+          <figure class="case-photo gallery-photo">
+            <a href="Plans/G6Lego/Forest%20Road.png"><img src="Plans/G6Lego/Forest%20Road.png" alt="Rendered forest road scene"></a>
+          </figure>
+          <div class="gallery-text">
+            <h4>Placeholder title — lighting and background</h4>
+            <p>Placeholder description. Replace this text with the explanation for this page.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="gallery-nav">
+        <button class="gallery-arrow gallery-prev" aria-label="Previous page">&#8249;</button>
+        <span class="gallery-counter" aria-live="polite"></span>
+        <button class="gallery-arrow gallery-next" aria-label="Next page">&#8250;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image"><img src="" alt=""></div>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../curriculum.js"></script>
