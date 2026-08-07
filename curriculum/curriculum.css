@@ -2264,6 +2264,99 @@ details.p2-reveal summary::before { content: "▼ "; }
   animation: modal-in 0.2s ease;
 }
 
+/* ── PAGED IMAGE GALLERY ────────────────────────────────────
+   A .case-modal variant that holds a set of .gallery-page slides,
+   one visible at a time, stepped through with the side arrows.
+   Markup lives in the page; paging is handled by curriculum.js. */
+.case-modal.gallery-modal .case-modal-content {
+  width: 90vw;
+  height: 90vh;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.gallery-modal .case-modal-body {
+  flex: 1;
+  max-height: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.gallery-viewport { position: relative; flex: 1; min-height: 0; }
+
+.gallery-page { display: none; height: 100%; gap: 1.5rem; }
+.gallery-page.is-active {
+  display: grid;
+  grid-template-columns: 70% minmax(0, 1fr);
+}
+/* Image column — 70% of the dialogue, which is itself 90% of the window */
+.gallery-page .gallery-photo {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-page .gallery-photo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.gallery-page .gallery-photo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.gallery-text { overflow-y: auto; min-height: 0; }
+.gallery-text h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0 0 0.6rem;
+}
+.gallery-text p { font-size: 0.88rem; line-height: 1.7; color: var(--text); margin: 0 0 0.75rem; }
+
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.gallery-arrow {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text);
+}
+.gallery-arrow:hover:not(:disabled) { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+.gallery-arrow:disabled { opacity: 0.35; cursor: default; }
+.gallery-counter { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+
+/* Launch card — the trigger sitting in the page body */
+.case-study-card.gallery-launch { flex-direction: row; margin: 1.5rem 0; }
+.gallery-launch .case-study-img { flex: 0 0 200px; aspect-ratio: 4/3; }
+.gallery-launch .case-study-content { justify-content: center; }
+
+@media (max-width: 760px) {
+  .gallery-page.is-active { grid-template-columns: 1fr; grid-template-rows: 60% minmax(0, 1fr); }
+  .case-study-card.gallery-launch { flex-direction: column; }
+  .gallery-launch .case-study-img { flex: none; aspect-ratio: 8/5; }
+}
+
 .case-modal-body .case-iteration {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;

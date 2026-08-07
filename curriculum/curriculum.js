@@ -187,6 +187,37 @@
     }, true);
   }
 
+  /* ── PAGED GALLERY MODALS ───────────────────────────────────
+     A .case-modal.gallery-modal shows one .gallery-page at a time.
+     Each gallery needs .gallery-prev / .gallery-next buttons and a
+     .gallery-counter; adding a page is purely a markup change. */
+  document.querySelectorAll('.gallery-modal').forEach(function (gallery) {
+    var pages   = gallery.querySelectorAll('.gallery-page');
+    var prev    = gallery.querySelector('.gallery-prev');
+    var next    = gallery.querySelector('.gallery-next');
+    var counter = gallery.querySelector('.gallery-counter');
+    if (!pages.length) return;
+    var index = 0;
+
+    function show(i) {
+      index = Math.max(0, Math.min(i, pages.length - 1));
+      pages.forEach(function (page, n) { page.classList.toggle('is-active', n === index); });
+      if (prev) prev.disabled = index === 0;
+      if (next) next.disabled = index === pages.length - 1;
+      if (counter) counter.textContent = (index + 1) + ' / ' + pages.length;
+    }
+
+    if (prev) prev.addEventListener('click', function () { show(index - 1); });
+    if (next) next.addEventListener('click', function () { show(index + 1); });
+
+    gallery.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') show(index - 1);
+      else if (e.key === 'ArrowRight') show(index + 1);
+    });
+
+    show(0);
+  });
+
   /* Basic focus trapping inside an open case-study modal */
   modals.forEach(function (modal) {
     modal.addEventListener('keydown', function (e) {
