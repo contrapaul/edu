@@ -49,11 +49,11 @@
 <!--  DP DESIGN TECHNOLOGY                                       -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <div class="curr-section" id="dp" style="--curr-color:#1a5cb8;">
-<button class="curr-trigger" aria-expanded="true" aria-controls="body-dp">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-dp">
 <div class="curr-trigger-left"><h2>DP Design Technology</h2><span class="curr-sec-sub">Individual topic pages + IA assistance</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body open" id="body-dp">
+<div class="curr-body" id="body-dp">
 <p class="curr-section-intro">DP material that began as a study guide and is growing into a complete resource. Defer to officially approved resources if you find any discrepancies. HL topics are marked in a different color.</p>
 
 <div class="dp-topics-grid">
@@ -336,25 +336,24 @@
 <a class="myp-card" href="myp/g6-lego-designers.html">
 <div class="myp-card-grade">Grade 6 &mdash; Year 1</div>
 <div class="myp-card-title">Lego Designers</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
 </a>
 
 <a class="myp-card" href="myp/g7-lego-engineers.html">
 <div class="myp-card-grade">Grade 7 &mdash; Year 2</div>
 <div class="myp-card-title">Lego Engineers</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Progress</span></div>
 </a>
 
 <a class="myp-card" href="myp/g8-bridge-designers.html">
 <div class="myp-card-grade">Grade 8 &mdash; Year 3</div>
 <div class="myp-card-title">Bridge Designers</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Progress</span></div>
 </a>
 
 <a class="myp-card" href="myp/g8-3d-modeling.html">
 <div class="myp-card-grade">Grade 8 &mdash; Year 3</div>
 <div class="myp-card-title">3D Modeling</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Progress</span></div>
 </a>
 
 </div>
@@ -369,25 +368,24 @@
 <a class="myp-card" href="myp/g9-toy-design.html">
 <div class="myp-card-grade">Grade 9 &mdash; Year 4</div>
 <div class="myp-card-title">Toy Design</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Development</span></div>
 </a>
 
 <a class="myp-card" href="myp/g9-game-design.html">
 <div class="myp-card-grade">Grade 9 &mdash; Year 4</div>
 <div class="myp-card-title">Tabletop Game Design</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Development</span></div>
 </a>
 
 <a class="myp-card" href="myp/g10-electronics-design.html">
 <div class="myp-card-grade">Grade 10 &mdash; Year 5</div>
 <div class="myp-card-title">Electronics Design</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
+<div class="myp-card-foot"><span class="card-status status-soon">In Development</span></div>
 </a>
 
 <a class="myp-card" href="myp/g10-studio-project.html">
 <div class="myp-card-grade">Grade 10 &mdash; Year 5</div>
 <div class="myp-card-title">Studio Project</div>
-<div class="myp-card-foot"><span class="card-status status-soon">Coming soon</span></div>
 </a>
 
 </div>
@@ -407,6 +405,19 @@
 
 <script src="./curriculum.js"></script>
 <script>
+  (function () {
+    /* curriculum.js expands every section on load, which overrides the
+       collapsed markup below. Re-collapse the DP section here — attributes
+       are set directly rather than clicking the trigger, because the section
+       accordion is exclusive and a click would also close MYP. */
+    var dpTrigger = document.querySelector('[aria-controls="body-dp"]');
+    var dpBody = document.getElementById('body-dp');
+    if (dpTrigger && dpBody) {
+      dpTrigger.setAttribute('aria-expanded', 'false');
+      dpBody.classList.remove('open');
+    }
+  })();
+
   (function () {
     var id = location.hash.slice(1);
     if (!id) return;
