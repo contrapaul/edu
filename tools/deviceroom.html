@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Type the name of a game, app or website and find out instantly if it is allowed in the ISNS device room, with a ready made approval request if it needs one.">
-<title>Can I Play? — ISNS Device Room Rules</title>
+<title>Can I Play That? ISNS Device Room Rules</title>
 <link rel="canonical" href="https://edu.contrapaul.com/tools/deviceroom.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="contrapaul / edu">
@@ -534,31 +534,24 @@
     line-height: 1.5;
   }
 
-  /* Fallback copy box */
-  .copy-area {
-    background: var(--bg);
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    font-size: 0.92rem;
-    white-space: pre-wrap;
-    font-family: monospace;
-    color: var(--text);
-    line-height: 1.6;
+  .send-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+  /* Honeypot: off-screen for real users, irresistible to bots */
+  .form-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
   }
-  .copy-btn {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-weight: 700;
+  .send-status {
     font-size: 0.95rem;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: 2px solid #7c3aed;
-    background: transparent;
-    color: #7c3aed;
-    cursor: pointer;
-    transition: all 0.18s;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
   }
-  .copy-btn:hover { background: #7c3aed; color: #fff; }
+  .send-status:empty { display: none; }
+  .send-status.is-success { color: #15803d; }
+  .send-status.is-error { color: #b91c1c; }
 
   /* ── FOOTER ── */
   footer {
@@ -583,12 +576,13 @@
 <body>
 
 <header>
-  <div class="logo">ISNS <span>Device Room</span> &amp; Rules</div>
+  <div class="logo">ISNS <span>Device Room</span> Rules</div>
   <nav class="header-nav">
     <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
     <button class="nav-btn" onclick="showPage('listpage')">📋 Full List</button>
     <button class="nav-btn" onclick="showSuggest()">🎲 Suggest</button>
     <button class="nav-btn" onclick="showPage('request')">✉️ Request</button>
+    <button class="nav-btn" onclick="window.open('https://edu.contrapaul.com/tools/greatgames', '_blank')">🎮 Mr. K's List of Games</button>
   </nav>
 </header>
 
@@ -679,44 +673,31 @@
 
     <div class="form-group">
       <label class="form-label">Your name <span class="zh">你的姓名</span></label>
-      <input type="text" class="form-input" id="reqName" placeholder="Your full name">
+      <input type="text" class="form-input" id="reqName" placeholder="Your full name" maxlength="100" autocomplete="name">
     </div>
     <div class="form-group">
       <label class="form-label">Your student email <span class="zh">你的学生邮箱</span></label>
-      <input type="email" class="form-input" id="reqEmail" placeholder="your.name@isnsz.com">
+      <input type="email" class="form-input" id="reqEmail" placeholder="your.name@isnsz.com" maxlength="200" autocomplete="email">
     </div>
     <div class="form-group">
       <label class="form-label">Website / app link <span class="zh">网站/应用链接</span></label>
-      <input type="url" class="form-input" id="reqURL" placeholder="https://example.com">
+      <input type="url" class="form-input" id="reqURL" placeholder="https://example.com" maxlength="500">
     </div>
     <div class="form-group">
       <label class="form-label">Why should this be approved? <span class="zh">为什么应该批准这个网站？</span></label>
-      <textarea class="form-textarea" id="reqReason" placeholder="Tell us why this is a good choice for school..."></textarea>
+      <textarea class="form-textarea" id="reqReason" placeholder="Tell us why this is a good choice for school..." maxlength="4000"></textarea>
     </div>
 
-    <div id="requestPreview" style="display:none; flex-direction:column; gap:10px;">
-      <p style="font-weight:700;color:#7c3aed;font-size:0.95rem;">
-        📋 Step 1 — Copy your request below.<br>
-        <span style="font-weight:600;color:var(--muted);font-size:0.85rem;">第一步：复制下方的申请内容</span>
-      </p>
-      <div class="copy-area" id="fallbackText"></div>
-      <button class="copy-btn" onclick="copyFallback()" id="copyBtn">📋 Copy to clipboard / 复制到剪贴板</button>
-      <p style="font-weight:700;color:#7c3aed;font-size:0.95rem;margin-top:6px;">
-        📧 Step 2 — Open Outlook, paste it into a new email, and send it to <strong>paul.kwiatkowski@isnsz.com</strong> with subject <strong>"Website approval request"</strong>.<br>
-        <span style="font-weight:600;color:var(--muted);font-size:0.85rem;">第二步：打开Outlook，将内容粘贴到新邮件中发送</span>
-      </p>
-      <button class="send-btn" onclick="window.open('https://outlook.office.com/mail/','_blank')">
-        📬 Open Outlook
-        <span class="zh">打开 Outlook</span>
-      </button>
-    </div>
+    <input type="text" id="reqCompany" class="form-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-    <button class="send-btn" id="prepareBtn" onclick="prepareRequest()">
-      ✅ Prepare my request
-      <span class="zh">准备我的申请</span>
+    <button class="send-btn" id="sendBtn" onclick="submitRequest()">
+      📨 Send my request
+      <span class="zh">发送我的申请</span>
     </button>
 
-    <p class="send-note">Fill in all fields above, then press the button to get your message ready to copy &amp; send.<br><span style="font-size:0.82em;">填写上方所有内容，然后点击按钮生成申请信息，复制并发送。</span></p>
+    <div class="send-status" id="reqStatus" role="status" aria-live="polite"></div>
+
+    <p class="send-note">Fill in all fields above, then press the button to send your request straight to Mr. K.<br><span style="font-size:0.82em;">填写上方所有内容，然后点击按钮直接发送给 Mr. K。</span></p>
     <button class="action-btn btn-back" onclick="showPage('home')" style="align-self:center;">← Go Back / 返回</button>
   </div>
 </main>
@@ -725,7 +706,7 @@
 
 <script>
 // ════════════════════════════════════════════════
-//  DATABASE — Edit items here
+//  DATABASE - Edit items here
 //  Fields: name, status ('allowed'|'notallowed'),
 //          note (optional), url (optional),
 //          isApp (optional bool),
@@ -801,7 +782,7 @@ const DATABASE = [
     name: "Fusion 360",
     status: "allowed",
     isApp: true,
-    note: "You'll need an Autodesk account for this one — ask your Design teacher if you haven't been assigned one already.",
+    note: "You'll need an Autodesk account for this one. Ask your Design teacher if you haven't been assigned one already.",
     url: "",
     aliases: ["fusion", "autodesk fusion", "fusion360", "autodesk"]
   },
@@ -902,7 +883,7 @@ const DATABASE = [
   {
     name: "GeoGuessr",
     status: "allowed",
-    note: "Test your world geography skills — how well do you know the planet?",
+    note: "Test your world geography skills! How well do you know the planet?",
     url: "https://www.geoguessr.com",
     aliases: ["geo guessr", "geo quiz", "the geo quiz", "geography quiz", "geoguesser", "geoquiz"]
   },
@@ -946,21 +927,21 @@ const DATABASE = [
   {
     name: "Scratch",
     status: "allowed",
-    note: "✅ Allowed for coding and making projects. 🚫 NOT allowed for just browsing and playing other people's games — use it to create, not just play!",
+    note: "✅ Allowed for coding and making projects. 🚫 NOT allowed for just browsing and playing other people's games. Use it to create, not just play!",
     url: "https://scratch.mit.edu",
     aliases: ["scratch coding", "scratch.mit.edu", "scratch jr"]
   },
   {
     name: "Smash Karts",
     status: "allowed",
-    note: "Allowed — but no yelling! Keep it calm and respectful in the device room.",
+    note: "Allowed, but no yelling! Keep it calm and respectful in the device room.",
     url: "https://smashkarts.io",
     aliases: ["smash cart", "smashkarts", "kart game", "smash cart io"]
   },
   {
     name: "Minecraft",
     status: "allowed",
-    note: "Only allowed on the official ISNS server, or in your own solo world. You'll need a paid official Minecraft account — no copies or clones!",
+    note: "Only allowed on the official ISNS server, or in your own solo world. You'll need a paid official Minecraft account. No copies or clones!",
     url: "https://minecraft.net",
     aliases: ["mine craft", "mc", "mincraft", "minecaft"]
   },
@@ -974,7 +955,7 @@ const DATABASE = [
   {
     name: "Coding",
     status: "allowed",
-    note: "Writing real code in any app or environment — go for it! This includes Python, Scratch, JavaScript, and more.",
+    note: "Writing real code in any app or environment, go for it! This includes Python, Scratch, JavaScript, and more.",
     url: "",
     aliases: ["programming", "coding project", "making an app", "writing code"]
   },
@@ -987,9 +968,17 @@ const DATABASE = [
     aliases: ["imaggi", "imagi app"]
   },
   {
+    name: "Blurt.",
+    status: "allowed",
+    isApp: true,
+    note: "Mr. K's multiplayer word game! Communicate with your friends and be fair and honest!",
+    url: "https://blurt.contrapaul.com",
+    aliases: ["blurt", "blurt."]
+  },
+  {
     name: "CodinGame",
     status: "allowed",
-    note: "Like Code Combat but for more advanced users — give it a try if you're ready for a challenge!",
+    note: "Like Code Combat but for more advanced users, give it a try if you're ready for a challenge!",
     url: "https://www.codingame.com",
     aliases: ["coding game", "codinggame"]
   },
@@ -1061,14 +1050,14 @@ const DATABASE = [
   {
     name: "Eaglecraft",
     status: "notallowed",
-    note: "Only the official, paid Minecraft is allowed. No copies or clones — period.",
+    note: "Only the official, paid Minecraft is allowed. No copies or clones, period.",
     url: "",
     aliases: ["eagle craft", "eaglercraft", "eagler craft", "minecraft clone", "minecraft copy", "eaglecraft minecraft"]
   },
   {
     name: "Eaglercraft",
     status: "notallowed",
-    note: "Only the official, paid Minecraft is allowed. No copies or clones — period.",
+    note: "Only the official, paid Minecraft is allowed. No copies or clones, period.",
     url: "",
     aliases: ["eaglecraft", "eagle craft", "eagler craft"]
   },
@@ -1268,7 +1257,7 @@ function showResult(query, item) {
     explanation.innerHTML = `
       <strong>Treat it as not allowed until a teacher approves it.</strong><br><br>
       Please double-check your spelling or try pasting the full URL.<br>
-      If you think it should be here, ask a teacher — or use the button below to request it!
+      If you think it should be here, ask a teacher or use the button below to request it!
     `;
     actions.innerHTML = `
       <button class="action-btn btn-suggest2" onclick="showSuggest()">
@@ -1350,7 +1339,7 @@ function showSuggest() {
     linkEl.textContent = '';
   }
 
-  document.getElementById('suggestNote').textContent = item.note || (item.isApp ? '(Local app — open it from the desktop or taskbar)' : '');
+  document.getElementById('suggestNote').textContent = item.note || (item.isApp ? '(Local app, open it from the desktop or taskbar)' : '');
 
   showPage('suggest');
 }
@@ -1411,31 +1400,57 @@ function showPage(id) {
 //  REQUEST FORM
 // ════════════════════════════════════════════════
 
-function prepareRequest() {
+function setRequestStatus(msg, kind) {
+  const el = document.getElementById('reqStatus');
+  el.textContent = msg;
+  el.className = 'send-status' + (kind ? ' is-' + kind : '');
+}
+
+function submitRequest() {
   const name = document.getElementById('reqName').value.trim();
   const email = document.getElementById('reqEmail').value.trim();
   const url = document.getElementById('reqURL').value.trim();
   const reason = document.getElementById('reqReason').value.trim();
+  const btn = document.getElementById('sendBtn');
 
-  if (!name || !email || !url) {
-    alert('Please fill in your name, email, and the website link first.\n请先填写您的姓名、邮箱和网站链接。');
+  setRequestStatus('', '');
+
+  /* Honeypot: real students never see this field, so anything in it is a bot. */
+  if (document.getElementById('reqCompany').value.trim()) {
+    setRequestStatus('\u2705 Request sent! / \u7533\u8bf7\u5df2\u53d1\u9001\uff01', 'success');
     return;
   }
 
-  const body = `Website Approval Request\n========================\n\nStudent Name: ${name}\nStudent Email: ${email}\nWebsite / App URL: ${url}\n\nWhy it should be approved:\n${reason || '(No reason given)'}`;
+  if (!name || !email || !url) {
+    setRequestStatus('Please fill in your name, email, and the website link first. / \u8bf7\u5148\u586b\u5199\u60a8\u7684\u59d3\u540d\u3001\u90ae\u7bb1\u548c\u7f51\u7ad9\u94fe\u63a5\u3002', 'error');
+    return;
+  }
 
-  document.getElementById('fallbackText').textContent = body;
-  document.getElementById('requestPreview').style.display = 'flex';
-  document.getElementById('prepareBtn').style.display = 'none';
-  document.getElementById('requestPreview').scrollIntoView({ behavior: 'smooth' });
-}
+  const message = `Website Approval Request\n========================\n\nStudent Name: ${name}\nStudent Email: ${email}\nWebsite / App URL: ${url}\n\nWhy it should be approved:\n${reason || '(No reason given)'}`;
 
-function copyFallback() {
-  const text = document.getElementById('fallbackText').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '\u2705 Copied! Now open Outlook and paste. / \u5df2\u590d\u5236\uff01\u8bf7\u6253\u5f00Outlook\u7c98\u8d34\u3002';
-    setTimeout(() => { btn.textContent = '\ud83d\udccb Copy to clipboard / \u590d\u5236\u5230\u526a\u8d34\u677f'; }, 3000);
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Sending\u2026 / \u53d1\u9001\u4e2d\u2026';
+
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ kind: 'device-request', name, email, message })
+  }).then(res => res.json().catch(() => ({})).then(body => {
+    if (res.ok) {
+      setRequestStatus('\u2705 Request sent! Mr. K will get back to you. / \u7533\u8bf7\u5df2\u53d1\u9001\uff01Mr. K \u4f1a\u56de\u590d\u4f60\u3002', 'success');
+      document.getElementById('reqName').value = '';
+      document.getElementById('reqEmail').value = '';
+      document.getElementById('reqURL').value = '';
+      document.getElementById('reqReason').value = '';
+    } else {
+      setRequestStatus((body.error || 'Something went wrong.') + ' Please tell a teacher. / \u51fa\u9519\u4e86\uff0c\u8bf7\u544a\u8bc9\u8001\u5e08\u3002', 'error');
+    }
+  })).catch(() => {
+    setRequestStatus('Network error, your request was not sent. Please try again. / \u7f51\u7edc\u9519\u8bef\uff0c\u7533\u8bf7\u672a\u53d1\u9001\uff0c\u8bf7\u91cd\u8bd5\u3002', 'error');
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerHTML = original;
   });
 }
 

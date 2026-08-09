@@ -25,6 +25,13 @@ export async function onRequestPost(context) {
   const message = String(data.message || '').trim();
   const honeypot = String(data.company || '').trim();
 
+  /* Optional form identifier. Whitelisted so the subject line can never be
+     set to arbitrary client-supplied text. */
+  const kind = String(data.kind || '').trim();
+  const subject = kind === 'device-request'
+    ? `Website approval request — ${name}`
+    : `Contact form — ${name}`;
+
   /* Bot filled the hidden field — pretend success, send nothing. */
   if (honeypot) return json({ ok: true });
 
@@ -54,7 +61,7 @@ export async function onRequestPost(context) {
       from,
       to: [env.CONTACT_TO],
       reply_to: email,
-      subject: `Contact form — ${name}`,
+      subject,
       text: `From: ${name} <${email}>\n\n${message}`,
       html:
         `<p><strong>From:</strong> ${escapeHtml(name)} &lt;${escapeHtml(email)}&gt;</p>` +
