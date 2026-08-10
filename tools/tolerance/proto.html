@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>SHIFT</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:#d8dde5;
+  font-family:'Segoe UI',Arial,sans-serif; user-select:none; -webkit-user-select:none; touch-action:none; }
+#wrap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+#stage { position:relative; width:1240px; height:740px; transform-origin:center center; }
+
+.panel { position:absolute; background:#191d23; border:1px solid #2e343d; border-radius:4px; }
+.plabel { position:absolute; top:6px; left:10px; font-size:11px; letter-spacing:2px; color:#5d6673; }
+.readout { position:absolute; top:4px; right:10px; font-family:ui-monospace,Menlo,monospace;
+  font-size:22px; color:#e0a33a; }
+
+/* header */
+#hud { position:absolute; left:0; top:0; width:1240px; height:64px; }
+#dayLbl { position:absolute; left:24px; top:18px; font-size:24px; letter-spacing:4px; color:#8b95a3; }
+#specWrap { position:absolute; left:200px; top:8px; width:420px; height:48px; }
+#specNum { position:absolute; left:0; top:8px; font-family:ui-monospace,Menlo,monospace;
+  font-size:26px; color:#d8dde5; }
+#specBand { position:absolute; left:215px; top:16px; width:200px; height:16px; border-radius:2px; }
+#money { position:absolute; right:24px; top:12px; font-family:ui-monospace,Menlo,monospace;
+  font-size:30px; color:#d8dde5; }
+#cx { position:absolute; right:24px; top:46px; display:flex; gap:6px; justify-content:flex-end; }
+.cxd { width:11px; height:11px; border-radius:50%; background:#2e343d; }
+.cxd.on { background:#d9534f; }
+#prog { position:absolute; left:0; top:62px; width:1240px; height:3px; background:#20242b; }
+#prog i { display:block; height:100%; width:0; background:#4a5563; }
+
+/* tray */
+#tray { position:absolute; left:24px; top:78px; width:980px; height:100px;
+  border:1px dashed #2e343d; border-radius:4px; }
+
+/* parts */
+.part { position:absolute; background:#4a5a6e; border:1px solid #6d7f95; border-radius:3px;
+  cursor:grab; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:ui-monospace,Menlo,monospace; color:#cdd6e2; z-index:20; }
+.part.drag { cursor:grabbing; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,.6); }
+.part .pid { font-size:11px; color:#8fa0b4; }
+.part .tag { font-size:14px; color:#e0a33a; }
+.part.busy { pointer-events:none; opacity:.75; }
+
+/* bins */
+.bin { position:absolute; border:2px solid #333a44; border-radius:4px;
+  display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px;
+  font-size:13px; letter-spacing:4px; }
+#ship { left:24px; top:416px; width:330px; height:140px; border-color:#2f5a3d; color:#4caf6a; }
+#scrap { left:374px; top:416px; width:330px; height:140px; border-color:#5a3232; color:#c96a66; }
+.bin.hot { background:#20262d; }
+
+/* gauge */
+#gauge { left:24px; top:196px; width:250px; height:200px; }
+#gLight { position:absolute; left:20px; top:150px; width:210px; height:26px; border-radius:3px;
+  background:#20242b; display:flex; align-items:center; justify-content:center;
+  font-size:12px; letter-spacing:3px; color:#5d6673; }
+#gBar { position:absolute; left:20px; top:132px; width:210px; height:5px; background:#20242b; border-radius:3px; }
+#gBar i { display:block; height:100%; width:0; background:#a06a3a; border-radius:3px; }
+#gSlot { position:absolute; left:88px; top:52px; width:74px; height:74px;
+  border:2px dashed #333a44; border-radius:3px; }
+
+/* caliper */
+#caliper { left:294px; top:196px; width:620px; height:200px; }
+#calJaw { position:absolute; width:12px; height:88px; background:#8c98a8; border-radius:2px;
+  cursor:ew-resize; z-index:30; }
+#calAnvil { position:absolute; width:12px; height:88px; background:#8c98a8; border-radius:2px; }
+#calRule { position:absolute; height:34px; }
+#calBand { position:absolute; height:10px; border-radius:2px; }
+#calPtr, #micPtr { position:absolute; width:2px; height:18px; background:#e8eef6; z-index:31; }
+
+/* micrometer */
+#mic { left:934px; top:196px; width:282px; height:200px; }
+#micAnvil { position:absolute; width:10px; height:80px; background:#8c98a8; border-radius:2px; }
+#micSpindle { position:absolute; width:10px; height:80px; background:#8c98a8; border-radius:2px; }
+#micThimble { position:absolute; border-radius:50%; background:#39414c; border:2px solid #5f6a78;
+  cursor:grab; z-index:30; }
+#micThimble .mk { position:absolute; left:50%; top:2px; width:2px; height:12px; background:#c9d2dd;
+  margin-left:-1px; }
+#micBand { position:absolute; height:10px; border-radius:2px; }
+
+/* machine */
+#machine { left:724px; top:416px; width:492px; height:300px; }
+#dial { position:absolute; left:26px; top:56px; width:128px; height:128px; border-radius:50%;
+  background:#252b33; border:2px solid #454e5a; cursor:grab; }
+#dial .ndl { position:absolute; left:50%; top:8px; width:3px; height:56px; background:#e0a33a;
+  margin-left:-1.5px; transform-origin:50% 100%; }
+#dialVal { position:absolute; left:26px; top:192px; width:128px; text-align:center;
+  font-family:ui-monospace,Menlo,monospace; font-size:18px; color:#e0a33a; }
+#chart { position:absolute; left:190px; top:46px; }
+
+/* fx */
+.float { position:absolute; font-family:ui-monospace,Menlo,monospace; font-size:20px;
+  pointer-events:none; z-index:200; transition:transform .9s ease-out, opacity .9s ease-out; }
+
+/* overlay */
+#ov { position:absolute; inset:0; background:rgba(8,10,13,.94); z-index:500;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; }
+#ov.hide { display:none; }
+#ov h1 { font-size:40px; letter-spacing:8px; font-weight:400; color:#d8dde5; }
+#ov .big { font-family:ui-monospace,Menlo,monospace; font-size:56px; }
+#ov .row { display:flex; gap:44px; font-family:ui-monospace,Menlo,monospace; font-size:20px; color:#8b95a3; }
+#ov .row b { display:block; color:#d8dde5; font-size:28px; font-weight:400; }
+#ov button { background:#2a323c; color:#d8dde5; border:1px solid #454e5a; border-radius:3px;
+  padding:14px 46px; font-size:16px; letter-spacing:4px; cursor:pointer; font-family:inherit; }
+#ov button:hover { background:#343d49; }
+.leg { display:flex; gap:22px; font-size:12px; color:#8b95a3; align-items:center; }
+.leg span { display:flex; gap:7px; align-items:center; }
+.leg i { width:10px; height:10px; border-radius:50%; display:block; }
+</style>
+</head>
+<body>
+<div id="wrap"><div id="stage">
+
+  <div id="hud">
+    <div id="dayLbl">DAY 1</div>
+    <div id="specWrap">
+      <div id="specNum">10.00 <span style="color:#5d6673">&plusmn;</span> <span id="specTol">0.20</span></div>
+      <div id="specBand"></div>
+    </div>
+    <div id="money">$1,000</div>
+    <div id="cx"></div>
+    <div id="prog"><i></i></div>
+  </div>
+
+  <div id="tray"></div>
+
+  <div class="panel" id="gauge">
+    <div class="plabel">GO / NO GO</div>
+    <div id="gSlot"></div>
+    <div id="gBar"><i></i></div>
+    <div id="gLight"></div>
+  </div>
+
+  <div class="panel" id="caliper">
+    <div class="plabel">CALIPER</div>
+    <div class="readout" id="calRead">--.--</div>
+  </div>
+
+  <div class="panel" id="mic">
+    <div class="plabel">MICROMETER</div>
+    <div class="readout" id="micRead">--.---</div>
+  </div>
+
+  <div class="bin" id="ship">SHIP</div>
+  <div class="bin" id="scrap">SCRAP</div>
+
+  <div class="panel" id="machine">
+    <div class="plabel">MACHINE</div>
+    <div id="dial"><div class="ndl"></div></div>
+    <div id="dialVal">+0.00</div>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div id="calAnvil"></div>
+  <div id="calBand"></div>
+  <canvas id="calRule"></canvas>
+  <div id="calJaw"></div>
+  <div id="calPtr"></div>
+  <div id="micPtr"></div>
+
+  <div id="micAnvil"></div>
+  <div id="micSpindle"></div>
+  <div id="micBand"></div>
+  <div id="micThimble"><div class="mk"></div></div>
+
+  <div id="parts"></div>
+  <div id="fx"></div>
+  <div id="ov" class="hide"></div>
+</div></div>
+
+<script>
+"use strict";
+
+/* ---------- constants ---------- */
+const NOM = 10.00;
+const CAP = 10;                 // tray slots
+const BASE = 100;               // revenue for a perfect part
+const SCRAP_COST = 20;
+const MAX_CX = 5;               // complaints before the contract dies
+const START_BAL = 1000;
+const KEY = "shiftProtoV1";
+
+const CAL_ZOOM = 260;           // px per mm
+const CAL_PART_W = 120;         // part width at nominal
+const CAL_OPEN = 0.90;          // jaw start gap above true size
+const CAL_RES = 0.1;
+
+const MIC_ZOOM = 130;
+const MIC_PART_W = 60;
+const MIC_OPEN = 0.60;
+const MIC_RES = 0.01;
+const MIC_PER_TURN = 0.20;      // mm of spindle travel per full thimble rotation
+
+const GAUGE_CYCLE = 2.0;        // seconds, hands free
+
+/* ---------- day curve ---------- */
+function cfg(d){
+  const L = Math.max(0.03, 0.20 * Math.pow(0.86, d-1));
+  return {
+    L: L,
+    sigma: Math.max(0.012, 0.07 * Math.pow(0.90, d-1)),
+    wear: 0.0035 + 0.0012 * (d-1),
+    count: 18 + 2 * (d-1),
+    interval: Math.max(1.4, 3.3 - 0.16 * (d-1)),
+    gwear: d >= 3 ? Math.min(0.35, 0.12 * (d-2)) * L : 0
+  };
+}
+
+/* ---------- persistent career ---------- */
+let G = { day:1, bal:START_BAL, offset:0, best:0, bestDay:1 };
+function load(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if(s) Object.assign(G,s); } catch(e){} }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(G)); } catch(e){} }
+
+/* ---------- shift state ---------- */
+let R = null;
+let running = false;
+
+/* ---------- dom ---------- */
+const $ = s => document.querySelector(s);
+const stage = $("#stage"), partsLayer = $("#parts"), fx = $("#fx"), ov = $("#ov");
+const calJaw = $("#calJaw"), calAnvil = $("#calAnvil"), calRule = $("#calRule"), calBand = $("#calBand");
+const micAnvil = $("#micAnvil"), micSpindle = $("#micSpindle"), micThimble = $("#micThimble"), micBand = $("#micBand");
+const chart = $("#chart"), dial = $("#dial");
+
+/* stage scaling */
+function fit(){
+  const k = Math.min(window.innerWidth / 1240, window.innerHeight / 740);
+  stage.style.transform = "scale(" + k + ")";
+  stage._k = k;
+}
+window.addEventListener("resize", fit); fit();
+function toStage(e){
+  const r = stage.getBoundingClientRect(), k = stage._k;
+  return { x:(e.clientX - r.left)/k, y:(e.clientY - r.top)/k };
+}
+
+/* ---------- geometry anchors (stage space) ---------- */
+const TRAY_X = 38, TRAY_Y = 84, SLOT_W = 96, PART_W = 88;
+const CAL_PANEL_X = 294, CAL_PANEL_Y = 196;
+const CAL_PART_X = CAL_PANEL_X + 40, CAL_PART_Y = CAL_PANEL_Y + 40;
+const CAL_ZERO   = CAL_PART_X + CAL_PART_W;          // x of nominal reading
+const MIC_PANEL_X = 934, MIC_PANEL_Y = 196;
+const MIC_PART_X = MIC_PANEL_X + 20, MIC_PART_Y = MIC_PANEL_Y + 50;
+const MIC_BAND_X = MIC_PANEL_X + 20, MIC_BAND_W = 150;
+const MIC_ZERO   = MIC_PART_X + MIC_PART_W;
+const G_PANEL_X = 24, G_PANEL_Y = 196;
+
+const ZONES = {
+  ship:  { x:24,  y:416, w:330, h:140 },
+  scrap: { x:374, y:416, w:330, h:140 },
+  gauge: { x:24,  y:196, w:250, h:200 },
+  cal:   { x:294, y:196, w:620, h:200 },
+  mic:   { x:934, y:196, w:282, h:200 },
+  tray:  { x:24,  y:78,  w:980, h:100 }
+};
+function inZone(z,p){ return p.x>=z.x && p.x<=z.x+z.w && p.y>=z.y && p.y<=z.y+z.h; }
+
+/* ---------- helpers ---------- */
+function gauss(){ let u=0,v=0; while(!u)u=Math.random(); while(!v)v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function money(n){ return (n<0?"-$":"$") + Math.abs(Math.round(n)).toLocaleString(); }
+function qColor(r){ // r = |dev| / L
+  if(r<=0.4) return "#4caf6a";
+  if(r<=0.75) return "#a8b84a";
+  if(r<=1.0) return "#e0a33a";
+  if(r<=1.5) return "#d97a3a";
+  return "#d9534f";
+}
+
+/* ---------- parts ---------- */
+function makePart(){
+  const c = R.cfgv;
+  const size = NOM + G.offset + R.wearAcc + gauss()*c.sigma;
+  R.wearAcc += c.wear;
+  R.produced++;
+  const p = { id:R.produced, size:size, dev:size-NOM, state:"tray", slot:-1,
+              reading:null, res:0, gaugeRes:null, disp:null };
+  const el = document.createElement("div");
+  el.className = "part";
+  el.innerHTML = '<span class="pid">'+p.id+'</span><span class="tag"></span>';
+  el.addEventListener("pointerdown", e => grab(p,e));
+  p.el = el; partsLayer.appendChild(el);
+  R.parts.push(p);
+
+  let idx = R.tray.indexOf(null);
+  if(idx < 0){ // tray full: oldest rides out of the cell
+    const old = R.tray.reduce((a,b) => (a && a.id < b.id) ? a : b);
+    dispose(old, "ship", true);
+    idx = R.tray.indexOf(null);
+  }
+  R.tray[idx] = p; p.slot = idx;
+  layout();
+}
+
+function freeSlot(p){
+  if(p.state === "tray" && p.slot >= 0){ R.tray[p.slot] = null; p.slot = -1; }
+  if(p.state === "gauge") R.gauge = null;
+  if(p.state === "cal")   R.cal = null;
+  if(p.state === "mic")   R.mic = null;
+}
+function toTray(p){
+  const idx = R.tray.indexOf(null);
+  if(idx < 0) return false;
+  R.tray[idx] = p; p.slot = idx; p.state = "tray"; return true;
+}
+
+function setReading(p, val, res){
+  p.reading = val; p.res = res;
+  p.el.querySelector(".tag").textContent = val.toFixed(res === MIC_RES ? 2 : 1);
+  R.chart.push(val - NOM);
+  drawChart();
+}
+
+/* ---------- disposition ---------- */
+function dispose(p, how, auto){
+  freeSlot(p);
+  const c = R.cfgv;
+  let v;
+  if(how === "ship"){
+    const r = p.dev / c.L;
+    v = Math.max(-500, Math.round(BASE * (1 - r*r)));
+    if(Math.abs(p.dev) > c.L){ R.cx++; renderCx(); }
+  } else {
+    v = -SCRAP_COST;
+  }
+  p.disp = how; p.state = "gone"; p.pay = v;
+  R.dayMoney += v; G.bal += v; renderHud();
+
+  floater(p._x + 30, p._y + 20, (v>=0?"+":"") + v, v>=0 ? "#4caf6a" : "#d9534f", auto);
+  p.el.remove();
+  layout();
+
+  if(R.cx >= MAX_CX) endRun("CONTRACT LOST");
+  else if(G.bal < 0) endRun("BANKRUPT");
+}
+
+function floater(x,y,txt,col,auto){
+  const d = document.createElement("div");
+  d.className = "float"; d.textContent = txt; d.style.color = col;
+  d.style.left = x+"px"; d.style.top = y+"px";
+  if(auto) d.style.opacity = ".6";
+  fx.appendChild(d);
+  requestAnimationFrame(()=>{ d.style.transform = "translateY(-40px)"; d.style.opacity = "0"; });
+  setTimeout(()=>d.remove(), 950);
+}
+
+/* ---------- drag ---------- */
+let drag = null;
+function grab(p, e){
+  if(!running || p.state === "gone") return;
+  if(p.state === "gauge" && R.gaugeT > 0) return;
+  e.preventDefault();
+  const s = toStage(e);
+  drag = { p:p, dx:s.x - p._x, dy:s.y - p._y, from:p.state };
+  freeSlot(p); p.state = "drag";
+  p.el.classList.add("drag");
+  p.el.setPointerCapture(e.pointerId);
+  layout();
+}
+window.addEventListener("pointermove", e => {
+  if(!drag) return;
+  const s = toStage(e);
+  drag.p._x = s.x - drag.dx; drag.p._y = s.y - drag.dy;
+  place(drag.p);
+  hot(s);
+});
+window.addEventListener("pointerup", e => {
+  if(!drag) return;
+  const p = drag.p, s = toStage(e), from = drag.from;
+  drag = null;
+  p.el.classList.remove("drag");
+  $("#ship").classList.remove("hot"); $("#scrap").classList.remove("hot");
+
+  const c = { x:p._x + p.el.offsetWidth/2, y:p._y + p.el.offsetHeight/2 };
+
+  if(inZone(ZONES.ship, c))  { dispose(p,"ship"); return; }
+  if(inZone(ZONES.scrap, c)) { dispose(p,"scrap"); return; }
+
+  if(inZone(ZONES.gauge, c) && !R.gauge){ p.state="gauge"; R.gauge=p; R.gaugeT=GAUGE_CYCLE;
+    p.gaugeRes=null; $("#gLight").textContent=""; $("#gLight").style.background="#20242b"; layout(); return; }
+  if(inZone(ZONES.cal, c) && !R.cal){ p.state="cal"; R.cal=p; R.calVal=p.size+CAL_OPEN; layout(); return; }
+  if(inZone(ZONES.mic, c) && !R.mic){ p.state="mic"; R.mic=p; R.micVal=p.size+MIC_OPEN; R.micAng=0; layout(); return; }
+
+  // anything else goes back to the tray, or back where it came from
+  if(!toTray(p)){
+    if(from==="gauge" && !R.gauge){ p.state="gauge"; R.gauge=p; }
+    else if(from==="cal" && !R.cal){ p.state="cal"; R.cal=p; R.calVal=p.size+CAL_OPEN; }
+    else if(from==="mic" && !R.mic){ p.state="mic"; R.mic=p; R.micVal=p.size+MIC_OPEN; }
+    else { dispose(p,"scrap"); return; }
+  }
+  layout();
+});
+function hot(s){
+  $("#ship").classList.toggle("hot", inZone(ZONES.ship,s));
+  $("#scrap").classList.toggle("hot", inZone(ZONES.scrap,s));
+}
+
+/* ---------- layout ---------- */
+function place(p){
+  p.el.style.transform = "translate(" + p._x + "px," + p._y + "px)";
+}
+function layout(){
+  if(!R) return;
+  for(const p of R.parts){
+    if(p.state === "gone") continue;
+    let w = PART_W, h = PART_W;
+    if(p.state === "tray"){ p._x = TRAY_X + p.slot*SLOT_W; p._y = TRAY_Y; }
+    else if(p.state === "gauge"){ w=74; h=74; p._x = G_PANEL_X+88; p._y = G_PANEL_Y+52; }
+    else if(p.state === "cal"){ w = CAL_PART_W + p.dev*CAL_ZOOM; h=96; p._x = CAL_PART_X; p._y = CAL_PART_Y; }
+    else if(p.state === "mic"){ w = MIC_PART_W + p.dev*MIC_ZOOM; h=76; p._x = MIC_PART_X; p._y = MIC_PART_Y; }
+    p.el.style.width = w+"px"; p.el.style.height = h+"px";
+    place(p);
+  }
+  updateWidgets();
+}
+
+/* ---------- instrument widgets ---------- */
+function bandGrad(){
+  return "linear-gradient(90deg,#d9534f 0%,#e0a33a 12%,#4caf6a 42%,#4caf6a 58%,#e0a33a 88%,#d9534f 100%)";
+}
+function updateWidgets(){
+  const c = R.cfgv;
+
+  // caliper
+  const showCal = !!R.cal;
+  const calPtr = $("#calPtr");
+  calJaw.style.display = calAnvil.style.display = calRule.style.display =
+    calBand.style.display = calPtr.style.display = showCal ? "block":"none";
+  if(showCal){
+    calAnvil.style.transform = "translate(" + (CAL_PART_X-12) + "px," + CAL_PART_Y + "px)";
+    const jx = CAL_ZERO + (R.calVal-NOM)*CAL_ZOOM;
+    calJaw.style.transform = "translate(" + jx + "px," + CAL_PART_Y + "px)";
+    const bx = CAL_ZERO - c.L*CAL_ZOOM, bw = 2*c.L*CAL_ZOOM;
+    calBand.style.transform = "translate(" + bx + "px," + (CAL_PANEL_Y+172) + "px)";
+    calBand.style.width = bw+"px"; calBand.style.background = bandGrad();
+    calPtr.style.transform = "translate(" + (jx+5) + "px," + (CAL_PANEL_Y+168) + "px)";
+    drawRule();
+    const v = Math.round(R.calVal/CAL_RES)*CAL_RES;
+    $("#calRead").textContent = v.toFixed(1);
+    $("#calRead").style.color = qColor(Math.abs(v-NOM)/c.L);
+  } else { $("#calRead").textContent = "--.-"; $("#calRead").style.color="#e0a33a"; }
+
+  // micrometer
+  const showMic = !!R.mic;
+  const micPtr = $("#micPtr");
+  micAnvil.style.display = micSpindle.style.display = micThimble.style.display =
+    micBand.style.display = micPtr.style.display = showMic ? "block":"none";
+  if(showMic){
+    micAnvil.style.transform = "translate(" + (MIC_PART_X-10) + "px," + (MIC_PART_Y+2) + "px)";
+    const sx = MIC_ZERO + (R.micVal-NOM)*MIC_ZOOM;
+    micSpindle.style.transform = "translate(" + sx + "px," + (MIC_PART_Y+2) + "px)";
+    micThimble.style.width = "68px"; micThimble.style.height = "68px";
+    micThimble.style.transform = "translate(" + (MIC_PANEL_X+196) + "px," + (MIC_PANEL_Y+36) + "px) rotate(" + R.micAng + "rad)";
+    micBand.style.transform = "translate(" + MIC_BAND_X + "px," + (MIC_PANEL_Y+172) + "px)";
+    micBand.style.width = MIC_BAND_W+"px"; micBand.style.background = bandGrad();
+    const v = Math.round(R.micVal/MIC_RES)*MIC_RES;
+    // band spans +/- 1.5 L
+    const f = Math.max(-1, Math.min(1, (v-NOM)/(c.L*1.5)));
+    micPtr.style.transform = "translate(" + (MIC_BAND_X + MIC_BAND_W/2 + f*MIC_BAND_W/2) + "px," + (MIC_PANEL_Y+168) + "px)";
+    $("#micRead").textContent = v.toFixed(2);
+    $("#micRead").style.color = qColor(Math.abs(v-NOM)/c.L);
+  } else { $("#micRead").textContent = "--.--"; $("#micRead").style.color="#e0a33a"; }
+}
+
+function drawRule(){
+  const c = R.cfgv;
+  const w = 420, h = 34;
+  const dpr = window.devicePixelRatio || 1;
+  calRule.width = w*dpr; calRule.height = h*dpr;
+  calRule.style.width = w+"px"; calRule.style.height = h+"px";
+  calRule.style.transform = "translate(" + (CAL_ZERO-200) + "px," + (CAL_PANEL_Y+134) + "px)";
+  const g = calRule.getContext("2d");
+  g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,w,h);
+  g.strokeStyle="#5d6673"; g.fillStyle="#8b95a3";
+  g.font="10px ui-monospace,monospace"; g.textAlign="center";
+  for(let i=-8;i<=10;i++){
+    const v = NOM + i*0.1;
+    const x = 200 + i*0.1*CAL_ZOOM;
+    if(x<0||x>w) continue;
+    const major = (i%5===0);
+    g.beginPath(); g.moveTo(x,0); g.lineTo(x, major?14:8); g.stroke();
+    if(major) g.fillText(v.toFixed(1), x, 26);
+  }
+}
+
+/* caliper jaw drag */
+calJaw.addEventListener("pointerdown", e => {
+  if(!R || !R.cal) return;
+  e.preventDefault(); calJaw.setPointerCapture(e.pointerId);
+  const start = toStage(e).x, v0 = R.calVal;
+  const mv = ev => {
+    const dx = toStage(ev).x - start;
+    R.calVal = Math.max(R.cal.size, Math.min(R.cal.size+CAL_OPEN, v0 + dx/CAL_ZOOM));
+    if(R.calVal - R.cal.size < 0.0005) setReading(R.cal, Math.round(R.cal.size/CAL_RES)*CAL_RES, CAL_RES);
+    updateWidgets();
+  };
+  const up = () => { window.removeEventListener("pointermove",mv); window.removeEventListener("pointerup",up); };
+  window.addEventListener("pointermove",mv); window.addEventListener("pointerup",up);
+});
+
+/* micrometer thimble rotation */
+micThimble.addEventListener("pointerdown", e => {
+  if(!R || !R.mic) return;
+  e.preventDefault(); micThimble.setPointerCapture(e.pointerId);
+  const cx = MIC_PANEL_X+200+34, cy = MIC_PANEL_Y+40+34;
+  let last = Math.atan2(toStage(e).y-cy, toStage(e).x-cx);
+  const mv = ev => {
+    const s = toStage(ev);
+    const a = Math.atan2(s.y-cy, s.x-cx);
+    let d = a - last; while(d> Math.PI) d -= 2*Math.PI; while(d < -Math.PI) d += 2*Math.PI;
+    last = a; R.micAng += d;
+    R.micVal = Math.max(R.mic.size, Math.min(R.mic.size+MIC_OPEN, R.micVal - (d/(2*Math.PI))*MIC_PER_TURN));
+    if(R.micVal - R.mic.size < 0.00005) setReading(R.mic, Math.round(R.mic.size/MIC_RES)*MIC_RES, MIC_RES);
+    updateWidgets();
+  };
+  const up = () => { window.removeEventListener("pointermove",mv); window.removeEventListener("pointerup",up); };
+  window.addEventListener("pointermove",mv); window.addEventListener("pointerup",up);
+});
+
+/* machine dial */
+dial.addEventListener("pointerdown", e => {
+  e.preventDefault(); dial.setPointerCapture(e.pointerId);
+  const cx = 724+26+64, cy = 416+56+64;
+  const mv = ev => {
+    const s = toStage(ev);
+    let a = Math.atan2(s.y-cy, s.x-cx) + Math.PI/2;   // 0 = up
+    while(a> Math.PI) a -= 2*Math.PI; while(a < -Math.PI) a += 2*Math.PI;
+    a = Math.max(-2.356, Math.min(2.356, a));          // +/- 135 deg
+    G.offset = Math.round((a/2.356)*0.5*100)/100;
+    renderDial();
+  };
+  const up = () => { window.removeEventListener("pointermove",mv); window.removeEventListener("pointerup",up); save(); };
+  window.addEventListener("pointermove",mv); window.addEventListener("pointerup",up);
+});
+function renderDial(){
+  dial.querySelector(".ndl").style.transform = "rotate(" + (G.offset/0.5*135) + "deg)";
+  $("#dialVal").textContent = (G.offset>=0?"+":"") + G.offset.toFixed(2);
+}
+
+/* ---------- chart ---------- */
+function drawChart(){
+  const w=270, h=200, dpr=window.devicePixelRatio||1;
+  chart.width=w*dpr; chart.height=h*dpr; chart.style.width=w+"px"; chart.style.height=h+"px";
+  const g = chart.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,w,h);
+  const c = R.cfgv, span = c.L*2.6;
+  const y = d => h/2 - (d/span)*(h/2);
+
+  g.fillStyle="#12161b"; g.fillRect(0,0,w,h);
+  g.fillStyle="rgba(76,175,106,.10)"; g.fillRect(0, y(c.L), w, y(-c.L)-y(c.L));
+  g.strokeStyle="#3d4a56"; g.setLineDash([4,4]);
+  [c.L,-c.L].forEach(v=>{ g.beginPath(); g.moveTo(0,y(v)); g.lineTo(w,y(v)); g.stroke(); });
+  g.setLineDash([]);
+  g.strokeStyle="#2e343d"; g.beginPath(); g.moveTo(0,y(0)); g.lineTo(w,y(0)); g.stroke();
+
+  const data = R.chart.slice(-40);
+  data.forEach((d,i)=>{
+    const x = 8 + i*((w-16)/39);
+    g.fillStyle = qColor(Math.abs(d)/c.L);
+    g.beginPath(); g.arc(x, Math.max(3,Math.min(h-3,y(d))), 3.2, 0, 7); g.fill();
+  });
+}
+
+/* ---------- hud ---------- */
+function renderHud(){
+  $("#dayLbl").textContent = "DAY " + G.day;
+  $("#money").textContent = money(G.bal);
+  $("#money").style.color = G.bal < 200 ? "#d9534f" : "#d8dde5";
+  $("#specTol").textContent = R.cfgv.L.toFixed(2);
+  $("#specBand").style.background = bandGrad();
+  $("#prog i").style.width = (100*R.produced/R.cfgv.count) + "%";
+}
+function renderCx(){
+  const el = $("#cx"); el.innerHTML = "";
+  for(let i=0;i<MAX_CX;i++){
+    const d = document.createElement("div");
+    d.className = "cxd" + (i < R.cx ? " on" : "");
+    el.appendChild(d);
+  }
+}
+
+/* ---------- shift flow ---------- */
+function startDay(){
+  R = { cfgv:cfg(G.day), parts:[], tray:new Array(CAP).fill(null),
+        gauge:null, cal:null, mic:null, gaugeT:0, calVal:0, micVal:0, micAng:0,
+        produced:0, spawnT:0.8, grace:-1, wearAcc:0, dayMoney:0, cx:0, chart:[] };
+  partsLayer.innerHTML = ""; fx.innerHTML = "";
+  $("#gLight").textContent = ""; $("#gLight").style.background = "#20242b";
+  renderHud(); renderCx(); renderDial(); drawChart(); layout();
+  ov.classList.add("hide");
+  running = true; last = performance.now();
+}
+
+let last = 0;
+function loop(t){
+  requestAnimationFrame(loop);
+  const dt = Math.min((t-last)/1000, 0.1); last = t;
+  if(!running || !R) return;
+  const c = R.cfgv;
+
+  if(R.produced < c.count){
+    R.spawnT -= dt;
+    if(R.spawnT <= 0){ makePart(); R.spawnT = c.interval; renderHud(); }
+  } else if(R.grace < 0){
+    R.grace = 8;
+  } else {
+    R.grace -= dt;
+    $("#prog i").style.width = (100*Math.max(0,R.grace)/8) + "%";
+    $("#prog i").style.background = "#8a5a2a";
+    if(R.grace <= 0){ endDay(); return; }
+  }
+
+  if(R.gauge && R.gaugeT > 0){
+    R.gaugeT -= dt;
+    $("#gBar i").style.width = (100*(1 - R.gaugeT/GAUGE_CYCLE)) + "%";
+    if(R.gaugeT <= 0){
+      const pass = Math.abs(R.gauge.dev) <= c.L + c.gwear;
+      R.gauge.gaugeRes = pass;
+      R.gauge.el.querySelector(".tag").textContent = pass ? "GO" : "NO";
+      R.gauge.el.querySelector(".tag").style.color = pass ? "#4caf6a" : "#d9534f";
+      $("#gLight").textContent = pass ? "GO" : "NO GO";
+      $("#gLight").style.background = pass ? "#1e3a28" : "#3a1e1e";
+      $("#gLight").style.color = pass ? "#4caf6a" : "#d9534f";
+    }
+  } else if(!R.gauge){ $("#gBar i").style.width = "0%"; }
+}
+requestAnimationFrame(loop);
+
+function endDay(){
+  running = false;
+  for(const p of R.parts.slice()){
+    if(p.state !== "gone" && p.state !== "drag") dispose(p, "ship", true);
+  }
+  if(G.bal < 0){ endRun("BANKRUPT"); return; }
+  if(R.cx >= MAX_CX){ endRun("CONTRACT LOST"); return; }
+  debrief();
+}
+
+/* ---------- debrief ---------- */
+function debrief(){
+  const c = R.cfgv;
+  const shipped = R.parts.filter(p=>p.disp==="ship");
+  const scrapped = R.parts.filter(p=>p.disp==="scrap");
+  const escapes = shipped.filter(p=>Math.abs(p.dev)>c.L).length;
+  const falseRej = scrapped.filter(p=>Math.abs(p.dev)<=c.L).length;
+
+  ov.classList.remove("hide");
+  ov.innerHTML = "";
+  const h = document.createElement("h1"); h.textContent = "DAY " + G.day; ov.appendChild(h);
+  const big = document.createElement("div"); big.className="big";
+  big.textContent = (R.dayMoney>=0?"+":"") + money(R.dayMoney).replace("-","");
+  big.style.color = R.dayMoney>=0 ? "#4caf6a" : "#d9534f";
+  ov.appendChild(big);
+
+  const cv = document.createElement("canvas");
+  cv.style.border = "1px solid #2e343d"; ov.appendChild(cv);
+  drawDebrief(cv);
+
+  const leg = document.createElement("div"); leg.className="leg";
+  leg.innerHTML =
+    '<span><i style="background:#4caf6a"></i>shipped in spec</span>'+
+    '<span><i style="background:#d9534f"></i>shipped out of spec</span>'+
+    '<span><i style="background:#8b95a3"></i>scrapped in spec</span>'+
+    '<span><i style="background:#5d6673"></i>scrapped out of spec</span>';
+  ov.appendChild(leg);
+
+  const row = document.createElement("div"); row.className="row";
+  row.innerHTML =
+    '<div>escapes<b style="color:'+(escapes?"#d9534f":"#4caf6a")+'">'+escapes+'</b></div>'+
+    '<div>scrapped good<b>'+falseRej+'</b></div>'+
+    '<div>shipped<b>'+shipped.length+'</b></div>'+
+    '<div>balance<b>'+money(G.bal)+'</b></div>';
+  ov.appendChild(row);
+
+  const b = document.createElement("button"); b.textContent = "DAY " + (G.day+1);
+  b.onclick = () => { G.day++; if(G.day > G.bestDay) G.bestDay = G.day; save(); startDay(); };
+  ov.appendChild(b);
+  if(G.bal > G.best) G.best = G.bal;
+  save();
+}
+
+function drawDebrief(cv){
+  const c = R.cfgv, w=760, h=240, dpr=window.devicePixelRatio||1;
+  cv.width=w*dpr; cv.height=h*dpr; cv.style.width=w+"px"; cv.style.height=h+"px";
+  const g = cv.getContext("2d"); g.setTransform(dpr,0,0,dpr,0,0);
+  g.fillStyle="#12161b"; g.fillRect(0,0,w,h);
+
+  const span = Math.max(c.L*2.6, Math.max(...R.parts.map(p=>Math.abs(p.dev)))*1.15);
+  const y = d => h/2 - (d/span)*(h/2 - 14);
+
+  g.fillStyle="rgba(76,175,106,.10)"; g.fillRect(0,y(c.L),w,y(-c.L)-y(c.L));
+  g.strokeStyle="#3d4a56"; g.setLineDash([4,4]);
+  [c.L,-c.L].forEach(v=>{ g.beginPath(); g.moveTo(0,y(v)); g.lineTo(w,y(v)); g.stroke(); });
+  g.setLineDash([]);
+  g.strokeStyle="#2e343d"; g.beginPath(); g.moveTo(0,y(0)); g.lineTo(w,y(0)); g.stroke();
+
+  const n = R.parts.length;
+  R.parts.forEach((p,i)=>{
+    const x = 14 + i*((w-28)/Math.max(1,n-1));
+    const inSpec = Math.abs(p.dev) <= c.L;
+    g.fillStyle = p.disp==="ship" ? (inSpec ? "#4caf6a" : "#d9534f")
+                                  : (inSpec ? "#8b95a3" : "#5d6673");
+    g.beginPath(); g.arc(x, Math.max(4,Math.min(h-4,y(p.dev))), 5, 0, 7); g.fill();
+  });
+}
+
+/* ---------- run end ---------- */
+function endRun(reason){
+  running = false;
+  ov.classList.remove("hide"); ov.innerHTML = "";
+  const h = document.createElement("h1"); h.textContent = reason; ov.appendChild(h);
+  const row = document.createElement("div"); row.className="row";
+  row.innerHTML = '<div>reached<b>day '+G.day+'</b></div><div>best balance<b>'+money(G.best)+'</b></div>';
+  ov.appendChild(row);
+  const b = document.createElement("button"); b.textContent = "RESTART";
+  b.onclick = () => { G.day=1; G.bal=START_BAL; G.offset=0; save(); startDay(); };
+  ov.appendChild(b);
+  save();
+}
+
+/* ---------- boot ---------- */
+load();
+R = { cfgv:cfg(G.day) };
+ov.classList.remove("hide");
+ov.innerHTML = "";
+(function(){
+  const h = document.createElement("h1");
+  h.textContent = "DAY " + G.day; ov.appendChild(h);
+  if(G.best > START_BAL){
+    const row = document.createElement("div"); row.className="row";
+    row.innerHTML = '<div>best balance<b>'+money(G.best)+'</b></div><div>best day<b>'+G.bestDay+'</b></div>';
+    ov.appendChild(row);
+  }
+  const b = document.createElement("button"); b.textContent = "START";
+  b.onclick = startDay; ov.appendChild(b);
+})();
+window.addEventListener("keydown", e => {
+  if(e.key === " " || e.key === "Enter"){
+    const btn = ov.querySelector("button");
+    if(btn && !ov.classList.contains("hide")){ e.preventDefault(); btn.click(); }
+  }
+});
+</script>
+</body>
+</html>
