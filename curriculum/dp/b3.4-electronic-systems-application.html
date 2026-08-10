@@ -522,126 +522,126 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-quiz">
-<p class="quiz-intro">Ten questions covering the key learning objectives. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
+<p class="quiz-intro">Ten questions sampling across the eleven learning objectives. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
 
-<div class="quiz-q" data-answer="B">
+<div class="quiz-q" data-answer="A">
 <div class="quiz-q-num">Q1 &middot; 3.4.2 Test Equipment</div>
-<div class="quiz-q-text">A technician needs to measure the current flowing through a specific component in a live circuit. Which instrument and connection method should they use?</div>
+<div class="quiz-q-text">A technician needs to measure the current flowing through one component of a live circuit. The correct method is a:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Multimeter connected in parallel across the component</button>
-<button class="quiz-option" data-opt="B">B) Multimeter connected in series: the circuit must be broken first</button>
-<button class="quiz-option" data-opt="C">C) Clamp meter connected in series with the component</button>
-<button class="quiz-option" data-opt="D">D) Oscilloscope connected in parallel across the component</button>
+<button class="quiz-option" data-opt="A">A) Multimeter connected in series, with the circuit broken to insert it</button>
+<button class="quiz-option" data-opt="B">B) Multimeter connected in parallel across the component</button>
+<button class="quiz-option" data-opt="C">C) Multimeter with the component removed from the circuit entirely</button>
+<button class="quiz-option" data-opt="D">D) Oscilloscope probe connected across the component</button>
 </div>
-<div class="quiz-answer">Current measurement requires the meter to be in the current path: connected in series, with the circuit broken so current flows through the meter. Connecting a current meter in parallel would short-circuit the component and likely destroy the meter. A clamp meter measures current without breaking the circuit, but it clamps around the wire; it is not connected in series.</div>
+<div class="quiz-answer">Current must flow through the meter, so the circuit has to be opened and the meter placed in the path. Connecting a current range in parallel short-circuits the component and can destroy the meter. Voltage is measured in parallel, and resistance only with the component removed from the circuit.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
 <div class="quiz-q-num">Q2 &middot; 3.4.2 Test Equipment</div>
-<div class="quiz-q-text">Which instrument is most appropriate to visualise a signal waveform and diagnose a "ringing" distortion problem?</div>
+<div class="quiz-q-text">Which instrument is needed to diagnose ringing, the damped oscillation that follows a switching edge?</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Digital multimeter (DMM)</button>
+<button class="quiz-option" data-opt="A">A) Digital multimeter</button>
 <button class="quiz-option" data-opt="B">B) Clamp meter</button>
-<button class="quiz-option" data-opt="C">C) Digital storage oscilloscope (DSO)</button>
+<button class="quiz-option" data-opt="C">C) Digital storage oscilloscope</button>
 <button class="quiz-option" data-opt="D">D) Megohmmeter</button>
 </div>
-<div class="quiz-answer">Only a DSO can visualise a waveform over time. Ringing (damped oscillations after a switching edge) is a time-domain phenomenon that a multimeter cannot detect: it only shows a single average or RMS value. A megohmmeter tests insulation resistance; a clamp meter measures current magnitude only.</div>
+<div class="quiz-answer">Ringing exists only in the time domain, so it needs an instrument that plots voltage against time. A multimeter returns a single number and would show nothing unusual, a clamp meter reads current magnitude, and a megohmmeter tests insulation resistance on a circuit that is not live.</div>
 </div>
 
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q3 &middot; 3.4.4 Resistors &amp; Capacitors</div>
-<div class="quiz-q-text">A resistor has colour bands: yellow, violet, brown, gold. Using the colour code (yellow = 4, violet = 7, brown = ×10, gold = ±5%), what is its resistance and tolerance?</div>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q3 &middot; 3.4.3 V, I, R and P</div>
+<div class="quiz-q-text">A 12 V supply is connected across a 470 &Omega; resistor. The power dissipated is approximately:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) 47 Ω ± 5%</button>
-<button class="quiz-option" data-opt="B">B) 470 Ω ± 5%</button>
-<button class="quiz-option" data-opt="C">C) 4.7 kΩ ± 5%</button>
-<button class="quiz-option" data-opt="D">D) 47 kΩ ± 5%</button>
+<button class="quiz-option" data-opt="A">A) 5.6 W</button>
+<button class="quiz-option" data-opt="B">B) 25.5 W</button>
+<button class="quiz-option" data-opt="C">C) 0.026 W</button>
+<button class="quiz-option" data-opt="D">D) 0.31 W</button>
 </div>
-<div class="quiz-answer">The first two bands give the significant digits: yellow (4) and violet (7) = 47. The third band (brown) is the multiplier: ×10. So 47 × 10 = 470 Ω. The fourth band (gold) indicates ±5% tolerance. Answer: 470 Ω ± 5%.</div>
+<div class="quiz-answer">Using P = V&sup2; / R avoids an intermediate step: 144 / 470 = 0.306 W. Working the long way gives the same result, since I = V / R = 25.5 mA and P = VI = 12 &times; 0.0255 = 0.306 W. The 25.5 figure is the current in milliamps, not the power.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
 <div class="quiz-q-num">Q4 &middot; 3.4.4 Resistors &amp; Capacitors</div>
-<div class="quiz-q-text">In a low-pass RC filter used to eliminate contact bounce, the capacitor is placed:</div>
+<div class="quiz-q-text">Two 100 &Omega; resistors in parallel are connected in series with a 50 &Omega; resistor. The total resistance is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) In series with the input signal path</button>
-<button class="quiz-option" data-opt="B">B) In parallel with the output (across the load)</button>
-<button class="quiz-option" data-opt="C">C) In series with the resistor only</button>
-<button class="quiz-option" data-opt="D">D) Between the logic gate output and the power supply</button>
+<button class="quiz-option" data-opt="A">A) 250 &Omega;</button>
+<button class="quiz-option" data-opt="B">B) 100 &Omega;</button>
+<button class="quiz-option" data-opt="C">C) 150 &Omega;</button>
+<button class="quiz-option" data-opt="D">D) 33 &Omega;</button>
 </div>
-<div class="quiz-answer">A low-pass filter has the resistor in series with the signal path and the capacitor in parallel with the output. The capacitor charges through the resistor when the switch closes, producing a smooth rising voltage instead of the rapid bounce spikes, attenuating the high-frequency bounce while passing the slow, intended switch transition.</div>
+<div class="quiz-answer">Resolve the parallel branch first: two equal resistors give R / n = 100 / 2 = 50 &Omega;. Adding the series resistor gives 50 + 50 = 100 &Omega;. Combination networks are worked from the inside out, in the same way arithmetic follows an order of operations.</div>
+</div>
+
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q5 &middot; 3.4.4 Resistors &amp; Capacitors</div>
+<div class="quiz-q-text">A low-pass RC filter is added to a mechanical switch to remove contact bounce. In this filter the capacitor is placed:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) In series with the signal path</button>
+<button class="quiz-option" data-opt="B">B) In series with both the resistor and the output</button>
+<button class="quiz-option" data-opt="C">C) Between the logic gate output and the supply rail</button>
+<button class="quiz-option" data-opt="D">D) In parallel with the output, with the resistor in series</button>
+</div>
+<div class="quiz-answer">With the resistor in the signal path and the capacitor across the output, the capacitor charges through the resistor and smooths the rapid make and break of the contacts into one clean transition. Reversing the two components, with the capacitor in series, gives a high-pass filter instead, which blocks DC and passes fast signals.</div>
+</div>
+
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q6 &middot; 3.4.5 Flow Diagrams</div>
+<div class="quiz-q-text">In a flow diagram, which symbol represents a yes or no branch such as "temperature above 30 &deg;C?"</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Diamond</button>
+<button class="quiz-option" data-opt="B">B) Rounded rectangle</button>
+<button class="quiz-option" data-opt="C">C) Parallelogram</button>
+<button class="quiz-option" data-opt="D">D) Rectangle</button>
+</div>
+<div class="quiz-answer">A diamond marks a decision, with two paths leaving it. A rounded rectangle is a terminator marking start or end, a parallelogram is input or output such as reading a sensor or writing to a display, and a plain rectangle is a process. Flowcharts separate what the system must do from how it will be coded.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
-<div class="quiz-q-num">Q5 &middot; 3.4.11 Communication Protocols</div>
-<div class="quiz-q-text">Which Bluetooth protocol layer defines the basic rules for device discovery, connection establishment, and advertising?</div>
+<div class="quiz-q-num">Q7 &middot; 3.4.7 Sensor Inputs</div>
+<div class="quiz-q-text">A reversing aid must measure how far a vehicle is from the nearest obstacle. The most appropriate sensor is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) GATT (Generic Attribute Profile)</button>
-<button class="quiz-option" data-opt="B">B) ATT (Attribute Protocol)</button>
-<button class="quiz-option" data-opt="C">C) GAP (Generic Access Profile)</button>
-<button class="quiz-option" data-opt="D">D) RFCOMM (Radio Frequency Communications)</button>
+<button class="quiz-option" data-opt="A">A) Hygrometer</button>
+<button class="quiz-option" data-opt="B">B) Photoresistor</button>
+<button class="quiz-option" data-opt="C">C) Ultrasonic</button>
+<button class="quiz-option" data-opt="D">D) Accelerometer</button>
 </div>
-<div class="quiz-answer">GAP (Generic Access Profile) governs how Bluetooth devices discover each other, advertise their presence, and establish connections. GATT and ATT define how data is structured and exchanged after a connection is established. RFCOMM provides a serial port emulation layer for legacy applications.</div>
+<div class="quiz-answer">An ultrasonic sensor emits a pulse and times the returning echo, giving a digital distance reading that suits parking sensors and robotics. A hygrometer reads humidity and air temperature, a photoresistor light level, and an accelerometer motion, vibration or tilt. Matching the sensor to the physical quantity is the first step in specifying the input stage.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q6 &middot; 3.4.11 Communication Protocols</div>
-<div class="quiz-q-text">Australia's 3G network shutdown in October 2024 blocked some 4G phones from emergency calls because those phones:</div>
+<div class="quiz-q-num">Q8 &middot; 3.4.9 Logic</div>
+<div class="quiz-q-text">An alarm must sound only when the door sensor and the motion sensor are both active. Which gate is required, and what is its output when only one input is 1?</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Did not have 5G antennas installed</button>
-<button class="quiz-option" data-opt="B">B) Were not VoLTE compatible and relied on 3G as a fallback for voice calls</button>
-<button class="quiz-option" data-opt="C">C) Used the wrong SIM card standard</button>
-<button class="quiz-option" data-opt="D">D) Were blocked by Bluetooth interference on 2.4 GHz</button>
+<button class="quiz-option" data-opt="A">A) OR, output 1</button>
+<button class="quiz-option" data-opt="B">B) AND, output 0</button>
+<button class="quiz-option" data-opt="C">C) OR, output 0</button>
+<button class="quiz-option" data-opt="D">D) NOT, output 0</button>
 </div>
-<div class="quiz-answer">Many 4G phones were designed to fall back to 3G for voice calls because carrying voice over 4G requires VoLTE (Voice over LTE), a technology not all 4G devices included. When 3G was shut down, the fallback path disappeared. Non-VoLTE phones could not make or receive any calls, including emergency calls, despite having 4G data connectivity.</div>
+<div class="quiz-answer">AND outputs 1 only when every input is 1, so a single active sensor leaves the output at 0. A truth table for two inputs has 2&sup2; = 4 rows, and only the final row of an AND table gives an output of 1. OR would trigger on either sensor alone, which is not what the specification asks for.</div>
 </div>
 
-<div class="quiz-q" data-answer="C">
-<div class="quiz-q-num">Q7 &middot; 3.4.3 V, I, R and P</div>
-<div class="quiz-q-text">A three-phase industrial power plug with red colour coding according to IEC 60309 typically indicates a voltage range of:</div>
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q9 &middot; 3.4.10 Output Devices</div>
+<div class="quiz-q-text">A microcontroller pin can only be fully on or fully off, yet it is used to vary the speed of a DC motor. This is achieved by:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) 100–130 V</button>
-<button class="quiz-option" data-opt="B">B) 200–250 V</button>
-<button class="quiz-option" data-opt="C">C) 380–480 V</button>
-<button class="quiz-option" data-opt="D">D) 12–24 V</button>
+<button class="quiz-option" data-opt="A">A) Pulse width modulation, varying the proportion of time the pin is on</button>
+<button class="quiz-option" data-opt="B">B) Changing the supply voltage at the pin</button>
+<button class="quiz-option" data-opt="C">C) Adding a resistor in series with the pin</button>
+<button class="quiz-option" data-opt="D">D) Switching the pin into analogue input mode</button>
 </div>
-<div class="quiz-answer">IEC 60309 colour coding: yellow = 100–130 V, blue = 200–250 V, red = 380–480 V. Red connectors carry the highest standard industrial voltage and are used for heavy machinery. The colour coding prevents accidental connection of equipment to incompatible supply voltages.</div>
+<div class="quiz-answer">Switching rapidly and varying the duty cycle makes a device that responds to average power behave as though it were receiving an intermediate voltage. The same technique dims an LED, because the eye averages the flicker. A servo is the exception: it reads the width of each individual pulse to set its angle rather than responding to average power.</div>
 </div>
 
-<div class="quiz-q" data-answer="C">
-<div class="quiz-q-num">Q8 &middot; 3.4.4 Resistors &amp; Capacitors</div>
-<div class="quiz-q-text">Which of the following is true for resistors connected in parallel?</div>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q10 &middot; 3.4.11 Communication Protocols</div>
+<div class="quiz-q-text">A battery-powered fitness band must sync with a phone about a metre away and run for days on one charge. The most appropriate protocol is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Total resistance is the sum of all individual resistances</button>
-<button class="quiz-option" data-opt="B">B) Voltage across each resistor is different</button>
-<button class="quiz-option" data-opt="C">C) Total current equals the sum of currents through each branch</button>
-<button class="quiz-option" data-opt="D">D) Power is not conserved in parallel circuits</button>
+<button class="quiz-option" data-opt="A">A) 5G, for its ultra-low latency</button>
+<button class="quiz-option" data-opt="B">B) Wi-Fi, for its higher data rate</button>
+<button class="quiz-option" data-opt="C">C) Any of the three, since power consumption is comparable</button>
+<button class="quiz-option" data-opt="D">D) Bluetooth, for its very low power consumption over short range</button>
 </div>
-<div class="quiz-answer">In a parallel circuit, voltage is the same across every branch, but current splits: I_total = I₁ + I₂ + ... Each branch carries a current determined by its own resistance and the common voltage (I = V/R). Total resistance is found using 1/R_total = 1/R₁ + 1/R₂ + ..., always less than the smallest individual resistor. Power is always conserved.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q9 &middot; 3.4.4 Resistors &amp; Capacitors</div>
-<div class="quiz-q-text">A high-pass RC filter consists of:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Resistor in series, capacitor in parallel with the output</button>
-<button class="quiz-option" data-opt="B">B) Capacitor in series, resistor in parallel with the output</button>
-<button class="quiz-option" data-opt="C">C) Resistor and capacitor both in series</button>
-<button class="quiz-option" data-opt="D">D) Resistor and capacitor both in parallel</button>
-</div>
-<div class="quiz-answer">A high-pass filter places the capacitor in series (blocking DC and low-frequency signals) and the resistor in parallel with the output. High-frequency signals pass through the capacitor with little attenuation. The opposite arrangement (resistor in series, capacitor in parallel) is a low-pass filter.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q10 &middot; 3.4.2 Test Equipment</div>
-<div class="quiz-q-text">A clamp meter measures current without breaking the circuit by detecting:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) The voltage drop across the conductor</button>
-<button class="quiz-option" data-opt="B">B) The magnetic field created by current flow (Hall effect for DC; current transformer for AC)</button>
-<button class="quiz-option" data-opt="C">C) The resistance of the conductor</button>
-<button class="quiz-option" data-opt="D">D) The temperature rise of the conductor</button>
-</div>
-<div class="quiz-answer">Any conductor carrying current produces a surrounding magnetic field (Ampere's law). A clamp meter's jaws close around the conductor and sense this field: using the Hall effect for DC currents and a current transformer (electromagnetic induction) for AC. No circuit interruption is needed, making it much safer and faster than breaking the circuit to insert a series ammeter.</div>
+<div class="quiz-answer">Bluetooth is built for low-power peer-to-peer links of around ten metres and needs no router or network subscription, which is why wearables, earbuds and medical sensors use it. Wi-Fi offers more speed at higher power and requires an access point, while 5G reaches kilometres and suits vehicles and large-scale IoT rather than a device living on a coin cell.</div>
 </div>
 
 <div class="quiz-footer">

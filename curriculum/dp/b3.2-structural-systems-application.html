@@ -396,122 +396,122 @@
 
 <div class="quiz-q" data-answer="D">
 <div class="quiz-q-num">Q1 &middot; 3.2.1 Forces on structures</div>
-<div class="quiz-q-text">Which type of stress is highest at the surface of a material and tends to zero at the centre, explaining why hollow shafts are as strong as solid ones?</div>
+<div class="quiz-q-text">Which stress is greatest at the outer surface of a shaft and falls to almost nothing at its centre, which is why hollow shafts are used?</div>
 <div class="quiz-options">
 <button class="quiz-option" data-opt="A">A) Tension</button>
 <button class="quiz-option" data-opt="B">B) Compression</button>
-<button class="quiz-option" data-opt="C">C) Shear</button>
+<button class="quiz-option" data-opt="C">C) Bending</button>
 <button class="quiz-option" data-opt="D">D) Torsion</button>
 </div>
-<div class="quiz-answer">Torsional shear stress is greatest at the outer surface and falls to zero at the axis, so material at the centre of a shaft contributes almost nothing. Removing it gives a hollow shaft nearly the same torsional strength at much lower weight.</div>
+<div class="quiz-answer">Torsional stress increases with distance from the axis, so the core of a solid shaft carries very little load and mostly adds mass. Removing it gives nearly the same torsional strength at a much lower weight. Tension and compression, by contrast, are distributed uniformly across the cross-section.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q2 &middot; 3.2.3 Structural failure & FEA</div>
-<div class="quiz-q-text">The Quebec Bridge collapsed in 1907 primarily due to:</div>
+<div class="quiz-q-num">Q2 &middot; 3.2.1 Forces on structures</div>
+<div class="quiz-q-text">A pin in a clevis joint carries its load across two shear planes. The shear stress in the pin is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Wind-induced aeroelastic flutter</button>
-<button class="quiz-option" data-opt="B">B) Underestimated weight calculations and buckling of compression chords</button>
-<button class="quiz-option" data-opt="C">C) Corrosion of steel cables</button>
-<button class="quiz-option" data-opt="D">D) An earthquake</button>
+<button class="quiz-option" data-opt="A">A) &tau; = F / A</button>
+<button class="quiz-option" data-opt="B">B) &tau; = F / 2A</button>
+<button class="quiz-option" data-opt="C">C) &tau; = 2F / A</button>
+<button class="quiz-option" data-opt="D">D) &tau; = F / (&pi;dt)</button>
 </div>
-<div class="quiz-answer">The dead weight of the bridge had been underestimated and never rechecked when the span was lengthened, and the overloaded compression chords buckled. It remains a standard case study in the duty to recalculate after a design change.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q3 &middot; 3.2.3 Structural failure & FEA</div>
-<div class="quiz-q-text">The Tacoma Narrows Bridge collapsed because of:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Overloading from too many vehicles</button>
-<button class="quiz-option" data-opt="B">B) Aeroelastic flutter (wind-induced twisting) due to an unprecedented slenderness ratio</button>
-<button class="quiz-option" data-opt="C">C) A ship striking the bridge tower</button>
-<button class="quiz-option" data-opt="D">D) Corrosion of the suspension cables</button>
-</div>
-<div class="quiz-answer">The deck was far more slender than any previous suspension bridge, and wind induced a self-reinforcing twisting oscillation known as aeroelastic flutter. The failure was aerodynamic rather than a simple overload.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q4 &middot; 3.2.2 Young's Modulus & stress-strain</div>
-<div class="quiz-q-text">Young's Modulus (E) is defined as:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Stress multiplied by strain (σ × ε)</button>
-<button class="quiz-option" data-opt="B">B) Stress divided by strain (σ / ε) within the elastic region</button>
-<button class="quiz-option" data-opt="C">C) Strain divided by stress (ε / σ)</button>
-<button class="quiz-option" data-opt="D">D) Force divided by cross-sectional area (F / A)</button>
-</div>
-<div class="quiz-answer">Young's Modulus is stress divided by strain, taken from the straight-line elastic portion of the stress-strain graph. Force divided by area is stress alone, not the modulus.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q5 &middot; 3.2.2 Young's Modulus & stress-strain</div>
-<div class="quiz-q-text">A material that does not show a clearly defined yield point (e.g., aluminium, titanium, copper) requires the use of:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Ultimate tensile strength only</button>
-<button class="quiz-option" data-opt="B">B) Proof stress (offset method, typically 0.2% strain)</button>
-<button class="quiz-option" data-opt="C">C) Fracture toughness</button>
-<button class="quiz-option" data-opt="D">D) Elastic limit only</button>
-</div>
-<div class="quiz-answer">Materials without a distinct yield point need proof stress, conventionally the stress at 0.2% permanent strain, so a usable design limit can still be quoted.</div>
+<div class="quiz-answer">With two planes resisting the load, each carries half of it, so the stress is halved compared with single shear. A single bolt joining two overlapping plates is the single shear case, and F / (&pi;dt) is punching shear, where a punch is driven through a plate of thickness t.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
-<div class="quiz-q-num">Q6 &middot; 3.2.4 Force diagrams</div>
-<div class="quiz-q-text">The reaction at a roller support is always:</div>
+<div class="quiz-q-num">Q3 &middot; 3.2.2 Young's Modulus &amp; stress-strain</div>
+<div class="quiz-q-text">Young's modulus is defined as:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) In any direction</button>
+<button class="quiz-option" data-opt="A">A) Force divided by cross-sectional area</button>
+<button class="quiz-option" data-opt="B">B) Stress multiplied by strain</button>
+<button class="quiz-option" data-opt="C">C) Stress divided by strain, taken within the elastic region</button>
+<button class="quiz-option" data-opt="D">D) Strain divided by stress</button>
+</div>
+<div class="quiz-answer">E is the gradient of the straight-line portion of the stress-strain graph, so a steeper slope means a stiffer material. Force divided by area is stress on its own. The value must be read from the elastic region, since beyond the yield point the relationship is no longer proportional.</div>
+</div>
+
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q4 &middot; 3.2.2 Young's Modulus &amp; stress-strain</div>
+<div class="quiz-q-text">A test piece 50 mm long with a cross-sectional area of 20 mm&sup2; extends by 0.1 mm under a load of 80 kN. Young's modulus is:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) 200 GPa</button>
+<button class="quiz-option" data-opt="B">B) 2 GPa</button>
+<button class="quiz-option" data-opt="C">C) 20 GPa</button>
+<button class="quiz-option" data-opt="D">D) 400 GPa</button>
+</div>
+<div class="quiz-answer">&sigma; = F / A = 80,000 / 20 = 4,000 MPa, and &epsilon; = &Delta;L / L&#8320; = 0.1 / 50 = 0.002. Dividing gives E = 4,000 / 0.002 = 2,000,000 MPa, which is 200 GPa and consistent with steel. Working in newtons and mm&sup2; throughout keeps the result in MPa without any conversion.</div>
+</div>
+
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q5 &middot; 3.2.2 Young's Modulus &amp; stress-strain</div>
+<div class="quiz-q-text">Aluminium, titanium and copper alloys show no clearly defined yield point on a stress-strain graph. Designers therefore quote:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Ultimate tensile strength instead</button>
+<button class="quiz-option" data-opt="B">B) Proof stress, found by an offset of 0.2% strain</button>
+<button class="quiz-option" data-opt="C">C) Fracture toughness</button>
+<button class="quiz-option" data-opt="D">D) The elastic limit alone</button>
+</div>
+<div class="quiz-answer">A line is drawn parallel to the elastic region but offset by 0.2% along the strain axis, and where it cuts the curve is the proof stress. This gives a usable design limit for materials whose transition from elastic to plastic behaviour is gradual rather than marked by a sudden drop in load.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q6 &middot; 3.2.3 Structural failure &amp; FEA</div>
+<div class="quiz-q-text">A long slender strut in compression suddenly deflects sideways and collapses at a load well below the compressive strength of its material. This failure mode is:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Necking</button>
+<button class="quiz-option" data-opt="B">B) Punching shear</button>
+<button class="quiz-option" data-opt="C">C) Buckling</button>
+<button class="quiz-option" data-opt="D">D) Fatigue</button>
+</div>
+<div class="quiz-answer">Euler showed that the critical buckling load depends on stiffness and geometry, P&#8339;&#8341; = &pi;&sup2;EI / L&#8337;&sup2;, so doubling the effective length quarters the load a member can take. Hollow tubes and I-sections resist buckling better than solid rods of equal area because more material sits away from the centre. The Quebec Bridge's overloaded lower chords failed exactly this way.</div>
+</div>
+
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q7 &middot; 3.2.3 Structural failure &amp; FEA</div>
+<div class="quiz-q-text">An FEA plot of a loaded plate is blue almost everywhere but shows a small red region around a drilled hole. The correct interpretation is that:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) The entire plate is overloaded and the material must be changed</button>
+<button class="quiz-option" data-opt="B">B) The mesh has failed to solve and the result should be discarded</button>
+<button class="quiz-option" data-opt="C">C) The plate is too thick and should be reduced everywhere</button>
+<button class="quiz-option" data-opt="D">D) The hole is a stress concentration, which can be eased with a larger fillet radius, a gusset or local thickening</button>
+</div>
+<div class="quiz-answer">Stress concentrates at holes, notches and abrupt changes of section, and this is where fatigue cracks usually start. The large blue region carries the opposite message: material there is doing little work and could be removed to save weight, which is how FEA drives optimisation as well as safety checks.</div>
+</div>
+
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q8 &middot; 3.2.4 Force diagrams</div>
+<div class="quiz-q-text">The reaction at a roller support on a horizontal beam is:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Vertical only, perpendicular to the surface the roller rests on</button>
 <button class="quiz-option" data-opt="B">B) Horizontal only</button>
-<button class="quiz-option" data-opt="C">C) Perpendicular to the plane the roller rests on (vertical for a horizontal beam)</button>
-<button class="quiz-option" data-opt="D">D) At a 45° angle</button>
+<button class="quiz-option" data-opt="C">C) In any direction, with both vertical and horizontal components</button>
+<button class="quiz-option" data-opt="D">D) A pure bending moment with no force</button>
 </div>
-<div class="quiz-answer">A roller can move along the surface it sits on, so it can only push perpendicular to that surface. For a horizontal beam this means a vertical reaction and no horizontal one.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q7 &middot; 3.2.4 Force diagrams</div>
-<div class="quiz-q-text">In a shear force diagram, the maximum bending moment always occurs where:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) The shear force is at its maximum</button>
-<button class="quiz-option" data-opt="B">B) The shear force equals zero</button>
-<button class="quiz-option" data-opt="C">C) The shear force is negative</button>
-<button class="quiz-option" data-opt="D">D) The shear force equals the dead load</button>
-</div>
-<div class="quiz-answer">Bending moment is the accumulated area under the shear force diagram, so it stops increasing exactly where the shear force crosses zero. That crossing point is where you look for the maximum.</div>
+<div class="quiz-answer">A roller is free to move along the surface it sits on, so it cannot resist a horizontal force and contributes one unknown to the analysis. A pinned support resists in both directions and contributes two unknowns, while a fixed end also resists rotation, which is why a cantilever carries its maximum bending moment at the wall.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q8 &middot; 3.2.2 Young's Modulus & stress-strain</div>
-<div class="quiz-q-text">Necking refers to:</div>
+<div class="quiz-q-num">Q9 &middot; 3.2.4 Force diagrams</div>
+<div class="quiz-q-text">The maximum bending moment along a beam occurs where the shear force:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) The elastic deformation of a material</button>
-<button class="quiz-option" data-opt="B">B) The localised reduction in cross-sectional area in a ductile material before fracture</button>
-<button class="quiz-option" data-opt="C">C) The point where a material returns to its original shape</button>
-<button class="quiz-option" data-opt="D">D) The corrosion of steel cables</button>
+<button class="quiz-option" data-opt="A">A) Reaches its largest value</button>
+<button class="quiz-option" data-opt="B">B) Passes through zero</button>
+<button class="quiz-option" data-opt="C">C) Is negative</button>
+<button class="quiz-option" data-opt="D">D) Equals the dead load</button>
 </div>
-<div class="quiz-answer">Necking is the localised thinning that appears in a ductile material after its ultimate tensile strength, concentrating further deformation into one narrow region until it fractures there.</div>
+<div class="quiz-answer">The bending moment diagram is the accumulated area under the shear force diagram, so the moment stops rising exactly where the shear crosses zero. That location is where the beam is most likely to fail in bending and therefore where the section must be sized.</div>
 </div>
 
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q9 &middot; 3.2.2 Young's Modulus & stress-strain</div>
-<div class="quiz-q-text">As temperature increases, Young's Modulus for plain carbon steels:</div>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q10 &middot; 3.2.5 Safety factors</div>
+<div class="quiz-q-text">A steel rod of cross-sectional area 200 mm&sup2; has an ultimate tensile strength of 600 MPa and must be designed to a safety factor of 4. Its maximum working load is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Increases</button>
-<button class="quiz-option" data-opt="B">B) Decreases</button>
-<button class="quiz-option" data-opt="C">C) Fluctuates wildly</button>
-<button class="quiz-option" data-opt="D">D) Remains unchanged</button>
+<button class="quiz-option" data-opt="A">A) 7.5 kN</button>
+<button class="quiz-option" data-opt="B">B) 120 kN</button>
+<button class="quiz-option" data-opt="C">C) 30 kN</button>
+<button class="quiz-option" data-opt="D">D) 480 kN</button>
 </div>
-<div class="quiz-answer">Heat increases atomic vibration and weakens interatomic bonding, so stiffness falls as temperature rises. This is why structural fire ratings matter: steel softens well before it melts.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q10 &middot; 3.2.3 Structural failure & FEA</div>
-<div class="quiz-q-text">The Genoa Morandi Bridge collapsed primarily due to:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Aeroelastic flutter from wind</button>
-<button class="quiz-option" data-opt="B">B) Corrosion of steel cables and deterioration of prestressed concrete</button>
-<button class="quiz-option" data-opt="C">C) A design error in the original weight calculations</button>
-<button class="quiz-option" data-opt="D">D) An earthquake</button>
-</div>
-<div class="quiz-answer">Corroded stay cables inside the deteriorating prestressed concrete lost section over decades until one stay failed. The collapse is usually discussed as a maintenance and inspection failure rather than a design one.</div>
+<div class="quiz-answer">Working stress is UTS divided by the safety factor, 600 / 4 = 150 MPa, and the load is that stress times the area, 150 &times; 200 = 30,000 N or 30 kN. Remember that the safety factor calculated at construction is not the one in service: the Morandi Bridge's corroded cables lost section for fifty years until the real factor fell below 1.</div>
 </div>
 
 <div class="quiz-footer">

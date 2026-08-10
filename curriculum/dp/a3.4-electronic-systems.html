@@ -490,126 +490,126 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-quiz">
-<p class="quiz-intro">Ten questions covering the learning objectives for this topic. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
+<p class="quiz-intro">Ten questions sampling across the fourteen learning objectives for this topic. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
 
-<div class="quiz-q" data-answer="C">
+<div class="quiz-q" data-answer="B">
 <div class="quiz-q-num">Q1 &middot; 3.4.1 Input-Process-Output model</div>
-<div class="quiz-q-text">In the IPO model of an electronic system, which stage receives signals from sensors and decides on an appropriate response?</div>
+<div class="quiz-q-text">In the IPO model of an electronic system, which stage receives the sensor signal and decides on an appropriate response?</div>
 <div class="quiz-options">
 <button class="quiz-option" data-opt="A">A) Input</button>
-<button class="quiz-option" data-opt="B">B) Output</button>
-<button class="quiz-option" data-opt="C">C) Process</button>
+<button class="quiz-option" data-opt="B">B) Process</button>
+<button class="quiz-option" data-opt="C">C) Output</button>
 <button class="quiz-option" data-opt="D">D) Feedback</button>
 </div>
-<div class="quiz-answer">The process stage takes the signal from the input devices, applies the system's logic or control rules, and decides what the output should do. Input senses, output acts, feedback reports the result back.</div>
+<div class="quiz-answer">The process stage, whether a microcontroller, logic circuit or op-amp, applies the system's rules to the incoming signal and determines what the output should do. The input converts a physical quantity into an electrical signal, the output converts the decision back into a physical effect, and feedback returns information about the result so the process can correct itself.</div>
+</div>
+
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q2 &middot; 3.4.2 Electronics in everyday life</div>
+<div class="quiz-q-text">EU regulations cap standby power at 0.5 W for most devices. This limit targets the power a product draws when it is:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Performing its main function at full load</button>
+<button class="quiz-option" data-opt="B">B) Being manufactured and assembled</button>
+<button class="quiz-option" data-opt="C">C) Connected to the supply but not in active use</button>
+<button class="quiz-option" data-opt="D">D) Being recycled at end of life</button>
+</div>
+<div class="quiz-answer">Standby loss, sometimes called phantom load, is the power consumed continuously by a device that is switched off or idle but still plugged in. Because it runs every hour of the product's life, small savings multiply across millions of units, which is why regulation targets it alongside in-use efficiency, restricted substances and design for disassembly.</div>
 </div>
 
 <div class="quiz-q" data-answer="A">
-<div class="quiz-q-num">Q2 &middot; 3.4.3 Analogue and digital systems</div>
-<div class="quiz-q-text">Which type of signal varies continuously over a range of values, such as the voltage from a microphone?</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Analogue signal</button>
-<button class="quiz-option" data-opt="B">B) Digital signal</button>
-<button class="quiz-option" data-opt="C">C) Binary signal</button>
-<button class="quiz-option" data-opt="D">D) Pulse-width modulated signal</button>
-</div>
-<div class="quiz-answer">An analogue signal varies continuously and can take any value in its range, which is exactly what a microphone produces from sound pressure. A digital signal is restricted to discrete levels.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
 <div class="quiz-q-num">Q3 &middot; 3.4.4 Analogue signals and SI units</div>
-<div class="quiz-q-text">Australian mains electricity runs at 230 V and 50 Hz. What is the period (time for one complete cycle) of this AC signal?</div>
+<div class="quiz-q-text">Mains electricity in Australia is supplied at 230 V and 50 Hz. The period of one complete cycle is:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) 50 ms</button>
-<button class="quiz-option" data-opt="B">B) 20 ms</button>
+<button class="quiz-option" data-opt="A">A) 20 ms</button>
+<button class="quiz-option" data-opt="B">B) 50 ms</button>
 <button class="quiz-option" data-opt="C">C) 5 ms</button>
 <button class="quiz-option" data-opt="D">D) 230 ms</button>
 </div>
-<div class="quiz-answer">Period is the reciprocal of frequency: T = 1 / f = 1 / 50 = 0.02 s, which is 20 ms. The 230 V figure is the voltage and plays no part in the calculation.</div>
+<div class="quiz-answer">Period is the reciprocal of frequency, so T = 1 / 50 = 0.02 s, which is 20 ms. The 230 V figure describes the voltage and plays no part in the calculation. Note the SI multiplier: milli means 10&#8315;&sup3;.</div>
+</div>
+
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q4 &middot; 3.4.5 Digital signals and logic gates</div>
+<div class="quiz-q-text">Which statement about NAND gates is correct?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) The output is HIGH only when all inputs are HIGH</button>
+<button class="quiz-option" data-opt="B">B) A NAND gate accepts only a single input</button>
+<button class="quiz-option" data-opt="C">C) A NAND gate behaves identically to an XOR gate</button>
+<button class="quiz-option" data-opt="D">D) NAND is a universal gate, so any logic function can be built from NAND gates alone</button>
+</div>
+<div class="quiz-answer">NAND inverts the AND function, so its output is LOW only when every input is HIGH. Both NAND and NOR are universal, meaning adders, comparators, flip-flops and the rest of a processor's logic can be constructed from a single gate type. NOT is the gate with only one input, and XOR outputs HIGH when its inputs differ.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q4 &middot; 3.4.6 Electronic components</div>
-<div class="quiz-q-text">A capacitor's main function in a circuit is to:</div>
+<div class="quiz-q-num">Q5 &middot; 3.4.6 Electronic components</div>
+<div class="quiz-q-text">The main function of a capacitor in a circuit is to:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Limit current flow in one direction</button>
-<button class="quiz-option" data-opt="B">B) Store electrical charge and energy in an electric field</button>
-<button class="quiz-option" data-opt="C">C) Amplify a signal</button>
-<button class="quiz-option" data-opt="D">D) Convert rotary motion to linear motion</button>
+<button class="quiz-option" data-opt="A">A) Allow current to flow in one direction only</button>
+<button class="quiz-option" data-opt="B">B) Store charge and energy in an electric field</button>
+<button class="quiz-option" data-opt="C">C) Amplify a small signal into a larger one</button>
+<button class="quiz-option" data-opt="D">D) Convert an electrical signal into movement</button>
 </div>
-<div class="quiz-answer">A capacitor stores charge in the electric field between its plates and releases it later, which is what makes it useful for smoothing supplies, timing and coupling. Limiting current in one direction is a diode's job.</div>
-</div>
-
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q5 &middot; 3.4.5 Digital signals and logic gates</div>
-<div class="quiz-q-text">A diode in a circuit allows current to flow:</div>
-<div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) In both directions equally</button>
-<button class="quiz-option" data-opt="B">B) In one direction only (anode to cathode when forward biased)</button>
-<button class="quiz-option" data-opt="C">C) Only when the voltage exceeds 12 V</button>
-<button class="quiz-option" data-opt="D">D) Only in AC circuits</button>
-</div>
-<div class="quiz-answer">A diode conducts only when forward biased, from anode to cathode, and blocks current the other way. That one-way behaviour is what makes rectification and reverse-polarity protection possible.</div>
+<div class="quiz-answer">A capacitor stores charge between its plates and releases it again, which is what makes it useful for smoothing a power supply, setting timing intervals and coupling or decoupling stages of a circuit. One-way conduction is a diode, amplification is a transistor or op-amp, and conversion to movement is an output transducer such as a motor or solenoid.</div>
 </div>
 
 <div class="quiz-q" data-answer="A">
 <div class="quiz-q-num">Q6 &middot; 3.4.7 Input devices and sensors</div>
-<div class="quiz-q-text">A thermistor (NTC type) used as a temperature sensor has the following characteristic:</div>
+<div class="quiz-q-text">An NTC thermistor used as a temperature sensor behaves in which way?</div>
 <div class="quiz-options">
 <button class="quiz-option" data-opt="A">A) Its resistance decreases as temperature rises</button>
 <button class="quiz-option" data-opt="B">B) Its resistance increases as temperature rises</button>
-<button class="quiz-option" data-opt="C">C) It emits light proportional to temperature</button>
-<button class="quiz-option" data-opt="D">D) Its resistance is constant regardless of temperature</button>
+<button class="quiz-option" data-opt="C">C) It emits light in proportion to temperature</button>
+<button class="quiz-option" data-opt="D">D) Its resistance stays constant regardless of temperature</button>
 </div>
-<div class="quiz-answer">NTC stands for negative temperature coefficient, so resistance falls as temperature rises. A PTC thermistor does the opposite, and knowing which you have matters when you design the potential divider around it.</div>
+<div class="quiz-answer">NTC stands for negative temperature coefficient, so resistance falls as the device gets hotter. An LDR behaves similarly with light rather than heat. Knowing the direction of the change matters, because it determines how the sensor is arranged in a potential divider and which way the output voltage moves.</div>
 </div>
 
-<div class="quiz-q" data-answer="B">
-<div class="quiz-q-num">Q7 &middot; 3.4.5 Digital signals and logic gates</div>
-<div class="quiz-q-text">A NOT logic gate with a HIGH (logic 1) input produces:</div>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q7 &middot; 3.4.10 Output devices</div>
+<div class="quiz-q-text">A microcontroller pin can supply roughly 40 mA. To drive a motor requiring 2 A, the designer must:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) HIGH output</button>
-<button class="quiz-option" data-opt="B">B) LOW output</button>
-<button class="quiz-option" data-opt="C">C) No output</button>
-<button class="quiz-option" data-opt="D">D) The same output as an AND gate</button>
+<button class="quiz-option" data-opt="A">A) Connect the motor directly and reduce the supply voltage</button>
+<button class="quiz-option" data-opt="B">B) Use thicker wire between the pin and the motor</button>
+<button class="quiz-option" data-opt="C">C) Place a transistor, MOSFET driver or relay between the pin and the motor</button>
+<button class="quiz-option" data-opt="D">D) Connect a capacitor in series with the motor</button>
 </div>
-<div class="quiz-answer">A NOT gate inverts its input, so HIGH in gives LOW out. It is the simplest logic gate and takes only a single input.</div>
+<div class="quiz-answer">The pin supplies only the small current needed to switch a driver, and the driver carries the load current from a separate supply. A relay adds electrical isolation as well, which is what allows a low-voltage microcontroller to switch a mains circuit safely. Connecting a high-current load directly to a pin destroys the microcontroller.</div>
 </div>
 
-<div class="quiz-q" data-answer="B">
+<div class="quiz-q" data-answer="D">
 <div class="quiz-q-num">Q8 &middot; 3.4.11 Feedback</div>
-<div class="quiz-q-text">Negative feedback in an electronic control system (such as a thermostat) acts to:</div>
+<div class="quiz-q-text">Negative feedback in a control system such as a thermostat acts to:</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Amplify the error between set point and actual output</button>
-<button class="quiz-option" data-opt="B">B) Reduce the error between set point and actual output, creating stability</button>
-<button class="quiz-option" data-opt="C">C) Increase the gain of the system without limit</button>
-<button class="quiz-option" data-opt="D">D) Switch the output permanently to maximum</button>
+<button class="quiz-option" data-opt="A">A) Amplify the difference between set point and actual output</button>
+<button class="quiz-option" data-opt="B">B) Increase system gain without limit</button>
+<button class="quiz-option" data-opt="C">C) Hold the output permanently at maximum</button>
+<button class="quiz-option" data-opt="D">D) Reduce the difference between set point and actual output, making the system stable</button>
 </div>
-<div class="quiz-answer">Negative feedback subtracts a portion of the output from the input, shrinking the error between the set point and the actual value. That self-correction is what makes a thermostat settle at a temperature rather than oscillate.</div>
+<div class="quiz-answer">Negative feedback opposes the change in output, shrinking the error between the desired value and the actual one, which is what allows a thermostat or cruise control to settle rather than hunt. Positive feedback reinforces the change instead, producing the runaway squeal of a microphone near a speaker, though it is used deliberately in oscillators and Schmitt triggers.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
 <div class="quiz-q-num">Q9 &middot; 3.4.12 Operational amplifiers</div>
-<div class="quiz-q-text">An inverting amplifier uses an op-amp with R₁ = 2 kΩ and R₂ = 20 kΩ. What is the voltage gain?</div>
+<div class="quiz-q-text">An inverting amplifier is built with R&#8321; = 2 k&Omega; and R&#8322; = 20 k&Omega;. Its voltage gain is:</div>
 <div class="quiz-options">
 <button class="quiz-option" data-opt="A">A) +10</button>
-<button class="quiz-option" data-opt="B">B) −10</button>
-<button class="quiz-option" data-opt="C">C) +0.1</button>
-<button class="quiz-option" data-opt="D">D) −0.1</button>
+<button class="quiz-option" data-opt="B">B) &minus;10</button>
+<button class="quiz-option" data-opt="C">C) +11</button>
+<button class="quiz-option" data-opt="D">D) &minus;0.1</button>
 </div>
-<div class="quiz-answer">For an inverting amplifier, gain = -R2 / R1 = -20 kΩ / 2 kΩ = -10. The minus sign means the output signal is inverted relative to the input, not that it is smaller.</div>
+<div class="quiz-answer">For an inverting amplifier the gain is &minus;R&#8322;/R&#8321;, so &minus;20 k&Omega; / 2 k&Omega; = &minus;10. The minus sign means the output is inverted relative to the input, not that it is smaller. The same resistors in a non-inverting configuration would give 1 + R&#8322;/R&#8321; = +11.</div>
 </div>
 
 <div class="quiz-q" data-answer="C">
-<div class="quiz-q-num">Q10 &middot; 3.4.13 Embedded systems</div>
-<div class="quiz-q-text">An embedded system differs from a general-purpose computer in that it:</div>
+<div class="quiz-q-num">Q10 &middot; 3.4.14 Circuit diagrams</div>
+<div class="quiz-q-text">Which statement about a parallel circuit is correct?</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Always runs at higher clock speeds</button>
-<button class="quiz-option" data-opt="B">B) Cannot use any form of memory</button>
-<button class="quiz-option" data-opt="C">C) Is dedicated to a specific task, with fixed programming not intended to be changed by the end user</button>
-<button class="quiz-option" data-opt="D">D) Must always be connected to the internet</button>
+<button class="quiz-option" data-opt="A">A) The same current flows through every component</button>
+<button class="quiz-option" data-opt="B">B) Total resistance is the sum of the branch resistances</button>
+<button class="quiz-option" data-opt="C">C) Every branch has the same voltage across it, and total resistance is lower than the smallest branch</button>
+<button class="quiz-option" data-opt="D">D) If one branch goes open circuit, the whole circuit stops working</button>
 </div>
-<div class="quiz-answer">An embedded system is built to do one job, with programming fixed at manufacture and not intended for the user to change. Clock speed, memory and connectivity vary enormously and none of them define the category.</div>
+<div class="quiz-answer">Parallel branches share the same two nodes, so they share a voltage while the current divides between them, and adding branches lowers the total resistance. Series circuits are the opposite case: one path, the same current everywhere, resistances that add, and total failure if any component goes open. Household wiring is parallel for exactly this reason.</div>
 </div>
 
 <div class="quiz-footer">
