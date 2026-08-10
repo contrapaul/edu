@@ -57,7 +57,7 @@
 <div class="curr-main">
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!--  SECTION 00 — COURSE NOTES                                -->
+<!--  SECTION 00 - COURSE NOTES                                -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <div class="curr-section" id="course-notes" style="--curr-color:#1a5cb8;">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-course-notes">
@@ -195,9 +195,9 @@
 
 <figure class="obj-figure"><img class="obj-img" src="" alt="Crossed belt drive and compound belt drive diagrams"></figure>
 
-<p>The <strong>velocity ratio (VR)</strong> describes how much the rotational speed changes from input to output. VR and MA are reciprocals: a system that multiplies force (MA &gt; 1) reduces speed (VR &lt; 1) by the same factor.</p>
+<p>The <strong>velocity ratio (VR)</strong> describes how much the rotational speed changes from input to output. It is always written as driven over driver. In a perfect machine with no friction, VR and MA are equal, so a system that multiplies force by 3 also divides speed by 3. In a real machine some input is lost to friction, so the actual MA is always a little lower than the VR. That gap is what efficiency measures.</p>
 <p>For a simple belt drive or pulley:</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = N₂ / N₁ = d₁ / d₂</p>
+<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR = d₂ / d₁ = N₁ / N₂</p>
 <p><strong>Crossed belt drives</strong> reverse the rotation direction of the driven pulley: the belt crosses between the two pulleys. The VR formula is unchanged; only the direction differs.</p>
 <p><strong>Compound belt drives</strong> connect multiple pulley pairs in series. Two pulleys share a common shaft so that when the first driven pulley rotates, it drives the next stage. The total VR is the product of each stage's VR:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">VR_total = VR₁ × VR₂ × VR₃ …</p>
@@ -208,10 +208,10 @@
 <table class="content-table">
 <thead><tr><th>System type</th><th>VR formula</th><th>Direction change?</th></tr></thead>
 <tbody>
-<tr><td><strong>Simple belt / pulley</strong></td><td>d₁ / d₂</td><td>No</td></tr>
-<tr><td><strong>Crossed belt</strong></td><td>d₁ / d₂</td><td>Yes: reverses</td></tr>
+<tr><td><strong>Simple belt / pulley</strong></td><td>d₂ / d₁</td><td>No</td></tr>
+<tr><td><strong>Crossed belt</strong></td><td>d₂ / d₁</td><td>Yes: reverses</td></tr>
 <tr><td><strong>Compound belt</strong></td><td>VR₁ × VR₂ × …</td><td>Depends on stages</td></tr>
-<tr><td><strong>Gear pair</strong></td><td>T_driver / T_driven</td><td>Yes: reverses</td></tr>
+<tr><td><strong>Gear pair</strong></td><td>T_driven / T_driver</td><td>Yes: reverses</td></tr>
 <tr><td><strong>Compound gear train</strong></td><td>VR₁ × VR₂ × …</td><td>Depends on stages</td></tr>
 </tbody>
 </table>
@@ -255,12 +255,12 @@
 <thead><tr><th>Step</th><th>Working</th><th>Result</th></tr></thead>
 <tbody>
 <tr><td>Convert speed to rad/s</td><td>ω = 120 × (2π / 60)</td><td>12.57 rad/s</td></tr>
-<tr><td>Calculate input power</td><td>P = τ × ω = 1.8 Nm × 12.57</td><td>22.6 W</td></tr>
-<tr><td>Calculate efficiency</td><td>η = (13.5 / 15) × 100%</td><td>90%</td></tr>
+<tr><td>Calculate input power</td><td>P = τ × ω = 1.2 Nm × 12.57</td><td>15.1 W</td></tr>
+<tr><td>Calculate efficiency</td><td>η = (13.5 / 15.1) × 100%</td><td>89%</td></tr>
 </tbody>
 </table>
 </div>
-<p class="content-note">When a torque-based power calculation gives a different value from a given input power, the figures likely represent different operating conditions (e.g., theoretical vs. measured). State your assumptions and show all working.</p>
+<p class="content-note">Work in the order shown: convert rpm to rad/s first, then find power, then compare output with input. Forgetting the rpm conversion is the most common mistake in this calculation.</p>
 
 <div class="discussion-box">
 <div class="discussion-box-label">Discussion</div>
@@ -561,7 +561,7 @@
 <div class="p2-answer">
 <p><strong>Given:</strong> d₁ = 320 mm, N₁ = 20 rpm, d₂ = 128 mm, belt thickness t = 5 mm</p>
 <p><strong>a) Velocity ratio:</strong><br>VR = d₂ / d₁ = 128 / 320 = <strong>0.4</strong></p>
-<p><strong>b) Driven pulley speed (ignoring belt thickness):</strong><br>N₂ = N₁ × (d₁ / d₂) = 20 × (320 / 128) = 20 × 2.5 = <strong>50 rpm</strong></p>
+<p><strong>b) Driven pulley speed (ignoring belt thickness):</strong><br>Since VR = N₁ / N₂, rearrange to N₂ = N₁ / VR = 20 / 0.4 = <strong>50 rpm</strong>. The same result comes from N₂ = N₁ × (d₁ / d₂) = 20 × 2.5 = 50 rpm. The smaller driven pulley turns faster than the drive pulley, so this arrangement gains speed and loses torque.</p>
 <p><strong>c) Driven pulley speed (including belt thickness):</strong><br>When belt thickness is considered, the effective diameter becomes (diameter + thickness), as the belt's neutral axis sits at its mid-thickness:<br>N₂ = N₁ × (d₁ + t) / (d₂ + t) = 20 × (320 + 5) / (128 + 5) = 20 × 325 / 133 = <strong>48.87 rpm</strong></p>
 <p>The belt thickness slightly increases both effective diameters, but affects the smaller pulley proportionally more, reducing the final output speed slightly below the no-thickness result.</p>
 </div>
@@ -589,13 +589,13 @@ E × 0.03864 = 17.5<br>
 
 <div class="p2-question">
 <div class="p2-q-num">Question 3 &middot; 3.3.3 Efficiency &middot; 5 marks</div>
-<div class="p2-q-text">A gear system has an input power of 15 W and an output power of 13.5 W.<br><br>a) Calculate the efficiency (η) of the gear system.<br>b) If the input torque is 1.8 Nm and the input rotational speed is 120 rpm, calculate the input power from these values.<br>c) State two reasons why real gear systems have efficiency less than 100%.</div>
+<div class="p2-q-text">A gear system has an input power of 15 W and an output power of 13.5 W.<br><br>a) Calculate the efficiency (η) of the gear system.<br>b) If the input torque is 1.2 Nm and the input rotational speed is 120 rpm, calculate the input power from these values.<br>c) State two reasons why real gear systems have efficiency less than 100%.</div>
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>a) Efficiency:</strong><br>η = (P_out / P_in) × 100% = (13.5 / 15) × 100% = <strong>90%</strong></p>
-<p><strong>b) Input power from torque and speed:</strong><br>ω = N × (2π / 60) = 120 × (2π / 60) = 12.57 rad/s<br>P = τ × ω = 1.8 × 12.57 = <strong>22.6 W</strong></p>
-<p>This value (22.6 W) differs from the given input power of 15 W. This suggests the torque and speed values correspond to a different operating point, or that 15 W is the power after accounting for losses external to the gearbox itself. When discrepancies arise, state your assumption and show all working.</p>
+<p><strong>b) Input power from torque and speed:</strong><br>ω = N × (2π / 60) = 120 × (2π / 60) = 12.57 rad/s<br>P = τ × ω = 1.2 × 12.57 = <strong>15.1 W</strong></p>
+<p>This agrees with the 15 W given in part (a), which is a useful check. Always convert rpm to rad/s before using P = τω, since this is where most marks are lost.</p>
 <p><strong>c) Two reasons for efficiency less than 100%:</strong></p>
 <ol>
 <li><strong>Friction between meshing gear teeth</strong>: as teeth slide and roll against each other under load, kinetic friction converts mechanical energy into heat. This is the primary loss mechanism in most gear trains.</li>

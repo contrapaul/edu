@@ -682,7 +682,7 @@
 <details class="p2-reveal">
 <summary>Show example answer</summary>
 <div class="p2-answer">
-<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input rather than a single clean 0-to-1 transition. Because different signal paths through a circuit have different propagation delays, inputs to a logic gate may not arrive simultaneously, so for a brief moment the output can sit at the wrong value before it catches up and settles where it should be. A counter circuit, for example, might increment multiple times from a single intended button press.</p>
+<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input instead of one clean transition from 0 to 1. The circuit cannot tell the difference between bounce and several deliberate presses, so it responds to all of them. A counter, for example, might advance five or six times when the user pressed the button once.</p>
 <p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly: it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
 <p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate: resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite: it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
 </div>
@@ -731,6 +731,28 @@
 </div>
 </details>
 </div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 5 &middot; 3.4.3 &amp; 3.4.11 Calculations and Protocols &middot; 6 marks</div>
+<div class="p2-q-text">A battery-powered soil moisture sensor is being designed for a garden. It runs from a 5 V supply and sends readings to a phone.<br><br>a) The sensor's indicator LED is driven through a 220 &Omega; resistor. Calculate the current through the LED and the power dissipated by the resistor.<br><br>b) The designer must choose between Bluetooth, Wi-Fi and 5G to send the readings. Recommend one and justify your choice.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>a) Current:</strong><br>I = V / R = 5 / 220 = 0.0227 A = <strong>22.7 mA</strong></p>
+<p><strong>Power in the resistor:</strong><br>P = V &times; I = 5 &times; 0.0227 = <strong>0.114 W</strong>, or about 114 mW. Using P = V&sup2; / R gives the same result: 25 / 220 = 0.114 W. A standard 0.25 W resistor is therefore adequate.</p>
+<p><em>Note:</em> this is a simplified calculation that ignores the LED's own forward voltage. Taking a typical forward voltage of 2 V, the resistor would drop only 3 V, giving I = 3 / 220 = 13.6 mA. Either method earns the marks if the working is shown and the assumption is stated.</p>
+<p><strong>b) Recommended protocol: Bluetooth.</strong></p>
+<ul>
+<li><strong>Power:</strong> the product runs on a battery in a garden, and Bluetooth uses far less power than Wi-Fi or 5G. This is the deciding factor, because battery life determines how often the user has to maintain the product.</li>
+<li><strong>Range:</strong> Bluetooth reaches about 10 m, which is enough to reach a phone held nearby when the user checks the reading.</li>
+<li><strong>Infrastructure:</strong> Bluetooth is peer to peer and needs no router or network subscription, so the product works in a garden with no Wi-Fi coverage.</li>
+<li><strong>Why not the others:</strong> Wi-Fi would allow readings to be uploaded continuously but needs an access point and drains the battery faster. 5G offers far more range and speed than this product needs, at the highest power cost and with a subscription attached.</li>
+</ul>
+<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct current with unit; 1 mark for correct power with unit; 1 mark for a stated assumption or correct use of an alternative power formula; 1 mark for naming a suitable protocol; 2 marks for justification referring to at least two of power, range and infrastructure.</p>
+</div>
+</details>
+</div>
+
 
 </div>
 </div><!-- /paper2 -->
