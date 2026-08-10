@@ -2072,18 +2072,20 @@ details.p2-reveal summary::before { content: "▼ "; }
 
 /* ── CASE STUDY / SPOTLIGHT CARDS & MODALS (sitewide) ─────────── */
 /* Fixed track width, so a grid holding one card renders that card at exactly
-   the same size as a grid holding three. Tracks shrink but never stretch. */
+   the same size as a grid holding three. Tracks shrink but never stretch.
+   auto-fit collapses the unused tracks, so a lone card centres on the page
+   rather than sitting in the leftmost of three columns. */
 .case-study-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, var(--case-card-w, 260px)));
-  justify-content: start;
+  grid-template-columns: repeat(auto-fit, minmax(0, var(--case-card-w, 260px)));
+  justify-content: center;
   gap: 1rem;
   margin-top: 1.5rem;
 }
 /* spotlight-grid is kept as an alias of the base grid so existing markup
    keeps working; it no longer changes column count, width or image ratio. */
 .case-study-grid.spotlight-grid {
-  grid-template-columns: repeat(3, minmax(0, var(--case-card-w, 260px)));
+  grid-template-columns: repeat(auto-fit, minmax(0, var(--case-card-w, 260px)));
   max-width: none;
   margin-left: 0;
   margin-right: 0;
@@ -2208,7 +2210,11 @@ details.p2-reveal summary::before { content: "▼ "; }
 .case-modal-body .case-phase strong { font-weight: 600; }
 .case-modal-body .case-phase em { font-style: italic; }
 
-.case-modal-body .case-photo { margin: 0 0 1rem; text-align: center; }
+/* width:auto cancels the 60% set by the generic .case-photo rule below, which
+   would otherwise leave the figure pinned to the left of the modal. The auto
+   side margins keep any figure that does carry a width (.case-photo--sm)
+   centred rather than left-aligned. */
+.case-modal-body .case-photo { width: auto; margin: 0 auto 1rem; text-align: center; }
 .case-modal-body .case-photo img {
   display: block;
   margin: 0 auto;
@@ -2233,10 +2239,10 @@ details.p2-reveal summary::before { content: "▼ "; }
 .case-modal-body .case-photo figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
 
 /* Captioned photo used directly in page body copy, outside a case-study
-   modal — e.g. the drawing-type examples in B2.2, the focus-group photo
-   in B1.1. Lower specificity than .case-modal-body .case-photo above, so
-   modal photos are unaffected; this only styles photos that aren't inside
-   a modal. Pairs with the .case-lightbox click-to-enlarge behaviour below. */
+   modal, such as the drawing-type examples in B2.2 or the focus-group photo
+   in B1.1. Note that the modal block above must override every property set
+   here, not just some: leaving width unset let this 60% leak into modals and
+   pin the figure to the left. Pairs with .case-lightbox click-to-enlarge. */
 .case-photo {
   width: 60%;
   margin: 1.25rem auto;
