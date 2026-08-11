@@ -502,10 +502,11 @@ function rigs(){
     nul.style.width = NULL_W + "px";
     $("#cZero").style.transform = "translate(" + (NULL_X + NULL_W/2) + "px," + NULL_Y + "px)";
     const diff = pc.val - R.cVal;
-    const f = Math.max(-1, Math.min(1, diff/(e.fine*10)));
+    R.nTarget = Math.max(-1, Math.min(1, diff/(e.fine*10)));
     const needle = $("#cNeedle");
-    needle.style.transform = "translate(" + (NULL_X + NULL_W/2 + f*NULL_W/2 - 1) + "px," + NULL_Y + "px)";
-    needle.style.background = Math.abs(diff) <= e.fine*0.5 ? "#4caf6a" : "#e0a33a";
+    const near = Math.abs(diff) <= e.fine*0.5;
+    needle.style.background = near ? "#4caf6a" : "#e0a33a";
+    needle.style.boxShadow = near ? "0 0 10px rgba(76,175,106,.8)" : "0 0 8px rgba(224,163,58,.7)";
     const v = Math.round(R.cVal/e.fine)*e.fine;
     const read = $("#cRead");
     read.innerHTML = v.toFixed(e.dec) + ' <u>' + e.unit + '</u>';
@@ -513,6 +514,23 @@ function rigs(){
   } else {
     $("#cRead").textContent = "--"; $("#cRead").style.color = "#e0a33a";
   }
+}
+
+/* A real meter needle has mass. It overshoots and settles rather than tracking
+   the value exactly, and that is most of what makes it feel like an object. */
+function needlePhysics(dt){
+  if(!R) return;
+  const needle = $("#cNeedle");
+  if(!needle) return;
+  if(!R.c){ R.nPos = R.nTarget = -1; R.nVel = 0; return; }
+  const stiffness = 210, damping = 0.86;
+  R.nVel += (R.nTarget - R.nPos) * stiffness * dt;
+  R.nVel *= Math.pow(damping, dt*60);
+  R.nPos += R.nVel * dt;
+  if(R.nPos < -1.25){ R.nPos = -1.25; R.nVel = 0; }
+  if(R.nPos >  1.25){ R.nPos =  1.25; R.nVel = 0; }
+  needle.style.transform =
+    "translate(" + (NULL_X + NULL_W/2 + R.nPos*NULL_W/2 - 1) + "px," + NULL_Y + "px)";
 }
 
 function drawRule(prod){
