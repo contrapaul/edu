@@ -18,13 +18,16 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
   font-family:'Segoe UI',Arial,sans-serif; user-select:none; -webkit-user-select:none; touch-action:none; }
 #wrap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
 #stage { position:relative; width:1240px; height:740px; transform-origin:center center; }
-.mono { font-family:ui-monospace,Menlo,monospace; }
 
 .panel { position:absolute; background:#191d23; border:1px solid #2e343d; border-radius:4px; }
+.panel.hot { border-color:#5f6a78; background:#1d222a; }
 .plabel { position:absolute; top:6px; left:10px; font-size:11px; letter-spacing:2px; color:#5d6673; }
 .readout { position:absolute; top:2px; right:10px; font-family:ui-monospace,Menlo,monospace;
   font-size:22px; color:#e0a33a; }
-.runit { position:absolute; top:30px; right:12px; font-size:10px; color:#5d6673; letter-spacing:1px; }
+.readout u { font-size:10px; color:#5d6673; letter-spacing:1px; text-decoration:none; }
+.hk { position:absolute; bottom:5px; right:8px; font-family:ui-monospace,Menlo,monospace;
+  font-size:11px; color:#4d5765; }
+.slot { position:absolute; border:2px dashed #333a44; border-radius:3px; }
 
 /* header */
 #hud { position:absolute; left:0; top:0; width:1240px; height:76px; }
@@ -56,6 +59,8 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
 .part .pid { font-size:9px; color:#8fa0b4; }
 .part .tag { font-size:13px; color:#e0a33a; min-height:15px; }
 .part.out { transition:transform .45s ease-in, opacity .45s ease-in; opacity:0; }
+.part.read { border-color:#e0a33a; }
+.part.hover { box-shadow:0 0 0 2px #8b95a3; }
 
 /* bins */
 .bin { position:absolute; border:2px solid #333a44; border-radius:4px;
@@ -67,8 +72,9 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
 
 /* rig A */
 #rigA { left:24px; top:206px; width:250px; height:210px; }
-#aSlot { position:absolute; left:88px; top:52px; width:74px; height:74px;
-  border:2px dashed #333a44; border-radius:3px; }
+#aSlot { left:88px; top:52px; width:74px; height:74px; }
+#bSlot { left:22px; top:52px; width:76px; height:76px; }
+#cSlot { left:20px; top:46px; width:76px; height:76px; }
 #aBar { position:absolute; left:20px; top:136px; width:210px; height:5px; background:#20242b; border-radius:3px; }
 #aBar i { display:block; height:100%; width:0; background:#a06a3a; border-radius:3px; }
 #aLamp { position:absolute; left:20px; top:154px; width:210px; height:26px; border-radius:3px;
@@ -124,6 +130,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
 .leg span { display:flex; gap:7px; align-items:center; }
 .leg i { width:10px; height:10px; border-radius:50%; display:block; }
 .nx { display:flex; gap:14px; font-size:11px; letter-spacing:2px; color:#5d6673; }
+.gname { font-size:15px; letter-spacing:14px; color:#5d6673; margin-bottom:-8px; }
 </style>
 </head>
 <body>
@@ -140,27 +147,30 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
   <div id="tray"></div>
 
   <div class="panel" id="rigA">
-    <div class="plabel" id="aName">RIG</div>
-    <div id="aSlot"></div>
+    <div class="plabel" id="aName"></div>
+    <div class="slot" id="aSlot"></div>
     <div id="aBar"><i></i></div>
     <div id="aLamp"></div>
+    <div class="hk">1</div>
   </div>
 
   <div class="panel" id="rigB">
-    <div class="plabel" id="bName">RIG</div>
+    <div class="plabel" id="bName"></div>
+    <div class="slot" id="bSlot"></div>
     <div id="bLamp"></div>
     <div class="readout" id="bRead">--</div>
-    <div class="runit" id="bUnit"></div>
+    <div class="hk">2</div>
   </div>
 
   <div class="panel" id="rigC">
-    <div class="plabel" id="cName">RIG</div>
+    <div class="plabel" id="cName"></div>
+    <div class="slot" id="cSlot"></div>
     <div class="readout" id="cRead">--</div>
-    <div class="runit" id="cUnit"></div>
+    <div class="hk">3</div>
   </div>
 
-  <div class="bin" id="ship">SHIP</div>
-  <div class="bin" id="scrap">SCRAP</div>
+  <div class="bin" id="ship">SHIP<div class="hk">S</div></div>
+  <div class="bin" id="scrap">SCRAP<div class="hk">X</div></div>
 
   <div class="panel" id="line">
     <div class="plabel">LINE</div>
@@ -197,23 +207,23 @@ html,body { width:100%; height:100%; overflow:hidden; background:#0e1013; color:
      C  fine null, you rotate until the needle centres
 ================================================ */
 const P = {
-  pin:  { key:"pin",  tile:"PIN",  unit:"mm",  nom:10.00, dec:2, span:0.90, coarse:0.1,  fine:0.01,
+  pin:  { tile:"PIN",  unit:"mm",  nom:10.00, dec:2, span:0.90, coarse:0.1,  fine:0.01,
           baseL:0.20, color:"#4a5a6e", edge:"#6d7f95",
           a:"GO / NO GO", b:"CALIPER", c:"MICROMETER",
           aPass:"GO", aFail:"NO GO", bLo:"OPEN", bHi:"OPEN", bMatch:"CONTACT", contact:true },
-  cell: { key:"cell", tile:"CELL", unit:"V",   nom:3.70,  dec:2, span:0.60, coarse:0.05, fine:0.005,
+  cell: { tile:"CELL", unit:"V",   nom:3.70,  dec:2, span:0.60, coarse:0.05, fine:0.005,
           baseL:0.12, color:"#5c5433", edge:"#9a8c50",
           a:"LOAD TEST", b:"COMPARATOR", c:"NULL METER",
           aPass:"HOLDS", aFail:"SAGS", bLo:"CELL HIGHER", bHi:"CELL LOWER", bMatch:"BALANCED" },
-  board:{ key:"board",tile:"BRD",  unit:"ms",  nom:600,   dec:0, span:400,  coarse:20,   fine:2,
+  board:{ tile:"BRD",  unit:"ms",  nom:600,   dec:0, span:400,  coarse:20,   fine:2,
           baseL:50, color:"#2f4d43", edge:"#4e8574",
           a:"BOOT", b:"WATCHDOG", c:"TRACE",
           aPass:"BOOTS", aFail:"HANGS", bLo:"TIMED OUT", bHi:"BOOTED", bMatch:"EDGE" },
-  lamp: { key:"lamp", tile:"LED",  unit:"mcd", nom:120,   dec:0, span:80,   coarse:5,    fine:1,
+  lamp: { tile:"LED",  unit:"mcd", nom:120,   dec:0, span:80,   coarse:5,    fine:1,
           baseL:12, color:"#5a4527", edge:"#a07a44",
           a:"PRESS TEST", b:"PHOTOCELL", c:"PHOTOMETER",
           aPass:"LIGHTS", aFail:"DEAD", bLo:"BRIGHTER", bHi:"DIMMER", bMatch:"MATCHED" },
-  horn: { key:"horn", tile:"HRN",  unit:"Hz",  nom:1000,  dec:0, span:150,  coarse:10,   fine:1,
+  horn: { tile:"HRN",  unit:"Hz",  nom:1000,  dec:0, span:150,  coarse:10,   fine:1,
           baseL:24, color:"#443a5c", edge:"#7a67a8",
           a:"SOUND TEST", b:"PITCH", c:"TUNER",
           aPass:"IN TUNE", aFail:"WRONG TONE", bLo:"UNIT HIGHER", bHi:"UNIT LOWER", bMatch:"UNISON",
@@ -273,8 +283,7 @@ const NULL_X = C_X + 20,  NULL_Y = C_Y + 150, NULL_W = 242;
 
 const ZONES = {
   ship: {x:24,y:436,w:330,h:140}, scrap:{x:374,y:436,w:330,h:140},
-  a:{x:A_X,y:A_Y,w:250,h:210}, b:{x:B_X,y:B_Y,w:620,h:210}, c:{x:C_X,y:C_Y,w:282,h:210},
-  tray:{x:24,y:88,w:980,h:100}
+  a:{x:A_X,y:A_Y,w:250,h:210}, b:{x:B_X,y:B_Y,w:620,h:210}, c:{x:C_X,y:C_Y,w:282,h:210}
 };
 function inZone(z,p){ return p.x>=z.x && p.x<=z.x+z.w && p.y>=z.y && p.y<=z.y+z.h; }
 
@@ -312,7 +321,7 @@ function makePart(){
   R.produced++;
 
   const p = { id:R.produced, prod:prod, val:val, dev:val-p0.nom, L:L,
-              state:"tray", slot:-1, reading:null, res:0, aRes:null, disp:null,
+              state:"tray", slot:-1, reading:null, disp:null,
               _x:-120, _y:TRAY_Y };
   const el = document.createElement("div");
   el.className = "part";
@@ -321,6 +330,8 @@ function makePart(){
   el.style.transform = "translate(-120px," + TRAY_Y + "px)";
   el.style.width = "88px"; el.style.height = "88px";
   el.addEventListener("pointerdown", e => grab(p,e));
+  el.addEventListener("pointerenter", () => { if(!drag) setHover(p); });
+  el.addEventListener("pointerleave", () => { if(hover===p) setHover(null); });
   p.el = el; partsLayer.appendChild(el);
   R.parts.push(p);
 
@@ -346,10 +357,11 @@ function toTray(p){
   R.tray[i]=p; p.slot=i; p.state="tray"; return true;
 }
 function setReading(p, val, res){
-  p.reading = val; p.res = res;
+  p.reading = val;
   const d = res < 1 ? Math.max(P[p.prod].dec, String(res).split(".")[1].length) : 0;
   p.el.querySelector(".tag").textContent = val.toFixed(d);
   p.el.querySelector(".tag").style.color = "#e0a33a";
+  p.el.classList.add("read");
   R.chart.push((val - P[p.prod].nom)/p.L);
   drawChart();
 }
@@ -365,7 +377,7 @@ function dispose(p, how, auto){
     v = Math.max(-500, v);
   } else v = -SCRAP_COST;
 
-  p.disp = how; p.state = "gone"; p.pay = v;
+  p.disp = how; p.state = "gone";
   R.dayMoney += v; G.bal += v; renderHud();
   floater(p._x + 26, p._y + 20, (v>=0?"+":"") + v, v>=0?"#4caf6a":"#d9534f", auto);
 
@@ -388,7 +400,20 @@ function floater(x,y,txt,col,auto){
 }
 
 /* ================= drag ================= */
-let drag = null;
+let drag = null, hover = null;
+function setHover(p){
+  if(hover === p) return;
+  if(hover) hover.el.classList.remove("hover");
+  hover = p;
+  if(hover) hover.el.classList.add("hover");
+}
+function highlight(s){
+  $("#ship").classList.toggle("hot", !!s && inZone(ZONES.ship,s));
+  $("#scrap").classList.toggle("hot", !!s && inZone(ZONES.scrap,s));
+  $("#rigA").classList.toggle("hot", !!s && !R.a && inZone(ZONES.a,s));
+  $("#rigB").classList.toggle("hot", !!s && !R.b && inZone(ZONES.b,s));
+  $("#rigC").classList.toggle("hot", !!s && !R.c && inZone(ZONES.c,s));
+}
 function grab(p,e){
   if(!running || p.state==="gone") return;
   if(p.state==="a" && R.aT>0) return;
@@ -404,15 +429,14 @@ window.addEventListener("pointermove", e => {
   const s = toStage(e);
   drag.p._x = s.x-drag.dx; drag.p._y = s.y-drag.dy;
   drag.p.el.style.transform = "translate("+drag.p._x+"px,"+drag.p._y+"px)";
-  $("#ship").classList.toggle("hot", inZone(ZONES.ship,s));
-  $("#scrap").classList.toggle("hot", inZone(ZONES.scrap,s));
+  highlight(s);
 });
 window.addEventListener("pointerup", e => {
   if(!drag) return;
   const p = drag.p, s = toStage(e), from = drag.from;
   drag = null;
   p.el.classList.remove("drag");
-  $("#ship").classList.remove("hot"); $("#scrap").classList.remove("hot");
+  highlight(null);
   const ctr = { x:p._x + p.el.offsetWidth/2, y:p._y + p.el.offsetHeight/2 };
 
   if(inZone(ZONES.ship,ctr)) { dispose(p,"ship"); return; }
@@ -431,7 +455,7 @@ window.addEventListener("pointerup", e => {
 });
 
 function seatA(p){
-  p.state="a"; R.a=p; R.aT=2.0; R.aPlayed=0; p.aRes=null;
+  p.state="a"; R.a=p; R.aT=2.0; R.aPlayed=0;
   $("#aLamp").textContent=""; $("#aLamp").style.background="#20242b";
   layout();
 }
@@ -467,11 +491,18 @@ function layout(){
   rigs();
 }
 
-/* ================= rigs ================= */
+/* ================= rigs =================
+   Idle rigs stay blank until the first part goes in, then keep the name of
+   whatever was last tested so the bench reads back what it is.
+========================================== */
+function rigName(slot, prod){
+  if(prod) R.seen[slot] = P[prod][slot];
+  return R.seen[slot] || "";
+}
 function rigs(){
   // rig A
   const pa = R.a;
-  $("#aName").textContent = pa ? P[pa.prod].a : "RIG A";
+  $("#aName").textContent = rigName("a", pa && pa.prod);
   $("#aSlot").style.display = pa ? "none" : "block";
 
   // rig B
@@ -479,8 +510,10 @@ function rigs(){
   const show = !!pb;
   [bHandle,bAnvil,bRule,bBand,bPtr].forEach(el => el.style.display = show?"block":"none");
   $("#bLamp").style.display = show?"flex":"none";
-  $("#bName").textContent = show ? d.b : "RIG B";
-  $("#bUnit").textContent = show ? d.unit : "";
+  $("#bName").textContent = rigName("b", pb && pb.prod);
+  const bs = $("#bSlot");
+  bs.style.display = show ? "none" : "block";
+  bs.style.left = (P[R.lineup[0]].contact ? RULE_ZERO-PIN_W-B_X : 22) + "px";
   if(show){
     const u = ppu(pb.prod);
     const hx = RULE_ZERO + (R.bVal - d.nom)*u;
@@ -495,10 +528,10 @@ function rigs(){
     bBand.style.transform = "translate("+bx+"px,"+BAND_Y+"px)";
     bBand.style.width = bw+"px"; bBand.style.background = bandGrad();
     bPtr.style.transform = "translate("+(hx+5)+"px,"+(BAND_Y-4)+"px)";
-    drawRule(pb.prod, pb.L);
+    drawRule(pb.prod);
 
     const v = Math.round(R.bVal/d.coarse)*d.coarse;
-    $("#bRead").textContent = fmt(pb.prod, v);
+    $("#bRead").innerHTML = fmt(pb.prod, v) + ' <u>' + d.unit + '</u>';
     $("#bRead").style.color = qColor((v-d.nom)/pb.L);
 
     const diff = R.bVal - pb.val;
@@ -511,8 +544,8 @@ function rigs(){
   const pc = R.c, e = pc ? P[pc.prod] : null;
   const shown = !!pc;
   [cKnob,cNull,cNeedle,cZero].forEach(el => el.style.display = shown?"block":"none");
-  $("#cName").textContent = shown ? e.c : "RIG C";
-  $("#cUnit").textContent = shown ? e.unit : "";
+  $("#cName").textContent = rigName("c", pc && pc.prod);
+  $("#cSlot").style.display = shown ? "none" : "block";
   if(shown){
     cKnob.style.width=KNOB_D+"px"; cKnob.style.height=KNOB_D+"px";
     cKnob.style.transform = "translate("+KNOB_X+"px,"+KNOB_Y+"px) rotate("+R.cAng+"rad)";
@@ -524,12 +557,12 @@ function rigs(){
     cNeedle.style.transform = "translate("+(NULL_X+NULL_W/2+f*NULL_W/2 - 1)+"px,"+NULL_Y+"px)";
     cNeedle.style.background = Math.abs(diff) <= e.fine*0.5 ? "#4caf6a" : "#e0a33a";
     const v = Math.round(R.cVal/e.fine)*e.fine;
-    $("#cRead").textContent = fmt(pc.prod, v);
+    $("#cRead").innerHTML = fmt(pc.prod, v) + ' <u>' + e.unit + '</u>';
     $("#cRead").style.color = qColor((v-e.nom)/pc.L);
   } else { $("#cRead").textContent="--"; $("#cRead").style.color="#e0a33a"; }
 }
 
-function drawRule(prod, L){
+function drawRule(prod){
   const d = P[prod], u = ppu(prod), w = RULE_W+40, h = 34;
   const dpr = window.devicePixelRatio||1;
   bRule.width=w*dpr; bRule.height=h*dpr; bRule.style.width=w+"px"; bRule.style.height=h+"px";
@@ -670,13 +703,13 @@ function startDay(){
         count:countOf(G.day), interval:intervalOf(G.day),
         parts:[], tray:new Array(CAP).fill(null),
         a:null, b:null, c:null, aT:0, aPlayed:0, bVal:0, bLast:0, cVal:0, cAng:0,
-        produced:0, spawnT:0.9, grace:-1, dayMoney:0, cx:0, chart:[], stopped:false };
+        produced:0, spawnT:0.9, grace:-1, dayMoney:0, cx:0, chart:[], stopped:false, seen:{} };
   for(const k of lu){
     R.tol[k] = tolOf(k, G.day);
     R.sig[k] = sigmaOf(k, G.day);
     R.bias[k] = (Math.random()*2-1) * 0.8 * R.tol[k];
   }
-  partsLayer.innerHTML=""; fx.innerHTML="";
+  partsLayer.innerHTML=""; fx.innerHTML=""; hover=null; highlight(null);
   $("#aLamp").textContent=""; $("#aLamp").style.background="#20242b";
   $("#aBar i").style.width="0%";
   $("#prog i").style.background="#4a5563";
@@ -713,7 +746,6 @@ function loop(t){
     }
     if(R.aT<=0){
       const pass = Math.abs(R.a.dev) <= R.a.L;
-      R.a.aRes = pass;
       const tg = R.a.el.querySelector(".tag");
       tg.textContent = pass ? "OK" : "BAD";
       tg.style.color = pass ? "#4caf6a" : "#d9534f";
@@ -744,7 +776,7 @@ function debrief(){
   ov.classList.remove("hide"); ov.innerHTML="";
   const h=document.createElement("h1"); h.textContent="DAY "+G.day; ov.appendChild(h);
   const big=document.createElement("div"); big.className="big";
-  big.textContent=(R.dayMoney>=0?"+":"-")+money(R.dayMoney).replace("-","");
+  big.textContent=(R.dayMoney>=0?"+":"")+money(R.dayMoney);
   big.style.color=R.dayMoney>=0?"#4caf6a":"#d9534f"; ov.appendChild(big);
 
   const cv=document.createElement("canvas"); cv.style.border="1px solid #2e343d";
@@ -812,11 +844,12 @@ function endRun(reason){
 
 /* ================= boot ================= */
 load();
-R = { lineup:lineup(G.day), tol:{}, count:countOf(G.day), produced:0, chart:[] };
+R = { lineup:lineup(G.day), tol:{}, count:countOf(G.day), produced:0, chart:[], seen:{} };
 for(const k of R.lineup) R.tol[k] = tolOf(k, G.day);
 renderSpecs();
 ov.classList.remove("hide"); ov.innerHTML="";
 (function(){
+  const t=document.createElement("div"); t.className="gname"; t.textContent="SHIFT"; ov.appendChild(t);
   const h=document.createElement("h1"); h.textContent="DAY "+G.day; ov.appendChild(h);
   if(G.best>START_BAL){
     const row=document.createElement("div"); row.className="row";
@@ -831,7 +864,18 @@ window.addEventListener("keydown", e=>{
   if(e.key===" "||e.key==="Enter"){
     const btn = ov.querySelector("button");
     if(btn && !ov.classList.contains("hide")){ e.preventDefault(); btn.click(); }
+    return;
   }
+  // the part under the cursor answers to the keys printed on the benches
+  if(hover && hover.state==="gone") setHover(null);
+  if(!running || !hover || hover.state==="drag") return;
+  if(hover.state==="a" && R.aT>0) return;
+  const p = hover, k = e.key.toLowerCase();
+  if(k==="s"){ setHover(null); dispose(p,"ship"); }
+  else if(k==="x"){ setHover(null); dispose(p,"scrap"); }
+  else if(k==="1" && !R.a){ freeSlot(p); seatA(p); }
+  else if(k==="2" && !R.b){ freeSlot(p); seatB(p); }
+  else if(k==="3" && !R.c){ freeSlot(p); seatC(p); }
 });
 </script>
 </body>
