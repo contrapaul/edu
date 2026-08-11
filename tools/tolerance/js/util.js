@@ -77,6 +77,12 @@ export function inRect(rect, p){
   return p.x >= rect.x && p.x <= rect.x + rect.w && p.y >= rect.y && p.y <= rect.y + rect.h;
 }
 
+/* Capture is a nicety, not a requirement. If the pointer has already gone away
+   the call throws, and letting that escape would abort the grab half done. */
+export function capture(node, e){
+  try { node.setPointerCapture(e.pointerId); } catch(err){}
+}
+
 /* ---- audio ----
    Everything is synthesised, there are no sound files. The context is created
    lazily and resumed on the first gesture, which is what browsers require. */

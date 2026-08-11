@@ -2,7 +2,7 @@
    Mounted with the work orders you accepted; everything you took merges into a
    single shift, so more accepted work means units arrive faster. */
 
-import { $, el, gauss, shuffle, money, qColor, bandGrad, toStage, inRect,
+import { $, el, gauss, shuffle, money, qColor, bandGrad, toStage, inRect, capture,
          tone, thunk, clunk, detent, ratchet, click, buzz, alarm, cash,
          humOn, humOff } from "./util.js";
 import { PRODUCTS as P, sigmaOf, BASE_RATE, RETURN_FEE, SCRAP_COST, MAX_CX,
@@ -141,7 +141,7 @@ export const bench = {
       if(R.spawnT <= 0){ makePart(); R.spawnT = R.interval; renderHud(); }
     } else if(R.grace < 0){
       R.grace = GRACE_SECS;
-      $("#prog i").style.background = "#8a5a2a";
+      $("#prog i").style.background = "#c07f28";
       buzz();
     } else {
       R.grace -= dt;
@@ -338,7 +338,7 @@ function grab(p, e){
   freeSlot(p);
   p.state = "drag";
   p.el.classList.add("drag");
-  p.el.setPointerCapture(e.pointerId);
+  capture(p.el, e);
   layout();
 }
 
@@ -393,7 +393,9 @@ function bindWidgets(){
 
 function seatA(p){
   p.state = "a"; R.a = p; R.aT = A_CYCLE; R.aPlayed = 0;
-  $("#aLamp").textContent = ""; $("#aLamp").style.background = "#20242b";
+  const lamp = $("#aLamp");
+  lamp.textContent = ""; lamp.style.background = "#171b20"; lamp.style.color = "#5b656f";
+  clunk();
   layout();
 }
 function seatB(p){
@@ -401,11 +403,15 @@ function seatB(p){
   p.state = "b"; R.b = p;
   R.bVal = d.contact ? d.nom + d.span : d.nom - d.span;
   R.bLast = R.bVal;
+  R.bDet = Math.round(R.bVal/d.coarse);
+  clunk();
   layout();
 }
 function seatC(p){
   const d = P[p.prod];
-  p.state = "c"; R.c = p; R.cVal = d.nom - d.span*0.6; R.cAng = 0;
+  p.state = "c"; R.c = p; R.cVal = d.nom - d.span*0.6; R.cAng = 0; R.cRat = 0;
+  R.nPos = -1.25; R.nVel = 0; R.nTarget = -1;     // needle starts pegged and swings in
+  clunk();
   layout();
 }
 
@@ -420,7 +426,7 @@ function layout(){
     if(p.state === "tray"){ p._x = TRAY_X + p.slot*SLOT_W; p._y = TRAY_Y; }
     else if(p.state === "a"){ w = 74; h = 74; p._x = A_X + 88; p._y = A_Y + 52; }
     else if(p.state === "b"){
-      if(P[p.prod].contact){ w = PIN_W + p.dev*ppu(p.prod); h = 96; p._x = RULE_ZERO - PIN_W; p._y = B_Y + 40; }
+      if(P[p.prod].contact){ w = PIN_W + p.dev*ppu(p.prod); h = 84; p._x = RULE_ZERO - PIN_W; p._y = B_Y + 40; }
       else { w = 76; h = 76; p._x = B_X + 22; p._y = B_Y + 52; }
     }
     else if(p.state === "c"){ w = 76; h = 76; p._x = C_X + 20; p._y = C_Y + 46; }
@@ -444,7 +450,7 @@ function rigs(){
 
   const pb = R.b, d = pb ? P[pb.prod] : null;
   const showB = !!pb;
-  ["#bHandle","#bAnvil","#bRule","#bBand","#bPtr"].forEach(s => $(s).style.display = showB ? "block" : "none");
+  ["#bHandle","#bAnvil","#bRule","#bBand","#bPtr","#bBeam"].forEach(s => $(s).style.display = showB ? "block" : "none");
   $("#bLamp").style.display = showB ? "flex" : "none";
   $("#bName").textContent = rigName("b", pb && pb.prod);
   const bs = $("#bSlot");
@@ -457,12 +463,18 @@ function rigs(){
     const tall = d.contact;
     const handle = $("#bHandle");
     handle.style.width = "12px";
-    handle.style.height = tall ? "96px" : "64px";
+    handle.style.height = tall ? "84px" : "64px";
     handle.style.transform = "translate(" + hx + "px," + (B_Y + (tall ? 40 : 58)) + "px)";
     const anvil = $("#bAnvil");
-    anvil.style.height = "96px";
+    anvil.style.height = "84px";
     anvil.style.display = d.contact ? "block" : "none";
     anvil.style.transform = "translate(" + (RULE_ZERO - PIN_W - 12) + "px," + (B_Y + 40) + "px)";
+
+    // the beam the moving jaw rides on, drawn from the anvil out past the handle
+    const beamX = d.contact ? RULE_ZERO - PIN_W - 12 : RULE_X0 - 14;
+    const beam = $("#bBeam");
+    beam.style.transform = "translate(" + beamX + "px," + (B_Y + (tall ? 112 : 106)) + "px)";
+    beam.style.width = Math.max(60, (hx + 12) - beamX) + "px";
 
     const band = $("#bBand");
     band.style.transform = "translate(" + (RULE_ZERO - pb.L*u) + "px," + BAND_Y + "px)";
@@ -560,7 +572,7 @@ function drawRule(prod){
 function startSweep(e){
   if(!R || !R.b) return;
   e.preventDefault();
-  $("#bHandle").setPointerCapture(e.pointerId);
+  capture($("#bHandle"), e);
   const p = R.b, d = P[p.prod], u = ppu(p.prod);
   const x0 = toStage(e).x, v0 = R.bVal;
   const mv = ev => {
@@ -569,6 +581,8 @@ function startSweep(e){
     else v = Math.max(d.nom - d.span, Math.min(d.nom + d.span, v));
     R.bVal = v;
     if(Math.abs(v - p.val) <= d.coarse*0.5) setReading(p, Math.round(v/d.coarse)*d.coarse, d.coarse);
+    const step = Math.round(v/d.coarse);
+    if(step !== R.bDet){ R.bDet = step; detent(); }          // a click per graduation
     if(d.audio && Math.abs(v - R.bLast) >= d.coarse){ R.bLast = v; tone(v, 0.09); }
     rigs();
   };
@@ -580,7 +594,7 @@ function startSweep(e){
 function startNull(e){
   if(!R || !R.c) return;
   e.preventDefault();
-  $("#cKnob").setPointerCapture(e.pointerId);
+  capture($("#cKnob"), e);
   const p = R.c, d = P[p.prod];
   const cx = KNOB_X + KNOB_D/2, cy = KNOB_Y + KNOB_D/2;
   let last = Math.atan2(toStage(e).y - cy, toStage(e).x - cx);
@@ -594,6 +608,8 @@ function startNull(e){
     last = a; R.cAng += dv;
     R.cVal = Math.max(d.nom - d.span, Math.min(d.nom + d.span, R.cVal + (dv/(2*Math.PI))*perTurn));
     if(Math.abs(R.cVal - p.val) <= d.fine*0.5) setReading(p, Math.round(R.cVal/d.fine)*d.fine, d.fine);
+    const notch = Math.round(R.cAng/(Math.PI/9));            // 18 clicks per turn
+    if(notch !== R.cRat){ R.cRat = notch; ratchet(); }
     rigs();
   };
   const up = () => { window.removeEventListener("pointermove", mv); window.removeEventListener("pointerup", up); };
@@ -605,7 +621,7 @@ function startLever(e){
   if(!R || R.stopped || !running) return;
   e.preventDefault();
   const lever = $("#lever");
-  lever.setPointerCapture(e.pointerId);
+  capture(lever, e);
   const y0 = toStage(e).y, top0 = 56;
   const mv = ev => {
     const dy = Math.max(0, Math.min(112, toStage(ev).y - y0));
@@ -627,10 +643,10 @@ function stopLine(){
   G.bal -= STOP_COST; R.dayMoney -= STOP_COST;
   for(const k of R.products) R.bias[k] = 0;
   const lever = $("#lever");
-  lever.style.background = "#2f5a3d";
-  lever.style.borderColor = "#4caf6a";
+  lever.style.background = "linear-gradient(180deg,#4b8468,#33654b)";
+  lever.style.borderColor = "#26503b";
   $("#leverTxt").textContent = "LINE RESET";
-  floater(1000, 520, "-" + STOP_COST, "#d9534f");
+  floater(1000, 520, "-" + STOP_COST, "#b0402c");
   thunk();
   renderHud();
   if(G.bal < 0) endShift("BANKRUPT");
@@ -662,7 +678,7 @@ function renderHud(){
   $("#dayLbl").textContent = "DAY " + R.day;
   const m = $("#money");
   m.textContent = money(G.bal);
-  m.style.color = G.bal < 300 ? "#d9534f" : "#d8dde5";
+  m.style.color = G.bal < 300 ? "#b0402c" : "#2b2a24";
   $("#prog i").style.width = (100*R.produced/R.total) + "%";
 }
 function renderSpecs(){
