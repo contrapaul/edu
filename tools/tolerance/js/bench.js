@@ -3,7 +3,8 @@
    single shift, so more accepted work means units arrive faster. */
 
 import { $, el, gauss, shuffle, money, qColor, bandGrad, toStage, inRect,
-         tone, thunk, click, buzz } from "./util.js";
+         tone, thunk, clunk, detent, ratchet, click, buzz, alarm, cash,
+         humOn, humOff } from "./util.js";
 import { PRODUCTS as P, sigmaOf, BASE_RATE, RETURN_FEE, SCRAP_COST, MAX_CX,
          STOP_COST, SHIFT_SECS, GRACE_SECS, CLIENTS } from "./data.js";
 import { G, save } from "./state.js";
@@ -32,6 +33,7 @@ let R = null, running = false, drag = null, hover = null, onDone = null;
 let moveHandler = null, upHandler = null, keyHandler = null;
 
 const MARKUP = `
+<div id="benchwall"></div><div id="benchtop"></div><div id="benchlight"></div>
 <div id="hud">
   <div id="dayLbl"></div>
   <div id="specs"></div>
@@ -73,12 +75,12 @@ const MARKUP = `
   <div id="leverTxt"></div>
 </div>
 
-<div id="bAnvil"></div><div id="bBand"></div><canvas id="bRule"></canvas>
+<div id="bBeam"></div><div id="bAnvil"></div><div id="bBand"></div><canvas id="bRule"></canvas>
 <div id="bHandle"></div><div id="bPtr"></div>
 <div id="cNull"></div><div id="cZero"></div><div id="cNeedle"></div>
 <div id="cKnob"><div class="mk"></div></div>
 
-<div id="parts"></div><div id="fx"></div>`;
+<div id="parts"></div><div id="fx"></div><div id="stamp"><span></span></div>`;
 
 /* ---------------------------------------------------------------- mount */
 export const bench = {
@@ -102,7 +104,8 @@ export const bench = {
       sig: {}, bias: {},
       parts: [], tray: new Array(CAP).fill(null),
       a:null, b:null, c:null, aT:0, aPlayed:0,
-      bVal:0, bLast:0, cVal:0, cAng:0,
+      bVal:0, bLast:0, bDet:0, cVal:0, cAng:0, cRat:0,
+      nPos:-1, nVel:0, nTarget:-1,
       produced:0, spawnT:0.9, grace:-1,
       dayMoney:0, cx:0, chart:[], stopped:false, seen:{}
     };
@@ -117,10 +120,12 @@ export const bench = {
 
     $("#leverTxt").textContent = "STOP LINE  " + money(-STOP_COST);
     running = true;
+    humOn();
   },
 
   unmount(){
     running = false;
+    humOff();
     window.removeEventListener("pointermove", moveHandler);
     window.removeEventListener("pointerup", upHandler);
     window.removeEventListener("keydown", keyHandler);
@@ -129,6 +134,7 @@ export const bench = {
 
   tick(dt){
     if(!running || !R) return;
+    needlePhysics(dt);
 
     if(R.produced < R.total){
       R.spawnT -= dt;
@@ -161,6 +167,9 @@ export const bench = {
         lamp.textContent = pass ? d.aPass : d.aFail;
         lamp.style.background = pass ? "#1e3a28" : "#3a1e1e";
         lamp.style.color = pass ? "#4caf6a" : "#d9534f";
+        lamp.classList.remove("flicker");
+        void lamp.offsetWidth;
+        lamp.classList.add("flicker");
         click();
       }
     } else if(!R.a){ $("#aBar i").style.width = "0%"; }
@@ -195,10 +204,17 @@ function makePart(){
     const old = R.tray.reduce((a,b) => (a && a.id < b.id) ? a : b);
     dispose(old, "ship", true);
     idx = R.tray.indexOf(null);
+    const tray = $("#tray");
+    tray.classList.remove("jostle"); void tray.offsetWidth; tray.classList.add("jostle");
   }
   R.tray[idx] = p; p.slot = idx;
   void node.offsetWidth;                         // settle the start so the slide in transitions
   layout();
+  setTimeout(() => {                             // land it when the slide actually arrives
+    if(!p.el.isConnected) return;
+    p.el.classList.add("landed");
+    clunk();
+  }, 290);
 }
 
 function freeSlot(p){
@@ -241,10 +257,18 @@ function dispose(p, how, auto){
   p.disp = how; p.state = "gone"; p.pay = v;
   R.dayMoney += v; G.bal += v;
   renderHud();
-  floater(p._x + 26, p._y + 20, (v >= 0 ? "+" : "") + v, v >= 0 ? "#4caf6a" : "#d9534f", auto);
-  if(!auto) thunk();
+  floater(p._x + 26, p._y + 20, (v >= 0 ? "+" : "") + v, v >= 0 ? "#2f7d52" : "#b0402c", auto);
 
   const node = p.el;
+  if(!auto){
+    stampOn(p, how);
+    node.dataset.ink = how === "ship" ? "SHIP" : "SCRAP";
+    node.classList.add("inked", how === "ship" ? "ink-ship" : "ink-scrap");
+    thunk();
+    cash(v >= 0);
+  }
+  if(how === "ship" && Math.abs(p.dev) > p.L) complaintHit();
+
   node.classList.add("out");
   node.style.transform = "translate(" + (p._x + (how === "ship" ? 90 : 0)) + "px,"
                                       + (p._y + (how === "ship" ? 0 : 70)) + "px)";
@@ -253,6 +277,31 @@ function dispose(p, how, auto){
   layout();
   if(R.cx >= MAX_CX) endShift("CONTRACT LOST");
   else if(G.bal < 0) endShift("BANKRUPT");
+}
+
+/* the stamp comes down where the unit is, and leaves its mark on it */
+function stampOn(p, how){
+  const s = $("#stamp");
+  if(!s) return;
+  const w = p.el.offsetWidth, h = p.el.offsetHeight;
+  s.style.left = (p._x + w/2 - 52) + "px";
+  s.style.top  = (p._y + h/2 - 52) + "px";
+  s.style.color = how === "ship" ? "#2f7d52" : "#b0402c";
+  s.firstElementChild.textContent = how === "ship" ? "SHIP" : "SCRAP";
+  s.classList.remove("go");
+  void s.offsetWidth;
+  s.classList.add("go");
+}
+
+/* a unit reaching the customer is the loudest thing that happens in here */
+function complaintHit(){
+  alarm();
+  const root = document.getElementById("scene");
+  if(!root) return;
+  root.classList.remove("shake");
+  void root.offsetWidth;
+  root.classList.add("shake");
+  setTimeout(() => root.classList.remove("shake"), 360);
 }
 
 function floater(x, y, txt, col, auto){

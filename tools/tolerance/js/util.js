@@ -78,15 +78,19 @@ export function inRect(rect, p){
 }
 
 /* ---- audio ----
-   Synthesised only, no files. Created on first use so it follows a user gesture. */
+   Everything is synthesised, there are no sound files. The context is created
+   lazily and resumed on the first gesture, which is what browsers require. */
 let AC = null;
 function ctx(){
   if(!AC){
     try { AC = new (window.AudioContext || window.webkitAudioContext)(); }
     catch(e){ return null; }
   }
+  if(AC.state === "suspended") AC.resume();
   return AC;
 }
+window.addEventListener("pointerdown", () => ctx(), { once:true });
+
 export function tone(freq, dur, type = "square", vol = 0.05){
   const ac = ctx();
   if(!ac) return;
@@ -101,7 +105,62 @@ export function tone(freq, dur, type = "square", vol = 0.05){
     o.stop(ac.currentTime + dur + 0.02);
   }catch(e){}
 }
-export function thunk(){ tone(90, 0.10, "triangle", 0.10); }
+
+/* short filtered noise, which is what most physical sounds actually are */
+function noise(dur, freq, q, vol){
+  const ac = ctx();
+  if(!ac) return;
+  try{
+    const n = Math.floor(ac.sampleRate * dur);
+    const buf = ac.createBuffer(1, n, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i = 0; i < n; i++) data[i] = (Math.random()*2 - 1) * (1 - i/n);
+    const src = ac.createBufferSource(); src.buffer = buf;
+    const f = ac.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = freq; f.Q.value = q;
+    const g = ac.createGain(); g.gain.value = vol;
+    src.connect(f); f.connect(g); g.connect(ac.destination);
+    src.start();
+  }catch(e){}
+}
+
+export function thunk(){ tone(84, 0.11, "triangle", 0.11); noise(0.09, 220, 1.2, 0.10); }
+export function clunk(){ tone(150, 0.06, "triangle", 0.05); noise(0.05, 900, 2.0, 0.05); }
+export function detent(){ noise(0.018, 2600, 6, 0.045); }
+export function ratchet(){ noise(0.022, 1500 + Math.random()*600, 5, 0.05); }
 export function click(){ tone(1600, 0.02, "square", 0.02); }
-export function chime(){ tone(880, 0.09, "sine", 0.05); setTimeout(()=>tone(1320, 0.12, "sine", 0.045), 90); }
+export function chime(){ tone(880, 0.09, "sine", 0.05); setTimeout(() => tone(1320, 0.12, "sine", 0.045), 90); }
 export function buzz(){ tone(140, 0.35, "sawtooth", 0.05); }
+export function alarm(){ tone(220, 0.16, "sawtooth", 0.07); setTimeout(() => tone(165, 0.24, "sawtooth", 0.07), 150); }
+export function cash(good){
+  if(good){ tone(660, 0.06, "square", 0.035); setTimeout(() => tone(990, 0.09, "square", 0.03), 60); }
+  else { tone(330, 0.07, "square", 0.035); setTimeout(() => tone(220, 0.12, "square", 0.03), 65); }
+}
+
+/* the line, running under everything during a shift */
+let humNodes = null;
+export function humOn(){
+  const ac = ctx();
+  if(!ac || humNodes) return;
+  try{
+    const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain();
+    o.type = "sawtooth"; o.frequency.value = 52;
+    o2.type = "sine"; o2.frequency.value = 104;
+    const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 200;
+    g.gain.value = 0.0;
+    o.connect(f); o2.connect(f); f.connect(g); g.connect(ac.destination);
+    o.start(); o2.start();
+    g.gain.linearRampToValueAtTime(0.016, ac.currentTime + 0.8);
+    humNodes = { o, o2, g };
+  }catch(e){}
+}
+export function humOff(){
+  if(!humNodes) return;
+  const { o, o2, g } = humNodes;
+  humNodes = null;
+  try{
+    const ac = ctx();
+    g.gain.linearRampToValueAtTime(0.0001, ac.currentTime + 0.3);
+    o.stop(ac.currentTime + 0.35);
+    o2.stop(ac.currentTime + 0.35);
+  }catch(e){}
+}
