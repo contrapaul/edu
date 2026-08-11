@@ -1,4 +1,4 @@
-/* a2.2.js — interactive widgets for A2.2 Prototyping Techniques.
+/* a2.2.js - interactive widgets for A2.2 Prototyping Techniques.
    Case-study modals and the .case-photo lightbox are handled globally
    by curriculum.js. */
 
@@ -14,35 +14,35 @@
     statusEl: document.getElementById('sort-fidelity-status'),
     resetBtn: document.getElementById('sort-fidelity-reset'),
     zones: [
-      { id: 'pos1', label: '1st — lowest fidelity' },
+      { id: 'pos1', label: '1st - lowest fidelity' },
       { id: 'pos2', label: '2nd' },
       { id: 'pos3', label: '3rd' },
-      { id: 'pos4', label: '4th — highest fidelity' }
+      { id: 'pos4', label: '4th - highest fidelity' }
     ],
     items: [
       {
         id: 'f1',
         label: 'A pencil sketch of the concept.',
         correctZone: 'pos1',
-        explanation: 'No physical form at all yet, just a 2D representation of an idea — as low-fidelity as a prototype gets.'
+        explanation: 'No physical form at all yet, just a 2D representation of an idea. It's as low-fidelity as a prototype gets.'
       },
       {
         id: 'f2',
         label: 'A rough cardboard mock-up of the shape.',
         correctZone: 'pos2',
-        explanation: 'A physical, 3D object now, but still cheap and crude — form and proportion only, no real materials or function.'
+        explanation: 'A physical, 3D object now, but still cheap and crude. Form and proportion only, no real materials or function.'
       },
       {
         id: 'f3',
         label: 'A 3D-printed shell with the final proportions.',
         correctZone: 'pos3',
-        explanation: 'Mid-fidelity: accurate form in a substitute material, per the table above — a step closer, but not yet working or in final materials.'
+        explanation: 'Mid-fidelity: accurate form in a substitute material, per the table above. A step closer, but not yet working or in final materials.'
       },
       {
         id: 'f4',
         label: 'A working electronic prototype in the final housing.',
         correctZone: 'pos4',
-        explanation: 'High-fidelity: real materials and real function together — the point where user testing and stakeholder demos actually mean something.'
+        explanation: 'High-fidelity: real materials and real function together. This is the point where user testing and stakeholder demos actually mean something.'
       }
     ]
   });
