@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════
-//  Ashby Chart Challenge — pointer-driven placement game
+//  Ashby Chart Challenge: pointer-driven placement game
 //  Drag materials onto a log-log strength/temperature chart; score by
 //  how close each drop lands to the material's real properties.
 // ═══════════════════════════════════════════════════════════════════
@@ -25,73 +25,73 @@ const classInfo = Object.fromEntries(CLASSES.map((c) => [c.id, c]));
 const MATERIALS = [
     // metals
     { key: 'm1', name: 'Mild steel', strength: 400, temp: 600, class: 'metal',
-      use: 'Mild steel (low carbon steel) is widely used in construction (beams, reinforcement), automobile bodies, and pipelines due to its good formability, weldability, and moderate strength.' },
+      use: 'Mild steel is steel with very little carbon in it, which is what makes it easy to bend, cut and weld. It is not the strongest steel, but it is cheap, predictable and available everywhere, so it ends up in building beams, reinforcing bar, car bodies and pipelines. It rusts readily, so it almost always needs paint, galvanising or another coating.' },
     { key: 'm2', name: 'Stainless 304', strength: 550, temp: 870, class: 'metal',
-      use: 'Stainless steel 304 (18/8 chromium-nickel) offers excellent corrosion resistance. Used in kitchen equipment, chemical containers, and architectural trim.' },
+      use: 'Stainless 304 is steel with roughly 18% chromium and 8% nickel added. The chromium reacts with air to form an invisible oxide layer that reseals itself whenever the surface is scratched, which is why stainless resists corrosion rather than merely delaying it. That makes it the default for kitchen equipment, chemical containers and architectural trim, at several times the cost of mild steel.' },
     { key: 'm3', name: 'Aluminium 6061', strength: 310, temp: 350, class: 'metal',
-      use: 'Aluminium 6061 is a precipitation-hardened alloy with good mechanical properties and weldability. Common in bicycle frames, aircraft fittings, and marine components.' },
+      use: 'Aluminium 6061 is roughly a third the density of steel, and it is precipitation hardened, meaning it is heated and then aged so that tiny particles form inside the metal and block the internal slipping that would otherwise let it deform. It welds and machines well, so it turns up in bicycle frames, aircraft fittings and marine parts. Note the low service temperature: it loses strength long before it melts.' },
     { key: 'm4', name: 'Copper', strength: 220, temp: 400, class: 'metal',
-      use: 'Copper is prized for electrical conductivity (wiring, motors) and thermal conductivity (heat exchangers, cookware). Also used in roofing and plumbing.' },
+      use: 'Copper conducts electricity and heat better than almost any affordable metal, which is why it dominates wiring, motors, heat exchangers and cookware. It is soft and heavy, so it is rarely chosen to carry structural load. Exposed copper weathers to the green patina you see on roofs, and that layer protects the metal underneath.' },
     { key: 'm5', name: 'Titanium Ti-6Al-4V', strength: 950, temp: 600, class: 'metal',
-      use: 'Ti-6Al-4V (alpha-beta alloy) has exceptional strength-to-weight ratio and biocompatibility. Aerospace structural parts, surgical implants, and high-performance automotive.' },
+      use: 'Ti-6Al-4V is titanium with 6% aluminium and 4% vanadium, the most used titanium alloy by far. It is roughly as strong as steel at a little over half the weight, and the body does not reject it, so it is used for aerospace structure and surgical implants. It is expensive and awkward to machine, which is what keeps it out of ordinary products.' },
     { key: 'm6', name: 'Magnesium alloy', strength: 230, temp: 350, class: 'metal',
-      use: 'Magnesium alloys are the lightest structural metals. Used in lightweight casings for electronics, power tools, and automotive parts where weight saving is critical.' },
+      use: 'Magnesium alloys are the lightest structural metals in normal use, lighter than aluminium again by about a third. That buys weight savings in laptop casings, power tool bodies and car parts where every gram counts. The trade-off is that magnesium is expensive, corrodes easily and burns fiercely in fine chip or powder form.' },
     { key: 'm7', name: 'Cast iron', strength: 250, temp: 800, class: 'metal',
-      use: 'Cast iron (grey or ductile) has good castability, vibration damping, and wear resistance. Engine blocks, machine tool bases, and brake discs.' },
+      use: 'Cast iron is iron with enough carbon in it to be poured into a mould rather than shaped by force, which makes complicated shapes cheap to produce. The carbon appears as flakes or nodules that absorb vibration, so it suits engine blocks, machine tool bases and brake discs. It is strong in compression but brittle in tension, so it cracks rather than bends when overloaded.' },
     { key: 'm8', name: 'Nickel superalloy', strength: 1100, temp: 1050, class: 'metal',
-      use: 'Nickel-based superalloys (e.g., Inconel) retain strength at high temperatures. Used in gas turbine blades, rocket engines, and nuclear reactors.' },
+      use: 'Nickel superalloys such as Inconel are built to hold their strength when other metals have gone soft, staying useful at temperatures glowing red hot. That is why they appear in gas turbine blades, rocket engines and nuclear reactors. They are among the most expensive and most difficult to machine materials here, so nothing uses them unless the heat demands it.' },
 
     // polymers
     { key: 'p1', name: 'HDPE', strength: 30, temp: 80, class: 'polymer',
-      use: 'High-density polyethylene (HDPE) – strong, chemical resistant. Used for blow-moulded bottles, fuel tanks, cutting boards, and corrosion-resistant piping.' },
+      use: 'High density polyethylene is the milk bottle and jerry can plastic. The polymer chains pack together tightly, which makes it stiffer and stronger than the low density version, and it shrugs off most chemicals. It is easy to blow mould, so it becomes bottles, fuel tanks, cutting boards and pipe. Cheap, recyclable and completely opaque unless coloured.' },
     { key: 'p2', name: 'Polypropylene (PP)', strength: 35, temp: 100, class: 'polymer',
-      use: 'Polypropylene (PP) is a semi-rigid polymer with good fatigue resistance. Food containers, hinges (living hinges), automotive interior trim, and medical syringes.' },
+      use: 'Polypropylene bends without breaking, again and again, which is why the lid on a shampoo bottle can flex thousands of times without the hinge failing. That property is called fatigue resistance, and a hinge moulded straight into the part is called a living hinge. It also handles boiling water, so it suits food containers, medical syringes and car interior trim.' },
     { key: 'p3', name: 'Nylon 6,6', strength: 85, temp: 150, class: 'polymer',
-      use: 'Nylon 6,6 (polyamide) has high strength, abrasion resistance, and low friction. Gears, bearings, textile fibres, and zip ties.' },
+      use: 'Nylon 6,6 is strong, resists rubbing wear and slides against other surfaces with little friction, so it replaces metal in gears and bearings without needing oil. The same toughness makes it into rope, textile fibre and zip ties. Its weakness is water: nylon absorbs moisture from the air, which swells the part slightly and softens it.' },
     { key: 'p4', name: 'PMMA (acrylic)', strength: 70, temp: 90, class: 'polymer',
-      use: 'Polymethyl methacrylate (PMMA / acrylic) is a transparent, shatter-resistant glass substitute. Used for lenses, aquariums, signage, and automotive tail lights.' },
+      use: 'PMMA, sold as acrylic, Perspex or Plexiglas, is the clear plastic used when glass would be too fragile or too heavy. It passes more light than glass does and will not shatter into sharp fragments, so it is used for lenses, aquarium walls, signage and tail lights. It scratches easily and cracks if you over-tighten a bolt through it.' },
     { key: 'p5', name: 'PTFE (Teflon™)', strength: 25, temp: 260, class: 'polymer',
-      use: 'Polytetrafluoroethylene (PTFE) has extremely low friction and high chemical resistance. Non-stick coatings, seals, gaskets, and electrical insulation.' },
+      use: 'PTFE, better known as Teflon, has the lowest friction of any solid material in common use, which is why nothing sticks to a pan coated in it. It also ignores nearly every chemical and tolerates far more heat than most polymers. It is soft and creeps slowly under load, so it is used as coatings, seals, gaskets and insulation rather than as a structural part.' },
     { key: 'p6', name: 'Epoxy', strength: 90, temp: 180, class: 'polymer',
-      use: 'Epoxy resins are thermosetting polymers with high adhesion and mechanical strength. Used as adhesives, coatings, and matrix for fibre-reinforced composites.' },
+      use: 'Epoxy is a thermoset, meaning the liquid resin and hardener react into a permanent solid that cannot be melted back down. That is the opposite of a thermoplastic such as ABS, which softens with heat every time. Epoxy grips almost any surface, so it works as a strong adhesive and as the glue holding the fibres together in carbon fibre and fibreglass.' },
     { key: 'p7', name: 'Silicone elastomer', strength: 7, temp: 230, class: 'polymer',
-      use: 'Silicone rubber remains flexible over a wide temperature range. Medical tubing, baking moulds, seals, and electrical insulation.' },
+      use: 'Silicone rubber stays flexible from freezer temperatures to oven temperatures, a range no other common elastomer manages. It is also inert enough for medical tubing and food moulds. It is not strong, so it is chosen for sealing, insulating and flexing, never for carrying a load.' },
     { key: 'c2', name: 'PETG', strength: 50, temp: 75, class: 'polymer',
-      use: 'Polyethylene terephthalate glycol (PETG) is a clear, impact-resistant thermoplastic. Easily thermoformed or 3D printed. Used for food containers, displays, and protective guards.' },
+      use: 'PETG is PET, the bottle plastic, with glycol added to stop it crystallising and going cloudy. The result stays clear, resists impact and forms easily at low temperatures, which makes it a favourite for 3D printing and vacuum forming. It is the sensible choice when you want the clarity of acrylic without the brittleness.' },
     { key: 'c6', name: 'ABS', strength: 40, temp: 100, class: 'polymer',
-      use: 'Acrylonitrile butadiene styrene (ABS) is a tough, impact-resistant thermoplastic. Used for LEGO bricks, automotive dashboards, power tool housings, and 3D printing filaments.' },
+      use: 'ABS is three materials blended into one: acrylonitrile for chemical resistance, butadiene rubber for toughness, and styrene for stiffness and finish. That mix is why a LEGO brick survives being trodden on and still clicks together after decades. It is also used for dashboards, power tool housings and 3D printing filament, but it warps as it cools and needs a heated bed to print well.' },
 
     // ceramics
     { key: 'c1', name: 'Alumina (Al₂O₃)', strength: 350, temp: 1750, class: 'ceramic',
-      use: 'Alumina (aluminium oxide) is a hard, wear-resistant ceramic with high electrical insulation. Used in spark plugs, grinding media, electronic substrates, and biomedical implants.' },
+      use: 'Alumina is aluminium oxide, the ceramic left when aluminium fully reacts with oxygen. It is extremely hard and wear resistant, and it blocks electricity completely, which is the combination that puts it inside every spark plug. Also used for grinding media, circuit substrates and hip joint implants. Like all ceramics here it is brittle: it will take enormous pressure and then fail suddenly with no warning bend.' },
     { key: 'c3', name: 'Silicon carbide (SiC)', strength: 400, temp: 2600, class: 'ceramic',
-      use: 'Silicon carbide is an ultra-hard ceramic with high thermal conductivity. Used in abrasives, brake discs, armour, and high-temperature semiconductor components.' },
+      use: 'Silicon carbide is close to diamond in hardness and, unusually for a ceramic, conducts heat well. That combination suits abrasives, high performance brake discs, armour plate and semiconductors that run hot. Its service temperature is the highest on this chart by a wide margin.' },
     { key: 'c4', name: 'Porcelain', strength: 60, temp: 1400, class: 'ceramic',
-      use: 'Porcelain (a vitrified ceramic) has high electrical resistivity and low porosity. Electrical insulators, tableware, and bathroom fixtures.' },
+      use: 'Porcelain is clay fired hot enough to vitrify, meaning part of it turns to glass and fills the pores, leaving a dense body that will not absorb water. It blocks electricity well even when wet, which is why the insulators on power lines are porcelain rather than plastic. The same material becomes tableware and bathroom fittings.' },
     { key: 'c5', name: 'Glass (soda-lime)', strength: 50, temp: 550, class: 'ceramic',
-      use: 'Soda-lime glass is the most common glass. Windows, bottles, and light bulbs. It is transparent, low-cost, but has moderate thermal shock resistance.' },
+      use: 'Soda lime glass is the ordinary glass in windows, bottles and jars, made cheap by adding soda and lime to sand to lower the melting point. It is transparent and completely recyclable, but it cracks when one part of it is much hotter than another, so it cannot go from oven to cold water. Borosilicate, the ovenware glass, is the version that survives that.' },
     { key: 'c7', name: 'Boron carbide (B₄C)', strength: 500, temp: 800, class: 'ceramic',
-      use: 'Boron carbide is one of the hardest materials, with low density. Used in ballistic armour, nozzle liners, and as a neutron absorber in nuclear applications.' },
+      use: 'Boron carbide is one of the three hardest materials known, and it is remarkably light for a ceramic. Those two facts together are why it lines ballistic armour plate where weight matters. It also absorbs neutrons, giving it a second job as control rod material in nuclear reactors.' },
 
     // composites
     { key: 'cmp1', name: 'CFRP', strength: 800, temp: 180, class: 'composite',
-      use: 'Carbon fibre reinforced polymer (CFRP) – carbon fibres in an epoxy matrix. Ultra-high strength-to-weight ratio. Aerospace structures, sports equipment (bikes, tennis rackets), and high-end automotive.' },
+      use: 'CFRP is carbon fibre held in an epoxy matrix. The fibres carry the load and the epoxy holds them in position and transfers force between them, so the properties depend entirely on which way the fibres run. Along the fibres it beats steel for strength at a fraction of the weight; across them it is comparatively weak. Used for aircraft structure, bike frames and racing cars, and limited mainly by cost.' },
     { key: 'cmp2', name: 'GFRP', strength: 300, temp: 200, class: 'composite',
-      use: 'Glass fibre reinforced polymer (GFRP / fibreglass) – glass fibres in polyester or epoxy. Boat hulls, wind turbine blades, storage tanks, and automotive body panels.' },
+      use: 'GFRP, better known as fibreglass, works exactly like carbon fibre but with glass fibres, which are heavier and less stiff but far cheaper. That trade lets it be used in quantity, so it becomes boat hulls, wind turbine blades, storage tanks and body panels. It is also easy to lay up by hand, which is why it is the composite most schools can actually work with.' },
     { key: 'cmp3', name: 'Kevlar/epoxy', strength: 400, temp: 180, class: 'composite',
-      use: 'Kevlar (aramid) fibre reinforced epoxy. High tensile strength and impact resistance. Ballistic vests, ropes, helmets, and sporting goods.' },
+      use: 'Kevlar is an aramid fibre with exceptional tensile strength, meaning it is very hard to pull apart, and it absorbs impact energy instead of shattering. Set in epoxy it becomes ballistic vests, helmets and ropes. It is poor in compression, so a Kevlar part is designed to be pulled and not pushed.' },
 
     // natural materials
     { key: 'cmp4', name: 'Plywood', strength: 40, temp: 150, class: 'natural',
-      use: 'Plywood is an engineered wood composite made from thin veneers cross‑laminated. Furniture, subflooring, and structural sheathing.' },
+      use: 'Plywood is thin veneers of wood glued in a stack with the grain of each layer turned across the one below. Wood is strong along its grain and weak across it, and this cross lamination cancels out that weakness, giving a sheet that is strong in both directions and resists splitting. Used for furniture, subfloors and structural sheathing.' },
     { key: 'n1', name: 'Bamboo', strength: 70, temp: 150, class: 'natural',
-      use: 'Bamboo is a fast-growing grass with high strength-to-weight ratio. Used for flooring, scaffolding (in Asia), furniture, and textile fibres.' },
+      use: 'Bamboo is a grass, not a tree, and it grows to full height in months rather than decades. Its hollow tube structure gives it a strength to weight ratio that compares with steel along the length of the stem, which is why it still serves as scaffolding on tall buildings across Asia. Also processed into flooring, furniture and textile fibre.' },
     { key: 'n2', name: 'Cork', strength: 2, temp: 100, class: 'natural',
-      use: 'Cork is harvested from cork oak bark. It is lightweight, compressible, and insulating. Wine stoppers, bulletin boards, flooring underlayment, and gaskets.' },
+      use: 'Cork is the bark of the cork oak, harvested without felling the tree, so the same tree is stripped every nine years or so for over a century. It is a foam of sealed gas filled cells, which makes it light, springy and insulating, and lets it spring back after being squeezed into a bottle neck. Also used for boards, flooring underlay and gaskets.' },
     { key: 'n3', name: 'Leather', strength: 15, temp: 150, class: 'natural',
-      use: 'Leather (treated animal hide) is flexible and durable. Upholstery, footwear, belts, and protective clothing (welding aprons).' },
+      use: 'Leather is animal hide treated so it will not rot, a process called tanning. It is flexible, resists tearing and abrasion, and moulds to a shape with use, which is why it lasts in footwear, upholstery and belts. It also resists sparks well enough to make welding aprons.' },
     { key: 'n4', name: 'Oak wood', strength: 50, temp: 150, class: 'natural',
-      use: 'Oak is a dense hardwood with good strength and attractive grain. Timber framing, furniture, flooring, and whiskey barrels.' },
+      use: 'Oak is a dense hardwood, strong enough for structural timber framing and attractive enough for furniture and flooring. Being a natural material, its properties vary between boards depending on how it grew, so figures on a chart are averages rather than guarantees. Its tight grain holds liquid, which is why whiskey and wine are aged in oak barrels.' },
 ];
 const materialMap = Object.fromEntries(MATERIALS.map((m) => [m.key, m]));
 const MAX_TOTAL = MATERIALS.length * 100;
@@ -176,7 +176,7 @@ function hintFor(mat, fx, fy) {
     else if (fy - t.fy > HINT_DELTA) parts.push('it’s weaker than that ⬇️');
     if (t.fx - fx > HINT_DELTA) parts.push('it handles more heat ➡️');
     else if (fx - t.fx > HINT_DELTA) parts.push('it handles less heat ⬅️');
-    return parts.length ? parts.join(' and ') : 'you’re extremely close — tiny nudge!';
+    return parts.length ? parts.join(' and ') : 'you’re extremely close, tiny nudge!';
 }
 
 // ── Canvas sizing (crisp on any DPR, responsive on any screen) ────
@@ -329,7 +329,7 @@ function renderPool() {
         const done = document.createElement('div');
         done.className = 'ashby-pool-empty';
         done.textContent = finished
-            ? 'Game over — open the score card from the toolbar.'
+            ? 'Game over. Open the score card from the toolbar.'
             : 'All materials placed! Re-drag any unlocked marker, or hit Finish.';
         poolList.appendChild(done);
     }
@@ -356,7 +356,7 @@ function inspect(key, feedbackHtml) {
     defMeta.innerHTML = feedbackHtml ? feedbackHtml + '<br>' + meta : meta;
 }
 
-// Transient feedback bubble at the drop point — the def panel may be
+// Transient feedback bubble at the drop point, since the def panel may be
 // scrolled out of view on small screens.
 let toastTimer = null;
 function showToast(pt, text) {
@@ -405,7 +405,7 @@ function placeAttempt(key, clientX, clientY) {
             ' pts.</span> The ring shows where ' + mat.name + ' really belongs.');
     } else {
         inspect(key, '<span class="good">' + tier + ': ' + pl.points + ' pts.</span> ' +
-            '<span class="warn">Hint: ' + hintFor(mat, fx, fy) + '.</span> Drag the marker for your final attempt — or leave it.');
+            '<span class="warn">Hint: ' + hintFor(mat, fx, fy) + '.</span> Drag the marker for your final attempt, or leave it.');
     }
 
     renderPool();
@@ -434,7 +434,7 @@ function rankFor(pct) {
     if (pct >= 75) return '⭐ Alloy Ace';
     if (pct >= 60) return '\u{1F44D} Solid Selector';
     if (pct >= 40) return '\u{1F331} Apprentice Engineer';
-    return '\u{1F9F1} Rookie — study the chart and go again!';
+    return '\u{1F9F1} Rookie. Study the chart and go again!';
 }
 
 function openScoreCard() {
@@ -474,12 +474,12 @@ function resetGame() {
     draw();
     defEmoji.textContent = '\u{1F44B}';
     defName.textContent = 'Where does each material belong?';
-    defText.innerHTML = 'Drag a material from the pool onto the chart — the closer you land to its real strength and service temperature, the more points you earn (up to 100 each). You get <strong>' + MAX_ATTEMPTS + ' attempts</strong> per material: after the first drop you’ll get a hint, and you can drag the marker once more. When every material is placed, hit <em>Finish</em> for your score card.';
+    defText.innerHTML = 'Drag a material from the pool onto the chart. The closer you land to its real strength and service temperature, the more points you earn, up to 100 each. You get <strong>' + MAX_ATTEMPTS + ' attempts</strong> per material: after the first drop you’ll get a hint, and you can drag the marker once more. When every material is placed, hit <em>Finish</em> for your score card.';
     defMeta.textContent = '';
 }
 
 // ═══════════════════════════════════════════════════════════════════
-//  POINTER INPUT — works with mouse, touch, and pen
+//  POINTER INPUT: works with mouse, touch, and pen
 // ═══════════════════════════════════════════════════════════════════
 
 // Pool chip → chart (a ghost chip follows the pointer)
@@ -536,7 +536,7 @@ canvas.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     const pl = placements[key];
     if (pl.locked || finished) {
-        inspect(key, '<span class="warn">\u{1F512} ' + materialMap[key].name + ' is locked — no attempts left.</span>');
+        inspect(key, '<span class="warn">\u{1F512} ' + materialMap[key].name + ' is locked. No attempts left.</span>');
         return;
     }
     const startX = e.clientX, startY = e.clientY;
@@ -570,7 +570,7 @@ canvas.addEventListener('pointerdown', (e) => {
     window.addEventListener('pointercancel', onUp);
 });
 
-// Hover tooltip on markers (mouse only — touch has tap-to-inspect)
+// Hover tooltip on markers (mouse only, touch has tap-to-inspect)
 canvas.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse' || e.buttons) return;
     const key = markerAt(e.clientX, e.clientY);
