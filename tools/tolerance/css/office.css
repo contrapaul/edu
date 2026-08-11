@@ -1,0 +1,147 @@
+/* The office scene */
+
+#sign{
+  position:absolute; left:250px; top:26px; width:540px; text-align:center;
+  font-size:13px; font-weight:600; letter-spacing:5px; color:#a49a89;
+}
+
+/* whiteboard */
+#board{
+  position:absolute; left:850px; top:70px; width:340px; height:200px;
+  background:var(--paper); border:1px solid var(--line); border-radius:3px;
+  box-shadow:0 6px 18px rgba(0,0,0,.10); padding:20px 22px;
+}
+#board .brow{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0;
+  border-bottom:1px solid #eee9df; }
+#board .brow:last-child{ border-bottom:none; }
+#board span{ font-size:11px; letter-spacing:2px; color:var(--muted); }
+#board b{ font-family:var(--mono); font-size:22px; font-weight:400; }
+#board .neg{ color:var(--bad); }
+
+/* time clock */
+#clock{
+  position:absolute; left:40px; top:96px; width:190px; height:166px;
+  background:#cfd3d6; border:1px solid #a8aeb3; border-radius:5px;
+  box-shadow:0 8px 20px rgba(0,0,0,.14);
+}
+#clock .cface{
+  position:absolute; left:20px; top:18px; width:150px; height:56px;
+  background:#22262b; border-radius:3px; display:flex; align-items:center; justify-content:center;
+}
+#clock .ctime{ font-family:var(--mono); font-size:26px; color:#7fd6a8; letter-spacing:2px; }
+#clock .cslot{ position:absolute; left:34px; top:88px; width:122px; height:7px;
+  background:#8d9298; border-radius:4px; box-shadow:inset 0 2px 3px rgba(0,0,0,.4); }
+#punch{
+  position:absolute; left:20px; top:112px; width:150px; height:38px;
+  background:var(--accent); color:#f2f6f4; border-radius:3px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:600; letter-spacing:3px;
+}
+#punch:hover{ filter:brightness(1.12); }
+#punch.off{ background:#9aa1a6; cursor:default; filter:none; }
+#clock.punched{ transform:translateY(2px); filter:brightness(1.1); }
+
+/* monitor */
+#monitor{
+  position:absolute; left:240px; top:90px; width:550px; height:340px;
+  background:#2a2e34; border-radius:8px; padding:12px;
+  box-shadow:0 14px 30px rgba(0,0,0,.22);
+}
+#screen{ position:absolute; left:14px; top:14px; width:522px; height:312px;
+  background:#f3f5f7; border-radius:2px; overflow:hidden; }
+#stand{ position:absolute; left:480px; top:430px; width:70px; height:40px; background:#22262b; }
+#base{ position:absolute; left:420px; top:466px; width:190px; height:12px;
+  background:#2a2e34; border-radius:6px; }
+
+#mailbar{
+  height:34px; background:#e3e7ea; border-bottom:1px solid #cfd5da;
+  display:flex; align-items:center; justify-content:space-between; padding:0 14px;
+  font-size:11px; font-weight:600; letter-spacing:3px; color:#5c646d;
+}
+#mailbar i{ font-style:normal; font-size:10px; letter-spacing:1px; color:#8a929a; }
+
+#maillist{ height:278px; }
+.mail{
+  position:relative; height:55px; border-bottom:1px solid #e4e8eb; cursor:grab;
+  padding:9px 14px;
+}
+.mail:hover{ background:#e9eef2; }
+.mail.taken{ opacity:.35; }
+.mfrom{ font-size:9px; font-weight:600; letter-spacing:2px; color:#8a929a; }
+.mline{ font-size:13px; color:#2c3138; margin-top:2px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:250px; }
+.mspec{ position:absolute; right:130px; top:15px; font-family:var(--mono); font-size:13px; color:#2c3138; }
+.mspec span{ color:#9aa2aa; }
+.mspec em{ font-style:normal; font-size:10px; color:#9aa2aa; }
+.mqty{ position:absolute; right:14px; top:11px; font-size:11px; color:#6d757d; text-align:right; width:100px; }
+.mrate{ position:absolute; right:14px; top:28px; font-family:var(--mono); font-size:13px;
+  color:var(--accent); text-align:right; width:100px; }
+
+/* work order card */
+.order{
+  position:absolute; width:200px; height:118px; background:var(--paper);
+  border:1px solid var(--line); border-radius:2px; padding:12px 14px;
+  box-shadow:0 10px 22px rgba(0,0,0,.22); z-index:60;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.order .ohead{ font-size:9px; font-weight:600; letter-spacing:2px; color:var(--muted); }
+.order .oprod{ font-size:26px; font-weight:600; letter-spacing:2px; margin-top:-2px; }
+.order .ospec{ font-family:var(--mono); font-size:13px; color:#3a3f47; margin-top:2px; }
+.order .ofoot{ position:absolute; left:14px; right:14px; bottom:10px;
+  display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+.order .ofoot span:last-child{ font-family:var(--mono); color:var(--accent); }
+.order .ohole{ position:absolute; right:12px; top:12px; width:11px; height:11px;
+  border-radius:50%; background:#e6e1d6; box-shadow:inset 0 1px 2px rgba(0,0,0,.2); }
+.order.dropped{ opacity:0; transform:scale(.92); }
+.order.shredded{ opacity:0; transform:translateY(60px) scaleY(.05); }
+.order.stacked{ position:absolute; left:0; top:0; cursor:grab; box-shadow:0 4px 10px rgba(0,0,0,.18); }
+
+#dragLayer{ position:absolute; inset:0; pointer-events:none; z-index:60; }
+#dragLayer .order{ pointer-events:none; }
+
+/* in tray */
+#intray{
+  position:absolute; left:850px; top:436px; width:330px; height:134px;
+  background:#9d927e; border:1px solid #86795f; border-radius:4px;
+  box-shadow:0 6px 14px rgba(0,0,0,.20);
+}
+#intray.hot{ background:#a89c85; border-color:#e0d6bf; }
+#intray .traylip{ position:absolute; left:0; bottom:0; width:330px; height:16px;
+  background:#8a7e66; border-radius:0 0 4px 4px; }
+#intray .traylabel{ position:absolute; left:12px; bottom:1px;
+  font-size:9px; font-weight:600; letter-spacing:3px; color:#e6ddc9; }
+#trayStack{ position:absolute; left:16px; top:10px; width:200px; height:118px; }
+#trayInfo{
+  position:absolute; left:850px; top:578px; width:330px;
+  font-size:12px; color:#4a4235; text-align:center;
+}
+#trayInfo b{ font-family:var(--mono); font-weight:400; color:#241f16; }
+#trayInfo .dim{ color:#7d7461; }
+
+/* shredder */
+#shredder{
+  position:absolute; left:850px; top:606px; width:330px; height:106px;
+  background:#43474c; border:1px solid #2f3237; border-radius:4px;
+  box-shadow:0 6px 14px rgba(0,0,0,.24);
+}
+#shredder.hot{ background:#53585e; border-color:#8d949c; }
+#shredder .shredmouth{ position:absolute; left:28px; top:22px; width:274px; height:9px;
+  background:#15171a; border-radius:5px; box-shadow:inset 0 2px 4px rgba(0,0,0,.7); }
+#shredder .shredlabel{ position:absolute; left:0; bottom:12px; width:330px; text-align:center;
+  font-size:9px; font-weight:600; letter-spacing:3px; color:#9aa1a8; }
+
+/* desk dressing */
+#nameplate{
+  position:absolute; left:60px; top:560px; width:250px; height:58px;
+  background:#3b3f45; border-radius:2px; box-shadow:0 5px 12px rgba(0,0,0,.24);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+}
+#nameplate b{ font-size:13px; font-weight:600; letter-spacing:4px; color:#e8e2d5; }
+#nameplate span{ font-size:10px; letter-spacing:2px; color:#9aa1a8; }
+
+#mug{ position:absolute; left:690px; top:548px; width:64px; height:64px;
+  background:#c8ccd0; border-radius:4px 4px 20px 20px; box-shadow:0 5px 12px rgba(0,0,0,.2); }
+#mug .mugtop{ position:absolute; left:7px; top:6px; width:50px; height:14px;
+  background:#5b4636; border-radius:50%; }
+#mug .mughandle{ position:absolute; right:-14px; top:16px; width:20px; height:26px;
+  border:5px solid #c8ccd0; border-left:none; border-radius:0 14px 14px 0; }

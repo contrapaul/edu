@@ -1,0 +1,112 @@
+/* The inspection bench, lit like a workstation rather than an office */
+
+.scene-bench{ background:var(--bg); color:var(--text); }
+
+.scene-bench .panel{ position:absolute; background:var(--panel);
+  border:1px solid var(--edge); border-radius:4px; }
+.scene-bench .panel.hot{ border-color:#5f6a78; background:#1d222a; }
+.plabel{ position:absolute; top:6px; left:10px; font-size:10px; font-weight:600;
+  letter-spacing:2px; color:var(--dim); }
+.readout{ position:absolute; top:2px; right:10px; font-family:var(--mono);
+  font-size:22px; color:var(--amber); }
+.readout u{ font-size:10px; color:var(--dim); letter-spacing:1px; text-decoration:none; }
+.hk{ position:absolute; bottom:5px; right:8px; font-family:var(--mono);
+  font-size:11px; color:#39414c; }
+.slot{ position:absolute; border:2px dashed #333a44; border-radius:3px; }
+
+/* header */
+#hud{ position:absolute; left:0; top:0; width:1240px; height:76px; }
+#dayLbl{ position:absolute; left:24px; top:24px; font-size:18px; font-weight:500;
+  letter-spacing:4px; color:#8b95a3; }
+#specs{ position:absolute; left:150px; top:10px; display:flex; gap:16px; }
+.card{ width:196px; }
+.card .cn{ font-size:9px; font-weight:600; letter-spacing:2px; color:var(--dim);
+  display:flex; align-items:center; gap:6px; }
+.card .cn i{ font-style:normal; font-size:10px; font-weight:700; color:#0f1216;
+  background:#8fa0b4; border-radius:2px; padding:0 4px; letter-spacing:0; }
+.card .cv{ font-family:var(--mono); font-size:16px; color:var(--text); margin:2px 0 4px; }
+.card .cv span{ color:var(--dim); }
+.card .cv em{ font-style:normal; font-size:10px; color:var(--dim); }
+.card .cb{ height:9px; border-radius:2px; }
+#money{ position:absolute; right:24px; top:16px; font-family:var(--mono);
+  font-size:26px; color:var(--text); }
+#cx{ position:absolute; right:24px; top:50px; display:flex; gap:6px; justify-content:flex-end; }
+.cxd{ width:11px; height:11px; border-radius:50%; background:var(--edge); }
+.cxd.on{ background:var(--red); }
+#prog{ position:absolute; left:0; top:74px; width:1240px; height:3px; background:#20242b; }
+#prog i{ display:block; height:100%; width:0; background:#4a5563; }
+
+/* tray */
+#tray{ position:absolute; left:24px; top:88px; width:980px; height:100px;
+  border:1px dashed var(--edge); border-radius:4px; }
+
+/* parts */
+.part{ position:absolute; border:1px solid #6d7f95; border-radius:3px; cursor:grab;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:var(--mono); color:#cdd6e2; z-index:20;
+  transition:transform .30s cubic-bezier(.2,.8,.3,1), width .30s ease; }
+.part.drag{ cursor:grabbing; z-index:100; transition:none; box-shadow:0 8px 24px rgba(0,0,0,.6); }
+.part .pn{ font-size:12px; letter-spacing:1px; }
+.part .pid{ font-size:9px; color:#8fa0b4; }
+.part .plot{ position:absolute; left:4px; top:3px; font-size:10px; font-weight:700;
+  color:#0f1216; background:#8fa0b4; border-radius:2px; padding:0 4px; }
+.part .tag{ font-size:13px; color:var(--amber); min-height:15px; }
+.part.out{ transition:transform .45s ease-in, opacity .45s ease-in; opacity:0; }
+.part.read{ border-color:var(--amber); }
+.part.hover{ box-shadow:0 0 0 2px #8b95a3; }
+
+/* bins */
+.bin{ position:absolute; border:2px solid #333a44; border-radius:4px;
+  display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px;
+  font-size:12px; font-weight:600; letter-spacing:4px; }
+#ship{ left:24px; top:436px; width:330px; height:140px; border-color:#2f5a3d; color:var(--good); }
+#scrap{ left:374px; top:436px; width:330px; height:140px; border-color:#5a3232; color:#c96a66; }
+.bin.hot{ background:#20262d; }
+
+/* rig A */
+#rigA{ left:24px; top:206px; width:250px; height:210px; }
+#aSlot{ left:88px; top:52px; width:74px; height:74px; }
+#bSlot{ left:22px; top:52px; width:76px; height:76px; }
+#cSlot{ left:20px; top:46px; width:76px; height:76px; }
+#aBar{ position:absolute; left:20px; top:136px; width:210px; height:5px;
+  background:#20242b; border-radius:3px; }
+#aBar i{ display:block; height:100%; width:0; background:#a06a3a; border-radius:3px; }
+#aLamp{ position:absolute; left:20px; top:154px; width:210px; height:26px; border-radius:3px;
+  background:#20242b; display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:600; letter-spacing:3px; color:var(--dim); }
+
+/* rig B */
+#rigB{ left:294px; top:206px; width:620px; height:210px; }
+#bLamp{ position:absolute; left:130px; top:4px; width:110px; height:20px; border-radius:2px;
+  background:#20242b; display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:600; letter-spacing:2px; color:var(--dim); }
+#bHandle{ position:absolute; background:#8c98a8; border-radius:2px; cursor:ew-resize; z-index:30; }
+#bAnvil{ position:absolute; width:12px; background:#8c98a8; border-radius:2px; }
+#bRule{ position:absolute; height:34px; }
+#bBand{ position:absolute; height:10px; border-radius:2px; }
+#bPtr{ position:absolute; width:2px; height:18px; background:#e8eef6; z-index:31; }
+
+/* rig C */
+#rigC{ left:934px; top:206px; width:282px; height:210px; }
+#cKnob{ position:absolute; border-radius:50%; background:#39414c; border:2px solid #5f6a78;
+  cursor:grab; z-index:30; }
+#cKnob .mk{ position:absolute; left:50%; top:3px; width:3px; height:15px;
+  background:#c9d2dd; margin-left:-1.5px; }
+#cNull{ position:absolute; height:22px; background:#12161b; border:1px solid var(--edge);
+  border-radius:2px; }
+#cNeedle{ position:absolute; width:3px; height:22px; background:var(--amber); z-index:31; }
+#cZero{ position:absolute; width:1px; height:22px; background:var(--dim); }
+
+/* line panel */
+#line{ left:724px; top:436px; width:492px; height:280px; }
+#chart{ position:absolute; left:20px; top:46px; }
+#leverTrack{ position:absolute; left:350px; top:56px; width:38px; height:150px;
+  background:#12161b; border:1px solid var(--edge); border-radius:19px; }
+#lever{ position:absolute; left:342px; top:56px; width:54px; height:38px; background:#5a3232;
+  border:1px solid #8a4a46; border-radius:6px; cursor:grab; z-index:30; }
+#leverTxt{ position:absolute; left:314px; top:216px; width:112px; text-align:center;
+  font-size:9px; font-weight:600; letter-spacing:2px; color:var(--dim); }
+
+/* fx */
+.float{ position:absolute; font-family:var(--mono); font-size:20px; pointer-events:none;
+  z-index:200; transition:transform .9s ease-out, opacity .9s ease-out; }

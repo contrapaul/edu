@@ -1,0 +1,86 @@
+/* Quality Assurance Simulator - shared shell, tokens and type */
+
+@font-face {
+  font-family:'Lexend'; font-weight:300; font-display:swap;
+  src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Lexend'; font-weight:400; font-display:swap;
+  src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Lexend'; font-weight:500; font-display:swap;
+  src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Lexend'; font-weight:600; font-display:swap;
+  src:url('/Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family:'Lexend'; font-weight:700; font-display:swap;
+  src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family:'JetBrains Mono'; font-weight:400; font-display:swap;
+  src:url('/Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family:'JetBrains Mono'; font-weight:700; font-display:swap;
+  src:url('/Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');
+}
+
+:root{
+  /* office, daylight */
+  --wall:#e7e4de;
+  --wall-2:#dedad3;
+  --desk:#b9ac97;
+  --desk-2:#a4977f;
+  --paper:#fbfaf7;
+  --line:#d6d1c7;
+  --ink:#22242a;
+  --muted:#7a7f88;
+  --accent:#2f6f5e;
+  --warn:#c07f28;
+  --bad:#b0402c;
+
+  /* bench, task lighting */
+  --bg:#0f1216;
+  --panel:#191d23;
+  --edge:#2e343d;
+  --text:#d8dde5;
+  --dim:#5d6673;
+  --amber:#e0a33a;
+  --good:#4caf6a;
+  --red:#d9534f;
+
+  --sans:'Lexend', ui-sans-serif, system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html,body{
+  width:100%; height:100%; overflow:hidden; background:#0b0d10;
+  font-family:var(--sans); color:var(--ink);
+  user-select:none; -webkit-user-select:none; touch-action:none;
+}
+#wrap{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+#stage{ position:relative; width:1240px; height:740px; transform-origin:center center; overflow:hidden; }
+
+.scene-root{ position:absolute; inset:0; animation:sceneIn .24s ease both; }
+@keyframes sceneIn{ from{ opacity:0; } to{ opacity:1; } }
+
+.btn{
+  font-family:var(--sans); font-size:14px; font-weight:500; letter-spacing:3px;
+  color:var(--paper); background:var(--accent); border:none; border-radius:3px;
+  padding:14px 42px; cursor:pointer;
+}
+.btn:hover{ filter:brightness(1.12); }
+.btn:active{ transform:translateY(1px); }
+
+/* shared room shell used by office and report */
+.wall{ position:absolute; left:0; top:0; width:1240px; height:400px;
+  background:linear-gradient(180deg,var(--wall) 0%,var(--wall-2) 100%); }
+.desk{ position:absolute; left:0; top:400px; width:1240px; height:340px;
+  background:linear-gradient(180deg,var(--desk) 0%,var(--desk-2) 100%); }
+.deskedge{ position:absolute; left:0; top:396px; width:1240px; height:8px;
+  background:linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,0)); }

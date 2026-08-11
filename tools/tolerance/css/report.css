@@ -1,0 +1,42 @@
+/* The shift report, printed and left on the desk */
+
+#paper{
+  position:absolute; left:230px; top:34px; width:780px; height:672px;
+  background:var(--paper); border:1px solid var(--line); border-radius:2px;
+  box-shadow:0 18px 40px rgba(0,0,0,.28); padding:26px 34px;
+}
+#phead{ border-bottom:2px solid var(--ink); padding-bottom:12px; margin-bottom:16px; }
+#phead .ptitle{ font-size:22px; font-weight:600; letter-spacing:4px; }
+#phead .pmeta{ font-size:11px; letter-spacing:2px; color:var(--muted); margin-top:4px; }
+#phead .pmeta span{ color:var(--line); }
+
+#pchart{ display:block; border-radius:2px; }
+.plegend{ display:flex; gap:18px; margin:9px 0 14px; font-size:10px; color:var(--muted); }
+.plegend span{ display:flex; align-items:center; gap:6px; }
+.plegend i{ width:9px; height:9px; border-radius:50%; display:block; }
+
+#ptable{ width:100%; border-collapse:collapse; table-layout:fixed; }
+#ptable td{ padding:7px 0; border-bottom:1px solid #eee9df; font-size:12px; }
+#ptable tr.bad td{ background:rgba(176,64,44,.05); }
+#ptable td.c{ font-size:9px; font-weight:600; letter-spacing:2px; color:var(--muted); width:140px; }
+#ptable td.c i{ font-style:normal; font-weight:700; color:var(--paper); background:var(--muted);
+  border-radius:2px; padding:1px 5px; margin-right:7px; letter-spacing:0; }
+#ptable td.p{ font-family:var(--mono); font-size:13px; width:56px; }
+#ptable td.n{ color:#4a4f57; width:104px; }
+#ptable td.n.e{ color:var(--muted); }
+#ptable tr.bad td.n.e{ color:var(--bad); font-weight:500; }
+#ptable td.m{ font-family:var(--mono); font-size:14px; text-align:right; width:120px; }
+
+#ptotals{ display:flex; gap:26px; align-items:baseline; margin-top:18px;
+  border-top:2px solid var(--ink); padding-top:14px; }
+#ptotals div{ display:flex; flex-direction:column; gap:2px; }
+#ptotals span{ font-size:10px; letter-spacing:2px; color:var(--muted); }
+#ptotals b{ font-family:var(--mono); font-size:17px; font-weight:400; }
+#ptotals .big b{ font-size:26px; }
+#ptotals .pos{ color:var(--accent); }
+#ptotals .neg{ color:var(--bad); }
+
+#pactions{ position:absolute; left:34px; right:34px; bottom:26px;
+  display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.pnote{ font-size:12px; color:var(--bad); max-width:420px; line-height:1.5; }
+#pactions .btn{ margin-left:auto; }
