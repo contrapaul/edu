@@ -3442,11 +3442,18 @@ details.p2-reveal summary::before { content: "▼ "; }
   font-size: clamp(0.42rem, calc(var(--orbit-d) * 0.0165), 0.52rem);
 }
 .ce-node:hover,
-.ce-node:focus,
-.ce-node.is-active {
+.ce-node:focus {
   border-color: var(--curr-color, var(--accent));
   background: var(--surface-2);
   box-shadow: var(--shadow-sm);
+  outline: none;
+}
+/* The selected stage stays highlighted while its detail is showing,
+   a step stronger than hover so it stays findable as the ring turns. */
+.ce-node.is-active {
+  border-color: var(--curr-color, var(--accent));
+  background: var(--surface-2);
+  box-shadow: 0 0 0 2px var(--curr-color, var(--accent));
   outline: none;
 }
 
@@ -3457,17 +3464,6 @@ details.p2-reveal summary::before { content: "▼ "; }
 @keyframes ce-orbit-counter {
   from { transform: rotate(calc(var(--angle) * -1)); }
   to   { transform: rotate(calc((var(--angle) + 360deg) * -1)); }
-}
-
-/* Hovering, focusing or activating any stage pauses the whole ring
-   so it holds still while its detail is showing. */
-.ce-orbit:has(.ce-node:hover) .ce-orbit-item,
-.ce-orbit:has(.ce-node:hover) .ce-node,
-.ce-orbit:has(.ce-node:focus) .ce-orbit-item,
-.ce-orbit:has(.ce-node:focus) .ce-node,
-.ce-orbit:has(.ce-node.is-active) .ce-orbit-item,
-.ce-orbit:has(.ce-node.is-active) .ce-node {
-  animation-play-state: paused;
 }
 
 [data-theme="win95"] .ce-orbit-hub,
