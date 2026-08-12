@@ -2797,6 +2797,233 @@ details.p2-reveal summary::before { content: "▼ "; }
   .drag-sort-zones { grid-template-columns: 1fr; }
 }
 
+/* ── SWOT QUADRANT BUILDER (C3.1.3) ──────────────────────────────
+   A 2x2 grid with axis labels, fed by dragging bubbles across from a
+   bank. Each quadrant lights an inner glow in its own colour once it
+   holds every observation that belongs to it; green and red are held
+   back for the correct and incorrect flashes so the two signals never
+   get confused with each other. ─────────────────────────────────── */
+.swot-build {
+  margin: 1.5rem 0 0.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  --swot-s: #2563eb;   /* strengths, blue */
+  --swot-w: #7c3aed;   /* weaknesses, purple */
+  --swot-o: #b45309;   /* opportunities, amber */
+  --swot-t: #be185d;   /* threats, magenta */
+}
+.swot-build-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.swot-build-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.swot-build-intro {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.swot-build-layout { display: flex; gap: 1rem; align-items: flex-start; }
+
+/* Grid plus its two axis strips. */
+.swot-build-grid-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0.35rem;
+}
+.swot-build-axis-x {
+  grid-column: 2; grid-row: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  text-align: center;
+}
+.swot-build-axis-y {
+  grid-column: 1; grid-row: 2;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.6rem;
+  align-items: center;
+}
+.swot-build-axis-y span { writing-mode: vertical-rl; transform: rotate(180deg); }
+.swot-build-axis-x span,
+.swot-build-axis-y span {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+}
+.swot-build-grid {
+  grid-column: 2; grid-row: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.swot-quad {
+  min-height: 148px;
+  padding: 0.6rem 0.7rem 0.7rem;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+.swot-quad:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.swot-quad.is-hovered { border-color: var(--accent); background: var(--accent-bg); }
+.swot-quad-head { display: flex; flex-direction: column; margin-bottom: 0.45rem; }
+.swot-quad-name {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.swot-quad-hint {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.swot-quad-slot { display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* Correct and incorrect are the only places green and red appear. */
+.swot-quad.flash-correct { border-style: solid; border-color: #86efac; background: var(--green-bg); }
+.swot-quad.flash-wrong {
+  border-style: solid; border-color: #fca5a5; background: #fee2e2;
+  animation: swot-shake 0.4s;
+}
+@keyframes swot-shake {
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+/* Finished quadrant: solid edge plus an inner glow in its own colour. */
+.swot-quad.is-complete { border-style: solid; }
+.swot-quad--s.is-complete { border-color: var(--swot-s); box-shadow: inset 0 0 20px -2px var(--swot-s); }
+.swot-quad--w.is-complete { border-color: var(--swot-w); box-shadow: inset 0 0 20px -2px var(--swot-w); }
+.swot-quad--o.is-complete { border-color: var(--swot-o); box-shadow: inset 0 0 20px -2px var(--swot-o); }
+.swot-quad--t.is-complete { border-color: var(--swot-t); box-shadow: inset 0 0 20px -2px var(--swot-t); }
+.swot-quad--s.is-complete .swot-quad-name { color: var(--swot-s); }
+.swot-quad--w.is-complete .swot-quad-name { color: var(--swot-w); }
+.swot-quad--o.is-complete .swot-quad-name { color: var(--swot-o); }
+.swot-quad--t.is-complete .swot-quad-name { color: var(--swot-t); }
+
+/* Bank */
+.swot-build-bank-wrap { flex: 0 0 clamp(200px, 32%, 290px); min-width: 0; }
+.swot-build-bank-title {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.swot-build-count { text-transform: none; letter-spacing: 0; }
+.swot-build-bank { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.swot-bubble {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: grab;
+  touch-action: none;   /* pointermove must not be eaten by scrolling */
+  transition: background var(--transition), border-color var(--transition), transform 0.22s ease;
+}
+.swot-bubble:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-2); }
+.swot-bubble:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.swot-bubble.is-selected {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.swot-bubble.is-dragging {
+  cursor: grabbing;
+  pointer-events: none;   /* so elementFromPoint sees the quadrant beneath */
+  transition: none;
+  z-index: 5;
+  position: relative;
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.swot-bubble.is-returning { border-color: #fca5a5; }
+.swot-bubble.is-placed {
+  cursor: default;
+  border-radius: var(--radius-sm);
+  border-style: solid;
+  background: var(--surface-2);
+  font-size: 0.74rem;
+  padding: 0.4rem 0.55rem;
+  opacity: 1;
+}
+
+.swot-build-status {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+  min-height: 2.6em;
+  margin: 0.9rem 0 0.5rem;
+}
+.swot-build-status.is-complete { color: var(--green); font-weight: 600; }
+
+.swot-build-reset {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+.swot-build-reset:hover { border-color: var(--border-strong); color: var(--text); }
+
+@media (max-width: 720px) {
+  .swot-build-layout { flex-direction: column; }
+  .swot-build-bank-wrap { flex: 1 1 auto; width: 100%; }
+  .swot-quad { min-height: 120px; }
+}
+
+[data-theme="win95"] .swot-build,
+[data-theme="dos"] .swot-build,
+[data-theme="xbox"] .swot-build,
+[data-theme="nightmare"] .swot-build,
+[data-theme="hannah"] .swot-build { border-radius: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .swot-quad.flash-wrong { animation: none; }
+  .swot-bubble { transition: background var(--transition), border-color var(--transition); }
+}
+
 /* ── BEFORE/AFTER COMPARE SLIDER (A2.2.3) ────────────────────── */
 .compare-slider-widget {
   margin: 1.5rem 0 0.5rem;

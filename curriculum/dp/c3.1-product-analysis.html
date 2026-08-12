@@ -159,10 +159,25 @@
 <br>
 <p><strong>Porter's Five Forces</strong> (Michael Porter, 1979) complements SWOT by analysing competitive intensity at the industry level: (1) competitive rivalry, (2) supplier power, (3) buyer power, (4) threat of new entry, and (5) threat of substitution. While SWOT analyses a specific product, Five Forces analyses the whole industry.</p>
 
-<div class="planned-feature">
-<div class="planned-feature-label">Planned Addition</div>
-<div class="planned-feature-title">SWOT quadrant builder</div>
-<p>Pick a product, then drag your own observations into the four quadrants, strengths, weaknesses, opportunities, threats, with prompts to help separate internal factors from external ones, the most common mistake when this framework is first learned.</p>
+<div class="swot-build" id="swot-dd">
+<div class="swot-build-label">Interactive</div>
+<div class="swot-build-title">SWOT Quadrant Builder: DumplingDrone</div>
+<p class="swot-build-intro"><strong>DumplingDrone</strong> delivers hot dumplings by drone, straight to your window, in about six minutes. Twelve observations about the business are sitting in the bank. Drag each one into the quadrant where it belongs, or select it and then select a quadrant. Watch the axis labels: the trap in SWOT is putting an external factor in an internal quadrant.</p>
+
+<div class="swot-build-layout">
+  <div class="swot-build-grid-wrap">
+    <div class="swot-build-axis-x"><span>Positive</span><span>Negative</span></div>
+    <div class="swot-build-axis-y"><span>Internal</span><span>External</span></div>
+    <div class="swot-build-grid" id="swot-dd-grid"></div>
+  </div>
+  <div class="swot-build-bank-wrap">
+    <div class="swot-build-bank-title">Observations <span class="swot-build-count" id="swot-dd-count"></span></div>
+    <div class="swot-build-bank" id="swot-dd-bank"></div>
+  </div>
+</div>
+
+<div class="swot-build-status" id="swot-dd-status" aria-live="polite"></div>
+<button class="swot-build-reset" type="button" id="swot-dd-reset">Reset</button>
 </div>
 
 </div>
