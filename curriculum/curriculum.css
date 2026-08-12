@@ -2823,14 +2823,6 @@ details.p2-reveal summary::before { content: "▼ "; }
   --swot-o: #b45309;   /* opportunities, amber */
   --swot-t: #be185d;   /* threats, magenta */
 }
-.swot-build-label {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-bottom: 0.3rem;
-}
 .swot-build-title {
   font-family: var(--font-display);
   font-size: 1.05rem;
@@ -2929,7 +2921,7 @@ details.p2-reveal summary::before { content: "▼ "; }
   align-items: center;
   min-height: 3.6rem;
   border: 1px dashed var(--border-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
 }
 .swot-slot.is-filled { border-color: transparent; }
@@ -2987,7 +2979,7 @@ details.p2-reveal summary::before { content: "▼ "; }
   color: var(--text);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   cursor: grab;
   touch-action: none;   /* pointermove must not be eaten by scrolling */
   transition: background var(--transition), border-color var(--transition), transform 0.22s ease;
@@ -3010,8 +3002,8 @@ details.p2-reveal summary::before { content: "▼ "; }
   border-color: var(--accent);
 }
 .swot-bubble.is-returning { border-color: #fca5a5; }
-/* A placed observation keeps the pill shape it had in the bank, so the same
-   object is recognisable in its new home. Only the cursor changes. */
+/* A placed observation keeps the shape it had in the bank, so the same object
+   stays recognisable in its new home. Only the cursor changes. */
 .swot-bubble.is-placed {
   cursor: default;
   background: var(--surface-2);
