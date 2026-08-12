@@ -1,8 +1,8 @@
 /* c3.1.js: widget JS for C3.1 Product Analysis and Evaluation.
    Case-study modals and the .case-photo lightbox are handled globally
-   by curriculum.js, so this file only covers the 3.1.3 SWOT builder. */
+   by curriculum.js, so this file only covers the 3.1.3 SWOT Matcher. */
 
-/* ── SWOT QUADRANT BUILDER (3.1.3) ────────────────────────────────
+/* ── SWOT MATCHER (3.1.3) ─────────────────────────────────────────
    Pointer-driven dragging rather than the shared drag-sort.js engine,
    which places by click and lays its zones out in a row. A SWOT needs
    a 2x2 grid with axis labels, since the internal/external split is
@@ -13,7 +13,13 @@
    reachable. Pointer events cover mouse, touch and pen, and a press
    that never moves falls through to the same select-then-place
    interaction the other sorting widgets use, which keeps the whole
-   thing usable from the keyboard. ──────────────────────────────── */
+   thing usable from the keyboard.
+
+   Each quadrant holds three fixed slots. While a bubble is dragged
+   the nearest empty slot under the pointer lights up, so the drop
+   target is always visible before release. That highlight is purely
+   geometric and never consults the answer, otherwise hovering would
+   quietly reveal whether the observation belongs there. ─────────── */
 (function () {
   'use strict';
 
@@ -22,17 +28,18 @@
 
   var DRAG_THRESHOLD = 5;   // px before a press counts as a drag
   var FLASH_MS = 500;
+  var PER_QUADRANT = 3;
 
   var QUADRANTS = [
-    { id: 's', label: 'Strengths',     hint: 'Internal, positive' },
-    { id: 'w', label: 'Weaknesses',    hint: 'Internal, negative' },
-    { id: 'o', label: 'Opportunities', hint: 'External, positive' },
-    { id: 't', label: 'Threats',       hint: 'External, negative' }
+    { id: 's', label: 'Strengths',     hint: 'internal, positive' },
+    { id: 'w', label: 'Weaknesses',    hint: 'internal, negative' },
+    { id: 'o', label: 'Opportunities', hint: 'external, positive' },
+    { id: 't', label: 'Threats',       hint: 'external, negative' }
   ];
 
   var ITEMS = [
     { id: 'i1', zone: 's', text: 'Delivery takes six minutes because the drones ignore traffic entirely.',
-      why: 'A strength: it comes from how DumplingDrone is built, so the company controls it.' },
+      why: 'A strength: it comes from how Dumpalicious is built, so the company controls it.' },
     { id: 'i2', zone: 's', text: 'Dumplings arrive hotter than any scooter can manage.',
       why: 'A strength: this is the product performing well, which is internal.' },
     { id: 'i3', zone: 's', text: 'The landing is fun to watch, and customers film it and post it.',
@@ -46,29 +53,29 @@
       why: 'A weakness: their delivery method cannot reach a large part of the market.' },
 
     { id: 'i7', zone: 'o', text: 'New campuses are opening with poor road access for deliveries.',
-      why: 'An opportunity: a change in the market that DumplingDrone did not create.' },
+      why: 'An opportunity: a change in the market that Dumpalicious did not create.' },
     { id: 'i8', zone: 'o', text: 'Shopping malls are offering cheap rooftop space to attract new services.',
       why: 'An opportunity: someone else is offering something the company could take up.' },
     { id: 'i9', zone: 'o', text: 'Public curiosity about drone delivery is high and still rising.',
-      why: 'An opportunity: a external trend they can ride, not a feature they built.' },
+      why: 'An opportunity: an external trend they can ride, not a feature they built.' },
 
     { id: 'i10', zone: 't', text: 'Flight restrictions over residential areas are being drafted.',
       why: 'A threat: regulation is outside the company and could ground the whole idea.' },
     { id: 'i11', zone: 't', text: 'Established delivery apps already own the customer relationship.',
-      why: 'A threat: a competitor advantage that exists whatever DumplingDrone does.' },
+      why: 'A threat: a competitor advantage that exists whatever Dumpalicious does.' },
     { id: 'i12', zone: 't', text: 'A rival is testing a drone that carries twice as much.',
       why: 'A threat: competition, which is external and outside their control.' }
   ];
 
   var gridEl = document.getElementById('swot-dd-grid');
   var bankEl = document.getElementById('swot-dd-bank');
-  var countEl = document.getElementById('swot-dd-count');
   var statusEl = document.getElementById('swot-dd-status');
   var resetBtn = document.getElementById('swot-dd-reset');
 
-  var quadParts = {};        // zone id -> { el, slot, filled }
+  var quadParts = {};        // zone id -> { el, slots: [] }
   var selected = null;       // bubble element awaiting a click-to-place
   var drag = null;           // active pointer drag
+  var targetSlot = null;     // slot currently lit as the drop target
   var placed = 0, wrong = 0;
 
   function shuffle(arr) {
@@ -80,10 +87,6 @@
     return a;
   }
 
-  function targetCount(zoneId) {
-    return ITEMS.filter(function (it) { return it.zone === zoneId; }).length;
-  }
-
   // ── Build ───────────────────────────────────────────────────────
   function build() {
     gridEl.innerHTML = '';
@@ -91,26 +94,34 @@
     statusEl.textContent = '';
     statusEl.classList.remove('is-complete');
     quadParts = {};
-    selected = null; drag = null; placed = 0; wrong = 0;
+    selected = null; drag = null; targetSlot = null; placed = 0; wrong = 0;
 
     QUADRANTS.forEach(function (q) {
       var el = document.createElement('div');
       el.className = 'swot-quad swot-quad--' + q.id;
       el.setAttribute('role', 'button');
       el.setAttribute('tabindex', '0');
-      el.setAttribute('aria-label', q.label + '. ' + q.hint + '. Select an observation first, then select this quadrant.');
+      el.setAttribute('aria-label', q.label + ', ' + q.hint +
+        '. Select an observation first, then select this quadrant.');
       el.dataset.zone = q.id;
 
       var head = document.createElement('div');
       head.className = 'swot-quad-head';
-      head.innerHTML = '<span class="swot-quad-name">' + q.label + '</span>' +
-                       '<span class="swot-quad-hint">' + q.hint + '</span>';
+      head.textContent = q.label;
 
-      var slot = document.createElement('div');
-      slot.className = 'swot-quad-slot';
+      var slotBox = document.createElement('div');
+      slotBox.className = 'swot-quad-slots';
+
+      var slots = [];
+      for (var i = 0; i < PER_QUADRANT; i++) {
+        var slot = document.createElement('div');
+        slot.className = 'swot-slot';
+        slotBox.appendChild(slot);
+        slots.push(slot);
+      }
 
       el.appendChild(head);
-      el.appendChild(slot);
+      el.appendChild(slotBox);
       gridEl.appendChild(el);
 
       el.addEventListener('click', function () { attemptPlace(q.id); });
@@ -118,11 +129,10 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); attemptPlace(q.id); }
       });
 
-      quadParts[q.id] = { el: el, slot: slot, filled: 0 };
+      quadParts[q.id] = { el: el, slots: slots };
     });
 
     shuffle(ITEMS).forEach(function (item) { bankEl.appendChild(buildBubble(item)); });
-    updateCount();
   }
 
   function buildBubble(item) {
@@ -147,9 +157,8 @@
     return null;
   }
 
-  function updateCount() {
-    var left = ITEMS.length - placed;
-    countEl.textContent = left ? '(' + left + ' left)' : '(all placed)';
+  function emptySlots(zoneId) {
+    return quadParts[zoneId].slots.filter(function (s) { return !s.firstChild; });
   }
 
   // ── Selection ───────────────────────────────────────────────────
@@ -166,47 +175,49 @@
   }
 
   // ── Placement ───────────────────────────────────────────────────
-  function attemptPlace(zoneId, bubble) {
+  function attemptPlace(zoneId, bubble, slot) {
     var b = bubble || selected;
     if (!b) return;
     var item = itemFor(b);
     var parts = quadParts[zoneId];
+    var free = emptySlots(zoneId);
 
-    if (item.zone === zoneId) {
+    if (item.zone === zoneId && free.length) {
+      var dest = (slot && !slot.firstChild) ? slot : free[0];
       clearSelection();
       b.classList.remove('is-selected');
       b.disabled = true;
       b.classList.add('is-placed');
       b.style.transform = '';
-      parts.slot.appendChild(b);
-      parts.filled++;
+      dest.appendChild(b);
+      dest.classList.add('is-filled');
       placed++;
       flash(parts.el, 'flash-correct');
       statusEl.textContent = item.why;
       statusEl.classList.remove('is-complete');
 
-      if (parts.filled === targetCount(zoneId)) parts.el.classList.add('is-complete');
+      if (!emptySlots(zoneId).length) parts.el.classList.add('is-complete');
       if (placed === ITEMS.length) {
         statusEl.textContent = wrong === 0
           ? 'All twelve placed, and not a single one in the wrong quadrant. That is the internal and external split understood.'
           : 'All twelve placed, with ' + wrong + ' wrong ' + (wrong === 1 ? 'drop' : 'drops') + ' along the way. Look back at the ones that caught you out: they are almost always the internal and external mix-ups.';
         statusEl.classList.add('is-complete');
       }
-      updateCount();
     } else {
       wrong++;
       clearSelection();
       b.classList.remove('is-selected');
       returnToBank(b);
       flash(parts.el, 'flash-wrong');
-      statusEl.textContent = 'Not that quadrant. ' + quadHintFor(zoneId) + ' Is this observation something DumplingDrone controls, or something happening around it?';
+      statusEl.textContent = 'Not that quadrant. ' + quadHintFor(zoneId) +
+        ' Is this observation something Dumpalicious controls, or something happening around it?';
       statusEl.classList.remove('is-complete');
     }
   }
 
   function quadHintFor(zoneId) {
     for (var i = 0; i < QUADRANTS.length; i++) {
-      if (QUADRANTS[i].id === zoneId) return QUADRANTS[i].label + ' holds ' + QUADRANTS[i].hint.toLowerCase() + ' factors.';
+      if (QUADRANTS[i].id === zoneId) return QUADRANTS[i].label + ' holds ' + QUADRANTS[i].hint + ' factors.';
     }
     return '';
   }
@@ -259,16 +270,17 @@
     bubble.removeEventListener('pointermove', onPointerMove);
     bubble.removeEventListener('pointerup', onPointerUp);
     bubble.removeEventListener('pointercancel', onPointerUp);
-    clearHighlight();
     drag = null;
 
-    if (!moved) return;   // a tap: the click handler takes it from here
+    if (!moved) { clearHighlight(); return; }   // a tap: the click handler takes it
 
     // Find the drop target while the bubble still carries is-dragging, and with
     // it pointer-events:none. Drop that class first and the bubble sits under
     // the cursor as a hit-testable element again, so elementFromPoint returns
     // the bubble rather than the quadrant underneath it and every drop misses.
     var quad = quadUnder(e.clientX, e.clientY);
+    var slot = targetSlot;
+    clearHighlight();
 
     bubble.classList.remove('is-dragging');
     // The browser fires a click after the drag gesture; swallow that one so a
@@ -277,8 +289,9 @@
     // a flag left set would eat the user's next genuine click.
     bubble.dataset.suppressClick = '1';
     setTimeout(function () { bubble.dataset.suppressClick = ''; }, 350);
+
     if (quad) {
-      attemptPlace(quad.dataset.zone, bubble);
+      attemptPlace(quad.dataset.zone, bubble, slot);
     } else {
       returnToBank(bubble);
     }
@@ -291,14 +304,38 @@
     return el ? el.closest('.swot-quad') : null;
   }
 
+  // Nearest empty slot in the quadrant under the pointer. Distance only:
+  // this must not depend on whether the answer is right, or the highlight
+  // would leak the answer before the student commits to it.
+  function nearestSlot(quad, x, y) {
+    var free = emptySlots(quad.dataset.zone);
+    var best = null, bestDist = Infinity;
+    free.forEach(function (slot) {
+      var r = slot.getBoundingClientRect();
+      var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      var d = (cx - x) * (cx - x) + (cy - y) * (cy - y);
+      if (d < bestDist) { bestDist = d; best = slot; }
+    });
+    return best;
+  }
+
   function highlightUnder(x, y) {
     var quad = quadUnder(x, y);
+    var slot = quad ? nearestSlot(quad, x, y) : null;
+
+    if (slot !== targetSlot) {
+      if (targetSlot) targetSlot.classList.remove('is-target');
+      targetSlot = slot;
+      if (targetSlot) targetSlot.classList.add('is-target');
+    }
     QUADRANTS.forEach(function (q) {
       quadParts[q.id].el.classList.toggle('is-hovered', quadParts[q.id].el === quad);
     });
   }
 
   function clearHighlight() {
+    if (targetSlot) targetSlot.classList.remove('is-target');
+    targetSlot = null;
     QUADRANTS.forEach(function (q) { quadParts[q.id].el.classList.remove('is-hovered'); });
   }
 
