@@ -1,0 +1,68 @@
+/* Self contained base for /tools/pcparts/.
+   This tool deliberately does not load the site stylesheet or the site theme
+   system. Nothing here should be lifted into the rest of the site, and nothing
+   from the rest of the site is relied on. */
+
+@font-face {
+  font-family: 'PxVGA';
+  src: url('../assets/WebPlus_IBM_VGA_8x16.woff') format('woff');
+  font-display: swap;
+}
+
+:root {
+  --bg:        #0a0c11;
+  --panel:     #141922;
+  --panel-alt: #1a2029;
+  --line:      #262d3a;
+  --line-soft: #1b212b;
+  --text:      #dfe4ec;
+  --dim:       #8a94a6;
+  --dimmer:    #5b6577;
+  --accent:    #38bdf8;
+  --accent-dk: #0b6a99;
+
+  --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --vga:  'PxVGA', var(--mono);
+
+  --ease: 150ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── minimal header ──────────────────────────────────── */
+
+.bar {
+  display: flex;
+  align-items: center;
+  height: 2.75rem;
+  padding: 0 1.1rem;
+  border-bottom: 1px solid var(--line);
+  background: #070910;
+  flex: 0 0 auto;
+}
+
+.bar a {
+  font-family: var(--vga);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color var(--ease);
+}
+
+.bar a:hover { color: var(--accent); }
+
+.bar a::before {
+  content: "\2190";
+  margin-right: 0.5rem;
+}

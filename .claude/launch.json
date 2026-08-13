@@ -2,28 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "edu",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "5500"],
-      "port": 5500
-    },
-    {
-      "name": "edu-nocache",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["serve_nocache.py", "5501"],
-      "port": 5501
-    },
-    {
-      "name": "edu-py3",
+      "name": "edu-static",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "5502"],
-      "port": 5502
-    },
-    {
-      "name": "edu-nocache-py3",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["serve_nocache.py", "5503"],
-      "port": 5503
+      "runtimeArgs": ["-m", "http.server", "8899"],
+      "port": 8899
     }
   ]
 }
