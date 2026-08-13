@@ -199,8 +199,8 @@
       if (!emptySlots(zoneId).length) parts.el.classList.add('is-complete');
       if (placed === ITEMS.length) {
         statusEl.textContent = wrong === 0
-          ? 'All twelve placed, and not a single one in the wrong quadrant. That is the internal and external split understood.'
-          : 'All twelve placed, with ' + wrong + ' wrong ' + (wrong === 1 ? 'drop' : 'drops') + ' along the way. Look back at the ones that caught you out: they are almost always the internal and external mix-ups.';
+          ? 'SWOT Accomplished!'
+          : 'SWOT Accomplished, with ' + wrong + ' wrong ' + (wrong === 1 ? 'drop' : 'drops') + ' along the way.';
         statusEl.classList.add('is-complete');
       }
     } else {
