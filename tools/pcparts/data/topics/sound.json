@@ -1,0 +1,170 @@
+{
+  "id": "sound",
+  "title": "Sound",
+  "span": "1981 to 2025",
+  "intro": "For about fifteen years the sound card was a real purchase, argued over in magazines and saved up for. Then the capability shrank into a chip that costs a manufacturer under a pound, and the whole category vanished. It is the clearest example on this machine of a component being absorbed rather than improved.",
+  "blocks": [
+    {
+      "type": "era",
+      "years": "1981 to 1988",
+      "title": "One speaker, one tone at a time",
+      "text": "The IBM PC had a small speaker driven by a timer chip. It could produce square waves at one pitch at a time, and it was intended for warning beeps rather than music. Everything else was a workaround."
+    },
+    {
+      "type": "entry",
+      "year": 1981,
+      "name": "PC speaker",
+      "key": true,
+      "spec": "One channel, square wave, driven by the 8253 timer",
+      "text": "A single tone with no volume control. Programmers eventually learned to switch it on and off thousands of times a second to fake different volumes, which produced recognisable speech and music on hardware designed to beep."
+    },
+    {
+      "type": "entry",
+      "year": 1987,
+      "name": "AdLib",
+      "key": true,
+      "spec": "Yamaha YM3812, 9 channels, FM synthesis, $195",
+      "text": "The first sound card most people heard. FM synthesis builds a sound by using one waveform to modulate another, which is efficient in memory and gives a distinctive bright, metallic tone that anyone who played PC games in this period recognises instantly."
+    },
+    {
+      "type": "entry",
+      "year": 1987,
+      "name": "Roland MT-32",
+      "spec": "32 voices, sample-based synthesis, $695",
+      "text": "Far better than AdLib and priced like a musical instrument, which it essentially was. A small number of games supported it and sounded years ahead as a result."
+    },
+    {
+      "type": "era",
+      "years": "1989 to 1996",
+      "title": "Sound Blaster becomes the standard by being good enough and everywhere",
+      "text": "Creative Labs did not build the best sounding card. It built one that was compatible with AdLib, added recorded digital audio, and sold hard enough that games listed it first. For a decade, Sound Blaster compatible was a specification in its own right."
+    },
+    {
+      "type": "entry",
+      "year": 1989,
+      "name": "Sound Blaster",
+      "key": true,
+      "spec": "AdLib compatible FM, 8-bit mono digital audio at 22 kHz, game port",
+      "text": "The addition that mattered was digital audio, meaning actual recorded sound rather than synthesised notes. Speech in games starts here."
+    },
+    {
+      "type": "entry",
+      "year": 1991,
+      "name": "Sound Blaster Pro",
+      "spec": "Stereo FM, 8-bit stereo audio at 22 kHz",
+      "text": "Stereo, which matters more for a game than better quality mono because it tells you which direction something is coming from."
+    },
+    {
+      "type": "entry",
+      "year": 1992,
+      "name": "Sound Blaster 16",
+      "spec": "16-bit, 44.1 kHz stereo, CD quality",
+      "text": "44.1 kHz at 16 bits is the compact disc standard, so from here the card was no longer the limiting factor in how good a recording could sound. Everything after this is about what else the card can do."
+    },
+    {
+      "type": "entry",
+      "year": 1992,
+      "name": "Gravis Ultrasound",
+      "key": true,
+      "spec": "32 voices, wavetable, 256 KB to 1 MB on-card RAM",
+      "text": "Instead of synthesising instruments it played short recordings of real ones loaded into its own memory. It sounded dramatically better than FM, and it was poorly supported outside the demoscene and a handful of games, which is a recurring fate for technically superior hardware."
+    },
+    {
+      "type": "entry",
+      "year": 1994,
+      "name": "Sound Blaster AWE32",
+      "spec": "EMU8000 wavetable, 1 MB samples, expandable to 28 MB",
+      "text": "Creative answering Gravis with wavetable of its own, on a card long enough to be awkward in most cases."
+    },
+    {
+      "type": "era",
+      "years": "1997 to 2006",
+      "title": "Positional audio, and the beginning of the end",
+      "text": "The last real innovation was placing sounds in three dimensions and simulating how a room affects them. At the same time, the capability to play plain stereo audio moved onto the motherboard for free, and once that happened only the extras justified a card."
+    },
+    {
+      "type": "entry",
+      "year": 1997,
+      "name": "Aureal A3D and Creative EAX",
+      "spec": "3D positional audio, reverb by environment type",
+      "text": "Sounds gained a position in the game world, and the card modelled how they would reach each ear, including echo appropriate to a cave or a corridor. Aureal's implementation was widely held to be better; Creative sued, won on appeal, and bought the remains."
+    },
+    {
+      "type": "entry",
+      "year": 1997,
+      "name": "AC'97",
+      "key": true,
+      "spec": "Onboard codec, 16-bit 48 kHz, near zero cost",
+      "text": "Intel's specification for putting basic audio on every motherboard. It sounded mediocre and it was free, and free is what settled the question for most buyers."
+    },
+    {
+      "type": "entry",
+      "year": 1998,
+      "name": "Sound Blaster Live!",
+      "spec": "EMU10K1, hardware EAX, 32 MB sample support",
+      "text": "The best selling card of the era and the last one that most PC buyers seriously considered."
+    },
+    {
+      "type": "entry",
+      "year": 2004,
+      "name": "Intel High Definition Audio",
+      "spec": "Onboard, 24-bit 192 kHz, 8 channels",
+      "text": "Onboard audio now exceeded the specifications of the expensive cards from a few years earlier. The remaining argument for a card was processing, not fidelity."
+    },
+    {
+      "type": "entry",
+      "year": 2005,
+      "name": "Sound Blaster X-Fi",
+      "spec": "10,000 MIPS audio processor, 64 MB X-RAM",
+      "text": "A powerful dedicated audio processor arriving just as the reason to have one was about to be removed."
+    },
+    {
+      "type": "era",
+      "years": "2007 to 2025",
+      "title": "Removed by an operating system update",
+      "text": "Windows Vista rewrote how audio worked. Applications no longer talked to the sound hardware directly, so a card could not accelerate anything, and the positional effects that justified buying one stopped functioning in existing games. A whole product category was ended by a software decision rather than by better hardware."
+    },
+    {
+      "type": "entry",
+      "year": 2007,
+      "name": "Windows Vista removes hardware audio paths",
+      "key": true,
+      "spec": "DirectSound3D hardware acceleration dropped",
+      "text": "Audio mixing moved into the operating system, which is better for stability and for having several programs make noise at once. It also meant the expensive processor on your sound card had nothing left to do."
+    },
+    {
+      "type": "entry",
+      "year": 2010,
+      "name": "Onboard becomes the default",
+      "spec": "Realtek ALC series, integrated into the chipset",
+      "text": "One chip on the motherboard, costing the manufacturer well under a pound, handling everything a Sound Blaster 16 did and considerably more."
+    },
+    {
+      "type": "entry",
+      "year": 2015,
+      "name": "USB headsets and external DACs",
+      "spec": "Conversion moves into the headset or a separate box",
+      "text": "The remaining reason to avoid onboard audio is electrical interference from the rest of the machine. Moving the conversion outside the case solves that better than a card inside it can, which is why the enthusiast market went external."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "Spatial audio returns in software",
+      "spec": "Dolby Atmos, Windows Sonic, engine-level HRTF",
+      "text": "Positional audio came back, calculated by the main processor and by the game engine. The capability survived; the hardware that used to provide it did not."
+    },
+    {
+      "type": "entry",
+      "year": 2025,
+      "name": "Three jacks on the back panel",
+      "spec": "Onboard codec, headphone, microphone, line in",
+      "text": "Look at the rear ports on this machine. That is the whole of what was once a shelf in every computer shop."
+    },
+    {
+      "type": "link",
+      "to": "expansion",
+      "label": "Other cards that disappeared",
+      "text": "The sound card is not the only thing that was absorbed into hardware you already own."
+    }
+  ]
+}

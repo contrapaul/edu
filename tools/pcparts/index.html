@@ -14,6 +14,8 @@
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="css/pcparts.css">
 <link rel="stylesheet" href="css/machine.css">
+<link rel="stylesheet" href="css/explore.css">
+<link rel="stylesheet" href="css/tools.css">
 </head>
 <body class="pc-machine">
 
@@ -30,6 +32,17 @@
   </div>
 
   <div class="tray" id="tray"></div>
+</div>
+
+<div class="explore" id="explore" role="dialog" aria-labelledby="explore-title" hidden>
+  <header class="explore-bar">
+    <h2 id="explore-title"></h2>
+    <span class="explore-span" id="explore-span"></span>
+    <button type="button" class="explore-back" id="explore-back">Back to the machine</button>
+  </header>
+  <div class="explore-scroll" id="explore-scroll">
+    <div class="explore-inner" id="explore-inner"></div>
+  </div>
 </div>
 
 <script type="module" src="js/machine.js"></script>

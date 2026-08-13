@@ -149,22 +149,6 @@
 
 <div class="topic-link-blurb">Standardised, interchangeable parts are also what makes high-volume automated production possible; see <a href="b4.1-production-systems.html">B4.1 Production Systems</a> for how this plays out in modern manufacturing.</div>
 
-<div class="hub-group-label"><span>Case Study</span></div>
-<div class="case-study-grid">
-
-<article class="case-study-card" data-case="therac-25" data-modal="modal-therac-25" role="button" tabindex="0" aria-haspopup="dialog">
-  <figure class="case-study-img">
-    <img src="" alt="The Therac-25 radiation therapy machine">
-  </figure>
-  <div class="case-study-content">
-    <h4>The Therac-25</h4>
-    <p>A safety interlock removed in software, and the overdoses that followed.</p>
-    <span class="case-study-btn tool-btn-sm">Read case study →</span>
-  </div>
-</article>
-
-</div>
-
 </div>
 </div><!-- /1.1.2 -->
 
@@ -276,14 +260,14 @@
 
 <div class="quiz-q" data-answer="D">
 <div class="quiz-q-num">Q6 &middot; 1.1.2 Safety &amp; Standardisation</div>
-<div class="quiz-q-text">The Therac-25 radiation overdoses are used as a case study because they show that:</div>
+<div class="quiz-q-text">Honoré Blanc's 1778 muskets and the grade stamped on a modern bolt head rely on the same underlying principle. What is it?</div>
 <div class="quiz-options">
-<button class="quiz-option" data-opt="A">A) Software control is inherently safer than mechanical control</button>
-<button class="quiz-option" data-opt="B">B) Operators are responsible for interpreting cryptic error codes correctly</button>
-<button class="quiz-option" data-opt="C">C) Radiation therapy should never be automated at all</button>
-<button class="quiz-option" data-opt="D">D) Removing the hardware interlock left nothing independent to catch the software fault when it occurred</button>
+<button class="quiz-option" data-opt="A">A) Every part is made unique so that it can be traced back to its maker</button>
+<button class="quiz-option" data-opt="B">B) A product is designed so that only its original manufacturer is able to repair it</button>
+<button class="quiz-option" data-opt="C">C) Safety testing is carried out after production rather than during design</button>
+<button class="quiz-option" data-opt="D">D) Parts made to a shared specification are identical within a tolerance, so they can be swapped without hand fitting</button>
 </div>
-<div class="quiz-answer">Two earlier machines carried the same software bug harmlessly, because a physical interlock prevented the beam firing unless the spreading plate was in position. The Therac-25 deleted that safeguard and trusted the software alone, so a rare sequence of keystrokes could deliver roughly a hundred times the intended dose while the console showed only an unexplained fault code.</div>
+<div class="quiz-answer">Before interchangeability, every musket was hand fitted, so a broken part meant a trip to a gunsmith. Blanc used standardised jigs and gauges to make parts identical within a tolerance, which meant a replacement from any compatible musket simply fitted. A bolt grade stamped on the head does the same job today: an M6 bolt made in one country threads into a nut made in another. That is what makes global supply chains, spare parts and recalls possible, so standardisation serves manufacturers as directly as it serves user safety.</div>
 </div>
 
 <div class="quiz-q" data-answer="B">
@@ -522,37 +506,6 @@
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
-
-<div class="case-modal" id="modal-therac-25" role="dialog" aria-modal="true" aria-labelledby="modal-therac-25-title">
-  <div class="case-modal-overlay" tabindex="-1"></div>
-  <div class="case-modal-content">
-    <header class="case-modal-header">
-      <h2 id="modal-therac-25-title">Case Study: The Therac-25</h2>
-      <button class="case-modal-close" aria-label="Close case study">&times;</button>
-    </header>
-    <div class="case-modal-body">
-
-      <figure class="case-photo">
-        <a href="" target="_blank" rel="noopener"><img src="" alt="The Therac-25 radiation therapy machine and control console"></a>
-        <figcaption><em>Placeholder caption.</em></figcaption>
-      </figure>
-
-      <div class="case-phase">
-        <p>Between 1985 and 1987, at least six patients receiving what should have been routine radiation therapy were given massive overdoses by a machine called the Therac-25, in some cases roughly a hundred times the intended dose. Several died from the injuries. The machine had passed every test its manufacturer had run on it.</p>
-      </div>
-
-      <figure class="case-photo">
-        <a href="" target="_blank" rel="noopener"><img src="" alt="The Therac-25 operator console showing an error message"></a>
-        <figcaption><em>Placeholder caption.</em></figcaption>
-      </figure>
-
-      <div class="case-phase">
-        <p>The cause was a race condition: a specific, unlucky sequence of keystrokes, entering treatment settings and then correcting a mistake within about eight seconds, could let the machine fire its highest-power electron beam without moving a metal plate into place that was supposed to spread and weaken the beam to safe levels. Two earlier machines from the same manufacturer had the identical software bug, but a hardware interlock, a physical mechanism, stopped the beam from firing if the plate wasn't positioned correctly. The Therac-25 removed that hardware safeguard entirely and trusted the software alone to enforce it. When the bug triggered, the console displayed a cryptic message reading only "Malfunction 54," with no explanation of what had gone wrong, and operators who had grown used to frequent, harmless error codes often simply pressed the button to continue.</p>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
   <img src="" alt="">

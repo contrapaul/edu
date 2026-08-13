@@ -10,140 +10,162 @@
       "spec": "Tempered glass, 4 mm",
       "removable": true,
       "blockedBy": [],
-      "link": null,
       "body": [
         "For the first thirty years of the PC, the box was beige steel and the point was to never open it. Glass panels arrived once builders started treating the inside as something worth looking at, and once cooling shifted from one small fan to a managed flow of air through the whole case."
-      ]
+      ],
+      "topic": null
     },
     {
       "id": "part-cooler",
       "label": "CPU cooler",
       "spec": "Tower air cooler, 6 heat pipes, 150 mm fan",
       "removable": true,
-      "blockedBy": ["case-glass"],
-      "link": "power/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "How PCs got hot",
       "body": [
         "The original IBM PC processor needed no cooler at all. It produced roughly two watts of heat, about the same as a phone charger doing nothing, and the case fan was there for the power supply rather than the chip.",
         "This cooler weighs more than an entire 1981 motherboard. Copper pipes carry heat away from the processor and spread it across the aluminium fins, where a fan pushes it out the back of the case."
-      ]
+      ],
+      "topic": "power"
     },
     {
       "id": "part-cpu",
       "label": "Processor",
       "spec": "8 cores, 16 threads, 5.2 GHz boost, 4 nm",
       "removable": true,
-      "blockedBy": ["case-glass", "part-cooler"],
-      "link": "cpu/",
+      "blockedBy": [
+        "case-glass",
+        "part-cooler"
+      ],
       "linkText": "Fifty years of processors",
       "body": [
         "The processor carries out the instructions that make up every program running on the machine. This one contains billions of transistors, the microscopic switches that do the actual work, in a piece of silicon roughly the size of a postage stamp.",
         "It has eight cores, meaning eight separate units that can each work on a different task at the same time. That matters more than it sounds: for about twenty years, chips got faster mostly by running the same single core at a higher speed, and then that approach hit a wall."
-      ]
+      ],
+      "topic": "cpu"
     },
     {
       "id": "part-ram",
       "label": "Memory",
       "spec": "32 GB DDR5, 6000 MT/s",
       "removable": true,
-      "blockedBy": ["case-glass"],
-      "link": "memory/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "From kilobytes to gigabytes",
       "body": [
         "Memory, or RAM, holds whatever the machine is working on right now. It is fast and temporary; switch the power off and everything in it is gone.",
         "There are 32 gigabytes here. The original IBM PC shipped with 16 kilobytes, which is roughly two millionths of this. What changed is not only the amount but what the amount is for, since a single browser tab today can use more memory than an entire computer had in 1995."
-      ]
+      ],
+      "topic": "memory"
     },
     {
       "id": "part-gpu",
       "label": "Graphics card",
       "spec": "16 GB GDDR7, 250 W, PCIe 5.0 x16",
       "removable": true,
-      "blockedBy": ["case-glass"],
-      "link": "gpu/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "How graphics got real",
       "body": [
         "The graphics card draws what appears on screen. It is the largest and usually the most expensive part in the machine, and it has its own processor, its own memory and its own cooling.",
         "Early PCs had nothing like this. A display adapter in 1985 stored a grid of characters and colours and left every calculation to the main processor. The shift to a separate chip doing millions of parallel calculations is the reason a game today looks the way it does, and it is also why these cards now handle work that has nothing to do with graphics at all."
-      ]
+      ],
+      "topic": "gpu"
     },
     {
       "id": "part-storage",
       "label": "Storage",
       "spec": "2 TB NVMe SSD, PCIe 5.0",
       "removable": true,
-      "blockedBy": ["case-glass", "part-gpu"],
-      "link": "storage/",
+      "blockedBy": [
+        "case-glass",
+        "part-gpu"
+      ],
       "linkText": "The speed of getting data",
       "body": [
         "Storage keeps files when the power is off. This drive is a stick of flash memory chips shorter than a finger, plugged directly into the motherboard beneath the graphics card.",
         "Its predecessors were mechanical: spinning metal platters with an arm that physically moved to find data, so the wait depended on where on the disk the data happened to be. Removing the moving parts made storage roughly two thousand times faster to respond, and that single change did more for how quick a computer feels than any processor upgrade of the same period."
-      ]
+      ],
+      "topic": "storage"
     },
     {
       "id": "part-psu",
       "label": "Power supply",
       "spec": "850 W, 80 Plus Gold, ATX 3.1",
       "removable": true,
-      "blockedBy": ["case-glass"],
-      "link": "power/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "How PCs got hot",
       "body": [
         "Wall power arrives as alternating current at 120 or 230 volts. Every component in the machine needs direct current at 12, 5 or 3.3 volts, and this box does the conversion.",
         "It is rated at 850 watts. A typical desktop in 1998 used a 200 watt supply and rarely drew half of it. Almost all of the growth since then sits in two components, the processor and the graphics card, and the machine is designed around getting power to them and heat away from them."
-      ]
+      ],
+      "topic": "power"
     },
     {
       "id": "part-fans",
       "label": "Case fans",
       "spec": "3 x 140 mm, PWM controlled",
       "removable": true,
-      "blockedBy": ["case-glass"],
-      "link": "power/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "How PCs got hot",
       "body": [
         "Two fans at the front pull cool air in, one at the back pushes warm air out. The parts in between sit in that stream.",
         "PWM in the specification stands for pulse width modulation, which is how the motherboard varies fan speed instead of running them flat out. The board reads temperatures from the processor and graphics card several times a second and adjusts, which is why a machine gets audibly louder partway into a game."
-      ]
+      ],
+      "topic": "power"
     },
     {
       "id": "hit-mobo",
       "label": "Motherboard",
       "spec": "ATX, socket AM5, PCIe 5.0",
       "removable": false,
-      "blockedBy": ["case-glass"],
-      "link": "motherboard/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "The board underneath",
       "body": [
         "Everything plugs into this. The motherboard carries power to each component and provides the wiring that lets them talk to each other, at speeds where the physical length of a copper trace starts to matter.",
         "The layout has barely changed since the ATX standard arrived in 1995, which is why a case bought today fits a board designed decades apart. What has changed is what the board no longer needs to provide, because functions that once required separate cards are now built in."
-      ]
+      ],
+      "topic": "motherboard"
     },
     {
       "id": "hit-io",
       "label": "Audio and rear ports",
       "spec": "Onboard audio codec, USB, Ethernet",
       "removable": false,
-      "blockedBy": ["case-glass"],
-      "link": "sound/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "When sound cards mattered",
       "body": [
         "Three small jacks handle audio, and they cost the manufacturer almost nothing. For about fifteen years this was a job for a separate card that people saved up for, compared carefully and argued about.",
         "The PC shipped with a speaker that could produce one square wave tone. Games worked around that limitation for years, then sound cards turned the PC into something you could listen to, and then the whole capability shrank into a chip on the board and stopped being a purchase decision."
-      ]
+      ],
+      "topic": "sound"
     },
     {
       "id": "hit-slot",
       "label": "Empty expansion slot",
       "spec": "PCIe 5.0 x1",
       "removable": false,
-      "blockedBy": ["case-glass"],
-      "link": "expansion/",
+      "blockedBy": [
+        "case-glass"
+      ],
       "linkText": "Cards that disappeared",
       "body": [
         "This slot is empty, and on most builds it stays empty. That is worth noticing, because a PC in 1996 had five or six of these and every one was likely to be full.",
         "A machine of that era might carry separate cards for sound, for a modem, for video capture, for extra USB ports, and for a while, a card that did nothing but calculate physics for games. Each was absorbed into the processor, the graphics card or the motherboard, and the slots emptied out."
-      ]
+      ],
+      "topic": "expansion"
     }
   ]
 }

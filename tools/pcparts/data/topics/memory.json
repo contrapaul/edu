@@ -1,0 +1,281 @@
+{
+  "id": "memory",
+  "title": "Memory",
+  "span": "1981 to 2025",
+  "intro": "Memory is where a program lives while it runs. It has grown by roughly two million times since the first PC, and the interesting part is that machines do not feel two million times roomier, because software expanded to fill it at almost exactly the same rate.",
+  "blocks": [
+    {
+      "type": "era",
+      "years": "1981 to 1994",
+      "title": "Counting in kilobytes",
+      "text": "Early PC memory was individual chips pressed into rows of sockets on the motherboard. Adding memory meant handling dozens of small components, and the total was limited less by cost than by what the processor could address at all."
+    },
+    {
+      "type": "entry",
+      "year": 1981,
+      "name": "IBM PC 5150",
+      "key": true,
+      "spec": "16 KB standard, 64 KB on the board, 640 KB usable maximum",
+      "text": "The 640 KB ceiling came from how the 8088's one megabyte of address space was divided, with the top 384 KB reserved for hardware. It became the defining constraint of PC software for over a decade."
+    },
+    {
+      "type": "entry",
+      "year": 1985,
+      "name": "Expanded memory (EMS)",
+      "spec": "Up to 32 MB, accessed 64 KB at a time",
+      "text": "A workaround for the 640 KB limit. Extra memory sat on an expansion card and the software swapped small windows of it in and out of view. Awkward, slow, and necessary."
+    },
+    {
+      "type": "entry",
+      "year": 1987,
+      "name": "30-pin SIMM",
+      "spec": "256 KB to 4 MB per module, 8 bits wide",
+      "text": "Memory became a module you pushed into a slot rather than chips you pressed into sockets. They had to be installed in matched groups, because each module was only 8 bits wide and the processor wanted 32."
+    },
+    {
+      "type": "entry",
+      "year": 1990,
+      "name": "Typical Windows 3.0 machine",
+      "spec": "2 to 4 MB",
+      "text": "A graphical desktop needs somewhere to keep the picture and every window's contents. Memory requirements roughly quadrupled the moment PCs stopped being text."
+    },
+    {
+      "type": "entry",
+      "year": 1993,
+      "name": "72-pin SIMM, Fast Page Mode",
+      "spec": "4 to 32 MB per module, 32 bits wide",
+      "text": "One module now matched the width of a 486's data path, so memory could be added one stick at a time."
+    },
+    {
+      "type": "era",
+      "years": "1995 to 2002",
+      "title": "Synchronising with the clock, and one expensive wrong turn",
+      "text": "Older memory responded whenever it was ready, and the processor waited. Synchronous memory runs on the same clock as the rest of the system, so transfers can be pipelined and the timing becomes predictable. This period also contains the industry's clearest example of the fastest standard losing."
+    },
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "EDO DRAM",
+      "spec": "60 ns, roughly 5 percent faster than FPM",
+      "text": "A small refinement that let the next read start before the previous one finished. Widely fitted to Pentium machines and quickly superseded."
+    },
+    {
+      "type": "entry",
+      "year": 1996,
+      "name": "SDRAM, 168-pin DIMM",
+      "key": true,
+      "spec": "PC66, PC100, PC133, 64 bits wide, 8 to 256 MB",
+      "text": "Synchronous memory on a module wide enough to feed the processor by itself. PC100 and PC133 refer to the bus speed in megahertz, and matching that number to your motherboard was the whole of memory buying for several years."
+    },
+    {
+      "type": "entry",
+      "year": 1999,
+      "name": "RDRAM (Rambus)",
+      "spec": "800 MHz, 16 bits wide, proprietary, ~4x the price",
+      "text": "Intel tied its Pentium 4 platform to a licensed memory standard that was genuinely fast and enormously expensive, and it required empty slots to be filled with dummy modules. Buyers refused, AMD went with DDR, and Intel abandoned it. A good technology can still lose on price and licensing."
+    },
+    {
+      "type": "entry",
+      "year": 2000,
+      "name": "DDR SDRAM",
+      "key": true,
+      "spec": "PC1600 to PC3200, 184-pin, 128 MB to 1 GB",
+      "text": "Double data rate means transferring on both the rise and the fall of each clock tick, so bandwidth doubles without raising the clock. Every generation since has been a refinement of this idea."
+    },
+    {
+      "type": "entry",
+      "year": 2002,
+      "name": "Dual channel",
+      "spec": "Two modules read in parallel, 128 bits effective",
+      "text": "Two sticks working as one wider path. This is why memory is sold in matched pairs and why filling two slots beats filling one with a single larger module."
+    },
+    {
+      "type": "era",
+      "years": "2003 to 2025",
+      "title": "Wider, faster, and physically closer",
+      "text": "Each DDR generation roughly doubles the transfer rate and lowers the voltage, but the delay before the first byte arrives has barely improved in twenty years. Memory got much better at delivering a lot of data and no better at delivering it quickly, which is why processors carry ever larger caches."
+    },
+    {
+      "type": "entry",
+      "year": 2003,
+      "name": "DDR2",
+      "spec": "400 to 1066 MT/s, 240-pin, 1.8 V, 512 MB to 2 GB",
+      "text": "Higher transfer rates and lower voltage, with higher latency in clock cycles. Early DDR2 was slower in practice than the DDR it replaced, which happens at nearly every generation change."
+    },
+    {
+      "type": "entry",
+      "year": 2005,
+      "name": "The 32-bit wall",
+      "spec": "4 GB address limit, ~3.2 GB usable",
+      "text": "A 32-bit operating system cannot address more than 4 GB, and hardware reserves part of that. Machines started shipping with enough memory to hit the ceiling the 386 had raised in 1985, and 64-bit Windows became necessary rather than optional."
+    },
+    {
+      "type": "entry",
+      "year": 2007,
+      "name": "DDR3",
+      "spec": "800 to 2133 MT/s, 1.5 V, 1 to 8 GB per module",
+      "text": "The generation where 4 GB became the sensible amount and 8 GB became possible. It stayed current for seven years."
+    },
+    {
+      "type": "entry",
+      "year": 2014,
+      "name": "DDR4",
+      "key": true,
+      "spec": "2133 to 3200 MT/s, 288-pin, 1.2 V, 4 to 32 GB per module",
+      "text": "Lower voltage again, and a very long life. A machine built in 2015 and one built in 2020 could use the same memory, which had not been true of any previous generation."
+    },
+    {
+      "type": "entry",
+      "year": 2015,
+      "name": "XMP and one-click overclocking",
+      "spec": "Stored timing profiles above the official standard",
+      "text": "Memory is sold rated well beyond the official specification, with the faster settings stored on the module as a profile the motherboard can apply. The advertised speed on a box of memory is usually not the speed it runs at until you turn it on."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "Apple unified memory",
+      "spec": "Memory in the processor package, shared with the graphics",
+      "text": "Putting the memory chips in the same package as the processor shortens the distance signals travel and lets the graphics and the processor use one pool without copying between them. It also means the amount is fixed at purchase and cannot be changed."
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "DDR5",
+      "spec": "4800 to 8000 MT/s, 1.1 V, on-module power management",
+      "text": "Each module is internally split into two independent channels, so a single stick behaves more like a pair. Power regulation moved onto the module itself, which is why DDR5 costs more to make."
+    },
+    {
+      "type": "entry",
+      "year": 2025,
+      "name": "32 GB as the sensible default",
+      "spec": "32 GB DDR5 6000, roughly £90",
+      "text": "Two million times the memory of the 1981 machine, for a small fraction of its price in real terms. A modern web browser with a dozen tabs will use more of it than every program that shipped with Windows 95 combined."
+    },
+    {
+      "type": "era",
+      "years": "The shape of it",
+      "title": "Capacity against what wanted it",
+      "text": "Typical memory fitted to a new machine, against the minimum a contemporary operating system asked for. The gap between the two lines is the room you actually had to work in."
+    },
+    {
+      "type": "interactive",
+      "id": "demand-chart",
+      "unit": "B",
+      "alt": "Typical memory fitted to a PC against operating system requirements, 1981 to 2025",
+      "caption": "Values in megabytes.",
+      "series": [
+        {
+          "label": "Typical memory fitted (MB)",
+          "color": "#38bdf8",
+          "points": [
+            [
+              1981,
+              0.016
+            ],
+            [
+              1985,
+              0.512
+            ],
+            [
+              1990,
+              4
+            ],
+            [
+              1995,
+              16
+            ],
+            [
+              1998,
+              64
+            ],
+            [
+              2001,
+              256
+            ],
+            [
+              2004,
+              512
+            ],
+            [
+              2007,
+              2048
+            ],
+            [
+              2010,
+              4096
+            ],
+            [
+              2014,
+              8192
+            ],
+            [
+              2018,
+              16384
+            ],
+            [
+              2021,
+              16384
+            ],
+            [
+              2025,
+              32768
+            ]
+          ]
+        },
+        {
+          "label": "OS minimum (MB)",
+          "color": "#f59e0b",
+          "points": [
+            [
+              1981,
+              0.016
+            ],
+            [
+              1990,
+              1
+            ],
+            [
+              1995,
+              4
+            ],
+            [
+              1998,
+              16
+            ],
+            [
+              2001,
+              64
+            ],
+            [
+              2007,
+              1024
+            ],
+            [
+              2009,
+              1024
+            ],
+            [
+              2015,
+              2048
+            ],
+            [
+              2021,
+              4096
+            ],
+            [
+              2025,
+              4096
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "to": "software",
+      "label": "Where the space went",
+      "text": "Two million times the memory, and machines still run out. What filled it is a separate story."
+    }
+  ]
+}

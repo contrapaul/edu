@@ -10,6 +10,8 @@
  *   a part cannot be clicked while another part is drawn on top of it
  */
 
+import { openTopic } from './explore.js';
+
 const STAGE = document.getElementById('stage');
 const TRAY = document.getElementById('tray');
 const DETAIL = document.getElementById('detail');
@@ -186,12 +188,16 @@ function openDetail(part) {
     DETAIL_BODY.append(p);
   });
 
-  if (part.link) {
-    const a = document.createElement('a');
-    a.className = 'detail-link';
-    a.href = part.link;
-    a.textContent = part.linkText;
-    DETAIL_BODY.append(a);
+  if (part.topic) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'detail-link';
+    btn.textContent = part.linkText;
+    btn.addEventListener('click', () => {
+      closeDetail();
+      openTopic(part.topic, part._hit);
+    });
+    DETAIL_BODY.append(btn);
   }
 
   DETAIL.hidden = false;

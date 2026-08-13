@@ -1,0 +1,87 @@
+{
+  "id": "power",
+  "title": "Power and heat",
+  "span": "1981 to 2025",
+  "intro": "Every watt a computer draws becomes heat inside the case, and it all has to be moved out. The original PC needed 63 watts for the whole machine. The graphics card in this one can draw four times that on its own, and most of the engineering you can see inside a modern case exists to deal with that fact.",
+  "blocks": [
+    {
+      "type": "era",
+      "years": "1981 to 1994",
+      "title": "A fan for the power supply, and nothing else",
+      "text": "Early processors ran cool enough to need no cooling at all. The only fan in the machine was in the power supply, drawing air across the board on its way out, and the chips simply sat there in the breeze."
+    },
+    { "type": "entry", "year": 1981, "name": "IBM PC 5150", "key": true,
+      "spec": "63.5 W supply, 8088 draws about 2 W, no CPU cooler",
+      "text": "The entire machine used less power than a modern laptop charger delivers. The processor needed no heatsink, no fan and no thermal paste, because two watts spread over that package simply does not get hot." },
+    { "type": "entry", "year": 1984, "name": "IBM PC AT", "spec": "192 W supply, AT form factor",
+      "text": "Triple the supply, mostly because hard disks and expansion cards were being added rather than because the processor demanded it." },
+    { "type": "entry", "year": 1989, "name": "Intel 80486DX", "spec": "~5 W, passive heatsink",
+      "text": "The first PC processors to want a heatsink: a lump of finned aluminium glued on top, with no fan. Passive cooling was enough for another few years." },
+    { "type": "entry", "year": 1993, "name": "Intel Pentium 66", "key": true,
+      "spec": "16 W, active heatsink with a small fan",
+      "text": "The first mainstream desktop processor that needed a fan of its own. Sixteen watts is the point at which passive metal stopped being enough, and no desktop processor has gone back since." },
+
+    {
+      "type": "era",
+      "years": "1995 to 2005",
+      "title": "The supply learns new tricks while the load climbs",
+      "text": "ATX rewrote the power supply as well as the board layout, adding software controlled shutdown and a low power standby state. It then had to be revised repeatedly, because processors and graphics cards kept demanding more current on the 12 volt rail than the design had anticipated."
+    },
+    { "type": "entry", "year": 1995, "name": "ATX power supply", "spec": "20-pin connector, 5 V standby, soft power off",
+      "text": "A trickle of power stays on while the machine is off, which is what allows the operating system to shut the machine down itself, and what allows wake on keypress or over the network." },
+    { "type": "entry", "year": 2000, "name": "ATX12V and the 4-pin connector", "key": true,
+      "spec": "Extra 12 V connector beside the socket, ~250 to 300 W supplies",
+      "text": "The Pentium 4 needed more current than the main connector could deliver, so a second cable was added running straight to the processor's voltage regulator. Every board since has one, usually now with eight pins or two of them." },
+    { "type": "entry", "year": 2003, "name": "24-pin main connector", "spec": "Adds a fourth 12 V line, PCIe ready",
+      "text": "Four more pins on the main connector, because PCI Express slots deliver more power to cards than PCI did." },
+    { "type": "entry", "year": 2004, "name": "Intel Pentium 4 570", "spec": "3.8 GHz, 115 W, 90 nm",
+      "text": "Seven times the heat of a Pentium 66 from a chip that runs the same kind of software. The planned 4 GHz version was cancelled because it could not be cooled, which ended the entire architecture." },
+    { "type": "entry", "year": 2004, "name": "PCIe 6-pin graphics connector", "spec": "75 W over the cable, plus 75 W from the slot",
+      "text": "Graphics cards outgrew what a slot could safely supply, so they gained their own cable to the power supply. An 8-pin version followed in 2007 at 150 W, and cards now often use two or three." },
+
+    {
+      "type": "era",
+      "years": "2007 to 2025",
+      "title": "Efficiency ratings, and a component that draws more than an entire old PC",
+      "text": "Two opposite things happened at once. Power supplies became far more efficient, wasting less of what they draw as heat. And the components at the top of the range grew until a single graphics card exceeds the total draw of a complete computer from twenty years earlier."
+    },
+    { "type": "entry", "year": 2007, "name": "80 Plus certification", "key": true,
+      "spec": "80% efficient at 20, 50 and 100% load; Bronze to Titanium tiers",
+      "text": "Efficiency here means how much of the power drawn from the wall reaches the components. A supply at 80 percent turns a fifth of what it draws into waste heat inside your room. A modern Gold unit manages around 90 percent, and the difference is both an electricity bill and a cooling problem." },
+    { "type": "entry", "year": 2010, "name": "NVIDIA GTX 480", "spec": "250 W, 94 degrees under load",
+      "text": "Hot enough to become a standing joke, and the point at which graphics card cooling became a serious design constraint rather than a fan bolted to a heatsink." },
+    { "type": "entry", "year": 2012, "name": "All-in-one liquid coolers", "spec": "Sealed pump, radiator, 120 to 360 mm",
+      "text": "Water carries heat far better than air, so liquid moves it from the processor to a radiator with more surface area than would fit on the socket. Sealed units made this something you could buy rather than build, though a good air cooler still matches most of them." },
+    { "type": "entry", "year": 2020, "name": "Consoles and PCs converge on 200 W", "spec": "PlayStation 5 around 200 W total",
+      "text": "Useful as a reference point: a whole current console draws roughly what one mid-range graphics card does." },
+    { "type": "entry", "year": 2022, "name": "ATX 3.0 and 12VHPWR", "key": true,
+      "spec": "One 16-pin connector delivering up to 600 W",
+      "text": "A single cable carrying 600 watts to one card. Early versions overheated and melted where the plug was not fully seated, which led to a revised design, and it is a fair illustration of how close to the limits this is running." },
+    { "type": "entry", "year": 2022, "name": "Intel Core i9-13900K", "spec": "253 W sustained, up to 320 W peak",
+      "text": "A processor drawing more than the entire IBM PC AT's power supply could deliver, and roughly 125 times the draw of the 8088." },
+    { "type": "entry", "year": 2025, "name": "NVIDIA GeForce RTX 5090", "spec": "575 W",
+      "text": "Nine times the total power budget of the 1981 IBM PC, for one card. A machine built around it needs a 1000 watt supply, and the room it sits in will notice." },
+
+    {
+      "type": "era",
+      "years": "The shape of it",
+      "title": "Where the watts went",
+      "text": "Processor and graphics card power draw over time, in watts. The processor line dips sharply in 2006, which is the Core 2 replacing the Pentium 4 and getting faster while using half the power. Nothing similar has happened to the graphics line."
+    },
+    {
+      "type": "interactive",
+      "id": "demand-chart",
+      "unit": "W",
+      "alt": "Processor and graphics card power draw from 1981 to 2025",
+      "caption": "Peak rated power draw in watts for a high end part of each year.",
+      "series": [
+        { "label": "Processor (W)", "color": "#38bdf8",
+          "points": [[1981,2],[1989,5],[1993,16],[1997,28],[2000,55],[2004,115],[2006,65],[2008,130],[2011,95],[2015,91],[2017,95],[2020,105],[2022,253],[2025,170]] },
+        { "label": "Graphics card (W)", "color": "#f59e0b",
+          "points": [[1996,5],[1999,10],[2002,35],[2004,75],[2006,145],[2010,250],[2014,145],[2016,180],[2018,250],[2020,320],[2022,450],[2025,575]] },
+        { "label": "Power supply rating (W)", "color": "#a78bfa",
+          "points": [[1981,63],[1984,192],[1995,200],[2000,300],[2004,450],[2010,650],[2016,650],[2020,750],[2025,1000]] }
+      ]
+    }
+  ]
+}

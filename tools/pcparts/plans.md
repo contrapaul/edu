@@ -36,20 +36,34 @@ nothing outside this directory is a dependency.
 Nothing in this directory should be lifted into the shared stylesheet, and
 shared site files must not be edited to serve this tool.
 
+Everything is on one page. Explorations open as a full overlay over the
+machine and close back to it. There are no secondary HTML documents and no
+links off the page except the one back to `/tools`.
+
 ```
 tools/pcparts/
-  index.html          the machine
-  cpu/                processors, 1971 to now
-  gpu/                graphics
-  memory/             RAM
-  storage/            drives, plus the speed tester
-  motherboard/        sockets, buses, slots
-  sound/              audio, from one beep to onboard codecs
-  expansion/          cards that existed for a few years and stopped
-  power/              power draw and heat
-  software/           where the extra speed went
-  assets/  css/  data/  js/
+  index.html              the whole site
+  assets/pc.svg           layered diagram, placeholder art
+  data/machine.json       parts, occlusion rules, popup copy
+  data/topics/*.json      the nine explorations
+  js/machine.js           the machine
+  js/explore.js           overlay shell and block renderer
+  js/views/*.js           interactives
+  css/                    pcparts, machine, explore, tools
 ```
+
+A topic file is a flat list of blocks, so the writing controls the pacing
+rather than a fixed template:
+
+| Block | Renders |
+|---|---|
+| `era` | a heading with a paragraph of context |
+| `entry` | one piece of hardware: year, spec line, note, optional image |
+| `interactive` | mounts a module from `js/views/` |
+| `link` | a pointer into another topic |
+
+Because content is data and rendering is a module, any topic could be mounted
+in a standalone page later without rewriting a word of it.
 
 ## The diagram
 
@@ -82,33 +96,35 @@ refuses clicks, keyboard focus and restore while a blocker is present.
 
 ## Interactives
 
-One per component page, built independently, shipped as they are finished.
+Two modules in `js/views/`, both driven entirely by the topic JSON so a new
+instance needs no new code.
 
-1. Storage speed tester. Port of the existing simulator.
-2. Graphics walkthrough. A representative image every year or two with the
-   technique named. Screenshots to be captured first-hand.
-3. Software demand against hardware capability. Boot times, install sizes,
-   memory footprints plotted against the hardware of the same year.
-4. Memory: what a given capacity actually held at the time.
-5. Sound and the expansion dead ends: what the card did, and what absorbed it.
+- `storage-test` races a file copy across two drives at their real measured
+  speeds, with a seek penalty for anything with an arm to move. Real time is
+  compressed so the slowest run takes about twelve seconds, and the
+  compression ratio is stated on screen.
+- `demand-chart` plots any number of series on a shared log scale, used in
+  four topics. A log axis is not decoration here; the values span seven
+  orders of magnitude and a linear axis would show a flat line and a spike.
 
 ## Data
 
-`data/hardware-specs.json` holds the existing 87 entries. Target is roughly
-180, weighted so no decade is thin:
+218 entries across nine topics.
 
-| Set | Now | Target |
-|---|---|---|
-| CPU | 25 | 45 |
-| GPU | 20 | 40 |
-| Storage | 10 | 25 |
-| Memory | 9 | 20 |
-| Sockets and buses | 23 | 25 |
-| Sound | 0 | 15 |
-| Expansion dead ends | 0 | 10 |
+| Topic | Entries |
+|---|---|
+| Processors | 53 |
+| Graphics | 36 |
+| Motherboard | 23 |
+| Storage | 23 |
+| Memory | 18 |
+| Sound | 18 |
+| Software demand | 18 |
+| Power and heat | 16 |
+| Dead end cards | 13 |
 
-Specs are drafted, then reviewed by hand. Generic parts are acceptable where a
-specific model adds nothing, which is most of memory and much of storage.
+Specs are drafted and need review by hand. Generic parts are acceptable where
+a specific model adds nothing, which is most of memory and much of storage.
 Sources get added in a later pass alongside images.
 
 ## Writing
@@ -119,12 +135,10 @@ one clause facts.
 
 ## Known gaps
 
-- `software/` has no physical counterpart in the machine, so nothing on the
-  front page links to it. It needs a route in from the component pages, most
-  naturally from CPU and memory.
+- Images are placeholders. Eleven slots are marked in the graphics topic and
+  render as a labelled dashed box until a file is dropped into
+  `assets/shots/` and named in the topic JSON.
+- Specs are drafted and need review. Sources come in a later pass.
 - A tower drawn side on is roughly square, and a monitor is not, so the diagram
   letterboxes on a widescreen display. Either the drawing gets a wider scene or
   the empty margin stays as backdrop.
-- `js/components/*.js` and `js/utils/benchmark-simulator.js` are retained from
-  the old build as source material. They are not loaded by anything and should
-  be removed once their content has been ported.

@@ -1,0 +1,227 @@
+/* Full overlay explorations, opened from a part on the machine. */
+
+.explore {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  animation: explore-in 200ms ease-out;
+}
+
+.explore[hidden] { display: none; }
+
+@keyframes explore-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── overlay header ──────────────────────────────────── */
+
+.explore-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: #070910;
+}
+
+.explore-bar h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.explore-bar .explore-span {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--dimmer);
+}
+
+.explore-back {
+  margin-left: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--vga);
+  font-size: 0.9rem;
+  color: var(--dim);
+  cursor: pointer;
+  transition: color var(--ease);
+}
+
+.explore-back:hover { color: var(--accent); }
+.explore-back::before { content: "\2190"; margin-right: 0.5rem; }
+
+/* ── scrolling body ──────────────────────────────────── */
+
+.explore-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.explore-inner {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2.4rem 1.5rem 6rem;
+}
+
+.explore-intro {
+  font-size: 1.06rem;
+  line-height: 1.68;
+  color: #c6cede;
+  max-width: 48rem;
+  margin: 0 0 3rem;
+}
+
+/* ── era headings ────────────────────────────────────── */
+
+.era {
+  margin: 3.6rem 0 1.8rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+
+.era:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+
+.era-years {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  opacity: 0.8;
+  margin: 0 0 0.35rem;
+}
+
+.era h3 {
+  font-size: 1.32rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.7rem;
+  color: #fff;
+}
+
+.era p {
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: #b3bccd;
+  max-width: 46rem;
+  margin: 0;
+}
+
+/* ── entries ─────────────────────────────────────────── */
+
+.entry {
+  display: grid;
+  grid-template-columns: 4.2rem minmax(0, 1fr);
+  gap: 0 1.5rem;
+  padding: 0.95rem 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.entry:hover { background: rgba(56, 189, 248, 0.03); }
+
+.entry-year {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--dimmer);
+  padding-top: 0.12rem;
+}
+
+.entry-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #e8edf6;
+  margin: 0 0 0.2rem;
+}
+
+.entry-spec {
+  font-family: var(--mono);
+  font-size: 0.735rem;
+  line-height: 1.5;
+  color: var(--accent);
+  opacity: 0.72;
+  margin: 0 0 0.45rem;
+}
+
+.entry-text {
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: #a9b3c4;
+  margin: 0;
+  max-width: 44rem;
+}
+
+.entry.is-key .entry-name { color: #fff; }
+.entry.is-key {
+  border-left: 2px solid var(--accent-dk);
+  margin-left: -1rem;
+  padding-left: 1rem;
+}
+
+/* ── figures ─────────────────────────────────────────── */
+
+figure.shot {
+  margin: 0 0 0.5rem;
+  grid-column: 2;
+}
+
+figure.shot img {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel-alt);
+}
+
+figure.shot .placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 34rem;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--line);
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    45deg, #10141c, #10141c 8px, #0d1119 8px, #0d1119 16px);
+  color: var(--dimmer);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+figure.shot figcaption {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--dimmer);
+  margin-top: 0.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore { animation: none; }
+  .explore-scroll { scroll-behavior: auto; }
+}
+
+/* ── cross topic pointer ─────────────────────────────── */
+
+.cross-link {
+  margin: 3rem 0 1rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.cross-link p {
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: #b3bccd;
+  max-width: 46rem;
+  margin: 0 0 1.1rem;
+}
