@@ -57,10 +57,14 @@ rather than a fixed template:
 
 | Block | Renders |
 |---|---|
-| `era` | a heading with a paragraph of context |
-| `entry` | one piece of hardware: year, spec line, note, optional image |
+| `era` | a heading with a paragraph of context. Omit `years` when there is no real date range; do not invent a filler label |
+| `entry` | one piece of hardware: year, spec line, note, optional `url`, optional image |
 | `interactive` | mounts a module from `js/views/` |
 | `link` | a pointer into another topic |
+
+An entry's `url` turns its name into an outward link. **English Wikipedia only.**
+Every URL has been checked against the Wikipedia API; re-run that check after
+adding any. Redirects are fine, missing pages are not.
 
 Because content is data and rendering is a module, any topic could be mounted
 in a standalone page later without rewriting a word of it.
@@ -113,7 +117,7 @@ instance needs no new code.
 
 | Topic | Entries |
 |---|---|
-| Processors | 53 |
+| Processors | 57 |
 | Graphics | 36 |
 | Motherboard | 23 |
 | Storage | 23 |
@@ -122,6 +126,8 @@ instance needs no new code.
 | Software demand | 18 |
 | Power and heat | 16 |
 | Dead end cards | 13 |
+
+222 entries in total, 211 of them carrying a Wikipedia link.
 
 Specs are drafted and need review by hand. Generic parts are acceptable where
 a specific model adds nothing, which is most of memory and much of storage.

@@ -16,35 +16,40 @@
       "name": "IBM PC 5150",
       "key": true,
       "spec": "16 KB standard, 64 KB on the board, 640 KB usable maximum",
-      "text": "The 640 KB ceiling came from how the 8088's one megabyte of address space was divided, with the top 384 KB reserved for hardware. It became the defining constraint of PC software for over a decade."
+      "text": "The 640 KB ceiling came from how the 8088's one megabyte of address space was divided, with the top 384 KB reserved for hardware. It became the defining constraint of PC software for over a decade.",
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer"
     },
     {
       "type": "entry",
       "year": 1985,
       "name": "Expanded memory (EMS)",
       "spec": "Up to 32 MB, accessed 64 KB at a time",
-      "text": "A workaround for the 640 KB limit. Extra memory sat on an expansion card and the software swapped small windows of it in and out of view. Awkward, slow, and necessary."
+      "text": "A workaround for the 640 KB limit. Extra memory sat on an expansion card and the software swapped small windows of it in and out of view. Awkward, slow, and necessary.",
+      "url": "https://en.wikipedia.org/wiki/Expanded_memory"
     },
     {
       "type": "entry",
       "year": 1987,
       "name": "30-pin SIMM",
       "spec": "256 KB to 4 MB per module, 8 bits wide",
-      "text": "Memory became a module you pushed into a slot rather than chips you pressed into sockets. They had to be installed in matched groups, because each module was only 8 bits wide and the processor wanted 32."
+      "text": "Memory became a module you pushed into a slot rather than chips you pressed into sockets. They had to be installed in matched groups, because each module was only 8 bits wide and the processor wanted 32.",
+      "url": "https://en.wikipedia.org/wiki/SIMM"
     },
     {
       "type": "entry",
       "year": 1990,
       "name": "Typical Windows 3.0 machine",
       "spec": "2 to 4 MB",
-      "text": "A graphical desktop needs somewhere to keep the picture and every window's contents. Memory requirements roughly quadrupled the moment PCs stopped being text."
+      "text": "A graphical desktop needs somewhere to keep the picture and every window's contents. Memory requirements roughly quadrupled the moment PCs stopped being text.",
+      "url": "https://en.wikipedia.org/wiki/Windows_3.0"
     },
     {
       "type": "entry",
       "year": 1993,
       "name": "72-pin SIMM, Fast Page Mode",
       "spec": "4 to 32 MB per module, 32 bits wide",
-      "text": "One module now matched the width of a 486's data path, so memory could be added one stick at a time."
+      "text": "One module now matched the width of a 486's data path, so memory could be added one stick at a time.",
+      "url": "https://en.wikipedia.org/wiki/SIMM"
     },
     {
       "type": "era",
@@ -57,7 +62,8 @@
       "year": 1995,
       "name": "EDO DRAM",
       "spec": "60 ns, roughly 5 percent faster than FPM",
-      "text": "A small refinement that let the next read start before the previous one finished. Widely fitted to Pentium machines and quickly superseded."
+      "text": "A small refinement that let the next read start before the previous one finished. Widely fitted to Pentium machines and quickly superseded.",
+      "url": "https://en.wikipedia.org/wiki/Dynamic_random-access_memory"
     },
     {
       "type": "entry",
@@ -65,14 +71,16 @@
       "name": "SDRAM, 168-pin DIMM",
       "key": true,
       "spec": "PC66, PC100, PC133, 64 bits wide, 8 to 256 MB",
-      "text": "Synchronous memory on a module wide enough to feed the processor by itself. PC100 and PC133 refer to the bus speed in megahertz, and matching that number to your motherboard was the whole of memory buying for several years."
+      "text": "Synchronous memory on a module wide enough to feed the processor by itself. PC100 and PC133 refer to the bus speed in megahertz, and matching that number to your motherboard was the whole of memory buying for several years.",
+      "url": "https://en.wikipedia.org/wiki/Synchronous_dynamic_random-access_memory"
     },
     {
       "type": "entry",
       "year": 1999,
       "name": "RDRAM (Rambus)",
       "spec": "800 MHz, 16 bits wide, proprietary, ~4x the price",
-      "text": "Intel tied its Pentium 4 platform to a licensed memory standard that was genuinely fast and enormously expensive, and it required empty slots to be filled with dummy modules. Buyers refused, AMD went with DDR, and Intel abandoned it. A good technology can still lose on price and licensing."
+      "text": "Intel tied its Pentium 4 platform to a licensed memory standard that was genuinely fast and enormously expensive, and it required empty slots to be filled with dummy modules. Buyers refused, AMD went with DDR, and Intel abandoned it. A good technology can still lose on price and licensing.",
+      "url": "https://en.wikipedia.org/wiki/RDRAM"
     },
     {
       "type": "entry",
@@ -80,14 +88,16 @@
       "name": "DDR SDRAM",
       "key": true,
       "spec": "PC1600 to PC3200, 184-pin, 128 MB to 1 GB",
-      "text": "Double data rate means transferring on both the rise and the fall of each clock tick, so bandwidth doubles without raising the clock. Every generation since has been a refinement of this idea."
+      "text": "Double data rate means transferring on both the rise and the fall of each clock tick, so bandwidth doubles without raising the clock. Every generation since has been a refinement of this idea.",
+      "url": "https://en.wikipedia.org/wiki/DDR_SDRAM"
     },
     {
       "type": "entry",
       "year": 2002,
       "name": "Dual channel",
       "spec": "Two modules read in parallel, 128 bits effective",
-      "text": "Two sticks working as one wider path. This is why memory is sold in matched pairs and why filling two slots beats filling one with a single larger module."
+      "text": "Two sticks working as one wider path. This is why memory is sold in matched pairs and why filling two slots beats filling one with a single larger module.",
+      "url": "https://en.wikipedia.org/wiki/Multi-channel_memory_architecture"
     },
     {
       "type": "era",
@@ -100,21 +110,24 @@
       "year": 2003,
       "name": "DDR2",
       "spec": "400 to 1066 MT/s, 240-pin, 1.8 V, 512 MB to 2 GB",
-      "text": "Higher transfer rates and lower voltage, with higher latency in clock cycles. Early DDR2 was slower in practice than the DDR it replaced, which happens at nearly every generation change."
+      "text": "Higher transfer rates and lower voltage, with higher latency in clock cycles. Early DDR2 was slower in practice than the DDR it replaced, which happens at nearly every generation change.",
+      "url": "https://en.wikipedia.org/wiki/DDR2_SDRAM"
     },
     {
       "type": "entry",
       "year": 2005,
       "name": "The 32-bit wall",
       "spec": "4 GB address limit, ~3.2 GB usable",
-      "text": "A 32-bit operating system cannot address more than 4 GB, and hardware reserves part of that. Machines started shipping with enough memory to hit the ceiling the 386 had raised in 1985, and 64-bit Windows became necessary rather than optional."
+      "text": "A 32-bit operating system cannot address more than 4 GB, and hardware reserves part of that. Machines started shipping with enough memory to hit the ceiling the 386 had raised in 1985, and 64-bit Windows became necessary rather than optional.",
+      "url": "https://en.wikipedia.org/wiki/3_GB_barrier"
     },
     {
       "type": "entry",
       "year": 2007,
       "name": "DDR3",
       "spec": "800 to 2133 MT/s, 1.5 V, 1 to 8 GB per module",
-      "text": "The generation where 4 GB became the sensible amount and 8 GB became possible. It stayed current for seven years."
+      "text": "The generation where 4 GB became the sensible amount and 8 GB became possible. It stayed current for seven years.",
+      "url": "https://en.wikipedia.org/wiki/DDR3_SDRAM"
     },
     {
       "type": "entry",
@@ -122,28 +135,32 @@
       "name": "DDR4",
       "key": true,
       "spec": "2133 to 3200 MT/s, 288-pin, 1.2 V, 4 to 32 GB per module",
-      "text": "Lower voltage again, and a very long life. A machine built in 2015 and one built in 2020 could use the same memory, which had not been true of any previous generation."
+      "text": "Lower voltage again, and a very long life. A machine built in 2015 and one built in 2020 could use the same memory, which had not been true of any previous generation.",
+      "url": "https://en.wikipedia.org/wiki/DDR4_SDRAM"
     },
     {
       "type": "entry",
       "year": 2015,
       "name": "XMP and one-click overclocking",
       "spec": "Stored timing profiles above the official standard",
-      "text": "Memory is sold rated well beyond the official specification, with the faster settings stored on the module as a profile the motherboard can apply. The advertised speed on a box of memory is usually not the speed it runs at until you turn it on."
+      "text": "Memory is sold rated well beyond the official specification, with the faster settings stored on the module as a profile the motherboard can apply. The advertised speed on a box of memory is usually not the speed it runs at until you turn it on.",
+      "url": "https://en.wikipedia.org/wiki/Serial_presence_detect"
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "Apple unified memory",
       "spec": "Memory in the processor package, shared with the graphics",
-      "text": "Putting the memory chips in the same package as the processor shortens the distance signals travel and lets the graphics and the processor use one pool without copying between them. It also means the amount is fixed at purchase and cannot be changed."
+      "text": "Putting the memory chips in the same package as the processor shortens the distance signals travel and lets the graphics and the processor use one pool without copying between them. It also means the amount is fixed at purchase and cannot be changed.",
+      "url": "https://en.wikipedia.org/wiki/Apple_silicon"
     },
     {
       "type": "entry",
       "year": 2021,
       "name": "DDR5",
       "spec": "4800 to 8000 MT/s, 1.1 V, on-module power management",
-      "text": "Each module is internally split into two independent channels, so a single stick behaves more like a pair. Power regulation moved onto the module itself, which is why DDR5 costs more to make."
+      "text": "Each module is internally split into two independent channels, so a single stick behaves more like a pair. Power regulation moved onto the module itself, which is why DDR5 costs more to make.",
+      "url": "https://en.wikipedia.org/wiki/DDR5_SDRAM"
     },
     {
       "type": "entry",
@@ -154,14 +171,13 @@
     },
     {
       "type": "era",
-      "years": "The shape of it",
       "title": "Capacity against what wanted it",
       "text": "Typical memory fitted to a new machine, against the minimum a contemporary operating system asked for. The gap between the two lines is the room you actually had to work in."
     },
     {
       "type": "interactive",
       "id": "demand-chart",
-      "unit": "B",
+      "unit": "MB",
       "alt": "Typical memory fitted to a PC against operating system requirements, 1981 to 2025",
       "caption": "Values in megabytes.",
       "series": [
@@ -171,55 +187,68 @@
           "points": [
             [
               1981,
-              0.016
+              0.016,
+              "IBM PC 5150"
             ],
             [
               1985,
-              0.512
+              0.512,
+              "IBM PC AT era"
             ],
             [
               1990,
-              4
+              4,
+              "Windows 3.0 machine"
             ],
             [
               1995,
-              16
+              16,
+              "Windows 95 machine"
             ],
             [
               1998,
-              64
+              64,
+              "Pentium II machine"
             ],
             [
               2001,
-              256
+              256,
+              "Windows XP machine"
             ],
             [
               2004,
-              512
+              512,
+              "Pentium 4 machine"
             ],
             [
               2007,
-              2048
+              2048,
+              "Windows Vista machine"
             ],
             [
               2010,
-              4096
+              4096,
+              "Core i5 machine"
             ],
             [
               2014,
-              8192
+              8192,
+              "DDR3 machine"
             ],
             [
               2018,
-              16384
+              16384,
+              "DDR4 machine"
             ],
             [
               2021,
-              16384
+              16384,
+              "DDR4 machine"
             ],
             [
               2025,
-              32768
+              32768,
+              "DDR5 machine"
             ]
           ]
         },
@@ -229,43 +258,53 @@
           "points": [
             [
               1981,
-              0.016
+              0.016,
+              "MS-DOS 1.0"
             ],
             [
               1990,
-              1
+              1,
+              "Windows 3.0"
             ],
             [
               1995,
-              4
+              4,
+              "Windows 95"
             ],
             [
               1998,
-              16
+              16,
+              "Windows 98"
             ],
             [
               2001,
-              64
+              64,
+              "Windows XP"
             ],
             [
               2007,
-              1024
+              1024,
+              "Windows Vista"
             ],
             [
               2009,
-              1024
+              1024,
+              "Windows 7"
             ],
             [
               2015,
-              2048
+              2048,
+              "Windows 10"
             ],
             [
               2021,
-              4096
+              4096,
+              "Windows 11"
             ],
             [
               2025,
-              4096
+              4096,
+              "Windows 11"
             ]
           ]
         }

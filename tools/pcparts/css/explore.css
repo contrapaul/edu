@@ -225,3 +225,32 @@ figure.shot figcaption {
   max-width: 46rem;
   margin: 0 0 1.1rem;
 }
+
+/* ── entry links ─────────────────────────────────────── */
+
+.entry-name a {
+  color: #e8edf6;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color var(--ease), border-color var(--ease);
+}
+
+.entry-name a:hover,
+.entry-name a:focus-visible {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  outline: none;
+}
+
+/* Small outward arrow, so it is clear the link leaves the page. */
+.entry-name a::after {
+  content: "\2197";
+  margin-left: 0.3rem;
+  font-size: 0.78em;
+  color: var(--dimmer);
+  border: none;
+  transition: color var(--ease);
+}
+
+.entry-name a:hover::after,
+.entry-name a:focus-visible::after { color: var(--accent); }

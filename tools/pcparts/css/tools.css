@@ -146,7 +146,13 @@
 
 .chart-wrap { overflow-x: auto; }
 
-.chart { width: 100%; min-width: 34rem; display: block; }
+.chart-box {
+  position: relative;
+  width: 100%;
+  min-width: 34rem;
+}
+
+.chart { width: 100%; display: block; overflow: visible; }
 
 .chart .grid line { stroke: var(--line-soft); stroke-width: 1; }
 
@@ -154,4 +160,88 @@
   fill: var(--dimmer);
   font-family: var(--mono);
   font-size: 11px;
+}
+
+/* ── chart points ────────────────────────────────────── */
+
+.pt-hit {
+  fill: transparent;
+  /* `all` rather than the default, so a transparent circle still takes
+     pointer and keyboard events */
+  pointer-events: all;
+  cursor: pointer;
+  outline: none;
+}
+
+.pt-halo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.5);
+  transition: opacity var(--ease), transform var(--ease);
+  pointer-events: none;
+}
+
+.pt-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--ease);
+  pointer-events: none;
+}
+
+.pt.is-active .pt-halo { opacity: 0.32; transform: scale(1.6); }
+.pt.is-active .pt-dot { transform: scale(1.5); }
+
+.pt:focus-within .pt-dot,
+.pt.is-active .pt-dot {
+  filter: drop-shadow(0 0 4px var(--pt-color))
+          drop-shadow(0 0 10px var(--pt-color));
+}
+
+.pt:focus-within .pt-halo { opacity: 0.32; transform: scale(1.6); }
+
+/* ── point readout ───────────────────────────────────── */
+
+.chart-tip {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  gap: 0.12rem;
+  padding: 0.5rem 0.7rem;
+  min-width: 8rem;
+  background: #0b1017;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--tip-accent, var(--accent));
+  border-radius: 3px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.chart-tip[hidden] { display: none; }
+
+.chart-tip[data-align="center"] { transform: translate(-50%, calc(-100% - 14px)); }
+.chart-tip[data-align="left"]   { transform: translate(-12%, calc(-100% - 14px)); }
+.chart-tip[data-align="right"]  { transform: translate(-88%, calc(-100% - 14px)); }
+
+.tip-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #eef2f8;
+}
+
+.tip-value {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--tip-accent, var(--accent));
+}
+
+.tip-meta {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--dimmer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-halo, .pt-dot { transition: none; }
 }

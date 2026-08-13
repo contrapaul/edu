@@ -2,7 +2,7 @@
   "id": "cpu",
   "title": "Processors",
   "span": "1971 to 2025",
-  "intro": "For thirty years the answer to \"is it fast?\" was a single number printed on the box, and that number went up every year. Then around 2004 it stopped, and everything since has been about finding speed somewhere other than the clock.",
+  "intro": "For thirty years the answer to \"is it fast?\" was a single number printed on the box, and that number went up every year. Then around 2004 it stopped, and everything since has been about finding speed somewhere other than the clock. Along the way there are several expensive failures worth knowing about, because they show what happens when a company bets on the wrong idea.",
   "blocks": [
     {
       "type": "era",
@@ -16,21 +16,24 @@
       "name": "Intel 4004",
       "key": true,
       "spec": "740 kHz, 2,300 transistors, 4-bit, 10 µm",
-      "text": "Designed for a Japanese desktop calculator. It handled four bits at a time, meaning a single decimal digit, and it was the first time a complete processor fitted on one chip."
+      "url": "https://en.wikipedia.org/wiki/Intel_4004",
+      "text": "Designed for a Japanese desktop calculator made by Busicom, who originally wanted twelve separate custom chips. Intel's engineers argued instead for one general purpose chip that could be told what to do in software, which is the idea the whole industry now runs on. It handled four bits at a time, meaning a single decimal digit. Intel bought the rights back from Busicom for $60,000, which turned out to be the bargain of the century."
     },
     {
       "type": "entry",
       "year": 1972,
       "name": "Intel 8008",
       "spec": "500 to 800 kHz, 3,500 transistors, 8-bit",
-      "text": "Eight bits at a time, which is enough to represent a character of text. This is the point where a microprocessor could plausibly drive a terminal rather than a calculator."
+      "url": "https://en.wikipedia.org/wiki/Intel_8008",
+      "text": "Eight bits at a time, which is enough to represent one character of text. This is the point where a microprocessor could plausibly drive a terminal rather than a calculator."
     },
     {
       "type": "entry",
       "year": 1974,
       "name": "Intel 8080",
       "spec": "2 MHz, 4,500 transistors, 8-bit",
-      "text": "Fast enough and general enough to build a computer around. The Altair 8800 used it, sold as a kit to hobbyists, and effectively started the personal computer industry."
+      "url": "https://en.wikipedia.org/wiki/Intel_8080",
+      "text": "Fast enough and general enough to build a computer around. The Altair 8800 used it, sold as a mail order kit to hobbyists, and it is the machine two young programmers named Bill Gates and Paul Allen wrote a BASIC interpreter for before they had ever seen one. That contract became Microsoft."
     },
     {
       "type": "entry",
@@ -38,14 +41,16 @@
       "name": "MOS Technology 6502",
       "key": true,
       "spec": "1 MHz, ~3,500 transistors, 8-bit, $25",
-      "text": "Competitors sold for around $180. Undercutting them by a factor of seven put the 6502 into the Apple II, the Commodore 64, the BBC Micro and the Nintendo Entertainment System, and it is the reason home computing happened when it did."
+      "url": "https://en.wikipedia.org/wiki/MOS_Technology_6502",
+      "text": "Competing chips sold for around $180. The 6502 team, who had walked out of Motorola, undercut them by a factor of seven by designing for cheap manufacturing rather than for features. That price put it into the Apple II, the Commodore 64, the BBC Micro, the Atari 2600 and the Nintendo Entertainment System. If you want one reason home computing happened in the late seventies rather than the late eighties, this chip is it."
     },
     {
       "type": "entry",
       "year": 1976,
       "name": "Zilog Z80",
       "spec": "2.5 MHz, 8,500 transistors, 8-bit",
-      "text": "Built by ex-Intel engineers and compatible with the 8080, so it inherited that software. It ran CP/M, the business operating system that MS-DOS was written to resemble."
+      "url": "https://en.wikipedia.org/wiki/Zilog_Z80",
+      "text": "Built by engineers who had left Intel, and deliberately made able to run 8080 software so it inherited that library on the day it launched. It ran CP/M, the business operating system that MS-DOS was written to resemble closely enough that moving programs between them was straightforward."
     },
     {
       "type": "entry",
@@ -53,34 +58,38 @@
       "name": "Intel 8086",
       "key": true,
       "spec": "5 to 10 MHz, 29,000 transistors, 16-bit",
-      "text": "The start of the x86 instruction set. A processor bought today still understands the instructions written for this chip, which is close to fifty years of backward compatibility and the main reason the architecture survived."
+      "url": "https://en.wikipedia.org/wiki/Intel_8086",
+      "text": "The start of the x86 instruction set. A processor bought today still understands the instructions written for this chip, which is close to fifty years of backward compatibility. That is the main reason the architecture survived, and also the main criticism of it, because every modern x86 chip carries decades of accumulated baggage it is not allowed to remove."
     },
     {
       "type": "entry",
       "year": 1979,
       "name": "Intel 8088",
       "spec": "5 MHz, 29,000 transistors, 16-bit internal, 8-bit external",
-      "text": "The 8086 with a narrower connection to the outside world, which halved the cost of the supporting circuitry. A compromise that made the machine cheap enough for IBM to choose it."
+      "url": "https://en.wikipedia.org/wiki/Intel_8088",
+      "text": "The 8086 with a narrower connection to the outside world, which halved the cost of the supporting circuitry around it. A deliberate compromise, and the reason IBM picked it: the cheaper support chips were what made the whole machine affordable to build."
     },
     {
       "type": "era",
       "years": "1981 to 1989",
       "title": "The IBM PC sets the standard, then loses control of it",
-      "text": "IBM built its PC from parts anyone could buy and published the technical documentation. That decision let competitors build machines that ran the same software, and within five years the standard belonged to the industry rather than to IBM. Every processor below had to run the software written for the ones before it."
+      "text": "IBM built its PC from parts anyone could buy and published the technical documentation, because it wanted the machine finished in a year rather than the four an IBM project normally took. Competitors used that documentation to build machines running the same software, and within five years the standard belonged to the industry rather than to IBM. Every processor below had to run the software written for the ones before it, and that constraint shaped every design decision that followed."
     },
     {
       "type": "entry",
       "year": 1981,
       "name": "IBM PC 5150",
       "spec": "Intel 8088 at 4.77 MHz, 16 KB RAM, cassette or floppy",
-      "text": "Not the first personal computer and not the fastest, but the one businesses bought. The 4.77 MHz figure is worth holding on to, because it is the baseline that everything after it multiplied."
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer",
+      "text": "Not the first personal computer and not the fastest, but the one businesses bought, because it had IBM on the front. The one part IBM did not publish was the BIOS, the small program that starts the machine. Compaq paid engineers who had never seen IBM's code to write their own from a description of what it did, documented the separation carefully enough to survive court, and the clone industry followed. Hold on to the 4.77 MHz figure, because it is the baseline everything after it multiplied."
     },
     {
       "type": "entry",
       "year": 1982,
       "name": "Intel 80286",
       "spec": "6 to 12.5 MHz, 134,000 transistors, 16-bit",
-      "text": "Introduced protected mode, which lets the processor stop one program from reading or overwriting another program's memory. Modern operating systems depend on this idea completely, though it took another decade before PC software actually used it."
+      "url": "https://en.wikipedia.org/wiki/Intel_80286",
+      "text": "Introduced protected mode, which lets the processor stop one program reading or overwriting another program's memory. Modern operating systems depend on this completely. The catch was that a 286 could switch into protected mode but not back out again without effectively resetting itself, so DOS software could not use it, and for years most 286 machines ran as nothing more than fast 8088s."
     },
     {
       "type": "entry",
@@ -88,14 +97,16 @@
       "name": "Intel 80386DX",
       "key": true,
       "spec": "16 to 33 MHz, 275,000 transistors, 32-bit",
-      "text": "The jump to 32 bits, which raised the amount of memory the processor could address from 16 megabytes to four gigabytes. That headroom lasted the industry roughly twenty years."
+      "url": "https://en.wikipedia.org/wiki/Intel_80386",
+      "text": "The jump to 32 bits, raising the memory the processor could address from 16 megabytes to four gigabytes. That headroom lasted roughly twenty years. It also fixed the 286's trap by allowing a return from protected mode, and added a mode in which several DOS programs could run at once, each believing it had the whole machine to itself. Compaq shipped a 386 PC before IBM did, which is the moment the industry noticed IBM no longer set the pace."
     },
     {
       "type": "entry",
       "year": 1988,
       "name": "Intel 80386SX",
       "spec": "16 to 33 MHz, 32-bit internal, 16-bit external",
-      "text": "The same cost-cutting trick as the 8088. Full 32-bit capability inside, a cheaper connection outside, sold to people who wanted 386 software support without the price."
+      "url": "https://en.wikipedia.org/wiki/Intel_80386SX",
+      "text": "The same cost-cutting trick as the 8088. Full 32-bit capability inside, a cheaper 16-bit connection outside, sold to buyers who wanted 386 software support without the price."
     },
     {
       "type": "entry",
@@ -103,27 +114,30 @@
       "name": "Intel 80486DX",
       "key": true,
       "spec": "25 to 50 MHz, 1.2M transistors, 8 KB cache, on-die FPU",
-      "text": "Two things moved onto the processor itself: a small pool of fast cache memory, and the floating point unit that handles decimal arithmetic. Before this, doing serious maths meant buying a separate coprocessor chip and plugging it into an empty socket next to the CPU."
+      "url": "https://en.wikipedia.org/wiki/Intel_80486",
+      "text": "Two things moved onto the processor itself. A small pool of very fast cache memory, which keeps recently used data close so the chip does not have to wait for main memory. And the floating point unit that handles decimal arithmetic, which until now meant buying a separate coprocessor chip and plugging it into an empty socket beside the CPU. Intel also sold a cheaper 486SX with the floating point unit switched off, and on early versions the hardware was physically present and simply disabled, which is an early example of a company charging to unlock something the silicon already had."
     },
     {
       "type": "era",
       "years": "1990 to 1999",
       "title": "The megahertz race",
-      "text": "Through the nineties, processors roughly doubled in clock speed every two years, and the number on the box was a fair guide to how the machine felt. It was also the decade when AMD stopped being a licensed second source for Intel designs and started competing with its own."
+      "text": "Through the nineties processors roughly doubled in clock speed every two years, and the number on the box was a fair guide to how the machine felt. It was also the decade when AMD stopped being a licensed second source for Intel designs and started competing with its own, and the decade of Intel's most famous public mistake."
     },
     {
       "type": "entry",
       "year": 1991,
       "name": "AMD Am386DX-40",
       "spec": "40 MHz, 32-bit",
-      "text": "AMD's own 386 built after a long legal fight over the right to make one, and clocked higher than anything Intel sold in that family. The first time buying the cheaper chip also meant buying the faster one."
+      "url": "https://en.wikipedia.org/wiki/AMD_Am386",
+      "text": "AMD's own 386, built after a long legal fight over whether its licence to make Intel designs covered the microcode inside them. AMD won, shipped at 40 MHz when Intel's fastest 386 ran at 33, and for the first time the cheaper chip was also the faster one."
     },
     {
       "type": "entry",
       "year": 1992,
       "name": "Intel 486DX2-66",
       "spec": "66 MHz internal, 33 MHz bus, 1.2M transistors",
-      "text": "Clock doubling: the core runs at twice the speed of the connection to the rest of the machine. This is the moment the processor and the memory around it stopped keeping pace with each other, a gap that has widened ever since and is why cache exists."
+      "url": "https://en.wikipedia.org/wiki/Intel_80486DX2",
+      "text": "Clock doubling: the core runs at twice the speed of its connection to the rest of the machine. This is the moment the processor and the memory around it stopped keeping pace with each other. That gap has widened every year since, and it is why cache keeps growing and why a modern processor spends a surprising share of its time simply waiting."
     },
     {
       "type": "entry",
@@ -131,21 +145,25 @@
       "name": "Intel Pentium",
       "key": true,
       "spec": "60 and 66 MHz, 3.1M transistors, 0.8 µm",
-      "text": "Superscalar, meaning it could start two instructions in the same clock cycle rather than one. Speed now depended on how much work the chip could do per tick, not only on how many ticks per second, and that split matters for everything that follows."
+      "url": "https://en.wikipedia.org/wiki/P5_(microarchitecture)",
+      "text": "Superscalar, meaning it could start two instructions in the same clock cycle rather than one. Speed now depended on how much work the chip did per tick, not only how many ticks per second, and that split matters for everything that follows. The name is a lesson in itself: courts had ruled that Intel could not trademark the number 586, so it invented a word it could own and spent heavily teaching the public to ask for it."
     },
     {
       "type": "entry",
       "year": 1994,
-      "name": "Intel Pentium 100",
-      "spec": "100 MHz, 0.6 µm",
-      "text": "Three digits on the box for the first time. Intel also began the Intel Inside advertising campaign around this period, which taught ordinary buyers to care which processor was in the case."
+      "name": "The Pentium FDIV bug",
+      "key": true,
+      "spec": "Wrong division results, roughly 1 in 9 billion random divisions",
+      "url": "https://en.wikipedia.org/wiki/Pentium_FDIV_bug",
+      "text": "A maths professor called Thomas Nicely found that his Pentium returned slightly wrong answers to certain divisions. The cause was five missing entries in a lookup table burned into the chip. Intel had known for months, judged the fault too rare to matter, and offered replacements only to customers who could demonstrate their work needed that precision. Being asked to justify wanting a processor that does arithmetic correctly went down badly, the story reached mainstream news, and Intel reversed course and offered a full replacement to anyone who asked, taking a $475 million charge. The engineering lesson is that hardware bugs cannot be patched away. The larger lesson is what happens when a company decides on its customers' behalf that a fault does not matter."
     },
     {
       "type": "entry",
       "year": 1994,
       "name": "Intel 486DX4-100",
       "spec": "100 MHz internal, 33 MHz bus",
-      "text": "A tripled clock, sold to people upgrading rather than replacing. It matched the Pentium 100 on paper and lost to it comfortably in practice, which is an early lesson in not trusting clock speed across different designs."
+      "url": "https://en.wikipedia.org/wiki/Intel_80486",
+      "text": "A tripled clock, sold to people upgrading rather than replacing. It matched the Pentium 100 on paper and lost to it comfortably in practice, which is an early lesson in not comparing clock speeds across different designs."
     },
     {
       "type": "entry",
@@ -153,56 +171,65 @@
       "name": "Intel Pentium Pro",
       "key": true,
       "spec": "150 to 200 MHz, 5.5M transistors, out-of-order execution",
-      "text": "The processor began reordering instructions on the fly, running whatever was ready rather than waiting in sequence. It was aimed at servers and ran 16-bit Windows software poorly, but the design underneath it, called P6, carried Intel through the next ten years."
+      "url": "https://en.wikipedia.org/wiki/Pentium_Pro",
+      "text": "The processor began reordering instructions on the fly, running whatever was ready rather than waiting in written order, and guessing which way branches would go so it could start work before knowing whether that work was needed. This is called speculative execution, and it is both the foundation of modern performance and, twenty-three years later, the source of the Meltdown and Spectre flaws further down this page. The Pentium Pro was tuned for 32-bit code and ran the 16-bit Windows software most people actually owned badly, so it sold poorly to consumers, but the design underneath it carried Intel for the next ten years."
     },
     {
       "type": "entry",
       "year": 1995,
       "name": "Cyrix 6x86",
-      "spec": "80 to 150 MHz, PR rating",
-      "text": "Faster than a Pentium at the same clock, so Cyrix sold it under a made-up number claiming Pentium equivalence. Buyers found the maths did not hold for games, and the practice damaged trust in performance ratings for years."
+      "spec": "80 to 150 MHz, sold by PR rating",
+      "url": "https://en.wikipedia.org/wiki/Cyrix_6x86",
+      "text": "Genuinely faster than a Pentium at the same clock on office software, so Cyrix labelled a 133 MHz chip as PR166 to claim Pentium equivalence. The claim collapsed in games, because its floating point unit was weak and games leaned on exactly that. Buyers who trusted the number felt cheated, and performance ratings were distrusted for years afterwards."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "Intel Pentium MMX",
       "spec": "166 to 233 MHz, 4.5M transistors, 57 new instructions",
-      "text": "MMX added instructions that perform the same operation on several numbers at once, which suits audio, video and image work. Nearly every performance gain since has involved doing more per instruction rather than more instructions per second."
+      "url": "https://en.wikipedia.org/wiki/MMX_(instruction_set)",
+      "text": "MMX added instructions that perform the same operation on several numbers at once, which suits audio, video and image work where identical arithmetic is applied to millions of samples or pixels. The approach is called SIMD, single instruction multiple data, and nearly every performance gain since has involved doing more per instruction rather than more instructions per second."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "Intel Pentium II",
       "spec": "233 to 450 MHz, 7.5M transistors, Slot 1",
-      "text": "Sold as a cartridge that slid into a slot rather than a chip that dropped into a socket, because the cache chips sat beside the processor on a small circuit board. An expensive detour, abandoned once cache could be built into the die."
+      "url": "https://en.wikipedia.org/wiki/Pentium_II",
+      "text": "Sold as a cartridge that slid into a slot rather than a chip that dropped into a socket, because the cache chips sat beside the processor on a small circuit board. Intel patented the slot, which conveniently locked out competitors who had been dropping their chips into the shared Socket 7. An expensive detour, abandoned as soon as cache could be built into the die itself."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "AMD K6",
       "spec": "166 to 300 MHz, 8.8M transistors, Socket 7",
-      "text": "Dropped into the same socket as a Pentium, so anyone could upgrade without replacing the motherboard. Competing on the incumbent's own platform is unusual and it worked."
+      "url": "https://en.wikipedia.org/wiki/AMD_K6",
+      "text": "Dropped into the same socket as a Pentium, so anyone could upgrade without replacing the motherboard. AMD had bought a struggling company called NexGen to get the design, which is worth noting on its own: buying the team proved faster than building one."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "Intel Celeron 300A",
-      "spec": "300 MHz, 128 KB on-die cache",
-      "text": "A budget chip that overclocked to 450 MHz on nearly every sample, because its cache ran at full core speed while the expensive Pentium II's ran at half. It made overclocking a mainstream hobby rather than an enthusiast oddity."
+      "key": true,
+      "spec": "300 MHz, 128 KB cache running at full core speed",
+      "url": "https://en.wikipedia.org/wiki/Celeron",
+      "text": "Intel's first Celeron shipped with no cache at all and was so slow it damaged the name within months. The replacement, the 300A, had a smaller cache than the Pentium II but ran it at full core speed instead of half. It reached 450 MHz on almost every sample simply by raising the motherboard bus from 66 to 100 MHz, matching chips costing three times more. It turned overclocking from an enthusiast oddity into a mainstream hobby, and it is a clean demonstration that how fast a cache runs can matter more than how large it is."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "AMD K6-2",
       "spec": "266 to 550 MHz, 3DNow! instructions",
-      "text": "AMD's answer to MMX, aimed at the floating point maths that 3D games needed. It also exposed the problem with competing instruction sets, since software had to be written specifically for it or the hardware sat idle."
+      "url": "https://en.wikipedia.org/wiki/AMD_K6-2",
+      "text": "AMD's answer to MMX, aimed at the floating point maths that 3D games needed. It also shows the problem with competing instruction sets: software had to be written specifically for 3DNow! or the hardware sat idle, and most developers targeted Intel's version because Intel had the market share."
     },
     {
       "type": "entry",
       "year": 1999,
       "name": "Intel Pentium III",
       "spec": "450 MHz to 1.13 GHz, 9.5M transistors, SSE",
-      "text": "SSE replaced the earlier attempts at parallel instructions and became the version everyone standardised on. Its descendants are still in use."
+      "url": "https://en.wikipedia.org/wiki/Pentium_III",
+      "text": "SSE replaced the earlier attempts at parallel instructions and became the version everyone standardised on, and its descendants are still in use today. The Pentium III also shipped with a unique serial number that any website could read, intended to help with security and licensing. Privacy campaigners objected loudly, manufacturers began disabling it by default, and Intel dropped it from the Pentium 4. A technically reasonable feature can fail on public trust alone."
     },
     {
       "type": "entry",
@@ -210,13 +237,14 @@
       "name": "AMD Athlon",
       "key": true,
       "spec": "500 MHz to 1 GHz, 22M transistors, Slot A",
-      "text": "The first AMD design that beat Intel outright rather than matching it for less money. It could handle more instructions at once than the Pentium III and it clocked higher."
+      "url": "https://en.wikipedia.org/wiki/Athlon",
+      "text": "The first AMD design that beat Intel outright rather than matching it for less money. It handled more instructions at once than the Pentium III and it clocked higher. The team was led by engineers who had built the DEC Alpha, one of the fastest processors of the era, and AMD licensed the Alpha's bus to feed it. Buying in expertise from a dying rival is a recurring move in this industry."
     },
     {
       "type": "era",
       "years": "2000 to 2005",
       "title": "The gigahertz war, and the wall at the end of it",
-      "text": "Intel bet its next architecture on reaching very high clock speeds, designing a chip that did less work per cycle in exchange for cycling much faster. The plan was 10 GHz. It stopped just under 4, because the power a chip consumes rises faster than its clock speed does, and the heat became impossible to remove."
+      "text": "Intel bet its next architecture on reaching very high clock speeds, designing a chip that did less work per cycle in exchange for cycling much faster. The public plan was 10 GHz. It stopped just under 4, because the power a chip consumes rises faster than its clock speed does, and the heat became impossible to remove. This is the single most important bend in the whole story."
     },
     {
       "type": "entry",
@@ -224,21 +252,33 @@
       "name": "AMD Athlon 1000",
       "key": true,
       "spec": "1 GHz, 180 nm",
-      "text": "The first consumer processor to reach a gigahertz, announced two days before Intel's. The margin was meaningless technically and enormous commercially."
+      "url": "https://en.wikipedia.org/wiki/Athlon",
+      "text": "The first consumer processor to reach a gigahertz, announced on 6 March 2000. Intel's 1 GHz Pentium III arrived two days later. The margin was technically meaningless and commercially enormous, because a gigahertz was a round number the public understood and only one company could claim it first."
+    },
+    {
+      "type": "entry",
+      "year": 2000,
+      "name": "The recalled 1.13 GHz Pentium III",
+      "spec": "1.13 GHz, withdrawn from sale within weeks",
+      "url": "https://en.wikipedia.org/wiki/Pentium_III",
+      "text": "Pushed out to retake the speed crown, this chip crashed under sustained load. Two hardware review sites reproduced the fault publicly and Intel recalled it. Worth remembering the next time a manufacturer ships a product to win a headline number: the design was already at its limit, and the people who signed it off knew that."
     },
     {
       "type": "entry",
       "year": 2000,
       "name": "Intel Pentium 4 (Willamette)",
+      "key": true,
       "spec": "1.4 to 2 GHz, 42M transistors, 20-stage pipeline",
-      "text": "The NetBurst design broke each instruction into far more steps than before, so each step could be shorter and the clock faster. It was slower than the Pentium III it replaced at the same speed, and Intel's answer was to keep raising the speed."
+      "url": "https://en.wikipedia.org/wiki/NetBurst",
+      "text": "A pipeline is an assembly line for instructions, and splitting the work into more, smaller stages lets each stage be shorter so the clock can run faster. NetBurst took this to twenty stages where the Pentium III used ten. The cost is that when the chip guesses a branch wrongly it must throw away everything already in the pipeline and start again, so a longer pipeline makes every wrong guess more expensive. The first Pentium 4 was slower than the Pentium III it replaced at the same clock speed, and Intel's answer was to keep raising the clock."
     },
     {
       "type": "entry",
       "year": 2001,
       "name": "AMD Athlon XP",
       "spec": "1.33 to 2.2 GHz, PR rating up to 3200+",
-      "text": "AMD went back to selling model numbers implying a Pentium 4 equivalent, because its chips did more per cycle and lost every comparison based on raw megahertz. This time the claim was broadly fair."
+      "url": "https://en.wikipedia.org/wiki/Athlon",
+      "text": "AMD went back to selling model numbers implying a Pentium 4 equivalent, because its chips did far more per cycle and lost every comparison based on raw megahertz. This time the claim was broadly fair, which is the awkward part: the same marketing tactic Cyrix was condemned for is honest or dishonest depending entirely on whether the engineering underneath supports it."
     },
     {
       "type": "entry",
@@ -246,7 +286,8 @@
       "name": "Intel Pentium 4 3.06 GHz HT",
       "key": true,
       "spec": "3.06 GHz, Hyper-Threading, 130 nm",
-      "text": "Hyper-Threading presents one physical core to the operating system as two, so that when one thread stalls waiting for memory the other can use the idle hardware. It is not two cores; it is one core wasting less time."
+      "url": "https://en.wikipedia.org/wiki/Hyper-threading",
+      "text": "Hyper-Threading presents one physical core to the operating system as two. When one thread stalls waiting for memory, the other can use the hardware sitting idle. It is not two cores, it is one core wasting less time, and the gain is typically 15 to 30 percent rather than double. It suited NetBurst particularly well precisely because that long pipeline spent so much of its time stalled."
     },
     {
       "type": "entry",
@@ -254,7 +295,17 @@
       "name": "AMD Athlon 64",
       "key": true,
       "spec": "2 to 2.6 GHz, 105M transistors, 64-bit, integrated memory controller",
-      "text": "Two lasting decisions. It extended x86 to 64 bits in a way that still ran 32-bit software, and Intel eventually adopted AMD's version rather than its own. It also moved the memory controller onto the processor, cutting out a trip to a separate chip and reducing the delay on every memory access."
+      "url": "https://en.wikipedia.org/wiki/Athlon_64",
+      "text": "Two decisions that still shape every PC. It extended x86 to 64 bits in a way that still ran existing 32-bit software at full speed, and it moved the memory controller onto the processor itself, cutting out a trip to a separate chip and shortening the delay on every single memory access. Intel had a rival 64-bit plan, and lost with it."
+    },
+    {
+      "type": "entry",
+      "year": 2003,
+      "name": "Itanium, and why AMD64 won",
+      "key": true,
+      "spec": "IA-64, incompatible with x86, joint Intel and HP project",
+      "url": "https://en.wikipedia.org/wiki/Itanium",
+      "text": "Intel's 64-bit answer was a completely new architecture that abandoned x86 compatibility, on the reasoning that decades of accumulated baggage were holding performance back. Technically that argument had merit. Commercially it did not survive contact with customers, because Itanium ran existing x86 software through emulation so slowly that nobody would migrate. AMD extended what already existed instead, Microsoft chose to support AMD's version rather than maintain two separate 64-bit versions of Windows, and in 2004 Intel adopted its competitor's design under a different name. Itanium limped on in servers until 2021. The trade press nicknamed it the Itanic, and the lesson is that in this industry the better clean design regularly loses to the worse compatible one."
     },
     {
       "type": "entry",
@@ -262,27 +313,30 @@
       "name": "Intel Pentium 4 570 (Prescott)",
       "key": true,
       "spec": "3.8 GHz, 31-stage pipeline, 90 nm, 115 W",
-      "text": "The end of the road. A planned 4 GHz version was cancelled because the chip could not be cooled reliably, and the whole architecture was abandoned. Desktop clock speeds would not pass 3.8 GHz again for six years."
+      "url": "https://en.wikipedia.org/wiki/Pentium_4",
+      "text": "The end of the road. Prescott stretched the pipeline to 31 stages and leaked so much power through the transistors themselves that it ran hot at any speed. A 4 GHz version was announced, delayed, then cancelled outright in late 2004 along with the entire NetBurst roadmap, and Intel publicly abandoned the strategy it had spent five years advertising. Desktop clock speeds would not pass 3.8 GHz again for six years. If you only remember one entry on this page, this is a good candidate: an approach that worked for a decade stopped working because of physics, not competition."
     },
     {
       "type": "entry",
       "year": 2005,
       "name": "Intel Pentium D",
       "spec": "2.8 to 3.2 GHz, two cores, 130 W",
-      "text": "Two Pentium 4 dies in one package, communicating through the motherboard rather than directly. A rushed answer to a problem Intel had not planned for, and it ran extremely hot."
+      "url": "https://en.wikipedia.org/wiki/Pentium_D",
+      "text": "Two Pentium 4 dies bolted into one package, talking to each other through the motherboard rather than directly, because Intel needed a dual core answer immediately and had not designed one. It ran extremely hot and was beaten comfortably by AMD's version."
     },
     {
       "type": "entry",
       "year": 2005,
       "name": "AMD Athlon 64 X2",
       "spec": "2 to 2.4 GHz, two cores on one die",
-      "text": "Two cores designed together and sharing an on-chip connection, which is what a dual core processor is supposed to be. Software written for one core saw no benefit at all, and most software was written for one core."
+      "url": "https://en.wikipedia.org/wiki/Athlon_64_X2",
+      "text": "Two cores designed together, sharing an on-chip connection and a memory controller, which is what a dual core processor is supposed to be. The catch is worth sitting with, because it explains the next twenty years: software written to do one thing at a time saw no benefit whatsoever, and in 2005 nearly all software was written that way. Extra cores only help if the work can be divided, and dividing work is a programming problem that no amount of hardware can solve."
     },
     {
       "type": "era",
       "years": "2006 to 2016",
       "title": "Doing more per cycle, then doing very little for five years",
-      "text": "With the clock capped, the only remaining levers were efficiency per cycle and the number of cores. Intel pulled hard on both, took a decisive lead, and then, without meaningful competition, slowed to improvements of a few percent a year while the price stayed the same."
+      "text": "With the clock capped, the only remaining levers were efficiency per cycle and the number of cores. Intel pulled hard on both, took a decisive lead, and then, with no meaningful competition, slowed to improvements of a few percent a year while prices stayed the same. This stretch contains both the largest single jump in the story and its longest stagnation."
     },
     {
       "type": "entry",
@@ -290,14 +344,16 @@
       "name": "Intel Core 2 Duo E6600",
       "key": true,
       "spec": "2.4 GHz, two cores, 291M transistors, 65 nm, 65 W",
-      "text": "Slower on paper than the 3.8 GHz Pentium 4 it replaced, and much faster in practice. This is the clearest single demonstration that clock speed and performance are different things: a third less clock, roughly 40 percent more work done, and half the power."
+      "url": "https://en.wikipedia.org/wiki/Intel_Core_2",
+      "text": "Slower on paper than the 3.8 GHz Pentium 4 it replaced, and much faster in practice: a third less clock, roughly 40 percent more work done, and half the power. This is the clearest single proof that clock speed and performance are different things. The design came from Intel's team in Haifa, who had been building efficient laptop chips and had argued against NetBurst internally for years before being proved right. It also ended AMD's brief period on top, and AMD would not lead again for fourteen years."
     },
     {
       "type": "entry",
       "year": 2007,
       "name": "Intel Core 2 Quad Q6600",
       "spec": "2.4 GHz, four cores, 105 W",
-      "text": "Four cores at a price ordinary buyers could reach, which pushed software developers to start writing programs that could use them. It stayed usable for far longer than anyone expected."
+      "url": "https://en.wikipedia.org/wiki/Intel_Core_2",
+      "text": "Four cores at a price ordinary buyers could reach, which pushed developers to start writing programs that could genuinely use them. A large price cut a few months after launch made it one of the most widely bought enthusiast chips ever made, and it stayed usable for far longer than anyone expected."
     },
     {
       "type": "entry",
@@ -305,14 +361,16 @@
       "name": "Intel Core i7-920 (Nehalem)",
       "key": true,
       "spec": "2.66 GHz, 4 cores 8 threads, 731M transistors, 45 nm",
-      "text": "Intel adopted the integrated memory controller AMD had shipped five years earlier, brought back Hyper-Threading, and introduced Turbo Boost, which raises the clock on a few cores when the others are idle and the chip is cool enough. The shape of a modern processor is set here."
+      "url": "https://en.wikipedia.org/wiki/Nehalem_(microarchitecture)",
+      "text": "Intel adopted the integrated memory controller AMD had shipped five years earlier, brought back Hyper-Threading, and added Turbo Boost, which raises the clock on a few cores when the others are idle and the chip is cool enough. Turbo is why a modern processor has no single speed: the number on the box is a best case that depends on temperature, power draw and how many cores are busy. The shape of a modern processor is set here."
     },
     {
       "type": "entry",
       "year": 2009,
       "name": "AMD Phenom II X4 955",
       "spec": "3.2 GHz, four cores, 45 nm",
-      "text": "Competitive on price and on multi-core work, behind on the single-threaded performance that most games depended on. AMD would stay in roughly this position for eight years."
+      "url": "https://en.wikipedia.org/wiki/Phenom_II",
+      "text": "Competitive on price and on multi-core work, behind on the single-threaded performance most games depended on. Some models shipped with cores disabled that could be switched back on in the motherboard settings, because AMD had more fully working chips than it had demand for at the higher price. AMD would stay in roughly this position for eight years."
     },
     {
       "type": "entry",
@@ -320,34 +378,40 @@
       "name": "Intel Core i7-2600K (Sandy Bridge)",
       "key": true,
       "spec": "3.4 GHz, 4 cores 8 threads, 995M transistors, 32 nm, 95 W",
-      "text": "One of the largest single-generation gains Intel ever shipped, and it overclocked to 4.5 GHz on air cooling. People were still using these as their main machine ten years later, which says as much about what came after it as about the chip itself."
+      "url": "https://en.wikipedia.org/wiki/Sandy_Bridge",
+      "text": "One of the largest single-generation gains Intel ever shipped, around 15 percent more work per cycle on top of higher clocks, and it reached 4.5 GHz on air cooling with one setting change. People were still using these as their main machine ten years later. That says as much about what came after it as about the chip, and it is the entry to point at when someone asks why upgrading stopped feeling necessary."
     },
     {
       "type": "entry",
       "year": 2011,
       "name": "AMD FX-8150 (Bulldozer)",
+      "key": true,
       "spec": "3.6 GHz, 8 integer cores in 4 modules, 125 W",
-      "text": "AMD bet that software would become heavily multi-threaded and built a chip where pairs of cores shared their floating point hardware. Software did not cooperate, single-threaded performance went backwards against AMD's own previous generation, and the company nearly did not recover."
+      "url": "https://en.wikipedia.org/wiki/Bulldozer_(microarchitecture)",
+      "text": "The most expensive wrong bet in this story. AMD assumed software was about to become heavily multi-threaded, so rather than building fewer strong cores it built modules, each containing two integer cores that shared one floating point unit and one instruction fetcher between them. That is cheaper in transistors, and it let AMD print the number eight on the box. Software did not cooperate. Worse, single-threaded performance went backwards against AMD's own previous generation, so the new chip lost to the old one at things people actually did, which is close to the worst possible outcome for a new architecture. AMD's desktop share collapsed, the share price fell below $2, the company sold its headquarters campus and leased it back, and it cut a large part of its workforce. A class action over marketing the design as eight cores was settled for $12.1 million in 2019. Recovery took six years and required starting over: the engineer Jim Keller, who had worked on the original Athlon, returned in 2012 to lead a clean-sheet design that became Zen."
     },
     {
       "type": "entry",
       "year": 2013,
       "name": "Intel Core i7-4770K (Haswell)",
       "spec": "3.5 GHz, 4 cores 8 threads, 22 nm, 84 W",
-      "text": "Around 10 percent faster than the two-year-old part it replaced. This is the point where upgrading every generation stopped being worth the money."
+      "url": "https://en.wikipedia.org/wiki/Haswell_(microarchitecture)",
+      "text": "Around 10 percent faster than the two-year-old part it replaced, and it ran hotter when overclocked because Intel had switched from solder to cheaper thermal paste between the chip and its metal lid. Enthusiasts responded by prying the lids off their processors with razor blades to replace it, which tells you how thin the generational gains had become when that was considered worth the risk."
     },
     {
       "type": "entry",
       "year": 2015,
       "name": "Intel Core i7-6700K (Skylake)",
+      "key": true,
       "spec": "4 GHz, 4 cores 8 threads, 14 nm, 91 W",
-      "text": "Four cores, as with every mainstream Intel desktop chip since 2008. Intel then failed to move past 14 nm for five years and shipped four more generations of essentially this processor at slightly higher clocks."
+      "url": "https://en.wikipedia.org/wiki/Skylake_(microarchitecture)",
+      "text": "Four cores, as with every mainstream Intel desktop chip since 2008. Intel then failed to move past 14 nm for five years, missing its own published targets repeatedly, and shipped four more generations of essentially this processor at higher clocks and higher power. The industry took to writing the later ones as 14nm+++. The bottleneck was manufacturing rather than design, which is exactly why a competitor with access to a better factory was able to overtake them so suddenly."
     },
     {
       "type": "era",
       "years": "2017 to 2025",
       "title": "Competition returns, and the core count explodes",
-      "text": "AMD's Zen architecture arrived in 2017 and doubled the core count available at every price. Within a year Intel had abandoned the four core mainstream desktop it had held since 2008. The last stretch is about specialisation: not all cores are the same any more, and memory has started moving physically closer to the processor."
+      "text": "AMD's Zen architecture arrived in 2017 and doubled the core count available at every price. Within a year Intel had abandoned the four core mainstream desktop it had held since 2008. The last stretch is about specialisation: not all cores are the same any more, memory is moving physically closer to the processor, and the industry has had to reckon with the security cost of a trick it has relied on since 1995."
     },
     {
       "type": "entry",
@@ -355,14 +419,25 @@
       "name": "AMD Ryzen 7 1800X",
       "key": true,
       "spec": "3.6 GHz, 8 cores 16 threads, 14 nm, $499",
-      "text": "Intel's nearest eight-core part cost around $1,050. Doubling the cores available at a given price in a single generation is not a normal event, and it ended a decade of four core desktops."
+      "url": "https://en.wikipedia.org/wiki/Zen_(microarchitecture)",
+      "text": "Intel's nearest eight-core part cost around $1,050. Doubling the cores available at a given price in a single generation is not a normal event, and it ended a decade of four core desktops. Zen was a complete restart rather than a repair of Bulldozer: full cores again, each with its own floating point hardware, and roughly 52 percent more work per cycle than AMD's previous design."
     },
     {
       "type": "entry",
       "year": 2017,
       "name": "Intel Core i7-8700K",
       "spec": "3.7 GHz, 6 cores 12 threads, 14 nm",
-      "text": "Intel's response, shipped seven months later on the same manufacturing process it had used since 2015. Six cores on a mainstream desktop after nine years at four, which shows how much of the previous decade had been a choice rather than a limit."
+      "url": "https://en.wikipedia.org/wiki/Coffee_Lake",
+      "text": "Intel's response, shipped seven months after Ryzen on the same manufacturing process it had been using since 2015. Six cores on a mainstream desktop after nine years at four, which shows how much of the previous decade had been a commercial choice rather than a technical limit. It also required a new motherboard despite using a physically identical socket."
+    },
+    {
+      "type": "entry",
+      "year": 2018,
+      "name": "Meltdown and Spectre",
+      "key": true,
+      "spec": "Speculative execution flaws affecting nearly every processor since 1995",
+      "url": "https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)",
+      "text": "Researchers showed that speculative execution, the trick introduced with the Pentium Pro, leaves traces behind. When a processor guesses wrong it undoes the work, but the data it touched has already changed what sits in the cache, and an attacker can measure timing precisely enough to read that back. The data recovered can include another program's memory, or another customer's data on a shared cloud server. Fixes were largely in software and cost real performance, in some server workloads up to 30 percent. This is the most important security story in processor design, and the uncomfortable part is that nothing was broken: every chip worked exactly as specified, and the specification itself was the problem."
     },
     {
       "type": "entry",
@@ -370,7 +445,8 @@
       "name": "AMD Ryzen 9 3950X",
       "key": true,
       "spec": "3.5 GHz, 16 cores 32 threads, 7 nm, 9.89B transistors",
-      "text": "Built from chiplets: several small dies in one package rather than one large one. Small dies have fewer defects per wafer, so this is a manufacturing decision as much as a design one, and it is why AMD could sell sixteen cores at a price Intel could not match."
+      "url": "https://en.wikipedia.org/wiki/Zen_2",
+      "text": "Built from chiplets: several small dies in one package rather than one large one. A manufacturing flaw ruins whatever die it lands on, so smaller dies mean fewer wasted chips per wafer. AMD could also build the cores on an expensive advanced process while leaving the input and output on a cheaper older one. That is why AMD could sell sixteen cores at a price Intel, still cutting one large die each time, could not match. Manufacturing economics, not just architecture."
     },
     {
       "type": "entry",
@@ -378,13 +454,15 @@
       "name": "Apple M1",
       "key": true,
       "spec": "3.2 GHz, 8 cores (4 performance, 4 efficiency), 5 nm, 16B transistors",
-      "text": "Not x86 at all, and it put the memory in the same package as the processor. Two kinds of core, big ones for demanding work and small efficient ones for background tasks, gave laptop battery life that the industry had assumed was not available at that performance."
+      "url": "https://en.wikipedia.org/wiki/Apple_M1",
+      "text": "Not x86 at all, and it put the memory in the same package as the processor. Two kinds of core, large ones for demanding work and small efficient ones for background tasks, gave laptop battery life the industry had assumed was unavailable at that level of performance. Apple also had to move its entire software library to a new instruction set, and did it with a translator called Rosetta 2 that converted x86 programs ahead of time rather than while running, fast enough that most users never noticed. Set that beside Itanium, which failed on exactly this problem twenty years earlier, and the difference is how much effort went into the transition rather than the chip."
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "AMD Ryzen 9 5950X",
       "spec": "3.4 GHz, 16 cores 32 threads, 7 nm, 105 W",
+      "url": "https://en.wikipedia.org/wiki/Zen_3",
       "text": "The generation where AMD took the single-threaded performance lead as well as the multi-threaded one, which it had not held since 2005."
     },
     {
@@ -392,7 +470,8 @@
       "year": 2021,
       "name": "Intel Core i9-12900K (Alder Lake)",
       "spec": "5.2 GHz, 8 performance + 8 efficiency cores, Intel 7",
-      "text": "Intel adopted the two-kinds-of-core idea for desktops. It required Windows to learn which work belonged on which core, and early on it put the wrong things in the wrong places often enough to lose performance."
+      "url": "https://en.wikipedia.org/wiki/Alder_Lake",
+      "text": "Intel adopted the two-kinds-of-core idea for desktops. It required Windows to learn which work belonged on which core, and early on it put the wrong things in the wrong places often enough to lose performance. A number of older games refused to launch at all, because their copy protection saw cores reporting different capabilities and concluded the machine had been tampered with."
     },
     {
       "type": "entry",
@@ -400,13 +479,15 @@
       "name": "AMD Ryzen 7 5800X3D",
       "key": true,
       "spec": "3.4 GHz, 8 cores, 96 MB total L3 cache",
-      "text": "An extra slab of cache memory stacked vertically on top of the processor die. It clocked lower than the chip it was based on and beat it comfortably in games, because a game's real problem is usually waiting for data rather than running out of arithmetic."
+      "url": "https://en.wikipedia.org/wiki/Zen_3",
+      "text": "An extra slab of cache memory stacked vertically on top of the processor die rather than beside it. It clocked lower than the chip it was based on and beat it comfortably in games. That result is worth thinking through: a game's real bottleneck is usually waiting for data rather than running out of arithmetic, so giving the chip a bigger pocket to keep data in beat giving it more speed."
     },
     {
       "type": "entry",
       "year": 2022,
       "name": "Intel Core i9-13900K",
       "spec": "5.8 GHz, 8 P-cores + 16 E-cores, 24 cores 32 threads, 253 W",
+      "url": "https://en.wikipedia.org/wiki/Raptor_Lake",
       "text": "Twenty-four cores, and a power draw under full load approaching that of a mid-range graphics card. The clock finally passed the Pentium 4's 3.8 GHz by a wide margin, eighteen years later."
     },
     {
@@ -414,27 +495,38 @@
       "year": 2023,
       "name": "AMD Ryzen 7 7800X3D",
       "spec": "4.2 GHz, 8 cores 16 threads, 104 MB cache, 120 W",
-      "text": "Stacked cache again, on a newer architecture. It beat processors with three times the core count in games while using less than half the power, which is worth sitting with: for that workload, memory latency mattered more than everything else combined."
+      "url": "https://en.wikipedia.org/wiki/Zen_4",
+      "text": "Stacked cache again, on a newer architecture. It beat processors with three times the core count in games while drawing less than half the power, which is the strongest evidence on this page that a single headline number tells you very little about what a chip is actually good at."
+    },
+    {
+      "type": "entry",
+      "year": 2024,
+      "name": "The 13th and 14th generation instability",
+      "key": true,
+      "spec": "Permanent degradation caused by excessive voltage requests",
+      "url": "https://en.wikipedia.org/wiki/Raptor_Lake",
+      "text": "Game developers noticed crash reports clustering on Intel's fastest desktop chips. After months of investigation and several partial explanations, Intel confirmed that its own microcode had been requesting voltages high enough to damage the processor over time, and that the damage was permanent rather than something a patch could reverse. Intel issued microcode fixes to stop it happening to undamaged chips and extended the warranty on affected parts by two years. It is a modern echo of the FDIV bug: the technical fault matters less than how long it took to acknowledge, and it happened while Intel was pushing hard for a headline clock speed against a competitor."
     },
     {
       "type": "entry",
       "year": 2024,
       "name": "Intel Core Ultra 9 285K",
       "spec": "5.7 GHz, 8 P-cores + 16 E-cores, 24 cores 24 threads, TSMC 3 nm",
-      "text": "Intel dropped Hyper-Threading, renamed the whole product line, and had the chip manufactured by TSMC in Taiwan rather than in its own fabs. All three would have been unthinkable ten years earlier."
+      "url": "https://en.wikipedia.org/wiki/Intel_Core_Ultra",
+      "text": "Intel dropped Hyper-Threading, renamed the whole product line, and had the chip manufactured by TSMC in Taiwan rather than in its own factories. All three would have been unthinkable ten years earlier, and the last is the most significant: Intel's defining advantage had always been that it designed and built its own chips."
     },
     {
       "type": "entry",
       "year": 2025,
       "name": "AMD Ryzen 9 9950X3D",
       "spec": "4.3 GHz, 16 cores 32 threads, 144 MB cache, 4 nm",
-      "text": "Sixteen cores and stacked cache in the same part. Compare it to the 4.77 MHz single core in the 1981 IBM PC: the clock is roughly 900 times higher, and that ratio is the least impressive number in the comparison."
+      "url": "https://en.wikipedia.org/wiki/Zen_5",
+      "text": "Sixteen cores and stacked cache in one part. Compare it to the 4.77 MHz single core in the 1981 IBM PC: the clock is roughly 900 times higher, and that is the least impressive number in the comparison. The cache alone holds over two thousand times the memory that machine shipped with."
     },
     {
       "type": "era",
-      "years": "The shape of it",
       "title": "Three numbers, fifty years",
-      "text": "Clock speed climbs steeply for thirty years and then flattens. Core count sits at one for the entire first half and then takes over. Transistor count never stops. Where a curve bends is where an engineering approach ran out."
+      "text": "Clock speed climbs steeply for thirty years and then flattens. Core count sits at one for the entire first half and then takes over. Transistor count never stops. Every bend in these lines is a point where an engineering approach ran out, and each one has a story above it."
     },
     {
       "type": "interactive",
@@ -449,83 +541,103 @@
           "points": [
             [
               1971,
-              0.74
+              0.74,
+              "Intel 4004"
             ],
             [
               1978,
-              5
+              5,
+              "Intel 8086"
             ],
             [
               1982,
-              6
+              6,
+              "Intel 80286"
             ],
             [
               1985,
-              16
+              16,
+              "Intel 80386DX"
             ],
             [
               1989,
-              25
+              25,
+              "Intel 80486DX"
             ],
             [
               1993,
-              66
+              66,
+              "Intel Pentium 66"
             ],
             [
               1995,
-              200
+              200,
+              "Intel Pentium Pro 200"
             ],
             [
               1997,
-              233
+              233,
+              "Intel Pentium MMX 233"
             ],
             [
               1999,
-              600
+              600,
+              "Intel Pentium III 600"
             ],
             [
               2000,
-              1000
+              1000,
+              "AMD Athlon 1000"
             ],
             [
               2002,
-              3060
+              3060,
+              "Intel Pentium 4 3.06 HT"
             ],
             [
               2004,
-              3800
+              3800,
+              "Intel Pentium 4 570"
             ],
             [
               2006,
-              2400
+              2400,
+              "Intel Core 2 Duo E6600"
             ],
             [
               2008,
-              2660
+              2660,
+              "Intel Core i7-920"
             ],
             [
               2011,
-              3400
+              3400,
+              "Intel Core i7-2600K"
             ],
             [
               2015,
-              4000
+              4000,
+              "Intel Core i7-6700K"
             ],
             [
               2017,
-              3700
+              3700,
+              "AMD Ryzen 7 1800X"
             ],
             [
               2020,
-              3400
+              3400,
+              "AMD Ryzen 9 5950X"
             ],
             [
               2022,
-              5800
+              5800,
+              "Intel Core i9-13900K"
             ],
             [
               2025,
-              4300
+              4300,
+              "AMD Ryzen 9 9950X3D"
             ]
           ]
         },
@@ -535,129 +647,159 @@
           "points": [
             [
               1971,
-              1
+              1,
+              "Intel 4004"
             ],
             [
               1985,
-              1
+              1,
+              "Intel 80386DX"
             ],
             [
               1993,
-              1
+              1,
+              "Intel Pentium 66"
             ],
             [
               2000,
-              1
+              1,
+              "AMD Athlon 1000"
             ],
             [
               2004,
-              1
+              1,
+              "Intel Pentium 4 570"
             ],
             [
               2005,
-              2
+              2,
+              "AMD Athlon 64 X2"
             ],
             [
               2007,
-              4
+              4,
+              "Intel Core 2 Quad Q6600"
             ],
             [
               2011,
-              4
+              4,
+              "Intel Core i7-2600K"
             ],
             [
               2015,
-              4
+              4,
+              "Intel Core i7-6700K"
             ],
             [
               2017,
-              8
+              8,
+              "AMD Ryzen 7 1800X"
             ],
             [
               2019,
-              16
+              16,
+              "AMD Ryzen 9 3950X"
             ],
             [
               2021,
-              16
+              16,
+              "AMD Ryzen 9 5950X"
             ],
             [
               2022,
-              24
+              24,
+              "Intel Core i9-13900K"
             ],
             [
               2025,
-              16
+              16,
+              "AMD Ryzen 9 9950X3D"
             ]
           ]
         },
         {
-          "label": "Transistors (millions)",
+          "label": "Transistors (million)",
           "color": "#a78bfa",
           "points": [
             [
               1971,
-              0.0023
+              0.0023,
+              "Intel 4004"
             ],
             [
               1978,
-              0.029
+              0.029,
+              "Intel 8086"
             ],
             [
               1982,
-              0.134
+              0.134,
+              "Intel 80286"
             ],
             [
               1985,
-              0.275
+              0.275,
+              "Intel 80386DX"
             ],
             [
               1989,
-              1.2
+              1.2,
+              "Intel 80486DX"
             ],
             [
               1993,
-              3.1
+              3.1,
+              "Intel Pentium"
             ],
             [
               1995,
-              5.5
+              5.5,
+              "Intel Pentium Pro"
             ],
             [
               1997,
-              7.5
+              7.5,
+              "Intel Pentium II"
             ],
             [
               1999,
-              9.5
+              9.5,
+              "Intel Pentium III"
             ],
             [
               2000,
-              42
+              42,
+              "Intel Pentium 4"
             ],
             [
               2003,
-              105
+              105,
+              "AMD Athlon 64"
             ],
             [
               2006,
-              291
+              291,
+              "Intel Core 2 Duo"
             ],
             [
               2008,
-              731
+              731,
+              "Intel Core i7-920"
             ],
             [
               2011,
-              995
+              995,
+              "Intel Core i7-2600K"
             ],
             [
               2019,
-              9890
+              9890,
+              "AMD Ryzen 9 3950X"
             ],
             [
               2020,
-              16000
+              16000,
+              "Apple M1"
             ]
           ]
         }

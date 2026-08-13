@@ -79,10 +79,12 @@ const BUILD = {
     const section = document.createElement('section');
     section.className = 'era';
 
-    const years = document.createElement('p');
-    years.className = 'era-years';
-    years.textContent = block.years;
-    section.append(years);
+    if (block.years) {
+      const years = document.createElement('p');
+      years.className = 'era-years';
+      years.textContent = block.years;
+      section.append(years);
+    }
 
     const h = document.createElement('h3');
     h.textContent = block.title;
@@ -109,7 +111,19 @@ const BUILD = {
 
     const name = document.createElement('p');
     name.className = 'entry-name';
-    name.textContent = block.name;
+    if (block.url) {
+      // Wikipedia only. Opens in a new tab so a student reading down the page
+      // does not lose their place in the exploration.
+      const a = document.createElement('a');
+      a.href = block.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = block.name;
+      a.title = 'Read about this on Wikipedia';
+      name.append(a);
+    } else {
+      name.textContent = block.name;
+    }
     body.append(name);
 
     if (block.spec) {
@@ -197,5 +211,9 @@ function figure(shot) {
 document.getElementById('explore-back').addEventListener('click', closeTopic);
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && !OVERLAY.hidden) closeTopic();
+  if (e.key !== 'Escape' || OVERLAY.hidden) return;
+  // A pinned chart readout is the innermost thing open, so it gets the first
+  // Escape and this handler takes the next one.
+  if (OVERLAY.querySelector('.chart-tip[data-pinned]')) return;
+  closeTopic();
 });

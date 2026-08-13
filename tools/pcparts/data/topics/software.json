@@ -10,88 +10,341 @@
       "title": "Nothing gets faster for long",
       "text": "In 1995 a rule of thumb circulated that what Intel gives, Microsoft takes away. It was a joke about Windows, but the pattern is general and it is not really about laziness. Every generation of hardware allows something that was previously impossible, developers build that thing, and the machine ends up as busy as it ever was doing work the old machine could not have attempted."
     },
-    { "type": "entry", "year": 1981, "name": "MS-DOS 1.0", "spec": "12 KB of memory, one 160 KB floppy, boots in seconds",
-      "text": "The operating system fitted on a floppy disk with room to spare for your program. It also did essentially nothing: no windows, no multitasking, no networking, no protection between programs, and no drivers for hardware it did not already know about." },
-    { "type": "entry", "year": 1990, "name": "Windows 3.0", "spec": "384 KB minimum, 640 KB recommended, 6 MB disk",
-      "text": "Overlapping windows, a mouse, and several programs on screen at once. The memory requirement is roughly forty times DOS, for capabilities the earlier system did not attempt." },
-    { "type": "entry", "year": 1995, "name": "Windows 95", "key": true,
+    {
+      "type": "entry",
+      "year": 1981,
+      "name": "MS-DOS 1.0",
+      "spec": "12 KB of memory, one 160 KB floppy, boots in seconds",
+      "text": "The operating system fitted on a floppy disk with room to spare for your program. It also did essentially nothing: no windows, no multitasking, no networking, no protection between programs, and no drivers for hardware it did not already know about.",
+      "url": "https://en.wikipedia.org/wiki/MS-DOS"
+    },
+    {
+      "type": "entry",
+      "year": 1990,
+      "name": "Windows 3.0",
+      "spec": "384 KB minimum, 640 KB recommended, 6 MB disk",
+      "text": "Overlapping windows, a mouse, and several programs on screen at once. The memory requirement is roughly forty times DOS, for capabilities the earlier system did not attempt.",
+      "url": "https://en.wikipedia.org/wiki/Windows_3.0"
+    },
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "Windows 95",
+      "key": true,
       "spec": "4 MB minimum, 8 MB realistic, 40 to 55 MB disk",
-      "text": "Ran acceptably on 8 MB and well on 16. The joke at the time was that the recommended specification was always the machine you were about to buy, not the one you owned, and it was mostly true." },
-    { "type": "entry", "year": 2001, "name": "Windows XP", "spec": "64 MB minimum, 128 MB realistic, 1.5 GB disk",
-      "text": "Thirty times the disk footprint of Windows 95, six years later. It also brought proper memory protection, so one crashing program stopped taking the machine down with it, which is worth several hundred megabytes on its own." },
-    { "type": "entry", "year": 2007, "name": "Windows Vista", "key": true,
+      "text": "Ran acceptably on 8 MB and well on 16. The joke at the time was that the recommended specification was always the machine you were about to buy, not the one you owned, and it was mostly true.",
+      "url": "https://en.wikipedia.org/wiki/Windows_95"
+    },
+    {
+      "type": "entry",
+      "year": 2001,
+      "name": "Windows XP",
+      "spec": "64 MB minimum, 128 MB realistic, 1.5 GB disk",
+      "text": "Thirty times the disk footprint of Windows 95, six years later. It also brought proper memory protection, so one crashing program stopped taking the machine down with it, which is worth several hundred megabytes on its own.",
+      "url": "https://en.wikipedia.org/wiki/Windows_XP"
+    },
+    {
+      "type": "entry",
+      "year": 2007,
+      "name": "Windows Vista",
+      "key": true,
       "spec": "512 MB minimum, 1 GB realistic, 15 GB disk",
-      "text": "The clearest case of software outrunning the hardware people actually owned. Machines were sold as Vista Capable that could not run it comfortably, and the resulting reputation took years to shake off. A useful lesson in what a minimum specification really means." },
-    { "type": "entry", "year": 2015, "name": "Windows 10", "spec": "2 GB, 20 GB disk",
-      "text": "The requirement stopped climbing steeply, partly because processors stopped getting dramatically faster and partly because tablets and cheap laptops set a floor that software had to respect." },
-    { "type": "entry", "year": 2021, "name": "Windows 11", "spec": "4 GB, 64 GB disk, TPM 2.0 required",
-      "text": "The disk figure grew more than the memory figure, and the hard requirement is not performance at all but a security chip, which made a large number of perfectly capable machines ineligible." },
-
+      "text": "The clearest case of software outrunning the hardware people actually owned. Machines were sold as Vista Capable that could not run it comfortably, and the resulting reputation took years to shake off. A useful lesson in what a minimum specification really means.",
+      "url": "https://en.wikipedia.org/wiki/Windows_Vista"
+    },
+    {
+      "type": "entry",
+      "year": 2015,
+      "name": "Windows 10",
+      "spec": "2 GB, 20 GB disk",
+      "text": "The requirement stopped climbing steeply, partly because processors stopped getting dramatically faster and partly because tablets and cheap laptops set a floor that software had to respect.",
+      "url": "https://en.wikipedia.org/wiki/Windows_10"
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "Windows 11",
+      "spec": "4 GB, 64 GB disk, TPM 2.0 required",
+      "text": "The disk figure grew more than the memory figure, and the hard requirement is not performance at all but a security chip, which made a large number of perfectly capable machines ineligible.",
+      "url": "https://en.wikipedia.org/wiki/Windows_11"
+    },
     {
       "type": "era",
       "years": "1993 to 2025",
       "title": "Games, where the demand always shows up first",
       "text": "Games are the software that has always asked for everything available and then some. Install sizes are the clearest single measure, because they track texture resolution, audio quality and the sheer amount of content, all of which grew with what storage and memory allowed."
     },
-    { "type": "entry", "year": 1993, "name": "Doom", "spec": "12 MB, 4 MB RAM, 386 processor",
-      "text": "The whole game fitted on eight floppy disks. It was distributed as shareware, meaning the first episode was given away free, which is part of why almost every PC of the era had it." },
-    { "type": "entry", "year": 1998, "name": "Half-Life", "spec": "400 MB, 24 MB RAM",
-      "text": "One CD. Thirty times Doom in five years, mostly texture and audio data." },
-    { "type": "entry", "year": 2004, "name": "Half-Life 2", "spec": "4.5 GB, 256 MB RAM, five CDs or one DVD",
-      "text": "Ten times again in six years. This is also the game that introduced a great many people to the idea that software would be delivered over the internet and would check in with a server before running." },
-    { "type": "entry", "year": 2007, "name": "Crysis", "key": true,
+    {
+      "type": "entry",
+      "year": 1993,
+      "name": "Doom",
+      "spec": "12 MB, 4 MB RAM, 386 processor",
+      "text": "The whole game fitted on eight floppy disks. It was distributed as shareware, meaning the first episode was given away free, which is part of why almost every PC of the era had it.",
+      "url": "https://en.wikipedia.org/wiki/Doom_(1993_video_game)"
+    },
+    {
+      "type": "entry",
+      "year": 1998,
+      "name": "Half-Life",
+      "spec": "400 MB, 24 MB RAM",
+      "text": "One CD. Thirty times Doom in five years, mostly texture and audio data.",
+      "url": "https://en.wikipedia.org/wiki/Half-Life_(video_game)"
+    },
+    {
+      "type": "entry",
+      "year": 2004,
+      "name": "Half-Life 2",
+      "spec": "4.5 GB, 256 MB RAM, five CDs or one DVD",
+      "text": "Ten times again in six years. This is also the game that introduced a great many people to the idea that software would be delivered over the internet and would check in with a server before running.",
+      "url": "https://en.wikipedia.org/wiki/Half-Life_2"
+    },
+    {
+      "type": "entry",
+      "year": 2007,
+      "name": "Crysis",
+      "key": true,
       "spec": "12 GB, 1 GB RAM, DirectX 10",
-      "text": "Built for hardware that did not exist yet, on the assumption that clock speeds would keep climbing. They did not, and can it run Crysis became a benchmark question for the next decade because nothing could run it well for years." },
-    { "type": "entry", "year": 2015, "name": "Grand Theft Auto V (PC)", "spec": "72 GB, 4 GB RAM",
-      "text": "The install is larger than the entire hard disk of a high end machine from 2001." },
-    { "type": "entry", "year": 2020, "name": "Call of Duty: Modern Warfare", "spec": "175 GB peak, 8 GB RAM",
-      "text": "Large enough that internet providers noticed the update traffic, and large enough that a single game could fill the SSD in a typical laptop." },
-    { "type": "entry", "year": 2024, "name": "Typical major release", "spec": "100 to 150 GB, 16 GB RAM, SSD required",
-      "text": "Requiring an SSD rather than recommending one is new. Games now stream assets from storage while you play instead of loading everything up front, so a mechanical drive is not slow, it is unusable." },
-
+      "text": "Built for hardware that did not exist yet, on the assumption that clock speeds would keep climbing. They did not, and can it run Crysis became a benchmark question for the next decade because nothing could run it well for years.",
+      "url": "https://en.wikipedia.org/wiki/Crysis"
+    },
+    {
+      "type": "entry",
+      "year": 2015,
+      "name": "Grand Theft Auto V (PC)",
+      "spec": "72 GB, 4 GB RAM",
+      "text": "The install is larger than the entire hard disk of a high end machine from 2001.",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_V"
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "Call of Duty: Modern Warfare",
+      "spec": "175 GB peak, 8 GB RAM",
+      "text": "Large enough that internet providers noticed the update traffic, and large enough that a single game could fill the SSD in a typical laptop.",
+      "url": "https://en.wikipedia.org/wiki/Call_of_Duty:_Modern_Warfare_(2019_video_game)"
+    },
+    {
+      "type": "entry",
+      "year": 2024,
+      "name": "Typical major release",
+      "spec": "100 to 150 GB, 16 GB RAM, SSD required",
+      "text": "Requiring an SSD rather than recommending one is new. Games now stream assets from storage while you play instead of loading everything up front, so a mechanical drive is not slow, it is unusable."
+    },
     {
       "type": "era",
       "years": "1995 to 2025",
       "title": "The web, which nobody designed to be this heavy",
       "text": "No single decision made web pages large. Each addition was individually reasonable: images, then better images, then fonts, then analytics, then video, then frameworks that make development faster at the cost of code the visitor has to download. The result is that an average page today transfers more data than the entire Windows 95 installer."
     },
-    { "type": "entry", "year": 1995, "name": "An average web page", "spec": "~14 KB, mostly text",
-      "text": "A page was text and perhaps one image, because most people were connected at 28,800 bits per second and anything larger simply would not arrive." },
-    { "type": "entry", "year": 2003, "name": "An average web page", "spec": "~93 KB",
-      "text": "Broadband arrives and the constraint relaxes. Pages get images." },
-    { "type": "entry", "year": 2011, "name": "An average web page", "spec": "~800 KB",
-      "text": "Larger images, embedded video, social buttons, tracking scripts." },
-    { "type": "entry", "year": 2025, "name": "An average web page", "key": true,
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "An average web page",
+      "spec": "~14 KB, mostly text",
+      "text": "A page was text and perhaps one image, because most people were connected at 28,800 bits per second and anything larger simply would not arrive."
+    },
+    {
+      "type": "entry",
+      "year": 2003,
+      "name": "An average web page",
+      "spec": "~93 KB",
+      "text": "Broadband arrives and the constraint relaxes. Pages get images."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "An average web page",
+      "spec": "~800 KB",
+      "text": "Larger images, embedded video, social buttons, tracking scripts."
+    },
+    {
+      "type": "entry",
+      "year": 2025,
+      "name": "An average web page",
+      "key": true,
       "spec": "~2.7 MB, over half of it images and scripts",
-      "text": "Roughly two hundred times the 1995 figure, for pages that mostly show the same thing: some text and a picture. This is the clearest example on the page of capability being consumed rather than banked." },
-
+      "text": "Roughly two hundred times the 1995 figure, for pages that mostly show the same thing: some text and a picture. This is the clearest example on the page of capability being consumed rather than banked."
+    },
     {
       "type": "era",
-      "years": "The shape of it",
       "title": "Capability against demand",
       "text": "Hardware and the software that ran on it, on one scale. The lines rise together, which is the point. When a hardware line flattens, look at whether the software line above it flattens too."
     },
     {
       "type": "interactive",
       "id": "demand-chart",
-      "unit": "B",
+      "unit": "MB",
       "alt": "Hardware capability against software requirements from 1981 to 2025",
       "caption": "All values in megabytes. Memory fitted and OS requirement are directly comparable; game install size and web page size are shown on the same scale to compare their shape.",
       "series": [
-        { "label": "Memory fitted (MB)", "color": "#38bdf8",
-          "points": [[1981,0.016],[1990,4],[1995,16],[2001,256],[2007,2048],[2015,8192],[2021,16384],[2025,32768]] },
-        { "label": "OS minimum (MB)", "color": "#f59e0b",
-          "points": [[1981,0.012],[1990,0.384],[1995,4],[2001,64],[2007,512],[2015,2048],[2021,4096],[2025,4096]] },
-        { "label": "Game install (MB)", "color": "#a78bfa",
-          "points": [[1993,12],[1998,400],[2004,4500],[2007,12000],[2015,72000],[2020,175000],[2024,125000]] },
-        { "label": "Average web page (MB)", "color": "#34d399",
-          "points": [[1995,0.014],[2003,0.093],[2011,0.8],[2017,1.8],[2025,2.7]] }
+        {
+          "label": "Memory fitted (MB)",
+          "color": "#38bdf8",
+          "points": [
+            [
+              1981,
+              0.016,
+              "IBM PC 5150"
+            ],
+            [
+              1990,
+              4,
+              "Windows 3.0 machine"
+            ],
+            [
+              1995,
+              16,
+              "Windows 95 machine"
+            ],
+            [
+              2001,
+              256,
+              "Windows XP machine"
+            ],
+            [
+              2007,
+              2048,
+              "Windows Vista machine"
+            ],
+            [
+              2015,
+              8192,
+              "Windows 10 machine"
+            ],
+            [
+              2021,
+              16384,
+              "DDR4 machine"
+            ],
+            [
+              2025,
+              32768,
+              "DDR5 machine"
+            ]
+          ]
+        },
+        {
+          "label": "OS minimum (MB)",
+          "color": "#f59e0b",
+          "points": [
+            [
+              1981,
+              0.012,
+              "MS-DOS 1.0"
+            ],
+            [
+              1990,
+              0.384,
+              "Windows 3.0"
+            ],
+            [
+              1995,
+              4,
+              "Windows 95"
+            ],
+            [
+              2001,
+              64,
+              "Windows XP"
+            ],
+            [
+              2007,
+              512,
+              "Windows Vista"
+            ],
+            [
+              2015,
+              2048,
+              "Windows 10"
+            ],
+            [
+              2021,
+              4096,
+              "Windows 11"
+            ],
+            [
+              2025,
+              4096,
+              "Windows 11"
+            ]
+          ]
+        },
+        {
+          "label": "Game install (MB)",
+          "color": "#a78bfa",
+          "points": [
+            [
+              1993,
+              12,
+              "Doom"
+            ],
+            [
+              1998,
+              400,
+              "Half-Life"
+            ],
+            [
+              2004,
+              4500,
+              "Half-Life 2"
+            ],
+            [
+              2007,
+              12000,
+              "Crysis"
+            ],
+            [
+              2015,
+              72000,
+              "Grand Theft Auto V"
+            ],
+            [
+              2020,
+              175000,
+              "Call of Duty: Modern Warfare"
+            ],
+            [
+              2024,
+              125000,
+              "Typical major release"
+            ]
+          ]
+        },
+        {
+          "label": "Average web page (MB)",
+          "color": "#34d399",
+          "points": [
+            [
+              1995,
+              0.014,
+              "Mostly text"
+            ],
+            [
+              2003,
+              0.093,
+              "Images arrive"
+            ],
+            [
+              2011,
+              0.8,
+              "Video and tracking scripts"
+            ],
+            [
+              2017,
+              1.8,
+              "Frameworks and web fonts"
+            ],
+            [
+              2025,
+              2.7,
+              "Half of it images and scripts"
+            ]
+          ]
+        }
       ]
     },
-
     {
       "type": "era",
-      "years": "Worth arguing about",
       "title": "Was any of it wasted?",
       "text": "The uncharitable reading is that developers stopped caring because hardware would cover for them. The charitable reading is that a 1995 machine could not have shown you a video call, encrypted your connection, rendered a font smoothly at any size or protected one program from another, and all of that costs something. Both readings are partly right, and working out which applies to a particular piece of software is a more interesting question than the general complaint."
     }

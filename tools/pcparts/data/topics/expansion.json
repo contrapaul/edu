@@ -16,35 +16,40 @@
       "name": "Intel 8087 maths coprocessor",
       "key": true,
       "spec": "Floating point arithmetic, ~$150, empty socket on the board",
-      "text": "Decimal maths was so slow on the main processor that spreadsheets and drafting software were unusable without help. Every PC had an empty socket next to the processor waiting for this chip. Absorbed into the 486DX in 1989, and no processor has shipped without one since."
+      "text": "Decimal maths was so slow on the main processor that spreadsheets and drafting software were unusable without help. Every PC had an empty socket next to the processor waiting for this chip. Absorbed into the 486DX in 1989, and no processor has shipped without one since.",
+      "url": "https://en.wikipedia.org/wiki/Intel_8087"
     },
     {
       "type": "entry",
       "year": 1985,
       "name": "Expanded memory boards",
       "spec": "Up to 32 MB, EMS 4.0",
-      "text": "Memory beyond the 640 KB barrier lived on a card and was swapped into view in small windows. Absorbed once 32-bit processors and operating systems could address memory directly."
+      "text": "Memory beyond the 640 KB barrier lived on a card and was swapped into view in small windows. Absorbed once 32-bit processors and operating systems could address memory directly.",
+      "url": "https://en.wikipedia.org/wiki/Expanded_memory"
     },
     {
       "type": "entry",
       "year": 1986,
       "name": "Hard disk controller cards",
       "spec": "MFM or RLL, one card per pair of drives",
-      "text": "The drive was a dumb mechanism and the intelligence lived on a card. Absorbed by IDE, which put the controller on the drive itself, and later by the chipset."
+      "text": "The drive was a dumb mechanism and the intelligence lived on a card. Absorbed by IDE, which put the controller on the drive itself, and later by the chipset.",
+      "url": "https://en.wikipedia.org/wiki/Disk_controller"
     },
     {
       "type": "entry",
       "year": 1988,
       "name": "Network interface cards",
       "spec": "10 Mb/s Ethernet or Token Ring, ~$300",
-      "text": "Networking was for offices and cost more than a hard disk. Absorbed into the motherboard around 2000, and it is now a chip most buyers never think about."
+      "text": "Networking was for offices and cost more than a hard disk. Absorbed into the motherboard around 2000, and it is now a chip most buyers never think about.",
+      "url": "https://en.wikipedia.org/wiki/Network_interface_controller"
     },
     {
       "type": "entry",
       "year": 1990,
       "name": "SCSI host adapters",
       "spec": "Up to 7 devices per chain, terminated",
-      "text": "The professional way to attach drives, scanners and CD writers, requiring correct termination at each end of the chain and a great deal of patience. Absorbed by SATA and USB, which did most of what it did without the ritual."
+      "text": "The professional way to attach drives, scanners and CD writers, requiring correct termination at each end of the chain and a great deal of patience. Absorbed by SATA and USB, which did most of what it did without the ritual.",
+      "url": "https://en.wikipedia.org/wiki/SCSI"
     },
     {
       "type": "entry",
@@ -52,7 +57,8 @@
       "name": "Internal modems",
       "key": true,
       "spec": "2400 to 56,000 bits per second",
-      "text": "The card that connected a PC to the outside world through a telephone line, at speeds where a single photograph took a minute. Absorbed by broadband, where the modem moved out of the case and became a box from the internet provider."
+      "text": "The card that connected a PC to the outside world through a telephone line, at speeds where a single photograph took a minute. Absorbed by broadband, where the modem moved out of the case and became a box from the internet provider.",
+      "url": "https://en.wikipedia.org/wiki/Modem"
     },
     {
       "type": "era",
@@ -66,28 +72,32 @@
       "name": "MPEG decoder cards",
       "key": true,
       "spec": "Hardware Video CD and later DVD playback, ~$200",
-      "text": "Playing a film was beyond a mid-nineties processor, so a card did the decoding. By 1999 a 400 MHz Pentium II could do it in software, and the cards vanished within about two years. Modern graphics chips include video decoding hardware again, which shows the job did not disappear, only the separate card."
+      "text": "Playing a film was beyond a mid-nineties processor, so a card did the decoding. By 1999 a 400 MHz Pentium II could do it in software, and the cards vanished within about two years. Modern graphics chips include video decoding hardware again, which shows the job did not disappear, only the separate card.",
+      "url": "https://en.wikipedia.org/wiki/MPEG-1"
     },
     {
       "type": "entry",
       "year": 1996,
       "name": "3dfx Voodoo passthrough",
       "spec": "3D only, cable from your 2D card, VGA passthrough",
-      "text": "A card that could not draw a desktop and sat idle until a game started. Absorbed within three years once one chip could do both 2D and 3D, and today the graphics card does the desktop, the games and the video."
+      "text": "A card that could not draw a desktop and sat idle until a game started. Absorbed within three years once one chip could do both 2D and 3D, and today the graphics card does the desktop, the games and the video.",
+      "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics"
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "Video capture cards",
       "spec": "Composite or S-Video in, 320 x 240 at 15 fps",
-      "text": "Getting video from a camcorder into a PC required dedicated hardware and produced results that were barely watchable. Largely absorbed by USB and by cameras that record digitally in the first place, though capture cards survive for streaming."
+      "text": "Getting video from a camcorder into a PC required dedicated hardware and produced results that were barely watchable. Largely absorbed by USB and by cameras that record digitally in the first place, though capture cards survive for streaming.",
+      "url": "https://en.wikipedia.org/wiki/Video_capture"
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "Dedicated USB and FireWire cards",
       "spec": "Adds ports an older board lacks",
-      "text": "A card whose entire purpose was to add a connector the motherboard predated. Still occasionally useful, which makes it one of the few survivors here."
+      "text": "A card whose entire purpose was to add a connector the motherboard predated. Still occasionally useful, which makes it one of the few survivors here.",
+      "url": "https://en.wikipedia.org/wiki/IEEE_1394"
     },
     {
       "type": "era",
@@ -101,25 +111,27 @@
       "name": "Ageia PhysX PPU",
       "key": true,
       "spec": "125M transistors, 128 MB GDDR3, ~$250 to $300",
-      "text": "A card that did nothing but calculate physics, so that debris, cloth and fluid in games could behave properly. It needed games written for it, few were, and the effects it enabled were usually cosmetic. NVIDIA bought Ageia in 2008, ported the software to run on its graphics cards, and the separate card was finished by 2011. It is the shortest lived expansion card category in PC history and a clean case study in needing software support before hardware can matter."
+      "text": "A card that did nothing but calculate physics, so that debris, cloth and fluid in games could behave properly. It needed games written for it, few were, and the effects it enabled were usually cosmetic. NVIDIA bought Ageia in 2008, ported the software to run on its graphics cards, and the separate card was finished by 2011. It is the shortest lived expansion card category in PC history and a clean case study in needing software support before hardware can matter.",
+      "url": "https://en.wikipedia.org/wiki/PhysX"
     },
     {
       "type": "entry",
       "year": 2006,
       "name": "Killer NIC",
       "spec": "Network card with its own processor, ~$280",
-      "text": "Sold on the claim that handling network traffic on a dedicated processor would reduce lag in games. Independent testing found the difference was within measurement error. Worth knowing about as an example of a product sold on a number that did not survive scrutiny."
+      "text": "Sold on the claim that handling network traffic on a dedicated processor would reduce lag in games. Independent testing found the difference was within measurement error. Worth knowing about as an example of a product sold on a number that did not survive scrutiny.",
+      "url": "https://en.wikipedia.org/wiki/Killer_NIC"
     },
     {
       "type": "entry",
       "year": 2011,
       "name": "PhysX becomes software",
       "spec": "Runs on the GPU, then on the CPU, then open source in 2018",
-      "text": "The capability is still in use today in game engines. It just runs on hardware you already have, which is the ending every card on this page shares."
+      "text": "The capability is still in use today in game engines. It just runs on hardware you already have, which is the ending every card on this page shares.",
+      "url": "https://en.wikipedia.org/wiki/PhysX"
     },
     {
       "type": "era",
-      "years": "What is left",
       "title": "The slot in this machine",
       "text": "A PC in 1996 had six or seven slots and most were full: graphics, sound, modem, network, SCSI, maybe a capture card. This machine has two, and one of them is empty. The processor, the graphics card and the chipset ate the rest. When you next see an old motherboard, count the slots and work out what each card was for, because each one is a job the machine of the day could not do by itself."
     },
