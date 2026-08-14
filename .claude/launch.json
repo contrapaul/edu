@@ -4,7 +4,7 @@
     {
       "name": "edu-static",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8899"],
+      "runtimeArgs": ["serve_nocache.py", "8899"],
       "port": 8899
     }
   ]

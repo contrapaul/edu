@@ -1,15 +1,16 @@
 {
   "machine": {
     "name": "Desktop PC, 2025",
-    "note": "A mid range gaming and workstation build. Nothing here is exotic; every part is something you could buy off a shelf this year."
+    "note": "A micro ATX build with a liquid cooled processor. Nothing here is exotic; every part is something you could buy off a shelf this year."
   },
   "parts": [
     {
       "id": "case-glass",
       "label": "Side panel",
-      "spec": "Tempered glass, 4 mm",
+      "spec": "Tempered glass",
       "removable": true,
       "blockedBy": [],
+      "linkText": null,
       "body": [
         "For the first thirty years of the PC, the box was beige steel and the point was to never open it. Glass panels arrived once builders started treating the inside as something worth looking at, and once cooling shifted from one small fan to a managed flow of air through the whole case."
       ],
@@ -17,16 +18,16 @@
     },
     {
       "id": "part-cooler",
-      "label": "CPU cooler",
-      "spec": "Tower air cooler, 6 heat pipes, 150 mm fan",
+      "label": "Liquid cooler",
+      "spec": "240 mm radiator, two 120 mm fans, pump on the processor",
       "removable": true,
       "blockedBy": [
         "case-glass"
       ],
       "linkText": "How PCs got hot",
       "body": [
-        "The original IBM PC processor needed no cooler at all. It produced roughly two watts of heat, about the same as a phone charger doing nothing, and the case fan was there for the power supply rather than the chip.",
-        "This cooler weighs more than an entire 1981 motherboard. Copper pipes carry heat away from the processor and spread it across the aluminium fins, where a fan pushes it out the back of the case."
+        "The original IBM PC processor needed no cooler at all. It produced roughly two watts of heat, about the same as a phone charger doing nothing, and the only fan in the machine was in the power supply.",
+        "This is a closed loop liquid cooler. The pump sits on the processor and moves fluid through the two tubes to the radiator at the side of the case, where the fans blow the heat out. Water carries heat far better than air, though a good air cooler still matches most of these, and this adds a pump that can fail."
       ],
       "topic": "power"
     },
@@ -34,7 +35,7 @@
       "id": "part-cpu",
       "label": "Processor",
       "spec": "8 cores, 16 threads, 5.2 GHz boost, 4 nm",
-      "removable": true,
+      "removable": false,
       "blockedBy": [
         "case-glass",
         "part-cooler"
@@ -49,8 +50,8 @@
     {
       "id": "part-ram",
       "label": "Memory",
-      "spec": "32 GB DDR5, 6000 MT/s",
-      "removable": true,
+      "spec": "32 GB DDR5, 6000 MT/s, four slots filled",
+      "removable": false,
       "blockedBy": [
         "case-glass"
       ],
@@ -80,14 +81,13 @@
       "id": "part-storage",
       "label": "Storage",
       "spec": "2 TB NVMe SSD, PCIe 5.0",
-      "removable": true,
+      "removable": false,
       "blockedBy": [
-        "case-glass",
-        "part-gpu"
+        "case-glass"
       ],
       "linkText": "The speed of getting data",
       "body": [
-        "Storage keeps files when the power is off. This drive is a stick of flash memory chips shorter than a finger, plugged directly into the motherboard beneath the graphics card.",
+        "Storage keeps files when the power is off. This drive is a stick of flash memory chips shorter than a finger, lying flat against the motherboard with no cable and no power lead of its own.",
         "Its predecessors were mechanical: spinning metal platters with an arm that physically moved to find data, so the wait depended on where on the disk the data happened to be. Removing the moving parts made storage roughly two thousand times faster to respond, and that single change did more for how quick a computer feels than any processor upgrade of the same period."
       ],
       "topic": "storage"
@@ -110,37 +110,37 @@
     {
       "id": "part-fans",
       "label": "Case fans",
-      "spec": "3 x 140 mm, PWM controlled",
+      "spec": "2 x 120 mm on the radiator, PWM controlled",
       "removable": true,
       "blockedBy": [
         "case-glass"
       ],
       "linkText": "How PCs got hot",
       "body": [
-        "Two fans at the front pull cool air in, one at the back pushes warm air out. The parts in between sit in that stream.",
-        "PWM in the specification stands for pulse width modulation, which is how the motherboard varies fan speed instead of running them flat out. The board reads temperatures from the processor and graphics card several times a second and adjusts, which is why a machine gets audibly louder partway into a game."
+        "These two fans pull air through the radiator and out of the case, so they are cooling the processor rather than the case in general.",
+        "PWM stands for pulse width modulation, which is how the motherboard varies fan speed instead of running them flat out. It reads the processor temperature several times a second and adjusts, which is why a machine gets audibly louder partway into a game."
       ],
       "topic": "power"
     },
     {
-      "id": "hit-mobo",
-      "label": "Motherboard",
-      "spec": "ATX, socket AM5, PCIe 5.0",
+      "id": "part-slots",
+      "label": "Expansion slots",
+      "spec": "Four PCIe 5.0 slots, one occupied",
       "removable": false,
       "blockedBy": [
         "case-glass"
       ],
-      "linkText": "The board underneath",
+      "linkText": "Cards that disappeared",
       "body": [
-        "Everything plugs into this. The motherboard carries power to each component and provides the wiring that lets them talk to each other, at speeds where the physical length of a copper trace starts to matter.",
-        "The layout has barely changed since the ATX standard arrived in 1995, which is why a case bought today fits a board designed decades apart. What has changed is what the board no longer needs to provide, because functions that once required separate cards are now built in."
+        "Four slots, and once the graphics card is in, three of them stay empty on almost every build. That is worth noticing, because a PC in 1996 had five or six and every one was likely to be full.",
+        "A machine of that era might carry separate cards for sound, for a modem, for video capture, for extra ports, and for a while a card that did nothing but calculate physics for games. Each was absorbed into the processor, the graphics card or the motherboard, and the slots emptied out."
       ],
-      "topic": "motherboard"
+      "topic": "expansion"
     },
     {
-      "id": "hit-io",
-      "label": "Audio and rear ports",
-      "spec": "Onboard audio codec, USB, Ethernet",
+      "id": "part-io",
+      "label": "Rear ports",
+      "spec": "Audio jacks, USB, Ethernet, video out",
       "removable": false,
       "blockedBy": [
         "case-glass"
@@ -153,19 +153,19 @@
       "topic": "sound"
     },
     {
-      "id": "hit-slot",
-      "label": "Empty expansion slot",
-      "spec": "PCIe 5.0 x1",
+      "id": "hit-mobo",
+      "label": "Motherboard",
+      "spec": "Micro ATX, 244 x 244 mm, PCIe 5.0",
       "removable": false,
       "blockedBy": [
         "case-glass"
       ],
-      "linkText": "Cards that disappeared",
+      "linkText": "The board underneath",
       "body": [
-        "This slot is empty, and on most builds it stays empty. That is worth noticing, because a PC in 1996 had five or six of these and every one was likely to be full.",
-        "A machine of that era might carry separate cards for sound, for a modem, for video capture, for extra USB ports, and for a while, a card that did nothing but calculate physics for games. Each was absorbed into the processor, the graphics card or the motherboard, and the slots emptied out."
+        "Everything plugs into this. The board carries power to each component and provides the wiring that lets them talk to each other, at speeds where the physical length of a copper trace starts to matter.",
+        "This one is micro ATX, a shorter version of the ATX standard that arrived in 1995 and dropped the lower expansion slots. The layout has barely changed in thirty years, which is why a case bought today fits a board designed to a much older specification. What has changed is what the board no longer needs to provide."
       ],
-      "topic": "expansion"
+      "topic": "motherboard"
     }
   ]
 }

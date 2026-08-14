@@ -10,10 +10,14 @@
 
 import mountStorageTest from './views/storage-test.js';
 import mountDemandChart from './views/demand-chart.js';
+import mountDieView from './views/die-view.js';
+import mountFloorplan from './views/floorplan.js';
 
 const INTERACTIVES = {
   'storage-test': mountStorageTest,
-  'demand-chart': mountDemandChart
+  'demand-chart': mountDemandChart,
+  'die-view': mountDieView,
+  'floorplan': mountFloorplan
 };
 
 const OVERLAY = document.getElementById('explore');

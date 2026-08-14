@@ -71,16 +71,33 @@ in a standalone page later without rewriting a word of it.
 
 ## The diagram
 
-`assets/pc.svg` is placeholder art, to be replaced by a hand-drawn version.
-The replacement must keep the layer contract:
+`assets/pc.svg` is **generated** from Paul's drawing at
+`assets/source/mobo.svg` by `assets/source/rebuild-pc-svg.py`. Edit the
+drawing and re-run the script; do not hand edit `pc.svg`. The script is an
+authoring helper, not a build step, and the site ships the generated file.
+
+Affinity dropped every layer name on export, so the drawing arrives as fifteen
+anonymous top level elements and the script maps them by position. If the
+drawing is re-exported with layers added, removed or reordered, check the
+`LAYERS` list against a numbered render before running it.
+
+The board is micro ATX and roughly square, which fits a widescreen display
+better than a tall ATX tower would.
 
 | Layer id | Contents |
 |---|---|
-| `case-shell` | case body, front bezel, rear panel |
-| `mobo-bare` | board with **empty** socket, DIMM, PCIe and M.2 slots |
-| `part-*` | one group per removable component |
-| `case-glass` | side panel, must be the last element in the file |
-| `hit` | one simple shape per part, id `hit-<part>` |
+| `case-shell` | outline round everything, drawn by the script |
+| `mobo-bare` | board, SATA, power connectors, wifi and ethernet, chipset |
+| `part-*` | one group per component, removable or not |
+| `case-glass` | side panel, must be the last element before the hit layer |
+| `hit` | one shape per part, id `hit-<part>`; `rect` or `path` |
+
+Not every part comes out. `removable` in `data/machine.json` decides. The
+processor, memory, storage, expansion slots and rear ports stay put: they
+highlight and open their topic but do not disappear, because there is no empty
+socket artwork underneath them to reveal. Only the side panel, cooler, graphics
+card, power supply and fans are removable, and each of those does reveal
+something real: the cooler uncovers the processor, the card uncovers the slots.
 
 Rules that the export has to satisfy:
 
@@ -100,7 +117,7 @@ refuses clicks, keyboard focus and restore while a blocker is present.
 
 ## Interactives
 
-Two modules in `js/views/`, both driven entirely by the topic JSON so a new
+Four modules in `js/views/`, all driven entirely by the topic JSON so a new
 instance needs no new code.
 
 - `storage-test` races a file copy across two drives at their real measured
@@ -110,6 +127,25 @@ instance needs no new code.
 - `demand-chart` plots any number of series on a shared log scale, used in
   four topics. A log axis is not decoration here; the values span seven
   orders of magnitude and a linear axis would show a flat line and a spike.
+- `die-view` has two modes. `area` draws the die at its real area beside a
+  coin, and clicking pins an outline to compare against. `transistors` holds
+  the square at a constant size and puts one dot per transistor in it, which
+  stops being possible at the 80286 in 1982; from there the readout says how
+  many transistors each dot stands for. Running out of pixels is the point,
+  so do not rescale to hide it.
+- `floorplan` switches between schematic die layouts. Blocks are hand placed
+  on a 100 x 100 grid and are **not** traced from die photographs, which the
+  caption says on the page.
+
+Readout boxes are placed by `js/views/tip.js`, shared by the chart and the
+floorplan. It keeps the box inside the tool: above the point by default,
+flipped below when there is no room, and opening sideways into the plot when
+centring would run past an edge. The box must live in `.tool` rather than in
+`.chart-wrap`, because that wrapper has `overflow-x: auto` and a scroll
+container clips vertically as well.
+
+Nothing carries usage instructions. A slider looks like a slider, blocks
+respond to hover, and pinning is found by clicking.
 
 ## Data
 
@@ -123,19 +159,22 @@ Entry counts by topic:
 | Storage | 43 |
 | Memory | 27 |
 | Sound | 25 |
-| Software demand | 18 |
+| Software demand | 32 |
 | Power and heat | 29 |
-| Dead end cards | 13 |
+| Dead end cards | 26 |
 
-298 entries in total, 293 of them carrying a Wikipedia link, and about 20,750 words.
+325 entries in total, every one carrying a Wikipedia link, and about 23,750 words.
 
-All topics except Dead end cards and Software demand have had a second pass adding the cautionary tales:
-failed bets, recalls, lawsuits and the reasons companies disappeared. The
-remaining two are still at first-pass depth and would benefit from
-the same treatment.
+All nine topics have had a second pass adding the cautionary tales: failed
+bets, recalls, lawsuits and the reasons companies disappeared.
 
 Entries run in year order within a topic. `software` is the exception and
-restarts its timeline for each themed section, which is deliberate.
+restarts its timeline for each themed section, which is deliberate; each of its
+sections is internally ordered.
+
+Wikipedia links: check the redirect target, not just that the page exists. Two
+links passed a not-missing check while landing on a disambiguation page and on
+an unrelated console article.
 
 Specs are drafted and need review by hand. Generic parts are acceptable where
 a specific model adds nothing, which is most of memory and much of storage.

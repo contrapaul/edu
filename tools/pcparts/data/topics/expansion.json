@@ -1,139 +1,252 @@
 {
   "id": "expansion",
   "title": "Cards that disappeared",
-  "span": "1980 to 2011",
-  "intro": "An expansion slot exists because the machine cannot do something on its own. Every card here solved a real problem and sold in real numbers, and every one was then absorbed into the processor, the graphics card or the motherboard. The empty slot in this machine is what that process leaves behind.",
+  "span": "1980 to 2025",
+  "intro": "An expansion slot exists because the machine cannot do something on its own. Every card on this page solved a real problem and sold in real numbers, and every one was then absorbed into the processor, the graphics card or the motherboard. The empty slot in this machine is what that process leaves behind. It is also still happening: the last section covers a card category that appeared in 2017 and is already being swallowed.",
   "blocks": [
     {
       "type": "era",
       "years": "1980 to 1993",
       "title": "Buying the parts IBM left out",
-      "text": "The original PC shipped with almost nothing. A usable machine meant filling most of its five slots, and a card for each function was simply how computers were assembled."
+      "text": "The original PC shipped with almost nothing. It had five slots and a usable machine filled most of them, because functions that are now simply present had to be bought separately. Working out what each card in an old machine was for is the quickest way to understand what that computer could not do by itself."
     },
     {
       "type": "entry",
       "year": 1980,
       "name": "Intel 8087 maths coprocessor",
       "key": true,
-      "spec": "Floating point arithmetic, ~$150, empty socket on the board",
-      "text": "Decimal maths was so slow on the main processor that spreadsheets and drafting software were unusable without help. Every PC had an empty socket next to the processor waiting for this chip. Absorbed into the 486DX in 1989, and no processor has shipped without one since.",
-      "url": "https://en.wikipedia.org/wiki/Intel_8087"
+      "spec": "Floating point arithmetic, around $150, empty socket beside the processor",
+      "url": "https://en.wikipedia.org/wiki/Intel_8087",
+      "text": "Decimal arithmetic was so slow on the main processor that spreadsheets and drafting software were close to unusable without help. Every PC had an empty socket next to the processor waiting for this chip, and buying one could speed up calculation-heavy work by a factor of fifty. It has a second legacy that outlived the hardware entirely: the mathematician William Kahan worked with Intel on how it should handle rounding and errors, and that work became the IEEE 754 standard for floating point arithmetic which essentially every computer and programming language still follows. Absorbed into the 486DX in 1989, and no processor has shipped without one since."
+    },
+    {
+      "type": "entry",
+      "year": 1983,
+      "name": "Multi I/O cards",
+      "spec": "Serial, parallel, game port, floppy and IDE on one card",
+      "url": "https://en.wikipedia.org/wiki/Super_I/O",
+      "text": "Until the mid-nineties a motherboard did not necessarily include the circuitry for a serial port, a printer port, a floppy drive or a hard disk. One card provided all of it, and if that card failed you lost your mouse, your printer and your storage at the same time. Absorbed into a single chip on the board, which is why a modern board simply has ports."
     },
     {
       "type": "entry",
       "year": 1985,
       "name": "Expanded memory boards",
-      "spec": "Up to 32 MB, EMS 4.0",
-      "text": "Memory beyond the 640 KB barrier lived on a card and was swapped into view in small windows. Absorbed once 32-bit processors and operating systems could address memory directly.",
-      "url": "https://en.wikipedia.org/wiki/Expanded_memory"
+      "spec": "Up to 32 MB on a card, visible 64 KB at a time",
+      "url": "https://en.wikipedia.org/wiki/Expanded_memory",
+      "text": "Memory beyond the 640 KB ceiling lived on a card and was swapped into view through a small window, since the processor could not address it directly. Absorbed once 32-bit processors and operating systems could reach all of the memory at once, which made an entire product category and its accompanying software pointless in about three years."
     },
     {
       "type": "entry",
       "year": 1986,
       "name": "Hard disk controller cards",
       "spec": "MFM or RLL, one card per pair of drives",
-      "text": "The drive was a dumb mechanism and the intelligence lived on a card. Absorbed by IDE, which put the controller on the drive itself, and later by the chipset.",
-      "url": "https://en.wikipedia.org/wiki/Disk_controller"
+      "url": "https://en.wikipedia.org/wiki/Disk_controller",
+      "text": "The drive was a dumb mechanism and the intelligence lived on a card, so the card and the drive had to be matched to each other and a failed controller could leave data unreadable until you found the same model again. Absorbed by IDE, which put the controller onto the drive itself, and later into the chipset."
     },
     {
       "type": "entry",
       "year": 1988,
       "name": "Network interface cards",
-      "spec": "10 Mb/s Ethernet or Token Ring, ~$300",
-      "text": "Networking was for offices and cost more than a hard disk. Absorbed into the motherboard around 2000, and it is now a chip most buyers never think about.",
-      "url": "https://en.wikipedia.org/wiki/Network_interface_controller"
+      "key": true,
+      "spec": "10 Mb/s Ethernet or Token Ring, around $300",
+      "url": "https://en.wikipedia.org/wiki/Network_interface_controller",
+      "text": "Networking was for offices, and a card cost more than a hard disk. Early Ethernet ran over a single coaxial cable strung between every machine in the room, with a terminator plug at each end, and one loose connection anywhere took down the entire network for everybody. Novell's NE2000 design was copied so widely that it became the default everyone wrote drivers for. Absorbed into the motherboard around 2000, and it is now a chip most buyers never think about at all."
     },
     {
       "type": "entry",
       "year": 1990,
       "name": "SCSI host adapters",
-      "spec": "Up to 7 devices per chain, terminated",
-      "text": "The professional way to attach drives, scanners and CD writers, requiring correct termination at each end of the chain and a great deal of patience. Absorbed by SATA and USB, which did most of what it did without the ritual.",
-      "url": "https://en.wikipedia.org/wiki/SCSI"
+      "spec": "Up to seven devices per chain, each needing a unique ID and correct termination",
+      "url": "https://en.wikipedia.org/wiki/SCSI",
+      "text": "The professional way to attach hard drives, scanners, tape drives and CD writers. Each device on the chain needed its own number set by a switch, and the chain had to be electrically terminated at both ends and nowhere else, which produced a great deal of folklore about which order to connect things in. It was faster and more capable than the alternatives and it demanded patience. Absorbed by SATA and USB, which did most of the same jobs without the ritual."
+    },
+    {
+      "type": "entry",
+      "year": 1991,
+      "name": "The Intel 487SX, which was not a coprocessor",
+      "spec": "A full 486DX sold as an upgrade chip",
+      "url": "https://en.wikipedia.org/wiki/Intel_80486",
+      "text": "Intel sold the 486SX as a cheaper 486 with the maths unit disabled, and offered a 487SX to add it back. The 487SX was not a coprocessor at all. It was a complete 486DX with one extra pin, and fitting it switched the original processor off entirely and took over the whole job, leaving the chip you had paid for sitting in its socket doing nothing. Worth telling students because it is a clean example of a product defined by marketing rather than engineering."
     },
     {
       "type": "entry",
       "year": 1992,
       "name": "Internal modems",
       "key": true,
-      "spec": "2400 to 56,000 bits per second",
-      "text": "The card that connected a PC to the outside world through a telephone line, at speeds where a single photograph took a minute. Absorbed by broadband, where the modem moved out of the case and became a box from the internet provider.",
-      "url": "https://en.wikipedia.org/wiki/Modem"
+      "spec": "2,400 rising to 56,000 bits per second",
+      "url": "https://en.wikipedia.org/wiki/Modem",
+      "text": "The card that connected a PC to the outside world by making noises down a telephone line. The screeching sound during connection was the two modems negotiating: testing the line, agreeing a speed and working out how to compensate for its distortions, all of it audible because the speaker stayed on until the connection settled. A photograph took a minute to arrive and the phone was unusable while you were online, so in many households computer time and telephone time were the same resource. Absorbed by broadband, where the modem moved out of the case and became a box supplied by the internet provider."
+    },
+    {
+      "type": "entry",
+      "year": 1993,
+      "name": "Scanner interface cards",
+      "spec": "A proprietary card in the box with the scanner",
+      "url": "https://en.wikipedia.org/wiki/Image_scanner",
+      "text": "Flatbed scanners frequently shipped with their own interface card, because no standard port was fast enough to carry an image. Buy a scanner, open the case, use a slot. Absorbed by USB, and it is worth noticing how many entries on this page end with those three words."
     },
     {
       "type": "era",
       "years": "1994 to 2000",
       "title": "Cards for media the processor could not keep up with",
-      "text": "Video and audio arrived on the PC before processors were fast enough to handle them. For a few years each new medium needed its own hardware, and each time the processor caught up within about five years."
+      "text": "Video, audio and 3D all arrived on the PC before processors were fast enough to handle them. Each time, dedicated hardware filled the gap for about five years and then the main processor caught up and the card vanished. This is the most reliable pattern on the page, and knowing it lets you make reasonable predictions about hardware being sold today."
     },
     {
       "type": "entry",
       "year": 1994,
       "name": "MPEG decoder cards",
       "key": true,
-      "spec": "Hardware Video CD and later DVD playback, ~$200",
-      "text": "Playing a film was beyond a mid-nineties processor, so a card did the decoding. By 1999 a 400 MHz Pentium II could do it in software, and the cards vanished within about two years. Modern graphics chips include video decoding hardware again, which shows the job did not disappear, only the separate card.",
-      "url": "https://en.wikipedia.org/wiki/MPEG-1"
+      "spec": "Hardware Video CD and later DVD playback, around $200",
+      "url": "https://en.wikipedia.org/wiki/MPEG-1",
+      "text": "Playing a film was beyond a mid-nineties processor, so a card did the decoding and often had to pass the video through to your graphics card by a cable. By 1999 a 400 MHz Pentium II managed it in software and the cards vanished within about two years. The interesting twist is that the job came back: modern graphics chips contain dedicated video decoding hardware again, because doing it in fixed circuitry uses a fraction of the power. The function returned, the separate card did not."
+    },
+    {
+      "type": "entry",
+      "year": 1994,
+      "name": "Proprietary CD-ROM interfaces",
+      "spec": "Panasonic, Mitsumi and Sony connectors on sound cards",
+      "url": "https://en.wikipedia.org/wiki/CD-ROM",
+      "text": "Before CD-ROM drives could connect to the standard hard disk cable, each manufacturer had its own interface, and sound cards competed by including two or three of the connectors so they would work with whichever drive you bought. Look at a Sound Blaster from this period and the row of mismatched headers along its edge is the whole story. Absorbed when the ATAPI standard let CD drives use the same cable as hard disks."
     },
     {
       "type": "entry",
       "year": 1996,
       "name": "3dfx Voodoo passthrough",
-      "spec": "3D only, cable from your 2D card, VGA passthrough",
-      "text": "A card that could not draw a desktop and sat idle until a game started. Absorbed within three years once one chip could do both 2D and 3D, and today the graphics card does the desktop, the games and the video.",
-      "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics"
+      "spec": "3D only, a cable from your 2D card, and an audible relay",
+      "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics",
+      "text": "A card that could not draw a desktop and sat silent until a game started, at which point a relay clicked and it took over the screen. Two graphics cards, one short cable, and a small loss of image sharpness on the desktop as the signal passed through. Absorbed within three years once one chip could do both jobs."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "Video capture cards",
-      "spec": "Composite or S-Video in, 320 x 240 at 15 fps",
-      "text": "Getting video from a camcorder into a PC required dedicated hardware and produced results that were barely watchable. Largely absorbed by USB and by cameras that record digitally in the first place, though capture cards survive for streaming.",
-      "url": "https://en.wikipedia.org/wiki/Video_capture"
+      "spec": "Composite or S-Video in, 320 x 240 at 15 frames a second",
+      "url": "https://en.wikipedia.org/wiki/Video_capture",
+      "text": "Getting video from a camcorder into a computer needed dedicated hardware and produced results that were barely watchable and filled a hard disk in minutes. Largely absorbed by FireWire and USB, and by cameras that record digitally in the first place. Capture cards are one of the few genuine survivors here, because streamers still need to record a second computer or a console."
+    },
+    {
+      "type": "entry",
+      "year": 1997,
+      "name": "Winmodems",
+      "spec": "The modem reduced to a codec, with the work done by the processor",
+      "url": "https://en.wikipedia.org/wiki/Softmodem",
+      "text": "Once processors had spare capacity, manufacturers removed the expensive signal processing chip from the modem and did that work in a driver instead. The cards became very cheap and very much worse: they consumed processor time, they were unreliable on slower machines, and because all the intelligence was in a proprietary Windows driver they simply did not work on other operating systems. It is a clear example of a cost saving passed to the manufacturer rather than to the user, and of what happens when hardware becomes dependent on one vendor's software."
+    },
+    {
+      "type": "entry",
+      "year": 1998,
+      "name": "The 56k standards war",
+      "spec": "K56flex and X2, incompatible, resolved by V.90",
+      "url": "https://en.wikipedia.org/wiki/List_of_ITU-T_V-series_recommendations",
+      "text": "Two rival groups shipped incompatible 56,000 bit per second modems, and whether you got the faster speed depended on which one your internet provider had installed at the other end. Buyers were told to check before purchasing, which almost nobody did. A committee eventually agreed a single standard, most modems were upgradeable by software, and the whole episode was pointless. It also never actually reached 56k, because line quality and regulatory limits capped it lower, and the upstream direction stayed at a third of the speed."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "Dedicated USB and FireWire cards",
-      "spec": "Adds ports an older board lacks",
-      "text": "A card whose entire purpose was to add a connector the motherboard predated. Still occasionally useful, which makes it one of the few survivors here.",
-      "url": "https://en.wikipedia.org/wiki/IEEE_1394"
+      "spec": "Adds ports the motherboard predates",
+      "url": "https://en.wikipedia.org/wiki/IEEE_1394",
+      "text": "A card whose only purpose is to add a connector your board is too old to have. Still occasionally useful, which makes it one of the few things here that never really disappeared, because there will always be machines older than the current standard."
+    },
+    {
+      "type": "entry",
+      "year": 1999,
+      "name": "Professional graphics cards",
+      "spec": "3Dlabs, Wildcat and the workstation market",
+      "url": "https://en.wikipedia.org/wiki/3Dlabs",
+      "text": "A separate industry existed making graphics cards for computer aided design and film work, built on different chips from the gaming ones and costing several times as much. Consumer 3D hardware improved so quickly that it overtook them, and the workstation market became the same silicon with different drivers, different testing and a much higher price. Absorbed by the mainstream graphics card, and the price difference that remains is mostly certification and support rather than hardware."
     },
     {
       "type": "era",
-      "years": "2006 to 2011",
-      "title": "The last new category, and how briefly it lasted",
-      "text": "Two attempts in the mid-2000s tried to create a new reason to buy an expansion card. Both were absorbed or dismissed within about five years, and no new consumer card category has appeared since."
+      "years": "2001 to 2011",
+      "title": "The last new categories, and how briefly they lasted",
+      "text": "Two serious attempts in the 2000s tried to create a new reason to buy an expansion card. One was technically sound and arrived without the software to justify it. The other was sold on a claim that did not survive independent testing. After these, no new consumer expansion card category appeared for the best part of a decade."
+    },
+    {
+      "type": "entry",
+      "year": 2002,
+      "name": "TV tuner cards",
+      "spec": "Watch and record broadcast television on the PC",
+      "url": "https://en.wikipedia.org/wiki/TV_tuner_card",
+      "text": "For a few years the computer became a television and a video recorder, with software that could pause live broadcasts and skip advertisements. Absorbed by streaming services and catch-up players, which removed the reason to record anything, rather than by better hardware. Not every card on this page was replaced by a chip; some were replaced by a change in how people watch things."
+    },
+    {
+      "type": "entry",
+      "year": 2004,
+      "name": "Audio processing cards",
+      "spec": "Dedicated signal processors for music production",
+      "url": "https://en.wikipedia.org/wiki/Digital_signal_processor",
+      "text": "Serious music software ran its effects and mixing on dedicated processors on a card, because a desktop processor could not manage dozens of simultaneous effects in real time without stuttering. As processors gained cores this stopped being true, and the studio standard moved to doing everything on the main processor. The same story as the maths coprocessor, the video decoder and the physics card, playing out in a professional market where the hardware cost thousands rather than hundreds."
     },
     {
       "type": "entry",
       "year": 2006,
-      "name": "Ageia PhysX PPU",
+      "name": "Ageia PhysX",
       "key": true,
-      "spec": "125M transistors, 128 MB GDDR3, ~$250 to $300",
-      "text": "A card that did nothing but calculate physics, so that debris, cloth and fluid in games could behave properly. It needed games written for it, few were, and the effects it enabled were usually cosmetic. NVIDIA bought Ageia in 2008, ported the software to run on its graphics cards, and the separate card was finished by 2011. It is the shortest lived expansion card category in PC history and a clean case study in needing software support before hardware can matter.",
-      "url": "https://en.wikipedia.org/wiki/PhysX"
+      "spec": "125M transistors, 128 MB GDDR3, around $250 to $300",
+      "url": "https://en.wikipedia.org/wiki/PhysX",
+      "text": "A card that did nothing but calculate physics, so debris, cloth, smoke and fluid could behave properly rather than being animated by hand. Technically it worked. Commercially it faced an impossible problem: a developer would only support it if enough people owned one, and people would only buy one if enough games supported it. Fewer than thirty titles ever did, and because most players had no card the effects had to be optional, which meant they could not affect gameplay and were reduced to decoration. Buying a card for prettier debris was a hard sell at three hundred dollars. NVIDIA bought Ageia in 2008, ported the software to run on its graphics cards, and the separate card was finished by 2011. It is the shortest lived expansion card category in PC history and the cleanest case study anywhere on this site of hardware needing software support before it can matter."
     },
     {
       "type": "entry",
       "year": 2006,
       "name": "Killer NIC",
-      "spec": "Network card with its own processor, ~$280",
-      "text": "Sold on the claim that handling network traffic on a dedicated processor would reduce lag in games. Independent testing found the difference was within measurement error. Worth knowing about as an example of a product sold on a number that did not survive scrutiny.",
-      "url": "https://en.wikipedia.org/wiki/Killer_NIC"
+      "spec": "A network card running its own copy of Linux, around $280",
+      "url": "https://en.wikipedia.org/wiki/Killer_NIC",
+      "text": "Sold on the claim that handling network traffic on a dedicated processor rather than the main one would reduce lag in games. Independent testing repeatedly found the difference was within measurement error, because the delay in an online game comes from the distance to the server and the route taken, not from the few microseconds spent processing a packet at your end. Worth knowing as an example of a product sold against a number that sounds relevant and is not. The brand survived, was bought twice, and now appears on ordinary network chips."
+    },
+    {
+      "type": "entry",
+      "year": 2007,
+      "name": "Intel buys Havok, NVIDIA buys Ageia",
+      "spec": "The physics engine market resolved by acquisition within a year",
+      "url": "https://en.wikipedia.org/wiki/Havok_(software)",
+      "text": "The two companies making game physics software were bought within twelve months by the two companies making the hardware it might run on. Neither buyer wanted a card business; both wanted the software to run on what they already sold. It is a good illustration that a capability can be commercially valuable while the dedicated hardware for it is worthless."
     },
     {
       "type": "entry",
       "year": 2011,
       "name": "PhysX becomes software",
-      "spec": "Runs on the GPU, then on the CPU, then open source in 2018",
-      "text": "The capability is still in use today in game engines. It just runs on hardware you already have, which is the ending every card on this page shares.",
-      "url": "https://en.wikipedia.org/wiki/PhysX"
+      "spec": "Runs on the graphics card, then on the processor, then open source",
+      "url": "https://en.wikipedia.org/wiki/PhysX",
+      "text": "The capability is in use today in major game engines. It just runs on hardware you already own, and NVIDIA eventually released the source code. That is the ending every card on this page shares, and it is worth saying plainly to students: the job survived, the product did not."
     },
     {
       "type": "era",
-      "title": "The slot in this machine",
-      "text": "A PC in 1996 had six or seven slots and most were full: graphics, sound, modem, network, SCSI, maybe a capture card. This machine has two, and one of them is empty. The processor, the graphics card and the chipset ate the rest. When you next see an old motherboard, count the slots and work out what each card was for, because each one is a job the machine of the day could not do by itself."
+      "years": "2017 to 2025",
+      "title": "It is happening again",
+      "text": "For about seven years after PhysX there was no new consumer expansion card category at all. Then machine learning arrived, processors could not do it efficiently, and small accelerator cards appeared to fill the gap. Anyone who has read this far can predict what happened next, and it took about five years rather than ten."
+    },
+    {
+      "type": "entry",
+      "year": 2017,
+      "name": "Neural accelerator sticks and cards",
+      "key": true,
+      "spec": "USB and small PCIe modules for running trained models",
+      "url": "https://en.wikipedia.org/wiki/AI_accelerator",
+      "text": "Running a trained machine learning model is a great deal of simple repeated arithmetic, which a general purpose processor does inefficiently. Intel sold a neural compute stick, Google sold a small accelerator on USB and on a card, and for a few years if you wanted to recognise objects in a camera feed on a small computer you bought one. The pattern should look familiar: a real capability the existing hardware handled badly, filled by an add-on."
+    },
+    {
+      "type": "entry",
+      "year": 2023,
+      "name": "The NPU moves onto the processor",
+      "key": true,
+      "spec": "Neural processing units built into mainstream desktop and laptop chips",
+      "url": "https://en.wikipedia.org/wiki/AI_accelerator",
+      "text": "Apple had put one in its phone chips in 2017. By 2023 both Intel and AMD were shipping laptop and desktop processors with a dedicated block for this arithmetic built in, and by 2024 Microsoft was requiring a minimum level of it for certain Windows features, which made it a specification on the box rather than an accessory. Intel discontinued its accelerator stick. The whole cycle, from a card solving a problem the processor could not, to the processor absorbing it, took about six years, which is the fastest example on this page. Whether the current wave of dedicated AI hardware ends the same way is a genuinely open question worth asking students to argue about."
+    },
+    {
+      "type": "entry",
+      "year": 2025,
+      "name": "What is still worth a slot",
+      "spec": "Graphics, capture, high speed networking, professional audio, storage controllers",
+      "url": "https://en.wikipedia.org/wiki/Expansion_card",
+      "text": "The survivors have something in common. Each is either physically large and hot, like a graphics card, or needs a connector the board does not have, or serves a small professional market too specialised to be worth integrating. Everything that was merely a calculation the processor could not yet manage has been absorbed, without exception."
+    },
+    {
+      "type": "era",
+      "title": "What to take from this",
+      "text": "A card exists in the gap between a problem appearing and the main hardware being able to handle it, and that gap has historically been about five to ten years wide. Three endings recur. The processor or the graphics chip gets fast enough and swallows the job, which is the maths coprocessor, the video decoder and physics. A standard connector arrives and makes the card pointless, which is USB against scanner cards, SCSI adapters and separate port cards. Or the reason itself goes away, which is what streaming did to TV tuners and broadband did to modems. When you next see an unfamiliar card, the useful question is not what it does but which of those three is going to happen to it."
     },
     {
       "type": "link",

@@ -91,10 +91,10 @@ function wire(part) {
   if (!art) hit.classList.add('is-fixed');
 
   hit.addEventListener('mouseenter', () => {
-    if (art) art.classList.add(part.removable ? 'is-lit' : 'is-lit-fixed');
+    if (art) art.classList.add('is-lit');
   });
   hit.addEventListener('mouseleave', () => {
-    if (art) art.classList.remove('is-lit', 'is-lit-fixed');
+    if (art) art.classList.remove('is-lit');
   });
 
   hit.addEventListener('click', () => select(part));

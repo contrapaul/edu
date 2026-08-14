@@ -2,180 +2,314 @@
   "id": "software",
   "title": "Where the speed went",
   "span": "1981 to 2025",
-  "intro": "Hardware got roughly a thousand times faster and a million times roomier. Opening a program still takes about a second, booting still takes about half a minute, and a computer still occasionally makes you wait. Software expanded to fill the space almost exactly as fast as the space appeared, and the reasons for that are not all bad ones.",
+  "intro": "Hardware got roughly a thousand times faster and a million times roomier. Opening a program still takes about a second, and a computer still occasionally makes you wait. Software expanded to fill the space almost exactly as fast as the space appeared, and the reasons are not all bad ones. This page is organised by kind of software rather than strictly by year, because operating systems, games and web pages each have their own curve and comparing their shapes is the point.",
   "blocks": [
     {
       "type": "era",
-      "years": "The pattern",
       "title": "Nothing gets faster for long",
-      "text": "In 1995 a rule of thumb circulated that what Intel gives, Microsoft takes away. It was a joke about Windows, but the pattern is general and it is not really about laziness. Every generation of hardware allows something that was previously impossible, developers build that thing, and the machine ends up as busy as it ever was doing work the old machine could not have attempted."
+      "text": "There is an industry saying that what Andy giveth, Bill taketh away, naming the head of Intel and the head of Microsoft. It is a joke about Windows and the pattern is general. Every generation of hardware makes something possible that was not possible before, developers build that thing, and the machine ends up as busy as it ever was doing work the old machine could not have attempted at all. Economists have a name for the general version: when something becomes more efficient, people consume more of it rather than banking the saving."
+    },
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "Wirth's law",
+      "key": true,
+      "spec": "\"Software is getting slower more rapidly than hardware is getting faster\"",
+      "url": "https://en.wikipedia.org/wiki/Wirth%27s_law",
+      "text": "Niklaus Wirth, who designed the Pascal programming language, wrote an article called A Plea for Lean Software making exactly this complaint in 1995. His argument was that software grows to fill the available resources because nothing forces it not to, and that the discipline of working within a small machine had produced better designed programs. Thirty years later the observation still holds and the argument about whether it matters is still running, which makes it a good thing to put in front of students rather than a settled fact."
+    },
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "Java and the cost of portability",
+      "key": true,
+      "spec": "Compiled to an intermediate form, run by a program rather than by the processor",
+      "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+      "text": "Java did not compile to instructions a processor understands. It compiled to an intermediate form run by a piece of software called a virtual machine, so the same program worked everywhere without being rebuilt. The cost was that the machine was doing extra work at every step. This is the clearest early example of the trade that explains most of this page: developers spend the hardware's speed to save their own time and to make software work in more places, and both of those are real benefits rather than laziness. The technique improved enormously, and the trade never went away."
+    },
+    {
+      "type": "entry",
+      "year": 2013,
+      "name": "Electron, or shipping a whole browser",
+      "key": true,
+      "spec": "Each application bundles its own copy of Chromium, around 150 MB before any code",
+      "url": "https://en.wikipedia.org/wiki/Electron_(software_framework)",
+      "text": "A framework that lets a desktop application be written in the same languages as a web page, by packaging an entire web browser inside it. Several very widely used chat, editor and meeting applications are built this way, so a machine running three of them has three separate copies of a browser engine in memory. A chat program using several hundred megabytes to display text is startling if you know that the whole of Windows 95 ran in eight. It is also why those programs exist at all on every platform with small teams behind them, which is the trade being made."
+    },
+    {
+      "type": "entry",
+      "year": 2018,
+      "name": "The security tax",
+      "spec": "Meltdown and Spectre fixes, encryption, sandboxing",
+      "url": "https://en.wikipedia.org/wiki/Spectre_(security_vulnerability)",
+      "text": "Not all of the lost performance went on features. Fixing the speculative execution flaws cost real speed, in some server workloads a large fraction of it. Beyond that, a modern machine encrypts its storage, encrypts almost every network connection, runs each browser tab in its own isolated process and checks signatures on what it runs. None of that existed on a 1995 machine, all of it costs cycles, and almost nobody would give it up. When measuring how much slower software has become, this is the part of the bill that is clearly worth paying."
+    },
+    {
+      "type": "era",
+      "years": "1981 to 2025",
+      "title": "Operating systems, and what a minimum specification really means",
+      "text": "The published minimum is the point below which the software will refuse to install, not the point at which it is pleasant to use. The gap between those two numbers has caused more consumer unhappiness than any other figure in computing, and once produced a class action."
     },
     {
       "type": "entry",
       "year": 1981,
       "name": "MS-DOS 1.0",
-      "spec": "12 KB of memory, one 160 KB floppy, boots in seconds",
-      "text": "The operating system fitted on a floppy disk with room to spare for your program. It also did essentially nothing: no windows, no multitasking, no networking, no protection between programs, and no drivers for hardware it did not already know about.",
-      "url": "https://en.wikipedia.org/wiki/MS-DOS"
+      "spec": "12 KB of memory, one 160 KB floppy, starts in seconds",
+      "url": "https://en.wikipedia.org/wiki/MS-DOS",
+      "text": "The operating system fitted on a floppy disk with room left for your program. It also did essentially nothing: no windows, no multitasking, no networking, no protection between programs, and no way to talk to hardware it did not already know about. Every comparison on this page should be read with that in mind."
     },
     {
       "type": "entry",
       "year": 1990,
       "name": "Windows 3.0",
-      "spec": "384 KB minimum, 640 KB recommended, 6 MB disk",
-      "text": "Overlapping windows, a mouse, and several programs on screen at once. The memory requirement is roughly forty times DOS, for capabilities the earlier system did not attempt.",
-      "url": "https://en.wikipedia.org/wiki/Windows_3.0"
+      "spec": "384 KB minimum, 640 KB recommended, 6 MB of disk",
+      "url": "https://en.wikipedia.org/wiki/Windows_3.0",
+      "text": "Overlapping windows, a mouse, and several programs on screen at once. The memory requirement is roughly forty times DOS, for capabilities the earlier system did not attempt at all."
     },
     {
       "type": "entry",
       "year": 1995,
       "name": "Windows 95",
       "key": true,
-      "spec": "4 MB minimum, 8 MB realistic, 40 to 55 MB disk",
-      "text": "Ran acceptably on 8 MB and well on 16. The joke at the time was that the recommended specification was always the machine you were about to buy, not the one you owned, and it was mostly true.",
-      "url": "https://en.wikipedia.org/wiki/Windows_95"
+      "spec": "4 MB minimum, 8 MB realistic, 16 MB comfortable, 40 to 55 MB of disk",
+      "url": "https://en.wikipedia.org/wiki/Windows_95",
+      "text": "The stated minimum of 4 MB was technically true and practically miserable, and the machines in shops came with 8. This is the release that established the pattern people still complain about: the recommended specification tends to describe the computer you are about to buy rather than the one you own."
     },
     {
       "type": "entry",
       "year": 2001,
       "name": "Windows XP",
-      "spec": "64 MB minimum, 128 MB realistic, 1.5 GB disk",
-      "text": "Thirty times the disk footprint of Windows 95, six years later. It also brought proper memory protection, so one crashing program stopped taking the machine down with it, which is worth several hundred megabytes on its own.",
-      "url": "https://en.wikipedia.org/wiki/Windows_XP"
+      "spec": "64 MB minimum, 128 MB realistic, 1.5 GB of disk",
+      "url": "https://en.wikipedia.org/wiki/Windows_XP",
+      "text": "Thirty times the disk footprint of Windows 95 six years later. It also brought proper memory protection, so one crashing program stopped taking the whole machine down with it, which is worth several hundred megabytes by itself and is the single biggest reliability improvement in consumer computing."
     },
     {
       "type": "entry",
       "year": 2007,
       "name": "Windows Vista",
       "key": true,
-      "spec": "512 MB minimum, 1 GB realistic, 15 GB disk",
-      "text": "The clearest case of software outrunning the hardware people actually owned. Machines were sold as Vista Capable that could not run it comfortably, and the resulting reputation took years to shake off. A useful lesson in what a minimum specification really means.",
-      "url": "https://en.wikipedia.org/wiki/Windows_Vista"
+      "spec": "512 MB minimum, 1 GB realistic, 15 GB of disk",
+      "url": "https://en.wikipedia.org/wiki/Windows_Vista",
+      "text": "The clearest case of software outrunning the hardware people actually owned. It was not only heavier than XP; it also demanded a graphics capability for its new interface that a great many recently sold machines did not have. The reputation took years to recover from, and Windows 7 two years later ran better on the same hardware, which shows a good deal of the problem was optimisation rather than ambition."
+    },
+    {
+      "type": "entry",
+      "year": 2008,
+      "name": "The Vista Capable lawsuit",
+      "key": true,
+      "spec": "A sticker, a class action, and some very awkward internal emails",
+      "url": "https://en.wikipedia.org/wiki/Windows_Vista",
+      "text": "Machines sold before launch carried a Windows Vista Capable sticker, and many of them could only run the most basic edition without the interface the advertising showed. A class action followed, and the disclosed internal emails were more damaging than the claim: they showed the requirement had been lowered so that a particular Intel chipset would qualify, and included a Microsoft executive complaining that he had personally bought a machine on the strength of the label and been caught out. The case was eventually decertified rather than won. It is an excellent classroom case, because the engineering question and the marketing question have completely different answers and the second one is what reached court."
+    },
+    {
+      "type": "entry",
+      "year": 2009,
+      "name": "Windows 7",
+      "spec": "1 GB, 16 GB of disk, and faster than Vista on the same machine",
+      "url": "https://en.wikipedia.org/wiki/Windows_7",
+      "text": "Worth including as the counter-example. The requirement barely moved and the software got noticeably quicker on identical hardware, which proves the trend on this page is a tendency rather than a law of nature. Software gets slower because nothing forces it not to, and when something does force it, the effect is immediate."
     },
     {
       "type": "entry",
       "year": 2015,
       "name": "Windows 10",
-      "spec": "2 GB, 20 GB disk",
-      "text": "The requirement stopped climbing steeply, partly because processors stopped getting dramatically faster and partly because tablets and cheap laptops set a floor that software had to respect.",
-      "url": "https://en.wikipedia.org/wiki/Windows_10"
+      "spec": "2 GB, 20 GB of disk",
+      "url": "https://en.wikipedia.org/wiki/Windows_10",
+      "text": "The requirement stopped climbing steeply, partly because processors had stopped getting dramatically faster and partly because cheap laptops and tablets set a floor the software had to respect. External pressure again, rather than restraint."
     },
     {
       "type": "entry",
       "year": 2021,
-      "name": "Windows 11",
-      "spec": "4 GB, 64 GB disk, TPM 2.0 required",
-      "text": "The disk figure grew more than the memory figure, and the hard requirement is not performance at all but a security chip, which made a large number of perfectly capable machines ineligible.",
-      "url": "https://en.wikipedia.org/wiki/Windows_11"
+      "name": "Windows 11 and the security chip",
+      "key": true,
+      "spec": "4 GB, 64 GB of disk, and a TPM 2.0 module",
+      "url": "https://en.wikipedia.org/wiki/Trusted_Platform_Module",
+      "text": "The memory requirement doubled and the disk requirement tripled, but the hard barrier was not performance at all. Windows 11 requires a security chip and a processor from 2018 or later, which made a very large number of perfectly capable machines ineligible for an upgrade. Estimates at the time put it in the hundreds of millions. Whether a working computer should become unsupported because of a component unrelated to how fast it runs is a genuine argument, and it has an environmental dimension worth putting to a design class: the electronic waste implications of a software policy."
+    },
+    {
+      "type": "entry",
+      "year": 2025,
+      "name": "Linux as the control case",
+      "spec": "A current desktop running comfortably on hardware Windows 11 rejects",
+      "url": "https://en.wikipedia.org/wiki/Linux",
+      "text": "A modern Linux desktop will run well on a machine from 2012, with a current browser and current security updates. That is useful evidence when arguing about whether requirements rise because software genuinely needs more or because there is no pressure to keep it lean. The honest answer is some of both, and having a working comparison available makes the discussion concrete rather than theoretical."
     },
     {
       "type": "era",
       "years": "1993 to 2025",
       "title": "Games, where the demand always shows up first",
-      "text": "Games are the software that has always asked for everything available and then some. Install sizes are the clearest single measure, because they track texture resolution, audio quality and the sheer amount of content, all of which grew with what storage and memory allowed."
+      "text": "Games have always asked for everything available and then a little more. Install size is the clearest single measure because it tracks texture resolution, audio quality and the sheer quantity of content, all of which grew with whatever storage and memory allowed."
     },
     {
       "type": "entry",
       "year": 1993,
       "name": "Doom",
-      "spec": "12 MB, 4 MB RAM, 386 processor",
-      "text": "The whole game fitted on eight floppy disks. It was distributed as shareware, meaning the first episode was given away free, which is part of why almost every PC of the era had it.",
-      "url": "https://en.wikipedia.org/wiki/Doom_(1993_video_game)"
+      "spec": "About 12 MB, 4 MB of RAM, a 386 processor",
+      "url": "https://en.wikipedia.org/wiki/Doom_(1993_video_game)",
+      "text": "The whole game fitted on a handful of floppy disks and was given away as shareware, meaning the first episode was free and you paid for the rest, which is part of why it ended up on almost every PC of the era. It ran acceptably on hardware people already owned, which is not something you can say about many of the entries below it."
+    },
+    {
+      "type": "entry",
+      "year": 1996,
+      "name": "Quake",
+      "spec": "About 80 MB, 8 MB of RAM, a Pentium strongly recommended",
+      "url": "https://en.wikipedia.org/wiki/Quake_(video_game)",
+      "text": "Fully three-dimensional geometry rather than Doom's flat trick, and it needed a Pentium to do the floating point arithmetic involved. This is the first widely played game that made people upgrade a processor specifically, and it is why the maths performance of a chip suddenly mattered to teenagers as well as to engineers."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "Half-Life",
-      "spec": "400 MB, 24 MB RAM",
-      "text": "One CD. Thirty times Doom in five years, mostly texture and audio data.",
-      "url": "https://en.wikipedia.org/wiki/Half-Life_(video_game)"
+      "spec": "About 400 MB, 24 MB of RAM",
+      "url": "https://en.wikipedia.org/wiki/Half-Life_(video_game)",
+      "text": "One CD, and thirty times the size of Doom five years later, almost all of it texture and audio data rather than code."
     },
     {
       "type": "entry",
       "year": 2004,
-      "name": "Half-Life 2",
-      "spec": "4.5 GB, 256 MB RAM, five CDs or one DVD",
-      "text": "Ten times again in six years. This is also the game that introduced a great many people to the idea that software would be delivered over the internet and would check in with a server before running.",
-      "url": "https://en.wikipedia.org/wiki/Half-Life_2"
+      "name": "Half-Life 2 and Steam",
+      "key": true,
+      "spec": "About 4.5 GB, 256 MB of RAM, an online account required to play",
+      "url": "https://en.wikipedia.org/wiki/Steam_(service)",
+      "text": "Ten times again in six years. It also required an internet connection and an account before a single-player game bought on disc would run, which was extremely unpopular at the time and is now completely normal. The demand it created was not only for hardware: it assumed a permanent connection years before most households had one."
     },
     {
       "type": "entry",
       "year": 2007,
       "name": "Crysis",
       "key": true,
-      "spec": "12 GB, 1 GB RAM, DirectX 10",
-      "text": "Built for hardware that did not exist yet, on the assumption that clock speeds would keep climbing. They did not, and can it run Crysis became a benchmark question for the next decade because nothing could run it well for years.",
-      "url": "https://en.wikipedia.org/wiki/Crysis"
+      "spec": "About 12 GB, 1 GB of RAM, and a bet on the wrong axis",
+      "url": "https://en.wikipedia.org/wiki/Crysis",
+      "text": "Famous for being unplayable on the best hardware of its year, and the interesting part is why it stayed that way. It was built assuming clock speeds would keep climbing, as they had for two decades, and its engine leaned heavily on a single thread. Clock speeds had already stopped and the industry moved to adding cores instead, so the extra performance that arrived over the following years was in a form Crysis could not use. Hardware did not fail to catch up; it improved in the wrong direction. Can it run Crysis stayed a joke for a decade because of a design assumption rather than because of ambition."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "The Elder Scrolls V: Skyrim",
+      "spec": "About 6 GB, 2 GB of RAM",
+      "url": "https://en.wikipedia.org/wiki/The_Elder_Scrolls_V:_Skyrim",
+      "text": "Notable for the opposite reason to Crysis: it was built to run on the consoles of the time, which were six years old, so it was comfortable on ordinary PCs from launch. Console hardware setting the ceiling has kept PC requirements flatter than they would otherwise be, and that is one of the quiet forces holding this page's curves down."
     },
     {
       "type": "entry",
       "year": 2015,
-      "name": "Grand Theft Auto V (PC)",
-      "spec": "72 GB, 4 GB RAM",
-      "text": "The install is larger than the entire hard disk of a high end machine from 2001.",
-      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_V"
+      "name": "Grand Theft Auto V",
+      "spec": "About 72 GB, 4 GB of RAM",
+      "url": "https://en.wikipedia.org/wiki/Grand_Theft_Auto_V",
+      "text": "The install is larger than the entire hard disk of a high end machine from 2001, and larger than every game listed above it on this page added together many times over."
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "Call of Duty: Modern Warfare",
-      "spec": "175 GB peak, 8 GB RAM",
-      "text": "Large enough that internet providers noticed the update traffic, and large enough that a single game could fill the SSD in a typical laptop.",
-      "url": "https://en.wikipedia.org/wiki/Call_of_Duty:_Modern_Warfare_(2019_video_game)"
+      "spec": "Up to about 175 GB installed",
+      "url": "https://en.wikipedia.org/wiki/Call_of_Duty:_Modern_Warfare_(2019_video_game)",
+      "text": "Large enough that internet providers publicly noticed the update traffic, and large enough that one game could fill the drive in a typical laptop. It also popularised the practice of a game growing after release as seasonal content is added, so the number on the store page is not the number you end up with."
+    },
+    {
+      "type": "entry",
+      "year": 2023,
+      "name": "Shader compilation stutter",
+      "spec": "The game pausing while it prepares code for your specific hardware",
+      "url": "https://en.wikipedia.org/wiki/Shader",
+      "text": "A modern game's visual effects are small programs that have to be translated for the exact graphics card in your machine, and if that happens the first time each effect appears on screen, the game stutters. It became a widespread complaint on PC and does not affect consoles, where there is only one hardware configuration to prepare for in advance. Many games now spend several minutes compiling shaders before you can play, which is the cost of the PC's variety made visible. A good example of a performance problem that is not about how fast the hardware is."
     },
     {
       "type": "entry",
       "year": 2024,
-      "name": "Typical major release",
-      "spec": "100 to 150 GB, 16 GB RAM, SSD required",
-      "text": "Requiring an SSD rather than recommending one is new. Games now stream assets from storage while you play instead of loading everything up front, so a mechanical drive is not slow, it is unusable."
+      "name": "A typical major release",
+      "spec": "100 to 150 GB, 16 GB of RAM, an SSD required",
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "Requiring rather than recommending an SSD is new. Games now pull data off storage continuously while you play instead of loading everything in advance, so a mechanical drive is not slow, it simply does not work. Day-one patches of tens of gigabytes are also now routine, which means the disc or the download is frequently not the finished product."
     },
     {
       "type": "era",
       "years": "1995 to 2025",
       "title": "The web, which nobody designed to be this heavy",
-      "text": "No single decision made web pages large. Each addition was individually reasonable: images, then better images, then fonts, then analytics, then video, then frameworks that make development faster at the cost of code the visitor has to download. The result is that an average page today transfers more data than the entire Windows 95 installer."
+      "text": "No single decision made web pages large. Each addition was individually reasonable: images, then better images, then fonts, then analytics, then video, then frameworks that make development faster at the cost of code the visitor has to download. The result is that an average page today transfers more than the entire Windows 95 installer."
     },
     {
       "type": "entry",
       "year": 1995,
-      "name": "An average web page",
-      "spec": "~14 KB, mostly text",
-      "text": "A page was text and perhaps one image, because most people were connected at 28,800 bits per second and anything larger simply would not arrive."
+      "name": "Mostly text",
+      "spec": "An average page around 14 KB",
+      "url": "https://en.wikipedia.org/wiki/Web_page",
+      "text": "A page was text and perhaps one small image, because most people connected at 28,800 bits per second and anything larger simply would not arrive in a reasonable time. The constraint produced discipline, and the discipline vanished the moment the constraint did."
     },
     {
       "type": "entry",
       "year": 2003,
-      "name": "An average web page",
-      "spec": "~93 KB",
-      "text": "Broadband arrives and the constraint relaxes. Pages get images."
+      "name": "Images arrive",
+      "spec": "An average page around 93 KB",
+      "url": "https://en.wikipedia.org/wiki/Web_page",
+      "text": "Broadband spread, the constraint relaxed, and pages filled the new space almost immediately. Seven times the weight in eight years."
     },
     {
       "type": "entry",
       "year": 2011,
-      "name": "An average web page",
-      "spec": "~800 KB",
-      "text": "Larger images, embedded video, social buttons, tracking scripts."
+      "name": "Video, social buttons and tracking",
+      "spec": "An average page around 800 KB",
+      "url": "https://en.wikipedia.org/wiki/Web_page",
+      "text": "A large and growing share of this was not the content at all. Advertising, analytics and social sharing code often outweighed the article a reader had come for, and every additional tracker meant another connection to another company's server before the page finished loading."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "The counter-pressure",
+      "key": true,
+      "spec": "Google begins ranking pages partly on how quickly they load",
+      "url": "https://en.wikipedia.org/wiki/Web_performance",
+      "text": "This is the entry that stops the page being a straightforward complaint. Because most browsing moved to phones on mobile networks, slow pages started costing money, and search engines began using loading speed as a ranking factor. Suddenly there was a commercial reason to make pages lighter, and measurable improvements followed in exactly the places where the incentive applied. It supports the argument running through this whole topic: software bloats when nothing pushes back, and improves promptly when something does."
     },
     {
       "type": "entry",
       "year": 2025,
-      "name": "An average web page",
+      "name": "Half of it images and scripts",
       "key": true,
-      "spec": "~2.7 MB, over half of it images and scripts",
-      "text": "Roughly two hundred times the 1995 figure, for pages that mostly show the same thing: some text and a picture. This is the clearest example on the page of capability being consumed rather than banked."
+      "spec": "An average page around 2.7 MB",
+      "url": "https://en.wikipedia.org/wiki/Web_page",
+      "text": "Roughly two hundred times the 1995 figure, for pages that mostly present the same thing: some text and a picture. Set against a processor that is about a thousand times faster over the same period, this is the clearest example on the site of capability being consumed rather than banked."
+    },
+    {
+      "type": "era",
+      "title": "Where it genuinely did get better",
+      "text": "A page called Where the speed went would be dishonest if it only listed things getting worse. Several parts of using a computer improved substantially, and the pattern in what improved is instructive: it tends to be the things that were measured, or the things where a hardware change removed the problem rather than software choosing restraint."
+    },
+    {
+      "type": "entry",
+      "year": 2013,
+      "name": "Starting up",
+      "spec": "About 40 seconds in 2005, under 15 today",
+      "url": "https://en.wikipedia.org/wiki/Booting",
+      "text": "Boot time got worse through the Windows XP and Vista era and then improved sharply, because of solid state storage, UEFI replacing the old startup firmware, and operating systems saving part of their state to disk instead of rebuilding it. This is worth noting carefully: the improvement came from hardware and firmware, and the software did not become more restrained. It became faster because the thing it was waiting for got faster."
+    },
+    {
+      "type": "entry",
+      "year": 2016,
+      "name": "Better compression everywhere",
+      "spec": "Brotli and Zstandard replacing decades-old algorithms",
+      "url": "https://en.wikipedia.org/wiki/Zstandard",
+      "text": "The compression used for web pages, game files and system updates was largely unchanged for twenty years, and newer algorithms now do the same job faster and smaller. It is unglamorous and it quietly reduces how much every download costs. Worth mentioning because it is the sort of improvement nobody notices, which is rather the point."
+    },
+    {
+      "type": "entry",
+      "year": 2018,
+      "name": "Video compression",
+      "spec": "H.264 to HEVC to AV1, each roughly halving the size for equal quality",
+      "url": "https://en.wikipedia.org/wiki/AV1",
+      "text": "Genuine efficiency, and a rare case of software doing more with less. Each new codec makes video meaningfully smaller for the same quality, at the cost of far more computation, which is then handled by dedicated hardware in the processor and graphics chip. Streaming a film today moves less data than streaming a much worse looking one in 2010. Efficiency gains do exist; they arrive where somebody is paying for the bandwidth."
     },
     {
       "type": "era",
       "title": "Capability against demand",
-      "text": "Hardware and the software that ran on it, on one scale. The lines rise together, which is the point. When a hardware line flattens, look at whether the software line above it flattens too."
+      "text": "Hardware and the software running on it, on one scale. The lines rise together, which is the argument. Where a hardware line flattens, look at whether the software line above it flattens too."
     },
     {
       "type": "interactive",
       "id": "demand-chart",
       "unit": "MB",
       "alt": "Hardware capability against software requirements from 1981 to 2025",
-      "caption": "All values in megabytes. Memory fitted and OS requirement are directly comparable; game install size and web page size are shown on the same scale to compare their shape.",
+      "caption": "All values in megabytes. Memory fitted and operating system requirement are directly comparable; game install size and web page size share the scale so their shapes can be compared.",
       "series": [
         {
           "label": "Memory fitted (MB)",
@@ -279,6 +413,11 @@
               "Doom"
             ],
             [
+              1996,
+              80,
+              "Quake"
+            ],
+            [
               1998,
               400,
               "Half-Life"
@@ -292,6 +431,11 @@
               2007,
               12000,
               "Crysis"
+            ],
+            [
+              2011,
+              6000,
+              "Skyrim"
             ],
             [
               2015,
@@ -346,7 +490,13 @@
     {
       "type": "era",
       "title": "Was any of it wasted?",
-      "text": "The uncharitable reading is that developers stopped caring because hardware would cover for them. The charitable reading is that a 1995 machine could not have shown you a video call, encrypted your connection, rendered a font smoothly at any size or protected one program from another, and all of that costs something. Both readings are partly right, and working out which applies to a particular piece of software is a more interesting question than the general complaint."
+      "text": "The uncharitable reading is that developers stopped caring because hardware would cover for them. The charitable reading is that a 1995 machine could not have shown you a video call, encrypted your connection, isolated one browser tab from another, rendered a font smoothly at any size, or been built by a team of four people for every platform at once, and all of that costs something. Both readings are partly right. The more useful question, and a good one to argue about with a class, is which of the two applies to a specific piece of software, and the evidence for answering it is on this page: where something measured the cost, whether a search ranking, a phone battery or a streaming bill, the waste got dealt with promptly. Where nothing measured it, it did not."
+    },
+    {
+      "type": "link",
+      "to": "cpu",
+      "label": "What the hardware was doing meanwhile",
+      "text": "The other half of the comparison, including why the speed a program could rely on stopped growing in 2004."
     }
   ]
 }

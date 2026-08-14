@@ -71,6 +71,145 @@
     },
     {
       "type": "era",
+      "title": "How big is it, actually",
+      "text": "The obvious guess is that chips got smaller. They did not. The die has wandered between roughly seventy and three hundred square millimetres for fifty years, which is smaller than a coin the whole way through, while what is packed into that area grew by a factor of seven million."
+    },
+    {
+      "type": "interactive",
+      "id": "die-view",
+      "mode": "area",
+      "caption": "Die areas as published or measured from die photographs; later figures are approximate. Drawn square, which real dies are not. From 2019 onwards a processor is often several dies in one package, so the last entry is one compute die rather than the whole chip.",
+      "chips": [
+        {
+          "year": 1971,
+          "name": "Intel 4004",
+          "area": 12,
+          "transistors": 2300,
+          "node": "10 µm"
+        },
+        {
+          "year": 1974,
+          "name": "Intel 8080",
+          "area": 20,
+          "transistors": 4500,
+          "node": "6 µm"
+        },
+        {
+          "year": 1978,
+          "name": "Intel 8086",
+          "area": 33,
+          "transistors": 29000,
+          "node": "3 µm"
+        },
+        {
+          "year": 1982,
+          "name": "Intel 80286",
+          "area": 47,
+          "transistors": 134000,
+          "node": "1.5 µm"
+        },
+        {
+          "year": 1985,
+          "name": "Intel 80386DX",
+          "area": 104,
+          "transistors": 275000,
+          "node": "1.5 µm"
+        },
+        {
+          "year": 1989,
+          "name": "Intel 80486DX",
+          "area": 163,
+          "transistors": 1180000,
+          "node": "1 µm"
+        },
+        {
+          "year": 1993,
+          "name": "Intel Pentium",
+          "area": 294,
+          "transistors": 3100000,
+          "node": "0.8 µm"
+        },
+        {
+          "year": 1995,
+          "name": "Intel Pentium Pro",
+          "area": 306,
+          "transistors": 5500000,
+          "node": "0.5 µm"
+        },
+        {
+          "year": 1997,
+          "name": "Intel Pentium II",
+          "area": 203,
+          "transistors": 7500000,
+          "node": "0.35 µm"
+        },
+        {
+          "year": 1999,
+          "name": "Intel Pentium III",
+          "area": 128,
+          "transistors": 9500000,
+          "node": "250 nm"
+        },
+        {
+          "year": 2000,
+          "name": "Intel Pentium 4 (Willamette)",
+          "area": 217,
+          "transistors": 42000000,
+          "node": "180 nm"
+        },
+        {
+          "year": 2004,
+          "name": "Intel Pentium 4 (Prescott)",
+          "area": 112,
+          "transistors": 125000000,
+          "node": "90 nm"
+        },
+        {
+          "year": 2006,
+          "name": "Intel Core 2 Duo",
+          "area": 143,
+          "transistors": 291000000,
+          "node": "65 nm"
+        },
+        {
+          "year": 2008,
+          "name": "Intel Core i7-920",
+          "area": 263,
+          "transistors": 731000000,
+          "node": "45 nm"
+        },
+        {
+          "year": 2011,
+          "name": "Intel Core i7-2600K",
+          "area": 216,
+          "transistors": 995000000,
+          "node": "32 nm"
+        },
+        {
+          "year": 2017,
+          "name": "AMD Ryzen 7 1800X",
+          "area": 213,
+          "transistors": 4800000000,
+          "node": "14 nm"
+        },
+        {
+          "year": 2020,
+          "name": "Apple M1",
+          "area": 119,
+          "transistors": 16000000000,
+          "node": "5 nm"
+        },
+        {
+          "year": 2023,
+          "name": "AMD Zen 4 compute die",
+          "area": 71,
+          "transistors": 6570000000,
+          "node": "5 nm"
+        }
+      ]
+    },
+    {
+      "type": "era",
       "years": "1981 to 1989",
       "title": "The IBM PC sets the standard, then loses control of it",
       "text": "IBM built its PC from parts anyone could buy and published the technical documentation, because it wanted the machine finished in a year rather than the four an IBM project normally took. Competitors used that documentation to build machines running the same software, and within five years the standard belonged to the industry rather than to IBM. Every processor below had to run the software written for the ones before it, and that constraint shaped every design decision that followed."
@@ -242,6 +381,145 @@
     },
     {
       "type": "era",
+      "title": "One dot per transistor",
+      "text": "So if the die is not growing, the answer is density. Here is what that looks like drawn honestly: a dot for every transistor, in a square that stays the same size."
+    },
+    {
+      "type": "interactive",
+      "id": "die-view",
+      "mode": "transistors",
+      "caption": "The square is the same size for every chip here, so only the density changes. Around 45,000 dots is all that fits before they touch.",
+      "chips": [
+        {
+          "year": 1971,
+          "name": "Intel 4004",
+          "area": 12,
+          "transistors": 2300,
+          "node": "10 µm"
+        },
+        {
+          "year": 1974,
+          "name": "Intel 8080",
+          "area": 20,
+          "transistors": 4500,
+          "node": "6 µm"
+        },
+        {
+          "year": 1978,
+          "name": "Intel 8086",
+          "area": 33,
+          "transistors": 29000,
+          "node": "3 µm"
+        },
+        {
+          "year": 1982,
+          "name": "Intel 80286",
+          "area": 47,
+          "transistors": 134000,
+          "node": "1.5 µm"
+        },
+        {
+          "year": 1985,
+          "name": "Intel 80386DX",
+          "area": 104,
+          "transistors": 275000,
+          "node": "1.5 µm"
+        },
+        {
+          "year": 1989,
+          "name": "Intel 80486DX",
+          "area": 163,
+          "transistors": 1180000,
+          "node": "1 µm"
+        },
+        {
+          "year": 1993,
+          "name": "Intel Pentium",
+          "area": 294,
+          "transistors": 3100000,
+          "node": "0.8 µm"
+        },
+        {
+          "year": 1995,
+          "name": "Intel Pentium Pro",
+          "area": 306,
+          "transistors": 5500000,
+          "node": "0.5 µm"
+        },
+        {
+          "year": 1997,
+          "name": "Intel Pentium II",
+          "area": 203,
+          "transistors": 7500000,
+          "node": "0.35 µm"
+        },
+        {
+          "year": 1999,
+          "name": "Intel Pentium III",
+          "area": 128,
+          "transistors": 9500000,
+          "node": "250 nm"
+        },
+        {
+          "year": 2000,
+          "name": "Intel Pentium 4 (Willamette)",
+          "area": 217,
+          "transistors": 42000000,
+          "node": "180 nm"
+        },
+        {
+          "year": 2004,
+          "name": "Intel Pentium 4 (Prescott)",
+          "area": 112,
+          "transistors": 125000000,
+          "node": "90 nm"
+        },
+        {
+          "year": 2006,
+          "name": "Intel Core 2 Duo",
+          "area": 143,
+          "transistors": 291000000,
+          "node": "65 nm"
+        },
+        {
+          "year": 2008,
+          "name": "Intel Core i7-920",
+          "area": 263,
+          "transistors": 731000000,
+          "node": "45 nm"
+        },
+        {
+          "year": 2011,
+          "name": "Intel Core i7-2600K",
+          "area": 216,
+          "transistors": 995000000,
+          "node": "32 nm"
+        },
+        {
+          "year": 2017,
+          "name": "AMD Ryzen 7 1800X",
+          "area": 213,
+          "transistors": 4800000000,
+          "node": "14 nm"
+        },
+        {
+          "year": 2020,
+          "name": "Apple M1",
+          "area": 119,
+          "transistors": 16000000000,
+          "node": "5 nm"
+        },
+        {
+          "year": 2023,
+          "name": "AMD Zen 4 compute die",
+          "area": 71,
+          "transistors": 6570000000,
+          "node": "5 nm"
+        }
+      ]
+    },
+    {
+      "type": "era",
       "years": "2000 to 2005",
       "title": "The gigahertz war, and the wall at the end of it",
       "text": "Intel bet its next architecture on reaching very high clock speeds, designing a chip that did less work per cycle in exchange for cycling much faster. The public plan was 10 GHz. It stopped just under 4, because the power a chip consumes rises faster than its clock speed does, and the heat became impossible to remove. This is the single most important bend in the whole story."
@@ -406,6 +684,190 @@
       "spec": "4 GHz, 4 cores 8 threads, 14 nm, 91 W",
       "url": "https://en.wikipedia.org/wiki/Skylake_(microarchitecture)",
       "text": "Four cores, as with every mainstream Intel desktop chip since 2008. Intel then failed to move past 14 nm for five years, missing its own published targets repeatedly, and shipped four more generations of essentially this processor at higher clocks and higher power. The industry took to writing the later ones as 14nm+++. The bottleneck was manufacturing rather than design, which is exactly why a competitor with access to a better factory was able to overtake them so suddenly."
+    },
+    {
+      "type": "era",
+      "title": "What the area is spent on",
+      "text": "Two dies with a comparable footprint, thirty-four years apart. The 486 is mostly the machinery that carries out instructions, with cache as a corner of it. The modern one is mostly cores and memory, and the memory is winning."
+    },
+    {
+      "type": "interactive",
+      "id": "floorplan",
+      "caption": "Schematic, not traced from die photographs. The proportions are representative and the arrangement is simplified.",
+      "views": [
+        {
+          "label": "Intel 486DX, 1989",
+          "blocks": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 100,
+              "h": 11,
+              "kind": "io",
+              "name": "Bus interface",
+              "text": "Everything going to and from the rest of the machine, 32 bits at a time."
+            },
+            {
+              "x": 0,
+              "y": 11,
+              "w": 33,
+              "h": 29,
+              "kind": "cache",
+              "name": "Cache, 8 KB",
+              "text": "The first cache built into a PC processor, and a small corner of the die."
+            },
+            {
+              "x": 33,
+              "y": 11,
+              "w": 29,
+              "h": 29,
+              "kind": "logic",
+              "name": "Memory management",
+              "text": "Turns the addresses a program uses into real locations, which is what keeps one program out of another's memory."
+            },
+            {
+              "x": 62,
+              "y": 11,
+              "w": 38,
+              "h": 45,
+              "kind": "logic",
+              "name": "Floating point unit",
+              "text": "Decimal arithmetic. On every earlier PC this was a separate chip you bought and plugged into an empty socket."
+            },
+            {
+              "x": 0,
+              "y": 40,
+              "w": 62,
+              "h": 48,
+              "kind": "core",
+              "name": "Integer execution",
+              "text": "The part that carries out instructions. On this chip it takes more of the die than anything else."
+            },
+            {
+              "x": 62,
+              "y": 56,
+              "w": 38,
+              "h": 32,
+              "kind": "logic",
+              "name": "Microcode and control",
+              "text": "Stored sequences that break complicated instructions into simple steps, and the logic that keeps everything in order."
+            },
+            {
+              "x": 0,
+              "y": 88,
+              "w": 100,
+              "h": 12,
+              "kind": "io",
+              "name": "Pad ring",
+              "text": "The connections out to the pins. It has to sit around the edge and it does not shrink as readily as logic does."
+            }
+          ]
+        },
+        {
+          "label": "Eight core compute die, 2023",
+          "blocks": [
+            {
+              "x": 0,
+              "y": 0,
+              "w": 100,
+              "h": 7,
+              "kind": "io",
+              "name": "Fabric",
+              "text": "The link to the second die in the package, which holds the memory controller and the outside connections."
+            },
+            {
+              "x": 2,
+              "y": 9,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 26,
+              "y": 9,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 50,
+              "y": 9,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 74,
+              "y": 9,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 2,
+              "y": 41,
+              "w": 95,
+              "h": 18,
+              "kind": "cache",
+              "name": "Shared cache, 32 MB",
+              "text": "Four thousand times the 486's cache, and a band across the middle of the die. On the stacked cache versions another 64 MB sits directly on top of this block."
+            },
+            {
+              "x": 2,
+              "y": 61,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 26,
+              "y": 61,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 50,
+              "y": 61,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 74,
+              "y": 61,
+              "w": 23,
+              "h": 30,
+              "kind": "core",
+              "name": "Core",
+              "text": "One core, including its own 1 MB of private cache. There are eight on this die and each one is more complicated than the entire 486."
+            },
+            {
+              "x": 0,
+              "y": 93,
+              "w": 100,
+              "h": 7,
+              "kind": "io",
+              "name": "Pad ring",
+              "text": "Still here, still around the edge, still not shrinking as fast as everything inside it."
+            }
+          ]
+        }
+      ]
     },
     {
       "type": "era",

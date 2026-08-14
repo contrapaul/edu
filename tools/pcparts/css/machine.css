@@ -70,13 +70,17 @@ body.pc-machine {
           drop-shadow(0 0 14px rgba(56, 189, 248, 0.55));
 }
 
-#pc-diagram .is-lit-fixed {
-  filter: drop-shadow(0 0 3px rgba(148, 163, 184, 0.9));
+/* The side panel: drawn with no fill of its own so the glass reads from here. */
+#pc-diagram #case-glass rect {
+  fill: rgba(125, 195, 255, 0.09);
+  stroke: rgba(150, 205, 255, 0.32);
+  stroke-width: 10;
 }
 
 /* ── click targets ───────────────────────────────────── */
 
-#hit rect {
+#hit rect,
+#hit path {
   fill: #ffffff;
   fill-opacity: 0;
   stroke: none;
@@ -87,26 +91,26 @@ body.pc-machine {
   outline: none;
 }
 
-#hit rect.is-blocked {
+#hit .is-blocked {
   pointer-events: none;
   cursor: default;
 }
 
 /* Fixed features of the board have no removable artwork to light up, so the
    target itself outlines instead. */
-#hit rect.is-fixed:hover {
+#hit .is-fixed:hover {
   fill-opacity: 0.07;
   stroke: var(--accent);
   stroke-width: 2;
   stroke-dasharray: 6 4;
 }
 
-#hit rect.is-fixed.is-blocked:hover {
+#hit .is-fixed.is-blocked:hover {
   fill-opacity: 0;
   stroke: none;
 }
 
-#hit rect:focus-visible {
+#hit :focus-visible {
   stroke: var(--accent);
   stroke-width: 3;
   stroke-dasharray: 7 5;

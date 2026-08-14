@@ -7,6 +7,8 @@
  * tapping one lights it and opens a small box naming the part and its value;
  * tapping pins the box open so it survives a finger leaving the screen. */
 
+import { placeTip } from './tip.js';
+
 const W = 900;
 const H = 420;
 const PAD = { top: 24, right: 40, bottom: 40, left: 62 };
@@ -66,17 +68,18 @@ export default function mountDemandChart(host, block) {
                   </g>`).join('')}
               </g>`).join('')}
           </svg>
-          <div class="chart-tip" id="tip" hidden>
-            <span class="tip-name"></span>
-            <span class="tip-value"></span>
-            <span class="tip-meta"></span>
-          </div>
         </div>
       </div>
       ${block.caption ? `<p class="tool-note">${esc(block.caption)}</p>` : ''}
+      <div class="chart-tip" hidden>
+        <span class="tip-name"></span>
+        <span class="tip-value"></span>
+        <span class="tip-meta"></span>
+      </div>
     </div>`;
 
   const boxEl = host.querySelector('.chart-box');
+  const toolEl = host.querySelector('.tool');
   const tip = host.querySelector('.chart-tip');
   let pinned = null;
 
@@ -89,14 +92,7 @@ export default function mountDemandChart(host, block) {
     tip.querySelector('.tip-meta').textContent = `${p[0]} · ${s.name}`;
     tip.style.setProperty('--tip-accent', s.color);
 
-    const leftPct = (px(p[0]) / W) * 100;
-    const topPct = (py(p[1]) / H) * 100;
-    tip.style.left = `${leftPct}%`;
-    tip.style.top = `${topPct}%`;
-    // Keep the box inside the plot at the extremes rather than letting it
-    // hang off the edge.
-    tip.dataset.align = leftPct < 18 ? 'left' : leftPct > 82 ? 'right' : 'center';
-    tip.hidden = false;
+    placeTip(tip, group.querySelector('.pt-hit'), toolEl);
 
     host.querySelectorAll('.pt.is-active').forEach(g => g.classList.remove('is-active'));
     group.classList.add('is-active');
