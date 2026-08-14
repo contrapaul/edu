@@ -1,174 +1,132 @@
 {
   "id": "memory",
   "title": "Memory",
-  "span": "1981 to 2025",
-  "intro": "Memory is where a program lives while it runs. It has grown by roughly two million times since the first PC, and the interesting part is that machines do not feel two million times roomier, because software expanded to fill it at almost exactly the same rate.",
+  "span": "1955 to 2025",
+  "intro": "Memory is where a program lives while it runs. It has grown by roughly two million times since the first PC, and machines still do not feel two million times roomier, because software expanded to fill it at almost exactly the same rate. Two things are worth understanding before the timeline: memory forgets everything the moment power stops, and the delay before it answers has barely improved in twenty-five years even though the amount it can deliver has grown enormously.",
   "blocks": [
     {
       "type": "era",
+      "years": "1955 to 1980",
+      "title": "How memory actually works, and why it forgets",
+      "text": "Modern memory stores each bit as a tiny electrical charge in a capacitor, with one transistor to let the charge in and out. Charge leaks away within milliseconds, so the chip reads every location and writes it straight back thousands of times a second just to keep what is there. That constant rewriting is why it is called dynamic memory, and it is why switching the power off empties it completely."
+    },
+    { "type": "entry", "year": 1955, "name": "Magnetic core memory", "key": true,
+      "spec": "Ferrite rings threaded on wires, non-volatile, often hand-assembled",
+      "url": "https://en.wikipedia.org/wiki/Magnetic-core_memory",
+      "text": "Before silicon, memory was a woven grid of tiny magnetic rings with wires threaded through each one, and much of that threading was done by hand under a microscope. Each ring held one bit by being magnetised one way or the other. Reading a bit destroyed it, so the machine had to write it straight back. It was slow and expensive and it had one property today's memory does not: it kept its contents with the power off. The word core survives in computing to this day, which is why a program crash still produces a core dump." },
+    { "type": "entry", "year": 1970, "name": "Intel 1103", "key": true,
+      "spec": "1,024 bits on one chip, dynamic RAM",
+      "url": "https://en.wikipedia.org/wiki/Intel_1103",
+      "text": "The first commercially successful dynamic memory chip, and the product that made Intel's name years before it made processors. One thousand and twenty-four bits, which is 128 characters, on a single chip that cost about a hundredth of the equivalent core memory. Within two years it was the best-selling semiconductor in the world and core memory was finished. Intel was a memory company first, and only became a processor company because the memory business got too competitive." },
+    { "type": "entry", "year": 1970, "name": "DRAM and SRAM, and why cache is small", "key": true,
+      "spec": "DRAM: 1 transistor per bit. SRAM: 6 transistors per bit",
+      "url": "https://en.wikipedia.org/wiki/Static_random-access_memory",
+      "text": "There are two ways to build memory. Dynamic memory uses one transistor and one capacitor per bit, which is tiny and cheap, and it needs constant refreshing. Static memory uses six transistors arranged so they hold each other in position, needs no refresh and answers far faster, and takes roughly six times the space and cost. That trade is the entire reason a computer has both: gigabytes of cheap dynamic memory as main memory, and a few megabytes of expensive static memory as cache built into the processor. When you read on the processor page that stacked cache beat a higher clock speed, this is the memory being stacked." },
+
+    {
+      "type": "era",
       "years": "1981 to 1994",
-      "title": "Counting in kilobytes",
-      "text": "Early PC memory was individual chips pressed into rows of sockets on the motherboard. Adding memory meant handling dozens of small components, and the total was limited less by cost than by what the processor could address at all."
+      "title": "Counting in kilobytes, and fighting for the last thirty of them",
+      "text": "Early PC memory was individual chips pressed into rows of sockets on the motherboard. The total was limited less by cost than by what the processor could address, and the resulting ceiling produced years of increasingly baroque workarounds that ordinary users had to understand in order to run games."
     },
-    {
-      "type": "entry",
-      "year": 1981,
-      "name": "IBM PC 5150",
-      "key": true,
+    { "type": "entry", "year": 1981, "name": "IBM PC 5150 and the 640 KB ceiling", "key": true,
       "spec": "16 KB standard, 64 KB on the board, 640 KB usable maximum",
-      "text": "The 640 KB ceiling came from how the 8088's one megabyte of address space was divided, with the top 384 KB reserved for hardware. It became the defining constraint of PC software for over a decade.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer"
-    },
-    {
-      "type": "entry",
-      "year": 1985,
-      "name": "Expanded memory (EMS)",
-      "spec": "Up to 32 MB, accessed 64 KB at a time",
-      "text": "A workaround for the 640 KB limit. Extra memory sat on an expansion card and the software swapped small windows of it in and out of view. Awkward, slow, and necessary.",
-      "url": "https://en.wikipedia.org/wiki/Expanded_memory"
-    },
-    {
-      "type": "entry",
-      "year": 1987,
-      "name": "30-pin SIMM",
-      "spec": "256 KB to 4 MB per module, 8 bits wide",
-      "text": "Memory became a module you pushed into a slot rather than chips you pressed into sockets. They had to be installed in matched groups, because each module was only 8 bits wide and the processor wanted 32.",
-      "url": "https://en.wikipedia.org/wiki/SIMM"
-    },
-    {
-      "type": "entry",
-      "year": 1990,
-      "name": "Typical Windows 3.0 machine",
-      "spec": "2 to 4 MB",
-      "text": "A graphical desktop needs somewhere to keep the picture and every window's contents. Memory requirements roughly quadrupled the moment PCs stopped being text.",
-      "url": "https://en.wikipedia.org/wiki/Windows_3.0"
-    },
-    {
-      "type": "entry",
-      "year": 1993,
-      "name": "72-pin SIMM, Fast Page Mode",
-      "spec": "4 to 32 MB per module, 32 bits wide",
-      "text": "One module now matched the width of a 486's data path, so memory could be added one stick at a time.",
-      "url": "https://en.wikipedia.org/wiki/SIMM"
-    },
+      "url": "https://en.wikipedia.org/wiki/Conventional_memory",
+      "text": "The 8088 could address one megabyte in total. IBM allocated the lower 640 kilobytes to programs and reserved the top 384 for video memory, the BIOS and expansion cards. In 1981 that felt generous, since the machine shipped with 16 KB. It became the defining constraint of PC software for over a decade. The famous quotation about 640 KB being enough for anybody is attributed to Bill Gates, who has denied saying it repeatedly and for whom no source has ever been found, so it is a good example to hand students when discussing how confidently a false quotation can circulate." },
+    { "type": "entry", "year": 1985, "name": "Expanded memory", "spec": "Up to 32 MB on a card, visible 64 KB at a time",
+      "url": "https://en.wikipedia.org/wiki/Expanded_memory",
+      "text": "A workaround for the ceiling. Extra memory sat on an expansion card, and software swapped small windows of it into a gap in the reserved area, in the way you might read a long scroll through a letterbox. Awkward, slow, and necessary if you wanted a spreadsheet larger than the screen." },
+    { "type": "entry", "year": 1987, "name": "30-pin SIMM", "spec": "256 KB to 4 MB per module, 8 bits wide",
+      "url": "https://en.wikipedia.org/wiki/SIMM",
+      "text": "Memory became a module pushed into a slot rather than dozens of individual chips pressed into sockets, which had a habit of working loose as the machine heated and cooled. Because each module was only 8 bits wide and a 386 wanted 32, they had to be fitted in matched groups of four, all the same size and speed." },
+    { "type": "entry", "year": 1988, "name": "Parity, and the ninth chip", "key": true,
+      "spec": "One extra bit per byte, detects an error but cannot fix it",
+      "url": "https://en.wikipedia.org/wiki/Parity_bit",
+      "text": "Look at an old memory module and count the chips: many have nine rather than eight. The ninth stored one extra bit per byte, set so the total number of ones was always even. If a bit flipped, the sum came out odd and the machine stopped with a parity error rather than carrying on with wrong data. Bits do flip on their own, mostly from cosmic ray particles and from trace radioactivity in the chip packaging itself, which sounds like an excuse and is measurable and real. Manufacturers dropped parity in the mid-nineties to save money, and consumer PCs have mostly had no error detection at all ever since." },
+    { "type": "entry", "year": 1990, "name": "Typical Windows 3.0 machine", "spec": "2 to 4 MB",
+      "url": "https://en.wikipedia.org/wiki/Windows_3.0",
+      "text": "A graphical desktop needs somewhere to hold the screen image and the contents of every window, including the parts currently hidden behind other windows. Memory requirements roughly quadrupled the moment PCs stopped being text." },
+    { "type": "entry", "year": 1991, "name": "CONFIG.SYS and the last 30 kilobytes", "key": true,
+      "spec": "HIMEM.SYS, EMM386, QEMM, and a great deal of trial and error",
+      "url": "https://en.wikipedia.org/wiki/Expanded_memory",
+      "text": "Games of this era needed as much of the 640 KB as possible, and the mouse driver, the CD-ROM driver and the sound card driver all took a share first. So players learned to edit two configuration files to push drivers into small unused gaps in the reserved upper memory area, freeing perhaps thirty kilobytes, which was often exactly the difference between a game starting and refusing to. Some people kept several startup configurations for different games. It is hard to overstate how normal this was, and it is worth describing to students as the concrete thing that Windows 95 and Plug and Play swept away." },
+    { "type": "entry", "year": 1993, "name": "72-pin SIMM and Fast Page Mode", "spec": "4 to 32 MB per module, 32 bits wide",
+      "url": "https://en.wikipedia.org/wiki/SIMM",
+      "text": "One module now matched the width of a 486's data path, so memory could finally be added one stick at a time rather than four. Fast Page Mode sped up reads of data sitting close together, on the reasonable assumption that a program asking for one byte will probably want the next one too." },
+
     {
       "type": "era",
       "years": "1995 to 2002",
-      "title": "Synchronising with the clock, and one expensive wrong turn",
-      "text": "Older memory responded whenever it was ready, and the processor waited. Synchronous memory runs on the same clock as the rest of the system, so transfers can be pipelined and the timing becomes predictable. This period also contains the industry's clearest example of the fastest standard losing."
+      "title": "Synchronising with the clock, a criminal conspiracy, and one expensive wrong turn",
+      "text": "Older memory answered whenever it was ready and the processor waited. Synchronous memory runs on the same clock as the rest of the system, so transfers can be pipelined and the timing becomes predictable. This period also contains the industry's clearest example of the fastest standard losing, and a price-fixing conspiracy that put executives in prison."
     },
-    {
-      "type": "entry",
-      "year": 1995,
-      "name": "EDO DRAM",
-      "spec": "60 ns, roughly 5 percent faster than FPM",
-      "text": "A small refinement that let the next read start before the previous one finished. Widely fitted to Pentium machines and quickly superseded.",
-      "url": "https://en.wikipedia.org/wiki/Dynamic_random-access_memory"
-    },
-    {
-      "type": "entry",
-      "year": 1996,
-      "name": "SDRAM, 168-pin DIMM",
-      "key": true,
+    { "type": "entry", "year": 1995, "name": "EDO DRAM", "spec": "60 ns, roughly 5 percent faster than Fast Page Mode",
+      "url": "https://en.wikipedia.org/wiki/Dynamic_random-access_memory",
+      "text": "A refinement that let the next read begin before the previous one had finished being collected. Widely fitted to Pentium machines and superseded within two years, which is a good reminder that most generations are small steps rather than leaps." },
+    { "type": "entry", "year": 1996, "name": "SDRAM and the 168-pin DIMM", "key": true,
       "spec": "PC66, PC100, PC133, 64 bits wide, 8 to 256 MB",
-      "text": "Synchronous memory on a module wide enough to feed the processor by itself. PC100 and PC133 refer to the bus speed in megahertz, and matching that number to your motherboard was the whole of memory buying for several years.",
-      "url": "https://en.wikipedia.org/wiki/Synchronous_dynamic_random-access_memory"
-    },
-    {
-      "type": "entry",
-      "year": 1999,
-      "name": "RDRAM (Rambus)",
-      "spec": "800 MHz, 16 bits wide, proprietary, ~4x the price",
-      "text": "Intel tied its Pentium 4 platform to a licensed memory standard that was genuinely fast and enormously expensive, and it required empty slots to be filled with dummy modules. Buyers refused, AMD went with DDR, and Intel abandoned it. A good technology can still lose on price and licensing.",
-      "url": "https://en.wikipedia.org/wiki/RDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2000,
-      "name": "DDR SDRAM",
-      "key": true,
+      "url": "https://en.wikipedia.org/wiki/Synchronous_dynamic_random-access_memory",
+      "text": "Synchronous memory on a module wide enough to feed the processor by itself, so single sticks became normal. PC100 and PC133 refer to the bus speed in megahertz, and matching that number to your motherboard was essentially the whole of memory buying for several years. It was also an early lesson in specifications being claimed rather than met: a great deal of memory sold as PC100 did not actually meet Intel's published requirements, and machines built with it were unstable in ways that were very hard to diagnose." },
+    { "type": "entry", "year": 1999, "name": "The DRAM price-fixing conspiracy", "key": true,
+      "spec": "Samsung, Hynix, Infineon and others; hundreds of millions in fines, prison sentences",
+      "url": "https://en.wikipedia.org/wiki/DRAM_price_fixing_scandal",
+      "text": "Between roughly 1999 and 2002 the major memory manufacturers coordinated prices rather than competing on them, contacting each other about what to charge computer makers including Dell, HP and Apple. The United States Department of Justice prosecuted, Samsung paid a $300 million criminal fine, Hynix and Infineon paid well over a hundred million each, and a number of executives served prison terms. Anyone who bought a computer in that period paid more than they should have. It is worth setting beside the entries elsewhere on this site about shortages and price rises, because it makes the point that a high price is not always explained by supply and demand." },
+    { "type": "entry", "year": 1999, "name": "RDRAM and Rambus", "key": true,
+      "spec": "800 MHz, 16 bits wide, licensed, roughly four times the price",
+      "url": "https://en.wikipedia.org/wiki/RDRAM",
+      "text": "Intel tied its Pentium 4 platform to a memory standard licensed from a company called Rambus. It was genuinely fast, it ran hot enough to need heat spreaders, it cost several times what ordinary memory did, and any slot you left empty had to be filled with a dummy module to complete the electrical circuit. Buyers refused, AMD went with DDR, and Intel eventually abandoned it, having also had to recall around a million motherboards over the chip it added to let ordinary memory work with the platform. Rambus itself then spent years pursuing patent claims against the manufacturers of the memory that had beaten it, which drew an antitrust ruling from the Federal Trade Commission that an appeals court later overturned. A good technology can lose on price, on licensing terms, and on how its owner behaves afterwards." },
+    { "type": "entry", "year": 2000, "name": "DDR SDRAM", "key": true,
       "spec": "PC1600 to PC3200, 184-pin, 128 MB to 1 GB",
-      "text": "Double data rate means transferring on both the rise and the fall of each clock tick, so bandwidth doubles without raising the clock. Every generation since has been a refinement of this idea.",
-      "url": "https://en.wikipedia.org/wiki/DDR_SDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2002,
-      "name": "Dual channel",
-      "spec": "Two modules read in parallel, 128 bits effective",
-      "text": "Two sticks working as one wider path. This is why memory is sold in matched pairs and why filling two slots beats filling one with a single larger module.",
-      "url": "https://en.wikipedia.org/wiki/Multi-channel_memory_architecture"
-    },
+      "url": "https://en.wikipedia.org/wiki/DDR_SDRAM",
+      "text": "Double data rate means transferring on both the rise and the fall of each clock tick rather than only the rise, so twice the data moves without the clock running faster. Every generation since is a refinement of that idea, which is why the numbers on a memory box are transfers per second and not megahertz, and why quoting DDR5-6000 as 6000 MHz is wrong even though everyone does it." },
+    { "type": "entry", "year": 2002, "name": "Dual channel", "spec": "Two modules read in parallel, 128 bits effective",
+      "url": "https://en.wikipedia.org/wiki/Multi-channel_memory_architecture",
+      "text": "Two sticks working as one wider path. This is why memory is sold in matched pairs, and why fitting two 8 GB sticks is meaningfully faster than fitting one 16 GB stick despite the identical capacity. It is the single most common mistake in a first PC build." },
+
     {
       "type": "era",
       "years": "2003 to 2025",
-      "title": "Wider, faster, and physically closer",
-      "text": "Each DDR generation roughly doubles the transfer rate and lowers the voltage, but the delay before the first byte arrives has barely improved in twenty years. Memory got much better at delivering a lot of data and no better at delivering it quickly, which is why processors carry ever larger caches."
+      "title": "Wider, faster, and no quicker to answer",
+      "text": "Each DDR generation roughly doubles the transfer rate and lowers the voltage. The delay before the first byte arrives, however, has barely moved in twenty-five years. Memory got dramatically better at delivering a lot of data and no better at delivering it promptly, and that gap is why processors carry ever larger caches and why the industry talks about a memory wall."
     },
-    {
-      "type": "entry",
-      "year": 2003,
-      "name": "DDR2",
-      "spec": "400 to 1066 MT/s, 240-pin, 1.8 V, 512 MB to 2 GB",
-      "text": "Higher transfer rates and lower voltage, with higher latency in clock cycles. Early DDR2 was slower in practice than the DDR it replaced, which happens at nearly every generation change.",
-      "url": "https://en.wikipedia.org/wiki/DDR2_SDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2005,
-      "name": "The 32-bit wall",
-      "spec": "4 GB address limit, ~3.2 GB usable",
-      "text": "A 32-bit operating system cannot address more than 4 GB, and hardware reserves part of that. Machines started shipping with enough memory to hit the ceiling the 386 had raised in 1985, and 64-bit Windows became necessary rather than optional.",
-      "url": "https://en.wikipedia.org/wiki/3_GB_barrier"
-    },
-    {
-      "type": "entry",
-      "year": 2007,
-      "name": "DDR3",
-      "spec": "800 to 2133 MT/s, 1.5 V, 1 to 8 GB per module",
-      "text": "The generation where 4 GB became the sensible amount and 8 GB became possible. It stayed current for seven years.",
-      "url": "https://en.wikipedia.org/wiki/DDR3_SDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2014,
-      "name": "DDR4",
-      "key": true,
+    { "type": "entry", "year": 2003, "name": "DDR2", "spec": "400 to 1066 MT/s, 240-pin, 1.8 V, 512 MB to 2 GB",
+      "url": "https://en.wikipedia.org/wiki/DDR2_SDRAM",
+      "text": "Higher transfer rates and lower voltage, with higher latency measured in clock cycles. Early DDR2 was slower in practice than the DDR it replaced, which happens at almost every generation change and is worth expecting rather than being surprised by." },
+    { "type": "entry", "year": 2005, "name": "The 4 GB wall", "spec": "32-bit addressing, roughly 3.2 GB usable",
+      "url": "https://en.wikipedia.org/wiki/3_GB_barrier",
+      "text": "A 32-bit operating system cannot address more than 4 gigabytes, and hardware reserves part of that range for itself, so a machine with 4 GB fitted would report around 3.2 GB and there was nothing to be done about it. Machines had reached the ceiling the 386 raised in 1985, and 64-bit Windows went from optional to necessary. The same shape of problem as the 640 KB limit and the storage barriers: a number that ran out." },
+    { "type": "entry", "year": 2007, "name": "DDR3", "spec": "800 to 2133 MT/s, 1.5 V, 1 to 8 GB per module",
+      "url": "https://en.wikipedia.org/wiki/DDR3_SDRAM",
+      "text": "The generation where 4 GB became sensible and 8 GB became possible, and it stayed current for seven years, which is unusually long. Notches in different positions stop a DDR3 module physically fitting a DDR2 slot, because the voltages differ enough to damage things." },
+    { "type": "entry", "year": 2014, "name": "Rowhammer", "key": true,
+      "spec": "Repeated access to one row flips bits in the rows next to it",
+      "url": "https://en.wikipedia.org/wiki/Row_hammer",
+      "text": "Researchers found that reading the same row of memory cells rapidly, tens of thousands of times, could leak enough charge to flip bits in the physically adjacent rows, without ever accessing them. Google then demonstrated using this to gain control of a machine, because a flipped bit in the right place changes what a program is permitted to do. Nothing was faulty: the cells had simply been packed close enough that they interfere with each other. Manufacturers added countermeasures which researchers have repeatedly got around. Put it beside Meltdown and Spectre on the processor page, because both are the same lesson, which is that pushing hardware to its physical limits creates security problems that no amount of correct software can prevent." },
+    { "type": "entry", "year": 2014, "name": "DDR4", "key": true,
       "spec": "2133 to 3200 MT/s, 288-pin, 1.2 V, 4 to 32 GB per module",
-      "text": "Lower voltage again, and a very long life. A machine built in 2015 and one built in 2020 could use the same memory, which had not been true of any previous generation.",
-      "url": "https://en.wikipedia.org/wiki/DDR4_SDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2015,
-      "name": "XMP and one-click overclocking",
-      "spec": "Stored timing profiles above the official standard",
-      "text": "Memory is sold rated well beyond the official specification, with the faster settings stored on the module as a profile the motherboard can apply. The advertised speed on a box of memory is usually not the speed it runs at until you turn it on.",
-      "url": "https://en.wikipedia.org/wiki/Serial_presence_detect"
-    },
-    {
-      "type": "entry",
-      "year": 2020,
-      "name": "Apple unified memory",
-      "spec": "Memory in the processor package, shared with the graphics",
-      "text": "Putting the memory chips in the same package as the processor shortens the distance signals travel and lets the graphics and the processor use one pool without copying between them. It also means the amount is fixed at purchase and cannot be changed.",
-      "url": "https://en.wikipedia.org/wiki/Apple_silicon"
-    },
-    {
-      "type": "entry",
-      "year": 2021,
-      "name": "DDR5",
-      "spec": "4800 to 8000 MT/s, 1.1 V, on-module power management",
-      "text": "Each module is internally split into two independent channels, so a single stick behaves more like a pair. Power regulation moved onto the module itself, which is why DDR5 costs more to make.",
-      "url": "https://en.wikipedia.org/wiki/DDR5_SDRAM"
-    },
-    {
-      "type": "entry",
-      "year": 2025,
-      "name": "32 GB as the sensible default",
-      "spec": "32 GB DDR5 6000, roughly £90",
-      "text": "Two million times the memory of the 1981 machine, for a small fraction of its price in real terms. A modern web browser with a dozen tabs will use more of it than every program that shipped with Windows 95 combined."
-    },
+      "url": "https://en.wikipedia.org/wiki/DDR4_SDRAM",
+      "text": "Lower voltage again, and a very long life. A machine built in 2015 and one built in 2021 could use the same memory, which had not been true of any previous generation and made upgrades unusually painless for once." },
+    { "type": "entry", "year": 2015, "name": "XMP, EXPO and what the box does not say", "key": true,
+      "spec": "Stored profiles running the module above the official standard",
+      "url": "https://en.wikipedia.org/wiki/Extreme_Memory_Profile",
+      "text": "The official standard for DDR4 tops out at 3200 transfers per second, yet memory is openly sold at 3600, 4000 and beyond. The faster settings are stored on the module as a profile the motherboard can apply with one setting. Buy fast memory, fit it, and it will run at the slow standard speed until you switch the profile on, which a great many people never do. Technically this is factory-tested overclocking, running outside the published specification, which is why it is not enabled by default." },
+    { "type": "entry", "year": 2015, "name": "High Bandwidth Memory", "spec": "Stacked vertically beside the processor, very wide, short distance",
+      "url": "https://en.wikipedia.org/wiki/High_Bandwidth_Memory",
+      "text": "Instead of a few fast lanes to distant modules, stack the memory chips vertically and put them in the same package as the processor with a very wide connection between them. Expensive, and it delivers bandwidth ordinary memory cannot approach, which is why it appears first in graphics cards and now in the accelerators used for machine learning. The same instinct as stacked cache and 3D NAND: when going wider or faster gets hard, build upwards and shorten the distance." },
+    { "type": "entry", "year": 2017, "name": "The memory shortage", "spec": "Prices roughly doubled over about eighteen months",
+      "url": "https://en.wikipedia.org/wiki/Dynamic_random-access_memory",
+      "text": "Demand from smartphones and data centres outran supply, and memory prices roughly doubled. Manufacturers were later accused in civil suits of holding back production to keep prices high, echoing the conspiracy of fifteen years earlier. Three companies now make almost all of the world's memory, and that concentration is the background condition behind every price movement on this page." },
+    { "type": "entry", "year": 2020, "name": "Apple unified memory", "spec": "Memory in the processor package, shared with the graphics",
+      "url": "https://en.wikipedia.org/wiki/Apple_silicon",
+      "text": "Putting the memory chips in the same package as the processor shortens the distance signals travel and lets the processor and the graphics use one pool without copying data between them, which is a real gain for anything that touches both. The cost is that the amount is fixed when the machine is made and can never be changed, so a decision taken at the shop counter is permanent." },
+    { "type": "entry", "year": 2021, "name": "DDR5", "spec": "4800 to 8000 MT/s, 1.1 V, power regulation on the module",
+      "url": "https://en.wikipedia.org/wiki/DDR5_SDRAM",
+      "text": "Each module is internally split into two independent channels, so one stick behaves rather like a pair. Voltage regulation moved from the motherboard onto the module itself, which is better electrically and meant that when those small regulator chips were in short supply, DDR5 memory was too, regardless of how many memory chips existed." },
+    { "type": "entry", "year": 2025, "name": "The latency that never improved", "key": true,
+      "spec": "PC100 CL2 in 1999: about 20 ns. DDR5-6000 CL30 in 2025: about 10 ns",
+      "url": "https://en.wikipedia.org/wiki/CAS_latency",
+      "text": "Over twenty-five years, memory bandwidth grew roughly sixty times and the delay before the first byte arrives improved by about half. This is the most important number on the page and the one nobody advertises. It explains why processors carry a hundred megabytes of cache, why stacked cache beats extra clock speed in games, and why a modern processor spends a great deal of its time waiting for memory that is, in human terms, extraordinarily fast and, in its own terms, still much too slow." },
+
     {
       "type": "era",
       "title": "Capacity against what wanted it",
@@ -181,134 +139,16 @@
       "alt": "Typical memory fitted to a PC against operating system requirements, 1981 to 2025",
       "caption": "Values in megabytes.",
       "series": [
-        {
-          "label": "Typical memory fitted (MB)",
-          "color": "#38bdf8",
-          "points": [
-            [
-              1981,
-              0.016,
-              "IBM PC 5150"
-            ],
-            [
-              1985,
-              0.512,
-              "IBM PC AT era"
-            ],
-            [
-              1990,
-              4,
-              "Windows 3.0 machine"
-            ],
-            [
-              1995,
-              16,
-              "Windows 95 machine"
-            ],
-            [
-              1998,
-              64,
-              "Pentium II machine"
-            ],
-            [
-              2001,
-              256,
-              "Windows XP machine"
-            ],
-            [
-              2004,
-              512,
-              "Pentium 4 machine"
-            ],
-            [
-              2007,
-              2048,
-              "Windows Vista machine"
-            ],
-            [
-              2010,
-              4096,
-              "Core i5 machine"
-            ],
-            [
-              2014,
-              8192,
-              "DDR3 machine"
-            ],
-            [
-              2018,
-              16384,
-              "DDR4 machine"
-            ],
-            [
-              2021,
-              16384,
-              "DDR4 machine"
-            ],
-            [
-              2025,
-              32768,
-              "DDR5 machine"
-            ]
-          ]
-        },
-        {
-          "label": "OS minimum (MB)",
-          "color": "#f59e0b",
-          "points": [
-            [
-              1981,
-              0.016,
-              "MS-DOS 1.0"
-            ],
-            [
-              1990,
-              1,
-              "Windows 3.0"
-            ],
-            [
-              1995,
-              4,
-              "Windows 95"
-            ],
-            [
-              1998,
-              16,
-              "Windows 98"
-            ],
-            [
-              2001,
-              64,
-              "Windows XP"
-            ],
-            [
-              2007,
-              1024,
-              "Windows Vista"
-            ],
-            [
-              2009,
-              1024,
-              "Windows 7"
-            ],
-            [
-              2015,
-              2048,
-              "Windows 10"
-            ],
-            [
-              2021,
-              4096,
-              "Windows 11"
-            ],
-            [
-              2025,
-              4096,
-              "Windows 11"
-            ]
-          ]
-        }
+        { "label": "Typical memory fitted (MB)", "color": "#38bdf8",
+          "points": [[1981,0.016,"IBM PC 5150"],[1985,0.512,"IBM PC AT era"],[1990,4,"Windows 3.0 machine"],[1995,16,"Windows 95 machine"],[1998,64,"Pentium II machine"],[2001,256,"Windows XP machine"],[2004,512,"Pentium 4 machine"],[2007,2048,"Windows Vista machine"],[2010,4096,"Core i5 machine"],[2014,8192,"DDR3 machine"],[2018,16384,"DDR4 machine"],[2021,16384,"DDR4 machine"],[2025,32768,"DDR5 machine"]] },
+        { "label": "OS minimum (MB)", "color": "#f59e0b",
+          "points": [[1981,0.016,"MS-DOS 1.0"],[1990,1,"Windows 3.0"],[1995,4,"Windows 95"],[1998,16,"Windows 98"],[2001,64,"Windows XP"],[2007,512,"Windows Vista"],[2009,1024,"Windows 7"],[2015,2048,"Windows 10"],[2021,4096,"Windows 11"],[2025,4096,"Windows 11"]] }
       ]
+    },
+    {
+      "type": "era",
+      "title": "What to take from this",
+      "text": "Three things. Memory is a trade between speed, cost and density, which is why every computer has a small fast pool and a large slow one rather than one perfect kind. Numbers keep running out, from 640 kilobytes to 4 gigabytes, and each ceiling was a decision about how to count rather than a physical limit. And the part of memory that matters most to how a machine feels, the delay before it answers, is the part that has improved least and is never printed on the box."
     },
     {
       "type": "link",
