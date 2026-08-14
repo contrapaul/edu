@@ -2,38 +2,61 @@
   "id": "power",
   "title": "Power and heat",
   "span": "1981 to 2025",
-  "intro": "Every watt a computer draws becomes heat inside the case, and it all has to be moved out. The original PC needed 63 watts for the whole machine. The graphics card in this one can draw four times that on its own, and most of the engineering you can see inside a modern case exists to deal with that fact.",
+  "intro": "Every watt a computer draws becomes heat inside the case, and all of it has to be moved out. The original PC needed 63 watts for the whole machine. The graphics card in this one can draw nine times that on its own. Most of the engineering you can see when you open a modern case exists to deal with that fact, and the reason processors stopped getting faster around 2004 is on this page rather than the processor one.",
   "blocks": [
+    {
+      "type": "era",
+      "title": "Why a chip gets hot at all",
+      "text": "A transistor uses almost no power sitting still. It uses power when it switches, because switching means charging and discharging tiny capacitances, and that energy ends up as heat. The amount depends on how many transistors switch, how often they switch, and the square of the voltage they run at. That squared term is the most important relationship on this page: halving the voltage cuts the power to a quarter, which is why every generation of hardware has chased lower voltages, and why the industry hit a wall when it ran out of room to lower them."
+    },
+    {
+      "type": "entry",
+      "year": 1974,
+      "name": "Dennard scaling",
+      "key": true,
+      "spec": "Shrink the transistor, lower the voltage, keep power density constant",
+      "url": "https://en.wikipedia.org/wiki/Dennard_scaling",
+      "text": "Robert Dennard observed that if you shrink a transistor's dimensions, you can lower its voltage by the same proportion, and the power used per square millimetre of chip stays the same. That is the quiet promise underneath thirty years of progress: each generation could pack in twice the transistors and run them faster without the chip getting any hotter. Every prediction about computers getting endlessly faster assumed it would continue."
+    },
     {
       "type": "era",
       "years": "1981 to 1994",
       "title": "A fan for the power supply, and nothing else",
-      "text": "Early processors ran cool enough to need no cooling at all. The only fan in the machine was in the power supply, drawing air across the board on its way out, and the chips simply sat there in the breeze."
+      "text": "Early processors ran cool enough to need no cooling at all. The only fan in the machine was inside the power supply, pulling air across the board on its way out, and the chips simply sat in the breeze. Watching cooling appear component by component is a good way to see where the heat arrived."
     },
     {
       "type": "entry",
       "year": 1981,
       "name": "IBM PC 5150",
       "key": true,
-      "spec": "63.5 W supply, 8088 draws about 2 W, no CPU cooler",
-      "text": "The entire machine used less power than a modern laptop charger delivers. The processor needed no heatsink, no fan and no thermal paste, because two watts spread over that package simply does not get hot.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer"
+      "spec": "63.5 W supply, the 8088 draws about 2 W, no processor cooler",
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer",
+      "text": "The entire machine used less power than a modern laptop charger can deliver. The processor needed no heatsink, no fan and no thermal paste, because two watts spread across that package simply does not get hot. The power supply was sized mostly for the floppy drive motors and the expansion cards, and it was not big enough to add a hard disk, which is why the XT needed a larger one two years later."
     },
     {
       "type": "entry",
       "year": 1984,
       "name": "IBM PC AT",
       "spec": "192 W supply, AT form factor",
-      "text": "Triple the supply, mostly because hard disks and expansion cards were being added rather than because the processor demanded it.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer/AT"
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer/AT",
+      "text": "Triple the supply, driven by hard disks and expansion cards rather than by the processor. For the first decade of the PC, the parts that used the power were the ones with motors in them."
     },
     {
       "type": "entry",
       "year": 1989,
       "name": "Intel 80486DX",
-      "spec": "~5 W, passive heatsink",
-      "text": "The first PC processors to want a heatsink: a lump of finned aluminium glued on top, with no fan. Passive cooling was enough for another few years.",
-      "url": "https://en.wikipedia.org/wiki/Intel_80486"
+      "spec": "About 5 W, passive heatsink",
+      "url": "https://en.wikipedia.org/wiki/Intel_80486",
+      "text": "The first PC processors to want a heatsink: a small block of finned aluminium glued on top with no fan, relying on the case airflow. Passive cooling was enough for a few more years, and it is worth noting that a component going from needing nothing to needing a metal block happened in under a decade."
+    },
+    {
+      "type": "entry",
+      "year": 1990,
+      "name": "Thermal paste and why it is needed",
+      "key": true,
+      "spec": "Air conducts heat about 300 times worse than thermal compound",
+      "url": "https://en.wikipedia.org/wiki/Thermal_grease",
+      "text": "Two pieces of metal that look perfectly flat actually touch each other across a very small fraction of their apparent area, and the gaps between them are full of air, which is an excellent insulator. Thermal paste fills those gaps with something that conducts heat reasonably well. It is not glue and it is not there to improve contact; the metal-to-metal contact is already the good part. More paste is worse, not better, because paste conducts heat far less well than metal does and you only want it in the gaps. That is the single most commonly misunderstood thing about building a PC."
     },
     {
       "type": "entry",
@@ -41,119 +64,220 @@
       "name": "Intel Pentium 66",
       "key": true,
       "spec": "16 W, active heatsink with a small fan",
-      "text": "The first mainstream desktop processor that needed a fan of its own. Sixteen watts is the point at which passive metal stopped being enough, and no desktop processor has gone back since.",
-      "url": "https://en.wikipedia.org/wiki/P5_(microarchitecture)"
+      "url": "https://en.wikipedia.org/wiki/P5_(microarchitecture)",
+      "text": "The first mainstream desktop processor that needed a fan of its own. Sixteen watts is the point at which passive metal stopped being sufficient, and no desktop processor has gone back since. From here the machine has a fan whose only job is to keep one chip alive."
     },
     {
       "type": "era",
-      "years": "1995 to 2005",
+      "years": "1995 to 2006",
       "title": "The supply learns new tricks while the load climbs",
-      "text": "ATX rewrote the power supply as well as the board layout, adding software controlled shutdown and a low power standby state. It then had to be revised repeatedly, because processors and graphics cards kept demanding more current on the 12 volt rail than the design had anticipated."
+      "text": "ATX rewrote the power supply as well as the board layout, adding software controlled shutdown and a standby state. It then had to be revised repeatedly, because processors and graphics cards kept demanding more current on the 12 volt line than each version had anticipated. This is also when the industry discovered what happens when a processor loses its cooling."
     },
     {
       "type": "entry",
       "year": 1995,
       "name": "ATX power supply",
-      "spec": "20-pin connector, 5 V standby, soft power off",
-      "text": "A trickle of power stays on while the machine is off, which is what allows the operating system to shut the machine down itself, and what allows wake on keypress or over the network.",
-      "url": "https://en.wikipedia.org/wiki/ATX"
+      "spec": "20-pin keyed connector, 5 V standby, software power off",
+      "url": "https://en.wikipedia.org/wiki/ATX",
+      "text": "A trickle of power stays on while the machine is off, which is what lets the operating system shut the machine down itself rather than telling you it is now safe to switch off, and what allows a machine to be woken by a keypress or over the network. The connector was also keyed so it only fits one way, replacing the AT arrangement where plugging the two halves in the wrong order destroyed the board."
     },
     {
       "type": "entry",
       "year": 2000,
       "name": "ATX12V and the 4-pin connector",
       "key": true,
-      "spec": "Extra 12 V connector beside the socket, ~250 to 300 W supplies",
-      "text": "The Pentium 4 needed more current than the main connector could deliver, so a second cable was added running straight to the processor's voltage regulator. Every board since has one, usually now with eight pins or two of them.",
-      "url": "https://en.wikipedia.org/wiki/ATX"
+      "spec": "Second 12 V connector beside the socket, supplies rising to 300 W",
+      "url": "https://en.wikipedia.org/wiki/ATX",
+      "text": "The Pentium 4 needed more current than the main connector could safely carry, so a second cable was added running straight to the voltage regulator next to the processor. Every board since has one, now usually eight pins or two sets of eight. Each time a component's appetite grows, the answer has been another cable rather than a redesign, which is why a modern power supply has so many."
+    },
+    {
+      "type": "entry",
+      "year": 2001,
+      "name": "What happens when the cooler comes off",
+      "key": true,
+      "spec": "A famous test: heatsink removed from four running processors",
+      "url": "https://en.wikipedia.org/wiki/Athlon",
+      "text": "A hardware site filmed removing the heatsink from four processors while they ran a game. The Intel chips detected the temperature rise and slowed themselves down or shut off, and survived. The AMD Athlon, which relied on the motherboard to react rather than protecting itself, reached destruction in a few seconds, with smoke. The video was widely circulated and AMD's next generations included proper on-die protection. It is the clearest demonstration available of why thermal throttling exists, and worth showing students, because a processor slowing down when hot looks like a defect until you see the alternative."
     },
     {
       "type": "entry",
       "year": 2003,
       "name": "24-pin main connector",
-      "spec": "Adds a fourth 12 V line, PCIe ready",
-      "text": "Four more pins on the main connector, because PCI Express slots deliver more power to cards than PCI did.",
-      "url": "https://en.wikipedia.org/wiki/ATX"
+      "spec": "Adds a fourth 12 V line, ready for PCI Express",
+      "url": "https://en.wikipedia.org/wiki/ATX",
+      "text": "Four more pins on the main connector, because PCI Express slots supply more power to cards than PCI did. The extra four pins were made detachable so the cable would still fit older 20-pin boards, which is the sort of small compatibility decision that saves a great deal of waste."
     },
     {
       "type": "entry",
       "year": 2004,
       "name": "Intel Pentium 4 570",
       "spec": "3.8 GHz, 115 W, 90 nm",
-      "text": "Seven times the heat of a Pentium 66 from a chip that runs the same kind of software. The planned 4 GHz version was cancelled because it could not be cooled, which ended the entire architecture.",
-      "url": "https://en.wikipedia.org/wiki/Pentium_4"
+      "url": "https://en.wikipedia.org/wiki/Pentium_4",
+      "text": "Seven times the heat of a Pentium 66, from a chip running the same kind of software. The planned 4 GHz version was cancelled because it could not be cooled reliably, and the entire architecture was abandoned with it. Read this alongside the Dennard scaling entries above: Intel had designed a chip on the assumption that voltage would keep falling, and it stopped."
     },
     {
       "type": "entry",
       "year": 2004,
       "name": "PCIe 6-pin graphics connector",
       "spec": "75 W over the cable, plus 75 W from the slot",
-      "text": "Graphics cards outgrew what a slot could safely supply, so they gained their own cable to the power supply. An 8-pin version followed in 2007 at 150 W, and cards now often use two or three.",
-      "url": "https://en.wikipedia.org/wiki/PCI_Express"
+      "url": "https://en.wikipedia.org/wiki/PCI_Express",
+      "text": "Graphics cards outgrew what a slot could safely supply, so they gained their own cable. An 8-pin version followed in 2007 carrying 150 W, and high-end cards then needed two or three of them, which is how a graphics card ended up with more power cabling than the entire 1981 PC."
+    },
+    {
+      "type": "entry",
+      "year": 2005,
+      "name": "Thermal design power is not power draw",
+      "key": true,
+      "spec": "A cooling target, defined differently by each manufacturer",
+      "url": "https://en.wikipedia.org/wiki/Thermal_design_power",
+      "text": "The number on a processor's specification sheet describes how much heat a cooler must be able to remove for the chip to run as intended. It is not the maximum the chip can draw, the two manufacturers have defined it differently at various times, and modern processors routinely exceed it in short bursts. The same chip is also sold to laptop makers with a configurable figure, so an identical model can be set to 15 watts in a thin machine and 45 in a thicker one, with a large difference in performance and no difference in the name. Anyone comparing two laptops with the same processor is comparing their cooling, not their chips."
     },
     {
       "type": "era",
-      "years": "2007 to 2025",
-      "title": "Efficiency ratings, and a component that draws more than an entire old PC",
-      "text": "Two opposite things happened at once. Power supplies became far more efficient, wasting less of what they draw as heat. And the components at the top of the range grew until a single graphics card exceeds the total draw of a complete computer from twenty years earlier."
+      "years": "2007 to 2020",
+      "title": "Efficiency ratings, and moving heat around properly",
+      "text": "Two opposite things happened at once. Power supplies became far more efficient, wasting less of what they draw. And the components at the top of the range grew until cooling them needed engineering borrowed from spacecraft and refrigeration."
+    },
+    {
+      "type": "entry",
+      "year": 2006,
+      "name": "Dennard scaling ends",
+      "key": true,
+      "spec": "Leakage current stops voltages falling further",
+      "url": "https://en.wikipedia.org/wiki/Leakage_(electronics)",
+      "text": "By the mid-2000s the voltage could not be lowered any further, because a transistor needs a minimum voltage to switch cleanly, and below a certain size current leaks through it even when it is supposed to be off. Leakage produces heat continuously rather than only when switching. So transistors kept shrinking while the voltage stopped falling, and power density started climbing steeply. This is the actual physics behind the Pentium 4 being cancelled, behind clock speeds flattening after 2004, and behind everything the industry has done since. If a student asks why processors stopped getting faster, this entry is the answer and the rest is consequences."
     },
     {
       "type": "entry",
       "year": 2007,
       "name": "80 Plus certification",
       "key": true,
-      "spec": "80% efficient at 20, 50 and 100% load; Bronze to Titanium tiers",
-      "text": "Efficiency here means how much of the power drawn from the wall reaches the components. A supply at 80 percent turns a fifth of what it draws into waste heat inside your room. A modern Gold unit manages around 90 percent, and the difference is both an electricity bill and a cooling problem.",
-      "url": "https://en.wikipedia.org/wiki/80_Plus"
+      "spec": "Bronze to Titanium, measured at 20, 50 and 100 percent load",
+      "url": "https://en.wikipedia.org/wiki/80_Plus",
+      "text": "Efficiency here means how much of the power drawn from the wall actually reaches the components. A supply at 80 percent efficiency turns a fifth of everything it draws into waste heat in the room. A modern Gold unit manages around 90 percent under typical load, so a 400 watt machine pulls about 445 watts from the wall instead of 500. The difference is an electricity bill, a cooling problem and a noise problem all at once."
+    },
+    {
+      "type": "entry",
+      "year": 2008,
+      "name": "Buying a bigger supply than you need",
+      "spec": "Efficiency peaks near 50 percent load, not 100",
+      "url": "https://en.wikipedia.org/wiki/Power_supply_unit_(computer)",
+      "text": "A power supply is least efficient when barely loaded, most efficient around half its rating, and slightly less efficient again at full load. So a 1000 watt unit running a machine that draws 200 watts is working in its worst region, costs more, and is no safer than a good 500 watt unit. Headroom is worth having, and roughly double your expected draw is the sensible amount rather than as much as the budget allows. This is one of the most common and most expensive mistakes in a first build."
+    },
+    {
+      "type": "entry",
+      "year": 2009,
+      "name": "Heat pipes",
+      "key": true,
+      "spec": "Sealed copper tube, a wick, and a small amount of fluid",
+      "url": "https://en.wikipedia.org/wiki/Heat_pipe",
+      "text": "The copper tubes in a tower cooler are not solid. Each is a sealed tube containing a wick and a little fluid under low pressure. At the hot end the fluid boils, absorbing a lot of energy in doing so, the vapour travels to the cool end almost instantly, condenses back to liquid, and the wick draws it back to start again. It moves heat far better than solid copper of the same weight and it has no moving parts and needs no power. Genuinely elegant engineering, invented for spacecraft, and now sitting in almost every computer and phone."
     },
     {
       "type": "entry",
       "year": 2010,
       "name": "NVIDIA GTX 480",
       "spec": "250 W, 94 degrees under load",
-      "text": "Hot enough to become a standing joke, and the point at which graphics card cooling became a serious design constraint rather than a fan bolted to a heatsink.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_400_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_400_series",
+      "text": "Hot enough to become a standing joke, complete with fan-made images of it cooking food, and the point at which cooling a graphics card became a serious design constraint rather than a heatsink bolted on at the end."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "Dark silicon",
+      "spec": "More transistors on the chip than can be powered at once",
+      "url": "https://en.wikipedia.org/wiki/Dark_silicon",
+      "text": "Once power density became the limit, chip designers could fit more transistors than they could ever switch on simultaneously within the heat budget. Parts of a modern processor are therefore idle by design at any given moment. This is not waste, it is the reason for several things that look like unrelated features: turbo boost raising the clock only while other cores are quiet, small efficiency cores alongside large ones, and dedicated blocks for video decoding or encryption that sit dark until needed and then do their job far more efficiently than general purpose logic would."
     },
     {
       "type": "entry",
       "year": 2012,
       "name": "All-in-one liquid coolers",
       "spec": "Sealed pump, radiator, 120 to 360 mm",
-      "text": "Water carries heat far better than air, so liquid moves it from the processor to a radiator with more surface area than would fit on the socket. Sealed units made this something you could buy rather than build, though a good air cooler still matches most of them.",
-      "url": "https://en.wikipedia.org/wiki/Computer_cooling"
+      "url": "https://en.wikipedia.org/wiki/Computer_cooling",
+      "text": "Water carries heat far better than air, so a pump moves it from a block on the processor to a radiator with more surface area than would ever fit on the socket. Sealed units made this something you buy rather than build. Worth being clear with students that these are not magic: a good air cooler matches most of them, they add a pump that can fail, and the advantage is mainly that the radiator can be mounted where there is room for it."
+    },
+    {
+      "type": "entry",
+      "year": 2015,
+      "name": "Undervolting",
+      "spec": "Same clock speed, lower voltage, less heat",
+      "url": "https://en.wikipedia.org/wiki/Dynamic_voltage_scaling",
+      "text": "Manufacturers set a voltage that will work on every chip they sell, including the worst ones, so most chips are given more than they need. Reducing it by hand often gives the same performance with noticeably lower temperatures and fan noise, and because power depends on the square of voltage, a small reduction has a disproportionate effect. It is the rare tuning exercise where the result is better in every direction, and it is something a student can do safely on their own machine in an afternoon."
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "Consoles and PCs converge on 200 W",
-      "spec": "PlayStation 5 around 200 W total",
-      "text": "Useful as a reference point: a whole current console draws roughly what one mid-range graphics card does.",
-      "url": "https://en.wikipedia.org/wiki/PlayStation_5"
+      "spec": "PlayStation 5 draws around 200 W in total",
+      "url": "https://en.wikipedia.org/wiki/PlayStation_5",
+      "text": "Useful as a reference point. An entire current console draws roughly what one mid-range graphics card does, and it does so inside a sealed box that has to stay quiet, which is why console cooling is often better engineered than the equivalent PC."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "Transient spikes",
+      "key": true,
+      "spec": "Microsecond peaks well above the rated draw",
+      "url": "https://en.wikipedia.org/wiki/Power_supply_unit_(computer)",
+      "text": "Graphics cards of this generation drew brief spikes, lasting millionths of a second, of nearly twice their rated power. A power supply measuring an overload would shut itself down protectively, so machines switched off mid-game with a card and a supply that were both individually within specification. It is a good example of a system failing when two correctly built components meet a condition neither was tested for, and it is why the next power supply standard was written around handling short excursions rather than steady loads."
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "When the power supply is the cheap part",
+      "key": true,
+      "spec": "A widely sold model failing, in some cases catching fire",
+      "url": "https://en.wikipedia.org/wiki/Power_supply_unit_(computer)",
+      "text": "A well known manufacturer's supplies began failing at a high rate, some of them dramatically, after independent testing found their protection circuits set far too high to be useful. The units were bundled into a great many pre-built machines. Two lessons worth stating plainly. A power supply is the one component whose failure can destroy everything else in the case, so it is the wrong place to save money. And review coverage of power supplies is thin because testing one properly needs expensive equipment, so the market relies on a small number of independent labs."
+    },
+    {
+      "type": "era",
+      "years": "2022 to 2025",
+      "title": "Six hundred watts down one cable",
+      "text": "The current generation asks a single connector to carry more power than an entire computer used ten years ago, and the engineering is running close enough to its limits that the failures are visible rather than statistical."
     },
     {
       "type": "entry",
       "year": 2022,
-      "name": "ATX 3.0 and 12VHPWR",
+      "name": "ATX 3.0 and the 12VHPWR connector",
       "key": true,
-      "spec": "One 16-pin connector delivering up to 600 W",
-      "text": "A single cable carrying 600 watts to one card. Early versions overheated and melted where the plug was not fully seated, which led to a revised design, and it is a fair illustration of how close to the limits this is running.",
-      "url": "https://en.wikipedia.org/wiki/16-pin_12VHPWR_connector"
+      "spec": "One 16-pin connector rated to 600 W",
+      "url": "https://en.wikipedia.org/wiki/16-pin_12VHPWR_connector",
+      "text": "Six hundred watts through twelve small conductors, in a connector smaller than the two 8-pin plugs it replaces. Cards began melting where the plug had not been pushed fully home, and the underlying problem is worth understanding: the card does not measure how much current is flowing down each individual wire. If one contact is slightly worse than the others, the current redistributes to the rest, and a wire meant to carry a share ends up carrying far more than it was designed for, with nothing detecting it. The revised version shortened the sense pins so a partly inserted plug fails to work rather than working badly, which treats the symptom. Reports continued on the next generation of cards."
     },
     {
       "type": "entry",
       "year": 2022,
       "name": "Intel Core i9-13900K",
-      "spec": "253 W sustained, up to 320 W peak",
-      "text": "A processor drawing more than the entire IBM PC AT's power supply could deliver, and roughly 125 times the draw of the 8088.",
-      "url": "https://en.wikipedia.org/wiki/Raptor_Lake"
+      "spec": "253 W sustained, over 300 W in bursts",
+      "url": "https://en.wikipedia.org/wiki/Raptor_Lake",
+      "text": "A processor drawing more than the whole IBM PC AT's power supply could deliver, and roughly 125 times the draw of the 8088. The instability problem these chips later developed was itself a voltage story, which makes this generation a neat closing argument for everything above."
+    },
+    {
+      "type": "entry",
+      "year": 2024,
+      "name": "Where the heat actually goes",
+      "key": true,
+      "spec": "A 700 W gaming PC is a 700 W electric heater",
+      "url": "https://en.wikipedia.org/wiki/Computer_cooling",
+      "text": "Essentially all the electrical energy a computer consumes ends up as heat in the room, because almost none of it leaves as anything else. A machine drawing 700 watts under load is warming a bedroom about as effectively as a small plug-in heater, which is pleasant in a British winter and genuinely unpleasant in summer. Students find this counterintuitive and it follows directly from conservation of energy, so it is a good physics link: the computing is free, thermodynamically speaking, and the electricity all becomes heat regardless of what it calculated on the way."
+    },
+    {
+      "type": "entry",
+      "year": 2024,
+      "name": "The same problem at building scale",
+      "spec": "Data centre efficiency measured as total power divided by computing power",
+      "url": "https://en.wikipedia.org/wiki/Power_usage_effectiveness",
+      "text": "A data centre faces this page's problem multiplied by tens of thousands. Its efficiency is measured as total facility power divided by the power actually reaching the computers, so a figure of 1.5 means half as much again is being spent on cooling and losses. Well designed sites now reach about 1.1, using outside air, water and careful airflow rather than refrigeration. The rapid growth of machine learning has made this a mainstream question about electricity supply and water use, and it is a straightforward extension of why the fans in this case are arranged the way they are."
     },
     {
       "type": "entry",
       "year": 2025,
       "name": "NVIDIA GeForce RTX 5090",
       "spec": "575 W",
-      "text": "Nine times the total power budget of the 1981 IBM PC, for one card. A machine built around it needs a 1000 watt supply, and the room it sits in will notice.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_50_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_50_series",
+      "text": "Nine times the total power budget of the 1981 IBM PC, for one component. A machine built around it wants a 1000 watt supply, three or four case fans and a room that can lose the heat. Set against the 8088's two watts, this is the largest single-component change on the entire site."
     },
     {
       "type": "era",
@@ -361,6 +485,17 @@
           ]
         }
       ]
+    },
+    {
+      "type": "era",
+      "title": "What to take from this",
+      "text": "Power is the constraint everything else is negotiating with. It ended the clock speed race, it is why processors have two sizes of core, it decides how thin a laptop can be, and it sets what a data centre costs to run. And because power depends on the square of voltage, the cheapest performance in computing has always come from lowering the voltage rather than from anything more exotic. When that stopped being possible in the mid-2000s, the entire industry had to change direction at once."
+    },
+    {
+      "type": "link",
+      "to": "cpu",
+      "label": "What the processors did about it",
+      "text": "Every design decision after 2004, from multiple cores to efficiency cores to stacked cache, is an answer to the wall described on this page."
     }
   ]
 }

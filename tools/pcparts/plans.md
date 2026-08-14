@@ -124,14 +124,14 @@ Entry counts by topic:
 | Memory | 27 |
 | Sound | 25 |
 | Software demand | 18 |
-| Power and heat | 16 |
+| Power and heat | 29 |
 | Dead end cards | 13 |
 
-285 entries in total, 280 of them carrying a Wikipedia link, and about 19,000 words.
+298 entries in total, 293 of them carrying a Wikipedia link, and about 20,750 words.
 
-Processors, Graphics, Storage, Motherboard, Memory and Sound have had a second pass adding the cautionary tales:
+All topics except Dead end cards and Software demand have had a second pass adding the cautionary tales:
 failed bets, recalls, lawsuits and the reasons companies disappeared. The
-remaining three topics are still at first-pass depth and would benefit from
+remaining two are still at first-pass depth and would benefit from
 the same treatment.
 
 Entries run in year order within a topic. `software` is the exception and
