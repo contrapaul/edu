@@ -11,11 +11,13 @@
  */
 
 import { openTopic } from './explore.js';
+import { placeTip } from './views/tip.js';
 
 const STAGE = document.getElementById('stage');
 const TRAY = document.getElementById('tray');
 const DETAIL = document.getElementById('detail');
 const DETAIL_BODY = document.getElementById('detail-body');
+const TIP = document.getElementById('machine-tip');
 const STORE_KEY = 'pcparts-removed';
 
 const removed = new Set();
@@ -92,10 +94,14 @@ function wire(part) {
 
   hit.addEventListener('mouseenter', () => {
     if (art) art.classList.add('is-lit');
+    showTip(part);
   });
   hit.addEventListener('mouseleave', () => {
     if (art) art.classList.remove('is-lit');
+    TIP.hidden = true;
   });
+  hit.addEventListener('focus', () => showTip(part));
+  hit.addEventListener('blur', () => { TIP.hidden = true; });
 
   hit.addEventListener('click', () => select(part));
   hit.addEventListener('keydown', e => {
@@ -107,6 +113,20 @@ function wire(part) {
 
   part._hit = hit;
   part._art = art;
+}
+
+/* Names whatever is under the pointer. Parts with a topic say the rest in the
+   popup when clicked; the small board features have nowhere else to say it, so
+   they carry a `hint`. */
+function showTip(part) {
+  if (isBlocked(part) || removed.has(part.id)) {
+    TIP.hidden = true;
+    return;
+  }
+  TIP.querySelector('.tip-name').textContent = part.label;
+  TIP.querySelector('.tip-value').textContent = part.spec;
+  TIP.querySelector('.tip-meta').textContent = part.hint || '';
+  placeTip(TIP, part._hit, STAGE);
 }
 
 function isBlocked(part) {
@@ -144,6 +164,7 @@ function refresh() {
     part._hit.setAttribute('aria-hidden', inert ? 'true' : 'false');
   });
 
+  TIP.hidden = true;
   drawTray();
   save();
 }

@@ -8,7 +8,10 @@
     <rect x="-100" y="-100" width="3744" height="3744" rx="48" fill="#0e1219"/>
     <rect x="-100" y="-100" width="3744" height="3744" rx="48" fill="none" stroke="#5b6577" stroke-width="26"/>
   </g>
-  <g id="mobo-bare"><rect x="0" y="0" width="2834.646" height="2834.646" style="fill:#434343;"/><g><rect x="2668" y="2007" width="168" height="192" style="fill:#202020;"/><rect x="2668" y="2205" width="168" height="192" style="fill:#202020;"/></g><g><rect x="2697" y="673" width="117" height="620" style="fill:#202020;"/><rect x="469.893" y="3.258" width="221" height="119" style="fill:#202020;"/></g><g><rect x="0" y="1364" width="375" height="127" style="fill:#b8b8b8;"/><rect x="0" y="1575" width="217" height="143" style="fill:#cfc0c0;"/></g><rect x="2046" y="1948" width="504" height="356" style="fill:#b6b6b6;"/></g>
+  <g id="mobo-bare"><rect x="0" y="0" width="2834.646" height="2834.646" style="fill:#434343;"/><rect x="2046" y="1948" width="504" height="356" style="fill:#b6b6b6;"/></g>
+  <g id="part-sata"><g><rect x="2668" y="2007" width="168" height="192" style="fill:#202020;"/><rect x="2668" y="2205" width="168" height="192" style="fill:#202020;"/></g></g>
+  <g id="part-power"><g><rect x="2697" y="673" width="117" height="620" style="fill:#202020;"/><rect x="469.893" y="3.258" width="221" height="119" style="fill:#202020;"/></g></g>
+  <g id="part-net"><g><rect x="0" y="1364" width="375" height="127" style="fill:#b8b8b8;"/><rect x="0" y="1575" width="217" height="143" style="fill:#cfc0c0;"/></g></g>
   <g id="part-psu"><rect x="0" y="2834.646" width="1771.654" height="708.661" style="fill:#212121;"/></g>
   <g id="part-io"><rect x="-8.196" y="194" width="404" height="1162" style="fill:#7d7d7d;"/></g>
   <g id="part-fans"><g><rect x="3140.804" y="0" width="295.276" height="1417.323" style="fill:#343434;"/><rect x="3140.638" y="1417" width="295.276" height="1417.323" style="fill:#343434;"/></g></g>
@@ -26,6 +29,9 @@
     <rect id="hit-fans"    x="3141" y="0"    width="295"  height="2834"/>
     <rect id="hit-psu"     x="0"    y="2835" width="1772" height="709"/>
     <rect id="hit-slots"   x="496"  y="2340" width="1047" height="299"/>
+    <rect id="hit-net"     x="0"    y="1364" width="375"  height="354"/>
+    <rect id="hit-sata"    x="2668" y="2007" width="168"  height="390"/>
+    <path id="hit-power"   d="M2697,673 h117 v620 h-117 Z M470,3 h221 v119 h-221 Z"/>
     <rect id="hit-storage" x="515"  y="1560" width="999"  height="219"/>
     <rect id="hit-ram"     x="2102" y="105"  width="389"  height="1608"/>
     <rect id="hit-cpu"     x="1269" y="618"  width="402"  height="457"/>

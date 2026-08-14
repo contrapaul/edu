@@ -24,7 +24,10 @@ LAYERS = ['psu', 'board', 'sata', 'power-connectors', 'rear-io', 'fans',
 # groups written to pc.svg, in painting order. Stacking is load bearing:
 # cpu before aio and pcie-slots before gpu, so a covering part really covers.
 GROUPS = [
-    ('mobo-bare',    ['board', 'sata', 'power-connectors', 'wifi-ethernet', 'chipset']),
+    ('mobo-bare',    ['board', 'chipset']),
+    ('part-sata',    ['sata']),
+    ('part-power',   ['power-connectors']),
+    ('part-net',     ['wifi-ethernet']),
     ('part-psu',     ['psu']),
     ('part-io',      ['rear-io']),
     ('part-fans',    ['fans']),
@@ -48,6 +51,9 @@ HITS = '''<g id="hit">
     <rect id="hit-fans"    x="3141" y="0"    width="295"  height="2834"/>
     <rect id="hit-psu"     x="0"    y="2835" width="1772" height="709"/>
     <rect id="hit-slots"   x="496"  y="2340" width="1047" height="299"/>
+    <rect id="hit-net"     x="0"    y="1364" width="375"  height="354"/>
+    <rect id="hit-sata"    x="2668" y="2007" width="168"  height="390"/>
+    <path id="hit-power"   d="M2697,673 h117 v620 h-117 Z M470,3 h221 v119 h-221 Z"/>
     <rect id="hit-storage" x="515"  y="1560" width="999"  height="219"/>
     <rect id="hit-ram"     x="2102" y="105"  width="389"  height="1608"/>
     <rect id="hit-cpu"     x="1269" y="618"  width="402"  height="457"/>

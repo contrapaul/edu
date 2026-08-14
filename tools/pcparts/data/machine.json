@@ -135,7 +135,8 @@
         "Four slots, and once the graphics card is in, three of them stay empty on almost every build. That is worth noticing, because a PC in 1996 had five or six and every one was likely to be full.",
         "A machine of that era might carry separate cards for sound, for a modem, for video capture, for extra ports, and for a while a card that did nothing but calculate physics for games. Each was absorbed into the processor, the graphics card or the motherboard, and the slots emptied out."
       ],
-      "topic": "expansion"
+      "topic": "expansion",
+      "hint": "Four slots. Once the graphics card is in, three of them stay empty on almost every build."
     },
     {
       "id": "part-io",
@@ -151,6 +152,46 @@
         "The PC shipped with a speaker that could produce one square wave tone. Games worked around that limitation for years, then sound cards turned the PC into something you could listen to, and then the whole capability shrank into a chip on the board and stopped being a purchase decision."
       ],
       "topic": "sound"
+    },
+    {
+      "id": "part-sata",
+      "label": "SATA ports",
+      "spec": "4 x SATA 6 Gb/s",
+      "removable": false,
+      "blockedBy": [
+        "case-glass",
+        "part-gpu"
+      ],
+      "linkText": null,
+      "topic": null,
+      "hint": "For drives that still need a cable. Most builds now leave all four empty, because the fast drive plugs flat onto the board instead.",
+      "body": []
+    },
+    {
+      "id": "part-power",
+      "label": "Power connectors",
+      "spec": "24-pin board, 8-pin processor",
+      "removable": false,
+      "blockedBy": [
+        "case-glass"
+      ],
+      "linkText": null,
+      "topic": null,
+      "hint": "The 24-pin feeds the board. The separate 8-pin runs straight to the processor's voltage regulator, and it was added in 2000 because the Pentium 4 needed more current than one connector could safely carry.",
+      "body": []
+    },
+    {
+      "id": "part-net",
+      "label": "Network",
+      "spec": "2.5 Gb Ethernet and Wi-Fi 7, both onboard",
+      "removable": false,
+      "blockedBy": [
+        "case-glass"
+      ],
+      "linkText": null,
+      "topic": null,
+      "hint": "Both built in and effectively free. In 1988 a network card cost more than a hard disk and was something only offices bought.",
+      "body": []
     },
     {
       "id": "hit-mobo",

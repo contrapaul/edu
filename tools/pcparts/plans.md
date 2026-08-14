@@ -43,7 +43,7 @@ links off the page except the one back to `/tools`.
 ```
 tools/pcparts/
   index.html              the whole site
-  assets/pc.svg           layered diagram, placeholder art
+  assets/pc.svg           layered diagram, generated from assets/source/
   data/machine.json       parts, occlusion rules, popup copy
   data/topics/*.json      the nine explorations
   js/machine.js           the machine
@@ -87,17 +87,25 @@ better than a tall ATX tower would.
 | Layer id | Contents |
 |---|---|
 | `case-shell` | outline round everything, drawn by the script |
-| `mobo-bare` | board, SATA, power connectors, wifi and ethernet, chipset |
+| `mobo-bare` | board and chipset heatsink only |
 | `part-*` | one group per component, removable or not |
 | `case-glass` | side panel, must be the last element before the hit layer |
 | `hit` | one shape per part, id `hit-<part>`; `rect` or `path` |
+
+Pointing at anything names it. The readout shows the label and the spec, plus a
+`hint` sentence where a part has one. The small board features (SATA, power
+connectors, network, expansion slots) carry hints because a hover is the only
+place they say anything; the larger parts say the rest in the popup when
+clicked. Placement reuses `js/views/tip.js`, the same helper the charts use.
 
 Not every part comes out. `removable` in `data/machine.json` decides. The
 processor, memory, storage, expansion slots and rear ports stay put: they
 highlight and open their topic but do not disappear, because there is no empty
 socket artwork underneath them to reveal. Only the side panel, cooler, graphics
 card, power supply and fans are removable, and each of those does reveal
-something real: the cooler uncovers the processor, the card uncovers the slots.
+something real: the cooler uncovers the processor, and the graphics card
+uncovers both the expansion slots and the SATA ports, which the card almost
+completely hides in this drawing.
 
 Rules that the export has to satisfy:
 

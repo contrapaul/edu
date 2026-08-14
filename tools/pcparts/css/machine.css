@@ -273,3 +273,28 @@ body.pc-machine {
   #pc-diagram .is-removed { transform: none; }
   .detail { animation: none; }
 }
+
+/* ── hover readout ───────────────────────────────────── */
+
+#machine-tip {
+  z-index: 4;
+  max-width: 22rem;
+  white-space: normal;
+  pointer-events: none;
+}
+
+#machine-tip .tip-value {
+  font-size: 0.72rem;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+#machine-tip .tip-meta:empty { display: none; }
+
+#machine-tip .tip-meta {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #a9b3c4;
+  margin-top: 0.15rem;
+}
