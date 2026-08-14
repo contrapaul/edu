@@ -2,21 +2,21 @@
   "id": "gpu",
   "title": "Graphics",
   "span": "1981 to 2025",
-  "intro": "Nothing in a PC changed as visibly as this. A display adapter in 1981 could show text and four colours. The card in this machine performs tens of trillions of operations a second to decide what colour each pixel should be, and it spends a good share of them simulating how light bounces.",
+  "intro": "Nothing in a PC changed as visibly as this. A display adapter in 1981 could show text and four colours. The card in this machine performs tens of trillions of operations a second to decide what colour each pixel should be, and it spends a good share of them simulating how light bounces. It is also the most competitive corner of the industry: around thirty companies made graphics chips in 1997, two of them survived, and the reasons are worth studying.",
   "blocks": [
     {
       "type": "era",
       "years": "1981 to 1990",
       "title": "Cards that stored a picture, and nothing more",
-      "text": "Early display adapters held a grid of characters or pixels in memory and sent it to the monitor sixty times a second. They did no drawing of their own. Every line, every shape and every moving object was calculated by the main processor and written into that grid by hand."
+      "text": "Early display adapters held a grid of characters or pixels in memory and sent it to the monitor sixty times a second. They did no drawing of their own. Every line, every shape and every moving object was calculated by the main processor and written into that grid by hand, which is why games of this era look the way they do: the artwork was constrained by how many bytes the CPU could push per frame."
     },
     {
       "type": "entry",
       "year": 1981,
       "name": "IBM MDA",
       "spec": "80 x 25 text, monochrome, no graphics mode",
-      "text": "Text only, and sharp enough to read all day, which is what business buyers wanted. It could not draw a picture at all.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Monochrome_Display_Adapter"
+      "url": "https://en.wikipedia.org/wiki/IBM_Monochrome_Display_Adapter",
+      "text": "Text only, and sharp enough to read all day, which is what business buyers wanted. It could not draw a picture at all. IBM assumed a serious computer showed words, and sold the colour card separately as an option for games and charts."
     },
     {
       "type": "entry",
@@ -24,32 +24,32 @@
       "name": "IBM CGA",
       "key": true,
       "spec": "320 x 200 at 4 colours, 640 x 200 at 2, 16 KB",
+      "url": "https://en.wikipedia.org/wiki/Color_Graphics_Adapter",
       "shot": {
         "slot": "CGA game, 4 colour palette",
         "caption": "Placeholder. Capture from a CGA title or an accurate emulator."
       },
-      "text": "Four colours at once, chosen from two fixed palettes that were both unpleasant. Developers learned to exploit quirks in how the card generated its signal to squeeze out colours IBM had not intended.",
-      "url": "https://en.wikipedia.org/wiki/Color_Graphics_Adapter"
+      "text": "Four colours at once, chosen from two fixed palettes that were both unpleasant. The famous one is black, cyan, magenta and white, which is why so many early PC games look faintly radioactive. Developers found ways around it: connecting a CGA card to a television through its composite output made the signal blur in a predictable way, and by placing certain patterns of dots side by side they could produce around sixteen apparent colours IBM never designed in. That trick is called composite artifact colour, and it is a good example of programmers exploiting the flaws of hardware rather than its features."
     },
     {
       "type": "entry",
       "year": 1982,
       "name": "Hercules Graphics Card",
       "spec": "720 x 348 monochrome",
-      "text": "Higher resolution than CGA and no colour at all, from a third party rather than IBM. It shows how quickly the open standard produced options IBM had not planned.",
-      "url": "https://en.wikipedia.org/wiki/Hercules_Graphics_Card"
+      "url": "https://en.wikipedia.org/wiki/Hercules_Graphics_Card",
+      "text": "Higher resolution than CGA and no colour at all, from a third party rather than IBM. It became popular enough that software supported it by name for a decade, which shows how quickly the open standard produced options IBM had not planned and could not control."
     },
     {
       "type": "entry",
       "year": 1984,
       "name": "IBM EGA",
       "spec": "640 x 350, 16 colours from a palette of 64, 128 KB",
+      "url": "https://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter",
       "shot": {
         "slot": "EGA game, 16 colours",
         "caption": "Placeholder."
       },
-      "text": "Sixteen colours was the point at which games stopped looking like diagrams.",
-      "url": "https://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter"
+      "text": "Sixteen colours on screen at once, chosen from sixty-four. This is roughly the point at which games stopped looking like diagrams and started looking like illustrations, and it is where PC games began to catch up with the home computers that had been beating them on graphics for years."
     },
     {
       "type": "entry",
@@ -57,97 +57,123 @@
       "name": "IBM VGA",
       "key": true,
       "spec": "640 x 480 at 16 colours, 320 x 200 at 256, 256 KB",
+      "url": "https://en.wikipedia.org/wiki/Video_Graphics_Array",
       "shot": {
         "slot": "VGA game, 256 colours",
         "caption": "Placeholder. The 320x200x256 mode is the one to show."
       },
-      "text": "The most important entry on this page. 640 x 480 became the floor that every PC supported for the next twenty years, and the 256 colour mode was enough for artists to draw properly shaded images. A PC today still boots into a VGA-compatible mode before the real driver loads.",
-      "url": "https://en.wikipedia.org/wiki/Video_Graphics_Array"
+      "text": "The most important entry on this page. 640 x 480 became the floor every PC supported for the next twenty years, and the 256 colour mode gave artists enough range to draw properly shaded images by hand. Its 320 x 200 mode was cheap enough on memory that games could redraw the whole screen many times a second, which is what made the golden age of DOS gaming possible. A PC today still boots into a VGA-compatible mode before the real driver loads, which means every graphics card sold in 2025 still pretends to be this one for the first few seconds after you press the power button."
     },
     {
       "type": "entry",
       "year": 1990,
       "name": "SVGA and the VESA standard",
       "spec": "800 x 600 and 1024 x 768, 256 colours or more",
-      "text": "Manufacturers extended VGA in incompatible ways, so software had to be written for each card. VESA was the industry agreeing on a common way to ask a card what it could do, which is a recurring pattern in this story.",
-      "url": "https://en.wikipedia.org/wiki/Super_VGA"
+      "url": "https://en.wikipedia.org/wiki/Super_VGA",
+      "text": "Manufacturers extended VGA in incompatible ways, so software had to include separate support for each card and often asked you to pick your exact model from a list during installation. VESA was the industry agreeing on a common way for software to ask a card what it could do. That pattern, a proprietary free-for-all followed by a committee standard, repeats throughout this page."
     },
     {
       "type": "era",
       "years": "1991 to 1996",
       "title": "Acceleration arrives, first for windows and then for worlds",
-      "text": "Two separate problems got solved in this stretch. Drawing and moving rectangles for a graphical desktop was slow, so cards learned to do it themselves. Then games went 3D, and the maths involved was far beyond what a processor of the era could manage at a playable frame rate."
+      "text": "Two separate problems got solved in this stretch. Drawing and moving rectangles for a graphical desktop was slow, so cards learned to do it themselves. Then games went 3D, and the maths involved was far beyond what a processor of the era could manage at a playable frame rate. The companies that understood the second problem became the industry; the ones that only solved the first mostly vanished."
     },
     {
       "type": "entry",
       "year": 1991,
       "name": "S3 86C911",
       "spec": "2D acceleration, bit block transfer in hardware",
-      "text": "The card could copy and fill rectangles on its own, so dragging a window no longer required the processor to redraw every pixel. Windows became usable on ordinary hardware because of parts like this.",
-      "url": "https://en.wikipedia.org/wiki/S3_Graphics"
+      "url": "https://en.wikipedia.org/wiki/S3_Graphics",
+      "text": "The card could copy and fill rectangles by itself, so dragging a window no longer required the processor to redraw every pixel of it. Windows became usable on ordinary hardware because of parts like this. The chip was named after the Porsche 911, which tells you something about how the industry saw itself."
     },
     {
       "type": "entry",
       "year": 1992,
       "name": "Wolfenstein 3D and the software renderer",
       "spec": "320 x 200, 70 frames per second on a 386",
+      "url": "https://en.wikipedia.org/wiki/Wolfenstein_3D",
       "shot": {
         "slot": "Wolfenstein 3D or Doom, software rendered",
         "caption": "Placeholder."
       },
-      "text": "Not a card, but the reason the next ones existed. This and Doom in 1993 proved there was demand for 3D, and both did every calculation on the main processor using tricks that avoided real 3D maths entirely.",
-      "url": "https://en.wikipedia.org/wiki/Wolfenstein_3D"
+      "text": "Not a card, but the reason the next ones existed. This and Doom in 1993 proved there was enormous demand for 3D, and both did every calculation on the main processor using tricks that avoided real 3D maths entirely. Wolfenstein's walls are all the same height and meet at right angles, and Doom's levels cannot have one room above another, because those restrictions let the renderer skip work it could not afford. When you see a limitation in an old game, it is usually a performance decision rather than a lack of imagination."
+    },
+    {
+      "type": "entry",
+      "year": 1995,
+      "name": "Matrox Millennium",
+      "spec": "2D acceleration, 175 MHz RAMDAC, WRAM",
+      "url": "https://en.wikipedia.org/wiki/Matrox",
+      "text": "The sharpest 2D image on the market by a clear margin, because Matrox spent money on the analogue circuitry that converts the digital picture into a signal for the monitor. Professionals who worked in text and CAD all day bought these. Matrox never made the jump to competitive 3D, and being the best at the thing that was about to stop mattering is one of the ways companies disappear from this page."
     },
     {
       "type": "entry",
       "year": 1995,
       "name": "S3 ViRGE",
       "spec": "2D plus early 3D features",
-      "text": "Sold as a 3D accelerator and nicknamed a 3D decelerator, because enabling its 3D features was often slower than letting the processor do the work. An early demonstration that a feature list is not performance.",
-      "url": "https://en.wikipedia.org/wiki/S3_ViRGE"
+      "url": "https://en.wikipedia.org/wiki/S3_ViRGE",
+      "text": "Sold as a 3D accelerator and quickly nicknamed a 3D decelerator, because switching its 3D features on was often slower than letting the processor do the same work. S3 dominated 2D and assumed that position would carry over. It did not. An early and expensive demonstration that a feature list is not performance."
     },
     {
       "type": "entry",
       "year": 1995,
       "name": "NVIDIA NV1",
-      "spec": "Quadratic surfaces rather than triangles",
-      "text": "NVIDIA's first product built shapes from curved patches instead of triangles. Microsoft's Direct3D standardised on triangles, the card was incompatible with the direction the industry took, and NVIDIA almost did not survive it.",
-      "url": "https://en.wikipedia.org/wiki/NV1"
+      "key": true,
+      "spec": "Quadratic surfaces rather than triangles, integrated audio and Saturn game port",
+      "url": "https://en.wikipedia.org/wiki/NV1",
+      "text": "NVIDIA's first product built curved shapes from quadratic patches instead of triangles, on the reasoning that curves need fewer of them. Sega used the same approach in the Saturn, so NVIDIA bet on that becoming the standard. Microsoft's Direct3D standardised on triangles instead, and the NV1 could not run the software everyone was writing. NVIDIA cut its staff to around forty people and had roughly enough money left for one more attempt. It is worth holding this next to the company's position today: the market leader in graphics almost died from a single wrong architectural bet, in its first product."
     },
     {
       "type": "entry",
       "year": 1996,
       "name": "3dfx Voodoo Graphics",
       "key": true,
-      "spec": "50 MHz, 4 MB, 3D only, 640 x 480",
+      "spec": "50 MHz, 4 MB, 3D only, 640 x 480, Glide API",
+      "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics",
       "shot": {
         "slot": "Same game software rendered vs Voodoo accelerated",
-        "caption": "Placeholder. A side by side is worth more than either shot alone."
+        "caption": "Placeholder. A side by side is worth far more than either shot alone."
       },
-      "text": "It could not display a desktop. You kept your existing 2D card and ran a cable from it through the Voodoo, which took over when a game started. Texture filtering made surfaces smooth instead of blocky, and the difference was large enough that people bought a second card to get it.",
-      "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics"
+      "text": "It could not display a desktop. You kept your existing 2D card and ran a short cable from it into the Voodoo, which sat silent until a game started and then took over the screen with an audible relay click. What it did was bilinear texture filtering, which blends between the dots of a texture so a wall stays smooth as you walk towards it instead of dissolving into coloured blocks. Anyone who saw GLQuake running on one next to the software version remembers it. 3dfx also shipped its own programming interface, Glide, which was easier and faster than the alternatives, and that decision is what eventually killed the company."
     },
     {
       "type": "era",
       "years": "1997 to 2000",
-      "title": "One card for everything, and the word GPU",
-      "text": "Separate 2D and 3D cards lasted about three years before the functions merged. This period also settled the question of who does the geometry: until 1999 the processor calculated where every triangle sat in space and the card only filled it in."
+      "title": "One card for everything, the API war, and the word GPU",
+      "text": "Separate 2D and 3D cards lasted about three years before the functions merged. The bigger fight was over how software should talk to the hardware. 3dfx had Glide, which only worked on its own cards. Microsoft had Direct3D, which worked on all of them and improved every year. Silicon Graphics had OpenGL, which id Software's John Carmack publicly backed. Software developers eventually refused to write three versions of everything."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "NVIDIA RIVA 128",
       "spec": "100 MHz, 4 MB SGRAM, 2D and 3D on one card",
-      "text": "Not as good at 3D as a Voodoo, but it did everything on one board at one price. Convenience beat peak quality, which it usually does.",
-      "url": "https://en.wikipedia.org/wiki/RIVA_128"
+      "url": "https://en.wikipedia.org/wiki/RIVA_128",
+      "text": "The company's second chance, and this time it built for triangles and Direct3D like everyone else. It was not as good at 3D as a Voodoo and it did everything on one board at one price. Convenience beat peak quality, which it usually does, and NVIDIA sold roughly a million of them in four months."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "3dfx Voodoo2",
       "spec": "12 MB, SLI with two cards, 1024 x 768",
-      "text": "Two cards could be linked to split the screen between them, each rendering alternate lines. It worked, it cost twice as much, and the idea kept coming back for another twenty years before finally being abandoned.",
-      "url": "https://en.wikipedia.org/wiki/Voodoo2"
+      "url": "https://en.wikipedia.org/wiki/Voodoo2",
+      "text": "Two cards could be linked so each drew alternate lines of the screen, which is where the abbreviation SLI comes from. It worked, it cost twice as much, and it needed a third card for 2D, so an enthusiast machine could have three graphics cards and a nest of cables inside it. The idea kept returning for another twenty years before finally being abandoned."
+    },
+    {
+      "type": "entry",
+      "year": 1998,
+      "name": "3dfx buys STB Systems",
+      "key": true,
+      "spec": "$141 million, 3dfx begins manufacturing its own boards",
+      "url": "https://en.wikipedia.org/wiki/3dfx",
+      "text": "Until now 3dfx sold chips and companies like Diamond and Creative built the actual cards. Buying a board manufacturer meant 3dfx captured the whole margin, and it also meant every one of those partners was now a competitor looking for another chip supplier. They found NVIDIA. 3dfx took on the costs and the inventory risk of manufacturing at exactly the moment it needed to be spending on engineering. This single decision appears in most accounts of why the company failed."
+    },
+    {
+      "type": "entry",
+      "year": 1999,
+      "name": "3dfx Voodoo3",
+      "spec": "16-bit colour, 256 x 256 maximum texture size",
+      "url": "https://en.wikipedia.org/wiki/Voodoo3",
+      "text": "Fast, and missing two things competitors had: 32-bit colour, which removes the visible banding in gradients and smoke, and support for textures larger than 256 pixels square. 3dfx argued its 16-bit output looked close enough after filtering, and it had a point technically, but reviewers compared screenshots and the argument was lost in public. Being right about the engineering does not help if the difference is visible in a magazine."
     },
     {
       "type": "entry",
@@ -155,34 +181,35 @@
       "name": "NVIDIA GeForce 256",
       "key": true,
       "spec": "120 MHz, 32 MB SDR, 23M transistors, hardware transform and lighting",
+      "url": "https://en.wikipedia.org/wiki/GeForce_256",
       "shot": {
         "slot": "A 1999 or 2000 title with hardware T&L",
         "caption": "Placeholder."
       },
-      "text": "NVIDIA coined the term graphics processing unit for this card, on the grounds that it now did the geometry as well as the filling in. Moving transform and lighting off the processor freed it for everything else and roughly doubled the number of triangles a game could afford.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_256"
+      "text": "NVIDIA coined the term graphics processing unit for this card, on the argument that it now did the geometry as well as the filling in. Until this point the processor calculated where every triangle sat in space and how brightly it was lit, then handed a flat list to the card. Moving that work onto the card freed the processor entirely and roughly doubled the number of triangles a game could afford. The marketing worked so well that GPU became the ordinary word for the part, which is a rare case of a company naming a whole category and having it stick."
     },
     {
       "type": "entry",
       "year": 2000,
       "name": "ATI Radeon",
       "spec": "183 MHz, 64 MB DDR, hardware T&L",
-      "text": "ATI's answer, and the start of a two-company rivalry that has run ever since.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_R100_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_R100_series",
+      "text": "ATI's answer, and the start of a two-company rivalry that has run ever since. ATI had been making 2D and video chips for OEM machines for years and was better known to computer manufacturers than to enthusiasts, which gave it a base to fight from that 3dfx never had."
     },
     {
       "type": "entry",
       "year": 2000,
       "name": "3dfx closes",
-      "spec": "Assets bought by NVIDIA, December 2000",
-      "text": "The company that made 3D on the PC a real thing lasted four years as the leader. It kept building for its own Glide interface while Direct3D and OpenGL became the standards, and it manufactured its own cards rather than selling chips to board makers, which left it carrying the costs.",
-      "url": "https://en.wikipedia.org/wiki/3dfx"
+      "key": true,
+      "spec": "Assets bought by NVIDIA in December 2000",
+      "url": "https://en.wikipedia.org/wiki/3dfx",
+      "text": "The company that made 3D on the PC a real thing led the market for about four years. Several failures compounded: it kept investing in Glide while Direct3D and OpenGL became the standards, it bought a factory instead of hiring engineers, its next generation slipped repeatedly, and the Voodoo 5 6000 needed an external power supply and never shipped at all. NVIDIA bought the remains for roughly $70 million and a million shares, and hired much of the engineering team. If you want one lesson, it is that a proprietary interface is an asset while you are winning and an anchor the moment you are not."
     },
     {
       "type": "era",
       "years": "2001 to 2006",
       "title": "Programmable shading",
-      "text": "Until now a card could do a fixed set of operations chosen by its designers. Shaders let a developer write a small program that runs for every vertex and every pixel, which is the change that made graphics an artistic medium rather than a menu of hardware features. Water, skin, fire and glass all stopped being textures and started being code."
+      "text": "Until now a card could do a fixed set of operations chosen by its designers, and a game's look came from selecting among them. Shaders let a developer write a small program that runs for every vertex and every pixel. This is the change that made graphics an artistic medium rather than a menu of hardware features, and it is why water, skin, fire and glass stopped being textures and started being code."
     },
     {
       "type": "entry",
@@ -190,12 +217,12 @@
       "name": "NVIDIA GeForce 3",
       "key": true,
       "spec": "200 MHz, 64 MB, 57M transistors, DirectX 8 pixel and vertex shaders",
+      "url": "https://en.wikipedia.org/wiki/GeForce_3_series",
       "shot": {
         "slot": "Early shader effect, water or reflection",
         "caption": "Placeholder."
       },
-      "text": "The first consumer card that ran developer-written programs per pixel. The same chip, slightly modified, went into the original Xbox.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_3_series"
+      "text": "The first consumer card that ran developer-written programs per pixel. The programs were tiny by modern standards, a handful of instructions, but the principle was set. A modified version of this chip went into the original Xbox, which meant console developers were learning the same techniques at the same time, and console hardware has shaped what PC games assume ever since."
     },
     {
       "type": "entry",
@@ -203,24 +230,42 @@
       "name": "ATI Radeon 9700 Pro",
       "key": true,
       "spec": "325 MHz, 128 MB DDR, 107M transistors, DirectX 9",
-      "text": "It roughly doubled the performance of everything else on sale and held the lead for over a year, which almost never happens. Its DirectX 9 shader support is also why so much of the decade's software targeted that specific feature set.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_R300_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_R300_series",
+      "text": "It roughly doubled the performance of everything else on sale and held the lead for over a year, which almost never happens in this market. Its DirectX 9 shader support became the target developers wrote for, and because it was strong at running shaders in the 24-bit precision the standard specified, it set the terms of the fight NVIDIA was about to lose."
+    },
+    {
+      "type": "entry",
+      "year": 2003,
+      "name": "NVIDIA GeForce FX 5800",
+      "key": true,
+      "spec": "500 MHz, 128 MB DDR2, delayed, extremely loud",
+      "url": "https://en.wikipedia.org/wiki/GeForce_FX_series",
+      "text": "NVIDIA's worst generation. It arrived late, ran DirectX 9 shaders at roughly half the speed of the ATI card it was meant to beat because it had been designed around a different precision than the standard settled on, and its cooler was loud enough to be measured against a vacuum cleaner and nicknamed the Dustbuster. When Valve published benchmarks for the upcoming Half-Life 2 showing FX cards needing a special reduced-quality mode to be playable at all, the reputational damage was severe. NVIDIA's response is worth knowing about: it made and released a mock advertisement joking about the noise, took the loss publicly, and shipped a corrected architecture the following year. Compare that to how Intel handled the FDIV bug."
     },
     {
       "type": "entry",
       "year": 2004,
       "name": "NVIDIA GeForce 6800 Ultra",
       "spec": "400 MHz, 256 MB GDDR3, 222M transistors, Shader Model 3.0",
-      "text": "Shader programs got longer and gained proper loops and branches, which is the point where they became real programs rather than short formulas.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_6_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_6_series",
+      "text": "The recovery. Shader programs got much longer and gained proper loops and branches, which is the point where they became real programs rather than short formulas. It also introduced the modern practice of shipping a card that supports features almost no current game uses, on the argument that it will age better."
     },
     {
       "type": "entry",
       "year": 2005,
       "name": "Graphics moves to PCI Express",
       "spec": "PCIe x16, 4 GB/s each way",
-      "text": "AGP was a slot designed for one purpose, graphics, and PCI Express replaced it with a general connection that scaled. Every card since plugs into a descendant of this.",
-      "url": "https://en.wikipedia.org/wiki/PCI_Express"
+      "url": "https://en.wikipedia.org/wiki/PCI_Express",
+      "text": "AGP was a slot designed for exactly one job, and PCI Express replaced it with a general connection that scaled. It also allowed several full speed graphics slots on one board, which is what brought multi-card setups back as SLI and CrossFire."
+    },
+    {
+      "type": "entry",
+      "year": 2006,
+      "name": "AMD buys ATI",
+      "key": true,
+      "spec": "$5.4 billion, completed October 2006",
+      "url": "https://en.wikipedia.org/wiki/ATI_Technologies",
+      "text": "A processor company bought a graphics company, and the graphics market went from three serious players to two, permanently. AMD paid a price many analysts thought too high and wrote down billions of it later, and the debt contributed to the difficult years around Bulldozer. It did eventually pay off in a way nobody bought it for: owning both meant AMD could put a competent processor and competent graphics on one chip, which is why AMD hardware is inside the PlayStation 5, the Xbox Series consoles and the Steam Deck."
     },
     {
       "type": "entry",
@@ -228,18 +273,18 @@
       "name": "NVIDIA GeForce 8800 GTX",
       "key": true,
       "spec": "575 MHz, 768 MB GDDR3, 681M transistors, 128 unified shaders, 145 W",
+      "url": "https://en.wikipedia.org/wiki/GeForce_8_series",
       "shot": {
         "slot": "Crysis, 2007",
         "caption": "Placeholder. The card and the game that punished it."
       },
-      "text": "Separate hardware for vertex and pixel work was replaced by one pool of general processors that could be pointed at either. That flexibility is also what made a graphics card useful for work that is not graphics, and it leads directly to the next twenty years.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_8_series"
+      "text": "Separate hardware for vertex work and pixel work was replaced by one pool of general processors that could be pointed at either as needed. That solved a real waste problem, because a scene heavy on geometry left the pixel hardware idle and the other way round. It also, without anyone quite planning it, turned the graphics card into a machine for running thousands of copies of a small program at once, which is a description of far more than graphics. Everything in the next era follows from this card."
     },
     {
       "type": "era",
       "years": "2007 to 2016",
       "title": "The card stops being only about pictures",
-      "text": "Once a GPU was a few hundred small general-purpose processors, people started using it for anything that could be split into thousands of identical small tasks. Scientific simulation first, then cryptocurrency mining, then machine learning. The graphics card is now the reason this company is one of the most valuable in the world, and the games were almost incidental to that."
+      "text": "Once a GPU was several hundred small general-purpose processors, people started using it for anything that could be split into thousands of identical small tasks. Scientific simulation first, then cryptocurrency mining, then machine learning. This is the period that made NVIDIA one of the most valuable companies in the world, and the games were almost incidental to it."
     },
     {
       "type": "entry",
@@ -247,74 +292,108 @@
       "name": "CUDA",
       "key": true,
       "spec": "Software toolkit for general computation on NVIDIA hardware",
-      "text": "A way to write ordinary programs that run on the graphics card. It is software, not hardware, and it did more to shape the next two decades than any single chip on this page.",
-      "url": "https://en.wikipedia.org/wiki/CUDA"
+      "url": "https://en.wikipedia.org/wiki/CUDA",
+      "text": "A way to write ordinary programs in a familiar language and run them on the graphics card. It is software, not hardware, and it did more to shape the next twenty years than any single chip on this page. It is also deliberately NVIDIA-only, and after watching Glide fail for exactly that reason the industry expected it to lose to an open standard. It did not, because NVIDIA spent a decade supporting it, teaching it in universities and keeping it working, so by the time machine learning arrived every researcher already knew CUDA. Building the software people learn on is a moat that a faster competing chip cannot cross."
+    },
+    {
+      "type": "entry",
+      "year": 2008,
+      "name": "NVIDIA's failing laptop chips",
+      "key": true,
+      "spec": "$196 million charge, packaging material failing under heat cycling",
+      "url": "https://en.wikipedia.org/wiki/Nvidia",
+      "text": "Graphics chips in laptops from Apple, Dell and HP began failing, showing distorted video or nothing at all. The cause was the material joining the chip to its package, which cracked as the machine repeatedly heated and cooled. NVIDIA took a charge of nearly $200 million, manufacturers extended warranties, and there was a class action. Two things to take from it: a component can be well designed and still fail on materials science, and heat is not only a performance problem."
     },
     {
       "type": "entry",
       "year": 2008,
       "name": "ATI Radeon HD 4870",
       "spec": "750 MHz, 1 GB GDDR5, 956M transistors",
-      "text": "First card with GDDR5 memory, which roughly doubled bandwidth. Memory speed limits a graphics card more often than raw calculation does.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_HD_4000_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_HD_4000_series",
+      "text": "First card with GDDR5 memory, roughly doubling bandwidth. Memory bandwidth limits a graphics card more often than raw calculation does, because every pixel drawn means reading textures and writing results, and a card that cannot be fed fast enough sits idle no matter how many shaders it has."
     },
     {
       "type": "entry",
       "year": 2009,
       "name": "AMD Radeon HD 5870",
       "spec": "850 MHz, 1 GB GDDR5, 2.15B transistors, DirectX 11",
-      "text": "DirectX 11 added tessellation, which lets the card generate extra geometry on the fly so a curved surface stays smooth close up without storing millions of triangles.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_HD_5000_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_HD_5000_series",
+      "text": "DirectX 11 added tessellation, which lets the card generate extra geometry on the fly so a curved surface stays smooth close up without the game having to store millions of triangles. It became a point of contention within two years, because how much tessellation to apply is a choice, and NVIDIA's hardware handled heavy tessellation better than AMD's."
     },
     {
       "type": "entry",
       "year": 2010,
       "name": "NVIDIA GeForce GTX 480",
       "spec": "700 MHz, 1.5 GB, 3B transistors, 250 W",
-      "text": "Powerful, late, and hot enough that it became a running joke. It marks the point where cooling a graphics card became a serious design problem rather than an afterthought.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_400_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_400_series",
+      "text": "Powerful, six months late, and hot enough that it became a running joke complete with fan-made images of it frying eggs. It marks the point where cooling a graphics card became a serious engineering constraint rather than a heatsink bolted on at the end."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "The Crysis 2 tessellation argument",
+      "spec": "Flat surfaces and hidden water tessellated heavily",
+      "url": "https://en.wikipedia.org/wiki/Tessellation_(computer_graphics)",
+      "text": "Reviewers found that a patched Crysis 2 applied enormous amounts of tessellation to objects that did not need it, including flat concrete barriers and a sheet of water running underneath the entire level where no player could see it. The extra work cost performance on all cards and cost more on AMD's. Whether this was carelessness or an advantage engineered through a developer partnership was argued for years and never settled. It is a good case for a broader point: benchmark results are produced by software, and software is written by people with commercial relationships."
+    },
+    {
+      "type": "entry",
+      "year": 2013,
+      "name": "AMD Mantle",
+      "spec": "Low-level API, later donated to the Khronos Group",
+      "url": "https://en.wikipedia.org/wiki/Mantle_(API)",
+      "text": "AMD argued that DirectX and OpenGL wasted processor time managing the card, and released its own interface that let developers talk to the hardware much more directly. It was AMD-only, which by every precedent on this page should have doomed it. Instead AMD handed the work to the industry standards body, where it became Vulkan, and Microsoft rebuilt DirectX 12 along the same lines. Giving away a proprietary advantage to make it a standard is the opposite of what 3dfx did with Glide, and it worked."
     },
     {
       "type": "entry",
       "year": 2013,
       "name": "PlayStation 4 and Xbox One ship AMD graphics",
-      "spec": "AMD GCN, 8 GB shared memory",
-      "text": "Both consoles used AMD hardware and x86 processors, so for the first time console and PC games were built on effectively the same architecture. Console specifications became the baseline that PC games were designed around, which is still true.",
-      "url": "https://en.wikipedia.org/wiki/Graphics_Core_Next"
+      "spec": "AMD GCN, 8 GB shared memory, x86 processors",
+      "url": "https://en.wikipedia.org/wiki/Graphics_Core_Next",
+      "text": "Both consoles used AMD graphics and x86 processors, so for the first time console and PC games were built on effectively the same architecture, and porting between them stopped being a rewrite. The consequence is that console specifications became the baseline PC games are designed around. When a console generation launches with 8 GB or 16 GB of memory, that number sets what PC games assume for the next seven years."
+    },
+    {
+      "type": "entry",
+      "year": 2013,
+      "name": "G-Sync and FreeSync",
+      "spec": "Variable refresh rate, proprietary module versus open standard",
+      "url": "https://en.wikipedia.org/wiki/Nvidia_G-Sync",
+      "text": "A monitor normally refreshes at a fixed rate, so a frame that arrives slightly late is either shown torn in half or held back, causing stutter. Variable refresh lets the monitor wait for the card. NVIDIA shipped G-Sync first, using a hardware module that added cost and only worked with its own cards. AMD proposed FreeSync using a capability already in the DisplayPort standard, which was free. Monitor makers preferred free, and by 2019 NVIDIA had quietly added support for the open version. Worth comparing to CUDA, where the closed approach won, and asking what was different."
     },
     {
       "type": "entry",
       "year": 2014,
       "name": "NVIDIA GeForce GTX 970",
-      "spec": "1050 MHz, 4 GB, 5.2B transistors, 145 W",
-      "text": "Very fast for its power draw and enormously popular. It was also found to have 3.5 GB of fast memory and 0.5 GB of slow memory rather than 4 GB of one kind, which led to a lawsuit and a settlement.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_900_series"
+      "key": true,
+      "spec": "1050 MHz, advertised 4 GB, 5.2B transistors, 145 W",
+      "url": "https://en.wikipedia.org/wiki/GeForce_900_series",
+      "text": "Very fast for its power draw and enormously popular. Owners then found that the card had 3.5 GB of full-speed memory and 0.5 GB that was much slower, and that NVIDIA had also published the wrong figures for two other internal specifications. Games that pushed past 3.5 GB stuttered. NVIDIA said the marketing department had never been told, which may even be true, and settled a class action by paying $30 per card. It is the clearest lesson on this page in reading a specification carefully and in what a company does when the number on the box turns out to be untrue."
     },
     {
       "type": "entry",
       "year": 2016,
       "name": "NVIDIA GeForce GTX 1080",
       "spec": "1607 MHz, 8 GB GDDR5X, 7.2B transistors, 180 W",
+      "url": "https://en.wikipedia.org/wiki/GeForce_10_series",
       "shot": {
         "slot": "A 2016 title at 1440p or 4K",
         "caption": "Placeholder."
       },
-      "text": "A jump to a 16 nm process brought a large gain in both speed and efficiency, and made virtual reality headsets practical on hardware people already owned.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_10_series"
+      "text": "A move to a 16 nm manufacturing process brought a large gain in both speed and efficiency, and made virtual reality headsets practical on hardware people could actually afford. These cards were still being sold second-hand at respectable prices five years later, which is unusual and says something about how the generations after them were priced."
     },
     {
       "type": "entry",
       "year": 2016,
       "name": "AMD Radeon RX 480",
       "spec": "1266 MHz, 8 GB GDDR5, 150 W, $239",
-      "text": "AMD aimed at the middle of the market rather than the top, putting VR-capable performance at a price most buyers could reach.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_400_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_400_series",
+      "text": "AMD aimed at the middle of the market rather than the top, putting VR-capable performance at a price most buyers could reach. It also briefly drew more power through the motherboard slot than the specification allows, which AMD corrected in a driver update by shifting the load to the auxiliary cable."
     },
     {
       "type": "era",
       "years": "2018 to 2025",
-      "title": "Simulating light, and inventing the pixels you did not render",
-      "text": "Two ideas define the current era. Ray tracing traces the path of individual light rays through a scene, which is how film effects have been made for decades and was far too slow for real time until dedicated hardware arrived. Upscaling renders the picture at a lower resolution and uses a trained model to guess the missing detail, so a card can claim a resolution it never actually drew."
+      "title": "Simulating light, inventing pixels, and a market distorted twice",
+      "text": "Two technical ideas define the current era. Ray tracing follows the path of individual light rays through a scene, which is how film effects have been made for decades and was far too slow for real time until dedicated hardware arrived. Upscaling renders the picture at a lower resolution and uses a trained model to invent the missing detail. Around both of these, the market was disrupted twice by demand that had nothing to do with games."
     },
     {
       "type": "entry",
@@ -322,36 +401,61 @@
       "name": "NVIDIA GeForce RTX 2080 Ti",
       "key": true,
       "spec": "1350 MHz, 11 GB GDDR6, 18.6B transistors, RT and tensor cores, 250 W",
+      "url": "https://en.wikipedia.org/wiki/GeForce_20_series",
       "shot": {
         "slot": "Ray traced reflections on and off",
         "caption": "Placeholder. A comparison pair shows this better than a single frame."
       },
-      "text": "Separate hardware blocks for ray tracing and for the matrix maths that machine learning uses. At launch almost no games used either, and the card was widely judged poor value, which is the normal fate of hardware that ships before the software that needs it.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_20_series"
+      "text": "Separate hardware blocks for ray tracing and for the matrix arithmetic that machine learning uses. At launch almost no games used either, the price had risen sharply, and reviewers were openly unimpressed, which is the normal fate of hardware that ships before the software that needs it. The first version of DLSS, the upscaling feature, also looked noticeably blurry. Both were much better within two years, which raises a genuinely open question worth putting to students: was this a card sold on promises, or the necessary first step nobody else was willing to take?"
     },
     {
       "type": "entry",
       "year": 2019,
       "name": "AMD Radeon RX 5700 XT",
       "spec": "1755 MHz, 8 GB GDDR6, 10.3B transistors, 225 W",
-      "text": "A new architecture aimed squarely at price and performance, with no ray tracing hardware at all. AMD spent this generation arguing the feature was not yet worth its cost.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_RX_5000_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_RX_5000_series",
+      "text": "A new architecture aimed squarely at price and performance, with no ray tracing hardware at all. AMD spent this generation publicly arguing the feature was not yet worth its cost, then added it in the next one. Watching what a company says while it lacks a feature, and what it says once it has one, is instructive."
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "NVIDIA GeForce RTX 3080",
       "spec": "1710 MHz, 10 GB GDDR6X, 28.3B transistors, 320 W",
-      "text": "A large generational gain arriving at the same moment as a cryptocurrency boom and a global chip shortage. Cards sold for two and three times their list price for well over a year, and mining, not gaming, set the price.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_30_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_30_series",
+      "text": "A large generational gain launched at a sensible price, into a year that made the price meaningless. Cryptocurrency mining used graphics cards to perform the repetitive calculations that earn coins, and when the coin price rose it became profitable to buy every card available. Add a global chip shortage and a pandemic, and cards sold for two and three times their list price for well over a year. Automated buying programs took stock within seconds of it appearing. For roughly two years, what a graphics card cost was set by the price of Ethereum rather than by anything about the card."
     },
     {
       "type": "entry",
       "year": 2020,
       "name": "AMD Radeon RX 6800 XT",
       "spec": "2015 MHz, 16 GB GDDR6, 26.8B transistors, 300 W",
-      "text": "AMD added a large pool of on-chip cache so the card needed to reach out to its memory less often. The same trick as stacked cache on a processor, for the same reason: waiting for memory is the expensive part.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_RX_6000_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_RX_6000_series",
+      "text": "AMD added a large pool of cache on the chip itself so the card needed to reach out to its memory less often. It is the same trick as stacked cache on a processor and for the same reason: waiting for memory is the expensive part, and a smaller pocket of fast memory close by can beat a wider road to a distant one."
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "Mining limiters, and the end of GPU mining",
+      "key": true,
+      "spec": "LHR cards from mid-2021, Ethereum moved off mining in September 2022",
+      "url": "https://en.wikipedia.org/wiki/Ethereum",
+      "text": "NVIDIA shipped cards that detected mining and halved their speed at it, trying to steer supply back to players. Miners worked around it within months, which is what usually happens when hardware tries to police what software does with it. The problem ended for a different reason: in September 2022 Ethereum switched to a method that does not use graphics cards at all, and overnight the largest source of demand disappeared. Second-hand prices collapsed and the market was flooded with cards that had run at full load for two years."
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "SLI and CrossFire end",
+      "spec": "No new NVIDIA SLI profiles after January 2021",
+      "url": "https://en.wikipedia.org/wiki/Scalable_Link_Interface",
+      "text": "Running two cards together never worked as well as the arithmetic suggested. Splitting alternate frames between cards produced uneven gaps between them, so a game reporting 90 frames per second could feel worse than one reporting 60, an effect called microstutter. Each game needed its own driver profile, which meant ongoing work by the card maker for a tiny number of customers. Modern rendering techniques that reuse information from the previous frame made it harder still. The idea lasted twenty-three years from the Voodoo2 and was quietly retired."
+    },
+    {
+      "type": "entry",
+      "year": 2022,
+      "name": "Intel Arc A770",
+      "spec": "2100 MHz, 16 GB GDDR6, 21.7B transistors, $329",
+      "url": "https://en.wikipedia.org/wiki/Intel_Arc",
+      "text": "A third company entering the market after twenty years of two. The hardware was competitive and the drivers were not, particularly for older games written for DirectX 9 and 11, which Intel had to rewrite support for over the following two years. It is a useful demonstration that a modern graphics card is at least as much a software product as a hardware one, and that the two decades of driver work behind a NVIDIA or AMD card are a real barrier to entry."
     },
     {
       "type": "entry",
@@ -359,28 +463,42 @@
       "name": "NVIDIA GeForce RTX 4090",
       "key": true,
       "spec": "2520 MHz, 24 GB GDDR6X, 76.3B transistors, 450 W",
-      "text": "More transistors than a hundred 8800 GTX cards, and a power draw higher than an entire desktop computer of ten years earlier. Its frame generation feature inserts entirely invented frames between rendered ones, so the number in the corner of the screen no longer means what it used to.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_40_series"
+      "url": "https://en.wikipedia.org/wiki/GeForce_40_series",
+      "text": "More transistors than a hundred 8800 GTX cards, and a power draw higher than an entire desktop computer of ten years earlier. Its new 16-pin power connector melted on a number of cards where the plug had not been pushed fully home, and the design was later revised. Its frame generation feature inserts entirely invented frames between rendered ones, so the number in the corner of the screen stopped meaning what it used to: a card can now report a high frame rate while the game still responds to your input at the lower one."
     },
     {
       "type": "entry",
       "year": 2023,
       "name": "AMD Radeon RX 7900 XTX",
       "spec": "2300 MHz, 24 GB GDDR6, 57.7B transistors, 355 W",
-      "text": "The chiplet approach applied to graphics, splitting the memory controllers onto separate small dies. The same manufacturing logic that worked for AMD's processors, applied to a much harder problem.",
-      "url": "https://en.wikipedia.org/wiki/Radeon_RX_7000_series"
+      "url": "https://en.wikipedia.org/wiki/Radeon_RX_7000_series",
+      "text": "The chiplet approach applied to graphics, splitting the memory controllers and cache onto separate small dies around a central one. The same manufacturing logic that worked for AMD's processors, applied to a considerably harder problem, because graphics needs far more bandwidth between the pieces."
+    },
+    {
+      "type": "entry",
+      "year": 2023,
+      "name": "The graphics card becomes an AI product",
+      "key": true,
+      "spec": "NVIDIA passes $1 trillion in market value, then $3 trillion in 2024",
+      "url": "https://en.wikipedia.org/wiki/Nvidia",
+      "text": "Training a machine learning model is the same shape of problem as rendering: enormous numbers of identical small calculations that can all run at once. The hardware built for games turned out to be the hardware the field needed, and the CUDA software everyone had already learned made it the obvious choice. NVIDIA's data centre business overtook its gaming business and then dwarfed it. The company that nearly died in 1995 over a wrong bet about curved surfaces is now one of the most valuable in the world, and gaming is the smaller half of what it does."
     },
     {
       "type": "entry",
       "year": 2025,
       "name": "NVIDIA GeForce RTX 5090",
       "spec": "2410 MHz, 32 GB GDDR7, 92B transistors, 575 W",
+      "url": "https://en.wikipedia.org/wiki/GeForce_50_series",
       "shot": {
         "slot": "Current title, path traced",
         "caption": "Placeholder."
       },
-      "text": "Close to 600 watts for one component, which is roughly nine times the entire power budget of the 1981 IBM PC. A meaningful share of what appears on screen is now generated by a model rather than drawn by the renderer.",
-      "url": "https://en.wikipedia.org/wiki/GeForce_50_series"
+      "text": "Close to 600 watts for one component, roughly nine times the entire power budget of the 1981 IBM PC. A meaningful share of what appears on screen is now generated by a model rather than drawn by the renderer, and the honest way to describe a modern frame rate has become an open argument between manufacturers, reviewers and players."
+    },
+    {
+      "type": "era",
+      "title": "What to take from this",
+      "text": "Three patterns repeat. A proprietary interface helps you while you lead and traps you when you do not, which killed 3dfx and nearly cost AMD the fight over variable refresh, but which also built NVIDIA's strongest asset in CUDA. Hardware regularly ships before the software that justifies it, and the first version is usually judged harshly and remembered kindly. And the thing a component was designed for is not always what makes it matter, since the chip built to draw triangles for games turned out to be the machine that machine learning needed."
     },
     {
       "type": "link",

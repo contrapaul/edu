@@ -113,21 +113,29 @@ instance needs no new code.
 
 ## Data
 
-218 entries across nine topics.
+Entry counts by topic:
 
 | Topic | Entries |
 |---|---|
 | Processors | 57 |
-| Graphics | 36 |
+| Graphics | 49 |
 | Motherboard | 23 |
-| Storage | 23 |
+| Storage | 43 |
 | Memory | 18 |
 | Sound | 18 |
 | Software demand | 18 |
 | Power and heat | 16 |
 | Dead end cards | 13 |
 
-222 entries in total, 211 of them carrying a Wikipedia link.
+255 entries in total, 244 of them carrying a Wikipedia link.
+
+Processors, Graphics and Storage have had a second pass adding the cautionary tales:
+failed bets, recalls, lawsuits and the reasons companies disappeared. The
+remaining six topics are still at first-pass depth and would benefit from
+the same treatment.
+
+Entries run in year order within a topic. `software` is the exception and
+restarts its timeline for each themed section, which is deliberate.
 
 Specs are drafted and need review by hand. Generic parts are acceptable where
 a specific model adds nothing, which is most of memory and much of storage.

@@ -1,14 +1,40 @@
 {
   "id": "storage",
   "title": "Storage",
-  "span": "1980 to 2025",
-  "intro": "Storage improved in two different ways, and only one of them is the number on the box. Capacity grew by roughly a million times. Response time, meaning how long you wait before the first byte arrives, improved by far less until the moving parts were removed, and that is the change you can actually feel.",
+  "span": "1956 to 2025",
+  "intro": "Storage improved in two different ways, and only one of them is the number on the box. Capacity grew by roughly a million times. Response time, meaning how long you wait before the first byte arrives, improved by far less until the moving parts were removed, and that is the change you can actually feel. This page also has more quiet scandals than any other component, because storage is where a manufacturer can change what is inside the box without changing the label.",
   "blocks": [
     {
       "type": "era",
-      "years": "1980 to 1990",
+      "years": "1956 to 1990",
       "title": "Magnetic surfaces and a moving arm",
-      "text": "A hard disk stores data as magnetised patches on spinning metal platters. To read something, an arm swings the head to the right track and then waits for the right part of the track to rotate underneath it. Both of those are physical movements measured in thousandths of a second, and no amount of clever engineering makes moving a piece of metal fast."
+      "text": "A hard disk stores data as magnetised patches on spinning metal platters. To read something, an arm swings the head to the right track and then waits for the right part of the track to rotate underneath it. Both of those are physical movements measured in thousandths of a second. No amount of clever engineering makes moving a piece of metal fast, and that single fact shapes everything on this page until 2008."
+    },
+    {
+      "type": "entry",
+      "year": 1956,
+      "name": "IBM 350 RAMAC",
+      "key": true,
+      "spec": "5 million characters, 50 platters of 24 inches, 1200 rpm, ~$3,200 a month to lease",
+      "url": "https://en.wikipedia.org/wiki/IBM_305_RAMAC",
+      "text": "The first hard disk. Fifty aluminium platters two feet across, in a cabinet the size of two large refrigerators, holding under four megabytes as we would count it today. You could not buy one, only lease it, and the lease cost about as much per month as a house. Worth keeping in mind as a scale marker: the drive in this machine holds roughly five hundred thousand times as much, weighs nine grams and costs less than a textbook."
+    },
+    {
+      "type": "entry",
+      "year": 1973,
+      "name": "IBM 3340 and the flying head",
+      "key": true,
+      "spec": "Sealed assembly, heads riding on a cushion of air",
+      "url": "https://en.wikipedia.org/wiki/History_of_IBM_magnetic_disk_drives",
+      "text": "The design that made hard disks practical, and the reason they are fragile. The read head does not touch the platter; it flies above it on the thin layer of air dragged round by the spinning disk. Sealing the whole assembly kept dust out, because a speck of dust is a boulder at that scale. Modern drives fly the head around three nanometres above the surface, which is often described as a jumbo jet cruising a few millimetres above the ground. If the head does touch, it gouges the magnetic coating off, which is what a head crash is and why a dropped laptop used to mean a dead drive."
+    },
+    {
+      "type": "entry",
+      "year": 1976,
+      "name": "The 5.25 inch floppy disk",
+      "spec": "110 KB, flexible magnetic disc in a card sleeve",
+      "url": "https://en.wikipedia.org/wiki/Floppy_disk",
+      "text": "Designed at Shugart Associates, shrunk down from IBM's earlier 8 inch version. The engineer behind both, Al Shugart, went on to found Seagate in 1979, so the same person is behind two entries on this page and much of the industry that produced the rest."
     },
     {
       "type": "entry",
@@ -16,24 +42,24 @@
       "name": "Seagate ST-506",
       "key": true,
       "spec": "5 MB, 5.25 inch, 3600 rpm, ~85 ms seek, $1,500",
-      "text": "The first hard disk aimed at small computers. Five megabytes for the price of a small car's deposit, and a seek time about four hundred times slower than the drive in this machine.",
-      "url": "https://en.wikipedia.org/wiki/ST-506"
+      "url": "https://en.wikipedia.org/wiki/ST-506",
+      "text": "The first hard disk aimed at small computers, and the one that made the connector on the back of it into a de facto standard. Five megabytes for $1,500, which in today's money is comfortably over $5,000. Its 85 millisecond seek time is around two thousand times slower than the drive in this machine."
     },
     {
       "type": "entry",
       "year": 1981,
-      "name": "IBM PC storage as shipped",
+      "name": "The IBM PC as shipped",
       "spec": "Cassette tape, or one 160 KB 5.25 inch floppy",
-      "text": "The base model saved to audio cassette. A hard disk was not an option on the original PC at all, and the floppy held less than a single photograph taken on a phone today.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer"
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer",
+      "text": "The base model saved to audio cassette, the same tape you would put music on, encoding data as tones. A hard disk was not an option on the original PC at all, partly because its power supply could not run one. The floppy held less than a single photograph taken on a phone today."
     },
     {
       "type": "entry",
       "year": 1983,
       "name": "IBM PC XT",
-      "spec": "10 MB hard disk, 5.25 inch full height",
-      "text": "The first IBM PC with a hard disk as standard. Ten megabytes was described at the time as more than anyone would fill.",
-      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer_XT"
+      "spec": "10 MB hard disk, 5.25 inch full height, 130 W supply",
+      "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer_XT",
+      "text": "The first IBM PC with a hard disk as standard, and IBM had to nearly double the power supply to run it. Ten megabytes was widely described at the time as more space than anyone could fill, which is the kind of claim worth collecting, because someone makes it in every decade."
     },
     {
       "type": "entry",
@@ -41,82 +67,136 @@
       "name": "IDE / ATA",
       "key": true,
       "spec": "Controller moved onto the drive, 40-pin ribbon cable",
-      "text": "Before this, the drive was dumb and a separate controller card knew how to operate it. Integrating the controller onto the drive itself made drives cheaper and interchangeable, and the connector lasted until SATA replaced it eighteen years later.",
-      "url": "https://en.wikipedia.org/wiki/Parallel_ATA"
+      "url": "https://en.wikipedia.org/wiki/Parallel_ATA",
+      "text": "Before this, the drive was a dumb mechanism and a separate controller card knew how to operate it, so the card and the drive had to be matched. Integrating the controller onto the drive itself is where the name comes from, Integrated Drive Electronics, and it made drives cheap and interchangeable. The connector survived until SATA replaced it eighteen years later."
     },
     {
       "type": "entry",
       "year": 1987,
       "name": "3.5 inch floppy, 1.44 MB",
-      "spec": "1.44 MB, hard plastic shell",
-      "text": "Smaller, tougher and roughly ten times the capacity of the original 5.25 inch disks. It stayed in PCs long after it was useful, largely because operating systems still expected to be installed from one.",
-      "url": "https://en.wikipedia.org/wiki/Floppy_disk"
+      "spec": "1.44 MB, rigid plastic shell, metal shutter",
+      "url": "https://en.wikipedia.org/wiki/Floppy_disk",
+      "text": "Smaller, tougher and about ten times the capacity of the original 5.25 inch disks. It then refused to die for fifteen years after it stopped being useful, largely because operating systems still expected to be installed from one and BIOS setups still expected to be updated from one. The last new PCs with a floppy drive as standard shipped around 2003."
+    },
+    {
+      "type": "entry",
+      "year": 1987,
+      "name": "NAND flash is invented",
+      "key": true,
+      "spec": "Fujio Masuoka at Toshiba, charge trapped in a floating gate",
+      "url": "https://en.wikipedia.org/wiki/Flash_memory",
+      "text": "Twenty years before it reached PCs. Flash stores a bit by trapping electric charge in an insulated part of a transistor, where it stays without power. NAND, the variety used for storage, packs cells together so tightly that they can only be read and written in blocks rather than individually, which is why an SSD needs a fairly sophisticated controller to pretend to be a disk. Masuoka reportedly received a modest bonus for the invention and later sued his employer over the compensation."
     },
     {
       "type": "entry",
       "year": 1988,
       "name": "CD-ROM",
-      "spec": "650 MB, 150 KB/s at 1x",
-      "text": "A single disc held more than most hard drives of the time, which is what made large software possible: full motion video, recorded speech and orchestral music all arrived on the PC because there was finally somewhere to put them.",
-      "url": "https://en.wikipedia.org/wiki/CD-ROM"
+      "key": true,
+      "spec": "650 MB, 150 KB/s at 1x, read only",
+      "url": "https://en.wikipedia.org/wiki/CD-ROM",
+      "text": "A single disc held more than most hard drives of the time, for a manufacturing cost of pennies once the master existed. That combination is what made large software possible: full motion video, recorded speech and orchestral soundtracks all arrived on the PC because there was suddenly somewhere to put them. It also changed how software was sold, since a publisher could ship one disc instead of a box of twenty floppies that customers had to swap during installation."
     },
     {
       "type": "era",
       "years": "1991 to 2002",
-      "title": "Capacity races ahead of speed",
-      "text": "Through the nineties drive capacity grew faster than almost anything else in the machine, roughly doubling every eighteen months. Rotational speed went from 3600 rpm to 7200 and stopped, because spinning a metal platter faster costs power, generates heat and reduces reliability. The gap between how much a drive held and how fast it could deliver it kept widening."
+      "title": "Capacity races ahead of speed, and keeps hitting invisible walls",
+      "text": "Through the nineties drive capacity roughly doubled every eighteen months. Rotational speed went from 3600 rpm to 7200 and stopped, because spinning a metal platter faster costs power, makes heat and shortens the drive's life. So the gap between how much a drive held and how quickly it could deliver it widened every year. This period also has a pattern worth naming: capacity kept outgrowing the numbering schemes used to address it, and each time a barrier appeared it was in software rather than the drive."
     },
     {
       "type": "entry",
       "year": 1991,
       "name": "Typical desktop drive",
       "spec": "40 to 120 MB, 3600 rpm, ~17 ms seek",
-      "text": "Fast enough that loading a program felt like a pause rather than a wait, which had not been true a few years earlier."
+      "url": "https://en.wikipedia.org/wiki/Hard_disk_drive",
+      "text": "Fast enough that loading a program felt like a pause rather than a wait, which had not been true a few years earlier. Drives were also loud, and experienced users could tell what a machine was doing from the pattern of clicks."
+    },
+    {
+      "type": "entry",
+      "year": 1994,
+      "name": "The 528 MB barrier",
+      "key": true,
+      "spec": "1024 cylinders x 16 heads x 63 sectors x 512 bytes",
+      "url": "https://en.wikipedia.org/wiki/Cylinder-head-sector",
+      "text": "Early drives were addressed by physical geometry: which cylinder, which head, which sector. The BIOS and the ATA standard each allowed different maximum values for those three numbers, and where the two overlapped you got 528 megabytes. Buy a larger drive and the machine would either see only part of it or refuse to boot. The fix, logical block addressing, stopped pretending to know the physical layout and just numbered every block from zero, which is how drives have worked ever since. It is a good first example of a limit that exists only because of how something was counted."
     },
     {
       "type": "entry",
       "year": 1994,
       "name": "Seagate ST3491A",
       "spec": "428 MB, IDE, 3600 rpm, ~14 ms seek, ~3 MB/s",
-      "text": "Approaching half a gigabyte. Sequential transfer around 3 MB/s, which is where the storage speed test below starts."
+      "url": "https://en.wikipedia.org/wiki/Seagate_Technology",
+      "text": "Approaching half a gigabyte, with sequential transfer around 3 MB/s. That is where the speed test at the bottom of this page starts, and it is worth running it against a modern drive before reading further."
+    },
+    {
+      "type": "entry",
+      "year": 1994,
+      "name": "Iomega Zip drive",
+      "key": true,
+      "spec": "100 MB per cartridge, later 250 MB, ~$200",
+      "url": "https://en.wikipedia.org/wiki/Zip_drive",
+      "text": "A floppy that held seventy times as much, and for a few years it was how anyone moved a real amount of data between machines. Then drives began failing with a repeating clicking noise, and the failure often destroyed the cartridge and any other drive you then tried it in, so one bad drive could work through an entire collection of disks. Iomega initially disputed the scale of the problem. The Click of Death became one of the first technology scandals to be organised online, with users collecting evidence on websites, and it ended in a class action. Two lessons: a removable medium is only as good as the mechanism reading it, and the internet changed how quickly customers could compare notes."
     },
     {
       "type": "entry",
       "year": 1996,
       "name": "EIDE and UDMA",
       "spec": "16.6 MB/s, then 33 MB/s",
-      "text": "Faster signalling on the same connector, and support for drives over 528 MB, a limit that had been quietly built into the earlier standard and caught everyone by surprise.",
-      "url": "https://en.wikipedia.org/wiki/Parallel_ATA"
+      "url": "https://en.wikipedia.org/wiki/Parallel_ATA",
+      "text": "Faster signalling on the same connector, plus support for drives past 528 MB and for devices that were not hard disks, which is how CD-ROM drives ended up on the same cable."
     },
     {
       "type": "entry",
       "year": 1997,
       "name": "DVD-ROM",
       "spec": "4.7 GB single layer, 1.35 MB/s at 1x",
-      "text": "Seven times a CD. Games began shipping on one disc instead of five, and PCs started being used to watch films.",
-      "url": "https://en.wikipedia.org/wiki/DVD"
+      "url": "https://en.wikipedia.org/wiki/DVD",
+      "text": "Seven times a CD, using a shorter wavelength of laser light so the pits could be packed more closely. Games began shipping on one disc instead of five, and PCs started being used to watch films, which mattered enough that people bought decoder cards for it before processors could manage the job alone."
+    },
+    {
+      "type": "entry",
+      "year": 1997,
+      "name": "CD-R and CD-RW",
+      "spec": "650 MB writable, 74 minutes of audio",
+      "url": "https://en.wikipedia.org/wiki/CD-R",
+      "text": "Writing your own discs, at first slowly and unreliably enough that a failed burn was called a coaster. It made backing up practical for home users for the first time, and it made copying music trivial, which set off twenty years of argument about what people are allowed to do with media they have bought."
     },
     {
       "type": "entry",
       "year": 1998,
       "name": "7200 rpm becomes normal",
-      "spec": "IBM Deskstar, 7200 rpm, ~9 ms seek",
-      "text": "The speed most desktop drives would run at for the next twenty years. Seek time settled around 9 milliseconds and stayed there.",
-      "url": "https://en.wikipedia.org/wiki/Hard_disk_drive"
+      "spec": "~9 ms seek, ~15 MB/s",
+      "url": "https://en.wikipedia.org/wiki/Hard_disk_drive",
+      "text": "The speed most desktop drives would run at for the next twenty years. Seek time settled around 9 milliseconds and then essentially stopped improving, because the limit is how fast you can accelerate and stop a physical arm without overshooting the track."
     },
     {
       "type": "entry",
       "year": 2000,
-      "name": "ATA/100",
-      "spec": "100 MB/s interface, 80-wire ribbon cable",
-      "text": "The cable gained forty extra wires that carry no data, sitting between the signal wires to stop them interfering with each other. A reminder that at higher speeds the cable itself becomes the problem.",
-      "url": "https://en.wikipedia.org/wiki/Parallel_ATA"
+      "name": "ATA/100 and the 80-wire cable",
+      "spec": "100 MB/s interface, 40 pins and 80 wires",
+      "url": "https://en.wikipedia.org/wiki/Parallel_ATA",
+      "text": "The cable gained forty extra wires that carry no data at all. They sit between the signal wires and are connected to ground, to stop each signal interfering with its neighbours. A useful reminder that at higher speeds the cable itself becomes part of the engineering problem, and that a connector can keep its shape while everything about how it works changes."
+    },
+    {
+      "type": "entry",
+      "year": 2000,
+      "name": "USB flash drives",
+      "spec": "8 to 64 MB, no drivers needed",
+      "url": "https://en.wikipedia.org/wiki/USB_flash_drive",
+      "text": "Flash memory's first mainstream appearance, and the thing that finally killed the floppy disk. Small, silent, needing no software to be installed, and by 2005 holding more than a CD."
+    },
+    {
+      "type": "entry",
+      "year": 2001,
+      "name": "The 137 GB barrier",
+      "spec": "28-bit addressing runs out, 48-bit LBA replaces it",
+      "url": "https://en.wikipedia.org/wiki/Logical_block_addressing",
+      "text": "Logical block addressing solved the 528 MB problem by numbering blocks, and then the numbers themselves ran out. Twenty-eight bits addresses about 137 gigabytes. The replacement uses forty-eight bits and will last until drives reach 144 petabytes. The same shape of problem appears again in 2011 with partition tables, and it is the same shape as the 640 KB memory limit and the 4 GB limit on 32-bit systems."
     },
     {
       "type": "era",
       "years": "2003 to 2010",
       "title": "A thinner cable, and then no moving parts at all",
-      "text": "SATA replaced the ribbon cable with a thin serial connection, which helped airflow and allowed higher speeds. Then flash memory arrived on the desktop, and for the first time storage had no mechanical delay to design around."
+      "text": "SATA replaced the ribbon cable with a thin serial connection, which helped airflow and allowed higher speeds. Then flash memory arrived on the desktop, and for the first time storage had no mechanical delay to design around. The transition was messier than it is usually remembered, because the first generation of solid state drives were expensive, small and in some cases genuinely worse than the hard disks they replaced."
     },
     {
       "type": "entry",
@@ -124,24 +204,33 @@
       "name": "SATA 1.5 Gb/s",
       "key": true,
       "spec": "150 MB/s, 7-pin cable, hot swap",
-      "text": "The wide ribbon cable had been in PCs since 1986 and blocked airflow across the whole case. SATA replaced forty wires with seven.",
-      "url": "https://en.wikipedia.org/wiki/SATA"
+      "url": "https://en.wikipedia.org/wiki/SATA",
+      "text": "The wide ribbon cable had been in PCs since 1986 and blocked airflow across the entire case, which mattered more each year as components got hotter. SATA replaced forty wires with seven, sent data one bit at a time at a much higher rate, and allowed drives to be connected and disconnected while the machine was running."
     },
     {
       "type": "entry",
       "year": 2003,
       "name": "Western Digital Raptor",
       "spec": "36 GB, 10,000 rpm, ~5.2 ms seek, 72 MB/s",
-      "text": "A server drive sold to enthusiasts, spinning at 10,000 rpm to cut the wait for the platter to come round. Expensive, small, loud, and the fastest storage available to a desktop for several years.",
-      "url": "https://en.wikipedia.org/wiki/Western_Digital_Raptor"
+      "url": "https://en.wikipedia.org/wiki/Western_Digital_Raptor",
+      "text": "A server drive sold to enthusiasts, spinning at 10,000 rpm to cut the wait for the platter to come round. Expensive, small, hot and loud, and the fastest storage available to a desktop for several years. It is the clearest illustration of how hard mechanical storage had to work for a modest gain: nearly 40 percent more rotational speed bought about 40 percent off the seek time, and that was the last such gain available."
+    },
+    {
+      "type": "entry",
+      "year": 2004,
+      "name": "Native Command Queuing",
+      "spec": "Drive reorders up to 32 pending requests",
+      "url": "https://en.wikipedia.org/wiki/Native_Command_Queuing",
+      "text": "The drive is allowed to answer requests out of order, choosing a sequence that requires less arm movement, in the same way a lift serves the floors it passes rather than in the order the buttons were pressed. This helps a mechanical drive noticeably and a solid state drive not at all, because an SSD has nothing to reorder movement for."
     },
     {
       "type": "entry",
       "year": 2007,
-      "name": "First consumer SSDs",
-      "spec": "32 to 64 GB, ~$10 per GB",
-      "text": "Early drives were small, costly, and some were slower than a hard disk at sustained writing because the controllers were poor. The response time was already in a different league.",
-      "url": "https://en.wikipedia.org/wiki/Solid-state_drive"
+      "name": "First consumer SSDs, and the stuttering problem",
+      "key": true,
+      "spec": "32 to 64 GB, roughly $10 per GB",
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "Early drives were small, costly, and some were worse than a hard disk in ordinary use. A widely used budget controller would freeze for up to a second when handling many small writes, so a machine that looked excellent in a benchmark would stall while you typed. The lesson is one that keeps returning in storage: peak sequential speed, the number on the box, describes copying one huge file, and almost nothing you do day to day looks like that."
     },
     {
       "type": "entry",
@@ -149,75 +238,170 @@
       "name": "Intel X25-M",
       "key": true,
       "spec": "80 GB, SATA, 250 MB/s read, 0.085 ms access",
-      "text": "The drive that made solid state storage credible. Its controller handled many requests at once instead of queueing them, and access time was roughly a hundred times better than any hard disk. Upgrading to one made an old computer feel new in a way no processor upgrade did.",
-      "url": "https://en.wikipedia.org/wiki/Solid-state_drive"
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "The drive that made solid state storage credible. Its controller handled many requests in parallel instead of queueing them, so it stayed fast under exactly the messy small-file load that broke its competitors. Access time was roughly a hundred times better than any hard disk. Fitting one to an existing computer made it feel new in a way no processor upgrade ever did, and this is the single most cost-effective upgrade in the history of the PC."
+    },
+    {
+      "type": "entry",
+      "year": 2009,
+      "name": "TRIM, and why an SSD needs telling",
+      "key": true,
+      "spec": "Operating system tells the drive which blocks are no longer in use",
+      "url": "https://en.wikipedia.org/wiki/Trim_(computing)",
+      "text": "Flash cannot overwrite data directly. It must erase a whole block before writing to any part of it, and erasing is slow. When you delete a file, the operating system normally just forgets about it and leaves the data there, which means the drive still believes those blocks are full and cannot prepare them in advance. TRIM tells the drive what has actually been deleted so it can erase in the background. Without it, early SSDs got slower the longer you owned them, which owners found alarming and which no hard disk had ever done."
     },
     {
       "type": "entry",
       "year": 2009,
       "name": "SATA 6 Gb/s",
       "spec": "600 MB/s",
-      "text": "Doubling the interface speed bought a few years. Flash memory was about to outgrow a connector designed around spinning disks.",
-      "url": "https://en.wikipedia.org/wiki/SATA"
+      "url": "https://en.wikipedia.org/wiki/SATA",
+      "text": "Doubling the interface speed bought a few years. Flash memory was about to outgrow a connector and a command set designed entirely around spinning disks."
     },
     {
       "type": "era",
-      "years": "2013 to 2025",
-      "title": "Straight into the processor's own lanes",
-      "text": "SATA was built for devices that took milliseconds to answer, so its command system assumed the drive was the slow part. NVMe threw that out and let a drive connect directly to the PCI Express lanes the processor uses for graphics, with thousands of parallel request queues instead of one."
+      "years": "2011 to 2016",
+      "title": "Cheaper flash, worse flash, and a flood in Thailand",
+      "text": "Making flash cheaper meant storing more bits in each cell, and every step in that direction costs speed and lifespan. Making it denser meant stacking it vertically once shrinking stopped working, which is the same wall processors hit. In the middle of all this, a natural disaster showed how concentrated the supply chain for mechanical drives had become."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "The Thailand floods",
+      "key": true,
+      "spec": "Roughly 45 percent of world hard drive production affected, prices roughly doubled",
+      "url": "https://en.wikipedia.org/wiki/2011_Thailand_floods",
+      "text": "Monsoon flooding submerged industrial estates where a large share of the world's hard drives and drive components were made. Prices roughly doubled within weeks and took until 2013 to recover. Nothing about the technology had changed. It is the clearest available example of how concentrated manufacturing creates risk that no amount of engineering addresses, and it is worth setting beside the chip shortage that hit graphics cards a decade later."
+    },
+    {
+      "type": "entry",
+      "year": 2011,
+      "name": "The 2.2 TB partition barrier",
+      "spec": "32-bit sector addresses in the master boot record",
+      "url": "https://en.wikipedia.org/wiki/GUID_Partition_Table",
+      "text": "The partition table format dating from 1983 numbered sectors with 32 bits, which at 512 bytes each stops at 2.2 terabytes. Drives passed that size and would appear as 2.2 TB with the rest invisible. The replacement, GPT, uses 64-bit addresses and needs UEFI rather than a BIOS to boot from, which is one of the reasons UEFI replaced BIOS when it did. The third instance of the same lesson on this page."
+    },
+    {
+      "type": "entry",
+      "year": 2012,
+      "name": "SLC, MLC, TLC and QLC",
+      "key": true,
+      "spec": "1 to 4 bits per cell, each step cheaper, slower and less durable",
+      "url": "https://en.wikipedia.org/wiki/Multi-level_cell",
+      "text": "A flash cell stores charge, and you can either treat it as full or empty, giving one bit, or measure the level more finely to squeeze in more. Four bits per cell means distinguishing sixteen charge levels in a component that leaks slightly over time and wears with every erase. So each step roughly halves the cost per gigabyte and costs you write speed, and drops endurance from around 100,000 erase cycles for single level down to around 1,000 for four. This is why two drives of the same advertised capacity and interface can behave completely differently, and why the cheap one slows to a crawl once you write more than a few gigabytes at once."
+    },
+    {
+      "type": "entry",
+      "year": 2013,
+      "name": "3D NAND",
+      "spec": "Cells stacked vertically, 24 layers rising to over 200",
+      "url": "https://en.wikipedia.org/wiki/Flash_memory",
+      "text": "Shrinking flash cells further was making them unreliable, because a smaller cell holds fewer electrons and the difference between a one and a zero gets harder to measure. The answer was to stop shrinking and start stacking, building upwards in layers. It is exactly the move processors made with chiplets and stacked cache: when going smaller stops working, go three-dimensional."
     },
     {
       "type": "entry",
       "year": 2013,
       "name": "NVMe and M.2",
       "key": true,
-      "spec": "PCIe lanes, 64K queues, no cable",
-      "text": "M.2 is the small slot on the board, NVMe is the language spoken over it. Together they removed the cable, the separate power connector and the drive bay, and the whole drive became a stick the size of a stick of gum.",
-      "url": "https://en.wikipedia.org/wiki/NVM_Express"
+      "spec": "PCIe lanes, up to 64K queues, no cable",
+      "url": "https://en.wikipedia.org/wiki/NVM_Express",
+      "text": "SATA's command set assumed the drive was the slow part and could only manage one queue of 32 commands, which was generous for a mechanical drive and absurd for flash that can serve thousands of requests at once. NVMe threw that out and let the drive speak directly over the PCI Express lanes the processor uses for graphics. M.2 is the physical slot, NVMe is the language. Together they removed the cable, the power lead and the drive bay, and storage became a stick the size of a stick of gum."
+    },
+    {
+      "type": "entry",
+      "year": 2014,
+      "name": "The Samsung 840 EVO read slowdown",
+      "key": true,
+      "spec": "Data older than a few weeks read at a fraction of full speed",
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "Owners found that files left untouched for a month or two read many times slower than recent ones. The charge in the cells was drifting slightly over time, so the drive had to work harder to read them correctly. Samsung issued a firmware fix that periodically rewrote old data, then had to issue another when the first did not fully solve it. It is a good demonstration that flash is not permanent in the way a magnetised platter is, and that a drive left in a drawer for years is not a reliable archive."
     },
     {
       "type": "entry",
       "year": 2015,
       "name": "Samsung 950 Pro",
       "spec": "512 GB, PCIe 3.0 x4, 2,500 MB/s read, 0.05 ms",
-      "text": "Five times the sequential speed of the fastest SATA drive, in a smaller package that needed no cable.",
-      "url": "https://en.wikipedia.org/wiki/NVM_Express"
+      "url": "https://en.wikipedia.org/wiki/NVM_Express",
+      "text": "Five times the sequential speed of the fastest SATA drive, in a smaller package needing no cable. This is the point where the interface stopped being the bottleneck and the flash itself became one."
     },
     {
       "type": "entry",
-      "year": 2018,
-      "name": "Samsung 970 EVO Plus",
-      "spec": "1 TB, PCIe 3.0 x4, 3,500 MB/s read, 0.05 ms",
-      "text": "The point where NVMe drives became the default rather than the upgrade, because the price per gigabyte had fallen close to SATA.",
-      "url": "https://en.wikipedia.org/wiki/NVM_Express"
+      "year": 2015,
+      "name": "3D XPoint and Optane",
+      "key": true,
+      "spec": "Faster than flash, slower than RAM, discontinued in 2022",
+      "url": "https://en.wikipedia.org/wiki/3D_XPoint",
+      "text": "Intel and Micron announced a genuinely new kind of memory sitting between RAM and storage: far faster to respond than flash, far denser than RAM, and not needing to be erased in blocks. Technically it delivered. Commercially it never found a place, because it cost several times what flash did while ordinary SSDs kept getting cheaper and fast enough, and software would have needed rewriting to exploit what made it special. Intel wound the business down in 2022 after losing billions. File it beside RDRAM and Itanium: a better technology can lose to a good enough one that is already cheap and already supported."
+    },
+    {
+      "type": "era",
+      "years": "2020 to 2025",
+      "title": "Fast enough to redesign software around, and a lesson in reading the label",
+      "text": "Storage stopped being the obvious bottleneck, which changed how games and consoles are built. At the same time the industry produced two of its clearest cases of the thing in the box not matching the thing on the box, both of which are worth studying carefully."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "The undisclosed SMR drives",
+      "key": true,
+      "spec": "Shingled recording quietly used in drives sold for normal use",
+      "url": "https://en.wikipedia.org/wiki/Shingled_magnetic_recording",
+      "text": "Shingled magnetic recording overlaps tracks like roof tiles to fit more data on a platter. The cost is that changing anything means rewriting neighbouring tracks, so writes can slow to a crawl. Western Digital, Seagate and Toshiba had all put these drives into ranges sold for ordinary and network storage use without saying so. Users discovered it when rebuilding a failed array took days instead of hours, or failed entirely. All three eventually published which models were affected. The technology is fine for the right job; selling it for the wrong one without disclosure is the problem, and it is the best example on this page of why an identical model number does not guarantee an identical product."
+    },
+    {
+      "type": "entry",
+      "year": 2020,
+      "name": "Consoles designed around fast storage",
+      "spec": "PlayStation 5 at 5.5 GB/s raw, custom decompression hardware",
+      "url": "https://en.wikipedia.org/wiki/PlayStation_5",
+      "text": "The current console generation assumes assets can be pulled off storage while you play, rather than loaded up front behind a progress bar. That assumption changes level design, because a world no longer has to fit in memory all at once, and it is why lifts and long corridors are disappearing from games. It also set the floor for PC requirements, which is why an SSD moved from recommended to required."
+    },
+    {
+      "type": "entry",
+      "year": 2021,
+      "name": "Component swaps after review",
+      "key": true,
+      "spec": "Controllers and flash changed without a model number change",
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "Several manufacturers were found to have changed the controller or the flash inside drives after reviewers had tested and recommended them, in some cases with measurably worse performance, while keeping the same name and packaging. A few also quietly removed the small DRAM cache that helps a drive track where everything is. Some companies changed the model number afterwards under pressure. The practical lesson for anyone buying a drive is that a review is a test of one specific sample at one point in time, and the useful habit is checking the exact part revision rather than the name."
     },
     {
       "type": "entry",
       "year": 2021,
       "name": "WD Black SN850",
       "spec": "2 TB, PCIe 4.0 x4, 7,000 MB/s read",
-      "text": "Fast enough that games began to be designed assuming assets could be streamed from storage during play rather than loaded up front. The consoles released in 2020 made the same assumption.",
-      "url": "https://en.wikipedia.org/wiki/NVM_Express"
+      "url": "https://en.wikipedia.org/wiki/NVM_Express",
+      "text": "Fast enough that the processor became the limit when unpacking compressed game data, which is what Microsoft's DirectStorage addresses by handing the decompression to the graphics card instead."
     },
     {
       "type": "entry",
       "year": 2023,
       "name": "Crucial T700",
-      "spec": "4 TB, PCIe 5.0 x4, 12,400 MB/s read",
-      "text": "These drives need heatsinks. A component with no moving parts now produces enough heat to require the same cooling treatment as a processor did in 1995.",
-      "url": "https://en.wikipedia.org/wiki/PCI_Express"
+      "spec": "4 TB, PCIe 5.0 x4, 12,400 MB/s read, heatsink required",
+      "url": "https://en.wikipedia.org/wiki/PCI_Express",
+      "text": "These drives need heatsinks and will slow themselves down if they get too hot. A component with no moving parts now requires the same cooling treatment a processor did in 1995, and the fastest ones are placed under the graphics card, which is the hottest part of the case."
+    },
+    {
+      "type": "entry",
+      "year": 2024,
+      "name": "Hard drives are not finished",
+      "spec": "Helium filled, 24 to 32 TB, HAMR shipping",
+      "url": "https://en.wikipedia.org/wiki/Heat-assisted_magnetic_recording",
+      "text": "Mechanical drives lost the speed argument completely and still win decisively on cost per terabyte, which is why the cloud services everyone's data sits in are still built on them. Modern ones are sealed with helium, which is less dense than air so the platters meet less resistance and can be packed closer together. Heat-assisted recording uses a tiny laser to warm the surface at the moment of writing, allowing a more stable magnetic material to be used. A technology being obsolete for your use is not the same as being obsolete."
     },
     {
       "type": "entry",
       "year": 2025,
       "name": "Where the bottleneck went",
+      "key": true,
       "spec": "~12,000 MB/s sequential, ~0.04 ms access",
-      "text": "Sequential speed has improved about four thousand times since 1994. Access time has improved about three hundred and fifty times, and almost all of that came from one change, which was deleting the moving parts."
+      "url": "https://en.wikipedia.org/wiki/Solid-state_drive",
+      "text": "Sequential speed has improved about four thousand times since 1994. Access time has improved about three hundred and fifty times, and nearly all of that came from one change, which was deleting the moving parts. Everything else on this page, faster interfaces, more bits per cell, more layers, is refinement around that single step."
     },
     {
       "type": "era",
       "title": "The same file, four decades apart",
-      "text": "Pick a file size and two drives. The bars run at the drives' real measured speeds, with a seek penalty added for anything with an arm to move."
+      "text": "Pick a file size and two drives. The bars run at the drives' real measured speeds, with a seek penalty added for anything with an arm to move. The clock counts simulated time, compressed so the slowest run takes about twelve seconds."
     },
     {
       "type": "interactive",
@@ -285,6 +469,11 @@
           "seekMs": 0
         }
       ]
+    },
+    {
+      "type": "era",
+      "title": "What to take from this",
+      "text": "Three things recur. Limits usually turn out to be in how something was counted rather than in the hardware, which is the 528 megabyte, 137 gigabyte and 2.2 terabyte barriers and also the 640 kilobyte and 4 gigabyte memory ceilings. The number on the box describes the best case and almost never the case you are in, which is peak sequential speed against small random writes. And what is inside a box with a given label can change without warning, which is why SMR drives and swapped controllers matter more to a buyer than any specification on this page."
     },
     {
       "type": "link",
