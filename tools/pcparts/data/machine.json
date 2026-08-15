@@ -1,7 +1,7 @@
 {
   "machine": {
-    "name": "Desktop PC, 2025",
-    "note": "A micro ATX build with a liquid cooled processor. Nothing here is exotic; every part is something you could buy off a shelf this year."
+    "name": "Desktop PC, 2026",
+    "note": "A modern micro ATX build with a liquid cooled processor."
   },
   "parts": [
     {
@@ -12,7 +12,7 @@
       "blockedBy": [],
       "linkText": null,
       "body": [
-        "For the first thirty years of the PC, the box was beige steel and the point was to never open it. Glass panels arrived once builders started treating the inside as something worth looking at, and once cooling shifted from one small fan to a managed flow of air through the whole case."
+        "For the first thirty years of the PC, the box was beige steel and most people never opened it. Acrylic and glass panels arrived once builders started treating the inside as something worth looking at. Some people still prefer a solid panel, and call builds with a window 'fishbowls'."
       ],
       "topic": null
     },
@@ -34,7 +34,7 @@
     {
       "id": "part-cpu",
       "label": "Processor",
-      "spec": "8 cores, 16 threads, 5.2 GHz boost, 4 nm",
+      "spec": "Intel i9-13900K, 8 cores, 16 threads, 3.0 GHz base5.4 GHz boost",
       "removable": false,
       "blockedBy": [
         "case-glass",
@@ -50,7 +50,7 @@
     {
       "id": "part-ram",
       "label": "Memory",
-      "spec": "32 GB DDR5, 6000 MT/s, four slots filled",
+      "spec": "64 GB DDR5 (4x 16 GB), 6000 MT/s, four slots filled",
       "removable": false,
       "blockedBy": [
         "case-glass"
@@ -58,14 +58,14 @@
       "linkText": "From kilobytes to gigabytes",
       "body": [
         "Memory, or RAM, holds whatever the machine is working on right now. It is fast and temporary; switch the power off and everything in it is gone.",
-        "There are 32 gigabytes here. The original IBM PC shipped with 16 kilobytes, which is roughly two millionths of this. What changed is not only the amount but what the amount is for, since a single browser tab today can use more memory than an entire computer had in 1995."
+        "There are 64 gigabytes here. The original IBM PC shipped with 16 kilobytes, which is roughly two millionths of this. What changed is not only the amount but what the amount is for, since a single browser tab today can use more memory than an entire computer had in 1995."
       ],
       "topic": "memory"
     },
     {
       "id": "part-gpu",
       "label": "Graphics card",
-      "spec": "16 GB GDDR7, 250 W, PCIe 5.0 x16",
+      "spec": "AMD RX9070XT, 16 GB GDDR6, 304 W max power draw, PCIe 5.0 x16",
       "removable": true,
       "blockedBy": [
         "case-glass"

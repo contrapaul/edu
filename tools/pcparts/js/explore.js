@@ -184,40 +184,87 @@ const BUILD = {
   }
 };
 
-/* Images are captured by hand and dropped into assets/shots/. Until one
-   exists, the slot renders as a marked placeholder rather than a broken
-   image, so the page is complete either way. */
+/* Images are captured by hand and dropped into assets/shots/. They show as
+   small previews that open full size when clicked. Until one exists the slot
+   renders as a marked placeholder, so the page is complete either way.
+   `shot.note` is a reminder to whoever takes the picture and never renders. */
 function figure(shot) {
   const fig = document.createElement('figure');
   fig.className = 'shot';
 
   if (shot.src) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'shot-thumb';
+
     const img = document.createElement('img');
     img.src = `assets/shots/${shot.src}`;
-    img.alt = shot.alt || '';
+    img.alt = shot.alt || shot.slot || '';
     img.loading = 'lazy';
-    fig.append(img);
+    btn.append(img);
+    btn.addEventListener('click', () => openLightbox(shot));
+    fig.append(btn);
+
+    if (shot.caption) {
+      const cap = document.createElement('figcaption');
+      cap.textContent = shot.caption;
+      fig.append(cap);
+    }
   } else {
     const box = document.createElement('div');
     box.className = 'placeholder';
-    box.textContent = shot.slot || 'image';
-    fig.append(box);
-  }
 
-  if (shot.caption) {
-    const cap = document.createElement('figcaption');
-    cap.textContent = shot.caption;
-    fig.append(cap);
+    const msg = document.createElement('span');
+    msg.className = 'placeholder-msg';
+    msg.textContent = "I haven't taken a screenshot for this game yet";
+    box.append(msg);
+
+    if (shot.slot) {
+      const what = document.createElement('span');
+      what.className = 'placeholder-what';
+      what.textContent = shot.slot;
+      box.append(what);
+    }
+    fig.append(box);
   }
   return fig;
 }
+
+/* ── full size view ──────────────────────────────────── */
+
+const LIGHTBOX = document.getElementById('lightbox');
+const LIGHTBOX_IMG = document.getElementById('lightbox-img');
+const LIGHTBOX_CAP = document.getElementById('lightbox-caption');
+let lightboxOpener = null;
+
+function openLightbox(shot) {
+  lightboxOpener = document.activeElement;
+  LIGHTBOX_IMG.src = `assets/shots/${shot.src}`;
+  LIGHTBOX_IMG.alt = shot.alt || shot.slot || '';
+  LIGHTBOX_CAP.textContent = shot.caption || shot.slot || '';
+  LIGHTBOX.hidden = false;
+  document.getElementById('lightbox-close').focus();
+}
+
+function closeLightbox() {
+  if (LIGHTBOX.hidden) return;
+  LIGHTBOX.hidden = true;
+  LIGHTBOX_IMG.removeAttribute('src');
+  if (lightboxOpener) lightboxOpener.focus();
+}
+
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+LIGHTBOX.addEventListener('click', e => {
+  if (!e.target.closest('figure')) closeLightbox();
+});
 
 document.getElementById('explore-back').addEventListener('click', closeTopic);
 
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape' || OVERLAY.hidden) return;
-  // A pinned chart readout is the innermost thing open, so it gets the first
-  // Escape and this handler takes the next one.
+  // Innermost thing first: an open screenshot, then a pinned chart readout,
+  // and only then the exploration itself.
+  if (!LIGHTBOX.hidden) return closeLightbox();
   if (OVERLAY.querySelector('.chart-tip[data-pinned]')) return;
   closeTopic();
 });

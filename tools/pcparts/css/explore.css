@@ -172,30 +172,59 @@ figure.shot {
   grid-column: 2;
 }
 
-figure.shot img {
+/* Previews are small on purpose; clicking one opens it full size. */
+.shot-thumb {
   display: block;
-  width: 100%;
-  max-width: 34rem;
+  padding: 0;
   border: 1px solid var(--line);
   border-radius: 3px;
   background: var(--panel-alt);
+  cursor: zoom-in;
+  overflow: hidden;
+  transition: border-color var(--ease), transform var(--ease);
+}
+
+.shot-thumb:hover,
+.shot-thumb:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* No percentage max-width here: the button shrinks to fit the image, so a
+   width relative to the parent is circular and collapses to nothing. */
+.shot-thumb img {
+  display: block;
+  height: 9rem;
+  width: auto;
 }
 
 figure.shot .placeholder {
   display: grid;
   place-items: center;
-  width: 100%;
-  max-width: 34rem;
+  gap: 0.3rem;
+  width: 16rem;
+  max-width: 100%;
   aspect-ratio: 4 / 3;
   border: 1px dashed var(--line);
   border-radius: 3px;
   background: repeating-linear-gradient(
     45deg, #10141c, #10141c 8px, #0d1119 8px, #0d1119 16px);
-  color: var(--dimmer);
-  font-family: var(--mono);
-  font-size: 0.7rem;
   text-align: center;
   padding: 1rem;
+}
+
+.placeholder-msg {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--dim);
+}
+
+.placeholder-what {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  line-height: 1.4;
+  color: var(--dimmer);
 }
 
 figure.shot figcaption {
@@ -254,3 +283,70 @@ figure.shot figcaption {
 
 .entry-name a:hover::after,
 .entry-name a:focus-visible::after { color: var(--accent); }
+
+/* ── screenshot at full size ─────────────────────────── */
+
+.lightbox {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 3rem 2rem;
+  background: rgba(5, 7, 11, 0.92);
+  cursor: zoom-out;
+  animation: lightbox-in 140ms ease-out;
+}
+
+.lightbox[hidden] { display: none; }
+
+@keyframes lightbox-in { from { opacity: 0; } to { opacity: 1; } }
+
+.lightbox figure {
+  margin: 0;
+  cursor: default;
+}
+
+/* Sized against the viewport rather than the parent, for the same reason. */
+.lightbox img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: calc(100vh - 9rem);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+.lightbox figcaption {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--dim);
+  margin-top: 0.7rem;
+  text-align: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color var(--ease), border-color var(--ease);
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible { color: var(--accent); border-color: var(--accent); outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox { animation: none; }
+  .shot-thumb { transition: none; }
+}

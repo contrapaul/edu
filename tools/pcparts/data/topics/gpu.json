@@ -27,7 +27,7 @@
       "url": "https://en.wikipedia.org/wiki/Color_Graphics_Adapter",
       "shot": {
         "slot": "CGA game, 4 colour palette",
-        "caption": "Placeholder. Capture from a CGA title or an accurate emulator."
+        "note": "Capture from a CGA title or an accurate emulator."
       },
       "text": "Four colours at once, chosen from two fixed palettes that were both unpleasant. The famous one is black, cyan, magenta and white, which is why so many early PC games look faintly radioactive. Developers found ways around it: connecting a CGA card to a television through its composite output made the signal blur in a predictable way, and by placing certain patterns of dots side by side they could produce around sixteen apparent colours IBM never designed in. That trick is called composite artifact colour, and it is a good example of programmers exploiting the flaws of hardware rather than its features."
     },
@@ -46,8 +46,7 @@
       "spec": "640 x 350, 16 colours from a palette of 64, 128 KB",
       "url": "https://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter",
       "shot": {
-        "slot": "EGA game, 16 colours",
-        "caption": "Placeholder."
+        "slot": "EGA game, 16 colours"
       },
       "text": "Sixteen colours on screen at once, chosen from sixty-four. This is roughly the point at which games stopped looking like diagrams and started looking like illustrations, and it is where PC games began to catch up with the home computers that had been beating them on graphics for years."
     },
@@ -60,7 +59,7 @@
       "url": "https://en.wikipedia.org/wiki/Video_Graphics_Array",
       "shot": {
         "slot": "VGA game, 256 colours",
-        "caption": "Placeholder. The 320x200x256 mode is the one to show."
+        "note": "The 320x200x256 mode is the one to show."
       },
       "text": "The most important entry on this page. 640 x 480 became the floor every PC supported for the next twenty years, and the 256 colour mode gave artists enough range to draw properly shaded images by hand. Its 320 x 200 mode was cheap enough on memory that games could redraw the whole screen many times a second, which is what made the golden age of DOS gaming possible. A PC today still boots into a VGA-compatible mode before the real driver loads, which means every graphics card sold in 2025 still pretends to be this one for the first few seconds after you press the power button."
     },
@@ -93,8 +92,7 @@
       "spec": "320 x 200, 70 frames per second on a 386",
       "url": "https://en.wikipedia.org/wiki/Wolfenstein_3D",
       "shot": {
-        "slot": "Wolfenstein 3D or Doom, software rendered",
-        "caption": "Placeholder."
+        "slot": "Wolfenstein 3D or Doom, software rendered"
       },
       "text": "Not a card, but the reason the next ones existed. This and Doom in 1993 proved there was enormous demand for 3D, and both did every calculation on the main processor using tricks that avoided real 3D maths entirely. Wolfenstein's walls are all the same height and meet at right angles, and Doom's levels cannot have one room above another, because those restrictions let the renderer skip work it could not afford. When you see a limitation in an old game, it is usually a performance decision rather than a lack of imagination."
     },
@@ -132,7 +130,7 @@
       "url": "https://en.wikipedia.org/wiki/Voodoo_Graphics",
       "shot": {
         "slot": "Same game software rendered vs Voodoo accelerated",
-        "caption": "Placeholder. A side by side is worth far more than either shot alone."
+        "note": "A side by side is worth far more than either shot alone."
       },
       "text": "It could not display a desktop. You kept your existing 2D card and ran a short cable from it into the Voodoo, which sat silent until a game started and then took over the screen with an audible relay click. What it did was bilinear texture filtering, which blends between the dots of a texture so a wall stays smooth as you walk towards it instead of dissolving into coloured blocks. Anyone who saw GLQuake running on one next to the software version remembers it. 3dfx also shipped its own programming interface, Glide, which was easier and faster than the alternatives, and that decision is what eventually killed the company."
     },
@@ -183,8 +181,7 @@
       "spec": "120 MHz, 32 MB SDR, 23M transistors, hardware transform and lighting",
       "url": "https://en.wikipedia.org/wiki/GeForce_256",
       "shot": {
-        "slot": "A 1999 or 2000 title with hardware T&L",
-        "caption": "Placeholder."
+        "slot": "A 1999 or 2000 title with hardware T&L"
       },
       "text": "NVIDIA coined the term graphics processing unit for this card, on the argument that it now did the geometry as well as the filling in. Until this point the processor calculated where every triangle sat in space and how brightly it was lit, then handed a flat list to the card. Moving that work onto the card freed the processor entirely and roughly doubled the number of triangles a game could afford. The marketing worked so well that GPU became the ordinary word for the part, which is a rare case of a company naming a whole category and having it stick."
     },
@@ -219,8 +216,7 @@
       "spec": "200 MHz, 64 MB, 57M transistors, DirectX 8 pixel and vertex shaders",
       "url": "https://en.wikipedia.org/wiki/GeForce_3_series",
       "shot": {
-        "slot": "Early shader effect, water or reflection",
-        "caption": "Placeholder."
+        "slot": "Early shader effect, water or reflection"
       },
       "text": "The first consumer card that ran developer-written programs per pixel. The programs were tiny by modern standards, a handful of instructions, but the principle was set. A modified version of this chip went into the original Xbox, which meant console developers were learning the same techniques at the same time, and console hardware has shaped what PC games assume ever since."
     },
@@ -276,7 +272,7 @@
       "url": "https://en.wikipedia.org/wiki/GeForce_8_series",
       "shot": {
         "slot": "Crysis, 2007",
-        "caption": "Placeholder. The card and the game that punished it."
+        "note": "The card and the game that punished it."
       },
       "text": "Separate hardware for vertex work and pixel work was replaced by one pool of general processors that could be pointed at either as needed. That solved a real waste problem, because a scene heavy on geometry left the pixel hardware idle and the other way round. It also, without anyone quite planning it, turned the graphics card into a machine for running thousands of copies of a small program at once, which is a description of far more than graphics. Everything in the next era follows from this card."
     },
@@ -376,8 +372,7 @@
       "spec": "1607 MHz, 8 GB GDDR5X, 7.2B transistors, 180 W",
       "url": "https://en.wikipedia.org/wiki/GeForce_10_series",
       "shot": {
-        "slot": "A 2016 title at 1440p or 4K",
-        "caption": "Placeholder."
+        "slot": "A 2016 title at 1440p or 4K"
       },
       "text": "A move to a 16 nm manufacturing process brought a large gain in both speed and efficiency, and made virtual reality headsets practical on hardware people could actually afford. These cards were still being sold second-hand at respectable prices five years later, which is unusual and says something about how the generations after them were priced."
     },
@@ -404,7 +399,7 @@
       "url": "https://en.wikipedia.org/wiki/GeForce_20_series",
       "shot": {
         "slot": "Ray traced reflections on and off",
-        "caption": "Placeholder. A comparison pair shows this better than a single frame."
+        "note": "A comparison pair shows this better than a single frame."
       },
       "text": "Separate hardware blocks for ray tracing and for the matrix arithmetic that machine learning uses. At launch almost no games used either, the price had risen sharply, and reviewers were openly unimpressed, which is the normal fate of hardware that ships before the software that needs it. The first version of DLSS, the upscaling feature, also looked noticeably blurry. Both were much better within two years, which raises a genuinely open question worth putting to students: was this a card sold on promises, or the necessary first step nobody else was willing to take?"
     },
@@ -490,8 +485,7 @@
       "spec": "2410 MHz, 32 GB GDDR7, 92B transistors, 575 W",
       "url": "https://en.wikipedia.org/wiki/GeForce_50_series",
       "shot": {
-        "slot": "Current title, path traced",
-        "caption": "Placeholder."
+        "slot": "Current title, path traced"
       },
       "text": "Close to 600 watts for one component, roughly nine times the entire power budget of the 1981 IBM PC. A meaningful share of what appears on screen is now generated by a model rather than drawn by the renderer, and the honest way to describe a modern frame rate has become an open argument between manufacturers, reviewers and players."
     },

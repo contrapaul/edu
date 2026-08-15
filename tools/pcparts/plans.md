@@ -194,11 +194,32 @@ Upper middle and high school. Correct terminology, defined where it first
 appears. No labels on self evident controls. Full thoughts rather than
 one clause facts.
 
+## Screenshots
+
+A `shot` on an entry has three fields:
+
+| Field | Use |
+|---|---|
+| `src` | filename in `assets/shots/`. Absent means the slot is still empty |
+| `slot` | what the picture will show, seen in the placeholder |
+| `caption` | the real caption, seen under the preview once `src` exists |
+| `note` | a reminder about how to capture it. **Never rendered** |
+
+With a `src` the image shows as a small preview that opens full size when
+clicked, closed by Escape, the close button or clicking away. Without one the
+slot renders a dashed box reading "I haven't taken a screenshot for this game
+yet" plus the `slot` line, so the page is complete either way.
+
+The preview is sized by a fixed height and the full size view by viewport
+units rather than a percentage of the parent. The lightbox centres its figure
+with `place-items: center`, so the figure shrinks to fit the image and a
+percentage width there would be measured against a width that depends on the
+image itself. Viewport units also cap it against the window, which is what
+matters in that view.
+
 ## Known gaps
 
-- Images are placeholders. Eleven slots are marked in the graphics topic and
-  render as a labelled dashed box until a file is dropped into
-  `assets/shots/` and named in the topic JSON.
+- Images are placeholders. Eleven slots are marked in the graphics topic.
 - Specs are drafted and need review. Sources come in a later pass.
 - A tower drawn side on is roughly square, and a monitor is not, so the diagram
   letterboxes on a widescreen display. Either the drawing gets a wider scene or
