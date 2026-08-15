@@ -14,9 +14,12 @@ practice". Everything on the site serves that question.
 ## Structure
 
 One modern desktop is the entry point, filling the page. Clicking a part opens
-a popup over the machine with a short description and a link into that
-component's own page, and the part then disappears, so the case empties out as
-the student works through it. A faint tray in the corner puts parts back. The
+a popup **beside that part**, not in a fixed corner, with the link into its
+topic as the first thing in the panel and the first tab stop. Both of those
+exist to keep the mouse near where it already was. `placePanel` in
+`js/views/tip.js` puts it on whichever side has room and centres it on the
+part, falling back to the middle when neither side fits. If a part is removable
+it then disappears, so the case empties out as the student works through it. A faint tray in the corner puts parts back. The
 stripped down state is saved to `localStorage` under `pcparts-removed`, so a
 student returning after a lesson picks up where they left off.
 
@@ -36,13 +39,20 @@ nothing outside this directory is a dependency.
 Nothing in this directory should be lifted into the shared stylesheet, and
 shared site files must not be edited to serve this tool.
 
-Everything is on one page. Explorations open as a full overlay over the
-machine and close back to it. There are no secondary HTML documents and no
-links off the page except the one back to `/tools`.
+Everything is on one page. Explorations open as a panel with open margins over
+a blurred machine, and close back to it. There are no secondary HTML documents
+and no links off the page except the one back to `/tools`.
+
+Three ways out of an exploration: Escape, the link in its header, and clicking
+the margin around the panel. The blur is deliberately light so the machine
+stays readable behind it, since seeing what you would return to is what says
+the margin is live. Escape resolves innermost first: an open screenshot, then a
+pinned chart readout, then the exploration.
 
 ```
 tools/pcparts/
   index.html              the whole site
+  js/circuit.js           generated trace backdrop
   assets/pc.svg           layered diagram, generated from assets/source/
   data/machine.json       parts, occlusion rules, popup copy
   data/topics/*.json      the nine explorations
@@ -68,6 +78,24 @@ adding any. Redirects are fine, missing pages are not.
 
 Because content is data and rendering is a module, any topic could be mounted
 in a standalone page later without rewriting a word of it.
+
+## The backdrop
+
+`js/circuit.js` generates the circuit traces behind the machine: horizontal,
+vertical and 45 degree runs only, turning an eighth at a time and ending in a
+via, from a fixed seed so the layout is the same on every visit. Each trace
+carries `pathLength="100"`, so the travelling dash is written in percentages
+and no path has to be measured.
+
+Every click on the machine advances the colour one step through a loop of
+twelve hues, blue through green, yellow, orange, red and back round. The
+change is a fade, not a snap: the strokes read their colour from custom
+properties through `var()`, so changing a property re-computes `stroke` and
+the declared 1.4s transition interpolates. This needs no `@property`
+registration and works everywhere.
+
+The layer is behind the machine, ignores the pointer, and pauses its
+animations while an exploration is over the top.
 
 ## The diagram
 

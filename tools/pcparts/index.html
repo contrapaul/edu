@@ -27,8 +27,10 @@
   <p class="stage-loading">Loading</p>
 
   <div class="detail" id="detail" role="dialog" aria-labelledby="detail-title" tabindex="-1" hidden>
-    <button class="detail-close" id="detail-close" aria-label="Close">&#10005;</button>
     <div id="detail-body"></div>
+    <!-- After the body in the markup so the explore link is the first tab
+         stop; CSS puts it back in the top corner. -->
+    <button class="detail-close" id="detail-close" aria-label="Close">&#10005;</button>
   </div>
 
   <div class="chart-tip machine-tip" id="machine-tip" hidden>
@@ -41,13 +43,15 @@
 </div>
 
 <div class="explore" id="explore" role="dialog" aria-labelledby="explore-title" hidden>
-  <header class="explore-bar">
-    <h2 id="explore-title"></h2>
-    <span class="explore-span" id="explore-span"></span>
-    <button type="button" class="explore-back" id="explore-back">Back to the machine</button>
-  </header>
-  <div class="explore-scroll" id="explore-scroll">
-    <div class="explore-inner" id="explore-inner"></div>
+  <div class="explore-panel">
+    <header class="explore-bar">
+      <h2 id="explore-title"></h2>
+      <span class="explore-span" id="explore-span"></span>
+      <button type="button" class="explore-back" id="explore-back">Back to the machine</button>
+    </header>
+    <div class="explore-scroll" id="explore-scroll">
+      <div class="explore-inner" id="explore-inner"></div>
+    </div>
   </div>
 
   <div class="lightbox" id="lightbox" role="dialog" aria-label="Screenshot" hidden>
@@ -59,6 +63,7 @@
   </div>
 </div>
 
+<script type="module" src="js/circuit.js"></script>
 <script type="module" src="js/machine.js"></script>
 </body>
 </html>

@@ -260,6 +260,14 @@ LIGHTBOX.addEventListener('click', e => {
 
 document.getElementById('explore-back').addEventListener('click', closeTopic);
 
+/* The margins around the panel are a way out. The picture viewer sits over the
+   whole overlay and handles its own clicks, so it gets first refusal. */
+OVERLAY.addEventListener('click', e => {
+  if (!LIGHTBOX.hidden) return;
+  if (e.target.closest('.explore-panel')) return;
+  closeTopic();
+});
+
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape' || OVERLAY.hidden) return;
   // Innermost thing first: an open screenshot, then a pinned chart readout,

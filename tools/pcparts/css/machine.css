@@ -21,23 +21,57 @@ body.pc-machine {
     radial-gradient(ellipse 90% 70% at 50% 42%, #171d27 0%, #0a0c11 72%);
 }
 
-/* faint technical grid, sits under the machine */
-.stage::before {
-  content: "";
+/* ── circuit backdrop ────────────────────────────────── */
+
+.circuit {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(var(--line-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
-  background-size: 46px 46px;
-  opacity: 0.5;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, #000 30%, transparent 78%);
+  z-index: 0;
+  overflow: hidden;
   pointer-events: none;
+  mask-image: radial-gradient(ellipse 78% 78% at 50% 46%, #000 35%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 46%, #000 35%, transparent 88%);
 }
 
-.stage svg {
+.circuit svg { display: block; width: 100%; height: 100%; }
+
+/* Every stroke reads its colour through a variable, so changing the variable
+   re-computes `stroke` and these transitions fade between the two. */
+.circuit path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+.t-glow  { stroke: var(--glow);  transition: stroke 1400ms ease; }
+.t-base  { stroke: var(--trace); transition: stroke 1400ms ease; animation: trace-breathe 9s ease-in-out infinite; }
+.t-via   { fill:   var(--via);   transition: fill   1400ms ease; }
+
+.t-pulse {
+  stroke: var(--pulse);
+  stroke-dasharray: 9 91;
+  transition: stroke 1400ms ease;
+  animation-name: trace-run;
+  animation-duration: var(--dur);
+  animation-delay: var(--delay);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Nothing to see while an exploration is over the top, so stop repainting. */
+body.is-exploring .t-pulse,
+body.is-exploring .t-base { animation-play-state: paused; }
+
+@keyframes trace-run {
+  from { stroke-dashoffset: 100; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes trace-breathe {
+  0%, 100% { opacity: 0.75; }
+  50%      { opacity: 1; }
+}
+
+/* The machine sits above the backdrop. */
+.stage #pc-diagram {
   position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
@@ -160,13 +194,12 @@ body.pc-machine {
 
 /* ── popup ───────────────────────────────────────────── */
 
+/* Positioned by placePanel, beside whichever part was clicked. No top or
+   right here, or it would fight the placement. */
 .detail {
   position: absolute;
   z-index: 3;
-  top: 50%;
-  right: 3rem;
-  transform: translateY(-50%);
-  width: min(430px, 40vw);
+  width: min(430px, calc(100% - 2rem));
   max-height: calc(100% - 3rem);
   overflow-y: auto;
   padding: 1.6rem 1.7rem 1.7rem;
@@ -180,8 +213,8 @@ body.pc-machine {
 }
 
 @keyframes detail-in {
-  from { opacity: 0; transform: translateY(calc(-50% + 8px)); }
-  to   { opacity: 1; transform: translateY(-50%); }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 
 .detail[hidden] { display: none; }
@@ -236,11 +269,12 @@ body.pc-machine {
   margin: 0 0 0.9rem;
 }
 
+/* First in the panel, so it sits in the corner nearest the part. */
 .detail-link {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.4rem;
+  margin: 0 2rem 1.1rem 0;
   padding: 0.55rem 1rem;
   background: transparent;
   border: 1px solid var(--accent-dk);
@@ -262,10 +296,12 @@ body.pc-machine {
 .detail-link::after { content: "\203A"; font-size: 1.2em; line-height: 1; }
 
 @media (max-width: 900px) {
-  .detail { right: 1rem; left: 1rem; width: auto; }
+  .detail { width: calc(100% - 2rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .t-pulse, .t-base { animation: none; }
+  .t-pulse { stroke-dasharray: none; opacity: 0.5; }
   #pc-diagram [id^="part-"],
   #pc-diagram #case-glass,
   .tray button,

@@ -11,7 +11,7 @@
  */
 
 import { openTopic } from './explore.js';
-import { placeTip } from './views/tip.js';
+import { placeTip, placePanel } from './views/tip.js';
 
 const STAGE = document.getElementById('stage');
 const TRAY = document.getElementById('tray');
@@ -193,6 +193,20 @@ function openDetail(part) {
   lastTarget = part._hit;
   DETAIL_BODY.textContent = '';
 
+  // The link goes first, so it lands in the corner nearest the part rather
+  // than at the end of the reading.
+  if (part.topic) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'detail-link';
+    btn.textContent = part.linkText;
+    btn.addEventListener('click', () => {
+      closeDetail();
+      openTopic(part.topic, part._hit);
+    });
+    DETAIL_BODY.append(btn);
+  }
+
   const h = document.createElement('h2');
   h.id = 'detail-title';
   h.textContent = part.label;
@@ -209,20 +223,8 @@ function openDetail(part) {
     DETAIL_BODY.append(p);
   });
 
-  if (part.topic) {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'detail-link';
-    btn.textContent = part.linkText;
-    btn.addEventListener('click', () => {
-      closeDetail();
-      openTopic(part.topic, part._hit);
-    });
-    DETAIL_BODY.append(btn);
-  }
-
-  DETAIL.hidden = false;
   DETAIL.scrollTop = 0;
+  placePanel(DETAIL, part._hit, STAGE);
   DETAIL.focus();
 }
 

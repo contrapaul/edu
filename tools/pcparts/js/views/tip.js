@@ -43,3 +43,31 @@ export function placeTip(tip, target, container) {
   tip.style.left = `${x}px`;
   tip.style.top = `${y}px`;
 }
+
+/* A full panel is too tall to sit above its subject, so it goes beside it,
+ * on whichever side has room, vertically centred on the target. Keeping it
+ * next to the part is what stops the link in its corner being a long trip.
+ */
+export function placePanel(panel, target, container, gap = 18) {
+  panel.hidden = false;
+
+  const t = target.getBoundingClientRect();
+  const c = container.getBoundingClientRect();
+  const b = panel.getBoundingClientRect();
+
+  const roomRight = c.right - t.right;
+  const roomLeft = t.left - c.left;
+  const needed = b.width + gap + EDGE;
+
+  let x;
+  if (roomRight >= needed) x = t.right - c.left + gap;
+  else if (roomLeft >= needed) x = t.left - c.left - b.width - gap;
+  else x = (c.width - b.width) / 2;      // no room either side, so centre it
+  x = Math.max(EDGE, Math.min(x, c.width - b.width - EDGE));
+
+  let y = t.top + t.height / 2 - c.top - b.height / 2;
+  y = Math.max(EDGE, Math.min(y, c.height - b.height - EDGE));
+
+  panel.style.left = `${x}px`;
+  panel.style.top = `${y}px`;
+}
