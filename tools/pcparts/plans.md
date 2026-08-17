@@ -97,6 +97,19 @@ registration and works everywhere.
 The layer is behind the machine, ignores the pointer, and pauses its
 animations while an exploration is over the top.
 
+**Density and animation are separate settings, and only one of them costs.**
+`TRACES` is how many are drawn; `PULSING` is how many carry a travelling dash.
+Animating `stroke-dashoffset` cannot be handed to the compositor, so each
+animated path repaints its bounds every frame over a large area, while static
+traces are painted once and are then free.
+
+Measured on a 120 Hz display at devicePixelRatio 2. An early version drew 30
+traces with 60 animations and showed a 95th percentile frame time of 16.6 ms
+against an 8.3 ms budget, with a worst frame of 25 ms: visible stutter. At 26
+traces and 10 animations the frame times are identical whether the animation
+runs or is paused, with no frames over 10 ms. Raise `PULSING` only with a
+measurement to hand.
+
 ## The diagram
 
 `assets/pc.svg` is **generated** from Paul's drawing at

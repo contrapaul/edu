@@ -4,6 +4,13 @@
  * turning by one eighth at a time, ending in a via. A dim trace carries a
  * short bright dash that travels along it, which is the pulse.
  *
+ * Density and animation are separated on purpose. Animating stroke-dashoffset
+ * cannot be handed to the compositor, so every animated path repaints its
+ * bounds on every frame and those bounds are large. Static traces are painted
+ * once and cost nothing after that. An early version ran sixty animations and
+ * dropped frames on a 120 Hz display; raising PULSING is the change that costs,
+ * not raising TRACES.
+ *
  * Every path carries pathLength="100", so the dash pattern and the animation
  * can be written in percentages and no path has to be measured.
  *
@@ -14,7 +21,8 @@
 
 const W = 1600;
 const H = 1000;
-const TRACES = 30;
+const TRACES = 26;    // drawn once, then painted once: density is cheap
+const PULSING = 10;   // animated every frame: this is the number that costs
 
 /* Blue, teal, green, lime, yellow, amber, orange, red, magenta, violet, and
    round again. Each click moves on one step. */
@@ -41,7 +49,6 @@ function build(host) {
 function paint(layer, hue) {
   layer.style.setProperty('--trace', `hsl(${hue} 65% 42% / 0.34)`);
   layer.style.setProperty('--pulse', `hsl(${hue} 92% 68%)`);
-  layer.style.setProperty('--glow', `hsl(${hue} 90% 55% / 0.20)`);
   layer.style.setProperty('--via', `hsl(${hue} 70% 50% / 0.55)`);
 }
 
@@ -58,11 +65,13 @@ function draw() {
     const delay = (rand() * 12).toFixed(1);
     const width = rand() < 0.25 ? 3 : 2;
 
-    parts.push(
-      `<path class="t-glow" d="${d}" pathLength="100" stroke-width="${width * 3}"/>`,
-      `<path class="t-base" d="${d}" pathLength="100" stroke-width="${width}"/>`,
-      `<path class="t-pulse" d="${d}" pathLength="100" stroke-width="${width}"
+    parts.push(`<path class="t-base" d="${d}" pathLength="100" stroke-width="${width}"/>`);
+
+    // Only some traces carry a pulse. The rest are static and free.
+    if (i % Math.ceil(TRACES / PULSING) === 0) {
+      parts.push(`<path class="t-pulse" d="${d}" pathLength="100" stroke-width="${width}"
              style="--dur:${dur}s;--delay:-${delay}s"/>`);
+    }
 
     const [ex, ey] = pts[pts.length - 1];
     parts.push(`<circle class="t-via" cx="${ex.toFixed(0)}" cy="${ey.toFixed(0)}" r="${width * 2.4}"/>`);

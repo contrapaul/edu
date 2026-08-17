@@ -39,8 +39,7 @@ body.pc-machine {
    re-computes `stroke` and these transitions fade between the two. */
 .circuit path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-.t-glow  { stroke: var(--glow);  transition: stroke 1400ms ease; }
-.t-base  { stroke: var(--trace); transition: stroke 1400ms ease; animation: trace-breathe 9s ease-in-out infinite; }
+.t-base  { stroke: var(--trace); transition: stroke 1400ms ease; }
 .t-via   { fill:   var(--via);   transition: fill   1400ms ease; }
 
 .t-pulse {
@@ -55,17 +54,11 @@ body.pc-machine {
 }
 
 /* Nothing to see while an exploration is over the top, so stop repainting. */
-body.is-exploring .t-pulse,
-body.is-exploring .t-base { animation-play-state: paused; }
+body.is-exploring .t-pulse { animation-play-state: paused; }
 
 @keyframes trace-run {
   from { stroke-dashoffset: 100; }
   to   { stroke-dashoffset: 0; }
-}
-
-@keyframes trace-breathe {
-  0%, 100% { opacity: 0.75; }
-  50%      { opacity: 1; }
 }
 
 /* The machine sits above the backdrop. */
@@ -300,7 +293,7 @@ body.is-exploring .t-base { animation-play-state: paused; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .t-pulse, .t-base { animation: none; }
+  .t-pulse { animation: none; }
   .t-pulse { stroke-dasharray: none; opacity: 0.5; }
   #pc-diagram [id^="part-"],
   #pc-diagram #case-glass,
