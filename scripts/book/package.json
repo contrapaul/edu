@@ -1,0 +1,16 @@
+{
+  "name": "dp-book",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Author-side tool: builds a print PDF from the DP curriculum pages.",
+  "scripts": {
+    "build": "node build.js",
+    "pdf": "node build.js && python3 prepare-images.py && npm run pdf:student && npm run pdf:answers",
+    "pdf:student": "pagedjs-cli out/book-student.html -o out/dp-textbook.pdf",
+    "pdf:answers": "pagedjs-cli out/book-answers.html -o out/dp-answer-key.pdf"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "pagedjs-cli": "^0.4.3"
+  }
+}

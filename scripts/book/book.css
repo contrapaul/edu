@@ -1,0 +1,306 @@
+/* book.css — print layer over the site stylesheets.
+   Loaded after style.css and curriculum.css so the book keeps the site's
+   type and topic colours, and only page-oriented behaviour is overridden. */
+
+/* style.css names Lexend as --font-display but never declares it, so nothing
+   loads it. Undeclared families reach Chrome as system fonts, which it can
+   only embed as Type 3 (one vectorised subset per page). Declaring them here
+   both honours the intended typography and keeps the PDF small.
+   BOOK_FONT_DIR is rewritten to an absolute path at build time. */
+@font-face { font-family: 'Lexend'; font-weight: 300; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Lexend'; font-weight: 400; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Lexend'; font-weight: 500; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Lexend'; font-weight: 600; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Lexend'; font-weight: 700; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Lexend'; font-weight: 800; font-style: normal; font-display: block;
+  src: url('BOOK_FONT_DIR/Lexend-ExtraBold.woff2') format('woff2'); }
+
+@page {
+  size: A4;
+  margin: 20mm 18mm 22mm;
+
+  @bottom-center {
+    content: counter(page);
+    font-family: var(--font-body);
+    font-size: 9pt;
+    color: #999;
+  }
+  @top-right {
+    content: string(chapter-title);
+    font-family: var(--font-body);
+    font-size: 8.5pt;
+    color: #aaa;
+  }
+}
+
+@page :first { @top-right { content: none; } @bottom-center { content: none; } }
+@page cover  { margin: 0; @top-right { content: none; } @bottom-center { content: none; } }
+
+/* ── base ───────────────────────────────────────────────────────────── */
+html, .bk-body {
+  background: #fff !important;
+  color: #1a1a1a;
+  font-size: 9.6pt;
+  line-height: 1.5;
+}
+.bk-body p { orphans: 3; widows: 3; }
+
+/* Site chrome that has no meaning on paper. */
+.site-header, .site-footer, .topic-hero, .curr-toc, .topic-page-nav,
+.theme-toggle, .curr-chevron, .obj-chevron { display: none !important; }
+
+/* Everything the site collapses is open in the book. */
+.bk-open, .curr-body, .obj-body { display: block !important; }
+.quiz-answer, .p2-answer { display: block !important; }
+details { display: block !important; }
+summary { display: none !important; }
+
+/* CRITICAL: any scroll container is unfragmentable, so paged.js clips
+   everything past its first page. The site uses overflow-x on sections and
+   table wrappers for on-screen containment; on paper it must all flow. */
+.curr-main, .curr-section, .curr-body, .obj-body, .obj-list,
+.content-table-wrap, .bk-chapter {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Flatten the on-screen section card completely: no stripe, no card, no
+   indent. Accordion affordances mean nothing on paper. */
+.curr-section {
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-top: 5mm !important;
+  break-inside: auto;
+}
+.obj-section { border: none !important; background: none !important;
+  padding-left: 0 !important; padding-right: 0 !important; }
+
+/* ── cover ──────────────────────────────────────────────────────────── */
+.bk-cover {
+  page: cover;
+  break-after: page;
+  height: 297mm;
+  padding: 45mm 25mm 25mm;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-top: 12mm solid #2c5f6e;
+}
+.bk-cover-kicker { font-size: 11pt; letter-spacing: .18em; text-transform: uppercase; color: #6b7280; }
+.bk-cover-title  { font-size: 44pt; line-height: 1.05; margin: 12mm 0 0; letter-spacing: -.02em; }
+.bk-cover-sub    { font-size: 14pt; color: #4b5563; margin: 6mm 0 0; max-width: 110mm; }
+.bk-cover-meta   { margin-top: auto; font-size: 10.5pt; color: #6b7280; display: flex; justify-content: space-between; }
+
+/* ── contents ───────────────────────────────────────────────────────── */
+.bk-toc { break-after: page; }
+.bk-toc-heading { font-size: 24pt; margin: 0 0 8mm; }
+.bk-toc-list { list-style: none; padding: 0; margin: 0; counter-reset: toc; }
+.bk-toc-item a {
+  display: flex;
+  align-items: baseline;
+  gap: 4mm;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.6mm 0;
+  border-bottom: .3pt dotted #d4d4d4;
+}
+.bk-toc-code {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--c, #444);
+  min-width: 16mm;
+  font-size: 9.5pt;
+}
+.bk-toc-title { flex: 1; }
+/* target-counter reads attr() from the element carrying the pseudo, so this
+   must sit on the <a> that holds the href, not on a child span. */
+.bk-toc-item a::after {
+  content: target-counter(attr(href url), page);
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── chapters ───────────────────────────────────────────────────────── */
+.bk-chapter { break-before: page; }
+.bk-chapter-head {
+  border-bottom: 2.5pt solid var(--topic-color, #444);
+  padding-bottom: 4mm;
+  margin-bottom: 7mm;
+}
+.bk-chapter-code {
+  font-size: 9.5pt;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--topic-color, #444);
+}
+.bk-chapter-title {
+  font-size: 26pt;
+  margin: 2mm 0 0;
+  line-height: 1.1;
+  string-set: chapter-title content();
+}
+.bk-chapter-gq { font-size: 10pt; color: #4b5563; margin: 4mm 0 0; font-style: italic; }
+.bk-chapter-gq span { display: block; font-style: normal; font-size: 8pt; letter-spacing: .12em; text-transform: uppercase; color: #9ca3af; margin-bottom: 1mm; }
+
+/* Headings recovered from the collapsible triggers. */
+.bk-head { break-after: avoid; margin: 7mm 0 3mm; }
+.bk-head h2 { font-size: 16pt; margin: 0; }
+.bk-head h3 { font-size: 11.5pt; margin: 0; line-height: 1.35; }
+.bk-head .curr-badge, .bk-head .obj-code {
+  font-size: 8.5pt; font-weight: 700; color: var(--topic-color, #444);
+  letter-spacing: .08em; display: block; margin-bottom: 1mm;
+}
+
+/* ── figures and media ──────────────────────────────────────────────── */
+/* Figures float so text wraps beside them rather than each image eating a
+   full column-width band. Paged.js handles floats, but a float taller than
+   the remaining page pushes awkwardly, so they are capped. */
+figure, .obj-figure, .case-photo {
+  break-inside: avoid;
+  float: right;
+  width: 44%;
+  max-height: 78mm;
+  margin: 1mm 0 3mm 5mm;
+  clear: right;
+}
+figure img, .obj-figure img, .case-photo img { max-height: 66mm; object-fit: contain; }
+
+/* Wide diagrams and case-study leads stay full width. */
+.case-study-img, figure.bk-wide, .diagram-figure {
+  float: none; width: auto; max-height: none; margin: 4mm 0; clear: both;
+}
+.case-study-img img, figure.bk-wide img { max-height: 92mm; }
+
+img { max-width: 100%; height: auto; }
+figcaption { font-size: 7.5pt; color: #6b7280; margin-top: 1mm; line-height: 1.35; }
+
+/* Headings and section starts must not sit alongside a float. */
+.bk-head, .bk-chapter-head, .curr-section { clear: both; }
+
+/* ── quiz (compact; answers only in the key) ────────────────────────── */
+.quiz-q { break-inside: avoid; margin: 0 0 4mm; clear: both; }
+.quiz-q-num { font-size: 7.5pt !important; }
+.quiz-q-text { margin-bottom: 1.5mm !important; }
+/* Options in two columns: a 10-question quiz drops from ~3 pages to ~1. */
+.bk-opts {
+  list-style: none; padding: 0; margin: 1.5mm 0 0;
+  columns: 2; column-gap: 5mm;
+}
+.bk-opt {
+  padding: .8mm 2mm;
+  margin-bottom: .8mm;
+  border: .4pt solid #e5e7eb;
+  border-radius: .8mm;
+  font-size: 8.8pt;
+  break-inside: avoid;
+}
+.bk-opt-correct { border-color: #16a34a; background: #f0fdf4; font-weight: 600; }
+.bk-opt-correct::after { content: ' ✓'; color: #16a34a; }
+.quiz-answer { font-size: 8.6pt; color: #374151; background: #f9fafb; padding: 2mm 2.5mm; border-left: 1.5pt solid #d1d5db; margin-top: 1.5mm; }
+.bk-ans-label { font-weight: 700; font-size: 7.5pt; letter-spacing: .08em; text-transform: uppercase; color: #16a34a; }
+
+/* ── paper 2 ────────────────────────────────────────────────────────── */
+.p2-question { break-inside: avoid; margin-bottom: 4mm; clear: both; }
+.p2-answer { font-size: 8.6pt; background: #f9fafb; padding: 2mm 2.5mm; border-left: 1.5pt solid #d1d5db; }
+
+/* ── online-only pointer (one line, deliberately small) ─────────────── */
+.bk-online {
+  font-size: 8.2pt;
+  color: #6b7280;
+  border-left: 1.5pt solid var(--topic-color, #bbb);
+  padding: 1.2mm 0 1.2mm 3mm;
+  margin: 3mm 0;
+  break-inside: avoid;
+  clear: both;
+}
+.bk-online strong { color: #374151; }
+.bk-url { font-family: var(--font-mono); font-size: 7.6pt; color: #2c5f6e; }
+
+/* ── paper matching activity ────────────────────────────────────────── */
+.bk-activity {
+  break-inside: avoid; clear: both;
+  border: .5pt solid #d1d5db;
+  padding: 3.5mm 4mm;
+  margin: 5mm 0;
+}
+.bk-activity-label { font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--topic-color, #444); }
+.bk-activity-title { font-size: 10.5pt; font-weight: 650; margin-top: 1mm; }
+.bk-activity-intro { font-size: 8.8pt; margin: 1.5mm 0 0; color: #374151; }
+.bk-activity-how { font-size: 8.2pt; margin: 1.5mm 0 0; color: #6b7280; font-style: italic; }
+.bk-match { display: flex; gap: 10mm; margin: 3mm 0 0; }
+.bk-match-col { list-style: none; padding: 0; margin: 0; flex: 1; }
+.bk-match-col li {
+  font-size: 8.6pt; padding: 1.6mm 2mm; margin-bottom: 1.6mm;
+  border: .4pt solid #e5e7eb; border-radius: .8mm; line-height: 1.3;
+}
+.bk-match-col-b li { background: #fafafa; }
+.bk-match-n, .bk-match-l {
+  display: inline-block; min-width: 4.5mm; font-weight: 700;
+  color: var(--topic-color, #444); font-size: 7.8pt;
+}
+.bk-activity-note { font-size: 7.8pt; color: #6b7280; margin: 2.5mm 0 0; }
+
+/* ── case study, folded in from the on-screen modal ─────────────────── */
+.bk-case {
+  clear: both;
+  border-top: 1.5pt solid var(--topic-color, #444);
+  padding-top: 2.5mm;
+  margin: 5mm 0;
+}
+.bk-case-label { font-size: 7pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--topic-color, #444); }
+.bk-case-title { font-size: 12pt; margin: 1mm 0 2mm; }
+.bk-case-body { font-size: 9.2pt; }
+.bk-case-body p { margin: 0 0 2.5mm; }
+/* The card is only a button on screen; its content is repeated below. */
+.case-study-card { display: none !important; }
+
+/* ── answer key ─────────────────────────────────────────────────────── */
+.bk-ak-activity { break-inside: avoid; margin: 0 0 5mm; clear: both; }
+.bk-ak-title { font-size: 10pt; font-weight: 650; margin-bottom: 1.5mm; }
+.bk-ak-table { width: 100%; border-collapse: collapse; font-size: 8.4pt; }
+.bk-ak-table th {
+  text-align: left; font-size: 7pt; letter-spacing: .1em; text-transform: uppercase;
+  color: #6b7280; border-bottom: .5pt solid #d1d5db; padding: 1mm 2mm;
+}
+.bk-ak-table td { padding: 1.4mm 2mm; border-bottom: .3pt solid #eee; vertical-align: top; }
+.bk-ak-n { color: var(--topic-color, #444); font-weight: 700; width: 5mm; }
+.bk-ak-correct { font-weight: 600; color: #15803d; width: 26%; }
+.bk-ak-why { color: #4b5563; }
+
+/* The key has no prose chapters, so its chapter heads can be tighter. */
+.bk-answers .bk-chapter-head { margin-bottom: 4mm; padding-bottom: 2.5mm; }
+.bk-answers .bk-chapter-title { font-size: 19pt; }
+
+/* ── links ──────────────────────────────────────────────────────────── */
+a { color: #1a5f7a; text-decoration: none; }
+.bk-xref::after { content: ' (p. ' target-counter(attr(href url), page) ')'; font-size: 8.5pt; color: #6b7280; }
+.bk-ext { border-bottom: .4pt dotted #9ca3af; }
+
+/* ── references ─────────────────────────────────────────────────────── */
+.ref-item { break-inside: avoid; font-size: 9.5pt; margin-bottom: 3mm; }
+.ref-item-url { font-family: var(--font-mono); font-size: 8pt; color: #6b7280; word-break: break-all; }
+
+/* ── print-only layout corrections for site containers ──────────────── */
+/* The case-study cards sit in a grid; the expanded text folded in beneath
+   each one must run full width, not inherit a 260px grid column. */
+.case-study-grid, .case-study-grid.spotlight-grid {
+  display: block !important;
+  max-width: none !important;
+}
+
+/* Keep a heading with what it introduces: a label or title stranded at the
+   foot of a page reads as a section that has lost its content. */
+.bk-case-label, .bk-case-title, .bk-ak-title,
+.bk-activity-label, .bk-activity-title,
+.quiz-intro, .quiz-q-num, .quiz-q-text, .p2-q-num { break-after: avoid; }
+.bk-case { break-inside: auto; }

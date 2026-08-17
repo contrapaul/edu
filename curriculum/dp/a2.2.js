@@ -24,7 +24,7 @@
         id: 'f1',
         label: 'A pencil sketch of the concept.',
         correctZone: 'pos1',
-        explanation: 'No physical form at all yet, just a 2D representation of an idea. It's as low-fidelity as a prototype gets.'
+        explanation: 'No physical form at all yet, just a 2D representation of an idea. It\'s as low-fidelity as a prototype gets.'
       },
       {
         id: 'f2',
