@@ -11,21 +11,18 @@
   'use strict';
 
   // All tracked IDs in document order (deepest item wins when multiple are in view).
-  var SECTION_IDS = [
-    'course-notes',
-    'obj-1.1.1', 'act-1.1.1-a',
-    'obj-1.1.2', 'act-1.1.2-a', 'act-1.1.2-b', 'act-1.1.2-c',
-    'obj-1.1.3', 'act-1.1.3-a',
-    'obj-1.1.4', 'act-1.1.4-a',
-    'obj-1.1.5',
-    'quiz',
-    'paper2',
-    'references'
-  ];
+  // Read from the TOC's own [data-section] attributes so every page tracks its own
+  // sections without this file needing to know about any of them.
+  var SECTION_IDS = [];
 
   function init() {
     var toc = document.querySelector('.curr-toc');
     if (!toc) return;
+
+    SECTION_IDS = Array.prototype.map.call(
+      toc.querySelectorAll('[data-section]'),
+      function (li) { return li.getAttribute('data-section'); }
+    );
 
     /* ── 1. Auto-open accordions when navigating to a buried anchor ── */
     toc.querySelectorAll('a[href^="#"]').forEach(function (link) {

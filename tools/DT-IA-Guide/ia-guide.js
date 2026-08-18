@@ -1,272 +1,247 @@
+/* ia-guide.js — page behaviour for the DP Design Tech IA Guide.
+   Accordions, expand-all and TOC highlighting come from the shared
+   curriculum.js / curr-toc.js. This file adds two things:
+     1. Custom audio players + toolbar (modelled on the B2.1 test page).
+     2. Copy buttons on the template blocks.
+   Both are built from theme variables, so they recolor with the picker. */
 (function () {
   'use strict';
 
-  // ── SECTION ACCORDION (top level, one open at a time) ──────────
-  var sectionTriggers = document.querySelectorAll('.section-trigger');
+  /* ── AUDIO ────────────────────────────────────────────────── */
 
-  function openSection(trigger) {
-    var bodyId = trigger.getAttribute('aria-controls');
-    var body = document.getElementById(bodyId);
-    if (!body) return;
-    trigger.setAttribute('aria-expanded', 'true');
-    body.classList.add('open');
+  var PLAY_SVG  = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6,4 20,12 6,20"/></svg>';
+  var PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+  function formatTime(sec) {
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
   }
 
-  function closeSection(trigger) {
-    var bodyId = trigger.getAttribute('aria-controls');
-    var body = document.getElementById(bodyId);
-    if (!body) return;
-    trigger.setAttribute('aria-expanded', 'false');
-    body.classList.remove('open');
+  function enhanceAudio(audio) {
+    var wrap = document.createElement('div');
+    wrap.className = 'audio-player';
+
+    var playBtn = document.createElement('button');
+    playBtn.type = 'button';
+    playBtn.className = 'audio-play-btn';
+    playBtn.setAttribute('aria-label', 'Play audio');
+    playBtn.innerHTML = PLAY_SVG;
+
+    var track = document.createElement('div');
+    track.className = 'audio-progress';
+    track.setAttribute('role', 'slider');
+    track.setAttribute('aria-label', 'Seek');
+    track.setAttribute('aria-valuemin', '0');
+    track.setAttribute('aria-valuemax', '100');
+    track.setAttribute('aria-valuenow', '0');
+    track.tabIndex = 0;
+
+    var fill = document.createElement('div');
+    fill.className = 'audio-progress-fill';
+    track.appendChild(fill);
+
+    var time = document.createElement('span');
+    time.className = 'audio-time';
+    time.textContent = '0:00 / 0:00';
+
+    wrap.appendChild(playBtn);
+    wrap.appendChild(track);
+    wrap.appendChild(time);
+
+    /* Keep the real <audio> in the DOM — it still drives playback and
+       fires the events below — but hidden by CSS behind this player. */
+    audio.parentNode.insertBefore(wrap, audio);
+    wrap.appendChild(audio);
+
+    function updateProgress() {
+      if (wrap.classList.contains('is-unavailable')) return;
+      var dur = audio.duration || 0;
+      var cur = audio.currentTime || 0;
+      var pct = dur ? (cur / dur) * 100 : 0;
+      fill.style.width = pct + '%';
+      track.setAttribute('aria-valuenow', String(Math.round(pct)));
+      time.textContent = formatTime(cur) + ' / ' + formatTime(dur);
+    }
+
+    playBtn.addEventListener('click', function () {
+      if (playBtn.disabled) return;
+      if (audio.paused) audio.play().catch(function () {}); else audio.pause();
+    });
+
+    audio.addEventListener('play',  function () { wrap.classList.add('is-playing');    playBtn.innerHTML = PAUSE_SVG; playBtn.setAttribute('aria-label', 'Pause audio'); });
+    audio.addEventListener('pause', function () { wrap.classList.remove('is-playing'); playBtn.innerHTML = PLAY_SVG;  playBtn.setAttribute('aria-label', 'Play audio'); });
+    audio.addEventListener('ended', function () { wrap.classList.remove('is-playing'); playBtn.innerHTML = PLAY_SVG;  playBtn.setAttribute('aria-label', 'Play audio'); });
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', updateProgress);
+
+    track.addEventListener('click', function (e) {
+      if (!audio.duration) return;
+      var rect = track.getBoundingClientRect();
+      var pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    });
+    track.addEventListener('keydown', function (e) {
+      if (!audio.duration) return;
+      if (e.key === 'ArrowRight') audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+      else if (e.key === 'ArrowLeft') audio.currentTime = Math.max(0, audio.currentTime - 5);
+    });
+
+    /* Not-yet-recorded files: <source> errors don't bubble, so listen on
+       the capture phase and disable this player gracefully. */
+    audio.addEventListener('error', function () {
+      playBtn.disabled = true;
+      wrap.classList.add('is-unavailable');
+      playBtn.title = 'Audio not available yet';
+      time.textContent = 'Not recorded yet';
+    }, true);
   }
 
-  sectionTriggers.forEach(function (trigger) {
-    trigger.addEventListener('click', function () {
-      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+  var audios = Array.prototype.slice.call(document.querySelectorAll('.topic-audio'));
+  audios.forEach(enhanceAudio);
 
-      if (isOpen) {
-        // Closing: restore the scroll position from before it was opened
-        var savedY = trigger._savedScrollY;
-        sectionTriggers.forEach(closeSection);
-        if (savedY !== undefined) {
-          window.scrollTo({ top: savedY, behavior: 'smooth' });
-        }
-      } else {
-        // Opening: save current position, open section, scroll it to the top
-        trigger._savedScrollY = window.scrollY;
-        sectionTriggers.forEach(closeSection);
-        openSection(trigger);
-        var block = trigger.closest('.section-block');
-        if (block) {
-          setTimeout(function () {
-            block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 50);
-        }
-      }
+  /* ── AUDIO TOOLBAR ────────────────────────────────────────── */
+
+  var expandBtn = document.querySelector('.curr-expand-all-btn');
+
+  if (expandBtn && audios.length) {
+    /* Put expand-all and the audio controls in one flex row. */
+    var row = document.createElement('div');
+    row.className = 'curr-toolbar-row';
+    expandBtn.parentNode.insertBefore(row, expandBtn);
+    row.appendChild(expandBtn);
+
+    var toggleBtn = document.createElement('button');
+    toggleBtn.type = 'button';
+    toggleBtn.className = 'curr-expand-all-btn';
+    toggleBtn.textContent = 'Hide audio players';
+
+    var listenAllBtn = document.createElement('button');
+    listenAllBtn.type = 'button';
+    listenAllBtn.className = 'curr-expand-all-btn';
+    listenAllBtn.textContent = 'Listen to all sections';
+
+    row.appendChild(toggleBtn);
+    row.appendChild(listenAllBtn);
+
+    /* Download appears only when a combined file has been declared,
+       so there is never a button pointing at a file that isn't there. */
+    var fullAudio = document.body.getAttribute('data-full-audio');
+    if (fullAudio) {
+      var downloadLink = document.createElement('a');
+      downloadLink.className = 'curr-expand-all-btn';
+      downloadLink.href = fullAudio;
+      downloadLink.setAttribute('download', '');
+      downloadLink.textContent = 'Download audio';
+      row.appendChild(downloadLink);
+    }
+
+    toggleBtn.addEventListener('click', function () {
+      var hidden = document.body.classList.toggle('audio-players-hidden');
+      toggleBtn.textContent = hidden ? 'Show audio players' : 'Hide audio players';
+      toggleBtn.classList.toggle('is-active', hidden);
     });
-  });
 
-  // ── HERO TOC LINKS: open section and scroll ────────────────────
-  document.querySelectorAll('.hero-toc a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var targetId = link.getAttribute('href').slice(1);
-      var block = document.getElementById(targetId);
-      if (!block) return;
-      var trigger = block.querySelector('.section-trigger');
-      if (trigger && trigger.getAttribute('aria-expanded') !== 'true') {
-        sectionTriggers.forEach(closeSection);
-        openSection(trigger);
-      }
-      setTimeout(function () {
-        block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 60);
+    /* ── Only one player at a time ── */
+    var queueActive = false;
+    var queueIndex = -1;
+
+    function clearQueueHighlight() {
+      audios.forEach(function (a) { a.parentNode.classList.remove('is-queued'); });
+    }
+
+    function stopQueue() {
+      queueActive = false;
+      queueIndex = -1;
+      clearQueueHighlight();
+      listenAllBtn.textContent = 'Listen to all sections';
+      listenAllBtn.classList.remove('is-active');
+    }
+
+    function playNextInQueue() {
+      if (!queueActive) return;
+      clearQueueHighlight();
+      queueIndex++;
+      if (queueIndex >= audios.length) { stopQueue(); return; }
+
+      var next = audios[queueIndex];
+      next.parentNode.classList.add('is-queued');
+      next.currentTime = 0;
+      /* A missing file rejects this promise, but the 'error' listener
+         below advances the queue, so don't stopQueue() here or one
+         unrecorded section would abort the whole run. */
+      next.play().catch(function () {});
+    }
+
+    audios.forEach(function (a) {
+      a.addEventListener('play', function () {
+        audios.forEach(function (other) {
+          if (other !== a && !other.paused) other.pause();
+        });
+        if (queueActive && a !== audios[queueIndex]) stopQueue();
+      });
+      a.addEventListener('ended', function () {
+        if (queueActive && audios[queueIndex] === a) playNextInQueue();
+      });
+      a.addEventListener('error', function () {
+        if (queueActive && audios[queueIndex] === a) playNextInQueue();
+      }, true);
     });
-  });
 
-  // ── SUB-SECTION ACCORDION ──────────────────────────────────────
-  function closeAllSubsInSection(sectionBody) {
-    sectionBody.querySelectorAll('.sub-trigger').forEach(function (t) {
-      t.setAttribute('aria-expanded', 'false');
-      var b = document.getElementById(t.getAttribute('aria-controls'));
-      if (b) b.classList.remove('open');
+    listenAllBtn.addEventListener('click', function () {
+      if (queueActive) {
+        audios.forEach(function (a) { if (!a.paused) a.pause(); });
+        stopQueue();
+        return;
+      }
+      /* Expand every section first so the page follows along. */
+      if (!expandBtn.classList.contains('is-expanded')) expandBtn.click();
+
+      queueActive = true;
+      queueIndex = -1;
+      listenAllBtn.textContent = 'Stop listening';
+      listenAllBtn.classList.add('is-active');
+      playNextInQueue();
     });
   }
 
-  document.querySelectorAll('.sub-trigger').forEach(function (trigger) {
-    trigger.addEventListener('click', function () {
-      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
-      var bodyId = trigger.getAttribute('aria-controls');
-      var body = document.getElementById(bodyId);
-      if (!body) return;
-      var parentSection = trigger.closest('.section-body');
-      if (parentSection) closeAllSubsInSection(parentSection);
-      if (!isOpen) {
-        trigger.setAttribute('aria-expanded', 'true');
-        body.classList.add('open');
-      }
-    });
-  });
+  /* ── COPY BUTTONS ON TEMPLATE BLOCKS ──────────────────────── */
 
-  // ── STRAND NAV: open sub-section and scroll ────────────────────
-  document.querySelectorAll('.strand-nav a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault();
-      var targetId = link.getAttribute('href').slice(1);
-      var sub = document.getElementById(targetId);
-      if (!sub) return;
-      var trigger = sub.querySelector('.sub-trigger');
-      if (!trigger) return;
-      var parentSection = sub.closest('.section-body');
-      if (parentSection) closeAllSubsInSection(parentSection);
-      trigger.setAttribute('aria-expanded', 'true');
-      var body = document.getElementById(trigger.getAttribute('aria-controls'));
-      if (body) body.classList.add('open');
-      setTimeout(function () {
-        sub.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 80);
-    });
-  });
-
-  // ── COPY BUTTONS ───────────────────────────────────────────────
-  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+  document.querySelectorAll('.template-copy-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var pre = document.getElementById(btn.dataset.copyTarget);
       if (!pre) return;
-      var text = pre.textContent || pre.innerText;
+
+      function flash(label) {
+        btn.textContent = label;
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1800);
+      }
+
+      /* file:// and some browser contexts block the clipboard API. Selecting
+         the text leaves the student one keystroke away, so say so rather
+         than claiming a copy that did not happen. */
+      function selectFallback() {
+        var range = document.createRange();
+        range.selectNodeContents(pre);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        flash('Selected, press Ctrl+C');
+      }
+
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-          .then(function () { showCopied(btn); })
-          .catch(function () { fallbackCopy(text, btn); });
+        navigator.clipboard.writeText(pre.textContent).then(function () {
+          flash('Copied');
+        }, selectFallback);
       } else {
-        fallbackCopy(text, btn);
+        selectFallback();
       }
     });
   });
 
-  function showCopied(btn) {
-    var orig = btn.textContent;
-    btn.textContent = 'Copied!';
-    btn.classList.add('copied');
-    btn.disabled = true;
-    setTimeout(function () {
-      btn.textContent = orig;
-      btn.classList.remove('copied');
-      btn.disabled = false;
-    }, 2000);
-  }
-
-  function fallbackCopy(text, btn) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    try {
-      document.execCommand('copy');
-      showCopied(btn);
-    } catch (err) {
-      btn.textContent = 'Copy failed';
-      setTimeout(function () { btn.textContent = 'Copy Text'; }, 2000);
-    }
-    document.body.removeChild(ta);
-  }
-
-  // ── DIALOG SYSTEM ──────────────────────────────────────────────
-  // Opener: <button data-dialog="dialog-id">
-  // Closer: <button class="dialog-close"> inside <dialog>
-  // Backdrop click also closes
-
-  document.querySelectorAll('[data-dialog]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var dlg = document.getElementById(btn.dataset.dialog);
-      if (dlg && dlg.showModal) dlg.showModal();
-    });
-  });
-
-  document.querySelectorAll('.dialog-close').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var dlg = btn.closest('dialog');
-      if (dlg) dlg.close();
-    });
-  });
-
-  document.querySelectorAll('dialog').forEach(function (dlg) {
-    dlg.addEventListener('click', function (e) {
-      var rect = dlg.getBoundingClientRect();
-      if (e.clientX < rect.left || e.clientX > rect.right ||
-          e.clientY < rect.top  || e.clientY > rect.bottom) {
-        dlg.close();
-      }
-    });
-  });
-
-  // ── AUDIO LISTEN BUTTONS ───────────────────────────────────────
-  // <button class="listen-btn" data-audio="filename.mp3">
-  // Disabled automatically if the mp3 file cannot be loaded.
-
-  var currentAudio = null;
-  var currentBtn = null;
-
-  var PLAY_SVG  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>';
-  var PAUSE_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
-
-  function setPlayState(btn) {
-    btn.classList.add('playing');
-    btn.innerHTML = PAUSE_SVG + ' Pause';
-    btn.setAttribute('aria-label', 'Pause audio');
-  }
-
-  function setPauseState(btn) {
-    btn.classList.remove('playing');
-    btn.innerHTML = PLAY_SVG + ' Listen';
-    btn.setAttribute('aria-label', 'Play audio');
-  }
-
-  function stopCurrent() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-    if (currentBtn) setPauseState(currentBtn);
-    currentAudio = null;
-    currentBtn = null;
-  }
-
-  document.querySelectorAll('.listen-btn').forEach(function (btn) {
-    var audio = null;
-    var failed = false;
-
-    setPauseState(btn);
-
-    function initAudio() {
-      if (audio) return;
-      audio = new Audio();
-      audio.preload = 'none';
-
-      audio.addEventListener('error', function () {
-        failed = true;
-        btn.disabled = true;
-        btn.title = 'Audio file not available';
-        if (currentBtn === btn) { currentAudio = null; currentBtn = null; }
-      });
-
-      audio.addEventListener('ended', function () {
-        setPauseState(btn);
-        currentAudio = null;
-        currentBtn = null;
-      });
-
-      audio.src = btn.dataset.audio;
-    }
-
-    btn.addEventListener('click', function () {
-      if (failed) return;
-
-      // Clicking a playing button pauses it
-      if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-        currentAudio.pause();
-        setPauseState(btn);
-        currentAudio = null;
-        currentBtn = null;
-        return;
-      }
-
-      stopCurrent();
-      initAudio();
-      if (failed) return;
-
-      currentAudio = audio;
-      currentBtn = btn;
-      setPlayState(btn);
-
-      audio.play().catch(function () {
-        setPauseState(btn);
-        currentAudio = null;
-        currentBtn = null;
-      });
-    });
-  });
-
-})();
+}());

@@ -81,7 +81,7 @@
 <div class="obj-body" id="obj-body-4.1.1">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline additive, subtractive (wasting), forming, joining and finishing techniques, relevant to the properties of the selected material(s).</p>
 <p>All manufactured products result from applying one or more techniques drawn from five broad categories. The choice of category depends on <a href="a3.1-material-classification.html">material properties</a>, desired geometry, production volume and cost.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Category</th><th>Principle</th><th>Typical materials</th><th>Examples</th></tr></thead>
 <tbody>
 <tr><td><strong>Additive</strong></td><td>Build up material layer by layer</td><td>Polymers, metals, ceramics, composites</td><td>SLA, FDM, SLS, material jetting</td></tr>
@@ -90,7 +90,7 @@
 <tr><td><strong>Joining</strong></td><td>Fasten two or more parts permanently or temporarily</td><td>Any combination</td><td>Welding, soldering, adhesives, fasteners</td></tr>
 <tr><td><strong>Finishing</strong></td><td>Protect or enhance the surface</td><td>Metals, polymers, wood</td><td>Anodising, powder coating, polishing</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>The categories are not mutually exclusive; a single product typically requires techniques from several categories applied in sequence.</p>
 
 <div class="discussion-box">
@@ -112,7 +112,7 @@
 <div class="obj-body" id="obj-body-4.1.2">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using additive manufacturing techniques, including fused deposition modelling (FDM) and stereolithography (SLA).</p>
 <p>Additive manufacturing (AM) constructs objects by depositing or curing material one cross-sectional layer at a time. Chuck Hull invented stereolithography in 1984, marking the birth of commercial 3D printing.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Process</th><th>Material feedstock</th><th>Energy/mechanism</th><th>Strengths</th><th>Limitations</th></tr></thead>
 <tbody>
 <tr><td><strong>Stereolithography (SLA)</strong></td><td>Liquid photopolymer resin</td><td>UV laser cures each layer</td><td>Very high accuracy; smooth surface finish</td><td>Brittle parts; post-cure required; resin cost</td></tr>
@@ -122,7 +122,7 @@
 <tr><td><strong>Binder Jetting</strong></td><td>Powder + liquid binder</td><td>Binder printed onto powder bed</td><td>High speed; large metal parts possible</td><td>Lower density; sintering step required</td></tr>
 <tr><td><strong>Directed Energy Deposition (DED)</strong></td><td>Metal wire or powder</td><td>Laser or electron beam melts feedstock in flight</td><td>Repairs and additions to existing parts</td><td>Rough surface; expensive equipment</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="concept-box">
 <h4>Concept: Isotropic vs Anisotropic Strength</h4>
@@ -160,7 +160,7 @@
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Distinguish between rapid prototyping techniques used for creating initial base models (which serve as a foundation for testing and validation) as opposed to techniques used in the production of refined products.</p>
 <p><strong>Rapid prototyping (RP)</strong> is the fast production of a physical model directly from CAD data, used primarily for form, fit and function testing early in the design process.</p>
 <p><strong>Workflow:</strong> CAD model → export as STL/3MF → slice into layers → print → post-process → evaluate</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Characteristic</th><th>Rapid prototype</th><th>Production part</th></tr></thead>
 <tbody>
 <tr><td>Purpose</td><td>Test geometry, ergonomics, assembly</td><td>End-use function</td></tr>
@@ -170,7 +170,7 @@
 <tr><td>Lead time</td><td>Hours to days</td><td>Days to weeks per mould/setup</td></tr>
 <tr><td>Cost per part</td><td>Higher (no tooling amortisation)</td><td>Lower at scale</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>As AM materials and accuracy improve, the boundary between prototype and production part blurs. GE Aviation now produces certified LEAP engine fuel nozzles using SLS.</p>
 
 <div class="topic-link-blurb">Rapid prototyping is explored in much greater depth, including low-fidelity versus high-fidelity models and user testing protocols, in <a href="a2.2-prototyping-techniques.html">A2.2 Prototyping Techniques</a>.</div>
@@ -187,7 +187,7 @@
 <div class="obj-body" id="obj-body-4.1.4">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Describe additive manufacturing techniques used in manufacturing, including powder bed fusion (PBF), material extrusion, and selective laser sintering (SLS).</p>
 <p>AM is particularly suited to <strong>low-volume, high-complexity, or patient-specific</strong> production where conventional tooling would be prohibitively expensive. The crossover point where injection moulding becomes cheaper than AM is typically around 1,000–10,000 units depending on part complexity.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Industry</th><th>Application</th><th>AM process</th><th>Benefit</th></tr></thead>
 <tbody>
 <tr><td>Medical/Dental</td><td>Invisalign aligners; patient-specific implants</td><td>SLA, SLS, material jetting</td><td>Mass customisation; no tooling per patient</td></tr>
@@ -196,7 +196,7 @@
 <tr><td>Consumer goods</td><td>Adidas 4D midsole; New Balance FuelCell</td><td>DLP/SLA lattice</td><td>Tunable cushioning; on-demand production</td></tr>
 <tr><td>Construction</td><td>ICON concrete 3D-printed homes (Texas)</td><td>Concrete extrusion (DED variant)</td><td>Reduced labour; complex geometry possible</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="topic-link-blurb">Topology optimisation and how load paths shape structural geometry are covered in <a href="a3.2-structural-systems.html">A3.2 Structural Systems</a>.</div>
 
@@ -225,7 +225,7 @@
 <li><strong>Fix temporary shape</strong>: cool below T<sub>g</sub>; temporary shape is retained.</li>
 <li><strong>Trigger</strong>: apply stimulus (heat, water, light); object returns to memory shape.</li>
 </ol>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Application area</th><th>Example</th><th>Stimulus</th></tr></thead>
 <tbody>
 <tr><td>Biomedical</td><td>Self-deploying stents; drug delivery capsules</td><td>Body heat</td></tr>
@@ -233,7 +233,7 @@
 <tr><td>Soft robotics</td><td>Gripper fingers that curl around objects</td><td>Temperature / humidity</td></tr>
 <tr><td>Smart textiles</td><td>Self-adjusting sportswear ventilation</td><td>Moisture / heat</td></tr>
 </tbody>
-</table>
+</table></div>
 
 </div>
 </div>
@@ -254,14 +254,14 @@
 <li><strong>Reduced material waste</strong>: elimination of supports saves polymer and post-processing time.</li>
 <li><strong>Larger effective build volume</strong>: rotation enables parts that cannot fit flat in a standard envelope.</li>
 </ul>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Industry</th><th>Application</th><th>5D benefit</th></tr></thead>
 <tbody>
 <tr><td>Biomedical</td><td>Skull implants; bone scaffolds</td><td>Curved surfaces match anatomy; no support contamination</td></tr>
 <tr><td>Automotive</td><td>Structural brackets; B-pillar inserts</td><td>Fibre orientation matches load paths; weight saving</td></tr>
 <tr><td>Aerospace</td><td>Turbine blade coatings; fuselage ribs</td><td>Complex curvature; high-strength composite deposition</td></tr>
 </tbody>
-</table>
+</table></div>
 
 </div>
 </div>
@@ -275,7 +275,7 @@
 <div class="obj-body" id="obj-body-4.1.7">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using wasting manufacturing techniques, including machining (cutting, milling, turning) and abrading processes, which are applied to both 3D and 2D materials.</p>
 <p>Subtractive (wasting) processes begin with a solid block or sheet and remove material to reveal the final shape. CNC (computer numerical control) automation allows extremely precise, repeatable cuts.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Process</th><th>Mechanism</th><th>Materials</th><th>Typical application</th></tr></thead>
 <tbody>
 <tr><td><strong>Turning (lathe)</strong></td><td>Workpiece rotates; cutting tool traverses</td><td>Metals, polymers, wood</td><td>Shafts, cylinders, threads</td></tr>
@@ -285,7 +285,7 @@
 <tr><td><strong>Plasma cutting</strong></td><td>Ionised gas jet melts and blows away metal</td><td>Conductive metals (up to 150 mm)</td><td>Structural steel; shipbuilding</td></tr>
 <tr><td><strong>Abrasive waterjet</strong></td><td>Water at 280–690 MPa + abrasive grit</td><td>Any material including stone, glass, titanium</td><td>Heat-sensitive or hard materials</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Subtractive processes produce excellent surface finishes and tight tolerances (±0.01 mm or better for CNC milling), but can generate significant material waste (swarf/chips).</p>
 
 <div class="concept-box">
@@ -319,7 +319,7 @@
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are produced using forming techniques, including bending, press-forming, casting, moulding (injection, extrusion, rotational, blow, vacuum) processes.</p>
 <p>Forming exploits a material's plasticity, fluidity (molten) or elasticity. Since material is not wasted, forming is generally more material-efficient than subtractive methods.</p>
 <p><strong>Metal casting:</strong></p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Process</th><th>Mould type</th><th>Notes</th></tr></thead>
 <tbody>
 <tr><td>Sand casting</td><td>Expendable sand mould</td><td>Low tooling cost; rough surface; any alloy</td></tr>
@@ -327,9 +327,9 @@
 <tr><td>Die casting</td><td>Permanent steel die</td><td>High volume; thin walls; aluminium/zinc alloys</td></tr>
 <tr><td>Continuous casting</td><td>Water-cooled copper mould</td><td>Junghans process (1933); molten steel solidifies as a strand; standard for steel/aluminium production</td></tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>Polymer moulding:</strong></p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Process</th><th>Principle</th><th>Typical products</th></tr></thead>
 <tbody>
 <tr><td>Injection moulding</td><td>Molten polymer injected into closed mould under pressure</td><td>Phone cases, bottle caps, dashboard parts</td></tr>
@@ -338,7 +338,7 @@
 <tr><td>Extrusion</td><td>Polymer forced through a die; continuous profile</td><td>Pipe, window frames, cable insulation</td></tr>
 <tr><td>Rotational moulding</td><td>Powder loaded into mould; mould heated and biaxially rotated</td><td>Large hollow items: tanks, kayaks, playground equipment</td></tr>
 </tbody>
-</table>
+</table></div>
 
 </div>
 </div>
@@ -352,7 +352,7 @@
 <div class="obj-body" id="obj-body-4.1.9">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Explain how components are assembled using joining techniques, including adhering, fastening, stitching, weaving and welding processes.</p>
 <p>Joining creates assemblies from separate components. The choice between permanent and temporary joining has significant implications for repairability, recycling and end-of-life disassembly.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Technique</th><th>Type</th><th>Mechanism</th><th>Example / notes</th></tr></thead>
 <tbody>
 <tr><td><strong>Fusion welding</strong></td><td>Permanent</td><td>Base metal melted; may use filler rod (MIG, TIG, arc)</td><td>Steel structures, pipelines</td></tr>
@@ -364,7 +364,7 @@
 <tr><td><strong>Mechanical fasteners</strong></td><td>Temporary</td><td>Bolts, screws, rivets, snap-fits, press-fits</td><td>Wide use; allows disassembly</td></tr>
 <tr><td><strong>Stitching / weaving</strong></td><td>Permanent / temporary</td><td>Thread or fibre interlocks</td><td>Textiles; fibre-reinforced composites (woven prepreg)</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="topic-link-blurb">The end-of-life implications of permanent versus temporary joining, including RoHS compliance and design for disassembly, are developed further in <a href="c2.2-circular-economy.html">C2.2 Design for a Circular Economy</a>.</div>
 
@@ -396,7 +396,7 @@
 <div class="obj-body" id="obj-body-4.1.10">
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest how natural and human-made finishing techniques (anodising, electroplating, galvanising), coatings (powder coating), polishing, and sealants enhance a product's aesthetics, protection, durability, longevity and ease of maintenance.</p>
 <p>Finishing techniques are applied after forming or machining to alter the surface chemistry, texture or appearance of a component. They can dramatically extend product life and perceived quality.</p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Technique</th><th>Process</th><th>Material</th><th>Benefit</th><th>Examples</th></tr></thead>
 <tbody>
 <tr><td><strong>Anodising</strong></td><td>Electrochemical: aluminium becomes anode in sulphuric acid bath; oxide layer grows into surface</td><td>Aluminium alloys</td><td>Corrosion resistance; hard surface; accepts dyes</td><td>iPhone enclosures; bicycle frames; architectural cladding</td></tr>
@@ -406,7 +406,7 @@
 <tr><td><strong>Ceramic coating</strong></td><td>Silicon dioxide (SiO₂) or titanium dioxide (TiO₂) nano-layer applied and cured</td><td>Metals, glass, polymers</td><td>Extreme hardness; UV and chemical resistance; hydrophobic</td><td>Automotive paintwork protection; cookware; aerospace</td></tr>
 <tr><td><strong>Polishing</strong></td><td>Abrasive or chemical removal of surface peaks; electropolishing uses electrochemical dissolution</td><td>Metals, polymers, glass</td><td>Improved aesthetics; reduced friction and bacterial adhesion</td><td>Surgical instruments; optical components; jewellery</td></tr>
 </tbody>
-</table>
+</table></div>
 
 </div>
 </div>
@@ -421,7 +421,7 @@
 <p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Suggest why specific manufacturing techniques have been used to create a given component.</p>
 <p>No real product uses only one category of technique. The design team must reason about <em>why</em> each technique is selected by connecting material properties, geometry, volume, cost and sustainability.</p>
 <p><strong>Case study (smartphone, iPhone-type aluminium body):</strong></p>
-<table class="curr-table">
+<div class="content-table-wrap"><table class="curr-table">
 <thead><tr><th>Component</th><th>Technique(s)</th><th>Category</th><th>Rationale</th></tr></thead>
 <tbody>
 <tr><td>Aluminium enclosure</td><td>CNC milling from billet + anodising</td><td>Subtractive + Finishing</td><td>Billet milling gives tight tolerance and complex radii; anodising provides colour, scratch resistance and eliminates paint</td></tr>
@@ -431,7 +431,7 @@
 <tr><td>Battery</td><td>Winding / stacking of electrodes + laser welding</td><td>Forming + Joining</td><td>Electrode layers formed by calendering; sealed by laser welding</td></tr>
 <tr><td>Camera lens</td><td>Glass pressing + polishing + anti-reflection coating</td><td>Forming + Finishing</td><td>Precision pressing gives lens shape; polishing and coating ensure optical performance</td></tr>
 </tbody>
-</table>
+</table></div>
 <p>Exam tip: when asked to "suggest why," link the technique to a specific material property or product requirement (e.g., "injection moulding is used for the polymer casing because the high-volume production run amortises the tooling cost").</p>
 
 </div>
