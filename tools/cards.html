@@ -97,8 +97,10 @@
 }
 .t-new { border-color: #d4a017; color: #a37a00; background: rgba(255,229,54,0.12); }
 .t-js  { border-color: #8b5cf6; color: #7c3aed; background: rgba(139,92,246,0.10); }
+.t-img { border-color: #0ea5e9; color: #0369a1; background: rgba(14,165,233,0.10); }
 [data-theme="dark"] .t-new { color: #e8c96a; }
 [data-theme="dark"] .t-js  { color: #c4b5fd; }
+[data-theme="dark"] .t-img { color: #7dd3fc; }
 .ex-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin: 0.5rem 0 1.1rem; max-width: 76ch; }
 
 .ex-body { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 1.5rem; align-items: start; }
@@ -1173,6 +1175,136 @@
   border-color: #ff5c3a !important;
   box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 24px rgba(255,92,58,0.2) !important;
 }
+
+/* cs-hero — Hero Photo */
+.cs-hero {
+  background: #0d0d14 !important;
+  border: none !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, transform 0.3s !important;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  transition: transform 1.2s ease;
+}
+.cs-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(8,8,14,0.30) 0%, rgba(8,8,14,0.60) 55%, rgba(8,8,14,0.88) 100%);
+  transition: opacity 0.35s;
+}
+.cs-hero .tool-card-title, .cs-hero .tool-card-sub { text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+.cs-hero:hover::before { transform: scale(1.12); }
+.cs-hero:hover { box-shadow: 0 14px 36px rgba(0,0,0,0.55) !important; }
+
+/* cs-banner — Screenshot Banner */
+.cs-banner {
+  background: #17171f !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  justify-content: flex-end !important;
+  gap: 0.35rem !important;
+  padding: 0.9rem 1.25rem 1.15rem !important;
+}
+.cs-banner .cs-shot {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 96px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.cs-banner::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 52px; height: 52px;
+  background: linear-gradient(transparent, #17171f);
+  pointer-events: none;
+}
+.cs-banner .tool-card-title, .cs-banner .tool-card-sub { position: relative; z-index: 1; }
+.cs-banner:hover .cs-shot { transform: scale(1.06); }
+.cs-banner:hover { border-color: rgba(255,255,255,0.28) !important; }
+
+/* cs-thumb — Icon Thumbnail */
+.cs-thumb {
+  background: #1b1c24 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 18px !important;
+  padding: 1.25rem 1.75rem !important;
+  gap: 0.55rem !important;
+}
+.cs-thumb .cs-shot {
+  width: 58px; height: 58px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 5px 14px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cs-thumb:hover .cs-shot {
+  transform: scale(1.09) rotate(-3deg);
+  box-shadow: 0 9px 22px rgba(0,0,0,0.6);
+}
+.cs-thumb:hover { border-color: rgba(255,255,255,0.26) !important; }
+
+/* cs-duotone — Duotone Photo */
+.cs-duotone {
+  background: #101018 !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-duotone::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) contrast(1.25) brightness(0.38);
+  transition: filter 0.45s ease;
+}
+.cs-duotone::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(150deg, var(--card-duo-a, #FA16C2), var(--card-duo-b, #2dd4bf));
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  transition: opacity 0.45s ease;
+}
+.cs-duotone .tool-card-title, .cs-duotone .tool-card-sub { text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+.cs-duotone:hover::before { filter: grayscale(0) contrast(1.05) brightness(0.8); }
+.cs-duotone:hover::after { opacity: 0; }
+
+/* cs-peek — Peeking Photo */
+.cs-peek {
+  background: #15161c !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+  padding-bottom: 3.6rem !important;
+}
+.cs-peek::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center 45%;
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cs-peek::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; z-index: -1;
+  background: linear-gradient(rgba(21,22,28,0.85), rgba(21,22,28,0.25));
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.45s;
+}
+.cs-peek:hover { padding-bottom: 1.75rem !important; }
+.cs-peek:hover::before, .cs-peek:hover::after { height: 100%; }
+.cs-peek:hover::after { background: linear-gradient(rgba(21,22,28,0.45), rgba(21,22,28,0.88)); }
+.cs-peek .tool-card-title, .cs-peek .tool-card-sub { text-shadow: 0 2px 8px rgba(0,0,0,0.75); }
 </style>
 </head>
 <body>
@@ -1211,10 +1343,15 @@
           <code>--card-border</code>, <code>--card-font</code>. The base <code>.tool-card</code> layout
           (360&times;200, centred, flex column) comes from <code>style.css</code> and does not need copying.</li>
       <li>Two styles need a one-time script; those entries include it as a third block.</li>
+      <li><strong>Photographic styles</strong> carry real artwork. Three take it as a
+          <code>--card-img</code> custom property next to the colour ones; two use an
+          <code>&lt;img class="cs-shot"&gt;</code> so the picture can hold alt text. Paths are relative to
+          <code>tools/</code>, so they work unchanged in <code>tools/index.html</code> &mdash; the demo images are
+          borrowed from the curriculum folders, so point them at your own artwork.</li>
     </ol>
   </div>
 
-  <nav class="cat-nav"><a class="chip" href="#g-print">Paper &amp; Print <span>10</span></a><a class="chip" href="#g-screen">Screen &amp; Signal <span>12</span></a><a class="chip" href="#g-material">Material &amp; Texture <span>10</span></a><a class="chip" href="#g-motion">Structure &amp; Motion <span>17</span></a><a class="chip" href="#g-site">Site-specific <span>4</span></a></nav>
+  <nav class="cat-nav"><a class="chip" href="#g-print">Paper &amp; Print <span>10</span></a><a class="chip" href="#g-screen">Screen &amp; Signal <span>12</span></a><a class="chip" href="#g-material">Material &amp; Texture <span>10</span></a><a class="chip" href="#g-motion">Structure &amp; Motion <span>17</span></a><a class="chip" href="#g-photo">Photographic <span>5</span></a><a class="chip" href="#g-site">Site-specific <span>4</span></a></nav>
 </div>
 
 <section class="group" id="g-print">
@@ -3793,6 +3930,307 @@ document.querySelectorAll('.cs-tilt').forEach(function(el){
 </article>
 </section>
 
+<section class="group" id="g-photo">
+  <header class="group-head">
+    <h2>Photographic</h2>
+    <p>Cards built around real artwork rather than pure CSS.</p>
+  </header>
+
+<article class="ex" id="ex-cs-hero">
+  <div class="ex-head">
+    <span class="ex-num">50</span>
+    <div class="ex-id">
+      <h3>Hero Photo</h3>
+      <code class="ex-class">.cs-hero</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span><span class="tag t-img">Needs an image</span></div>
+  </div>
+  <p class="ex-desc">Full-bleed photograph under a legibility scrim, with a slow Ken&nbsp;Burns push on hover. Set the picture with <code>--card-img</code>.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-hero" href="#"
+         style="--card-img:url('../curriculum/dp/C3.1/steamdeck.webp'); --card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.82);">
+        <h3 class="tool-card-title">Hero Photo</h3>
+        <p class="tool-card-sub">Full-bleed artwork under a scrim, pushing in on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-hero {
+  background: #0d0d14 !important;
+  border: none !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, transform 0.3s !important;
+}
+.cs-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.02);
+  transition: transform 1.2s ease;
+}
+.cs-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(8,8,14,0.30) 0%, rgba(8,8,14,0.60) 55%, rgba(8,8,14,0.88) 100%);
+  transition: opacity 0.35s;
+}
+.cs-hero .tool-card-title, .cs-hero .tool-card-sub { text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+.cs-hero:hover::before { transform: scale(1.12); }
+.cs-hero:hover { box-shadow: 0 14px 36px rgba(0,0,0,0.55) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-hero" href="#"
+   style="--card-img:url('../curriculum/dp/C3.1/steamdeck.webp'); --card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.82);"&gt;
+  &lt;h3 class="tool-card-title"&gt;Hero Photo&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Full-bleed artwork under a scrim, pushing in on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-banner">
+  <div class="ex-head">
+    <span class="ex-num">51</span>
+    <div class="ex-id">
+      <h3>Screenshot Banner</h3>
+      <code class="ex-class">.cs-banner</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span><span class="tag t-img">Needs an image</span></div>
+  </div>
+  <p class="ex-desc">A screenshot band across the top with the copy on a solid panel below &mdash; the readable way to show a tool's own interface. Uses a real <code>&lt;img&gt;</code>.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-banner" href="#"
+         style="--card-title-color:#f2f2f8; --card-sub-color:#a0a0b4;">
+        <img class="cs-shot" src="../curriculum/dp/A3.4/macropad.webp" alt="">
+        <h3 class="tool-card-title">Screenshot Banner</h3>
+        <p class="tool-card-sub">The tool's own interface above, the copy on a solid panel below.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-banner {
+  background: #17171f !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  justify-content: flex-end !important;
+  gap: 0.35rem !important;
+  padding: 0.9rem 1.25rem 1.15rem !important;
+}
+.cs-banner .cs-shot {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 96px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.cs-banner::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 52px; height: 52px;
+  background: linear-gradient(transparent, #17171f);
+  pointer-events: none;
+}
+.cs-banner .tool-card-title, .cs-banner .tool-card-sub { position: relative; z-index: 1; }
+.cs-banner:hover .cs-shot { transform: scale(1.06); }
+.cs-banner:hover { border-color: rgba(255,255,255,0.28) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-banner" href="#"
+   style="--card-title-color:#f2f2f8; --card-sub-color:#a0a0b4;"&gt;
+  &lt;img class="cs-shot" src="../curriculum/dp/A3.4/macropad.webp" alt=""&gt;
+  &lt;h3 class="tool-card-title"&gt;Screenshot Banner&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;The tool's own interface above, the copy on a solid panel below.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-thumb">
+  <div class="ex-head">
+    <span class="ex-num">52</span>
+    <div class="ex-id">
+      <h3>Icon Thumbnail</h3>
+      <code class="ex-class">.cs-thumb</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span><span class="tag t-img">Needs an image</span></div>
+  </div>
+  <p class="ex-desc">A small rounded thumbnail sitting above the title, the way an app tile works. Uses a real <code>&lt;img&gt;</code>.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-thumb" href="#"
+         style="--card-title-color:#f2f2f8; --card-sub-color:#9d9db0;">
+        <img class="cs-shot" src="../curriculum/dp/A3.4/nes.webp" alt="">
+        <h3 class="tool-card-title">Icon Thumbnail</h3>
+        <p class="tool-card-sub">A rounded tile above the title, the way an app icon works.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-thumb {
+  background: #1b1c24 !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 18px !important;
+  padding: 1.25rem 1.75rem !important;
+  gap: 0.55rem !important;
+}
+.cs-thumb .cs-shot {
+  width: 58px; height: 58px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 5px 14px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cs-thumb:hover .cs-shot {
+  transform: scale(1.09) rotate(-3deg);
+  box-shadow: 0 9px 22px rgba(0,0,0,0.6);
+}
+.cs-thumb:hover { border-color: rgba(255,255,255,0.26) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-thumb" href="#"
+   style="--card-title-color:#f2f2f8; --card-sub-color:#9d9db0;"&gt;
+  &lt;img class="cs-shot" src="../curriculum/dp/A3.4/nes.webp" alt=""&gt;
+  &lt;h3 class="tool-card-title"&gt;Icon Thumbnail&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A rounded tile above the title, the way an app icon works.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-duotone">
+  <div class="ex-head">
+    <span class="ex-num">53</span>
+    <div class="ex-id">
+      <h3>Duotone Photo</h3>
+      <code class="ex-class">.cs-duotone</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span><span class="tag t-img">Needs an image</span></div>
+  </div>
+  <p class="ex-desc">Pushes any photograph through a two-colour treatment, so a grid of mismatched screenshots still reads as one set. Snaps to full colour on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-duotone" href="#"
+         style="--card-img:url('../curriculum/dp/C3.1/gamegear-nba-jam.webp'); --card-duo-a:#FA16C2; --card-duo-b:#2dd4bf; --card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.85);">
+        <h3 class="tool-card-title">Duotone Photo</h3>
+        <p class="tool-card-sub">A two-colour treatment that snaps to full colour on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-duotone {
+  background: #101018 !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-duotone::before {
+  content: ''; position: absolute; inset: 0; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(1) contrast(1.25) brightness(0.38);
+  transition: filter 0.45s ease;
+}
+.cs-duotone::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(150deg, var(--card-duo-a, #FA16C2), var(--card-duo-b, #2dd4bf));
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  transition: opacity 0.45s ease;
+}
+.cs-duotone .tool-card-title, .cs-duotone .tool-card-sub { text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+.cs-duotone:hover::before { filter: grayscale(0) contrast(1.05) brightness(0.8); }
+.cs-duotone:hover::after { opacity: 0; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-duotone" href="#"
+   style="--card-img:url('../curriculum/dp/C3.1/gamegear-nba-jam.webp'); --card-duo-a:#FA16C2; --card-duo-b:#2dd4bf; --card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.85);"&gt;
+  &lt;h3 class="tool-card-title"&gt;Duotone Photo&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A two-colour treatment that snaps to full colour on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-peek">
+  <div class="ex-head">
+    <span class="ex-num">54</span>
+    <div class="ex-id">
+      <h3>Peeking Photo</h3>
+      <code class="ex-class">.cs-peek</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span><span class="tag t-img">Needs an image</span></div>
+  </div>
+  <p class="ex-desc">The picture waits as a strip along the bottom edge and rises to fill the card when you reach it.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-peek" href="#"
+         style="--card-img:url('gamesimage.png'); --card-title-color:#f4f4fa; --card-sub-color:#b0b0c2;">
+        <h3 class="tool-card-title">Peeking Photo</h3>
+        <p class="tool-card-sub">A strip along the bottom that rises to fill the card.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-peek {
+  background: #15161c !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+  padding-bottom: 3.6rem !important;
+}
+.cs-peek::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; z-index: -2;
+  background-image: var(--card-img, none);
+  background-size: cover;
+  background-position: center 45%;
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cs-peek::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; z-index: -1;
+  background: linear-gradient(rgba(21,22,28,0.85), rgba(21,22,28,0.25));
+  transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1), background 0.45s;
+}
+.cs-peek:hover { padding-bottom: 1.75rem !important; }
+.cs-peek:hover::before, .cs-peek:hover::after { height: 100%; }
+.cs-peek:hover::after { background: linear-gradient(rgba(21,22,28,0.45), rgba(21,22,28,0.88)); }
+.cs-peek .tool-card-title, .cs-peek .tool-card-sub { text-shadow: 0 2px 8px rgba(0,0,0,0.75); }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-peek" href="#"
+   style="--card-img:url('gamesimage.png'); --card-title-color:#f4f4fa; --card-sub-color:#b0b0c2;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Peeking Photo&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A strip along the bottom that rises to fill the card.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
 <section class="group" id="g-site">
   <header class="group-head">
     <h2>Site-specific</h2>
@@ -3801,7 +4239,7 @@ document.querySelectorAll('.cs-tilt').forEach(function(el){
 
 <article class="ex" id="ex-cs-ember">
   <div class="ex-head">
-    <span class="ex-num">50</span>
+    <span class="ex-num">55</span>
     <div class="ex-id">
       <h3>Ember Tablet</h3>
       <code class="ex-class">.cs-ember</code>
@@ -3855,7 +4293,7 @@ document.querySelectorAll('.cs-tilt').forEach(function(el){
 
 <article class="ex" id="ex-cs-hex">
   <div class="ex-head">
-    <span class="ex-num">51</span>
+    <span class="ex-num">56</span>
     <div class="ex-id">
       <h3>Mana Hex</h3>
       <code class="ex-class">.cs-hex</code>
@@ -3911,7 +4349,7 @@ document.querySelectorAll('.cs-tilt').forEach(function(el){
 
 <article class="ex" id="ex-cs-fan">
   <div class="ex-head">
-    <span class="ex-num">52</span>
+    <span class="ex-num">57</span>
     <div class="ex-id">
       <h3>Card Fan</h3>
       <code class="ex-class">.cs-fan</code>
@@ -3964,7 +4402,7 @@ document.querySelectorAll('.cs-tilt').forEach(function(el){
 
 <article class="ex" id="ex-cs-blurt">
   <div class="ex-head">
-    <span class="ex-num">53</span>
+    <span class="ex-num">58</span>
     <div class="ex-id">
       <h3>Blurt</h3>
       <code class="ex-class">.cs-blurt</code>
