@@ -60,27 +60,84 @@
 .ps-progress { flex: none; height: 3px; background: var(--surface-2); }
 .ps-progress-bar { display: block; height: 100%; width: 0; background: var(--curr-color, var(--accent)); transition: width .3s ease; }
 
-.ps-stage { position: relative; flex: 1; overflow: hidden; }
-.ps-slide { position: absolute; inset: 0; visibility: hidden; overflow: hidden; padding: 1.9rem clamp(1.4rem, 4.5vw, 4rem) 1.9rem; }
+.ps-stage { position: relative; flex: 1; overflow: hidden; --ps-fs: clamp(1.1rem, 1.85vw, 1.8rem); }
+.ps-slide { position: absolute; inset: 0; visibility: hidden; overflow: hidden; padding: clamp(1.4rem, 3.2vh, 2.4rem) clamp(1.4rem, 4.5vw, 4rem); }
 .ps-slide.is-active { visibility: visible; animation: ps-fade .22s ease; }
 @keyframes ps-fade { from { opacity: 0; } to { opacity: 1; } }
 
-.ps-slide-inner { position: relative; height: 100%; display: flex; flex-direction: column; }
-.ps-slide--split .ps-slide-inner { flex-direction: row; align-items: stretch; gap: 1.8rem; }
+.ps-slide-inner { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.ps-slide--split .ps-slide-inner { flex-direction: row; align-items: center; gap: clamp(1.4rem, 3vw, 2.6rem); }
 .ps-slide--split .ps-slide-body { flex: 1; min-width: 0; }
-.ps-slide--split .ps-media-col { flex: none; width: min(38%, 330px); }
+.ps-slide--split .ps-media-col { flex: none; width: min(46%, 520px); }
 .ps-slide--imgonly .ps-slide-inner { justify-content: center; align-items: center; }
+.ps-slide--text .ps-slide-body { max-width: 54rem; margin-left: auto; margin-right: auto; }
+.ps-slide--split.ps-slide--text .ps-slide-body { max-width: none; }
 
 .ps-cover-inner { width: 100%; max-width: 60rem; margin: auto; text-align: center; }
 .ps-cover-code { font-family: var(--font-mono); font-size: clamp(.9rem, 1.6vw, 1.1rem); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--curr-color, var(--accent)); }
 .ps-cover-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.7rem, 3.6vw, 2.9rem); line-height: 1.18; color: var(--text); margin: .4rem auto 1.6rem; max-width: 52rem; }
 .ps-cover-outcome { text-align: left; max-width: 44rem; margin-left: auto; margin-right: auto; }
 
-.ps-slide-body.obj-body { display: block; padding: 0; font-size: clamp(1rem, 1.35vw, 1.1rem); line-height: 1.6; }
-.ps-media-col { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; align-self: stretch; }
+/* --- slide typography: scales with the viewport so a projected slide is
+   readable from the back of a room, rather than inheriting page-sized text. --- */
+.ps-slide-body.obj-body { display: block; padding: 0; font-size: var(--ps-fs); line-height: 1.55; }
+.ps-slide-body > :first-child { margin-top: 0; }
+.ps-slide-body > :last-child { margin-bottom: 0; }
+.ps-slide-body p { font-size: 1em; line-height: 1.55; margin: 0 0 .8em; }
+.ps-slide-body ul, .ps-slide-body ol { font-size: 1em; margin: 0 0 .8em; padding-left: 1.25em; }
+.ps-slide-body li { font-size: 1em; line-height: 1.5; margin: 0 0 .7em; }
+.ps-slide-body li:last-child { margin-bottom: 0; }
+.ps-slide-body :is(p, li, td, th, figcaption) a {
+  color: inherit; text-decoration: underline;
+  text-decoration-color: var(--curr-color, var(--accent)); text-underline-offset: .18em;
+}
+
+.ps-block { display: block; }
+.ps-lead {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 1.45em; line-height: 1.2; color: var(--text);
+  margin: 0 0 .55em; padding-bottom: .3em;
+  border-bottom: 2px solid var(--curr-color, var(--accent));
+}
+.ps-lead--cont { color: var(--muted); border-bottom-color: var(--border); }
+
+.ps-slide-body .content-table-wrap { margin: 0; overflow: visible; }
+.ps-slide-body table { width: 100%; margin: 0; font-size: .82em; line-height: 1.45; }
+.ps-slide-body table th {
+  font-family: var(--font-mono); font-size: .72em; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: .75em .9em; vertical-align: bottom;
+}
+.ps-slide-body table td { padding: .75em .9em; }
+
+.ps-media-col { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem; align-self: center; min-height: 0; }
 .ps-media { margin: 0; }
-.ps-media-col img { display: block; width: 100%; height: auto; max-height: 58vh; max-width: 100%; object-fit: contain; background: var(--surface-2); border-radius: var(--radius); }
-.ps-media-col figcaption { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .03em; color: var(--muted); margin-top: .5rem; line-height: 1.5; }
+.ps-media-col .case-photo, .ps-media-col figure { width: 100%; margin: 0; }
+.ps-media-col img { display: block; width: 100%; height: auto; max-height: 68vh; max-width: 100%; object-fit: contain; background: var(--surface-2); border-radius: var(--radius); cursor: default; }
+.ps-slide--imgonly .ps-media-col img { max-height: 78vh; }
+.ps-media-col figcaption { font-family: var(--font-mono); font-size: clamp(.68rem, .85vw, .85rem); letter-spacing: .03em; color: var(--muted); margin-top: .5rem; line-height: 1.5; text-align: center; }
+
+/* --- case study (spotlight) slides --- */
+.ps-slide--hero { padding: 0; }
+.ps-slide--hero .ps-slide-body.obj-body { height: 100%; display: flex; padding: 0; }
+/* Split rather than overlaid: cover art on this site often has its own
+   headline burnt into the image, which a text overlay would sit on top of. */
+.ps-case-hero { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--surface); }
+/* contain, not cover: these covers are editorial banners with their own
+   headline, and cropping one cuts the words in half. */
+.ps-case-hero > img { flex: 1; min-height: 0; width: 100%; object-fit: contain; background: var(--surface-2); border-radius: 0; }
+.ps-case-hero-text {
+  flex: none;
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1.5rem, 4vw, 3.5rem);
+  border-top: 4px solid var(--curr-color, var(--accent));
+}
+.ps-case-kicker { font-family: var(--font-mono); font-size: clamp(.66rem, .9vw, .85rem); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--curr-color, var(--accent)); }
+.ps-case-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.6rem); line-height: 1.15; color: var(--text); margin: .5rem 0 .7rem; }
+.ps-case-teaser { font-size: clamp(.95rem, 1.3vw, 1.3rem); line-height: 1.5; color: var(--muted); margin: 0; }
+
+
+
+.ps-slide-body .tool-promo-card { margin: 0 auto; max-width: 46rem; }
 
 .ps-footer {
   flex: none; display: flex; align-items: center; justify-content: center; gap: 1.1rem;
@@ -680,6 +737,13 @@
   var index = 0;
   var opener = null;
 
+  /* A paragraph longer than SPLIT_OVER is cut at sentence boundaries into
+     pieces of roughly SPLIT_TARGET characters, so no slide carries a wall
+     of prose. Tuned against the longest paragraphs in the C4.1 notes. */
+  var SPLIT_OVER = 520;
+  var SPLIT_TARGET = 360;
+  var LEAD_MAX = 90;
+
   var ICON_PREV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
   var ICON_NEXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
   var ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8 5 19 12 8 19"/></svg>';
@@ -755,7 +819,7 @@
   }
 
   function hasImg(node) {
-    return !!node.querySelector('img[src]:not([src=""])');
+    return !!node.querySelector('img[src]:not([src=""])') || !!node.querySelector('video');
   }
 
   function toMediaFigure(node) {
@@ -776,7 +840,110 @@
       var alt = im ? (im.getAttribute('alt') || '') : '';
       if (alt) figure.appendChild(el('figcaption', '', alt));
     }
+    figure.psIsMedia = true;
     return figure;
+  }
+
+  /* ---- splitting long prose --------------------------------------- */
+
+  /* Nearest sentence boundary to `target`, searching the whole string so a
+     paragraph with only one late full stop still finds it. */
+  function sentenceCut(text, target) {
+    var re = /[.!?]["'’)\]]?\s+/g;
+    var m, best = -1;
+    while ((m = re.exec(text))) {
+      var pos = m.index + m[0].length;
+      if (best < 0 || Math.abs(pos - target) < Math.abs(best - target)) best = pos;
+    }
+    return best;
+  }
+
+  /* Removes the first `offset` characters of text from `node` and returns
+     them as a clone of the same element, tags intact. */
+  function cutAt(node, offset) {
+    var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+    var acc = 0, t, target = null, local = 0;
+    while ((t = walker.nextNode())) {
+      if (acc + t.length >= offset) { target = t; local = offset - acc; break; }
+      acc += t.length;
+    }
+    if (!target) return null;
+    var range = document.createRange();
+    range.setStart(node, 0);
+    range.setEnd(target, local);
+    var head = node.cloneNode(false);
+    head.appendChild(range.extractContents());
+    return head;
+  }
+
+  function splitProse(p) {
+    var out = [];
+    var rest = p;
+    var guard = 0;
+    while (rest.textContent.length > SPLIT_OVER && guard++ < 6) {
+      var text = rest.textContent;
+      var pieces = Math.max(2, Math.round(text.length / SPLIT_TARGET));
+      var cut = sentenceCut(text, Math.round(text.length / pieces));
+      if (cut <= 0 || cut >= text.length - 40) break;
+      var head = cutAt(rest, cut);
+      if (!head || !head.textContent.trim()) break;
+      out.push(head);
+    }
+    out.push(rest);
+    return out;
+  }
+
+  /* A paragraph opening with "<strong>Label:</strong> body" becomes a slide
+     heading plus body. Returns the label and mutates the paragraph. */
+  function extractLead(p) {
+    var first = p.firstChild;
+    while (first && first.nodeType === 3 && !first.nodeValue.trim()) first = first.nextSibling;
+    if (!first || first.nodeType !== 1 || first.tagName !== 'STRONG') return null;
+    var label = first.textContent.trim();
+    if (!label || label.length > LEAD_MAX) return null;
+    var after = first.nextSibling;
+    var afterText = after && after.nodeType === 3 ? after.nodeValue : '';
+    if (!/[:：]$/.test(label) && !/^\s*[:：]/.test(afterText)) return null;
+    if (after && after.nodeType === 3) after.nodeValue = afterText.replace(/^\s*[:：]?\s*/, '');
+    first.parentNode.removeChild(first);
+    if (!p.textContent.trim()) return null;
+    return label.replace(/[:：]\s*$/, '');
+  }
+
+  /* A standalone short paragraph ending in a colon ("DFD design guidelines:")
+     is a heading for whatever follows, not a slide of its own. */
+  function leadOnly(node) {
+    if (node.tagName !== 'P') return null;
+    var t = node.textContent.trim();
+    if (!t || t.length > LEAD_MAX || !/[:：]$/.test(t)) return null;
+    return t.replace(/[:：]\s*$/, '');
+  }
+
+  /* Puts a heading above each chunk, numbering it when there is more than
+     one so a table or list split across slides still reads as one thing. */
+  /* `carried` marks a heading borrowed from the preceding unit, so a list that
+     continues a lead-in paragraph keeps its context instead of arriving bare. */
+  function withLead(chunks, lead, carried) {
+    if (!lead) return chunks;
+    return chunks.map(function (chunk, i) {
+      var block = el('div', 'ps-block');
+      var text = carried ? lead
+        : lead + (chunks.length > 1 ? '  (' + (i + 1) + '/' + chunks.length + ')' : '');
+      var cls = 'ps-lead' + (carried ? ' ps-lead--cont ps-lead--carried' : (i ? ' ps-lead--cont' : ''));
+      block.appendChild(el('h2', cls, text));
+      block.appendChild(chunk);
+      return block;
+    });
+  }
+
+  /* ---- chunking tables and lists ----------------------------------- */
+
+  function rowsPerSlide(rows) {
+    var total = rows.reduce(function (a, r) { return a + r.textContent.trim().length; }, 0);
+    var avg = total / rows.length;
+    if (avg > 200) return 2;
+    if (avg > 110) return 3;
+    return 5;
   }
 
   function chunkTable(node) {
@@ -785,15 +952,16 @@
     var tbody = table.querySelector('tbody');
     if (!tbody) return [node];
     var rows = Array.prototype.slice.call(tbody.children);
-    if (rows.length <= 4) return [node];
+    var per = rowsPerSlide(rows);
+    if (rows.length <= per) return [node];
     var thead = table.querySelector('thead');
     var chunks = [];
-    for (var i = 0; i < rows.length; i += 4) {
+    for (var i = 0; i < rows.length; i += per) {
       var wrap = node.cloneNode(false);
       var t = table.cloneNode(false);
       if (thead) t.appendChild(thead.cloneNode(true));
       var tb = document.createElement('tbody');
-      rows.slice(i, i + 4).forEach(function (r) { tb.appendChild(r); });
+      rows.slice(i, i + per).forEach(function (r) { tb.appendChild(r); });
       t.appendChild(tb);
       wrap.appendChild(t);
       chunks.push(wrap);
@@ -803,79 +971,164 @@
 
   function chunkList(node) {
     var items = Array.prototype.slice.call(node.children);
-    if (items.length <= 4) return [node];
+    if (!items.length) return [node];
+    var avg = node.textContent.trim().length / items.length;
+    var per = avg > 190 ? 2 : (avg > 100 ? 3 : 4);
+    if (items.length <= per) return [node];
     var chunks = [];
-    for (var i = 0; i < items.length; i += 4) {
+    for (var i = 0; i < items.length; i += per) {
       var c = node.cloneNode(false);
-      items.slice(i, i + 4).forEach(function (li) { c.appendChild(li); });
+      items.slice(i, i + per).forEach(function (li) { c.appendChild(li); });
       chunks.push(c);
     }
     return chunks;
   }
 
-  function buildDeck(sec, code, title) {
-    var body = sec.querySelector('.obj-body');
-    var outcome = null;
+  /* ---- case studies ------------------------------------------------- */
+
+  /* A case-study card on the page is a teaser that opens a modal. In the deck
+     it becomes a full-bleed title slide followed by the modal's own content,
+     each figure paired with the prose that follows it. */
+  function expandCase(card, units) {
+    var modal = card.dataset && card.dataset.modal ? document.getElementById(card.dataset.modal) : null;
+    var titleEl = modal ? modal.querySelector('.case-modal-header h2') : null;
+    var cardTitle = card.querySelector('h4, h3');
+    var title = (titleEl ? titleEl.textContent : (cardTitle ? cardTitle.textContent : 'Case study'))
+      .replace(/^\s*case study:\s*/i, '').trim();
+    var teaser = card.querySelector('.case-study-content p');
+    var cover = card.querySelector('img');
+
+    var hero = el('div', 'ps-case-hero');
+    if (cover) {
+      var im = cover.cloneNode(true);
+      im.loading = 'eager';
+      im.setAttribute('draggable', 'false');
+      hero.appendChild(im);
+    }
+    var text = el('div', 'ps-case-hero-text');
+    text.appendChild(el('div', 'ps-case-kicker', 'Case study'));
+    text.appendChild(el('h2', 'ps-case-title', title));
+    if (teaser) text.appendChild(el('p', 'ps-case-teaser', teaser.textContent.trim()));
+    hero.appendChild(text);
+    hero.psHard = true;
+    hero.psHero = true;
+    units.push(hero);
+
+    var body = modal ? modal.querySelector('.case-modal-body') : null;
+    if (!body) return;
+    /* The modal usually opens with the same cover art as the card, which the
+       title slide has just shown. */
+    var coverSrc = cover ? cover.getAttribute('src') : null;
+    Array.prototype.forEach.call(body.children, function (kid) {
+      /* .case-phase is a page-layout wrapper; unwrap it so its paragraphs
+         chunk individually instead of arriving as one giant unit. */
+      var nodes = kid.classList.contains('case-phase')
+        ? Array.prototype.slice.call(kid.children)
+        : [kid];
+      nodes.forEach(function (n) {
+        var c = n.cloneNode(true);
+        if (hasImg(c)) {
+          var im = c.querySelector('img');
+          if (im && coverSrc && im.getAttribute('src') === coverSrc) { coverSrc = null; return; }
+          units.push(toMediaFigure(c));
+          return;
+        }
+        if (c.matches('ul, ol')) { chunkList(c).forEach(function (u) { units.push(u); }); return; }
+        if (c.tagName === 'P') {
+          var lead = extractLead(c);
+          withLead(splitProse(c), lead).forEach(function (u) { units.push(u); });
+          return;
+        }
+        units.push(c);
+      });
+    });
+  }
+
+  /* ---- deck assembly ------------------------------------------------ */
+
+  function collectUnits(body) {
     var units = [];
-    var waiting = [];
+    var outcome = null;
+    var pendingLead = null;
+    var carry = null;
+
+    function push(list) { list.forEach(function (u) { units.push(u); }); }
 
     Array.prototype.forEach.call(body.children, function (child) {
       if (child.classList.contains('ps-start-btn')) return;
-      if (child.classList.contains('obj-outcome')) {
-        outcome = child.cloneNode(true);
-        return;
-      }
+      if (child.classList.contains('obj-outcome')) { outcome = child.cloneNode(true); return; }
+      /* The "Case Study" rule above the grid is replaced by the hero slide. */
+      if (child.classList.contains('hub-group-label')) return;
+
       var clone = child.cloneNode(true);
-      if (clone.matches('.content-table-wrap, table')) {
-        chunkTable(clone).forEach(function (u) { units.push(u); });
-        return;
-      }
-      if (clone.matches('ul, ol')) {
-        chunkList(clone).forEach(function (u) { units.push(u); });
-        return;
-      }
+
       if (clone.classList.contains('case-study-grid')) {
-        Array.prototype.forEach.call(clone.children, function (card) { units.push(card); });
+        pendingLead = null;
+        Array.prototype.forEach.call(clone.children, function (card) { expandCase(card, units); });
         return;
       }
-      if (hasImg(clone) && !clone.matches('.tool-promo-card, .case-study-card, [data-modal]')) {
+
+      var standalone = leadOnly(clone);
+      if (standalone) { pendingLead = standalone; return; }
+
+      var nextCarry = null;
+      if (clone.matches('.content-table-wrap, table, ul, ol')) {
+        var lead = pendingLead || carry;
+        var chunks = clone.matches('ul, ol') ? chunkList(clone) : chunkTable(clone);
+        push(withLead(chunks, lead, !pendingLead && !!carry));
+        nextCarry = lead;
+      } else if (clone.tagName === 'P' && !hasImg(clone)) {
+        var own = pendingLead || extractLead(clone);
+        push(withLead(splitProse(clone), own));
+        nextCarry = own;
+      } else if (hasImg(clone) && !clone.matches('.tool-promo-card, .case-study-card, [data-modal]')) {
         units.push(toMediaFigure(clone));
-        return;
+      } else {
+        if (clone.matches('.tool-promo-card, [data-modal]')) clone.psHard = true;
+        push(withLead([clone], pendingLead));
       }
-      units.push(clone);
+      pendingLead = null;
+      carry = nextCarry;
     });
 
+    return { units: units, outcome: outcome };
+  }
+
+  function buildDeck(sec, code, title) {
+    var collected = collectUnits(sec.querySelector('.obj-body'));
+    var waiting = [];
     var out = [];
+
     var cover = el('section', 'ps-slide ps-slide--cover');
     var inner = el('div', 'ps-slide-inner');
     var cInner = el('div', 'ps-cover-inner');
     if (code) cInner.appendChild(el('div', 'ps-cover-code', code));
     cInner.appendChild(el('h1', 'ps-cover-title', title));
-    if (outcome) {
+    if (collected.outcome) {
       var oWrap = el('div', 'ps-cover-outcome');
-      oWrap.appendChild(outcome);
+      oWrap.appendChild(collected.outcome);
       cInner.appendChild(oWrap);
     }
     inner.appendChild(cInner);
     cover.appendChild(inner);
     out.push(cover);
 
-    units.forEach(function (unit) {
-      var s = el('section', 'ps-slide' + (unit.tagName === 'FIGURE' ? ' ps-slide--media' : ''));
+    collected.units.forEach(function (unit) {
+      var s = el('section', 'ps-slide');
       var sInner = el('div', 'ps-slide-inner');
       var b = el('div', 'obj-body open ps-slide-body');
       var m = el('aside', 'ps-media-col');
-      if (unit.tagName === 'FIGURE') {
-        m.appendChild(unit);
-        s.classList.add('ps-slide--imgonly');
-      } else {
-        b.appendChild(unit);
-      }
+      if (unit.psIsMedia) m.appendChild(unit);
+      else b.appendChild(unit);
       sInner.appendChild(b);
       sInner.appendChild(m);
       s.appendChild(sInner);
       s.psBody = b;
       s.psMedia = m;
+      s.psHard = !!unit.psHard;
+      s.psHero = !!unit.psHero;
+      if (unit.psHero) s.classList.add('ps-slide--hero');
+      syncMode(s);
       out.push(s);
 
       var imgs = unit.querySelectorAll('img');
@@ -892,17 +1145,33 @@
     var hasMedia = s.psMedia.children.length > 0;
     s.classList.toggle('ps-slide--split', hasBody && hasMedia);
     s.classList.toggle('ps-slide--imgonly', !hasBody && hasMedia);
+    s.classList.toggle('ps-slide--text', hasBody && !s.psHero && !s.psBody.querySelector('table'));
+  }
+
+  function isDataUnit(u) {
+    return (u.matches && u.matches('table, ul, ol')) ||
+           (u.querySelector && !!u.querySelector('table, ul, ol'));
   }
 
   function canMerge(cur, unit) {
-    var isMedia = unit.tagName === 'FIGURE';
+    if (cur.psHard || unit.psHard) return false;
     var bodyKids = cur.psBody.children.length;
     var mediaKids = cur.psMedia.children.length;
-    if (isMedia) return mediaKids === 0 && bodyKids <= 1;
-    if (mediaKids) return bodyKids < 2;
-    if (cur.psBody.querySelector('table')) return bodyKids < 2;
-    if (cur.psBody.querySelector('ul, ol')) return bodyKids < 2;
-    return bodyKids < 3;
+    /* A figure starts its own slide and the prose that follows it merges in,
+       so an image pairs with the text that discusses it, not the text before. */
+    if (unit.psIsMedia) return mediaKids === 0 && bodyKids === 0;
+    if (mediaKids) return bodyKids < 1;
+    /* A table or list owns its slide. The only thing allowed above one is a
+       short heading-and-lead-in, and nothing may follow it. */
+    if (cur.psBody.querySelector('table, ul, ol')) return false;
+    if (isDataUnit(unit)) {
+      return bodyKids === 0 ||
+             (bodyKids === 1 && cur.psBody.textContent.trim().length < 180);
+    }
+    if (bodyKids === 0) return true;
+    /* Two headed blocks are two topics; a slide should carry one. */
+    if (cur.psBody.querySelector('.ps-lead') && unit.querySelector && unit.querySelector('.ps-lead')) return false;
+    return bodyKids < 2;
   }
 
   function fits(slide) {
@@ -912,8 +1181,8 @@
     var tries = 0;
     while (tries++ < 12 &&
            (inner.scrollHeight > inner.clientHeight + 2 || inner.scrollWidth > inner.clientWidth + 2)) {
-      if (zoom <= 0.55) return false;
-      zoom = Math.max(0.55, zoom - 0.05);
+      if (zoom <= 0.62) return false;
+      zoom = Math.max(0.62, zoom - 0.04);
       inner.dataset.zoom = zoom;
       inner.style.zoom = zoom;
     }
@@ -931,12 +1200,13 @@
         slides.splice(i + 1, 1);
         continue;
       }
-      var units = Array.prototype.slice.call(from.children);
+      var units = Array.prototype.slice.call(from.children).concat(
+        Array.prototype.slice.call(nxt.psMedia.children));
       var moved = 0;
       for (var u = 0; u < units.length; u++) {
         var unit = units[u];
         if (!canMerge(cur, unit)) break;
-        var isMedia = unit.tagName === 'FIGURE';
+        var isMedia = !!unit.psIsMedia;
         if (isMedia) cur.psMedia.appendChild(unit);
         else cur.psBody.appendChild(unit);
         moved++;
@@ -953,13 +1223,30 @@
         nxt.parentNode.removeChild(nxt);
         slides.splice(i + 1, 1);
       } else {
-        for (var m = 0; m < moved; m++) {
+        for (var m = moved - 1; m >= 0; m--) {
           var back = units[m];
-          if (back.parentNode) from.insertBefore(back, from.firstChild);
+          if (back.parentNode) {
+            if (back.psIsMedia) nxt.psMedia.insertBefore(back, nxt.psMedia.firstChild);
+            else from.insertBefore(back, from.firstChild);
+          }
         }
+        syncMode(cur);
+        syncMode(nxt);
         i++;
       }
     }
+    slides.forEach(function (s) {
+      if (!s.psBody) return;
+      /* A carried heading is redundant once its chunk lands on the same slide
+         as the paragraph it was borrowed from. */
+      var seen = {};
+      Array.prototype.forEach.call(s.psBody.querySelectorAll('.ps-lead'), function (h) {
+        var key = h.textContent.trim();
+        if (seen[key] && h.classList.contains('ps-lead--carried')) h.parentNode.removeChild(h);
+        else seen[key] = true;
+      });
+      syncMode(s);
+    });
   }
 
   function openDeck(sec, trigger) {
@@ -969,7 +1256,8 @@
     var titleEl = sec.querySelector('.obj-trigger h3');
     var code = codeEl ? codeEl.textContent.trim() : '';
     var title = titleEl ? titleEl.textContent.trim() : '';
-    var color = sec.style.getPropertyValue('--curr-color');
+    var section = sec.closest('.curr-section') || sec;
+    var color = section.style.getPropertyValue('--curr-color');
     if (color) {
       overlay.style.setProperty('--curr-color', color);
       overlay.style.setProperty('--topic-color', color);
@@ -981,7 +1269,7 @@
     slides = deck.slides;
     slides.forEach(function (s) { stage.appendChild(s); });
 
-    overlay.querySelector('.ps-deck-title').textContent = (code ? code + ' \u2014 ' : '') + title;
+    overlay.querySelector('.ps-deck-title').textContent = (code ? code + ' — ' : '') + title;
     overlay.setAttribute('aria-label', 'Present and study: ' + title);
 
     overlay.classList.add('is-open');
