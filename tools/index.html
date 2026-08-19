@@ -436,6 +436,32 @@
   border-color: #ff5c3a !important;
   box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 24px rgba(255,92,58,0.2) !important;
 }
+.cs-banner {
+  background: #17171f !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  justify-content: flex-end !important;
+  gap: 0.35rem !important;
+  padding: 0.9rem 1.25rem 1.15rem !important;
+}
+.cs-banner .cs-shot {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 96px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.cs-banner::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 52px; height: 52px;
+  background: linear-gradient(transparent, #17171f);
+  pointer-events: none;
+}
+.cs-banner .tool-card-title, .cs-banner .tool-card-sub { position: relative; z-index: 1; }
+.cs-banner:hover .cs-shot { transform: scale(1.06); }
+.cs-banner:hover { border-color: rgba(255,255,255,0.28) !important; 
+}
 </style>
 </head>
 <body>
