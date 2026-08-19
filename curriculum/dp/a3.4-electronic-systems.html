@@ -630,8 +630,11 @@
 <div class="curr-body" id="body-paper2">
 <div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
 
+<div class="p2-question">
+<div class="p2-q-num">Question 1 &middot; 4 marks</div>
+<div class="p2-q-text">Using the Input–Process–Output–Feedback (IPOF) model, describe how a home thermostat controls room temperature. Identify the input device, the processing stage, the output device, and the role of feedback.</div>
 <details class="p2-reveal">
-<summary class="p2-q-stem"><span class="p2-q-label">Question 1</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Using the Input–Process–Output–Feedback (IPOF) model, describe how a home thermostat controls room temperature. Identify the input device, the processing stage, the output device, and the role of feedback.</span></summary>
+<summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>Input</strong>: A thermistor (NTC temperature sensor) continuously measures the actual room temperature. The resistance of the thermistor decreases as temperature rises, producing a proportional voltage at the input of the microcontroller or comparator circuit.</p>
 <p><strong>Process</strong>: The control circuit (microcontroller or comparator) compares the actual temperature (from the thermistor) to the user-set target temperature (set point). If the actual temperature is below the set point, the processor generates a signal to activate the heating output. If actual temperature equals or exceeds the set point, the output signal is removed.</p>
@@ -640,9 +643,13 @@
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct input device with explanation (thermistor, measures temperature); 1 mark for process stage (comparison to set point, decision logic); 1 mark for output device (relay switching heater/boiler); 1 mark for correct description of negative feedback as self-correcting (not just "feedback sends signal back").</p>
 </div>
 </details>
+</div>
 
+<div class="p2-question">
+<div class="p2-q-num">Question 2 &middot; 6 marks</div>
+<div class="p2-q-text">Compare analogue and digital electronic systems. In your answer, discuss signal characteristics, noise immunity, processing methods, and give one example application of each that demonstrates why that signal type is appropriate.</div>
 <details class="p2-reveal">
-<summary class="p2-q-stem"><span class="p2-q-label">Question 2</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Compare analogue and digital electronic systems. In your answer, discuss signal characteristics, noise immunity, processing methods, and give one example application of each that demonstrates why that signal type is appropriate.</span></summary>
+<summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>Analogue systems</strong> use signals that vary continuously over a range of values, like a smoothly changing voltage that mirrors a physical quantity exactly. An analogue microphone output rises and falls in direct proportion to air pressure changes from sound. Analogue signals can represent an infinite range of values between minimum and maximum.</p>
 <p><strong>Digital systems</strong> represent all information as sequences of binary digits (0 and 1). A digital signal switches sharply between LOW (0 V) and HIGH (3.3 V or 5 V). All data (numbers, text, images, audio) is encoded as patterns of bits.</p>
@@ -662,9 +669,13 @@
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct signal characteristic of each (continuous vs. discrete/binary); 1 mark for noise immunity comparison with explanation; 1 mark for processing methods contrast; 1 mark for correct analogue example with justification; 1 mark for correct digital example with justification; 1 mark for any additional developed comparison point (copying accuracy, storage density, programmability).</p>
 </div>
 </details>
+</div>
 
+<div class="p2-question">
+<div class="p2-q-num">Question 3 &middot; 5 marks</div>
+<div class="p2-q-text">A security light uses a PIR (passive infrared) sensor, a microcontroller, and an LED floodlight. A relay is used between the microcontroller and the floodlight. Draw the block diagram of this system and explain why a relay is necessary in this circuit.</div>
 <details class="p2-reveal">
-<summary class="p2-q-stem"><span class="p2-q-label">Question 3</span><span class="p2-q-marks">5 marks</span><span class="p2-q-text">A security light uses a PIR (passive infrared) sensor, a microcontroller, and an LED floodlight. A relay is used between the microcontroller and the floodlight. Draw the block diagram of this system and explain why a relay is necessary in this circuit.</span></summary>
+<summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>Block diagram (describe in text):</strong></p>
 <p>PIR sensor → [INPUT] → Microcontroller → [PROCESS] → Relay driver (transistor) → Relay → [OUTPUT] → LED floodlight</p>
@@ -675,9 +686,13 @@
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for a correct block diagram with all four components in correct sequence (PIR → MCU → relay → floodlight); 1 mark for correctly stating the GPIO current/voltage limitation (~40 mA, low voltage); 1 mark for explaining that the relay coil is controlled by a safe low current; 1 mark for explaining electrical isolation (mains voltage separated from microcontroller); 1 mark for any additional developed point (transistor driver, timer in software, protection diode across relay coil).</p>
 </div>
 </details>
+</div>
 
+<div class="p2-question">
+<div class="p2-q-num">Question 4 &middot; 4 marks</div>
+<div class="p2-q-text">Explain the difference between series and parallel circuits. For each, state how total resistance is calculated and describe what happens to the rest of the circuit if one component fails (open circuit).</div>
 <details class="p2-reveal">
-<summary class="p2-q-stem"><span class="p2-q-label">Question 4</span><span class="p2-q-marks">4 marks</span><span class="p2-q-text">Explain the difference between series and parallel circuits. For each, state how total resistance is calculated and describe what happens to the rest of the circuit if one component fails (open circuit).</span></summary>
+<summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>Series circuits</strong> connect components end-to-end in a single, unbroken loop. The same current flows through every component. Total resistance is the sum of all individual resistances:</p>
 <p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
@@ -688,9 +703,13 @@
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for series definition (same current, single path) with correct total resistance formula; 1 mark for explanation of series open-circuit failure (complete loss of function); 1 mark for parallel definition (same voltage, multiple paths) with correct reciprocal resistance formula; 1 mark for explanation of parallel open-circuit failure (remaining branches unaffected).</p>
 </div>
 </details>
+</div>
 
+<div class="p2-question">
+<div class="p2-q-num">Question 5 &middot; 6 marks</div>
+<div class="p2-q-text">Evaluate the claim that "all modern electronic products should be redesigned to minimise their environmental impact." Refer to energy efficiency requirements, e-waste regulations, and the responsibilities of designers in your answer.</div>
 <details class="p2-reveal">
-<summary class="p2-q-stem"><span class="p2-q-label">Question 5</span><span class="p2-q-marks">6 marks</span><span class="p2-q-text">Evaluate the claim that "all modern electronic products should be redesigned to minimise their environmental impact." Refer to energy efficiency requirements, e-waste regulations, and the responsibilities of designers in your answer.</span></summary>
+<summary>Show example answer</summary>
 <div class="p2-answer">
 <p><strong>The case for redesign:</strong> Electronic products are the fastest-growing waste stream globally (54 million tonnes of e-waste generated in 2019, according to the UN Global E-waste Monitor). Many older products contain hazardous materials (lead solder, mercury backlights, hexavalent chromium) now restricted under the EU RoHS Directive (2011). These substances leach into soil and groundwater if products are landfilled rather than properly recycled.</p>
 <p>Energy consumption is also significant. A device drawing 5 W on standby and left plugged in for 10 years uses 5 W × 87,600 hours = 438 kWh of electricity for no useful output at all. Multiplied across millions of units sold, that is a large amount of generation capacity wasted, which is why the EU caps standby power at 0.5 W for most products. The EU Ecodesign Directive and the Australian Minimum Energy Performance Standards (MEPS) both require manufacturers to meet energy efficiency targets before products can be sold.</p>
@@ -700,6 +719,7 @@
 <p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for relevant e-waste statistic or reference to e-waste problem; 1 mark for correct reference to a regulation (RoHS, Ecodesign, MEPS, Right to Repair) with explanation of its scope; 1 mark for designer responsibility in material selection or design for disassembly; 1 mark for energy efficiency point with a quantified example; 1 mark for a valid counter-argument or qualification of the claim (embedded carbon, cost-benefit analysis, high vs. low volume); 1 mark for a supported conclusion that evaluates the claim rather than simply restating it.</p>
 </div>
 </details>
+</div>
 
 </div>
 </div>

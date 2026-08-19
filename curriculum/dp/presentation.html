@@ -3,116 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A full walkthrough of the IB DP Design Technology Internal Assessment, from empathize and define through ideation, design and presentation.">
-<title>DP Design Tech IA Guide | contrapaul edu</title>
-<link rel="canonical" href="https://edu.contrapaul.com/tools/DT-IA-Guide/">
+<meta name="description" content="How production systems reshape the way products get designed, made and thrown away. C4.1 for IB DP Design Technology: study guide, quiz and Paper 2 practice.">
+<title>C4.1 Design for Manufacture Strategies | DP Design | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/dp/c4.1-design-for-manufacture.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="contrapaul / edu">
-<meta property="og:title" content="DP Design Tech IA Guide | contrapaul edu">
-<meta property="og:description" content="A full walkthrough of the IB DP Design Technology Internal Assessment, from empathize and define through ideation, design and presentation.">
-<meta property="og:url" content="https://edu.contrapaul.com/tools/DT-IA-Guide/">
+<meta property="og:title" content="C4.1 Design for Manufacture Strategies | DP Design | contrapaul edu">
+<meta property="og:description" content="How production systems reshape the way products get designed, made and thrown away. C4.1 for IB DP Design Technology: study guide, quiz and Paper 2 practice.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/dp/c4.1-design-for-manufacture.html">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="../../style.css">
-<link rel="stylesheet" href="../../curriculum/curriculum.css">
-<link rel="stylesheet" href="../../curriculum/themes.css">
-<style>
-/* ── Present / Study mode (on-page, test build) ─────────────────── */
-.ps-start-btn {
-  display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--font-mono); font-size: .72rem; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--curr-color, var(--accent));
-  background: var(--surface);
-  border: 1px solid var(--curr-color, var(--accent));
-  border-radius: 999px;
-  padding: .5rem 1.05rem;
-  margin: 0 0 1.4rem;
-  cursor: pointer;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.ps-start-btn:hover { background: var(--curr-color, var(--accent)); color: #fff; }
-.ps-start-btn:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 3px; }
-.ps-start-btn svg { width: 13px; height: 13px; flex: none; }
-
-.ps-overlay {
-  position: fixed; inset: 0; z-index: 2000;
-  display: none; flex-direction: column;
-  background: var(--bg); color: var(--text);
-}
-.ps-overlay.is-open { display: flex; }
-
-.ps-topbar {
-  flex: none; display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem; padding: .85rem 1.3rem;
-  background: var(--surface); border-bottom: 1px solid var(--border);
-}
-.ps-deck-code { font-family: var(--font-mono); font-size: .75rem; font-weight: 700; letter-spacing: .14em; color: var(--curr-color, var(--accent)); margin-right: .55rem; }
-.ps-deck-title { font-family: var(--font-display); font-size: .95rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ps-return {
-  flex: none; font-family: var(--font-mono); font-size: .7rem; font-weight: 600;
-  letter-spacing: .06em; text-transform: uppercase;
-  color: var(--muted); background: none;
-  border: 1px solid var(--border); border-radius: 999px;
-  padding: .4rem .85rem; cursor: pointer;
-  transition: color .15s, border-color .15s;
-}
-.ps-return:hover { color: var(--text); border-color: var(--border-strong); }
-.ps-return:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 2px; }
-
-.ps-progress { flex: none; height: 3px; background: var(--surface-2); }
-.ps-progress-bar { display: block; height: 100%; width: 0; background: var(--curr-color, var(--accent)); transition: width .3s ease; }
-
-.ps-stage { position: relative; flex: 1; overflow: hidden; }
-.ps-slide { position: absolute; inset: 0; display: none; overflow-y: auto; padding: 2.2rem clamp(1.4rem, 5vw, 4.5rem) 2.5rem; }
-.ps-slide.is-active { display: block; }
-.ps-slide--cover.is-active { display: flex; }
-.ps-cover-inner { width: 100%; max-width: 58rem; margin: auto; text-align: center; }
-.ps-cover-code { font-family: var(--font-mono); font-size: clamp(.9rem, 1.6vw, 1.1rem); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--curr-color, var(--accent)); }
-.ps-cover-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.12; color: var(--text); margin: .45rem 0 1.5rem; }
-.ps-cover-blocks { text-align: left; }
-.ps-cover-inner .obj-outcome { text-align: left; max-width: 42rem; margin-left: auto; margin-right: auto; }
-
-.ps-slide-title {
-  font-family: var(--font-display); font-weight: 500;
-  font-size: clamp(1.35rem, 2.8vw, 2rem); line-height: 1.22;
-  color: var(--curr-color, var(--accent));
-  margin: 0 0 1.4rem; padding-bottom: .6rem;
-  border-bottom: 2px solid var(--curr-color, var(--accent));
-}
-.ps-slide-body { padding: 0; font-size: clamp(1rem, 1.5vw, 1.13rem); line-height: 1.65; }
-.ps-slide--split { grid-template-columns: minmax(0, 1fr) minmax(260px, 32%); gap: 2.2rem; }
-.ps-slide--split.is-active { display: grid; }
-.ps-slide--split .ps-slide-title { grid-column: 1 / -1; }
-.ps-media-col { display: flex; flex-direction: column; gap: 1.25rem; align-self: start; }
-.ps-media-col img { display: block; width: 100%; height: auto; max-height: 52vh; object-fit: contain; background: var(--surface-2); border-radius: var(--radius); }
-.ps-media-col figcaption { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .03em; color: var(--muted); margin-top: .5rem; line-height: 1.5; }
-
-.ps-footer {
-  flex: none; display: flex; align-items: center; justify-content: center; gap: 1.1rem;
-  padding: .55rem 1rem; background: var(--surface); border-top: 1px solid var(--border);
-}
-.ps-counter { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .08em; color: var(--muted); min-width: 4.5rem; text-align: center; }
-.ps-nav {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 2.4rem; height: 2.4rem; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--surface); color: var(--text);
-  cursor: pointer; transition: background .15s, border-color .15s;
-}
-.ps-nav svg { width: 18px; height: 18px; }
-.ps-nav:hover:not(:disabled) { background: var(--surface-2); border-color: var(--border-strong); }
-.ps-nav:disabled { opacity: .35; cursor: default; }
-.ps-nav:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 2px; }
-
-@media (max-width: 760px) {
-  .ps-slide--split, .ps-slide--split.is-active { display: block; }
-  .ps-media-col { margin-top: .5rem; }
-}
-</style>
-<script>
-  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
-</script>
+<link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../themes.css">
 </head>
-<body data-curr-type="dp" data-curr-page="ia-guide">
+<body data-curr-type="dp" data-curr-page="c4.1">
 <header class="site-header">
 <div class="header-inner">
 <div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
@@ -120,11 +24,11 @@
 </div>
 </header>
 
-<div class="topic-hero" style="--topic-color:#2c5f6e;--topic-bg:#e4eef1;--topic-border:#c0d6dd;">
+<div class="topic-hero" style="--topic-color:#3d6b4a;--topic-bg:#e8f2eb;--topic-border:#c4d8ca;">
 <div class="topic-hero-inner">
-<div class="topic-breadcrumb"><a href="/tools">Tools</a><span class="sep">/</span>DP Design Tech IA Guide</div>
-<h1 class="topic-title">Design Technology IA Guide</h1>
-<p class="topic-guiding-q"><span class="gq-label">How to use this guide</span>Assessment criteria and required evidence are quoted directly from the IB guide with page references. Everything else is labelled as my method or my commentary.</p>
+<div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#dp">DP Design</a><span class="sep">/</span>C4.1 Design for Manufacture Strategies</div>
+<h1 class="topic-title">Design for Manufacture Strategies | C4.1</h1>
+<p class="topic-guiding-q"><span class="gq-label">Guiding question</span>How can the evolution of production systems transform the way products are designed and manufactured, and transform the efficient disposal of products?</p>
 </div>
 </div>
 
@@ -133,2008 +37,551 @@
 
 <nav class="curr-toc" aria-label="Page contents">
 <div class="curr-toc-label">On this page</div>
-<ul class="curr-toc-list">
-  <li class="curr-toc-item" data-section="sec-overview"><a href="#sec-overview">Introduction</a></li>
-  <li class="curr-toc-item curr-toc-has-sub" data-section="sec-empathize">
-    <a href="#sec-empathize">A: Empathize</a>
-    <ul class="curr-toc-sub" id="toc-sub-empathize">
-      <li data-section="sub-persona"><a href="#sub-persona">Primary persona</a></li>
-      <li data-section="sub-storyboard"><a href="#sub-storyboard">Storyboard</a></li>
-      <li data-section="sub-analysis"><a href="#sub-analysis">Existing product analysis</a></li>
+<ul class="curr-toc-list">  <li class="curr-toc-item curr-toc-has-sub" data-section="course-notes">
+    <a href="#course-notes">Course Notes</a>
+    <ul class="curr-toc-sub" id="toc-sub-course-notes">
+      <li data-section="obj-4.1.1"><a href="#obj-4.1.1">4.1.1 DfM overview</a></li>
+      <li data-section="obj-4.1.2"><a href="#obj-4.1.2">4.1.2 Design for Process</a></li>
+      <li data-section="obj-4.1.3"><a href="#obj-4.1.3">4.1.3 Design for Assembly</a></li>
+      <li data-section="obj-4.1.4"><a href="#obj-4.1.4">4.1.4 Design for Disassembly</a></li>
+      <li data-section="obj-4.1.5"><a href="#obj-4.1.5">4.1.5 Environmental impact of DfM</a></li>
     </ul>
   </li>
-  <li class="curr-toc-item curr-toc-has-sub" data-section="sec-define">
-    <a href="#sec-define">B: Define</a>
-    <ul class="curr-toc-sub" id="toc-sub-define">
-      <li data-section="sub-problem"><a href="#sub-problem">Problem statement</a></li>
-      <li data-section="sub-spec"><a href="#sub-spec">Design specification</a></li>
-    </ul>
-  </li>
-  <li class="curr-toc-item curr-toc-has-sub" data-section="sec-ideation">
-    <a href="#sec-ideation">C: Ideation</a>
-    <ul class="curr-toc-sub" id="toc-sub-ideation">
-      <li data-section="sub-ideas"><a href="#sub-ideas">Feasible redesign ideas</a></li>
-      <li data-section="sub-identify"><a href="#sub-identify">Identify the redesign ideas</a></li>
-    </ul>
-  </li>
-  <li class="curr-toc-item curr-toc-has-sub" data-section="sec-design">
-    <a href="#sec-design">D: Design</a>
-    <ul class="curr-toc-sub" id="toc-sub-design">
-      <li data-section="sub-iteration"><a href="#sub-iteration">Fidelity models</a></li>
-      <li data-section="sub-drawings"><a href="#sub-drawings">Design drawings</a></li>
-    </ul>
-  </li>
-  <li class="curr-toc-item curr-toc-has-sub" data-section="sec-present">
-    <a href="#sec-present">E: Present</a>
-    <ul class="curr-toc-sub" id="toc-sub-present">
-      <li data-section="sub-solution"><a href="#sub-solution">The final design</a></li>
-      <li data-section="sub-comparison"><a href="#sub-comparison">Comparison</a></li>
-    </ul>
-  </li>
-  <li class="curr-toc-item" data-section="sec-bonus"><a href="#sec-bonus">Bonus Content</a></li>
+  <li class="curr-toc-item" data-section="quiz"><a href="#quiz">Quiz</a></li>
+  <li class="curr-toc-item" data-section="paper2"><a href="#paper2">Paper 2 Practice</a></li>
+  <li class="curr-toc-item" data-section="references"><a href="#references">References</a></li>
 </ul>
 </nav>
 
 <div class="curr-main">
 
-<!-- ══ INTRODUCTION ══════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-overview" style="--curr-color:#8a9a9e;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-overview">
-<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Introduction</h2><span class="curr-sec-sub">Start here</span></div>
+<div class="curr-section" id="course-notes" style="--curr-color:#3d6b4a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-course-notes">
+<div class="curr-trigger-left"><span class="curr-badge">00</span><h2>Course Notes</h2></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-overview">
-
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="introduction" src="introduction.mp3"></audio>
-</div>
-
-<p class="curr-section-intro">The internal assessment is a 50-hour design project. You identify an existing product, research the person who uses it, analyse where it fails them, then develop and present a redesigned solution supported by a physical model.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">The task</div>
-<p>"The design project is an open-ended task in which a student must identify, analyse, evaluate and redesign an existing product to meet the needs of an intended user(s). As part of the project, students need to develop a physical fidelity model for testing and evaluation purposes."</p>
-<p class="content-note">Design technology guide, p. 67.</p>
-</div>
-
-<h4>How to Read This Guide</h4>
-<p>Three different kinds of information appear on this page, and it matters that you can tell them apart.</p>
-<ul>
-<li><strong>From the guide.</strong> Quoted directly from the IB guide, with a page reference. This is what you are actually assessed on.</li>
-<li><strong>Mr. K's method.</strong> A way of meeting the requirement. Useful, tested, and not the only way. Every template on this page is my method.</li>
-<li><strong>Mr. K's commentary.</strong> My opinion or judgment call, including things specific to our school and context.</li>
-</ul>
-<p>Where this guide says "must", check which of the three it is coming from. If a requirement is not quoted with a page reference, treat it as advice rather than as a rule.</p>
-
-<h4>The Five Criteria</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Criterion</th><th>Name</th><th>Marks</th><th>What you produce</th></tr></thead>
-<tbody>
-<tr><td><strong>A</strong></td><td>Empathize</td><td>9</td><td>Primary persona, storyboard, and analysis of existing products</td></tr>
-<tr><td><strong>B</strong></td><td>Define</td><td>6</td><td>Problem statement and product design specification</td></tr>
-<tr><td><strong>C</strong></td><td>Ideation</td><td>6</td><td>Three feasible redesign ideas, evaluated against the specification</td></tr>
-<tr><td><strong>D</strong></td><td>Design</td><td>6</td><td>Iterative fidelity models and formal design drawings</td></tr>
-<tr><td><strong>E</strong></td><td>Present</td><td>6</td><td>The redesigned solution, compared with the existing product</td></tr>
-<tr><td colspan="2"><strong>Total</strong></td><td><strong>33</strong></td><td>Maximum 35 A4 pages</td></tr>
-</tbody>
-</table></div>
-
-<h4>Key Rules</h4>
-<p>Every rule below is stated in the guide. Page references are given so you can check them.</p>
-<ul class="checklist">
-<li>Maximum <strong>35 A4 pages</strong>. The examiner stops reading once the page or word limit is reached. <em>(p. 66)</em></li>
-<li>Maximum <strong>3,500 words</strong>, excluding annotations of 10 words or fewer. <em>(p. 66)</em></li>
-<li>Annotations must be <strong>no more than 10 words</strong> each. Anything longer counts toward the word count. <em>(p. 66)</em></li>
-<li><strong>A4 portrait</strong> layout throughout, except the detailed dimension drawings in criterion D. <em>(p. 66)</em></li>
-<li>You <strong>redesign an existing product</strong>. You do not invent a new one. <em>(p. 67)</em></li>
-<li>You must develop a <strong>physical fidelity model</strong> for testing and evaluation. <em>(p. 67)</em></li>
-<li>Required evidence includes <strong>digital images of your primary persona</strong> showing their issues with an existing product. <em>(p. 73)</em></li>
-<li>Reference sources <strong>as footnotes on the page</strong>. Footnotes do not count toward the word count, and no separate references page is required. <em>(p. 72)</em></li>
-<li>Appendices are <strong>not read</strong> by examiners. Anything critical to assessment must be in the body of the report. <em>(pp. 66, 68)</em></li>
-<li>Annotations must be legible, preferably typed. Handwritten annotations must be equivalent to <strong>Arial 11pt</strong>, and black ink is recommended. <em>(p. 66)</em></li>
-<li><strong>Subject-specific vocabulary</strong> is rewarded across all of the assessment criteria. <em>(p. 67)</em></li>
-</ul>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">Redesign, do not invent</div>
-<p>The task is to redesign a product that already exists. Every criterion after A refers back to that product: criterion B defines the problem with it, criterion E compares your solution against it. A project that invents a new product instead of redesigning the one your research identified leaves criterion E with nothing to compare against, and the criteria have no way to reward it.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Choosing a project</div>
-<p>"The design project should demonstrate a level of complexity that aligns with the expectations of a Diploma Programme (DP) course."</p>
-<p>"It is important to note that the selected product being redesigned should correspond to the complexity and appropriateness of the project. It is unlikely for a student to achieve higher bands on the assessment criteria by attempting to redesign a simple problem with an overly complex solution."</p>
-<p class="content-note">Design technology guide, p. 66.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">Proportion between problem and solution</div>
-<p>Read that second quote carefully, because it cuts both ways. An ambitious solution bolted onto a trivial problem will not lift your marks. Neither will a genuinely complex problem addressed with something you could buy for five yuan. The problem and the solution need to be proportionate to each other, and both need to be worth a DP course. Come talk to me before you commit to a product.</p>
-</div>
-
-<h4>Page and Word Budget</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Summary of grade marks, page and word count</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Criterion</th><th>Grade marks</th><th>Approximate page count</th><th>Recommended word count</th></tr></thead>
-<tbody>
-<tr><td>Criterion A: Empathize</td><td>9</td><td>9</td><td>900</td></tr>
-<tr><td>Criterion B: Defining the project</td><td>6</td><td>4</td><td>1,200</td></tr>
-<tr><td>Criterion C: Ideation and modelling</td><td>6</td><td>8</td><td>900</td></tr>
-<tr><td>Criterion D: Designing a solution</td><td>6</td><td>10</td><td>300</td></tr>
-<tr><td>Criterion E: Presenting a solution</td><td>6</td><td>4</td><td>200</td></tr>
-<tr><td><strong>Total</strong></td><td><strong>33</strong></td><td><strong>35</strong></td><td><strong>3,500</strong></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, p. 72, table 4.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What the two right-hand columns tell you</div>
-<p>Criterion A gets nine pages and only 900 words. It is carried by images, storyboards and annotations, not by paragraphs. Criterion B gets four pages and 1,200 words, the largest word allocation on the project in the smallest page allocation. That is where sustained writing belongs. Criteria D and E together get fourteen pages and 500 words, so they are almost entirely drawings, photographs and annotations.</p>
-<p>Students who write essays in A and bullet points in B are working against both allocations at once.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Watch out</div>
-<div class="caution-box-title">On the word count</div>
-<p>The guide describes the word count in two ways that pull against each other. On p. 72 it calls the count "a recommendation only, not a target" and says students and teachers have flexibility to allocate it based on assessment needs. On p. 66 it states that teachers must not award marks for work over the word or page limit, and that the examiner will stop reading once these limits are reached.</p>
-<p>Treat the per-criterion figures as guidance for how to distribute your writing, and treat 3,500 words and 35 pages as hard ceilings.</p>
-</div>
-
-<h4>Referencing</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Referencing and academic integrity</div>
-<p>"Students must ensure their assessment work adheres to the IB's academic integrity policy and that all sources are appropriately referenced and presented on the page as a footnote. Footnote references do not count towards the word count. No additional references page is required."</p>
-<p class="content-note">Design technology guide, p. 72.</p>
-</div>
-<p>Footnotes are free. A bibliography page is not, because it consumes one of your 35 pages and the examiner does not need it. Reference on the page where you use the source.</p>
-
-<h4>Mr. K's Notes</h4>
-<!-- Add your notes below as <p> paragraphs. They will appear here in the guide. -->
-<p class="content-note">Notes from Mr. K will appear here.</p>
-
-</div><!-- /curr-body body-overview -->
-</div>
-
-<!-- ══ A: EMPATHIZE ══════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-empathize" style="--curr-color:#2c5f6e;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-empathize">
-<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Criterion A: Empathize</h2><span class="curr-sec-sub">9 marks</span></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-empathize">
-
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="empathize" src="empathize.mp3"></audio>
-</div>
-
-<p class="curr-section-intro">Empathize is the foundation of the project. You research a primary persona, analyse the specific task where an existing product fails them, and evaluate a range of existing products. Every later criterion refers back to what you establish here.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What this criterion assesses</div>
-<p>"This criterion assesses the student's ability to:</p>
-<ul>
-<li>analyse a primary persona appropriate to the redesign of the product</li>
-<li>present a storyboard based on the observations of a primary persona using a product for a specific task</li>
-<li>analyse existing products and the successes and weaknesses of key features."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 72.</p>
-</div>
-
-<h4>Three Strands</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Strand</th><th>What you produce</th><th>Pages</th></tr></thead>
-<tbody>
-<tr><td><strong>1. Primary persona</strong></td><td>An explanation of the persona's characteristics, context, preferences, motivations and requirements, evidenced with images of them using the existing product.</td><td>~2</td></tr>
-<tr><td><strong>2. Storyboard</strong></td><td>A visual task analysis of the persona using the product for a specific task, highlighting the issues they encounter.</td><td>~3</td></tr>
-<tr><td><strong>3. Product analysis</strong></td><td>Annotated images of product testing, across a typical range of four to six products.</td><td>~4</td></tr>
-</tbody>
-</table></div>
-
-<h4>Mark Scheme</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Criterion A level descriptors</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Mark</th><th>Strand</th></tr></thead>
-<tbody>
-<tr><td><strong>0</strong></td><td>The work does not reach a standard described by the descriptors below.</td></tr>
-<tr><td><strong>1–3</strong></td><td>The student:
-<ul>
-<li>states a primary persona appropriate to the redesign of the product</li>
-<li>presents a storyboard based on a limited task analysis of the primary persona using a product for a specific task</li>
-<li>outlines a limited range of existing products and a list of their key features.</li>
-</ul></td></tr>
-<tr><td><strong>4–6</strong></td><td>The student:
-<ul>
-<li>describes a primary persona appropriate to the redesign of the product</li>
-<li>presents a satisfactory storyboard based on a task analysis of the primary persona using a product for a specific task</li>
-<li>describes a range of existing products identifying the successes and weaknesses of some key features.</li>
-</ul></td></tr>
-<tr><td><strong>7–9</strong></td><td>The student:
-<ul>
-<li>explains a primary persona appropriate to the redesign of the product</li>
-<li>presents a detailed storyboard based on a comprehensive task analysis of the primary persona using a product for a specific task</li>
-<li>evaluates a range of existing products accurately identifying the successes and weaknesses of all key features.</li>
-</ul></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, pp. 72–73.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What actually moves between the bands</div>
-<p>Read the three descriptors down the column rather than across. The content stays the same at every band. What changes is the verb.</p>
-<ul>
-<li><strong>Persona:</strong> states, then describes, then <strong>explains</strong>. Explaining means giving the reasons behind the persona's needs, not more detail about them.</li>
-<li><strong>Storyboard:</strong> a limited task analysis, then a task analysis, then a <strong>comprehensive</strong> task analysis. The unit being judged is the task analysis, not the drawing quality.</li>
-<li><strong>Products:</strong> outlines a list of key features, then describes successes and weaknesses of <strong>some</strong> key features, then <strong>evaluates</strong> accurately across <strong>all</strong> key features.</li>
-</ul>
-<p>That last one is the most common place marks are lost in this criterion. A list of features is a 1 to 3. Judging them is a 7 to 9.</p>
-</div>
+<div class="curr-body" id="body-course-notes">
+<p>DfM is where this course stops treating manufacture as something that happens to a design after it is finished. Every choice you make on a drawing has already committed somebody on a factory floor to a set of operations, a set of tools and a number of minutes per unit. A design that ignores this gets redesigned by the manufacturer, badly, without you.</p>
+<p>Design for disassembly is the strategy worth caring about most and the one most often skipped. Design for process and design for assembly both pay off immediately in cost, so industry adopts them readily. Disassembly pays off at the end of a product's life, to somebody who is not the manufacturer, which is exactly why so many products are glued shut. That makes it the strategy where a designer's values show most clearly, and it links this topic straight back to <a href="c2.2-circular-economy.html">C2.2</a> and <a href="c3.2-life-cycle-analysis.html">C3.2</a>. If you want a concrete way into this material, take something apart and count how many operations and how many separate materials stand between you and the battery.</p>
+<p>A brilliant product that cannot be efficiently manufactured, assembled, repaired, or recycled is not a finished design: it is an expensive problem. <strong>Design for Manufacture (DfM)</strong> is the discipline of engineering manufacturability into a product from the very first sketch, ensuring that good design intentions survive contact with the factory floor, the repair bench, and the recycling facility.</p>
+<p>DfM comprises three complementary strategies: <strong>Design for Process</strong> (optimising how a product is made), <strong>Design for Assembly</strong> (minimising assembly time and error), and <strong>Design for Disassembly</strong> (enabling repair, reuse, and recycling at end of life). Together these three strategies connect C4.1 to almost every other topic in the curriculum: from material selection to LCA to production systems.</p>
 
 <div class="obj-list">
 
-<!-- STRAND A1: PERSONA -->
-<div class="obj-section" id="sub-persona">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-persona">
-<div class="obj-trigger-left"><span class="obj-code">A1</span><h3>Primary Persona</h3></div>
+<!-- C4.1.1 -->
+<div class="obj-section" id="obj-4.1.1">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.1">
+<div class="obj-trigger-left"><span class="obj-code">4.1.1</span><h3>Design for manufacture (DfM) comprises three strategies.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-persona">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately two A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>a range of digital images of the primary persona displaying their issues with an existing product</li>
-<li>an explanation of the characteristics, context, preferences, motivations and requirements of the primary persona."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 73.</p>
-</div>
-
-<h4>Does the Persona Have to Be a Real Person?</h4>
-<p>The guide does not say. You will hear this claimed confidently in both directions, so it is worth knowing exactly what the source does and does not contain.</p>
-<p><strong>Pointing toward a composite.</strong> The glossary defines a primary persona as "a profile of the user for a product" that provides "a human face and story to a particular audience" (p. 68). The guide also states that the individual <em>or group</em> directly using a product "may also be categorized as a primary persona" (p. 69). A group cannot be one named individual.</p>
-<p><strong>Pointing toward a specific person.</strong> The required evidence above asks for digital images of the primary persona displaying their issues with an existing product. The storyboard strand is assessed on "the observations of a primary persona using a product" (p. 72). Both are difficult to produce for someone who does not exist.</p>
-<p>Nothing in the internal assessment section requires the persona to be real, named, interviewed, or a single individual. Equally, nothing permits a persona invented from imagination, because that persona cannot supply the required images.</p>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Work with someone you can photograph</div>
-<p>Work with an actual person you can photograph and observe using the product. Not because the guide names that as a requirement, but because the evidence it does require is hard to generate any other way.</p>
-<p>Interviews, surveys and observations are listed as methods you <em>may</em> use (p. 69), so choose whichever produce the characteristics, context, preferences, motivations and requirements you need to explain. If your persona draws on several real users, say so and say which parts came from where. That is honest, it is defensible, and it still gives you a person to photograph.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What to research</div>
-<p>"The student must research the primary persona's characteristics, context, preferences, motivations and requirements to gain insights into their needs. This research should include but is not limited to:</p>
-<ul>
-<li>demographic considerations such as age, education, ethnicity, access challenges, family status, and occupation</li>
-<li>abilities and skills</li>
-<li>behaviour patterns and attitudes</li>
-<li>goals, concerns, needs and opportunities</li>
-<li>the primary persona's physical, social and technological environment."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 69.</p>
-</div>
-
-<p>Those five research areas and the five explanation points in the required evidence are your structure. Cover all of them. The template below arranges them in an order that reads well and leaves room for the images.</p>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's persona template</h4>
-<button class="template-copy-btn" data-copy-target="copy-persona">Copy</button>
-</div>
-<pre id="copy-persona">PRIMARY PERSONA: [Name]
-
-[A range of digital images: the persona using the existing product,
- showing the issues they encounter. This is required evidence.]
-
-CHARACTERISTICS
-- Age, occupation, education, family status:
-- Access challenges or relevant physical considerations:
-- Abilities and skills relevant to this product:
-
-CONTEXT
-- Physical environment: [Where is the product used?]
-- Social environment: [Who else is involved or affected?]
-- Technological environment: [What else do they use alongside it?]
-- Frequency and duration of use:
-
-PREFERENCES
-- Behaviour patterns and attitudes:
-- What they choose, and what they avoid, and why:
-
-MOTIVATIONS
-- Goals: [What are they trying to achieve?]
-- Concerns: [What worries them about the current situation?]
-- Why solving this matters to them:
-
-REQUIREMENTS
-- What the product must do for this person:
-- Needs and opportunities identified through research:
-- Specific difficulties with the existing product, tied to moments of use:</pre>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Human factors</div>
-<p>Anthropometric data, biomechanics and percentile ranges are not named anywhere in the internal assessment section of the guide, so do not let anyone tell you they are required here. I still want you collecting them.</p>
-<p>The reason is p. 67: subject-specific vocabulary "is rewarded across all of the assessment criteria". A persona whose hand span you have measured against percentile data produces specification points in criterion B that you can actually test in criterion D. A persona described only in adjectives does not. Human factors are how a design technology student explains a requirement rather than asserting it.</p>
-<p>Add these under CHARACTERISTICS and REQUIREMENTS where they are relevant to your product:</p>
-<ul>
-<li>Anthropometric data: relevant body dimensions and the percentile range you are designing for</li>
-<li>Biomechanical considerations: grip force, reach range, range of motion</li>
-<li>Ergonomic requirements: posture, repetitive strain risk, duration of use</li>
-</ul>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">A note on secondary personas</div>
-<p>While all the IB commissioned sample IA papers include a secondary persona, there is <strong>zero</strong> reference to "secondary personas" in the IA material. There is a reference to personae being created following primary <em>and secondary</em> research tucked into page 65 of the <em>Teacher Support Materials</em> document, but there is no discussion of primary vs. secondary. It is my opinion that the secondary personae in the sample IA documents is either a residual element from older papers or possibly a requirement that was provided when creating the samples but later removed from the curriculum. As a result, I'm instructing my students to <strong>only create a primary persona</strong>, and would encourage other teachers to do the same.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>No digital images of the persona showing their issues with the existing product. This is required evidence, and its absence caps the strand.</li>
-<li>The persona is described rather than explained. Description is the middle band. Explanation means giving the reasons behind the needs.</li>
-<li>One or more of characteristics, context, preferences, motivations and requirements is missing. All five are named in the required evidence.</li>
-<li>Frustrations are vague ("it is uncomfortable") rather than tied to a specific moment of product use.</li>
-<li>No link between the persona's requirements and the design of the existing product.</li>
-<li>The persona runs past two pages, squeezing the storyboard and product analysis.</li>
-</ul>
-</div>
+<div class="obj-body" id="obj-body-4.1.1">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline design for process, design for assembly and design for disassembly strategies.</p>
+<p><strong>Design for Manufacture (DfM)</strong> integrates manufacturing considerations into the earliest stages of product design. It is far cheaper to fix a manufacturing problem during the design phase than after tooling is built or production has started.</p>
+<div class="content-table-wrap"><table class="curr-table">
+<thead><tr><th>Strategy</th><th>Focus</th><th>Key goal</th><th>Life-cycle phase</th></tr></thead>
+<tbody>
+<tr><td><strong>Design for Process (DfP)</strong></td><td>How individual components are made</td><td>Reduce energy, waste, processes, and emissions during manufacturing</td><td>Production</td></tr>
+<tr><td><strong>Design for Assembly (DFA)</strong></td><td>How components are joined into a product</td><td>Minimise part count; maximise assembly efficiency and error-prevention</td><td>Assembly</td></tr>
+<tr><td><strong>Design for Disassembly (DFD)</strong></td><td>How components are separated at end of life</td><td>Enable repair, reuse, remanufacture, and recycling</td><td>End of life</td></tr>
+</tbody>
+</table></div>
+<p>These three strategies are complementary but can sometimes conflict: a choice that optimises assembly (e.g., adhesive bonding) may hinder disassembly. Holistic DfM requires designers to balance all three throughout the design process.</p>
+<p>Manufacturers may formalise DfM through quality management systems (<strong>ISO 9001</strong>) and environmental management systems (<strong>ISO 14001</strong>) to ensure consistent, measurable outcomes.</p>
 
 </div>
 </div>
 
-<!-- STRAND A2: STORYBOARD -->
-<div class="obj-section" id="sub-storyboard">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-storyboard">
-<div class="obj-trigger-left"><span class="obj-code">A2</span><h3>Storyboard</h3></div>
+<!-- C4.1.2 -->
+<div class="obj-section" id="obj-4.1.2">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.2">
+<div class="obj-trigger-left"><span class="obj-code">4.1.2</span><h3>Design for process considers how products are made using a specific manufacturing technique.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-storyboard">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately three A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
+<div class="obj-body" id="obj-body-4.1.2">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for process and explain how a product could be designed using this strategy.</p>
+<p><strong>Design for Process (DfP)</strong> focuses on reducing the energy, material, processes, waste, and emissions involved in manufacturing individual components. Designers must understand the constraints and opportunities of each manufacturing process and design components that exploit process strengths.</p>
+<p><strong>DfP design guidelines:</strong></p>
 <ul>
-<li>a storyboard for the chosen primary persona that highlights the issues of using a product."</li>
+<li><strong>Simplify the design</strong>: fewer features mean fewer operations. Avoid unnecessary undercuts, complex radii, or features that require additional setups on a CNC machine.</li>
+<li><strong>Reduce secondary operations</strong>: minimise parts that require post-processing (plating, painting, welding, riveting). Each secondary step adds cost, energy, and time.</li>
+<li><strong>Specify standardised components</strong>: use off-the-shelf fasteners, bearings, and seals rather than custom parts. Reduces procurement cost and improves availability.</li>
+<li><strong>Material efficiency</strong>: select materials to reduce toxic substances and hazardous waste. Specify single-component materials for moulding where possible. Mark recyclable materials with identification codes.</li>
+<li><strong>Process substitution</strong>: replace high-energy processes with lower-energy alternatives where quality is maintained. Example: replace welding with mechanical folding (saves energy, allows disassembly); replace drilling with punching (faster, produces recyclable blanks rather than mixed swarf).</li>
 </ul>
-<p>"Note that:</p>
-<ul>
-<li>extended writing to address this strand should not be included."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 73.</p>
+<p><strong>Case study (Apple Unibody MacBook):</strong> The laptop body is CNC-machined from a single solid block of aluminium ("unibody"). This eliminates the need to join or weld multiple body parts together. Results: stronger and more rigid structure than multi-part assembly; finer tolerances; smooth, seamless finish; reduced assembly complexity. The trade-off: CNC machining removes 30–50% of the aluminium billet as waste swarf, but this is recyclable.</p>
+
+<a class="tool-promo-card" href="/tools/tolerance/" style="margin-top:1.5rem;">
+<div class="tool-promo-img-wrap">
+<img class="tool-promo-img" src="C4.1/tolerance.webp" alt="Quality Control Simulator preview">
 </div>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">No extended writing</div>
-<p>This is the instruction students most often miss. Three pages of storyboard with paragraphs of explanation underneath is the wrong shape. Communicate visually, with short annotations. Your 900 words for criterion A are needed elsewhere.</p>
+<div class="tool-promo-body">
+<div class="tool-promo-label">Interactive Tool</div>
+<div class="tool-promo-title">Quality Control Simulator</div>
+<p class="tool-promo-desc">Measure products, test batteries, and pretend to have fun in this thrilling and somewhat stressful game.</p>
 </div>
-
-<h4>The Storyboard Is a Task Analysis</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Task analysis</div>
-<p>"Task analysis: A strategy used to develop empathy and understanding of how users perform a task to achieve their intended goal."</p>
-<p class="content-note">Design technology guide, p. 68.</p>
-</div>
-<p>Every band descriptor for this strand judges the task analysis: limited, then satisfactory, then comprehensive. The drawing is the medium. The task analysis is the assessed content. Criterion B then requires a problem statement "informed through the task analysis", so this strand is also where your next criterion comes from.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What a storyboard does</div>
-<p>"Storyboards are created as a result of the student's qualitative and quantitative research into the primary persona or intended user(s). They are used to communicate visually the sequential stages of the intended user(s) completing a task analysis with an identified product and the challenges they encounter. A storyboard can help students map out opportunities to redesign a product to provide a solution."</p>
-<p class="content-note">Design technology guide, p. 69.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">One task, not one day</div>
-<p>Pick one task, not one day. "Braking while carrying a bag" is a task. "A morning commute" is a lifestyle. The narrower the task, the more comprehensive your analysis of it can be inside three pages.</p>
-<p>Break the task into its sequential stages, one frame per stage, and let the frames run all the way through to the point of failure and its consequence. Annotate each frame with what the persona is doing and what the issue is. Keep every annotation to 10 words or fewer so none of it touches your word count.</p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's storyboard structure</h4>
-<button class="template-copy-btn" data-copy-target="copy-storyboard">Copy</button>
-</div>
-<pre id="copy-storyboard">STORYBOARD: [Name of the single task]
-Persona: [Name]        Existing product: [Product name]
-
-Visual sequence, one frame per stage of the task.
-Annotations only. No paragraphs. 10 words or fewer per annotation.
-
-FRAME 1  [Image]  Annotation: [Action at this stage]
-FRAME 2  [Image]  Annotation: [Action, and the issue emerging]
-FRAME 3  [Image]  Annotation: [The point of failure]
-FRAME 4  [Image]  Annotation: [Consequence for the persona]
-FRAME 5  [Image]  Annotation: [What they do instead, or give up on]
-FRAME 6  [Image]  Annotation: [End state of the task]
-
-Optional final frame:
-- A short annotated summary of the opportunity this reveals.
-- Keep it to annotations. This strand takes no extended writing.</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>Extended writing included, which the guide explicitly says to leave out.</li>
-<li>A general story about the persona's life rather than a sequential analysis of one task.</li>
-<li>Frames show what happens but never indicate the issue, so no task analysis is visible to assess.</li>
-<li>The task is too broad to analyse comprehensively in three pages.</li>
-<li>The storyboard is not linked to the task analysis that criterion B then depends on.</li>
-<li>Images with no annotations at all.</li>
-</ul>
-</div>
+</a>
 
 </div>
 </div>
 
-<!-- STRAND A3: PRODUCT ANALYSIS -->
-<div class="obj-section" id="sub-analysis">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-analysis">
-<div class="obj-trigger-left"><span class="obj-code">A3</span><h3>Existing Product Analysis</h3></div>
+<!-- C4.1.3 -->
+<div class="obj-section" id="obj-4.1.3">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.3">
+<div class="obj-trigger-left"><span class="obj-code">4.1.3</span><h3>Design for assembly considers how components of a product are combined.</h3></div>
 <svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="obj-body" id="obj-body-analysis">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately four A4 pages or the equivalent.</p>
+<div class="obj-body" id="obj-body-4.1.3">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for assembly and explain how a product could be designed using the design for assembly strategy.</p>
+<p><strong>Design for Assembly (DFA)</strong> looks closely at how a product's components and sub-assemblies fit together, aiming to cut cost by trimming the part count and streamlining how efficiently the whole thing goes together. Fewer parts means faster assembly, smaller inventory, lower storage costs, and fewer potential failure points.</p>
+<p><strong>DFA principles:</strong></p>
+<div class="content-table-wrap"><table class="curr-table">
+<thead><tr><th>Principle</th><th>How to apply</th><th>Benefit</th></tr></thead>
+<tbody>
+<tr><td><strong>Reduce part count</strong></td><td>Combine multiple components into single moulded or machined parts; eliminate redundant parts</td><td>Lower material cost; faster assembly; fewer failure points</td></tr>
+<tr><td><strong>Standardise fasteners</strong></td><td>Use one screw size/type throughout; avoid custom fasteners</td><td>One tool needed; no mis-assembly risk from wrong fastener</td></tr>
+<tr><td><strong>Snap-fit and clip connections</strong></td><td>Design press-fit or snap-fit joints that click into place without tools</td><td>Faster assembly; no fastener inventory; allows disassembly</td></tr>
+<tr><td><strong>Self-locating parts</strong></td><td>Design parts that align themselves (symmetrical, keyed, or self-nesting)</td><td>Reduces jigs/fixtures; prevents mis-assembly; enables automation</td></tr>
+<tr><td><strong>Vertical axis of assembly</strong></td><td>Design so all parts drop in from above; gravity assists alignment</td><td>Gravity-assisted; suits robotic assembly; faster cycle time</td></tr>
+<tr><td><strong>Modular design</strong></td><td>Divide product into independent sub-assemblies that can be tested separately</td><td>Parallel assembly; easier repair/upgrade; mass customisation</td></tr>
+<tr><td><strong>Poka-Yoke (mistake-proofing)</strong></td><td>Make incorrect assembly physically impossible (asymmetry, colour coding, keying)</td><td>Eliminates assembly errors; reduces rework and warranty claims</td></tr>
+</tbody>
+</table></div>
+<p><strong>Case study (Bosch circular saw redesign):</strong> Reduced from over 100 parts to dramatically fewer by combining components into single moulded parts, using snap-fit connections, self-locating symmetrical parts (preventing incorrect assembly), vertical axis of assembly (parts drop into place), and standard screws instead of custom fasteners.</p>
+<p><strong>Case study (IKEA furniture):</strong> Flat pack design minimises shipping volume; standardised cam-lock fasteners and dowels throughout the catalogue; symmetrical/reversible panels reduce assembly error; pictorial step-by-step instructions eliminate language barriers; modular units allow expansion and reconfiguration.</p>
+<p><strong>Poka-Yoke example (USB Type C, 2014):</strong> The connector is symmetrical: it can be inserted in either orientation. Previous connectors (USB-A, Micro-USB) were asymmetrical, causing frequent insertion errors. Symmetrical design prevents assembly errors entirely, speeds up manufacturing (robots don't need vision systems to detect orientation), and eliminates damage from forced insertion.</p>
 
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
+</div>
+</div>
+
+<!-- C4.1.4 -->
+<div class="obj-section" id="obj-4.1.4">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.4">
+<div class="obj-trigger-left"><span class="obj-code">4.1.4</span><h3>Design for disassembly considers how components of a product can be separated.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.4">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Outline the advantages of design for disassembly and explain how a product could be designed using this strategy.</p>
+<p><strong>Design for Disassembly (DFD)</strong> facilitates ease of repair, reuse, remanufacture, or recycling. It has become increasingly important as manufacturers must comply with <strong>WEEE</strong> (Waste from Electrical and Electronic Equipment) and <strong>RoHS</strong> (Restriction of Hazardous Substances) legislation in Europe and similar requirements globally, the same <a href="c2.2-circular-economy.html">take-back legislation</a> that underpins extended producer responsibility.</p>
+<p><strong>DFD design guidelines:</strong></p>
+<div class="content-table-wrap"><table class="curr-table">
+<thead><tr><th>Area</th><th>DFD guideline</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td><strong>Materials selection</strong></td><td>Choose readily recyclable materials; minimise material diversity; use polymer identification codes (SPI codes); avoid composite laminates where possible</td><td>Single material types are easy to sort and recycle; mixed materials contaminate recycling streams</td></tr>
+<tr><td><strong>Fastening techniques</strong></td><td>Eliminate/minimise adhesives and solvents; use thermoplastic adhesives (separable by heat); prefer snap-fits, clips, screws, bolts over welding, brazing, or soldering</td><td>Mechanical fasteners allow non-destructive separation; adhesives create permanent bonds that destroy components on removal</td></tr>
+<tr><td><strong>Component design</strong></td><td>Prioritise ease of access for removal; standardise fasteners throughout; ensure all parts are accessible; label disassembly sequence and hazardous materials</td><td>Third-party recyclers and repair technicians need to understand the product; proprietary tools restrict access</td></tr>
+<tr><td><strong>Modularity</strong></td><td>Group components of the same material together; design sub-assemblies that can be removed as a unit</td><td>Speeds disassembly; allows module replacement rather than full replacement</td></tr>
+</tbody>
+</table></div>
+<p><strong>Case study (Mongolian Yurt, traditional DFD):</strong> A portable dwelling built around a collapsible timber lattice frame wrapped in felt. It comes apart and goes back together by design, letting nomadic communities relocate easily. Timber lattice walls, roof poles, and felt panels can all be separated, packed on animals or vehicles, transported, and rebuilt without damage. An ancient example of DFD principles.</p>
+<p><strong>Case study (Smartphone, poor DFD):</strong> Modern smartphones present significant disassembly challenges:</p>
 <ul>
-<li>annotated images (see "Features of the design project" section) of the product testing. A typical range should be between four to six products."</li>
+<li><strong>Material complexity:</strong> A single handset mixes flame-retardant plastics, aluminium in the frame, copper wiring, precious metals such as gold and silver, and rare earth elements like the neodymium used in the speaker magnets, and each of these needs its own separate recovery route.</li>
+<li><strong>Joining techniques:</strong> Glue and solder hold parts together in ways that resist being pulled apart cleanly, while the small proprietary screws used throughout mean a recycler needs the right specialist tool just to get inside.</li>
+<li><strong>Laminated layers:</strong> The screen and battery are typically bonded rather than clipped in, so separating them risks damaging the very materials being recovered.</li>
 </ul>
-<p class="content-note">Design technology guide, p. 73.</p>
+<p>Even with growing pressure to close the loop, most retired handsets are still put through the shredder, so only the higher-value metals get pulled out while the plastics and rare earths end up burned or buried.</p>
+<p><strong>Emerging solutions:</strong> Fraunhofer IFF's <em>iDEAR</em> project applies machine learning and computer vision to work out how to take a device apart automatically, and researchers are also trialling 3D imaging paired with targeted chemical dissolving to strip components off circuit boards. The Fairphone takes a different approach at the design stage itself, letting an owner swap out any major module with nothing more than a standard screwdriver.</p>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="ifixit" data-modal="modal-ifixit" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="C4.1/ifixitcover.webp" alt="iFixit cover image">
+  </figure>
+  <div class="case-study-content">
+    <h4>iFixit's Repairability Score</h4>
+    <p>Turning "how hard is this to take apart" into a number manufacturers can't ignore.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
 </div>
 
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Existing products</div>
-<p>"Students should conduct functional analysis of existing, similar products. In cases where a product is not available for testing and analysis, a digital product may be used, excluding the user interface (UI) and user experience (UX). This analysis enables students to scrutinize what makes existing product designs a success or failure."</p>
-<p>"A student may make a comparative model that includes:</p>
+</div>
+</div>
+
+<!-- C4.1.5 -->
+<div class="obj-section" id="obj-4.1.5">
+<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-4.1.5">
+<div class="obj-trigger-left"><span class="obj-code">4.1.5</span><h3>The selection of DfM strategies has a direct effect on the environmental impact of the manufacture, use and disposal of a product.</h3></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="obj-body-4.1.5">
+<p class="obj-outcome"><span class="obj-outcome-label">Students must be able to</span>Discuss how designers use DfM strategies to reduce the environmental impact of the manufacture, use and disposal of products.</p>
+<p>DfM strategies, when applied holistically, can simultaneously reduce cost, improve quality, and reduce environmental impact. These are not competing objectives: the same design decisions that make manufacturing more efficient often also reduce waste and energy consumption.</p>
+<div class="content-table-wrap"><table class="curr-table">
+<thead><tr><th>DfM strategy</th><th>Environmental benefit</th><th>Mechanism / example</th></tr></thead>
+<tbody>
+<tr><td>Fewer parts (DFA)</td><td>Less material extraction and processing; less energy in manufacturing</td><td>Bosch saw: fewer metal parts → less machining energy; less scrap</td></tr>
+<tr><td>Single-component materials (DfP)</td><td>Easier end-of-life recycling; avoids contamination of recycling streams</td><td>Specifying PP (polypropylene) throughout a product rather than mixing PP, ABS and PC</td></tr>
+<tr><td>Process substitution (DfP)</td><td>Reduced energy and emissions</td><td>Mechanical folding instead of welding saves electricity and eliminates weld fume emissions; punching produces recyclable blanks rather than mixed swarf</td></tr>
+<tr><td>Snap-fits instead of adhesives (DFD)</td><td>Non-destructive disassembly enables repair and recycling</td><td>Product modules can be replaced individually; at end of life, materials can be separated without grinding</td></tr>
+<tr><td>Modular design (DFA + DFD)</td><td>Extends product lifespan; reduces premature replacement waste</td><td>Replacing a broken display module rather than the whole phone; upgrading RAM in a laptop rather than buying new</td></tr>
+<tr><td>Recyclable materials with identification codes (DFD)</td><td>Enables sorted material recovery; reduces landfill</td><td>SPI resin codes on polymer parts allow automated sorting at MRF (material recovery facility)</td></tr>
+<tr><td>Waste minimisation (DfP)</td><td>Reduces landfill; conserves raw materials</td><td>Guidelines include "adopting designs that favour the efficient selection of materials, ease of assembly/disassembly, and repair, recovery and recycling"</td></tr>
+</tbody>
+</table></div>
+<p><strong>Potential conflicts and limitations:</strong></p>
 <ul>
-<li>the success of a range of products' form and functionality</li>
-<li>materials and components</li>
-<li>aesthetics and ergonomic features</li>
-<li>manufacturing and construction techniques</li>
-<li>environmental and safety considerations."</li>
+<li>What is easy to assemble may be hard to disassemble: adhesives vs. snap-fits is the classic tension.</li>
+<li>Materials chosen for manufacturing performance may be difficult to recycle: e.g., aluminium car body panels are light (fuel efficiency benefit) but require careful separation from steel components for recycling.</li>
+<li>DFD may incur supplementary costs, which are often passed on to consumers: making DFD products more expensive at point of purchase even if they have better environmental outcomes over their lifetime.</li>
 </ul>
-<p class="content-note">Design technology guide, p. 69.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Watch out</div>
-<div class="caution-box-title">This strand is about testing</div>
-<p>The required evidence is annotated images of <em>product testing</em>, not of products. Wherever you can, get the product in your hands and test it against the task from your storyboard. The guide only permits a digital product when one is not available for testing, and even then the UI and UX are excluded.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">Where to source products</div>
-<p>For products you cannot get hold of, I'm strongly encouraging my students to use retailers and product information relevant to them. In practice this means Taobao and JD.com rather than Amazon, Shopee, eBay, or any other site not operating inside China. Use local currency, metric measurements, and products that are <em>actually available</em> to you.</p>
-<p>This is more work on the front end because it requires moving beyond a quick Google search, and it is far better for comparison and for understanding how features are marketed. It also has a practical benefit for this strand: a product you can order is a product you can test, and testing is what the required evidence asks for.</p>
-</div>
-
-<h4>Capture UX Here</h4>
-<p>Criterion B requires design specifications with reference to research, specifically "UI and UX derived from existing product analysis in the empathize phase" (p. 74). That analysis happens in this strand. If you do not record user experience observations while testing these products, criterion B has nothing to draw on.</p>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's product analysis template</h4>
-<button class="template-copy-btn" data-copy-target="copy-analysis">Copy</button>
-</div>
-<pre id="copy-analysis">PRODUCT ANALYSIS [#] of [4 to 6]
-Product name:                 Manufacturer:
-Price and availability:       Source:
-
-[Annotated images of the product being tested. 10 words per annotation.]
-
-TESTING
-- Task tested: [Use the task from your storyboard]
-- Method: [How did you test it? What did you measure or observe?]
-- Result:
-
-FORM AND FUNCTIONALITY
-- Primary function, and how well it is achieved:
-- Key features, and whether each succeeds or fails:
-
-MATERIALS AND COMPONENTS
-- Materials used and their apparent rationale:
-- Durability, weight, safety:
-
-AESTHETICS AND ERGONOMIC FEATURES
-- Visual language, colour, finish:
-- How the design relates to the user's body:
-- Relevant dimensions and percentile fit:
-
-MANUFACTURING AND CONSTRUCTION TECHNIQUES
-- How it appears to be made, and what that allows or prevents:
-
-ENVIRONMENTAL AND SAFETY CONSIDERATIONS
-- Lifespan, repairability, end of life:
-- Hazards or risks in use:
-
-USER EXPERIENCE (carry this into criterion B)
-- What using it feels like, in the persona's context:
-- Where the experience breaks down:
-
-EVALUATION
-- Successes: [Which key features work, and why]
-- Weaknesses: [Which key features fail, and why]
-- What this means for my redesign:</pre>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Same headings, every product</div>
-<p>Cover <em>all</em> key features of each product, because the top band says all. Work through the same headings for every product in the same order so the comparison is easy to follow and easy to mark. Finish each analysis with a judgment, not a summary. The verb in the top band is "evaluates".</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>Fewer than four products analysed, when the guide gives a typical range of four to six.</li>
-<li>Products described rather than evaluated. Description sits in the middle band.</li>
-<li>Only some key features are judged, when the top band asks for all of them.</li>
-<li>Images of products rather than annotated images of product testing.</li>
-<li>Weak choice of products, especially where obvious comparators are skipped.</li>
-<li>Inconsistent details between products, such as metric for one and imperial for another, or prices from different markets.</li>
-<li>No link between the products analysed and the persona's requirements.</li>
-<li>No user experience observations recorded, leaving criterion B without the UX evidence it requires.</li>
-</ul>
-</div>
+<p>The resolution is a <strong>holistic LCA-informed approach</strong>: evaluate environmental trade-offs across the full <a href="c3.2-life-cycle-analysis.html">life cycle</a>, not just at the manufacturing stage. Environmentally conscious design also enhances product appeal to eco-conscious consumers and improves brand reputation.</p>
 
 </div>
 </div>
 
 </div><!-- /obj-list -->
-</div><!-- /curr-body body-empathize -->
-</div>
+</div><!-- /curr-body -->
+</div><!-- /study-guide -->
 
-<!-- ══ B: DEFINE ══════════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-define" style="--curr-color:#3d6b4a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-define">
-<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Criterion B: Define</h2><span class="curr-sec-sub">6 marks</span></div>
+<!-- QUIZ -->
+<div class="curr-section" id="quiz" style="--curr-color:#8b6520;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-quiz">
+<div class="curr-trigger-left"><span class="curr-badge">01</span><h2>Quiz</h2><span class="curr-sec-sub">Multiple choice</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-define">
+<div class="curr-body" id="body-quiz">
+<p class="quiz-intro">Ten questions covering the learning objectives for this topic. Select one answer per question, then click "Check all answers" to see your score and the explanations.</p>
 
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="define" src="define.mp3"></audio>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q1 &middot; 4.1.1 DfM overview</div>
+<div class="quiz-q-text">Which design for manufacture strategy is concerned with how components are separated at the end of a product's life?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Design for process</button>
+<button class="quiz-option" data-opt="B">B) Design for assembly</button>
+<button class="quiz-option" data-opt="C">C) Design for sustainability</button>
+<button class="quiz-option" data-opt="D">D) Design for disassembly</button>
+</div>
+<div class="quiz-answer">Design for process governs how individual components are made, design for assembly how they are joined, and design for disassembly how they come apart again for repair, reuse, remanufacture or recycling. The three map onto the production, assembly and end-of-life phases respectively.</div>
 </div>
 
-<p class="curr-section-intro">Criterion B turns your research into a defined project. It has two parts: a problem statement drawn from the task analysis, and a design specification whose requirements refer back to what your research found. This is the smallest page allocation on the project and the largest word allocation.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What this criterion assesses</div>
-<p>"This criterion assesses the student's ability to:</p>
-<ul>
-<li>produce a problem statement that identifies opportunities for the redesign of the product through the task analysis</li>
-<li>produce product design specifications with reference to research (UI and UX derived from existing product analysis in the empathize phase)."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 74.</p>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q2 &middot; 4.1.1 DfM overview</div>
+<div class="quiz-q-text">Bonding a housing with adhesive speeds up assembly but makes non-destructive separation impossible later. This illustrates:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Poka-yoke</button>
+<button class="quiz-option" data-opt="B">B) Process substitution</button>
+<button class="quiz-option" data-opt="C">C) A conflict between design for assembly and design for disassembly</button>
+<button class="quiz-option" data-opt="D">D) Modular design</button>
+</div>
+<div class="quiz-answer">The three strategies are complementary but not automatically compatible, and adhesive against snap-fit is the classic tension between them. Assembly and process improvements pay back immediately in cost, while disassembly pays back at end of life to someone who is usually not the manufacturer, which is why it is the strategy most often skipped.</div>
 </div>
 
-<h4>Two Strands</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Strand</th><th>What you produce</th><th>Pages</th></tr></thead>
-<tbody>
-<tr><td><strong>1. Problem statement</strong></td><td>The current situation, the current problem, and a summary of the research that shows the problem is the right one.</td><td>~1</td></tr>
-<tr><td><strong>2. Design specification</strong></td><td>Essential and desirable requirements, each explained with reference to the research.</td><td>~3</td></tr>
-</tbody>
-</table></div>
-
-<h4>Mark Scheme</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Criterion B level descriptors</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Mark</th><th>Strand</th></tr></thead>
-<tbody>
-<tr><td><strong>0</strong></td><td>The work does not reach a standard described by the descriptors below.</td></tr>
-<tr><td><strong>1–2</strong></td><td>The student:
-<ul>
-<li>presents a problem statement with limited opportunities for the redesign of the product. The links to the task analysis are superficial</li>
-<li>provides design specifications that state the requirements for the product with limited reference to the research.</li>
-</ul></td></tr>
-<tr><td><strong>3–4</strong></td><td>The student:
-<ul>
-<li>describes a problem statement with some opportunities for the redesign of the product informed through the task analysis</li>
-<li>provides design specifications that outline the requirements for the product with relevant reference to the research.</li>
-</ul></td></tr>
-<tr><td><strong>5–6</strong></td><td>The student:
-<ul>
-<li>explains a problem statement with key opportunities for the redesign of the product informed through the task analysis</li>
-<li>provides design specifications that explain the requirements for the product with relevant and detailed reference to the research.</li>
-</ul></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, p. 74.</p>
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q3 &middot; 4.1.2 Design for Process</div>
+<div class="quiz-q-text">A laptop body machined from a single billet of aluminium rather than assembled from several pressed panels is an example of:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Design for process</button>
+<button class="quiz-option" data-opt="B">B) Design for disassembly</button>
+<button class="quiz-option" data-opt="C">C) Poka-yoke</button>
+<button class="quiz-option" data-opt="D">D) Modular design</button>
+</div>
+<div class="quiz-answer">The unibody is shaped entirely around one manufacturing route, giving a stiffer structure, finer tolerances and a seamless finish with no joining operations. The trade-offs are real: 30 to 50% of the billet is removed as swarf, recyclable but still processed twice, and the resulting body is harder to open for repair.</div>
 </div>
 
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What actually moves between the bands</div>
-<ul>
-<li><strong>Problem statement:</strong> presents, then describes, then <strong>explains</strong>. Alongside that, the opportunities go from limited, to some, to <strong>key</strong>, and the link to the task analysis goes from superficial to <strong>informed through</strong> it.</li>
-<li><strong>Specification:</strong> the requirements are stated, then outlined, then <strong>explained</strong>. The reference to research goes from limited, to relevant, to <strong>relevant and detailed</strong>.</li>
-</ul>
-<p>Both strands land on the same two ideas: explain rather than assert, and show the research behind each claim. The phrase "informed through the task analysis" appears in the two upper bands. If your problem statement does not visibly come out of your storyboard, you are capped at the bottom band no matter how well written it is.</p>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q4 &middot; 4.1.2 Design for Process</div>
+<div class="quiz-q-text">Which of the following is a design for process guideline?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Increase the number of custom fasteners used</button>
+<button class="quiz-option" data-opt="B">B) Specify standardised off-the-shelf components rather than custom parts</button>
+<button class="quiz-option" data-opt="C">C) Add secondary operations such as plating wherever possible</button>
+<button class="quiz-option" data-opt="D">D) Maximise the variety of materials in the assembly</button>
+</div>
+<div class="quiz-answer">Standard fasteners, bearings and seals cut procurement cost and improve availability. The other guidelines run in the same direction: simplify geometry so fewer operations are needed, cut secondary operations such as plating, painting and welding, and reduce material diversity so parts can be recycled without contamination.</div>
 </div>
 
-<div class="obj-list">
-
-<!-- STRAND B1: PROBLEM STATEMENT -->
-<div class="obj-section" id="sub-problem">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-problem">
-<div class="obj-trigger-left"><span class="obj-code">B1</span><h3>Problem Statement</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-problem">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately one A4 page or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>a problem statement, which includes:
-<ul>
-<li>the current situation</li>
-<li>the current problem</li>
-<li>a summary of research that informs the appropriateness of the problem."</li>
-</ul>
-</li>
-</ul>
-<p class="content-note">Design technology guide, p. 74.</p>
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q5 &middot; 4.1.3 Design for Assembly</div>
+<div class="quiz-q-text">A circular saw is redesigned from over a hundred parts down to a fraction of that number. The central technique used was:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Combining several components into single moulded parts joined with snap fits</button>
+<button class="quiz-option" data-opt="B">B) Adding custom fasteners for each sub-assembly</button>
+<button class="quiz-option" data-opt="C">C) Increasing the number of welding operations</button>
+<button class="quiz-option" data-opt="D">D) Replacing snap fits with screws throughout</button>
+</div>
+<div class="quiz-answer">Reducing part count is the central move in design for assembly: it lowers material cost, shortens assembly time, shrinks inventory and removes potential failure points. The redesign also used self-locating symmetrical parts, a vertical assembly axis so parts drop into place, and standard rather than custom screws.</div>
 </div>
 
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">The problem statement</div>
-<p>"Students should produce a concise problem statement that sets the direction of the design project intentions. The problem statement should incorporate the intended persona's user needs for the chosen product and students should be open to refining the problem statement based on new insights, feedback and challenges."</p>
-<p class="content-note">Design technology guide, p. 70.</p>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q6 &middot; 4.1.3 Design for Assembly</div>
+<div class="quiz-q-text">The USB Type C connector is cited as poka-yoke because:</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) It carries more pins than earlier connectors</button>
+<button class="quiz-option" data-opt="B">B) It requires a special tool to disconnect</button>
+<button class="quiz-option" data-opt="C">C) It is compatible with only one manufacturer's devices</button>
+<button class="quiz-option" data-opt="D">D) It is symmetrical, so there is no incorrect orientation to get wrong</button>
+</div>
+<div class="quiz-answer">Poka-yoke means designing so that the error cannot occur rather than warning against it. Symmetry removes the failure entirely, which also speeds automated assembly, since a robot needs no vision system to check orientation, and prevents the damage caused by forcing an earlier asymmetrical connector in upside down.</div>
 </div>
 
-<p>Three components, all required, on roughly one page. The third is the one most often left out: a summary of the research that shows this is the right problem to be solving. Without it there is nothing for the examiner to judge "appropriateness" against.</p>
-<p>Note also that the guide expects the statement to be refined as the project develops. It is not a commitment you make once in September and never revisit.</p>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's problem statement template</h4>
-<button class="template-copy-btn" data-copy-target="copy-problem">Copy</button>
+<div class="quiz-q" data-answer="B">
+<div class="quiz-q-num">Q7 &middot; 4.1.4 Design for Disassembly</div>
+<div class="quiz-q-text">Which pair of legislative requirements has made design for disassembly increasingly important for electronics manufacturers?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) ISO 9001 and ISO 14001</button>
+<button class="quiz-option" data-opt="B">B) WEEE and RoHS</button>
+<button class="quiz-option" data-opt="C">C) CE marking and FCC approval</button>
+<button class="quiz-option" data-opt="D">D) ASTM and ISO dimensional standards</button>
 </div>
-<pre id="copy-problem">PROBLEM STATEMENT
-
-THE CURRENT SITUATION
-[Persona name], a [user in one phrase], currently uses [existing product]
-to [task from your storyboard]. They do this [frequency] in [context of use].
-[What the situation is now, before any judgment about it.]
-
-THE CURRENT PROBLEM
-[Existing product] fails to [specific limitation], which means [persona name]
-cannot [goal from the persona] without [difficulty or consequence].
-[Reference the specific stage of the task analysis where this occurs.]
-
-SUMMARY OF RESEARCH INFORMING THE PROBLEM
-- From the persona: [Requirement or motivation that makes this problem matter]
-- From the task analysis: [The stage where the product fails, and its effect]
-- From the product analysis: [Which existing products fail this need, and how]
-- Why this is the appropriate problem to address:
-
-OPPORTUNITIES FOR REDESIGN
-- [Key opportunity 1, traced to a stage of the task analysis]
-- [Key opportunity 2, traced to a stage of the task analysis]
-- [Key opportunity 3, traced to a stage of the task analysis]</pre>
+<div class="quiz-answer">The WEEE Directive makes producers responsible for recovering electrical waste and RoHS restricts hazardous substances within it, so separating materials at end of life becomes a legal obligation rather than a preference. ISO 9001 and ISO 14001 are management systems a manufacturer may adopt to deliver DfM consistently, not disassembly requirements.</div>
 </div>
 
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">List the opportunities explicitly</div>
-<p>Write the opportunities as a short list at the end. The descriptors judge whether your statement identifies opportunities and whether they are informed through the task analysis, so making them explicit and traceable does you a favour. Naming the storyboard frame each one comes from takes four words and settles the question.</p>
+<div class="quiz-q" data-answer="C">
+<div class="quiz-q-num">Q8 &middot; 4.1.4 Design for Disassembly</div>
+<div class="quiz-q-text">Why are smartphones difficult to disassemble for material recovery?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) They contain no materials of any value</button>
+<button class="quiz-option" data-opt="B">B) They are assembled entirely with standard fasteners</button>
+<button class="quiz-option" data-opt="C">C) Many different materials are combined, and adhesives, proprietary screws and laminated layers resist clean separation</button>
+<button class="quiz-option" data-opt="D">D) They use a single material throughout the housing</button>
+</div>
+<div class="quiz-answer">A handset mixes flame-retardant plastics, aluminium, copper, precious metals and rare earths such as neodymium, each needing its own recovery route, while glue, solder and bonded screen and battery assemblies make separation slow and destructive. Most retired handsets are therefore shredded, recovering the higher-value metals while plastics and rare earths are lost.</div>
 </div>
 
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>The summary of research is missing, so the appropriateness of the problem is unevidenced.</li>
-<li>The link to the task analysis is superficial, which is the wording of the bottom band.</li>
-<li>The statement describes a large social issue rather than the situation and problem for this persona and this product.</li>
-<li>The existing product is not named.</li>
-<li>No opportunities for redesign are identified, only a complaint about the product.</li>
-<li>The statement is never revisited, even after later research changes what you know.</li>
-</ul>
+<div class="quiz-q" data-answer="D">
+<div class="quiz-q-num">Q9 &middot; 4.1.5 Environmental impact of DfM</div>
+<div class="quiz-q-text">Which process substitution both lowers energy use and yields more easily recyclable waste?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) Replacing injection moulding with 3D printing</button>
+<button class="quiz-option" data-opt="B">B) Replacing powder coating with liquid spray painting</button>
+<button class="quiz-option" data-opt="C">C) Replacing CNC milling with hand filing</button>
+<button class="quiz-option" data-opt="D">D) Replacing drilling with punching</button>
+</div>
+<div class="quiz-answer">Punching leaves clean single-material blanks that return directly to the recycling stream, while drilling produces mixed swarf that is contaminated and awkward to reclaim, and it uses less energy per hole. Replacing welding with mechanical folding works the same way, saving electricity, removing weld fume and leaving the joint separable.</div>
 </div>
 
+<div class="quiz-q" data-answer="A">
+<div class="quiz-q-num">Q10 &middot; 4.1.5 Environmental impact of DfM</div>
+<div class="quiz-q-text">Which is a genuine limitation of design for disassembly?</div>
+<div class="quiz-options">
+<button class="quiz-option" data-opt="A">A) It can add cost that reaches the consumer at purchase, even where lifetime outcomes are better</button>
+<button class="quiz-option" data-opt="B">B) It prevents products from being recycled at end of life</button>
+<button class="quiz-option" data-opt="C">C) It always increases the total number of parts in a product</button>
+<button class="quiz-option" data-opt="D">D) It is incompatible with take-back legislation</button>
+</div>
+<div class="quiz-answer">A product designed to come apart may cost more to buy, so the environmental benefit is realised later and by someone else, which is why the case has to be made across the whole life cycle rather than at the point of sale. Materials chosen for manufacturing performance can create the same tension, as with aluminium panels that save fuel in use but must be carefully separated from steel for recycling.</div>
+</div>
+
+<div class="quiz-footer">
+<button class="quiz-submit-btn" id="quiz-submit">Check all answers</button>
+<div class="quiz-score" id="quiz-score"></div>
+</div>
 </div>
 </div>
 
-<!-- STRAND B2: DESIGN SPECIFICATION -->
-<div class="obj-section" id="sub-spec">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-spec">
-<div class="obj-trigger-left"><span class="obj-code">B2</span><h3>Design Specification</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-spec">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately three A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>a design specification that captures both essential and desirable requirements, ensuring that the redesigned product meets the needs of the intended user."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 74.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">The design specification</div>
-<p>"A design specification is generated from research data through a comprehensive investigation of the design opportunity and through the formulation of the problem statement. Students should prioritize the design's essential and desirable specifications, and these should be justified with references to sources."</p>
-<p>"The design specification for the solution must include UX derived from product analysis and the empathize phase. Additionally, it should encompass aspects of the design dependent on their suitability for the product and their design context. The following should be considered as part of the design specification process.</p>
-<ul>
-<li>Attributes: Desired qualities or characteristics</li>
-<li>Components: Individual parts or elements</li>
-<li>Constraints: Limitations or restrictions</li>
-<li>Environment: Context or surroundings</li>
-<li>Functions: Intended operations or actions</li>
-<li>User needs: Specific functionality, usability and performance requirements</li>
-<li>Safety: Avoiding potential hazards, harm or injury, and legal requirements</li>
-<li>Aesthetics: Visual appeal, colour, shape, texture and style</li>
-<li>Manufacture requirements: Material selection, production techniques and assembly requirements"</li>
-</ul>
-<p>"This list is not prescriptive or exhaustive."</p>
-<p class="content-note">Design technology guide, p. 70.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">Every requirement refers to the research</div>
-<p>The difference between the bottom and top bands of this strand is the phrase "with limited reference to the research" against "with relevant and detailed reference to the research". A specification point you cannot trace to something in criterion A is not evidence of research, whatever else it is. If you cannot find its source, either go and do the research or take the point out.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">A source column and measurable targets</div>
-<p>Two things I add that the guide does not require.</p>
-<p>First, a source column. The descriptors ask for reference to the research, and a column naming the persona, storyboard frame or product analysis behind each point makes that reference impossible to miss.</p>
-<p>Second, measurable targets wherever a requirement can carry one. "Comfortable" cannot be tested in criterion D. "Handle diameter 32 to 38mm" can. The guide does not use the word measurable, so this is my advice rather than a rule, but a specification you cannot test is a specification that gives you nothing to do in criteria C, D and E.</p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's design specification table</h4>
-<button class="template-copy-btn" data-copy-target="copy-spec">Copy</button>
-</div>
-<pre id="copy-spec">DESIGN SPECIFICATION
-
-Group your points under the guide's categories, using the ones that apply
-to your product: attributes, components, constraints, environment, functions,
-user needs, safety, aesthetics, manufacture requirements. UX is required.
-
-# | Category | Requirement | Explanation, with reference to research | Source | Priority
---|----------|-------------|------------------------------------------|--------|---------
-1 | User needs | [What the product must do or be, with a target where possible] | [What the research showed, and why this requirement follows from it] | [Persona / Storyboard frame / Product #] | Essential
-2 | Attributes | Handle diameter 32 to 38mm | Persona hand breadth measured at 78mm, 50th percentile. Product 1 handle is 28mm, below the 5th percentile, and the persona reported grip fatigue after ten minutes. | Persona + Product 1 | Essential
-3 | Functions | Operable with one hand only | Task analysis frames 3 and 4: the persona's other hand is holding the frame throughout this stage. | Storyboard, frames 3 to 4 | Essential
-4 | UX | [What using it should feel like, and at which stage of the task] | [Drawn from testing existing products in the empathize phase] | Product analysis | Essential
-5 | Aesthetics | [Requirement] | [Evidence] | [Source] | Desirable
-
-Essential: the design fails if this is not met.
-Desirable: the design is improved by this, but its absence is not a failure.</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>Requirements are stated rather than explained, which is the bottom band.</li>
-<li>No reference to the research behind each requirement.</li>
-<li>No UX requirements, when the guide states the specification must include UX derived from product analysis and the empathize phase.</li>
-<li>Points that cannot be traced to anything in criterion A, often aesthetics or cost assumptions carried in from outside the project.</li>
-<li>Everything marked essential, when the guide asks you to prioritize essential and desirable.</li>
-<li>Requirements phrased so loosely that criteria C, D and E cannot test against them.</li>
-<li>The specification is written and then never used again.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-</div><!-- /obj-list -->
-</div><!-- /curr-body body-define -->
-</div>
-
-<!-- ══ C: IDEATION ════════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-ideation" style="--curr-color:#8b6520;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-ideation">
-<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>Criterion C: Ideation</h2><span class="curr-sec-sub">6 marks</span></div>
+<!-- PAPER 2 -->
+<div class="curr-section" id="paper2" style="--curr-color:#4a3d7a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-paper2">
+<div class="curr-trigger-left"><span class="curr-badge">02</span><h2>Paper 2 Practice</h2><span class="curr-sec-sub">Written answer</span></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-ideation">
+<div class="curr-body" id="body-paper2">
+<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
 
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="ideation" src="ideation.mp3"></audio>
+<div class="p2-question">
+<div class="p2-q-num">Question 1 &middot; 4 marks</div>
+<div class="p2-q-text">Explain the difference between Design for Assembly (DFA) and Design for Disassembly (DFD). Give one example of each.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>Design for Assembly (DFA):</strong> looks at how components and sub-assemblies go together, cutting cost by trimming part count and making the assembly process itself more efficient. Fewer parts → faster assembly, lower inventory, fewer failure points. Focus: beginning of product life. (1)</p>
+<p><em>Example:</em> The redesigned Bosch circular saw reduced from over 100 parts using snap-fit connections, self-locating symmetrical parts, vertical axis of assembly, and single moulded components instead of separate parts. (1)</p>
+<p><strong>Design for Disassembly (DFD):</strong> facilitates ease of repair, reuse, remanufacture, or recycling. Focus: end of product life. Driven by WEEE and RoHS legislation. Uses snap-fits/clips/screws instead of adhesives; standardised accessible fasteners; recyclable identified materials. (1)</p>
+<p><em>Example:</em> The Mongolian Yurt (a portable dwelling built around a collapsible timber lattice frame wrapped in felt), which nomadic communities can repeatedly take apart, transport, and rebuild without damaging any component. (1)</p>
+<p><strong>Key tension:</strong> what is quick to assemble (adhesive bonding) may be impossible to disassemble without damage. Holistic DfM must balance both.</p>
+</div>
+</details>
 </div>
 
-<p class="curr-section-intro">Present three feasible redesign ideas, then evaluate them against your specification through testing and user feedback and identify the one you are taking forward. The second strand ends in an annotated presentation drawing of that chosen idea.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What this criterion assesses</div>
-<p>"This criterion assesses the student's ability to:</p>
+<div class="p2-question">
+<div class="p2-q-num">Question 2 &middot; 6 marks</div>
+<div class="p2-q-text">Analyse the specific design features that make smartphone disassembly difficult for repair and recycling. Refer to material complexity, joining techniques, and laminated layers.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>Material complexity (up to 2 marks):</strong></p>
 <ul>
-<li>present a range of annotated, feasible redesign ideas using an appropriate medium(s) to address the problem statement, which can be interpreted by others</li>
-<li>evaluate the redesign ideas against the design specifications through testing and user feedback."</li>
+<li>Plastics with flame retardants; aluminium frames; copper wiring; precious metals (gold, silver on connectors); rare earth elements such as the neodymium used in speaker magnets: each requiring different, often incompatible, recovery processes. (1)</li>
+<li>Despite their value, rare earths are present in tiny quantities making economical recovery impractical with current techniques. Many are ultimately incinerated or landfilled. (1)</li>
 </ul>
-<p class="content-note">Design technology guide, p. 74.</p>
-</div>
-
-<h4>Two Strands</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Strand</th><th>What you produce</th><th>Pages</th></tr></thead>
-<tbody>
-<tr><td><strong>1. Present feasible redesign ideas</strong></td><td>Three ideas communicated through sketches, drawings, CAD, images and fidelity models, at one to two pages each.</td><td>~6</td></tr>
-<tr><td><strong>2. Identify the redesign ideas</strong></td><td>An annotated presentation drawing of the chosen idea, tested against the specification and user feedback.</td><td>~2</td></tr>
-</tbody>
-</table></div>
-
-<h4>Mark Scheme</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Criterion C level descriptors</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Mark</th><th>Strand</th></tr></thead>
-<tbody>
-<tr><td><strong>0</strong></td><td>The work does not reach a standard described by the descriptors below.</td></tr>
-<tr><td><strong>1–2</strong></td><td>The student:
+<p><strong>Joining techniques (up to 2 marks):</strong></p>
 <ul>
-<li>presents fewer than three annotated, feasible redesign ideas to address the problem statement with limited key features</li>
-<li>states the difference between the redesign ideas against the design specifications through testing and user feedback.</li>
-</ul></td></tr>
-<tr><td><strong>3–4</strong></td><td>The student:
-<ul>
-<li>presents three of the best possible annotated, feasible redesign ideas to address the problem statement that includes some key features</li>
-<li>describes the difference between the redesign ideas against the design specifications through testing and user feedback.</li>
-</ul></td></tr>
-<tr><td><strong>5–6</strong></td><td>The student:
-<ul>
-<li>presents three of the best possible annotated, feasible redesign ideas to address the problem statement and all key features</li>
-<li>evaluates the redesign ideas against the design specifications through testing and user feedback.</li>
-</ul></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, pp. 74–75.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What actually moves between the bands</div>
-<p>The first strand has a hard gate before any of the quality language applies. <strong>Fewer than three ideas is the bottom band.</strong> Not a deduction, the band itself. Three ideas is the entry price for 3 to 4 and above, and above that the difference is whether the ideas address <strong>some</strong> key features or <strong>all</strong> of them.</p>
-<p>The second strand is a verb ladder again: states, then describes, then <strong>evaluates</strong> the difference between the ideas against the specifications. Note what all three bands hold constant: through <strong>testing and user feedback</strong>. An evaluation done at your desk with no testing and nobody consulted does not reach any band cleanly.</p>
-</div>
-
-<div class="obj-list">
-
-<!-- STRAND C1: THREE IDEAS -->
-<div class="obj-section" id="sub-ideas">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-ideas">
-<div class="obj-trigger-left"><span class="obj-code">C1</span><h3>Presenting Feasible Redesign Ideas</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-ideas">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately six A4 pages or the equivalent, at one to two pages per idea.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>a range of feasible ideas communicated using sketches/drawings/CAD/images and fidelity models (one to two A4 pages per idea)</li>
-<li>the highlighting of additional research and/or feedback enabling iterative development of ideas</li>
-<li>annotations (see "Features of the design project" section).</li>
+<li>Adhesives and soldering permanently bond components: mechanical separation destroys parts. Unlike screws or snap-fits, adhesive joints cannot be non-destructively undone. (1)</li>
+<li>Proprietary (non-standard) screws require special tools unavailable to third-party recyclers and repairers, intentionally restricting access and concentrating repair in authorised service centres. (1)</li>
 </ul>
-<p class="content-note">Design technology guide, p. 75.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Ideation</div>
-<p>"Students should use appropriate informal or formal sketches or drawings and digital or physical fidelity modelling to communicate their ideas visually. As the ideas are developed and refined, their feasibility is determined against the design specifications, which help determine the appropriate aspects of each idea."</p>
-<p>"The process of sketching or drawing design ideas involves an informal or formal approach that must address the key opportunities identified through the exploration of the persona and the task analysis."</p>
-<p class="content-note">Design technology guide, p. 70.</p>
-</div>
-
-<p>Note the second required evidence point, which is easy to overlook. This strand is not a gallery of three finished concepts. It should show additional research and feedback feeding back into the ideas as they develop. Sketch, get a reaction, change something, show the change.</p>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Make the three genuinely different</div>
-<p>Make the three ideas genuinely different from one another: different mechanism, configuration, material or interaction, rather than the same object in three colours. The guide asks for "three of the best possible" ideas and for a diverse set, and three variations on one concept gives your evaluation nothing to compare.</p>
-<p>Address all key features in each idea, because the top band asks for all of them. Annotate every drawing at 10 words or fewer so the annotations stay outside your word count.</p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's idea presentation template</h4>
-<button class="template-copy-btn" data-copy-target="copy-ideas">Copy</button>
-</div>
-<pre id="copy-ideas">DESIGN IDEA [#]: [Descriptive name]        [1 to 2 A4 pages]
-
-[Annotated sketches, drawings, CAD or images. Photograph any quick
- fidelity models. 10 words per annotation.]
-
-CONCEPT
-- [How this approach works, and how it differs from the other two]
-
-KEY FEATURES
-- Feature 1: [Annotated on the drawing]
-- Feature 2: [Annotated on the drawing]
-- Feature 3: [Cover all key features, which the top band requires]
-
-OPPORTUNITIES ADDRESSED
-- [Which key opportunity from the problem statement this answers]
-- [Which stage of the task analysis it targets]
-
-MATERIALS AND FEASIBILITY
-- Proposed materials, and why:
-- Can this be made within your constraints? Risks?
-
-ITERATIVE DEVELOPMENT (required evidence)
-- Additional research carried out on this idea:
-- Feedback received, and from whom:
-- What changed as a result: [Show the before and after on the page]</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
+<p><strong>Laminated layers (up to 2 marks):</strong></p>
 <ul>
-<li>Fewer than three ideas, which places the strand in the bottom band regardless of quality.</li>
-<li>Three variations on one concept, leaving nothing meaningful to evaluate.</li>
-<li>Only some key features addressed, when the top band asks for all.</li>
-<li>No evidence of additional research or feedback developing the ideas, which is required evidence.</li>
-<li>Drawings without annotations, so the ideas cannot be interpreted by others.</li>
-<li>Ideas that drift away from the existing product and become new inventions.</li>
-<li>Ideas that do not trace back to the problem statement or the task analysis.</li>
+<li>Touchscreen glass, OLED/LCD display, and digitiser are optically bonded (laminated) together. Separating them requires heat/pressure that almost always cracks the glass. (1)</li>
+<li>Batteries are adhesively bonded to chassis. Forced removal of a swollen battery risks puncture, thermal runaway, fire, and chemical release: making DIY repair dangerous. (1)</li>
+</ul>
+<p><em>Consequence:</em> Most smartphones are shredded at end of life, recovering only high-value metals while rare earths, plastics, and glass are lost. Emerging solutions (Fraunhofer iDEAR AI robotics; Fairphone modular design) offer partial remedies.</p>
+</div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 3 &middot; 5 marks</div>
+<div class="p2-q-text">Explain how IKEA furniture embodies the principles of Design for Assembly. Refer to simplified components, flat pack design, Poka-Yoke, and modular design.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<ul>
+<li><strong>Simplified components:</strong> Parts are reduced to the minimum. Standardised dowels, cam-lock fasteners, and screws are used consistently throughout IKEA's catalogue: one Allen key fits every product. Symmetrical, reversible panels cannot be installed the wrong way, reducing errors. (1)</li>
+<li><strong>Flat pack design:</strong> Components shipped unassembled in flat packages reduce volume: customers transport in a small car rather than needing a delivery truck. This cuts transport emissions and packaging material. The idea began in 1956, when an IKEA employee took the legs off a table to fit it into a car. (1)</li>
+<li><strong>Poka-Yoke:</strong> Symmetrical, reversible panels prevent incorrect assembly. Cam-lock devices and snap-fit connectors physically cannot be installed incorrectly: the fit either works or it does not. Pictorial step-by-step instructions without text eliminate language barriers across global markets. (1)</li>
+<li><strong>Modular design:</strong> Standardised shared components across product lines allow customers to add shelves, drawers, or cabinets years later. Modules are independently replaceable: a damaged shelf from a KALLAX unit can be replaced without discarding the whole frame. (1)</li>
+<li><strong>Overall benefit:</strong> DFA principles simultaneously reduce IKEA's manufacturing and logistics costs (passed on as lower prices) and make consumer assembly feasible without specialist skills, expanding the market. (1)</li>
 </ul>
 </div>
-
+</details>
 </div>
-</div>
 
-<!-- STRAND C2: IDENTIFY THE REDESIGN IDEAS -->
-<div class="obj-section" id="sub-identify">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-identify">
-<div class="obj-trigger-left"><span class="obj-code">C2</span><h3>Identify the Redesign Ideas</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-identify">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately two A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
+<div class="p2-question">
+<div class="p2-q-num">Question 4 &middot; 4 marks</div>
+<div class="p2-q-text">Explain the concept of Poka-Yoke and use the USB Type C connector as an example. Why is this important for design for assembly?</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p><strong>Definition:</strong> Poka-Yoke (Japanese: "mistake-proofing") is a design approach that makes incorrect assembly physically impossible or immediately detectable. The goal is to eliminate an entire class of errors rather than correcting them after they occur. (1)</p>
+<p><strong>USB Type C example:</strong> Previous USB connectors (Type A, Micro-USB) were asymmetrical: one correct orientation only. Users frequently attempted insertion upside-down, causing frustration, wasted time, and potential pin damage. The Type C connector is symmetrical: it can be inserted in either orientation without error, making incorrect insertion impossible. (1)</p>
+<p><strong>Importance for DFA (any 2 × 1 mark):</strong></p>
 <ul>
-<li>an annotated presentation drawing of the feasible redesign idea tested against design specifications and user feedback."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 75.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">The output here is a drawing</div>
-<p>This strand ends in an <strong>annotated presentation drawing</strong> of the idea you are taking forward. A written evaluation, a scoring table, or a paragraph explaining your choice does not satisfy the required evidence on its own. Whatever method you use to reach the decision, the two pages must show the selected idea drawn and annotated, with its testing against the specification and the user feedback visible.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Selecting an idea</div>
-<p>"Selecting the most appropriate idea should be validated against the performance and user requirements. To determine feasibility, the ideas are evaluated and tested based on the design specifications and feedback from intended user(s). This evaluation helps identify the most suitable idea that should be further developed in the next stage of the design process."</p>
-<p class="content-note">Design technology guide, p. 71.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">The evaluation matrix</div>
-<p>A matrix is not required by the guide. I use one because the strand descriptor asks you to evaluate the ideas against the design specifications through testing and user feedback, and a matrix makes that evaluation visible in very little space, which matters when the whole strand is two pages.</p>
-<p>Run the matrix first, then draw the winner. Keep the matrix compact so most of the two pages goes to the presentation drawing, which is the part that is actually required.</p>
-<p><button class="tool-btn-sm" data-modal="modal-eval-matrix">See a worked example →</button></p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's evaluation matrix</h4>
-<button class="template-copy-btn" data-copy-target="copy-matrix">Copy</button>
-</div>
-<pre id="copy-matrix">EVALUATION MATRIX
-Key: OK = meets specification   ~ = partially meets   X = does not meet
-
-Spec # | Specification (abbreviated) | Idea 1 | Idea 2 | Idea 3 | Tested how?
--------|-----------------------------|--------|--------|--------|------------
-1      | [e.g. One-hand operation]   |  OK    |  OK    |  X     | [Test method]
-2      | [e.g. Handle 32 to 38mm]    |  OK    |  ~     |  OK    | [Measured]
-3      | [Spec point]                |        |        |        | [User feedback]
-...    | [Continue for all points]   |        |        |        |
-
-USER FEEDBACK
-- Who was consulted: [Persona name, and anyone else]
-- What was tested with them, and how:
-- What they said about each idea:
-
-SELECTION
-Selected: Idea [#], [Name]
-Why, using the evaluation evidence above:
-
-THEN, ON THE SAME OR FOLLOWING PAGE:
-[Annotated presentation drawing of the selected idea. Required evidence.
- Annotate the key features, the specification points each one answers,
- and the changes made in response to testing and user feedback.]</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>No annotated presentation drawing of the selected idea, which is the required evidence for this strand.</li>
-<li>Evaluation based on preference rather than on the design specifications.</li>
-<li>No testing and no user feedback, both of which appear in every band of this strand.</li>
-<li>The differences between ideas are stated rather than evaluated, which is the bottom band.</li>
-<li>Not all specification points are considered.</li>
-<li>No clear statement of which idea was selected.</li>
-<li>The selected idea contradicts the evaluation without explanation.</li>
+<li>Reduces assembly time: workers and robots do not need to inspect orientation before insertion. (1)</li>
+<li>Prevents component damage from forced incorrect insertion, reducing rework and warranty claims. (1)</li>
+<li>Enables robotic automation without vision systems: robots can insert without cameras to detect orientation, lowering equipment cost. (1)</li>
+<li>Improves customer experience: the product cannot be assembled incorrectly, reducing support calls. (1)</li>
 </ul>
 </div>
+</details>
+</div>
+
+<div class="p2-question">
+<div class="p2-q-num">Question 5 &middot; 6 marks</div>
+<div class="p2-q-text">Evaluate how DfM strategies can simultaneously reduce costs, improve environmental sustainability, and maintain product quality. Refer to waste minimisation, material selection, and process substitution.</div>
+<details class="p2-reveal">
+<summary>Show example answer</summary>
+<div class="p2-answer">
+<p>DfM strategies are not trade-offs between cost, environment, and quality: when applied correctly, the same decisions that reduce manufacturing costs often also reduce environmental impact and improve quality. (1)</p>
+<p><strong>Waste minimisation:</strong> Replacing welding with mechanical folding saves energy (no welding equipment), eliminates weld fume emissions (environmental), produces a joint that can be non-destructively disassembled (DFD benefit), and may produce a stronger, more consistent joint (quality). Snap-fit connections reduce part count (cost), eliminate adhesive waste (environmental), and allow repair or recycling (DFD). (1+1)</p>
+<p><strong>Material selection:</strong> Specifying single-component polymers (e.g., PP throughout) rather than mixed materials costs less to mould (bulk pricing, simpler tooling), is easier to recycle at end of life (no separation needed), and avoids compatibility problems in moulding (quality consistency). Using RoHS-compliant materials avoids regulatory fines (cost), prevents environmental contamination, and improves product safety (quality). (1+1)</p>
+<p><strong>Process substitution:</strong> Replacing drilling with punching is faster (reduces labour cost), produces cleanly recyclable blanks rather than mixed swarf (environmental), and achieves consistent hole quality (dimensional accuracy, quality). The Apple Unibody CNC approach eliminates joining operations (reduces assembly cost), produces a stronger, more rigid structure (quality), and generates recyclable aluminium swarf as the only by-product. (1)</p>
+<p><strong>Honest evaluation (conflicts):</strong> DFD may increase manufacturing cost (snap-fits over adhesives require tighter tolerances); materials chosen for lightweight performance (aluminium + steel composite bodies) may resist separation at end of life. However, these conflicts can be resolved through LCA-informed holistic design: the long-term environmental and brand benefits typically outweigh short-term cost premiums. (1)</p>
+</div>
+</details>
+</div>
 
 </div>
 </div>
 
-</div><!-- /obj-list -->
-</div><!-- /curr-body body-ideation -->
-</div>
-
-<!-- ══ D: DESIGN ══════════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-design" style="--curr-color:#4a3d7a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-design">
-<div class="curr-trigger-left"><span class="curr-badge">04</span><h2>Criterion D: Design</h2><span class="curr-sec-sub">6 marks</span></div>
+<!-- REFERENCES -->
+<div class="curr-section" id="references" style="--curr-color:#2d7a6a;">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
+<div class="curr-trigger-left"><span class="curr-badge">03</span><h2>References &amp; Further Reading</h2></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
-<div class="curr-body" id="body-design">
-
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="design" src="design.mp3"></audio>
-</div>
-
-<p class="curr-section-intro">Criterion D is your development process. You build fidelity models, test them with the intended user against the design specifications, refine, and repeat. Then you produce formal drawings that would let a third-party manufacturer make the thing. Ten pages and only 300 words, so this criterion is almost entirely visual.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What this criterion assesses</div>
-<p>"This criterion assesses the student's ability to:</p>
-<ul>
-<li>develop and annotate iterative fidelity models through multiple testing and refinement cycles to arrive at the intended redesigned solution that addresses the problem statement, design specifications and needs of the intended user</li>
-<li>design drawings of the intended design solution and its components that aid communication and visualization to a third-party manufacturer."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 75.</p>
-</div>
-
-<h4>Two Strands</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Strand</th><th>What you produce</th><th>Pages</th></tr></thead>
-<tbody>
-<tr><td><strong>1. Develop fidelity models</strong></td><td>Multiple testing and refinement cycles, with intended user testing against the design specifications.</td><td>~6</td></tr>
-<tr><td><strong>2. Design drawings</strong></td><td>Formal assembled, exploded and orthographic annotated drawings with dimensions, proportions and assembly.</td><td>~4</td></tr>
-</tbody>
-</table></div>
-
-<h4>Mark Scheme</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Criterion D level descriptors</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Mark</th><th>Strand</th></tr></thead>
-<tbody>
-<tr><td><strong>0</strong></td><td>The work does not reach a standard described by the descriptors below.</td></tr>
-<tr><td><strong>1–2</strong></td><td>The student:
-<ul>
-<li>develops a fidelity model partially addressing the problem statement with limited testing against the design specifications and needs of the intended user</li>
-<li>designs and annotates drawings showing limited detail of the intended design solution and its components to communicate to a third-party manufacturer.</li>
-</ul></td></tr>
-<tr><td><strong>3–4</strong></td><td>The student:
-<ul>
-<li>develops a fidelity model satisfactorily addressing the problem statement that outlines the testing against the design specifications and the needs of the intended user</li>
-<li>designs and annotates drawings showing adequate details of the intended design solution and its components to communicate to a third-party manufacturer.</li>
-</ul></td></tr>
-<tr><td><strong>5–6</strong></td><td>The student:
-<ul>
-<li>develops a fidelity model thoroughly addressing the problem statement that evaluates the testing against all of the design specifications and the needs of the intended user</li>
-<li>designs and annotates drawings showing comprehensive details of the intended design solution and its components to communicate to a third-party manufacturer.</li>
-</ul></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, pp. 75–76.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What actually moves between the bands</div>
-<ul>
-<li><strong>Fidelity models:</strong> the model partially, then satisfactorily, then <strong>thoroughly</strong> addresses the problem statement. The testing goes from limited, to outlined, to <strong>evaluated against all</strong> of the design specifications.</li>
-<li><strong>Drawings:</strong> limited, then adequate, then <strong>comprehensive</strong> detail.</li>
-</ul>
-<p>The word "all" in the top band is doing real work. Testing three specification points thoroughly will not reach 5 to 6 if your specification has twelve. This is the moment your criterion B decisions come back to you: a specification full of untestable wishes makes this band unreachable.</p>
-</div>
-
-<div class="obj-list">
-
-<!-- STRAND D1: FIDELITY MODELS -->
-<div class="obj-section" id="sub-iteration">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-iteration">
-<div class="obj-trigger-left"><span class="obj-code">D1</span><h3>Developing Fidelity Models</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-iteration">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately six A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>annotated drawings (visual representations such as informal or formal design drawing or sketches, photos of physical models, or CAD) of the multiple testing and refinement cycle through intended user testing to align with the requirements stated in the design specifications. Annotations must not be more than 10 words each. Any annotation more than 10 words will be considered as counting towards the word count.</li>
-</ul>
-<p class="content-note">Design technology guide, p. 76.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">A physical model is required</div>
-<p>The guide states that as part of the project, students need to develop a physical fidelity model for testing and evaluation purposes (p. 67). Digital modelling is permitted and useful within the development cycle, and it does not replace the physical model.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Modelling a solution</div>
-<p>"Students should employ a range of modelling and testing strategies to develop and refine their idea, ensuring the product meets the design specification requirements and intended users' needs. Low-fidelity models serve as proof of concept and may test only single or few aspects."</p>
-<p>"In contrast, high-fidelity models can be tested against multiple aspects of the design specifications, offering a more comprehensive evaluation of the selected idea with end-user feedback to aid the development stages towards a solution."</p>
-<p>"The student is expected to repeat multiple model, test, refine cycles to arrive at a solution that addresses the initial design problem, design brief and specifications."</p>
-<p class="content-note">Design technology guide, p. 71.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">One structure, repeated per cycle</div>
-<p>Document each cycle in the same short structure: what you built, which specification points you tested, how you tested them, what the result was, and what you changed as a consequence. Repeating one structure makes the cycle legible at a glance and keeps you inside 300 words for the whole criterion.</p>
-<p>Test with the intended user, not only with yourself. Every band of this strand refers to the needs of the intended user, and the required evidence names intended user testing directly. Record results as measurements or quotes rather than impressions.</p>
-<p><button class="tool-btn-sm" data-modal="modal-iteration">See a worked example →</button></p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's iteration log template</h4>
-<button class="template-copy-btn" data-copy-target="copy-iteration">Copy</button>
-</div>
-<pre id="copy-iteration">ITERATIVE DEVELOPMENT
-Keep every annotation to 10 words or fewer.
-
-MODEL 1: [Name, e.g. low-fidelity foam model]
-[Photograph of the physical model, annotated]
-- Fidelity and method:
-- Spec points tested: [List the numbers from criterion B]
-- Tested with: [Intended user? How?]
-- Result: [Measurements or a direct quote]
-- Change for the next model, and why:
-
-MODEL 2: [Name, e.g. revised grip, 3D printed]
-[Photograph, annotated]
-- Fidelity and method:
-- Spec points tested:
-- Tested with:
-- Result:
-- Change for the next model, and why:
-
-MODEL 3: [Higher fidelity, tested against multiple spec points]
-[Photograph, annotated]
-- Spec points tested:
-- Tested with:
-- Result:
-- Change for the next model, and why:
-
-FINAL MODEL
-[Photograph, annotated]
-- Every specification point, tested: [Cover all of them, which the top band requires]
-- Outstanding gaps, and what you would change with more time:</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>No physical fidelity model, when the guide requires one.</li>
-<li>One finished model with no evidence of earlier, rougher versions.</li>
-<li>Models shown but no testing results, so no cycle is visible.</li>
-<li>Testing against a few specification points only, when the top band asks for all of them.</li>
-<li>No intended user involved in testing.</li>
-<li>Changes between models not explained, so two models look like two objects rather than one development.</li>
-<li>Annotations over 10 words, quietly eating a word budget of only 300 for this criterion.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-<!-- STRAND D2: DESIGN DRAWINGS -->
-<div class="obj-section" id="sub-drawings">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-drawings">
-<div class="obj-trigger-left"><span class="obj-code">D2</span><h3>Design Drawings</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-drawings">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Approximately four A4 pages or the equivalent, at one to two images per page.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>formal design drawings used to represent the completed redesigned solution</li>
-<li>a range of formal assembled, exploded and orthographic annotated drawings, including dimensions, proportions and assembly of the solution and its components, are there to aid communication and visualization to a third-party manufacturer.</li>
-</ul>
-<p>"Note that:</p>
-<ul>
-<li>there should be approximately one to two images per page</li>
-<li>there should be annotations."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 76.</p>
-</div>
-
-<p>Three drawing types are named, and all three are expected:</p>
-<ul>
-<li><strong>Orthographic</strong>, with dimensions and proportions</li>
-<li><strong>Assembled</strong>, showing the complete product</li>
-<li><strong>Exploded</strong>, showing the components and how they go together</li>
-</ul>
-<p>These must be formal drawings. The informal sketching allowed in the modelling strand does not carry over here. This is also the one place A4 portrait is relaxed: the guide permits another orientation for the detailed dimension drawings in criterion D (p. 66).</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Display drawings</div>
-<p>"Formal design drawings should be produced to represent the design solution. These should include assembled, exploded and orthographic details, including components, intended to communicate the drawings accurately to a third-party manufacturer."</p>
-<p class="content-note">Design technology guide, p. 71.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Bill of materials</div>
-<p>A bill of materials is not mentioned anywhere in the guide, so treat it as optional. I ask for one because the test in this strand is whether a third-party manufacturer could build your design from what you have given them, and a parts table answers questions your drawings cannot: what each component is made of, how many are needed, and how each is produced.</p>
-<p>If you include one, number the parts to match your exploded view. If you are short on pages, the drawings come first.</p>
-<p><button class="tool-btn-sm" data-modal="modal-drawings">See a worked example →</button></p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's bill of materials template</h4>
-<button class="template-copy-btn" data-copy-target="copy-bom">Copy</button>
-</div>
-<pre id="copy-bom">BILL OF MATERIALS
-Part numbers match the exploded view.
-
-Part # | Part name | Material | Qty | Dimensions | Process | Notes
--------|-----------|----------|-----|------------|---------|------
-1      | [Name]    | [Material] | 1 | [L x W x H] | [e.g. FDM print] | [Source, cost]
-2      | [Name]    | [Material] | [Qty] | [Size] | [Process] | [Notes]
-3      | [Name]    | [Material] | [Qty] | [Size] | [Process] | [Notes]</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>Drawings without dimensions or proportions, both named in the required evidence.</li>
-<li>A perspective render only, with no orthographic views.</li>
-<li>No exploded view, so component relationships and assembly are never communicated.</li>
-<li>Informal sketches used where formal drawings are required.</li>
-<li>No annotations on the drawings.</li>
-<li>More than one or two images per page, making dimensions unreadable once scanned.</li>
-<li>Drawings that show a different design from the one developed in the modelling strand.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-</div><!-- /obj-list -->
-</div><!-- /curr-body body-design -->
-</div>
-
-<!-- ══ E: PRESENT ═════════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-present" style="--curr-color:#7a3d5a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-present">
-<div class="curr-trigger-left"><span class="curr-badge">05</span><h2>Criterion E: Present</h2><span class="curr-sec-sub">6 marks</span></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-present">
-
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="present" src="present.mp3"></audio>
-</div>
-
-<p class="curr-section-intro">Present the redesigned solution with its key features annotated, then show how it compares with the existing product you started from and how it addresses the problems you identified. Four pages and 200 words, so this is annotation work, not an essay.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">What this criterion assesses</div>
-<p>"This criterion assesses the student's ability to:</p>
-<ul>
-<li>present the intended redesign solution and annotate the key features</li>
-<li>present how the application of the redesigned solution compares with the existing product and how it addresses the identified problems."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 76.</p>
-</div>
-
-<h4>Two Strands</h4>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Strand</th><th>What you produce</th><th>Pages</th></tr></thead>
-<tbody>
-<tr><td><strong>1. Present the solution</strong></td><td>The redesigned product with its key features annotated, presented as though to a third-party manufacturer.</td><td>2</td></tr>
-<tr><td><strong>2. Improvement on the existing product</strong></td><td>A description of how your solution compares with the original product identified at the start of the project.</td><td>2</td></tr>
-</tbody>
-</table></div>
-
-<h4>Mark Scheme</h4>
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Criterion E level descriptors</div>
-<div class="content-table-wrap"><table class="curr-table">
-<thead><tr><th>Mark</th><th>Strand</th></tr></thead>
-<tbody>
-<tr><td><strong>0</strong></td><td>The work does not reach a standard described by the descriptors below.</td></tr>
-<tr><td><strong>1–2</strong></td><td>The student:
-<ul>
-<li>presents the redesigned solution with limited annotations of its key features</li>
-<li>presents how the redesigned solution compares with the existing product.</li>
-</ul></td></tr>
-<tr><td><strong>3–4</strong></td><td>The student:
-<ul>
-<li>presents the redesigned solution with adequate annotations of its key features</li>
-<li>presents how the redesigned solution compares with the existing product and addresses some of the identified problems.</li>
-</ul></td></tr>
-<tr><td><strong>5–6</strong></td><td>The student:
-<ul>
-<li>presents the redesigned solution with comprehensive annotations of its key features</li>
-<li>presents how the redesigned solution compares with the existing product and comprehensively addresses the identified problems.</li>
-</ul></td></tr>
-</tbody>
-</table></div>
-<p class="content-note">Design technology guide, pp. 76–77.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's commentary</div>
-<div class="discussion-box-title">What actually moves between the bands</div>
-<p>The first strand moves on annotation quality alone: limited, then adequate, then <strong>comprehensive</strong> annotations of the key features. The drawings or photographs are assumed. The annotations are what is marked.</p>
-<p>The second strand moves on the identified problems. At 1 to 2 you compare. At 3 to 4 you compare and address <strong>some</strong> of the identified problems. At 5 to 6 you compare and <strong>comprehensively</strong> address them. "Identified problems" means the ones from your problem statement and task analysis, so this criterion is only as strong as criterion B was specific.</p>
-</div>
-
-<div class="obj-list">
-
-<!-- STRAND E1: THE SOLUTION -->
-<div class="obj-section" id="sub-solution">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-solution">
-<div class="obj-trigger-left"><span class="obj-code">E1</span><h3>Presenting the Final Design</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-solution">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Two A4 pages or the equivalent, at two to three images per page.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>the redesigned annotated product and the key features. Annotations must not be more than 10 words each. Any annotation more than 10 words will be considered as counting towards the word count</li>
-<li>approximately two to three images per page.</li>
-</ul>
-<p>"Note the following.</p>
-<ul>
-<li>The student is required to present the intended solution as though to a third-party manufacturer, using appropriate visual communication methods that can be created by hand or CAD. This should showcase the product's features and may include perspective, exploded, assembly, orthographic, net development, cutaway views, and FEA, etc.</li>
-<li>The presentation itself (style of delivery, medium used) is not formally assessed."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 77.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Watch out</div>
-<div class="caution-box-title">The presentation event is not assessed</div>
-<p>There is a real presentation in this stage, and you choose its form. The guide says the student may present digitally, as a slide show, verbally, online or in whatever suits their context, and that the student decides who the audience should be: the teacher, peers, or members of the wider community (p. 71). None of that is formally assessed. What is assessed is the two pages of annotated evidence that go into your report.</p>
-</div>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Make every annotation do two jobs</div>
-<p>Two to three images per page, every key feature annotated, and each annotation naming the specification point it satisfies. Ten words is enough for "Textured grip, 35mm diameter, meets spec 2" and that annotation does two jobs at once.</p>
-<p>Comprehensive means every key feature, not just the interesting ones. Work around the product systematically so nothing is skipped.</p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's final design structure</h4>
-<button class="template-copy-btn" data-copy-target="copy-final">Copy</button>
-</div>
-<pre id="copy-final">THE REDESIGNED SOLUTION: [Product name]
-
-[Two to three images per page. Photographs of the physical model,
- renders, or formal views. Presented as though to a manufacturer.
- Views may include perspective, exploded, assembly, orthographic,
- net development, cutaway, or FEA.]
-
-ANNOTATED KEY FEATURES (10 words maximum each)
-A - [Feature]: what it does, and the spec point it meets
-B - [Feature]: what it does, and the spec point it meets
-C - [Feature]: what it does, and the spec point it meets
-D - [Material]: material and reason
-E - [Dimension]: key measurement
-[Continue until every key feature is annotated. Comprehensive means all.]
-
-Keep any longer explanation out of this strand.
-Criterion E has 200 words in total across both strands.</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>Attractive renders with few or no annotations. The annotations are what the band descriptors judge.</li>
-<li>Only some key features annotated, when the top band asks for comprehensive coverage.</li>
-<li>Annotations naming a feature without saying what it does or which requirement it meets.</li>
-<li>Annotations over 10 words, spending a 200 word budget on captions.</li>
-<li>Too many images per page, against the two to three the guide suggests.</li>
-<li>Features or materials appearing here that were never developed or tested in criterion D.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-<!-- STRAND E2: COMPARISON -->
-<div class="obj-section" id="sub-comparison">
-<button class="obj-trigger" aria-expanded="false" aria-controls="obj-body-comparison">
-<div class="obj-trigger-left"><span class="obj-code">E2</span><h3>Comparison with the Original Product</h3></div>
-<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="obj-body" id="obj-body-comparison">
-<p class="obj-outcome"><span class="obj-outcome-label">Page allocation</span>Two A4 pages or the equivalent.</p>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Required evidence</div>
-<p>"The required evidence for this strand is:</p>
-<ul>
-<li>a description of how the student's solution compares with the original product that was identified at the start of the project for redesign."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 77.</p>
-</div>
-
-<div class="concept-box">
-<div class="concept-box-label">From the guide</div>
-<div class="concept-box-title">Comparing the redesigned solution with the existing product</div>
-<p>"The student should demonstrate:</p>
-<ul>
-<li>how the solution is an improvement on the existing product</li>
-<li>how the solution is intended to be used by the user(s)</li>
-<li>how the solution is better suited to the needs of the intended user(s)."</li>
-</ul>
-<p class="content-note">Design technology guide, p. 72.</p>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Critical rule</div>
-<div class="caution-box-title">Compare against the original product</div>
-<p>The comparison is with the specific product identified at the start of the project for redesign, the one your persona uses and your storyboard analyses. Not the market in general, and not an idealised version of the problem. If your project has drifted so far that the original product is no longer a meaningful comparison, that drift will surface here.</p>
-</div>
-
-<p>Three things to demonstrate, and the middle one is the most often skipped. Showing <em>how the solution is intended to be used</em> takes you back to the task from your storyboard and shows the same task performed with your redesign.</p>
-
-<div class="discussion-box">
-<div class="discussion-box-label">Mr. K's method</div>
-<div class="discussion-box-title">Density beats prose here</div>
-<p>Side-by-side images and a comparison table are my way of covering all three points in two pages with 200 words. Neither is required. What they buy you is density: a table row can carry a requirement, the original's performance, your solution's performance, and the evidence, in less than a sentence of prose.</p>
-<p>Be honest about the requirements you did not fully meet. Nothing in the descriptors penalises an unmet specification point that you acknowledge, and the top band asks you to address the identified problems comprehensively, which includes the ones still outstanding.</p>
-<p><button class="tool-btn-sm" data-modal="modal-comparison">See a worked example →</button></p>
-</div>
-
-<div class="template-box">
-<div class="template-box-header">
-<h4 class="template-box-title">Mr. K's comparison structure</h4>
-<button class="template-copy-btn" data-copy-target="copy-compare">Copy</button>
-</div>
-<pre id="copy-compare">COMPARISON WITH THE ORIGINAL PRODUCT
-
-[Side by side images: original product and redesigned solution.
- Annotated, 10 words maximum each.]
-
-1. HOW THE SOLUTION IMPROVES ON THE EXISTING PRODUCT
-
-Requirement | Original product | Redesigned solution | Evidence
-------------|------------------|---------------------|----------
-[Spec 1]    | [Performance]    | [Performance]       | [Test result]
-[Spec 2]    | [Performance]    | [Performance]       | [Measurement]
-[Spec 3]    | [Performance]    | [Partially met: explain] | [Test result]
-
-2. HOW THE SOLUTION IS INTENDED TO BE USED
-[Images of the persona performing the task from your storyboard,
- using the redesign. Annotate the stages that previously failed.]
-
-3. HOW IT IS BETTER SUITED TO THE NEEDS OF THE INTENDED USER
-- Identified problem 1: [How the redesign addresses it]
-- Identified problem 2: [How the redesign addresses it]
-- Identified problem 3: [How the redesign addresses it]
-- Still outstanding: [What remains, and what you would change]
-
-USER RESPONSE
-- [Persona name] testing both products on the same task:
-- Original result:        Redesign result:</pre>
-</div>
-
-<div class="caution-box">
-<div class="caution-box-label">Common problems</div>
-<div class="caution-box-title">Where marks go missing in this strand</div>
-<ul>
-<li>No comparison with the original product, which caps this strand immediately.</li>
-<li>The redesign is described on its own terms rather than set against the original.</li>
-<li>Only some identified problems are addressed, when the top band asks for comprehensive coverage.</li>
-<li>How the solution is intended to be used is never shown.</li>
-<li>The identified problems here do not match the ones in the problem statement.</li>
-<li>Unmet requirements are hidden rather than acknowledged.</li>
-<li>Two pages of prose, against a 200 word budget for the whole criterion.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-</div><!-- /obj-list -->
-</div><!-- /curr-body body-present -->
-</div>
-
-<!-- ══ BONUS CONTENT ══════════════════════════════════════════════ -->
-<div class="curr-section" id="sec-bonus" style="--curr-color:#2d7a6a;">
-<button class="curr-trigger" aria-expanded="false" aria-controls="body-bonus">
-<div class="curr-trigger-left"><span class="curr-badge">06</span><h2>Bonus Content</h2><span class="curr-sec-sub">Extra</span></div>
-<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-</button>
-<div class="curr-body" id="body-bonus">
-
-<div class="curr-audio-bar">
-<audio class="topic-audio" preload="none" data-topic="bonus" src="bonus.mp3"></audio>
-</div>
-
-<p class="curr-section-intro">Useful links, references, and resources to support your IA. This section is updated over time, so check back regularly.</p>
-
-<h4>Useful Links</h4>
-<!-- To add a link, copy one .ref-item block and update the title, href and description. -->
+<div class="curr-body" id="body-refs">
 <div class="ref-list">
 
 <div class="ref-item">
-<div class="ref-item-title">Task Analysis Generator</div>
-<a class="ref-item-url" href="/tools/taskanalysis/">edu.contrapaul.com/tools/taskanalysis</a>
-<div class="ref-item-desc">Build a hierarchical task analysis visually and export a clean diagram. Useful for the storyboard strand in criterion A and the problem statement in criterion B.</div>
+<div class="ref-item-title">ISO 9001, Quality management systems</div>
+<a class="ref-item-url" href="https://www.iso.org/iso-9001-quality-management.html" target="_blank" rel="noopener">iso.org/iso-9001-quality-management.html</a>
+<div class="ref-item-desc">The quality management standard referenced in the chapter, and how it keeps DfM outcomes consistent across a production run.</div>
 </div>
 
 <div class="ref-item">
-<div class="ref-item-title">More design tools</div>
-<a class="ref-item-url" href="/tools">edu.contrapaul.com/tools</a>
-<div class="ref-item-desc">The rest of the tools and activities on this site, including material selection charts and persona work.</div>
+<div class="ref-item-title">WEEE Directive, European Commission</div>
+<a class="ref-item-url" href="https://ec.europa.eu/environment/topics/waste-and-recycling/waste-electrical-and-electronic-equipment-weee_en" target="_blank" rel="noopener">ec.europa.eu/environment/topics/waste-and-recycling…</a>
+<div class="ref-item-desc">EU law making producers responsible for recycling their own electronic waste. The main reason design for disassembly is a commercial requirement and not just good practice.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-title">RoHS Directive, European Commission</div>
+<a class="ref-item-url" href="https://environment.ec.europa.eu/topics/waste-and-recycling/rohs-directive_en" target="_blank" rel="noopener">environment.ec.europa.eu/topics/waste-and-recycling…</a>
+<div class="ref-item-desc">Restricts lead, mercury, cadmium and other hazardous substances in electronics, which directly constrains material choice in design for process.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-title">Flat pack, Wikipedia</div>
+<a class="ref-item-url" href="https://en.wikipedia.org/wiki/Flat_pack" target="_blank" rel="noopener">en.wikipedia.org/wiki/Flat_pack</a>
+<div class="ref-item-desc">Flat pack furniture as a design for assembly case: standardised fasteners, assembly moved to the customer, and shipping density treated as a design constraint.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-title">Fairphone</div>
+<a class="ref-item-url" href="https://www.fairphone.com/en/" target="_blank" rel="noopener">fairphone.com/en</a>
+<a class="ref-item-url" href="https://en.wikipedia.org/wiki/Fairphone" target="_blank" rel="noopener">en.wikipedia.org/wiki/Fairphone</a>
+<div class="ref-item-desc">A phone built so each major module can be replaced with a standard screwdriver. Compare the teardown against any conventional phone to see what design for disassembly costs and gains.</div>
 </div>
 
 </div>
-
-<h4>Notes from Mr. K</h4>
-<p>This space is for additional guidance that does not fit neatly into one criterion: common questions, exam session reminders, or clarifications on the guide above.</p>
-<p class="content-note">More content coming. If you have a question that should be answered here, ask in class.</p>
-
-</div><!-- /curr-body body-bonus -->
+</div><!-- /curr-body body-refs -->
 </div>
 
 <section class="linking-qs">
-<p class="linking-qs-label">Related course topics</p>
+<p class="linking-qs-label">Linking Questions</p>
 <ul>
-<li>Which aspects of ergonomics are vital to establish when analysing the usability of products? <a href="/curriculum/dp/a1.1-ergonomics.html">(A1.1)</a></li>
-<li>Which user-centred research methods will produce the evidence criterion A asks for? <a href="/curriculum/dp/a2.1-user-centred-research.html">(A2.1)</a></li>
-<li>Which prototyping techniques suit each stage of the model, test, refine cycle? <a href="/curriculum/dp/a2.2-prototyping-techniques.html">(A2.2)</a></li>
-<li>How does the design process map onto the five assessment criteria? <a href="/curriculum/dp/b2.1-design-process.html">(B2.1)</a></li>
-<li>How do modelling and prototyping decisions affect what you can test? <a href="/curriculum/dp/b2.2-modelling-prototyping.html">(B2.2)</a></li>
-<li>How is product analysis conducted, and what should it produce? <a href="/curriculum/dp/c3.1-product-analysis.html">(C3.1)</a></li>
+<li>How might manufacturing techniques influence the way a structural system is designed? <a href="a3.2-structural-systems.html">(A3.2)</a> <a href="b3.2-structural-systems-application.html">(B3.2)</a></li>
+<li>To what extent can moving mechanical parts be simplified when considering design for manufacture strategies? <a href="a3.3-mechanical-systems.html">(A3.3)</a></li>
+<li>How can design for manufacture strategies take advantage of the inclusion of electronic components? <a href="b3.4-electronic-systems-application.html">(B3.4)</a></li>
+<li>To what extent does the choice of design for manufacture strategies affect the feasibility of certain production systems? <a href="b4.1-production-systems.html">(B4.1)</a></li>
+<li>To what extent do design for manufacture strategies promote a design for a circular economy strategy? <a href="c2.2-circular-economy.html">(C2.2)</a></li>
+<li>What is the relationship between DfM strategy choices and the outcomes of a product life-cycle analysis? <a href="c3.2-life-cycle-analysis.html">(C3.2)</a></li>
 </ul>
 </section>
 
-<footer class="curr-refs-list" style="margin-top:2rem;">
-<p class="content-note">A project created by Mr. K, built on the IB DP Design technology guide for first assessment 2027. Assessment criteria, level descriptors and required evidence on this page are quoted from that guide with page references. Everything labelled as my method or my commentary is my own interpretation, and is not official. I want you all to succeed and produce awesome projects, but can't read your own teacher's mind or the minds of anyone at IB. Following my guide isn't a guarantee of perfect marks, or even good marks, you're still responsible for your own success!</p>
-<p class="content-note">International Baccalaureate Organization. <em>Diploma Programme Design Technology Guide</em>, first assessment 2027. Genève, Switzerland: International Baccalaureate Organization, a not-for-profit educational foundation of Rue du Pré-de-la-Bichette 1, 1202 Genève, Switzerland (<a href="https://ibo.org" target="_blank" rel="noopener">ibo.org</a>). Internal assessment, pp. 64–77. Assessment criteria and level descriptors are quoted here for student use, as recommended on p. 66 of that guide.</p>
-<p class="content-note">This is an unofficial student guide and is not affiliated with the International Baccalaureate in any way. Mr. K has completed 2 current-revision official IB professional development courses for Design Technology and has been teaching at a fully accredited IB continuum school since 2019. Official clarifications may be released and provide more up to date information than this guide, and should be reviewed carefully. Should you find any errors or incorrect information please contact me.</p>
-</footer>
+<nav class="topic-page-nav">
+<a href="c3.2-life-cycle-analysis.html"><span class="nav-dir">← Previous</span><span class="nav-title">C3.2 Life-Cycle Analysis</span></a>
+</nav>
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
 
-<!-- ── WORKED EXAMPLE MODALS ─────────────────────────────────────── -->
-
-<div class="case-modal" id="modal-eval-matrix" role="dialog" aria-modal="true" aria-labelledby="modal-eval-matrix-title">
+<div class="case-modal" id="modal-ifixit" role="dialog" aria-modal="true" aria-labelledby="modal-ifixit-title">
   <div class="case-modal-overlay" tabindex="-1"></div>
   <div class="case-modal-content">
     <header class="case-modal-header">
-      <h2 id="modal-eval-matrix-title">Evaluation Matrix: Mr. K's Method</h2>
-      <button class="case-modal-close" aria-label="Close worked example">&times;</button>
+      <h2 id="modal-ifixit-title">Case Study: iFixit's Repairability Score</h2>
+      <button class="case-modal-close" aria-label="Close case study">&times;</button>
     </header>
     <div class="case-modal-body">
-      <p>A matrix is not required by the guide. It is one compact way to evaluate the ideas against the design specifications through testing and user feedback, which the band descriptors do ask for. Keep it small, then give the rest of the two pages to the annotated presentation drawing of the selected idea, which is the required evidence.</p>
-      <div class="content-table-wrap"><table class="curr-table">
-        <thead>
-          <tr><th>#</th><th>Specification point</th><th>Idea 1<br>Folded grip</th><th>Idea 2<br>Strap mount</th><th>Idea 3<br>Modular sleeve</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>One-hand operation</td><td>✓</td><td>✓</td><td>✗</td></tr>
-          <tr><td>2</td><td>Handle Ø 32–38mm</td><td>✓</td><td>~</td><td>✓</td></tr>
-          <tr><td>3</td><td>Washable materials</td><td>~</td><td>✓</td><td>✓</td></tr>
-          <tr><td>4</td><td>Under 150g total</td><td>✓</td><td>✗</td><td>✓</td></tr>
-          <tr><td>5</td><td>Tool-free adjustment</td><td>✗</td><td>✓</td><td>✓</td></tr>
-          <tr><td><strong>Totals</strong></td><td></td><td>✓3 ~1 ✗1</td><td>✓3 ~1 ✗1</td><td><strong>✓4 ~0 ✗1</strong></td></tr>
-        </tbody>
-      </table></div>
-      <p><strong>Selected: Idea 3, the modular sleeve.</strong> It met 4 of 5 essential specification points in testing and was preferred by the user during consultation, who found the modular approach most practical for her context of use.</p>
-      <p>The two pages then continue with the annotated presentation drawing of the modular sleeve, showing its key features, the specification points each one answers, and what changed in response to the user feedback recorded above.</p>
+
+      <figure class="case-photo">
+        <a href="https://www.ifixit.com/repairability" target="_blank" rel="noopener"><img src="C4.1/ifixitcover.webp" alt="Cover image fr iFixit repairability"></a>
+        <figcaption><em>iFixit scores repairability of a range of electronics.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p><a href="https://www.ifixit.com/">iFixit</a> started in 2003 as two Cal Poly students writing repair guides for their own broken laptops because no manufacturer would tell them how. Two decades later, the company tears down nearly every major phone, laptop and gadget release, publishes the guide for free, and scores each device out of 10 on how repairable it actually is.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="https://www.ifixit.com/Wiki/Repairability_Scoring_Rubric_v2.1" target="_blank" rel="noopener"><img src="C4.1/rubric.webp" alt="The iFixit Rubric"></a>
+        <figcaption><em>The iFixit repairability scoring rubric.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The score isn't a vibe, <a href="https://www.ifixit.com/Wiki/Repairability_Scoring_Rubric_v2.1">it's built from specific, checkable criteria:</a> can the battery be replaced without a heat gun and specialised tools, does opening the case destroy it, are screens and other high-failure parts independently replaceable, are the screws standard or proprietary. Devices built for disassembly, the Fairphone mentioned above, or Framework's modular laptops, routinely score 9 or 10. Devices with glued-in batteries and fused components have scored as low as 0. iFixit publishes every teardown for free specifically to put that number in front of a customer before they buy, turning a hidden manufacturing decision into a visible, comparison-shoppable one, and uses the same data to lobby lawmakers directly for Right to Repair legislation.</p>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="case-modal" id="modal-iteration" role="dialog" aria-modal="true" aria-labelledby="modal-iteration-title">
-  <div class="case-modal-overlay" tabindex="-1"></div>
-  <div class="case-modal-content">
-    <header class="case-modal-header">
-      <h2 id="modal-iteration-title">Fidelity Models: Worked Example</h2>
-      <button class="case-modal-close" aria-label="Close worked example">&times;</button>
-    </header>
-    <div class="case-modal-body">
-      <p>Each model is shown alongside a short record of what was tested, how it was tested with the intended user, the result, and the decision taken before the next model. Repeating one structure makes the testing and refinement cycle visible while using very few of criterion D's 300 words.</p>
-      <div class="content-table-wrap"><table class="curr-table">
-        <thead>
-          <tr><th>Model</th><th>Spec tested</th><th>Tested with</th><th>Result</th><th>Next change</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1: Foam</td><td>#2 Handle Ø</td><td>User, timed task</td><td>35mm, user confirmed comfortable</td><td>Test grip material</td></tr>
-          <tr><td>2: 3D print</td><td>#1, #4</td><td>User, weighed</td><td>One-hand ✓. Weight 162g, over limit</td><td>Hollow body to reduce weight</td></tr>
-          <tr><td>3: Final</td><td>All spec points</td><td>User, full task</td><td>141g ✓. All essential points met</td><td>Ready for design drawings</td></tr>
-        </tbody>
-      </table></div>
-      <p>Note that the physical model is doing the work in every row. The guide requires a physical fidelity model for testing and evaluation, and a row whose result is a measurement or a user's words is a row an examiner can believe.</p>
-    </div>
-  </div>
-</div>
-
-<div class="case-modal" id="modal-drawings" role="dialog" aria-modal="true" aria-labelledby="modal-drawings-title">
-  <div class="case-modal-overlay" tabindex="-1"></div>
-  <div class="case-modal-content">
-    <header class="case-modal-header">
-      <h2 id="modal-drawings-title">Design Drawings: Worked Example</h2>
-      <button class="case-modal-close" aria-label="Close worked example">&times;</button>
-    </header>
-    <div class="case-modal-body">
-      <p>All three drawing types named in the required evidence appear across the four pages: assembled, exploded and orthographic. Each carries dimensions, proportions and annotations, at one to two images per page so nothing becomes unreadable once scanned.</p>
-      <div class="content-table-wrap"><table class="curr-table">
-        <thead>
-          <tr><th>Page</th><th>Drawing</th><th>Carries</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Orthographic projection</td><td>Front, side and top views, fully dimensioned, proportions marked</td></tr>
-          <tr><td>2</td><td>Assembled view</td><td>The complete product, annotated with key features</td></tr>
-          <tr><td>3</td><td>Exploded view</td><td>Components separated and numbered, assembly order clear</td></tr>
-          <tr><td>4</td><td>Detail views and bill of materials</td><td>Any component needing its own dimensions, plus the parts table</td></tr>
-        </tbody>
-      </table></div>
-      <p>The bill of materials is not required by the guide. If you include one, its part numbers should match the numbers on the exploded view so a manufacturer can move between the two without guessing.</p>
-    </div>
-  </div>
-</div>
-
-<div class="case-modal" id="modal-comparison" role="dialog" aria-modal="true" aria-labelledby="modal-comparison-title">
-  <div class="case-modal-overlay" tabindex="-1"></div>
-  <div class="case-modal-content">
-    <header class="case-modal-header">
-      <h2 id="modal-comparison-title">Comparison: Worked Example</h2>
-      <button class="case-modal-close" aria-label="Close worked example">&times;</button>
-    </header>
-    <div class="case-modal-body">
-      <p>A sample comparison table. One requirement is marked as only partially met. Acknowledging that honestly is part of comprehensively addressing the identified problems, and nothing in the descriptors penalises an unmet point that you explain.</p>
-      <div class="content-table-wrap"><table class="curr-table">
-        <thead>
-          <tr><th>#</th><th>Requirement</th><th>Original</th><th>Redesign</th><th>Met?</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>One-hand operation</td><td>✗</td><td>✓</td><td>✓</td></tr>
-          <tr><td>2</td><td>Handle Ø 32–38mm</td><td>✗ (28mm)</td><td>✓ (35mm)</td><td>✓</td></tr>
-          <tr><td>3</td><td>Under 150g</td><td>✓</td><td>✓ (141g)</td><td>✓</td></tr>
-          <tr><td>4</td><td>Washable materials</td><td>✗</td><td>~ (body only)</td><td>~</td></tr>
-        </tbody>
-      </table></div>
-      <p>Requirement 4 was partially met. The body is washable but the internal spring mechanism is not. A sealed cap would address this in a further iteration.</p>
-      <p>The same two pages also show the persona performing the storyboard task with the redesign, which covers the guide's second point: how the solution is intended to be used.</p>
-    </div>
-  </div>
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
 </div>
 
 </main>
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
-<script src="../../curriculum/curriculum.js"></script>
-<script src="ia-guide.js"></script>
-<script src="../../curriculum/curr-toc.js"></script>
-<script src="../../curriculum/curriculum-themes.js"></script>
-<script>
-(function () {
-  'use strict';
-
-  var overlay = null;
-  var deckSlides = [];
-  var deckIndex = 0;
-  var opener = null;
-
-  var ICON_PREV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
-  var ICON_NEXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
-  var ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8 5 19 12 8 19"/></svg>';
-
-  function el(tag, cls, text) {
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (text) n.textContent = text;
-    return n;
-  }
-
-  function isOpen() { return overlay && overlay.classList.contains('is-open'); }
-
-  function buildOverlay() {
-    overlay = el('div', 'ps-overlay');
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.innerHTML =
-      '<div class="ps-topbar"><div class="ps-deck-title"></div>' +
-      '<button type="button" class="ps-return">&#8592; Return to page</button></div>' +
-      '<div class="ps-progress"><span class="ps-progress-bar"></span></div>' +
-      '<div class="ps-stage"></div>' +
-      '<div class="ps-footer">' +
-      '<button type="button" class="ps-nav ps-nav-prev" aria-label="Previous slide">' + ICON_PREV + '</button>' +
-      '<span class="ps-counter">1 / 1</span>' +
-      '<button type="button" class="ps-nav ps-nav-next" aria-label="Next slide">' + ICON_NEXT + '</button>' +
-      '</div>';
-    document.body.appendChild(overlay);
-
-    overlay.querySelector('.ps-return').addEventListener('click', closeDeck);
-    overlay.querySelector('.ps-nav-prev').addEventListener('click', function () { show(deckIndex - 1); });
-    overlay.querySelector('.ps-nav-next').addEventListener('click', function () { show(deckIndex + 1); });
-
-    overlay.addEventListener('click', function (e) {
-      var trigger = e.target.closest('[data-modal]');
-      if (!trigger) return;
-      var modal = document.getElementById(trigger.dataset.modal);
-      if (!modal) return;
-      modal.style.zIndex = '2100';
-      modal.classList.add('open');
-      var closeBtn = modal.querySelector('.case-modal-close');
-      if (closeBtn) closeBtn.focus();
-    });
-
-    overlay.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var focusable = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-      if (!focusable.length) return;
-      var first = focusable[0];
-      var last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-    });
-  }
-
-  function show(i) {
-    var n = deckSlides.length;
-    deckIndex = Math.max(0, Math.min(i, n - 1));
-    deckSlides.forEach(function (s, k) { s.classList.toggle('is-active', k === deckIndex); });
-    deckSlides[deckIndex].scrollTop = 0;
-    overlay.querySelector('.ps-counter').textContent = (deckIndex + 1) + ' / ' + n;
-    overlay.querySelector('.ps-progress-bar').style.width = Math.round((deckIndex + 1) / n * 100) + '%';
-    overlay.querySelector('.ps-nav-prev').disabled = deckIndex === 0;
-    overlay.querySelector('.ps-nav-next').disabled = deckIndex === n - 1;
-  }
-
-  function openDeck(section, trigger) {
-    if (!overlay) buildOverlay();
-    opener = trigger;
-    var codeEl = section.querySelector('.obj-code');
-    var titleEl = section.querySelector('.obj-trigger h3');
-    var code = codeEl ? codeEl.textContent.trim() : '';
-    var mainTitle = titleEl ? titleEl.textContent.trim() : '';
-    var color = section.style.getPropertyValue('--curr-color');
-    if (color) {
-      overlay.style.setProperty('--curr-color', color);
-      overlay.style.setProperty('--topic-color', color);
-    }
-
-    deckSlides = buildSlides(section, code, mainTitle);
-    var stage = overlay.querySelector('.ps-stage');
-    stage.innerHTML = '';
-    deckSlides.forEach(function (s) { stage.appendChild(s); });
-
-    overlay.querySelector('.ps-deck-title').textContent = (code ? code + ' \u2014 ' : '') + mainTitle;
-    overlay.setAttribute('aria-label', 'Present and study: ' + mainTitle);
-
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    show(0);
-    overlay.querySelector('.ps-return').focus();
-  }
-
-  function closeDeck() {
-    if (!isOpen()) return;
-    overlay.classList.remove('is-open');
-    document.body.style.overflow = '';
-    document.querySelectorAll('.case-modal.open').forEach(function (m) { m.classList.remove('open'); });
-    if (opener) opener.focus();
-  }
-
-  function buildSlides(section, code, mainTitle) {
-    var body = section.querySelector('.obj-body');
-    var slides = [];
-    var coverBlocks = document.createDocumentFragment();
-    var pending = null;
-
-    var cover = el('section', 'ps-slide ps-slide--cover');
-    var inner = el('div', 'ps-cover-inner');
-    if (code) inner.appendChild(el('div', 'ps-cover-code', code));
-    inner.appendChild(el('h1', 'ps-cover-title', mainTitle));
-    cover.appendChild(inner);
-    slides.push(cover);
-
-    function flush() {
-      if (!pending) return;
-      var slide = el('section', 'ps-slide');
-      slide.appendChild(el('h3', 'ps-slide-title', pending.title));
-      var content = el('div', 'obj-body open ps-slide-body');
-      content.appendChild(pending.frag);
-      slide.appendChild(content);
-      slides.push(slide);
-      pending = null;
-    }
-
-    Array.prototype.forEach.call(body.children, function (child) {
-      if (child.classList.contains('ps-start-btn')) return;
-      if (/^H[1-6]$/.test(child.tagName)) {
-        flush();
-        var text = (child.textContent || '').trim();
-        if (text) pending = { title: text, frag: document.createDocumentFragment() };
-        return;
-      }
-      var clone = child.cloneNode(true);
-      if (pending) pending.frag.appendChild(clone);
-      else coverBlocks.appendChild(clone);
-    });
-    flush();
-
-    var blocksWrap = el('div', 'ps-cover-blocks');
-    blocksWrap.appendChild(coverBlocks);
-    inner.appendChild(blocksWrap);
-
-    for (var s = 1; s < slides.length; s++) splitMedia(slides[s]);
-    return slides;
-  }
-
-  function splitMedia(slide) {
-    var wrap = slide.querySelector('.ps-slide-body');
-    var media = [];
-
-    Array.prototype.forEach.call(wrap.children, function (block) {
-      var imgs = block.querySelectorAll('img');
-      var hasReal = false;
-      for (var i = 0; i < imgs.length; i++) {
-        if (imgs[i].getAttribute('src')) { hasReal = true; break; }
-      }
-      if (!hasReal) return;
-      media.push(toMediaFigure(block));
-      block.remove();
-    });
-
-    if (!media.length) {
-      if (!wrap.children.length) slide.remove();
-      return;
-    }
-
-    slide.classList.add('ps-slide--split');
-    var col = el('aside', 'ps-media-col');
-    media.forEach(function (m) { col.appendChild(m); });
-    slide.appendChild(col);
-  }
-
-  function toMediaFigure(block) {
-    var imgs = block.querySelectorAll('img');
-    for (var i = 0; i < imgs.length; i++) imgs[i].loading = 'eager';
-    var figure;
-    if (block.tagName === 'FIGURE') {
-      figure = block;
-    } else {
-      figure = el('figure', 'ps-media');
-      figure.appendChild(block);
-    }
-    if (!figure.querySelector('figcaption')) {
-      var im = figure.querySelector('img');
-      var alt = im ? (im.getAttribute('alt') || '') : '';
-      if (alt) figure.appendChild(el('figcaption', '', alt));
-    }
-    return figure;
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (!isOpen()) return;
-    if (e.key === 'Escape') {
-      e.stopPropagation();
-      closeDeck();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      show(deckIndex + 1);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      show(deckIndex - 1);
-    } else if (e.key === ' ') {
-      var t = e.target;
-      if (t && !/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) {
-        e.preventDefault();
-        show(deckIndex + 1);
-      }
-    }
-  });
-
-  document.querySelectorAll('.curr-main .obj-section').forEach(function (sec) {
-    var body = sec.querySelector('.obj-body');
-    if (!body) return;
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'ps-start-btn';
-    btn.innerHTML = 'Present / Study ' + ICON_PLAY;
-    btn.addEventListener('click', function () { openDeck(sec, btn); });
-    var anchor = body.querySelector('.obj-outcome');
-    if (anchor) anchor.after(btn);
-    else body.insertBefore(btn, body.firstChild);
-  });
-})();
-</script>
+<script src="../live-calc.js"></script>
+<script src="../curriculum.js"></script>
+<script src="c4.1.js"></script>
+<script src="../curr-toc.js"></script>
+<script src="../curriculum-themes.js"></script>
 </body>
 </html>

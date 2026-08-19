@@ -1,0 +1,4087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Catalogue of tool card styles for edu.contrapaul.com: live examples with copy-ready CSS and HTML.">
+<title>Card Style Catalog | contrapaul edu</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../curriculum/themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CATALOG CHROME — page furniture only. Nothing here is meant to
+   be copied; the card styles themselves start further down.
+   ═══════════════════════════════════════════════════════════════ */
+.cat-wrap { max-width: 1240px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.cat-intro { margin-bottom: 2.5rem; }
+.cat-intro h1 { font-size: 2.1rem; margin-bottom: 0.6rem; }
+.cat-lede { font-size: 0.95rem; color: var(--muted); line-height: 1.7; max-width: 68ch; }
+.cat-how {
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface-2, var(--surface));
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 80ch;
+}
+.cat-how ol { margin: 0.5rem 0 0 1.1rem; padding: 0; }
+.cat-how li { margin-bottom: 0.3rem; }
+.cat-how code {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.78rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+}
+.cat-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.chip {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill, 20px);
+  background: var(--surface);
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+.chip span { opacity: 0.55; margin-left: 0.3rem; }
+
+.group { margin-top: 3.5rem; }
+.group-head { border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1.75rem; }
+.group-head h2 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.group-head p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+.ex {
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px dashed var(--border);
+}
+.ex:last-child { border-bottom: none; }
+.ex-head { display: flex; align-items: baseline; gap: 0.85rem; flex-wrap: wrap; }
+.ex-num {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  opacity: 0.6;
+}
+.ex-id { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.ex-id h3 { font-size: 1.05rem; margin: 0; }
+.ex-class {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+.ex-tags { display: flex; gap: 0.35rem; margin-left: auto; flex-wrap: wrap; }
+.tag {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.57rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.16rem 0.5rem;
+  border-radius: var(--radius-pill, 20px);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.t-new { border-color: #d4a017; color: #a37a00; background: rgba(255,229,54,0.12); }
+.t-js  { border-color: #8b5cf6; color: #7c3aed; background: rgba(139,92,246,0.10); }
+[data-theme="dark"] .t-new { color: #e8c96a; }
+[data-theme="dark"] .t-js  { color: #c4b5fd; }
+.ex-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin: 0.5rem 0 1.1rem; max-width: 76ch; }
+
+.ex-body { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.ex-stage {
+  display: flex; align-items: center; justify-content: center;
+  padding: 1.5rem 0.75rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background:
+    repeating-conic-gradient(var(--surface-2, #f2f2f2) 0% 25%, transparent 0% 50%) 0 0 / 18px 18px;
+}
+.ex-stage .tool-card { width: 320px; }
+.ex-code { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+
+.cb { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+.cb-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.35rem 0.4rem 0.35rem 0.75rem;
+  background: var(--surface-2, var(--surface));
+  border-bottom: 1px solid var(--border);
+}
+.cb-label {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cb-copy {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill, 20px);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.13s;
+}
+.cb-copy:hover { color: var(--accent); border-color: var(--accent); }
+.cb-copy.done { color: var(--green, #2a7); border-color: var(--green, #2a7); }
+.cb-pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  max-height: 320px;
+  overflow-y: auto;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  tab-size: 2;
+}
+.cb-pre code { font: inherit; color: inherit; background: none; padding: 0; border: none; white-space: pre; }
+
+@media (max-width: 900px) {
+  .ex-body { grid-template-columns: 1fr; }
+  .ex-stage .tool-card { width: 100%; max-width: 340px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARD STYLES — every rule below is copy-ready. Each block is
+   self-contained; take only the ones you use.
+   ═══════════════════════════════════════════════════════════════ */
+.tool-card[class*="cs-"] { position: relative; }
+
+/* cs-paper — Lifted Paper */
+.cs-paper {
+  background: #f4f1ea !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+}
+.cs-paper:hover {
+  transform: translateY(-6px) rotate(-1deg) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 18px 40px rgba(0,0,0,0.45) !important;
+}
+
+/* cs-papers — Regulatory Papers */
+.cs-papers {
+  background: #ece4cd !important;
+  border: 1px solid #b3a987 !important;
+  border-radius: 2px !important;
+  outline: 1px solid rgba(90,80,50,0.35);
+  outline-offset: -8px;
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.cs-papers::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  border-style: solid;
+  border-width: 0 34px 34px 0;
+  border-color: transparent #c5b990 transparent transparent;
+}
+.cs-papers::after {
+  content: 'FORM 7-B';
+  position: absolute; bottom: 12px; right: 14px;
+  font-size: 0.55rem; letter-spacing: 1px;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+  padding: 2px 6px;
+  transform: rotate(-6deg);
+  opacity: 0.75;
+}
+.cs-papers:hover { transform: translateY(-3px) rotate(0.5deg) !important; }
+
+/* cs-polaroid — Polaroid */
+.cs-polaroid {
+  background: #fff !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 14px 14px 18px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  transform: rotate(2deg);
+}
+.cs-polaroid:hover { transform: rotate(0deg) scale(1.03) !important; box-shadow: 0 10px 28px rgba(0,0,0,0.4) !important; }
+.cs-polaroid .cs-photo {
+  width: 80%; height: 110px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* cs-press — Letterpress */
+.cs-press {
+  background: #dcd7cb !important;
+  border: 1px solid #c3bcac !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.18), inset 0 -1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,0,0.2);
+}
+.cs-press .tool-card-title, .cs-press .tool-card-sub {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 -1px 1px rgba(0,0,0,0.35);
+}
+.cs-press:hover {
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.26), inset 0 -1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.2) !important;
+}
+
+/* cs-riso — Risograph */
+.cs-riso {
+  background: #f2ede1 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  overflow: hidden; isolation: isolate;
+}
+.cs-riso::before, .cs-riso::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1.4px, transparent 0);
+  background-size: 9px 9px;
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.cs-riso::before { color: #ff4a3d; transform: translate(-6px,-5px); }
+.cs-riso::after  { color: #0a7cff; transform: translate(6px,5px); }
+.cs-riso:hover::before, .cs-riso:hover::after { transform: translate(0,0); opacity: 0.26; }
+.cs-riso .tool-card-title, .cs-riso .tool-card-sub { position: relative; z-index: 1; }
+
+/* cs-ticket — Ticket Stub */
+.cs-ticket {
+  background: #fdf6e3 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 3.25rem !important;
+  mask-image: radial-gradient(circle 9px at 0 25%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 50%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 75%, transparent 99%, #000);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+.cs-ticket::before {
+  content: ''; position: absolute; left: 2.1rem; top: 8%; bottom: 8%;
+  border-left: 2px dashed rgba(0,0,0,0.28);
+}
+.cs-ticket::after {
+  content: 'ADMIT ONE';
+  position: absolute; left: 2.1rem; top: 50%;
+  transform: translate(-50%,-50%) rotate(-90deg);
+  font-size: 0.5rem; letter-spacing: 0.22em; color: #8a7a4a; white-space: nowrap;
+}
+.cs-ticket:hover { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
+
+/* cs-ruled — Ruled Index Card */
+.cs-ruled {
+  background-color: #fffdf5 !important;
+  background-image: repeating-linear-gradient(transparent 0 25px, #bcd6e8 25px 26px);
+  background-position: 0 14px;
+  border: 1px solid #d8d2bf !important;
+  border-radius: 3px !important;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  padding-left: 3rem !important;
+}
+.cs-ruled::before {
+  content: ''; position: absolute; left: 2.15rem; top: 0; bottom: 0;
+  border-left: 1.5px solid #e8a0a0;
+}
+.cs-ruled::after {
+  content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0; width: 12px;
+  background: radial-gradient(circle, #15151f 5px, transparent 5.5px) repeat-y center / 12px 52px;
+  opacity: 0.85;
+}
+.cs-ruled:hover { transform: translateY(-3px) rotate(-0.6deg) !important; }
+
+/* cs-fold — Corner Fold Ticket */
+.cs-fold {
+  background: #2a2a45 !important;
+  border: none !important;
+  border-radius: 14px 14px 14px 0 !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+}
+.cs-fold::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  border-style: solid;
+  border-width: 30px 30px 0 0;
+  border-color: #FF7200 transparent transparent transparent;
+}
+.cs-fold:hover { background: #33335a !important; transform: translateY(-4px) !important; }
+
+/* cs-tape — Taped Note */
+.cs-tape {
+  background: #fbf6e9 !important;
+  border: 1px solid #e2d9c2 !important;
+  border-radius: 2px !important;
+  margin-top: 10px;
+  transform: rotate(-1.4deg);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+.cs-tape::before, .cs-tape::after {
+  content: ''; position: absolute; top: -10px;
+  width: 74px; height: 24px;
+  background: rgba(226,222,196,0.72);
+  border-left: 1px solid rgba(255,255,255,0.5);
+  border-right: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+.cs-tape::before { left: -16px; transform: rotate(-32deg); }
+.cs-tape::after  { right: -16px; transform: rotate(32deg); }
+.cs-tape:hover {
+  transform: rotate(0deg) translateY(-3px) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.34) !important;
+}
+
+/* cs-graph — Graph Paper */
+.cs-graph {
+  background-color: #f7f9f4 !important;
+  background-image:
+    linear-gradient(rgba(60,130,90,0.30) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60,130,90,0.30) 1px, transparent 1px),
+    linear-gradient(rgba(60,130,90,0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60,130,90,0.13) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  border: 1px solid #c3cfc0 !important;
+  border-radius: 2px !important;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.22);
+  transition: background-size 0.4s, box-shadow 0.3s !important;
+}
+.cs-graph:hover {
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.3) !important;
+}
+
+/* cs-crtterm — Terminal Window */
+.cs-crtterm {
+  background: #0d0d18 !important;
+  border: 2px solid #2dd4bf !important;
+  border-radius: 10px !important;
+  padding-top: 3rem !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(45,212,191,0.25), inset 0 0 30px rgba(45,212,191,0.08);
+}
+.cs-crtterm::before {
+  content: '\25CF \25CF \25CF';
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 7px 14px;
+  font-size: 0.6rem; letter-spacing: 3px;
+  text-align: left;
+  color: #555;
+  background: #1c1c2c;
+  border-bottom: 1px solid #333;
+}
+.cs-crtterm::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.10) 3px 5px);
+  pointer-events: none;
+}
+.cs-crtterm .tool-card-title::before { content: '$ '; opacity: 0.5; }
+.cs-crtterm .tool-card-title { text-shadow: 0 0 5px rgba(134,239,172,0.45); }
+.cs-crtterm:hover { animation: cs-flicker 0.15s 2; }
+@keyframes cs-flicker { 50% { opacity: 0.85; } }
+
+/* cs-neon — Neon Sign */
+.cs-neon {
+  background: #14142a !important;
+  border: 1px solid #FA16C2 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 8px rgba(250,22,194,0.4), inset 0 0 8px rgba(250,22,194,0.1);
+}
+.cs-neon .tool-card-title { text-shadow: 0 0 8px rgba(250,22,194,0.6); }
+.cs-neon:hover { box-shadow: 0 0 24px rgba(250,22,194,0.8), inset 0 0 16px rgba(250,22,194,0.2) !important; }
+
+/* cs-vhs — VHS Tracking */
+.cs-vhs {
+  background: #0e0b18 !important;
+  border: 1px solid #3a2a5a !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+.cs-vhs .tool-card-title { text-shadow: -2px 0 rgba(255,0,80,0.85), 2px 0 rgba(0,220,255,0.85); }
+.cs-vhs::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: -14px; height: 14px;
+  background: linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0));
+  pointer-events: none;
+}
+.cs-vhs:hover::before { animation: cs-track 1.1s linear infinite; }
+@keyframes cs-track { to { top: 100%; } }
+.cs-vhs::after {
+  content: '\25B6 PLAY  SP';
+  position: absolute; top: 8px; left: 12px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.5rem; letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.5);
+}
+
+/* cs-doot — Doom CRT */
+.cs-doot {
+  background: #1a0d0d !important;
+  border: 2px solid #8b0000 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(139,0,0,0.5), inset 0 0 30px rgba(255,56,0,0.08);
+}
+.cs-doot::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.3) 2px 4px);
+  pointer-events: none;
+}
+.cs-doot .tool-card-title { text-shadow: 0 0 10px rgba(255,56,0,0.8); letter-spacing: 2px; }
+
+/* cs-circuit — Circuit Board */
+.cs-circuit {
+  background-color: #14202a !important;
+  background-image:
+    linear-gradient(rgba(45,212,191,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,212,191,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid rgba(45,212,191,0.3) !important;
+  border-radius: 12px !important;
+  transition: 0.3s !important;
+}
+.cs-circuit:hover {
+  background-size: 16px 16px;
+  border-color: #2dd4bf !important;
+  box-shadow: 0 0 18px rgba(45,212,191,0.3) !important;
+}
+
+/* modifier — grey board, orange trace */
+.cs-circuit-gray { background-color: #23272b !important; border-color: rgba(160,160,160,0.4) !important; }
+.cs-circuit-gray:hover { border-color: #FF7200 !important; box-shadow: 0 0 18px rgba(255,114,0,0.3) !important; }
+
+/* cs-circuit-gray — Circuit Board / Grey */
+/* modifier for .cs-circuit — apply both classes together */
+.cs-circuit-gray { background-color: #23272b !important; border-color: rgba(160,160,160,0.4) !important; }
+.cs-circuit-gray:hover { border-color: #FF7200 !important; box-shadow: 0 0 18px rgba(255,114,0,0.3) !important; }
+
+/* cs-blueprint — Blueprint */
+.cs-blueprint {
+  background-color: #16335f !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 2px solid rgba(255,255,255,0.5) !important;
+  border-radius: 4px !important;
+  outline: 1px dashed rgba(255,255,255,0.4);
+  outline-offset: -8px;
+}
+.cs-blueprint .tool-card-title { text-decoration: underline; text-underline-offset: 4px; }
+.cs-blueprint:hover { box-shadow: 0 8px 24px rgba(22,51,95,0.5) !important; }
+
+/* cs-blueprint-mint — Blueprint / Mint */
+/* modifier for .cs-blueprint — apply both classes together */
+.cs-blueprint-mint {
+  background-color: #1d4f47 !important;
+  overflow: hidden;
+}
+.cs-blueprint-mint:hover { box-shadow: 0 8px 24px rgba(29,79,71,0.6) !important; }
+.cs-blueprint-mint::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cs-blueprint-mint:hover::before { animation: cs-sweep 0.7s ease; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }
+
+/* cs-topo — Topographic */
+.cs-topo {
+  background-color: #132b25 !important;
+  background-image: repeating-radial-gradient(circle at 30% 120%,
+    transparent 0 13px, rgba(120,220,180,0.18) 13px 14px);
+  background-size: 100% 100%;
+  border: 1px solid rgba(120,220,180,0.3) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: background-size 0.6s, background-position 0.6s !important;
+}
+.cs-topo:hover { background-size: 135% 135%; background-position: 20% -10%; }
+
+/* cs-marquee — Marquee Bulbs */
+.cs-marquee {
+  background: #1a1030 !important;
+  border: 2px solid #2e1f52 !important;
+  border-radius: 10px !important;
+  padding: 2.2rem 2rem !important;
+}
+.cs-marquee::before {
+  content: ''; position: absolute; inset: 7px; border-radius: 6px; pointer-events: none;
+  background:
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x left bottom / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y right top   / 19px 19px;
+  filter: drop-shadow(0 0 3px rgba(255,229,54,0.8));
+  opacity: 0.65;
+}
+.cs-marquee:hover::before { animation: cs-bulbs 0.55s steps(2) infinite; }
+@keyframes cs-bulbs { 50% { opacity: 1; filter: drop-shadow(0 0 7px rgba(255,229,54,1)); } }
+
+/* cs-radar — Radar Sweep */
+.cs-radar {
+  background-color: #06140f !important;
+  background-image: repeating-radial-gradient(circle at 50% 50%,
+    transparent 0 21px, rgba(80,240,160,0.26) 21px 22px);
+  border: 1px solid rgba(80,240,160,0.35) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-radar::before {
+  content: ''; position: absolute; inset: -60%; z-index: -1;
+  background: conic-gradient(from 0deg, rgba(80,240,160,0.30), transparent 24%);
+  animation: cs-sweep-arm 3.2s linear infinite paused;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.cs-radar:hover::before { animation-play-state: running; opacity: 0.9; }
+@keyframes cs-sweep-arm { to { transform: rotate(360deg); } }
+.cs-radar .tool-card-title { text-shadow: 0 0 9px rgba(80,240,160,0.6); }
+.cs-radar:hover { box-shadow: 0 0 22px rgba(80,240,160,0.28) !important; }
+
+/* cs-flap — Split-Flap Board */
+.cs-flap {
+  background-color: #101014 !important;
+  background-image: repeating-linear-gradient(180deg,
+    rgba(255,255,255,0.05) 0 1px, transparent 1px 26px);
+  border: 1px solid #2b2b33 !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.7), 0 6px 18px rgba(0,0,0,0.4);
+}
+.cs-flap .tool-card-title {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.cs-flap::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 50%;
+  border-top: 1px solid rgba(0,0,0,0.85);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.cs-flap::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 50%;
+  background: linear-gradient(rgba(255,255,255,0.07), transparent);
+  transform-origin: bottom;
+  transition: transform 0.35s cubic-bezier(0.6,0,0.4,1);
+  pointer-events: none;
+}
+.cs-flap:hover::after { transform: rotateX(-72deg); }
+
+/* cs-chrome — Brushed Chrome */
+.cs-chrome {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.10) 0 1px, transparent 1px 3px),
+    linear-gradient(160deg,#6e7480 0%,#c9ced8 22%,#8b929e 42%,#eef1f6 58%,#7d838f 78%,#aeb4c0 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.35), 0 8px 22px rgba(0,0,0,0.45);
+}
+.cs-chrome::before {
+  content: '';
+  position: absolute; inset: -50%; z-index: -1;
+  background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.9), transparent);
+  animation: cs-spin 4s linear infinite paused;
+  opacity: 0; transition: opacity 0.3s;
+}
+.cs-chrome:hover::before { opacity: 0.6; animation-play-state: running; }
+@keyframes cs-spin { to { transform: rotate(360deg); } }
+.cs-chrome .tool-card-title { text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 -1px 1px rgba(0,0,0,0.4); }
+
+/* cs-weave — Woven Fabric */
+.cs-weave {
+  background-color: #8c3b3b !important;
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(255,255,255,0.07) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.16) 0 6px, transparent 6px 12px);
+  border: 1px solid #5e2626 !important;
+  border-radius: 6px !important;
+  outline: 2px dashed rgba(255,255,255,0.4);
+  outline-offset: -10px;
+  transition: outline-offset 0.3s !important;
+}
+.cs-weave:hover { outline-offset: -6px; }
+
+/* cs-sticker — Die-Cut Sticker */
+.cs-sticker {
+  background: #7c3aed !important;
+  border: none !important;
+  border-radius: 22px !important;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 10px 22px rgba(0,0,0,0.4);
+  transition: transform 0.25s, box-shadow 0.25s !important;
+}
+.cs-sticker::after {
+  content: ''; position: absolute; right: 0; bottom: 0; width: 0; height: 0;
+  border-style: solid; border-width: 0; border-color: transparent;
+  transition: 0.3s;
+}
+.cs-sticker:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+  box-shadow: 0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 16px 34px rgba(0,0,0,0.5) !important;
+}
+.cs-sticker:hover::after {
+  border-width: 0 0 42px 42px;
+  border-color: transparent transparent rgba(255,255,255,0.92) transparent;
+  filter: drop-shadow(-3px -3px 4px rgba(0,0,0,0.3));
+}
+
+/* cs-frost — Frosted Glass */
+.cs-frost {
+  background:
+    radial-gradient(circle at 20% 25%, #FA16C2 0 78px, transparent 79px),
+    radial-gradient(circle at 82% 32%, #FFE536 0 64px, transparent 65px),
+    radial-gradient(circle at 58% 92%, #2dd4bf 0 82px, transparent 83px),
+    #241d3a !important;
+  background-size: 200% 200%;
+  background-position: 30% 30%;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  transition: background-position 0.9s ease, box-shadow 0.3s !important;
+}
+.cs-frost::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  background: rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+}
+.cs-frost .tool-card-title, .cs-frost .tool-card-sub { position: relative; z-index: 1; }
+.cs-frost:hover { background-position: 70% 60%; }
+
+/* cs-glass — Glass Panel */
+.cs-glass {
+  background: rgba(255,255,255,0.07) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.cs-glass:hover { background: rgba(255,255,255,0.12) !important; transform: translateY(-4px) !important; }
+
+/* cs-holo — Holographic Foil */
+.cs-holo {
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(115deg,
+    #ff6ec7 0%, #ffd86e 18%, #6effc3 36%, #6ec8ff 54%,
+    #b96eff 72%, #ff6ec7 90%, #ffd86e 100%) !important;
+  background-size: 320% 320% !important;
+  background-position: 0% 50%;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.4);
+  transition: background-position 0.8s ease, box-shadow 0.3s !important;
+}
+.cs-holo::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(100deg,
+    rgba(255,255,255,0.30) 0 2px, transparent 2px 7px);
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+.cs-holo .tool-card-title, .cs-holo .tool-card-sub {
+  position: relative; z-index: 1;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+.cs-holo:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.5) !important;
+}
+
+/* cs-plate — Riveted Nameplate */
+.cs-plate {
+  background-color: #3f434a !important;
+  background-image:
+    radial-gradient(circle at 14px 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at 14px calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 4px);
+  border: 1px solid #22252a !important;
+  border-radius: 5px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -3px 8px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, filter 0.3s !important;
+}
+.cs-plate .tool-card-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.18);
+}
+.cs-plate:hover { filter: brightness(1.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -3px 8px rgba(0,0,0,0.4), 0 10px 26px rgba(0,0,0,0.5) !important; }
+
+/* cs-terrazzo — Terrazzo */
+.cs-terrazzo {
+  background-color: #f3efe7 !important;
+  background-image:
+    radial-gradient(ellipse 7px 4px at 18% 22%, #e2665a 99%, transparent),
+    radial-gradient(ellipse 5px 8px at 74% 16%, #4a8fb5 99%, transparent),
+    radial-gradient(ellipse 9px 5px at 44% 63%, #6faa72 99%, transparent),
+    radial-gradient(ellipse 4px 6px at 88% 71%, #e0b13f 99%, transparent),
+    radial-gradient(ellipse 6px 4px at 12% 82%, #7a6ba8 99%, transparent),
+    radial-gradient(ellipse 5px 5px at 61% 38%, #cf8a5e 99%, transparent),
+    radial-gradient(ellipse 8px 4px at 30% 46%, #b8b2a4 99%, transparent);
+  background-size: 150px 150px;
+  background-position: 0 0;
+  border: 1px solid #ded7c8 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  transition: background-position 0.6s ease, box-shadow 0.3s !important;
+}
+.cs-terrazzo:hover {
+  background-position: 34px 22px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28) !important;
+}
+
+/* cs-win95 — Windows 95 */
+.cs-win95 {
+  background: #c0c0c0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-top: 2.6rem !important;
+  box-shadow: inset -2px -2px 0 #000, inset 2px 2px 0 #fff,
+              inset -4px -4px 0 #808080, inset 4px 4px 0 #dfdfdf,
+              4px 4px 0 rgba(0,0,0,0.35);
+}
+.cs-win95::before {
+  content: 'tool.exe';
+  position: absolute; top: 4px; left: 4px; right: 4px; height: 22px;
+  display: flex; align-items: center;
+  padding: 0 5px;
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+.cs-win95::after {
+  content: '_ \25A1 \00D7';
+  position: absolute; top: 6px; right: 7px;
+  display: flex; align-items: center; gap: 2px;
+  padding: 1px 4px;
+  background: #c0c0c0;
+  color: #000;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff;
+}
+.cs-win95:hover { transform: none !important; filter: brightness(1.04); }
+.cs-win95:active { box-shadow: inset 2px 2px 0 #000, inset -2px -2px 0 #fff, inset 4px 4px 0 #808080, inset -4px -4px 0 #dfdfdf, 2px 2px 0 rgba(0,0,0,0.35) !important; }
+
+/* cs-mat — Gallery Mat */
+.cs-mat {
+  background: #ece7dd !important;
+  border: 10px solid #f7f4ee !important;
+  border-radius: 0 !important;
+  outline: 1px solid #c9c2b4;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 1px #d6cfc0, inset 0 0 14px rgba(0,0,0,0.10), 0 10px 26px rgba(0,0,0,0.32);
+  transition: border-width 0.3s, box-shadow 0.3s !important;
+}
+.cs-mat::before {
+  content: ''; position: absolute; inset: 12px;
+  border: 1px solid rgba(120,110,90,0.45);
+  pointer-events: none;
+}
+.cs-mat:hover {
+  box-shadow: inset 0 0 0 1px #d6cfc0, inset 0 0 14px rgba(0,0,0,0.10), 0 18px 40px rgba(0,0,0,0.4) !important;
+}
+
+/* cs-retro — Retro Hard Shadow */
+.cs-retro {
+  background: #FFE536 !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 8px 8px 0 #FA16C2;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+.cs-retro:hover { transform: translate(4px, 4px) !important; box-shadow: 4px 4px 0 #FA16C2 !important; }
+.cs-retro:active { transform: translate(8px, 8px) !important; box-shadow: 0 0 0 #FA16C2 !important; }
+
+/* cs-merge — Merging Cards */
+.cs-merge {
+  background: #fff !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 10px 10px 0 0 #fff, 10px 10px 0 3px #1a1a2e;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.cs-merge:hover {
+  transform: translate(5px, 5px) !important;
+  box-shadow: 5px 5px 0 0 #fff, 5px 5px 0 3px #1a1a2e !important;
+}
+.cs-merge:active {
+  transform: translate(10px, 10px) !important;
+  box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1a1a2e !important;
+}
+
+/* cs-iso — Isometric Block */
+.cs-iso {
+  background: #FFE536 !important;
+  border: 2px solid #1a1a2e !important;
+  border-radius: 8px !important;
+  box-shadow: 2px 2px 0 #d9b800, 4px 4px 0 #c4a600, 6px 6px 0 #a88f00,
+              8px 8px 0 #8c7600, 10px 10px 0 #1a1a2e;
+  transition: transform 0.18s, box-shadow 0.18s !important;
+}
+.cs-iso:hover {
+  transform: translate(6px,6px) !important;
+  box-shadow: 1px 1px 0 #d9b800, 2px 2px 0 #c4a600, 3px 3px 0 #a88f00, 4px 4px 0 #1a1a2e !important;
+}
+
+/* cs-orbit — Orbiting Border */
+.cs-orbit {
+  background: #1f1f38 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-orbit::before {
+  content: '';
+  position: absolute; inset: -50%;
+  background: conic-gradient(from 0deg, transparent 70%, #FFE536, #FA16C2, transparent);
+  animation: cs-orbit 3s linear infinite paused;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -2;
+}
+.cs-orbit::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 17px;
+  background: #1f1f38;
+  z-index: -1;
+}
+.cs-orbit:hover::before { opacity: 1; animation-play-state: running; }
+@keyframes cs-orbit { to { transform: rotate(360deg); } }
+
+/* cs-aurora — Aurora Blob */
+.cs-aurora {
+  background: #1d1d38 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+}
+.cs-aurora::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  top: -60px; right: -60px;
+  background: radial-gradient(circle, #FA16C2, transparent 70%);
+  filter: blur(40px);
+  opacity: 0.5;
+  transition: 0.6s;
+  pointer-events: none;
+}
+.cs-aurora:hover::before { transform: translate(-90px, 70px) scale(1.4); opacity: 0.7; }
+.cs-aurora .tool-card-title, .cs-aurora .tool-card-sub { position: relative; }
+
+/* cs-wash — Gradient Wash */
+.cs-wash {
+  background: linear-gradient(135deg, #FA16C2 0%, #FF7200 100%) !important;
+  background-size: 150% 150% !important;
+  border: none !important;
+  border-radius: 22px !important;
+  box-shadow: 0 8px 24px rgba(250,22,194,0.3);
+  transition: 0.4s !important;
+}
+.cs-wash:hover {
+  background-position: 100% 100% !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(255,114,0,0.45) !important;
+}
+
+/* cs-gradborder — Gradient Border */
+.cs-gradborder {
+  background: #1f1f33 !important;
+  border: 2px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: linear-gradient(#1f1f33, #1f1f33), linear-gradient(135deg, #FFE536, #FA16C2, #FF7200) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+.cs-gradborder:hover { transform: translateY(-4px) !important; box-shadow: 0 0 24px rgba(250,22,194,0.35) !important; }
+
+/* cs-shimmer — Shimmer Sweep */
+.cs-shimmer {
+  background: #222240 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+.cs-shimmer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cs-shimmer:hover::before { animation: cs-sweep 0.7s ease; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }
+
+/* cs-stamp — Stamped Outline */
+.cs-stamp {
+  background: transparent !important;
+  border: 2px dashed rgba(128,128,128,0.55) !important;
+  border-radius: 16px !important;
+}
+.cs-stamp:hover {
+  border-style: solid !important;
+  border-color: #e3b400 !important;
+  background: rgba(255,229,54,0.1) !important;
+  box-shadow: 0 0 0 4px rgba(255,229,54,0.12) !important;
+}
+
+/* cs-reveal — Split Reveal */
+.cs-reveal {
+  background: #232342 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 18px !important;
+}
+.cs-reveal:hover { background: #2b2b52 !important; }
+.cs-reveal-extra {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: 0.35s ease;
+  font-size: 0.68rem; line-height: 1.6;
+  color: #FFE536;
+  margin: 0;
+}
+.cs-reveal:hover .cs-reveal-extra { max-height: 80px; opacity: 1; margin-top: 4px; }
+
+/* cs-bento — Bento Box */
+.cs-bento {
+  background: #1f1f33 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 20px !important;
+}
+.cs-bento:hover { transform: scale(1.02) !important; }
+.cs-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 4px; }
+.cs-tags span {
+  font-size: 0.6rem; font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,114,0,0.2);
+  color: #FF7200;
+}
+
+/* cs-spotlight — Spotlight Tracker */
+.cs-spotlight {
+  background: #20203a !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+.cs-spotlight::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,229,54,0.16), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.cs-spotlight:hover::before { opacity: 1; }
+
+/* cs-tilt — Tilt 3D */
+.cs-tilt { transition: box-shadow 0.3s !important; }
+.cs-tilt:hover { box-shadow: 0 14px 34px rgba(0,0,0,0.35) !important; }
+
+/* cs-corner — Viewfinder */
+.cs-corner {
+  background: #14161c !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 2px !important;
+}
+.cs-corner::before, .cs-corner::after {
+  content: ''; position: absolute; width: 26px; height: 26px;
+  border: 2px solid #FFE536;
+  transition: inset 0.3s ease, opacity 0.3s;
+  pointer-events: none;
+}
+.cs-corner::before {
+  top: 12px; left: 12px;
+  border-right: none; border-bottom: none;
+}
+.cs-corner::after {
+  bottom: 12px; right: 12px;
+  border-left: none; border-top: none;
+}
+.cs-corner:hover::before { top: 6px; left: 6px; }
+.cs-corner:hover::after { bottom: 6px; right: 6px; }
+.cs-corner:hover { border-color: rgba(255,229,54,0.4) !important; }
+
+/* cs-pop — Spring Pop */
+.cs-pop {
+  background: #1b1b2b !important;
+  border: 2px solid #4f46e5 !important;
+  border-radius: 14px !important;
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease !important;
+}
+.cs-pop:hover {
+  transform: translateY(-8px) scale(1.035) !important;
+  box-shadow: 0 18px 34px rgba(79,70,229,0.35) !important;
+}
+.cs-pop:active { transform: translateY(-2px) scale(0.99) !important; }
+
+/* cs-glowline — Glow Ring */
+.cs-glowline {
+  background: #171a24 !important;
+  border: 2px solid transparent !important;
+  border-radius: 12px !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease !important;
+}
+.cs-glowline:hover {
+  background: #1c2030 !important;
+  border-color: #0ea5e9 !important;
+  box-shadow: 0 0 0 5px rgba(14,165,233,0.16) !important;
+  transform: none !important;
+}
+
+/* cs-soft — Soft Emboss */
+.cs-soft {
+  background: #e8ecf2 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 8px 8px 18px rgba(148,160,180,0.55), -8px -8px 18px rgba(255,255,255,0.95);
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+.cs-soft:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 12px 12px 26px rgba(148,160,180,0.6), -12px -12px 26px rgba(255,255,255,1) !important;
+}
+.cs-soft:active {
+  transform: translateY(0) !important;
+  box-shadow: inset 6px 6px 14px rgba(148,160,180,0.55), inset -6px -6px 14px rgba(255,255,255,0.95) !important;
+}
+
+/* cs-ember — Ember Tablet */
+.cs-ember {
+  background: radial-gradient(ellipse at 50% 25%, #3a2712 0%, #170f08 75%) !important;
+  border: 1px solid #a9812e !important;
+  border-radius: 6px !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 4px 18px rgba(0,0,0,0.5);
+  transition: box-shadow 0.35s, border-color 0.35s !important;
+}
+.cs-ember .tool-card-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 10px rgba(230,190,90,0.55), 0 0 24px rgba(230,150,40,0.35);
+  transition: text-shadow 0.35s;
+}
+.cs-ember .tool-card-sub { font-family: Georgia, serif; font-style: italic; }
+.cs-ember:hover {
+  border-color: #e8c96a !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 26px rgba(212,160,60,0.35), 0 4px 18px rgba(0,0,0,0.6) !important;
+}
+.cs-ember:hover .tool-card-title { text-shadow: 0 0 14px rgba(240,205,110,0.85), 0 0 34px rgba(230,150,40,0.5); }
+
+/* cs-hex — Mana Hex */
+.cs-hex {
+  background: linear-gradient(160deg, #161c2e 0%, #100b18 70%) !important;
+  border: 1px solid #7d94b8 !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-hex::before {
+  content: ''; position: absolute; top: -34px; right: -34px; width: 120px; height: 120px;
+  background: conic-gradient(from 30deg, #d4af37, #274b7a, #d4af37);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  opacity: 0.22; z-index: -1;
+  transition: opacity 0.35s, transform 0.6s;
+}
+.cs-hex:hover::before { opacity: 0.4; transform: rotate(25deg) scale(1.08); }
+.cs-hex .tool-card-title { letter-spacing: 0.05em; }
+.cs-hex::after {
+  content: '\25C6 \25C6 \25C6 \25C6 \25C6';
+  position: absolute; bottom: 12px; left: 0; right: 0;
+  text-align: center; font-size: 0.5rem; letter-spacing: 0.3em;
+  color: #d4af37; opacity: 0.45;
+}
+
+/* cs-fan — Card Fan */
+.cs-fan {
+  background: linear-gradient(180deg, #2a1f14 0%, #140d08 100%) !important;
+  border: 1px solid #8a6a35 !important;
+  border-radius: 8px !important;
+  isolation: isolate;
+  transition: transform 0.3s !important;
+}
+.cs-fan::before, .cs-fan::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, #2a1f14 0%, #140d08 100%);
+  border: 1px solid #8a6a35;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+.cs-fan::before { transform: rotate(-6deg) translateY(2px); }
+.cs-fan::after  { transform: rotate(6deg) translateY(2px); }
+.cs-fan:hover::before { transform: rotate(-11deg) translateY(4px); }
+.cs-fan:hover::after  { transform: rotate(11deg) translateY(4px); }
+.cs-fan:hover { transform: translateY(-4px) !important; }
+
+/* cs-blurt — Blurt */
+@font-face {
+  font-family: 'Bespoke Slab';
+  src: url('https://blurt.contrapaul.com/fonts/BespokeSlab-Extrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+.cs-blurt {
+  background-color: #16151d !important;
+  background-image:
+    radial-gradient(600px 300px at 50% -20%, rgba(255,92,58,0.18), transparent 70%),
+    radial-gradient(450px 250px at 90% 120%, rgba(255,194,58,0.12), transparent 70%);
+  border: 1px solid #383447 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.cs-blurt .tool-card-title {
+  font-family: 'Bespoke Slab', Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.cs-blurt .tool-card-title span { color: #ff5c3a; }
+.cs-blurt:hover {
+  border-color: #ff5c3a !important;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 24px rgba(255,92,58,0.2) !important;
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="header-inner">
+<div class="brand">
+<a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a>
+</div>
+<nav class="nav">
+<a href="/curriculum">Curriculum</a>
+<a href="/tools">Tools</a>
+<a href="/about">About</a>
+<a href="https://contrapaul.com" class="nav-external">&larr; Main site</a>
+</nav>
+</div>
+</header>
+
+<main>
+<div class="cat-wrap">
+
+<div class="cat-intro">
+  <h1>Card Style Catalog</h1>
+  <p class="cat-lede">Every <code class="ex-class">.tool-card</code> style in one place &mdash; the ones already running on the
+  tools page, the ones that only ever existed in the two showrooms, and a set of new ones. Each entry is a live card
+  next to the exact CSS and HTML that produce it.</p>
+
+  <div class="cat-how">
+    <strong>To use one in <code>tools/index.html</code>:</strong>
+    <ol>
+      <li>Copy the <strong>CSS</strong> block and paste it inside the <code>&lt;style&gt;</code> element in the page head.</li>
+      <li>Copy the <strong>HTML</strong> block into <code>&lt;div class="tool-cards-grid"&gt;</code>, then swap the
+          <code>href</code>, title and subtitle for the real tool.</li>
+      <li>Tune the colours through the inline custom properties &mdash; <code>--card-title-color</code>,
+          <code>--card-sub-color</code>, <code>--card-title-size</code>, <code>--card-bg</code>,
+          <code>--card-border</code>, <code>--card-font</code>. The base <code>.tool-card</code> layout
+          (360&times;200, centred, flex column) comes from <code>style.css</code> and does not need copying.</li>
+      <li>Two styles need a one-time script; those entries include it as a third block.</li>
+    </ol>
+  </div>
+
+  <nav class="cat-nav"><a class="chip" href="#g-print">Paper &amp; Print <span>10</span></a><a class="chip" href="#g-screen">Screen &amp; Signal <span>12</span></a><a class="chip" href="#g-material">Material &amp; Texture <span>10</span></a><a class="chip" href="#g-motion">Structure &amp; Motion <span>17</span></a><a class="chip" href="#g-site">Site-specific <span>4</span></a></nav>
+</div>
+
+<section class="group" id="g-print">
+  <header class="group-head">
+    <h2>Paper &amp; Print</h2>
+    <p>Stock, ink and the things that happen to a sheet of paper.</p>
+  </header>
+
+<article class="ex" id="ex-cs-paper">
+  <div class="ex-head">
+    <span class="ex-num">01</span>
+    <div class="ex-id">
+      <h3>Lifted Paper</h3>
+      <code class="ex-class">.cs-paper</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Warm paper stock floating off the page. Lifts and tilts a degree on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-paper" href="#"
+         style="--card-title-color:#2a2a35; --card-sub-color:#55555f;">
+        <h3 class="tool-card-title">Lifted Paper</h3>
+        <p class="tool-card-sub">Warm paper stock floating off the page.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-paper {
+  background: #f4f1ea !important;
+  border: none !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+}
+.cs-paper:hover {
+  transform: translateY(-6px) rotate(-1deg) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 18px 40px rgba(0,0,0,0.45) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-paper" href="#"
+   style="--card-title-color:#2a2a35; --card-sub-color:#55555f;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Lifted Paper&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Warm paper stock floating off the page.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-papers">
+  <div class="ex-head">
+    <span class="ex-num">02</span>
+    <div class="ex-id">
+      <h3>Regulatory Papers</h3>
+      <code class="ex-class">.cs-papers</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Dog-eared official document with a stamped form number in the corner.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-papers" href="#"
+         style="--card-title-color:#3a3326; --card-sub-color:#6b6249;">
+        <h3 class="tool-card-title">Regulatory Papers</h3>
+        <p class="tool-card-sub">Dog-eared document with a stamped form number.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-papers {
+  background: #ece4cd !important;
+  border: 1px solid #b3a987 !important;
+  border-radius: 2px !important;
+  outline: 1px solid rgba(90,80,50,0.35);
+  outline-offset: -8px;
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+.cs-papers::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  border-style: solid;
+  border-width: 0 34px 34px 0;
+  border-color: transparent #c5b990 transparent transparent;
+}
+.cs-papers::after {
+  content: 'FORM 7-B';
+  position: absolute; bottom: 12px; right: 14px;
+  font-size: 0.55rem; letter-spacing: 1px;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+  padding: 2px 6px;
+  transform: rotate(-6deg);
+  opacity: 0.75;
+}
+.cs-papers:hover { transform: translateY(-3px) rotate(0.5deg) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-papers" href="#"
+   style="--card-title-color:#3a3326; --card-sub-color:#6b6249;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Regulatory Papers&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Dog-eared document with a stamped form number.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-polaroid">
+  <div class="ex-head">
+    <span class="ex-num">03</span>
+    <div class="ex-id">
+      <h3>Polaroid</h3>
+      <code class="ex-class">.cs-polaroid</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">White instant-film frame with a photo well on top. Straightens on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-polaroid" href="#"
+         style="--card-title-color:#222222; --card-sub-color:#666666;">
+        <img class="cs-photo" src="gamesimage.png" alt="">
+        <h3 class="tool-card-title">Polaroid</h3>
+        <p class="tool-card-sub">White instant-film frame with a photo well.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-polaroid {
+  background: #fff !important;
+  border: none !important;
+  border-radius: 3px !important;
+  padding: 14px 14px 18px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  transform: rotate(2deg);
+}
+.cs-polaroid:hover { transform: rotate(0deg) scale(1.03) !important; box-shadow: 0 10px 28px rgba(0,0,0,0.4) !important; }
+.cs-polaroid .cs-photo {
+  width: 80%; height: 110px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+  margin-bottom: 4px;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-polaroid" href="#"
+   style="--card-title-color:#222222; --card-sub-color:#666666;"&gt;
+  &lt;img class="cs-photo" src="gamesimage.png" alt=""&gt;
+  &lt;h3 class="tool-card-title"&gt;Polaroid&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;White instant-film frame with a photo well.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-press">
+  <div class="ex-head">
+    <span class="ex-num">04</span>
+    <div class="ex-id">
+      <h3>Letterpress</h3>
+      <code class="ex-class">.cs-press</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Debossed into the stock rather than glowing off it. Presses deeper on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-press" href="#"
+         style="--card-title-color:#3b3730; --card-sub-color:#6a6458;">
+        <h3 class="tool-card-title">Letterpress</h3>
+        <p class="tool-card-sub">Debossed into the stock rather than glowing off it.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-press {
+  background: #dcd7cb !important;
+  border: 1px solid #c3bcac !important;
+  border-radius: 3px !important;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.18), inset 0 -1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(0,0,0,0.2);
+}
+.cs-press .tool-card-title, .cs-press .tool-card-sub {
+  text-shadow: 0 1px 0 rgba(255,255,255,0.75), 0 -1px 1px rgba(0,0,0,0.35);
+}
+.cs-press:hover {
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.26), inset 0 -1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(0,0,0,0.2) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-press" href="#"
+   style="--card-title-color:#3b3730; --card-sub-color:#6a6458;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Letterpress&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Debossed into the stock rather than glowing off it.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-riso">
+  <div class="ex-head">
+    <span class="ex-num">05</span>
+    <div class="ex-id">
+      <h3>Risograph</h3>
+      <code class="ex-class">.cs-riso</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Two halftone ink layers printed out of register. They snap into alignment on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-riso" href="#"
+         style="--card-title-color:#1a1a1a; --card-sub-color:#55504a;">
+        <h3 class="tool-card-title">Risograph</h3>
+        <p class="tool-card-sub">Two halftone ink layers printed out of register.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-riso {
+  background: #f2ede1 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  overflow: hidden; isolation: isolate;
+}
+.cs-riso::before, .cs-riso::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1.4px, transparent 0);
+  background-size: 9px 9px;
+  mix-blend-mode: multiply;
+  opacity: 0.42;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.cs-riso::before { color: #ff4a3d; transform: translate(-6px,-5px); }
+.cs-riso::after  { color: #0a7cff; transform: translate(6px,5px); }
+.cs-riso:hover::before, .cs-riso:hover::after { transform: translate(0,0); opacity: 0.26; }
+.cs-riso .tool-card-title, .cs-riso .tool-card-sub { position: relative; z-index: 1; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-riso" href="#"
+   style="--card-title-color:#1a1a1a; --card-sub-color:#55504a;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Risograph&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Two halftone ink layers printed out of register.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-ticket">
+  <div class="ex-head">
+    <span class="ex-num">06</span>
+    <div class="ex-id">
+      <h3>Ticket Stub</h3>
+      <code class="ex-class">.cs-ticket</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Punched perforation notches cut with a CSS mask, plus a tear-off line.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-ticket" href="#"
+         style="--card-title-color:#3a3020; --card-sub-color:#6d6047;">
+        <h3 class="tool-card-title">Ticket Stub</h3>
+        <p class="tool-card-sub">Perforation notches cut with a CSS mask.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-ticket {
+  background: #fdf6e3 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 3.25rem !important;
+  mask-image: radial-gradient(circle 9px at 0 25%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 50%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 75%, transparent 99%, #000);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+.cs-ticket::before {
+  content: ''; position: absolute; left: 2.1rem; top: 8%; bottom: 8%;
+  border-left: 2px dashed rgba(0,0,0,0.28);
+}
+.cs-ticket::after {
+  content: 'ADMIT ONE';
+  position: absolute; left: 2.1rem; top: 50%;
+  transform: translate(-50%,-50%) rotate(-90deg);
+  font-size: 0.5rem; letter-spacing: 0.22em; color: #8a7a4a; white-space: nowrap;
+}
+.cs-ticket:hover { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-ticket" href="#"
+   style="--card-title-color:#3a3020; --card-sub-color:#6d6047;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Ticket Stub&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Perforation notches cut with a CSS mask.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-ruled">
+  <div class="ex-head">
+    <span class="ex-num">07</span>
+    <div class="ex-id">
+      <h3>Ruled Index Card</h3>
+      <code class="ex-class">.cs-ruled</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Notepaper with a red margin rule and punched holes down the binding edge.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-ruled" href="#"
+         style="--card-title-color:#22303c; --card-sub-color:#5a6b78;">
+        <h3 class="tool-card-title">Ruled Index Card</h3>
+        <p class="tool-card-sub">Notepaper with a red margin rule and punched holes.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-ruled {
+  background-color: #fffdf5 !important;
+  background-image: repeating-linear-gradient(transparent 0 25px, #bcd6e8 25px 26px);
+  background-position: 0 14px;
+  border: 1px solid #d8d2bf !important;
+  border-radius: 3px !important;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  padding-left: 3rem !important;
+}
+.cs-ruled::before {
+  content: ''; position: absolute; left: 2.15rem; top: 0; bottom: 0;
+  border-left: 1.5px solid #e8a0a0;
+}
+.cs-ruled::after {
+  content: ''; position: absolute; left: 0.75rem; top: 0; bottom: 0; width: 12px;
+  background: radial-gradient(circle, #15151f 5px, transparent 5.5px) repeat-y center / 12px 52px;
+  opacity: 0.85;
+}
+.cs-ruled:hover { transform: translateY(-3px) rotate(-0.6deg) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-ruled" href="#"
+   style="--card-title-color:#22303c; --card-sub-color:#5a6b78;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Ruled Index Card&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Notepaper with a red margin rule and punched holes.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-fold">
+  <div class="ex-head">
+    <span class="ex-num">08</span>
+    <div class="ex-id">
+      <h3>Corner Fold Ticket</h3>
+      <code class="ex-class">.cs-fold</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A clip-path cuts the bottom-left corner and a coloured fold tucks underneath.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-fold" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Corner Fold Ticket</h3>
+        <p class="tool-card-sub">A coloured fold tucks under the cut corner.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-fold {
+  background: #2a2a45 !important;
+  border: none !important;
+  border-radius: 14px 14px 14px 0 !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+}
+.cs-fold::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  border-style: solid;
+  border-width: 30px 30px 0 0;
+  border-color: #FF7200 transparent transparent transparent;
+}
+.cs-fold:hover { background: #33335a !important; transform: translateY(-4px) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-fold" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Corner Fold Ticket&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A coloured fold tucks under the cut corner.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-tape">
+  <div class="ex-head">
+    <span class="ex-num">09</span>
+    <div class="ex-id">
+      <h3>Taped Note</h3>
+      <code class="ex-class">.cs-tape</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A note stuck to the wall with two strips of translucent tape. Straightens when you reach for it.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-tape" href="#"
+         style="--card-title-color:#33302a; --card-sub-color:#6b6558;">
+        <h3 class="tool-card-title">Taped Note</h3>
+        <p class="tool-card-sub">Stuck to the wall with two strips of tape.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-tape {
+  background: #fbf6e9 !important;
+  border: 1px solid #e2d9c2 !important;
+  border-radius: 2px !important;
+  margin-top: 10px;
+  transform: rotate(-1.4deg);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+.cs-tape::before, .cs-tape::after {
+  content: ''; position: absolute; top: -10px;
+  width: 74px; height: 24px;
+  background: rgba(226,222,196,0.72);
+  border-left: 1px solid rgba(255,255,255,0.5);
+  border-right: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+}
+.cs-tape::before { left: -16px; transform: rotate(-32deg); }
+.cs-tape::after  { right: -16px; transform: rotate(32deg); }
+.cs-tape:hover {
+  transform: rotate(0deg) translateY(-3px) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.34) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-tape" href="#"
+   style="--card-title-color:#33302a; --card-sub-color:#6b6558;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Taped Note&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Stuck to the wall with two strips of tape.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-graph">
+  <div class="ex-head">
+    <span class="ex-num">10</span>
+    <div class="ex-id">
+      <h3>Graph Paper</h3>
+      <code class="ex-class">.cs-graph</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Engineering quadrille paper: fine 5&nbsp;mm squares under a heavier 25&nbsp;mm rule.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-graph" href="#"
+         style="--card-title-color:#20302a; --card-sub-color:#55665c;">
+        <h3 class="tool-card-title">Graph Paper</h3>
+        <p class="tool-card-sub">Fine quadrille squares under a heavier rule.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-graph {
+  background-color: #f7f9f4 !important;
+  background-image:
+    linear-gradient(rgba(60,130,90,0.30) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60,130,90,0.30) 1px, transparent 1px),
+    linear-gradient(rgba(60,130,90,0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60,130,90,0.13) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+  border: 1px solid #c3cfc0 !important;
+  border-radius: 2px !important;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.22);
+  transition: background-size 0.4s, box-shadow 0.3s !important;
+}
+.cs-graph:hover {
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.3) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-graph" href="#"
+   style="--card-title-color:#20302a; --card-sub-color:#55665c;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Graph Paper&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Fine quadrille squares under a heavier rule.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
+<section class="group" id="g-screen">
+  <header class="group-head">
+    <h2>Screen &amp; Signal</h2>
+    <p>Phosphor, scanlines, grids and instrument panels.</p>
+  </header>
+
+<article class="ex" id="ex-cs-crtterm">
+  <div class="ex-head">
+    <span class="ex-num">11</span>
+    <div class="ex-id">
+      <h3>Terminal Window</h3>
+      <code class="ex-class">.cs-crtterm</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">macOS window chrome over a phosphor CRT, scanlines included. Flickers on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-crtterm" href="#"
+         style="--card-title-color:#86efac; --card-sub-color:#c3cede;">
+        <h3 class="tool-card-title">Terminal Window</h3>
+        <p class="tool-card-sub">Window chrome over a phosphor CRT.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-crtterm {
+  background: #0d0d18 !important;
+  border: 2px solid #2dd4bf !important;
+  border-radius: 10px !important;
+  padding-top: 3rem !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(45,212,191,0.25), inset 0 0 30px rgba(45,212,191,0.08);
+}
+.cs-crtterm::before {
+  content: '\25CF \25CF \25CF';
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 7px 14px;
+  font-size: 0.6rem; letter-spacing: 3px;
+  text-align: left;
+  color: #555;
+  background: #1c1c2c;
+  border-bottom: 1px solid #333;
+}
+.cs-crtterm::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.10) 3px 5px);
+  pointer-events: none;
+}
+.cs-crtterm .tool-card-title::before { content: '$ '; opacity: 0.5; }
+.cs-crtterm .tool-card-title { text-shadow: 0 0 5px rgba(134,239,172,0.45); }
+.cs-crtterm:hover { animation: cs-flicker 0.15s 2; }
+@keyframes cs-flicker { 50% { opacity: 0.85; } }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-crtterm" href="#"
+   style="--card-title-color:#86efac; --card-sub-color:#c3cede;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Terminal Window&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Window chrome over a phosphor CRT.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-neon">
+  <div class="ex-head">
+    <span class="ex-num">12</span>
+    <div class="ex-id">
+      <h3>Neon Sign</h3>
+      <code class="ex-class">.cs-neon</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">One accent colour, glowing border and text. The glow intensifies on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-neon" href="#"
+         style="--card-title-color:#FA16C2; --card-sub-color:#e9a5d8;">
+        <h3 class="tool-card-title">Neon Sign</h3>
+        <p class="tool-card-sub">One accent colour, glowing border and text.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-neon {
+  background: #14142a !important;
+  border: 1px solid #FA16C2 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 8px rgba(250,22,194,0.4), inset 0 0 8px rgba(250,22,194,0.1);
+}
+.cs-neon .tool-card-title { text-shadow: 0 0 8px rgba(250,22,194,0.6); }
+.cs-neon:hover { box-shadow: 0 0 24px rgba(250,22,194,0.8), inset 0 0 16px rgba(250,22,194,0.2) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-neon" href="#"
+   style="--card-title-color:#FA16C2; --card-sub-color:#e9a5d8;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Neon Sign&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;One accent colour, glowing border and text.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-vhs">
+  <div class="ex-head">
+    <span class="ex-num">13</span>
+    <div class="ex-id">
+      <h3>VHS Tracking</h3>
+      <code class="ex-class">.cs-vhs</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Chromatic split on the title and a tracking band that rolls up the tape.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-vhs" href="#"
+         style="--card-title-color:#f0e6ff; --card-sub-color:#9d8ec4;">
+        <h3 class="tool-card-title">VHS Tracking</h3>
+        <p class="tool-card-sub">Chromatic split and a rolling tracking band.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-vhs {
+  background: #0e0b18 !important;
+  border: 1px solid #3a2a5a !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+.cs-vhs .tool-card-title { text-shadow: -2px 0 rgba(255,0,80,0.85), 2px 0 rgba(0,220,255,0.85); }
+.cs-vhs::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: -14px; height: 14px;
+  background: linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0));
+  pointer-events: none;
+}
+.cs-vhs:hover::before { animation: cs-track 1.1s linear infinite; }
+@keyframes cs-track { to { top: 100%; } }
+.cs-vhs::after {
+  content: '\25B6 PLAY  SP';
+  position: absolute; top: 8px; left: 12px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.5rem; letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.5);
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-vhs" href="#"
+   style="--card-title-color:#f0e6ff; --card-sub-color:#9d8ec4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;VHS Tracking&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Chromatic split and a rolling tracking band.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-doot">
+  <div class="ex-head">
+    <span class="ex-num">14</span>
+    <div class="ex-id">
+      <h3>Doom CRT</h3>
+      <code class="ex-class">.cs-doot</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-js">Needs script</span></div>
+  </div>
+  <p class="ex-desc">Blood-red terminal glow with heavy scanlines. Pair with cs-tilt for parallax.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-doot cs-tilt" href="#"
+         style="--card-title-color:#ff3800; --card-sub-color:#d4a373; --card-title-size:3.4rem;">
+        <h3 class="tool-card-title">DooT</h3>
+        <p class="tool-card-sub">Blood-red terminal glow with heavy scanlines.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-doot {
+  background: #1a0d0d !important;
+  border: 2px solid #8b0000 !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 0 14px rgba(139,0,0,0.5), inset 0 0 30px rgba(255,56,0,0.08);
+}
+.cs-doot::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,0.3) 2px 4px);
+  pointer-events: none;
+}
+.cs-doot .tool-card-title { text-shadow: 0 0 10px rgba(255,56,0,0.8); letter-spacing: 2px; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-doot cs-tilt" href="#"
+   style="--card-title-color:#ff3800; --card-sub-color:#d4a373; --card-title-size:3.4rem;"&gt;
+  &lt;h3 class="tool-card-title"&gt;DooT&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Blood-red terminal glow with heavy scanlines.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">Script (once per page, before &lt;/body&gt;)</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="js"><code>&lt;script&gt;
+document.querySelectorAll('.cs-spotlight').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.cs-tilt').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'perspective(800px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 14) + 'deg)';
+  });
+  el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+});
+&lt;/script&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-circuit">
+  <div class="ex-head">
+    <span class="ex-num">15</span>
+    <div class="ex-id">
+      <h3>Circuit Board</h3>
+      <code class="ex-class">.cs-circuit</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-var">Has a modifier</span></div>
+  </div>
+  <p class="ex-desc">Fine teal grid traces. The grid tightens and the border energises on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-circuit" href="#"
+         style="--card-title-color:#2dd4bf; --card-sub-color:#7fc4bb;">
+        <h3 class="tool-card-title">Circuit Board</h3>
+        <p class="tool-card-sub">Fine teal grid traces that tighten on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-circuit {
+  background-color: #14202a !important;
+  background-image:
+    linear-gradient(rgba(45,212,191,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,212,191,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 1px solid rgba(45,212,191,0.3) !important;
+  border-radius: 12px !important;
+  transition: 0.3s !important;
+}
+.cs-circuit:hover {
+  background-size: 16px 16px;
+  border-color: #2dd4bf !important;
+  box-shadow: 0 0 18px rgba(45,212,191,0.3) !important;
+}
+
+/* modifier — grey board, orange trace */
+.cs-circuit-gray { background-color: #23272b !important; border-color: rgba(160,160,160,0.4) !important; }
+.cs-circuit-gray:hover { border-color: #FF7200 !important; box-shadow: 0 0 18px rgba(255,114,0,0.3) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-circuit" href="#"
+   style="--card-title-color:#2dd4bf; --card-sub-color:#7fc4bb;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Circuit Board&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Fine teal grid traces that tighten on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-circuit-gray">
+  <div class="ex-head">
+    <span class="ex-num">16</span>
+    <div class="ex-id">
+      <h3>Circuit Board / Grey</h3>
+      <code class="ex-class">.cs-circuit-gray</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-var">Modifier</span></div>
+  </div>
+  <p class="ex-desc">The cs-circuit modifier: grey substrate, orange trace. Apply both classes.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-circuit cs-circuit-gray" href="#"
+         style="--card-title-color:#FF7200; --card-sub-color:#2dd4bf;">
+        <h3 class="tool-card-title">Circuit Board / Grey</h3>
+        <p class="tool-card-sub">Grey substrate, orange trace.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>/* modifier for .cs-circuit — apply both classes together */
+.cs-circuit-gray { background-color: #23272b !important; border-color: rgba(160,160,160,0.4) !important; }
+.cs-circuit-gray:hover { border-color: #FF7200 !important; box-shadow: 0 0 18px rgba(255,114,0,0.3) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-circuit cs-circuit-gray" href="#"
+   style="--card-title-color:#FF7200; --card-sub-color:#2dd4bf;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Circuit Board / Grey&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Grey substrate, orange trace.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-blueprint">
+  <div class="ex-head">
+    <span class="ex-num">17</span>
+    <div class="ex-id">
+      <h3>Blueprint</h3>
+      <code class="ex-class">.cs-blueprint</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-var">Has a modifier</span></div>
+  </div>
+  <p class="ex-desc">Architect's blueprint: grid paper, double border, drafting underline on the title.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-blueprint" href="#"
+         style="--card-title-color:#eaf2ff; --card-sub-color:#b9cdf0;">
+        <h3 class="tool-card-title">Blueprint</h3>
+        <p class="tool-card-sub">Grid paper, double border, drafting underline.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-blueprint {
+  background-color: #16335f !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border: 2px solid rgba(255,255,255,0.5) !important;
+  border-radius: 4px !important;
+  outline: 1px dashed rgba(255,255,255,0.4);
+  outline-offset: -8px;
+}
+.cs-blueprint .tool-card-title { text-decoration: underline; text-underline-offset: 4px; }
+.cs-blueprint:hover { box-shadow: 0 8px 24px rgba(22,51,95,0.5) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-blueprint" href="#"
+   style="--card-title-color:#eaf2ff; --card-sub-color:#b9cdf0;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Blueprint&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Grid paper, double border, drafting underline.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-blueprint-mint">
+  <div class="ex-head">
+    <span class="ex-num">18</span>
+    <div class="ex-id">
+      <h3>Blueprint / Mint</h3>
+      <code class="ex-class">.cs-blueprint-mint</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-var">Modifier</span></div>
+  </div>
+  <p class="ex-desc">The cs-blueprint modifier: green drafting stock with a shimmer sweep on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-blueprint cs-blueprint-mint" href="#"
+         style="--card-title-color:#d9fff4; --card-sub-color:#9fe8d2;">
+        <h3 class="tool-card-title">Blueprint / Mint</h3>
+        <p class="tool-card-sub">Green drafting stock with a shimmer sweep.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>/* modifier for .cs-blueprint — apply both classes together */
+.cs-blueprint-mint {
+  background-color: #1d4f47 !important;
+  overflow: hidden;
+}
+.cs-blueprint-mint:hover { box-shadow: 0 8px 24px rgba(29,79,71,0.6) !important; }
+.cs-blueprint-mint::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cs-blueprint-mint:hover::before { animation: cs-sweep 0.7s ease; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-blueprint cs-blueprint-mint" href="#"
+   style="--card-title-color:#d9fff4; --card-sub-color:#9fe8d2;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Blueprint / Mint&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Green drafting stock with a shimmer sweep.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-topo">
+  <div class="ex-head">
+    <span class="ex-num">19</span>
+    <div class="ex-id">
+      <h3>Topographic</h3>
+      <code class="ex-class">.cs-topo</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Contour rings instead of a square grid. The terrain zooms as you approach.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-topo" href="#"
+         style="--card-title-color:#a7f3d0; --card-sub-color:#6ee7b7;">
+        <h3 class="tool-card-title">Topographic</h3>
+        <p class="tool-card-sub">Contour rings that zoom as you approach.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-topo {
+  background-color: #132b25 !important;
+  background-image: repeating-radial-gradient(circle at 30% 120%,
+    transparent 0 13px, rgba(120,220,180,0.18) 13px 14px);
+  background-size: 100% 100%;
+  border: 1px solid rgba(120,220,180,0.3) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: background-size 0.6s, background-position 0.6s !important;
+}
+.cs-topo:hover { background-size: 135% 135%; background-position: 20% -10%; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-topo" href="#"
+   style="--card-title-color:#a7f3d0; --card-sub-color:#6ee7b7;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Topographic&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Contour rings that zoom as you approach.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-marquee">
+  <div class="ex-head">
+    <span class="ex-num">20</span>
+    <div class="ex-id">
+      <h3>Marquee Bulbs</h3>
+      <code class="ex-class">.cs-marquee</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A theatre frame of glowing bulbs that blink when you step up to it.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-marquee" href="#"
+         style="--card-title-color:#FFE536; --card-sub-color:#c9b8e8;">
+        <h3 class="tool-card-title">Marquee Bulbs</h3>
+        <p class="tool-card-sub">A theatre frame of bulbs that blink on approach.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-marquee {
+  background: #1a1030 !important;
+  border: 2px solid #2e1f52 !important;
+  border-radius: 10px !important;
+  padding: 2.2rem 2rem !important;
+}
+.cs-marquee::before {
+  content: ''; position: absolute; inset: 7px; border-radius: 6px; pointer-events: none;
+  background:
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-x left bottom / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y left top    / 19px 19px,
+    radial-gradient(circle, #FFE536 1.7px, transparent 2.2px) repeat-y right top   / 19px 19px;
+  filter: drop-shadow(0 0 3px rgba(255,229,54,0.8));
+  opacity: 0.65;
+}
+.cs-marquee:hover::before { animation: cs-bulbs 0.55s steps(2) infinite; }
+@keyframes cs-bulbs { 50% { opacity: 1; filter: drop-shadow(0 0 7px rgba(255,229,54,1)); } }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-marquee" href="#"
+   style="--card-title-color:#FFE536; --card-sub-color:#c9b8e8;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Marquee Bulbs&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A theatre frame of bulbs that blink on approach.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-radar">
+  <div class="ex-head">
+    <span class="ex-num">21</span>
+    <div class="ex-id">
+      <h3>Radar Sweep</h3>
+      <code class="ex-class">.cs-radar</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Range rings on a phosphor scope, with a sweep arm that starts turning on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-radar" href="#"
+         style="--card-title-color:#7dffc4; --card-sub-color:#5fbf95;">
+        <h3 class="tool-card-title">Radar Sweep</h3>
+        <p class="tool-card-sub">Range rings and a sweep arm that turns on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-radar {
+  background-color: #06140f !important;
+  background-image: repeating-radial-gradient(circle at 50% 50%,
+    transparent 0 21px, rgba(80,240,160,0.26) 21px 22px);
+  border: 1px solid rgba(80,240,160,0.35) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-radar::before {
+  content: ''; position: absolute; inset: -60%; z-index: -1;
+  background: conic-gradient(from 0deg, rgba(80,240,160,0.30), transparent 24%);
+  animation: cs-sweep-arm 3.2s linear infinite paused;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.cs-radar:hover::before { animation-play-state: running; opacity: 0.9; }
+@keyframes cs-sweep-arm { to { transform: rotate(360deg); } }
+.cs-radar .tool-card-title { text-shadow: 0 0 9px rgba(80,240,160,0.6); }
+.cs-radar:hover { box-shadow: 0 0 22px rgba(80,240,160,0.28) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-radar" href="#"
+   style="--card-title-color:#7dffc4; --card-sub-color:#5fbf95;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Radar Sweep&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Range rings and a sweep arm that turns on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-flap">
+  <div class="ex-head">
+    <span class="ex-num">22</span>
+    <div class="ex-id">
+      <h3>Split-Flap Board</h3>
+      <code class="ex-class">.cs-flap</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Airport departure board: hinged rows, mono type, a flap that drops on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-flap" href="#"
+         style="--card-title-color:#f4e9c9; --card-sub-color:#8d8877;">
+        <h3 class="tool-card-title">Split-Flap</h3>
+        <p class="tool-card-sub">Hinged rows and a flap that drops on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-flap {
+  background-color: #101014 !important;
+  background-image: repeating-linear-gradient(180deg,
+    rgba(255,255,255,0.05) 0 1px, transparent 1px 26px);
+  border: 1px solid #2b2b33 !important;
+  border-radius: 4px !important;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.7), 0 6px 18px rgba(0,0,0,0.4);
+}
+.cs-flap .tool-card-title {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.cs-flap::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 50%;
+  border-top: 1px solid rgba(0,0,0,0.85);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.cs-flap::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 50%;
+  background: linear-gradient(rgba(255,255,255,0.07), transparent);
+  transform-origin: bottom;
+  transition: transform 0.35s cubic-bezier(0.6,0,0.4,1);
+  pointer-events: none;
+}
+.cs-flap:hover::after { transform: rotateX(-72deg); }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-flap" href="#"
+   style="--card-title-color:#f4e9c9; --card-sub-color:#8d8877;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Split-Flap&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Hinged rows and a flap that drops on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
+<section class="group" id="g-material">
+  <header class="group-head">
+    <h2>Material &amp; Texture</h2>
+    <p>Surfaces with a substance to them: metal, glass, cloth, stone.</p>
+  </header>
+
+<article class="ex" id="ex-cs-chrome">
+  <div class="ex-head">
+    <span class="ex-num">23</span>
+    <div class="ex-id">
+      <h3>Brushed Chrome</h3>
+      <code class="ex-class">.cs-chrome</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Machined metal fill with a specular highlight that sweeps around the edge.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-chrome" href="#"
+         style="--card-title-color:#1c1f26; --card-sub-color:#3d434e;">
+        <h3 class="tool-card-title">Brushed Chrome</h3>
+        <p class="tool-card-sub">Machined metal with a sweeping specular highlight.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-chrome {
+  border: none !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.10) 0 1px, transparent 1px 3px),
+    linear-gradient(160deg,#6e7480 0%,#c9ced8 22%,#8b929e 42%,#eef1f6 58%,#7d838f 78%,#aeb4c0 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.35), 0 8px 22px rgba(0,0,0,0.45);
+}
+.cs-chrome::before {
+  content: '';
+  position: absolute; inset: -50%; z-index: -1;
+  background: conic-gradient(from 0deg, transparent 60%, rgba(255,255,255,0.9), transparent);
+  animation: cs-spin 4s linear infinite paused;
+  opacity: 0; transition: opacity 0.3s;
+}
+.cs-chrome:hover::before { opacity: 0.6; animation-play-state: running; }
+@keyframes cs-spin { to { transform: rotate(360deg); } }
+.cs-chrome .tool-card-title { text-shadow: 0 1px 0 rgba(255,255,255,0.9), 0 -1px 1px rgba(0,0,0,0.4); }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-chrome" href="#"
+   style="--card-title-color:#1c1f26; --card-sub-color:#3d434e;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Brushed Chrome&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Machined metal with a sweeping specular highlight.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-weave">
+  <div class="ex-head">
+    <span class="ex-num">24</span>
+    <div class="ex-id">
+      <h3>Woven Fabric</h3>
+      <code class="ex-class">.cs-weave</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A crosshatch weave with a stitched border that tightens toward the edge.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-weave" href="#"
+         style="--card-title-color:#ffe8e8; --card-sub-color:#e0b8b8;">
+        <h3 class="tool-card-title">Woven Fabric</h3>
+        <p class="tool-card-sub">A crosshatch weave with a stitched border.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-weave {
+  background-color: #8c3b3b !important;
+  background-image:
+    repeating-linear-gradient(45deg,  rgba(255,255,255,0.07) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, rgba(0,0,0,0.16) 0 6px, transparent 6px 12px);
+  border: 1px solid #5e2626 !important;
+  border-radius: 6px !important;
+  outline: 2px dashed rgba(255,255,255,0.4);
+  outline-offset: -10px;
+  transition: outline-offset 0.3s !important;
+}
+.cs-weave:hover { outline-offset: -6px; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-weave" href="#"
+   style="--card-title-color:#ffe8e8; --card-sub-color:#e0b8b8;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Woven Fabric&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A crosshatch weave with a stitched border.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-sticker">
+  <div class="ex-head">
+    <span class="ex-num">25</span>
+    <div class="ex-id">
+      <h3>Die-Cut Sticker</h3>
+      <code class="ex-class">.cs-sticker</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Thick vinyl outline, sitting crooked, with a corner that peels up on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-sticker" href="#"
+         style="--card-title-color:#ffffff; --card-sub-color:#e2d4ff;">
+        <h3 class="tool-card-title">Die-Cut Sticker</h3>
+        <p class="tool-card-sub">Thick vinyl outline with a corner that peels.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-sticker {
+  background: #7c3aed !important;
+  border: none !important;
+  border-radius: 22px !important;
+  transform: rotate(-2.5deg);
+  box-shadow: 0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 10px 22px rgba(0,0,0,0.4);
+  transition: transform 0.25s, box-shadow 0.25s !important;
+}
+.cs-sticker::after {
+  content: ''; position: absolute; right: 0; bottom: 0; width: 0; height: 0;
+  border-style: solid; border-width: 0; border-color: transparent;
+  transition: 0.3s;
+}
+.cs-sticker:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+  box-shadow: 0 0 0 7px #fff, 0 0 0 8px rgba(0,0,0,0.12), 0 16px 34px rgba(0,0,0,0.5) !important;
+}
+.cs-sticker:hover::after {
+  border-width: 0 0 42px 42px;
+  border-color: transparent transparent rgba(255,255,255,0.92) transparent;
+  filter: drop-shadow(-3px -3px 4px rgba(0,0,0,0.3));
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-sticker" href="#"
+   style="--card-title-color:#ffffff; --card-sub-color:#e2d4ff;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Die-Cut Sticker&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Thick vinyl outline with a corner that peels.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-frost">
+  <div class="ex-head">
+    <span class="ex-num">26</span>
+    <div class="ex-id">
+      <h3>Frosted Glass</h3>
+      <code class="ex-class">.cs-frost</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A real backdrop-filter pane over colour blobs that drift behind the glass on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-frost" href="#"
+         style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.82);">
+        <h3 class="tool-card-title">Frosted Glass</h3>
+        <p class="tool-card-sub">A backdrop-filter pane over drifting colour blobs.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-frost {
+  background:
+    radial-gradient(circle at 20% 25%, #FA16C2 0 78px, transparent 79px),
+    radial-gradient(circle at 82% 32%, #FFE536 0 64px, transparent 65px),
+    radial-gradient(circle at 58% 92%, #2dd4bf 0 82px, transparent 83px),
+    #241d3a !important;
+  background-size: 200% 200%;
+  background-position: 30% 30%;
+  border: 1px solid rgba(255,255,255,0.28) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  transition: background-position 0.9s ease, box-shadow 0.3s !important;
+}
+.cs-frost::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  background: rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+}
+.cs-frost .tool-card-title, .cs-frost .tool-card-sub { position: relative; z-index: 1; }
+.cs-frost:hover { background-position: 70% 60%; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-frost" href="#"
+   style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.82);"&gt;
+  &lt;h3 class="tool-card-title"&gt;Frosted Glass&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A backdrop-filter pane over drifting colour blobs.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-glass">
+  <div class="ex-head">
+    <span class="ex-num">27</span>
+    <div class="ex-id">
+      <h3>Glass Panel</h3>
+      <code class="ex-class">.cs-glass</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Translucent blur over whatever is behind it, so it picks up the page background.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-glass" href="#"
+         style="--card-title-color:#f2f2f8; --card-sub-color:#b9b9cc;">
+        <h3 class="tool-card-title">Glass Panel</h3>
+        <p class="tool-card-sub">Translucent blur that picks up the page behind it.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-glass {
+  background: rgba(255,255,255,0.07) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.cs-glass:hover { background: rgba(255,255,255,0.12) !important; transform: translateY(-4px) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-glass" href="#"
+   style="--card-title-color:#f2f2f8; --card-sub-color:#b9b9cc;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Glass Panel&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Translucent blur that picks up the page behind it.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-holo">
+  <div class="ex-head">
+    <span class="ex-num">28</span>
+    <div class="ex-id">
+      <h3>Holographic Foil</h3>
+      <code class="ex-class">.cs-holo</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Iridescent trading-card foil. The rainbow shifts across the surface on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-holo" href="#"
+         style="--card-title-color:#2b1f33; --card-sub-color:#4d3d55;">
+        <h3 class="tool-card-title">Holographic Foil</h3>
+        <p class="tool-card-sub">Iridescent foil that shifts as you move past it.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-holo {
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(115deg,
+    #ff6ec7 0%, #ffd86e 18%, #6effc3 36%, #6ec8ff 54%,
+    #b96eff 72%, #ff6ec7 90%, #ffd86e 100%) !important;
+  background-size: 320% 320% !important;
+  background-position: 0% 50%;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.4);
+  transition: background-position 0.8s ease, box-shadow 0.3s !important;
+}
+.cs-holo::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(100deg,
+    rgba(255,255,255,0.30) 0 2px, transparent 2px 7px);
+  mix-blend-mode: overlay;
+  opacity: 0.7;
+}
+.cs-holo .tool-card-title, .cs-holo .tool-card-sub {
+  position: relative; z-index: 1;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+.cs-holo:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.5) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-holo" href="#"
+   style="--card-title-color:#2b1f33; --card-sub-color:#4d3d55;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Holographic Foil&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Iridescent foil that shifts as you move past it.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-plate">
+  <div class="ex-head">
+    <span class="ex-num">29</span>
+    <div class="ex-id">
+      <h3>Riveted Nameplate</h3>
+      <code class="ex-class">.cs-plate</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">An engraved plate bolted to a machine, with a rivet in each corner.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-plate" href="#"
+         style="--card-title-color:#d6dbe2; --card-sub-color:#9aa1ab;">
+        <h3 class="tool-card-title">Riveted Nameplate</h3>
+        <p class="tool-card-sub">An engraved plate bolted to a machine.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-plate {
+  background-color: #3f434a !important;
+  background-image:
+    radial-gradient(circle at 14px 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at 14px calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 4px);
+  border: 1px solid #22252a !important;
+  border-radius: 5px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -3px 8px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, filter 0.3s !important;
+}
+.cs-plate .tool-card-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.18);
+}
+.cs-plate:hover { filter: brightness(1.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -3px 8px rgba(0,0,0,0.4), 0 10px 26px rgba(0,0,0,0.5) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-plate" href="#"
+   style="--card-title-color:#d6dbe2; --card-sub-color:#9aa1ab;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Riveted Nameplate&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;An engraved plate bolted to a machine.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-terrazzo">
+  <div class="ex-head">
+    <span class="ex-num">30</span>
+    <div class="ex-id">
+      <h3>Terrazzo</h3>
+      <code class="ex-class">.cs-terrazzo</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Poured terrazzo chips scattered across a pale slab. The aggregate drifts on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-terrazzo" href="#"
+         style="--card-title-color:#33302a; --card-sub-color:#6b6558;">
+        <h3 class="tool-card-title">Terrazzo</h3>
+        <p class="tool-card-sub">Poured chips scattered across a pale slab.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-terrazzo {
+  background-color: #f3efe7 !important;
+  background-image:
+    radial-gradient(ellipse 7px 4px at 18% 22%, #e2665a 99%, transparent),
+    radial-gradient(ellipse 5px 8px at 74% 16%, #4a8fb5 99%, transparent),
+    radial-gradient(ellipse 9px 5px at 44% 63%, #6faa72 99%, transparent),
+    radial-gradient(ellipse 4px 6px at 88% 71%, #e0b13f 99%, transparent),
+    radial-gradient(ellipse 6px 4px at 12% 82%, #7a6ba8 99%, transparent),
+    radial-gradient(ellipse 5px 5px at 61% 38%, #cf8a5e 99%, transparent),
+    radial-gradient(ellipse 8px 4px at 30% 46%, #b8b2a4 99%, transparent);
+  background-size: 150px 150px;
+  background-position: 0 0;
+  border: 1px solid #ded7c8 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  transition: background-position 0.6s ease, box-shadow 0.3s !important;
+}
+.cs-terrazzo:hover {
+  background-position: 34px 22px;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-terrazzo" href="#"
+   style="--card-title-color:#33302a; --card-sub-color:#6b6558;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Terrazzo&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Poured chips scattered across a pale slab.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-win95">
+  <div class="ex-head">
+    <span class="ex-num">31</span>
+    <div class="ex-id">
+      <h3>Windows 95</h3>
+      <code class="ex-class">.cs-win95</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">Beveled system window with a gradient title bar and the three chrome buttons.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-win95" href="#"
+         style="--card-title-color:#000000; --card-sub-color:#3a3a3a;">
+        <h3 class="tool-card-title">Windows 95</h3>
+        <p class="tool-card-sub">Beveled system window with a gradient title bar.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-win95 {
+  background: #c0c0c0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-top: 2.6rem !important;
+  box-shadow: inset -2px -2px 0 #000, inset 2px 2px 0 #fff,
+              inset -4px -4px 0 #808080, inset 4px 4px 0 #dfdfdf,
+              4px 4px 0 rgba(0,0,0,0.35);
+}
+.cs-win95::before {
+  content: 'tool.exe';
+  position: absolute; top: 4px; left: 4px; right: 4px; height: 22px;
+  display: flex; align-items: center;
+  padding: 0 5px;
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #fff;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+.cs-win95::after {
+  content: '_ \25A1 \00D7';
+  position: absolute; top: 6px; right: 7px;
+  display: flex; align-items: center; gap: 2px;
+  padding: 1px 4px;
+  background: #c0c0c0;
+  color: #000;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff;
+}
+.cs-win95:hover { transform: none !important; filter: brightness(1.04); }
+.cs-win95:active { box-shadow: inset 2px 2px 0 #000, inset -2px -2px 0 #fff, inset 4px 4px 0 #808080, inset -4px -4px 0 #dfdfdf, 2px 2px 0 rgba(0,0,0,0.35) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-win95" href="#"
+   style="--card-title-color:#000000; --card-sub-color:#3a3a3a;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Windows 95&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Beveled system window with a gradient title bar.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-mat">
+  <div class="ex-head">
+    <span class="ex-num">32</span>
+    <div class="ex-id">
+      <h3>Gallery Mat</h3>
+      <code class="ex-class">.cs-mat</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A print double-mounted behind a museum mat, with a hairline bevel and a wall shadow.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-mat" href="#"
+         style="--card-title-color:#2e2a22; --card-sub-color:#6a6355;">
+        <h3 class="tool-card-title">Gallery Mat</h3>
+        <p class="tool-card-sub">Double-mounted behind a museum mat.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-mat {
+  background: #ece7dd !important;
+  border: 10px solid #f7f4ee !important;
+  border-radius: 0 !important;
+  outline: 1px solid #c9c2b4;
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 1px #d6cfc0, inset 0 0 14px rgba(0,0,0,0.10), 0 10px 26px rgba(0,0,0,0.32);
+  transition: border-width 0.3s, box-shadow 0.3s !important;
+}
+.cs-mat::before {
+  content: ''; position: absolute; inset: 12px;
+  border: 1px solid rgba(120,110,90,0.45);
+  pointer-events: none;
+}
+.cs-mat:hover {
+  box-shadow: inset 0 0 0 1px #d6cfc0, inset 0 0 14px rgba(0,0,0,0.10), 0 18px 40px rgba(0,0,0,0.4) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-mat" href="#"
+   style="--card-title-color:#2e2a22; --card-sub-color:#6a6355;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Gallery Mat&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Double-mounted behind a museum mat.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
+<section class="group" id="g-motion">
+  <header class="group-head">
+    <h2>Structure &amp; Motion</h2>
+    <p>Geometry, depth and what the card does when you touch it.</p>
+  </header>
+
+<article class="ex" id="ex-cs-retro">
+  <div class="ex-head">
+    <span class="ex-num">33</span>
+    <div class="ex-id">
+      <h3>Retro Hard Shadow</h3>
+      <code class="ex-class">.cs-retro</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Flat colour, thick border, offset shadow. It physically presses down when clicked.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-retro" href="#"
+         style="--card-title-color:#1a1a2e; --card-sub-color:#3a3a4e;">
+        <h3 class="tool-card-title">Retro Hard Shadow</h3>
+        <p class="tool-card-sub">Flat colour, thick border, offset shadow.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-retro {
+  background: #FFE536 !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 8px 8px 0 #FA16C2;
+  transition: transform 0.15s, box-shadow 0.15s !important;
+}
+.cs-retro:hover { transform: translate(4px, 4px) !important; box-shadow: 4px 4px 0 #FA16C2 !important; }
+.cs-retro:active { transform: translate(8px, 8px) !important; box-shadow: 0 0 0 #FA16C2 !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-retro" href="#"
+   style="--card-title-color:#1a1a2e; --card-sub-color:#3a3a4e;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Retro Hard Shadow&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Flat colour, thick border, offset shadow.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-merge">
+  <div class="ex-head">
+    <span class="ex-num">34</span>
+    <div class="ex-id">
+      <h3>Merging Cards</h3>
+      <code class="ex-class">.cs-merge</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">A second card sits behind the first and slides into it as you press.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-merge" href="#"
+         style="--card-title-color:#1a1a2e; --card-sub-color:#44444f;">
+        <h3 class="tool-card-title">Merging Cards</h3>
+        <p class="tool-card-sub">A second card slides into the first as you press.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-merge {
+  background: #fff !important;
+  border: 3px solid #1a1a2e !important;
+  border-radius: 12px !important;
+  box-shadow: 10px 10px 0 0 #fff, 10px 10px 0 3px #1a1a2e;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.cs-merge:hover {
+  transform: translate(5px, 5px) !important;
+  box-shadow: 5px 5px 0 0 #fff, 5px 5px 0 3px #1a1a2e !important;
+}
+.cs-merge:active {
+  transform: translate(10px, 10px) !important;
+  box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1a1a2e !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-merge" href="#"
+   style="--card-title-color:#1a1a2e; --card-sub-color:#44444f;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Merging Cards&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A second card slides into the first as you press.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-iso">
+  <div class="ex-head">
+    <span class="ex-num">35</span>
+    <div class="ex-id">
+      <h3>Isometric Block</h3>
+      <code class="ex-class">.cs-iso</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A stacked shadow extrusion that compresses as you press it down.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-iso" href="#"
+         style="--card-title-color:#1a1a2e; --card-sub-color:#4a4432;">
+        <h3 class="tool-card-title">Isometric Block</h3>
+        <p class="tool-card-sub">A stacked extrusion that compresses when pressed.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-iso {
+  background: #FFE536 !important;
+  border: 2px solid #1a1a2e !important;
+  border-radius: 8px !important;
+  box-shadow: 2px 2px 0 #d9b800, 4px 4px 0 #c4a600, 6px 6px 0 #a88f00,
+              8px 8px 0 #8c7600, 10px 10px 0 #1a1a2e;
+  transition: transform 0.18s, box-shadow 0.18s !important;
+}
+.cs-iso:hover {
+  transform: translate(6px,6px) !important;
+  box-shadow: 1px 1px 0 #d9b800, 2px 2px 0 #c4a600, 3px 3px 0 #a88f00, 4px 4px 0 #1a1a2e !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-iso" href="#"
+   style="--card-title-color:#1a1a2e; --card-sub-color:#4a4432;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Isometric Block&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A stacked extrusion that compresses when pressed.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-orbit">
+  <div class="ex-head">
+    <span class="ex-num">36</span>
+    <div class="ex-id">
+      <h3>Orbiting Border</h3>
+      <code class="ex-class">.cs-orbit</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">A gradient comet runs the card's edge continuously while hovered.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-orbit" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Orbiting Border</h3>
+        <p class="tool-card-sub">A gradient comet runs the edge while hovered.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-orbit {
+  background: #1f1f38 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-orbit::before {
+  content: '';
+  position: absolute; inset: -50%;
+  background: conic-gradient(from 0deg, transparent 70%, #FFE536, #FA16C2, transparent);
+  animation: cs-orbit 3s linear infinite paused;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -2;
+}
+.cs-orbit::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 17px;
+  background: #1f1f38;
+  z-index: -1;
+}
+.cs-orbit:hover::before { opacity: 1; animation-play-state: running; }
+@keyframes cs-orbit { to { transform: rotate(360deg); } }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-orbit" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Orbiting Border&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A gradient comet runs the edge while hovered.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-aurora">
+  <div class="ex-head">
+    <span class="ex-num">37</span>
+    <div class="ex-id">
+      <h3>Aurora Blob</h3>
+      <code class="ex-class">.cs-aurora</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">A blurred colour blob drifts across the card on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-aurora" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Aurora Blob</h3>
+        <p class="tool-card-sub">A blurred colour blob drifts across on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-aurora {
+  background: #1d1d38 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+}
+.cs-aurora::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  top: -60px; right: -60px;
+  background: radial-gradient(circle, #FA16C2, transparent 70%);
+  filter: blur(40px);
+  opacity: 0.5;
+  transition: 0.6s;
+  pointer-events: none;
+}
+.cs-aurora:hover::before { transform: translate(-90px, 70px) scale(1.4); opacity: 0.7; }
+.cs-aurora .tool-card-title, .cs-aurora .tool-card-sub { position: relative; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-aurora" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Aurora Blob&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A blurred colour blob drifts across on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-wash">
+  <div class="ex-head">
+    <span class="ex-num">38</span>
+    <div class="ex-id">
+      <h3>Gradient Wash</h3>
+      <code class="ex-class">.cs-wash</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">The whole card is a brand-gradient surface; the gradient shifts on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-wash" href="#"
+         style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.88);">
+        <h3 class="tool-card-title">Gradient Wash</h3>
+        <p class="tool-card-sub">A full-bleed brand gradient that shifts on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-wash {
+  background: linear-gradient(135deg, #FA16C2 0%, #FF7200 100%) !important;
+  background-size: 150% 150% !important;
+  border: none !important;
+  border-radius: 22px !important;
+  box-shadow: 0 8px 24px rgba(250,22,194,0.3);
+  transition: 0.4s !important;
+}
+.cs-wash:hover {
+  background-position: 100% 100% !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(255,114,0,0.45) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-wash" href="#"
+   style="--card-title-color:#ffffff; --card-sub-color:rgba(255,255,255,0.88);"&gt;
+  &lt;h3 class="tool-card-title"&gt;Gradient Wash&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A full-bleed brand gradient that shifts on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-gradborder">
+  <div class="ex-head">
+    <span class="ex-num">39</span>
+    <div class="ex-id">
+      <h3>Gradient Border</h3>
+      <code class="ex-class">.cs-gradborder</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Dark card wrapped in the brand gradient, using a two-layer background clip.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-gradborder" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Gradient Border</h3>
+        <p class="tool-card-sub">Dark card wrapped in the brand gradient.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-gradborder {
+  background: #1f1f33 !important;
+  border: 2px solid transparent !important;
+  border-radius: 20px !important;
+  background-image: linear-gradient(#1f1f33, #1f1f33), linear-gradient(135deg, #FFE536, #FA16C2, #FF7200) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+}
+.cs-gradborder:hover { transform: translateY(-4px) !important; box-shadow: 0 0 24px rgba(250,22,194,0.35) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-gradborder" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Gradient Border&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Dark card wrapped in the brand gradient.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-shimmer">
+  <div class="ex-head">
+    <span class="ex-num">40</span>
+    <div class="ex-id">
+      <h3>Shimmer Sweep</h3>
+      <code class="ex-class">.cs-shimmer</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A diagonal sheen sweeps across the card on hover, like polished stock.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-shimmer" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Shimmer Sweep</h3>
+        <p class="tool-card-sub">A diagonal sheen sweeps across on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-shimmer {
+  background: #222240 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 18px !important;
+  overflow: hidden;
+}
+.cs-shimmer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.cs-shimmer:hover::before { animation: cs-sweep 0.7s ease; }
+@keyframes cs-sweep { to { transform: translateX(100%); } }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-shimmer" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Shimmer Sweep&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A diagonal sheen sweeps across on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-stamp">
+  <div class="ex-head">
+    <span class="ex-num">41</span>
+    <div class="ex-id">
+      <h3>Stamped Outline</h3>
+      <code class="ex-class">.cs-stamp</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">A ghost-light dashed outline that solidifies and tints on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-stamp" href="#"
+         style="--card-title-color:#e3b400; --card-sub-color:#9a8a55;">
+        <h3 class="tool-card-title">Stamped Outline</h3>
+        <p class="tool-card-sub">A dashed outline that solidifies on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-stamp {
+  background: transparent !important;
+  border: 2px dashed rgba(128,128,128,0.55) !important;
+  border-radius: 16px !important;
+}
+.cs-stamp:hover {
+  border-style: solid !important;
+  border-color: #e3b400 !important;
+  background: rgba(255,229,54,0.1) !important;
+  box-shadow: 0 0 0 4px rgba(255,229,54,0.12) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-stamp" href="#"
+   style="--card-title-color:#e3b400; --card-sub-color:#9a8a55;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Stamped Outline&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A dashed outline that solidifies on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-reveal">
+  <div class="ex-head">
+    <span class="ex-num">42</span>
+    <div class="ex-id">
+      <h3>Split Reveal</h3>
+      <code class="ex-class">.cs-reveal</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Compact by default; hover expands a third line of detail. Needs the extra paragraph.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-reveal" href="#"
+         style="--card-title-color:#e2e8f0; --card-sub-color:#a3b3cd;">
+        <h3 class="tool-card-title">Split Reveal</h3>
+        <p class="tool-card-sub">Compact by default; hover reveals more.</p>
+        <p class="cs-reveal-extra">&rarr; First hidden line<br>&rarr; Second hidden line<br>&rarr; Third hidden line</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-reveal {
+  background: #232342 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 18px !important;
+}
+.cs-reveal:hover { background: #2b2b52 !important; }
+.cs-reveal-extra {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: 0.35s ease;
+  font-size: 0.68rem; line-height: 1.6;
+  color: #FFE536;
+  margin: 0;
+}
+.cs-reveal:hover .cs-reveal-extra { max-height: 80px; opacity: 1; margin-top: 4px; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-reveal" href="#"
+   style="--card-title-color:#e2e8f0; --card-sub-color:#a3b3cd;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Split Reveal&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Compact by default; hover reveals more.&lt;/p&gt;
+  &lt;p class="cs-reveal-extra"&gt;&amp;rarr; First hidden line&lt;br&gt;&amp;rarr; Second hidden line&lt;br&gt;&amp;rarr; Third hidden line&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-bento">
+  <div class="ex-head">
+    <span class="ex-num">43</span>
+    <div class="ex-id">
+      <h3>Bento Box</h3>
+      <code class="ex-class">.cs-bento</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Rounded panel with a row of category tag pills under the copy.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-bento" href="#"
+         style="--card-title-color:#ffffff; --card-sub-color:#b9b9cc;">
+        <h3 class="tool-card-title">Bento Box</h3>
+        <p class="tool-card-sub">Rounded panel with a row of tag pills.</p>
+        <span class="cs-tags"><span>Tag</span><span>Tag</span><span>Tag</span></span>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-bento {
+  background: #1f1f33 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: 20px !important;
+}
+.cs-bento:hover { transform: scale(1.02) !important; }
+.cs-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 4px; }
+.cs-tags span {
+  font-size: 0.6rem; font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,114,0,0.2);
+  color: #FF7200;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-bento" href="#"
+   style="--card-title-color:#ffffff; --card-sub-color:#b9b9cc;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Bento Box&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Rounded panel with a row of tag pills.&lt;/p&gt;
+  &lt;span class="cs-tags"&gt;&lt;span&gt;Tag&lt;/span&gt;&lt;span&gt;Tag&lt;/span&gt;&lt;span&gt;Tag&lt;/span&gt;&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-spotlight">
+  <div class="ex-head">
+    <span class="ex-num">44</span>
+    <div class="ex-id">
+      <h3>Spotlight Tracker</h3>
+      <code class="ex-class">.cs-spotlight</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-js">Needs script</span></div>
+  </div>
+  <p class="ex-desc">A soft glow follows the cursor across the surface. Requires the tracking script.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-spotlight" href="#"
+         style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+        <h3 class="tool-card-title">Spotlight Tracker</h3>
+        <p class="tool-card-sub">A soft glow follows your cursor.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-spotlight {
+  background: #20203a !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+.cs-spotlight::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,229,54,0.16), transparent 60%);
+  opacity: 0; transition: opacity 0.3s;
+  pointer-events: none;
+}
+.cs-spotlight:hover::before { opacity: 1; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-spotlight" href="#"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Spotlight Tracker&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A soft glow follows your cursor.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">Script (once per page, before &lt;/body&gt;)</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="js"><code>&lt;script&gt;
+document.querySelectorAll('.cs-spotlight').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.cs-tilt').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'perspective(800px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 14) + 'deg)';
+  });
+  el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+});
+&lt;/script&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-tilt">
+  <div class="ex-head">
+    <span class="ex-num">45</span>
+    <div class="ex-id">
+      <h3>Tilt 3D</h3>
+      <code class="ex-class">.cs-tilt</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span><span class="tag t-js">Needs script</span></div>
+  </div>
+  <p class="ex-desc">The card tilts toward the cursor. Requires the tracking script; stacks with any other style.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-tilt" href="#"
+         style="--card-bg:#0a0a1a; --card-border:#7c3aed; --card-title-color:#c4b5fd; --card-sub-color:#a78bfa;">
+        <h3 class="tool-card-title">Tilt 3D</h3>
+        <p class="tool-card-sub">Tilts toward the cursor. Stacks with other styles.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-tilt { transition: box-shadow 0.3s !important; }
+.cs-tilt:hover { box-shadow: 0 14px 34px rgba(0,0,0,0.35) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-tilt" href="#"
+   style="--card-bg:#0a0a1a; --card-border:#7c3aed; --card-title-color:#c4b5fd; --card-sub-color:#a78bfa;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Tilt 3D&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Tilts toward the cursor. Stacks with other styles.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">Script (once per page, before &lt;/body&gt;)</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="js"><code>&lt;script&gt;
+document.querySelectorAll('.cs-spotlight').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.cs-tilt').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'perspective(800px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 14) + 'deg)';
+  });
+  el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+});
+&lt;/script&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-corner">
+  <div class="ex-head">
+    <span class="ex-num">46</span>
+    <div class="ex-id">
+      <h3>Viewfinder</h3>
+      <code class="ex-class">.cs-corner</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A crop mark on each opposing corner, pulling outward as the card is targeted.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-corner" href="#"
+         style="--card-title-color:#f4f1e2; --card-sub-color:#9a978a;">
+        <h3 class="tool-card-title">Viewfinder</h3>
+        <p class="tool-card-sub">Crop marks that pull outward on target.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-corner {
+  background: #14161c !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 2px !important;
+}
+.cs-corner::before, .cs-corner::after {
+  content: ''; position: absolute; width: 26px; height: 26px;
+  border: 2px solid #FFE536;
+  transition: inset 0.3s ease, opacity 0.3s;
+  pointer-events: none;
+}
+.cs-corner::before {
+  top: 12px; left: 12px;
+  border-right: none; border-bottom: none;
+}
+.cs-corner::after {
+  bottom: 12px; right: 12px;
+  border-left: none; border-top: none;
+}
+.cs-corner:hover::before { top: 6px; left: 6px; }
+.cs-corner:hover::after { bottom: 6px; right: 6px; }
+.cs-corner:hover { border-color: rgba(255,229,54,0.4) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-corner" href="#"
+   style="--card-title-color:#f4f1e2; --card-sub-color:#9a978a;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Viewfinder&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Crop marks that pull outward on target.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-pop">
+  <div class="ex-head">
+    <span class="ex-num">47</span>
+    <div class="ex-id">
+      <h3>Spring Pop</h3>
+      <code class="ex-class">.cs-pop</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A springy overshoot on hover, using the playground's spring easing curve.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-pop" href="#"
+         style="--card-title-color:#e5e3ff; --card-sub-color:#a5a1d8;">
+        <h3 class="tool-card-title">Spring Pop</h3>
+        <p class="tool-card-sub">A springy overshoot on the way up.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-pop {
+  background: #1b1b2b !important;
+  border: 2px solid #4f46e5 !important;
+  border-radius: 14px !important;
+  transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease !important;
+}
+.cs-pop:hover {
+  transform: translateY(-8px) scale(1.035) !important;
+  box-shadow: 0 18px 34px rgba(79,70,229,0.35) !important;
+}
+.cs-pop:active { transform: translateY(-2px) scale(0.99) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-pop" href="#"
+   style="--card-title-color:#e5e3ff; --card-sub-color:#a5a1d8;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Spring Pop&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A springy overshoot on the way up.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-glowline">
+  <div class="ex-head">
+    <span class="ex-num">48</span>
+    <div class="ex-id">
+      <h3>Glow Ring</h3>
+      <code class="ex-class">.cs-glowline</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A transparent border that lights up and throws a soft halo ring on hover.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-glowline" href="#"
+         style="--card-title-color:#e8f4ff; --card-sub-color:#93b4c9;">
+        <h3 class="tool-card-title">Glow Ring</h3>
+        <p class="tool-card-sub">A transparent border that lights up on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-glowline {
+  background: #171a24 !important;
+  border: 2px solid transparent !important;
+  border-radius: 12px !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease !important;
+}
+.cs-glowline:hover {
+  background: #1c2030 !important;
+  border-color: #0ea5e9 !important;
+  box-shadow: 0 0 0 5px rgba(14,165,233,0.16) !important;
+  transform: none !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-glowline" href="#"
+   style="--card-title-color:#e8f4ff; --card-sub-color:#93b4c9;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Glow Ring&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A transparent border that lights up on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-soft">
+  <div class="ex-head">
+    <span class="ex-num">49</span>
+    <div class="ex-id">
+      <h3>Soft Emboss</h3>
+      <code class="ex-class">.cs-soft</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-new">New</span></div>
+  </div>
+  <p class="ex-desc">A pale slab moulded out of the background rather than laid on top of it.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-soft" href="#"
+         style="--card-title-color:#3a4354; --card-sub-color:#78839a;">
+        <h3 class="tool-card-title">Soft Emboss</h3>
+        <p class="tool-card-sub">Moulded out of the background, not laid on it.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-soft {
+  background: #e8ecf2 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  box-shadow: 8px 8px 18px rgba(148,160,180,0.55), -8px -8px 18px rgba(255,255,255,0.95);
+  transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+}
+.cs-soft:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 12px 12px 26px rgba(148,160,180,0.6), -12px -12px 26px rgba(255,255,255,1) !important;
+}
+.cs-soft:active {
+  transform: translateY(0) !important;
+  box-shadow: inset 6px 6px 14px rgba(148,160,180,0.55), inset -6px -6px 14px rgba(255,255,255,0.95) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-soft" href="#"
+   style="--card-title-color:#3a4354; --card-sub-color:#78839a;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Soft Emboss&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Moulded out of the background, not laid on it.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
+<section class="group" id="g-site">
+  <header class="group-head">
+    <h2>Site-specific</h2>
+    <p>Styles built to match a particular project's own identity.</p>
+  </header>
+
+<article class="ex" id="ex-cs-ember">
+  <div class="ex-head">
+    <span class="ex-num">50</span>
+    <div class="ex-id">
+      <h3>Ember Tablet</h3>
+      <code class="ex-class">.cs-ember</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">Flashstone's torch-lit stone slab, with the wordmark glowing off the surface.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-ember" href="#"
+         style="--card-title-color:#f2d896; --card-sub-color:#c9ad7a; --card-title-size:2.1rem;">
+        <h3 class="tool-card-title">Flashstone</h3>
+        <p class="tool-card-sub">Turn any flashcard deck into a duel.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-ember {
+  background: radial-gradient(ellipse at 50% 25%, #3a2712 0%, #170f08 75%) !important;
+  border: 1px solid #a9812e !important;
+  border-radius: 6px !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 4px 18px rgba(0,0,0,0.5);
+  transition: box-shadow 0.35s, border-color 0.35s !important;
+}
+.cs-ember .tool-card-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 10px rgba(230,190,90,0.55), 0 0 24px rgba(230,150,40,0.35);
+  transition: text-shadow 0.35s;
+}
+.cs-ember .tool-card-sub { font-family: Georgia, serif; font-style: italic; }
+.cs-ember:hover {
+  border-color: #e8c96a !important;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 26px rgba(212,160,60,0.35), 0 4px 18px rgba(0,0,0,0.6) !important;
+}
+.cs-ember:hover .tool-card-title { text-shadow: 0 0 14px rgba(240,205,110,0.85), 0 0 34px rgba(230,150,40,0.5); }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-ember" href="#"
+   style="--card-title-color:#f2d896; --card-sub-color:#c9ad7a; --card-title-size:2.1rem;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Flashstone&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Turn any flashcard deck into a duel.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-hex">
+  <div class="ex-head">
+    <span class="ex-num">51</span>
+    <div class="ex-id">
+      <h3>Mana Hex</h3>
+      <code class="ex-class">.cs-hex</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">Flashstone's duel palette, with a gold-and-blue hex cropped into the corner.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-hex" href="#"
+         style="--card-title-color:#e7ecf7; --card-sub-color:#9fb0cc;">
+        <h3 class="tool-card-title">Mana Hex</h3>
+        <p class="tool-card-sub">Duel palette with a hex cropped into the corner.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-hex {
+  background: linear-gradient(160deg, #161c2e 0%, #100b18 70%) !important;
+  border: 1px solid #7d94b8 !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-hex::before {
+  content: ''; position: absolute; top: -34px; right: -34px; width: 120px; height: 120px;
+  background: conic-gradient(from 30deg, #d4af37, #274b7a, #d4af37);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  opacity: 0.22; z-index: -1;
+  transition: opacity 0.35s, transform 0.6s;
+}
+.cs-hex:hover::before { opacity: 0.4; transform: rotate(25deg) scale(1.08); }
+.cs-hex .tool-card-title { letter-spacing: 0.05em; }
+.cs-hex::after {
+  content: '\25C6 \25C6 \25C6 \25C6 \25C6';
+  position: absolute; bottom: 12px; left: 0; right: 0;
+  text-align: center; font-size: 0.5rem; letter-spacing: 0.3em;
+  color: #d4af37; opacity: 0.45;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-hex" href="#"
+   style="--card-title-color:#e7ecf7; --card-sub-color:#9fb0cc;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Mana Hex&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;Duel palette with a hex cropped into the corner.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-fan">
+  <div class="ex-head">
+    <span class="ex-num">52</span>
+    <div class="ex-id">
+      <h3>Card Fan</h3>
+      <code class="ex-class">.cs-fan</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-showroom">From the showrooms</span></div>
+  </div>
+  <p class="ex-desc">A fanned hand of cards at rest, spreading open as if about to be played.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-fan" href="#"
+         style="--card-title-color:#f0dcb0; --card-sub-color:#c2a276;">
+        <h3 class="tool-card-title">Card Fan</h3>
+        <p class="tool-card-sub">A fanned hand spreading open on hover.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>.cs-fan {
+  background: linear-gradient(180deg, #2a1f14 0%, #140d08 100%) !important;
+  border: 1px solid #8a6a35 !important;
+  border-radius: 8px !important;
+  isolation: isolate;
+  transition: transform 0.3s !important;
+}
+.cs-fan::before, .cs-fan::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, #2a1f14 0%, #140d08 100%);
+  border: 1px solid #8a6a35;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+.cs-fan::before { transform: rotate(-6deg) translateY(2px); }
+.cs-fan::after  { transform: rotate(6deg) translateY(2px); }
+.cs-fan:hover::before { transform: rotate(-11deg) translateY(4px); }
+.cs-fan:hover::after  { transform: rotate(11deg) translateY(4px); }
+.cs-fan:hover { transform: translateY(-4px) !important; }</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-fan" href="#"
+   style="--card-title-color:#f0dcb0; --card-sub-color:#c2a276;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Card Fan&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A fanned hand spreading open on hover.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+
+<article class="ex" id="ex-cs-blurt">
+  <div class="ex-head">
+    <span class="ex-num">53</span>
+    <div class="ex-id">
+      <h3>Blurt</h3>
+      <code class="ex-class">.cs-blurt</code>
+    </div>
+    <div class="ex-tags"><span class="tag t-live">On the tools page</span></div>
+  </div>
+  <p class="ex-desc">The blurt.contrapaul.com table: dark felt, warm bloom, and the Bespoke Slab wordmark.</p>
+  <div class="ex-body">
+    <div class="ex-stage">
+      <a class="tool-card cs-blurt" href="#"
+         style="--card-title-color:#ece9f2; --card-sub-color:#8a8798; --card-title-size:2.5rem;">
+        <h3 class="tool-card-title">Blurt<span>.</span></h3>
+        <p class="tool-card-sub">A fast word game for 2+ players.</p>
+      </a>
+    </div>
+    <div class="ex-code">
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">CSS</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="css"><code>@font-face {
+  font-family: 'Bespoke Slab';
+  src: url('https://blurt.contrapaul.com/fonts/BespokeSlab-Extrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+.cs-blurt {
+  background-color: #16151d !important;
+  background-image:
+    radial-gradient(600px 300px at 50% -20%, rgba(255,92,58,0.18), transparent 70%),
+    radial-gradient(450px 250px at 90% 120%, rgba(255,194,58,0.12), transparent 70%);
+  border: 1px solid #383447 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+.cs-blurt .tool-card-title {
+  font-family: 'Bespoke Slab', Georgia, serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.cs-blurt .tool-card-title span { color: #ff5c3a; }
+.cs-blurt:hover {
+  border-color: #ff5c3a !important;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 24px rgba(255,92,58,0.2) !important;
+}</code></pre>
+</div>
+<div class="cb">
+  <div class="cb-bar"><span class="cb-label">HTML</span><button class="cb-copy" type="button">Copy</button></div>
+  <pre class="cb-pre" data-lang="html"><code>&lt;a class="tool-card cs-blurt" href="#"
+   style="--card-title-color:#ece9f2; --card-sub-color:#8a8798; --card-title-size:2.5rem;"&gt;
+  &lt;h3 class="tool-card-title"&gt;Blurt&lt;span&gt;.&lt;/span&gt;&lt;/h3&gt;
+  &lt;p class="tool-card-sub"&gt;A fast word game for 2+ players.&lt;/p&gt;
+&lt;/a&gt;</code></pre>
+</div>
+    </div>
+  </div>
+</article>
+</section>
+
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="footer-inner">
+<span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span>
+<span class="footer-note">Not affiliated with the IB Organisation</span>
+</div>
+</footer>
+
+<script src="../curriculum/curriculum-themes.js"></script>
+<script>
+/* copy buttons */
+document.querySelectorAll('.cb').forEach(function (box) {
+  var btn = box.querySelector('.cb-copy');
+  var code = box.querySelector('code');
+  btn.addEventListener('click', function () {
+    var text = code.textContent;
+    var done = function () {
+      btn.textContent = 'Copied';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1400);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  });
+});
+function fallback(text, done) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); done(); } catch (err) { /* nothing to do */ }
+  document.body.removeChild(ta);
+}
+</script>
+<script>
+document.querySelectorAll('.cs-spotlight').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+document.querySelectorAll('.cs-tilt').forEach(function(el){
+  el.addEventListener('mousemove', function(e){
+    var r = el.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = 'perspective(800px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 14) + 'deg)';
+  });
+  el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+});
+</script>
+</body>
+</html>
