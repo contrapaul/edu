@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A browsable catalogue of tabletop game mechanics for student designers. Filter by what you need, then open any card for rules, examples, and where to research further.">
+<title>Game Mechanics Catalog | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/tools/mechanics/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Game Mechanics Catalog | contrapaul edu">
+<meta property="og:description" content="A browsable catalogue of tabletop game mechanics for student designers.">
+<meta property="og:url" content="https://edu.contrapaul.com/tools/mechanics/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="mechanics.css">
+</head>
+<body>
+
+<a href="#grid" class="skip-link">Skip to the mechanics</a>
+
+<header class="mc-head">
+  <div class="mc-head-inner">
+    <div class="mc-head-text">
+      <p class="mc-eyebrow">contrapaul / edu</p>
+      <h1>Game Mechanics Catalog</h1>
+      <p class="mc-lede">A shelf of ideas you can borrow. Every card is one rule that makes a game work. Open a card to see how it plays, which games use it, and where to read more.</p>
+    </div>
+    <a class="mc-unit-link" href="../../curriculum/myp/g9-game-design.html">
+      <span class="mc-unit-link-kicker">Back to the unit</span>
+      <span class="mc-unit-link-title">Grade 9 Tabletop Game Design</span>
+    </a>
+  </div>
+</header>
+
+<div class="mc-filters" id="filters">
+  <div class="mc-filters-inner">
+
+    <div class="mc-filter-row mc-filter-row-top">
+      <div class="mc-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input type="search" id="search" placeholder="Search a mechanic or a game" aria-label="Search mechanics">
+      </div>
+      <div class="mc-filter-actions">
+        <button type="button" class="mc-btn" id="randomBtn">Surprise me</button>
+        <button type="button" class="mc-btn mc-btn-clear" id="clearBtn" hidden>Clear all</button>
+      </div>
+    </div>
+
+    <div class="mc-filter-group" data-key="family">
+      <span class="mc-filter-label">Family</span>
+      <div class="mc-chips" id="chips-family"></div>
+    </div>
+
+    <button type="button" class="mc-more-toggle" id="moreToggle" aria-expanded="false" aria-controls="moreFilters">
+      <span>More filters</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+
+    <div class="mc-more" id="moreFilters">
+      <div class="mc-more-inner">
+        <div class="mc-filter-group" data-key="components">
+          <span class="mc-filter-label">What you need</span>
+          <div class="mc-chips" id="chips-components"></div>
+        </div>
+        <div class="mc-filter-group" data-key="complexity">
+          <span class="mc-filter-label">How hard to build</span>
+          <div class="mc-chips" id="chips-complexity"></div>
+        </div>
+        <div class="mc-filter-group" data-key="playerFit">
+          <span class="mc-filter-label">Number of players</span>
+          <div class="mc-chips" id="chips-playerFit"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mc-count" id="count" aria-live="polite"></p>
+  </div>
+</div>
+
+<main>
+  <div class="mc-grid" id="grid"></div>
+  <div class="mc-empty" id="empty" hidden>
+    <p class="mc-empty-title">Nothing matches those filters.</p>
+    <p>Try removing one, or search for a game name instead.</p>
+    <button type="button" class="mc-btn" data-clear-all>Clear all filters</button>
+  </div>
+</main>
+
+<footer class="mc-foot">
+  <p>A project by Mr. K, more at <a href="https://edu.contrapaul.com/tools">edu.contrapaul.com/tools</a></p>
+</footer>
+
+<div class="mc-modal" id="modal" hidden>
+  <div class="mc-modal-backdrop" data-close></div>
+  <div class="mc-modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalBox">
+    <div class="mc-modal-nav">
+      <button type="button" class="mc-nav-btn" id="prevBtn" aria-label="Previous mechanic">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="mc-nav-pos" id="navPos"></span>
+      <button type="button" class="mc-nav-btn" id="nextBtn" aria-label="Next mechanic">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button type="button" class="mc-modal-close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="mc-modal-scroll" id="modalScroll"></div>
+  </div>
+</div>
+
+<script src="diagrams.js"></script>
+<script src="data.js"></script>
+<script src="mechanics.js"></script>
+</body>
+</html>
