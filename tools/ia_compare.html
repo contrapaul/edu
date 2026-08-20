@@ -91,6 +91,20 @@
   .commentary-col h4.mid  { color: var(--mid); }
   .commentary-col h4.high { color: var(--high); }
   .commentary-col p { font-size: 12.5px; color: #444; }
+
+  /* Method notes: separates Mr. K's teaching devices from IB requirements, so
+     nothing that is merely recommended reads as something marks depend on. */
+  .method-note { margin-top: 16px; padding: 12px 16px; background: #fff; border: 1px dashed #a5b4fc; border-radius: 4px; font-size: 12.5px; color: #444; }
+  .method-note strong.method-label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #4f46e5; margin-bottom: 5px; }
+
+  /* Whole-project rules panel */
+  .project-rules { background: #fff; border-left: 5px solid #6366f1; padding: 18px 24px; margin: 0; }
+  .project-rules h3 { font-size: 15px; color: #3730a3; margin-bottom: 4px; }
+  .project-rules > p { font-size: 12.5px; color: #666; margin-bottom: 10px; }
+  .project-rules ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 6px 24px; }
+  .project-rules li { font-size: 12.5px; color: #444; padding-left: 16px; position: relative; line-height: 1.5; }
+  .project-rules li::before { content: "▪"; position: absolute; left: 0; color: #6366f1; }
+  .project-rules .ref { color: #888; font-size: 11.5px; }
   .mark-badge { display: inline-block; border-radius: 4px; padding: 2px 9px; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px; }
   .badge-low  { background: var(--low); }
   .badge-mid  { background: var(--mid); }
@@ -151,6 +165,21 @@
     <div class="legend-item"><div class="legend-dot" style="background:#1a7a4a"></div><strong>Noah K.</strong>: High range (7–9 / 5–6)</div>
   </div>
   <p style="margin-top:12px; font-size:12px; color:#8898b0;">Total marks available: 33 &nbsp;|&nbsp; Criterion A: 9 marks &nbsp;|&nbsp; Criteria B–E: 6 marks each &nbsp;|&nbsp; Images in dashed boxes are placeholders; produce or photograph images matching each description.</p>
+</div>
+
+<div class="project-rules">
+  <h3>Rules that apply to the whole project</h3>
+  <p>These sit outside any single criterion and are easy to overlook while comparing the three reports. Page references are to the design technology guide.</p>
+  <ul>
+    <li>Maximum <strong>35 A4 pages</strong> and <strong>3,500 words</strong>. The examiner stops reading once either limit is reached. <span class="ref">(p. 66)</span></li>
+    <li>Annotations must be <strong>no more than 10 words</strong> each. Anything longer counts toward the word count. <span class="ref">(p. 66)</span></li>
+    <li><strong>A4 portrait</strong> throughout, except the detailed dimension drawings in Criterion D. <span class="ref">(p. 66)</span></li>
+    <li>A <strong>physical fidelity model</strong> must be developed for testing and evaluation. Digital modelling does not replace it. <span class="ref">(p. 67)</span></li>
+    <li>Reference sources <strong>as footnotes on the page</strong>. Footnotes do not count toward the word count, and no separate references page is required. <span class="ref">(p. 72)</span></li>
+    <li>Appendices are <strong>not read</strong> by examiners. Anything critical to assessment must be in the body of the report. <span class="ref">(pp. 66, 68)</span></li>
+    <li>Handwritten annotations must be legible and equivalent to <strong>Arial 11pt</strong>, with black ink recommended. <span class="ref">(p. 66)</span></li>
+    <li><strong>Subject-specific vocabulary</strong> is rewarded across all of the assessment criteria. <span class="ref">(p. 67)</span></li>
+  </ul>
 </div>
 
 
@@ -300,7 +329,7 @@
 </div><!-- end grid3 -->
 
 <!-- A: EXISTING PRODUCTS -->
-<div class="section-label">Strand Aiii: Analysis of Existing Products</div>
+<div class="section-label">Strand Aiii: Analyses a Range of Existing Products (required evidence: annotated images of the product testing, typically four to six products)</div>
 <div class="grid3">
   <!-- LOW -->
   <div class="col">
@@ -319,6 +348,7 @@
         <li><strong>Anglepoise:</strong> adjustable arm, classic look, expensive</li>
       </ul>
       <p>I think the IKEA lamp is the best one for my grandma because it has a dimmer.</p>
+      <p style="font-size:12px; color:#8a2f26; border-top:1px dashed #e8a49e; padding-top:8px; margin-top:8px;"><strong>No product testing:</strong> all four lamps are described from online listings. None was handled, measured, or tried against the task from the storyboard.</p>
     </div>
   </div>
   <!-- MID -->
@@ -327,6 +357,7 @@
     <div class="col-body mid-bg">
       <h4>Existing Products Analysis</h4>
       <p>Five desk lamps were examined to identify successes and weaknesses relevant to a student workspace.</p>
+      <p style="font-size:12px; color:#555; background:#fff; border:1px solid #f0d090; padding:7px 9px; border-radius:3px;"><strong>How these were tested:</strong> the IKEA HEKTAR and the TaoTronics were tested in person, in Jordan's room, by repeating storyboard step 3 (repositioning the arm over the drawing board). The touch-panel fault was found this way. The BenQ, Anglepoise and HALO were not available to test and are analysed from manufacturer specifications and reviews.</p>
       <div class="product-grid">
         <div class="product-card">
           <div class="pname">1. BenQ ScreenBar (2024)</div>
@@ -382,6 +413,7 @@
     <div class="col-body high-bg">
       <h4>Existing Products Evaluation</h4>
       <p>Six products were evaluated against criteria derived from the task analysis: colour rendering quality, arm adjustability, control usability, thermal management, and footprint suitability for a professional studio workspace.</p>
+      <p style="font-size:12px; color:#555; background:#fff; border:1px solid #8ecfaa; padding:7px 9px; border-radius:3px;"><strong>Test protocol:</strong> each product was set up on Daniel's desk and tested against the same three tasks drawn from the task analysis: review a printed colour proof, reposition the arm one-handed while holding that proof, and adjust colour temperature without leaving the seated position. Measurements were taken with a lux meter at 500&nbsp;mm and a sound level meter at 1&nbsp;m. CRI and CCT figures are manufacturer datasheet values, cross-checked against the proof review where a difference was visible. The Elgato and BenQ units were borrowed from the school design studio; the Anglepoise and IKEA units were tested in a retail showroom.</p>
       <div class="product-grid">
         <div class="product-card">
           <div class="pname">1. Elgato Key Light (2025)</div>
@@ -460,18 +492,22 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 9</span>
       <h4 class="low">Low Range (1–3)</h4>
-      <p>Taylor's work sits firmly in the 1–3 band. The primary persona is <em>stated</em> rather than described or explained. We learn only the most basic facts about Sarah (age, occupation, problem) with no research to support the characterisation, no demographic context, and no reference to motivations or behaviour patterns. The storyboard fulfils the minimum requirement of showing a user completing a task, but the task analysis is limited: only four steps are shown with no difficulty ratings, no sensory demand notes, and no analysis of <em>why</em> the steps are difficult. The existing products section provides a list of features with no evaluation of successes or weaknesses. This is precisely the "list of key features" described in the 1–3 descriptor. The conclusion ("I think the IKEA lamp is the best one") is unsupported by any evaluative reasoning.</p>
+      <p>Taylor's work sits firmly in the 1–3 band. The primary persona is <em>stated</em> rather than described or explained. We learn only the most basic facts about Sarah (age, occupation, problem) with no research to support the characterisation, no demographic context, and no reference to motivations or behaviour patterns. The storyboard fulfils the minimum requirement of showing a user completing a task, but the task analysis is limited: only four steps are shown, and no frame indicates what the issue actually is at that stage. The descriptor for this strand judges the task analysis, so a sequence that records what happens without showing where the product fails the user gives an examiner nothing to assess beyond "limited". The existing products section provides a list of features with no evaluation of successes or weaknesses. This is precisely the "list of key features" described in the 1–3 descriptor. The required evidence for this strand is annotated images of the <em>product testing</em>, and nothing here was tested: four lamps are described from online listings, the photographs carry no annotations, and none of the products was tried against the task from the storyboard. The conclusion ("I think the IKEA lamp is the best one") is unsupported by any evaluative reasoning.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 5 / 9</span>
       <h4 class="mid">Mid Range (4–6)</h4>
-      <p>Sabrina's work moves clearly into the 4–6 band. The persona is <em>described</em> with meaningful detail: goals, frustrations, and context are all addressed, and there is one cited piece of supporting research. The storyboard is satisfactory: six steps are shown, difficulty ratings are included, and the most critical failure point (Jordan stopping work early) is clearly identified. However, the storyboard does not include sensory demand analysis, and the task analysis reasoning stops short of a full explanation of <em>how</em> each difficulty creates a redesign opportunity. The existing products section describes both successes and weaknesses for most (but not all) features across the five products reviewed, which is characteristic of the mid-band descriptor. To reach the 7–9 band, Sabrina would need a more thorough and research-supported persona, a more comprehensive storyboard methodology, and an evaluation of all key features across all products.</p>
+      <p>Sabrina's work moves clearly into the 4–6 band. The persona is <em>described</em> with meaningful detail: goals, frustrations, and context are all addressed, and there is one cited piece of supporting research. The storyboard is satisfactory: six steps are shown, each frame records how hard that stage is for Jordan, and the most critical failure point (Jordan stopping work early) is clearly identified. The credit here is for identifying that failure point, not for the rating scale used to reach it. However, the task analysis reasoning stops short of a full explanation of <em>how</em> each difficulty creates a redesign opportunity, and that is the distance between a satisfactory task analysis and a comprehensive one. The existing products section describes both successes and weaknesses for most (but not all) features across the five products reviewed, which is characteristic of the mid-band descriptor. Two of the five were tested in person, and that testing produced the sharpest finding in the section (the touch panel failing with damp fingers). The other three are analysed from specifications, which the guide permits only where a product is genuinely unavailable to test, so the strand would be stronger if more of the range had been handled. To reach the 7–9 band, Sabrina would need a more thorough and research-supported persona, a more comprehensive storyboard methodology, and an evaluation of all key features across all products.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-high">Noah K., Mark: 8 / 9</span>
       <h4 class="high">High Range (7–9)</h4>
-      <p>Noah's work meets the 7–9 descriptor across all three strands. The primary persona is fully <em>explained</em>: Daniel's demographic profile, professional context, specific pain points, and direct interview quotes are all present and supported by referenced research. The storyboard demonstrates a comprehensive task analysis: eight steps are shown, all include difficulty ratings and sensory demand notes, and a summary chart is used to visualise the findings. Critically, the storyboard explicitly links task analysis findings to redesign opportunities, and this connection is what distinguishes explanation from description. The existing products evaluation is the strongest aspect: all six products are evaluated against a consistent set of criteria, and both successes and weaknesses are identified for <em>every</em> key feature of every product. The summary finding draws a clear conclusion from the evaluation. A mark of 9 was not awarded because the persona, while strong, could include slightly more quantitative behavioural data (e.g. hours per week, frequency of specific tasks).</p>
+      <p>Noah's work meets the 7–9 descriptor across all three strands. The primary persona is fully <em>explained</em>: Daniel's demographic profile, professional context, specific pain points, and direct interview quotes are all present and supported by referenced research. The storyboard demonstrates a comprehensive task analysis: eight steps are shown, every stage records both what the user is doing and where the product fails them, and a summary chart visualises the findings. Critically, the storyboard explicitly links task analysis findings to redesign opportunities, and this connection is what distinguishes explanation from description. The existing products evaluation is the strongest aspect: all six products are evaluated against a consistent set of criteria, and both successes and weaknesses are identified for <em>every</em> key feature of every product. It also does what the required evidence actually asks for, which is annotated images of product <em>testing</em>: a stated protocol, the same three tasks applied to every product, and instrument readings rather than repeated datasheet figures. The 38&nbsp;dB fan measurement and the one-handed reposition test both come from handling the products, and both become specifications in Criterion B. The summary finding draws a clear conclusion from the evaluation. A mark of 9 was not awarded because the persona, while strong, could include slightly more quantitative behavioural data (e.g. hours per week, frequency of specific tasks).</p>
     </div>
+  </div>
+  <div class="method-note">
+    <strong class="method-label">Method note, not an IB requirement</strong>
+    The difficulty ratings and sensory demand notes used in Sabrina's and Noah's storyboards are a teaching device from hierarchical task analysis. Neither appears anywhere in the guide, and no mark depends on using them. They are included because they force you to record <em>where</em> the product fails and <em>why</em>, which is what the descriptors do judge: a limited, satisfactory or comprehensive task analysis. Any method that makes the failure points visible will do the same job.
   </div>
 </div>
 
@@ -815,7 +851,7 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 6</span>
       <h4 class="low">Low Range (1–2)</h4>
-      <p>Taylor's ideation falls squarely into the 1–2 band for a defining reason: only two ideas are presented, not the required three. The 1–2 descriptor specifically states "fewer than three annotated, feasible redesign ideas", which is precisely what Taylor has provided. The ideas themselves are feasible in principle, but the annotations are minimal (three labels per sketch, none of which exceed a single word). There is no evidence of fidelity modelling. The second strand is weaker still. Its required evidence is an annotated presentation drawing of the chosen idea, tested against the design specifications and user feedback, and Taylor submits no drawing at all. What appears instead is a single piece of user feedback and an unsupported preference statement, with no comparison against the specifications. To move into the 3–4 band Taylor would need to present a third fully annotated idea, produce at least one low-fidelity physical model, evaluate all three ideas against her specifications, and draw the selected idea with its features annotated.</p>
+      <p>Taylor's ideation falls squarely into the 1–2 band for a defining reason: only two ideas are presented, not the required three. The 1–2 descriptor specifically states "fewer than three annotated, feasible redesign ideas", which is precisely what Taylor has provided. The ideas themselves are feasible in principle, but the annotations do no analytical work: each is a bare part name, with nothing about what the feature does or which specification it answers. Brevity is not the fault here. The guide caps annotations at 10 words, so short is correct, and these are uninformative rather than too short. There is no evidence of fidelity modelling. The second strand is weaker still. Its required evidence is an annotated presentation drawing of the chosen idea, tested against the design specifications and user feedback, and Taylor submits no drawing at all. What appears instead is a single piece of user feedback and an unsupported preference statement, with no comparison against the specifications. To move into the 3–4 band Taylor would need to present a third fully annotated idea, produce at least one low-fidelity physical model, evaluate all three ideas against her specifications, and draw the selected idea with its features annotated.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 4 / 6</span>
@@ -839,7 +875,7 @@
   <span class="marks">Maximum 6 marks &nbsp;|&nbsp; Approx. 10 pages, 300 words &nbsp;|&nbsp; Two strands: Fidelity Model Development (testing &amp; refinement cycles) · Formal Design Drawings</span>
 </div>
 
-<div class="section-label">Strand Di: Fidelity Model Development (iterative testing and refinement)</div>
+<div class="section-label">Strand Di: Develop Fidelity Models (multiple testing and refinement cycles through intended user testing; a physical model is required)</div>
 <div class="grid3">
   <!-- LOW -->
   <div class="col">
@@ -987,7 +1023,7 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 6</span>
       <h4 class="low">Low Range (1–2)</h4>
-      <p>Taylor's work sits in the 1–2 band. A single cardboard model has been produced with no documented testing cycles: there is no evidence of testing the model against design specifications, and no refinement is shown. The model "partially addresses the problem statement" (the touch activation concept is visible) but the description goes no further than confirming its existence. The design drawing shows "limited detail" as described in the 1–2 strand: it is a single view with three labels, no dimensions, no orthographic projection, and no component breakdown that would allow a third-party manufacturer to produce the design. Note that the word count for Criterion D is very low (300 words), as the assessment is almost entirely visual, which means the quality of the model and drawings carries the full marking weight.</p>
+      <p>Taylor's work sits in the 1–2 band. A single cardboard model has been produced with no documented testing cycles: there is no evidence of testing the model against design specifications, and no refinement is shown. The model "partially addresses the problem statement" (the touch activation concept is visible) but the description goes no further than confirming its existence. The design drawing shows "limited detail" as described in the 1–2 strand: it is a single view with three labels, no dimensions, no orthographic projection, and no component breakdown that would allow a third-party manufacturer to produce the design. The cardboard model does at least satisfy the requirement that a physical fidelity model be developed for testing and evaluation, which is a project-level requirement rather than a Criterion D one, and a report with digital modelling alone would fail it. Note also that the word count for Criterion D is very low (300 words), as the assessment is almost entirely visual, which means the quality of the model and drawings carries the full marking weight.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 4 / 6</span>
@@ -1067,7 +1103,7 @@
 </div><!-- end grid3 -->
 
 <!-- E: COMPARISON WITH EXISTING PRODUCT -->
-<div class="section-label">Strand Eii: Comparison with Existing Product</div>
+<div class="section-label">Strand Eii: Present How the Solution Improves on the Existing Product (demonstrate three things: how it is an improvement, how it is intended to be used, and how it is better suited to the user's needs)</div>
 <div class="grid3">
   <!-- LOW -->
   <div class="col">
@@ -1135,17 +1171,17 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 6</span>
       <h4 class="low">Low Range (1–2)</h4>
-      <p>Taylor's presentation meets the minimum 1–2 standard. The redesigned solution is shown with three annotations, which counts as "limited annotations of key features" as described in the descriptor. The comparison with the existing product is present but superficial: one improvement is mentioned (touch vs rotary switch) with a brief additional mention of dimming. There is no structured comparison, no reference back to the design specifications or task analysis, and no consideration of whether the redesign actually solved the problems identified at the start of the project. The visual communication is basic: a single view with no professional presentation quality. To move into the 3–4 band, Taylor would need more comprehensive annotation of her solution and a structured comparison that addresses more of the problems identified in her storyboard.</p>
+      <p>Taylor's presentation meets the minimum 1–2 standard. The redesigned solution is shown with three annotations, which counts as "limited annotations of key features" as described in the descriptor. The comparison with the existing product is present but superficial: one improvement is mentioned (touch vs rotary switch) with a brief additional mention of dimming. There is no structured comparison, no reference back to the design specifications or task analysis, and no consideration of whether the redesign actually solved the problems identified at the start of the project. Of the three things this strand asks a student to demonstrate, only the first is attempted: the solution is claimed to be an improvement, but there is nothing showing how it is intended to be used, and nothing showing why it is better suited to Sarah's needs. Only a single view is provided, where the required evidence for this strand suggests approximately two to three images per page. Note that the presentation itself, meaning style of delivery and medium, is not formally assessed; what is marked here is the annotation of key features and the comparison with the existing product. To move into the 3–4 band, Taylor would need more comprehensive annotation of her solution and a structured comparison that addresses more of the problems identified in her storyboard.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 4 / 6</span>
       <h4 class="mid">Mid Range (3–4)</h4>
-      <p>Sabrina's presentation is a clear 3–4. Eight annotations cover the key features of the redesigned lamp, including functional descriptions for most (not just part names). The comparison table is well-structured and covers six features, addressing three of the core problems from the task analysis. However, the work does not reach 5–6 because the comparison does not comprehensively address all identified problems: colour temperature is flagged as unresolved, and the comparison does not systematically reference back to the design specifications or task analysis step numbers. The visual communication is adequate: two clear views of the solution and a side-by-side comparison photo. A mark of 4 is appropriate: the comparison "addresses some of the identified problems" rather than comprehensively addressing all of them.</p>
+      <p>Sabrina's presentation is a clear 3–4. Eight annotations cover the key features of the redesigned lamp, including functional descriptions for most (not just part names). The comparison table is well-structured and covers six features, addressing three of the core problems from the task analysis. However, the work does not reach 5–6 because the comparison does not comprehensively address all identified problems: colour temperature is flagged as unresolved, and the comparison does not systematically reference back to the design specifications or task analysis step numbers. Two of the strand's three demonstration points are covered, improvement and suitability to Jordan's needs, but how the solution is <em>intended to be used</em> is never shown. A short sequence of Jordan performing the storyboard task with the redesigned lamp would close that gap cheaply, since it costs images rather than words. Two views of the solution and a side-by-side comparison photo sit within the two to three images per page the required evidence suggests. A mark of 4 is appropriate: the comparison "addresses some of the identified problems" rather than comprehensively addressing all of them.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-high">Noah K., Mark: 6 / 6</span>
       <h4 class="high">High Range (5–6)</h4>
-      <p>Noah's presentation is a comprehensive example of the 5–6 band. The solution is shown with fourteen annotations covering all key features: every element of the design is labelled with a functional description. Three photographic views (full lamp, in-use context, control detail) communicate the product effectively to a third-party audience. The comparison table is the defining element: it traces directly back to the task analysis by citing specific task steps and difficulty ratings, quantifies the improvements achieved (CRI +22 points, force reduced 81%), and confirms that no regression occurred where the original lamp performed adequately (footprint, passive cooling). Daniel's final quote provides human confirmation that the redesign is genuinely effective. This is precisely "how the redesigned solution compares with the existing product and comprehensively addresses the identified problems", the full 5–6 standard. Full marks are awarded.</p>
+      <p>Noah's presentation is a comprehensive example of the 5–6 band. The solution is shown with fourteen annotations covering all key features: every element of the design is labelled with a functional description. Three photographic views (full lamp, in-use context, control detail) present the intended solution as though to a third-party manufacturer, which is what the required evidence asks for. The comparison table is the defining element: it traces directly back to the task analysis by citing specific task steps and difficulty ratings, quantifies the improvements achieved (CRI +22 points, force reduced 81%), and confirms that no regression occurred where the original lamp performed adequately (footprint, passive cooling). Daniel's final quote provides human confirmation that the redesign is genuinely effective. All three of the strand's demonstration points are covered: the table establishes the improvement, the in-use view shows how the solution is intended to be used during a proof review, and the return to the task analysis ratings shows why it is better suited to Daniel's needs than the lamp he started with. This is precisely "how the redesigned solution compares with the existing product and comprehensively addresses the identified problems", the full 5–6 standard. Full marks are awarded.</p>
     </div>
   </div>
 </div>
