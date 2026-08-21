@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Build a custom multiple choice review quiz from any combination of IB DP Design Technology topics. Take it online or print it with a teacher's answer key.">
+<title>Review Builder | DP Design Technology | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/dp/review/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Review Builder | DP Design Technology">
+<meta property="og:description" content="Build a custom multiple choice review quiz from any combination of IB DP Design Technology topics.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/dp/review/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../curriculum.css">
+<link rel="stylesheet" href="../../themes.css">
+<link rel="stylesheet" href="review.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<div class="prog-hero prog-hero--compact">
+<div class="prog-hero-inner">
+<p class="rv-crumb"><a href="../">DP Design Technology</a></p>
+<h1 class="prog-hero-title">Review Builder</h1>
+<p class="prog-hero-desc">Every multiple choice question from the topic pages, 240 of them, in one place. Choose a level and the topics you want, trim the list down to the questions you need, then either work through it online or print it. Printing also produces a separate answer guide with the full commentary for each question.</p>
+</div>
+</div>
+
+<main class="rv-main">
+
+<section class="rv-step" id="step-level">
+<div class="rv-step-head"><span class="rv-step-num">01</span><h2>Level</h2></div>
+<p class="rv-step-hint">HL students take the SL topics as well, so SL + HL is the full 240 question bank.</p>
+<div class="rv-level-row" id="level-row">
+<button class="rv-level" data-level="SL">SL<span class="rv-level-sub">Standard level topics</span></button>
+<button class="rv-level" data-level="HL">HL<span class="rv-level-sub">HL only topics</span></button>
+<button class="rv-level" data-level="ALL">SL + HL<span class="rv-level-sub">Everything</span></button>
+</div>
+</section>
+
+<section class="rv-step" id="step-topics" hidden>
+<div class="rv-step-head"><span class="rv-step-num">02</span><h2>Topics</h2></div>
+<p class="rv-step-hint">Nothing is selected to begin with. Pick the topics you have covered.</p>
+<div class="rv-topic-actions">
+<button class="rv-btn rv-btn-quiet" id="topics-all">Select all</button>
+<button class="rv-btn rv-btn-quiet" id="topics-none">Clear</button>
+<span class="rv-topic-count" id="topic-count"></span>
+</div>
+<div id="topic-groups"></div>
+</section>
+
+<section class="rv-step" id="step-questions" hidden>
+<div class="rv-step-head"><span class="rv-step-num">03</span><h2>Questions</h2></div>
+<p class="rv-step-hint">Remove anything you do not want, or let one of the quick sets pick a random selection for you. The sub-topic reference stays visible here so you can go and read up before answering.</p>
+<div class="rv-quick-row">
+<button class="rv-btn" data-quick="10">Quick 10</button>
+<button class="rv-btn" data-quick="20">Quick 20</button>
+<button class="rv-btn" data-quick="30">Quick 30</button>
+<button class="rv-btn rv-btn-quiet" id="pool-restore">Restore all</button>
+</div>
+<p class="rv-pool-note" id="pool-note"></p>
+<div id="pool"></div>
+</section>
+
+</main>
+
+<div class="rv-bar" id="action-bar" hidden>
+<div class="rv-bar-inner">
+<label class="rv-title-field">
+<span>Quiz title</span>
+<input type="text" id="quiz-title" value="DP Design Technology Review" maxlength="70">
+</label>
+<div class="rv-bar-actions">
+<button class="rv-btn rv-btn-primary" id="start-quiz">Start Quiz <span id="start-count"></span></button>
+<button class="rv-btn" id="make-print">Create printable quiz</button>
+</div>
+</div>
+</div>
+
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../../curriculum-themes.js"></script>
+<script src="review.js"></script>
+</body>
+</html>

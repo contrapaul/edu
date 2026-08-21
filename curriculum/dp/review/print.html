@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Printable quiz | Review Builder | contrapaul edu</title>
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../curriculum.css">
+<link rel="stylesheet" href="../../themes.css">
+<link rel="stylesheet" href="review.css">
+<link rel="stylesheet" href="print.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<div class="pr-controls">
+<div class="pr-controls-inner">
+<p class="rv-crumb"><a href="./">Review Builder</a></p>
+<div class="pr-controls-row">
+<div class="pr-tabs">
+<button class="pr-tab active" data-doc="quiz">Quiz sheet</button>
+<button class="pr-tab" data-doc="key">Answer guide</button>
+</div>
+<button class="rv-btn rv-btn-primary" id="print-btn">Print this document</button>
+</div>
+<p class="pr-hint" id="pr-hint">The two documents print separately. Print the quiz sheet for students, then switch to the answer guide, which carries the sub-topic reference and the full commentary for every question. Choosing Save as PDF in the print dialog gives you a file instead of paper.</p>
+</div>
+</div>
+
+<main class="pr-stage">
+<article class="pr-doc" id="doc-quiz"></article>
+<article class="pr-doc" id="doc-key" hidden></article>
+</main>
+
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../../curriculum-themes.js"></script>
+<script src="print.js"></script>
+</body>
+</html>

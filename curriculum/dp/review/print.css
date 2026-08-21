@@ -1,0 +1,74 @@
+/* print.css — the two printable documents, on screen and on paper. */
+
+.pr-controls { border-bottom: 1px solid var(--border); background: var(--surface); }
+.pr-controls-inner { max-width: 52rem; margin: 0 auto; padding: 1.5rem; }
+.pr-controls-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.pr-tabs { display: flex; gap: 0.4rem; }
+.pr-tab {
+  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em;
+  padding: 0.55rem 1.1rem;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  cursor: pointer; transition: all var(--transition);
+}
+.pr-tab:hover { border-color: var(--border-strong); color: var(--text); }
+.pr-tab.active { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+.pr-hint { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 1rem 0 0; max-width: 42rem; }
+
+/* The document itself is a sheet of paper on screen too, so what a teacher
+   reads here is what comes out of the printer. */
+.pr-stage { max-width: 52rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.pr-doc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; }
+.pr-doc[hidden] { display: none; }
+
+.pr-head { border-bottom: 2px solid var(--text); padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
+.pr-title { font-family: var(--font-display); font-size: 1.5rem; margin: 0; }
+.pr-subtitle { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0.35rem 0 0; }
+.pr-count { font-size: 0.85rem; color: var(--muted); margin: 0 0 1.75rem; }
+
+.pr-q { margin-bottom: 1.5rem; }
+.pr-q-text { font-size: 0.92rem; line-height: 1.5; margin: 0 0 0.5rem; }
+.pr-q-num { font-weight: 700; margin-right: 0.15rem; }
+.pr-options { list-style: none; margin: 0; padding: 0 0 0 1.4rem; }
+.pr-options li { font-size: 0.88rem; line-height: 1.45; margin-bottom: 0.3rem; display: flex; gap: 0.6rem; }
+.pr-opt-letter {
+  flex-shrink: 0; width: 1.35rem; height: 1.35rem;
+  border: 1px solid var(--border-strong); border-radius: 50%;
+  font-size: 0.72rem; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+.pr-a { margin-bottom: 1.1rem; }
+.pr-a-line { display: flex; align-items: baseline; gap: 0.5rem; margin: 0 0 0.2rem; font-size: 0.9rem; }
+.pr-a-letter { font-weight: 700; font-size: 1rem; }
+.pr-a-ref { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em; color: var(--muted); }
+.pr-a-why { font-size: 0.84rem; line-height: 1.55; margin: 0; padding-left: 1.4rem; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .pr-stage { padding: 1.25rem 1rem 3rem; }
+  .pr-doc { padding: 1.5rem; }
+}
+
+/* ── Paper ─────────────────────────────────────────────────
+   Everything but the active document goes, and the colours are pinned to
+   black on white so a dark or win95 theme does not print as a dark page. */
+@page { margin: 18mm; }
+
+@media print {
+  html, body { background: #fff; color: #000; }
+  .site-header, .site-footer, .pr-controls, .theme-picker-wrap, .rv-crumb { display: none !important; }
+
+  .pr-stage { max-width: none; margin: 0; padding: 0; }
+  .pr-doc { background: #fff; border: none; border-radius: 0; padding: 0; }
+
+  .pr-head { border-bottom: 2px solid #000; }
+  .pr-title, .pr-q-text, .pr-q-num, .pr-a-line, .pr-a-letter { color: #000; }
+  .pr-subtitle, .pr-count, .pr-a-ref, .pr-a-why { color: #333; }
+  .pr-options li { color: #000; }
+  .pr-opt-letter { border-color: #000; color: #000; }
+
+  .pr-q, .pr-a { break-inside: avoid; page-break-inside: avoid; }
+  .pr-head { break-after: avoid; page-break-after: avoid; }
+
+  a { color: #000; text-decoration: none; }
+}
