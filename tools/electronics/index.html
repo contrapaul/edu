@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A browsable catalogue of microcontrollers, sensors, input components and accessories for the Grade 10 Electronics Design unit. Filter by signal type, then open a card for pins, wiring and warnings.">
+<title>Electronics Parts Catalog | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/tools/electronics/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Electronics Parts Catalog | contrapaul edu">
+<meta property="og:description" content="Microcontrollers, sensors, inputs and accessories, with pins, wiring and warnings for each one.">
+<meta property="og:url" content="https://edu.contrapaul.com/tools/electronics/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="electronics.css">
+</head>
+<body>
+
+<a href="#grid" class="skip-link">Skip to the parts</a>
+
+<header class="ec-head">
+  <div class="ec-head-inner">
+    <div class="ec-head-text">
+      <p class="ec-eyebrow">contrapaul / edu</p>
+      <h1>Electronics Parts Catalog</h1>
+      <p class="ec-head-sub">Every board, sensor, input and accessory in the room. Find the part you are holding, then read how it wires up.</p>
+    </div>
+    <a class="ec-unit-link" href="../../curriculum/myp/g10-electronics-design.html">
+      <span class="ec-unit-link-kicker">Back to the unit</span>
+      <span class="ec-unit-link-title">Grade 10 Electronics Design</span>
+    </a>
+  </div>
+</header>
+
+<div class="ec-filters" id="filters">
+  <div class="ec-filters-inner">
+
+    <div class="ec-filter-row ec-filter-row-top">
+      <div class="ec-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input type="search" id="search" placeholder="Search a part or a part number" aria-label="Search parts">
+      </div>
+      <div class="ec-filter-actions">
+        <button type="button" class="ec-btn ec-btn-clear" id="clearBtn" hidden>Clear all</button>
+      </div>
+    </div>
+
+    <div class="ec-filter-group" data-key="category">
+      <span class="ec-filter-label">Category</span>
+      <div class="ec-chips" id="chips-category"></div>
+    </div>
+
+    <button type="button" class="ec-more-toggle" id="moreToggle" aria-expanded="false" aria-controls="moreFilters">
+      <span>More filters</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+
+    <div class="ec-more" id="moreFilters">
+      <div class="ec-more-inner">
+        <div class="ec-filter-group" data-key="signal">
+          <span class="ec-filter-label">Signal type</span>
+          <div class="ec-chips" id="chips-signal"></div>
+        </div>
+        <div class="ec-filter-group" data-key="difficulty">
+          <span class="ec-filter-label">How hard to wire</span>
+          <div class="ec-chips" id="chips-difficulty"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ec-count" id="count" aria-live="polite"></p>
+  </div>
+</div>
+
+<main>
+  <div class="ec-grid" id="grid"></div>
+  <div class="ec-empty" id="empty" hidden>
+    <p class="ec-empty-title">Nothing matches those filters.</p>
+    <p>Try removing one, or search for the part number printed on the board.</p>
+    <button type="button" class="ec-btn" data-clear-all>Clear all filters</button>
+  </div>
+</main>
+
+<footer class="ec-foot">
+  <p>A project by Mr. K, more at <a href="https://edu.contrapaul.com/tools">edu.contrapaul.com/tools</a></p>
+</footer>
+
+<div class="ec-modal" id="modal" hidden>
+  <div class="ec-modal-backdrop" data-close></div>
+  <div class="ec-modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalBox">
+    <div class="ec-modal-nav">
+      <button type="button" class="ec-nav-btn" id="prevBtn" aria-label="Previous part">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="ec-nav-pos" id="navPos"></span>
+      <button type="button" class="ec-nav-btn" id="nextBtn" aria-label="Next part">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button type="button" class="ec-modal-close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ec-modal-scroll" id="modalScroll"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="electronics.js"></script>
+</body>
+</html>
