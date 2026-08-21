@@ -73,7 +73,7 @@ a { color: var(--accent); }
   display: flex; gap: 2.5rem; align-items: flex-end; justify-content: space-between;
   flex-wrap: wrap;
 }
-.mc-head-text { max-width: 62ch; }
+.mc-head-text { min-width: 0; }
 .mc-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
@@ -81,11 +81,15 @@ a { color: var(--accent); }
 }
 .mc-head h1 {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+  font-size: clamp(1.65rem, 4.4vw, 3.4rem);
   line-height: 1.05; letter-spacing: -0.015em;
-  margin: 0 0 0.9rem;
+  margin: 0;
+  white-space: nowrap;
 }
-.mc-lede { margin: 0; color: var(--ink-soft); font-size: 1rem; line-height: 1.7; }
+/* Only a window clearly taller than it is wide gets a two line title. */
+@media (max-aspect-ratio: 3 / 4) {
+  .mc-head h1 { white-space: normal; font-size: clamp(2.1rem, 9vw, 3.4rem); }
+}
 
 .mc-unit-link {
   display: block; text-decoration: none;
@@ -271,7 +275,13 @@ a { color: var(--accent); }
   --ink-dim: var(--fam-ink-soft);
   --line: var(--fam-ink-soft);
 }
-.mc-card-art { --dg-alt: var(--fam-ink); --dg-alt-soft: var(--fam-ink-soft); }
+.mc-card-art {
+  --dg-alt: var(--fam-ink);
+  --dg-alt-soft: var(--fam-ink-soft);
+  /* Marks sitting on top of a filled shape have to flip tone, since the
+     fill is now the family ink rather than a bright accent. */
+  --dg-knock: var(--fam-scrim);
+}
 /* The words belong in the detail window, not on the card. */
 .mc-card-art .dg-t, .mc-card-art .dg-s, .mc-card-art .dg-k, .mc-card-art .dg-on { display: none; }
 .mc-card:hover .mc-card-art { opacity: 0.85; transform: scale(1.04); }

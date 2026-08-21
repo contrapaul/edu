@@ -99,6 +99,25 @@
     goals:  '<span class="mc-bulbs"></span>'
   };
 
+  /* A diagram whose content reaches past its declared viewBox would be
+     clipped by the card or the panel. Rather than trust every viewBox by
+     hand, grow it to fit whatever was actually drawn. Never shrinks it,
+     so the intended framing is kept. */
+  function fitDiagram(svg) {
+    if (!svg) return;
+    let box;
+    try { box = svg.getBBox(); } catch (e) { return; }
+    if (!box || !box.width) return;
+    const vb = svg.viewBox.baseVal;
+    const w = Math.max(vb.width, Math.ceil(box.x + box.width) + 2);
+    const h = Math.max(vb.height, Math.ceil(box.y + box.height) + 2);
+    if (w !== vb.width || h !== vb.height) svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+  }
+
+  function fitAll(root) {
+    (root || document).querySelectorAll(".mc-card-art svg, .mc-slot-diagram svg").forEach(fitDiagram);
+  }
+
   function render() {
     grid.innerHTML = "";
     visible.forEach((m, i) => {
@@ -128,6 +147,7 @@
       card.addEventListener("click", () => open(i));
       grid.appendChild(card);
     });
+    fitAll(grid);
   }
 
   /* ── DETAIL WINDOW ────────────────────────────────────────────── */
@@ -197,6 +217,7 @@
     openIndex = i;
     modalBox.style.setProperty("--fam-color", FAMILIES[m.family].color);
     modalScroll.innerHTML = detailHTML(m);
+    fitAll(modalScroll);
     modalScroll.scrollTop = 0;
     navPos.textContent = (i + 1) + " / " + visible.length;
     prevBtn.disabled = i === 0;
@@ -244,6 +265,10 @@
 
   buildChips();
   apply();
+
+  /* Text is measured above, so the fit is only final once the real fonts
+     have replaced the fallbacks. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => fitAll());
 
   searchInput.addEventListener("input", () => { state.search = searchInput.value.trim().toLowerCase(); apply(); });
   clearBtn.addEventListener("click", clearAll);
