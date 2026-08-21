@@ -1,77 +1,80 @@
-/* review.css — Review Builder. Question cards reuse the .quiz-* classes from
-   curriculum.css so a built quiz looks like the quiz on every topic page. */
+/* review.css — Review Quiz Builder. Question cards reuse the .quiz-* classes
+   from curriculum.css so a built quiz looks like the quiz on every topic page. */
 
-.rv-main { max-width: 60rem; margin: 0 auto; padding: 2rem 1.5rem 8rem; }
+.rv-main { max-width: 78rem; margin: 0 auto; padding: 1.75rem 2rem 5rem; }
 
 .rv-crumb { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem; }
 .rv-crumb a { color: var(--muted); text-decoration: none; }
 .rv-crumb a:hover { color: var(--accent); }
 
-.rv-step { margin-bottom: 3rem; }
-.rv-step[hidden] { display: none; }
-.rv-step-head { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.4rem; }
-.rv-step-head h2 { font-family: var(--font-display); font-size: 1.5rem; margin: 0; }
-.rv-step-num { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; }
-.rv-step-hint { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin: 0 0 1.1rem; max-width: 46rem; }
+/* ── Header block ──────────────────────────────────────────
+   Title, the action row and the filters together are the whole top of the
+   page; the questions start immediately below them. */
+.rv-top { border-bottom: 1px solid var(--border); padding-bottom: 1.1rem; margin-bottom: 1.25rem; }
 
-/* Level */
-.rv-level-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.rv-level {
-  flex: 1 1 12rem;
-  display: flex; flex-direction: column; gap: 0.3rem;
-  text-align: left;
-  font-family: var(--font-display); font-size: 1.15rem; font-weight: 600;
-  padding: 1rem 1.15rem;
-  background: var(--surface); color: var(--text);
-  border: 1px solid var(--border); border-radius: var(--radius);
-  cursor: pointer; transition: all var(--transition);
+.rv-h1 {
+  font-family: var(--font-display); font-size: 1.6rem; line-height: 1.2;
+  margin: 0 0 0.9rem;
+  display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap;
 }
-.rv-level:hover { border-color: var(--border-strong); background: var(--surface-2); }
-.rv-level.active { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
-.rv-level-sub { font-family: var(--font-body); font-size: 0.78rem; font-weight: 400; color: var(--muted); }
-.rv-level.active .rv-level-sub { color: var(--accent); }
+.rv-h1-sub {
+  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+}
 
-/* Buttons */
+.rv-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+.rv-actions-gap { width: 0.75rem; }
+
+.rv-count { display: inline-flex; align-items: baseline; gap: 0.45rem; margin-right: 0.3rem; }
+.rv-count-label {
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted);
+}
+.rv-count-num {
+  font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700;
+  color: var(--text); min-width: 1.4rem;
+}
+
+/* ── Buttons ───────────────────────────────────────────────
+   Everything clickable lifts or changes colour under the pointer, so nothing
+   on the page is ambiguous about whether it does something. */
 .rv-btn {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.05em;
-  padding: 0.55rem 1.1rem;
+  padding: 0.5rem 0.95rem;
   background: var(--surface); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--radius);
   cursor: pointer; transition: all var(--transition);
 }
-.rv-btn:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-2); }
-.rv-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.rv-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+.rv-btn:active:not(:disabled) { transform: translateY(1px); }
+.rv-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .rv-btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.rv-btn-primary:hover:not(:disabled) { background: var(--accent); opacity: 0.85; }
+.rv-btn-primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #fff; opacity: 0.82; }
 .rv-btn-quiet { color: var(--muted); }
 
-/* Topics */
-.rv-topic-actions { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.rv-topic-count { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
-.rv-group-label {
-  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
-  margin: 1.5rem 0 0.6rem;
-}
-.rv-topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.6rem; }
-.rv-topic {
-  display: flex; align-items: flex-start; gap: 0.6rem;
-  padding: 0.7rem 0.85rem;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+/* Filters */
+.rv-filters { display: flex; flex-direction: column; gap: 0.5rem; }
+.rv-pill-row { display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+.rv-pill-row[hidden] { display: none; }
+.rv-pill-set { display: contents; }
+.rv-pill-div { width: 1px; height: 1.1rem; background: var(--border); margin: 0 0.4rem; }
+
+.rv-pill {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em;
+  padding: 0.34rem 0.7rem;
+  background: transparent; color: var(--muted);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
   cursor: pointer; transition: all var(--transition);
 }
-.rv-topic:hover { border-color: var(--border-strong); }
-.rv-topic.on { border-color: var(--accent); background: var(--accent-bg); }
-.rv-topic input { margin-top: 0.2rem; accent-color: var(--accent); cursor: pointer; }
-.rv-topic-body { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
-.rv-topic-code { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; }
-.rv-topic-name { font-size: 0.8rem; line-height: 1.35; }
-.rv-topic-meta { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.05em; }
-.rv-hl-tag { color: var(--hl); font-weight: 700; }
+.rv-pill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.rv-pill:active { transform: translateY(1px); }
+.rv-pill.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.rv-pill.on:hover { opacity: 0.82; background: var(--accent); color: #fff; }
+.rv-pill-quiet { font-size: 0.66rem; }
+.rv-pill-hl { border-style: dashed; }
 
-/* Question pool */
-.rv-quick-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.9rem; }
-.rv-pool-note { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); margin: 0 0 1.25rem; }
+/* ── Question pool ─────────────────────────────────────── */
+.rv-pool-note { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); margin: 0 0 1.1rem; }
 .rv-pool-empty { font-size: 0.88rem; color: var(--muted); padding: 2rem 0; }
 
 .rv-card { position: relative; }
@@ -85,49 +88,46 @@
   cursor: pointer; transition: all var(--transition);
 }
 .rv-remove:hover { color: #991b1b; border-color: #fca5a5; background: #fee2e2; }
-.rv-card.removed { opacity: 0.45; }
+.rv-card.removed { opacity: 0.5; }
 .rv-card.removed .quiz-options { display: none; }
 .rv-card.removed .rv-remove { color: var(--accent); border-color: var(--accent); }
-.rv-card.removed .rv-remove:hover { background: var(--accent-bg); }
+.rv-card.removed .rv-remove:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
 /* A removed question keeps its text on screen, so a misclick is one click back. */
 
-/* Action bar */
-.rv-bar {
-  position: sticky; bottom: 0; z-index: 20;
-  background: var(--surface); border-top: 1px solid var(--border-strong);
+/* Options in the pool are for reading, not answering, but they still respond
+   to the pointer so the card does not feel dead. */
+.rv-card .quiz-option { cursor: default; }
+.rv-card .quiz-option:hover { border-color: var(--border-strong); background: var(--surface-2); }
+
+/* ── Title dialog ──────────────────────────────────────── */
+.rv-dialog {
+  border: 1px solid var(--border-strong); border-radius: var(--radius);
+  background: var(--surface); color: var(--text);
+  padding: 1.5rem; max-width: 26rem; width: calc(100% - 2rem);
+  margin: auto; /* the global reset zeroes the UA margin that centres a modal */
   box-shadow: var(--shadow-md);
 }
-.rv-bar[hidden] { display: none; }
-.rv-bar-inner {
-  max-width: 60rem; margin: 0 auto;
-  padding: 0.9rem 1.5rem;
-  display: flex; align-items: flex-end; gap: 1.25rem; flex-wrap: wrap;
-}
-.rv-title-field { display: flex; flex-direction: column; gap: 0.25rem; flex: 1 1 16rem; }
-.rv-title-field span { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.rv-title-field input {
-  font-family: var(--font-body); font-size: 0.85rem;
-  padding: 0.5rem 0.7rem;
+.rv-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
+.rv-dialog-label { display: block; font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 0.65rem; }
+.rv-dialog input {
+  width: 100%; box-sizing: border-box;
+  font-family: var(--font-body); font-size: 0.9rem;
+  padding: 0.55rem 0.7rem;
   background: var(--bg); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--radius);
 }
-.rv-title-field input:focus { outline: none; border-color: var(--accent); }
-.rv-bar-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.rv-dialog input:focus { outline: none; border-color: var(--accent); }
+.rv-dialog-hint { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin: 0.6rem 0 1.1rem; }
+.rv-dialog-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
 
-@media (max-width: 640px) {
-  .rv-main { padding: 1.5rem 1rem 8rem; }
-  .rv-bar-inner { padding: 0.75rem 1rem; }
-  .rv-bar-actions { width: 100%; }
-  .rv-bar-actions .rv-btn { flex: 1; }
+@media (max-width: 700px) {
+  .rv-main { padding: 1.25rem 1rem 4rem; }
+  .rv-actions-gap { display: none; }
+  .rv-h1 { font-size: 1.3rem; }
 }
 
-/* Options in the pool are for reading, not answering, so the hover state that
-   .quiz-option carries on the topic pages is cancelled here. */
-.rv-card .quiz-option { cursor: default; }
-.rv-card .quiz-option:hover { border-color: var(--border); background: transparent; }
-
-/* Quiz page */
-.rv-quiz-main { padding-top: 2.5rem; padding-bottom: 4rem; }
+/* ── Quiz page ─────────────────────────────────────────── */
+.rv-quiz-main { max-width: 60rem; padding-top: 2.5rem; padding-bottom: 4rem; }
 .rv-quiz-title { font-family: var(--font-display); font-size: 2rem; margin: 0 0 0.5rem; }
 .rv-quiz-meta { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin: 0 0 2rem; max-width: 42rem; }
 .rv-warn { font-family: var(--font-mono); font-size: 0.72rem; color: #991b1b; }

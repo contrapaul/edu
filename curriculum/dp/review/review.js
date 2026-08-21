@@ -1,10 +1,11 @@
-/* review.js — DP Review Builder.
+/* review.js — DP Review Quiz Builder.
    Loads the question bank written by scripts/extract-dp-questions.mjs, then
    filters it down to a quiz the user can take online or print. */
 (function () {
   'use strict';
 
   var LETTERS = ['A', 'B', 'C', 'D'];
+  var DEFAULT_TITLE = 'DP Design Technology Review';
 
   var bank = { topics: [], questions: [] };
   var state = {
@@ -17,17 +18,17 @@
 
   var el = {
     levelRow:   document.getElementById('level-row'),
-    stepTopics: document.getElementById('step-topics'),
-    topicGroups:document.getElementById('topic-groups'),
-    topicCount: document.getElementById('topic-count'),
-    stepQs:     document.getElementById('step-questions'),
+    topicRow:   document.getElementById('topic-row'),
+    topicPills: document.getElementById('topic-pills'),
     pool:       document.getElementById('pool'),
     poolNote:   document.getElementById('pool-note'),
-    bar:        document.getElementById('action-bar'),
     startCount: document.getElementById('start-count'),
     startBtn:   document.getElementById('start-quiz'),
     printBtn:   document.getElementById('make-print'),
-    title:      document.getElementById('quiz-title')
+    restoreBtn: document.getElementById('pool-restore'),
+    dialog:     document.getElementById('title-dialog'),
+    titleForm:  document.getElementById('title-form'),
+    titleInput: document.getElementById('quiz-title')
   };
 
   function byId(id) { return bank.byId[id]; }
@@ -44,106 +45,43 @@
 
   /* ── Level ──────────────────────────────────────────────── */
   el.levelRow.addEventListener('click', function (e) {
-    var btn = e.target.closest('.rv-level');
-    if (!btn) return;
-    if (state.level === btn.dataset.level) return;
+    var btn = e.target.closest('.rv-pill');
+    if (!btn || state.level === btn.dataset.level) return;
     state.level = btn.dataset.level;
-    [].forEach.call(el.levelRow.children, function (b) { b.classList.toggle('active', b === btn); });
+    [].forEach.call(el.levelRow.children, function (b) { b.classList.toggle('on', b === btn); });
     state.topics.clear();
-    renderTopics();
-    el.stepTopics.hidden = false;
+    renderTopicPills();
+    el.topicRow.hidden = false;
     syncPool();
   });
 
   /* ── Topics ─────────────────────────────────────────────── */
-  function renderTopics() {
-    var list = topicsForLevel();
-    var groups = [];
-    list.forEach(function (t) {
-      var key = t.topic[0];
-      var group = groups[groups.length - 1];
-      if (!group || group.key !== key) { group = { key: key, items: [] }; groups.push(group); }
-      group.items.push(t);
+  function renderTopicPills() {
+    el.topicPills.textContent = '';
+    topicsForLevel().forEach(function (t) {
+      var pill = document.createElement('button');
+      pill.className = 'rv-pill' + (t.level === 'HL' ? ' rv-pill-hl' : '');
+      pill.dataset.topic = t.topic;
+      pill.textContent = t.topic;
+      pill.title = t.title + (t.level === 'HL' ? ' (HL)' : '') + ', ' + t.count + ' questions';
+      pill.addEventListener('click', function () {
+        var on = !state.topics.has(t.topic);
+        if (on) state.topics.add(t.topic); else state.topics.delete(t.topic);
+        pill.classList.toggle('on', on);
+        syncPool();
+      });
+      el.topicPills.appendChild(pill);
     });
-
-    el.topicGroups.textContent = '';
-    groups.forEach(function (group) {
-      var label = document.createElement('div');
-      label.className = 'rv-group-label';
-      label.textContent = 'Topic ' + group.key;
-      el.topicGroups.appendChild(label);
-
-      var grid = document.createElement('div');
-      grid.className = 'rv-topic-grid';
-      group.items.forEach(function (t) { grid.appendChild(topicCard(t)); });
-      el.topicGroups.appendChild(grid);
-    });
-    updateTopicCount();
-  }
-
-  function topicCard(t) {
-    var label = document.createElement('label');
-    label.className = 'rv-topic';
-
-    var box = document.createElement('input');
-    box.type = 'checkbox';
-    box.value = t.topic;
-    box.addEventListener('change', function () {
-      if (box.checked) state.topics.add(t.topic); else state.topics.delete(t.topic);
-      label.classList.toggle('on', box.checked);
-      updateTopicCount();
-      syncPool();
-    });
-
-    var body = document.createElement('div');
-    body.className = 'rv-topic-body';
-
-    var code = document.createElement('span');
-    code.className = 'rv-topic-code';
-    code.textContent = t.topic;
-
-    var name = document.createElement('span');
-    name.className = 'rv-topic-name';
-    name.textContent = t.title;
-
-    var meta = document.createElement('span');
-    meta.className = 'rv-topic-meta';
-    meta.textContent = t.count + ' questions';
-    if (t.level === 'HL') {
-      var tag = document.createElement('span');
-      tag.className = 'rv-hl-tag';
-      tag.textContent = ' · HL';
-      meta.appendChild(tag);
-    }
-
-    body.appendChild(code);
-    body.appendChild(name);
-    body.appendChild(meta);
-    label.appendChild(box);
-    label.appendChild(body);
-    return label;
   }
 
   function setAllTopics(on) {
     state.topics.clear();
     if (on) topicsForLevel().forEach(function (t) { state.topics.add(t.topic); });
-    el.topicGroups.querySelectorAll('.rv-topic').forEach(function (label) {
-      var box = label.querySelector('input');
-      box.checked = on;
-      label.classList.toggle('on', on);
-    });
-    updateTopicCount();
+    el.topicPills.querySelectorAll('.rv-pill').forEach(function (p) { p.classList.toggle('on', on); });
     syncPool();
   }
   document.getElementById('topics-all').addEventListener('click', function () { setAllTopics(true); });
   document.getElementById('topics-none').addEventListener('click', function () { setAllTopics(false); });
-
-  function updateTopicCount() {
-    var n = state.topics.size;
-    el.topicCount.textContent = n
-      ? plural(n, 'topic') + ' selected, ' + plural(questionsForTopics().length, 'question')
-      : 'No topics selected';
-  }
 
   /* ── Question pool ──────────────────────────────────────── */
   /* Changing the topic selection rebuilds the pool from scratch, which also
@@ -156,10 +94,6 @@
   }
 
   function renderPool() {
-    var hasTopics = state.topics.size > 0;
-    el.stepQs.hidden = !hasTopics;
-    if (!hasTopics) { el.bar.hidden = true; return; }
-
     el.pool.textContent = '';
     state.pool.forEach(function (id) { el.pool.appendChild(questionCard(byId(id))); });
     updateCounts();
@@ -230,7 +164,7 @@
     });
   });
 
-  document.getElementById('pool-restore').addEventListener('click', syncPool);
+  el.restoreBtn.addEventListener('click', syncPool);
 
   function updateCounts() {
     var n = included().length;
@@ -239,33 +173,44 @@
     document.querySelectorAll('[data-quick]').forEach(function (btn) {
       btn.disabled = available < parseInt(btn.dataset.quick, 10);
     });
-    document.getElementById('pool-restore').disabled = state.pool.length === available && state.removed.size === 0;
+    el.restoreBtn.disabled = state.pool.length === available && state.removed.size === 0;
 
-    el.startCount.textContent = '(' + n + ')';
+    el.startCount.textContent = n;
     el.startBtn.disabled = n === 0;
     el.printBtn.disabled = n === 0;
-    el.bar.hidden = state.pool.length === 0;
 
     var drawn = state.quick
       ? plural(state.quick, 'question') + ' drawn at random from ' + plural(state.topics.size, 'topic') + '.'
       : '';
-    el.poolNote.textContent = state.removed.size
-      ? (drawn ? drawn + ' ' : '') + plural(n, 'question') + ' left, ' + state.removed.size + ' removed.'
-      : drawn || plural(n, 'question') + ' in this quiz.';
+    el.poolNote.textContent = !state.pool.length ? ''
+      : state.removed.size
+        ? (drawn ? drawn + ' ' : '') + plural(n, 'question') + ' left, ' + state.removed.size + ' removed.'
+        : drawn;
   }
 
   /* ── Hand-off ───────────────────────────────────────────── */
   /* The order is shuffled once, here, so the quiz page and the printed sheet
      both work from the same numbering. */
-  function handOff(page) {
+  function handOff(page, title) {
     sessionStorage.setItem('dp-review-quiz', JSON.stringify({
-      title: el.title.value.trim() || 'DP Design Technology Review',
+      title: title || DEFAULT_TITLE,
       ids: shuffled(included())
     }));
     window.location.href = page;
   }
-  el.startBtn.addEventListener('click', function () { handOff('quiz.html'); });
-  el.printBtn.addEventListener('click', function () { handOff('print.html'); });
+
+  el.startBtn.addEventListener('click', function () { handOff('quiz.html', DEFAULT_TITLE); });
+
+  el.printBtn.addEventListener('click', function () {
+    el.titleInput.value = '';
+    el.dialog.showModal();
+    el.titleInput.focus();
+  });
+  document.getElementById('title-cancel').addEventListener('click', function () { el.dialog.close(); });
+  el.titleForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    handOff('print.html', el.titleInput.value.trim());
+  });
 
   /* ── Load ───────────────────────────────────────────────── */
   fetch('questions.json')
@@ -274,9 +219,9 @@
       bank = data;
       bank.byId = {};
       bank.questions.forEach(function (q) { bank.byId[q.id] = q; });
+      updateCounts();
     })
     .catch(function () {
-      el.levelRow.insertAdjacentHTML('afterend',
-        '<p class="rv-pool-empty">The question bank could not be loaded. Try reloading the page.</p>');
+      el.pool.innerHTML = '<p class="rv-pool-empty">The question bank could not be loaded. Try reloading the page.</p>';
     });
 })();
