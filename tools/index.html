@@ -462,6 +462,27 @@
 .cs-banner:hover .cs-shot { transform: scale(1.06); }
 .cs-banner:hover { border-color: rgba(255,255,255,0.28) !important; 
 }
+
+/* 35: Riveted Nameplate (machined plate, rivet at each corner) */
+.cs-plate {
+  background-color: #3f434a !important;
+  background-image:
+    radial-gradient(circle at 14px 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) 14px, #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at 14px calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), #9aa1ab 3.4px, #4a4f57 4.2px, transparent 5px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 4px);
+  border: 1px solid #22252a !important;
+  border-radius: 5px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), inset 0 -3px 8px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, filter 0.3s !important;
+}
+.cs-plate .tool-card-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.18);
+}
+.cs-plate:hover { filter: brightness(1.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -3px 8px rgba(0,0,0,0.4), 0 10px 26px rgba(0,0,0,0.5) !important; }
 </style>
 </head>
 <body>
@@ -532,6 +553,18 @@
    style="--card-title-color:#2dd4bf; --card-sub-color:#7fc4bb;">
   <h3 class="tool-card-title">Macropad Builder</h3>
   <p class="tool-card-sub">Plan components, wiring, and create downloadable code to build a Macropad with an ESP32 device.</p>
+</a>
+
+<a class="tool-card cs-plate" href="https://edu.contrapaul.com/tools/electronics/"
+   style="--card-title-color:#d6dbe2; --card-sub-color:#9aa1ab;">
+  <h3 class="tool-card-title">Electronics Parts Catalog</h3>
+  <p class="tool-card-sub">Every board, sensor, input and accessory in the room, with its pins, its wiring and the ways it goes wrong.</p>
+</a>
+
+<a class="tool-card cs-spotlight" href="/tools/mechanics/"
+   style="--card-title-color:#f4f4fa; --card-sub-color:#a5a5bd;">
+  <h3 class="tool-card-title">Game Mechanics Catalog</h3>
+  <p class="tool-card-sub">70 mechanics from tabletop and video games, each with the rules, the games that use it, and a diagram.</p>
 </a>
 
 <a class="tool-card cs-crtterm" href="https://edu.contrapaul.com/tools/central-middlezhong-adventure"
