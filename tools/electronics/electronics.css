@@ -10,27 +10,29 @@
 @font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
 @font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
 @font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
-@font-face { font-family:'Bespoke Slab'; src:url('../../Fonts/fonts/BespokeSlab-Bold.woff2') format('woff2');      font-weight:700; font-display:swap; }
-@font-face { font-family:'Bespoke Slab'; src:url('../../Fonts/fonts/BespokeSlab-Extrabold.woff2') format('woff2'); font-weight:800; font-display:swap; }
-@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
-@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2');   font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Medium.woff2') format('woff2');    font-weight:500; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');      font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
 
 /* ── GROUND ───────────────────────────────────────────────────────── */
 :root {
-  --ink:       #eef0f6;
-  --ink-soft:  #a3a9bb;
-  --ink-dim:   #71778c;
-  --ground:    #14161b;
-  --panel:     #1c1f26;
-  --panel-2:   #242832;
-  --panel-3:   #2c313d;
-  --line:      #333846;
+  --ink:       #eef6f0;
+  --ink-soft:  #a9bdb0;
+  --ink-dim:   #7d9587;
+  /* Solder mask green. The panels are tinted the same hue so the dark
+     cards read as parts sitting on a board rather than grey stickers. */
+  --ground:    #14603f;
+  --panel:     #10281d;
+  --panel-2:   #173425;
+  --panel-3:   #1f4231;
+  --line:      #2c5240;
   --accent:    #4fd6c9;
   --accent-2:  #FFE536;
   --warn:      #ff7a9c;
   --radius:    12px;
 
-  --font-display: 'Bespoke Slab', Georgia, 'Times New Roman', serif;
+  --font-display: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
   --font-body:    'Lexend', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
 }
@@ -41,7 +43,7 @@ body {
   margin: 0;
   background-color: var(--ground);
   /* A quiet perfboard grid, since that is what everything here ends up on. */
-  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0);
   background-size: 20px 20px;
   color: var(--ink);
   font-family: var(--font-body);
@@ -54,7 +56,7 @@ a { color: var(--accent); }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
-  background: var(--accent); color: #14161b;
+  background: var(--accent); color: #10281d;
   padding: 0.6rem 1rem; font-weight: 600; z-index: 200;
 }
 .skip-link:focus { left: 0; }
@@ -82,8 +84,8 @@ a { color: var(--accent); }
 }
 .ec-head h1 {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(1.7rem, 4.4vw, 3.3rem);
-  line-height: 1.05; letter-spacing: -0.015em;
+  font-size: clamp(1.5rem, 3.9vw, 2.9rem);
+  line-height: 1.1; letter-spacing: -0.01em;
   margin: 0;
 }
 .ec-head-sub {
@@ -112,7 +114,7 @@ a { color: var(--accent); }
 /* ── FILTER BAR ───────────────────────────────────────────────────── */
 .ec-filters {
   position: sticky; top: 0; z-index: 60;
-  background: rgba(20,22,27,0.94);
+  background: rgba(16,40,29,0.94);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -163,7 +165,7 @@ a { color: var(--accent); }
 .ec-chip:hover { color: var(--ink); border-color: var(--ink-dim); }
 .ec-chip-dot { width: 8px; height: 8px; border-radius: 2px; background: var(--chip-color, var(--ink-dim)); flex: 0 0 auto; }
 .ec-chip[aria-pressed="true"] {
-  color: #14161b; font-weight: 700;
+  color: #10281d; font-weight: 700;
   background: var(--chip-color, var(--accent));
   border-color: var(--chip-color, var(--accent));
 }
@@ -196,11 +198,11 @@ a { color: var(--accent); }
   max-width: 1240px; margin: 0 auto;
   padding: 2.5rem 1.5rem 4rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.3rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4rem;
 }
 
-.ec-empty { max-width: 1240px; margin: 0 auto; padding: 1rem 1.5rem 5rem; color: var(--ink-soft); }
+.ec-empty { max-width: 1240px; margin: 0 auto; padding: 1rem 1.5rem 5rem; color: var(--ink); }
 .ec-empty-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--ink); margin: 0 0 0.3rem; }
 .ec-empty p { margin: 0 0 1rem; }
 
@@ -271,7 +273,7 @@ a { color: var(--accent); }
   border: 1px solid var(--line); border-radius: 999px; padding: 0.18rem 0.55rem;
 }
 
-.ec-card-body { padding: 0.95rem 1.05rem 1.15rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.ec-card-body { padding: 0.85rem 1rem 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
 .ec-card-cat {
   font-family: var(--font-mono); font-size: 0.55rem;
   letter-spacing: 0.15em; text-transform: uppercase;
@@ -279,7 +281,7 @@ a { color: var(--accent); }
 }
 .ec-card-title {
   font-family: var(--font-display); font-weight: 800;
-  font-size: 1.05rem; line-height: 1.2; letter-spacing: -0.01em;
+  font-size: 0.98rem; line-height: 1.3; letter-spacing: -0.005em;
   margin: 0; color: var(--ink);
 }
 .ec-card-blurb {
@@ -288,18 +290,11 @@ a { color: var(--accent); }
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   line-clamp: 3; overflow: hidden;
 }
-.ec-card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.55rem; }
-.ec-card-tag {
-  font-family: var(--font-mono); font-size: 0.55rem;
-  letter-spacing: 0.06em;
-  padding: 0.16rem 0.45rem;
-  border: 1px solid var(--line); border-radius: 4px; color: var(--ink-dim);
-}
 
 /* ── MODAL ────────────────────────────────────────────────────────── */
 .ec-modal { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
 .ec-modal[hidden] { display: none; }
-.ec-modal-backdrop { position: absolute; inset: 0; background: rgba(6,7,10,0.84); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.ec-modal-backdrop { position: absolute; inset: 0; background: rgba(6,20,14,0.86); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 
 .ec-modal-box {
   position: relative;
@@ -345,7 +340,7 @@ a { color: var(--accent); }
 .ec-detail-cat::before { content: ''; width: 9px; height: 9px; border-radius: 2px; background: currentColor; }
 .ec-detail-head h2 {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(1.6rem, 4vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em;
+  font-size: clamp(1.35rem, 3.4vw, 1.95rem); line-height: 1.2; letter-spacing: -0.01em;
   margin: 0 0 0.5rem;
 }
 .ec-detail-alias { margin: 0 0 1rem; font-size: 0.82rem; color: var(--ink-dim); }
@@ -401,7 +396,7 @@ a { color: var(--accent); }
   width: 1.6rem; height: 1.6rem;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
-  color: #14161b; background: var(--cat-color, var(--accent)); border-radius: 6px;
+  color: #10281d; background: var(--cat-color, var(--accent)); border-radius: 6px;
 }
 
 /* warnings */

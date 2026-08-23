@@ -111,15 +111,15 @@
       card.dataset.index = i;
       card.style.setProperty("--cat-color", cat.color);
       card.setAttribute("aria-label", p.name + ". " + p.blurb);
+      /* No signal tags here. They cost a row of vertical space on every
+         card and push the photo down, so they live in the detail panel
+         meta row instead, where there is room for all of them. */
       card.innerHTML =
         '<span class="ec-card-photo">' + photo(p) + "</span>" +
         '<span class="ec-card-body">' +
           '<span class="ec-card-cat">' + esc(cat.short) + "</span>" +
           '<span class="ec-card-title">' + esc(p.name) + "</span>" +
           '<span class="ec-card-blurb">' + esc(p.blurb) + "</span>" +
-          '<span class="ec-card-tags">' +
-            p.signal.slice(0, 3).map((s) => '<span class="ec-card-tag">' + esc(s) + "</span>").join("") +
-          "</span>" +
         "</span>";
       card.addEventListener("click", () => open(i));
       grid.appendChild(card);
