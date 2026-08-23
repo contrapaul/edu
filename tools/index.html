@@ -484,6 +484,29 @@
   text-shadow: 0 -1px 0 rgba(0,0,0,0.75), 0 1px 0 rgba(255,255,255,0.18);
 }
 .cs-plate:hover { filter: brightness(1.12); box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -3px 8px rgba(0,0,0,0.4), 0 10px 26px rgba(0,0,0,0.5) !important; }
+
+.cs-corner {
+  background: #14161c !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 2px !important;
+}
+.cs-corner::before, .cs-corner::after {
+  content: ''; position: absolute; width: 26px; height: 26px;
+  border: 2px solid #FFE536;
+  transition: inset 0.3s ease, opacity 0.3s;
+  pointer-events: none;
+}
+.cs-corner::before {
+  top: 12px; left: 12px;
+  border-right: none; border-bottom: none;
+}
+.cs-corner::after {
+  bottom: 12px; right: 12px;
+  border-left: none; border-top: none;
+}
+.cs-corner:hover::before { top: 6px; left: 6px; }
+.cs-corner:hover::after { bottom: 6px; right: 6px; }
+.cs-corner:hover { border-color: rgba(255,229,54,0.4) !important; }
 </style>
 </head>
 <body>
@@ -550,8 +573,8 @@
   <p class="tool-card-sub">A timetable/schedule website for teachers and students.</p>
 </a>
 
-<a class="tool-card cs-circuit" href="https://edu.contrapaul.com/tools/macropad"
-   style="--card-title-color:#2dd4bf; --card-sub-color:#7fc4bb;">
+<a class="tool-card cs-circuit cs-circuit-gray" href="https://edu.contrapaul.com/tools/macropad"
+   style="--card-title-color:#FF7200; --card-sub-color:#2dd4bf;">
   <h3 class="tool-card-title">Macropad Builder</h3>
   <p class="tool-card-sub">Plan components, wiring, and create downloadable code to build a Macropad with an ESP32 device.</p>
 </a>
@@ -562,10 +585,10 @@
   <p class="tool-card-sub">Every board, sensor, input and accessory in the room, with its pins, its wiring and the ways it goes wrong.</p>
 </a>
 
-<a class="tool-card cs-spotlight" href="/tools/mechanics/"
-   style="--card-title-color:#f4f4fa; --card-sub-color:#a5a5bd;">
+<a class="tool-card cs-corner" href="#"
+   style="--card-title-color:#f4f1e2; --card-sub-color:#9a978a;">
   <h3 class="tool-card-title">Game Mechanics Catalog</h3>
-  <p class="tool-card-sub">70 mechanics from tabletop and video games, each with the rules, the games that use it, and a diagram.</p>
+  <p class="tool-card-sub">A ton of mechanics from tabletop and video games to help build your own!</p>
 </a>
 
 <a class="tool-card cs-crtterm" href="https://edu.contrapaul.com/tools/central-middlezhong-adventure"
