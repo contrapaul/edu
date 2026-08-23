@@ -53,13 +53,10 @@
       s.textContent = sub;
       h.appendChild(s);
     } else {
-      /* Somewhere for the student to write on the printed sheet. */
+      /* The student writes on the rule that closes the header. */
       var name = document.createElement('p');
       name.className = 'pr-name';
-      name.appendChild(document.createTextNode('Name'));
-      var rule = document.createElement('span');
-      rule.className = 'pr-name-rule';
-      name.appendChild(rule);
+      name.textContent = 'Name';
       h.appendChild(name);
     }
     target.appendChild(h);

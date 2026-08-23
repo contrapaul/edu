@@ -29,8 +29,9 @@
 }
 .pr-title { font-family: var(--font-display); font-size: 1.2rem; margin: 0; }
 .pr-subtitle { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0; }
-.pr-name { font-size: 0.9rem; margin: 0; display: flex; align-items: baseline; gap: 0.5rem; }
-.pr-name-rule { display: inline-block; width: 12rem; border-bottom: 1px solid var(--text); }
+/* The fixed width holds "Name" where the writing space is, rather than
+   letting it sit hard against the right margin. */
+.pr-name { font-size: 0.9rem; margin: 0; width: 12rem; }
 
 .pr-q { margin-bottom: 1rem; }
 .pr-q-text { font-size: 0.92rem; line-height: 1.45; margin: 0 0 0.4rem; }
@@ -70,7 +71,6 @@
   .pr-head { border-bottom: 2px solid #000; }
   .pr-title, .pr-q-text, .pr-q-num, .pr-a-line, .pr-a-letter, .pr-name { color: #000; }
   .pr-subtitle, .pr-a-ref, .pr-a-why { color: #333; }
-  .pr-name-rule { border-bottom-color: #000; }
   .pr-options li { color: #000; }
   .pr-opt-letter { border-color: #000; color: #000; }
 

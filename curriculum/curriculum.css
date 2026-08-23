@@ -2037,6 +2037,33 @@ details.p2-reveal summary::before { content: "▼ "; }
 .prog-hero--compact .prog-hero-title { font-size: 1.55rem; margin-bottom: 0.35rem; }
 .prog-hero--compact .prog-hero-desc { font-size: 0.8rem; line-height: 1.6; }
 
+/* DP hub hero: the intro holds the left column, every set of links the right.
+   Each set is one label over a row of pills. */
+.hero-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); gap: 2.5rem; align-items: start; }
+.hero-side { display: flex; flex-direction: column; gap: 1.1rem; }
+.hero-side .quick-links { margin-top: 0; }
+.hero-side .quick-links-nav { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: none; }
+
+.quick-links-nav--pills { display: flex; flex-wrap: wrap; }
+.quick-links-nav--pills a, .pill-empty {
+  min-height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--muted);
+  text-decoration: none;
+}
+.pill-empty { opacity: 0.5; }
+
+@media (max-width: 900px) {
+  .hero-split { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .hero-side .quick-links-nav { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+}
+
 .dp-hub { max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
 .dp-hub .hub-programme { border-bottom: none; }
 .dp-hub .hub-programme:not(:last-child) { margin-bottom: 3rem; }
