@@ -507,6 +507,32 @@
 .cs-corner:hover::before { top: 6px; left: 6px; }
 .cs-corner:hover::after { bottom: 6px; right: 6px; }
 .cs-corner:hover { border-color: rgba(255,229,54,0.4) !important; }
+
+.cs-orbit {
+  background: #1f1f38 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cs-orbit::before {
+  content: '';
+  position: absolute; inset: -50%;
+  background: conic-gradient(from 0deg, transparent 70%, #FFE536, #FA16C2, transparent);
+  animation: cs-orbit 3s linear infinite paused;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -2;
+}
+.cs-orbit::after {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 17px;
+  background: #1f1f38;
+  z-index: -1;
+}
+.cs-orbit:hover::before { opacity: 1; animation-play-state: running; }
+@keyframes cs-orbit { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -579,10 +605,16 @@
   <p class="tool-card-sub">Plan components, wiring, and create downloadable code to build a Macropad with an ESP32 device.</p>
 </a>
 
-<a class="tool-card cs-corner" href="#"
+<a class="tool-card cs-corner" href="/tools/mechanics/"
    style="--card-title-color:#f4f1e2; --card-sub-color:#9a978a;">
   <h3 class="tool-card-title">Game Mechanics Catalog</h3>
   <p class="tool-card-sub">A ton of mechanics from tabletop and video games to help build your own!</p>
+</a>
+
+<a class="tool-card cs-orbit" href="/tools/pcparts/"
+   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
+  <h3 class="tool-card-title">Explore PC Parts</h3>
+  <p class="tool-card-sub">Discover 50 years of computer components</p>
 </a>
 
 <a class="tool-card cs-crtterm" href="https://edu.contrapaul.com/tools/central-middlezhong-adventure"
@@ -677,12 +709,6 @@
    style="--card-title-color:#3a3326; --card-sub-color:#6b6249;">
   <h3 class="tool-card-title">Regulatory Papers, Please!</h3>
   <p class="tool-card-sub">Take a product from design to market and collect regulatory certification!</p>
-</a>
-
-<a class="tool-card cs-chrome" href="/tools/pcparts/"
-   style="--card-title-color:#1c1f26; --card-sub-color:#3d434e;">
-  <h3 class="tool-card-title">Computer Parts: A History</h3>
-  <p class="tool-card-sub">Discover 50 years of computer components</p>
 </a>
 
 <a class="tool-card cs-aurora" href="/tools/RTSproject/"
