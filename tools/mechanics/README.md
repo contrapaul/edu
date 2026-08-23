@@ -69,6 +69,16 @@ video: { src: "https://player.bilibili.com/player.html?bvid=...", caption: "..."
 Set `videoNeed: "Not needed."` to hide a slot entirely rather than show a
 placeholder for something you have decided against.
 
+A filled slot gets a solid border, one still waiting stays dashed. Images are
+centred and capped at 440px tall, so a portrait card scan and a wide table photo
+both sit correctly without being stretched.
+
+After filling a slot, refresh the task list:
+
+```bash
+node build-tasks.js > tasks.md
+```
+
 ## Adding a diagram
 
 Add a key to `DIAGRAMS` in `diagrams.js` returning an SVG string, then name that

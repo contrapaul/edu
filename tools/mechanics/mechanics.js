@@ -158,7 +158,7 @@
         (caption ? '<p class="mc-slot-caption">' + esc(caption) + "</p>" : "") + "</div>";
     }
     if (!need || /^not needed/i.test(need)) return "";
-    return '<div class="mc-slot"><div class="mc-slot-empty">' +
+    return '<div class="mc-slot mc-slot-todo"><div class="mc-slot-empty">' +
       '<span class="mc-slot-kind">' + kind + " to come</span>" +
       '<p class="mc-slot-need">' + esc(need) + "</p></div></div>";
   }

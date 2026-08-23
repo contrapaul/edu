@@ -583,11 +583,21 @@ a { color: var(--accent); }
 /* media slots */
 .mc-media { display: grid; gap: 1rem; }
 .mc-slot {
-  border: 1px dashed var(--line); border-radius: 10px;
+  border: 1px solid var(--line); border-radius: 10px;
   background: var(--panel-2);
   overflow: hidden;
 }
-.mc-slot img, .mc-slot video { display: block; width: 100%; height: auto; }
+/* Dashed means the slot is still waiting for a file. */
+.mc-slot-todo { border-style: dashed; }
+/* A slot holds anything from a wide table photo to a tall card scan, so the
+   image is centred and capped by height rather than stretched to the panel. */
+.mc-slot img, .mc-slot video {
+  display: block;
+  width: auto; height: auto;
+  max-width: 100%; max-height: 440px;
+  margin: 0 auto;
+  padding: 1rem;
+}
 .mc-slot iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
 .mc-slot-caption { padding: 0.6rem 0.9rem; font-size: 0.78rem; color: var(--ink-soft); border-top: 1px solid var(--line); }
 .mc-slot-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 2rem 1.2rem; text-align: center; min-height: 150px; }

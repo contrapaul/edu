@@ -8,7 +8,6 @@
 
   var docQuiz = document.getElementById('doc-quiz');
   var docKey  = document.getElementById('doc-key');
-  var hint    = document.getElementById('pr-hint');
 
   var saved;
   try { saved = JSON.parse(sessionStorage.getItem('dp-review-quiz')); } catch (e) { saved = null; }
@@ -53,6 +52,15 @@
       s.className = 'pr-subtitle';
       s.textContent = sub;
       h.appendChild(s);
+    } else {
+      /* Somewhere for the student to write on the printed sheet. */
+      var name = document.createElement('p');
+      name.className = 'pr-name';
+      name.appendChild(document.createTextNode('Name'));
+      var rule = document.createElement('span');
+      rule.className = 'pr-name-rule';
+      name.appendChild(rule);
+      h.appendChild(name);
     }
     target.appendChild(h);
   }
@@ -60,10 +68,6 @@
   /* Student sheet: no topic, no sub-topic, no answers. */
   function buildSheet(questions) {
     head(docQuiz, null);
-    var count = document.createElement('p');
-    count.className = 'pr-count';
-    count.textContent = questions.length + ' questions. Choose one answer for each.';
-    docQuiz.appendChild(count);
 
     questions.forEach(function (q, i) {
       var block = document.createElement('section');
@@ -139,9 +143,6 @@
     document.querySelectorAll('.pr-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
     docQuiz.hidden = wantKey;
     docKey.hidden = !wantKey;
-    hint.textContent = wantKey
-      ? 'This guide is for you, not the students. Its numbering matches the quiz sheet exactly.'
-      : 'Print this for students. The answer guide is behind the other tab.';
     window.scrollTo(0, 0);
   });
 

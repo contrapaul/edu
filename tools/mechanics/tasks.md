@@ -1,9 +1,14 @@
 # Media task list
 
-Generated from the `media` fields in `data.js`. Every mechanic in the catalogue
-has a slot waiting for these, and until one is filled the page shows a labelled
-placeholder describing what should go there. The page is complete and presentable
-without any of them.
+Generated from the `media` fields in `data.js`. Re-run it after filling a slot:
+
+```bash
+node build-tasks.js > tasks.md
+```
+
+Every mechanic has a slot waiting, and until one is filled the page shows a
+labelled placeholder describing what should go there. The page is complete and
+presentable without any of them.
 
 To fill a slot, drop the file in `media/` and edit that mechanic in `data.js`:
 
@@ -14,10 +19,17 @@ image: { src: "media/your-file.jpg", alt: "What it shows", caption: "Optional ca
 | | count |
 |---|---|
 | Photos to shoot | 66 |
-| Screen captures | 3 |
+| Screen captures | 2 |
 | Video clips | 18 |
-| **Total items** | **87** |
+| **Still to do** | **86** |
+| Already filled | 1 |
 | Diagrams already drawn | 70 |
+
+## Done
+
+| Mechanic | Family | Slot | File |
+|---|---|---|---|
+| The Coin | Fairness | Photo | `media/coin.png` |
 
 ---
 
@@ -94,7 +106,7 @@ Physical components on a table. The cheapest and fastest of these to produce, an
 | [ ] | Variable Turn Order | Turn Order | Power Grid, Citadels | Photo of a turn order track with player markers in a changed order. |
 | [ ] | You Go, I Go | Turn Order | Warhammer 40,000: Kill Team, Chess | Photo of a Kill Team board mid-round, with two players reaching in at the same time. |
 
-## 2. Screen capture (3 items)
+## 2. Screen capture (2 items)
 
 Stills or clips from games on a screen. Quick to make if you own the game. Check your school policy on using publisher screenshots before you publish any of these.
 
@@ -102,7 +114,6 @@ Stills or clips from games on a screen. Quick to make if you own the game. Check
 |---|---|---|---|---|
 | [ ] | Aggro and Taunt | Combat | Hearthstone, World of Warcraft | Screenshot of a Hearthstone board with a taunt minion shielding weaker ones. |
 | [ ] | Rubber-Banding | Fairness | Mario Kart 8, Mario Party | Diagram or screenshot showing the Mario Kart item table by race position. |
-| [ ] | The Coin | Fairness | Hearthstone, Go | Screenshot of The Coin card in Hearthstone, plus a photo of a Go board showing the komi score. |
 
 ## 3. Film or source a clip (18 items)
 
@@ -131,16 +142,12 @@ Short video, ten to thirty seconds. The most work per item, so treat this list a
 
 ---
 
-## 4. Already covered, do not duplicate
+## Already covered, do not duplicate
 
-All 70 mechanics have a diagram drawn in `diagrams.js`. Each one appears twice:
+All 70 mechanics have a diagram drawn in `diagrams.js`. Each appears twice:
 full size and in colour inside the detail window, and again small, wordless, and
-in one colour as the artwork on the card itself.
-
-These need no photograph to be useful, so if your time is short, skip anything
-above whose diagram already makes the point:
-
-- **Luck as an Equaliser** (Fairness), diagram only, nothing to source
+in one colour as the artwork on the card itself. If your time is short, skip
+anything above whose diagram already makes the point.
 
 ---
 

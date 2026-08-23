@@ -336,8 +336,12 @@ const MECHANICS = [
     { label: "Komi, the same idea in Go", url: "https://en.wikipedia.org/wiki/Komi_(Go)", kind: "Article", vpn: true }
   ],
   media: {
-    image: null,
-    imageNeed: "Screenshot of The Coin card in Hearthstone, plus a photo of a Go board showing the komi score.",
+    image: {
+      src: "media/coin.png",
+      alt: "The Coin, a Hearthstone card costing zero mana, reading Gain 1 Mana Crystal this turn only",
+      caption: "The whole rule fits on one card. The player going second gets one extra mana, once, and that is enough to even out the win rate."
+    },
+    imageNeed: "Not needed.",
     video: null,
     videoNeed: "Short clip of a Hearthstone match start where The Coin is dealt and then played.",
     diagram: "fair-first-player"
