@@ -21,7 +21,7 @@ const CATEGORIES = {
 };
 
 const FILTERS = {
-  signal: ["Digital in", "Analog in", "Digital out", "PWM", "I2C", "SPI", "Power", "No signal"],
+  signal: ["Digital in", "Analog in", "Digital out", "PWM", "I2C", "I2S", "SPI", "Power", "No signal"],
   difficulty: ["Easy", "Moderate", "Tricky"]
 };
 
@@ -76,11 +76,69 @@ const PARTS = [
     image: {
       src: "media/s3n16r8.webp",
       alt: "An ESP32-S3 N16R8 board seen from above on a white background, with two USB-C sockets on one edge, a silver radio shield marked S3-N16R8, and a GPIO number printed beside every pin hole.",
-      caption: "The GPIO number is printed beside every hole, which is the quickest way to check a pin. This one came with its header pins loose in the bag, so they need soldering on before it will sit in a breadboard. It also has two USB-C sockets: if the computer does not see the board, try the other one."
+      caption: "The GPIO number is printed beside every hole, which is the quickest way to check a pin. This one came with its header pins loose in the bag, so they need soldering on before it will sit in a breadboard."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/S3detail.webp",
+      alt: "The same ESP32-S3 board straight on and filling the frame, with both rows of pin labels readable, the RST and BOOT buttons, the regulator and the RGB LED all visible.",
+      caption: "Every pin label reads clearly here. The bottom row runs 3V3, 3V3, RST, then 4, 5, 6, 7, 15, 16, 17, 18, 8, 3, 46, 9, 10, 11, 12, 13, 14, 5Vin, GND. The small chip beside the sockets is the USB to serial converter, which is why one socket behaves differently from the other."
+    },
+    detailNeed: "Done."
+  }
+},
+
+{
+  slug: "esp32-s3-supermini",
+  name: "ESP32-S3 Super Mini",
+  shortName: "S3 Super Mini",
+  category: "boards",
+  alsoCalled: ["S3 Mini", "ESP32-S3 Zero"],
+  blurb: "A full S3 shrunk to a thumbnail. Keyboard support in the smallest board.",
+  signal: ["Digital in", "Digital out", "Analog in", "PWM", "I2C", "SPI", "Power"],
+  difficulty: "Moderate",
+  voltage: "3.3V logic, 5V in over USB",
+  whatItIs: [
+    "The same ESP32-S3 chip as the big development board, mounted on a board about the size of a thumbnail. The marking on the chip reads ESP32-S3, and that is worth checking, because the C3 Super Mini looks almost identical and cannot pretend to be a keyboard.",
+    "Because it is a real S3 it keeps USB keyboard and mouse support, which the C3 boards do not have. That makes it the right choice for a macropad that has to fit inside a small printed case.",
+    "The trade is pins. You get roughly a dozen usable GPIO instead of the thirty on the full size board, so the layout has to be planned before any wiring starts."
+  ],
+  pins: [
+    { name: "5V", type: "Power", note: "5 volts from the USB socket." },
+    { name: "3V3", type: "Power out", note: "3.3 volts out for sensors and modules. The regulator is small, so keep the total draw low." },
+    { name: "GND", type: "Ground", note: "Ground. There are few of them, so a breadboard rail is not optional here." },
+    { name: "Low numbered GPIO", type: "Analog in", note: "The single digit pins can read analog voltages. Check the silkscreen on your own board, as the layout differs between batches." },
+    { name: "Higher numbered GPIO", type: "Digital", note: "Plain digital pins with PWM. The safest ones to start with." },
+    { name: "GPIO48", type: "Digital out", note: "Usually drives the onboard RGB LED. Confirm on your board before using it for anything else." },
+    { name: "USB-C", type: "Power", note: "Programming and power. On this board it is the chip's own USB, so the computer sees the S3 directly." }
+  ],
+  wiring: [
+    "Read the chip marking before anything else. If it says ESP32-S3 you have this board. If it says ESP32-C3 you have the C3 Super Mini, which behaves differently.",
+    "Solder the header pins on. These ship with the headers loose in the bag.",
+    "Seat it across the breadboard centre channel and run 3V3 and GND to the rails.",
+    "Write down which pin does what as you go. With a dozen pins there is no room to guess later."
+  ],
+  goesWith: ["esp32-s3", "esp32-c3-supermini", "header-pins", "soldering-iron"],
+  watchOut: [
+    "It is easy to mistake for the C3 Super Mini. The two are the same shape and the same price, and only the S3 can act as a USB keyboard.",
+    "The 3.3V regulator is small. A servo or a motor run from 3V3 will brown the board out and cause random resets.",
+    "Several of the low numbered pins affect how the board starts up. A part holding one of them the wrong way stops it booting.",
+    "The USB-C socket is soldered to a very thin board. Support it when plugging and unplugging, or the socket tears off."
+  ],
+  useItFor: "A macropad, a handheld, or anything that has to behave like a keyboard while fitting inside a case a student can print.",
+  links: [
+    { label: "Espressif ESP32-S3 product page", url: "https://www.espressif.com/en/products/socs/esp32-s3", kind: "Datasheet", vpn: false },
+    { label: "MacroPad Builder, plan a layout in the browser", url: "/tools/macropad/", kind: "Tool", vpn: false }
+  ],
+  media: {
+    image: {
+      src: "media/esps3mini.webp",
+      alt: "A thumbnail sized ESP32-S3 Super Mini board at an angle, with soldered header pins, a USB-C socket at one end, two small buttons and a square chip marked ESP32-S3.",
+      caption: "The chip marking is the only reliable way to tell this from the C3 Super Mini, and the difference decides whether the board can be a keyboard."
     },
     imageNeed: "Done.",
     detail: null,
-    detailNeed: "The board seated in a breadboard across the centre channel, with power and ground jumpers already run."
+    detailNeed: "Straight down on the board with every pin label readable, the same framing as the full size S3 shot."
   }
 },
 
@@ -464,10 +522,18 @@ const PARTS = [
     { label: "Adafruit, tactile switches", url: "https://learn.adafruit.com/make-it-switch", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "Several buttons of different sizes side by side, legs visible, with one turned over.",
-    detail: null,
-    detailNeed: "A four legged button on a breadboard with the two internally joined pairs marked on the photo."
+    image: {
+      src: "media/tactilebutton.webp",
+      alt: "A 12 millimetre tactile push button standing in a white breadboard, its square black plunger raised above a metal body, with legs bent out to each side.",
+      caption: "A 12mm button straddling the centre channel of a breadboard, which is how it should always be seated."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/tactilebuttondetail.webp",
+      alt: "The same button seen from directly above in a breadboard, showing two legs emerging from the left side and two from the right.",
+      caption: "Two legs come out of each side. The pair on one side is already joined inside the case, so wire across the diagonal and you can never pick a joined pair by accident."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -557,10 +623,18 @@ const PARTS = [
     { label: "Rotary encoder explained", url: "https://en.wikipedia.org/wiki/Rotary_encoder", kind: "Wiki", vpn: true }
   ],
   media: {
-    image: null,
-    imageNeed: "HW-040 and KY-040 side by side, pin headers facing the camera, so the differences are visible.",
-    detail: null,
-    detailNeed: "Close on the silkscreen pin labels of the HW-040."
+    image: {
+      src: "media/hw040encoder.webp",
+      alt: "A rotary encoder module on a black circuit board marked Keyes, with a bare metal shaft and five pins labelled CLK, DT, SW, plus and GND.",
+      caption: "Five pins in the order GND, +, SW, DT, CLK. The shaft has a flat on one side, so a knob only fits one way round."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/hw040detail.webp",
+      alt: "The underside of the encoder module, showing three resistor positions marked R1, R2 and R3, all labelled 10K, with R2 and R3 fitted and the R1 pads left empty.",
+      caption: "This is the check worth making on every encoder. R2 and R3 are fitted, so those two lines have their 10k pull-ups. R1 is empty, so that line has none and needs the internal pull-up switched on in code."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -738,6 +812,7 @@ const PARTS = [
   watchOut: [
     "Students confuse this with an encoder constantly. The test is simple: if it stops at both ends, it is a potentiometer.",
     "The small blue trim pots are meant to be set once with a screwdriver, not turned by a user. They wear out fast under a knob.",
+    "The 3296 trimmers in this room are multi-turn. They take about 25 turns of the screw to cross the whole range, so nothing appears to happen at first and students assume they are broken.",
     "An A taper pot changes unevenly, quickly at one end and slowly at the other. That is right for audio and wrong for reading position. Use a B taper."
   ],
   useItFor: "Volume, brightness, a threshold a user sets by hand. Also useful for testing an analog input before the real sensor arrives.",
@@ -745,10 +820,18 @@ const PARTS = [
     { label: "Potentiometers explained", url: "https://learn.sparkfun.com/tutorials/resistors/types-of-resistors", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "A panel mount pot with a knob, a bare pot, and a small blue trim pot, all in one shot.",
-    detail: null,
-    detailNeed: "Not needed."
+    image: {
+      src: "media/rotarypotentiometer.webp",
+      alt: "A small blue 3296W multi-turn trimmer potentiometer standing in a breadboard, marked BAOTER 3296 and W103, with a gold adjusting screw on top.",
+      caption: "This is the trimmer kind, marked 103 for 10k. It is a multi-turn part, so it takes around 25 turns of the screw to go end to end rather than the three quarters of a turn a knob pot gives you."
+    },
+    imageNeed: "A panel mount pot with a knob fitted, so the knob type and the trimmer type can be compared side by side.",
+    detail: {
+      src: "media/rotarypotentiometerdetail.webp",
+      alt: "The face of the same trimmer filling the frame, with a resistor symbol moulded into the plastic, its ends numbered 1 and 3, the wiper arrow numbered 2, and the letters CW marking the clockwise direction.",
+      caption: "The diagram is moulded into the body. Pin 2 is the wiper, pins 1 and 3 are the two ends of the track, and CW shows which way the numbers climb."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -888,6 +971,51 @@ const PARTS = [
     imageNeed: "The blue DHT11 module and a white DHT22 side by side, grilles facing the camera.",
     detail: null,
     detailNeed: "The three pin module from behind, showing the pull-up resistor already fitted."
+  }
+},
+
+{
+  slug: "thermistor",
+  name: "Thermistor",
+  shortName: "Thermistor",
+  category: "sensors",
+  alsoCalled: ["NTC thermistor", "10k thermistor", "temperature resistor"],
+  blurb: "A resistor that changes with heat. Wired exactly like a light sensor.",
+  signal: ["Analog in"],
+  difficulty: "Easy",
+  voltage: "Any",
+  whatItIs: [
+    "A small bead with two legs whose resistance changes with temperature. The common NTC kind drops in resistance as it gets hotter, which is the opposite of what most people guess.",
+    "The 10k on the packet is its resistance at 25 degrees, not a fixed value. That number is the one you pair it with, so a 10k thermistor wants a 10k resistor beside it.",
+    "Like a light dependent resistor, it cannot be read directly. It goes in a voltage divider with an ordinary resistor, and the microcontroller reads the point between the two."
+  ],
+  pins: [
+    { name: "Leg 1", type: "Power", note: "To 3.3V. There is no polarity, so either leg works." },
+    { name: "Leg 2", type: "Analog in", note: "To an ADC pin, and also through a 10k resistor to ground. That junction is what you read." }
+  ],
+  wiring: [
+    "One leg of the thermistor to 3.3V.",
+    "The other leg to an ADC capable GPIO pin.",
+    "From that same point, a 10k resistor down to ground. Without it there is no divider and the reading means nothing.",
+    "Pinch the bead between your fingers and watch the number move. If it does not move, the divider resistor is missing or the pin cannot read analog."
+  ],
+  goesWith: ["ldr", "resistor", "dht11", "esp32-s3"],
+  watchOut: [
+    "The relationship between resistance and temperature is a curve, not a straight line. Mapping it as though it were straight gives readings that are close in the middle and badly wrong at the ends.",
+    "Turning a reading into real degrees needs the Steinhart and Hart equation, or a lookup table. If the project only needs hotter and colder, skip the maths and use the raw number.",
+    "NTC and PTC types behave in opposite directions. Most kit thermistors are NTC.",
+    "The bead is small and responds to the warmth of a finger, so handle it by the legs when taking a reading you care about."
+  ],
+  useItFor: "A temperature alarm, a fan that switches itself on, a thermostat. Cheaper and faster to respond than a DHT11, though it measures only temperature.",
+  links: [
+    { label: "Voltage dividers explained", url: "https://learn.sparkfun.com/tutorials/voltage-dividers", kind: "Guide", vpn: false },
+    { label: "Adafruit thermistor guide", url: "https://learn.adafruit.com/thermistor", kind: "Guide", vpn: false }
+  ],
+  media: {
+    image: null,
+    imageNeed: "Several thermistors on a plain background, with one beside a 10k resistor so the pairing is visible.",
+    detail: null,
+    detailNeed: "A thermistor and its 10k partner built as a divider on a breadboard, with the reading point marked."
   }
 },
 
@@ -1075,6 +1203,63 @@ const PARTS = [
   }
 },
 
+{
+  slug: "i2s-microphone",
+  name: "INMP441 I2S Microphone",
+  shortName: "I2S Microphone",
+  category: "sensors",
+  alsoCalled: ["MEMS microphone", "INMP441", "I2S mic"],
+  blurb: "Sound as numbers, straight off the bus. No analog wiring, no amplifier.",
+  signal: ["I2S", "Power"],
+  difficulty: "Tricky",
+  voltage: "3.3V",
+  whatItIs: [
+    "A tiny microphone with the converter built into the same package. It hands the microcontroller a stream of numbers rather than a wobbling voltage, so there is no amplifier to build and no noise picked up along the way.",
+    "It talks over I2S, which is a different bus from I2C despite the similar name. I2S carries audio only, and it needs three lines: a clock, a word select line that marks left from right, and the data line itself.",
+    "The sound reaches the sensor through a small hole in the metal can on the underside of the board. That hole has to be left clear, so the board cannot simply be glued face down inside a case."
+  ],
+  pins: [
+    { name: "VDD", type: "Power", note: "3.3 volts. This part is not 5V tolerant." },
+    { name: "GND", type: "Ground", note: "Ground." },
+    { name: "SCK", type: "I2S", note: "Serial clock. To an I2S clock pin on the board." },
+    { name: "WS", type: "I2S", note: "Word select, sometimes called LRCL. Marks whether the current sample is the left or the right channel." },
+    { name: "SD", type: "I2S", note: "Serial data out, from the microphone to the board." },
+    { name: "L/R", type: "Digital in", note: "Channel select. Tie it to ground for the left channel or to 3.3V for the right. Leaving it floating gives unpredictable results." }
+  ],
+  wiring: [
+    "VDD to 3.3V and GND to ground. Do not feed this one 5 volts.",
+    "SCK, WS and SD each to a GPIO pin, then tell the I2S driver in code which pin you chose for each. On the ESP32 the I2S peripheral can be routed to almost any pin.",
+    "Tie L/R to ground so the microphone always answers on the left channel, then read the left channel in code. This is the step people skip.",
+    "Check the sound hole in the metal can is not blocked or covered by tape once the board is mounted."
+  ],
+  goesWith: ["esp32-s3", "speaker", "jumper-wires", "breadboard"],
+  watchOut: [
+    "I2S is not I2C. They are different buses with different wiring, and a guide for one will not work for the other.",
+    "Leaving L/R unconnected gives silence, or sound on a channel your code is not reading. It looks like a dead microphone.",
+    "It needs 3.3 volts. 5 volts will damage it.",
+    "The data only makes sense as a stream. A single reading tells you nothing, so the code has to collect a block of samples before it can measure loudness."
+  ],
+  useItFor: "A sound level meter, a clap detector, a voice recorder, or anything that reacts to how loud a room is.",
+  links: [
+    { label: "What I2S is and how it differs from I2C", url: "https://en.wikipedia.org/wiki/I%C2%B2S", kind: "Wiki", vpn: true },
+    { label: "Adafruit I2S microphone guide", url: "https://learn.adafruit.com/adafruit-i2s-mems-microphone-breakout", kind: "Guide", vpn: false }
+  ],
+  media: {
+    image: {
+      src: "media/i2cmicrophone.webp",
+      alt: "A small round circuit board with six pins soldered on, labelled SD, VDD and GND along one row and L slash R, WS and SCK along the other.",
+      caption: "Six pins, and the three signal names SD, WS and SCK are what tell you this is an I2S part rather than an I2C one."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/i2cmicrophonedetail.webp",
+      alt: "The underside of the same board at an angle, showing a small silver metal can with a hole in it beside the marking U1, and the six pins on yellow headers.",
+      caption: "The hole in the silver can is the sound inlet. Cover it, glue over it, or mount the board face down against a surface, and the microphone goes deaf."
+    },
+    detailNeed: "Done."
+  }
+},
+
 /* ═══ OUTPUTS AND ACTUATORS ════════════════════════════════════════ */
 
 {
@@ -1114,10 +1299,18 @@ const PARTS = [
     { label: "Adafruit, all about LEDs", url: "https://learn.adafruit.com/all-about-leds", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "Several LED colours and sizes together, legs uncut, so the long and short legs are visible.",
-    detail: null,
-    detailNeed: "Close on the rim of an LED showing the flat spot beside the cathode."
+    image: {
+      src: "media/leds.webp",
+      alt: "Several dozen 5 millimetre LEDs scattered on a white surface in red, green, blue, yellow and clear, all with their legs still full length.",
+      caption: "Legs still full length, which is how they arrive. The colour of the plastic is only a guide: a clear one can light up any colour at all."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/leddetail.webp",
+      alt: "Four LEDs in blue, green, yellow and red standing in a breadboard, photographed from the side so that one leg of each is clearly longer than the other.",
+      caption: "One leg is longer on every one of them. The long leg is the anode, the positive side. Look along the row and the difference is obvious."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -1204,10 +1397,67 @@ const PARTS = [
     { label: "Piezo buzzer basics", url: "https://learn.adafruit.com/adafruit-arduino-lesson-10-making-sounds", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "A sealed buzzer, a bare piezo disc and an active module together.",
+    image: {
+      src: "media/piezobuzzer.webp",
+      alt: "A small round black sealed buzzer standing in a breadboard, with a sound hole in the centre of its top face and a plus symbol moulded beside it.",
+      caption: "The plus moulded into the top face marks the positive leg. This one is sealed, so there is no way to tell from the outside whether it makes its own tone or needs one sent to it."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/piezodetail.webp",
+      alt: "The top face of the same buzzer filling the frame, with the sound hole and the moulded plus symbol both sharp.",
+      caption: "Power it and listen. If it beeps on its own it is an active buzzer at one fixed pitch. If it stays silent it is passive, and you choose the note with PWM."
+    },
+    detailNeed: "Done."
+  }
+},
+
+{
+  slug: "speaker",
+  name: "Enclosed Cavity Speaker",
+  shortName: "Speaker",
+  category: "outputs",
+  alsoCalled: ["Cavity speaker", "8 ohm speaker", "JST speaker"],
+  blurb: "Real sound rather than a beep. Needs an amplifier between it and the board.",
+  signal: ["Digital out", "PWM"],
+  difficulty: "Tricky",
+  voltage: "Driven from an amplifier, not from a pin",
+  whatItIs: [
+    "A small speaker sealed inside a plastic box. The box is not packaging: a bare speaker cone pushes air out of the front and pulls it in at the back at the same time, and the two cancel out. The sealed cavity stops that, which is why this sounds far fuller than a bare driver of the same size.",
+    "It ends in a two pin JST plug rather than bare wires, so it unplugs cleanly from a board that has the matching socket.",
+    "It is a passive speaker. There is no electronics inside, so it cannot be driven from a GPIO pin the way a buzzer can. It needs a small amplifier board between it and the microcontroller."
+  ],
+  pins: [
+    { name: "Red wire", type: "Output", note: "One side of the coil. To the positive output of an amplifier board." },
+    { name: "Black wire", type: "Output", note: "The other side of the coil. To the negative output of the amplifier." },
+    { name: "JST plug", type: "Connector", note: "Two pin. It only fits one way round, which is the main reason to keep the plug rather than cutting it off." }
+  ],
+  wiring: [
+    "Do not wire it straight to a GPIO pin. A speaker coil is close to a short circuit as far as the pin is concerned, and the pin will not survive it.",
+    "Put a small amplifier board between the two. The microcontroller feeds the amplifier and the amplifier drives the speaker.",
+    "Speaker to the amplifier output, and the amplifier's own power to 5V and ground. Its ground has to be shared with the board.",
+    "Start with the volume low. These are much louder than their size suggests and a full volume test in a quiet classroom is a memorable mistake."
+  ],
+  goesWith: ["piezo-buzzer", "i2s-microphone", "power-module", "esp32-s3"],
+  watchOut: [
+    "A speaker across a GPIO pin damages the pin. This is the single thing to get right.",
+    "Polarity does not stop it working, but with two speakers wired opposite ways the bass cancels out between them.",
+    "The thin wires break where they leave the plastic box. Add a strain relief if the build gets handled.",
+    "Cutting the JST plug off to save time loses the one feature that makes it easy to unplug and reuse."
+  ],
+  useItFor: "Anything that has to say something rather than beep: a talking product, sound effects, an alarm that carries across a room, music.",
+  links: [
+    { label: "Adafruit, driving speakers from a microcontroller", url: "https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp", kind: "Guide", vpn: false }
+  ],
+  media: {
+    image: {
+      src: "media/speaker.webp",
+      alt: "A small speaker sealed in a rectangular black plastic box with four mounting holes, its red and black lead coiled beside it and ending in a white two pin JST plug.",
+      caption: "The plastic box is part of how it sounds, not just packaging. The two pin JST plug at the end of the lead only fits one way round."
+    },
+    imageNeed: "Done.",
     detail: null,
-    detailNeed: "Not needed."
+    detailNeed: "The speaker connected through a small amplifier board to a microcontroller, with the three stages laid out left to right so the signal path is obvious."
   }
 },
 
@@ -1322,15 +1572,17 @@ const PARTS = [
     { name: "Leg 2", type: "Either", note: "Same." }
   ],
   wiring: [
-    "Read the value from the bands, or measure it with a multimeter, which is faster and more reliable under classroom lighting.",
-    "For an LED on a 3.3V pin, use 220 ohms. Red red brown, then gold.",
-    "For a pull-up on a button or an I2C line, use 10k. Brown black orange, then gold.",
+    "Count the bands first. The blue metal film resistors in this room have five, where most charts online show four, and the extra band is a third digit.",
+    "Then measure it with a multimeter rather than reading the colours. It is faster, and it works under warm classroom lighting where brown and red look the same.",
+    "For an LED on a 3.3V pin, use 220 ohms. On a five band part that is red, red, black, black, then brown.",
+    "For a pull-up on a button or an I2C line, use 10k. On a five band part that is brown, black, black, red, then brown.",
     "For a voltage divider bringing 5 volts down to 3.3, use 1k on top and 2k below, and read the point between them."
   ],
   goesWith: ["led", "push-button", "ldr", "capacitor", "multimeter"],
   watchOut: [
     "The colour bands are hard to read under warm lighting, and brown and red look the same at a glance. Measure rather than squint.",
-    "The gold or silver band is the tolerance and marks the end you read towards, not from.",
+    "Four band and five band resistors are read differently. Reading a five band part off a four band chart gives an answer that is out by a factor of ten.",
+    "The tolerance band is the one set slightly apart from the rest, and it marks the end you read towards, not from.",
     "10k and 100k differ by one band and behave completely differently in a divider.",
     "A resistor in the wrong place is invisible on a breadboard. Trace the circuit rather than staring at it."
   ],
@@ -1340,10 +1592,14 @@ const PARTS = [
     { label: "SparkFun resistors tutorial", url: "https://learn.sparkfun.com/tutorials/resistors", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "A row of resistors of common values on white paper, bands sharp and readable.",
+    image: {
+      src: "media/resistors.webp",
+      alt: "Ten blue bodied metal film resistors laid out in a row on white paper with their legs straight, each showing five coloured bands.",
+      caption: "These are the blue metal film kind, and they carry five bands, not four. That extra band is a third digit, so a four band chart found online will give you the wrong answer. Measure them instead."
+    },
+    imageNeed: "Done.",
     detail: null,
-    detailNeed: "A single resistor filling the frame, each band labelled with its number on the photo."
+    detailNeed: "One five band resistor filling the frame with each band numbered on the photo, since the classroom stock is five band and most charts are not."
   }
 },
 
@@ -1385,10 +1641,18 @@ const PARTS = [
     { label: "SparkFun capacitors tutorial", url: "https://learn.sparkfun.com/tutorials/capacitors", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "Ceramic discs and electrolytic cylinders of several sizes together, markings readable.",
-    detail: null,
-    detailNeed: "An electrolytic capacitor with the negative stripe and the short leg both clearly visible."
+    image: {
+      src: "media/capacitor.webp",
+      alt: "A black electrolytic capacitor standing above a breadboard, printed 100 microfarads and 50 volts, with a cross shaped vent scored into the top.",
+      caption: "An electrolytic, 100uF at 50V. The cross scored into the top is a vent, designed to split open if the part is ever wired backwards."
+    },
+    imageNeed: "Ceramic disc capacitors beside the electrolytics, so the two kinds can be told apart at a glance.",
+    detail: {
+      src: "media/capacitordetail.webp",
+      alt: "A close view of the same capacitor showing a pale stripe running down one side of the black case, filled with repeated minus symbols.",
+      caption: "The stripe down the side carries minus symbols and marks the negative leg. Check it every time, because this is the one component here that can burst if it goes in the wrong way round."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -1798,6 +2062,57 @@ const PARTS = [
     imageNeed: "A wall adapter and a small power bank together, ratings readable.",
     detail: null,
     detailNeed: "Not needed."
+  }
+},
+
+{
+  slug: "power-module",
+  name: "Breadboard Power Supply Module",
+  shortName: "Power Module",
+  category: "power",
+  alsoCalled: ["MB102 power module", "breadboard PSU", "rail supply"],
+  blurb: "Clips onto the breadboard rails and feeds them 3.3V or 5V, your choice.",
+  signal: ["Power"],
+  difficulty: "Easy",
+  voltage: "6V to 12V in, 3.3V or 5V out",
+  whatItIs: [
+    "A small board that pushes straight into the power rails at the end of a breadboard and supplies them. Power comes in through the barrel jack from a wall adapter, and the module regulates it down.",
+    "The two yellow jumpers are the point of it. Each one selects 3.3V, 5V, or OFF for its own rail, so the two rails can run at different voltages at the same time. That is genuinely useful when a 5V sensor and a 3.3V board share one breadboard.",
+    "It matters because a microcontroller's own 3V3 pin can only supply so much. Once a build has a servo, a strip of LEDs or a motor in it, the board cannot feed everything and this module takes over."
+  ],
+  pins: [
+    { name: "Barrel jack", type: "Power", note: "6V to 12V in from a wall adapter. Check the adapter's rating before plugging it in." },
+    { name: "USB-A socket", type: "Power", note: "5 volts out, for powering something with a USB cable." },
+    { name: "Yellow jumpers", type: "Select", note: "One per rail. Three positions: 3.3V, OFF, and 5V. Set them before applying power." },
+    { name: "Rail pins", type: "Power", note: "The two rows of pins underneath that push into the breadboard's red and blue rails." },
+    { name: "Power switch", type: "Control", note: "Cuts the output without unplugging the adapter." }
+  ],
+  wiring: [
+    "Set both yellow jumpers first, while the power is off. Read which position is 3.3V and which is 5V from the silkscreen, since guessing here can put 5 volts into a 3.3V board.",
+    "Push the module into the rails at the end of the breadboard. It only fits one way, and the plus and minus markings should line up with the red and blue rails.",
+    "Plug the adapter into the barrel jack and switch it on. The green LED lights when the output is live.",
+    "Measure both rails with a multimeter before connecting anything to them. It takes ten seconds and it is the only way to be certain which rail is at which voltage."
+  ],
+  goesWith: ["breadboard", "power-supply", "multimeter", "sg90-servo"],
+  watchOut: [
+    "A jumper on the wrong setting puts 5 volts onto a rail feeding a 3.3V board. Measure before you connect, every time.",
+    "Do not feed the rails from this module and from the microcontroller's own 3V3 pin at the same time. Two supplies fighting over one rail is a good way to damage both.",
+    "It still needs its ground shared with everything else in the circuit.",
+    "The regulator gets warm under load and has no heatsink. If it is too hot to touch, the build is drawing more than it can give."
+  ],
+  useItFor: "Any build that outgrows what the microcontroller's own pins can supply, and any breadboard that needs 3.3V and 5V on its two rails at once.",
+  links: [
+    { label: "How to power a project", url: "https://learn.sparkfun.com/tutorials/how-to-power-a-project", kind: "Guide", vpn: false }
+  ],
+  media: {
+    image: {
+      src: "media/power.webp",
+      alt: "A breadboard power supply module on a dark circuit board, with a black barrel jack and a USB-A socket, a green power LED, a white switch, and a yellow jumper at each end selecting 3.3V, OFF or 5V.",
+      caption: "One yellow jumper per rail, each with 3.3V, OFF and 5V positions. Set both before the power goes on, then check the rails with a meter."
+    },
+    imageNeed: "Done.",
+    detail: null,
+    detailNeed: "Close on one yellow jumper with the 3.3V, OFF and 5V silkscreen positions readable, so the setting can be checked at a glance."
   }
 },
 
