@@ -116,6 +116,129 @@
   border-top: 1px dashed var(--border);
 }
 
+/* Formative cards. Two or three sit side by side to keep the strand
+   scannable. A card with materials built is a button and opens a modal;
+   the rest are static until their materials exist. */
+.g9-fgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.g9-fcard {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 0.3rem;
+  text-align: left;
+  padding: 0.9rem 1.05rem 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  width: 100%;
+}
+.g9-fcard-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.g9-fcard-title { font-size: 0.9rem; font-weight: 650; color: var(--text); line-height: 1.3; }
+.g9-fcard-desc { font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+.g9-fcard-desc strong { color: var(--text); font-weight: 600; }
+
+/* Live cards read as openable and say so. */
+.g9-fcard--live {
+  cursor: pointer;
+  border-color: var(--border-strong);
+  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+.g9-fcard--live:hover, .g9-fcard--live:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+.g9-fcard-cta {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent);
+}
+.g9-fcard-cta::after { content: " \2192"; }
+
+/* Materials inside a modal */
+.g9-brief {
+  margin: 1rem 0;
+  padding: 1.1rem 1.3rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.95rem; line-height: 1.9;
+}
+.g9-claim {
+  cursor: pointer;
+  border-bottom: 2px dotted var(--border-strong);
+  padding: 0.1rem 0.15rem;
+  border-radius: 3px;
+  background: none;
+  font: inherit; color: inherit; text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+.g9-claim:hover { background: var(--surface); }
+.g9-claim[aria-pressed="true"] { background: var(--amber-bg); border-bottom-color: var(--amber); }
+
+/* After checking, the result is carried by a word as well as a colour, so
+   the three outcomes stay apart for a colour blind reader. */
+.g9-claim.is-marked { cursor: default; }
+.g9-claim.is-marked::after {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  vertical-align: 0.1em;
+}
+.g9-claim.is-correct {
+  background: var(--amber-bg); border-bottom: 2px solid var(--amber);
+}
+.g9-claim.is-correct::after { content: "found"; background: var(--amber); color: var(--surface); }
+.g9-claim.is-wrong {
+  background: none; border-bottom: 2px solid var(--border-strong); opacity: 0.7;
+}
+.g9-claim.is-wrong::after { content: "this one is fine"; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border-strong); }
+.g9-claim.is-missed {
+  background: none; border-bottom: 2px dashed var(--amber);
+}
+.g9-claim.is-missed::after { content: "missed"; background: var(--surface); color: var(--amber); border: 1px solid var(--amber); }
+
+.g9-verdicts { display: grid; gap: 0.6rem; margin: 1rem 0 0; }
+.g9-verdict {
+  padding: 0.7rem 0.95rem;
+  border-left: 3px solid var(--border-strong);
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.84rem; line-height: 1.6;
+}
+.g9-verdict.ok { border-left-color: var(--amber); }
+.g9-verdict-name {
+  display: block;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.25rem;
+}
+.g9-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.g9-status {
+  margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.6;
+  color: var(--muted); min-height: 1.2rem;
+}
+.g9-run {
+  margin: 1.25rem 0 0.5rem; padding: 0.85rem 1.1rem;
+  border: 1px dashed var(--border-strong); border-radius: var(--radius);
+  font-size: 0.84rem; line-height: 1.6; color: var(--muted);
+}
+.g9-run strong { color: var(--text); }
+
 /* The four meaningful choice tests */
 .g9-tests { display: grid; gap: 0.7rem; margin: 1rem 0; }
 @media (min-width: 700px) { .g9-tests { grid-template-columns: repeat(2, 1fr); } }
@@ -253,16 +376,19 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>A 5-6 explains that the audience exists and would probably enjoy a game. A 7-8 argues why <em>this</em> audience, why <em>this</em> need, and why a tabletop game beats the alternatives for them.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Need or want sort</h4>
-<p class="activity-desc">Twelve statement cards about a demographic. In pairs, sort into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. The assumption pile is the point: most of what students believe about another year group has never been checked.</p>
-</div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Weak brief autopsy</h4>
-<p class="activity-desc">Hand out a deliberately vague need statement. In pairs, find the three claims that are asserted but never justified. Faster than explaining what justification looks like, because they see it by its absence.</p>
+<div class="g9-fgrid">
+<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-need-want">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Need or want sort</span>
+<span class="g9-fcard-desc">Twelve statement cards about a demographic. In pairs, sort into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. The assumption pile is the point: most of what students believe about another year group has never been checked.</span>
+<span class="g9-fcard-cta">Open materials</span>
+</button>
+<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-brief-autopsy">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Weak brief autopsy</span>
+<span class="g9-fcard-desc">Hand out a deliberately vague need statement. In pairs, find the three claims that are asserted but never justified. Faster than explaining what justification looks like, because they see it by its absence.</span>
+<span class="g9-fcard-cta">Open materials</span>
+</button>
 </div>
 
 <div class="caution-box">
@@ -323,16 +449,17 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The column that does the work</span>"What decision this unlocks" is what turns priority from an opinion into an argument. A row that unlocks no decision should not be on the plan at all.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Spend the tokens</h4>
-<p class="activity-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Spend the tokens</span>
+<span class="g9-fcard-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 10 min</p>
-<h4 class="activity-title">Question quality ladder</h4>
-<p class="activity-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 10 min</span>
+<span class="g9-fcard-title">Question quality ladder</span>
+<span class="g9-fcard-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</span>
+</div>
 </div>
 
 <div class="planned-feature">
@@ -381,16 +508,17 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>Four good teardowns with no synthesis is a 5-6, because the analysis has not been carried anywhere. The implications are the difference.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · half a class</p>
-<h4 class="activity-title">Teardown together</h4>
-<p class="activity-desc">Lead a full teardown of one game on the board, thinking aloud, including the parts where you are unsure. Models the depth expected far better than a rubric does.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · half a class</span>
+<span class="g9-fcard-title">Teardown together</span>
+<span class="g9-fcard-desc">Lead a full teardown of one game on the board, thinking aloud, including the parts where you are unsure. Models the depth expected far better than a rubric does.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Mechanic spotting speed run</h4>
-<p class="activity-desc">Play ten minutes of a game, then list every catalog mechanic you can name in it. Run it as a race. Builds the shared vocabulary at almost no time cost.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Mechanic spotting speed run</span>
+<span class="g9-fcard-desc">Play ten minutes of a game, then list every catalog mechanic you can name in it. Run it as a race. Builds the shared vocabulary at almost no time cost.</span>
+</div>
 </div>
 
 <p class="g9-h">Class shape</p>
@@ -439,10 +567,12 @@
 <p>Same content, box copy format. On theme, and the word limit forces students to decide what the game actually is. Keep the evidence table as the graded part.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 10 min</p>
-<h4 class="activity-title">Brief or spec?</h4>
-<p class="activity-desc">Ten statements, sort into "belongs in Aiv" and "belongs in Bi". Fixes the confusion before it costs marks in both strands.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 10 min</span>
+<span class="g9-fcard-title">Brief or spec?</span>
+<span class="g9-fcard-desc">Ten statements, sort into "belongs in Aiv" and "belongs in Bi". Fixes the confusion before it costs marks in both strands.</span>
+</div>
 </div>
 
 </div>
@@ -499,16 +629,17 @@
 <p>The <strong>how it will be tested</strong> column is written now, not later in Di. Writing it now is what stops students from setting specifications that can never be checked.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Make it measurable</h4>
-<p class="activity-desc">Eight unmeasurable specifications. Rewrite each one with a number and a test attached. Start with "the game is fun" so the hardest case is dealt with in public.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Make it measurable</span>
+<span class="g9-fcard-desc">Eight unmeasurable specifications. Rewrite each one with a number and a test attached. Start with "the game is fun" so the hardest case is dealt with in public.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Spec to test matching</h4>
-<p class="activity-desc">Given a specification, choose the method that could actually test it. Sets up Di weeks early and prevents the questionnaire-for-everything reflex before it forms.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Spec to test matching</span>
+<span class="g9-fcard-desc">Given a specification, choose the method that could actually test it. Sets up Di weeks early and prevents the questionnaire-for-everything reflex before it forms.</span>
+</div>
 </div>
 
 <div class="planned-feature">
@@ -561,22 +692,22 @@
 <p><strong>That list is submitted with the concepts.</strong> It is direct evidence for the descriptor, and it is the most useful feedback a student will get all unit.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 30 min</p>
-<h4 class="activity-title">Two family challenge</h4>
-<p class="activity-desc">Draw two families, sketch a concept in eight minutes, repeat three times. Fluency before it counts. Expect the first round to be poor and say so in advance.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 30 min</span>
+<span class="g9-fcard-title">Two family challenge</span>
+<span class="g9-fcard-desc">Draw two families, sketch a concept in eight minutes, repeat three times. Fluency before it counts. Expect the first round to be poor and say so in advance.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Annotation density check</h4>
-<p class="activity-desc">Two sketches of the same idea, one bare and one annotated. List everything you can only learn from the annotated one. Makes the point that the annotation is the assessed part, not the drawing.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Annotation density check</span>
+<span class="g9-fcard-desc">Two sketches of the same idea, one bare and one annotated. List everything you can only learn from the annotated one. Makes the point that the annotation is the assessed part, not the drawing.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Interpretation rehearsal</h4>
-<p class="activity-desc">A first, ungraded run of the swap and explain test on an early concept. Reveals what a reader actually needs before the real one counts.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Interpretation rehearsal</span>
+<span class="g9-fcard-desc">A first, ungraded run of the swap and explain test on an early concept. Reveals what a reader actually needs before the real one counts.</span>
+</div>
 </div>
 
 <p class="g9-h">Class shape</p>
@@ -625,16 +756,17 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">Where "critically" lives</span>The case against. A justification with no acknowledged weakness is advocacy, not evaluation, and it caps at 5-6 however well written it is.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">The rigged matrix</h4>
-<p class="activity-desc">Hand out a decision matrix where the highest scoring option is obviously the wrong choice. Discuss what the matrix failed to capture. Stops blind trust in a number.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">The rigged matrix</span>
+<span class="g9-fcard-desc">Hand out a decision matrix where the highest scoring option is obviously the wrong choice. Discuss what the matrix failed to capture. Stops blind trust in a number.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Argue against something you like</h4>
-<p class="activity-desc">Students write the strongest possible case against a design they are fond of. Rehearses the hardest half of this strand in a low stakes setting.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Argue against something you like</span>
+<span class="g9-fcard-desc">Students write the strongest possible case against a design they are fond of. Rehearses the hardest half of this strand in a low stakes setting.</span>
+</div>
 </div>
 
 </div>
@@ -680,16 +812,17 @@
 <p>Print shop orders need lead time and cost money, so anything going to the shop has to be finalised earlier than everything else. That decision belongs on this page.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 25 min</p>
-<h4 class="activity-title">Dimension a real card</h4>
-<p class="activity-desc">Take a card from a published game, measure it, and draw it to scale with bleed and safe margin marked. Teaches the conventions on something they can hold.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 25 min</span>
+<span class="g9-fcard-title">Dimension a real card</span>
+<span class="g9-fcard-desc">Take a card from a published game, measure it, and draw it to scale with bleed and safe margin marked. Teaches the conventions on something they can hold.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 25 min</p>
-<h4 class="activity-title">Manifest a published game</h4>
-<p class="activity-desc">Open a real box and write its complete component manifest. Students consistently underestimate how many distinct parts a small game has, and this fixes that in one sitting.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 25 min</span>
+<span class="g9-fcard-title">Manifest a published game</span>
+<span class="g9-fcard-desc">Open a real box and write its complete component manifest. Students consistently underestimate how many distinct parts a small game has, and this fixes that in one sitting.</span>
+</div>
 </div>
 
 <div class="content-note">
@@ -748,16 +881,17 @@
 <p>Students record the gaps and revise. <strong>Both versions are submitted</strong>, before and after, which evidences the strand far better than a single clean chart.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Follow a bad plan</h4>
-<p class="activity-desc">Hand out a vague plan and ask students to state exactly what they would do first. They cannot. Makes an abstract phrase in the descriptor concrete in about four minutes.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Follow a bad plan</span>
+<span class="g9-fcard-desc">Hand out a vague plan and ask students to state exactly what they would do first. They cannot. Makes an abstract phrase in the descriptor concrete in about four minutes.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Critical path hunt</h4>
-<p class="activity-desc">Ten tasks with dependencies. Find the one that blocks everything else. Sequencing rather than listing is what separates this strand's top band.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Critical path hunt</span>
+<span class="g9-fcard-desc">Ten tasks with dependencies. Find the one that blocks everything else. Sequencing rather than listing is what separates this strand's top band.</span>
+</div>
 </div>
 
 <div class="planned-feature">
@@ -841,16 +975,17 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">Why the failed attempt is required</span>Excellent skill needs something to be excellent against. One clean photograph shows a good outcome, not skill. A poor first attempt beside a fixed second one shows both.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 1 class, before the build</p>
-<h4 class="activity-title">Skill clinics</h4>
-<p class="activity-desc">Rotating stations: cutting and scoring, bleed setup, print shop file export, a 3D print tolerance test. Fifteen minutes each. Skill taught before it is assessed, not during.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 1 class, before the build</span>
+<span class="g9-fcard-title">Skill clinics</span>
+<span class="g9-fcard-desc">Rotating stations: cutting and scoring, bleed setup, print shop file export, a 3D print tolerance test. Fifteen minutes each. Skill taught before it is assessed, not during.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 10 min</p>
-<h4 class="activity-title">The good failure</h4>
-<p class="activity-desc">Show a first attempt and a fixed second attempt of your own, and talk through what changed. Normalises documenting failure, which students otherwise hide.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 10 min</span>
+<span class="g9-fcard-title">The good failure</span>
+<span class="g9-fcard-desc">Show a first attempt and a fixed second attempt of your own, and talk through what changed. Normalises documenting failure, which students otherwise hide.</span>
+</div>
 </div>
 
 </div>
@@ -881,10 +1016,12 @@
 <p><strong>The four page rulebook.</strong> <a href="https://onepagerules.com/">OnePageRules</a> is the reference to hand students. Complete wargames in a few pages, and the compression is the skill. Structure, iconography and a worked example beat prose every time.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 30 min, one week before deadline</p>
-<h4 class="activity-title">Internal rulebook cold read</h4>
-<p class="activity-desc">Swap draft rulebooks between teams while there is still time to fix what breaks. Teams that skip this discover their rule gaps during the real client session, when it counts against them.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 30 min, one week before deadline</span>
+<span class="g9-fcard-title">Internal rulebook cold read</span>
+<span class="g9-fcard-desc">Swap draft rulebooks between teams while there is still time to fix what breaks. Teams that skip this discover their rule gaps during the real client session, when it counts against them.</span>
+</div>
 </div>
 
 </div>
@@ -918,10 +1055,12 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">What a top band entry contains</span>A change with no trigger is a whim. A change with no options considered is a reaction. Full justification needs both, plus what it cost elsewhere.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Trigger, options, choice</h4>
-<p class="activity-desc">Three weak log entries. Rewrite each to include what prompted it, what else was considered, and why this option won. Turns a diary into a justification.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Trigger, options, choice</span>
+<span class="g9-fcard-desc">Three weak log entries. Rewrite each to include what prompted it, what else was considered, and why this option won. Turns a diary into a justification.</span>
+</div>
 </div>
 
 <div class="planned-feature">
@@ -994,22 +1133,22 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The distinction to teach</span>Qualitative data tells you why. Quantitative tells you how much. A top band test plan uses both, and knows which specification needs which.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Method matching</h4>
-<p class="activity-desc">Six specifications, choose the right method for each and defend it. The specification that cannot be tested by questionnaire is the one worth arguing about.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Method matching</span>
+<span class="g9-fcard-desc">Six specifications, choose the right method for each and defend it. The specification that cannot be tested by questionnaire is the one worth arguing about.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Write five bad questions</h4>
-<p class="activity-desc">Leading, double barrelled, vague, impossible to answer honestly. Then fix them. Faster than teaching question design from principles.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Write five bad questions</span>
+<span class="g9-fcard-desc">Leading, double barrelled, vague, impossible to answer honestly. Then fix them. Faster than teaching question design from principles.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 25 min</p>
-<h4 class="activity-title">Build an observation sheet</h4>
-<p class="activity-desc">Watch five minutes of play footage and tally misplays using a sheet you designed yourself. Shows that observation generates data too, which students rarely believe until they have a filled sheet in front of them.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 25 min</span>
+<span class="g9-fcard-title">Build an observation sheet</span>
+<span class="g9-fcard-desc">Watch five minutes of play footage and tally misplays using a sheet you designed yourself. Shows that observation generates data too, which students rarely believe until they have a filled sheet in front of them.</span>
+</div>
 </div>
 
 </div>
@@ -1046,16 +1185,17 @@
 <p>A student who says a specification was met by three testers, <em>and admits that is thin</em>, shows more judgement than one who claims certainty. Reward that plainly, or students learn to hide it.</p>
 </div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Met, partly met, or not met</h4>
-<p class="activity-desc">Given a specification and a set of results, decide which and defend it. Students over-claim "met" by a wide margin, and seeing the same data judged three ways fixes it.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Met, partly met, or not met</span>
+<span class="g9-fcard-desc">Given a specification and a set of results, decide which and defend it. Students over-claim "met" by a wide margin, and seeing the same data judged three ways fixes it.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Four reasons to be cautious</h4>
-<p class="activity-desc">Given a result from three testers, list four reasons not to trust it fully. This is the exact skill the closing section needs.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Four reasons to be cautious</span>
+<span class="g9-fcard-desc">Given a result from three testers, list four reasons not to trust it fully. This is the exact skill the closing section needs.</span>
+</div>
 </div>
 
 </div>
@@ -1086,10 +1226,12 @@
 <li><strong>Include one improvement for something that passed.</strong> Meeting a specification is not the same as being as good as it could be, and noticing that gap is a top band move.</li>
 </ul>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Trace the improvement</h4>
-<p class="activity-desc">Given a completed Dii table, propose improvements, then mark which of your own have no evidence behind them. Most students find at least one.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Trace the improvement</span>
+<span class="g9-fcard-desc">Given a completed Dii table, propose improvements, then mark which of your own have no evidence behind them. Most students find at least one.</span>
+</div>
 </div>
 
 </div>
@@ -1125,22 +1267,22 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The bookend</span>Quoting their own Ai need statement closes a loop that has been open for thirty six classes. It is where the strongest students show they understood the whole arc.</div>
 
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Satisfaction or impact?</h4>
-<p class="activity-desc">Ten statements, sort into "they enjoyed it" and "it changed something". The single most useful fifteen minutes in this strand.</p>
+<div class="g9-fgrid">
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Satisfaction or impact?</span>
+<span class="g9-fcard-desc">Ten statements, sort into "they enjoyed it" and "it changed something". The single most useful fifteen minutes in this strand.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 15 min</p>
-<h4 class="activity-title">Unintended effects hunt</h4>
-<p class="activity-desc">Take a familiar product and list three effects its designers did not intend. Then do the same for your own game before the client session, as predictions to check against.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 15 min</span>
+<span class="g9-fcard-title">Unintended effects hunt</span>
+<span class="g9-fcard-desc">Take a familiar product and list three effects its designers did not intend. Then do the same for your own game before the client session, as predictions to check against.</span>
 </div>
-
-<div class="activity-block">
-<p class="activity-label">Formative · 20 min</p>
-<h4 class="activity-title">Pitch rehearsal</h4>
-<p class="activity-desc">A three minute run in pairs before the poster is finalised. Sharpens the report by forcing students to say the impact out loud first.</p>
+<div class="g9-fcard">
+<span class="g9-fcard-label">Formative · 20 min</span>
+<span class="g9-fcard-title">Pitch rehearsal</span>
+<span class="g9-fcard-desc">A three minute run in pairs before the poster is finalised. Sharpens the report by forcing students to say the impact out loud first.</span>
+</div>
 </div>
 
 </div>
@@ -1253,8 +1395,93 @@
 </nav>
 
 </div></main>
+<!-- ══ FORMATIVE MATERIALS ═════════════════════════════════════ -->
+
+<div class="case-modal" id="modal-need-want" role="dialog" aria-modal="true" aria-labelledby="modal-need-want-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-need-want-title">Need or want sort</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Twelve things a team wrote down about their client group, <strong>Grade 6 students at lunch recess</strong>. Sort each one into need, want or assumption.</p>
+
+      <div class="g9-run">
+        <strong>How to run it.</strong> Pairs, 15 minutes. Sort first, argue second. The assumption pile is the point of the activity: it is usually the biggest, and it is entirely made of things nobody has checked. Finish by asking each pair which single assumption they would test first, and how.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">The distinction</p>
+        <h3 class="concept-box-title">What separates the three piles</h3>
+        <ul class="obj-list">
+          <li><strong>Need.</strong> Something the group lacks, which you have evidence for, and which affects them. A need can justify a project.</li>
+          <li><strong>Want.</strong> Something they said they would like. Cheap to satisfy, but it is a preference, not a reason to build anything.</li>
+          <li><strong>Assumption.</strong> Something you believe about them that nobody has checked. Useful only once it has been tested.</li>
+        </ul>
+      </div>
+
+      <div class="drag-sort" id="sort-needwant">
+        <div class="drag-sort-label">Interactive</div>
+        <div class="drag-sort-title">Sort the twelve statements</div>
+        <p class="drag-sort-intro">Select a statement, then select the pile it belongs in.</p>
+        <div class="drag-sort-section-label">Statements</div>
+        <div class="drag-sort-bank" id="sort-needwant-bank"></div>
+        <div class="drag-sort-section-label">Piles</div>
+        <div class="drag-sort-zones" id="sort-needwant-zones"></div>
+        <div class="drag-sort-status" id="sort-needwant-status" aria-live="polite"></div>
+        <button class="drag-sort-reset-btn" type="button" id="sort-needwant-reset">Reset</button>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">The discussion to have afterwards</p>
+        <h3 class="caution-box-title">Wants are not needs, and assumptions are not evidence</h3>
+        <p>Most student briefs are built on the want pile and the assumption pile, because both are easy to produce without leaving the room. Only the need pile can justify the project in Ai, and every item in it had to be gathered rather than guessed.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-brief-autopsy" role="dialog" aria-modal="true" aria-labelledby="modal-brief-autopsy-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-brief-autopsy-title">Weak brief autopsy</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>A real-looking need statement, written by a team who did some research and then stopped thinking. <strong>Three of these six sentences make a claim that is never justified.</strong> Find them.</p>
+
+      <div class="g9-run">
+        <strong>How to run it.</strong> Pairs, 15 minutes. Read it aloud once first; the weak sentences sound fine until you say them. Click the three sentences you think are unjustified, then check. Finish by asking what evidence would be needed to rescue each one.
+      </div>
+
+      <div class="g9-brief" id="autopsy-brief" aria-label="Need statement to analyse"></div>
+
+      <div class="g9-tools">
+        <button class="tool-btn" type="button" id="autopsy-check">Check my three</button>
+        <button class="drag-sort-reset-btn" type="button" id="autopsy-reset">Reset</button>
+      </div>
+      <p class="g9-status" id="autopsy-status" aria-live="polite"></p>
+      <div class="g9-verdicts" id="autopsy-verdicts"></div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">What the three have in common</p>
+        <h3 class="caution-box-title">Each one skips the argument</h3>
+        <p>One appeals to what everyone supposedly knows. One states a conclusion without considering a single alternative. One assumes the designer is the user. All three would survive a spellcheck and a read-through, which is exactly why students need to practise catching them.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
+<script src="g9-game-design.js"></script>
 <script src="../curriculum-themes.js"></script>
 </body>
 </html>
