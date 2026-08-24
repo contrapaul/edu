@@ -3,18 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Grade 9 MYP Design: students plan, build and playtest an original tabletop game, balancing mechanics against real players.">
+<meta name="description" content="Grade 9 MYP Design: sixteen assessed strands across one tabletop game project, with task briefs, formative activities and a class by class sequence.">
 <title>Tabletop Game Design | G9 MYP Design | contrapaul edu</title>
 <link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/g9-game-design.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="contrapaul / edu">
-<meta property="og:title" content="Tabletop Game Design | G9  -  MYP Design  -  contrapaul edu">
-<meta property="og:description" content="Grade 9 MYP Design: students plan, build and playtest an original tabletop game, balancing mechanics against real players.">
+<meta property="og:title" content="Tabletop Game Design | G9 MYP Design | contrapaul edu">
+<meta property="og:description" content="Sixteen assessed strands across one tabletop game project, with task briefs, formative activities and a class by class sequence.">
 <meta property="og:url" content="https://edu.contrapaul.com/curriculum/myp/g9-game-design.html">
 <meta name="twitter:card" content="summary">
 <link rel="stylesheet" href="../../style.css">
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
+<style>
+/* ── PAGE SPECIFIC ────────────────────────────────────────────
+   Unit parameter grid, the two non-negotiable rules, the strand
+   header meta row, and the descriptor quote block. Everything uses
+   theme variables so the dark and win95 themes keep working. */
+
+.g9-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1.75rem 0;
+}
+.g9-fact { background: var(--surface); padding: 0.95rem 1.1rem; }
+.g9-fact-k {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 0.35rem;
+}
+.g9-fact-v { font-size: 0.88rem; line-height: 1.45; margin: 0; color: var(--text); }
+.g9-fact-v strong { font-weight: 650; }
+
+/* The two rules every game must meet. Deliberately loud. */
+.g9-rules { display: grid; gap: 1rem; margin: 1.5rem 0; }
+@media (min-width: 720px) { .g9-rules { grid-template-columns: 1fr 1fr; } }
+.g9-rule {
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.35rem;
+  background: var(--surface-2);
+}
+.g9-rule-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 0.5rem;
+}
+.g9-rule-title { font-size: 1.05rem; font-weight: 650; margin: 0 0 0.5rem; color: var(--text); }
+.g9-rule p { font-size: 0.86rem; line-height: 1.6; color: var(--muted); margin: 0 0 0.5rem; }
+.g9-rule p:last-child { margin-bottom: 0; }
+
+/* Strand header meta: how long, what is handed in */
+.g9-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin: 0 0 1rem;
+}
+.g9-meta span {
+  font-family: var(--font-mono);
+  font-size: 0.63rem; letter-spacing: 0.04em;
+  padding: 0.24rem 0.6rem;
+  border: 1px solid var(--border); border-radius: 999px;
+  color: var(--muted); background: var(--surface-2);
+}
+.g9-meta span strong { color: var(--text); font-weight: 600; }
+
+/* The IB descriptor, quoted exactly. Kept visually separate from my
+   task wording so the two are never confused. */
+.g9-desc {
+  margin: 0 0 1.1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--curr-color, var(--accent));
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+}
+.g9-desc-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); display: block; margin-bottom: 0.3rem;
+}
+.g9-desc q { font-size: 0.88rem; line-height: 1.6; color: var(--text); font-style: italic; }
+
+/* Small labelled sub-heading inside a strand */
+.g9-h {
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--muted);
+  margin: 1.5rem 0 0.55rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Skill track cards for Cii */
+.g9-tracks { display: grid; gap: 0.75rem; margin: 1rem 0; }
+@media (min-width: 640px) { .g9-tracks { grid-template-columns: 1fr 1fr; } }
+.g9-track {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 0.9rem 1.05rem; background: var(--surface-2);
+}
+.g9-track h5 {
+  font-size: 0.84rem; font-weight: 650; margin: 0 0 0.45rem; color: var(--text);
+}
+.g9-track ul { margin: 0; padding-left: 1.05rem; }
+.g9-track li { font-size: 0.8rem; line-height: 1.55; color: var(--muted); margin-bottom: 0.2rem; }
+.g9-track-kit {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.06em;
+  color: var(--muted); margin: 0.55rem 0 0; padding-top: 0.45rem;
+  border-top: 1px dashed var(--border);
+}
+
+/* The four meaningful choice tests */
+.g9-tests { display: grid; gap: 0.7rem; margin: 1rem 0; }
+@media (min-width: 700px) { .g9-tests { grid-template-columns: repeat(2, 1fr); } }
+.g9-test {
+  border: 1px solid var(--border); border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0; padding: 0.75rem 0.95rem; background: var(--surface);
+}
+.g9-test h5 { font-size: 0.82rem; font-weight: 650; margin: 0 0 0.3rem; color: var(--text); }
+.g9-test p { font-size: 0.79rem; line-height: 1.55; color: var(--muted); margin: 0; }
+</style>
 </head>
 <body>
 <header class="site-header">
@@ -29,63 +140,1110 @@
 <div class="topic-breadcrumb"><a href="/curriculum">Curriculum</a><span class="sep">/</span><a href="/curriculum#myp">MYP Design</a><span class="sep">/</span>Grade 9</div>
 <div class="myp-meta"><span class="myp-grade">Grade 9 · Year 4</span><span class="myp-audience-tag">Teacher Resource</span></div>
 <h1 class="myp-title">Tabletop Game Design</h1>
-<p class="myp-intro">Students plan, design, build and test an original tabletop game for a target audience. The unit introduces game mechanics, rule design and iterative playtesting, culminating in a playable game that is balanced, engaging and clearly documented.</p>
+<p class="myp-intro">Teams of three or four design and build one original tabletop game for a real client group inside the school, then test it with that group. The unit is assessed as sixteen separate tasks, one per MYP Design strand, each submitted on completion and collected in a running portfolio.</p>
 </div>
 </div>
 
 <main><div class="curr-main">
 
+<div class="g9-facts">
+  <div class="g9-fact"><p class="g9-fact-k">Length</p><p class="g9-fact-v"><strong>36 classes</strong>, 33 of them assessed</p></div>
+  <div class="g9-fact"><p class="g9-fact-k">Teams</p><p class="g9-fact-v"><strong>3 to 4</strong>, formed before Ai</p></div>
+  <div class="g9-fact"><p class="g9-fact-k">Assessed</p><p class="g9-fact-v"><strong>Individually</strong>, on a group build</p></div>
+  <div class="g9-fact"><p class="g9-fact-k">Client</p><p class="g9-fact-v">A <strong>real group</strong> in school, assigned to fit the team</p></div>
+  <div class="g9-fact"><p class="g9-fact-k">Submission</p><p class="g9-fact-v"><strong>16 pieces</strong>, plus a running portfolio</p></div>
+  <div class="g9-fact"><p class="g9-fact-k">Outcome</p><p class="g9-fact-v">A <strong>playable game</strong> and a 4 page rulebook</p></div>
+</div>
+
+<!-- ══ THE TWO RULES ══════════════════════════════════════════ -->
+<div class="curr-section" id="rules">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-rules">
+<div class="curr-trigger-left"><span class="curr-badge">!</span><h2>The two non-negotiables</h2></div>
+<span class="curr-sec-sub">Read first</span>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-rules">
+<p class="curr-section-intro">Two requirements sit above everything else in this unit. Both are written into the specification in Bi, then tested in Di and Dii. A game that misses either one cannot reach the top band, however well it is made. Teach them in the launch class and return to them constantly.</p>
+
+<div class="g9-rules">
+  <div class="g9-rule">
+    <p class="g9-rule-label">Rule 1</p>
+    <h3 class="g9-rule-title">Meaningful choices</h3>
+    <p>The player must make decisions that matter. A game where players roll, move and do as they are told is not a design, it is a procedure.</p>
+    <p>This is the harder of the two rules and the one students underestimate. It is assessable, testable, and it is where most of the design thinking in this unit lives.</p>
+  </div>
+  <div class="g9-rule">
+    <p class="g9-rule-label">Rule 2</p>
+    <h3 class="g9-rule-title">Fits a recess</h3>
+    <p>A session runs <strong>20 to 30 minutes</strong>, because the target slot is post-lunch recess. A game may span many sessions, but no single sitting may exceed 30 minutes.</p>
+    <p>Learning the rules must also fit inside one recess. That is the real constraint behind the <strong>4 page maximum</strong> rulebook.</p>
+  </div>
+</div>
+
+<div class="concept-box">
+<p class="concept-box-label">Core concept</p>
+<h3 class="concept-box-title">What makes a choice meaningful</h3>
+<p>Sid Meier's description of a game as a series of interesting decisions is the standard students should be held to. A choice is meaningful only when all four of these are true at once.</p>
+<ol class="obj-list">
+<li><strong>The options are actually different.</strong> Picking red or blue is not a choice unless red and blue do different things.</li>
+<li><strong>No option is always best.</strong> If one move is correct every time, players stop thinking after the first game. This is called a dominant strategy and it is the most common way a student game fails this rule.</li>
+<li><strong>The player can reason about it.</strong> They need enough information to have an opinion, and not so much that the answer is obvious. A pure guess is not a decision.</li>
+<li><strong>The consequence is visible.</strong> The player must be able to connect what happened back to what they chose. If they cannot, the choice may as well not be there.</li>
+</ol>
+</div>
+
+<p class="g9-h">Four tests students can run on their own game</p>
+<div class="g9-tests">
+  <div class="g9-test"><h5>The coin flip test</h5><p>Would a player choosing at random do about as well as one thinking hard? If yes, the choice is decoration.</p></div>
+  <div class="g9-test"><h5>The dominant strategy check</h5><p>Watch five players in the same situation. If all five pick the same option, it is not a choice, it is a rule with extra steps.</p></div>
+  <div class="g9-test"><h5>The explain back test</h5><p>Ask a player why they chose that. "It was the only sensible option" and "I don't know" are both failures.</p></div>
+  <div class="g9-test"><h5>The regret test</h5><p>After the game, ask whether there was a moment they wish they had played differently. No regret usually means no real decision.</p></div>
+</div>
+
+<div class="caution-box">
+<p class="caution-box-label">Watch for</p>
+<h3 class="caution-box-title">The roll and move trap</h3>
+<p>Most first drafts from students are roll and move: throw a die, move that far, do what the square says. There is no decision anywhere in that loop. Catch it early, in Bii, not in Dii when the game is already built. Two fixes work most of the time. Give the player two things to spend instead of one, or let them choose <em>which</em> piece moves instead of <em>whether</em> it moves.</p>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: meaningful choice checker</h3>
+<p>A short interactive where students describe one decision from their game, answer the four criteria, and see whether the choice survives. Feeds directly into the Bii annotation requirement.</p>
+</div>
+
+</div>
+</div>
+
+<!-- ══ CRITERION A ═════════════════════════════════════════════ -->
 <div class="curr-section crit-a" id="crit-a">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-a">
 <div class="curr-trigger-left"><span class="curr-badge">A</span><h2>Criterion A: Inquiring and Analysing</h2></div>
+<span class="curr-sec-sub">6 classes · 4 strands</span>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-a">
-<p class="curr-section-intro">Students identify a target audience and a design opportunity for a new tabletop game, analyse existing games and their mechanics, research relevant game genres and formats, and develop a design brief.</p>
-<p class="content-placeholder">Criterion A teacher notes and task guidance will be added here.</p>
+<p class="curr-section-intro">Teams are formed, and each is assigned a real client group inside the school. Students justify why that group needs a game and plan their research. They then take apart existing games using the shared mechanics vocabulary, and pull it all together into a brief.</p>
+
+<div class="content-note">
+<p><strong>Client assignment.</strong> Teams are assigned their client group by the teacher, based on what the team says it wants to make. A team that wants to build something they would enjoy themselves gets an older cohort. A team drawn to what they loved a few years ago gets Grade 6. This keeps motivation high while still making the audience someone other than themselves.</p>
+</div>
+
+<!-- Ai -->
+<div class="obj-section" id="ai">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-ai">
+<div class="obj-trigger-left"><span class="obj-code">Ai</span><span class="obj-statement">Justify the need</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-ai">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains and justifies the need for a solution to a problem for a client/target audience.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Need Statement</strong>, 1 page</span></div>
+
+<p>Each team receives its client group. Students identify, explain and justify the need for a tabletop game for that specific audience. The justification is the whole strand, so the writing has to argue rather than describe.</p>
+
+<p class="g9-h">What goes on the page</p>
+<ul class="checklist">
+<li><strong>Who the audience is</strong>, in specifics. Not "Grade 6 students" but what they do at 12:40 on a Tuesday.</li>
+<li><strong>The situation as it stands</strong>, with at least one piece of evidence gathered rather than assumed.</li>
+<li><strong>Why a tabletop game</strong> rather than a club, an app, a sport or nothing at all.</li>
+<li><strong>What happens if nothing is made.</strong> If the honest answer is "nothing much", the need has not been found yet.</li>
+</ul>
+
+<div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>A 5-6 explains that the audience exists and would probably enjoy a game. A 7-8 argues why <em>this</em> audience, why <em>this</em> need, and why a tabletop game beats the alternatives for them.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Need or want sort</h4>
+<p class="activity-desc">Twelve statement cards about a demographic. In pairs, sort into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. The assumption pile is the point: most of what students believe about another year group has never been checked.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Weak brief autopsy</h4>
+<p class="activity-desc">Hand out a deliberately vague need statement. In pairs, find the three claims that are asserted but never justified. Faster than explaining what justification looks like, because they see it by its absence.</p>
+</div>
+
+<div class="caution-box">
+<p class="caution-box-label">Common failure</p>
+<h3 class="caution-box-title">Writing about themselves</h3>
+<p>Students write about the game they want to make instead of the audience who needs it. Ban the word "I" from the first draft and the problem mostly disappears.</p>
+</div>
+
 </div>
 </div>
 
+<!-- Aii -->
+<div class="obj-section" id="aii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-aii">
+<div class="obj-trigger-left"><span class="obj-code">Aii</span><span class="obj-statement">Plan and prioritise research</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-aii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Research Plan</strong>, 1 page</span></div>
+
+<p>The awkward strand, because MYP Design has nowhere to grade a research paper. The plan itself has to be the assessed artefact, and it has to visibly prioritise rather than just list.</p>
+
+<div class="concept-box">
+<p class="concept-box-label">Task device</p>
+<h3 class="concept-box-title">The research budget</h3>
+<p>Each student gets <strong>12 research tokens</strong>. Every activity has a price, and they cannot afford everything.</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Activity</th><th>Cost</th><th>Gives you</th></tr></thead>
+<tbody>
+<tr><td>Read a secondary source</td><td>1</td><td>Background, fast, shallow</td></tr>
+<tr><td>Analyse an existing game</td><td>2</td><td>Mechanics you can borrow</td></tr>
+<tr><td>Questionnaire</td><td>2</td><td>Numbers from many people</td></tr>
+<tr><td>Structured observation</td><td>3</td><td>What people do, not what they say</td></tr>
+<tr><td>Interview</td><td>3</td><td>Depth from one person</td></tr>
+<tr><td>Focus group</td><td>4</td><td>Disagreement between people</td></tr>
+</tbody>
+</table>
+</div>
+<p>Scarcity makes prioritisation real. A ranked list written after the fact is a claim; a budget that had to be spent is evidence.</p>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Question I need answered</th><th>Method</th><th>Primary / secondary</th><th>Cost</th><th>Priority</th><th>What decision this unlocks</th><th>When</th></tr></thead>
+<tbody><tr><td colspan="7"><em>One row per activity. Eight to twelve rows is typical.</em></td></tr></tbody>
+</table>
+</div>
+
+<p>Two short paragraphs sit under the table:</p>
+<ul class="checklist">
+<li><strong>Why these, in this order.</strong> Which activity had to happen first, and what it unblocks.</li>
+<li><strong>What I gave up.</strong> The activity they could not afford, and the risk that creates.</li>
+</ul>
+
+<div class="obj-outcome"><span class="obj-outcome-label">The column that does the work</span>"What decision this unlocks" is what turns priority from an opinion into an argument. A row that unlocks no decision should not be on the plan at all.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Spend the tokens</h4>
+<p class="activity-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 10 min</p>
+<h4 class="activity-title">Question quality ladder</h4>
+<p class="activity-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</p>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: research budget planner</h3>
+<p>Drag activities into a plan, watch the token total, and get blocked when overspending. Exports the finished table.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Aiii -->
+<div class="obj-section" id="aiii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-aiii">
+<div class="obj-trigger-left"><span class="obj-code">Aiii</span><span class="obj-statement">Analyse existing games</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-aiii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Analyses a range of existing products that inspire a solution to the problem in detail.</q></div>
+
+<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>4 teardowns + synthesis</strong></span></div>
+
+<p>Four game teardowns, then one synthesis page. The <a href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics Catalog</a> supplies the shared vocabulary, which is what keeps the analysis specific instead of drifting into opinion.</p>
+
+<p class="g9-h">Required range, one of each</p>
+<ol class="obj-list">
+<li>A game played in class</li>
+<li>A game using a mechanic family the student has not used before</li>
+<li>A game aimed at, or playable by, their client group</li>
+<li>Free choice, and it may be a video game if the mechanic transfers to a table</li>
+</ol>
+
+<p class="g9-h">Each teardown card</p>
+<ul class="checklist">
+<li>What it is: audience, player count, playtime, components</li>
+<li>Mechanics used, <strong>named from the catalog</strong>, with the family</li>
+<li>Where the meaningful choices are, and where the game just tells you what to do</li>
+<li>What works, for whom, and why</li>
+<li>What fails, and for whom</li>
+<li>One sentence: what I would take, and what I would leave</li>
+</ul>
+
+<p class="g9-h">The synthesis page</p>
+<p>A comparison matrix across all four against the same criteria, ending in three to five numbered <strong>design implications</strong>. Each is written as a single sentence beginning "Because..., my game should...". These get quoted directly in Aiv and Bi, so they need to be sharp.</p>
+
+<div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>Four good teardowns with no synthesis is a 5-6, because the analysis has not been carried anywhere. The implications are the difference.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · half a class</p>
+<h4 class="activity-title">Teardown together</h4>
+<p class="activity-desc">Lead a full teardown of one game on the board, thinking aloud, including the parts where you are unsure. Models the depth expected far better than a rubric does.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Mechanic spotting speed run</h4>
+<p class="activity-desc">Play ten minutes of a game, then list every catalog mechanic you can name in it. Run it as a race. Builds the shared vocabulary at almost no time cost.</p>
+</div>
+
+<p class="g9-h">Class shape</p>
+<div class="lesson-list">
+<details><summary><span class="lesson-num">1</span>Play and tear down two games</summary><div class="lesson-body"><p>Teardown together as a class first, then two in pairs. Games chosen to sit in different mechanic families.</p></div></details>
+<details><summary><span class="lesson-num">2</span>Two more, one researched online</summary><div class="lesson-body"><p>One must be aimed at the client group. Students who cannot get hold of a physical copy use the catalog, publisher rules and video.</p></div></details>
+<details><summary><span class="lesson-num">3</span>Synthesis and design implications</summary><div class="lesson-body"><p>Build the comparison matrix, then write the three to five implications. This is the class that decides the quality of the strand.</p></div></details>
+</div>
+
+</div>
+</div>
+
+<!-- Aiv -->
+<div class="obj-section" id="aiv">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-aiv">
+<div class="obj-trigger-left"><span class="obj-code">Aiv</span><span class="obj-statement">Write the design brief</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-aiv">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops a detailed design brief, which summarizes the analysis of relevant research.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Design Brief</strong>, 1 page</span></div>
+
+<p>Note the verb. The brief <em>summarises the analysis</em>, so this is a synthesis document. Measurable criteria belong in Bi, not here. Keeping these two apart is the single most common A to B confusion.</p>
+
+<p class="g9-h">One page, with an evidence column</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Section</th><th>Content</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td>Audience</td><td>Who they are and what matters about them</td><td>Ai, Aii</td></tr>
+<tr><td>The need</td><td>Restated in one sentence</td><td>Ai</td></tr>
+<tr><td>What the research showed</td><td>Three to five findings</td><td>Aii, Aiii</td></tr>
+<tr><td>Design implications</td><td>Carried across from the Aiii synthesis</td><td>Aiii</td></tr>
+<tr><td>Constraints</td><td>20 to 30 minute session, 4 page rulebook, materials, table size</td><td>Given</td></tr>
+<tr><td>Design intent</td><td>One paragraph on what will be made and for whom</td><td>Synthesis</td></tr>
+</tbody>
+</table>
+</div>
+<p>The evidence column is compulsory. Every claim points at a source, so a brief that has drifted away from the research becomes visible immediately.</p>
+
+<div class="discussion-box">
+<p class="discussion-box-label">Optional flourish</p>
+<h3 class="discussion-box-title">Write the design intent as the back of the box</h3>
+<p>Same content, box copy format. On theme, and the word limit forces students to decide what the game actually is. Keep the evidence table as the graded part.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 10 min</p>
+<h4 class="activity-title">Brief or spec?</h4>
+<p class="activity-desc">Ten statements, sort into "belongs in Aiv" and "belongs in Bi". Fixes the confusion before it costs marks in both strands.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ══ CRITERION B ═════════════════════════════════════════════ -->
 <div class="curr-section crit-b" id="crit-b">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-b">
 <div class="curr-trigger-left"><span class="curr-badge">B</span><h2>Criterion B: Developing Ideas</h2></div>
+<span class="curr-sec-sub">9 classes · 4 strands</span>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-b">
-<p class="curr-section-intro">Students develop a design specification, prototype and compare multiple game mechanics and rule sets, and select a preferred concept with justification.</p>
-<p class="content-placeholder">Criterion B teacher notes and task guidance will be added here.</p>
+<p class="curr-section-intro">Students turn the brief into testable specifications, then generate a real range of concepts using the mechanics catalog. Teams converge on one direction, and each student draws what is needed to build it.</p>
+
+<!-- Bi -->
+<div class="obj-section" id="bi">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-bi">
+<div class="obj-trigger-left"><span class="obj-code">Bi</span><span class="obj-statement">Write the specification</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-bi">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Specification</strong>, 8 to 12 lines</span></div>
+
+<div class="content-note">
+<p><strong>This is the most important single page in the unit.</strong> Dii tests against it line by line, Di builds instruments for it, and Diii traces improvements back to it. Time spent here is repaid twice over. If a class runs long, let it.</p>
+</div>
+
+<p class="g9-h">Every specification has four parts</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>#</th><th>Specification</th><th>Measurable success criterion</th><th>How it will be tested</th><th>Source</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Plays inside one recess</td><td>Setup to pack away under 25 minutes</td><td>Timed user trial, 3 groups</td><td>Given</td></tr>
+<tr><td>2</td><td>Players make real decisions</td><td>Testers can explain why they chose, in 4 of 5 sampled turns</td><td>Explain back test during observation</td><td>Rule 1</td></tr>
+<tr><td>3</td><td>Rules learnable in one recess</td><td>Cold read group starts playing within 8 minutes</td><td>Cold read observation</td><td>Aiii impl. 2</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="g9-h">Required categories, at least one each</p>
+<p>Audience fit · <strong>meaningful choice</strong> · playtime · rules clarity · components and materials · balance and fairness · aesthetics · accessibility · cost.</p>
+
+<div class="caution-box">
+<p class="caution-box-label">Two hard rules</p>
+<h3 class="caution-box-title">If it cannot be measured, it is not a specification</h3>
+<p>"The game is fun" fails. "At least 7 of 10 testers choose to play a second round" passes. Students will resist this because the measurable version feels less ambitious. It is not; it is the only version that Dii can do anything with.</p>
+<p>The <strong>how it will be tested</strong> column is written now, not later in Di. Writing it now is what stops students from setting specifications that can never be checked.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Make it measurable</h4>
+<p class="activity-desc">Eight unmeasurable specifications. Rewrite each one with a number and a test attached. Start with "the game is fun" so the hardest case is dealt with in public.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Spec to test matching</h4>
+<p class="activity-desc">Given a specification, choose the method that could actually test it. Sets up Di weeks early and prevents the questionnaire-for-everything reflex before it forms.</p>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: specification builder</h3>
+<p>A guided form producing the four column table, with a warning when a success criterion contains no number and a nudge toward a matching test method. Exports to the portfolio.</p>
+</div>
+
 </div>
 </div>
 
+<!-- Bii -->
+<div class="obj-section" id="bii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-bii">
+<div class="obj-trigger-left"><span class="obj-code">Bii</span><span class="obj-statement">Generate a range of ideas</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-bii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others.</q></div>
+
+<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>6 to 8 concepts + 2 prototypes</strong></span></div>
+
+<div class="concept-box">
+<p class="concept-box-label">Task device</p>
+<h3 class="concept-box-title">The mechanic draw</h3>
+<p>Each student draws two family cards from the <a href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics Catalog</a> and must build a concept using at least one mechanic from each. Draw three times.</p>
+<p>This is what produces genuine range. Left alone, students generate six versions of the same idea and call it a range, which caps them at 3-4. Across the finished set, concepts must touch at least <strong>three different families</strong>.</p>
+</div>
+
+<p class="g9-h">Each concept sheet, on A3</p>
+<ul class="checklist">
+<li><strong>A core loop diagram.</strong> What a player does on their turn, in order.</li>
+<li><strong>Board or component sketch</strong>, roughly to scale.</li>
+<li><strong>Mechanics used</strong>, named from the catalog.</li>
+<li><strong>The meaningful choice, circled and labelled.</strong> If it cannot be pointed at, the concept is not finished.</li>
+<li><strong>Annotation linking to a Bi specification by number.</strong></li>
+<li><strong>One risk.</strong> The part most likely to fail.</li>
+</ul>
+
+<p>Hand drawing is the better medium here. MYP rewards annotation density, and students annotate far more freely by hand than in software. Digital is allowed if the annotation is as rich.</p>
+
+<p class="g9-h">Two paper prototypes, actually played</p>
+<p>Feasibility is written into the descriptor. An idea nobody has tried is not demonstrably feasible. Five minutes of play with scrap card is enough, and it kills bad ideas before they get expensive.</p>
+
+<div class="concept-box">
+<p class="concept-box-label">Assessment device</p>
+<h3 class="concept-box-title">The interpretation test</h3>
+<p>"Can be correctly interpreted by others" is hard to evidence, so make it a test rather than a claim. Swap sheets with a classmate. They explain your concept back to you from the sheet alone while you stay completely silent. You write down everything they got wrong.</p>
+<p><strong>That list is submitted with the concepts.</strong> It is direct evidence for the descriptor, and it is the most useful feedback a student will get all unit.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 30 min</p>
+<h4 class="activity-title">Two family challenge</h4>
+<p class="activity-desc">Draw two families, sketch a concept in eight minutes, repeat three times. Fluency before it counts. Expect the first round to be poor and say so in advance.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Annotation density check</h4>
+<p class="activity-desc">Two sketches of the same idea, one bare and one annotated. List everything you can only learn from the annotated one. Makes the point that the annotation is the assessed part, not the drawing.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Interpretation rehearsal</h4>
+<p class="activity-desc">A first, ungraded run of the swap and explain test on an early concept. Reveals what a reader actually needs before the real one counts.</p>
+</div>
+
+<p class="g9-h">Class shape</p>
+<div class="lesson-list">
+<details><summary><span class="lesson-num">1</span>Mechanic draw and rapid concepts</summary><div class="lesson-body"><p>Three draws, three fast concepts, no annotation yet. Quantity over polish.</p></div></details>
+<details><summary><span class="lesson-num">2</span>Develop and annotate the best six</summary><div class="lesson-body"><p>Annotation is the work of this class. Circle the meaningful choice on every sheet.</p></div></details>
+<details><summary><span class="lesson-num">3</span>Paper prototypes and the interpretation test</summary><div class="lesson-body"><p>Two prototypes played for five minutes each, then the silent swap and explain.</p></div></details>
+</div>
+
+</div>
+</div>
+
+<!-- Biii -->
+<div class="obj-section" id="biii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-biii">
+<div class="obj-trigger-left"><span class="obj-code">Biii</span><span class="obj-statement">Choose and justify critically</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-biii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification.</q></div>
+
+<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual writing, group decision</span><span>Hand in: <strong>Matrix + justification</strong></span></div>
+
+<p>This is the strand where students write "I chose this one because it is the best." The fix is to make the case <em>against</em> the winner compulsory.</p>
+
+<p class="g9-h">How the team converges</p>
+<ol class="obj-list">
+<li>Each student pitches their strongest concept to their team.</li>
+<li>The team converges on one direction to build.</li>
+<li>Then each student <strong>individually</strong> writes the justification, including the students whose concept was not chosen.</li>
+</ol>
+
+<div class="obj-outcome"><span class="obj-outcome-label">Why this works with groups</span>Writing an honest, critical justification of someone else's concept is strong evidence for this strand. Say so when you set it, or it reads as a consolation prize.</div>
+
+<p class="g9-h">Part 1: weighted decision matrix</p>
+<p>Three finalist concepts scored against every Bi specification. Weights assigned by the student and justified, because an unweighted matrix implies every specification matters equally, which is never true.</p>
+
+<p class="g9-h">Part 2: critical justification, 1 to 2 pages</p>
+<ul class="checklist">
+<li><strong>Why the chosen design wins</strong>, referencing specifications by number.</li>
+<li><strong>The case against it.</strong> What it does worse than the concepts they rejected.</li>
+<li><strong>What was carried over</strong> from the rejected concepts into the final design.</li>
+<li><strong>What is still unresolved</strong>, and how the build will resolve it.</li>
+</ul>
+
+<div class="obj-outcome"><span class="obj-outcome-label">Where "critically" lives</span>The case against. A justification with no acknowledged weakness is advocacy, not evaluation, and it caps at 5-6 however well written it is.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">The rigged matrix</h4>
+<p class="activity-desc">Hand out a decision matrix where the highest scoring option is obviously the wrong choice. Discuss what the matrix failed to capture. Stops blind trust in a number.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Argue against something you like</h4>
+<p class="activity-desc">Students write the strongest possible case against a design they are fond of. Rehearses the hardest half of this strand in a low stakes setting.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Biv -->
+<div class="obj-section" id="biv">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-biv">
+<div class="obj-trigger-left"><span class="obj-code">Biv</span><span class="obj-statement">Draw it for production</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-biv">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.</q></div>
+
+<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual pages, team pack</span><span>Hand in: <strong>Production Pack</strong>, 4 to 8 pages</span></div>
+
+<p>Badly underused in tabletop units and genuinely rich once you see it properly. Planning drawings here is not one drawing, it is a production pack, and a game is unusually well suited to producing one.</p>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Page</th><th>Content</th></tr></thead>
+<tbody>
+<tr><td>Component manifest</td><td>Every component, quantity, size in mm, material, and who makes it</td></tr>
+<tr><td>Board drawing</td><td>To scale, dimensioned, with a title block</td></tr>
+<tr><td>Card template</td><td>Dimensioned, showing bleed, safe margin and type sizes</td></tr>
+<tr><td>Token or piece drawings</td><td>Orthographic, or a flat pattern if folded. 3D printed pieces show the model</td></tr>
+<tr><td>Iconography sheet</td><td>Every icon drawn at final size, with its meaning</td></tr>
+<tr><td>Rulebook map</td><td>Section structure and page order across the 4 pages, not the prose</td></tr>
+<tr><td>Requirements</td><td>Materials, tools, quantities, cost, and time per component</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="content-note">
+<p><strong>Individual portion.</strong> Each student draws the components they will personally make in C. Biv and Ci name the same owner for the same parts, which is what makes the group build individually assessable.</p>
+</div>
+
+<div class="caution-box">
+<p class="caution-box-label">Plan around the kit</p>
+<h3 class="caution-box-title">The large laser cutter is not reliable</h3>
+<p>Any component whose only route to existing is the large laser cutter needs a stated fallback in the requirements page. This is not a nuisance. It is the kind of production constraint the strand asks students to think about, and it gives Ci's fallback column something real to hold.</p>
+<p>Print shop orders need lead time and cost money, so anything going to the shop has to be finalised earlier than everything else. That decision belongs on this page.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 25 min</p>
+<h4 class="activity-title">Dimension a real card</h4>
+<p class="activity-desc">Take a card from a published game, measure it, and draw it to scale with bleed and safe margin marked. Teaches the conventions on something they can hold.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 25 min</p>
+<h4 class="activity-title">Manifest a published game</h4>
+<p class="activity-desc">Open a real box and write its complete component manifest. Students consistently underestimate how many distinct parts a small game has, and this fixes that in one sitting.</p>
+</div>
+
+<div class="content-note">
+<p><strong>Reteach expected.</strong> Scale, dimensioning and title blocks were met in G8, but budget one class to bring them back before the pack begins.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ══ CRITERION C ═════════════════════════════════════════════ -->
 <div class="curr-section crit-c" id="crit-c">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-c">
 <div class="curr-trigger-left"><span class="curr-badge">C</span><h2>Criterion C: Creating the Solution</h2></div>
+<span class="curr-sec-sub">11 classes · 4 strands</span>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-c">
-<p class="curr-section-intro">Students produce the game components and rulebook, playtest and document the build process, troubleshoot balance and clarity issues, and record evidence of iterative refinement.</p>
-<p class="content-placeholder">Criterion C teacher notes and task guidance will be added here.</p>
+<p class="curr-section-intro">One planning class, then a ten class build block. Cii, Ciii and Civ all run inside that block at the same time. That is why the evidence routines matter more here than anywhere else in the unit.</p>
+
+<div class="concept-box">
+<p class="concept-box-label">The grouping problem</p>
+<h3 class="concept-box-title">How a group build stays individually assessed</h3>
+<p>This is the part of the unit most likely to go wrong. Three devices carry individual evidence through a shared build:</p>
+<ol class="obj-list">
+<li><strong>Component ownership.</strong> Every student is named owner of specific components in Biv and Ci, and only that student makes them.</li>
+<li><strong>The making log.</strong> Dated photographs with the student's own hand or initials visible on the part, plus a note on what went wrong.</li>
+<li><strong>Individual writing on team decisions.</strong> Civ is written alone even when the change was collective.</li>
+</ol>
+</div>
+
+<!-- Ci -->
+<div class="obj-section" id="ci">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-ci">
+<div class="obj-trigger-left"><span class="obj-code">Ci</span><span class="obj-statement">Plan the build</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-ci">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed and logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Team plan + personal plan</span><span>Hand in: <strong>Both plans, both versions</strong></span></div>
+
+<p class="g9-h">Two linked plans</p>
+<ul class="checklist">
+<li><strong>Team plan.</strong> Gantt chart or task board across the ten build classes: task, owner, dependency, time estimate, resources, with the <strong>critical path marked</strong>.</li>
+<li><strong>Personal task plan.</strong> Each student's own components, class by class, with a <strong>fallback</strong> if a resource is unavailable. The unreliable laser cutter and print shop lead times make this column real rather than hypothetical.</li>
+</ul>
+
+<div class="concept-box">
+<p class="concept-box-label">Assessment device</p>
+<h3 class="concept-box-title">The peer follow test</h3>
+<p>"Sufficient for peers to follow" is testable, so test it. Swap plans with another team. They read yours for five minutes, then narrate what they would do in build class 1 and build class 4. Anything they cannot answer is a gap.</p>
+<p>Students record the gaps and revise. <strong>Both versions are submitted</strong>, before and after, which evidences the strand far better than a single clean chart.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Follow a bad plan</h4>
+<p class="activity-desc">Hand out a vague plan and ask students to state exactly what they would do first. They cannot. Makes an abstract phrase in the descriptor concrete in about four minutes.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Critical path hunt</h4>
+<p class="activity-desc">Ten tasks with dependencies. Find the one that blocks everything else. Sequencing rather than listing is what separates this strand's top band.</p>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: build planner</h3>
+<p>Drag tasks across ten build classes, assign owners, set dependencies, and have the critical path highlight itself. Flags any student with no owned components.</p>
+</div>
+
 </div>
 </div>
 
+<!-- Cii -->
+<div class="obj-section" id="cii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-cii">
+<div class="obj-trigger-left"><span class="obj-code">Cii</span><span class="obj-statement">Demonstrate technical skill</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-cii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Demonstrates excellent technical skills when making the solution.</q></div>
+
+<div class="g9-meta"><span>Runs through the <strong>build block</strong></span><span>Individual</span><span>Hand in: <strong>Making Log</strong>, 3 skills at depth</span></div>
+
+<p>Technical skill in this unit is not only fabrication. Designing a rule set that works is a technical skill, and so is laying out a card that a nine year old can read across a table.</p>
+
+<p class="g9-h">Four skill tracks</p>
+<div class="g9-tracks">
+  <div class="g9-track">
+    <h5>Systems and rules design</h5>
+    <ul>
+      <li>Writing rules that survive a cold read</li>
+      <li>Balancing with numbers, not with feeling</li>
+      <li>Designing an icon language that removes text</li>
+      <li>Teaching the game in under five minutes</li>
+    </ul>
+    <p class="g9-track-kit">No equipment</p>
+  </div>
+  <div class="g9-track">
+    <h5>Graphic design</h5>
+    <ul>
+      <li>Card layout with correct bleed and safe margin</li>
+      <li>Typography sized for the audience and the table distance</li>
+      <li>Colour and contrast, including colour blind safe choices</li>
+      <li>Export ready artwork for the print shop</li>
+    </ul>
+    <p class="g9-track-kit">Colour printers · print shop</p>
+  </div>
+  <div class="g9-track">
+    <h5>Digital fabrication</h5>
+    <ul>
+      <li>3D modelling tokens, miniatures, trays or inserts</li>
+      <li>Printing well: orientation, supports, tolerance, fit</li>
+      <li>Laser etched surfaces and markings</li>
+      <li>Designing a part that can be reproduced twenty times</li>
+    </ul>
+    <p class="g9-track-kit">3D printers · small laser etcher</p>
+  </div>
+  <div class="g9-track">
+    <h5>Hand fabrication and finishing</h5>
+    <ul>
+      <li>Precision cutting, scoring and folding</li>
+      <li>Mounting, hinging and board construction</li>
+      <li>Surface finish, edges and corners</li>
+      <li>Making a jig so twenty parts come out identical</li>
+    </ul>
+    <p class="g9-track-kit">Art and craft supplies</p>
+  </div>
+</div>
+
+<div class="concept-box">
+<p class="concept-box-label">Requirement</p>
+<h3 class="concept-box-title">Three skills at depth, across at least two tracks</h3>
+<p>Three skills done properly beats ten touched lightly. The two track minimum stops a student from spending ten classes at a 3D printer and calling it a build.</p>
+<p>For each of the three, the making log carries:</p>
+<ul class="checklist">
+<li>A dated photo of work in progress, with the student's <strong>hand or initials visible</strong> on the part</li>
+<li>A photo of the outcome</li>
+<li>What went wrong, what they changed, and what the second attempt did better</li>
+</ul>
+</div>
+
+<div class="obj-outcome"><span class="obj-outcome-label">Why the failed attempt is required</span>Excellent skill needs something to be excellent against. One clean photograph shows a good outcome, not skill. A poor first attempt beside a fixed second one shows both.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 1 class, before the build</p>
+<h4 class="activity-title">Skill clinics</h4>
+<p class="activity-desc">Rotating stations: cutting and scoring, bleed setup, print shop file export, a 3D print tolerance test. Fifteen minutes each. Skill taught before it is assessed, not during.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 10 min</p>
+<h4 class="activity-title">The good failure</h4>
+<p class="activity-desc">Show a first attempt and a fixed second attempt of your own, and talk through what changed. Normalises documenting failure, which students otherwise hide.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Ciii -->
+<div class="obj-section" id="ciii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-ciii">
+<div class="obj-trigger-left"><span class="obj-code">Ciii</span><span class="obj-statement">Finish a working game</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-ciii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Follows the plan to create the solution, which functions as intended and is presented appropriately.</q></div>
+
+<div class="g9-meta"><span>End of the <strong>build block</strong></span><span>Team artefact, individual components</span><span>Hand in: <strong>The game</strong> + cold read record</span></div>
+
+<p>The finished game, complete: every component, a rulebook of no more than four pages, and a box or storage solution. Presented appropriately means it survives being handed to a stranger.</p>
+
+<div class="concept-box">
+<p class="concept-box-label">Assessment device</p>
+<h3 class="concept-box-title">The cold read test</h3>
+<p>A team who has never seen the game receives the box and the rulebook and nothing else. They set up and play with no help of any kind. The designers watch <strong>in silence</strong> and record every question asked and every rule misread.</p>
+<p>This is evidence for Ciii, it is the rehearsal for Di, and the silence is the hard part. A designer who explains has destroyed the data.</p>
+</div>
+
+<div class="content-note">
+<p><strong>The four page rulebook.</strong> <a href="https://onepagerules.com/">OnePageRules</a> is the reference to hand students. Complete wargames in a few pages, and the compression is the skill. Structure, iconography and a worked example beat prose every time.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 30 min, one week before deadline</p>
+<h4 class="activity-title">Internal rulebook cold read</h4>
+<p class="activity-desc">Swap draft rulebooks between teams while there is still time to fix what breaks. Teams that skip this discover their rule gaps during the real client session, when it counts against them.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Civ -->
+<div class="obj-section" id="civ">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-civ">
+<div class="obj-trigger-left"><span class="obj-code">Civ</span><span class="obj-statement">Justify every change</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-civ">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Fully justifies changes made to the chosen design and plan when making the solution.</q></div>
+
+<div class="g9-meta"><span><strong>Ongoing</strong>, logged weekly</span><span>Individual</span><span>Hand in: <strong>Change Log</strong>, dated</span></div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Date</th><th>What changed</th><th>What triggered it</th><th>Options considered</th><th>Why this one</th><th>Effect on spec or plan</th></tr></thead>
+<tbody><tr><td colspan="6"><em>One row per change. Expect fifteen to thirty rows across the build.</em></td></tr></tbody>
+</table>
+</div>
+
+<div class="caution-box">
+<p class="caution-box-label">The thing that decides this strand</p>
+<h3 class="caution-box-title">Logs written the night before are obvious</h3>
+<p>Students write the whole log in one sitting at the end, and it always shows: no dates, no triggers, and every change presented as if it were planned. Say plainly at the start that an undated log written in one sitting cannot reach the top band.</p>
+<p>The fix is a routine, not a warning. Build in a <strong>five minute log stop</strong> at the end of every build class, written in place before anyone packs up. Ten stops across the block produces a real record at a cost of fifty minutes.</p>
+</div>
+
+<div class="obj-outcome"><span class="obj-outcome-label">What a top band entry contains</span>A change with no trigger is a whim. A change with no options considered is a reaction. Full justification needs both, plus what it cost elsewhere.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Trigger, options, choice</h4>
+<p class="activity-desc">Three weak log entries. Rewrite each to include what prompted it, what else was considered, and why this option won. Turns a diary into a justification.</p>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: change log with a real timestamp</h3>
+<p>Entries stamped when written rather than when claimed, so the log stop routine is self evidencing. Warns when a build class has no entry against it.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ══ CRITERION D ═════════════════════════════════════════════ -->
 <div class="curr-section crit-d" id="crit-d">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-crit-d">
 <div class="curr-trigger-left"><span class="curr-badge">D</span><h2>Criterion D: Evaluating</h2></div>
+<span class="curr-sec-sub">7 classes · 4 strands</span>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-d">
-<p class="curr-section-intro">Students evaluate the finished game against the specification through playtesting feedback, reflect on design and balancing decisions, consider player impact, and propose improvements.</p>
-<p class="content-placeholder">Criterion D teacher notes and task guidance will be added here.</p>
+<p class="curr-section-intro">Students build real testing instruments and run them with their client group. They then evaluate the game against every specification from Bi, and account for its impact on the people it was built for.</p>
+
+<div class="content-note">
+<p><strong>Client sessions are per team, not a mass event.</strong> Each team takes its game to its own client group. Div is assessed on that session, where the audience is the one named back in Ai. A broader showcase can follow, but it is not assessed.</p>
+</div>
+
+<!-- Di -->
+<div class="obj-section" id="di">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-di">
+<div class="obj-trigger-left"><span class="obj-code">Di</span><span class="obj-statement">Design the testing methods</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-di">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.</q></div>
+
+<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Test Plan + the instruments</strong></span></div>
+
+<p>Methods are drawn from the DP <a href="../dp/a2.1-user-centred-research.html">A2.1 user centred research</a> toolkit: user observation, interviews, focus groups, questionnaires, user trials, personae and scenarios. Meeting them here sets up the DP course for anyone continuing.</p>
+
+<div class="concept-box">
+<p class="concept-box-label">The core requirement</p>
+<h3 class="concept-box-title">Naming a method is not designing one</h3>
+<p>The descriptor says designs, and it says generates data. A student who writes "I will use a questionnaire" has done neither. The instruments themselves are submitted:</p>
+<ul class="checklist">
+<li>The <strong>questionnaire</strong>, with its actual questions in their actual order</li>
+<li>The <strong>observation sheet</strong>, with what is being tallied and how</li>
+<li>The <strong>interview script</strong>, with prompts and follow ups</li>
+<li>The <strong>user trial protocol</strong>, with what is timed or counted, by whom</li>
+</ul>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Which spec</th><th>Method</th><th>Participants</th><th>Data type</th><th>Instrument</th><th>Success threshold</th></tr></thead>
+<tbody>
+<tr><td>2, meaningful choice</td><td>Observation + explain back</td><td>5 client testers</td><td>Qualitative + tally</td><td>Choice observation sheet</td><td>Reasoned answer in 4 of 5 sampled turns</td></tr>
+<tr><td>1, playtime</td><td>Timed user trial</td><td>3 groups</td><td>Quantitative</td><td>Stopwatch + trial sheet</td><td>Under 25 min, all 3 groups</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="caution-box">
+<p class="caution-box-label">The correction to make early</p>
+<h3 class="caution-box-title">Match the method to the specification</h3>
+<p>Students default to a questionnaire for everything. Playtime needs a stopwatch, not an opinion. Rules clarity needs observation of actual misplays, not a question asking whether the rules were clear, because everyone says yes. Meaningful choice needs the explain back test, because a player cannot self report whether their decision mattered.</p>
+</div>
+
+<div class="obj-outcome"><span class="obj-outcome-label">The distinction to teach</span>Qualitative data tells you why. Quantitative tells you how much. A top band test plan uses both, and knows which specification needs which.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Method matching</h4>
+<p class="activity-desc">Six specifications, choose the right method for each and defend it. The specification that cannot be tested by questionnaire is the one worth arguing about.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Write five bad questions</h4>
+<p class="activity-desc">Leading, double barrelled, vague, impossible to answer honestly. Then fix them. Faster than teaching question design from principles.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 25 min</p>
+<h4 class="activity-title">Build an observation sheet</h4>
+<p class="activity-desc">Watch five minutes of play footage and tally misplays using a sheet you designed yourself. Shows that observation generates data too, which students rarely believe until they have a filled sheet in front of them.</p>
+</div>
+
 </div>
 </div>
 
+<!-- Dii -->
+<div class="obj-section" id="dii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-dii">
+<div class="obj-trigger-left"><span class="obj-code">Dii</span><span class="obj-statement">Evaluate against the spec</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-dii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Critically evaluates the success of the solution against the design specification based on authentic product testing.</q></div>
+
+<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Point by point evaluation</strong></span></div>
+
+<div class="lesson-list">
+<details open><summary><span class="lesson-num">1</span>The client session</summary><div class="lesson-body"><p>The team takes the game to its own client group. Every student runs their own instrument from Di and collects their own data. Nobody helps the players understand the rules; that is the whole test.</p></div></details>
+<details><summary><span class="lesson-num">2</span>The evaluation</summary><div class="lesson-body"><p>Every specification from Bi, one row each, in order. No skipping the ones that failed.</p></div></details>
+</div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Spec</th><th>Test used</th><th>Data collected</th><th>Met / partly / not met</th><th>Evidence</th><th>What this means</th></tr></thead>
+<tbody><tr><td colspan="6"><em>One row per specification, all 8 to 12 of them.</em></td></tr></tbody>
+</table>
+</div>
+
+<div class="concept-box">
+<p class="concept-box-label">Where "critically" lives</p>
+<h3 class="concept-box-title">The limits of your own evidence</h3>
+<p>A closing section on why the data might be wrong. Sample size, a single session, and testers who knew the designers and wanted to be kind. Also the gap between what people said and what they did.</p>
+<p>A student who says a specification was met by three testers, <em>and admits that is thin</em>, shows more judgement than one who claims certainty. Reward that plainly, or students learn to hide it.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Met, partly met, or not met</h4>
+<p class="activity-desc">Given a specification and a set of results, decide which and defend it. Students over-claim "met" by a wide margin, and seeing the same data judged three ways fixes it.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Four reasons to be cautious</h4>
+<p class="activity-desc">Given a result from three testers, list four reasons not to trust it fully. This is the exact skill the closing section needs.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Diii -->
+<div class="obj-section" id="diii">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-diii">
+<div class="obj-trigger-left"><span class="obj-code">Diii</span><span class="obj-statement">Explain the improvements</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-diii">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains how the solution could be improved.</q></div>
+
+<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Ranked improvements</strong></span></div>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Improvement</th><th>Which spec it addresses</th><th>Dii evidence that prompted it</th><th>Why this would work</th><th>Cost and feasibility</th><th>Rank</th></tr></thead>
+<tbody><tr><td colspan="6"><em>Five to eight improvements, ranked.</em></td></tr></tbody>
+</table>
+</div>
+
+<p class="g9-h">Two rules</p>
+<ul class="checklist">
+<li><strong>Every improvement traces to a specific Dii finding.</strong> An improvement with no evidence behind it is a preference, and preferences do not evidence this strand.</li>
+<li><strong>Include one improvement for something that passed.</strong> Meeting a specification is not the same as being as good as it could be, and noticing that gap is a top band move.</li>
+</ul>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Trace the improvement</h4>
+<p class="activity-desc">Given a completed Dii table, propose improvements, then mark which of your own have no evidence behind them. Most students find at least one.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Div -->
+<div class="obj-section" id="div">
+<button class="obj-trigger" aria-expanded="false" aria-controls="body-div">
+<div class="obj-trigger-left"><span class="obj-code">Div</span><span class="obj-statement">Explain the impact</span></div>
+<svg class="obj-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="obj-body" id="body-div">
+
+<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains the impact of the product on the client/target audience.</q></div>
+
+<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Impact report</strong>, poster or 2 pages</span></div>
+
+<div class="caution-box">
+<p class="caution-box-label">The core confusion</p>
+<h3 class="caution-box-title">Impact is not satisfaction</h3>
+<p>"They enjoyed it" is a Dii finding about a specification. Impact asks a different question: what did this product do to the people it was made for, and to anyone else near them. Students conflate the two almost every time, so separate them explicitly before they write.</p>
+</div>
+
+<p class="g9-h">Six required sections</p>
+<ol class="obj-list">
+<li><strong>Who was affected</strong>, including people beyond the players themselves.</li>
+<li><strong>Intended against actual impact</strong>, quoting the Ai need statement directly.</li>
+<li><strong>Evidence</strong> from the client session: quotes, observation tallies, what people did rather than what they said.</li>
+<li><strong>Unintended effects</strong>, positive and negative. Did quieter students join in more? Did the reading level, the language or the hand dexterity required exclude anyone?</li>
+<li><strong>Wider impact</strong>, at least two of: the school, families, materials and waste, cost, cultural and linguistic fit for a multilingual audience.</li>
+<li><strong>Was the original need met?</strong> Yes, partly or no, answered plainly, with reasons.</li>
+</ol>
+
+<div class="obj-outcome"><span class="obj-outcome-label">The bookend</span>Quoting their own Ai need statement closes a loop that has been open for thirty six classes. It is where the strongest students show they understood the whole arc.</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Satisfaction or impact?</h4>
+<p class="activity-desc">Ten statements, sort into "they enjoyed it" and "it changed something". The single most useful fifteen minutes in this strand.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 15 min</p>
+<h4 class="activity-title">Unintended effects hunt</h4>
+<p class="activity-desc">Take a familiar product and list three effects its designers did not intend. Then do the same for your own game before the client session, as predictions to check against.</p>
+</div>
+
+<div class="activity-block">
+<p class="activity-label">Formative · 20 min</p>
+<h4 class="activity-title">Pitch rehearsal</h4>
+<p class="activity-desc">A three minute run in pairs before the poster is finalised. Sharpens the report by forcing students to say the impact out loud first.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ══ SEQUENCE ════════════════════════════════════════════════ -->
+<div class="curr-section" id="sequence">
+<button class="curr-trigger" aria-expanded="false" aria-controls="body-sequence">
+<div class="curr-trigger-left"><span class="curr-badge">36</span><h2>Class sequence</h2></div>
+<span class="curr-sec-sub">36 classes</span>
+<svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+</button>
+<div class="curr-body" id="body-sequence">
+<p class="curr-section-intro">Thirty three assessed classes, one launch, and two held in reserve. The build block is the only stretch where three strands run at once.</p>
+
+<div class="content-table-wrap">
+<table class="content-table">
+<thead><tr><th>Classes</th><th>Strand</th><th>Individual deliverable</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Launch</td><td>Teams formed, clients assigned, the two rules taught</td></tr>
+<tr><td>2</td><td>Ai</td><td>Need Statement, 1 page</td></tr>
+<tr><td>3</td><td>Aii</td><td>Research Plan, prioritised by budget</td></tr>
+<tr><td>4 to 6</td><td>Aiii</td><td>4 teardown cards plus a synthesis page</td></tr>
+<tr><td>7</td><td>Aiv</td><td>Design Brief with evidence column</td></tr>
+<tr><td>8</td><td>Bi</td><td>Specification, 8 to 12 testable lines</td></tr>
+<tr><td>9 to 11</td><td>Bii</td><td>6 to 8 annotated concepts, 2 played prototypes</td></tr>
+<tr><td>12 to 13</td><td>Biii</td><td>Decision matrix and critical justification</td></tr>
+<tr><td>14 to 16</td><td>Biv</td><td>Production Pack, 4 to 8 pages</td></tr>
+<tr><td>17</td><td>Ci</td><td>Team plan and personal plan, both versions</td></tr>
+<tr><td>18</td><td>Skill clinics</td><td>Rotating stations, no submission</td></tr>
+<tr><td>19 to 27</td><td>Build block</td><td>Cii making log, Ciii the game, Civ change log</td></tr>
+<tr><td>28 to 29</td><td>Di</td><td>Test Plan with instruments built</td></tr>
+<tr><td>30</td><td>Dii, session</td><td>Client session, data collected</td></tr>
+<tr><td>31</td><td>Dii, evaluation</td><td>Point by point against every spec</td></tr>
+<tr><td>32</td><td>Diii</td><td>Ranked improvements</td></tr>
+<tr><td>33 to 34</td><td>Div</td><td>Impact report, poster and pitch</td></tr>
+<tr><td>35 to 36</td><td>Reserve</td><td>Slack, or the broader showcase</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="concept-box">
+<p class="concept-box-label">Routines</p>
+<h3 class="concept-box-title">Four things to run every time</h3>
+<ul class="checklist">
+<li><strong>Log stop.</strong> Last five minutes of every build class, Civ entry written in place before packing up.</li>
+<li><strong>Catalog callout.</strong> Whenever a mechanic comes up, name its family out loud. Builds shared vocabulary at no time cost.</li>
+<li><strong>Spec check.</strong> Open the Bi page at the start of every B and C class. Specifications that are never reread do not get met.</li>
+<li><strong>Swap and read.</strong> Anything claiming to be readable by others gets read by others before it is submitted. Applies to Bii, Ci and Ciii.</li>
+</ul>
+</div>
+
+<div class="planned-feature">
+<p class="planned-feature-label">Planned</p>
+<h3 class="planned-feature-title">Interactive: student progress tracker</h3>
+<p>Sixteen strands, submission state per student, and a view showing which team members own which components during the build block.</p>
+</div>
+
+</div>
+</div>
+
+<!-- ══ REFERENCES ══════════════════════════════════════════════ -->
 <div class="curr-section crit-refs" id="references">
 <button class="curr-trigger" aria-expanded="false" aria-controls="body-refs">
 <div class="curr-trigger-left"><span class="curr-badge">↗</span><h2>References &amp; Resources</h2></div>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-refs">
-<p class="content-placeholder">Reference links and resources for this unit will be added here.</p>
+<ul class="ref-list">
+<li class="ref-item">
+<span class="ref-item-tag">Tool</span>
+<a class="ref-item-title" href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics Catalog</a>
+<p class="ref-item-desc">Seventy mechanics across ten families, each with rules, the games that use it, and a diagram. The shared vocabulary for Aiii and the concept generator for Bii.</p>
+</li>
+<li class="ref-item">
+<span class="ref-item-tag">Rules</span>
+<a class="ref-item-title" href="https://onepagerules.com/">OnePageRules</a>
+<p class="ref-item-desc">Complete wargames written in a handful of pages. The model to hand students for the four page rulebook limit, and a lesson in compression by itself.</p>
+</li>
+<li class="ref-item">
+<span class="ref-item-tag">Course</span>
+<a class="ref-item-title" href="../dp/a2.1-user-centred-research.html">DP A2.1 User Centred Research</a>
+<p class="ref-item-desc">Observation, interviews, focus groups, questionnaires, user trials, personae and scenarios. The method source for Di.</p>
+</li>
+<li class="ref-item">
+<span class="ref-item-tag">Tool</span>
+<a class="ref-item-title" href="https://edu.contrapaul.com/tools/personae/">User Persona Builder</a>
+<p class="ref-item-desc">Guided persona construction, printable to A4. Useful in Aii for teams whose research budget stretches to a persona.</p>
+</li>
+<li class="ref-item">
+<span class="ref-item-tag">Games</span>
+<a class="ref-item-title" href="https://edu.contrapaul.com/tools/greatgames/">You Should Play These Games</a>
+<p class="ref-item-desc">A curated list with the educational reasoning attached. A starting point for the Aiii teardown selection.</p>
+</li>
+<li class="ref-item">
+<span class="ref-item-tag">Reference</span>
+<a class="ref-item-title" href="https://boardgamegeek.com/">BoardGameGeek</a>
+<p class="ref-item-desc">Component lists, playtime data, player counts and rules downloads for almost any published game. The practical source for Aiii research.</p>
+</li>
+</ul>
 </div>
 </div>
 
