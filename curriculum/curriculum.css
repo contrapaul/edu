@@ -2794,6 +2794,20 @@ details.p2-reveal summary::before { content: "▼ "; }
   color: var(--muted);
   font-style: italic;
 }
+/* Drag affordances, used only by widgets that opt in with enableDrag.
+   Nothing else in the file produces these classes. */
+.drag-sort-ghost {
+  position: fixed; z-index: 300; pointer-events: none;
+  transform: translate(-50%, -50%) rotate(-1.5deg);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.30);
+  opacity: 0.97;
+}
+.drag-sort-item.is-dragging { opacity: 0.3; }
+.drag-sort-zone-wrap.drag-over {
+  border-color: var(--accent);
+  background: var(--amber-bg);
+}
+
 .drag-sort-solved-card {
   background: var(--green-bg);
   border: 1px solid #86efac;

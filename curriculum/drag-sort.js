@@ -38,6 +38,7 @@ window.DragSort = (function () {
 
       wrap.appendChild(zoneBtn);
       wrap.appendChild(slot);
+      wrap.dataset.zone = zone.id;
       zonesEl.appendChild(wrap);
       parts[zone.id] = { wrap: wrap, btn: zoneBtn, slot: slot };
     });
@@ -76,20 +77,110 @@ window.DragSort = (function () {
         (wrongAttempts === 1 ? 'try' : 'tries') + ' along the way).';
   }
 
+
+  /* Optional pointer based dragging, switched on per widget with
+     `enableDrag: true`. Pointer events rather than HTML5 drag, so a finger
+     works as well as a mouse. Clicking is untouched and still does the same
+     job, which keeps the widget usable by keyboard and by anyone who does
+     not drag. Only single-axis mode wires this up; dual-axis widgets ignore
+     the flag. */
+  function attachDragging(itemBtn, item, zonesEl, onDrop, state) {
+    var drag = null;
+
+    function ghostFor(x, y) {
+      var g = itemBtn.cloneNode(true);
+      g.classList.add('drag-sort-ghost');
+      g.style.width = itemBtn.getBoundingClientRect().width + 'px';
+      g.style.left = x + 'px';
+      g.style.top = y + 'px';
+      document.body.appendChild(g);
+      itemBtn.classList.add('is-dragging');
+      return g;
+    }
+
+    function wrapUnder(x, y) {
+      var el = document.elementFromPoint(x, y);
+      return el ? el.closest('.drag-sort-zone-wrap') : null;
+    }
+
+    function clearHover() {
+      if (!drag || !drag.over) return;
+      drag.over.classList.remove('drag-over');
+      drag.over = null;
+    }
+
+    itemBtn.addEventListener('pointerdown', function (e) {
+      drag = { moved: false, ghost: null, over: null };
+      itemBtn.setPointerCapture(e.pointerId);
+    });
+
+    itemBtn.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      if (!drag.moved) { drag.moved = true; drag.ghost = ghostFor(e.clientX, e.clientY); }
+      drag.ghost.style.left = e.clientX + 'px';
+      drag.ghost.style.top = e.clientY + 'px';
+      var wrap = wrapUnder(e.clientX, e.clientY);
+      if (drag.over !== wrap) {
+        clearHover();
+        if (wrap) { wrap.classList.add('drag-over'); drag.over = wrap; }
+      }
+    });
+
+    function finish(e) {
+      if (!drag) return;
+      var d = drag;
+      clearHover();
+      drag = null;
+      if (d.ghost) d.ghost.remove();
+      itemBtn.classList.remove('is-dragging');
+      if (!d.moved) return;                 // a plain click; the click handler has it
+      state.suppressClick = true;           // a real drag, so ignore the click that follows
+      var wrap = wrapUnder(e.clientX, e.clientY);
+      if (wrap) onDrop(wrap.dataset.zone, itemBtn, item);
+    }
+
+    itemBtn.addEventListener('pointerup', finish);
+    itemBtn.addEventListener('pointercancel', function () {
+      if (!drag) return;
+      clearHover();
+      if (drag.ghost) drag.ghost.remove();
+      itemBtn.classList.remove('is-dragging');
+      drag = null;
+    });
+  }
+
   // ── SINGLE-AXIS MODE ─────────────────────────────────────────
   function initSingleAxis(config) {
     var bankEl = config.bankEl, zonesEl = config.zonesEl;
     var statusEl = config.statusEl, resetBtn = config.resetBtn;
     var items = config.items, zones = config.zones;
     var selected = null, solvedCount = 0, wrongAttempts = 0, zoneParts = {};
+    var dragState = { suppressClick: false };
+
+    function onItemClick(btn, item) {
+      if (dragState.suppressClick) { dragState.suppressClick = false; return; }
+      selectItem(btn, item);
+    }
+
+    /* Dropping straight onto a zone selects the item and places it in one go. */
+    function dropOn(zoneId, btn, item) {
+      selected = { btn: btn, item: item };
+      btn.classList.add('selected');
+      attemptPlace(zoneId);
+    }
 
     function build() {
       bankEl.innerHTML = '';
       statusEl.textContent = '';
       statusEl.classList.remove('drag-sort-status--complete');
       selected = null; solvedCount = 0; wrongAttempts = 0;
+      dragState.suppressClick = false;
 
-      items.forEach(function (item) { bankEl.appendChild(buildBankItem(item, selectItem)); });
+      items.forEach(function (item) {
+        var btn = buildBankItem(item, onItemClick);
+        if (config.enableDrag) attachDragging(btn, item, zonesEl, dropOn, dragState);
+        bankEl.appendChild(btn);
+      });
 
       zoneParts = buildZoneRow(zonesEl, zones);
       Object.keys(zoneParts).forEach(function (zoneId) {

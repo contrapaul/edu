@@ -12,6 +12,7 @@
   if (!bankEl || !window.DragSort) return;
 
   window.DragSort.init({
+    enableDrag: true,
     bankEl: bankEl,
     zonesEl: document.getElementById('sort-needwant-zones'),
     statusEl: document.getElementById('sort-needwant-status'),
@@ -93,6 +94,12 @@
     { text: 'They will love our game because we would have loved it at their age.',
       weak: true, fault: 'Assumes the designer is the user',
       why: 'The most common failure in Ai. Your own preferences at eleven are not evidence about these students now. Rescue it by asking them, or by dropping the claim entirely.' }
+      { text: 'Tabletop games can be an engaging way to spend time with others',
+      weak: false,
+      why: 'It's a little weak, and not fully justified, but not totally incorrect.' },
+      { text: 'Teachers told us that they want more indoor activities during recess that do not involve laptops',
+      weak: false,
+      why: 'This is a real need expressed by interviewing teachers.' },
   ];
 
   var checkBtn   = document.getElementById('autopsy-check');

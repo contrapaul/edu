@@ -288,6 +288,28 @@
 }
 .g9-planner-msg.warn { color: var(--amber); font-weight: 600; }
 
+/* The need/want/assumption sort accepts dragging, so its statements are
+   styled to look liftable. The DP sort widgets stay click only, so this is
+   deliberately scoped here rather than applied to every .drag-sort-item. */
+#sort-needwant .drag-sort-item {
+  cursor: grab;
+  touch-action: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 3px 8px rgba(0,0,0,0.09);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.13s;
+}
+#sort-needwant .drag-sort-item:hover,
+#sort-needwant .drag-sort-item:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.09), 0 10px 22px rgba(0,0,0,0.16);
+  border-color: var(--border-strong);
+}
+#sort-needwant .drag-sort-item:active { cursor: grabbing; transform: translateY(-1px); }
+#sort-needwant .drag-sort-item.is-dragging { box-shadow: none; transform: none; }
+
+/* The zones are drop targets now, so the tap instruction is gone. */
+#sort-needwant .drag-sort-zone-slot:empty::before { content: none; }
+#sort-needwant .drag-sort-zone-wrap { transition: border-color 0.15s, background 0.15s; }
+
 /* Materials inside a modal */
 .g9-brief {
   margin: 1rem 0;
@@ -1548,7 +1570,7 @@
       <div class="drag-sort" id="sort-needwant">
         <div class="drag-sort-label">Interactive</div>
         <div class="drag-sort-title">Sort the twelve statements</div>
-        <p class="drag-sort-intro">Select a statement, then select the pile it belongs in.</p>
+        <p class="drag-sort-intro">Drag a statement onto a pile, or click it and then click the pile.</p>
         <div class="drag-sort-section-label">Statements</div>
         <div class="drag-sort-bank" id="sort-needwant-bank"></div>
         <div class="drag-sort-section-label">Piles</div>
@@ -1630,10 +1652,10 @@
     </header>
     <div class="case-modal-body">
 
-      <p>A real-looking need statement, written by a team who did some research and then stopped thinking. <strong>Three of these six sentences make a claim that is never justified.</strong> Find them.</p>
+      <p>A real-looking need statement, written by a team who did some research and then stopped thinking. <strong>Three of these eight sentences make a claim that is never justified.</strong> Find them.</p>
 
       <div class="g9-run">
-        <strong>How to run it.</strong> Pairs, 15 minutes. Read it aloud once first; the weak sentences sound fine until you say them. Click the three sentences you think are unjustified, then check. Finish by asking what evidence would be needed to rescue each one.
+        <strong>How to run it.</strong> Work in pairs for up to 15 minutes. Read each sentence out loud once first. The weak sentences might seem fine until you actually say them. Click the three sentences you think are <em>unjustified</em>, then check. Finish by asking what evidence would be needed to rescue each one.
       </div>
 
       <div class="g9-brief" id="autopsy-brief" aria-label="Need statement to analyse"></div>
