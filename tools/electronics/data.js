@@ -73,8 +73,12 @@ const PARTS = [
     { label: "MacroPad Builder, wire this board in the browser", url: "/tools/macropad/", kind: "Tool", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The board on a plain background, top down, USB socket at the bottom, both pin rows readable.",
+    image: {
+      src: "media/s3n16r8.webp",
+      alt: "An ESP32-S3 N16R8 board seen from above on a white background, with two USB-C sockets on one edge, a silver radio shield marked S3-N16R8, and a GPIO number printed beside every pin hole.",
+      caption: "The GPIO number is printed beside every hole, which is the quickest way to check a pin. This one came with its header pins loose in the bag, so they need soldering on before it will sit in a breadboard. It also has two USB-C sockets: if the computer does not see the board, try the other one."
+    },
+    imageNeed: "Done.",
     detail: null,
     detailNeed: "The board seated in a breadboard across the centre channel, with power and ground jumpers already run."
   }
@@ -268,8 +272,12 @@ const PARTS = [
     { label: "Adafruit SSD1306 guide", url: "https://learn.adafruit.com/monochrome-oled-breakouts", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The module face on, screen lit and showing text, so the size of the readable area is clear.",
+    image: {
+      src: "media/ssd1306oledI2C.webp",
+      alt: "A 0.96 inch SSD1306 OLED module on a blue circuit board, switched off, with four pins along the top labelled VCC, GND, SCL and SDA.",
+      caption: "Read the four labels before wiring. On this board the order is VCC, GND, SCL, SDA, and other boards swap the last two. The thin ribbon running under the glass along the bottom edge is the part that breaks if the module gets bent."
+    },
+    imageNeed: "A second shot with the screen lit and showing text, so the size of the readable area is clear.",
     detail: null,
     detailNeed: "The back of the module, with the four pin labels and the address solder pads visible."
   }
@@ -561,7 +569,7 @@ const PARTS = [
   name: "PS2 Analog Joystick",
   shortName: "Joystick",
   category: "controls",
-  alsoCalled: ["Thumbstick module", "KY-023"],
+  alsoCalled: ["Thumbstick module", "KY-023", "HW-504"],
   blurb: "Two potentiometers and a button in a thumbstick. Reads position, not direction.",
   signal: ["Analog in", "Digital in", "Power"],
   difficulty: "Moderate",
@@ -596,8 +604,12 @@ const PARTS = [
     { label: "Analog to digital conversion explained", url: "https://learn.sparkfun.com/tutorials/analog-to-digital-conversion", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The module at an angle showing the stick and the five pins.",
+    image: {
+      src: "media/ps2joystick.webp",
+      alt: "A PS2 style thumbstick module marked HW-504, with a black stick on a green circuit board and five pins labelled GND, plus 5V, VRx, VRy and SW.",
+      caption: "The number printed on this board is HW-504. Feed the pin marked +5V with 3.3V on a 3.3V board, so the two analog outputs stay inside the range the pins can take."
+    },
+    imageNeed: "Done.",
     detail: null,
     detailNeed: "The underside, with the two potentiometer bodies visible, showing that a joystick really is two pots."
   }
@@ -642,8 +654,12 @@ const PARTS = [
     { label: "Potentiometers explained", url: "https://learn.sparkfun.com/tutorials/resistors/types-of-resistors", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The slider from above with the knob fitted, next to a ruler so the 45mm travel is clear.",
+    image: {
+      src: "media/Hw371slide.webp",
+      alt: "An HW-371 slide potentiometer with a yellow knob on a red breakout board, labelled Slide pot HW-371, with a three pin header on each side of the track.",
+      caption: "This one is on a breakout board with a three pin header on each side. The pins are marked GND, VCC and an output labelled OTA or OTB rather than OUT, so check your own board against the silkscreen before wiring."
+    },
+    imageNeed: "A second shot next to a ruler, so the 45mm travel can be compared with the 75mm slider.",
     detail: null,
     detailNeed: "The pin end of the slider, labels visible, showing which pin is the wiper."
   }
@@ -914,8 +930,12 @@ const PARTS = [
     { label: "Voltage dividers explained", url: "https://learn.sparkfun.com/tutorials/voltage-dividers", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The sensor face on, both transducers and the four pins visible.",
+    image: {
+      src: "media/hcsr04.webp",
+      alt: "An HC-SR04 ultrasonic sensor on a blue board, with two metal transducers marked T and R, a crystal between them, and four pins labelled Vcc, Trig, Echo and Gnd.",
+      caption: "T is the transducer that sends the burst and R is the one that listens for it. Echo puts out 5 volts, so it needs a divider before it reaches a 3.3V board."
+    },
+    imageNeed: "Done.",
     detail: null,
     detailNeed: "The ECHO voltage divider built on a breadboard, with the two resistor values readable."
   }
@@ -1545,10 +1565,14 @@ const PARTS = [
     { label: "Connector basics", url: "https://learn.sparkfun.com/tutorials/connector-basics", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "All three types fanned out together with their ends visible, labelled male to male, male to female, female to female.",
+    image: {
+      src: "media/jumperwires.webp",
+      alt: "A bundle of around twenty male to male jumper wires in many colours, fanned out so the pin ends at both ends are visible.",
+      caption: "These are male to male, a pin at each end, for joining one breadboard hole to another."
+    },
+    imageNeed: "Done.",
     detail: null,
-    detailNeed: "Close on a male and a female end together, showing how they mate."
+    detailNeed: "All three types side by side, male to male next to male to female next to female to female, close enough to tell the ends apart."
   }
 },
 
@@ -1633,8 +1657,12 @@ const PARTS = [
     { label: "Stripboard layout basics", url: "https://en.wikipedia.org/wiki/Stripboard", kind: "Wiki", vpn: true }
   ],
   media: {
-    image: null,
-    imageNeed: "Plain perfboard and stripboard side by side, both sides shown, so the copper difference is clear.",
+    image: {
+      src: "media/perfboard.webp",
+      alt: "A 6 by 8 centimetre green perfboard seen from above, covered in rows of separate ringed copper pads, with longer joined pads running down each long edge.",
+      caption: "This is plain perfboard: every pad is its own island, so every connection is a wire you solder. Stripboard looks much the same from above but has whole rows already joined underneath."
+    },
+    imageNeed: "Done.",
     detail: null,
     detailNeed: "The underside of a finished student build on stripboard, with a track cut visible."
   }

@@ -74,9 +74,11 @@ empty detail slot draws a placeholder describing what should go there, taken
 from `detailNeed`. To fill either:
 
 ```js
-image:  { src: "media/resistor.jpg", alt: "A row of resistors on white paper", caption: "Optional caption." },
-detail: { src: "media/resistor-detail.jpg", alt: "One resistor, bands labelled", caption: "Optional caption." }
+image:  { src: "media/resistor.webp", alt: "A row of resistors on white paper", caption: "Optional caption." },
+detail: { src: "media/resistor-detail.webp", alt: "One resistor, bands labelled", caption: "Optional caption." }
 ```
+
+Shoot at 4:3 and at least 1600 by 1200, which is what the existing photos are.
 
 Set `detailNeed: "Not needed."` to hide a slot entirely rather than show a
 placeholder for something you have decided against. `media-tasks.md` lists every
