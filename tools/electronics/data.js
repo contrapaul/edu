@@ -336,8 +336,12 @@ const PARTS = [
       caption: "Read the four labels before wiring. On this board the order is VCC, GND, SCL, SDA, and other boards swap the last two. The thin ribbon running under the glass along the bottom edge is the part that breaks if the module gets bent."
     },
     imageNeed: "A second shot with the screen lit and showing text, so the size of the readable area is clear.",
-    detail: null,
-    detailNeed: "The back of the module, with the four pin labels and the address solder pads visible."
+    detail: {
+      src: "media/ssd1306close.webp",
+      alt: "The back of the same OLED module, showing an orange flexible ribbon soldered to a long row of fine pads, several small surface mount components, the four pin header and four mounting holes.",
+      caption: "The orange ribbon carries every one of those fine pads to the glass. Flexing the module works that row of joints, and once one cracks the display is finished. Handle it by the blue board, never by the glass."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -1681,7 +1685,7 @@ const PARTS = [
     "Remember that a diode in the supply line drops about 0.7 volts. On a 3.3 volt supply that is a lot.",
     "Check the current rating. The 1N4148 is a small signal part and the 1N4007 handles much more."
   ],
-  goesWith: ["vibration-motor", "transistor", "sg90-servo", "led"],
+  goesWith: ["rectifier-diode", "vibration-motor", "transistor", "sg90-servo"],
   watchOut: [
     "Backwards across a motor it conducts all the time and shorts your supply. This gets hot fast.",
     "A diode in the supply line drops voltage. Two in series on a 3.3V rail leave you with under 2 volts.",
@@ -1697,6 +1701,59 @@ const PARTS = [
     imageNeed: "A 1N4148 and a 1N4007 side by side, bands clearly visible.",
     detail: null,
     detailNeed: "Not needed."
+  }
+},
+
+{
+  slug: "rectifier-diode",
+  name: "Rectifier Diode",
+  shortName: "Rectifier",
+  category: "passives",
+  alsoCalled: ["FR207", "1N4007", "power diode", "fast recovery diode"],
+  blurb: "The heavy duty diode. Carries amps where the small signal one carries milliamps.",
+  signal: ["No signal"],
+  difficulty: "Easy",
+  voltage: "Up to 1000V, 2A through it",
+  whatItIs: [
+    "A diode built to carry real current. It does the same one way job as the small glass 1N4148, but where that part gives up at about 200 milliamps, an FR207 will pass 2 amps all day and stand off 1000 volts the other way.",
+    "Rectify means turning alternating current into direct current. Mains and transformer outputs swing positive and negative many times a second, and a diode that only passes one direction chops off the half you do not want. That is where the name comes from, and it is why these are the diodes inside every power supply.",
+    "In a student project the rectifying job rarely comes up, because the power arrives as DC from a USB socket already. What does come up constantly is the other job: sitting across a motor or a relay to absorb the spike it throws out when it stops. For that you want this part rather than the small one, because the spike from a motor is a burst of current, not a trickle."
+  ],
+  pins: [
+    { name: "Anode", type: "Power", note: "The plain end, away from the band. Current enters here." },
+    { name: "Cathode", type: "Ground", note: "The end with the grey or silver band printed round it. Current leaves here. The band is always the marked end." }
+  ],
+  wiring: [
+    "Find the band. It marks the cathode, the end current flows out of, and it is the only thing on the part that tells you which way round it goes.",
+    "Across a motor or a relay coil, wire it in parallel with the coil and put the band towards the positive supply. In normal running it does nothing at all, and it only conducts when the coil is switched off.",
+    "In a supply line for reverse polarity protection, wire it in series with the band pointing towards the circuit.",
+    "Remember it drops around 1 volt when it is conducting, more than the 0.7 of a small signal diode, so it is a poor choice for sitting in a low voltage supply line."
+  ],
+  goesWith: ["diode", "vibration-motor", "transistor", "sg90-servo"],
+  watchOut: [
+    "Fitted backwards across a motor it conducts all the time and shorts the supply straight to ground. It gets hot very quickly.",
+    "The band can be hard to see on a black body under classroom lighting. Use the diode test on a multimeter if you are unsure which end is which.",
+    "It is physically bigger than a 1N4148 and the legs are thicker, so it stretches breadboard clips. Bend the legs to fit rather than forcing it.",
+    "A bigger diode does not make a slow one fast. The FR in FR207 means fast recovery, which matters when it is switching thousands of times a second, and an ordinary 1N4007 is the slow one."
+  ],
+  useItFor: "Protecting the circuit from any motor, relay or solenoid, and any build where a battery could be fitted the wrong way round.",
+  links: [
+    { label: "SparkFun diodes tutorial", url: "https://learn.sparkfun.com/tutorials/diodes", kind: "Guide", vpn: false },
+    { label: "What rectification means", url: "https://en.wikipedia.org/wiki/Rectifier", kind: "Wiki", vpn: true }
+  ],
+  media: {
+    image: {
+      src: "media/rectifier.webp",
+      alt: "Eleven black rectifier diodes still joined by their paper tape bandolier, the tape marked FR207 in blue ink, each diode showing a grey band at one end of its black body.",
+      caption: "Still on the tape they were supplied on, with the part number printed along it. Once they are cut off the tape the only marking left is the one on the body, so keep them together until you need them."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/rectifierclose.webp",
+      alt: "A close view along the row of diodes, showing the grey band around one end of each black body and the part number FR207 printed along the side.",
+      caption: "The grey band marks the cathode, the end current flows out of. That band is the whole of the wiring information the part carries."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -1785,10 +1842,25 @@ const PARTS = [
     { label: "SparkFun, how to use a breadboard", url: "https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "A full size and a half size breadboard side by side, top down, rails and centre channel clear.",
-    detail: null,
-    detailNeed: "A breadboard with the backing peeled off, showing the metal clips underneath and how the rows are joined."
+    image: {
+      src: "media/breadboard.webp",
+      alt: "Two full size white breadboards seen from above, each with rows lettered A to J, columns numbered to 60, and red and blue power rails down both long edges.",
+      caption: "A full size board, 60 columns wide. Look along the red and blue rail lines and you can see where they stop and start again near the middle."
+    },
+    imageNeed: "Done.",
+    detail: [
+      {
+        src: "media/breadboarddetail2.webp",
+        alt: "A close view straight down on a breadboard, showing the power rail holes arranged in groups of five with a gap between each group, the red and blue rail lines, numbered columns 15, 20 and 25, and the centre channel below.",
+        caption: "The rail holes come in groups of five with a gap between each group. Those gaps are only cosmetic and the whole rail is joined behind them, which is the opposite of what the gaps suggest. The real break, where one is present, is a wider one at the midpoint of the board."
+      },
+      {
+        src: "media/breadboarddetail1.webp",
+        alt: "An angled close view along the surface of two breadboards, showing the depth of the holes, the numbered columns and the coloured rail lines running along the edges.",
+        caption: "Seen along the surface. Every hole is a sprung metal clip below the plastic, which is why a hole that has been used many times stops gripping."
+      }
+    ],
+    detailNeed: "Done."
   }
 },
 
@@ -2074,17 +2146,18 @@ const PARTS = [
   blurb: "Clips onto the breadboard rails and feeds them 3.3V or 5V, your choice.",
   signal: ["Power"],
   difficulty: "Easy",
-  voltage: "6V to 12V in, 3.3V or 5V out",
+  voltage: "7V to 10V in, 3.3V or 5V out",
   whatItIs: [
     "A small board that pushes straight into the power rails at the end of a breadboard and supplies them. Power comes in through the barrel jack from a wall adapter, and the module regulates it down.",
     "The two yellow jumpers are the point of it. Each one selects 3.3V, 5V, or OFF for its own rail, so the two rails can run at different voltages at the same time. That is genuinely useful when a 5V sensor and a 3.3V board share one breadboard.",
     "It matters because a microcontroller's own 3V3 pin can only supply so much. Once a build has a servo, a strip of LEDs or a motor in it, the board cannot feed everything and this module takes over."
   ],
   pins: [
-    { name: "Barrel jack", type: "Power", note: "6V to 12V in from a wall adapter. Check the adapter's rating before plugging it in." },
+    { name: "Barrel jack", type: "Power", note: "7V to 10V in from a wall adapter, as printed on the board beside the socket. Check the adapter's rating before plugging it in." },
     { name: "USB-A socket", type: "Power", note: "5 volts out, for powering something with a USB cable." },
     { name: "Yellow jumpers", type: "Select", note: "One per rail. Three positions: 3.3V, OFF, and 5V. Set them before applying power." },
     { name: "Rail pins", type: "Power", note: "The two rows of pins underneath that push into the breadboard's red and blue rails." },
+    { name: "Centre header", type: "Power", note: "A block of pins in the middle bringing out 5V, 3.3V and GND for jumper wires." },
     { name: "Power switch", type: "Control", note: "Cuts the output without unplugging the adapter." }
   ],
   wiring: [
@@ -2098,7 +2171,8 @@ const PARTS = [
     "A jumper on the wrong setting puts 5 volts onto a rail feeding a 3.3V board. Measure before you connect, every time.",
     "Do not feed the rails from this module and from the microcontroller's own 3V3 pin at the same time. Two supplies fighting over one rail is a good way to damage both.",
     "It still needs its ground shared with everything else in the circuit.",
-    "The regulator gets warm under load and has no heatsink. If it is too hot to touch, the build is drawing more than it can give."
+    "The regulator gets warm under load and has no heatsink. If it is too hot to touch, the build is drawing more than it can give.",
+    "Feeding it more than 10 volts makes the regulators run hot and wastes the extra as heat. A 9V adapter sits comfortably in the middle of its range."
   ],
   useItFor: "Any build that outgrows what the microcontroller's own pins can supply, and any breadboard that needs 3.3V and 5V on its two rails at once.",
   links: [
@@ -2111,8 +2185,12 @@ const PARTS = [
       caption: "One yellow jumper per rail, each with 3.3V, OFF and 5V positions. Set both before the power goes on, then check the rails with a meter."
     },
     imageNeed: "Done.",
-    detail: null,
-    detailNeed: "Close on one yellow jumper with the 3.3V, OFF and 5V silkscreen positions readable, so the setting can be checked at a glance."
+    detail: {
+      src: "media/powersupplydetail.webp",
+      alt: "A close view of the same module, with DC-in and 7 to 10V printed beside the barrel jack, both jumper blocks labelled 5V, OFF and 3.3V, a green LED, and two regulators marked 1117.",
+      caption: "The input range is printed on the board itself: 7 to 10 volts into the barrel jack. Each jumper block is labelled 5V, OFF and 3.3V, and the header in the middle brings out 5V, 3.3V and GND as well."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -2333,10 +2411,18 @@ const PARTS = [
     { label: "Working with wire", url: "https://learn.sparkfun.com/tutorials/working-with-wire", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "Strippers and flush cutters together, the gauge markings on the strippers readable.",
-    detail: null,
-    detailNeed: "Not needed."
+    image: {
+      src: "media/wirestrippers.webp",
+      alt: "A pair of yellow handled wire strippers marked BY-1042, open, with a spring between the handles, a row of sized notches on the jaws and a small ruler scale on the body.",
+      caption: "The classroom pair. The jaws carry sized notches, the body carries a short ruler, and the spring pushes them open between cuts."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/strippersclose.webp",
+      alt: "A close view of the stripper jaws, one side numbered 26, 24, 22, 20, 18 and 16 above the word AWG, the other numbered 0.2, 0.35, 0.5, 0.9 and 1.25 above the letters MM squared, with CUT OPPER ONLY and STEEL CUTTER printed on the body.",
+      caption: "Two scales for the same notches: AWG on one jaw and square millimetres on the other. Jumper wire is usually 24 or 26 AWG, so start at the small end. The tool also tells you what not to do with it, though the moulding misspells copper."
+    },
+    detailNeed: "Done."
   }
 }
 

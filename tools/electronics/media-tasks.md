@@ -11,17 +11,27 @@ image:  { src: "media/hcsr04.webp", alt: "What it shows", caption: "Optional" },
 detail: { src: "media/hcsr04-detail.webp", alt: "What it shows", caption: "Optional" }
 ```
 
+Either slot also takes a list, for a part that needs more than one close-up:
+
+```js
+detail: [
+  { src: "media/breadboarddetail2.webp", alt: "...", caption: "..." },
+  { src: "media/breadboarddetail1.webp", alt: "...", caption: "..." }
+]
+```
+
 Shoot at 4:3 and at least 1600 by 1200. The card crops to 4:3 and fills the
 frame, so leave a little space around the part rather than filling the shot
 edge to edge.
 
 | | count |
 |---|---|
-| Parts with a card photo | 18 of 48 |
-| Card photos still needed | 30 |
+| Parts with a card photo | 21 of 49 |
+| Photographs wired in total | 35 |
+| Card photos still needed | 28 |
 | Extra shots requested | 5 |
-| Close-ups still needed | 32 |
-| **Total shots outstanding** | **67** |
+| Close-ups still needed | 29 |
+| **Total shots outstanding** | **62** |
 
 Almost all of these are one part on a plain background under a desk lamp. A
 phone on a small tripod and a sheet of white paper covers the whole list. Shoot
@@ -41,12 +51,11 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | Seeed XIAO SAMD21 | Card photo | `xiao-samd21.webp` | Top down beside a coin for scale, pad labels readable. |
 | [ ] | Seeed XIAO SAMD21 | Close-up | `xiao-samd21-detail.webp` | Close on the edge pads with a wire soldered to one, showing what a direct solder joint looks like. |
 
-## 2. Displays (8 shots)
+## 2. Displays (7 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
 | [ ] | SSD1306 OLED, 0.96 inch, I2C | Extra shot | `ssd1306-i2c-2.webp` | A second shot with the screen lit and showing text, so the size of the readable area is clear. |
-| [ ] | SSD1306 OLED, 0.96 inch, I2C | Close-up | `ssd1306-i2c-detail.webp` | The back of the module, with the four pin labels and the address solder pads visible. |
 | [ ] | SSD1306 OLED, 0.96 inch, SPI | Card photo | `ssd1306-spi.webp` | The seven pin module face on with the screen lit. |
 | [ ] | SSD1306 OLED, 0.96 inch, SPI | Close-up | `ssd1306-spi-detail.webp` | Close on the pin header showing all seven labels in order, left to right. |
 | [ ] | SH1106 OLED, 1.3 inch | Card photo | `sh1106.webp` | The 1.3 inch module beside the 0.96 inch one, both lit and showing the same text, so the size difference is obvious. |
@@ -108,12 +117,10 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | NPN Transistor | Card photo | `transistor.webp` | Several small signal transistors together with their part numbers readable, flat faces towards the camera. |
 | [ ] | NPN Transistor | Close-up | `transistor-detail.webp` | One transistor with its three legs labelled base, collector and emitter on the photo, for that exact part number. |
 
-## 7. Prototyping and Connection (8 shots)
+## 7. Prototyping and Connection (6 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
-| [ ] | Solderless Breadboard | Card photo | `breadboard.webp` | A full size and a half size breadboard side by side, top down, rails and centre channel clear. |
-| [ ] | Solderless Breadboard | Close-up | `breadboard-detail.webp` | A breadboard with the backing peeled off, showing the metal clips underneath and how the rows are joined. |
 | [ ] | Jumper Wires | Close-up | `jumper-wires-detail.webp` | All three types side by side, male to male next to male to female next to female to female, close enough to tell the ends apart. |
 | [ ] | Header Pins and Sockets | Card photo | `header-pins.webp` | A long male strip, a long female strip, and a short snapped piece of each, together. |
 | [ ] | Header Pins and Sockets | Close-up | `header-pins-detail.webp` | A board being soldered with a breadboard used as a jig to hold the header square. |
@@ -121,17 +128,16 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | USB-C Cable | Card photo | `usb-c-cable.webp` | Several USB-C cables together, with the known data ones marked, showing they look identical. |
 | [ ] | Crocodile Clip Leads | Card photo | `crocodile-clips.webp` | A set of croc leads in several colours, one pair clipped to a battery holder. |
 
-## 8. Power (5 shots)
+## 8. Power (4 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
 | [ ] | USB Power Supply and Power Bank | Card photo | `power-supply.webp` | A wall adapter and a small power bank together, ratings readable. |
-| [ ] | Breadboard Power Supply Module | Close-up | `power-module-detail.webp` | Close on one yellow jumper with the 3.3V, OFF and 5V silkscreen positions readable, so the setting can be checked at a glance. |
 | [ ] | AA and AAA Battery Holder | Card photo | `battery-holder.webp` | Holders for two, three and four cells together, wires visible. |
 | [ ] | TP4056 LiPo Charger Module | Card photo | `lipo-charger.webp` | A protected and an unprotected TP4056 board side by side, close enough to spot the extra chip. |
 | [ ] | TP4056 LiPo Charger Module | Close-up | `lipo-charger-detail.webp` | The protection chip and transistors circled on the photo, so the difference is unmistakable. |
 
-## 9. Workshop Tools (5 shots)
+## 9. Workshop Tools (4 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
@@ -139,19 +145,16 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | Digital Multimeter | Close-up | `multimeter-detail.webp` | The dial with the continuity and DC voltage positions marked on the photo. |
 | [ ] | Soldering Iron | Card photo | `soldering-iron.webp` | The classroom iron in its stand with solder and brass wool beside it. |
 | [ ] | Soldering Iron | Close-up | `soldering-iron-detail.webp` | A good joint and a cold joint side by side under magnification, both labelled. |
-| [ ] | Wire Strippers and Side Cutters | Card photo | `wire-strippers.webp` | Strippers and flush cutters together, the gauge markings on the strippers readable. |
 
 ---
 
 ## Already shot
 
-Card photo wired up, and a close-up too where one is listed.
-
-| Part | Card photo | Close-up |
+| Part | Card photo | Close-ups |
 |---|---|---|
 | ESP32-S3 N16R8 | `s3n16r8.webp` | `S3detail.webp` |
 | ESP32-S3 Super Mini | `esps3mini.webp` |  |
-| SSD1306 OLED, 0.96 inch, I2C | `ssd1306oledI2C.webp` |  |
+| SSD1306 OLED, 0.96 inch, I2C | `ssd1306oledI2C.webp` | `ssd1306close.webp` |
 | Tactile Push Button | `tactilebutton.webp` | `tactilebuttondetail.webp` |
 | KY-040 Rotary Encoder | `hw040encoder.webp` | `hw040detail.webp` |
 | PS2 Analog Joystick | `ps2joystick.webp` |  |
@@ -164,21 +167,23 @@ Card photo wired up, and a close-up too where one is listed.
 | Enclosed Cavity Speaker | `speaker.webp` |  |
 | Resistor | `resistors.webp` |  |
 | Capacitor | `capacitor.webp` | `capacitordetail.webp` |
+| Rectifier Diode | `rectifier.webp` | `rectifierclose.webp` |
+| Solderless Breadboard | `breadboard.webp` | `breadboarddetail2.webp`, `breadboarddetail1.webp` |
 | Jumper Wires | `jumperwires.webp` |  |
 | Perfboard and Stripboard | `perfboard.webp` |  |
-| Breadboard Power Supply Module | `power.webp` |  |
+| Breadboard Power Supply Module | `power.webp` | `powersupplydetail.webp` |
+| Wire Strippers and Side Cutters | `wirestrippers.webp` | `strippersclose.webp` |
 
-> Filenames are historical in a couple of places. `hw040encoder.webp` and
-> `hw040detail.webp` are photographs of a Keyes KY-040 and are wired to that
-> card. `i2cmicrophone.webp` is an I2S part, not I2C.
+> Some filenames are historical. `hw040encoder.webp` and `hw040detail.webp` are
+> photographs of a Keyes KY-040 and are wired to that card. `i2cmicrophone.webp`
+> is an I2S part, not I2C. `slide.webp` is a byte for byte duplicate of
+> `Hw371slide.webp` and is not used.
 
 ---
 
 ## Shots that need more than a desk lamp
 
-A few of these are worth flagging because they are not simply a part on paper.
-
-- **Breadboard close-up.** Needs a board with the adhesive backing peeled off so the metal clips underneath are visible. Sacrifice one dead breadboard for this. It explains more than any diagram would.
+- **Breadboard underside.** A dead board with the adhesive backing peeled off so the metal clips are visible. The two close-ups already wired show the surface; nothing yet shows what is under it.
 - **Soldering close-up.** A good joint and a cold joint side by side, under magnification. Worth doing properly once, since students will be sent back to it all year.
 - **TP4056 protected versus unprotected.** The difference is one small chip. Shoot both boards at the same angle and distance so they can be compared directly.
 - **Five band resistor.** Sharp focus and neutral light, each band numbered on the photo. The classroom stock is five band and most charts online are four band, which is exactly the confusion the photo has to settle.

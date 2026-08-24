@@ -90,10 +90,14 @@
 
   /* Every card is built around a photograph. Until one exists the slot
      draws itself as a hatched panel carrying the part name, so a card
-     with no picture still reads at a distance. */
+     with no picture still reads at a distance. A slot may hold several
+     photos, in which case the card shows the first. */
+  const first = (m) => (Array.isArray(m) ? m[0] : m);
+
   function photo(p) {
-    if (p.media.image) {
-      return '<img src="' + esc(p.media.image.src) + '" alt="' + esc(p.media.image.alt) + '" loading="lazy">';
+    const m = first(p.media.image);
+    if (m) {
+      return '<img src="' + esc(m.src) + '" alt="' + esc(m.alt) + '" loading="lazy">';
     }
     return '<span class="ec-card-photo-empty">' +
       '<span class="ec-photo-slug">' + esc(p.shortName || p.name) + "</span>" +
@@ -143,9 +147,30 @@
     return m ? '<img src="' + esc(m.src) + '" alt="' + esc(m.alt) + '" loading="lazy">' : null;
   }
 
+  /* Render every photo in a slot, or the placeholder if the slot is empty. */
+  function photoSlots(kind, m, need) {
+    if (!m) return slot(kind, null, need, null);
+    return (Array.isArray(m) ? m : [m])
+      .map((x) => slot(kind, img(x), null, x.caption)).join("");
+  }
+
+  const list = (m) => (m ? (Array.isArray(m) ? m : [m]) : []);
+
   function detailHTML(p) {
     const cat = CATEGORIES[p.category];
+    const images = list(p.media.image);
+    const hero = images[0] || null;
     let h = "";
+
+    /* The photograph is what identifies the part, so it opens the panel
+       rather than waiting three sections down. Matted rather than
+       cropped, since cutting the edges off a board loses the pin labels. */
+    if (hero) {
+      h += '<figure class="ec-hero">' +
+        '<span class="ec-hero-frame"><img src="' + esc(hero.src) + '" alt="' + esc(hero.alt) + '"></span>' +
+        (hero.caption ? '<figcaption>' + esc(hero.caption) + "</figcaption>" : "") +
+        "</figure>";
+    }
 
     h += '<div class="ec-detail-head">';
     h += '<p class="ec-detail-cat">' + esc(cat.name) + "</p>";
@@ -174,9 +199,13 @@
     h += '<div class="ec-sec"><h3>Wiring it up</h3><ol class="ec-steps">' +
       p.wiring.map((s) => "<li>" + esc(s) + "</li>").join("") + "</ol></div>";
 
+    /* The first photo has already run at the top, so only what is left
+       goes here. With no photo at all this still shows the placeholder. */
     const media =
-      slot("Photo", img(p.media.image), p.media.imageNeed, p.media.image && p.media.image.caption) +
-      slot("Close-up", img(p.media.detail), p.media.detailNeed, p.media.detail && p.media.detail.caption);
+      (hero
+        ? images.slice(1).map((x) => slot("Photo", img(x), null, x.caption)).join("")
+        : photoSlots("Photo", p.media.image, p.media.imageNeed)) +
+      photoSlots("Close-up", p.media.detail, p.media.detailNeed);
     if (media) h += '<div class="ec-sec"><h3>See it</h3><div class="ec-media">' + media + "</div></div>";
 
     h += '<div class="ec-sec"><h3>Watch out for</h3><ul class="ec-warn">' +

@@ -80,8 +80,19 @@ detail: { src: "media/resistor-detail.webp", alt: "One resistor, bands labelled"
 
 Shoot at 4:3 and at least 1600 by 1200, which is what the existing photos are.
 
+Either slot also accepts a list, for a part that needs more than one close-up.
+The card always shows the first photo; the detail panel shows them all, in order:
+
+```js
+detail: [
+  { src: "media/breadboarddetail2.webp", alt: "...", caption: "..." },
+  { src: "media/breadboarddetail1.webp", alt: "...", caption: "..." }
+]
+```
+
 Set `detailNeed: "Not needed."` to hide a slot entirely rather than show a
-placeholder for something you have decided against. `media-tasks.md` lists every
+placeholder for something you have decided against. Set it to `"Done."` once the
+slot is filled, which is what keeps the shot off `media-tasks.md`. `media-tasks.md` lists every
 outstanding shot, grouped by category.
 
 Card photos are cropped to 4 by 3 and cover the frame, so leave a little room
