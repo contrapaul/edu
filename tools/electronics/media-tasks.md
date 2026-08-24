@@ -19,9 +19,9 @@ edge to edge.
 |---|---|
 | Parts with a card photo | 18 of 48 |
 | Card photos still needed | 30 |
-| Extra shots requested | 4 |
+| Extra shots requested | 5 |
 | Close-ups still needed | 32 |
-| **Total shots outstanding** | **66** |
+| **Total shots outstanding** | **67** |
 
 Almost all of these are one part on a plain background under a desk lamp. A
 phone on a small tripod and a sheet of white paper covers the whole list. Shoot
@@ -54,12 +54,13 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | SSD1309 OLED, 1.54 inch | Card photo | `ssd1309.webp` | All three OLED sizes lined up, lit, showing the same text. |
 | [ ] | SSD1309 OLED, 1.54 inch | Close-up | `ssd1309-detail.webp` | The solder pads on the back that select I2C or SPI, close enough to see which is bridged. |
 
-## 3. Controls and Inputs (9 shots)
+## 3. Controls and Inputs (10 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
-| [ ] | KY-040 Rotary Encoder | Card photo | `ky-040.webp` | The module with the knob fitted, at an angle so both the knob and the five pins show. |
-| [ ] | KY-040 Rotary Encoder | Close-up | `ky-040-detail.webp` | Close on the module board showing the built-in pull-up resistors, so students learn to check for them. |
+| [ ] | KY-040 Rotary Encoder | Extra shot | `ky-040-2.webp` | A second shot with the knob fitted, since that is how students will meet it on a finished product. |
+| [ ] | HW-040 Rotary Encoder | Card photo | `hw-040.webp` | A genuine HW-040 board beside the Keyes KY-040, both with the pin headers facing the camera, so the difference in pin order is visible. |
+| [ ] | HW-040 Rotary Encoder | Close-up | `hw-040-detail.webp` | Close on the HW-040 silkscreen pin labels, since this is the part number whose pin order moves between batches. |
 | [ ] | PS2 Analog Joystick | Close-up | `ps2-joystick-detail.webp` | The underside, with the two potentiometer bodies visible, showing that a joystick really is two pots. |
 | [ ] | HW-371 Slide Potentiometer, 45mm | Extra shot | `hw-371-2.webp` | A second shot next to a ruler, so the 45mm travel can be compared with the 75mm slider. |
 | [ ] | HW-371 Slide Potentiometer, 45mm | Close-up | `hw-371-detail.webp` | The pin end of the slider, labels visible, showing which pin is the wiper. |
@@ -152,7 +153,7 @@ Card photo wired up, and a close-up too where one is listed.
 | ESP32-S3 Super Mini | `esps3mini.webp` |  |
 | SSD1306 OLED, 0.96 inch, I2C | `ssd1306oledI2C.webp` |  |
 | Tactile Push Button | `tactilebutton.webp` | `tactilebuttondetail.webp` |
-| HW-040 Rotary Encoder | `hw040encoder.webp` | `hw040detail.webp` |
+| KY-040 Rotary Encoder | `hw040encoder.webp` | `hw040detail.webp` |
 | PS2 Analog Joystick | `ps2joystick.webp` |  |
 | HW-371 Slide Potentiometer, 45mm | `Hw371slide.webp` |  |
 | Rotary Potentiometer | `rotarypotentiometer.webp` | `rotarypotentiometerdetail.webp` |
@@ -166,6 +167,10 @@ Card photo wired up, and a close-up too where one is listed.
 | Jumper Wires | `jumperwires.webp` |  |
 | Perfboard and Stripboard | `perfboard.webp` |  |
 | Breadboard Power Supply Module | `power.webp` |  |
+
+> Filenames are historical in a couple of places. `hw040encoder.webp` and
+> `hw040detail.webp` are photographs of a Keyes KY-040 and are wired to that
+> card. `i2cmicrophone.webp` is an I2S part, not I2C.
 
 ---
 

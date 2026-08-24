@@ -577,10 +577,18 @@ const PARTS = [
     { label: "Rotary encoder explained", url: "https://en.wikipedia.org/wiki/Rotary_encoder", kind: "Wiki", vpn: true }
   ],
   media: {
-    image: null,
-    imageNeed: "The module with the knob fitted, at an angle so both the knob and the five pins show.",
-    detail: null,
-    detailNeed: "Close on the module board showing the built-in pull-up resistors, so students learn to check for them."
+    image: {
+      src: "media/hw040encoder.webp",
+      alt: "A rotary encoder module on a black circuit board marked Keyes, with a bare metal shaft and five pins labelled CLK, DT, SW, plus and GND.",
+      caption: "The KY in KY-040 is Keyes, the maker, and that is what is printed on the board. Five pins in the order GND, +, SW, DT, CLK. The shaft has a flat on one side, so a knob only fits one way round."
+    },
+    imageNeed: "A second shot with the knob fitted, since that is how students will meet it on a finished product.",
+    detail: {
+      src: "media/hw040detail.webp",
+      alt: "The underside of the encoder module, showing three resistor positions marked R1, R2 and R3, all labelled 10K, with R2 and R3 fitted and the R1 pads left empty.",
+      caption: "This is the check worth making on every encoder you pick up. R2 and R3 are fitted, so those two lines have their 10k pull-ups. R1 is empty, so that line has none and needs the internal pull-up switched on in code."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -623,18 +631,10 @@ const PARTS = [
     { label: "Rotary encoder explained", url: "https://en.wikipedia.org/wiki/Rotary_encoder", kind: "Wiki", vpn: true }
   ],
   media: {
-    image: {
-      src: "media/hw040encoder.webp",
-      alt: "A rotary encoder module on a black circuit board marked Keyes, with a bare metal shaft and five pins labelled CLK, DT, SW, plus and GND.",
-      caption: "Five pins in the order GND, +, SW, DT, CLK. The shaft has a flat on one side, so a knob only fits one way round."
-    },
-    imageNeed: "Done.",
-    detail: {
-      src: "media/hw040detail.webp",
-      alt: "The underside of the encoder module, showing three resistor positions marked R1, R2 and R3, all labelled 10K, with R2 and R3 fitted and the R1 pads left empty.",
-      caption: "This is the check worth making on every encoder. R2 and R3 are fitted, so those two lines have their 10k pull-ups. R1 is empty, so that line has none and needs the internal pull-up switched on in code."
-    },
-    detailNeed: "Done."
+    image: null,
+    imageNeed: "A genuine HW-040 board beside the Keyes KY-040, both with the pin headers facing the camera, so the difference in pin order is visible.",
+    detail: null,
+    detailNeed: "Close on the HW-040 silkscreen pin labels, since this is the part number whose pin order moves between batches."
   }
 },
 
