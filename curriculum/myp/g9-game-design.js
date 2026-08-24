@@ -174,3 +174,298 @@
   resetBtn.addEventListener('click', function () { build(); statusEl.textContent = 'Click the sentences that make a claim without supporting it.'; });
   build();
 })();
+
+/* ── RESEARCH BUDGET PLANNER (Aii formative) ──────────────────
+   Twelve tokens, six activities, ten ordered slots. Dragging uses
+   pointer events so a finger works as well as a mouse; clicking a
+   chip or pressing Enter on it does the same job for anyone not
+   using a pointer at all. Overspending is blocked rather than
+   warned about, because the scarcity is the whole exercise. */
+(function () {
+  'use strict';
+  var root = document.getElementById('planner');
+  if (!root) return;
+
+  var BUDGET = 12, SLOTS = 10;
+
+  var ACTIVITIES = [
+    { id: 'secondary',   label: 'Read a secondary source',  cost: 1, kind: 'Secondary' },
+    { id: 'teardown',    label: 'Analyse an existing game', cost: 2, kind: 'Secondary' },
+    { id: 'survey',      label: 'Questionnaire',            cost: 2, kind: 'Primary' },
+    { id: 'observation', label: 'Structured observation',   cost: 3, kind: 'Primary' },
+    { id: 'interview',   label: 'Interview',                cost: 3, kind: 'Primary' },
+    { id: 'focus',       label: 'Focus group',              cost: 4, kind: 'Primary' }
+  ];
+  function byId(id) { for (var i = 0; i < ACTIVITIES.length; i++) if (ACTIVITIES[i].id === id) return ACTIVITIES[i]; return null; }
+
+  var plan = new Array(SLOTS).fill(null);   // slot index -> activity id
+
+  var bankEl  = document.getElementById('planner-bank');
+  var slotsEl = document.getElementById('planner-slots');
+  var pipsEl  = document.getElementById('planner-pips');
+  var spentEl = document.getElementById('planner-spent');
+  var leftEl  = document.getElementById('planner-left');
+  var msgEl   = document.getElementById('planner-msg');
+
+  function spent() {
+    return plan.reduce(function (t, id) { return id ? t + byId(id).cost : t; }, 0);
+  }
+  function firstEmpty() { return plan.indexOf(null); }
+
+  function say(text, warn) {
+    msgEl.textContent = text || '';
+    msgEl.classList.toggle('warn', !!warn);
+  }
+
+  /* ── rendering ── */
+  function renderBudget() {
+    var s = spent(), left = BUDGET - s;
+    spentEl.textContent = s;
+    leftEl.textContent = left === 0 ? 'Nothing left to spend' : left + ' left';
+    root.classList.toggle('is-full', left === 0);
+    pipsEl.innerHTML = '';
+    for (var i = 0; i < BUDGET; i++) {
+      var pip = document.createElement('span');
+      pip.className = 'g9-planner-pip' + (i < s ? ' spent' : '');
+      pipsEl.appendChild(pip);
+    }
+    /* A chip nobody can afford says so rather than failing silently. */
+    Array.prototype.forEach.call(bankEl.children, function (chip) {
+      var a = byId(chip.dataset.act);
+      var blocked = a.cost > left || firstEmpty() === -1;
+      chip.classList.toggle('too-dear', blocked);
+      chip.setAttribute('aria-disabled', blocked ? 'true' : 'false');
+    });
+  }
+
+  function renderSlots() {
+    slotsEl.innerHTML = '';
+    plan.forEach(function (id, i) {
+      var li = document.createElement('li');
+      li.className = 'g9-slot' + (id ? ' filled' : '');
+      li.dataset.slot = i;
+
+      var num = document.createElement('span');
+      num.className = 'g9-slot-num';
+      num.textContent = i + 1;
+      li.appendChild(num);
+
+      if (id) {
+        var a = byId(id);
+        var t = document.createElement('span');
+        t.className = 'g9-slot-text';
+        t.textContent = a.label;
+        var k = document.createElement('span');
+        k.className = 'g9-slot-kind';
+        k.textContent = a.kind;
+        var c = document.createElement('span');
+        c.className = 'g9-slot-cost';
+        c.textContent = a.cost + (a.cost === 1 ? ' token' : ' tokens');
+        var x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'g9-slot-x';
+        x.innerHTML = '&times;';
+        x.setAttribute('aria-label', 'Remove ' + a.label + ' from step ' + (i + 1));
+        x.addEventListener('click', function () { removeAt(i); });
+        li.appendChild(t); li.appendChild(k); li.appendChild(c); li.appendChild(x);
+      } else {
+        var e = document.createElement('span');
+        e.className = 'g9-slot-empty-text';
+        e.textContent = 'Empty';
+        li.appendChild(e);
+      }
+      slotsEl.appendChild(li);
+    });
+  }
+
+  function render() { renderSlots(); renderBudget(); }
+
+  /* ── placing and removing ── */
+  function place(actId, slotIndex) {
+    var a = byId(actId);
+    if (!a) return false;
+    if (slotIndex == null || slotIndex < 0) slotIndex = firstEmpty();
+    if (slotIndex === -1) { say('All ten steps are full. Remove one first.', true); return false; }
+    if (plan[slotIndex]) { say('That step is taken. Drop it on an empty one.', true); return false; }
+    if (spent() + a.cost > BUDGET) {
+      say('That would cost ' + a.cost + ' and you only have ' + (BUDGET - spent()) + ' left. Something has to go.', true);
+      return false;
+    }
+    plan[slotIndex] = actId;
+    render();
+    say('Added ' + a.label + ' as step ' + (slotIndex + 1) + '.');
+    return true;
+  }
+
+  function removeAt(i) {
+    if (!plan[i]) return;
+    var a = byId(plan[i]);
+    plan[i] = null;
+    render();
+    say('Removed ' + a.label + '. You have ' + (BUDGET - spent()) + ' tokens back.');
+  }
+
+  /* ── bank chips, with pointer drag and a click fallback ── */
+  var drag = null;
+
+  function startDrag(chip, ev) {
+    if (chip.classList.contains('too-dear')) return;
+    drag = { act: chip.dataset.act, chip: chip, moved: false, ghost: null, target: null };
+    chip.setPointerCapture(ev.pointerId);
+  }
+
+  function makeGhost(chip, x, y) {
+    var g = chip.cloneNode(true);
+    g.classList.add('g9-chip-ghost');
+    g.style.left = x + 'px';
+    g.style.top = y + 'px';
+    document.body.appendChild(g);
+    chip.classList.add('is-dragging');
+    return g;
+  }
+
+  function slotUnder(x, y) {
+    var el = document.elementFromPoint(x, y);
+    return el ? el.closest('.g9-slot') : null;
+  }
+
+  function onMove(ev) {
+    if (!drag) return;
+    if (!drag.moved) {
+      /* A few pixels of slop so a plain click is not read as a drag. */
+      drag.moved = true;
+      drag.ghost = makeGhost(drag.chip, ev.clientX, ev.clientY);
+    }
+    drag.ghost.style.left = ev.clientX + 'px';
+    drag.ghost.style.top = ev.clientY + 'px';
+    var slot = slotUnder(ev.clientX, ev.clientY);
+    if (drag.target && drag.target !== slot) drag.target.classList.remove('drop-target');
+    if (slot && !plan[+slot.dataset.slot]) { slot.classList.add('drop-target'); drag.target = slot; }
+    else drag.target = null;
+  }
+
+  var suppressClick = false;
+
+  function endDrag(ev) {
+    if (!drag) return;
+    var d = drag; drag = null;
+    if (d.ghost) d.ghost.remove();
+    d.chip.classList.remove('is-dragging');
+    if (d.target) d.target.classList.remove('drop-target');
+    if (!d.moved) return;               // a plain click; the click handler deals with it
+    suppressClick = true;               // a real drag happened, so ignore the click that follows
+    var slot = slotUnder(ev.clientX, ev.clientY);
+    if (slot) place(d.act, +slot.dataset.slot);
+    else say('Dropped outside the plan, so nothing was added.');
+  }
+
+  ACTIVITIES.forEach(function (a) {
+    var chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'g9-chip';
+    chip.dataset.act = a.id;
+    var label = document.createElement('span');
+    label.textContent = a.label;
+    var cost = document.createElement('span');
+    cost.className = 'g9-chip-cost';
+    cost.textContent = a.cost;
+    chip.appendChild(label); chip.appendChild(cost);
+    chip.addEventListener('pointerdown', function (e) { startDrag(chip, e); });
+    chip.addEventListener('pointermove', onMove);
+    chip.addEventListener('pointerup', endDrag);
+    chip.addEventListener('pointercancel', function () {
+      if (drag && drag.ghost) drag.ghost.remove();
+      if (drag) drag.chip.classList.remove('is-dragging');
+      drag = null;
+    });
+    /* Click covers a mouse click, a touch tap, and Enter or Space on the
+       button, so the widget never depends on pointer events alone. */
+    chip.addEventListener('click', function () {
+      if (suppressClick) { suppressClick = false; return; }
+      place(a.id, null);
+    });
+    bankEl.appendChild(chip);
+  });
+
+  document.getElementById('planner-clear').addEventListener('click', function () {
+    plan = new Array(SLOTS).fill(null);
+    render();
+    say('Cleared. All 12 tokens are back.');
+  });
+
+  /* ── PNG export, drawn by hand so nothing external is needed ── */
+  function downloadPNG() {
+    var rows = plan.map(function (id, i) { return id ? { n: i + 1, a: byId(id) } : null; })
+                   .filter(Boolean);
+    if (!rows.length) { say('Add at least one activity before downloading.', true); return; }
+
+    var S = 2, W = 900, PAD = 40, ROW = 54;
+    var H = PAD + 96 + rows.length * ROW + 92;
+    var cv = document.createElement('canvas');
+    cv.width = W * S; cv.height = H * S;
+    var g = cv.getContext('2d');
+    g.scale(S, S);
+
+    var INK = '#111418', MUTED = '#64748b', LINE = '#dde1e6', ACCENT = '#1a5cb8';
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, H);
+
+    g.fillStyle = INK;
+    g.font = '600 30px Lexend, Helvetica, Arial, sans-serif';
+    g.fillText('My design research plan', PAD, PAD + 26);
+
+    g.fillStyle = MUTED;
+    g.font = '15px Lexend, Helvetica, Arial, sans-serif';
+    g.fillText('Name: ' + '.'.repeat(46), PAD, PAD + 56);
+
+    g.strokeStyle = LINE; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(PAD, PAD + 76); g.lineTo(W - PAD, PAD + 76); g.stroke();
+
+    var y = PAD + 96;
+    rows.forEach(function (r) {
+      g.fillStyle = ACCENT;
+      g.beginPath(); g.roundRect(PAD, y + 10, 30, 30, 7); g.fill();
+      g.fillStyle = '#ffffff';
+      g.font = '700 14px ui-monospace, Menlo, monospace';
+      g.textAlign = 'center';
+      g.fillText(String(r.n), PAD + 15, y + 30);
+      g.textAlign = 'left';
+
+      g.fillStyle = INK;
+      g.font = '17px Lexend, Helvetica, Arial, sans-serif';
+      g.fillText(r.a.label, PAD + 46, y + 30);
+
+      g.fillStyle = MUTED;
+      g.font = '13px ui-monospace, Menlo, monospace';
+      g.textAlign = 'right';
+      g.fillText(r.a.kind.toUpperCase(), W - PAD - 92, y + 30);
+      g.fillText(r.a.cost + (r.a.cost === 1 ? ' token' : ' tokens'), W - PAD, y + 30);
+      g.textAlign = 'left';
+
+      g.strokeStyle = LINE;
+      g.beginPath(); g.moveTo(PAD, y + ROW - 2); g.lineTo(W - PAD, y + ROW - 2); g.stroke();
+      y += ROW;
+    });
+
+    var total = spent();
+    g.fillStyle = INK;
+    g.font = '600 19px Lexend, Helvetica, Arial, sans-serif';
+    g.fillText(total + ' of ' + BUDGET + ' tokens spent', PAD, y + 34);
+
+    g.fillStyle = MUTED;
+    g.font = '14px Lexend, Helvetica, Arial, sans-serif';
+    var unspent = BUDGET - total;
+    g.fillText(unspent === 0 ? 'Every token spent. What did you give up to do it?'
+                             : unspent + ' unspent. What would you buy with them?', PAD, y + 58);
+
+    var a = document.createElement('a');
+    a.download = 'My design research plan.png';
+    a.href = cv.toDataURL('image/png');
+    a.click();
+    say('Downloaded as "My design research plan.png".');
+  }
+
+  document.getElementById('planner-png').addEventListener('click', downloadPNG);
+
+  render();
+  say('Drag an activity into a step, or click it to add it to the next empty one.');
+})();

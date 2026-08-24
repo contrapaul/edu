@@ -166,6 +166,128 @@
 }
 .g9-fcard-cta::after { content: " \2192"; }
 
+/* Research budget planner. Pointer based drag so it works with a mouse
+   and a finger; clicking or pressing Enter on a bank chip does the same
+   job for anyone not using a pointer. */
+.g9-planner {
+  margin: 1.25rem 0;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.g9-planner-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+  padding-bottom: 0.85rem; margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+.g9-planner-count { margin: 0; font-size: 1.05rem; font-weight: 650; color: var(--text); }
+.g9-planner-count span { font-family: var(--font-mono); }
+.g9-planner-left { margin: 0.1rem 0 0; font-size: 0.78rem; color: var(--muted); }
+.g9-planner.is-full .g9-planner-left { color: var(--amber); font-weight: 600; }
+.g9-planner-pips { display: flex; gap: 4px; flex-wrap: wrap; max-width: 240px; }
+.g9-planner-pip {
+  width: 13px; height: 20px; border-radius: 3px;
+  background: var(--surface); border: 1px solid var(--border-strong);
+}
+.g9-planner-pip.spent { background: var(--accent); border-color: var(--accent); }
+
+.g9-planner-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 0.9rem 0 0.5rem;
+}
+
+.g9-planner-bank { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.g9-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  font: inherit; font-size: 0.82rem;
+  cursor: grab; touch-action: none; user-select: none;
+  transition: border-color 0.15s, transform 0.12s, opacity 0.15s;
+}
+.g9-chip:hover, .g9-chip:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
+.g9-chip.too-dear { opacity: 0.4; cursor: not-allowed; }
+.g9-chip.too-dear:hover { border-color: var(--border-strong); transform: none; }
+.g9-chip-cost {
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  padding: 0.1rem 0.4rem; border-radius: 5px;
+  background: var(--surface-2); color: var(--muted);
+}
+.g9-chip.is-dragging { opacity: 0.35; }
+
+/* The floating copy that follows the pointer */
+.g9-chip-ghost {
+  position: fixed; z-index: 300; pointer-events: none;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+  transform: translate(-50%, -50%) scale(1.03);
+  cursor: grabbing;
+}
+
+.g9-planner-slots { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.g9-slot {
+  display: flex; align-items: center; gap: 0.7rem;
+  min-height: 46px;
+  padding: 0.45rem 0.6rem 0.45rem 0.5rem;
+  border: 1px dashed var(--border-strong); border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 0.15s, background 0.15s;
+}
+.g9-slot.filled { border-style: solid; border-color: var(--border); }
+.g9-slot.drop-target { border-color: var(--accent); background: var(--amber-bg); border-style: solid; }
+.g9-slot-num {
+  flex: none; width: 1.6rem; height: 1.6rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; background: var(--surface-2);
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--muted);
+}
+.g9-slot.filled .g9-slot-num { background: var(--accent); color: var(--surface); }
+.g9-slot-text { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; font-size: 0.85rem; color: var(--text); }
+.g9-slot-empty-text { flex: 1 1 auto; font-size: 0.8rem; color: var(--muted); font-style: italic; }
+.g9-slot-kind {
+  flex: none; font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--border); border-radius: 4px;
+  padding: 0.12rem 0.35rem;
+}
+.g9-slot-cost {
+  flex: none; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+  color: var(--muted);
+}
+.g9-slot-x {
+  flex: none; width: 1.5rem; height: 1.5rem; padding: 0;
+  border: 1px solid transparent; border-radius: 50%;
+  background: none; color: var(--muted);
+  font-size: 1rem; line-height: 1; cursor: pointer;
+  opacity: 0; transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+}
+.g9-slot:hover .g9-slot-x, .g9-slot-x:focus-visible { opacity: 1; }
+.g9-slot-x:hover { color: var(--amber); border-color: var(--amber); }
+
+/* On a narrow screen the meta drops to a second line, so a long single
+   word cannot collide with its tag. The remove button also stays visible,
+   since there is no hover on a touch screen. */
+@media (max-width: 560px) {
+  .g9-slot { flex-wrap: wrap; row-gap: 0.3rem; }
+  .g9-slot-num  { order: 1; }
+  .g9-slot-text { order: 2; flex: 1 1 calc(100% - 5.6rem); }
+  .g9-slot-x    { order: 3; opacity: 1; }
+  .g9-slot-kind { order: 4; margin-left: 2.3rem; }
+  .g9-slot-cost { order: 5; }
+}
+@media (hover: none) {
+  .g9-slot-x { opacity: 1; }
+}
+
+.g9-planner-msg {
+  margin: 0.8rem 0 0; min-height: 1.2rem;
+  font-size: 0.82rem; line-height: 1.55; color: var(--muted);
+}
+.g9-planner-msg.warn { color: var(--amber); font-weight: 600; }
+
 /* Materials inside a modal */
 .g9-brief {
   margin: 1rem 0;
@@ -450,11 +572,12 @@
 <div class="obj-outcome"><span class="obj-outcome-label">The column that does the work</span>"What decision this unlocks" is what turns priority from an opinion into an argument. A row that unlocks no decision should not be on the plan at all.</div>
 
 <div class="g9-fgrid">
-<div class="g9-fcard">
+<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-token-spend">
 <span class="g9-fcard-label">Formative · 20 min</span>
 <span class="g9-fcard-title">Spend the tokens</span>
 <span class="g9-fcard-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</span>
-</div>
+<span class="g9-fcard-cta">Open materials</span>
+</button>
 <div class="g9-fcard">
 <span class="g9-fcard-label">Formative · 10 min</span>
 <span class="g9-fcard-title">Question quality ladder</span>
@@ -1438,6 +1561,60 @@
         <p class="caution-box-label">The discussion to have afterwards</p>
         <h3 class="caution-box-title">Wants are not needs, and assumptions are not evidence</h3>
         <p>Most student briefs are built on the want pile and the assumption pile, because both are easy to produce without leaving the room. Only the need pile can justify the project in Ai, and every item in it had to be gathered rather than guessed.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-token-spend" role="dialog" aria-modal="true" aria-labelledby="modal-token-spend-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-token-spend-title">Spend the tokens</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>A practice run before the real thing. Build a research plan for the brief below, using <strong>12 tokens</strong>. You will not be able to afford everything, which is the point.</p>
+
+      <div class="g9-run">
+        <strong>How to run it.</strong> Individually, 20 minutes. Build a plan, download it, then compare across the room. The argument afterwards is the lesson: two students who spent the same 12 tokens completely differently both have to defend their order.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">Practice brief</p>
+        <h3 class="concept-box-title">Grade 12 students, common room, study periods</h3>
+        <p>A team has been asked to design a tabletop game for Grade 12 students to play in the common room during free study periods. The team knows almost nothing about this group. They have never been in the common room, they do not know how long a free period is, and they do not know whether anyone there wants a game at all.</p>
+      </div>
+
+      <div class="g9-planner" id="planner">
+        <div class="g9-planner-head">
+          <div>
+            <p class="g9-planner-count"><span id="planner-spent">0</span> of 12 tokens spent</p>
+            <p class="g9-planner-left" id="planner-left">12 left</p>
+          </div>
+          <div class="g9-planner-pips" id="planner-pips" aria-hidden="true"></div>
+        </div>
+
+        <p class="g9-planner-label">Research activities. Drag one into the plan, or click it to add.</p>
+        <div class="g9-planner-bank" id="planner-bank"></div>
+
+        <p class="g9-planner-label">My research plan, in order</p>
+        <ol class="g9-planner-slots" id="planner-slots"></ol>
+
+        <p class="g9-planner-msg" id="planner-msg" aria-live="polite"></p>
+
+        <div class="g9-tools">
+          <button class="tool-btn" type="button" id="planner-png">Download PNG</button>
+          <button class="drag-sort-reset-btn" type="button" id="planner-clear">Clear all</button>
+        </div>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">The question to end on</p>
+        <h3 class="caution-box-title">What did you give up, and what does that cost you?</h3>
+        <p>Every plan on the room's screens is missing something. Ask each student to name the activity they could not afford, and what they will now be guessing about. A plan that admits its own gap is stronger than one that pretends there is none.</p>
       </div>
 
     </div>
