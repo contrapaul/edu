@@ -130,13 +130,17 @@
       } else if (el.value) {
         c.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
         c.fillStyle = cs.color;
-        var padB = parseFloat(cs.paddingBottom) || 0;
         var fs = parseFloat(cs.fontSize);
+        /* A browser centres text inside an input's content box. */
+        var padT = parseFloat(cs.paddingTop) || 0, padB = parseFloat(cs.paddingBottom) || 0;
+        var bdT = parseFloat(cs.borderTopWidth) || 0, bdB = parseFloat(cs.borderBottomWidth) || 0;
+        var contentH = r.height - bdT - bdB - padT - padB;
+        var baseline = Y(r.top) + bdT + padT + contentH / 2 + fs * 0.35;
         var centred = cs.textAlign === 'center';
         c.textAlign = centred ? 'center' : 'left';
         c.fillText(el.value,
                    centred ? X(r.left) + r.width / 2 : X(r.left) + (parseFloat(cs.paddingLeft) || 0),
-                   Y(r.bottom) - padB - fs * 0.22);
+                   baseline);
         c.textAlign = 'left';
       }
     });

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Criterion Aiii assessment sheet. Three game teardowns and a synthesis page, four sides printed on two double sided sheets.">
+<title>Aiii Game Teardowns | G9 MYP Design | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/assessments/aiii-teardowns.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Aiii Game Teardowns | contrapaul edu">
+<meta property="og:description" content="Three game teardowns and a synthesis page for MYP Design Criterion Aiii.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/myp/assessments/aiii-teardowns.html">
+<meta name="twitter:card" content="summary">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Aiii GAME TEARDOWNS
+   Four sides at 794 x 1123, which is A4 at 96dpi. Three teardowns
+   and a synthesis, so it prints on two double sided sheets. Fonts
+   are self-hosted, nothing external is loaded.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:#14171c; --mid:#5b6472; --line:#c8cdd6; --hair:#e4e7ec;
+  --accent:#1a5cb8; --page:#fff; --desk:#eceef2;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--desk); color:var(--ink); font-family:var(--body);
+  display:flex; flex-direction:column; align-items:center; padding:20px 12px 60px; }
+
+.bar { width:794px; max-width:100%; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:12px; }
+.bar h1 { font-size:1rem; font-weight:600; margin:0 auto 0 0; }
+.bar h1 span { color:var(--mid); font-weight:400; }
+.btn { font-family:var(--mono); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  padding:0.5rem 0.85rem; border-radius:7px; cursor:pointer; background:var(--page); color:var(--ink); border:1px solid var(--line); }
+.btn:hover { border-color:var(--accent); color:var(--accent); }
+.btn-go { background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn-go:hover { color:#fff; filter:brightness(1.08); }
+.hint { width:794px; max-width:100%; margin:0 0 14px; font-size:0.78rem; color:var(--mid); }
+
+/* ── SHEETS ──────────────────────────────────────────────────── */
+.sheet { width:794px; height:1123px; background:var(--page); padding:40px 46px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13);
+  display:flex; flex-direction:column; margin-bottom:26px; }
+.sheet:last-of-type { margin-bottom:0; }
+
+.sheet-head { display:flex; align-items:flex-end; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:8px; }
+.sheet-title { font-size:19px; font-weight:700; margin:0; white-space:nowrap; }
+.sheet-sub { font-family:var(--mono); font-size:8.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mid); margin:0 auto 3px 0; }
+.pagenum { font-family:var(--mono); font-size:8.5px; letter-spacing:0.1em; color:var(--mid); margin:0 0 3px; }
+
+h2 { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--accent); margin:16px 0 8px; padding-bottom:3px; border-bottom:1px solid var(--hair); }
+.sec-note { font-size:9.5px; color:var(--mid); font-weight:400; text-transform:none; letter-spacing:0; float:right; }
+
+.f { display:flex; align-items:baseline; gap:6px; min-width:0; }
+.f > label { font-family:var(--mono); font-size:8.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); white-space:nowrap; }
+input[type=text] { font-family:var(--body); font-size:12px; color:var(--ink); border:none;
+  border-bottom:1px solid var(--line); background:transparent; padding:2px 2px 3px; width:100%; min-width:0; }
+input[type=text]:focus { outline:none; border-bottom-color:var(--accent); background:#f5f8fd; }
+
+.row3 { display:grid; grid-template-columns:2fr 1.1fr 0.9fr; gap:16px; margin-top:14px; }
+.row-game { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:end; margin-top:14px; }
+
+.tag { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--accent); border:1px solid var(--accent); border-radius:4px; padding:3px 7px; white-space:nowrap; }
+
+.facts { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.fact { text-align:center; }
+.fact label { display:block; font-family:var(--mono); font-size:7.5px; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--mid); margin-bottom:2px; line-height:1.25; min-height:19px; }
+.fact input { text-align:center; font-size:14px; font-weight:600; padding-bottom:5px; }
+
+.fams { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.cb { display:flex; align-items:center; gap:5px; font-size:10px; cursor:pointer; }
+.cb input { appearance:none; -webkit-appearance:none; flex:none; width:11px; height:11px;
+  border:1.4px solid var(--line); border-radius:2.5px; background:var(--page); cursor:pointer; position:relative; }
+.cb input:checked { background:var(--accent); border-color:var(--accent); }
+.cb input:checked::after { content:''; position:absolute; left:3px; top:0.5px; width:3px; height:6.5px;
+  border:solid #fff; border-width:0 1.7px 1.7px 0; transform:rotate(42deg); }
+
+.lines { display:flex; flex-direction:column; gap:12px; }
+.lines input { font-size:11px; padding-bottom:4px; }
+.cols2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.collabel { font-family:var(--mono); font-size:8px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); margin:0 0 8px; }
+
+/* comparison matrix on the synthesis page */
+.matrix { width:100%; border-collapse:collapse; table-layout:fixed; }
+.matrix th, .matrix td { border:1px solid var(--hair); padding:0; vertical-align:top; }
+.matrix thead th { border-bottom:1.5px solid var(--line); padding:4px 6px; text-align:left;
+  font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); font-weight:700; }
+.matrix tbody th { width:96px; padding:6px; text-align:left; font-size:9.5px; font-weight:600; color:var(--ink);
+  background:#f7f8fa; border-right:1.5px solid var(--line); }
+.matrix td { height:52px; }
+.matrix td input { border:none; font-size:10px; padding:5px 6px; height:100%; }
+.matrix td input:focus { background:#f5f8fd; }
+.matrix thead th input { border:none; font-size:11px; font-weight:600; padding:1px 0 2px; }
+
+.impl { display:flex; flex-direction:column; gap:14px; }
+.impl-row { display:grid; grid-template-columns:auto 1fr; gap:8px; align-items:baseline; }
+.impl-n { font-family:var(--mono); font-size:9px; font-weight:700; color:var(--accent); }
+.impl-because { font-size:10px; color:var(--mid); white-space:nowrap; }
+
+.rules { font-size:9.5px; color:var(--mid); line-height:1.55; margin:0; }
+.rules b { color:var(--ink); font-weight:600; }
+
+.sheet-foot { margin-top:auto; padding-top:8px; border-top:1px solid var(--hair);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em; color:var(--mid); }
+
+@media (max-width:860px) {
+  body { padding:14px 8px 40px; }
+  .sheet { transform:scale(calc((100vw - 24px)/794)); transform-origin:top center;
+    margin-bottom:calc((100vw - 24px)/794 * 1123 - 1123px + 26px); }
+}
+
+@page { size:A4 portrait; margin:0; }
+@media print {
+  body { background:#fff; padding:0; display:block; }
+  .bar, .hint { display:none !important; }
+  .sheet { width:210mm; height:297mm; padding:10mm 12mm; box-shadow:none; transform:none;
+    margin:0; page-break-after:always; break-after:page; }
+  .sheet:last-of-type { page-break-after:auto; break-after:auto; }
+  input[type=text] { border-bottom-color:#b9bfc9; }
+  .cb input { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  h2, .tag, .impl-n { color:#1a5cb8; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .matrix tbody th { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Aiii Game Teardowns <span>/ three games, one synthesis</span></h1>
+  <button class="btn" id="btn-clear" type="button">Clear</button>
+  <button class="btn" id="btn-print" type="button">Print</button>
+  <button class="btn btn-go" id="btn-png" type="button">Download PNG</button>
+</div>
+<p class="hint">Four sides. Print double sided on two sheets, or fill it in here and download the PNG to hand in.</p>
+
+<div id="sheets"></div>
+
+<script src="aiii-teardowns.js"></script>
+</body>
+</html>
