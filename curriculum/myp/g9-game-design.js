@@ -75,6 +75,10 @@
   if (!briefEl) return;
 
   var TARGET = 3;
+  /* Eight sentences, three of them unjustified. Two of the five that pass
+     sit immediately after the weak sentence they resemble, so the choice
+     is not a yes or no on tone. Each near miss is the correct version of
+     its neighbour, which is the point of the activity. */
   var SENTENCES = [
     { text: 'Our client group is the Grade 6 students who use the courtyard at lunch recess.',
       weak: false,
@@ -82,24 +86,24 @@
     { text: 'Everyone knows that Grade 6 students get bored during recess.',
       weak: true, fault: 'Appeals to what everyone knows',
       why: 'Everyone knows is not evidence, it is a way of skipping evidence. Who is bored, how many, and how would you know? Rescue it by replacing the phrase with a count from an actual observation.' },
+    { text: 'Two teachers on duty told us they want more indoor activities that do not involve laptops.',
+      weak: false,
+      why: 'Fine, and worth comparing with the sentence before it. This one says who spoke and how many of them. Everyone knows says neither.' },
     { text: 'We watched the courtyard on Tuesday and counted fourteen students, nine of whom sat without an activity for the whole recess.',
       weak: false,
       why: 'Fine, and the strongest sentence here. It says when, how many, and what was seen, so a reader can judge it.' },
     { text: 'A tabletop game is obviously the best solution for this problem.',
       weak: true, fault: 'States a conclusion, considers no alternative',
       why: 'Obviously is doing all the work, and no alternative is mentioned. A club, a sports rota and doing nothing are all cheaper. Rescue it by naming two alternatives and saying why a game beats them for this group.' },
+    { text: 'Tabletop games suit this slot because they need no screen, no setup space and no adult to run them.',
+      weak: false,
+      why: 'Fine, and the sentence above is the same claim done badly. This one gives three reasons you could go and check. Obviously gives none.' },
     { text: 'Recess is 25 minutes long, so any game we design has to be playable inside that time.',
       weak: false,
       why: 'Fine. A fact leads to a constraint, and the link between them is stated rather than assumed.' },
     { text: 'They will love our game because we would have loved it at their age.',
       weak: true, fault: 'Assumes the designer is the user',
       why: 'The most common failure in Ai. Your own preferences at eleven are not evidence about these students now. Rescue it by asking them, or by dropping the claim entirely.' }
-      { text: 'Tabletop games can be an engaging way to spend time with others',
-      weak: false,
-      why: 'It's a little weak, and not fully justified, but not totally incorrect.' },
-      { text: 'Teachers told us that they want more indoor activities during recess that do not involve laptops',
-      weak: false,
-      why: 'This is a real need expressed by interviewing teachers.' },
   ];
 
   var checkBtn   = document.getElementById('autopsy-check');
@@ -475,4 +479,23 @@
 
   render();
   say('Drag an activity into a step, or click it to add it to the next empty one.');
+})();
+
+/* ── TOOL CARD IMAGE ──────────────────────────────────────────
+   The card reserves its space whether or not the image exists yet.
+   Dropping the file at the referenced path is the only step needed;
+   until then the slot shows as an empty placeholder rather than a
+   broken image icon.
+   The image is deliberately not lazy loaded: the card sits inside a
+   collapsed accordion, and a lazy image there is never requested, so
+   the failure that triggers this placeholder would never happen. */
+(function () {
+  'use strict';
+  document.querySelectorAll('.g9-toolcard-media[data-media]').forEach(function (box) {
+    var img = box.querySelector('img');
+    if (!img) { box.classList.add('is-empty'); return; }
+    function markEmpty() { box.classList.add('is-empty'); img.remove(); }
+    if (img.complete) { if (!img.naturalWidth) markEmpty(); }
+    else { img.addEventListener('error', markEmpty); }
+  });
 })();
