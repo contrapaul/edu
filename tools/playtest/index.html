@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A one page worksheet for recording what happens when you play and test a tabletop game. Fill it in on screen and save it as a PNG, or print it blank.">
+<title>Playtest Sheet | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/tools/playtest/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Playtest Sheet | contrapaul edu">
+<meta property="og:description" content="A one page worksheet for recording what happens when you play and test a tabletop game.">
+<meta property="og:url" content="https://edu.contrapaul.com/tools/playtest/">
+<meta name="twitter:card" content="summary">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   PLAYTEST SHEET
+   One A4 page per game. The sheet is a fixed 794 x 1123 box, which
+   is A4 at 96dpi, so screen, print and PNG all agree. Fonts are
+   self-hosted from this repo, nothing external is loaded.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:    #14171c;
+  --mid:    #5b6472;
+  --line:   #c8cdd6;
+  --hair:   #e4e7ec;
+  --accent: #1a5cb8;
+  --page:   #ffffff;
+  --desk:   #eceef2;
+  --mono:   'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:   'Lexend', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--desk); color: var(--ink);
+  font-family: var(--body);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 12px 60px;
+}
+
+/* ── TOOLBAR, screen only ────────────────────────────────────── */
+.bar {
+  width: 794px; max-width: 100%;
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.bar h1 {
+  font-size: 1rem; font-weight: 600; margin: 0 auto 0 0;
+  letter-spacing: -0.01em;
+}
+.bar h1 span { color: var(--mid); font-weight: 400; }
+.btn {
+  font-family: var(--mono); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.5rem 0.85rem; border-radius: 7px; cursor: pointer;
+  background: var(--page); color: var(--ink); border: 1px solid var(--line);
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-go { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-go:hover { color: #fff; filter: brightness(1.08); }
+.hint { width: 794px; max-width: 100%; margin: 0 0 14px; font-size: 0.78rem; color: var(--mid); }
+
+/* ── THE SHEET ───────────────────────────────────────────────── */
+.sheet {
+  width: 794px; height: 1123px;
+  background: var(--page);
+  padding: 42px 46px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13);
+  display: flex; flex-direction: column;
+  transform-origin: top center;
+}
+.sheet-head { display: flex; align-items: flex-end; gap: 14px; border-bottom: 2px solid var(--ink); padding-bottom: 9px; }
+.sheet-title { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin: 0; white-space: nowrap; }
+.sheet-sub { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); margin: 0 auto 3px 0; }
+
+h2 {
+  font-family: var(--mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+  margin: 22px 0 10px; padding-bottom: 4px; border-bottom: 1px solid var(--hair);
+}
+.sec-note { font-size: 9.5px; color: var(--mid); font-weight: 400; text-transform: none; letter-spacing: 0; float: right; }
+
+/* fields */
+.f { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.f > label { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); white-space: nowrap; }
+input[type=text], textarea {
+  font-family: var(--body); font-size: 12px; color: var(--ink);
+  border: none; border-bottom: 1px solid var(--line); background: transparent;
+  padding: 2px 2px 3px; width: 100%; min-width: 0; resize: none;
+}
+input[type=text]:focus, textarea:focus { outline: none; border-bottom-color: var(--accent); background: #f5f8fd; }
+input.num { text-align: center; }
+
+.row-head { display: grid; grid-template-columns: 2.1fr 1.2fr 0.9fr; gap: 16px; margin-top: 16px; }
+.grid-nums { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.numbox { text-align: center; }
+.numbox label { display: block; font-family: var(--mono); font-size: 7.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--mid); margin-bottom: 2px; line-height: 1.25; min-height: 19px; }
+.numbox input { text-align: center; font-size: 17px; font-weight: 600; padding-bottom: 6px; }
+.numbox .unit { font-size: 7.5px; color: var(--mid); font-family: var(--mono); }
+
+/* checkbox families */
+.fams { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px 10px; }
+.cb { display: flex; align-items: center; gap: 5px; font-size: 10px; cursor: pointer; }
+.cb input { appearance: none; -webkit-appearance: none; flex: none;
+  width: 11px; height: 11px; border: 1.4px solid var(--line); border-radius: 2.5px;
+  background: var(--page); cursor: pointer; position: relative; }
+.cb input:checked { background: var(--accent); border-color: var(--accent); }
+.cb input:checked::after { content: ''; position: absolute; left: 3px; top: 0.5px; width: 3px; height: 6.5px;
+  border: solid #fff; border-width: 0 1.7px 1.7px 0; transform: rotate(42deg); }
+
+/* meaningful choice tests */
+.tests { display: grid; gap: 16px; }
+.test { display: grid; grid-template-columns: 168px 46px 1fr; gap: 10px; align-items: center; }
+.test-q { font-size: 10px; line-height: 1.3; }
+.test-q b { font-weight: 600; }
+.yn { display: flex; gap: 5px; justify-content: center; }
+.yn label { display: flex; align-items: center; gap: 2px; font-family: var(--mono); font-size: 8px; color: var(--mid); cursor: pointer; }
+.yn input { appearance: none; -webkit-appearance: none; width: 10px; height: 10px; border: 1.4px solid var(--line); border-radius: 50%; background: var(--page); cursor: pointer; }
+.yn input:checked { border-color: var(--accent); border-width: 3px; }
+
+/* two column notes */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+/* Writing lines sit on a fixed 30px rhythm, which is about 8mm and the
+   right size to write on by hand. The block absorbs leftover space at the
+   end rather than stretching the gaps. */
+.grow { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.lines { display: flex; flex-direction: column; gap: 12px; }
+.lines input { font-size: 11px; padding-bottom: 4px; }
+
+.steal { display: flex; flex-direction: column; gap: 13px; }
+.steal input { font-size: 13px; padding-bottom: 5px; }
+
+.sheet-foot {
+  margin-top: auto; padding-top: 8px; border-top: 1px solid var(--hair);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono); font-size: 7.5px; letter-spacing: 0.08em; color: var(--mid);
+}
+
+/* ── SCREEN SCALING for narrow windows ───────────────────────── */
+@media (max-width: 860px) {
+  body { padding: 14px 8px 40px; }
+  .sheet { transform: scale(calc((100vw - 24px) / 794)); margin-bottom: calc((100vw - 24px) / 794 * 1123 - 1123px); }
+}
+
+/* ── PRINT ───────────────────────────────────────────────────── */
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  body { background: #fff; padding: 0; display: block; }
+  .bar, .hint { display: none !important; }
+  .sheet {
+    width: 210mm; height: 297mm; padding: 11mm 12mm;
+    box-shadow: none; transform: none; margin: 0;
+    page-break-after: avoid;
+  }
+  input[type=text], textarea { border-bottom-color: #b9bfc9; }
+  .cb input, .yn input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h2 { color: #1a5cb8; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Playtest Sheet <span>/ one page per game</span></h1>
+  <button class="btn" id="btn-clear" type="button">Clear</button>
+  <button class="btn" id="btn-print" type="button">Print</button>
+  <button class="btn btn-go" id="btn-png" type="button">Download PNG</button>
+</div>
+<p class="hint">Fill it in while you play. Print it blank for a paper copy, or download the PNG to hand in.</p>
+
+<div class="sheet" id="sheet">
+
+  <div class="sheet-head">
+    <p class="sheet-title">Playtest Sheet</p>
+    <p class="sheet-sub">Grade 9 Design / Tabletop</p>
+  </div>
+
+  <div class="row-head">
+    <div class="f"><label for="f-game">Game</label><input type="text" id="f-game"></div>
+    <div class="f"><label for="f-name">Name</label><input type="text" id="f-name"></div>
+    <div class="f"><label for="f-date">Date</label><input type="text" id="f-date"></div>
+  </div>
+
+  <h2>The numbers <span class="sec-note">Time it, do not guess it.</span></h2>
+  <div class="grid-nums">
+    <div class="numbox"><label for="n-players">Players<br>today</label><input type="text" class="num" id="n-players"></div>
+    <div class="numbox"><label for="n-box">Box says<br><span class="unit">min</span></label><input type="text" class="num" id="n-box"></div>
+    <div class="numbox"><label for="n-took">We took<br><span class="unit">min</span></label><input type="text" class="num" id="n-took"></div>
+    <div class="numbox"><label for="n-setup">Setup<br><span class="unit">min</span></label><input type="text" class="num" id="n-setup"></div>
+    <div class="numbox"><label for="n-teach">Rules taught<br><span class="unit">min</span></label><input type="text" class="num" id="n-teach"></div>
+    <div class="numbox"><label for="n-first">First turn at<br><span class="unit">min</span></label><input type="text" class="num" id="n-first"></div>
+  </div>
+
+  <h2>Mechanics I spotted <span class="sec-note">Families from the Game Mechanics Catalog.</span></h2>
+  <div class="fams" id="fams"></div>
+  <div class="f" style="margin-top:8px"><label for="f-mech">Named</label><input type="text" id="f-mech" placeholder=""></div>
+
+  <h2>Meaningful choices <span class="sec-note">Four tests. Evidence, not opinion.</span></h2>
+  <div class="tests" id="tests"></div>
+
+  <div class="grow">
+  <h2>What happened at the table</h2>
+  <div class="cols">
+    <div>
+      <p class="f" style="margin:0 0 4px"><label>Worked well, and for whom</label></p>
+      <div class="lines"><input type="text" id="w1"><input type="text" id="w2"><input type="text" id="w3"><input type="text" id="w4"><input type="text" id="w5"><input type="text" id="w6"></div>
+    </div>
+    <div>
+      <p class="f" style="margin:0 0 4px"><label>Did not work, and for whom</label></p>
+      <div class="lines"><input type="text" id="b1"><input type="text" id="b2"><input type="text" id="b3"><input type="text" id="b4"><input type="text" id="b5"><input type="text" id="b6"></div>
+    </div>
+  </div>
+  </div>
+
+  <h2>One thing I would steal</h2>
+  <div class="steal"><input type="text" id="f-steal"><input type="text" id="f-steal2"><input type="text" id="f-steal3"></div>
+
+  <h2>Would this fit a 25 minute recess? <span class="sec-note">Circle one, then say what you would cut.</span></h2>
+  <div class="test" style="grid-template-columns:46px 1fr">
+    <div class="yn">
+      <label><input type="radio" name="fits" value="yes">Y</label>
+      <label><input type="radio" name="fits" value="no">N</label>
+    </div>
+    <input type="text" id="f-cut">
+  </div>
+
+  <div class="sheet-foot">
+    <span>edu.contrapaul.com/tools/playtest</span>
+    <span id="foot-game"></span>
+  </div>
+
+</div>
+
+<script src="playtest.js"></script>
+</body>
+</html>
