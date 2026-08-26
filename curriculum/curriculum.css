@@ -2307,10 +2307,18 @@ details.p2-reveal summary::before { content: "▼ "; }
   margin: 1.25rem auto;
   text-align: center;
 }
+/* Height is capped so a portrait photo cannot push the surrounding copy off
+   the screen. At the widest layout the 60% column is around 565px, so a 4:3
+   landscape photo lands near 425px tall; 400px sits just under that, leaving
+   landscape shots close to full size while pulling tall portrait ones back
+   into the flow. width:auto keeps the intrinsic aspect ratio. */
 .case-photo img {
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 400px;
+  margin: 0 auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: zoom-in;
