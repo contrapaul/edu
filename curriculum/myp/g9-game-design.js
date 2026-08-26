@@ -481,21 +481,3 @@
   say('Drag an activity into a step, or click it to add it to the next empty one.');
 })();
 
-/* ── TOOL CARD IMAGE ──────────────────────────────────────────
-   The card reserves its space whether or not the image exists yet.
-   Dropping the file at the referenced path is the only step needed;
-   until then the slot shows as an empty placeholder rather than a
-   broken image icon.
-   The image is deliberately not lazy loaded: the card sits inside a
-   collapsed accordion, and a lazy image there is never requested, so
-   the failure that triggers this placeholder would never happen. */
-(function () {
-  'use strict';
-  document.querySelectorAll('.g9-toolcard-media[data-media]').forEach(function (box) {
-    var img = box.querySelector('img');
-    if (!img) { box.classList.add('is-empty'); return; }
-    function markEmpty() { box.classList.add('is-empty'); img.remove(); }
-    if (img.complete) { if (!img.naturalWidth) markEmpty(); }
-    else { img.addEventListener('error', markEmpty); }
-  });
-})();

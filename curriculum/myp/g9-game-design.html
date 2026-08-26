@@ -16,215 +16,6 @@
 <link rel="stylesheet" href="../curriculum.css">
 <link rel="stylesheet" href="../themes.css">
 <style>
-/* ── PAGE SPECIFIC ────────────────────────────────────────────
-   Unit parameter grid, the two non-negotiable rules, the strand
-   header meta row, and the descriptor quote block. Everything uses
-   theme variables so the dark and win95 themes keep working. */
-
-.g9-facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin: 1.75rem 0;
-}
-.g9-fact { background: var(--surface); padding: 0.95rem 1.1rem; }
-.g9-fact-k {
-  font-family: var(--font-mono);
-  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin: 0 0 0.35rem;
-}
-.g9-fact-v { font-size: 0.88rem; line-height: 1.45; margin: 0; color: var(--text); }
-.g9-fact-v strong { font-weight: 650; }
-
-/* The two rules every game must meet. Deliberately loud. */
-.g9-rules { display: grid; gap: 1rem; margin: 1.5rem 0; }
-@media (min-width: 720px) { .g9-rules { grid-template-columns: 1fr 1fr; } }
-.g9-rule {
-  border: 2px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 1.2rem 1.35rem;
-  background: var(--surface-2);
-}
-.g9-rule-label {
-  font-family: var(--font-mono);
-  font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); margin: 0 0 0.5rem;
-}
-.g9-rule-title { font-size: 1.05rem; font-weight: 650; margin: 0 0 0.5rem; color: var(--text); }
-.g9-rule p { font-size: 0.86rem; line-height: 1.6; color: var(--muted); margin: 0 0 0.5rem; }
-.g9-rule p:last-child { margin-bottom: 0; }
-
-/* Strand header meta: how long, what is handed in */
-.g9-meta {
-  display: flex; flex-wrap: wrap; gap: 0.4rem;
-  margin: 0 0 1rem;
-}
-.g9-meta span {
-  font-family: var(--font-mono);
-  font-size: 0.63rem; letter-spacing: 0.04em;
-  padding: 0.24rem 0.6rem;
-  border: 1px solid var(--border); border-radius: 999px;
-  color: var(--muted); background: var(--surface-2);
-}
-.g9-meta span strong { color: var(--text); font-weight: 600; }
-
-/* The IB descriptor, quoted exactly. Kept visually separate from my
-   task wording so the two are never confused. */
-.g9-desc {
-  margin: 0 0 1.1rem;
-  padding: 0.8rem 1rem;
-  border-left: 3px solid var(--curr-color, var(--accent));
-  background: var(--surface-2);
-  border-radius: 0 8px 8px 0;
-}
-.g9-desc-label {
-  font-family: var(--font-mono);
-  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); display: block; margin-bottom: 0.3rem;
-}
-.g9-desc q { font-size: 0.88rem; line-height: 1.6; color: var(--text); font-style: italic; }
-
-/* Small labelled sub-heading inside a strand */
-.g9-h {
-  font-family: var(--font-mono);
-  font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--muted);
-  margin: 1.5rem 0 0.55rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Skill track cards for Cii */
-.g9-tracks { display: grid; gap: 0.75rem; margin: 1rem 0; }
-@media (min-width: 640px) { .g9-tracks { grid-template-columns: 1fr 1fr; } }
-.g9-track {
-  border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 0.9rem 1.05rem; background: var(--surface-2);
-}
-.g9-track h5 {
-  font-size: 0.84rem; font-weight: 650; margin: 0 0 0.45rem; color: var(--text);
-}
-.g9-track ul { margin: 0; padding-left: 1.05rem; }
-.g9-track li { font-size: 0.8rem; line-height: 1.55; color: var(--muted); margin-bottom: 0.2rem; }
-.g9-track-kit {
-  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.06em;
-  color: var(--muted); margin: 0.55rem 0 0; padding-top: 0.45rem;
-  border-top: 1px dashed var(--border);
-}
-
-/* Task detail on the left, the tool it links to on the right. */
-.g9-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
-  gap: 1.4rem;
-  align-items: start;
-  margin-top: 0.25rem;
-}
-@media (max-width: 760px) { .g9-split { grid-template-columns: 1fr; } }
-.g9-split-main > :first-child { margin-top: 0; }
-
-.g9-toolcard {
-  display: block; text-decoration: none;
-  border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--surface-2); overflow: hidden;
-  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-.g9-toolcard:hover, .g9-toolcard:focus-visible {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-}
-/* The ratio is reserved whatever the image turns out to be, so dropping
-   the file in cannot shift the layout. */
-.g9-toolcard-media {
-  display: block; aspect-ratio: 4 / 3;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-.g9-toolcard-media img {
-  display: block; width: 100%; height: 100%;
-  object-fit: cover; object-position: top center;
-  transition: transform 0.35s ease;
-}
-.g9-toolcard:hover .g9-toolcard-media img { transform: scale(1.045); }
-/* Shown only until the image exists. */
-.g9-toolcard-media.is-empty {
-  display: flex; align-items: center; justify-content: center;
-  background: repeating-linear-gradient(45deg,
-    var(--surface) 0 9px, var(--surface-2) 9px 18px);
-}
-.g9-toolcard-media.is-empty::after {
-  content: 'Image to come';
-  font-family: var(--font-mono); font-size: 0.56rem;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
-}
-.g9-toolcard-body { padding: 0.7rem 0.85rem 0.8rem; }
-.g9-toolcard-title {
-  display: block; font-size: 0.92rem; font-weight: 650;
-  color: var(--text); line-height: 1.3;
-}
-.g9-toolcard-cta {
-  display: block; margin-top: 0.3rem;
-  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent);
-}
-.g9-toolcard-cta::after { content: " \2192"; }
-
-/* Formative cards. Two or three sit side by side to keep the strand
-   scannable. A card with materials built is a button and opens a modal;
-   the rest are static until their materials exist. */
-.g9-fgrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-  gap: 0.75rem;
-  margin: 1.5rem 0 0.5rem;
-}
-.g9-fcard {
-  display: flex; flex-direction: column; align-items: flex-start;
-  gap: 0.3rem;
-  text-align: left;
-  padding: 0.9rem 1.05rem 1rem;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font: inherit;
-  width: 100%;
-}
-.g9-fcard-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted);
-}
-.g9-fcard-title { font-size: 0.9rem; font-weight: 650; color: var(--text); line-height: 1.3; }
-.g9-fcard-desc { font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
-.g9-fcard-desc strong { color: var(--text); font-weight: 600; }
-
-/* Live cards read as openable and say so. */
-.g9-fcard--live {
-  cursor: pointer;
-  border-color: var(--border-strong);
-  transition: border-color 0.18s, transform 0.18s, box-shadow 0.18s;
-}
-.g9-fcard--live:hover, .g9-fcard--live:focus-visible {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
-}
-.g9-fcard-cta {
-  margin-top: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.62rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--accent);
-}
-.g9-fcard-cta::after { content: " \2192"; }
-
 /* Research budget planner. Pointer based drag so it works with a mouse
    and a finger; clicking or pressing Enter on a bank chip does the same
    job for anyone not using a pointer. */
@@ -442,15 +233,6 @@
 }
 .g9-run strong { color: var(--text); }
 
-/* The four meaningful choice tests */
-.g9-tests { display: grid; gap: 0.7rem; margin: 1rem 0; }
-@media (min-width: 700px) { .g9-tests { grid-template-columns: repeat(2, 1fr); } }
-.g9-test {
-  border: 1px solid var(--border); border-left: 3px solid var(--accent);
-  border-radius: 0 8px 8px 0; padding: 0.75rem 0.95rem; background: var(--surface);
-}
-.g9-test h5 { font-size: 0.82rem; font-weight: 650; margin: 0 0 0.3rem; color: var(--text); }
-.g9-test p { font-size: 0.79rem; line-height: 1.55; color: var(--muted); margin: 0; }
 </style>
 </head>
 <body>
@@ -472,13 +254,13 @@
 
 <main><div class="curr-main">
 
-<div class="g9-facts">
-  <div class="g9-fact"><p class="g9-fact-k">Length</p><p class="g9-fact-v"><strong>36 classes</strong>, 33 of them assessed</p></div>
-  <div class="g9-fact"><p class="g9-fact-k">Teams</p><p class="g9-fact-v"><strong>3 to 4</strong>, formed before Ai</p></div>
-  <div class="g9-fact"><p class="g9-fact-k">Assessed</p><p class="g9-fact-v"><strong>Individually</strong>, on a group build</p></div>
-  <div class="g9-fact"><p class="g9-fact-k">Client</p><p class="g9-fact-v">A <strong>real group</strong> in school, assigned to fit the team</p></div>
-  <div class="g9-fact"><p class="g9-fact-k">Submission</p><p class="g9-fact-v"><strong>16 pieces</strong>, plus a running portfolio</p></div>
-  <div class="g9-fact"><p class="g9-fact-k">Outcome</p><p class="g9-fact-v">A <strong>playable game</strong> and a 4 page rulebook</p></div>
+<div class="unit-facts">
+  <div class="unit-fact"><p class="unit-fact-k">Length</p><p class="unit-fact-v"><strong>36 classes</strong>, 33 of them assessed</p></div>
+  <div class="unit-fact"><p class="unit-fact-k">Teams</p><p class="unit-fact-v"><strong>3 to 4</strong>, formed before Ai</p></div>
+  <div class="unit-fact"><p class="unit-fact-k">Assessed</p><p class="unit-fact-v"><strong>Individually</strong>, on a group build</p></div>
+  <div class="unit-fact"><p class="unit-fact-k">Client</p><p class="unit-fact-v">A <strong>real group</strong> in school, assigned to fit the team</p></div>
+  <div class="unit-fact"><p class="unit-fact-k">Submission</p><p class="unit-fact-v"><strong>16 pieces</strong>, plus a running portfolio</p></div>
+  <div class="unit-fact"><p class="unit-fact-k">Outcome</p><p class="unit-fact-v">A <strong>playable game</strong> and a 4 page rulebook</p></div>
 </div>
 
 <!-- ══ THE TWO RULES ══════════════════════════════════════════ -->
@@ -491,16 +273,16 @@
 <div class="curr-body" id="body-rules">
 <p class="curr-section-intro">Two requirements sit above everything else in this unit. Both are written into the specification in <strong>Bi</strong>, then tested in <strong>Di</strong> and <strong>Dii</strong>. A game that misses either one cannot reach the top band, however well it is made. Teach them in the launch class and return to them constantly.</p>
 
-<div class="g9-rules">
-  <div class="g9-rule">
-    <p class="g9-rule-label">Rule 1</p>
-    <h3 class="g9-rule-title">Meaningful choices</h3>
+<div class="unit-rules">
+  <div class="unit-rule">
+    <p class="unit-rule-label">Rule 1</p>
+    <h3 class="unit-rule-title">Meaningful choices</h3>
     <p>The player must make decisions that matter. A game where players roll, move and do as they are told is not a design, it is a <em>procedure</em>.</p>
     <p>This is the harder of the two rules and the one students underestimate. It is assessable, testable, and it is where most of the design thinking in this unit lives.</p>
   </div>
-  <div class="g9-rule">
-    <p class="g9-rule-label">Rule 2</p>
-    <h3 class="g9-rule-title">Fits a recess</h3>
+  <div class="unit-rule">
+    <p class="unit-rule-label">Rule 2</p>
+    <h3 class="unit-rule-title">Fits a recess</h3>
     <p>A session runs <strong>20 to 30 minutes</strong>, because the target slot is post-lunch recess. A game may span many sessions, but no single sitting may exceed 30 minutes.</p>
     <p>Learning the rules must also fit inside one recess. That is the real constraint behind the <strong>4 page maximum</strong> rulebook.</p>
   </div>
@@ -518,12 +300,12 @@
 </ol>
 </div>
 
-<p class="g9-h">Four tests students can run on their own game</p>
-<div class="g9-tests">
-  <div class="g9-test"><h5>The coin flip test</h5><p>Would a player choosing at random do about as well as one thinking hard? If yes, the choice is decoration.</p></div>
-  <div class="g9-test"><h5>The dominant strategy check</h5><p>Watch five players in the same situation. If all five pick the same option, it is not a choice, it is a rule with extra steps.</p></div>
-  <div class="g9-test"><h5>The explain back test</h5><p>Ask a player why they chose that. "It was the only sensible option" and "I don't know" are both failures.</p></div>
-  <div class="g9-test"><h5>The regret test</h5><p>After the game, ask whether there was a moment they wish they had played differently. No regret usually means no real decision.</p></div>
+<p class="unit-h">Four tests students can run on their own game</p>
+<div class="unit-tests">
+  <div class="unit-test"><h5>The coin flip test</h5><p>Would a player choosing at random do about as well as one thinking hard? If yes, the choice is decoration.</p></div>
+  <div class="unit-test"><h5>The dominant strategy check</h5><p>Watch five players in the same situation. If all five pick the same option, it is not a choice, it is a rule with extra steps.</p></div>
+  <div class="unit-test"><h5>The explain back test</h5><p>Ask a player why they chose that. "It was the only sensible option" and "I don't know" are both failures.</p></div>
+  <div class="unit-test"><h5>The regret test</h5><p>After the game, ask whether there was a moment they wish they had played differently. No regret usually means no real decision.</p></div>
 </div>
 
 <div class="caution-box">
@@ -563,13 +345,13 @@
 </button>
 <div class="obj-body" id="body-ai">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains and justifies the need for a solution to a problem for a client/target audience.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Explains and justifies the need for a solution to a problem for a client/target audience.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Need Statement</strong>, 1 page</span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Need Statement</strong>, 1 page</span></div>
 
 <p>Each team receives its client group. Students identify, explain and justify the need for a tabletop game for that specific audience. The justification is the whole strand, so the writing has to argue rather than describe.</p>
 
-<p class="g9-h">What goes on the page</p>
+<p class="unit-h">What goes on the page</p>
 <ul class="checklist">
 <li><strong>Who the audience is</strong>, in specifics. Not "Grade 6 students" but what they do at 11:45 on a Tuesday.</li>
 <li><strong>The situation as it stands</strong>, with at least one piece of evidence gathered rather than assumed.</li>
@@ -579,18 +361,18 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>A 5-6 explains that the audience exists and would probably enjoy a game. A 7-8 argues why <em>this</em> audience, why <em>this</em> need, and why a tabletop game beats the alternatives for them.</div>
 
-<div class="g9-fgrid">
-<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-need-want">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Need or want sort</span>
-<span class="g9-fcard-desc">Twelve statement cards about a demographic. In pairs, sort into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. The assumption pile is the point: most of what students believe about another year group has never been checked.</span>
-<span class="g9-fcard-cta">Open materials</span>
+<div class="unit-fgrid">
+<button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-need-want">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Need or want sort</span>
+<span class="unit-fcard-desc">Twelve statement cards about a demographic. In pairs, sort into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. The assumption pile is the point: most of what students believe about another year group has never been checked.</span>
+<span class="unit-fcard-cta">Open materials</span>
 </button>
-<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-brief-autopsy">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Weak brief autopsy</span>
-<span class="g9-fcard-desc">Hand out a deliberately vague need statement. In pairs, find the three claims that are asserted but never justified. Faster than explaining what justification looks like, because they see it by its absence.</span>
-<span class="g9-fcard-cta">Open materials</span>
+<button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-brief-autopsy">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Weak brief autopsy</span>
+<span class="unit-fcard-desc">Hand out a deliberately vague need statement. In pairs, find the three claims that are asserted but never justified. Faster than explaining what justification looks like, because they see it by its absence.</span>
+<span class="unit-fcard-cta">Open materials</span>
 </button>
 </div>
 
@@ -611,9 +393,9 @@
 </button>
 <div class="obj-body" id="body-aii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Research Plan</strong>, 1 page</span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Research Plan</strong>, 1 page</span></div>
 
 <p>The awkward strand, because MYP Design has nowhere to grade a research paper. The plan itself has to be the assessed artefact, and it has to visibly prioritise rather than just list.</p>
 
@@ -652,17 +434,17 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The column that does the work</span>"What decision this unlocks" is what turns priority from an opinion into an argument. A row that unlocks no decision should not be on the plan at all.</div>
 
-<div class="g9-fgrid">
-<button type="button" class="g9-fcard g9-fcard--live" data-modal="modal-token-spend">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Spend the tokens</span>
-<span class="g9-fcard-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</span>
-<span class="g9-fcard-cta">Open materials</span>
+<div class="unit-fgrid">
+<button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-token-spend">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Spend the tokens</span>
+<span class="unit-fcard-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</span>
+<span class="unit-fcard-cta">Open materials</span>
 </button>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 10 min</span>
-<span class="g9-fcard-title">Question quality ladder</span>
-<span class="g9-fcard-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 10 min</span>
+<span class="unit-fcard-title">Question quality ladder</span>
+<span class="unit-fcard-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</span>
 </div>
 </div>
 
@@ -683,26 +465,26 @@
 </button>
 <div class="obj-body" id="body-aiii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Analyses a range of existing products that inspire a solution to the problem in detail.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Analyses a range of existing products that inspire a solution to the problem in detail.</q></div>
 
-<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>3 teardowns + synthesis</strong></span></div>
+<div class="unit-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>3 teardowns + synthesis</strong></span></div>
 
-<div class="g9-split">
-<div class="g9-split-main">
+<div class="unit-split">
+<div class="unit-split-main">
 
 <p>Three game teardowns, then one synthesis page. The <a href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics Catalog</a> supplies the shared vocabulary, which keeps the analysis specific instead of drifting into opinion.</p>
 
-<p class="g9-h">Required range, one of each</p>
+<p class="unit-h">Required range, one of each</p>
 <ol class="obj-list">
 <li>A game played in class</li>
 <li>A game using a mechanic family the student has not used before</li>
 <li>Free choice, and it may be a video game if the mechanic transfers to a table</li>
 </ol>
 
-<p class="g9-h">The team rule</p>
+<p class="unit-h">The team rule</p>
 <p>No more than <strong>one</strong> of a student's three games may be a game a teammate is also doing. A team of four therefore covers at least nine different games, and twelve if nobody overlaps.</p>
 
-<p class="g9-h">The synthesis page</p>
+<p class="unit-h">The synthesis page</p>
 <p>A comparison matrix across the three games against the same criteria, ending in numbered <strong>design implications</strong>, each written as "Because..., my game should...". These get quoted directly in Aiv and Bi, so they need to be sharp.</p>
 
 <div class="obj-outcome"><span class="obj-outcome-label">The 5-6 to 7-8 line</span>Three good teardowns with no synthesis is a 5-6, because the analysis has not been carried anywhere. The implications are the difference.</div>
@@ -710,32 +492,32 @@
 </div>
 
 <aside class="g9-split-side">
-<a class="g9-toolcard" href="assessments/aiii-teardowns.html">
-  <span class="g9-toolcard-media" data-media>
+<a class="unit-toolcard" href="assessments/aiii-teardowns.html">
+  <span class="unit-toolcard-media" data-media>
     <img src="assessments/media/aiii-builder.webp" alt="The Aiii teardown sheet builder">
   </span>
-  <span class="g9-toolcard-body">
-    <span class="g9-toolcard-title">Aiii Teardown Sheet</span>
-    <span class="g9-toolcard-cta">Click to open</span>
+  <span class="unit-toolcard-body">
+    <span class="unit-toolcard-title">Aiii Teardown Sheet</span>
+    <span class="unit-toolcard-cta">Click to open</span>
   </span>
 </a>
 </aside>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · half a class</span>
-<span class="g9-fcard-title">Teardown together</span>
-<span class="g9-fcard-desc">Lead a full teardown of one game on the board, thinking aloud, including the parts where you are unsure. Models the depth expected far better than a rubric does.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · half a class</span>
+<span class="unit-fcard-title">Teardown together</span>
+<span class="unit-fcard-desc">Lead a full teardown of one game on the board, thinking aloud, including the parts where you are unsure. Models the depth expected far better than a rubric does.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Mechanic spotting speed run</span>
-<span class="g9-fcard-desc">Play ten minutes of a game, then list every catalog mechanic you can name in it. Run it as a race. Builds the shared vocabulary at almost no time cost.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Mechanic spotting speed run</span>
+<span class="unit-fcard-desc">Play ten minutes of a game, then list every catalog mechanic you can name in it. Run it as a race. Builds the shared vocabulary at almost no time cost.</span>
 </div>
 </div>
 
-<p class="g9-h">Class shape</p>
+<p class="unit-h">Class shape</p>
 <div class="lesson-list">
 <details><summary><span class="lesson-num">1</span>Teardown together, then the first one alone</summary><div class="lesson-body"><p>Model a full teardown on the board, then students complete page 1 on a game played in class.</p></div></details>
 <details><summary><span class="lesson-num">2</span>Two more teardowns</summary><div class="lesson-body"><p>The new-family game and the free choice. Students who cannot get a physical copy use the catalog, publisher rules and video.</p></div></details>
@@ -753,13 +535,13 @@
 </button>
 <div class="obj-body" id="body-aiv">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops a detailed design brief, which summarizes the analysis of relevant research.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Develops a detailed design brief, which summarizes the analysis of relevant research.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Design Brief</strong>, 1 page</span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Design Brief</strong>, 1 page</span></div>
 
 <p>Note the verb. The brief <em>summarises the analysis</em>, so this is a synthesis document. Measurable criteria belong in Bi, not here. Keeping these two apart is the single most common A to B confusion.</p>
 
-<p class="g9-h">One page, with an evidence column</p>
+<p class="unit-h">One page, with an evidence column</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>Section</th><th>Content</th><th>Evidence</th></tr></thead>
@@ -781,11 +563,11 @@
 <p>Same content, box copy format. On theme, and the word limit forces students to decide what the game actually is. Keep the evidence table as the graded part.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 10 min</span>
-<span class="g9-fcard-title">Brief or spec?</span>
-<span class="g9-fcard-desc">Ten statements, sort into "belongs in Aiv" and "belongs in Bi". Fixes the confusion before it costs marks in both strands.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 10 min</span>
+<span class="unit-fcard-title">Brief or spec?</span>
+<span class="unit-fcard-desc">Ten statements, sort into "belongs in Aiv" and "belongs in Bi". Fixes the confusion before it costs marks in both strands.</span>
 </div>
 </div>
 
@@ -813,15 +595,15 @@
 </button>
 <div class="obj-body" id="body-bi">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Specification</strong>, 8 to 12 lines</span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Specification</strong>, 8 to 12 lines</span></div>
 
 <div class="content-note">
 <p><strong>This is the most important single page in the unit.</strong> Dii tests against it line by line, Di builds instruments for it, and Diii traces improvements back to it. Time spent here is repaid twice over. If a class runs long, let it.</p>
 </div>
 
-<p class="g9-h">Every specification has four parts</p>
+<p class="unit-h">Every specification has four parts</p>
 <div class="content-table-wrap">
 <table class="content-table">
 <thead><tr><th>#</th><th>Specification</th><th>Measurable success criterion</th><th>How it will be tested</th><th>Source</th></tr></thead>
@@ -833,7 +615,7 @@
 </table>
 </div>
 
-<p class="g9-h">Required categories, at least one each</p>
+<p class="unit-h">Required categories, at least one each</p>
 <p>Audience fit · <strong>meaningful choice</strong> · playtime · rules clarity · components and materials · balance and fairness · aesthetics · accessibility · cost.</p>
 
 <div class="caution-box">
@@ -843,16 +625,16 @@
 <p>The <strong>how it will be tested</strong> column is written now, not later in Di. Writing it now is what stops students from setting specifications that can never be checked.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Make it measurable</span>
-<span class="g9-fcard-desc">Eight unmeasurable specifications. Rewrite each one with a number and a test attached. Start with "the game is fun" so the hardest case is dealt with in public.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Make it measurable</span>
+<span class="unit-fcard-desc">Eight unmeasurable specifications. Rewrite each one with a number and a test attached. Start with "the game is fun" so the hardest case is dealt with in public.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Spec to test matching</span>
-<span class="g9-fcard-desc">Given a specification, choose the method that could actually test it. Sets up Di weeks early and prevents the questionnaire-for-everything reflex before it forms.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Spec to test matching</span>
+<span class="unit-fcard-desc">Given a specification, choose the method that could actually test it. Sets up Di weeks early and prevents the questionnaire-for-everything reflex before it forms.</span>
 </div>
 </div>
 
@@ -873,9 +655,9 @@
 </button>
 <div class="obj-body" id="body-bii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others.</q></div>
 
-<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>6 to 8 concepts + 2 prototypes</strong></span></div>
+<div class="unit-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>6 to 8 concepts + 2 prototypes</strong></span></div>
 
 <div class="concept-box">
 <p class="concept-box-label">Task device</p>
@@ -884,7 +666,7 @@
 <p>This is what produces genuine range. Left alone, students generate six versions of the same idea and call it a range, which caps them at 3-4. Across the finished set, concepts must touch at least <strong>three different families</strong>.</p>
 </div>
 
-<p class="g9-h">Each concept sheet, on A3</p>
+<p class="unit-h">Each concept sheet, on A3</p>
 <ul class="checklist">
 <li><strong>A core loop diagram.</strong> What a player does on their turn, in order.</li>
 <li><strong>Board or component sketch</strong>, roughly to scale.</li>
@@ -896,7 +678,7 @@
 
 <p>Hand drawing is the better medium here. MYP rewards annotation density, and students annotate far more freely by hand than in software. Digital is allowed if the annotation is as rich.</p>
 
-<p class="g9-h">Two paper prototypes, actually played</p>
+<p class="unit-h">Two paper prototypes, actually played</p>
 <p>Feasibility is written into the descriptor. An idea nobody has tried is not demonstrably feasible. Five minutes of play with scrap card is enough, and it kills bad ideas before they get expensive.</p>
 
 <div class="concept-box">
@@ -906,25 +688,25 @@
 <p><strong>That list is submitted with the concepts.</strong> It is direct evidence for the descriptor, and it is the most useful feedback a student will get all unit.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 30 min</span>
-<span class="g9-fcard-title">Two family challenge</span>
-<span class="g9-fcard-desc">Draw two families, sketch a concept in eight minutes, repeat three times. Fluency before it counts. Expect the first round to be poor and say so in advance.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 30 min</span>
+<span class="unit-fcard-title">Two family challenge</span>
+<span class="unit-fcard-desc">Draw two families, sketch a concept in eight minutes, repeat three times. Fluency before it counts. Expect the first round to be poor and say so in advance.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Annotation density check</span>
-<span class="g9-fcard-desc">Two sketches of the same idea, one bare and one annotated. List everything you can only learn from the annotated one. Makes the point that the annotation is the assessed part, not the drawing.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Annotation density check</span>
+<span class="unit-fcard-desc">Two sketches of the same idea, one bare and one annotated. List everything you can only learn from the annotated one. Makes the point that the annotation is the assessed part, not the drawing.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Interpretation rehearsal</span>
-<span class="g9-fcard-desc">A first, ungraded run of the swap and explain test on an early concept. Reveals what a reader actually needs before the real one counts.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Interpretation rehearsal</span>
+<span class="unit-fcard-desc">A first, ungraded run of the swap and explain test on an early concept. Reveals what a reader actually needs before the real one counts.</span>
 </div>
 </div>
 
-<p class="g9-h">Class shape</p>
+<p class="unit-h">Class shape</p>
 <div class="lesson-list">
 <details><summary><span class="lesson-num">1</span>Mechanic draw and rapid concepts</summary><div class="lesson-body"><p>Three draws, three fast concepts, no annotation yet. Quantity over polish.</p></div></details>
 <details><summary><span class="lesson-num">2</span>Develop and annotate the best six</summary><div class="lesson-body"><p>Annotation is the work of this class. Circle the meaningful choice on every sheet.</p></div></details>
@@ -942,13 +724,13 @@
 </button>
 <div class="obj-body" id="body-biii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification.</q></div>
 
-<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual writing, group decision</span><span>Hand in: <strong>Matrix + justification</strong></span></div>
+<div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual writing, group decision</span><span>Hand in: <strong>Matrix + justification</strong></span></div>
 
 <p>This is the strand where students write "I chose this one because it is the best." The fix is to make the case <em>against</em> the winner compulsory.</p>
 
-<p class="g9-h">How the team converges</p>
+<p class="unit-h">How the team converges</p>
 <ol class="obj-list">
 <li>Each student pitches their strongest concept to their team.</li>
 <li>The team converges on one direction to build.</li>
@@ -957,10 +739,10 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">Why this works with groups</span>Writing an honest, critical justification of someone else's concept is strong evidence for this strand. Say so when you set it, or it reads as a consolation prize.</div>
 
-<p class="g9-h">Part 1: weighted decision matrix</p>
+<p class="unit-h">Part 1: weighted decision matrix</p>
 <p>Three finalist concepts scored against every Bi specification. Weights assigned by the student and justified, because an unweighted matrix implies every specification matters equally, which is never true.</p>
 
-<p class="g9-h">Part 2: critical justification, 1 to 2 pages</p>
+<p class="unit-h">Part 2: critical justification, 1 to 2 pages</p>
 <ul class="checklist">
 <li><strong>Why the chosen design wins</strong>, referencing specifications by number.</li>
 <li><strong>The case against it.</strong> What it does worse than the concepts they rejected.</li>
@@ -970,16 +752,16 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">Where "critically" lives</span>The case against. A justification with no acknowledged weakness is advocacy, not evaluation, and it caps at 5-6 however well written it is.</div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">The rigged matrix</span>
-<span class="g9-fcard-desc">Hand out a decision matrix where the highest scoring option is obviously the wrong choice. Discuss what the matrix failed to capture. Stops blind trust in a number.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">The rigged matrix</span>
+<span class="unit-fcard-desc">Hand out a decision matrix where the highest scoring option is obviously the wrong choice. Discuss what the matrix failed to capture. Stops blind trust in a number.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Argue against something you like</span>
-<span class="g9-fcard-desc">Students write the strongest possible case against a design they are fond of. Rehearses the hardest half of this strand in a low stakes setting.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Argue against something you like</span>
+<span class="unit-fcard-desc">Students write the strongest possible case against a design they are fond of. Rehearses the hardest half of this strand in a low stakes setting.</span>
 </div>
 </div>
 
@@ -994,9 +776,9 @@
 </button>
 <div class="obj-body" id="body-biv">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.</q></div>
 
-<div class="g9-meta"><span><strong>3</strong> classes</span><span>Individual pages, team pack</span><span>Hand in: <strong>Production Pack</strong>, 4 to 8 pages</span></div>
+<div class="unit-meta"><span><strong>3</strong> classes</span><span>Individual pages, team pack</span><span>Hand in: <strong>Production Pack</strong>, 4 to 8 pages</span></div>
 
 <p>Badly underused in tabletop units and genuinely rich once you see it properly. Planning drawings here is not one drawing, it is a production pack, and a game is unusually well suited to producing one.</p>
 
@@ -1026,16 +808,16 @@
 <p>Print shop orders need lead time and cost money, so anything going to the shop has to be finalised earlier than everything else. That decision belongs on this page.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 25 min</span>
-<span class="g9-fcard-title">Dimension a real card</span>
-<span class="g9-fcard-desc">Take a card from a published game, measure it, and draw it to scale with bleed and safe margin marked. Teaches the conventions on something they can hold.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 25 min</span>
+<span class="unit-fcard-title">Dimension a real card</span>
+<span class="unit-fcard-desc">Take a card from a published game, measure it, and draw it to scale with bleed and safe margin marked. Teaches the conventions on something they can hold.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 25 min</span>
-<span class="g9-fcard-title">Manifest a published game</span>
-<span class="g9-fcard-desc">Open a real box and write its complete component manifest. Students consistently underestimate how many distinct parts a small game has, and this fixes that in one sitting.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 25 min</span>
+<span class="unit-fcard-title">Manifest a published game</span>
+<span class="unit-fcard-desc">Open a real box and write its complete component manifest. Students consistently underestimate how many distinct parts a small game has, and this fixes that in one sitting.</span>
 </div>
 </div>
 
@@ -1078,11 +860,11 @@
 </button>
 <div class="obj-body" id="body-ci">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed and logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed and logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Team plan + personal plan</span><span>Hand in: <strong>Both plans, both versions</strong></span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Team plan + personal plan</span><span>Hand in: <strong>Both plans, both versions</strong></span></div>
 
-<p class="g9-h">Two linked plans</p>
+<p class="unit-h">Two linked plans</p>
 <ul class="checklist">
 <li><strong>Team plan.</strong> Gantt chart or task board across the ten build classes: task, owner, dependency, time estimate, resources, with the <strong>critical path marked</strong>.</li>
 <li><strong>Personal task plan.</strong> Each student's own components, class by class, with a <strong>fallback</strong> if a resource is unavailable. The unreliable laser cutter and print shop lead times make this column real rather than hypothetical.</li>
@@ -1095,16 +877,16 @@
 <p>Students record the gaps and revise. <strong>Both versions are submitted</strong>, before and after, which evidences the strand far better than a single clean chart.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Follow a bad plan</span>
-<span class="g9-fcard-desc">Hand out a vague plan and ask students to state exactly what they would do first. They cannot. Makes an abstract phrase in the descriptor concrete in about four minutes.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Follow a bad plan</span>
+<span class="unit-fcard-desc">Hand out a vague plan and ask students to state exactly what they would do first. They cannot. Makes an abstract phrase in the descriptor concrete in about four minutes.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Critical path hunt</span>
-<span class="g9-fcard-desc">Ten tasks with dependencies. Find the one that blocks everything else. Sequencing rather than listing is what separates this strand's top band.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Critical path hunt</span>
+<span class="unit-fcard-desc">Ten tasks with dependencies. Find the one that blocks everything else. Sequencing rather than listing is what separates this strand's top band.</span>
 </div>
 </div>
 
@@ -1125,15 +907,15 @@
 </button>
 <div class="obj-body" id="body-cii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Demonstrates excellent technical skills when making the solution.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Demonstrates excellent technical skills when making the solution.</q></div>
 
-<div class="g9-meta"><span>Runs through the <strong>build block</strong></span><span>Individual</span><span>Hand in: <strong>Making Log</strong>, 3 skills at depth</span></div>
+<div class="unit-meta"><span>Runs through the <strong>build block</strong></span><span>Individual</span><span>Hand in: <strong>Making Log</strong>, 3 skills at depth</span></div>
 
 <p>Technical skill in this unit is not only fabrication. Designing a rule set that works is a technical skill, and so is laying out a card that a nine year old can read across a table.</p>
 
-<p class="g9-h">Four skill tracks</p>
-<div class="g9-tracks">
-  <div class="g9-track">
+<p class="unit-h">Four skill tracks</p>
+<div class="unit-tracks">
+  <div class="unit-track">
     <h5>Systems and rules design</h5>
     <ul>
       <li>Writing rules that survive a cold read</li>
@@ -1141,9 +923,9 @@
       <li>Designing an icon language that removes text</li>
       <li>Teaching the game in under five minutes</li>
     </ul>
-    <p class="g9-track-kit">No equipment</p>
+    <p class="unit-track-kit">No equipment</p>
   </div>
-  <div class="g9-track">
+  <div class="unit-track">
     <h5>Graphic design</h5>
     <ul>
       <li>Card layout with correct bleed and safe margin</li>
@@ -1151,9 +933,9 @@
       <li>Colour and contrast, including colour blind safe choices</li>
       <li>Export ready artwork for the print shop</li>
     </ul>
-    <p class="g9-track-kit">Colour printers · print shop</p>
+    <p class="unit-track-kit">Colour printers · print shop</p>
   </div>
-  <div class="g9-track">
+  <div class="unit-track">
     <h5>Digital fabrication</h5>
     <ul>
       <li>3D modelling tokens, miniatures, trays or inserts</li>
@@ -1161,9 +943,9 @@
       <li>Laser etched surfaces and markings</li>
       <li>Designing a part that can be reproduced twenty times</li>
     </ul>
-    <p class="g9-track-kit">3D printers · small laser etcher</p>
+    <p class="unit-track-kit">3D printers · small laser etcher</p>
   </div>
-  <div class="g9-track">
+  <div class="unit-track">
     <h5>Hand fabrication and finishing</h5>
     <ul>
       <li>Precision cutting, scoring and folding</li>
@@ -1171,7 +953,7 @@
       <li>Surface finish, edges and corners</li>
       <li>Making a jig so twenty parts come out identical</li>
     </ul>
-    <p class="g9-track-kit">Art and craft supplies</p>
+    <p class="unit-track-kit">Art and craft supplies</p>
   </div>
 </div>
 
@@ -1189,16 +971,16 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">Why the failed attempt is required</span>Excellent skill needs something to be excellent against. One clean photograph shows a good outcome, not skill. A poor first attempt beside a fixed second one shows both.</div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 1 class, before the build</span>
-<span class="g9-fcard-title">Skill clinics</span>
-<span class="g9-fcard-desc">Rotating stations: cutting and scoring, bleed setup, print shop file export, a 3D print tolerance test. Fifteen minutes each. Skill taught before it is assessed, not during.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 1 class, before the build</span>
+<span class="unit-fcard-title">Skill clinics</span>
+<span class="unit-fcard-desc">Rotating stations: cutting and scoring, bleed setup, print shop file export, a 3D print tolerance test. Fifteen minutes each. Skill taught before it is assessed, not during.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 10 min</span>
-<span class="g9-fcard-title">The good failure</span>
-<span class="g9-fcard-desc">Show a first attempt and a fixed second attempt of your own, and talk through what changed. Normalises documenting failure, which students otherwise hide.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 10 min</span>
+<span class="unit-fcard-title">The good failure</span>
+<span class="unit-fcard-desc">Show a first attempt and a fixed second attempt of your own, and talk through what changed. Normalises documenting failure, which students otherwise hide.</span>
 </div>
 </div>
 
@@ -1213,9 +995,9 @@
 </button>
 <div class="obj-body" id="body-ciii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Follows the plan to create the solution, which functions as intended and is presented appropriately.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Follows the plan to create the solution, which functions as intended and is presented appropriately.</q></div>
 
-<div class="g9-meta"><span>End of the <strong>build block</strong></span><span>Team artefact, individual components</span><span>Hand in: <strong>The game</strong> + cold read record</span></div>
+<div class="unit-meta"><span>End of the <strong>build block</strong></span><span>Team artefact, individual components</span><span>Hand in: <strong>The game</strong> + cold read record</span></div>
 
 <p>The finished game, complete: every component, a rulebook of no more than four pages, and a box or storage solution. Presented appropriately means it survives being handed to a stranger.</p>
 
@@ -1230,11 +1012,11 @@
 <p><strong>The four page rulebook.</strong> <a href="https://onepagerules.com/">OnePageRules</a> is the reference to hand students. Complete wargames in a few pages, and the compression is the skill. Structure, iconography and a worked example beat prose every time.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 30 min, one week before deadline</span>
-<span class="g9-fcard-title">Internal rulebook cold read</span>
-<span class="g9-fcard-desc">Swap draft rulebooks between teams while there is still time to fix what breaks. Teams that skip this discover their rule gaps during the real client session, when it counts against them.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 30 min, one week before deadline</span>
+<span class="unit-fcard-title">Internal rulebook cold read</span>
+<span class="unit-fcard-desc">Swap draft rulebooks between teams while there is still time to fix what breaks. Teams that skip this discover their rule gaps during the real client session, when it counts against them.</span>
 </div>
 </div>
 
@@ -1249,9 +1031,9 @@
 </button>
 <div class="obj-body" id="body-civ">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Fully justifies changes made to the chosen design and plan when making the solution.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Fully justifies changes made to the chosen design and plan when making the solution.</q></div>
 
-<div class="g9-meta"><span><strong>Ongoing</strong>, logged weekly</span><span>Individual</span><span>Hand in: <strong>Change Log</strong>, dated</span></div>
+<div class="unit-meta"><span><strong>Ongoing</strong>, logged weekly</span><span>Individual</span><span>Hand in: <strong>Change Log</strong>, dated</span></div>
 
 <div class="content-table-wrap">
 <table class="content-table">
@@ -1269,11 +1051,11 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">What a top band entry contains</span>A change with no trigger is a whim. A change with no options considered is a reaction. Full justification needs both, plus what it cost elsewhere.</div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Trigger, options, choice</span>
-<span class="g9-fcard-desc">Three weak log entries. Rewrite each to include what prompted it, what else was considered, and why this option won. Turns a diary into a justification.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Trigger, options, choice</span>
+<span class="unit-fcard-desc">Three weak log entries. Rewrite each to include what prompted it, what else was considered, and why this option won. Turns a diary into a justification.</span>
 </div>
 </div>
 
@@ -1311,9 +1093,9 @@
 </button>
 <div class="obj-body" id="body-di">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.</q></div>
 
-<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Test Plan + the instruments</strong></span></div>
+<div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Test Plan + the instruments</strong></span></div>
 
 <p>Methods are drawn from the DP <a href="../dp/a2.1-user-centred-research.html">A2.1 user centred research</a> toolkit: user observation, interviews, focus groups, questionnaires, user trials, personae and scenarios. Meeting them here sets up the DP course for anyone continuing.</p>
 
@@ -1347,21 +1129,21 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The distinction to teach</span>Qualitative data tells you why. Quantitative tells you how much. A top band test plan uses both, and knows which specification needs which.</div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Method matching</span>
-<span class="g9-fcard-desc">Six specifications, choose the right method for each and defend it. The specification that cannot be tested by questionnaire is the one worth arguing about.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Method matching</span>
+<span class="unit-fcard-desc">Six specifications, choose the right method for each and defend it. The specification that cannot be tested by questionnaire is the one worth arguing about.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Write five bad questions</span>
-<span class="g9-fcard-desc">Leading, double barrelled, vague, impossible to answer honestly. Then fix them. Faster than teaching question design from principles.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Write five bad questions</span>
+<span class="unit-fcard-desc">Leading, double barrelled, vague, impossible to answer honestly. Then fix them. Faster than teaching question design from principles.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 25 min</span>
-<span class="g9-fcard-title">Build an observation sheet</span>
-<span class="g9-fcard-desc">Watch five minutes of play footage and tally misplays using a sheet you designed yourself. Shows that observation generates data too, which students rarely believe until they have a filled sheet in front of them.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 25 min</span>
+<span class="unit-fcard-title">Build an observation sheet</span>
+<span class="unit-fcard-desc">Watch five minutes of play footage and tally misplays using a sheet you designed yourself. Shows that observation generates data too, which students rarely believe until they have a filled sheet in front of them.</span>
 </div>
 </div>
 
@@ -1376,9 +1158,9 @@
 </button>
 <div class="obj-body" id="body-dii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Critically evaluates the success of the solution against the design specification based on authentic product testing.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Critically evaluates the success of the solution against the design specification based on authentic product testing.</q></div>
 
-<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Point by point evaluation</strong></span></div>
+<div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Point by point evaluation</strong></span></div>
 
 <div class="lesson-list">
 <details open><summary><span class="lesson-num">1</span>The client session</summary><div class="lesson-body"><p>The team takes the game to its own client group. Every student runs their own instrument from Di and collects their own data. Nobody helps the players understand the rules; that is the whole test.</p></div></details>
@@ -1399,16 +1181,16 @@
 <p>A student who says a specification was met by three testers, <em>and admits that is thin</em>, shows more judgement than one who claims certainty. Reward that plainly, or students learn to hide it.</p>
 </div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Met, partly met, or not met</span>
-<span class="g9-fcard-desc">Given a specification and a set of results, decide which and defend it. Students over-claim "met" by a wide margin, and seeing the same data judged three ways fixes it.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Met, partly met, or not met</span>
+<span class="unit-fcard-desc">Given a specification and a set of results, decide which and defend it. Students over-claim "met" by a wide margin, and seeing the same data judged three ways fixes it.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Four reasons to be cautious</span>
-<span class="g9-fcard-desc">Given a result from three testers, list four reasons not to trust it fully. This is the exact skill the closing section needs.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Four reasons to be cautious</span>
+<span class="unit-fcard-desc">Given a result from three testers, list four reasons not to trust it fully. This is the exact skill the closing section needs.</span>
 </div>
 </div>
 
@@ -1423,9 +1205,9 @@
 </button>
 <div class="obj-body" id="body-diii">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains how the solution could be improved.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Explains how the solution could be improved.</q></div>
 
-<div class="g9-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Ranked improvements</strong></span></div>
+<div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Ranked improvements</strong></span></div>
 
 <div class="content-table-wrap">
 <table class="content-table">
@@ -1434,17 +1216,17 @@
 </table>
 </div>
 
-<p class="g9-h">Two rules</p>
+<p class="unit-h">Two rules</p>
 <ul class="checklist">
 <li><strong>Every improvement traces to a specific Dii finding.</strong> An improvement with no evidence behind it is a preference, and preferences do not evidence this strand.</li>
 <li><strong>Include one improvement for something that passed.</strong> Meeting a specification is not the same as being as good as it could be, and noticing that gap is a top band move.</li>
 </ul>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Trace the improvement</span>
-<span class="g9-fcard-desc">Given a completed Dii table, propose improvements, then mark which of your own have no evidence behind them. Most students find at least one.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Trace the improvement</span>
+<span class="unit-fcard-desc">Given a completed Dii table, propose improvements, then mark which of your own have no evidence behind them. Most students find at least one.</span>
 </div>
 </div>
 
@@ -1459,9 +1241,9 @@
 </button>
 <div class="obj-body" id="body-div">
 
-<div class="g9-desc"><span class="g9-desc-label">MYP descriptor, 7 to 8</span><q>Explains the impact of the product on the client/target audience.</q></div>
+<div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Explains the impact of the product on the client/target audience.</q></div>
 
-<div class="g9-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Impact report</strong>, poster or 2 pages</span></div>
+<div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Impact report</strong>, poster or 2 pages</span></div>
 
 <div class="caution-box">
 <p class="caution-box-label">The core confusion</p>
@@ -1469,7 +1251,7 @@
 <p>"They enjoyed it" is a Dii finding about a specification. Impact asks a different question: what did this product do to the people it was made for, and to anyone else near them. Students conflate the two almost every time, so separate them explicitly before they write.</p>
 </div>
 
-<p class="g9-h">Six required sections</p>
+<p class="unit-h">Six required sections</p>
 <ol class="obj-list">
 <li><strong>Who was affected</strong>, including people beyond the players themselves.</li>
 <li><strong>Intended against actual impact</strong>, quoting the Ai need statement directly.</li>
@@ -1481,21 +1263,21 @@
 
 <div class="obj-outcome"><span class="obj-outcome-label">The bookend</span>Quoting their own Ai need statement closes a loop that has been open for thirty six classes. It is where the strongest students show they understood the whole arc.</div>
 
-<div class="g9-fgrid">
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Satisfaction or impact?</span>
-<span class="g9-fcard-desc">Ten statements, sort into "they enjoyed it" and "it changed something". The single most useful fifteen minutes in this strand.</span>
+<div class="unit-fgrid">
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Satisfaction or impact?</span>
+<span class="unit-fcard-desc">Ten statements, sort into "they enjoyed it" and "it changed something". The single most useful fifteen minutes in this strand.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 15 min</span>
-<span class="g9-fcard-title">Unintended effects hunt</span>
-<span class="g9-fcard-desc">Take a familiar product and list three effects its designers did not intend. Then do the same for your own game before the client session, as predictions to check against.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 15 min</span>
+<span class="unit-fcard-title">Unintended effects hunt</span>
+<span class="unit-fcard-desc">Take a familiar product and list three effects its designers did not intend. Then do the same for your own game before the client session, as predictions to check against.</span>
 </div>
-<div class="g9-fcard">
-<span class="g9-fcard-label">Formative · 20 min</span>
-<span class="g9-fcard-title">Pitch rehearsal</span>
-<span class="g9-fcard-desc">A three minute run in pairs before the poster is finalised. Sharpens the report by forcing students to say the impact out loud first.</span>
+<div class="unit-fcard">
+<span class="unit-fcard-label">Formative · 20 min</span>
+<span class="unit-fcard-title">Pitch rehearsal</span>
+<span class="unit-fcard-desc">A three minute run in pairs before the poster is finalised. Sharpens the report by forcing students to say the impact out loud first.</span>
 </div>
 </div>
 
