@@ -11,7 +11,6 @@ const state = {
 // -- DOM refs -------------------------------------------------------
 const canvas      = document.getElementById('canvas');
 const wireLayer   = document.getElementById('wire-layer');
-const nodeLayer   = document.getElementById('node-layer');
 const canvasWrap  = document.getElementById('canvas-wrap');
 const canvasHint  = document.getElementById('canvas-hint');
 const shelfItems  = document.getElementById('shelf-items');
@@ -607,25 +606,7 @@ function addComponent(compId, x, y) {
     label: comp.shortName + ' ' + (count + 1),
     wireColor: WIRE_SEQ[baseColorIdx % WIRE_SEQ.length],
     baseColorIdx,
-    // nodes: per-pg canvas positions for the wire-end circles
-    // Initialized below after instance is created
-    nodes: {},
   };
-
-  // Place each node near the chip by default (offset from placement position)
-  // They'll snap to assigned pins automatically in updateWires
-  comp.pinGroups.forEach((pg, i) => {
-    // Default node position: offset to the right of the component, spread vertically
-    const chipOffX = state.chipPos.x - px;
-    const dirX = chipOffX > 0 ? 80 : -80;
-    instance.nodes[pg.id] = {
-      x: px + (instance.x < state.chipPos.x ? 60 : -60) + dirX * 0.4,
-      y: py + (i - (comp.pinGroups.length - 1) / 2) * 22,
-      snapped: pinAssign[pg.id] || null,
-    };
-  });
-  // Snap nodes to their auto-assigned pins
-  syncNodesToPins(instance);
 
   state.placed.push(instance);
   renderComponent(instance);
@@ -1136,7 +1117,7 @@ function renderComponent(inst) {
     const isSig     = isSignalPin(pg);
     const wireCol   = getWireColor(pg, inst, sigIdx);
     if (isSig) sigIdx++;
-    const connected  = assigned && inst.nodes && inst.nodes[pg.id] && inst.nodes[pg.id].snapped;
+    const connected  = !!assigned;
     const labelColor = connected ? wireCol : 'var(--text2)';
     return `<div class="comp-pin-row">
       <span class="comp-pin-label" style="color:${labelColor}">${pg.label}</span>
@@ -1594,18 +1575,6 @@ function onPinChange(instId, pgId, pinId) {
   if (!inst) return;
   pushUndo();
   inst.pinAssign[pgId] = pinId;
-  // Sync node to new pin position
-  if (pinId) {
-    const pos = getPinPos(pinId);
-    if (pos) {
-      if (!inst.nodes[pgId]) inst.nodes[pgId] = {};
-      inst.nodes[pgId].x = pos.x;
-      inst.nodes[pgId].y = pos.y;
-      inst.nodes[pgId].snapped = pinId;
-    }
-  } else {
-    if (inst.nodes[pgId]) inst.nodes[pgId].snapped = null;
-  }
   renderComponent(inst);
   updateWires();
   updateStats();
@@ -1725,13 +1694,7 @@ function loadPreset(presetId) {
       label: def.label || (comp.shortName + ' ' + state.nextId),
       wireColor: WIRE_SEQ[baseColorIdx % WIRE_SEQ.length],
       baseColorIdx,
-      nodes: {},
     };
-
-    // Initialize placeholder node positions (will be snapped in rAF below)
-    comp.pinGroups.forEach((pg, j) => {
-      inst.nodes[pg.id] = { x: px, y: py + j * 22, snapped: inst.pinAssign[pg.id] || null };
-    });
 
     // Advance color index by number of signal pins this component has
     colorIdx += comp.pinGroups.filter(pg => pg.wireClass !== 'wire-power' && pg.wireClass !== 'wire-gnd').length;
@@ -1744,7 +1707,6 @@ function loadPreset(presetId) {
 
   // After DOM settles: snap wires to pins, refresh everything
   requestAnimationFrame(() => {
-    state.placed.forEach(inst => syncNodesToPins(inst));
     buildShelf();
     updateWires();
     updateStats();
@@ -2043,89 +2005,6 @@ const PRESET_CONFIGS = {
   },
 };
 
-// -- Node (wire-end circle) system ----------------------------------
-// Each pin group has a draggable circle node. When near a chip pin it snaps.
-// The wire is always drawn from component center → node position.
-
-const NODE_RADIUS  = 8;   // px, rendered size
-
-// Sync node positions to their currently-assigned chip pins
-function syncNodesToPins(inst) {
-  const comp = COMPONENT_LIBRARY[inst.compId];
-  comp.pinGroups.forEach(pg => {
-    const pinId = inst.pinAssign[pg.id];
-    if (pinId) {
-      const pos = getPinPos(pinId);
-      if (pos) {
-        if (!inst.nodes[pg.id]) inst.nodes[pg.id] = {};
-        inst.nodes[pg.id].x = pos.x;
-        inst.nodes[pg.id].y = pos.y;
-        inst.nodes[pg.id].snapped = pinId;
-      }
-    } else {
-      if (inst.nodes[pg.id]) inst.nodes[pg.id].snapped = null;
-    }
-  });
-}
-
-// (Node drag removed — pin reassignment is done via the ⚙ cog menu)
-
-// Draw all node circles onto the node layer (display-only; pin assignment via cog menu)
-function drawNodes() {
-  state.placed.forEach(inst => {
-    const comp = COMPONENT_LIBRARY[inst.compId];
-    let sigIdx = 0;
-
-    comp.pinGroups.forEach((pg) => {
-      if (pg.conditional && !inst.config[pg.conditional]) return;
-
-      const isSig = isSignalPin(pg);
-      const color  = getWireColor(pg, inst, sigIdx);
-      if (isSig) sigIdx++;
-
-      const node = inst.nodes[pg.id];
-      if (!node) return;
-
-      const snapped     = !!node.snapped;
-      const glowColor   = snapped ? color : '#444444';
-      const glowOpacity = snapped ? '0.6' : '0.3';
-
-      // Outer glow
-      const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      glow.setAttribute('cx', node.x);
-      glow.setAttribute('cy', node.y);
-      glow.setAttribute('r',  NODE_RADIUS + 4);
-      glow.setAttribute('fill', glowColor);
-      glow.setAttribute('opacity', glowOpacity);
-      glow.setAttribute('pointer-events', 'none');
-      nodeLayer.appendChild(glow);
-
-      // Main circle — display-only, tooltip on hover
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', node.x);
-      circle.setAttribute('cy', node.y);
-      circle.setAttribute('r',  NODE_RADIUS);
-      circle.setAttribute('fill', color);
-      circle.setAttribute('stroke', needsWhiteOutline(color) ? '#ffffff' : '#000000');
-      circle.setAttribute('stroke-width', '1.5');
-      circle.setAttribute('class', 'wire-node');
-      circle.setAttribute('data-inst', inst.id);
-      circle.setAttribute('data-pg', pg.id);
-      circle.style.cursor = 'default';
-      circle.style.pointerEvents = 'all';
-
-      circle.addEventListener('mouseenter', e => {
-        showTooltip(e.clientX, e.clientY, `${comp.shortName} ${pg.label}`,
-          node.snapped ? `Connected → ${node.snapped}` : 'Unconnected — use ⚙ to assign a pin');
-      });
-      circle.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
-      circle.addEventListener('mouseleave', hideTooltip);
-
-      nodeLayer.appendChild(circle);
-    });
-  });
-}
-
 // sigIdx = index of this pin among all signal pins for this component (0-based)
 // Power and GND pins always use fixed colors; every other wire type uses the
 // sequential palette so each pin on every component gets a unique color.
@@ -2144,7 +2023,6 @@ function needsWhiteOutline(color) {
 
 function updateWires() {
   wireLayer.innerHTML = '';
-  nodeLayer.innerHTML = '';
   updateChipPinHighlights();
 
   state.placed.forEach(inst => {
@@ -2222,7 +2100,6 @@ function updateWires() {
       if (passive) drawPassiveSymbol(anchorX, startY, pinPos, passive);
     });
   });
-  drawNodes();
 }
 
 function routeWire(x1, y1, x2, y2, stagger) {

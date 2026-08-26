@@ -226,17 +226,6 @@ header {
   z-index: 5;    /* canvas-grid is z-10 and creates a stacking context; wires at z-5 render beneath it */
   overflow: visible;
 }
-/* Node circles sit just below the chip/components but above wires */
-.node-layer {
-  position: absolute;
-  top: 0; left: 0;
-  min-width: 3200px;
-  min-height: 2400px;
-  pointer-events: none;
-  z-index: 8;
-  overflow: visible;
-}
-
 .canvas-grid {
   position: absolute;
   inset: 0;
@@ -551,13 +540,6 @@ header {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* Draggable wire-end node circles */
-.wire-node {
-  cursor: default;
-  transition: r 0.1s;
-}
-.wire-node:hover { r: 11; }
-
 /* ── Right panel ──────────────────────────────────────────────── */
 .panel {
   width: 300px;
