@@ -533,6 +533,31 @@
 }
 .cs-orbit:hover::before { opacity: 1; animation-play-state: running; }
 @keyframes cs-orbit { to { transform: rotate(360deg); } }
+
+.cs-ticket {
+  background: #fdf6e3 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 3.25rem !important;
+  mask-image: radial-gradient(circle 9px at 0 25%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 50%, transparent 99%, #000),
+              radial-gradient(circle 9px at 0 75%, transparent 99%, #000);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+}
+.cs-ticket::before {
+  content: ''; position: absolute; left: 2.1rem; top: 8%; bottom: 8%;
+  border-left: 2px dashed rgba(0,0,0,0.28);
+}
+.cs-ticket::after {
+  content: 'ADMIT ONE';
+  position: absolute; left: 2.1rem; top: 50%;
+  transform: translate(-50%,-50%) rotate(-90deg);
+  font-size: 0.5rem; letter-spacing: 0.22em; color: #8a7a4a; white-space: nowrap;
+}
+.cs-ticket:hover { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
+
 </style>
 </head>
 <body>
@@ -697,6 +722,12 @@
   <h3 class="tool-card-title">Task Analysis Map</h3>
   <p class="tool-card-sub">Build a hierarchical task analysis by dragging and connecting step cards on a freeform canvas</p>
   <p class="cs-reveal-extra">&rarr; User opens Google Chrome<br>&rarr; User types 'Google' into search bar<br>&rarr; User searches for 'Facebook' on Google.com</p>
+</a>
+
+<a class="tool-card cs-ticket" href="https://edu.contrapaul.com/tools/tolerance/"
+   style="--card-title-color:#3a3020; --card-sub-color:#6d6047;">
+  <h3 class="tool-card-title">Quality Control Simulator</h3>
+  <p class="tool-card-sub">Make money and try not to make mistakes testing products. "Fun"</p>
 </a>
 
 <a class="tool-card cs-doot cs-tilt" href="https://make.contrapaul.com/tools/dooteternal"
