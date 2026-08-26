@@ -413,25 +413,40 @@
 /* ── BARE PROSE SPACING (unclassed p/ul/ol inside study-guide copy) ──
    Global reset zeroes all margin/padding, so plain <p>/<ul>/<ol>
    written directly into study-guide copy touch their neighbours
-   and bullets hang past the text edge. Scoped to .obj-body (rather
-   than a component's own class) so it only reaches bare tags and
-   never overrides a component's own spacing (e.g. .concept-box > p,
-   .checklist, .product-card ul). */
-.obj-body p:not([class]) { margin: 0 0 1rem; }
-.obj-body p:not([class]):last-child { margin-bottom: 0; }
+   and bullets hang past the text edge. The :not([class]) guard is
+   what keeps this to bare tags, so it never overrides a component's
+   own spacing (e.g. .concept-box > p, .checklist, .product-card ul).
 
-.obj-body ul:not([class]),
-.obj-body ol:not([class]) {
+   Scoped to .curr-body rather than .obj-body. .obj-body only covers
+   the strand bodies, which left bare lists written straight into a
+   criterion body (the "Where to submit" and "Unit policies" lists on
+   every MYP unit page) still hanging their bullets into the margin.
+   .curr-body contains .obj-body, so nothing that worked before is
+   lost and the gap is closed. */
+.curr-body p:not([class]) { margin: 0 0 1rem; }
+.curr-body p:not([class]):last-child { margin-bottom: 0; }
+
+.curr-body ul:not([class]),
+.curr-body ol:not([class]) {
   margin: 0.5rem 0 1.1rem;
   padding-left: 1.4rem;
 }
-.obj-body ul:not([class]) li,
-.obj-body ol:not([class]) li {
+.curr-body ul:not([class]) li,
+.curr-body ol:not([class]) li {
   margin-bottom: 0.4rem;
   line-height: 1.65;
 }
-.obj-body ul:not([class]) li:last-child,
-.obj-body ol:not([class]) li:last-child { margin-bottom: 0; }
+.curr-body ul:not([class]) li:last-child,
+.curr-body ol:not([class]) li:last-child { margin-bottom: 0; }
+
+/* .obj-list is the classed equivalent of those bare lists, so it needs the
+   same indent. The rule above cannot reach it: :not([class]) deliberately
+   excludes classed lists, so .obj-list kept the global reset's padding:0 and
+   drew its numbers and bullets outside its own content box, hanging them into
+   the margin. Fixed here rather than up there so the two stay side by side.
+   Margins are deliberately left alone; .obj-list sets its own and pages
+   depend on the spacing it gives them. */
+.obj-list { padding-left: 1.4rem; }
 
 /* ── QUIZ COMPONENT ──────────────────────────────────────────── */
 .quiz-wrap { margin-top: 0.25rem; }
