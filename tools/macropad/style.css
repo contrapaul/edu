@@ -796,12 +796,28 @@ header {
 ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 
 /* ── Resistor / cap symbols on wires ─────────────────────────── */
-.wire-annotation {
+/* Passive (resistor / capacitor) badges riding on their wire */
+.passive-badge rect {
+  fill: var(--bg1);
+  fill-opacity: 0.94;
+  stroke: var(--yellow);
+  stroke-width: 1;
+  stroke-opacity: 0.55;
+}
+.passive-badge path {
+  stroke: var(--yellow);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.passive-badge text {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   fill: var(--yellow);
   pointer-events: none;
 }
+.passive-badge:hover rect { stroke-opacity: 1; fill-opacity: 1; }
 
 /* ── Animations ───────────────────────────────────────────────── */
 @keyframes drop-in {

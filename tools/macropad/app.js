@@ -2025,6 +2025,10 @@ function updateWires() {
   wireLayer.innerHTML = '';
   updateChipPinHighlights();
 
+  // Passive badges are collected here and appended after every wire, so a wire
+  // drawn later can never cover a badge drawn earlier.
+  const badges = [];
+
   state.placed.forEach(inst => {
     const comp   = COMPONENT_LIBRARY[inst.compId];
     const compEl = document.getElementById('comp-' + inst.id);
@@ -2036,6 +2040,10 @@ function updateWires() {
 
     // Track signal pins seen so far for sequential color assignment
     let sigIdx = 0;
+
+    // Where each drawn wire leaves the component, so passive badges can be
+    // placed on it once every wire's geometry is known
+    const geom = {};
 
     comp.pinGroups.forEach((pg, idx) => {
       // Always compute color index consistently with renderComponent (count all active signal pins)
@@ -2095,11 +2103,22 @@ function updateWires() {
       hit.addEventListener('mouseleave', hideTooltip);
       wireLayer.appendChild(hit);
 
-      const passive = comp.passives.find(p => p.on.includes(pg.id) &&
-        (!p.conditional || inst.config[p.conditional]));
-      if (passive) drawPassiveSymbol(anchorX, startY, pinPos, passive);
+      geom[pg.id] = { ax: anchorX, ay: startY, mx: (anchorX + pinPos.x) / 2 + stagger };
+    });
+
+    // One badge per passive, on the middle wire it covers. A KY-040's three
+    // pull-ups are one part number on three lines, so they read as one badge
+    // ("3x 10k") rather than three identical ones fighting for the same space.
+    comp.passives.forEach(p => {
+      if (p.conditional && !inst.config[p.conditional]) return;
+      const on = p.on.filter(id => geom[id]);
+      if (!on.length) return;
+      const g = geom[on[Math.floor((on.length - 1) / 2)]];
+      badges.push([g.ax, g.ay, g.mx, p, on]);
     });
   });
+
+  badges.forEach(args => drawPassiveSymbol(...args));
 }
 
 function routeWire(x1, y1, x2, y2, stagger) {
@@ -2135,51 +2154,64 @@ function routeWire(x1, y1, x2, y2, stagger) {
   ].join(' ');
 }
 
-function drawPassiveSymbol(cx, cy, pinPos, passive) {
-  const mx = (cx + pinPos.x) / 2;
-  const my = (cy + pinPos.y) / 2;
+function decodeEntities(s) {
+  const el = document.createElement('textarea');
+  el.innerHTML = String(s == null ? '' : s);
+  return el.value;
+}
 
-  if (passive.type === 'resistor') {
-    // Zigzag resistor symbol
-    const w = 18, h = 6;
-    const zz = `M ${mx-w/2} ${my} l 3 ${-h} l 3 ${h*2} l 3 ${-h*2} l 3 ${h*2} l 3 ${-h} l 3 0`;
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', zz);
-    path.setAttribute('class', 'wire wire-data');
-    path.setAttribute('stroke', 'var(--yellow)');
-    path.setAttribute('stroke-width', '1.5');
-    path.setAttribute('fill', 'none');
-    wireLayer.appendChild(path);
-    // Label
-    const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    t.setAttribute('x', mx); t.setAttribute('y', my - 8);
-    t.setAttribute('class', 'wire-annotation');
-    t.setAttribute('text-anchor', 'middle');
-    t.textContent = passive.value;
-    t.addEventListener('mouseenter', e => showTooltip(e.clientX, e.clientY, passive.value + ' Resistor', passive.note));
-    t.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
-    t.addEventListener('mouseleave', hideTooltip);
-    wireLayer.appendChild(t);
-  } else if (passive.type === 'capacitor') {
-    // Capacitor symbol  --  two parallel lines
-    const rect1 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect1.setAttribute('x', mx-10); rect1.setAttribute('y', my-8);
-    rect1.setAttribute('width', 20); rect1.setAttribute('height', 3);
-    rect1.setAttribute('fill', 'var(--yellow)'); rect1.setAttribute('opacity', '0.7');
-    const rect2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect2.setAttribute('x', mx-10); rect2.setAttribute('y', my+5);
-    rect2.setAttribute('width', 20); rect2.setAttribute('height', 3);
-    rect2.setAttribute('fill', 'var(--yellow)'); rect2.setAttribute('opacity', '0.7');
-    wireLayer.appendChild(rect1); wireLayer.appendChild(rect2);
-    const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    t.setAttribute('x', mx+14); t.setAttribute('y', my+2);
-    t.setAttribute('class', 'wire-annotation'); t.setAttribute('text-anchor', 'start');
-    t.textContent = passive.value;
-    t.addEventListener('mouseenter', e => showTooltip(e.clientX, e.clientY, passive.value + ' Capacitor', passive.note));
-    t.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
-    t.addEventListener('mouseleave', hideTooltip);
-    wireLayer.appendChild(t);
-  }
+// Glyph paths are drawn left-to-right from (gx, gy), each exactly GLYPH_W wide.
+const GLYPH_W = 20;
+const PASSIVE_GLYPH = {
+  resistor:  (gx, gy) => `M ${gx} ${gy} l 3 0 l 2 -4 l 3 8 l 3 -8 l 3 8 l 2 -4 l 4 0`,
+  capacitor: (gx, gy) => `M ${gx} ${gy} l 7 0 M ${gx+7} ${gy-5} l 0 10 ` +
+                         `M ${gx+13} ${gy-5} l 0 10 M ${gx+13} ${gy} l 7 0`,
+};
+
+// Draw a passive as a badge centred on the horizontal run where its wire
+// leaves the component. ax,ay = that run's start; mx = x of the vertical trunk.
+// `on` lists the pin groups the passive applies to.
+function drawPassiveSymbol(ax, ay, mx, passive, on) {
+  const glyph = PASSIVE_GLYPH[passive.type];
+  if (!glyph) return;
+
+  const label = (on.length > 1 ? on.length + '\u00d7 ' : '') + decodeEntities(passive.value);
+  const padL = 7, gap = 5, padR = 8, h = 17;
+  const w = padL + GLYPH_W + gap + label.length * 6 + padR;
+
+  const dir   = mx >= ax ? 1 : -1;
+  const slack = Math.max(0, Math.abs(mx - ax) - w - 16);
+  const bx    = ax + dir * (8 + w / 2 + slack * 0.5);
+  const gx    = bx - w / 2 + padL;
+
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.setAttribute('class', 'passive-badge');
+
+  const plate = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  plate.setAttribute('x', bx - w / 2); plate.setAttribute('y', ay - h / 2);
+  plate.setAttribute('width', w);      plate.setAttribute('height', h);
+  plate.setAttribute('rx', 4);
+  plate.style.pointerEvents = 'all';
+  g.appendChild(plate);
+
+  const sym = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  sym.setAttribute('d', glyph(gx, ay));
+  g.appendChild(sym);
+
+  const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  t.setAttribute('x', gx + GLYPH_W + gap);
+  t.setAttribute('y', ay + 3.5);
+  t.textContent = label;
+  g.appendChild(t);
+
+  const title = passive.type.charAt(0).toUpperCase() + passive.type.slice(1);
+  const lines = on.map(id => id.toUpperCase()).join(', ');
+  g.addEventListener('mouseenter', e => showTooltip(e.clientX, e.clientY,
+    `${label} ${title}`, `On ${lines}.<br>${passive.note}`));
+  g.addEventListener('mousemove', e => moveTooltip(e.clientX, e.clientY));
+  g.addEventListener('mouseleave', hideTooltip);
+
+  wireLayer.appendChild(g);
 }
 
 function updateChipPinHighlights() {
