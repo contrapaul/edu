@@ -4349,3 +4349,136 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
   margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.6;
   color: var(--muted); min-height: 1.2rem;
 }
+
+/* ── RESEARCH PLANNER WIDGET ────────────────────────────────────────
+   Behaviour lives in the shared research-planner.js; content lives in
+   each page's own JS file. The text fields are the point of the
+   widget, so they get the room, and the chips stay small.
+   ─────────────────────────────────────────────────────────────────── */
+.rplan {
+  margin: 1.25rem 0;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.rplan-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+  padding-bottom: 0.85rem; margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+.rplan-count { margin: 0; font-size: 1.05rem; font-weight: 650; color: var(--text); }
+.rplan-count span { font-family: var(--font-mono); }
+.rplan-left { margin: 0.1rem 0 0; font-size: 0.78rem; color: var(--muted); }
+.rplan.is-full .rplan-left { color: var(--amber); font-weight: 600; }
+.rplan-pips { display: flex; gap: 4px; flex-wrap: wrap; max-width: 240px; }
+.rplan-pip {
+  width: 13px; height: 20px; border-radius: 3px;
+  background: var(--surface); border: 1px solid var(--border-strong);
+}
+.rplan-pip.spent { background: var(--accent); border-color: var(--accent); }
+
+.rplan-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 0.9rem 0 0.5rem;
+}
+.rplan-bank { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.rplan-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.7rem;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  font: inherit; font-size: 0.8rem; text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.12s, opacity 0.15s;
+}
+.rplan-chip:hover:not(:disabled), .rplan-chip:focus-visible {
+  border-color: var(--accent); transform: translateY(-1px);
+}
+.rplan-chip.too-dear { opacity: 0.4; cursor: not-allowed; }
+.rplan-chip-cost {
+  font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  padding: 0.1rem 0.4rem; border-radius: 5px;
+  background: var(--surface-2); color: var(--muted);
+}
+
+.rplan-rows { display: grid; gap: 0.75rem; }
+.rplan-empty {
+  margin: 0; padding: 1rem 1.1rem;
+  border: 1px dashed var(--border-strong); border-radius: var(--radius);
+  font-size: 0.82rem; color: var(--muted); font-style: italic;
+}
+.rplan-row {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); overflow: hidden;
+}
+.rplan-row-head {
+  display: flex; align-items: center; gap: 0.55rem; flex-wrap: wrap;
+  padding: 0.6rem 0.75rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+.rplan-row-num {
+  flex: 0 0 auto;
+  width: 22px; height: 22px; border-radius: 6px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent); color: var(--surface);
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+}
+.rplan-row-name { flex: 1 1 auto; min-width: 0; font-size: 0.86rem; font-weight: 600; color: var(--text); }
+.rplan-row-kind, .rplan-row-cost {
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.rplan-row-x {
+  flex: 0 0 auto;
+  width: 22px; height: 22px; line-height: 1;
+  border: 1px solid var(--border-strong); border-radius: 6px;
+  background: none; color: var(--muted);
+  font: inherit; font-size: 0.9rem; cursor: pointer;
+}
+.rplan-row-x:hover, .rplan-row-x:focus-visible { color: var(--amber); border-color: var(--amber); }
+
+.rplan-row-body { padding: 0.75rem 0.85rem 0.85rem; display: grid; gap: 0.7rem; }
+.rplan-field { display: grid; gap: 0.3rem; }
+.rplan-field-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--muted);
+}
+.rplan-input {
+  width: 100%; box-sizing: border-box;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border-strong); border-radius: 8px;
+  background: var(--surface-2); color: var(--text);
+  font: inherit; font-size: 0.85rem; line-height: 1.55;
+  resize: vertical;
+}
+.rplan-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.rplan-input::placeholder { color: var(--muted); opacity: 0.75; }
+
+.rplan-notes { display: grid; gap: 0.9rem; margin-top: 0.5rem; }
+.rplan-note-hint { margin: 0.15rem 0 0; font-size: 0.76rem; line-height: 1.5; color: var(--muted); }
+
+.rplan-check {
+  margin-top: 1rem; padding: 0.85rem 1rem;
+  border: 1px solid var(--border-strong); border-left-width: 3px; border-radius: 0 8px 8px 0;
+  background: var(--surface);
+}
+.rplan-check.is-done { border-left-color: var(--accent); }
+.rplan-check-title {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.11em; text-transform: uppercase;
+  color: var(--muted);
+}
+.rplan-check.is-done .rplan-check-title { color: var(--accent); }
+.rplan-check-list { margin: 0; padding-left: 1.1rem; }
+.rplan-check-list li { font-size: 0.8rem; line-height: 1.55; color: var(--muted); margin-bottom: 0.2rem; }
+.rplan-check-done { margin: 0; font-size: 0.82rem; line-height: 1.6; color: var(--text); }
+
+.rplan-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.rplan-msg { margin: 0.7rem 0 0; font-size: 0.8rem; line-height: 1.55; color: var(--muted); min-height: 1.1rem; }
+.rplan-msg.warn { color: var(--amber); font-weight: 600; }

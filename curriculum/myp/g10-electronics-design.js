@@ -185,3 +185,37 @@
     allFound: 'All three found. Every one of them would have survived a spellcheck and a read-through.'
   });
 })();
+
+/* ── RESEARCH BUDGET PLANNER (Aii activity) ───────────────────
+   Twelve tokens, seven activities. The chips are the quick part;
+   the three text fields on every row and the two paragraphs
+   underneath are where the marks actually are. The two spending
+   rules from the unit are checked live, so a plan made entirely
+   of reading, or entirely of opinions, says so about itself.
+   Behaviour lives in the shared research-planner.js. */
+(function () {
+  'use strict';
+  if (!window.ResearchPlanner) return;
+
+  window.ResearchPlanner.init({
+    rootId: 'rplan-electronics',
+    budget: 12,
+    accent: '#1a5cb8',
+    exportTitle: 'My research plan',
+    activities: [
+      { id: 'catalog',   label: 'Read a catalog part page',      cost: 1, kind: 'Secondary', tags: ['feasibility'] },
+      { id: 'secondary', label: 'Other reading: datasheet, video, guide', cost: 1, kind: 'Secondary', tags: [] },
+      { id: 'survey',    label: 'Questionnaire',                 cost: 2, kind: 'Primary',   tags: ['people'] },
+      { id: 'observe',   label: 'Watch your client, with a plan', cost: 3, kind: 'Primary',  tags: ['people'] },
+      { id: 'interview', label: 'Interview',                     cost: 3, kind: 'Primary',   tags: ['people'] },
+      { id: 'bench',     label: 'Bench test a part on a breadboard', cost: 3, kind: 'Primary', tags: ['feasibility'] },
+      { id: 'focus',     label: 'Focus group',                   cost: 4, kind: 'Primary',   tags: ['people'] }
+    ],
+    rules: [
+      { tag: 'people', min: 4,
+        message: 'Spending rule: at least 4 tokens on people. You have {n}. Without that, your plan is all reading.' },
+      { tag: 'feasibility', min: 3,
+        message: 'Spending rule: at least 3 tokens on whether it will work, meaning a bench test or catalog part pages. You have {n}. Without that, your plan is all opinions.' }
+    ]
+  });
+})();

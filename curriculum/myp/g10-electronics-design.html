@@ -415,11 +415,12 @@
       <div class="obj-outcome"><span class="obj-outcome-label">The column that earns the marks</span>"What this lets me decide" turns your order from an opinion into an argument. If a row does not let you decide anything, take it off the plan. It is costing you a token and telling you nothing.</div>
 
       <div class="unit-fgrid">
-      <div class="unit-fcard">
-      <span class="unit-fcard-label">Practice &middot; 20 min</span>
-      <span class="unit-fcard-title">Spend the tokens</span>
-      <span class="unit-fcard-desc">A practice run with the budget, on a pretend client, before you do it for real. Then compare what you spent with the people around you and argue about it.</span>
-      </div>
+      <button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-planner">
+      <span class="unit-fcard-label">Activity &middot; the whole class</span>
+      <span class="unit-fcard-title">Research budget planner</span>
+      <span class="unit-fcard-desc">Build your real plan here. Spend your 12 tokens, then write a question, a decision and a date for every row, plus the two paragraphs underneath. Download it when you are done. Your work is saved in this browser as you type.</span>
+      <span class="unit-fcard-cta">Open the planner</span>
+      </button>
       <div class="unit-fcard">
       <span class="unit-fcard-label">Practice &middot; 10 min</span>
       <span class="unit-fcard-title">Good question, bad question</span>
@@ -430,12 +431,6 @@
       <span class="unit-fcard-title">What a bench test buys you</span>
       <span class="unit-fcard-desc">Two research plans. One includes a bench test, one does not. Both reach build class 4. Work out what happens to each of them.</span>
       </div>
-      </div>
-
-      <div class="planned-feature">
-      <p class="planned-feature-label">Coming soon</p>
-      <h3 class="planned-feature-title">Research budget planner</h3>
-      <p>Drag activities into your plan and watch the tokens count down. It stops you when you overspend, and it exports the finished table.</p>
       </div>
 
       </div>
@@ -1694,6 +1689,97 @@
 </main>
 
 <!-- ═══════════════════════════════════════════════════════
+     ACTIVITY: RESEARCH BUDGET PLANNER (Aii)
+     ═══════════════════════════════════════════════════════ -->
+<div class="case-modal" id="modal-planner" role="dialog" aria-modal="true" aria-labelledby="modal-planner-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-planner-title">Research budget planner</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Build your real <a href="#aii">Aii</a> plan in here. Spend your 12 tokens, then write the three fields on every row and the two paragraphs at the bottom. Download it when you are finished and upload that to ManageBac.</p>
+
+      <div class="unit-run">
+        <strong>Before you start.</strong> Choosing the activities takes about two minutes. Writing the rest takes the rest of the class, and that is the right way round. <strong>The chips are not the plan.</strong> A row that says "Interview, 3 tokens" and nothing else tells a reader nothing at all.
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">Read this before you click anything</p>
+        <h3 class="caution-box-title">The tokens cannot earn you marks on their own</h3>
+        <p>You could spend all 12 tokens in thirty seconds and press download. The file would come out with your name at the top and a page of empty ruled lines, because the export prints exactly what you wrote and nothing else.</p>
+        <p>What is marked is the <strong>"what will this let me decide?"</strong> field on every row, and the two paragraphs. That is where a 3-4 and a 7-8 look completely different, and the tokens look identical.</p>
+      </div>
+
+      <div class="rplan" id="rplan-electronics">
+        <div class="rplan-head">
+          <div>
+            <p class="rplan-count"><span data-rp="spent">0</span> of 12 tokens spent</p>
+            <p class="rplan-left" data-rp="left">12 tokens left.</p>
+          </div>
+          <div class="rplan-pips" data-rp="pips" aria-hidden="true"></div>
+        </div>
+
+        <p class="rplan-label">1. Choose your activities</p>
+        <div class="rplan-bank" data-rp="bank"></div>
+
+        <p class="rplan-label">2. Say what each one is for</p>
+        <div class="rplan-rows" data-rp="rows"></div>
+
+        <p class="rplan-label">3. The two paragraphs</p>
+        <div class="rplan-notes">
+          <div class="rplan-field">
+            <label class="rplan-field-label" for="rplan-order">Why these, in this order?</label>
+            <textarea class="rplan-input" id="rplan-order" data-rp="order" rows="4" placeholder="Which activity had to happen first, and what does it unblock? If your bench test has to come before your interview, say why."></textarea>
+            <p class="rplan-note-hint">Order is not the same as a list. A reader should finish this paragraph knowing why row 1 could not have been row 4.</p>
+          </div>
+          <div class="rplan-field">
+            <label class="rplan-field-label" for="rplan-gave">What did you give up, and what could go wrong because of it?</label>
+            <textarea class="rplan-input" id="rplan-gave" data-rp="gave" rows="4" placeholder="Name the activity you could not afford. Then say what you might now get wrong because you skipped it."></textarea>
+            <p class="rplan-note-hint">The second half matters more than the first. Anybody can name what they dropped. Saying what it might cost you later is the part that shows judgement.</p>
+          </div>
+        </div>
+
+        <div class="rplan-check" data-rp="check"></div>
+
+        <div class="rplan-tools">
+          <button class="tool-btn" type="button" data-rp="png">Download my plan</button>
+          <button class="drag-sort-reset-btn" type="button" data-rp="clear">Clear everything</button>
+        </div>
+        <p class="rplan-msg" data-rp="msg" aria-live="polite"></p>
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">What separates the bands</p>
+        <h3 class="concept-box-title">Same tokens, different plans</h3>
+        <div class="content-table-wrap">
+          <table class="content-table">
+            <thead><tr><th>Band</th><th>What the plan looks like</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1-2</strong></td><td>A list of activities. No questions, or questions that could be answered without leaving the room.</td></tr>
+              <tr><td><strong>3-4</strong></td><td>Every row has a question, but the questions are vague and the "what this lets me decide" column repeats the question in other words.</td></tr>
+              <tr><td><strong>5-6</strong></td><td>Sharp questions, real dates, and most rows genuinely unlock a decision. The two paragraphs are there but thin.</td></tr>
+              <tr><td><strong>7-8</strong></td><td>Every row unlocks a decision you could name. The order paragraph explains a dependency, not a preference. The "what I gave up" paragraph names a real risk you are accepting on purpose.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Notice that the token spend is identical in all four. The budget forces the choice; the writing is what gets marked.</p>
+      </div>
+
+      <div class="discussion-box">
+        <p class="discussion-box-label">Try this first, if there is time</p>
+        <h3 class="discussion-box-title">Spend the tokens on somebody else's client</h3>
+        <p>Before you plan your own, do a fast run for a different client group, about 20 minutes. Then compare with the people near you. Two plans with the same twelve tokens can be completely different, and arguing about which is better is the fastest way to see what the "what this lets me decide" column is for.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
      ACTIVITY: NEED, WANT, OR ASSUMPTION (Ai)
      ═══════════════════════════════════════════════════════ -->
 <div class="case-modal" id="modal-need-want" role="dialog" aria-modal="true" aria-labelledby="modal-need-want-title">
@@ -1866,6 +1952,7 @@
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../drag-sort.js"></script>
 <script src="../claim-hunt.js"></script>
+<script src="../research-planner.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
 <script src="g10-electronics-design.js"></script>
