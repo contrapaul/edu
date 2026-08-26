@@ -4250,3 +4250,32 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 }
 .unit-test h5 { font-size: 0.82rem; font-weight: 650; margin: 0 0 0.3rem; color: var(--text); }
 .unit-test p { font-size: 0.79rem; line-height: 1.55; color: var(--muted); margin: 0; }
+
+/* "How this works" note, used inside the activity modals. */
+.unit-run {
+  margin: 1.25rem 0 0.5rem; padding: 0.85rem 1.1rem;
+  border: 1px dashed var(--border-strong); border-radius: var(--radius);
+  font-size: 0.84rem; line-height: 1.6; color: var(--muted);
+}
+.unit-run strong { color: var(--text); }
+
+/* Opt in with .drag-sort--liftable on a sort that passes enableDrag:true, so
+   its cards look like something you can pick up. The DP sort widgets are click
+   only and must keep their tap instruction, which is why this is a class
+   rather than a change to every .drag-sort-item. */
+.drag-sort--liftable .drag-sort-item {
+  cursor: grab;
+  touch-action: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 3px 8px rgba(0,0,0,0.09);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.13s;
+}
+.drag-sort--liftable .drag-sort-item:hover,
+.drag-sort--liftable .drag-sort-item:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.09), 0 10px 22px rgba(0,0,0,0.16);
+  border-color: var(--border-strong);
+}
+.drag-sort--liftable .drag-sort-item:active { cursor: grabbing; transform: translateY(-1px); }
+.drag-sort--liftable .drag-sort-item.is-dragging { box-shadow: none; transform: none; }
+.drag-sort--liftable .drag-sort-zone-slot:empty::before { content: none; }
+.drag-sort--liftable .drag-sort-zone-wrap { transition: border-color 0.15s, background 0.15s; }

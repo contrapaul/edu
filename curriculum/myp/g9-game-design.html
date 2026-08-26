@@ -138,28 +138,6 @@
 }
 .g9-planner-msg.warn { color: var(--amber); font-weight: 600; }
 
-/* The need/want/assumption sort accepts dragging, so its statements are
-   styled to look liftable. The DP sort widgets stay click only, so this is
-   deliberately scoped here rather than applied to every .drag-sort-item. */
-#sort-needwant .drag-sort-item {
-  cursor: grab;
-  touch-action: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 3px 8px rgba(0,0,0,0.09);
-  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.13s;
-}
-#sort-needwant .drag-sort-item:hover,
-#sort-needwant .drag-sort-item:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.09), 0 10px 22px rgba(0,0,0,0.16);
-  border-color: var(--border-strong);
-}
-#sort-needwant .drag-sort-item:active { cursor: grabbing; transform: translateY(-1px); }
-#sort-needwant .drag-sort-item.is-dragging { box-shadow: none; transform: none; }
-
-/* The zones are drop targets now, so the tap instruction is gone. */
-#sort-needwant .drag-sort-zone-slot:empty::before { content: none; }
-#sort-needwant .drag-sort-zone-wrap { transition: border-color 0.15s, background 0.15s; }
-
 /* Materials inside a modal */
 .g9-brief {
   margin: 1rem 0;
@@ -226,13 +204,6 @@
   margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.6;
   color: var(--muted); min-height: 1.2rem;
 }
-.g9-run {
-  margin: 1.25rem 0 0.5rem; padding: 0.85rem 1.1rem;
-  border: 1px dashed var(--border-strong); border-radius: var(--radius);
-  font-size: 0.84rem; line-height: 1.6; color: var(--muted);
-}
-.g9-run strong { color: var(--text); }
-
 </style>
 </head>
 <body>
@@ -1404,7 +1375,7 @@
 
       <p>Twelve things a team wrote down about their client group, <strong>Grade 6 students at lunch recess</strong>. Sort each one into need, want or assumption.</p>
 
-      <div class="g9-run">
+      <div class="unit-run">
         <strong>How to run it.</strong> Pairs, 15 minutes. Sort first, argue second. The assumption pile is the point of the activity: it is usually the biggest, and it is entirely made of things nobody has checked. Finish by asking each pair which single assumption they would test first, and how.
       </div>
 
@@ -1418,7 +1389,7 @@
         </ul>
       </div>
 
-      <div class="drag-sort" id="sort-needwant">
+      <div class="drag-sort drag-sort--liftable" id="sort-needwant">
         <div class="drag-sort-label">Interactive</div>
         <div class="drag-sort-title">Sort the twelve statements</div>
         <p class="drag-sort-intro">Drag a statement onto a pile, or click it and then click the pile.</p>
@@ -1451,7 +1422,7 @@
 
       <p>A practice run before the real thing. Build a research plan for the brief below, using <strong>12 tokens</strong>. You will not be able to afford everything, which is the point.</p>
 
-      <div class="g9-run">
+      <div class="unit-run">
         <strong>How to run it.</strong> Individually, 20 minutes. Build a plan, download it, then compare across the room. The argument afterwards is the lesson: two students who spent the same 12 tokens completely differently both have to defend their order.
       </div>
 
@@ -1505,7 +1476,7 @@
 
       <p>A real-looking need statement, written by a team who did some research and then stopped thinking. <strong>Three of these eight sentences make a claim that is never justified.</strong> Find them.</p>
 
-      <div class="g9-run">
+      <div class="unit-run">
         <strong>How to run it.</strong> Work in pairs for up to 15 minutes. Read each sentence out loud once first. The weak sentences might seem fine until you actually say them. Click the three sentences you think are <em>unjustified</em>, then check. Finish by asking what evidence would be needed to rescue each one.
       </div>
 

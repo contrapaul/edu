@@ -329,11 +329,12 @@
       <div class="obj-outcome"><span class="obj-outcome-label">How to reach the top band</span>For 5-6, you show that your client exists and that a device would be useful to them. For <strong>7-8</strong>, you argue why <em>this</em> group, why <em>this</em> need, and why the problem is the shape that electronics fits and a sticky note does not.</div>
 
       <div class="unit-fgrid">
-      <div class="unit-fcard">
+      <button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-sticky-note">
       <span class="unit-fcard-label">Practice &middot; 15 min</span>
       <span class="unit-fcard-title">The sticky note test</span>
-      <span class="unit-fcard-desc">Ten problems on cards. For each one, decide whether electronics is really needed, or whether a label, a clock, a person or a phone would do it better. This is the biggest mistake in the unit, and you meet it in the first week.</span>
-      </div>
+      <span class="unit-fcard-desc">Ten real situations from around this school. For each one, decide whether electronics is really needed, or whether a label, a clock or a piece of paper would do it better. This is the biggest mistake in the unit, and you meet it in week one.</span>
+      <span class="unit-fcard-cta">Open the activity</span>
+      </button>
       <div class="unit-fcard">
       <span class="unit-fcard-label">Practice &middot; 15 min</span>
       <span class="unit-fcard-title">Need, want, or assumption?</span>
@@ -1690,9 +1691,74 @@
 </div><!-- /curr-page-layout -->
 </main>
 
+<!-- ═══════════════════════════════════════════════════════
+     ACTIVITY: THE STICKY NOTE TEST (Ai)
+     ═══════════════════════════════════════════════════════ -->
+<div class="case-modal" id="modal-sticky-note" role="dialog" aria-modal="true" aria-labelledby="modal-sticky-note-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-sticky-note-title">The sticky note test</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Ten real situations from around a school. For each one, decide whether the answer genuinely needs electronics, or whether a sticky note would do the job better.</p>
+
+      <div class="unit-run">
+        <strong>How this works.</strong> Work in pairs, about 15 minutes. Sort first, argue second. Two of the ten accept <em>either</em> answer, because the honest answer depends on something you have to name out loud. Those two are the interesting ones, so do not rush past them.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">The question to ask</p>
+        <h3 class="concept-box-title">Would a sticky note do this?</h3>
+        <p>Not only a sticky note. A pencil, a label, a printed sign, a clock already on the wall, or an app your client has on their phone. If any of those solves the problem better, then electronics is the wrong answer.</p>
+        <p>A problem genuinely needs electronics when it involves <strong>sensing, timing, counting or remembering</strong>. Look for one of these four:</p>
+        <ul class="obj-list">
+          <li>Something must be <strong>measured</strong> that a person cannot watch all day.</li>
+          <li>Something must be <strong>counted</strong> when a person would lose track.</li>
+          <li>Something must be <strong>noticed</strong> at a moment when nobody is there.</li>
+          <li>Something must be <strong>known in one place</strong> that happens in another.</li>
+        </ul>
+        <p>If none of those four is true, you are probably about to build a gadget and then look for a reason.</p>
+      </div>
+
+      <div class="drag-sort drag-sort--liftable" id="sort-stickynote">
+        <div class="drag-sort-label">Activity</div>
+        <div class="drag-sort-title">Sort the ten situations</div>
+        <p class="drag-sort-intro">Drag a card onto a pile, or click the card and then click the pile.</p>
+        <div class="drag-sort-section-label">Situations</div>
+        <div class="drag-sort-bank" id="sort-stickynote-bank"></div>
+        <div class="drag-sort-section-label">Piles</div>
+        <div class="drag-sort-zones" id="sort-stickynote-zones"></div>
+        <div class="drag-sort-status" id="sort-stickynote-status" aria-live="polite"></div>
+        <button class="drag-sort-reset-btn" type="button" id="sort-stickynote-reset">Reset</button>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">Talk about this afterwards</p>
+        <h3 class="caution-box-title">Knowing about a problem is not the same as fixing it</h3>
+        <p>Several of the paper answers look like they need a device until you ask one question: <strong>do the people already know?</strong> Students know which bin is for paper. The Grade 12s know whose turn it is to tidy.</p>
+        <p>When people already know and still do not act, a screen telling them again changes nothing. It only looks like a solution because it was fun to build.</p>
+      </div>
+
+      <div class="discussion-box">
+        <p class="discussion-box-label">Take this into Ai</p>
+        <h3 class="discussion-box-title">Now run the test on your own idea</h3>
+        <p>Before you write your Need Statement, put your own situation through this sort. Which of the four reasons applies to it? Write that sentence down, because it is the third bullet of your Ai page and it is where the marks are.</p>
+        <p>If none of the four applies, you have not found your need yet. That is worth knowing in class 4, and painful to discover in class 33.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../drag-sort.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
+<script src="g10-electronics-design.js"></script>
 <script src="../curriculum-themes.js"></script>
 </body>
 </html>
