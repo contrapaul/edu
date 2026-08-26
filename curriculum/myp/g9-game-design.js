@@ -68,13 +68,13 @@
 /* ── WEAK BRIEF AUTOPSY (Ai formative) ────────────────────────
    Six sentences, three of which assert something they never
    support. Students select three, then check. Each sentence
-   carries its own verdict so the feedback is specific. */
+   carries its own verdict so the feedback is specific.
+   Behaviour lives in the shared claim-hunt.js. */
 (function () {
   'use strict';
   var briefEl = document.getElementById('autopsy-brief');
-  if (!briefEl) return;
+  if (!briefEl || !window.ClaimHunt) return;
 
-  var TARGET = 3;
   /* Eight sentences, three of them unjustified. Two of the five that pass
      sit immediately after the weak sentence they resemble, so the choice
      is not a yes or no on tone. Each near miss is the correct version of
@@ -106,84 +106,16 @@
       why: 'The most common failure in Ai. Your own preferences at eleven are not evidence about these students now. Rescue it by asking them, or by dropping the claim entirely.' }
   ];
 
-  var checkBtn   = document.getElementById('autopsy-check');
-  var resetBtn   = document.getElementById('autopsy-reset');
-  var statusEl   = document.getElementById('autopsy-status');
-  var verdictsEl = document.getElementById('autopsy-verdicts');
-  var buttons = [];
-  var checked = false;
-
-  function selectedCount() {
-    return buttons.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; }).length;
-  }
-
-  function updateStatus() {
-    if (checked) return;
-    var n = selectedCount();
-    statusEl.textContent = n === 0
-      ? 'Click the sentences that make a claim without supporting it.'
-      : n + ' of ' + TARGET + ' selected.' + (n > TARGET ? ' That is more than three; unselect one.' : '');
-  }
-
-  function build() {
-    briefEl.innerHTML = '';
-    buttons = [];
-    checked = false;
-    verdictsEl.innerHTML = '';
-    SENTENCES.forEach(function (s, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'g9-claim';
-      b.textContent = s.text;
-      b.setAttribute('aria-pressed', 'false');
-      b.addEventListener('click', function () {
-        if (checked) return;
-        b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
-        updateStatus();
-      });
-      briefEl.appendChild(b);
-      briefEl.appendChild(document.createTextNode(' '));
-      buttons.push(b);
-    });
-    updateStatus();
-  }
-
-  function check() {
-    if (checked) return;
-    if (selectedCount() !== TARGET) { updateStatus(); return; }
-    checked = true;
-    var found = 0;
-    buttons.forEach(function (b, i) {
-      var s = SENTENCES[i];
-      var picked = b.getAttribute('aria-pressed') === 'true';
-      b.classList.remove('is-correct', 'is-wrong', 'is-missed');
-      b.classList.add('is-marked');
-      if (picked && s.weak)        { b.classList.add('is-correct'); found++; }
-      else if (picked && !s.weak)  { b.classList.add('is-wrong'); }
-      else if (!picked && s.weak)  { b.classList.add('is-missed'); }
-      b.setAttribute('aria-pressed', 'false');
-    });
-
-    statusEl.textContent = found === TARGET
-      ? 'All three found. Every one of them would have survived a read-through.'
-      : found + ' of 3 found. Read the verdicts below for the ones you missed.';
-
-    verdictsEl.innerHTML = '';
-    SENTENCES.forEach(function (s) {
-      var d = document.createElement('div');
-      d.className = 'g9-verdict' + (s.weak ? ' ok' : '');
-      var n = document.createElement('span');
-      n.className = 'g9-verdict-name';
-      n.textContent = s.weak ? 'Unjustified: ' + s.fault : 'Justified';
-      d.appendChild(n);
-      d.appendChild(document.createTextNode(s.why));
-      verdictsEl.appendChild(d);
-    });
-  }
-
-  checkBtn.addEventListener('click', check);
-  resetBtn.addEventListener('click', function () { build(); statusEl.textContent = 'Click the sentences that make a claim without supporting it.'; });
-  build();
+  window.ClaimHunt.init({
+    briefEl: briefEl,
+    checkBtn: document.getElementById('autopsy-check'),
+    resetBtn: document.getElementById('autopsy-reset'),
+    statusEl: document.getElementById('autopsy-status'),
+    verdictsEl: document.getElementById('autopsy-verdicts'),
+    target: 3,
+    sentences: SENTENCES,
+    allFound: 'All three found. Every one of them would have survived a read-through.'
+  });
 })();
 
 /* ── RESEARCH BUDGET PLANNER (Aii formative) ──────────────────

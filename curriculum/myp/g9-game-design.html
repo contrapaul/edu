@@ -139,71 +139,7 @@
 .g9-planner-msg.warn { color: var(--amber); font-weight: 600; }
 
 /* Materials inside a modal */
-.g9-brief {
-  margin: 1rem 0;
-  padding: 1.1rem 1.3rem;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 0.95rem; line-height: 1.9;
-}
-.g9-claim {
-  cursor: pointer;
-  border-bottom: 2px dotted var(--border-strong);
-  padding: 0.1rem 0.15rem;
-  border-radius: 3px;
-  background: none;
-  font: inherit; color: inherit; text-align: left;
-  transition: background 0.15s, border-color 0.15s;
-}
-.g9-claim:hover { background: var(--surface); }
-.g9-claim[aria-pressed="true"] { background: var(--amber-bg); border-bottom-color: var(--amber); }
 
-/* After checking, the result is carried by a word as well as a colour, so
-   the three outcomes stay apart for a colour blind reader. */
-.g9-claim.is-marked { cursor: default; }
-.g9-claim.is-marked::after {
-  font-family: var(--font-mono);
-  font-size: 0.6rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-left: 0.4rem;
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  vertical-align: 0.1em;
-}
-.g9-claim.is-correct {
-  background: var(--amber-bg); border-bottom: 2px solid var(--amber);
-}
-.g9-claim.is-correct::after { content: "found"; background: var(--amber); color: var(--surface); }
-.g9-claim.is-wrong {
-  background: none; border-bottom: 2px solid var(--border-strong); opacity: 0.7;
-}
-.g9-claim.is-wrong::after { content: "this one is fine"; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border-strong); }
-.g9-claim.is-missed {
-  background: none; border-bottom: 2px dashed var(--amber);
-}
-.g9-claim.is-missed::after { content: "missed"; background: var(--surface); color: var(--amber); border: 1px solid var(--amber); }
-
-.g9-verdicts { display: grid; gap: 0.6rem; margin: 1rem 0 0; }
-.g9-verdict {
-  padding: 0.7rem 0.95rem;
-  border-left: 3px solid var(--border-strong);
-  background: var(--surface-2);
-  border-radius: 0 8px 8px 0;
-  font-size: 0.84rem; line-height: 1.6;
-}
-.g9-verdict.ok { border-left-color: var(--amber); }
-.g9-verdict-name {
-  display: block;
-  font-family: var(--font-mono); font-size: 0.6rem;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 0.25rem;
-}
-.g9-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
-.g9-status {
-  margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.6;
-  color: var(--muted); min-height: 1.2rem;
-}
 </style>
 </head>
 <body>
@@ -1449,7 +1385,7 @@
 
         <p class="g9-planner-msg" id="planner-msg" aria-live="polite"></p>
 
-        <div class="g9-tools">
+        <div class="unit-tools">
           <button class="tool-btn" type="button" id="planner-png">Download PNG</button>
           <button class="drag-sort-reset-btn" type="button" id="planner-clear">Clear all</button>
         </div>
@@ -1480,14 +1416,14 @@
         <strong>How to run it.</strong> Work in pairs for up to 15 minutes. Read each sentence out loud once first. The weak sentences might seem fine until you actually say them. Click the three sentences you think are <em>unjustified</em>, then check. Finish by asking what evidence would be needed to rescue each one.
       </div>
 
-      <div class="g9-brief" id="autopsy-brief" aria-label="Need statement to analyse"></div>
+      <div class="unit-brief" id="autopsy-brief" aria-label="Need statement to analyse"></div>
 
-      <div class="g9-tools">
+      <div class="unit-tools">
         <button class="tool-btn" type="button" id="autopsy-check">Check my three</button>
         <button class="drag-sort-reset-btn" type="button" id="autopsy-reset">Reset</button>
       </div>
-      <p class="g9-status" id="autopsy-status" aria-live="polite"></p>
-      <div class="g9-verdicts" id="autopsy-verdicts"></div>
+      <p class="unit-status" id="autopsy-status" aria-live="polite"></p>
+      <div class="unit-verdicts" id="autopsy-verdicts"></div>
 
       <div class="caution-box">
         <p class="caution-box-label">What the three have in common</p>
@@ -1502,6 +1438,7 @@
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../drag-sort.js"></script>
+<script src="../claim-hunt.js"></script>
 <script src="../curriculum.js"></script>
 <script src="g9-game-design.js"></script>
 <script src="../curriculum-themes.js"></script>

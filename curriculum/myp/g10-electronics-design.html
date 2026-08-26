@@ -335,16 +335,18 @@
       <span class="unit-fcard-desc">Ten real situations from around this school. For each one, decide whether electronics is really needed, or whether a label, a clock or a piece of paper would do it better. This is the biggest mistake in the unit, and you meet it in week one.</span>
       <span class="unit-fcard-cta">Open the activity</span>
       </button>
-      <div class="unit-fcard">
+      <button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-need-want">
       <span class="unit-fcard-label">Practice &middot; 15 min</span>
       <span class="unit-fcard-title">Need, want, or assumption?</span>
-      <span class="unit-fcard-desc">Twelve cards about a group of people. Sort them into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. An assumption is something you believe but never checked. That pile is usually the biggest, and that is the lesson. You may remember this one from Grade 9.</span>
-      </div>
-      <div class="unit-fcard">
+      <span class="unit-fcard-desc">Twelve things a student wrote down about the front office staff. Sort them into <strong>need</strong>, <strong>want</strong> and <strong>assumption</strong>. An assumption is something you believe but never checked. That pile is usually the biggest, and that is the lesson.</span>
+      <span class="unit-fcard-cta">Open the activity</span>
+      </button>
+      <button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-weak-claims">
       <span class="unit-fcard-label">Practice &middot; 15 min</span>
       <span class="unit-fcard-title">Find the weak claims</span>
-      <span class="unit-fcard-desc">You get a badly written need statement. In pairs, find the three claims that are stated but never supported. Seeing justification missing teaches it faster than a definition does.</span>
-      </div>
+      <span class="unit-fcard-desc">Eight sentences from a need statement. Three of them claim something and never support it. Find those three. Seeing justification missing teaches it faster than any definition does.</span>
+      <span class="unit-fcard-cta">Open the activity</span>
+      </button>
       </div>
 
       <div class="caution-box">
@@ -1692,6 +1694,113 @@
 </main>
 
 <!-- ═══════════════════════════════════════════════════════
+     ACTIVITY: NEED, WANT, OR ASSUMPTION (Ai)
+     ═══════════════════════════════════════════════════════ -->
+<div class="case-modal" id="modal-need-want" role="dialog" aria-modal="true" aria-labelledby="modal-need-want-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-need-want-title">Need, want, or assumption?</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Twelve things a student wrote down about their client group, <strong>the four staff who work at the front office desk</strong>. Sort each one into need, want or assumption.</p>
+
+      <div class="unit-run">
+        <strong>How this works.</strong> Pairs, about 15 minutes. Sort first, argue second. Then look at how big your assumption pile is, because that is the point of the activity.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">The three piles</p>
+        <h3 class="concept-box-title">What separates them</h3>
+        <ul class="obj-list">
+          <li><strong>Need.</strong> Something your client lacks, that you have evidence for, and that actually affects them. Only a need can justify your project.</li>
+          <li><strong>Want.</strong> Something they said they would like. Cheap to give them, and worth knowing, but it is a preference and not a reason to build anything.</li>
+          <li><strong>Assumption.</strong> Something you believe about them that nobody has checked. Useful only once you have tested it.</li>
+        </ul>
+      </div>
+
+      <div class="drag-sort drag-sort--liftable" id="sort-needwant">
+        <div class="drag-sort-label">Activity</div>
+        <div class="drag-sort-title">Sort the twelve statements</div>
+        <p class="drag-sort-intro">Drag a statement onto a pile, or click it and then click the pile.</p>
+        <div class="drag-sort-section-label">Statements</div>
+        <div class="drag-sort-bank" id="sort-needwant-bank"></div>
+        <div class="drag-sort-section-label">Piles</div>
+        <div class="drag-sort-zones" id="sort-needwant-zones"></div>
+        <div class="drag-sort-status" id="sort-needwant-status" aria-live="polite"></div>
+        <button class="drag-sort-reset-btn" type="button" id="sort-needwant-reset">Reset</button>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">Talk about this afterwards</p>
+        <h3 class="caution-box-title">Wants and assumptions are the easy ones to write</h3>
+        <p>Most weak need statements are built out of the want pile and the assumption pile. Both are easy to produce without leaving the room, and both look like research on the page.</p>
+        <p>Only the need pile can justify your project in <a href="#ai">Ai</a>, and every item in it had to be gathered rather than guessed. Ask yourself which single assumption you would test first, and how you would test it in one lunchtime.</p>
+      </div>
+
+      <div class="discussion-box">
+        <p class="discussion-box-label">One more step, for electronics</p>
+        <h3 class="discussion-box-title">A real need still has to pass the sticky note test</h3>
+        <p>Notice the visitor book card. It is a genuine need, observed and counted, and the best answer might still be a second pen. Finding a real need is the first half of Ai. Showing that the answer has to be electronic is the second half.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ACTIVITY: FIND THE WEAK CLAIMS (Ai)
+     ═══════════════════════════════════════════════════════ -->
+<div class="case-modal" id="modal-weak-claims" role="dialog" aria-modal="true" aria-labelledby="modal-weak-claims-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-weak-claims-title">Find the weak claims</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Eight sentences from a need statement about <strong>the front office staff</strong>. Five of them support what they say. Three claim something and never back it up. Click the three, then check.</p>
+
+      <div class="unit-run">
+        <strong>How this works.</strong> Pairs, about 15 minutes. Read the whole thing once before clicking anything. Every sentence gives you its verdict afterwards, including the five that pass, so read those too.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">What you are looking for</p>
+        <h3 class="concept-box-title">Three ways a sentence skips the argument</h3>
+        <ul class="obj-list">
+          <li><strong>It appeals to what everyone knows.</strong> If a sentence needs the words "everyone knows" or "obviously" to stand up, it is not standing up.</li>
+          <li><strong>It states a conclusion without considering anything else.</strong> Naming no alternative is the same as never having looked for one.</li>
+          <li><strong>It assumes you are the user.</strong> What you find easy, or would have liked, is not evidence about your client.</li>
+        </ul>
+        <p>All three would pass a spellcheck. All three read perfectly well out loud. That is exactly why they are worth practising on somebody else's writing first.</p>
+      </div>
+
+      <div class="unit-brief" id="claims-brief" aria-label="Need statement to analyse"></div>
+
+      <div class="unit-tools">
+        <button class="tool-btn" type="button" id="claims-check">Check my three</button>
+        <button class="drag-sort-reset-btn" type="button" id="claims-reset">Reset</button>
+      </div>
+      <p class="unit-status" id="claims-status" aria-live="polite"></p>
+      <div class="unit-verdicts" id="claims-verdicts"></div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">Look at these two pairs</p>
+        <h3 class="caution-box-title">Each weak sentence is followed by the same point done properly</h3>
+        <p>"Everyone knows the front office is the busiest place" is followed by an hour of watching and a count of 23. "Obviously an electronic device is best" is followed by a sentence naming the printed map and saying exactly why it is not enough.</p>
+        <p>Go back to those two pairs and read them together. The difference between them is the difference between a 3-4 and a 7-8 on this task.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
      ACTIVITY: THE STICKY NOTE TEST (Ai)
      ═══════════════════════════════════════════════════════ -->
 <div class="case-modal" id="modal-sticky-note" role="dialog" aria-modal="true" aria-labelledby="modal-sticky-note-title">
@@ -1756,6 +1865,7 @@
 
 <footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
 <script src="../drag-sort.js"></script>
+<script src="../claim-hunt.js"></script>
 <script src="../curriculum.js"></script>
 <script src="../curr-toc.js"></script>
 <script src="g10-electronics-design.js"></script>

@@ -4279,3 +4279,73 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 .drag-sort--liftable .drag-sort-item.is-dragging { box-shadow: none; transform: none; }
 .drag-sort--liftable .drag-sort-zone-slot:empty::before { content: none; }
 .drag-sort--liftable .drag-sort-zone-wrap { transition: border-color 0.15s, background 0.15s; }
+
+/* ── CLAIM HUNT WIDGET ──────────────────────────────────────────────
+   The "find the unsupported claims" activity. Behaviour lives in the
+   shared claim-hunt.js; content lives in each page's own JS file.
+   ─────────────────────────────────────────────────────────────────── */
+.unit-brief {
+  margin: 1rem 0;
+  padding: 1.1rem 1.3rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.95rem; line-height: 1.9;
+}
+.unit-claim {
+  cursor: pointer;
+  border-bottom: 2px dotted var(--border-strong);
+  padding: 0.1rem 0.15rem;
+  border-radius: 3px;
+  background: none;
+  font: inherit; color: inherit; text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+.unit-claim:hover { background: var(--surface); }
+.unit-claim[aria-pressed="true"] { background: var(--amber-bg); border-bottom-color: var(--amber); }
+
+/* After checking, the result is carried by a word as well as a colour, so
+   the three outcomes stay apart for a colour blind reader. */
+.unit-claim.is-marked { cursor: default; }
+.unit-claim.is-marked::after {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  vertical-align: 0.1em;
+}
+.unit-claim.is-correct {
+  background: var(--amber-bg); border-bottom: 2px solid var(--amber);
+}
+.unit-claim.is-correct::after { content: "found"; background: var(--amber); color: var(--surface); }
+.unit-claim.is-wrong {
+  background: none; border-bottom: 2px solid var(--border-strong); opacity: 0.7;
+}
+.unit-claim.is-wrong::after { content: "this one is fine"; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border-strong); }
+.unit-claim.is-missed {
+  background: none; border-bottom: 2px dashed var(--amber);
+}
+.unit-claim.is-missed::after { content: "missed"; background: var(--surface); color: var(--amber); border: 1px solid var(--amber); }
+
+.unit-verdicts { display: grid; gap: 0.6rem; margin: 1rem 0 0; }
+.unit-verdict {
+  padding: 0.7rem 0.95rem;
+  border-left: 3px solid var(--border-strong);
+  background: var(--surface-2);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.84rem; line-height: 1.6;
+}
+.unit-verdict.ok { border-left-color: var(--amber); }
+.unit-verdict-name {
+  display: block;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.25rem;
+}
+.unit-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+.unit-status {
+  margin-top: 0.85rem; font-size: 0.85rem; line-height: 1.6;
+  color: var(--muted); min-height: 1.2rem;
+}

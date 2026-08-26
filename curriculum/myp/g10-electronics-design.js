@@ -63,3 +63,125 @@
     ]
   });
 })();
+
+/* ── NEED, WANT, OR ASSUMPTION (Ai activity) ──────────────────
+   Twelve things a student wrote down about one client group,
+   the four staff on the front office desk. Four are evidenced
+   needs, four are stated preferences, four are beliefs nobody
+   checked. The assumption pile is the teaching point.
+   The office was chosen deliberately: it is a group students
+   rarely think about, and being adults, it stops them writing
+   about what they would want themselves. */
+(function () {
+  'use strict';
+  var bankEl = document.getElementById('sort-needwant-bank');
+  if (!bankEl || !window.DragSort) return;
+
+  window.DragSort.init({
+    enableDrag: true,
+    bankEl: bankEl,
+    zonesEl: document.getElementById('sort-needwant-zones'),
+    statusEl: document.getElementById('sort-needwant-status'),
+    resetBtn: document.getElementById('sort-needwant-reset'),
+    zones: [
+      { id: 'need',       label: 'Need' },
+      { id: 'want',       label: 'Want' },
+      { id: 'assumption', label: 'Assumption' }
+    ],
+    items: [
+      /* ── Evidenced needs ── */
+      { id: 'n1', correctZone: 'need',
+        label: 'We watched the front desk for one hour on Tuesday. Staff were interrupted 23 times by people asking where a room was.',
+        explanation: 'Gathered by watching, not by asking, and it counts something. A number from one hour is the kind of line that can justify a whole project.' },
+      { id: 'n2', correctZone: 'need',
+        label: 'Two of the four staff cannot see the back gate from any desk. Deliveries wait about 12 minutes before anyone notices.',
+        explanation: 'Two things make this a need. It came from the people themselves, and it has a measured cost attached. Twelve minutes is something your device can be tested against later.' },
+      { id: 'n3', correctZone: 'need',
+        label: 'The office rule is that the phone must be answered within four rings. We timed nine calls and three of them took longer.',
+        explanation: 'A real constraint, plus evidence that it is being missed. This one also limits your design: whatever you build cannot take a hand away from the phone.' },
+      { id: 'n4', correctZone: 'need',
+        label: 'On Monday morning we saw six people queue behind one person filling in the visitor book.',
+        explanation: 'Observed, specific, and it affects people beyond the office. Notice that the fix might still be paper. A need being real does not yet prove electronics is the answer.' },
+
+      /* ── Stated wants ── */
+      { id: 'w1', correctZone: 'want',
+        label: 'One staff member said it would be nice if the device had their name on it.',
+        explanation: 'A preference, from one person. Cheap to do and worth remembering for later, but nobody is being harmed by the absence of their name.' },
+      { id: 'w2', correctZone: 'want',
+        label: 'The office said they would prefer it in the school colours.',
+        explanation: 'A preference about appearance. Useful in Biv when you design the case. Useless as a reason for the project to exist.' },
+      { id: 'w3', correctZone: 'want',
+        label: 'A staff member said they would like it to play a little tune when it works.',
+        explanation: 'A want, and one worth testing before you build it. In a room with a four ring phone rule, a tune may turn out to be the opposite of helpful.' },
+      { id: 'w4', correctZone: 'want',
+        label: 'Two people said it would be good if it could connect to their phones as well.',
+        explanation: 'A preference that sounds like a requirement because it is technical. Two people saying "it would be good if" is not evidence that anything is missing.' },
+
+      /* ── Unchecked assumptions ── */
+      { id: 'a1', correctZone: 'assumption',
+        label: 'Office staff are busy all the time, so whatever we make has to be instant.',
+        explanation: 'Nobody checked this. It might be true, and it might even be right, but as written it is a belief turned straight into a design rule. Twenty minutes of watching would settle it.' },
+      { id: 'a2', correctZone: 'assumption',
+        label: 'Adults are not good with technology, so the buttons need to be very big.',
+        explanation: 'A guess about a whole group, stated as a reason. It is also the kind of assumption that quietly insults your client, which is worth noticing before you say it to them.' },
+      { id: 'a3', correctZone: 'assumption',
+        label: 'They will not read any instructions, so it has to work with no explanation at all.',
+        explanation: 'Two assumptions stacked together: that they will not read, and that no explanation is therefore the answer. Both are testable in about ten minutes, and neither has been tested.' },
+      { id: 'a4', correctZone: 'assumption',
+        label: 'The office is a quiet room, so a device that beeps would annoy everybody.',
+        explanation: 'Sounds sensible, and it may well be right. But you have not been in that room at 8:30am. Assumptions that sound sensible are the hardest ones to catch in your own writing.' }
+    ]
+  });
+})();
+
+/* ── FIND THE WEAK CLAIMS (Ai activity) ───────────────────────
+   Eight sentences from a need statement about the front office,
+   three of which assert something they never support. Two of the
+   five that pass sit immediately after the weak sentence they
+   resemble. Each near miss is the same point made properly, so
+   the choice cannot be made on tone alone.
+   Behaviour lives in the shared claim-hunt.js. */
+(function () {
+  'use strict';
+  var briefEl = document.getElementById('claims-brief');
+  if (!briefEl || !window.ClaimHunt) return;
+
+  var SENTENCES = [
+    { text: 'Our client is the four staff who work at the front office desk.',
+      weak: false,
+      why: 'Fine. It says who the client is, and naming somebody is not the same as claiming something about them.' },
+    { text: 'Everyone knows the front office is the busiest place in the school.',
+      weak: true, fault: 'Appeals to what everyone knows',
+      why: '"Everyone knows" is a way of skipping the evidence rather than giving it. Busiest compared with what? Measured how? Fix it by replacing the phrase with something you counted.' },
+    { text: 'We watched the desk for one hour on Tuesday and counted 23 interruptions asking for directions.',
+      weak: false,
+      why: 'Fine, and worth comparing with the sentence just above it. This one says when, how long, and how many. "Everyone knows" says none of those things.' },
+    { text: 'Obviously an electronic device is the best way to fix this.',
+      weak: true, fault: 'No alternative is considered',
+      why: 'The word "obviously" is doing all the work here, and no other option is even mentioned. This is the sticky note failure in one sentence. Fix it by naming what else could work and saying why it does not.' },
+    { text: 'A printed map by the door would help, but it cannot show which rooms are free right now, and that changes every period.',
+      weak: false,
+      why: 'Fine, and this is the sentence above done properly. It names the cheap alternative, then gives the exact reason electronics beats it. That reason is the third bullet of your Ai page.' },
+    { text: 'The office rule is that the phone must be answered within four rings, so anything we build must not take a hand away from the phone.',
+      weak: false,
+      why: 'Fine. A fact leads to a limit on the design, and the link between them is written down instead of being left for the reader to guess.' },
+    { text: 'The staff will find it easy to use because I found it easy to use.',
+      weak: true, fault: 'Assumes the designer is the user',
+      why: 'The most common failure in Ai. You built it, so of course you can use it. That tells you nothing about four adults who have never seen it. Fix it by testing with them, or by cutting the claim.' },
+    { text: 'Two of the four staff told us they cannot see the back gate from any desk.',
+      weak: false,
+      why: 'Fine. It says how many people, and where the information came from, so a reader can judge how much weight to give it.' }
+  ];
+
+  window.ClaimHunt.init({
+    briefEl: briefEl,
+    checkBtn: document.getElementById('claims-check'),
+    resetBtn: document.getElementById('claims-reset'),
+    statusEl: document.getElementById('claims-status'),
+    verdictsEl: document.getElementById('claims-verdicts'),
+    target: 3,
+    sentences: SENTENCES,
+    prompt: 'Click the three sentences that claim something without supporting it.',
+    allFound: 'All three found. Every one of them would have survived a spellcheck and a read-through.'
+  });
+})();
