@@ -4051,15 +4051,15 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 .unit-rules { display: grid; gap: 1rem; margin: 1.5rem 0; }
 @media (min-width: 720px) { .unit-rules { grid-template-columns: 1fr 1fr; } }
 .unit-rule {
-  border: 2px solid var(--accent);
+  border: 2px solid var(--curr-color, var(--accent));
   border-radius: var(--radius);
   padding: 1.2rem 1.35rem;
   background: var(--surface-2);
 }
-.unit-rule-label {
+.unit-rule .unit-rule-label {
   font-family: var(--font-mono);
   font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--accent); margin: 0 0 0.5rem;
+  color: var(--curr-color, var(--accent)); margin: 0 0 0.5rem;
 }
 .unit-rule-title { font-size: 1.05rem; font-weight: 650; margin: 0 0 0.5rem; color: var(--text); }
 .unit-rule p { font-size: 0.86rem; line-height: 1.6; color: var(--muted); margin: 0 0 0.5rem; }
