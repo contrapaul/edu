@@ -143,7 +143,40 @@
     savePalette();
     applyPalette();
     swatches.forEach(function (sw) { sw.input.value = defaults[sw.key][sw.part]; });
+    scaleInput.value = 100;
+    applyScale();
   });
+
+  /* ── diagram scale ─────────────────────────────────────────────
+     Scaling up can only use room the sheet already has: the drawing is
+     capped at the width of its box, so a wide diagram stops growing while
+     a tall one keeps going. The note says when a sheet has run out. */
+  var SCALE_STORE = 'mechanics-print-diagram-scale';
+  var scaleInput = document.getElementById('dgm-scale');
+  var scaleOut = document.getElementById('dgm-scale-out');
+  var fitNote = document.getElementById('dgm-fit');
+
+  var storedScale = parseInt(localStorage.getItem(SCALE_STORE), 10);
+  if (storedScale >= 60 && storedScale <= 140) scaleInput.value = storedScale;
+
+  function applyScale() {
+    var pct = parseInt(scaleInput.value, 10);
+    document.documentElement.style.setProperty('--dgm-scale', pct / 100);
+    scaleOut.textContent = pct + '%';
+    try { localStorage.setItem(SCALE_STORE, pct); } catch (e) { /* private mode */ }
+    reportFit();
+  }
+
+  function reportFit() {
+    var page = host.querySelector('.sheet.is-current .page');
+    if (!page) return;
+    var over = page.scrollHeight - page.clientHeight;
+    fitNote.textContent = over > 0 ? 'This sheet overflows by ' + over + 'px' : 'This sheet fits';
+    fitNote.classList.toggle('over', over > 0);
+  }
+
+  scaleInput.addEventListener('input', applyScale);
+  applyScale();
 
   var paletteBtn = document.getElementById('colours');
   var palettePanel = document.getElementById('palette');
@@ -174,6 +207,7 @@
     pick.value = slug;
     history.replaceState(null, '', '#' + slug);
     fitDiagrams();
+    reportFit();
   }
 
   pick.addEventListener('change', function () { show(pick.value); });

@@ -373,7 +373,7 @@ const MECHANICS = [
   games: [
     { title: "Mario Kart 8", note: "Item strength depends on your race position, so last place gets the strongest items." },
     { title: "Mario Party", note: "Hands out bonus stars at the end, which can hand the win to a player who was behind." },
-    { title: "Left 4 Dead", note: "A hidden system watches how the team is doing and sends fewer enemies when they struggle." }
+    { title: "World of Warcraft", note: "Returning players are able to access higher tier armor without the same effort as it took players earlier in the game." }
   ],
   watchOut: [
     "Too much help feels like cheating. The player in first will notice and stop caring about their lead.",
@@ -1053,8 +1053,8 @@ const MECHANICS = [
   origin: "tabletop",
   whatItIs: [
     "Every player begins with the same ten boring cards. During the game you buy better ones, and they go into your own deck.",
-    "The important part is that bought cards are not played immediately. They get shuffled in, so you draw them later.",
-    "This makes buying a bad card genuinely harmful. It will keep coming back into your hand all game and take the place of something good."
+    "New cards are not played immediately, but are shuffled into your deck to (hopefully) be drawn later.",
+    "Buying a bad card is not a good idea. It will keep coming back into your hand all game and take the place of something good."
   ],
   howItWorks: [
     "Give every player the same small starting deck of weak cards.",

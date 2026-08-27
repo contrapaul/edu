@@ -51,6 +51,15 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .palette[hidden] { display:none; }
 .palette-head { display:flex; gap:14px; align-items:flex-start; margin-bottom:13px; }
 .palette-head p { flex:1 1 auto; margin:0; font-size:0.76rem; line-height:1.5; color:var(--soft); }
+.palette h4 { font-family:var(--mono); font-size:0.6rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 10px; }
+.pal-scale { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:13px;
+  padding-bottom:13px; border-bottom:1px solid var(--rule); }
+.pal-scale label { font-size:0.8rem; }
+.pal-scale input[type=range] { flex:1 1 180px; max-width:250px; accent-color:#1c1f24; }
+.pal-scale output { font-family:var(--mono); font-size:0.72rem; font-weight:700; min-width:3.6em; }
+.pal-scale .fit { font-size:0.72rem; color:var(--soft); }
+.pal-scale .fit.over { color:#c23b30; }
 .palette-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px 22px; }
 .pal-row { display:flex; align-items:center; gap:8px; }
 .pal-row .nm { flex:1 1 auto; font-size:0.8rem; }
@@ -132,7 +141,8 @@ ol.steps li::before { content:counter(s); position:absolute; left:0; top:3px;
   padding:10px 16px; }
 /* The drawing scales to fit the box and centres itself, so a tall diagram
    letterboxes rather than pushing the text off the page. */
-.dgm svg { display:block; width:100%; height:auto; max-height:232px; }
+.dgm svg { display:block; width:calc(100% * var(--dgm-scale,1)); max-width:100%; height:auto;
+  max-height:calc(232px * var(--dgm-scale,1)); margin-left:auto; margin-right:auto; }
 
 .game { border-left:4px solid var(--band); background:var(--tint); border-radius:0 7px 7px 0;
   padding:8px 11px; margin-bottom:8px; }
@@ -172,7 +182,7 @@ ul.warn li::marker { color:var(--band); }
 <div class="bar">
   <h1>Printable sheets <span>/ one A4 side per mechanic</span></h1>
   <select id="pick" aria-label="Choose a mechanic"></select>
-  <button class="btn" id="colours" type="button" aria-expanded="false" aria-controls="palette">Colours</button>
+  <button class="btn" id="colours" type="button" aria-expanded="false" aria-controls="palette">Customise</button>
   <button class="btn" id="all" type="button">Print all 70</button>
   <button class="btn btn-go" id="one" type="button">Print this one</button>
 </div>
@@ -183,6 +193,13 @@ ul.warn li::marker { color:var(--band); }
     <p>Each family has a band colour, used for the header, the page border and the accents, and a tint used behind the diagram and the game panels. Changes are kept in this browser and are used when you print.</p>
     <button class="btn" id="palette-reset" type="button">Reset all</button>
   </div>
+  <div class="pal-scale">
+    <label for="dgm-scale">Diagram scale</label>
+    <input type="range" id="dgm-scale" min="60" max="140" step="5" value="100">
+    <output id="dgm-scale-out" for="dgm-scale">100%</output>
+    <span class="fit" id="dgm-fit"></span>
+  </div>
+  <h4>Family colours</h4>
   <div class="palette-grid" id="palette-grid"></div>
 </div>
 

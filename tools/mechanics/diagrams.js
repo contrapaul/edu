@@ -54,7 +54,7 @@ const DIAGRAMS = {
       if (i < 5) s += `<path class="dg-line" d="M${x + 45} 109 L${x + 51} 109"/>`;
     }
     s += `<text class="dg-s" x="316" y="113">round ends</text>`;
-    s += `<text class="dg-t" x="0" y="152">Nobody waits long. Both players stay in the game.</text>`;
+    s += `<text class="dg-t" x="0" y="152">Nobody waits long. Both players stay focused.</text>`;
     return dgWrap("0 0 400 165", s);
   },
 
@@ -119,7 +119,7 @@ const DIAGRAMS = {
     s += board(0, "Rook", [[0,2],[1,2],[3,2],[4,2],[2,0],[2,1],[2,3],[2,4]]);
     s += board(140, "Bishop", [[0,0],[1,1],[3,3],[4,4],[0,4],[1,3],[3,1],[4,0]]);
     s += board(280, "Knight", [[1,0],[3,0],[0,1],[4,1],[0,3],[4,3],[1,4],[3,4]]);
-    s += `<text class="dg-t" x="0" y="158">One fixed shape each. Players learn them once.</text>`;
+    s += `<text class="dg-t" x="0" y="158">One pattern per piece.</text>`;
     return dgWrap("0 0 400 172", s);
   },
 
