@@ -42,7 +42,7 @@ const MECHANICS = [
   whatItIs: [
     "In some games one player moves their whole army. Then the other player moves theirs. The waiting player has nothing to do for a long time.",
     "You Go, I Go cuts the turn into small pieces. You move one unit. Then your opponent moves one unit. You keep swapping until everyone has gone.",
-    "Warhammer 40,000: Kill Team works this way. So do most modern skirmish games."
+    "Most modern skirmish games work this way, such as Warhammer 40,000: Kill Team."
   ],
   howItWorks: [
     "Decide who acts first. A dice roll works. So does a bid.",

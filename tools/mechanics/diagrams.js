@@ -64,8 +64,8 @@ const DIAGRAMS = {
     for (let i = 0; i < 4; i++) {
       const x = 8 + i * 96;
       s += `<rect class="dg-grid" x="${x}" y="24" width="60" height="44" rx="5" style="fill:rgba(255,255,255,0.04)"/>`;
-      s += `<text class="dg-s" x="${x + 24}" y="51">?</text>`;
-      s += `<text class="dg-k" x="${x + 16}" y="82">P${i + 1}</text>`;
+      s += `<text class="dg-s" x="${x + 30}" y="51" text-anchor="middle">?</text>`;
+      s += `<text class="dg-k" x="${x + 30}" y="82" text-anchor="middle">P${i + 1}</text>`;
       s += `<path class="dg-acc" d="M${x + 30} 92 L${x + 30} 108" marker-end="url(#dgar)"/>`;
     }
     s += `<defs><marker id="dgar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-accf"/></marker></defs>`;
@@ -74,7 +74,7 @@ const DIAGRAMS = {
     for (let i = 0; i < 4; i++) {
       const x = 8 + i * 96;
       s += `<rect class="dg-accf" x="${x}" y="142" width="60" height="44" rx="5"/>`;
-      s += `<text class="dg-on" x="${x + 10}" y="169">${faces[i]}</text>`;
+      s += `<text class="dg-on" x="${x + 30}" y="169" text-anchor="middle">${faces[i]}</text>`;
     }
     s += `<text class="dg-t" x="0" y="212">Players must guess what everyone else picked.</text>`;
     return dgWrap("0 0 400 225", s);
@@ -131,7 +131,7 @@ const DIAGRAMS = {
       const mid = r === 1 && c === 1;
       const diag = (r + c) % 2 === 0 && !mid;
       s += `<rect class="dg-grid" x="${20 + c * cell}" y="${24 + r * cell}" width="${cell}" height="${cell}" style="fill:${mid ? 'var(--fam-color,#FFE536)' : diag ? 'var(--dg-alt-soft,rgba(250,22,194,0.22))' : 'rgba(255,255,255,0.05)'}"/>`;
-      if (!mid) s += `<text class="dg-s" x="${20 + c * cell + 8}" y="${24 + r * cell + 19}">${diag ? '1.4' : '1.0'}</text>`;
+      if (!mid) s += `<text class="dg-s" x="${20 + c * cell + cell / 2}" y="${24 + r * cell + 19}" text-anchor="middle">${diag ? '1.4' : '1.0'}</text>`;
     }
     s += `<text class="dg-s" x="120" y="60">the corner steps</text>`;
     s += `<text class="dg-s" x="120" y="76">travel further</text>`;
@@ -228,8 +228,9 @@ const DIAGRAMS = {
     bids.forEach(([p, n], i) => {
       const x = i * 100;
       s += `<rect class="dg-grid" x="${x}" y="22" width="82" height="46" rx="5" style="fill:rgba(255,255,255,0.04)"/>`;
-      s += `<text class="dg-k" x="${x + 10}" y="40">${p}</text>`;
-      for (let c = 0; c < n; c++) s += `<circle class="dg-accf" cx="${x + 12 + c * 14}" cy="56" r="5"/>`;
+      s += `<text class="dg-k" x="${x + 41}" y="40" text-anchor="middle">${p}</text>`;
+      const px = x + (82 - (n - 1) * 14) / 2;
+      for (let c = 0; c < n; c++) s += `<circle class="dg-accf" cx="${px + c * 14}" cy="56" r="5"/>`;
     });
     s += `<path class="dg-line" d="M200 78 L200 100" marker-end="url(#dgar3)"/>`;
     s += `<defs><marker id="dgar3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-dim"/></marker></defs>`;
@@ -237,8 +238,8 @@ const DIAGRAMS = {
     const order = [["P2", 5], ["P4", 4], ["P1", 3], ["P3", 1]];
     order.forEach(([p, n], i) => {
       const x = i * 100;
-      s += `<rect class="dg-accf" x="${x}" y="134" width="82" height="30" rx="5"/>`;
-      s += `<text class="dg-on" x="${x + 10}" y="154">${i + 1}. ${p} pays ${n}</text>`;
+      s += `<rect class="dg-accf" x="${x}" y="134" width="92" height="30" rx="5"/>`;
+      s += `<text class="dg-on" x="${x + 46}" y="154" text-anchor="middle">${i + 1}. ${p} pays ${n}</text>`;
     });
     s += `<text class="dg-t" x="0" y="196">Players decide for themselves what going first is worth.</text>`;
     return dgWrap("0 0 400 210", s);
@@ -274,7 +275,7 @@ const DIAGRAMS = {
   "turn-variable": () => {
     const seq = (y, order) => order.map((p, i) =>
       `<rect x="${i * 84}" y="${y}" width="72" height="26" rx="5" style="fill:${p === 1 ? 'var(--fam-color,#FFE536)' : p === 2 ? 'var(--dg-alt,#FA16C2)' : 'rgba(255,255,255,0.16)'}"/>` +
-      `<text class="dg-on" x="${i * 84 + 26}" y="${y + 18}">P${p}</text>`).join("");
+      `<text class="dg-on" x="${i * 84 + 36}" y="${y + 18}" text-anchor="middle">P${p}</text>`).join("");
     let s = `<text class="dg-k" x="0" y="12">Round 1</text>` + seq(22, [1, 2, 3, 4]);
     s += `<text class="dg-k" x="0" y="76">Round 2</text>` + seq(86, [3, 1, 4, 2]);
     s += `<text class="dg-k" x="0" y="140">Round 3</text>` + seq(150, [4, 3, 2, 1]);
@@ -315,9 +316,11 @@ const DIAGRAMS = {
     });
     s += `<text class="dg-k" x="0" y="106">What the role gives</text>`;
     s += `<text class="dg-k" x="0" y="132">You</text>`;
-    s += `<rect class="dg-accf" x="60" y="118" width="300" height="20" rx="4"/>`;
+    s += `<rect class="dg-accf" x="92" y="118" width="300" height="20" rx="4"/>`;
+    s += `<text class="dg-on" x="102" y="132">the action, plus your bonus</text>`;
     s += `<text class="dg-k" x="0" y="164">Everyone else</text>`;
-    s += `<rect x="60" y="150" width="150" height="20" rx="4" style="fill:rgba(255,255,255,0.18)"/>`;
+    s += `<rect x="92" y="150" width="150" height="20" rx="4" style="fill:rgba(255,255,255,0.18)"/>`;
+    s += `<text class="dg-s" x="250" y="164">the action only</text>`;
     s += `<text class="dg-t" x="0" y="204">The choice matters because your rivals ride along.</text>`;
     return dgWrap("0 0 400 216", s);
   },
@@ -548,8 +551,10 @@ const DIAGRAMS = {
       const drawn = i < 4;
       s += `<rect x="${i * 30}" y="102" width="24" height="34" rx="4" class="dg-grid" style="fill:${drawn ? 'rgba(255,255,255,0.06)' : 'var(--fam-color,#FFE536)'}"/>`;
     }
-    s += `<rect class="dg-alt" x="-3" y="99" width="126" height="40" rx="6" stroke-dasharray="5 4"/>`;
-    s += `<text class="dg-s" x="0" y="156">gone</text>`;
+    /* A bracket under the drawn cards, rather than a box around them, so
+       nothing runs off the frame or overlaps the card that follows. */
+    s += `<path class="dg-alt" d="M0 142 L0 148 L114 148 L114 142" stroke-dasharray="5 4"/>`;
+    s += `<text class="dg-s" x="0" y="164">these four are already drawn</text>`;
     s += `<text class="dg-t" x="0" y="188">A deck has a memory. Players can count what is left.</text>`;
     s += `<text class="dg-t" x="0" y="210">That turns luck into something a careful player can work with.</text>`;
     return dgWrap("0 0 400 222", s);
@@ -618,7 +623,7 @@ const DIAGRAMS = {
     let s = "";
     const box = (x, y, w, label, fill) =>
       `<rect x="${x}" y="${y}" width="${w}" height="42" rx="7" class="dg-grid" style="fill:${fill}"/>` +
-      `<text class="dg-t" x="${x + 12}" y="${y + 26}" style="font-size:12px">${label}</text>`;
+      `<text class="dg-t" x="${x + w / 2}" y="${y + 26}" text-anchor="middle" style="font-size:12px">${label}</text>`;
     s += box(0, 30, 92, "deck", "var(--fam-color,#FFE536)");
     s += box(150, 30, 92, "hand", "rgba(255,255,255,0.10)");
     s += box(300, 30, 92, "discard", "rgba(255,255,255,0.10)");
@@ -661,7 +666,7 @@ const DIAGRAMS = {
       const x = i * 100;
       s += `<rect x="${x}" y="24" width="70" height="94" rx="6" class="dg-grid" style="fill:${wins ? 'var(--fam-color,#FFE536)' : follows ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)'}"/>`;
       for (let k = 0; k < Math.min(v, 5); k++) {
-        s += `<circle cx="${x + 20 + (k % 3) * 16}" cy="${44 + Math.floor(k / 3) * 18}" r="5" style="fill:${wins ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'var(--ink-soft,#a3a9bb)'}"/>`;
+        s += `<circle cx="${x + 19 + (k % 3) * 16}" cy="${44 + Math.floor(k / 3) * 18}" r="5" style="fill:${wins ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'var(--ink-soft,#a3a9bb)'}"/>`;
       }
       s += `<text class="dg-k" x="${x + 4}" y="${134}">${p}${follows ? "" : " off suit"}</text>`;
     });
@@ -765,7 +770,7 @@ const DIAGRAMS = {
     steps.forEach((p, i) => {
       const x = i * 48, y = 150 - i * 16;
       s += `<rect x="${x}" y="${y}" width="42" height="16" rx="3" class="dg-grid" style="fill:${i < 3 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.09)'}"/>`;
-      s += `<text class="dg-s" x="${x + 12}" y="${y + 12}">${p}</text>`;
+      s += `<text class="dg-s" x="${x + 21}" y="${y + 12}" text-anchor="middle">${p}</text>`;
     });
     s += `<circle cx="${2 * 48 + 21}" cy="${150 - 2 * 16 + 8}" r="12" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5"/>`;
     s += `<text class="dg-s" x="120" y="184">price now</text>`;
@@ -1091,8 +1096,8 @@ const DIAGRAMS = {
     s += `<rect class="dg-accf" x="0" y="24" width="150" height="46" rx="6"/>`;
     s += `<rect x="160" y="24" width="132" height="46" rx="6" style="fill:var(--fam-color,#FFE536);opacity:0.55"/>`;
     s += `<text class="dg-k" x="0" y="92">P2 chooses first</text>`;
-    s += `<rect class="dg-accf" x="0" y="104" width="150" height="46" rx="6"/>`;
-    s += `<path class="dg-alt" d="M-4 100 L154 100 L154 154 L-4 154 Z" stroke-dasharray="6 4"/>`;
+    s += `<rect class="dg-accf" x="3" y="104" width="150" height="46" rx="6"/>`;
+    s += `<path class="dg-alt" d="M0 100 L157 100 L157 154 L0 154 Z" stroke-dasharray="6 4"/>`;
     s += `<rect x="160" y="104" width="132" height="46" rx="6" style="fill:rgba(255,255,255,0.12)"/>`;
     s += `<text class="dg-s" x="284" y="132">P1 gets the rest</text>`;
     s += `<text class="dg-t" x="0" y="192">P1 has every reason to split it evenly.</text>`;

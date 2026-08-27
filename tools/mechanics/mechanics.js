@@ -158,9 +158,26 @@
         (caption ? '<p class="mc-slot-caption">' + esc(caption) + "</p>" : "") + "</div>";
     }
     if (!need || /^not needed/i.test(need)) return "";
+
+    /* ── PLACEHOLDERS HIDDEN ──────────────────────────────────
+       Empty photo and video slots are switched off while the real
+       media is being produced. Until then they ate a large part of
+       every panel to promise something that is not there yet.
+
+       A slot with an actual file still shows, through the `content`
+       branch above, so The Coin keeps its card image.
+
+       To bring the placeholders back, delete the `return "";` line
+       below and uncomment the block under it. The task list in
+       tasks.md is unaffected either way; it reads data.js, not this.
+       ────────────────────────────────────────────────────────── */
+    return "";
+
+    /*
     return '<div class="mc-slot mc-slot-todo"><div class="mc-slot-empty">' +
       '<span class="mc-slot-kind">' + kind + " to come</span>" +
       '<p class="mc-slot-need">' + esc(need) + "</p></div></div>";
+    */
   }
 
   function detailHTML(m) {
