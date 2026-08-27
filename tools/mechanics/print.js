@@ -70,19 +70,20 @@
     });
   }
 
-  /* Diagrams are laid out in a narrower column here than on the web, so the
-     viewBox is grown to fit anything the browser measures wider. The height is
-     set outright rather than grown, so the space the caption used to take is
-     given back to the drawing. */
+  /* Every viewBox is cropped to what the diagram actually draws, rather than
+     to the space it was authored in. A drawing that stops short of the
+     declared 400 wide used to sit against the left edge with the slack on the
+     right; cropped, it fills the box and is centred, and the space the lifted
+     caption left behind goes back to the drawing too. */
+  var DG_PAD = 3;
   function fitDiagrams() {
     host.querySelectorAll('.dgm svg').forEach(function (svg) {
       var box;
       try { box = svg.getBBox(); } catch (e) { return; }
       if (!box || !box.width || !box.height) return;
-      var vb = svg.viewBox.baseVal;
-      var w = Math.max(vb.width, Math.ceil(box.x + box.width) + 2);
-      var h = Math.ceil(box.y + box.height) + 2;
-      if (w !== vb.width || h !== vb.height) svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      svg.setAttribute('viewBox',
+        (Math.floor(box.x) - DG_PAD) + ' ' + (Math.floor(box.y) - DG_PAD) + ' ' +
+        (Math.ceil(box.width) + DG_PAD * 2) + ' ' + (Math.ceil(box.height) + DG_PAD * 2));
     });
   }
 
@@ -162,7 +163,7 @@
     applyPalette();
     swatches.forEach(function (sw) { sw.input.value = defaults[sw.key][sw.part]; });
     scaleInput.value = 100;
-    autoInput.checked = false;
+    autoInput.checked = true;
     applyAuto();
     applyScale();
   });
@@ -251,7 +252,10 @@
   autoInput.addEventListener('change', applyAuto);
 
   applyScale();
-  autoInput.checked = localStorage.getItem(AUTO_STORE) === '1';
+  /* On by default: at one shared scale every sheet has to obey the tightest
+     one, which leaves most of them with a diagram far smaller than their page
+     could carry. */
+  autoInput.checked = localStorage.getItem(AUTO_STORE) !== '0';
   scaleInput.disabled = autoInput.checked;
 
   var paletteBtn = document.getElementById('colours');

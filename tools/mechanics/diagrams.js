@@ -164,19 +164,21 @@ const DIAGRAMS = {
 
   /* ── Why diagonal movement is a problem, and how hexes fix it ── */
   "move-grid-hex": () => {
-    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Square grid: 8 neighbours, 2 different distances</text>`;
-    const cell = 30;
+    /* The two boards sit side by side so the comparison is read across
+       rather than scrolled down. */
+    const LX = 100, RX = 300;
+    let s = `<text class="dg-k" x="${LX}" y="12" text-anchor="middle">Square grid: 8 neighbours</text>`;
+    const cell = 30, gx = LX - cell * 1.5, gy = 26;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
       const mid = r === 1 && c === 1;
       const diag = (r + c) % 2 === 0 && !mid;
-      s += `<rect class="dg-grid" x="${20 + c * cell}" y="${24 + r * cell}" width="${cell}" height="${cell}" style="fill:${mid ? 'var(--fam-color,#FFE536)' : diag ? 'var(--dg-alt-soft,rgba(250,22,194,0.22))' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
-      if (!mid) s += `<text class="dg-s" x="${20 + c * cell + cell / 2}" y="${24 + r * cell + 19}" text-anchor="middle">${diag ? '1.4' : '1.0'}</text>`;
+      s += `<rect class="dg-grid" x="${gx + c * cell}" y="${gy + r * cell}" width="${cell}" height="${cell}" style="fill:${mid ? 'var(--fam-color,#FFE536)' : diag ? 'var(--dg-alt-soft,rgba(250,22,194,0.22))' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
+      if (!mid) s += `<text class="dg-s" x="${gx + c * cell + cell / 2}" y="${gy + r * cell + 19}" text-anchor="middle">${diag ? '1.4' : '1.0'}</text>`;
     }
-    s += `<text class="dg-s" x="120" y="60">the corner steps</text>`;
-    s += `<text class="dg-s" x="120" y="76">travel further</text>`;
-    s += `<text class="dg-s" x="120" y="92">for the same cost</text>`;
+    s += `<text class="dg-s" x="${LX}" y="140" text-anchor="middle">the corner steps travel</text>`;
+    s += `<text class="dg-s" x="${LX}" y="156" text-anchor="middle">further for the same cost</text>`;
 
-    s += `<text class="dg-k" x="0" y="146">Hex grid: 6 neighbours, all the same distance</text>`;
+    s += `<text class="dg-k" x="${RX}" y="12" text-anchor="middle">Hex grid: 6 neighbours</text>`;
     const hex = (cx, cy, r, fill) => {
       const pts = [];
       for (let i = 0; i < 6; i++) {
@@ -185,16 +187,17 @@ const DIAGRAMS = {
       }
       return `<polygon class="dg-grid" points="${pts.join(' ')}" style="fill:${fill}"/>`;
     };
-    const R = 22, W = R * Math.sqrt(3);
-    const cx = 68, cy = 214;
-    s += hex(cx, cy, R, "var(--fam-color,#FFE536)");
-    const dirs = [[W, 0], [-W, 0], [W / 2, R * 1.5], [-W / 2, R * 1.5], [W / 2, -R * 1.5], [-W / 2, -R * 1.5]];
-    dirs.forEach(([dx, dy]) => {
-      s += hex(cx + dx, cy + dy, R, "var(--dg-f2,rgba(255,255,255,0.06))");
-      s += `<text class="dg-s" x="${cx + dx}" y="${cy + dy + 4}" text-anchor="middle">1.0</text>`;
+    const R = 22, W = R * Math.sqrt(3), hy = 81;
+    s += hex(RX, hy, R, "var(--fam-color,#FFE536)");
+    [[W, 0], [-W, 0], [W / 2, R * 1.5], [-W / 2, R * 1.5], [W / 2, -R * 1.5], [-W / 2, -R * 1.5]].forEach(([dx, dy]) => {
+      s += hex(RX + dx, hy + dy, R, "var(--dg-f2,rgba(255,255,255,0.06))");
+      s += `<text class="dg-s" x="${RX + dx}" y="${hy + dy + 4}" text-anchor="middle">1.0</text>`;
     });
-    s += dgCap(168, 200, "Every direction costs the same. No player gains ground by moving diagonally.");
-    return dgWrap("0 0 400 213", s);
+    s += `<text class="dg-s" x="${RX}" y="140" text-anchor="middle">every step is the same</text>`;
+    s += `<text class="dg-s" x="${RX}" y="156" text-anchor="middle">distance in all directions</text>`;
+
+    s += dgCap(0, 190, "Every direction costs the same. No player gains ground by moving diagonally.");
+    return dgWrap("0 0 400 203", s);
   },
 
   /* ── Wall blocks one shot, not the other ── */
