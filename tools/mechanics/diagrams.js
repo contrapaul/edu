@@ -7,7 +7,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 const DG_STYLE = `
-  .dg-bg    { fill: rgba(255,255,255,0.025); }
+  .dg-bg    { fill: var(--dg-f1,rgba(255,255,255,0.03)); }
   .dg-line  { stroke: var(--ink-dim, #71778c); stroke-width: 1.5; fill: none; }
   .dg-grid  { stroke: var(--line, #343846); stroke-width: 1; fill: none; }
   .dg-acc   { stroke: var(--fam-color, #FFE536); stroke-width: 2; fill: none; }
@@ -63,7 +63,7 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Step 1: everyone chooses in secret</text>`;
     for (let i = 0; i < 4; i++) {
       const x = 8 + i * 96;
-      s += `<rect class="dg-grid" x="${x}" y="24" width="60" height="44" rx="5" style="fill:rgba(255,255,255,0.04)"/>`;
+      s += `<rect class="dg-grid" x="${x}" y="24" width="60" height="44" rx="5" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       s += `<text class="dg-s" x="${x + 30}" y="51" text-anchor="middle">?</text>`;
       s += `<text class="dg-k" x="${x + 30}" y="82" text-anchor="middle">P${i + 1}</text>`;
       s += `<path class="dg-acc" d="M${x + 30} 92 L${x + 30} 108" marker-end="url(#dgar)"/>`;
@@ -106,7 +106,7 @@ const DIAGRAMS = {
       let g = `<text class="dg-k" x="${ox}" y="12">${label}</text>`;
       for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
         const dark = (r + c) % 2 === 1;
-        g += `<rect x="${ox + c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${dark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.02)'}" class="dg-grid"/>`;
+        g += `<rect x="${ox + c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${dark ? 'var(--dg-f2,rgba(255,255,255,0.06))' : 'var(--dg-f1,rgba(255,255,255,0.03))'}" class="dg-grid"/>`;
       }
       marks.forEach(([c, r]) => {
         g += `<circle class="dg-accf" cx="${ox + c * cell + cell / 2}" cy="${22 + r * cell + cell / 2}" r="5"/>`;
@@ -130,7 +130,7 @@ const DIAGRAMS = {
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
       const mid = r === 1 && c === 1;
       const diag = (r + c) % 2 === 0 && !mid;
-      s += `<rect class="dg-grid" x="${20 + c * cell}" y="${24 + r * cell}" width="${cell}" height="${cell}" style="fill:${mid ? 'var(--fam-color,#FFE536)' : diag ? 'var(--dg-alt-soft,rgba(250,22,194,0.22))' : 'rgba(255,255,255,0.05)'}"/>`;
+      s += `<rect class="dg-grid" x="${20 + c * cell}" y="${24 + r * cell}" width="${cell}" height="${cell}" style="fill:${mid ? 'var(--fam-color,#FFE536)' : diag ? 'var(--dg-alt-soft,rgba(250,22,194,0.22))' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       if (!mid) s += `<text class="dg-s" x="${20 + c * cell + cell / 2}" y="${24 + r * cell + 19}" text-anchor="middle">${diag ? '1.4' : '1.0'}</text>`;
     }
     s += `<text class="dg-s" x="120" y="60">the corner steps</text>`;
@@ -146,18 +146,18 @@ const DIAGRAMS = {
       }
       return `<polygon class="dg-grid" points="${pts.join(' ')}" style="fill:${fill}"/>`;
     };
-    const R = 22, H = R * Math.sqrt(3);
-    const cx = 66, cy = 200;
+    const R = 22, W = R * Math.sqrt(3);
+    const cx = 68, cy = 214;
     s += hex(cx, cy, R, "var(--fam-color,#FFE536)");
-    const dirs = [[0,-H],[0,H],[R*1.5,-H/2],[R*1.5,H/2],[-R*1.5,-H/2],[-R*1.5,H/2]];
+    const dirs = [[W, 0], [-W, 0], [W / 2, R * 1.5], [-W / 2, R * 1.5], [W / 2, -R * 1.5], [-W / 2, -R * 1.5]];
     dirs.forEach(([dx, dy]) => {
-      s += hex(cx + dx, cy + dy, R, "rgba(255,255,255,0.05)");
-      s += `<text class="dg-s" x="${cx + dx - 9}" y="${cy + dy + 4}">1.0</text>`;
+      s += hex(cx + dx, cy + dy, R, "var(--dg-f2,rgba(255,255,255,0.06))");
+      s += `<text class="dg-s" x="${cx + dx}" y="${cy + dy + 4}" text-anchor="middle">1.0</text>`;
     });
-    s += `<text class="dg-t" x="150" y="196">Every direction costs the same.</text>`;
-    s += `<text class="dg-t" x="150" y="216">No player gains ground by</text>`;
-    s += `<text class="dg-t" x="150" y="236">moving diagonally.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += `<text class="dg-t" x="168" y="200">Every direction costs the same.</text>`;
+    s += `<text class="dg-t" x="168" y="222">No player gains ground by</text>`;
+    s += `<text class="dg-t" x="168" y="244">moving diagonally.</text>`;
+    return dgWrap("0 0 400 282", s);
   },
 
   /* ── Wall blocks one shot, not the other ── */
@@ -209,7 +209,7 @@ const DIAGRAMS = {
       const y = 30 + i * 40;
       s += `<text class="dg-s" x="0" y="${y + 17}">${pos}</text>`;
       for (let b = 0; b < 5; b++) {
-        s += `<rect x="${44 + b * 26}" y="${y}" width="20" height="24" rx="3" style="fill:${b < strength ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.06)'}"/>`;
+        s += `<rect x="${44 + b * 26}" y="${y}" width="20" height="24" rx="3" style="fill:${b < strength ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       }
       s += `<text class="dg-t" x="186" y="${y + 17}" style="font-size:12px">${item}</text>`;
     });
@@ -227,7 +227,7 @@ const DIAGRAMS = {
     const bids = [["P1", 3], ["P2", 5], ["P3", 1], ["P4", 4]];
     bids.forEach(([p, n], i) => {
       const x = i * 100;
-      s += `<rect class="dg-grid" x="${x}" y="22" width="82" height="46" rx="5" style="fill:rgba(255,255,255,0.04)"/>`;
+      s += `<rect class="dg-grid" x="${x}" y="22" width="82" height="46" rx="5" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       s += `<text class="dg-k" x="${x + 41}" y="40" text-anchor="middle">${p}</text>`;
       const px = x + (82 - (n - 1) * 14) / 2;
       for (let c = 0; c < n; c++) s += `<circle class="dg-accf" cx="${px + c * 14}" cy="56" r="5"/>`;
@@ -257,7 +257,7 @@ const DIAGRAMS = {
     const rolls = [["P1", 4], ["P2", 6], ["P3", 2], ["P4", 5]];
     rolls.forEach(([p, n], i) => {
       const x = i * 96;
-      s += `<rect class="dg-grid" x="${x}" y="22" width="60" height="60" rx="10" style="fill:rgba(255,255,255,0.05)"/>`;
+      s += `<rect class="dg-grid" x="${x}" y="22" width="60" height="60" rx="10" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += pips(x, 22, n);
       s += `<text class="dg-k" x="${x + 20}" y="96">${p}</text>`;
     });
@@ -274,7 +274,7 @@ const DIAGRAMS = {
   /* The order is not fixed to the seating */
   "turn-variable": () => {
     const seq = (y, order) => order.map((p, i) =>
-      `<rect x="${i * 84}" y="${y}" width="72" height="26" rx="5" style="fill:${p === 1 ? 'var(--fam-color,#FFE536)' : p === 2 ? 'var(--dg-alt,#FA16C2)' : 'rgba(255,255,255,0.16)'}"/>` +
+      `<rect x="${i * 84}" y="${y}" width="72" height="26" rx="5" style="fill:${p === 1 ? 'var(--fam-color,#FFE536)' : p === 2 ? 'var(--dg-alt,#FA16C2)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>` +
       `<text class="dg-on" x="${i * 84 + 36}" y="${y + 18}" text-anchor="middle">P${p}</text>`).join("");
     let s = `<text class="dg-k" x="0" y="12">Round 1</text>` + seq(22, [1, 2, 3, 4]);
     s += `<text class="dg-k" x="0" y="76">Round 2</text>` + seq(86, [3, 1, 4, 2]);
@@ -295,7 +295,7 @@ const DIAGRAMS = {
       let x = 34;
       const widths = [[38, 22, 54, 30], [26, 46, 20, 40], [52, 28, 34, 24], [30, 36, 26, 50]][p];
       widths.forEach((w, i) => {
-        s += `<rect x="${x}" y="${y}" width="${w}" height="22" rx="4" style="fill:${i % 2 ? 'rgba(255,255,255,0.14)' : 'var(--fam-color,#FFE536)'}"/>`;
+        s += `<rect x="${x}" y="${y}" width="${w}" height="22" rx="4" style="fill:${i % 2 ? 'var(--dg-f4,rgba(255,255,255,0.14))' : 'var(--fam-color,#FFE536)'}"/>`;
         x += w + 7;
       });
     }
@@ -309,9 +309,9 @@ const DIAGRAMS = {
     const roles = [0, 1, 2, 3];
     roles.forEach((r, i) => {
       const x = i * 100, on = i === 1;
-      s += `<rect x="${x}" y="22" width="82" height="54" rx="7" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.05)'}"/>`;
+      s += `<rect x="${x}" y="22" width="82" height="54" rx="7" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       for (let k = 0; k < 3; k++) {
-        s += `<rect x="${x + 12}" y="${34 + k * 13}" width="${58 - k * 14}" height="6" rx="3" style="fill:${on ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'rgba(255,255,255,0.22)'}"/>`;
+        s += `<rect x="${x + 12}" y="${34 + k * 13}" width="${58 - k * 14}" height="6" rx="3" style="fill:${on ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'var(--dg-f5,rgba(255,255,255,0.21))'}"/>`;
       }
     });
     s += `<text class="dg-k" x="0" y="106">What the role gives</text>`;
@@ -319,7 +319,7 @@ const DIAGRAMS = {
     s += `<rect class="dg-accf" x="92" y="118" width="300" height="20" rx="4"/>`;
     s += `<text class="dg-on" x="102" y="132">the action, plus your bonus</text>`;
     s += `<text class="dg-k" x="0" y="164">Everyone else</text>`;
-    s += `<rect x="92" y="150" width="150" height="20" rx="4" style="fill:rgba(255,255,255,0.18)"/>`;
+    s += `<rect x="92" y="150" width="150" height="20" rx="4" style="fill:var(--dg-f5,rgba(255,255,255,0.21))"/>`;
     s += `<text class="dg-s" x="250" y="164">the action only</text>`;
     s += `<text class="dg-t" x="0" y="204">The choice matters because your rivals ride along.</text>`;
     return dgWrap("0 0 400 216", s);
@@ -332,7 +332,7 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Places joined by routes</text>`;
     E.forEach(([p, q]) => { s += `<path class="dg-line" d="M${N[p][0]} ${N[p][1] + 20} L${N[q][0]} ${N[q][1] + 20}"/>`; });
     Object.entries(N).forEach(([k, [x, y]], i) => {
-      s += `<circle cx="${x}" cy="${y + 20}" r="13" style="fill:${i === 0 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.14)'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
+      s += `<circle cx="${x}" cy="${y + 20}" r="13" style="fill:${i === 0 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
     });
     s += `<text class="dg-t" x="0" y="196">You can only go where a route already goes.</text>`;
     s += `<text class="dg-t" x="0" y="218">Distance stops being about centimetres.</text>`;
@@ -348,7 +348,7 @@ const DIAGRAMS = {
     };
     let s = `<text class="dg-k" x="0" y="12">You have 4 movement points</text>`;
     for (let i = 0; i < 4; i++) s += `<circle class="dg-accf" cx="${14 + i * 30}" cy="34" r="10"/>`;
-    const ground = [["grass", 1, "rgba(255,255,255,0.07)"], ["hill", 2, "rgba(255,255,255,0.16)"], ["forest", 2, "rgba(255,255,255,0.16)"], ["swamp", 3, "rgba(255,255,255,0.28)"]];
+    const ground = [["grass", 1, "var(--dg-f2,rgba(255,255,255,0.06))"], ["hill", 2, "var(--dg-f4,rgba(255,255,255,0.14))"], ["forest", 2, "var(--dg-f4,rgba(255,255,255,0.14))"], ["swamp", 3, "var(--dg-f6,rgba(255,255,255,0.32))"]];
     ground.forEach(([label, cost, fill], i) => {
       const cx = 48 + i * 90, cy = 108;
       s += hex(cx, cy, 34, fill);
@@ -365,7 +365,7 @@ const DIAGRAMS = {
     const cell = 34;
     let s = `<text class="dg-k" x="0" y="12">Where your piece stands, nobody passes</text>`;
     for (let r = 0; r < 4; r++) for (let c = 0; c < 8; c++) {
-      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${(r + c) % 2 ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)'}"/>`;
+      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${(r + c) % 2 ? 'var(--dg-f2,rgba(255,255,255,0.06))' : 'var(--dg-f1,rgba(255,255,255,0.03))'}"/>`;
     }
     // blockers
     [[3, 1], [3, 2]].forEach(([c, r]) => {
@@ -388,7 +388,7 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Turn 1</text>`;
     const T = 30;
     const draw = (ox, oy, cells, newOne) => cells.map(([c, r], i) =>
-      `<rect x="${ox + c * T}" y="${oy + r * T}" width="${T - 3}" height="${T - 3}" rx="3" class="dg-grid" style="fill:${i === cells.length - 1 && newOne ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.12)'}"/>`).join("");
+      `<rect x="${ox + c * T}" y="${oy + r * T}" width="${T - 3}" height="${T - 3}" rx="3" class="dg-grid" style="fill:${i === cells.length - 1 && newOne ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>`).join("");
     s += draw(0, 22, [[1, 1]], false);
     s += `<text class="dg-k" x="130" y="12">Turn 4</text>`;
     s += draw(130, 22, [[1, 1], [2, 1], [1, 2], [0, 1]], true);
@@ -419,8 +419,8 @@ const DIAGRAMS = {
 
     /* The die itself, so the diagram reads as dice at a glance. */
     const D = 84, dy = 24;
-    s += `<rect x="0" y="${dy}" width="${D}" height="${D}" rx="15" class="dg-grid" style="fill:rgba(255,255,255,0.09);stroke-width:2"/>`;
-    s += pips(D / 2, dy + D / 2, D, 4, "var(--fam-color,#FFE536)");
+    s += `<rect x="1" y="${dy}" width="${D}" height="${D}" rx="15" class="dg-grid" style="fill:var(--dg-f3,rgba(255,255,255,0.09));stroke-width:2"/>`;
+    s += pips(1 + D / 2, dy + D / 2, D, 4, "var(--fam-color,#FFE536)");
 
     /* One whole roll, cut into six equal parts, one face per part. */
     const x0 = 106, W = 290, H = 66, y0 = dy + (D - H) / 2, seg = W / 6;
@@ -448,7 +448,7 @@ const DIAGRAMS = {
     const results = [2, 5, 6, 3, 4, 1];
     results.forEach((n, i) => {
       const x = i * 66, hit = n >= 4;
-      s += `<rect x="${x}" y="24" width="52" height="52" rx="9" class="dg-grid" style="fill:${hit ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.05)'}"/>`;
+      s += `<rect x="${x}" y="24" width="52" height="52" rx="9" class="dg-grid" style="fill:${hit ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       const P = { 1:[[1,1]], 2:[[0,0],[2,2]], 3:[[0,0],[1,1],[2,2]], 4:[[0,0],[2,0],[0,2],[2,2]],
                   5:[[0,0],[2,0],[1,1],[0,2],[2,2]], 6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]] }[n];
       P.forEach(([c, r]) => { s += `<circle cx="${x + 12 + c * 14}" cy="${36 + r * 14}" r="4" style="fill:${hit ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'var(--ink-soft,#a3a9bb)'}"/>`; });
@@ -489,7 +489,8 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="56" y="${y}" width="${pts * 1.5}" height="10" rx="5"/>`;
       s += `<rect class="dg-alt" x="56" y="${y + 14}" width="${risk * 1.5}" height="10" rx="5" style="fill:var(--dg-alt,#FA16C2);stroke:none"/>`;
     });
-    s += `<text class="dg-s" x="212" y="20">reward</text>`;
+    s += `<text class="dg-s" x="248" y="42">reward</text>`;
+    s += `<text class="dg-s" x="248" y="56">risk</text>`;
     s += `<text class="dg-t" x="0" y="208">Stop and keep what you have, or roll once more.</text>`;
     s += `<text class="dg-t" x="0" y="230">The player decides where the line is, which is the whole game.</text>`;
     return dgWrap("0 0 400 242", s);
@@ -521,12 +522,13 @@ const DIAGRAMS = {
       return `<polygon class="dg-grid" points="${pts.join(' ')}" style="fill:${fill}"/>`;
     };
     const layout = (ox, pattern) => {
-      const R = 20, H = R * Math.sqrt(3);
+      const R = 20, W = R * Math.sqrt(3);
       let g = "";
-      const spots = [[0,0],[1,-0.5],[1,0.5],[-1,-0.5],[-1,0.5],[0,-1],[0,1]];
-      spots.forEach(([q, r], i) => {
-        g += hex(ox + 62 + q * R * 1.5, 66 + r * H, R,
-          pattern[i] ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.07)');
+      /* Centre plus its six true neighbours, so the cluster tessellates. */
+      const spots = [[0, 0], [W, 0], [-W, 0], [W / 2, R * 1.5], [-W / 2, R * 1.5], [W / 2, -R * 1.5], [-W / 2, -R * 1.5]];
+      spots.forEach(([dx, dy], i) => {
+        g += hex(ox + 60 + dx, 74 + dy, R,
+          pattern[i] ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))');
       });
       return g;
     };
@@ -542,18 +544,18 @@ const DIAGRAMS = {
   "chance-deck": () => {
     let s = `<text class="dg-k" x="0" y="12">A die: the odds never change</text>`;
     for (let i = 0; i < 5; i++) {
-      s += `<rect class="dg-grid" x="${i * 46}" y="22" width="36" height="36" rx="7" style="fill:rgba(255,255,255,0.05)"/>`;
+      s += `<rect class="dg-grid" x="${i * 46}" y="22" width="36" height="36" rx="7" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<circle class="dg-accf" cx="${i * 46 + 18}" cy="40" r="6"/>`;
     }
     s += `<text class="dg-s" x="240" y="45">still 1 in 6, always</text>`;
     s += `<text class="dg-k" x="0" y="92">A deck: every card drawn changes what is left</text>`;
     for (let i = 0; i < 10; i++) {
       const drawn = i < 4;
-      s += `<rect x="${i * 30}" y="102" width="24" height="34" rx="4" class="dg-grid" style="fill:${drawn ? 'rgba(255,255,255,0.06)' : 'var(--fam-color,#FFE536)'}"/>`;
+      s += `<rect x="${i * 30}" y="102" width="24" height="34" rx="4" class="dg-grid" style="fill:${drawn ? 'var(--dg-f2,rgba(255,255,255,0.06))' : 'var(--fam-color,#FFE536)'}"/>`;
     }
     /* A bracket under the drawn cards, rather than a box around them, so
        nothing runs off the frame or overlaps the card that follows. */
-    s += `<path class="dg-alt" d="M0 142 L0 148 L114 148 L114 142" stroke-dasharray="5 4"/>`;
+    s += `<path class="dg-alt" d="M1 142 L1 148 L114 148 L114 142" stroke-dasharray="5 4"/>`;
     s += `<text class="dg-s" x="0" y="164">these four are already drawn</text>`;
     s += `<text class="dg-t" x="0" y="188">A deck has a memory. Players can count what is left.</text>`;
     s += `<text class="dg-t" x="0" y="210">That turns luck into something a careful player can work with.</text>`;
@@ -572,7 +574,7 @@ const DIAGRAMS = {
     const jobs = ["attack", "build", "defend", "score"];
     jobs.forEach((j, i) => {
       const y = 110 + i * 26;
-      s += `<rect class="dg-grid" x="0" y="${y}" width="250" height="19" rx="4" style="fill:rgba(255,255,255,0.04)"/>`;
+      s += `<rect class="dg-grid" x="0" y="${y}" width="250" height="19" rx="4" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       s += `<text class="dg-t" x="8" y="${y + 14}" style="font-size:12px">${j}</text>`;
       if (i < 2) s += `<rect class="dg-accf" x="255" y="${y}" width="40" height="19" rx="4"/>`;
       else s += `<rect class="dg-alt" x="255" y="${y}" width="40" height="19" rx="4" style="fill:none" stroke-dasharray="4 3"/>`;
@@ -586,7 +588,7 @@ const DIAGRAMS = {
     const row = (y, label, cards) => {
       let g = `<text class="dg-k" x="0" y="${y + 22}">${label}</text>`;
       cards.forEach((strong, i) => {
-        g += `<rect x="${70 + i * 26}" y="${y}" width="20" height="30" rx="3" class="dg-grid" style="fill:${strong ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.09)'}"/>`;
+        g += `<rect x="${70 + i * 26}" y="${y}" width="20" height="30" rx="3" class="dg-grid" style="fill:${strong ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       });
       return g;
     };
@@ -609,7 +611,7 @@ const DIAGRAMS = {
       s += `<text class="dg-k" x="0" y="${y + 28}">pass ${p + 1}</text>`;
       for (let i = 0; i < n; i++) {
         const x = 62 + i * 40;
-        s += `<rect x="${x}" y="${y}" width="32" height="44" rx="4" class="dg-grid" style="fill:${i === taken ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.08)'}"/>`;
+        s += `<rect x="${x}" y="${y}" width="32" height="44" rx="4" class="dg-grid" style="fill:${i === taken ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       }
       s += `<path class="dg-line" d="M${62 + n * 40 + 6} ${y + 22} L${62 + n * 40 + 30} ${y + 22}"/>`;
       s += `<path class="dg-line" d="M${62 + n * 40 + 22} ${y + 15} L${62 + n * 40 + 30} ${y + 22} L${62 + n * 40 + 22} ${y + 29}"/>`;
@@ -625,8 +627,8 @@ const DIAGRAMS = {
       `<rect x="${x}" y="${y}" width="${w}" height="42" rx="7" class="dg-grid" style="fill:${fill}"/>` +
       `<text class="dg-t" x="${x + w / 2}" y="${y + 26}" text-anchor="middle" style="font-size:12px">${label}</text>`;
     s += box(0, 30, 92, "deck", "var(--fam-color,#FFE536)");
-    s += box(150, 30, 92, "hand", "rgba(255,255,255,0.10)");
-    s += box(300, 30, 92, "discard", "rgba(255,255,255,0.10)");
+    s += box(150, 30, 92, "hand", "var(--dg-f3,rgba(255,255,255,0.09))");
+    s += box(300, 30, 92, "discard", "var(--dg-f3,rgba(255,255,255,0.09))");
     s += `<path class="dg-acc" d="M96 51 L144 51" marker-end="url(#dgar)"/>`;
     s += `<path class="dg-acc" d="M246 51 L294 51" marker-end="url(#dgar)"/>`;
     s += `<path class="dg-acc" d="M346 78 L346 106 L46 106 L46 78" marker-end="url(#dgar)"/>`;
@@ -643,7 +645,7 @@ const DIAGRAMS = {
     const set = (ox, kinds, label, score) => {
       let g = "";
       kinds.forEach((k, i) => {
-        g += `<rect x="${ox + i * 34}" y="24" width="28" height="40" rx="4" class="dg-grid" style="fill:${k ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.10)'}"/>`;
+        g += `<rect x="${ox + i * 34}" y="24" width="28" height="40" rx="4" class="dg-grid" style="fill:${k ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       });
       g += `<text class="dg-k" x="${ox}" y="82">${label}</text>`;
       g += `<rect class="dg-accf" x="${ox}" y="90" width="${score * 8}" height="16" rx="4"/>`;
@@ -664,7 +666,7 @@ const DIAGRAMS = {
     const played = [["P1", 7, true, false], ["P2", 9, true, true], ["P3", 3, true, false], ["P4", 11, false, false]];
     played.forEach(([p, v, follows, wins], i) => {
       const x = i * 100;
-      s += `<rect x="${x}" y="24" width="70" height="94" rx="6" class="dg-grid" style="fill:${wins ? 'var(--fam-color,#FFE536)' : follows ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)'}"/>`;
+      s += `<rect x="${x}" y="24" width="70" height="94" rx="6" class="dg-grid" style="fill:${wins ? 'var(--fam-color,#FFE536)' : follows ? 'var(--dg-f4,rgba(255,255,255,0.14))' : 'var(--dg-f1,rgba(255,255,255,0.03))'}"/>`;
       for (let k = 0; k < Math.min(v, 5); k++) {
         s += `<circle cx="${x + 19 + (k % 3) * 16}" cy="${44 + Math.floor(k / 3) * 18}" r="5" style="fill:${wins ? 'var(--dg-knock,rgba(0,0,0,0.55))' : 'var(--ink-soft,#a3a9bb)'}"/>`;
       }
@@ -684,7 +686,7 @@ const DIAGRAMS = {
     uses.forEach((u, i) => {
       const y = 30 + i * 44;
       s += `<path class="dg-line" d="M96 87 L136 ${y + 16}"/>`;
-      s += `<rect class="dg-grid" x="142" y="${y}" width="250" height="32" rx="6" style="fill:rgba(255,255,255,0.06)"/>`;
+      s += `<rect class="dg-grid" x="142" y="${y}" width="250" height="32" rx="6" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<text class="dg-t" x="154" y="${y + 21}" style="font-size:12px">${u}</text>`;
     });
     s += `<text class="dg-t" x="0" y="186">Fewer cards to print, more decisions to make.</text>`;
@@ -704,7 +706,7 @@ const DIAGRAMS = {
     const tiles = [[52, 60, 8, 1], [140, 60, 5, 0], [228, 60, 8, 1], [316, 60, 11, 0],
                    [96, 128, 3, 0], [184, 128, 8, 1], [272, 128, 6, 0]];
     tiles.forEach(([x, y, n, pays]) => {
-      s += hex(x, y, 40, pays ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.06)');
+      s += hex(x, y, 40, pays ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))');
       for (let k = 0; k < (pays ? 2 : 0); k++) s += `<circle cx="${x - 10 + k * 20}" cy="${y}" r="7" style="fill:var(--dg-knock,rgba(0,0,0,0.55))"/>`;
     });
     s += `<text class="dg-t" x="0" y="196">You do not choose when income arrives. The dice do.</text>`;
@@ -718,8 +720,8 @@ const DIAGRAMS = {
     const taken = [1, 0, 2, 0, 1, 0];
     taken.forEach((who, i) => {
       const x = (i % 3) * 136, y = 22 + Math.floor(i / 3) * 74;
-      s += `<rect class="dg-grid" x="${x}" y="${y}" width="118" height="58" rx="8" style="fill:${who ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.09)'}"/>`;
-      for (let k = 0; k < 3; k++) s += `<rect x="${x + 14}" y="${y + 12 + k * 12}" width="${74 - k * 18}" height="6" rx="3" style="fill:rgba(255,255,255,0.20)"/>`;
+      s += `<rect class="dg-grid" x="${x}" y="${y}" width="118" height="58" rx="8" style="fill:${who ? 'var(--dg-f1,rgba(255,255,255,0.03))' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
+      for (let k = 0; k < 3; k++) s += `<rect x="${x + 14}" y="${y + 12 + k * 12}" width="${74 - k * 18}" height="6" rx="3" style="fill:var(--dg-f5,rgba(255,255,255,0.21))"/>`;
       if (who) {
         s += `<circle cx="${x + 96}" cy="${y + 29}" r="13" style="fill:${who === 1 ? 'var(--fam-color,#FFE536)' : 'var(--dg-alt,#FA16C2)'}"/>`;
       }
@@ -756,7 +758,7 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="${i * 44}" y="${158 - h}" width="34" height="${h}" rx="3"/>`;
       s += `<text class="dg-k" x="${i * 44 + 8}" y="176">t${i + 1}</text>`;
     });
-    s += `<path class="dg-alt" d="M0 152 L392 152" stroke-dasharray="6 5"/>`;
+    s += `<path class="dg-alt" d="M1 152 L392 152" stroke-dasharray="6 5"/>`;
     s += `<text class="dg-t" x="0" y="206">A flat game gives you the same amount every turn.</text>`;
     s += `<text class="dg-t" x="0" y="228">An engine game pays you for building the engine first.</text>`;
     s += `<text class="dg-t" x="0" y="250">Which is why the first few turns feel like nothing is happening.</text>`;
@@ -769,12 +771,12 @@ const DIAGRAMS = {
     const steps = [2, 3, 4, 6, 8, 11, 15, 20];
     steps.forEach((p, i) => {
       const x = i * 48, y = 150 - i * 16;
-      s += `<rect x="${x}" y="${y}" width="42" height="16" rx="3" class="dg-grid" style="fill:${i < 3 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.09)'}"/>`;
+      s += `<rect x="${x}" y="${y}" width="42" height="16" rx="3" class="dg-grid" style="fill:${i < 3 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       s += `<text class="dg-s" x="${x + 21}" y="${y + 12}" text-anchor="middle">${p}</text>`;
     });
     s += `<circle cx="${2 * 48 + 21}" cy="${150 - 2 * 16 + 8}" r="12" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5"/>`;
     s += `<text class="dg-s" x="120" y="184">price now</text>`;
-    s += `<path class="dg-alt" d="M0 170 L336 42" stroke-dasharray="6 5"/>`;
+    s += `<path class="dg-alt" d="M1 170 L336 42" stroke-dasharray="6 5"/>`;
     s += `<text class="dg-t" x="0" y="220">Every purchase pushes the marker one rung up.</text>`;
     s += `<text class="dg-t" x="0" y="242">Being slow costs you money, with no rule saying it should.</text>`;
     return dgWrap("0 0 400 254", s);
@@ -790,7 +792,7 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="${x}" y="${150 - v * 6.5}" width="20" height="${v * 6.5}" rx="3"/>`;
       s += `<rect x="${x + 22}" y="${150 - up[i] * 6.5}" width="20" height="${up[i] * 6.5}" rx="3" style="fill:var(--dg-alt,#FA16C2)"/>`;
     });
-    s += `<path class="dg-line" d="M0 150 L392 150"/>`;
+    s += `<path class="dg-line" d="M1 150 L392 150"/>`;
     s += `<text class="dg-s" x="0" y="170">income</text>`;
     s += `<text class="dg-s" x="250" y="170">upkeep overtakes it</text>`;
     s += `<text class="dg-t" x="0" y="206">Every building you own has to be paid for again next turn.</text>`;
@@ -846,7 +848,7 @@ const DIAGRAMS = {
     states.forEach((hp, i) => {
       const y = 24 + i * 30;
       for (let k = 0; k < 10; k++) {
-        s += `<rect x="${120 + k * 26}" y="${y}" width="20" height="20" rx="3" style="fill:${k < hp ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.07)'}"/>`;
+        s += `<rect x="${120 + k * 26}" y="${y}" width="20" height="20" rx="3" style="fill:${k < hp ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       }
       s += `<text class="dg-k" x="0" y="${y + 15}">${i === 0 ? 'start' : i === 5 ? 'destroyed' : 'hit ' + i}</text>`;
     });
@@ -858,10 +860,10 @@ const DIAGRAMS = {
   /* Everything beats something */
   "combat-rps": () => {
     let s = `<text class="dg-k" x="0" y="12">Each unit type beats one and loses to another</text>`;
-    const nodes = [[200, 50, "spears"], [320, 150, "swords"], [80, 150, "cavalry"]];
+    const nodes = [[200, 64, "spears"], [320, 164, "swords"], [80, 164, "cavalry"]];
     nodes.forEach(([x, y, label]) => {
       s += `<circle cx="${x}" cy="${y}" r="38" class="dg-grid" style="fill:var(--fam-color,#FFE536)"/>`;
-      s += `<text class="dg-t" x="${x - 26}" y="${y + 5}" style="font-size:12px">${label}</text>`;
+      s += `<text class="dg-t" x="${x}" y="${y + 5}" text-anchor="middle" style="font-size:12px">${label}</text>`;
     });
     const arc = (x1, y1, x2, y2) => {
       const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
@@ -870,29 +872,29 @@ const DIAGRAMS = {
       return `<path class="dg-alt" d="M${sx.toFixed(1)} ${sy.toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}"/>` +
              `<path class="dg-alt" d="M${(ex - ux * 12 - uy * 7).toFixed(1)} ${(ey - uy * 12 + ux * 7).toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)} L${(ex - ux * 12 + uy * 7).toFixed(1)} ${(ey - uy * 12 - ux * 7).toFixed(1)}" stroke-width="2.6"/>`;
     };
-    s += arc(200, 50, 320, 150) + arc(320, 150, 80, 150) + arc(80, 150, 200, 50);
-    s += `<text class="dg-t" x="0" y="222">No unit is best. Bringing the wrong army is the mistake.</text>`;
-    return dgWrap("0 0 400 234", s);
+    s += arc(200, 64, 320, 164) + arc(320, 164, 80, 164) + arc(80, 164, 200, 64);
+    s += `<text class="dg-t" x="0" y="236">No unit is best. Bringing the wrong army is the mistake.</text>`;
+    return dgWrap("0 0 400 248", s);
   },
 
   /* Where you attack from matters */
   "combat-facing": () => {
     let s = `<text class="dg-k" x="0" y="12">The same attack, three different results</text>`;
-    const cx = 130, cy = 110;
-    s += `<path d="M${cx} ${cy} L${cx - 70} ${cy - 70} A99 99 0 0 1 ${cx + 70} ${cy - 70} Z" style="fill:rgba(255,255,255,0.07)" class="dg-grid"/>`;
+    const cx = 130, cy = 126;
+    s += `<path d="M${cx} ${cy} L${cx - 70} ${cy - 70} A99 99 0 0 1 ${cx + 70} ${cy - 70} Z" style="fill:var(--dg-f2,rgba(255,255,255,0.06))" class="dg-grid"/>`;
     s += `<path d="M${cx} ${cy} L${cx + 70} ${cy - 70} A99 99 0 0 1 ${cx + 70} ${cy + 70} Z" style="fill:var(--dg-alt-soft,rgba(250,22,194,0.22))" class="dg-grid"/>`;
     s += `<path d="M${cx} ${cy} L${cx - 70} ${cy - 70} A99 99 0 0 0 ${cx - 70} ${cy + 70} Z" style="fill:var(--dg-alt-soft,rgba(250,22,194,0.22))" class="dg-grid"/>`;
     s += `<path d="M${cx} ${cy} L${cx - 70} ${cy + 70} A99 99 0 0 0 ${cx + 70} ${cy + 70} Z" style="fill:var(--fam-color,#FFE536)" class="dg-grid"/>`;
     s += `<rect class="dg-accf" x="${cx - 14}" y="${cy - 14}" width="28" height="28" rx="4"/>`;
     s += `<path class="dg-line" d="M${cx} ${cy - 20} L${cx} ${cy - 46}"/>`;
-    const key = [["front: they defend fully", "rgba(255,255,255,0.07)"], ["flank: reduced defence", "var(--dg-alt-soft,rgba(250,22,194,0.22))"], ["rear: no defence at all", "var(--fam-color,#FFE536)"]];
+    const key = [["front: they defend fully", "var(--dg-f2,rgba(255,255,255,0.06))"], ["flank: reduced defence", "var(--dg-alt-soft,rgba(250,22,194,0.22))"], ["rear: no defence at all", "var(--fam-color,#FFE536)"]];
     key.forEach(([label, fill], i) => {
-      const y = 56 + i * 34;
+      const y = 66 + i * 34;
       s += `<rect x="246" y="${y}" width="22" height="22" rx="4" class="dg-grid" style="fill:${fill}"/>`;
       s += `<text class="dg-t" x="276" y="${y + 16}" style="font-size:11px">${label}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="232">Moving to a better angle becomes worth a whole turn.</text>`;
-    return dgWrap("0 0 400 244", s);
+    s += `<text class="dg-t" x="0" y="250">Moving to a better angle becomes worth a whole turn.</text>`;
+    return dgWrap("0 0 400 262", s);
   },
 
   /* One shot, several targets */
@@ -900,12 +902,12 @@ const DIAGRAMS = {
     const cell = 32;
     let s = `<text class="dg-k" x="0" y="12">One blast, everything under it is hit</text>`;
     for (let r = 0; r < 5; r++) for (let c = 0; c < 10; c++) {
-      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:rgba(255,255,255,0.03)"/>`;
+      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
     }
     s += `<circle cx="${5 * cell}" cy="${22 + 2.5 * cell}" r="${cell * 1.6}" style="fill:var(--dg-alt-soft,rgba(250,22,194,0.22));stroke:var(--dg-alt,#FA16C2);stroke-width:2"/>`;
     const units = [[2,1,0],[4,1,1],[5,2,1],[5,3,1],[4,3,1],[8,2,0],[7,4,0]];
     units.forEach(([c, r, hit]) => {
-      s += `<circle cx="${c * cell + cell / 2}" cy="${22 + r * cell + cell / 2}" r="10" style="fill:${hit ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.22)'}"/>`;
+      s += `<circle cx="${c * cell + cell / 2}" cy="${22 + r * cell + cell / 2}" r="10" style="fill:${hit ? 'var(--fam-color,#FFE536)' : 'var(--dg-f5,rgba(255,255,255,0.21))'}"/>`;
     });
     s += `<text class="dg-t" x="0" y="212">Four hit at once, which punishes players who bunch up.</text>`;
     s += `<text class="dg-t" x="0" y="234">Now spreading out is a real tactic instead of a habit.</text>`;
@@ -919,7 +921,7 @@ const DIAGRAMS = {
     s += `<circle cx="${tank[0]}" cy="${tank[1]}" r="30" class="dg-accf"/>`;
     s += `<text class="dg-k" x="${tank[0] - 22}" y="${tank[1] + 56}">taunt</text>`;
     const weak = [[300, 60], [330, 130], [296, 196]];
-    weak.forEach(([x, y]) => { s += `<circle cx="${x}" cy="${y}" r="18" style="fill:rgba(255,255,255,0.12)"/>`; });
+    weak.forEach(([x, y]) => { s += `<circle cx="${x}" cy="${y}" r="18" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`; });
     const foes = [[200, 40], [220, 110], [200, 186]];
     foes.forEach(([x, y]) => {
       s += `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="5" style="fill:var(--dg-alt,#FA16C2)"/>`;
@@ -938,9 +940,9 @@ const DIAGRAMS = {
     const state = ["ready", "cool", "cool", "ready", "cool", "cool", "ready", "cool"];
     state.forEach((st, i) => {
       const x = i * 49, ready = st === "ready";
-      s += `<rect x="${x}" y="24" width="40" height="52" rx="7" class="dg-grid" style="fill:${ready ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.06)'}"/>`;
+      s += `<rect x="${x}" y="24" width="40" height="52" rx="7" class="dg-grid" style="fill:${ready ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       if (ready) { s += `<circle cx="${x + 20}" cy="50" r="11" style="fill:var(--dg-knock,rgba(0,0,0,0.55))"/>`; }
-      else { s += `<rect x="${x + 8}" y="44" width="24" height="12" rx="6" style="fill:rgba(255,255,255,0.22)"/>`; }
+      else { s += `<rect x="${x + 8}" y="44" width="24" height="12" rx="6" style="fill:var(--dg-f5,rgba(255,255,255,0.21))"/>`; }
       s += `<text class="dg-k" x="${x + 10}" y="94">t${i + 1}</text>`;
     });
     s += `<text class="dg-t" x="0" y="132">The ability can be strong, because it is rare.</text>`;
@@ -960,7 +962,7 @@ const DIAGRAMS = {
     s += `<text class="dg-k" x="230" y="12">What they see</text>`;
     for (let i = 0; i < 4; i++) {
       const x = 230 + i * 42;
-      s += `<rect x="${x}" y="22" width="36" height="58" rx="5" class="dg-grid" style="fill:rgba(255,255,255,0.09)"/>`;
+      s += `<rect x="${x}" y="22" width="36" height="58" rx="5" class="dg-grid" style="fill:var(--dg-f3,rgba(255,255,255,0.09))"/>`;
       s += `<path class="dg-line" d="M${x + 8} 40 L${x + 28} 62 M${x + 28} 40 L${x + 8} 62" style="stroke:var(--ink-dim,#71778c)"/>`;
     }
     s += `<text class="dg-t" x="0" y="118">They know how many cards you hold, and nothing else.</text>`;
@@ -974,8 +976,8 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Five identical card backs</text>`;
     for (let i = 0; i < 5; i++) {
       const x = i * 80;
-      s += `<rect x="${x}" y="22" width="66" height="90" rx="7" class="dg-grid" style="fill:rgba(255,255,255,0.09)"/>`;
-      s += `<circle cx="${x + 33}" cy="67" r="16" style="fill:rgba(255,255,255,0.16)"/>`;
+      s += `<rect x="${x}" y="22" width="66" height="90" rx="7" class="dg-grid" style="fill:var(--dg-f3,rgba(255,255,255,0.09))"/>`;
+      s += `<circle cx="${x + 33}" cy="67" r="16" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
     }
     s += `<text class="dg-k" x="0" y="146">What is actually on them</text>`;
     const roles = [0, 0, 1, 0, 0];
@@ -995,15 +997,15 @@ const DIAGRAMS = {
     const seen = (c, r) => Math.hypot(c - 3, r - 3) < 2.6 || Math.hypot(c - 10, r - 2) < 2.1;
     for (let r = 0; r < 6; r++) for (let c = 0; c < 14; c++) {
       const vis = seen(c, r);
-      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${vis ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.02)'}"/>`;
+      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${vis ? 'var(--dg-f3,rgba(255,255,255,0.09))' : 'var(--dg-f1,rgba(255,255,255,0.03))'}"/>`;
     }
     [[3, 3], [10, 2]].forEach(([c, r]) => {
       s += `<circle cx="${c * cell + cell / 2}" cy="${22 + r * cell + cell / 2}" r="10" class="dg-accf"/>`;
     });
     [[7, 4], [12, 5]].forEach(([c, r]) => {
-      s += `<rect x="${c * cell + 8}" y="${22 + r * cell + 8}" width="12" height="12" rx="2" style="fill:rgba(255,255,255,0.06)"/>`;
+      s += `<rect x="${c * cell + 8}" y="${22 + r * cell + 8}" width="12" height="12" rx="2" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
     });
-    s += `<text class="dg-t" x="0" y="212">Two enemies are on this board and the player cannot see either.</text>`;
+    s += `<text class="dg-t" x="0" y="212">Two enemies are on this board. The player sees neither.</text>`;
     s += `<text class="dg-t" x="0" y="234">Scouting becomes worth spending a turn on.</text>`;
     return dgWrap("0 0 400 246", s);
   },
@@ -1016,11 +1018,12 @@ const DIAGRAMS = {
       const y = 24 + i * 58;
       s += `<text class="dg-k" x="0" y="${y + 16}">${p}</text>`;
       s += `<rect class="dg-accf" x="44" y="${y}" width="${bet * 3.2}" height="20" rx="4"/>`;
-      s += `<rect x="44" y="${y + 26}" width="${real * 3.2}" height="20" rx="4" style="fill:rgba(255,255,255,0.14)"/>`;
+      s += `<rect x="44" y="${y + 26}" width="${real * 3.2}" height="20" rx="4" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
     });
-    s += `<text class="dg-s" x="44" y="16">bet</text>`;
-    s += `<text class="dg-s" x="288" y="16">real strength</text>`;
-    s += `<path class="dg-alt" d="M330 158 L378 158" stroke-dasharray="4 3"/>`;
+    /* Both bars are labelled beside the first row instead of over the
+       heading, which the old tags collided with. */
+    s += `<text class="dg-s" x="308" y="38">bet</text>`;
+    s += `<text class="dg-s" x="308" y="64">hand</text>`;
     s += `<text class="dg-t" x="0" y="210">P3 has almost nothing and is betting the most.</text>`;
     s += `<text class="dg-t" x="0" y="232">The lie only works because nobody can check.</text>`;
     return dgWrap("0 0 400 244", s);
@@ -1036,10 +1039,10 @@ const DIAGRAMS = {
     Object.entries(N).forEach(([k, [x, y]]) => {
       const isShown = shown.includes(k);
       const isNow = k === "f";
-      s += `<circle cx="${x}" cy="${y + 20}" r="14" style="fill:${isShown ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.10)'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
+      s += `<circle cx="${x}" cy="${y + 20}" r="14" style="fill:${isShown ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
       if (isNow) s += `<circle cx="${x}" cy="${y + 20}" r="20" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5;stroke-dasharray:5 4"/>`;
     });
-    s += `<text class="dg-s" x="250" y="164">could be here</text>`;
+    s += `<text class="dg-s" x="232" y="178">could be here</text>`;
     s += `<text class="dg-t" x="0" y="200">Three known stops, and a growing set of places they might be.</text>`;
     s += `<text class="dg-t" x="0" y="222">The hunters are doing detective work, not chasing.</text>`;
     return dgWrap("0 0 400 234", s);
@@ -1050,16 +1053,16 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">One shared board</text>`;
     const cell = 30;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) {
-      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:rgba(255,255,255,0.05)"/>`;
+      s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
     }
     s += `<text class="dg-k" x="210" y="12">Three secret goals</text>`;
     const goals = [[[0,0],[1,0],[2,0]], [[5,2],[5,1]], [[2,1],[3,1],[3,2]]];
     goals.forEach((cells, i) => {
       const oy = 22 + i * 0;
       cells.forEach(([c, r]) => {
-        s += `<rect x="${c * cell + 5}" y="${oy + r * cell + 5}" width="${cell - 10}" height="${cell - 10}" rx="3" style="fill:${['var(--fam-color,#FFE536)','var(--dg-alt,#FA16C2)','rgba(255,255,255,0.35)'][i]};opacity:0.85"/>`;
+        s += `<rect x="${c * cell + 5}" y="${oy + r * cell + 5}" width="${cell - 10}" height="${cell - 10}" rx="3" style="fill:${['var(--fam-color,#FFE536)','var(--dg-alt,#FA16C2)','var(--dg-f6,rgba(255,255,255,0.32))'][i]};opacity:0.85"/>`;
       });
-      s += `<rect x="${210 + i * 62}" y="${34}" width="50" height="34" rx="5" style="fill:${['var(--fam-color,#FFE536)','var(--dg-alt,#FA16C2)','rgba(255,255,255,0.35)'][i]}"/>`;
+      s += `<rect x="${210 + i * 62}" y="${34}" width="50" height="34" rx="5" style="fill:${['var(--fam-color,#FFE536)','var(--dg-alt,#FA16C2)','var(--dg-f6,rgba(255,255,255,0.32))'][i]}"/>`;
     });
     s += `<text class="dg-t" x="0" y="148">Nobody knows why anyone else is doing what they are doing.</text>`;
     s += `<text class="dg-t" x="0" y="170">Watching a rival's moves becomes a way to guess their goal.</text>`;
@@ -1072,7 +1075,7 @@ const DIAGRAMS = {
     const ok = ["point at one card", "say a number", "say a colour"];
     ok.forEach((t, i) => {
       const y = 22 + i * 34;
-      s += `<rect class="dg-grid" x="0" y="${y}" width="184" height="26" rx="6" style="fill:rgba(255,255,255,0.06)"/>`;
+      s += `<rect class="dg-grid" x="0" y="${y}" width="184" height="26" rx="6" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<rect class="dg-accf" x="8" y="${y + 7}" width="12" height="12" rx="3"/>`;
       s += `<text class="dg-t" x="28" y="${y + 18}" style="font-size:11px">${t}</text>`;
     });
@@ -1080,7 +1083,7 @@ const DIAGRAMS = {
     const no = ["say what to play", "describe your hand", "hint with your voice"];
     no.forEach((t, i) => {
       const y = 22 + i * 34;
-      s += `<rect class="dg-grid" x="212" y="${y}" width="184" height="26" rx="6" style="fill:rgba(255,255,255,0.03)"/>`;
+      s += `<rect class="dg-grid" x="212" y="${y}" width="184" height="26" rx="6" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       s += `<path class="dg-alt" d="M220 ${y + 8} L232 ${y + 20} M232 ${y + 8} L220 ${y + 20}" stroke-width="2.4"/>`;
       s += `<text class="dg-t" x="240" y="${y + 18}" style="font-size:11px">${t}</text>`;
     });
@@ -1093,13 +1096,14 @@ const DIAGRAMS = {
   /* One divides, the other picks */
   "fair-cut-choose": () => {
     let s = `<text class="dg-k" x="0" y="12">P1 splits the pile</text>`;
-    s += `<rect class="dg-accf" x="0" y="24" width="150" height="46" rx="6"/>`;
-    s += `<rect x="160" y="24" width="132" height="46" rx="6" style="fill:var(--fam-color,#FFE536);opacity:0.55"/>`;
+    s += `<rect class="dg-accf" x="4" y="24" width="128" height="46" rx="6"/>`;
+    s += `<rect x="146" y="24" width="110" height="46" rx="6" style="fill:var(--fam-color,#FFE536);opacity:0.55"/>`;
     s += `<text class="dg-k" x="0" y="92">P2 chooses first</text>`;
-    s += `<rect class="dg-accf" x="3" y="104" width="150" height="46" rx="6"/>`;
-    s += `<path class="dg-alt" d="M0 100 L157 100 L157 154 L0 154 Z" stroke-dasharray="6 4"/>`;
-    s += `<rect x="160" y="104" width="132" height="46" rx="6" style="fill:rgba(255,255,255,0.12)"/>`;
-    s += `<text class="dg-s" x="284" y="132">P1 gets the rest</text>`;
+    s += `<rect class="dg-accf" x="4" y="104" width="128" height="46" rx="6"/>`;
+    /* Inset by 2 so the stroke stays inside the frame. */
+    s += `<path class="dg-alt" d="M2 100 L136 100 L136 154 L2 154 Z" stroke-dasharray="6 4"/>`;
+    s += `<rect x="146" y="104" width="110" height="46" rx="6" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
+    s += `<text class="dg-s" x="266" y="132">P1 gets the rest</text>`;
     s += `<text class="dg-t" x="0" y="192">P1 has every reason to split it evenly.</text>`;
     s += `<text class="dg-t" x="0" y="214">No rule made them fair. The order of the two jobs did.</text>`;
     return dgWrap("0 0 400 226", s);
@@ -1109,12 +1113,14 @@ const DIAGRAMS = {
   "fair-handicap": () => {
     let s = `<text class="dg-k" x="0" y="12">Without a handicap</text>`;
     s += `<rect class="dg-accf" x="80" y="22" width="290" height="22" rx="4"/>`;
-    s += `<rect x="80" y="50" width="110" height="22" rx="4" style="fill:rgba(255,255,255,0.16)"/>`;
+    s += `<rect x="80" y="50" width="110" height="22" rx="4" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
     s += `<text class="dg-k" x="0" y="38">strong</text>`;
     s += `<text class="dg-k" x="0" y="66">new</text>`;
     s += `<text class="dg-k" x="0" y="112">With a handicap</text>`;
     s += `<rect class="dg-accf" x="80" y="124" width="290" height="22" rx="4"/>`;
-    s += `<rect x="80" y="152" width="110" height="22" rx="4" style="fill:rgba(255,255,255,0.16)"/>`;
+    s += `<text class="dg-k" x="0" y="140">strong</text>`;
+    s += `<rect x="80" y="152" width="110" height="22" rx="4" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
+    s += `<text class="dg-k" x="0" y="168">new</text>`;
     s += `<rect x="190" y="152" width="170" height="22" rx="4" style="fill:var(--dg-alt,#FA16C2)"/>`;
     s += `<text class="dg-s" x="196" y="192">the head start</text>`;
     s += `<text class="dg-t" x="0" y="228">The weaker player starts closer, so both can still lose.</text>`;
@@ -1178,18 +1184,18 @@ const DIAGRAMS = {
 
   /* Unlocks that open other unlocks */
   "growth-tech": () => {
-    const N = { a:[30,110], b:[130,60], c:[130,160], d:[240,30], e:[240,105], f:[240,180], g:[350,68], h:[350,150] };
+    const N = { a:[30,124], b:[130,74], c:[130,174], d:[240,44], e:[240,119], f:[240,194], g:[350,82], h:[350,164] };
     const E = [["a","b"],["a","c"],["b","d"],["b","e"],["c","e"],["c","f"],["d","g"],["e","g"],["e","h"],["f","h"]];
     const done = ["a", "b", "c"];
     let s = `<text class="dg-k" x="0" y="12">Two branches unlocked, the rest still closed</text>`;
     E.forEach(([p, q]) => { s += `<path class="dg-line" d="M${N[p][0]} ${N[p][1]} L${N[q][0]} ${N[q][1]}"/>`; });
     Object.entries(N).forEach(([k, [x, y]]) => {
       const on = done.includes(k);
-      s += `<rect x="${x - 22}" y="${y - 15}" width="44" height="30" rx="6" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.07)'}"/>`;
+      s += `<rect x="${x - 22}" y="${y - 15}" width="44" height="30" rx="6" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="228">You cannot reach the far right without choosing a path.</text>`;
-    s += `<text class="dg-t" x="0" y="250">Two players can end the same game with different abilities.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += `<text class="dg-t" x="0" y="242">You cannot reach the far right without choosing a path.</text>`;
+    s += `<text class="dg-t" x="0" y="264">Two players can end the same game with different abilities.</text>`;
+    return dgWrap("0 0 400 276", s);
   },
 
   /* Better gear, same person */
@@ -1201,7 +1207,7 @@ const DIAGRAMS = {
       s += `<circle cx="${x + 46}" cy="52" r="26" class="dg-accf"/>`;
       slots.forEach((on, k) => {
         const positions = [[x + 4, 92], [x + 40, 92], [x + 76, 92], [x + 40, 128]];
-        s += `<rect x="${positions[k][0]}" y="${positions[k][1]}" width="30" height="30" rx="5" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.06)'}"/>`;
+        s += `<rect x="${positions[k][0]}" y="${positions[k][1]}" width="30" height="30" rx="5" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       });
       s += `<rect class="dg-accf" x="${x}" y="172" width="${(i + 1) * 34}" height="16" rx="4"/>`;
     });
@@ -1216,9 +1222,9 @@ const DIAGRAMS = {
     const cell = 26;
     const marks = [[], [[1,1],[4,0]], [[1,1],[4,0],[2,2],[0,3],[5,1],[3,3]]];
     marks.forEach((set, i) => {
-      const ox = i * 136;
+      const ox = i * 132;
       for (let r = 0; r < 4; r++) for (let c = 0; c < 6; c++) {
-        s += `<rect class="dg-grid" x="${ox + c * (cell - 4)}" y="${22 + r * (cell - 4)}" width="${cell - 6}" height="${cell - 6}" style="fill:rgba(255,255,255,0.04)"/>`;
+        s += `<rect class="dg-grid" x="${ox + c * (cell - 4)}" y="${22 + r * (cell - 4)}" width="${cell - 6}" height="${cell - 6}" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       }
       set.forEach(([c, r]) => {
         s += `<rect x="${ox + c * (cell - 4) + 3}" y="${22 + r * (cell - 4) + 3}" width="${cell - 12}" height="${cell - 12}" rx="2" style="fill:var(--fam-color,#FFE536)"/>`;
@@ -1240,7 +1246,7 @@ const DIAGRAMS = {
       s += `<rect x="${x + 22}" y="${162 - t * 5.6}" width="20" height="${t * 5.6}" rx="3" style="fill:var(--dg-alt,#FA16C2)"/>`;
       s += `<rect class="dg-accf" x="${x}" y="${162 - power[i] * 5.6}" width="20" height="${power[i] * 5.6}" rx="3"/>`;
     });
-    s += `<path class="dg-line" d="M0 162 L392 162"/>`;
+    s += `<path class="dg-line" d="M1 162 L392 162"/>`;
     s += `<text class="dg-s" x="0" y="182">you</text>`;
     s += `<text class="dg-s" x="256" y="182">threat passes you</text>`;
     s += `<text class="dg-t" x="0" y="218">You are getting stronger. The problem is getting stronger faster.</text>`;
@@ -1255,7 +1261,7 @@ const DIAGRAMS = {
     s += `<rect class="dg-accf" x="0" y="40" width="220" height="30" rx="15"/>`;
     [98, 196, 294].forEach((x, i) => {
       s += `<path class="dg-alt" d="M${x} 30 L${x} 80"/>`;
-      s += `<circle cx="${x}" cy="${100}" r="13" style="fill:${x < 220 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.10)'}"/>`;
+      s += `<circle cx="${x}" cy="${100}" r="13" style="fill:${x < 220 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       s += `<text class="dg-k" x="${x - 26}" y="130">tier ${i + 1}</text>`;
     });
     s += `<text class="dg-t" x="0" y="172">Nothing happens between the lines, everything at them.</text>`;
@@ -1271,7 +1277,7 @@ const DIAGRAMS = {
       const y = 24 + i * 44;
       s += `<text class="dg-k" x="0" y="${y + 20}">run ${i + 1}</text>`;
       for (let k = 0; k < 10; k++) {
-        s += `<rect x="${52 + k * 34}" y="${y}" width="28" height="28" rx="4" style="fill:${k < kept ? 'var(--dg-alt,#FA16C2)' : k < reach ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.06)'}"/>`;
+        s += `<rect x="${52 + k * 34}" y="${y}" width="28" height="28" rx="4" style="fill:${k < kept ? 'var(--dg-alt,#FA16C2)' : k < reach ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
       }
     });
     s += `<text class="dg-s" x="52" y="208">kept between runs</text>`;
@@ -1288,7 +1294,7 @@ const DIAGRAMS = {
     sources.forEach(([label, n, each], i) => {
       const y = 24 + i * 34;
       s += `<text class="dg-k" x="0" y="${y + 17}">${label}</text>`;
-      for (let k = 0; k < n; k++) s += `<rect x="${92 + k * 22}" y="${y}" width="17" height="24" rx="3" style="fill:rgba(255,255,255,0.16)"/>`;
+      for (let k = 0; k < n; k++) s += `<rect x="${92 + k * 22}" y="${y}" width="17" height="24" rx="3" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
       s += `<rect class="dg-accf" x="220" y="${y}" width="${n * each * 3.4}" height="24" rx="4"/>`;
       total += n * each;
     });
@@ -1304,10 +1310,10 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Three regions, counted separately</text>`;
     const regions = [[0, 4, 2], [136, 2, 3], [272, 3, 3]];
     regions.forEach(([ox, a, b], i) => {
-      s += `<rect class="dg-grid" x="${ox}" y="22" width="118" height="110" rx="10" style="fill:rgba(255,255,255,0.04)"/>`;
+      s += `<rect class="dg-grid" x="${ox}" y="22" width="118" height="110" rx="10" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
       for (let k = 0; k < a; k++) s += `<circle cx="${ox + 26 + (k % 3) * 26}" cy="${46 + Math.floor(k / 3) * 26}" r="10" class="dg-accf"/>`;
       for (let k = 0; k < b; k++) s += `<circle cx="${ox + 26 + (k % 3) * 26}" cy="${100 + Math.floor(k / 3) * 26}" r="10" style="fill:var(--dg-alt,#FA16C2)"/>`;
-      const winner = a > b ? "var(--fam-color,#FFE536)" : a < b ? "var(--dg-alt,#FA16C2)" : "rgba(255,255,255,0.25)";
+      const winner = a > b ? "var(--fam-color,#FFE536)" : a < b ? "var(--dg-alt,#FA16C2)" : "var(--dg-f5,rgba(255,255,255,0.21))";
       s += `<rect x="${ox}" y="140" width="118" height="16" rx="4" style="fill:${winner}"/>`;
     });
     s += `<text class="dg-t" x="0" y="196">Second place in a region is usually worth nothing.</text>`;
@@ -1322,7 +1328,7 @@ const DIAGRAMS = {
     pos.forEach((p, i) => {
       const y = 26 + i * 40;
       s += `<rect class="dg-grid" x="40" y="${y}" width="330" height="26" rx="13"/>`;
-      s += `<rect x="40" y="${y}" width="${330 * p / 100}" height="26" rx="13" style="fill:${p > 80 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.16)'}"/>`;
+      s += `<rect x="40" y="${y}" width="${330 * p / 100}" height="26" rx="13" style="fill:${p > 80 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>`;
       s += `<text class="dg-k" x="0" y="${y + 18}">P${i + 1}</text>`;
     });
     s += `<path class="dg-alt" d="M370 18 L370 190"/>`;
@@ -1339,7 +1345,7 @@ const DIAGRAMS = {
       const y = 26 + i * 42;
       s += `<text class="dg-k" x="0" y="${y + 20}">${label}</text>`;
       s += `<rect class="dg-grid" x="90" y="${y}" width="280" height="28" rx="6"/>`;
-      s += `<rect x="90" y="${y}" width="${280 * p / 100}" height="28" rx="6" style="fill:${p > 75 ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.14)'}"/>`;
+      s += `<rect x="90" y="${y}" width="${280 * p / 100}" height="28" rx="6" style="fill:${p > 75 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>`;
     });
     s += `<path class="dg-alt" d="M370 18 L370 198"/>`;
     s += `<text class="dg-t" x="0" y="232">Blocking one road does not stop a player who is on another.</text>`;
@@ -1352,15 +1358,18 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">During the game</text>`;
     for (let i = 0; i < 4; i++) {
       const x = i * 100;
-      s += `<rect x="${x}" y="22" width="82" height="56" rx="7" class="dg-grid" style="fill:rgba(255,255,255,0.07)"/>`;
+      s += `<rect x="${x}" y="22" width="82" height="56" rx="7" class="dg-grid" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<text class="dg-s" x="${x + 36}" y="56">?</text>`;
       s += `<text class="dg-k" x="${x + 30}" y="94">P${i + 1}</text>`;
     }
-    s += `<text class="dg-k" x="0" y="126">At the reveal</text>`;
+    s += `<text class="dg-k" x="0" y="126">At the reveal, in points</text>`;
     const finals = [34, 41, 29, 38];
+    const best = Math.max.apply(null, finals);
     finals.forEach((v, i) => {
-      const x = i * 100, top = v === 41;
-      s += `<rect x="${x}" y="136" width="82" height="${v * 2}" rx="6" style="fill:${top ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.16)'}"/>`;
+      const x = i * 100, top = v === best, h = v * 2;
+      s += `<rect x="${x}" y="136" width="82" height="${h}" rx="6" style="fill:${top ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>`;
+      /* The number is the point of the reveal, so it goes on the bar. */
+      s += `<text class="${top ? 'dg-on' : 'dg-s'}" x="${x + 41}" y="${158}" text-anchor="middle" style="font-size:15px;font-weight:700">${v}</text>`;
     });
     s += `<text class="dg-t" x="0" y="238">Nobody could gang up on the leader, because nobody knew.</text>`;
     s += `<text class="dg-t" x="0" y="260">The cost is that players cannot tell how they are doing.</text>`;
@@ -1370,23 +1379,25 @@ const DIAGRAMS = {
   /* Two matching things are worth more than two things */
   "goals-multiplier": () => {
     let s = `<text class="dg-k" x="0" y="12">Same eight pieces, arranged two ways</text>`;
-    const layout = (ox, groups, score, label) => {
-      let g = "", x = ox;
-      groups.forEach((n, gi) => {
+    const layout = (ox, y, groups, score, label) => {
+      let g = `<text class="dg-k" x="${ox}" y="${y}">${label}</text>`;
+      let x = ox;
+      groups.forEach(function (n) {
         for (let k = 0; k < n; k++) {
-          g += `<rect x="${x + k * 20}" y="24" width="16" height="22" rx="3" class="dg-accf"/>`;
+          g += `<rect x="${x + k * 20}" y="${y + 12}" width="16" height="22" rx="3" class="dg-accf"/>`;
         }
         x += n * 20 + 12;
       });
-      g += `<text class="dg-k" x="${ox}" y="66">${label}</text>`;
-      g += `<rect class="dg-accf" x="${ox}" y="76" width="${score * 4.4}" height="22" rx="4"/>`;
+      g += `<rect class="dg-accf" x="${ox}" y="${y + 44}" width="${score * 4.4}" height="22" rx="4"/>`;
+      /* The score sits beside the bar, since the short bar cannot hold it. */
+      g += `<text class="dg-s" x="${ox + score * 4.4 + 10}" y="${y + 60}">${score} points</text>`;
       return g;
     };
-    s += layout(0, [2, 2, 2, 2], 8, "spread out");
-    s += `<g transform="translate(0,96)">` + layout(0, [5, 3], 34, "grouped up").replace(/y="24"/g, 'y="34"').replace(/y="66"/g, 'y="76"').replace(/y="76"/g, 'y="86"') + `</g>`;
-    s += `<text class="dg-t" x="0" y="252">Grouping is worth four times as much for the same effort.</text>`;
-    s += `<text class="dg-t" x="0" y="274">Steep scoring is what makes players commit to a plan.</text>`;
-    return dgWrap("0 0 400 286", s);
+    s += layout(0, 34, [2, 2, 2, 2], 8, "spread out");
+    s += layout(0, 140, [5, 3], 34, "grouped up");
+    s += `<text class="dg-t" x="0" y="242">Grouping is worth four times as much for the same effort.</text>`;
+    s += `<text class="dg-t" x="0" y="264">Steep scoring is what makes players commit to a plan.</text>`;
+    return dgWrap("0 0 400 276", s);
   },
 
   /* Out is out */
@@ -1397,14 +1408,13 @@ const DIAGRAMS = {
       const y = 24 + r * 34;
       s += `<text class="dg-k" x="0" y="${y + 18}">r${r + 1}</text>`;
       for (let i = 0; i < 6; i++) {
-        s += `<circle cx="${52 + i * 40}" cy="${y + 12}" r="13" style="fill:${i < alive ? 'var(--fam-color,#FFE536)' : 'rgba(255,255,255,0.05)'}"/>`;
+        s += `<circle cx="${52 + i * 40}" cy="${y + 12}" r="13" style="fill:${i < alive ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
         if (i >= alive) s += `<path class="dg-alt" d="M${45 + i * 40} ${y + 5} L${59 + i * 40} ${y + 19} M${59 + i * 40} ${y + 5} L${45 + i * 40} ${y + 19}" stroke-width="2"/>`;
       }
     });
-    s += `<rect class="dg-alt" x="290" y="90" width="102" height="112" rx="8" stroke-dasharray="6 4"/>`;
-    s += `<text class="dg-s" x="254" y="220">watching, not playing</text>`;
-    s += `<text class="dg-t" x="0" y="258">Two students sat out the last twenty minutes of the lesson.</text>`;
-    return dgWrap("0 0 400 270", s);
+    s += `<text class="dg-t" x="0" y="252">A crossed circle is a student with nothing to do.</text>`;
+    s += `<text class="dg-t" x="0" y="274">By the last round, five of the six are watching.</text>`;
+    return dgWrap("0 0 400 286", s);
   }
 
 };
