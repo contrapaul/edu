@@ -19,7 +19,7 @@ const DG_STYLE = `
   .dg-t     { fill: var(--ink, #eef0f6); font-family: 'Lexend', Arial, sans-serif; font-size: 13px; }
   .dg-s     { fill: var(--ink-soft, #a3a9bb); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; }
   .dg-k     { fill: var(--ink-dim, #71778c); font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
-  .dg-on    { fill: #16171d; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; }
+  .dg-on    { fill: var(--dg-on-ink, #16171d); font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; }
 `;
 
 /* The same diagram is drawn twice on a page, once small on the card and
@@ -623,10 +623,11 @@ const DIAGRAMS = {
   /* Draw, discard, reshuffle, repeat */
   "cards-cycle": () => {
     let s = "";
-    const box = (x, y, w, label, fill) =>
+    const box = (x, y, w, label, fill, onFill) =>
       `<rect x="${x}" y="${y}" width="${w}" height="42" rx="7" class="dg-grid" style="fill:${fill}"/>` +
-      `<text class="dg-t" x="${x + w / 2}" y="${y + 26}" text-anchor="middle" style="font-size:12px">${label}</text>`;
-    s += box(0, 30, 92, "deck", "var(--fam-color,#FFE536)");
+      `<text class="dg-t" x="${x + w / 2}" y="${y + 26}" text-anchor="middle" ` +
+      `style="font-size:12px${onFill ? ';fill:var(--dg-on-ink,#16171d)' : ''}">${label}</text>`;
+    s += box(0, 30, 92, "deck", "var(--fam-color,#FFE536)", true);
     s += box(150, 30, 92, "hand", "var(--dg-f3,rgba(255,255,255,0.09))");
     s += box(300, 30, 92, "discard", "var(--dg-f3,rgba(255,255,255,0.09))");
     s += `<path class="dg-acc" d="M96 51 L144 51" marker-end="url(#dgar)"/>`;
@@ -772,7 +773,8 @@ const DIAGRAMS = {
     steps.forEach((p, i) => {
       const x = i * 48, y = 150 - i * 16;
       s += `<rect x="${x}" y="${y}" width="42" height="16" rx="3" class="dg-grid" style="fill:${i < 3 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
-      s += `<text class="dg-s" x="${x + 21}" y="${y + 12}" text-anchor="middle">${p}</text>`;
+      s += `<text class="dg-s" x="${x + 21}" y="${y + 12}" text-anchor="middle"` +
+        `${i < 3 ? ' style="fill:var(--dg-on-ink,#16171d)"' : ''}>${p}</text>`;
     });
     s += `<circle cx="${2 * 48 + 21}" cy="${150 - 2 * 16 + 8}" r="12" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5"/>`;
     s += `<text class="dg-s" x="120" y="184">price now</text>`;
@@ -863,7 +865,7 @@ const DIAGRAMS = {
     const nodes = [[200, 64, "spears"], [320, 164, "swords"], [80, 164, "cavalry"]];
     nodes.forEach(([x, y, label]) => {
       s += `<circle cx="${x}" cy="${y}" r="38" class="dg-grid" style="fill:var(--fam-color,#FFE536)"/>`;
-      s += `<text class="dg-t" x="${x}" y="${y + 5}" text-anchor="middle" style="font-size:12px">${label}</text>`;
+      s += `<text class="dg-t" x="${x}" y="${y + 5}" text-anchor="middle" style="font-size:12px;fill:var(--dg-on-ink,#16171d)">${label}</text>`;
     });
     const arc = (x1, y1, x2, y2) => {
       const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy);
