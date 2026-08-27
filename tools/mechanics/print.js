@@ -23,30 +23,28 @@
       '</div>' +
 
       '<div class="page">' +
+        /* The diagram leads and runs the full width, since it is the part
+           that has to read from across a room. */
+        (dg ? '<div class="dgm">' + dg + '</div>' : '') +
         '<div class="cols">' +
           '<div>' +
             '<div class="block"><h3>What it is</h3>' +
-              m.whatItIs.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+              m.whatItIs.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
             '</div>' +
             '<div class="block"><h3>How it works in play</h3><ol class="steps">' +
-              m.howItWorks.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') +
+              m.howItWorks.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') +
             '</ol></div>' +
           '</div>' +
           '<div>' +
-            (dg ? '<div class="dgm">' + dg + '</div>' : '') +
             '<div class="block"><h3>Games that use it</h3>' +
               m.games.map(function (g) {
                 return '<div class="game"><b>' + esc(g.title) + '</b><span>' + esc(g.note) + '</span></div>';
               }).join('') +
             '</div>' +
+            '<div class="block"><h3>Watch out for</h3><ul class="warn">' +
+              m.watchOut.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') +
+            '</ul></div>' +
           '</div>' +
-        '</div>' +
-
-        '<div class="foot-cols">' +
-          '<div><h3>Watch out for</h3><ul class="warn">' +
-            m.watchOut.map(function (w) { return '<li>' + esc(w) + '</li>'; }).join('') +
-          '</ul></div>' +
-          '<div><h3>Try this in your game</h3><div class="try"><p>' + esc(m.tryThis) + '</p></div></div>' +
         '</div>' +
       '</div>' +
 

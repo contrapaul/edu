@@ -73,10 +73,10 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .fam-growth { --band:#1f7a72; --tint:#e6f3f1; }
 .fam-goals  { --band:#a8791a; --tint:#fbf4e0; }
 
-.band { background:var(--band); color:#fff; padding:30px 44px 26px; }
+.band { background:var(--band); color:#fff; padding:26px 44px 22px; }
 .band-fam { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:0.2em;
   text-transform:uppercase; margin:0 0 10px; opacity:0.85; }
-.band h2 { font-family:var(--slab); font-weight:800; font-size:46px; line-height:1.02;
+.band h2 { font-family:var(--slab); font-weight:800; font-size:42px; line-height:1.02;
   letter-spacing:-0.015em; margin:0; }
 .band-aka { margin:10px 0 0; font-size:13.5px; opacity:0.9; }
 
@@ -85,9 +85,9 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 h3 { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:0.16em;
   text-transform:uppercase; color:var(--band); margin:0 0 9px; padding-bottom:5px;
   border-bottom:1px solid var(--rule); }
-p, li { font-size:13.5px; line-height:1.6; margin:0 0 8px; }
-.cols { display:grid; grid-template-columns:1.28fr 1fr; gap:30px; align-items:start; }
-.block + .block { margin-top:20px; }
+p, li { font-size:12.5px; line-height:1.55; margin:0 0 7px; }
+.cols { display:grid; grid-template-columns:1.12fr 1fr; gap:32px; align-items:start; }
+.block + .block { margin-top:16px; }
 
 ol.steps { margin:0; padding:0; list-style:none; counter-reset:s; }
 ol.steps li { counter-increment:s; position:relative; padding-left:24px; margin-bottom:7px; }
@@ -96,20 +96,20 @@ ol.steps li::before { content:counter(s); position:absolute; left:0; top:3px;
   font-family:var(--mono); font-size:9.5px; font-weight:700; color:#fff;
   background:var(--band); border-radius:5px; }
 
-.dgm { background:var(--tint); border:1px solid var(--rule); border-radius:9px; padding:14px; margin-bottom:20px; }
-.dgm svg { display:block; width:100%; height:auto; }
+.dgm { background:var(--tint); border:1px solid var(--rule); border-radius:10px;
+  padding:14px 18px; margin:0 0 18px; }
+/* The drawing scales to fit the box and centres itself, so a tall diagram
+   letterboxes rather than pushing the text off the page. */
+.dgm svg { display:block; width:100%; height:auto; max-height:280px; }
 
 .game { border-left:4px solid var(--band); background:var(--tint); border-radius:0 7px 7px 0;
   padding:8px 11px; margin-bottom:8px; }
 .game b { display:block; font-family:var(--slab); font-weight:800; font-size:14px; margin-bottom:2px; }
-.game span { font-size:12px; line-height:1.5; color:var(--soft); display:block; }
+.game span { font-size:11.5px; line-height:1.48; color:var(--soft); display:block; }
 
-.foot-cols { display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:22px; }
 ul.warn { margin:0; padding-left:17px; }
 ul.warn li { margin-bottom:7px; }
 ul.warn li::marker { color:var(--band); }
-.try { background:var(--tint); border:1px dashed var(--band); border-radius:9px; padding:12px 14px; }
-.try p { margin:0; }
 
 .sheet-foot { margin-top:auto; padding:12px 44px 18px; display:flex; justify-content:space-between;
   align-items:center; font-family:var(--mono); font-size:8.5px; letter-spacing:0.1em; color:var(--dim); }
@@ -131,7 +131,7 @@ ul.warn li::marker { color:var(--band); }
   /* "Print all" turns every sheet on, one per page. */
   body.all .sheet { display:flex; break-after:page; page-break-after:always; }
   body.all .sheet:last-of-type { break-after:auto; page-break-after:auto; }
-  .band, .dgm, .game, .try, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .band, .dgm, .game, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
 </head>
@@ -143,7 +143,7 @@ ul.warn li::marker { color:var(--band); }
   <button class="btn" id="all" type="button">Print all 70</button>
   <button class="btn btn-go" id="one" type="button">Print this one</button>
 </div>
-<p class="hint">Colour coded by family so a wall of them groups by type. Links, photos and the tag row are left off to keep every mechanic on a single side.</p>
+<p class="hint">Colour coded by family so a wall of them groups by type. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
 
 <div id="sheets"></div>
 
