@@ -91,11 +91,12 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 /* ── the poster ───────────────────────────────────────────────
    Landscape, and off the family palette on purpose: a neutral charcoal so
    nobody reads its colour as an eleventh family. */
-.poster { width:1123px; height:794px; display:none; flex-direction:column; overflow:hidden;
-  align-items:center; justify-content:center; padding:64px 70px;
-  background:#202225; color:#fff;
+.poster { width:1123px; height:794px; display:none; overflow:hidden;
   box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
-.poster.is-current { display:flex; }
+.poster.is-current { display:block; }
+.poster-inner { width:1123px; height:794px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:64px 70px;
+  background:#202225; color:#fff; }
 .poster h2 { font-family:var(--slab); font-weight:800; font-size:116px; line-height:1;
   letter-spacing:-0.035em; margin:0; text-align:center; white-space:nowrap; }
 .poster-sub { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:0.34em;
@@ -213,8 +214,6 @@ ul.warn li::marker { color:var(--band); }
 }
 
 @page { size:A4 portrait; margin:0; }
-/* The poster is the one landscape side in the set. */
-@page poster-page { size:A4 landscape; margin:0; }
 @media print {
   body { background:#fff; padding:0; display:block; }
   .bar, .hint, .palette { display:none !important; }
@@ -222,13 +221,19 @@ ul.warn li::marker { color:var(--band); }
     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .tpage { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0;
     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .poster { width:297mm; height:210mm; page:poster-page; box-shadow:none; transform:none; margin:0;
-    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .sheet.is-current, .tpage.is-current, .poster.is-current { display:flex; }
+  /* Every side in the set is portrait, so the print dialog has one orientation
+     to obey and the poster cannot spill onto a second sheet. The poster keeps
+     its landscape proportions by lying on its side: turn the paper to read it. */
+  .poster { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0; overflow:hidden; }
+  .poster-inner { width:297mm; height:210mm; transform:translateY(297mm) rotate(-90deg);
+    transform-origin:top left; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .sheet.is-current, .tpage.is-current { display:flex; }
+  .poster.is-current { display:block; }
   /* "Print the set" turns every page on, one per side: poster, dividers, sheets. */
-  body.all .sheet, body.all .tpage, body.all .poster { display:flex; break-after:page; page-break-after:always; }
+  body.all .sheet, body.all .tpage { display:flex; break-after:page; page-break-after:always; }
+  body.all .poster { display:block; break-after:page; page-break-after:always; }
   body.all .sheet:last-of-type { break-after:auto; page-break-after:auto; }
-  .band, .dgm, .game, .tcard, .poster, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .band, .dgm, .game, .tcard, .poster-inner, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
 </head>
@@ -241,7 +246,7 @@ ul.warn li::marker { color:var(--band); }
   <button class="btn" id="all" type="button">Print the set</button>
   <button class="btn btn-go" id="one" type="button">Print this one</button>
 </div>
-<p class="hint">Colour coded by family so a wall of them groups by type. The set opens with a landscape poster, then family title pages, two to an A4 side, to be cut in half and used as dividers. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
+<p class="hint">Colour coded by family so a wall of them groups by type. The set opens with a poster, which prints sideways on a portrait sheet so the whole set is one orientation, then family title pages, two to an A4 side, to be cut in half and used as dividers. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
 
 <div class="palette" id="palette" hidden>
   <div class="palette-head">

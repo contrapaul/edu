@@ -121,7 +121,7 @@
   /* The poster that fronts the set. Landscape, and deliberately outside the
      family palette so no reader takes its grey for an eleventh family. */
   function poster() {
-    return '<div class="poster" data-slug="poster">' +
+    return '<div class="poster" data-slug="poster"><div class="poster-inner">' +
       '<h2>Game Mechanics</h2>' +
       '<p class="poster-sub">' + MECHANICS.length + ' mechanics in ' + FAM_KEYS.length + ' families</p>' +
       '<div class="poster-row">' +
@@ -133,7 +133,7 @@
         }).join('') +
       '</div>' +
       '<p class="poster-foot">edu.contrapaul.com / tools / mechanics</p>' +
-    '</div>';
+    '</div></div>';
   }
 
   var titlePages = '';
