@@ -52,7 +52,78 @@
   }
 
   var host = document.getElementById('sheets');
-  host.innerHTML = MECHANICS.map(sheet).join('');
+
+  /* ── family title pages ────────────────────────────────────────
+     Dividers for a printed set. Two half pages to an A4 side, each one a
+     family in its own colour, so a wall or a folder can be split by family
+     without hunting for where one group ends. */
+  var FAMILY_BLURBS = {
+    turn:   "Every game has to settle who acts and when. These mechanics set the order of play, and they decide how long anybody sits waiting for their turn to come round.",
+    move:   "Where pieces go, how far they travel in one go, and what the shape of the board does to both of those answers.",
+    chance: "Dice, draws and shuffles. These mechanics decide how much of a result the players earn and how much the game simply hands them.",
+    cards:  "Hands, decks, and the ways players change what is inside them while the game is running.",
+    econ:   "Getting things, spending them, and swapping them with the people across the table. Most of the real decisions in a game end up here.",
+    combat: "Attacking, defending, and settling what happens when two pieces want the same square at the same time.",
+    hidden: "What one player knows and another does not. These mechanics run on secrets, bluffing, and reading the room.",
+    fair:   "Ways of keeping a losing player interested, and of stopping a winning player from running away with the whole game.",
+    growth: "Getting stronger as the game goes on. Levels, upgrades and engines, and the patience of building something before it pays.",
+    goals:  "How a game ends and how it is won. Scoring reaches backwards and shapes every decision made before it."
+  };
+
+  /* Flat and geometric, drawn the way the diagrams are, knocked out of the
+     family colour behind them. */
+  var ICON_ATTRS = 'viewBox="0 0 100 100" fill="none" stroke="currentColor" ' +
+    'stroke-width="8" stroke-linecap="round" stroke-linejoin="round"';
+  var FAMILY_ICONS = {
+    turn: '<path d="M60 19 A34 34 0 1 1 48 16"/>' +
+      '<path d="M44 6 L63 16 L44 26 Z" fill="currentColor" stroke="none"/>',
+    move: [6, 36, 66].map(function (y) {
+      return [6, 36, 66].map(function (x) {
+        var mid = x === 36 && y === 36;
+        return '<rect x="' + x + '" y="' + y + '" width="28" height="28" rx="4" stroke-width="6"' +
+          (mid ? ' fill="currentColor"' : '') + '/>';
+      }).join('');
+    }).join(''),
+    chance: '<rect x="10" y="10" width="80" height="80" rx="17"/>' +
+      [[31, 31], [69, 31], [50, 50], [31, 69], [69, 69]].map(function (p) {
+        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" fill="currentColor" stroke="none"/>';
+      }).join(''),
+    cards: '<rect x="12" y="30" width="38" height="54" rx="6" stroke-width="7" transform="rotate(-15 31 57)"/>' +
+      '<rect x="50" y="30" width="38" height="54" rx="6" stroke-width="7" transform="rotate(15 69 57)"/>' +
+      '<rect x="31" y="22" width="38" height="54" rx="6" stroke-width="7" fill="var(--band)"/>',
+    econ: '<rect x="10" y="54" width="34" height="34" rx="5"/><rect x="56" y="54" width="34" height="34" rx="5"/>' +
+      '<rect x="33" y="12" width="34" height="34" rx="5"/>',
+    combat: '<path d="M6 50 L38 50 M25 36 L39 50 L25 64"/><path d="M94 50 L62 50 M75 36 L61 50 L75 64"/>',
+    hidden: '<path d="M8 52 C30 22 70 22 92 52 C70 82 30 82 8 52 Z"/>' +
+      '<circle cx="50" cy="52" r="12" fill="currentColor" stroke="none"/><path d="M16 86 L84 18"/>',
+    fair: '<path d="M16 30 L84 30 M50 30 L50 84 M26 84 L74 84 M16 30 L16 52 M84 30 L84 52"/>' +
+      '<path d="M1 52 A16 16 0 0 0 31 52" stroke-width="7"/><path d="M69 52 A16 16 0 0 0 99 52" stroke-width="7"/>',
+    growth: '<rect x="10" y="62" width="21" height="27" rx="4" fill="currentColor" stroke="none"/>' +
+      '<rect x="39" y="42" width="21" height="47" rx="4" fill="currentColor" stroke="none"/>' +
+      '<rect x="68" y="16" width="21" height="73" rx="4" fill="currentColor" stroke="none"/>',
+    goals: '<circle cx="50" cy="50" r="37"/><circle cx="50" cy="50" r="19"/>' +
+      '<circle cx="50" cy="50" r="7" fill="currentColor" stroke="none"/>'
+  };
+
+  function titleCard(key) {
+    var fam = FAMILIES[key];
+    var n = MECHANICS.filter(function (m) { return m.family === key; }).length;
+    return '<div class="tcard ' + fam.cls + '">' +
+      '<svg class="tcard-icon" ' + ICON_ATTRS + ' aria-hidden="true">' + FAMILY_ICONS[key] + '</svg>' +
+      '<h2>' + esc(fam.name) + '</h2>' +
+      '<p class="tcard-blurb">' + esc(FAMILY_BLURBS[key]) + '</p>' +
+      '<p class="tcard-foot">' + n + ' mechanics <span>/</span> edu.contrapaul.com / tools / mechanics</p>' +
+    '</div>';
+  }
+
+  var FAM_KEYS = Object.keys(FAMILIES);
+  var titlePages = '';
+  for (var t = 0; t < FAM_KEYS.length; t += 2) {
+    titlePages += '<div class="tpage" data-slug="titles-' + (t / 2) + '">' +
+      titleCard(FAM_KEYS[t]) + (FAM_KEYS[t + 1] ? titleCard(FAM_KEYS[t + 1]) : '') + '</div>';
+  }
+
+  host.innerHTML = titlePages + MECHANICS.map(sheet).join('');
   liftCaptions();
 
   /* The explainer is drawn inside the SVG so the catalogue can scale it along
@@ -190,7 +261,7 @@
 
   function reportFit() {
     var sheet = host.querySelector('.sheet.is-current');
-    if (!sheet) return;
+    if (!sheet) { fitNote.textContent = ''; fitNote.classList.remove('over'); return; }
     var page = sheet.querySelector('.page');
     var over = page.scrollHeight - page.clientHeight;
     if (autoInput.checked) {
@@ -231,7 +302,7 @@
 
   function applyAuto() {
     var on = autoInput.checked;
-    var showing = host.querySelector('.sheet.is-current');
+    var showing = host.querySelector('.is-current');
     if (!showing) return;
     scaleInput.disabled = on;
     try { localStorage.setItem(AUTO_STORE, on ? '1' : '0'); } catch (e) { /* private mode */ }
@@ -268,6 +339,16 @@
 
   /* Selector, grouped by family so it reads like the catalogue. */
   var pick = document.getElementById('pick');
+  var tgroup = document.createElement('optgroup');
+  tgroup.label = 'Family title pages';
+  for (var tp = 0; tp < FAM_KEYS.length; tp += 2) {
+    var to = document.createElement('option');
+    to.value = 'titles-' + (tp / 2);
+    to.textContent = FAMILIES[FAM_KEYS[tp]].short +
+      (FAM_KEYS[tp + 1] ? ' and ' + FAMILIES[FAM_KEYS[tp + 1]].short : '');
+    tgroup.appendChild(to);
+  }
+  pick.appendChild(tgroup);
   Object.keys(FAMILIES).forEach(function (key) {
     var group = document.createElement('optgroup');
     group.label = FAMILIES[key].name;
@@ -281,7 +362,7 @@
   });
 
   function show(slug) {
-    host.querySelectorAll('.sheet').forEach(function (s) {
+    host.querySelectorAll('.sheet, .tpage').forEach(function (s) {
       s.classList.toggle('is-current', s.dataset.slug === slug);
     });
     pick.value = slug;
@@ -298,7 +379,10 @@
   });
 
   document.getElementById('all').addEventListener('click', function () {
-    if (!confirm('Print all ' + MECHANICS.length + ' sheets? That is ' + MECHANICS.length + ' sides of paper.')) return;
+    var pages = MECHANICS.length + Math.ceil(FAM_KEYS.length / 2);
+    if (!confirm('Print the whole set? That is ' + pages + ' sides: ' +
+      Math.ceil(FAM_KEYS.length / 2) + ' of family title pages, two to a side, then ' +
+      MECHANICS.length + ' mechanics.')) return;
     document.body.classList.add('all');
     fitDiagrams();
     if (autoInput.checked) applyAuto();
@@ -309,7 +393,8 @@
   window.addEventListener('afterprint', function () { document.body.classList.remove('all'); });
 
   var start = location.hash.slice(1);
-  show(MECHANICS.some(function (m) { return m.slug === start; }) ? start : MECHANICS[0].slug);
+  var known = host.querySelector('[data-slug="' + (start || 'none').replace(/"/g, '') + '"]');
+  show(known ? start : MECHANICS[0].slug);
   if (autoInput.checked) applyAuto();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
     fitDiagrams();
