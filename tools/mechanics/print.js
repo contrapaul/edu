@@ -117,13 +117,32 @@
   }
 
   var FAM_KEYS = Object.keys(FAMILIES);
+
+  /* The poster that fronts the set. Landscape, and deliberately outside the
+     family palette so no reader takes its grey for an eleventh family. */
+  function poster() {
+    return '<div class="poster" data-slug="poster">' +
+      '<h2>Game Mechanics</h2>' +
+      '<p class="poster-sub">' + MECHANICS.length + ' mechanics in ' + FAM_KEYS.length + ' families</p>' +
+      '<div class="poster-row">' +
+        FAM_KEYS.map(function (key) {
+          return '<div class="poster-item">' +
+            '<svg ' + ICON_ATTRS + ' aria-hidden="true">' + FAMILY_ICONS[key] + '</svg>' +
+            '<span>' + esc(FAMILIES[key].short) + '</span>' +
+          '</div>';
+        }).join('') +
+      '</div>' +
+      '<p class="poster-foot">edu.contrapaul.com / tools / mechanics</p>' +
+    '</div>';
+  }
+
   var titlePages = '';
   for (var t = 0; t < FAM_KEYS.length; t += 2) {
     titlePages += '<div class="tpage" data-slug="titles-' + (t / 2) + '">' +
       titleCard(FAM_KEYS[t]) + (FAM_KEYS[t + 1] ? titleCard(FAM_KEYS[t + 1]) : '') + '</div>';
   }
 
-  host.innerHTML = titlePages + MECHANICS.map(sheet).join('');
+  host.innerHTML = poster() + titlePages + MECHANICS.map(sheet).join('');
   liftCaptions();
 
   /* The explainer is drawn inside the SVG so the catalogue can scale it along
@@ -339,6 +358,14 @@
 
   /* Selector, grouped by family so it reads like the catalogue. */
   var pick = document.getElementById('pick');
+  var pgroup = document.createElement('optgroup');
+  pgroup.label = 'Poster';
+  var po = document.createElement('option');
+  po.value = 'poster';
+  po.textContent = 'Game Mechanics poster';
+  pgroup.appendChild(po);
+  pick.appendChild(pgroup);
+
   var tgroup = document.createElement('optgroup');
   tgroup.label = 'Family title pages';
   for (var tp = 0; tp < FAM_KEYS.length; tp += 2) {
@@ -362,7 +389,7 @@
   });
 
   function show(slug) {
-    host.querySelectorAll('.sheet, .tpage').forEach(function (s) {
+    host.querySelectorAll('.sheet, .tpage, .poster').forEach(function (s) {
       s.classList.toggle('is-current', s.dataset.slug === slug);
     });
     pick.value = slug;
@@ -379,8 +406,8 @@
   });
 
   document.getElementById('all').addEventListener('click', function () {
-    var pages = MECHANICS.length + Math.ceil(FAM_KEYS.length / 2);
-    if (!confirm('Print the whole set? That is ' + pages + ' sides: ' +
+    var pages = 1 + Math.ceil(FAM_KEYS.length / 2) + MECHANICS.length;
+    if (!confirm('Print the whole set? That is ' + pages + ' sides: the poster in landscape, ' +
       Math.ceil(FAM_KEYS.length / 2) + ' of family title pages, two to a side, then ' +
       MECHANICS.length + ' mechanics.')) return;
     document.body.classList.add('all');
