@@ -738,15 +738,24 @@ const DIAGRAMS = {
     for (let i = 0; i < 5; i++) s += `<rect class="dg-accf" x="${i * 24}" y="22" width="18" height="26" rx="3"/>`;
     s += `<text class="dg-k" x="250" y="12">P2 has too much stone</text>`;
     for (let i = 0; i < 5; i++) s += `<rect x="${250 + i * 24}" y="22" width="18" height="26" rx="3" style="fill:var(--dg-alt,#FA16C2)"/>`;
-    s += `<path class="dg-line" d="M126 76 L268 76"/>`;
-    s += `<path class="dg-line" d="M258 68 L268 76 L258 84"/>`;
-    s += `<path class="dg-line" d="M268 100 L126 100"/>`;
-    s += `<path class="dg-line" d="M136 92 L126 100 L136 108"/>`;
-    s += `<text class="dg-s" x="150" y="70">2 wood</text>`;
-    s += `<text class="dg-s" x="150" y="122">2 stone</text>`;
-    s += `<text class="dg-t" x="0" y="164">Both players end up better off, which is why trading works.</text>`;
-    s += `<text class="dg-t" x="0" y="186">It also means the table can gang up on whoever is winning.</text>`;
-    return dgWrap("0 0 400 198", s);
+    /* The trade itself, read as one line across the middle. */
+    s += `<text class="dg-s" x="0" y="95">P1 offers 2 wood</text>`;
+    s += `<path class="dg-line" d="M120 91 L154 91"/>`;
+    s += `<path class="dg-line" d="M144 83 L154 91 L144 99"/>`;
+    s += `<rect class="dg-accf" x="162" y="78" width="76" height="26" rx="13"/>`;
+    s += `<text class="dg-s" x="200" y="95" text-anchor="middle" style="fill:var(--dg-on-ink,#16171d)">TRADE</text>`;
+    s += `<path class="dg-line" d="M280 91 L246 91"/>`;
+    s += `<path class="dg-line" d="M256 83 L246 91 L256 99"/>`;
+    s += `<text class="dg-s" x="400" y="95" text-anchor="end">P2 offers 2 stone</text>`;
+    /* The hands after the swap, so the gain is visible rather than asserted. */
+    const hand = (x0, y, kinds) => kinds.map((k, i) => k
+      ? `<rect class="dg-accf" x="${x0 + i * 24}" y="${y}" width="18" height="26" rx="3"/>`
+      : `<rect x="${x0 + i * 24}" y="${y}" width="18" height="26" rx="3" style="fill:var(--dg-alt,#FA16C2)"/>`).join('');
+    s += `<text class="dg-k" x="0" y="138">P1 now has 3 wood, 2 stone</text>`;
+    s += hand(0, 148, [1, 1, 1, 0, 0]);
+    s += `<text class="dg-k" x="250" y="138">P2 now has 3 stone, 2 wood</text>`;
+    s += hand(250, 148, [0, 0, 0, 1, 1]);
+    return dgWrap("0 0 400 176", s);
   },
 
   /* Each purchase makes the next one easier */
