@@ -76,7 +76,7 @@ const DIAGRAMS = {
 
   /* ── One player moves everything, versus swapping one at a time ── */
   "turn-alternating": () => {
-    let s = `<text class="dg-k" x="0" y="12">The slow way: whole turns</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The slow way: whole turns</text>`;
     // whole-turn bar
     s += `<rect class="dg-accf" x="0" y="22" width="150" height="26" rx="5"/>`;
     s += `<text class="dg-on" x="14" y="39">PLAYER 1 MOVES ALL</text>`;
@@ -99,7 +99,7 @@ const DIAGRAMS = {
 
   /* ── Secret choices, one reveal ── */
   "turn-simultaneous": () => {
-    let s = `<text class="dg-k" x="0" y="12">Step 1: everyone chooses in secret</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Step 1: everyone chooses in secret</text>`;
     for (let i = 0; i < 4; i++) {
       const x = 8 + i * 96;
       s += `<rect class="dg-grid" x="${x}" y="24" width="60" height="44" rx="5" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
@@ -121,7 +121,7 @@ const DIAGRAMS = {
 
   /* ── A budget of four, and a price list ── */
   "turn-action-points": () => {
-    let s = `<text class="dg-k" x="0" y="12">Your budget this turn</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Your budget this turn</text>`;
     for (let i = 0; i < 4; i++) {
       s += `<circle class="dg-accf" cx="${14 + i * 34}" cy="36" r="12"/>`;
     }
@@ -164,7 +164,7 @@ const DIAGRAMS = {
 
   /* ── Why diagonal movement is a problem, and how hexes fix it ── */
   "move-grid-hex": () => {
-    let s = `<text class="dg-k" x="0" y="12">Square grid: 8 neighbours, 2 different distances</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Square grid: 8 neighbours, 2 different distances</text>`;
     const cell = 30;
     for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
       const mid = r === 1 && c === 1;
@@ -239,7 +239,7 @@ const DIAGRAMS = {
 
   /* ── Item strength by race position ── */
   "fair-rubber-band": () => {
-    let s = `<text class="dg-k" x="0" y="12">What you find in the item box</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">What you find in the item box</text>`;
     const rows = [["1st", 1, "banana"], ["4th", 2, "green shell"], ["7th", 4, "star"], ["12th", 5, "bullet bill"]];
     rows.forEach(([pos, strength, item], i) => {
       const y = 30 + i * 40;
@@ -259,7 +259,7 @@ const DIAGRAMS = {
 
   /* ── Bids become seats ── */
   "fair-bidding": () => {
-    let s = `<text class="dg-k" x="0" y="12">Secret bids</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Secret bids</text>`;
     const bids = [["P1", 3], ["P2", 5], ["P3", 1], ["P4", 4]];
     bids.forEach(([p, n], i) => {
       const x = i * 100;
@@ -289,7 +289,7 @@ const DIAGRAMS = {
                   6:[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2]] }[n];
       return P.map(([c, r]) => `<circle class="dg-accf" cx="${ox + 14 + c * 16}" cy="${oy + 14 + r * 16}" r="4.5"/>`).join("");
     };
-    let s = `<text class="dg-k" x="0" y="12">Everyone rolls one die</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Everyone rolls one die</text>`;
     const rolls = [["P1", 4], ["P2", 6], ["P3", 2], ["P4", 5]];
     rolls.forEach(([p, n], i) => {
       const x = i * 96;
@@ -312,7 +312,7 @@ const DIAGRAMS = {
     const seq = (y, order) => order.map((p, i) =>
       `<rect x="${i * 84}" y="${y}" width="72" height="26" rx="5" style="fill:${p === 1 ? 'var(--fam-color,#FFE536)' : p === 2 ? 'var(--dg-alt,#FA16C2)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>` +
       `<text class="dg-on" x="${i * 84 + 36}" y="${y + 18}" text-anchor="middle">P${p}</text>`).join("");
-    let s = `<text class="dg-k" x="0" y="12">Round 1</text>` + seq(22, [1, 2, 3, 4]);
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Round 1</text>` + seq(22, [1, 2, 3, 4]);
     s += `<text class="dg-k" x="0" y="76">Round 2</text>` + seq(86, [3, 1, 4, 2]);
     s += `<text class="dg-k" x="0" y="140">Round 3</text>` + seq(150, [4, 3, 2, 1]);
     s += dgCap(0, 204, "Nobody keeps the good seat for the whole game.");
@@ -321,7 +321,7 @@ const DIAGRAMS = {
 
   /* No turns, one shared clock */
   "turn-realtime": () => {
-    let s = `<text class="dg-k" x="0" y="12">One clock, everyone at once</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">One clock, everyone at once</text>`;
     s += `<rect class="dg-grid" x="0" y="22" width="400" height="18" rx="9"/>`;
     s += `<rect class="dg-accf" x="0" y="22" width="255" height="18" rx="9"/>`;
     s += `<text class="dg-s" x="264" y="36">time left</text>`;
@@ -341,7 +341,7 @@ const DIAGRAMS = {
 
   /* Pick the job, everyone uses it, you use it better */
   "turn-roles": () => {
-    let s = `<text class="dg-k" x="0" y="12">Four roles on the table, you take one</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Four roles on the table, you take one</text>`;
     const roles = [0, 1, 2, 3];
     roles.forEach((r, i) => {
       const x = i * 100, on = i === 1;
@@ -365,7 +365,7 @@ const DIAGRAMS = {
   "move-points": () => {
     const N = { a:[40,50], b:[140,28], c:[150,110], d:[250,60], e:[340,36], f:[330,124], g:[240,140] };
     const E = [["a","b"],["a","c"],["b","c"],["b","d"],["c","d"],["c","g"],["d","e"],["d","f"],["d","g"],["f","g"],["e","f"]];
-    let s = `<text class="dg-k" x="0" y="12">Places joined by routes</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Places joined by routes</text>`;
     E.forEach(([p, q]) => { s += `<path class="dg-line" d="M${N[p][0]} ${N[p][1] + 20} L${N[q][0]} ${N[q][1] + 20}"/>`; });
     Object.entries(N).forEach(([k, [x, y]], i) => {
       s += `<circle cx="${x}" cy="${y + 20}" r="13" style="fill:${i === 0 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
@@ -381,7 +381,7 @@ const DIAGRAMS = {
       for (let i = 0; i < 6; i++) { const a = Math.PI / 180 * (60 * i - 30); pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`); }
       return `<polygon class="dg-grid" points="${pts.join(' ')}" style="fill:${fill}"/>`;
     };
-    let s = `<text class="dg-k" x="0" y="12">You have 4 movement points</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">You have 4 movement points</text>`;
     for (let i = 0; i < 4; i++) s += `<circle class="dg-accf" cx="${14 + i * 30}" cy="34" r="10"/>`;
     const ground = [["grass", 1, "var(--dg-f2,rgba(255,255,255,0.06))"], ["hill", 2, "var(--dg-f4,rgba(255,255,255,0.14))"], ["forest", 2, "var(--dg-f4,rgba(255,255,255,0.14))"], ["swamp", 3, "var(--dg-f6,rgba(255,255,255,0.32))"]];
     ground.forEach(([label, cost, fill], i) => {
@@ -397,7 +397,7 @@ const DIAGRAMS = {
   /* Your piece is a wall */
   "move-blocking": () => {
     const cell = 34;
-    let s = `<text class="dg-k" x="0" y="12">Where your piece stands, nobody passes</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Where your piece stands, nobody passes</text>`;
     for (let r = 0; r < 4; r++) for (let c = 0; c < 8; c++) {
       s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:${(r + c) % 2 ? 'var(--dg-f2,rgba(255,255,255,0.06))' : 'var(--dg-f1,rgba(255,255,255,0.03))'}"/>`;
     }
@@ -447,7 +447,7 @@ const DIAGRAMS = {
       `<circle cx="${(cx + dx * size * 0.27).toFixed(1)}" cy="${(cy + dy * size * 0.27).toFixed(1)}" r="${(size * 0.088).toFixed(1)}" style="fill:${fill}"/>`
     ).join("");
 
-    let s = `<text class="dg-k" x="0" y="12">One die, and the six equal shares of a roll</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">One die, and the six equal shares of a roll</text>`;
 
     /* The die itself, so the diagram reads as dice at a glance. */
     const D = 84, dy = 24;
@@ -474,7 +474,7 @@ const DIAGRAMS = {
 
   /* Roll a handful, count the hits */
   "chance-pools": () => {
-    let s = `<text class="dg-k" x="0" y="12">Roll 6 dice, count every 4 or higher</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Roll 6 dice, count every 4 or higher</text>`;
     const results = [2, 5, 6, 3, 4, 1];
     results.forEach((n, i) => {
       const x = i * 66, hit = n >= 4;
@@ -507,7 +507,7 @@ const DIAGRAMS = {
 
   /* Keep going or bank it */
   "chance-push": () => {
-    let s = `<text class="dg-k" x="0" y="12">Each extra roll: more points, more risk</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Each extra roll: more points, more risk</text>`;
     const rows = [[1, 10, 17], [2, 25, 33], [3, 45, 50], [4, 70, 67], [5, 100, 83]];
     rows.forEach(([roll, pts, risk], i) => {
       const y = 26 + i * 32;
@@ -530,7 +530,7 @@ const DIAGRAMS = {
       g += `<text class="dg-on" x="128" y="${y + 16}">${pct}%</text>`;
       return g;
     };
-    let s = `<text class="dg-k" x="0" y="12">Chance of rolling at least one 5 or 6</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Chance of rolling at least one 5 or 6</text>`;
     s += bar(26, "one roll", 33);
     s += bar(64, "with a reroll", 55);
     s += bar(102, "two rerolls", 70);
@@ -565,7 +565,7 @@ const DIAGRAMS = {
 
   /* Dice forget, decks remember */
   "chance-deck": () => {
-    let s = `<text class="dg-k" x="0" y="12">A die: the odds never change</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">A die: the odds never change</text>`;
     for (let i = 0; i < 5; i++) {
       s += `<rect class="dg-grid" x="${i * 46}" y="22" width="36" height="36" rx="7" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<circle class="dg-accf" cx="${i * 46 + 18}" cy="40" r="6"/>`;
@@ -587,7 +587,7 @@ const DIAGRAMS = {
 
   /* Few cards, many jobs to cover */
   "cards-hand": () => {
-    let s = `<text class="dg-k" x="0" y="12">Five cards, four jobs that need doing</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Five cards, four jobs that need doing</text>`;
     for (let i = 0; i < 5; i++) {
       const x = i * 56;
       s += `<rect x="${x}" y="22" width="46" height="66" rx="5" class="dg-grid" style="fill:var(--fam-color,#FFE536)"/>`;
@@ -614,7 +614,7 @@ const DIAGRAMS = {
       });
       return g;
     };
-    let s = `<text class="dg-k" x="0" y="12">Start: ten weak cards</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Start: ten weak cards</text>`;
     s += row(22, "turn 1", [0,0,0,0,0,0,0,0,0,0]);
     s += row(70, "turn 6", [1,0,0,1,0,0,0,1,0,0,0,0]);
     s += row(118, "turn 12", [1,1,0,1,1,0,1,0,1,1,0,1]);
@@ -624,7 +624,7 @@ const DIAGRAMS = {
 
   /* Take one, pass the rest */
   "cards-draft": () => {
-    let s = `<text class="dg-k" x="0" y="12">Everyone takes one card, then passes the pack left</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Everyone takes one card, then passes the pack left</text>`;
     const packs = [[5, 1], [4, 2], [3, 0]];
     packs.forEach(([n, taken], p) => {
       const y = 24 + p * 62;
@@ -661,7 +661,7 @@ const DIAGRAMS = {
 
   /* Sets are worth more than their parts */
   "cards-sets": () => {
-    let s = `<text class="dg-k" x="0" y="12">Three of a kind beats three loose cards</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Three of a kind beats three loose cards</text>`;
     const set = (ox, kinds, label, score) => {
       let g = "";
       kinds.forEach((k, i) => {
@@ -680,7 +680,7 @@ const DIAGRAMS = {
 
   /* Everyone plays one, highest of the led suit takes it */
   "cards-trick": () => {
-    let s = `<text class="dg-k" x="0" y="12">Everyone plays one card</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Everyone plays one card</text>`;
     const played = [["P1", 7, true, false], ["P2", 9, true, true], ["P3", 3, true, false], ["P4", 11, false, false]];
     played.forEach(([p, v, follows, wins], i) => {
       const x = i * 100;
@@ -696,7 +696,7 @@ const DIAGRAMS = {
 
   /* One card, three different jobs */
   "cards-multiuse": () => {
-    let s = `<text class="dg-k" x="0" y="12">The same card, three ways to spend it</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The same card, three ways to spend it</text>`;
     s += `<rect x="0" y="24" width="90" height="126" rx="8" class="dg-grid" style="fill:var(--fam-color,#FFE536)"/>`;
     for (let k = 0; k < 4; k++) s += `<rect x="14" y="${42 + k * 22}" width="${62 - k * 12}" height="8" rx="4" style="fill:var(--dg-knock,rgba(0,0,0,0.55))"/>`;
     const uses = ["play its action", "spend as money", "discard for speed"];
@@ -718,7 +718,7 @@ const DIAGRAMS = {
       for (let i = 0; i < 6; i++) { const a = Math.PI / 180 * (60 * i - 30); pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`); }
       return `<polygon class="dg-grid" points="${pts.join(' ')}" style="fill:${fill}"/>`;
     };
-    let s = `<text class="dg-k" x="0" y="12">The dice show 8, so every 8 tile pays</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The dice show 8, so every 8 tile pays</text>`;
     const tiles = [[52, 60, 8, 1], [140, 60, 5, 0], [228, 60, 8, 1], [316, 60, 11, 0],
                    [96, 128, 3, 0], [184, 128, 8, 1], [272, 128, 6, 0]];
     tiles.forEach(([x, y, n, pays]) => {
@@ -731,7 +731,7 @@ const DIAGRAMS = {
 
   /* Take the space and nobody else can */
   "econ-workers": () => {
-    let s = `<text class="dg-k" x="0" y="12">Six jobs, and only one worker fits each</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Six jobs, and only one worker fits each</text>`;
     const taken = [1, 0, 2, 0, 1, 0];
     taken.forEach((who, i) => {
       const x = (i % 3) * 136, y = 22 + Math.floor(i / 3) * 74;
@@ -773,7 +773,7 @@ const DIAGRAMS = {
 
   /* Each purchase makes the next one easier */
   "econ-engine": () => {
-    let s = `<text class="dg-k" x="0" y="12">Income per turn</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Income per turn</text>`;
     const income = [1, 1, 2, 3, 5, 8, 12, 18, 26];
     const maxv = 26;
     income.forEach((v, i) => {
@@ -788,7 +788,7 @@ const DIAGRAMS = {
 
   /* The price moves as people buy */
   "econ-market": () => {
-    let s = `<text class="dg-k" x="0" y="12">The price ladder for wheat</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The price ladder for wheat</text>`;
     const steps = [2, 3, 4, 6, 8, 11, 15, 20];
     const NOW = 2, W = 42, H = 18, dx = 48, base = 156, rise = 17;
     steps.forEach((p, i) => {
@@ -809,7 +809,7 @@ const DIAGRAMS = {
 
   /* Owning things costs money */
   "econ-upkeep": () => {
-    let s = `<text class="dg-k" x="0" y="12">Income against upkeep, turn by turn</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Income against upkeep, turn by turn</text>`;
     const inc = [4, 6, 9, 12, 14, 15, 15, 15];
     const up  = [1, 2, 4, 7, 11, 14, 17, 20];
     inc.forEach((v, i) => {
@@ -826,7 +826,7 @@ const DIAGRAMS = {
 
   /* Raw goods become useful goods become points */
   "econ-chain": () => {
-    let s = `<text class="dg-k" x="0" y="12">Three wood, one plank, half a house</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Three wood, one plank, half a house</text>`;
     const stage = (x, n, w, label) => {
       let g = "";
       for (let i = 0; i < n; i++) g += `<rect x="${x + (i % 3) * 22}" y="${30 + Math.floor(i / 3) * 26}" width="${w}" height="${w}" rx="3" class="dg-accf"/>`;
@@ -849,7 +849,7 @@ const DIAGRAMS = {
 
   /* Roll to hit, then they roll to survive */
   "combat-attack": () => {
-    let s = `<text class="dg-k" x="0" y="12">Three rolls, and most attacks die on the way</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Three rolls, and most attacks die on the way</text>`;
     const steps = [["roll to hit", 100, 67], ["roll to wound", 67, 33], ["they roll armour", 33, 22]];
     steps.forEach(([label, from, to], i) => {
       const y = 26 + i * 54;
@@ -865,7 +865,7 @@ const DIAGRAMS = {
 
   /* A bar that only goes down */
   "combat-hp": () => {
-    let s = `<text class="dg-k" x="0" y="12">Ten hit points, taking hits</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Ten hit points, taking hits</text>`;
     const states = [10, 7, 7, 3, 1, 0];
     states.forEach((hp, i) => {
       const y = 24 + i * 30;
@@ -880,7 +880,7 @@ const DIAGRAMS = {
 
   /* Everything beats something */
   "combat-rps": () => {
-    let s = `<text class="dg-k" x="0" y="12">Each unit type beats one and loses to another</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Each unit type beats one and loses to another</text>`;
     const nodes = [[200, 64, "spears"], [320, 164, "swords"], [80, 164, "cavalry"]];
     nodes.forEach(([x, y, label]) => {
       s += `<circle cx="${x}" cy="${y}" r="38" class="dg-grid" style="fill:var(--fam-color,#FFE536)"/>`;
@@ -900,7 +900,7 @@ const DIAGRAMS = {
 
   /* Where you attack from matters */
   "combat-facing": () => {
-    let s = `<text class="dg-k" x="0" y="12">The same attack, three different results</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The same attack, three different results</text>`;
     const cx = 130, cy = 126;
     s += `<path d="M${cx} ${cy} L${cx - 70} ${cy - 70} A99 99 0 0 1 ${cx + 70} ${cy - 70} Z" style="fill:var(--dg-f2,rgba(255,255,255,0.06))" class="dg-grid"/>`;
     s += `<path d="M${cx} ${cy} L${cx + 70} ${cy - 70} A99 99 0 0 1 ${cx + 70} ${cy + 70} Z" style="fill:var(--dg-alt-soft,rgba(250,22,194,0.22))" class="dg-grid"/>`;
@@ -921,7 +921,7 @@ const DIAGRAMS = {
   /* One shot, several targets */
   "combat-aoe": () => {
     const cell = 32;
-    let s = `<text class="dg-k" x="0" y="12">One blast, everything under it is hit</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">One blast, everything under it is hit</text>`;
     for (let r = 0; r < 5; r++) for (let c = 0; c < 10; c++) {
       s += `<rect class="dg-grid" x="${c * cell}" y="${22 + r * cell}" width="${cell}" height="${cell}" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
     }
@@ -936,7 +936,7 @@ const DIAGRAMS = {
 
   /* Everything is looking at the loud one */
   "combat-aggro": () => {
-    let s = `<text class="dg-k" x="0" y="12">Enemies must attack the loud one first</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Enemies must attack the loud one first</text>`;
     const tank = [90, 120];
     s += `<circle cx="${tank[0]}" cy="${tank[1]}" r="30" class="dg-accf"/>`;
     s += `<text class="dg-k" x="${tank[0] - 22}" y="${tank[1] + 56}">taunt</text>`;
@@ -956,7 +956,7 @@ const DIAGRAMS = {
 
   /* Powerful, but not every turn */
   "combat-cooldown": () => {
-    let s = `<text class="dg-k" x="0" y="12">A three turn cooldown across eight turns</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">A three turn cooldown across eight turns</text>`;
     const state = ["ready", "cool", "cool", "ready", "cool", "cool", "ready", "cool"];
     state.forEach((st, i) => {
       const x = i * 49, ready = st === "ready";
@@ -990,7 +990,7 @@ const DIAGRAMS = {
 
   /* One of these players is lying */
   "hidden-roles": () => {
-    let s = `<text class="dg-k" x="0" y="12">Five identical card backs</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Five identical card backs</text>`;
     for (let i = 0; i < 5; i++) {
       const x = i * 80;
       s += `<rect x="${x}" y="22" width="66" height="90" rx="7" class="dg-grid" style="fill:var(--dg-f3,rgba(255,255,255,0.09))"/>`;
@@ -1010,7 +1010,7 @@ const DIAGRAMS = {
   /* You can only see near your own pieces */
   "hidden-fog": () => {
     const cell = 28;
-    let s = `<text class="dg-k" x="0" y="12">The map, as one player sees it</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The map, as one player sees it</text>`;
     const seen = (c, r) => Math.hypot(c - 3, r - 3) < 2.6 || Math.hypot(c - 10, r - 2) < 2.1;
     for (let r = 0; r < 6; r++) for (let c = 0; c < 14; c++) {
       const vis = seen(c, r);
@@ -1028,7 +1028,7 @@ const DIAGRAMS = {
 
   /* Betting big with nothing */
   "hidden-bluff": () => {
-    let s = `<text class="dg-k" x="0" y="12">What they bet</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">What they bet</text>`;
     const rows = [["P1", 80, 70], ["P2", 30, 85], ["P3", 90, 15]];
     rows.forEach(([p, bet, real], i) => {
       const y = 24 + i * 58;
@@ -1048,7 +1048,7 @@ const DIAGRAMS = {
   "hidden-movement": () => {
     const N = { a:[30,60], b:[100,30], c:[110,110], d:[190,66], e:[270,34], f:[280,116], g:[360,70] };
     const E = [["a","b"],["a","c"],["b","d"],["c","d"],["d","e"],["d","f"],["e","g"],["f","g"],["b","c"]];
-    let s = `<text class="dg-k" x="0" y="12">The runner shows where they were, not where they are</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The runner shows where they were, not where they are</text>`;
     E.forEach(([p, q]) => { s += `<path class="dg-line" d="M${N[p][0]} ${N[p][1] + 20} L${N[q][0]} ${N[q][1] + 20}"/>`; });
     const shown = ["a", "b", "d"];
     Object.entries(N).forEach(([k, [x, y]]) => {
@@ -1107,7 +1107,7 @@ const DIAGRAMS = {
 
   /* One divides, the other picks */
   "fair-cut-choose": () => {
-    let s = `<text class="dg-k" x="0" y="12">P1 splits the pile</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">P1 splits the pile</text>`;
     s += `<rect class="dg-accf" x="4" y="24" width="128" height="46" rx="6"/>`;
     s += `<rect x="146" y="24" width="110" height="46" rx="6" style="fill:var(--fam-color,#FFE536);opacity:0.55"/>`;
     s += `<text class="dg-k" x="0" y="92">P2 chooses first</text>`;
@@ -1122,7 +1122,7 @@ const DIAGRAMS = {
 
   /* A head start, sized to the gap */
   "fair-handicap": () => {
-    let s = `<text class="dg-k" x="0" y="12">Without a handicap</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Without a handicap</text>`;
     s += `<rect class="dg-accf" x="80" y="22" width="290" height="22" rx="4"/>`;
     s += `<rect x="80" y="50" width="110" height="22" rx="4" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
     s += `<text class="dg-k" x="0" y="38">strong</text>`;
@@ -1147,7 +1147,7 @@ const DIAGRAMS = {
       g += `<text class="dg-on" x="138" y="${y + 16}">${skillWin}%</text>`;
       return g;
     };
-    let s = `<text class="dg-k" x="0" y="12">How often the stronger player wins</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">How often the stronger player wins</text>`;
     s += bar(26, "no luck", 97);
     s += bar(62, "some luck", 78);
     s += bar(98, "lots of luck", 56);
@@ -1157,7 +1157,7 @@ const DIAGRAMS = {
 
   /* Different powers, same chance of winning */
   "fair-asymmetry": () => {
-    let s = `<text class="dg-k" x="0" y="12">Four factions, four different shapes</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Four factions, four different shapes</text>`;
     const shapes = [[5, 2, 1, 4], [1, 5, 4, 2], [3, 3, 3, 3], [2, 1, 5, 4]];
     shapes.forEach((f, i) => {
       const x = i * 100;
@@ -1177,7 +1177,7 @@ const DIAGRAMS = {
 
   /* Numbers going up */
   "growth-xp": () => {
-    let s = `<text class="dg-k" x="0" y="12">Experience needed for each level</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Experience needed for each level</text>`;
     const need = [10, 25, 45, 70, 100, 140];
     need.forEach((n, i) => {
       const y = 24 + i * 30;
@@ -1193,7 +1193,7 @@ const DIAGRAMS = {
     const N = { a:[30,124], b:[130,74], c:[130,174], d:[240,44], e:[240,119], f:[240,194], g:[350,82], h:[350,164] };
     const E = [["a","b"],["a","c"],["b","d"],["b","e"],["c","e"],["c","f"],["d","g"],["e","g"],["e","h"],["f","h"]];
     const done = ["a", "b", "c"];
-    let s = `<text class="dg-k" x="0" y="12">Two branches unlocked, the rest still closed</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Two branches unlocked, the rest still closed</text>`;
     E.forEach(([p, q]) => { s += `<path class="dg-line" d="M${N[p][0]} ${N[p][1]} L${N[q][0]} ${N[q][1]}"/>`; });
     Object.entries(N).forEach(([k, [x, y]]) => {
       const on = done.includes(k);
@@ -1205,7 +1205,7 @@ const DIAGRAMS = {
 
   /* Better gear, same person */
   "growth-gear": () => {
-    let s = `<text class="dg-k" x="0" y="12">The same character, three loadouts</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The same character, three loadouts</text>`;
     const sets = [[1, 0, 0, 0], [1, 1, 1, 0], [1, 1, 1, 1]];
     sets.forEach((slots, i) => {
       const x = i * 136;
@@ -1223,7 +1223,7 @@ const DIAGRAMS = {
 
   /* The game remembers last time */
   "growth-legacy": () => {
-    let s = `<text class="dg-k" x="0" y="12">The same board, three sessions apart</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">The same board, three sessions apart</text>`;
     const cell = 26;
     const marks = [[], [[1,1],[4,0]], [[1,1],[4,0],[2,2],[0,3],[5,1],[3,3]]];
     marks.forEach((set, i) => {
@@ -1242,7 +1242,7 @@ const DIAGRAMS = {
 
   /* It gets worse whether you are ready or not */
   "growth-escalation": () => {
-    let s = `<text class="dg-k" x="0" y="12">Threat against player strength</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Threat against player strength</text>`;
     const threat = [2, 3, 5, 7, 10, 14, 19, 25];
     const power  = [4, 6, 8, 11, 13, 15, 17, 19];
     threat.forEach((t, i) => {
@@ -1259,7 +1259,7 @@ const DIAGRAMS = {
 
   /* Crossing a line changes the rules */
   "growth-milestones": () => {
-    let s = `<text class="dg-k" x="0" y="12">One track, three thresholds</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">One track, three thresholds</text>`;
     s += `<rect class="dg-grid" x="0" y="40" width="392" height="30" rx="15"/>`;
     s += `<rect class="dg-accf" x="0" y="40" width="220" height="30" rx="15"/>`;
     [98, 196, 294].forEach((x, i) => {
@@ -1273,7 +1273,7 @@ const DIAGRAMS = {
 
   /* You lose, but you keep something */
   "growth-runs": () => {
-    let s = `<text class="dg-k" x="0" y="12">Four attempts, each one starts stronger</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Four attempts, each one starts stronger</text>`;
     const runs = [[3, 0], [5, 1], [6, 2], [9, 3]];
     runs.forEach(([reach, kept], i) => {
       const y = 24 + i * 44;
@@ -1290,7 +1290,7 @@ const DIAGRAMS = {
 
   /* Everything converts to one number */
   "goals-vp": () => {
-    let s = `<text class="dg-k" x="0" y="12">Different things, one currency</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Different things, one currency</text>`;
     const sources = [["buildings", 3, 4], ["routes", 2, 6], ["cards", 5, 1], ["bonus", 1, 8]];
     let total = 0;
     sources.forEach(([label, n, each], i) => {
@@ -1309,7 +1309,7 @@ const DIAGRAMS = {
 
   /* Most pieces in the region takes it */
   "goals-area": () => {
-    let s = `<text class="dg-k" x="0" y="12">Three regions, counted separately</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Three regions, counted separately</text>`;
     const regions = [[0, 4, 2], [136, 2, 3], [272, 3, 3]];
     regions.forEach(([ox, a, b], i) => {
       s += `<rect class="dg-grid" x="${ox}" y="22" width="118" height="110" rx="10" style="fill:var(--dg-f1,rgba(255,255,255,0.03))"/>`;
@@ -1324,7 +1324,7 @@ const DIAGRAMS = {
 
   /* First past the line */
   "goals-race": () => {
-    let s = `<text class="dg-k" x="0" y="12">First to the end wins, and everyone can see it coming</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">First to the end wins, and everyone can see it coming</text>`;
     const pos = [86, 62, 71, 40];
     pos.forEach((p, i) => {
       const y = 26 + i * 40;
@@ -1339,7 +1339,7 @@ const DIAGRAMS = {
 
   /* Several roads to the same finish */
   "goals-multiwin": () => {
-    let s = `<text class="dg-k" x="0" y="12">Four ways to win, one game</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Four ways to win, one game</text>`;
     const paths = [["military", 82], ["science", 46], ["culture", 64], ["economy", 28]];
     paths.forEach(([label, p], i) => {
       const y = 26 + i * 42;
@@ -1354,7 +1354,7 @@ const DIAGRAMS = {
 
   /* Nobody knows the score until the end */
   "goals-hidden": () => {
-    let s = `<text class="dg-k" x="0" y="12">During the game</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">During the game</text>`;
     for (let i = 0; i < 4; i++) {
       const x = i * 100;
       s += `<rect x="${x}" y="22" width="82" height="56" rx="7" class="dg-grid" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
@@ -1376,7 +1376,7 @@ const DIAGRAMS = {
 
   /* Two matching things are worth more than two things */
   "goals-multiplier": () => {
-    let s = `<text class="dg-k" x="0" y="12">Same eight pieces, arranged two ways</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Same eight pieces, arranged two ways</text>`;
     const layout = (ox, y, groups, score, label) => {
       let g = `<text class="dg-k" x="${ox}" y="${y}">${label}</text>`;
       let x = ox;
@@ -1399,7 +1399,7 @@ const DIAGRAMS = {
 
   /* Out is out */
   "goals-elimination": () => {
-    let s = `<text class="dg-k" x="0" y="12">Six players, one game</text>`;
+    let s = `<text class="dg-k" x="200" y="12" text-anchor="middle">Six players, one game</text>`;
     const rounds = [6, 6, 4, 3, 2, 1];
     rounds.forEach((alive, r) => {
       const y = 24 + r * 34;
