@@ -105,6 +105,7 @@
      so the intended framing is kept. */
   function fitDiagram(svg) {
     if (!svg) return;
+    dgWrapText(svg);
     let box;
     try { box = svg.getBBox(); } catch (e) { return; }
     if (!box || !box.width) return;

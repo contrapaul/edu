@@ -25,12 +25,51 @@ const DG_STYLE = `
 /* The same diagram is drawn twice on a page, once small on the card and
    once full size in the detail window, so marker ids are made unique
    per call to keep the document valid. */
+/* Explainers are written as one sentence and broken to fit at render time,
+   so they read as prose rather than as two separate pronouncements. */
+function dgCap(x, y, text) {
+  return `<text class="dg-t" x="${x}" y="${y}" data-cap="1">${text}</text>`;
+}
+
+/* Called by whatever put the drawing on the page, before it is measured. */
+function dgWrapText(svg) {
+  const NS = "http://www.w3.org/2000/svg";
+  const vbw = parseFloat(svg.dataset.vbw);
+  if (!vbw) return;
+  svg.querySelectorAll("text[data-cap]").forEach((t) => {
+    const full = t.dataset.capText || t.textContent;
+    t.dataset.capText = full;
+    const x = parseFloat(t.getAttribute("x")) || 0;
+    const room = vbw - x;
+    const probe = document.createElementNS(NS, "tspan");
+    t.textContent = "";
+    t.appendChild(probe);
+    const lines = [];
+    let line = "";
+    full.split(" ").forEach((word) => {
+      const next = line ? line + " " + word : word;
+      probe.textContent = next;
+      if (line && probe.getComputedTextLength() > room) { lines.push(line); line = word; }
+      else line = next;
+    });
+    if (line) lines.push(line);
+    t.textContent = "";
+    lines.forEach((ln, i) => {
+      const ts = document.createElementNS(NS, "tspan");
+      ts.setAttribute("x", x);
+      if (i) ts.setAttribute("dy", "22");
+      ts.textContent = ln;
+      t.appendChild(ts);
+    });
+  });
+}
+
 let dgSeq = 0;
 
 function dgWrap(vb, body) {
   const uid = "u" + (++dgSeq);
   const unique = body.replace(/dgar\d*/g, (m) => m + uid);
-  return `<svg viewBox="${vb}" role="img" xmlns="http://www.w3.org/2000/svg"><style>${DG_STYLE}</style>${unique}</svg>`;
+  return `<svg viewBox="${vb}" data-vbw="${vb.split(" ")[2]}" role="img" xmlns="http://www.w3.org/2000/svg"><style>${DG_STYLE}</style>${unique}</svg>`;
 }
 
 const DIAGRAMS = {
@@ -54,7 +93,7 @@ const DIAGRAMS = {
       if (i < 5) s += `<path class="dg-line" d="M${x + 45} 109 L${x + 51} 109"/>`;
     }
     s += `<text class="dg-s" x="316" y="113">round ends</text>`;
-    s += `<text class="dg-t" x="0" y="152">Nobody waits long. Both players stay focused.</text>`;
+    s += dgCap(0, 152, "Nobody waits long. Both players stay focused.");
     return dgWrap("0 0 400 165", s);
   },
 
@@ -76,7 +115,7 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="${x}" y="142" width="60" height="44" rx="5"/>`;
       s += `<text class="dg-on" x="${x + 30}" y="169" text-anchor="middle">${faces[i]}</text>`;
     }
-    s += `<text class="dg-t" x="0" y="212">Players must guess what everyone else picked.</text>`;
+    s += dgCap(0, 212, "Players must guess what everyone else picked.");
     return dgWrap("0 0 400 225", s);
   },
 
@@ -95,8 +134,8 @@ const DIAGRAMS = {
       s += `<text class="dg-t" x="10" y="${y + 16}" style="font-size:12px">${label}</text>`;
       for (let c = 0; c < cost; c++) s += `<circle class="dg-accf" cx="${224 + c * 14}" cy="${y + 11}" r="5"/>`;
     });
-    s += `<text class="dg-t" x="0" y="226">Spend them in any order. Leftovers are lost.</text>`;
-    return dgWrap("0 0 400 240", s);
+    s += dgCap(0, 226, "Spend them in any order. Leftovers are lost.");
+    return dgWrap("0 0 400 239", s);
   },
 
   /* ── Three chess pieces, three shapes ── */
@@ -119,8 +158,8 @@ const DIAGRAMS = {
     s += board(0, "Rook", [[0,2],[1,2],[3,2],[4,2],[2,0],[2,1],[2,3],[2,4]]);
     s += board(140, "Bishop", [[0,0],[1,1],[3,3],[4,4],[0,4],[1,3],[3,1],[4,0]]);
     s += board(280, "Knight", [[1,0],[3,0],[0,1],[4,1],[0,3],[4,3],[1,4],[3,4]]);
-    s += `<text class="dg-t" x="0" y="158">One pattern per piece.</text>`;
-    return dgWrap("0 0 400 172", s);
+    s += dgCap(0, 158, "One pattern per piece.");
+    return dgWrap("0 0 400 171", s);
   },
 
   /* ── Why diagonal movement is a problem, and how hexes fix it ── */
@@ -154,10 +193,8 @@ const DIAGRAMS = {
       s += hex(cx + dx, cy + dy, R, "var(--dg-f2,rgba(255,255,255,0.06))");
       s += `<text class="dg-s" x="${cx + dx}" y="${cy + dy + 4}" text-anchor="middle">1.0</text>`;
     });
-    s += `<text class="dg-t" x="168" y="200">Every direction costs the same.</text>`;
-    s += `<text class="dg-t" x="168" y="222">No player gains ground by</text>`;
-    s += `<text class="dg-t" x="168" y="244">moving diagonally.</text>`;
-    return dgWrap("0 0 400 282", s);
+    s += dgCap(168, 200, "Every direction costs the same. No player gains ground by moving diagonally.");
+    return dgWrap("0 0 400 213", s);
   },
 
   /* ── Wall blocks one shot, not the other ── */
@@ -178,7 +215,7 @@ const DIAGRAMS = {
     s += `<path class="dg-alt" d="M52 94 L337 64" stroke-dasharray="5 4"/>`;
     s += `<path class="dg-alt" d="M182 78 L196 66 M182 66 L196 78" stroke-width="2.6"/>`;
     s += `<text class="dg-s" x="228" y="40" style="fill:var(--dg-alt,#FA16C2)">blocked</text>`;
-    s += `<text class="dg-t" x="0" y="222">Hold a piece of string between two models to check.</text>`;
+    s += dgCap(0, 222, "Hold a piece of string between two models to check.");
     return dgWrap("0 0 400 235", s);
   },
 
@@ -196,9 +233,8 @@ const DIAGRAMS = {
     let s = `<text class="dg-s" x="60" y="12">first player wins</text><text class="dg-s" x="270" y="12">second player</text>`;
     s += bar(38, "Before", 68, 32);
     s += bar(102, "After the coin", 51, 49);
-    s += `<text class="dg-t" x="0" y="162">The gift is small. It closes the gap without flipping it.</text>`;
-    s += `<text class="dg-t" x="0" y="184">You can only find the right size by counting real games.</text>`;
-    return dgWrap("0 0 400 196", s);
+    s += dgCap(0, 162, "The gift is small. It closes the gap without flipping it. You can only find the right size by counting real games.");
+    return dgWrap("0 0 400 175", s);
   },
 
   /* ── Item strength by race position ── */
@@ -217,7 +253,7 @@ const DIAGRAMS = {
     s += `<defs><marker id="dgar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-altf"/></marker></defs>`;
     s += `<text class="dg-s" x="340" y="100" style="fill:var(--dg-alt,#FA16C2)">further</text>`;
     s += `<text class="dg-s" x="340" y="116" style="fill:var(--dg-alt,#FA16C2)">behind</text>`;
-    s += `<text class="dg-t" x="0" y="212">The further back you are, the better your help.</text>`;
+    s += dgCap(0, 212, "The further back you are, the better your help.");
     return dgWrap("0 0 400 225", s);
   },
 
@@ -241,8 +277,8 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="${x}" y="134" width="92" height="30" rx="5"/>`;
       s += `<text class="dg-on" x="${x + 46}" y="154" text-anchor="middle">${i + 1}. ${p} pays ${n}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="196">Players decide for themselves what going first is worth.</text>`;
-    return dgWrap("0 0 400 210", s);
+    s += dgCap(0, 196, "Players decide for themselves what going first is worth.");
+    return dgWrap("0 0 400 209", s);
   },
 
   /* Dice decide the order, and the order changes every round */
@@ -267,8 +303,8 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="0" y="${y}" width="${40 + n * 26}" height="17" rx="4"/>`;
       s += `<text class="dg-on" x="8" y="${y + 13}">${i + 1}. ${p}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="250">A player who was last can suddenly be first.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += dgCap(0, 250, "A player who was last can suddenly be first.");
+    return dgWrap("0 0 400 263", s);
   },
 
   /* The order is not fixed to the seating */
@@ -279,8 +315,8 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Round 1</text>` + seq(22, [1, 2, 3, 4]);
     s += `<text class="dg-k" x="0" y="76">Round 2</text>` + seq(86, [3, 1, 4, 2]);
     s += `<text class="dg-k" x="0" y="140">Round 3</text>` + seq(150, [4, 3, 2, 1]);
-    s += `<text class="dg-t" x="0" y="204">Nobody keeps the good seat for the whole game.</text>`;
-    return dgWrap("0 0 400 216", s);
+    s += dgCap(0, 204, "Nobody keeps the good seat for the whole game.");
+    return dgWrap("0 0 400 217", s);
   },
 
   /* No turns, one shared clock */
@@ -299,7 +335,7 @@ const DIAGRAMS = {
         x += w + 7;
       });
     }
-    s += `<text class="dg-t" x="0" y="212">Nobody waits, and nobody gets a tidy turn either.</text>`;
+    s += dgCap(0, 212, "Nobody waits, and nobody gets a tidy turn either.");
     return dgWrap("0 0 400 225", s);
   },
 
@@ -321,8 +357,8 @@ const DIAGRAMS = {
     s += `<text class="dg-k" x="0" y="164">Everyone else</text>`;
     s += `<rect x="92" y="150" width="150" height="20" rx="4" style="fill:var(--dg-f5,rgba(255,255,255,0.21))"/>`;
     s += `<text class="dg-s" x="250" y="164">the action only</text>`;
-    s += `<text class="dg-t" x="0" y="204">The choice matters because your rivals ride along.</text>`;
-    return dgWrap("0 0 400 216", s);
+    s += dgCap(0, 204, "The choice matters because your rivals ride along.");
+    return dgWrap("0 0 400 217", s);
   },
 
   /* Lines between places, not open ground */
@@ -334,9 +370,8 @@ const DIAGRAMS = {
     Object.entries(N).forEach(([k, [x, y]], i) => {
       s += `<circle cx="${x}" cy="${y + 20}" r="13" style="fill:${i === 0 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'};stroke:var(--ink-dim,#71778c);stroke-width:1.5"/>`;
     });
-    s += `<text class="dg-t" x="0" y="196">You can only go where a route already goes.</text>`;
-    s += `<text class="dg-t" x="0" y="218">Distance stops being about centimetres.</text>`;
-    return dgWrap("0 0 400 230", s);
+    s += dgCap(0, 196, "You can only go where a route already goes. Distance stops being about centimetres.");
+    return dgWrap("0 0 400 209", s);
   },
 
   /* A budget, and ground that eats it */
@@ -355,9 +390,8 @@ const DIAGRAMS = {
       for (let c = 0; c < cost; c++) s += `<circle class="dg-accf" cx="${cx - (cost - 1) * 8 + c * 16}" cy="${cy}" r="5.5"/>`;
       s += `<text class="dg-k" x="${cx - 18}" y="${cy + 56}">${label}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="196">Crossing the swamp costs your whole turn.</text>`;
-    s += `<text class="dg-t" x="0" y="218">The map starts making decisions for you.</text>`;
-    return dgWrap("0 0 400 230", s);
+    s += dgCap(0, 196, "Crossing the swamp costs your whole turn. The map starts making decisions for you.");
+    return dgWrap("0 0 400 209", s);
   },
 
   /* Your piece is a wall */
@@ -378,8 +412,8 @@ const DIAGRAMS = {
     });
     s += `<path class="dg-alt" d="M20 ${22 + cell * 1.5} L${3 * cell - 4} ${22 + cell * 1.5}" stroke-dasharray="5 4"/>`;
     s += `<path class="dg-alt" d="M${3 * cell - 14} ${22 + cell * 1.5 - 8} L${3 * cell - 4} ${22 + cell * 1.5} L${3 * cell - 14} ${22 + cell * 1.5 + 8}" stroke-width="2.6"/>`;
-    s += `<text class="dg-t" x="0" y="188">Two pieces can shut a whole lane, and standing still becomes a real move.</text>`;
-    return dgWrap("0 0 400 222", s);
+    s += dgCap(0, 188, "Two pieces can shut a whole lane, and standing still becomes a real move.");
+    return dgWrap("0 0 400 201", s);
   },
 
   /* The board does not exist yet */
@@ -393,8 +427,8 @@ const DIAGRAMS = {
     s += draw(130, 22, [[1, 1], [2, 1], [1, 2], [0, 1]], true);
     s += `<text class="dg-k" x="270" y="12">Turn 9</text>`;
     s += draw(270, 22, [[1, 1], [2, 1], [1, 2], [0, 1], [2, 0], [0, 2], [2, 2], [1, 0], [3, 1]], true);
-    s += `<text class="dg-t" x="0" y="164">Every game is played on a different map and players build the problem they have to solve.</text>`;
-    return dgWrap("0 0 400 198", s);
+    s += dgCap(0, 164, "Every game is played on a different map and players build the problem they have to solve.");
+    return dgWrap("0 0 400 177", s);
   },
 
 
@@ -434,10 +468,8 @@ const DIAGRAMS = {
     s += `<path class="dg-alt" d="M${x0} ${by + 7} L${x0} ${by} L${x0 + W} ${by} L${x0 + W} ${by + 7}"/>`;
     s += `<text class="dg-s" x="${x0 + 96}" y="${by + 24}">one whole roll</text>`;
 
-    s += `<text class="dg-t" x="0" y="164">No face is favoured. A 1 is exactly as likely as a 6.</text>`;
-    s += `<text class="dg-t" x="0" y="186">Good for wild swings. Bad for anything a player</text>`;
-    s += `<text class="dg-t" x="0" y="208">needs to plan around.</text>`;
-    return dgWrap("0 0 400 220", s);
+    s += dgCap(0, 164, "No face is favoured. A 1 is exactly as likely as a 6. Good for wild swings. Bad for anything a player needs to plan around.");
+    return dgWrap("0 0 400 177", s);
   },
 
   /* Roll a handful, count the hits */
@@ -453,9 +485,8 @@ const DIAGRAMS = {
     });
     s += `<text class="dg-k" x="0" y="108">3 hits</text>`;
     for (let i = 0; i < 3; i++) s += `<rect class="dg-accf" x="${70 + i * 40}" y="94" width="32" height="18" rx="4"/>`;
-    s += `<text class="dg-t" x="0" y="146">More dice means a steadier result, not just a bigger one.</text>`;
-    s += `<text class="dg-t" x="0" y="168">Six dice almost always give you two or three hits.</text>`;
-    return dgWrap("0 0 400 180", s);
+    s += dgCap(0, 146, "More dice means a steadier result, not just a bigger one. Six dice almost always give you two or three hits.");
+    return dgWrap("0 0 400 159", s);
   },
 
   /* Flat versus a hill */
@@ -470,11 +501,8 @@ const DIAGRAMS = {
       const h = c * 9.6;
       s += `<rect class="dg-accf" x="${210 + i * 17}" y="${86 - h}" width="13" height="${h}" rx="2"/>`;
     });
-    s += `<text class="dg-t" x="0" y="118">With one die, any number is as likely as any other.</text>`;
-    s += `<text class="dg-t" x="0" y="140">Add two dice together and the middle happens far more often.</text>`;
-    s += `<text class="dg-t" x="0" y="162">A 7 is six times as likely as a 12. That is why Catan puts</text>`;
-    s += `<text class="dg-t" x="0" y="184">its best land on the middle numbers.</text>`;
-    return dgWrap("0 0 400 196", s);
+    s += dgCap(0, 118, "With one die, any number is as likely as any other. Add two dice together and the middle happens far more often. A 7 is six times as likely as a 12. That is why Catan puts its best land on the middle numbers.");
+    return dgWrap("0 0 400 131", s);
   },
 
   /* Keep going or bank it */
@@ -489,9 +517,8 @@ const DIAGRAMS = {
     });
     s += `<text class="dg-s" x="248" y="42">reward</text>`;
     s += `<text class="dg-s" x="248" y="56">risk</text>`;
-    s += `<text class="dg-t" x="0" y="208">Stop and keep what you have, or roll once more.</text>`;
-    s += `<text class="dg-t" x="0" y="230">The player decides where the line is, which is the whole game.</text>`;
-    return dgWrap("0 0 400 242", s);
+    s += dgCap(0, 208, "Stop and keep what you have, or roll once more. The player decides where the line is, which is the whole game.");
+    return dgWrap("0 0 400 221", s);
   },
 
   /* A second chance changes the odds a lot */
@@ -507,9 +534,8 @@ const DIAGRAMS = {
     s += bar(26, "one roll", 33);
     s += bar(64, "with a reroll", 55);
     s += bar(102, "two rerolls", 70);
-    s += `<text class="dg-t" x="0" y="156">A reroll does not feel powerful, but it nearly doubles your odds.</text>`;
-    s += `<text class="dg-t" x="0" y="178">Price rerolls carefully. Players undervalue them.</text>`;
-    return dgWrap("0 0 400 190", s);
+    s += dgCap(0, 156, "A reroll does not feel powerful, but it nearly doubles your odds. Price rerolls carefully. Players undervalue them.");
+    return dgWrap("0 0 400 169", s);
   },
 
   /* A different board every time */
@@ -533,9 +559,8 @@ const DIAGRAMS = {
     let s = `<text class="dg-k" x="0" y="12">Game 1</text>` + layout(0, [1,0,1,0,0,1,0]);
     s += `<text class="dg-k" x="140" y="12">Game 2</text>` + layout(140, [0,1,0,1,1,0,0]);
     s += `<text class="dg-k" x="276" y="12">Game 3</text>` + layout(276, [0,0,1,1,0,0,1]);
-    s += `<text class="dg-t" x="0" y="152">The good land moves. Last game's plan does not fit.</text>`;
-    s += `<text class="dg-t" x="0" y="174">One box, many different games.</text>`;
-    return dgWrap("0 0 400 186", s);
+    s += dgCap(0, 152, "The good land moves. Last game's plan does not fit. One box, many different games.");
+    return dgWrap("0 0 400 165", s);
   },
 
   /* Dice forget, decks remember */
@@ -555,9 +580,8 @@ const DIAGRAMS = {
        nothing runs off the frame or overlaps the card that follows. */
     s += `<path class="dg-alt" d="M1 142 L1 148 L114 148 L114 142" stroke-dasharray="5 4"/>`;
     s += `<text class="dg-s" x="0" y="164">these four are already drawn</text>`;
-    s += `<text class="dg-t" x="0" y="188">A deck has a memory. Players can count what is left.</text>`;
-    s += `<text class="dg-t" x="0" y="210">That turns luck into something a careful player can work with.</text>`;
-    return dgWrap("0 0 400 222", s);
+    s += dgCap(0, 188, "A deck has a memory. Players can count what is left. That turns luck into something a careful player can work with.");
+    return dgWrap("0 0 400 201", s);
   },
 
 
@@ -577,8 +601,8 @@ const DIAGRAMS = {
       if (i < 2) s += `<rect class="dg-accf" x="255" y="${y}" width="40" height="19" rx="4"/>`;
       else s += `<rect class="dg-alt" x="255" y="${y}" width="40" height="19" rx="4" style="fill:none" stroke-dasharray="4 3"/>`;
     });
-    s += `<text class="dg-t" x="0" y="242">You cannot cover it all. Choosing what to drop is the game.</text>`;
-    return dgWrap("0 0 400 254", s);
+    s += dgCap(0, 242, "You cannot cover it all. Choosing what to drop is the game.");
+    return dgWrap("0 0 400 255", s);
   },
 
   /* The deck you build is the deck you draw from */
@@ -594,10 +618,8 @@ const DIAGRAMS = {
     s += row(22, "turn 1", [0,0,0,0,0,0,0,0,0,0]);
     s += row(70, "turn 6", [1,0,0,1,0,0,0,1,0,0,0,0]);
     s += row(118, "turn 12", [1,1,0,1,1,0,1,0,1,1,0,1]);
-    s += `<text class="dg-t" x="0" y="182">Each card you buy goes into your own deck.</text>`;
-    s += `<text class="dg-t" x="0" y="204">Buying a bad card is worse than buying nothing, because it</text>`;
-    s += `<text class="dg-t" x="0" y="226">will keep coming back into your hand all game.</text>`;
-    return dgWrap("0 0 400 238", s);
+    s += dgCap(0, 182, "Each card you buy goes into your own deck. Buying a bad card is worse than buying nothing, because it will keep coming back into your hand all game.");
+    return dgWrap("0 0 400 195", s);
   },
 
   /* Take one, pass the rest */
@@ -614,8 +636,8 @@ const DIAGRAMS = {
       s += `<path class="dg-line" d="M${62 + n * 40 + 6} ${y + 22} L${62 + n * 40 + 30} ${y + 22}"/>`;
       s += `<path class="dg-line" d="M${62 + n * 40 + 22} ${y + 15} L${62 + n * 40 + 30} ${y + 22} L${62 + n * 40 + 22} ${y + 29}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="222">What you pass on is as important as what you keep.</text>`;
-    return dgWrap("0 0 400 234", s);
+    s += dgCap(0, 222, "What you pass on is as important as what you keep.");
+    return dgWrap("0 0 400 235", s);
   },
 
   /* Draw, discard, reshuffle, repeat */
@@ -633,9 +655,8 @@ const DIAGRAMS = {
     s += `<path class="dg-acc" d="M346 78 L346 106 L46 106 L46 78" marker-end="url(#dgar)"/>`;
     s += `<defs><marker id="dgar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-accf"/></marker></defs>`;
     s += `<text class="dg-s" x="140" y="124">shuffle when the deck runs out</text>`;
-    s += `<text class="dg-t" x="0" y="164">Every card you own comes back around eventually.</text>`;
-    s += `<text class="dg-t" x="0" y="186">How fast it comes back is a number you control.</text>`;
-    return dgWrap("0 0 400 198", s);
+    s += dgCap(0, 164, "Every card you own comes back around eventually. How fast it comes back is a number you control.");
+    return dgWrap("0 0 400 177", s);
   },
 
   /* Sets are worth more than their parts */
@@ -653,10 +674,8 @@ const DIAGRAMS = {
     s += set(0, [1, 1, 1], "matching", 12);
     s += set(150, [1, 0, 1], "two only", 5);
     s += set(300, [1, 0, 0], "one", 1);
-    s += `<text class="dg-t" x="0" y="146">The reward grows faster than the number of cards.</text>`;
-    s += `<text class="dg-t" x="0" y="168">That is what makes players chase a set instead of taking</text>`;
-    s += `<text class="dg-t" x="0" y="190">whatever is easiest.</text>`;
-    return dgWrap("0 0 400 202", s);
+    s += dgCap(0, 146, "The reward grows faster than the number of cards. That is what makes players chase a set instead of taking whatever is easiest.");
+    return dgWrap("0 0 400 159", s);
   },
 
   /* Everyone plays one, highest of the led suit takes it */
@@ -671,9 +690,8 @@ const DIAGRAMS = {
       }
       s += `<text class="dg-k" x="${x + 4}" y="${134}">${p}${follows ? "" : " off suit"}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="172">The first card sets the suit. Everyone must follow it if they can.</text>`;
-    s += `<text class="dg-t" x="0" y="194">P4 could not follow, so their 11 is worthless. P2 wins with a 9.</text>`;
-    return dgWrap("0 0 400 206", s);
+    s += dgCap(0, 172, "The first card sets the suit. Everyone must follow it if they can. P4 could not follow, so their 11 is worthless. P2 wins with a 9.");
+    return dgWrap("0 0 400 185", s);
   },
 
   /* One card, three different jobs */
@@ -688,9 +706,8 @@ const DIAGRAMS = {
       s += `<rect class="dg-grid" x="142" y="${y}" width="250" height="32" rx="6" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
       s += `<text class="dg-t" x="154" y="${y + 21}" style="font-size:12px">${u}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="186">Fewer cards to print, more decisions to make.</text>`;
-    s += `<text class="dg-t" x="0" y="208">Every use you choose is two uses you gave up.</text>`;
-    return dgWrap("0 0 400 220", s);
+    s += dgCap(0, 186, "Fewer cards to print, more decisions to make. Every use you choose is two uses you gave up.");
+    return dgWrap("0 0 400 199", s);
   },
 
 
@@ -708,9 +725,8 @@ const DIAGRAMS = {
       s += hex(x, y, 40, pays ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))');
       for (let k = 0; k < (pays ? 2 : 0); k++) s += `<circle cx="${x - 10 + k * 20}" cy="${y}" r="7" style="fill:var(--dg-knock,rgba(0,0,0,0.55))"/>`;
     });
-    s += `<text class="dg-t" x="0" y="196">You do not choose when income arrives. The dice do.</text>`;
-    s += `<text class="dg-t" x="0" y="218">You only choose where to stand before the rolling starts.</text>`;
-    return dgWrap("0 0 400 230", s);
+    s += dgCap(0, 196, "You do not choose when income arrives. The dice do. You only choose where to stand before the rolling starts.");
+    return dgWrap("0 0 400 209", s);
   },
 
   /* Take the space and nobody else can */
@@ -725,9 +741,8 @@ const DIAGRAMS = {
         s += `<circle cx="${x + 96}" cy="${y + 29}" r="13" style="fill:${who === 1 ? 'var(--fam-color,#FFE536)' : 'var(--dg-alt,#FA16C2)'}"/>`;
       }
     });
-    s += `<text class="dg-t" x="0" y="192">Three jobs are already taken and cannot be used again.</text>`;
-    s += `<text class="dg-t" x="0" y="214">Going early matters. So does taking the job a rival wanted.</text>`;
-    return dgWrap("0 0 400 226", s);
+    s += dgCap(0, 192, "Three jobs are already taken and cannot be used again. Going early matters. So does taking the job a rival wanted.");
+    return dgWrap("0 0 400 205", s);
   },
 
   /* What is worthless to you is precious to them */
@@ -767,28 +782,29 @@ const DIAGRAMS = {
       s += `<text class="dg-k" x="${i * 44 + 8}" y="176">t${i + 1}</text>`;
     });
     s += `<path class="dg-alt" d="M1 152 L392 152" stroke-dasharray="6 5"/>`;
-    s += `<text class="dg-t" x="0" y="206">A flat game gives you the same amount every turn.</text>`;
-    s += `<text class="dg-t" x="0" y="228">An engine game pays you for building the engine first.</text>`;
-    s += `<text class="dg-t" x="0" y="250">Which is why the first few turns feel like nothing is happening.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += dgCap(0, 206, "A flat game gives you the same amount every turn. An engine game pays you for building the engine first. Which is why the first few turns feel like nothing is happening.");
+    return dgWrap("0 0 400 219", s);
   },
 
   /* The price moves as people buy */
   "econ-market": () => {
     let s = `<text class="dg-k" x="0" y="12">The price ladder for wheat</text>`;
     const steps = [2, 3, 4, 6, 8, 11, 15, 20];
+    const NOW = 2, W = 42, H = 18, dx = 48, base = 156, rise = 17;
     steps.forEach((p, i) => {
-      const x = i * 48, y = 150 - i * 16;
-      s += `<rect x="${x}" y="${y}" width="42" height="16" rx="3" class="dg-grid" style="fill:${i < 3 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
-      s += `<text class="dg-s" x="${x + 21}" y="${y + 12}" text-anchor="middle"` +
-        `${i < 3 ? ' style="fill:var(--dg-on-ink,#16171d)"' : ''}>${p}</text>`;
+      const x = i * dx, y = base - i * rise, sold = i <= NOW;
+      s += `<rect x="${x}" y="${y}" width="${W}" height="${H}" rx="3" class="dg-grid" ` +
+        `style="fill:${sold ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
+      s += `<text class="dg-s" x="${x + W / 2}" y="${y + 13}" text-anchor="middle"` +
+        `${sold ? ' style="fill:var(--dg-on-ink,#16171d)"' : ''}>${p}</text>`;
     });
-    s += `<circle cx="${2 * 48 + 21}" cy="${150 - 2 * 16 + 8}" r="12" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5"/>`;
-    s += `<text class="dg-s" x="120" y="184">price now</text>`;
-    s += `<path class="dg-alt" d="M1 170 L336 42" stroke-dasharray="6 5"/>`;
-    s += `<text class="dg-t" x="0" y="220">Every purchase pushes the marker one rung up.</text>`;
-    s += `<text class="dg-t" x="0" y="242">Being slow costs you money, with no rule saying it should.</text>`;
-    return dgWrap("0 0 400 254", s);
+    /* The marker sits above its own rung rather than on top of the ladder,
+       which is what made the old dashed line unreadable. */
+    const mx = NOW * dx + W / 2, my = base - NOW * rise;
+    s += `<path class="dg-altf" d="M${mx - 7} ${my - 14} L${mx + 7} ${my - 14} L${mx} ${my - 4} Z"/>`;
+    s += `<text class="dg-s" x="${mx}" y="${my - 21}" text-anchor="middle" style="fill:var(--dg-alt,#FA16C2)">price now</text>`;
+    s += dgCap(0, 200, "Every purchase pushes the marker one rung up. Being slow costs you money, with no rule saying it should.");
+    return dgWrap("0 0 400 213", s);
   },
 
   /* Owning things costs money */
@@ -804,9 +820,8 @@ const DIAGRAMS = {
     s += `<path class="dg-line" d="M1 150 L392 150"/>`;
     s += `<text class="dg-s" x="0" y="170">income</text>`;
     s += `<text class="dg-s" x="250" y="170">upkeep overtakes it</text>`;
-    s += `<text class="dg-t" x="0" y="206">Every building you own has to be paid for again next turn.</text>`;
-    s += `<text class="dg-t" x="0" y="228">Growing too fast becomes a way to lose.</text>`;
-    return dgWrap("0 0 400 240", s);
+    s += dgCap(0, 206, "Every building you own has to be paid for again next turn. Growing too fast becomes a way to lose.");
+    return dgWrap("0 0 400 219", s);
   },
 
   /* Raw goods become useful goods become points */
@@ -827,9 +842,8 @@ const DIAGRAMS = {
     s += `<path class="dg-line" d="M290 56 L330 56"/><path class="dg-line" d="M320 49 L330 56 L320 63"/>`;
     s += `<rect x="342" y="30" width="46" height="46" rx="23" style="fill:var(--dg-alt,#FA16C2)"/>`;
     s += `<text class="dg-k" x="342" y="112">points</text>`;
-    s += `<text class="dg-t" x="0" y="152">Every step costs a turn, so the last step is worth a lot.</text>`;
-    s += `<text class="dg-t" x="0" y="174">Short chains feel fast. Long chains reward planning ahead.</text>`;
-    return dgWrap("0 0 400 186", s);
+    s += dgCap(0, 152, "Every step costs a turn, so the last step is worth a lot. Short chains feel fast. Long chains reward planning ahead.");
+    return dgWrap("0 0 400 165", s);
   },
 
 
@@ -845,9 +859,8 @@ const DIAGRAMS = {
       s += `<rect x="${120 + 270 * to / 100}" y="${y}" width="${270 * (from - to) / 100}" height="24" rx="4" style="fill:var(--dg-alt,#FA16C2)"/>`;
       s += `<text class="dg-on" x="128" y="${y + 17}">${to}% left</text>`;
     });
-    s += `<text class="dg-t" x="0" y="212">Ten attacks become two wounds.</text>`;
-    s += `<text class="dg-t" x="0" y="234">Every extra roll makes combat slower and more predictable.</text>`;
-    return dgWrap("0 0 400 246", s);
+    s += dgCap(0, 212, "Ten attacks become two wounds. Every extra roll makes combat slower and more predictable.");
+    return dgWrap("0 0 400 225", s);
   },
 
   /* A bar that only goes down */
@@ -861,9 +874,8 @@ const DIAGRAMS = {
       }
       s += `<text class="dg-k" x="0" y="${y + 15}">${i === 0 ? 'start' : i === 5 ? 'destroyed' : 'hit ' + i}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="216">Players can see exactly how close a piece is to dying.</text>`;
-    s += `<text class="dg-t" x="0" y="238">That visible countdown is what makes the table lean in.</text>`;
-    return dgWrap("0 0 400 250", s);
+    s += dgCap(0, 216, "Players can see exactly how close a piece is to dying. That visible countdown is what makes the table lean in.");
+    return dgWrap("0 0 400 229", s);
   },
 
   /* Everything beats something */
@@ -882,8 +894,8 @@ const DIAGRAMS = {
              `<path class="dg-alt" d="M${(ex - ux * 12 - uy * 7).toFixed(1)} ${(ey - uy * 12 + ux * 7).toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)} L${(ex - ux * 12 + uy * 7).toFixed(1)} ${(ey - uy * 12 - ux * 7).toFixed(1)}" stroke-width="2.6"/>`;
     };
     s += arc(200, 64, 320, 164) + arc(320, 164, 80, 164) + arc(80, 164, 200, 64);
-    s += `<text class="dg-t" x="0" y="236">No unit is best. Bringing the wrong army is the mistake.</text>`;
-    return dgWrap("0 0 400 248", s);
+    s += dgCap(0, 236, "No unit is best. Bringing the wrong army is the mistake.");
+    return dgWrap("0 0 400 249", s);
   },
 
   /* Where you attack from matters */
@@ -902,8 +914,8 @@ const DIAGRAMS = {
       s += `<rect x="246" y="${y}" width="22" height="22" rx="4" class="dg-grid" style="fill:${fill}"/>`;
       s += `<text class="dg-t" x="276" y="${y + 16}" style="font-size:11px">${label}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="250">Moving to a better angle becomes worth a whole turn.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += dgCap(0, 250, "Moving to a better angle becomes worth a whole turn.");
+    return dgWrap("0 0 400 263", s);
   },
 
   /* One shot, several targets */
@@ -918,9 +930,8 @@ const DIAGRAMS = {
     units.forEach(([c, r, hit]) => {
       s += `<circle cx="${c * cell + cell / 2}" cy="${22 + r * cell + cell / 2}" r="10" style="fill:${hit ? 'var(--fam-color,#FFE536)' : 'var(--dg-f5,rgba(255,255,255,0.21))'}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="212">Four hit at once, which punishes players who bunch up.</text>`;
-    s += `<text class="dg-t" x="0" y="234">Now spreading out is a real tactic instead of a habit.</text>`;
-    return dgWrap("0 0 400 246", s);
+    s += dgCap(0, 212, "Four hit at once, which punishes players who bunch up. Now spreading out is a real tactic instead of a habit.");
+    return dgWrap("0 0 400 225", s);
   },
 
   /* Everything is looking at the loud one */
@@ -939,8 +950,8 @@ const DIAGRAMS = {
       s += `<path class="dg-acc" d="M${(x + ux * 20).toFixed(1)} ${(y + uy * 20).toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)}"/>`;
       s += `<path class="dg-acc" d="M${(ex - ux * 11 - uy * 6).toFixed(1)} ${(ey - uy * 11 + ux * 6).toFixed(1)} L${ex.toFixed(1)} ${ey.toFixed(1)} L${(ex - ux * 11 + uy * 6).toFixed(1)} ${(ey - uy * 11 - ux * 6).toFixed(1)}" stroke-width="2.6"/>`;
     });
-    s += `<text class="dg-t" x="0" y="246">One tough piece protects three fragile ones by standing there.</text>`;
-    return dgWrap("0 0 400 258", s);
+    s += dgCap(0, 246, "One tough piece protects three fragile ones by standing there.");
+    return dgWrap("0 0 400 259", s);
   },
 
   /* Powerful, but not every turn */
@@ -954,9 +965,8 @@ const DIAGRAMS = {
       else { s += `<rect x="${x + 8}" y="44" width="24" height="12" rx="6" style="fill:var(--dg-f5,rgba(255,255,255,0.21))"/>`; }
       s += `<text class="dg-k" x="${x + 10}" y="94">t${i + 1}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="132">The ability can be strong, because it is rare.</text>`;
-    s += `<text class="dg-t" x="0" y="154">Choosing the turn to use it becomes the interesting part.</text>`;
-    return dgWrap("0 0 400 166", s);
+    s += dgCap(0, 132, "The ability can be strong, because it is rare. Choosing the turn to use it becomes the interesting part.");
+    return dgWrap("0 0 400 145", s);
   },
 
 
@@ -974,10 +984,8 @@ const DIAGRAMS = {
       s += `<rect x="${x}" y="22" width="36" height="58" rx="5" class="dg-grid" style="fill:var(--dg-f3,rgba(255,255,255,0.09))"/>`;
       s += `<path class="dg-line" d="M${x + 8} 40 L${x + 28} 62 M${x + 28} 40 L${x + 8} 62" style="stroke:var(--ink-dim,#71778c)"/>`;
     }
-    s += `<text class="dg-t" x="0" y="118">They know how many cards you hold, and nothing else.</text>`;
-    s += `<text class="dg-t" x="0" y="140">The count alone tells them something, which is why hand size</text>`;
-    s += `<text class="dg-t" x="0" y="162">is worth thinking about.</text>`;
-    return dgWrap("0 0 400 174", s);
+    s += dgCap(0, 118, "They know how many cards you hold, and nothing else. The count alone tells them something, which is why hand size is worth thinking about.");
+    return dgWrap("0 0 400 131", s);
   },
 
   /* One of these players is lying */
@@ -995,8 +1003,8 @@ const DIAGRAMS = {
       s += `<rect x="${x}" y="156" width="66" height="52" rx="7" class="dg-grid" style="fill:${traitor ? 'var(--dg-alt,#FA16C2)' : 'var(--fam-color,#FFE536)'}"/>`;
       s += `<circle cx="${x + 33}" cy="182" r="12" style="fill:var(--dg-knock,rgba(0,0,0,0.55))"/>`;
     });
-    s += `<text class="dg-t" x="0" y="242">Everyone looks the same. One is playing a different game.</text>`;
-    return dgWrap("0 0 400 254", s);
+    s += dgCap(0, 242, "Everyone looks the same. One is playing a different game.");
+    return dgWrap("0 0 400 255", s);
   },
 
   /* You can only see near your own pieces */
@@ -1014,9 +1022,8 @@ const DIAGRAMS = {
     [[7, 4], [12, 5]].forEach(([c, r]) => {
       s += `<rect x="${c * cell + 8}" y="${22 + r * cell + 8}" width="12" height="12" rx="2" style="fill:var(--dg-f2,rgba(255,255,255,0.06))"/>`;
     });
-    s += `<text class="dg-t" x="0" y="212">Two enemies are on this board. The player sees neither.</text>`;
-    s += `<text class="dg-t" x="0" y="234">Scouting becomes worth spending a turn on.</text>`;
-    return dgWrap("0 0 400 246", s);
+    s += dgCap(0, 212, "Two enemies are on this board. The player sees neither. Scouting becomes worth spending a turn on.");
+    return dgWrap("0 0 400 225", s);
   },
 
   /* Betting big with nothing */
@@ -1033,9 +1040,8 @@ const DIAGRAMS = {
        heading, which the old tags collided with. */
     s += `<text class="dg-s" x="308" y="38">bet</text>`;
     s += `<text class="dg-s" x="308" y="64">hand</text>`;
-    s += `<text class="dg-t" x="0" y="210">P3 has almost nothing and is betting the most.</text>`;
-    s += `<text class="dg-t" x="0" y="232">The lie only works because nobody can check.</text>`;
-    return dgWrap("0 0 400 244", s);
+    s += dgCap(0, 210, "P3 has almost nothing and is betting the most. The lie only works because nobody can check.");
+    return dgWrap("0 0 400 223", s);
   },
 
   /* A trail, and a gap where the runner actually is */
@@ -1052,9 +1058,8 @@ const DIAGRAMS = {
       if (isNow) s += `<circle cx="${x}" cy="${y + 20}" r="20" style="fill:none;stroke:var(--dg-alt,#FA16C2);stroke-width:2.5;stroke-dasharray:5 4"/>`;
     });
     s += `<text class="dg-s" x="232" y="178">could be here</text>`;
-    s += `<text class="dg-t" x="0" y="200">Three known stops, and a growing set of places they might be.</text>`;
-    s += `<text class="dg-t" x="0" y="222">The hunters are doing detective work, not chasing.</text>`;
-    return dgWrap("0 0 400 234", s);
+    s += dgCap(0, 200, "Three known stops, and a growing set of places they might be. The hunters are doing detective work, not chasing.");
+    return dgWrap("0 0 400 213", s);
   },
 
   /* Same board, different goals */
@@ -1073,9 +1078,8 @@ const DIAGRAMS = {
       });
       s += `<rect x="${210 + i * 62}" y="${34}" width="50" height="34" rx="5" style="fill:${['var(--fam-color,#FFE536)','var(--dg-alt,#FA16C2)','var(--dg-f6,rgba(255,255,255,0.32))'][i]}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="148">Nobody knows why anyone else is doing what they are doing.</text>`;
-    s += `<text class="dg-t" x="0" y="170">Watching a rival's moves becomes a way to guess their goal.</text>`;
-    return dgWrap("0 0 400 182", s);
+    s += dgCap(0, 148, "Nobody knows why anyone else is doing what they are doing. Watching a rival's moves becomes a way to guess their goal.");
+    return dgWrap("0 0 400 161", s);
   },
 
   /* You may say this much, and no more */
@@ -1096,9 +1100,8 @@ const DIAGRAMS = {
       s += `<path class="dg-alt" d="M220 ${y + 8} L232 ${y + 20} M232 ${y + 8} L220 ${y + 20}" stroke-width="2.4"/>`;
       s += `<text class="dg-t" x="240" y="${y + 18}" style="font-size:11px">${t}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="156">Cutting communication down makes a team game hard.</text>`;
-    s += `<text class="dg-t" x="0" y="178">It also stops one loud player from running everyone's turn.</text>`;
-    return dgWrap("0 0 400 190", s);
+    s += dgCap(0, 156, "Cutting communication down makes a team game hard. It also stops one loud player from running everyone's turn.");
+    return dgWrap("0 0 400 169", s);
   },
 
 
@@ -1113,9 +1116,8 @@ const DIAGRAMS = {
     s += `<path class="dg-alt" d="M2 100 L136 100 L136 154 L2 154 Z" stroke-dasharray="6 4"/>`;
     s += `<rect x="146" y="104" width="110" height="46" rx="6" style="fill:var(--dg-f4,rgba(255,255,255,0.14))"/>`;
     s += `<text class="dg-s" x="266" y="132">P1 gets the rest</text>`;
-    s += `<text class="dg-t" x="0" y="192">P1 has every reason to split it evenly.</text>`;
-    s += `<text class="dg-t" x="0" y="214">No rule made them fair. The order of the two jobs did.</text>`;
-    return dgWrap("0 0 400 226", s);
+    s += dgCap(0, 192, "P1 has every reason to split it evenly. No rule made them fair. The order of the two jobs did.");
+    return dgWrap("0 0 400 205", s);
   },
 
   /* A head start, sized to the gap */
@@ -1132,9 +1134,8 @@ const DIAGRAMS = {
     s += `<text class="dg-k" x="0" y="168">new</text>`;
     s += `<rect x="190" y="152" width="170" height="22" rx="4" style="fill:var(--dg-alt,#FA16C2)"/>`;
     s += `<text class="dg-s" x="196" y="192">the head start</text>`;
-    s += `<text class="dg-t" x="0" y="228">The weaker player starts closer, so both can still lose.</text>`;
-    s += `<text class="dg-t" x="0" y="250">Go has done this for centuries with extra stones.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += dgCap(0, 228, "The weaker player starts closer, so both can still lose. Go has done this for centuries with extra stones.");
+    return dgWrap("0 0 400 241", s);
   },
 
   /* Luck narrows the gap between skill levels */
@@ -1150,10 +1151,8 @@ const DIAGRAMS = {
     s += bar(26, "no luck", 97);
     s += bar(62, "some luck", 78);
     s += bar(98, "lots of luck", 56);
-    s += `<text class="dg-t" x="0" y="152">Chess has almost no luck, so a beginner never beats an expert.</text>`;
-    s += `<text class="dg-t" x="0" y="174">Adding luck gives a weaker player a real chance, and costs the</text>`;
-    s += `<text class="dg-t" x="0" y="196">stronger player the certainty of winning.</text>`;
-    return dgWrap("0 0 400 208", s);
+    s += dgCap(0, 152, "Chess has almost no luck, so a beginner never beats an expert. Adding luck gives a weaker player a real chance, and costs the stronger player the certainty of winning.");
+    return dgWrap("0 0 400 165", s);
   },
 
   /* Different powers, same chance of winning */
@@ -1172,9 +1171,8 @@ const DIAGRAMS = {
       const x = i * 100;
       s += `<rect x="${x}" y="176" width="82" height="20" rx="4" style="fill:var(--dg-alt,#FA16C2)"/>`;
     });
-    s += `<text class="dg-t" x="0" y="230">Nothing is the same, and everything is equally likely to win.</text>`;
-    s += `<text class="dg-t" x="0" y="252">This is the hardest kind of balance to get right.</text>`;
-    return dgWrap("0 0 400 264", s);
+    s += dgCap(0, 230, "Nothing is the same, and everything is equally likely to win. This is the hardest kind of balance to get right.");
+    return dgWrap("0 0 400 243", s);
   },
 
   /* Numbers going up */
@@ -1186,9 +1184,8 @@ const DIAGRAMS = {
       s += `<text class="dg-k" x="0" y="${y + 16}">lv ${i + 2}</text>`;
       s += `<rect class="dg-accf" x="46" y="${y}" width="${n * 2.4}" height="20" rx="4"/>`;
     });
-    s += `<text class="dg-t" x="0" y="228">Each level costs more than the last, so growth slows down.</text>`;
-    s += `<text class="dg-t" x="0" y="250">Without that, whoever levels first runs away with it.</text>`;
-    return dgWrap("0 0 400 262", s);
+    s += dgCap(0, 228, "Each level costs more than the last, so growth slows down. Without that, whoever levels first runs away with it.");
+    return dgWrap("0 0 400 241", s);
   },
 
   /* Unlocks that open other unlocks */
@@ -1202,9 +1199,8 @@ const DIAGRAMS = {
       const on = done.includes(k);
       s += `<rect x="${x - 22}" y="${y - 15}" width="44" height="30" rx="6" class="dg-grid" style="fill:${on ? 'var(--fam-color,#FFE536)' : 'var(--dg-f2,rgba(255,255,255,0.06))'}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="242">You cannot reach the far right without choosing a path.</text>`;
-    s += `<text class="dg-t" x="0" y="264">Two players can end the same game with different abilities.</text>`;
-    return dgWrap("0 0 400 276", s);
+    s += dgCap(0, 242, "You cannot reach the far right without choosing a path. Two players can end the same game with different abilities.");
+    return dgWrap("0 0 400 255", s);
   },
 
   /* Better gear, same person */
@@ -1221,8 +1217,8 @@ const DIAGRAMS = {
       s += `<rect class="dg-accf" x="${x}" y="172" width="${(i + 1) * 34}" height="16" rx="4"/>`;
     });
     s += `<text class="dg-s" x="0" y="206">power</text>`;
-    s += `<text class="dg-t" x="0" y="240">Gear is easier to balance than levels. You can take it away.</text>`;
-    return dgWrap("0 0 400 252", s);
+    s += dgCap(0, 240, "Gear is easier to balance than levels. You can take it away.");
+    return dgWrap("0 0 400 253", s);
   },
 
   /* The game remembers last time */
@@ -1240,9 +1236,8 @@ const DIAGRAMS = {
       });
       s += `<text class="dg-k" x="${ox}" y="132">game ${i * 4 + 1}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="170">Stickers go on, cards get torn up, rules change permanently.</text>`;
-    s += `<text class="dg-t" x="0" y="192">The copy on your shelf stops being the same as anyone else's.</text>`;
-    return dgWrap("0 0 400 204", s);
+    s += dgCap(0, 170, "Stickers go on, cards get torn up, rules change permanently. The copy on your shelf stops being the same as anyone else's.");
+    return dgWrap("0 0 400 183", s);
   },
 
   /* It gets worse whether you are ready or not */
@@ -1258,9 +1253,8 @@ const DIAGRAMS = {
     s += `<path class="dg-line" d="M1 162 L392 162"/>`;
     s += `<text class="dg-s" x="0" y="182">you</text>`;
     s += `<text class="dg-s" x="256" y="182">threat passes you</text>`;
-    s += `<text class="dg-t" x="0" y="218">You are getting stronger. The problem is getting stronger faster.</text>`;
-    s += `<text class="dg-t" x="0" y="240">That crossing point is when the game has to end.</text>`;
-    return dgWrap("0 0 400 252", s);
+    s += dgCap(0, 218, "You are getting stronger. The problem is getting stronger faster. That crossing point is when the game has to end.");
+    return dgWrap("0 0 400 231", s);
   },
 
   /* Crossing a line changes the rules */
@@ -1273,9 +1267,8 @@ const DIAGRAMS = {
       s += `<circle cx="${x}" cy="${100}" r="13" style="fill:${x < 220 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f3,rgba(255,255,255,0.09))'}"/>`;
       s += `<text class="dg-k" x="${x - 26}" y="130">tier ${i + 1}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="172">Nothing happens between the lines, everything at them.</text>`;
-    s += `<text class="dg-t" x="0" y="194">Players start counting how far they are from the next one.</text>`;
-    return dgWrap("0 0 400 206", s);
+    s += dgCap(0, 172, "Nothing happens between the lines, everything at them. Players start counting how far they are from the next one.");
+    return dgWrap("0 0 400 185", s);
   },
 
   /* You lose, but you keep something */
@@ -1290,8 +1283,8 @@ const DIAGRAMS = {
       }
     });
     s += `<text class="dg-s" x="52" y="208">kept between runs</text>`;
-    s += `<text class="dg-t" x="0" y="242">Losing still moves you forward, so a failed game is not wasted.</text>`;
-    return dgWrap("0 0 400 254", s);
+    s += dgCap(0, 242, "Losing still moves you forward, so a failed game is not wasted.");
+    return dgWrap("0 0 400 255", s);
   },
 
 
@@ -1310,8 +1303,8 @@ const DIAGRAMS = {
     s += `<path class="dg-line" d="M220 168 L392 168"/>`;
     s += `<rect class="dg-accf" x="220" y="176" width="${Math.min(total * 3.4, 172)}" height="26" rx="4"/>`;
     s += `<text class="dg-k" x="0" y="194">total</text>`;
-    s += `<text class="dg-t" x="0" y="240">Any two piles of stuff can be compared once they are points.</text>`;
-    return dgWrap("0 0 400 252", s);
+    s += dgCap(0, 240, "Any two piles of stuff can be compared once they are points.");
+    return dgWrap("0 0 400 253", s);
   },
 
   /* Most pieces in the region takes it */
@@ -1325,9 +1318,8 @@ const DIAGRAMS = {
       const winner = a > b ? "var(--fam-color,#FFE536)" : a < b ? "var(--dg-alt,#FA16C2)" : "var(--dg-f5,rgba(255,255,255,0.21))";
       s += `<rect x="${ox}" y="140" width="118" height="16" rx="4" style="fill:${winner}"/>`;
     });
-    s += `<text class="dg-t" x="0" y="196">Second place in a region is usually worth nothing.</text>`;
-    s += `<text class="dg-t" x="0" y="218">One extra piece in the right place beats five in the wrong one.</text>`;
-    return dgWrap("0 0 400 230", s);
+    s += dgCap(0, 196, "Second place in a region is usually worth nothing. One extra piece in the right place beats five in the wrong one.");
+    return dgWrap("0 0 400 209", s);
   },
 
   /* First past the line */
@@ -1341,9 +1333,8 @@ const DIAGRAMS = {
       s += `<text class="dg-k" x="0" y="${y + 18}">P${i + 1}</text>`;
     });
     s += `<path class="dg-alt" d="M370 18 L370 190"/>`;
-    s += `<text class="dg-t" x="0" y="224">No scoring at the end, no adding up, no surprises.</text>`;
-    s += `<text class="dg-t" x="0" y="246">The downside is that everyone knows who to gang up on.</text>`;
-    return dgWrap("0 0 400 258", s);
+    s += dgCap(0, 224, "No scoring at the end, no adding up, no surprises. The downside is that everyone knows who to gang up on.");
+    return dgWrap("0 0 400 237", s);
   },
 
   /* Several roads to the same finish */
@@ -1357,9 +1348,8 @@ const DIAGRAMS = {
       s += `<rect x="90" y="${y}" width="${280 * p / 100}" height="28" rx="6" style="fill:${p > 75 ? 'var(--fam-color,#FFE536)' : 'var(--dg-f4,rgba(255,255,255,0.14))'}"/>`;
     });
     s += `<path class="dg-alt" d="M370 18 L370 198"/>`;
-    s += `<text class="dg-t" x="0" y="232">Blocking one road does not stop a player who is on another.</text>`;
-    s += `<text class="dg-t" x="0" y="254">Watching all four is the hard part, and the interesting part.</text>`;
-    return dgWrap("0 0 400 266", s);
+    s += dgCap(0, 232, "Blocking one road does not stop a player who is on another. Watching all four is the hard part, and the interesting part.");
+    return dgWrap("0 0 400 245", s);
   },
 
   /* Nobody knows the score until the end */
@@ -1380,9 +1370,8 @@ const DIAGRAMS = {
       /* The number is the point of the reveal, so it goes on the bar. */
       s += `<text class="${top ? 'dg-on' : 'dg-s'}" x="${x + 41}" y="${158}" text-anchor="middle" style="font-size:15px;font-weight:700">${v}</text>`;
     });
-    s += `<text class="dg-t" x="0" y="238">Nobody could gang up on the leader, because nobody knew.</text>`;
-    s += `<text class="dg-t" x="0" y="260">The cost is that players cannot tell how they are doing.</text>`;
-    return dgWrap("0 0 400 272", s);
+    s += dgCap(0, 238, "Nobody could gang up on the leader, because nobody knew. The cost is that players cannot tell how they are doing.");
+    return dgWrap("0 0 400 251", s);
   },
 
   /* Two matching things are worth more than two things */
@@ -1404,9 +1393,8 @@ const DIAGRAMS = {
     };
     s += layout(0, 34, [2, 2, 2, 2], 8, "spread out");
     s += layout(0, 140, [5, 3], 34, "grouped up");
-    s += `<text class="dg-t" x="0" y="242">Grouping is worth four times as much for the same effort.</text>`;
-    s += `<text class="dg-t" x="0" y="264">Steep scoring is what makes players commit to a plan.</text>`;
-    return dgWrap("0 0 400 276", s);
+    s += dgCap(0, 242, "Grouping is worth four times as much for the same effort. Steep scoring is what makes players commit to a plan.");
+    return dgWrap("0 0 400 255", s);
   },
 
   /* Out is out */
@@ -1421,9 +1409,8 @@ const DIAGRAMS = {
         if (i >= alive) s += `<path class="dg-alt" d="M${45 + i * 40} ${y + 5} L${59 + i * 40} ${y + 19} M${59 + i * 40} ${y + 5} L${45 + i * 40} ${y + 19}" stroke-width="2"/>`;
       }
     });
-    s += `<text class="dg-t" x="0" y="252">A crossed circle is a student with nothing to do.</text>`;
-    s += `<text class="dg-t" x="0" y="274">By the last round, five of the six are watching.</text>`;
-    return dgWrap("0 0 400 286", s);
+    s += dgCap(0, 252, "A crossed circle is a student with nothing to do. By the last round, five of the six are watching.");
+    return dgWrap("0 0 400 265", s);
   }
 
 };

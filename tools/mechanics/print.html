@@ -139,10 +139,12 @@ ol.steps li::before { content:counter(s); position:absolute; left:0; top:3px;
 .dgm-band { background:var(--band); padding:7px 40px; margin:0 -40px 11px; }
 .dgm { background:var(--tint); border:1px solid var(--rule); border-radius:10px;
   padding:10px 16px; }
+/* The explainer keeps its size while the drawing above it scales. */
+.dgm-cap { font-size:14px; line-height:1.5; margin:9px 0 0; }
 /* The drawing scales to fit the box and centres itself, so a tall diagram
    letterboxes rather than pushing the text off the page. */
 .dgm svg { display:block; width:calc(100% * var(--dgm-scale,1)); max-width:100%; height:auto;
-  max-height:calc(232px * var(--dgm-scale,1)); margin-left:auto; margin-right:auto; }
+  max-height:calc(186px * var(--dgm-scale,1)); margin-left:auto; margin-right:auto; }
 
 .game { border-left:4px solid var(--band); background:var(--tint); border-radius:0 7px 7px 0;
   padding:8px 11px; margin-bottom:8px; }

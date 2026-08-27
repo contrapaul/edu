@@ -53,17 +53,35 @@
 
   var host = document.getElementById('sheets');
   host.innerHTML = MECHANICS.map(sheet).join('');
+  liftCaptions();
+
+  /* The explainer is drawn inside the SVG so the catalogue can scale it along
+     with the art. On paper it belongs to the page: lifted out into a paragraph
+     under the drawing, it keeps its size whatever the diagram is scaled to. */
+  function liftCaptions() {
+    host.querySelectorAll('.dgm').forEach(function (box) {
+      var cap = box.querySelector('svg text[data-cap]');
+      if (!cap) return;
+      cap.remove();
+      var p = document.createElement('p');
+      p.className = 'dgm-cap';
+      p.textContent = cap.textContent;
+      box.appendChild(p);
+    });
+  }
 
   /* Diagrams are laid out in a narrower column here than on the web, so the
-     viewBox still has to be grown to fit anything the browser measures wider. */
+     viewBox is grown to fit anything the browser measures wider. The height is
+     set outright rather than grown, so the space the caption used to take is
+     given back to the drawing. */
   function fitDiagrams() {
     host.querySelectorAll('.dgm svg').forEach(function (svg) {
       var box;
       try { box = svg.getBBox(); } catch (e) { return; }
-      if (!box || !box.width) return;
+      if (!box || !box.width || !box.height) return;
       var vb = svg.viewBox.baseVal;
       var w = Math.max(vb.width, Math.ceil(box.x + box.width) + 2);
-      var h = Math.max(vb.height, Math.ceil(box.y + box.height) + 2);
+      var h = Math.ceil(box.y + box.height) + 2;
       if (w !== vb.width || h !== vb.height) svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
     });
   }
