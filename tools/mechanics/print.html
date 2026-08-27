@@ -45,6 +45,21 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .btn-go { background:#1c1f24; border-color:#1c1f24; color:#fff; }
 .hint { width:794px; max-width:100%; margin:0 0 14px; font-size:0.76rem; color:var(--soft); }
 
+/* ── colour customiser, screen only ───────────────────────────── */
+.palette { width:794px; max-width:100%; background:#fff; border:1px solid #b9c0c9; border-radius:10px;
+  padding:14px 16px; margin:0 0 14px; }
+.palette[hidden] { display:none; }
+.palette-head { display:flex; gap:14px; align-items:flex-start; margin-bottom:13px; }
+.palette-head p { flex:1 1 auto; margin:0; font-size:0.76rem; line-height:1.5; color:var(--soft); }
+.palette-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px 22px; }
+.pal-row { display:flex; align-items:center; gap:8px; }
+.pal-row .nm { flex:1 1 auto; font-size:0.8rem; }
+.pal-row label { font-family:var(--mono); font-size:0.56rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--dim); }
+.pal-row input[type=color] { width:36px; height:26px; padding:2px; border:1px solid #b9c0c9;
+  border-radius:6px; background:#fff; cursor:pointer; }
+@media (max-width:620px) { .palette-grid { grid-template-columns:1fr; } }
+
 /* ── the sheet ────────────────────────────────────────────────── */
 .sheet {
   width:794px; height:1123px; background:#fff;
@@ -137,7 +152,7 @@ ul.warn li::marker { color:var(--band); }
 @page { size:A4 portrait; margin:0; }
 @media print {
   body { background:#fff; padding:0; display:block; }
-  .bar, .hint { display:none !important; }
+  .bar, .hint, .palette { display:none !important; }
   .sheet { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0;
     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
   .sheet.is-current { display:flex; }
@@ -153,10 +168,19 @@ ul.warn li::marker { color:var(--band); }
 <div class="bar">
   <h1>Printable sheets <span>/ one A4 side per mechanic</span></h1>
   <select id="pick" aria-label="Choose a mechanic"></select>
+  <button class="btn" id="colours" type="button" aria-expanded="false" aria-controls="palette">Colours</button>
   <button class="btn" id="all" type="button">Print all 70</button>
   <button class="btn btn-go" id="one" type="button">Print this one</button>
 </div>
 <p class="hint">Colour coded by family so a wall of them groups by type. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
+
+<div class="palette" id="palette" hidden>
+  <div class="palette-head">
+    <p>Each family has a band colour, used for the header, the page border and the accents, and a tint used behind the diagram and the game panels. Changes are kept in this browser and are used when you print.</p>
+    <button class="btn" id="palette-reset" type="button">Reset all</button>
+  </div>
+  <div class="palette-grid" id="palette-grid"></div>
+</div>
 
 <div id="sheets"></div>
 

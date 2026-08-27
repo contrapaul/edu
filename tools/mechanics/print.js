@@ -68,6 +68,91 @@
     });
   }
 
+  /* ── colour customiser ─────────────────────────────────────────
+     The defaults are read back out of the stylesheet, so the scheme
+     lives in one place and this only ever writes overrides on top. */
+  var PALETTE_STORE = 'mechanics-print-palette';
+  var PARTS = [['band', 'Band'], ['tint', 'Tint']];
+
+  var defaults = {};
+  Object.keys(FAMILIES).forEach(function (key) {
+    var probe = document.createElement('div');
+    probe.className = FAMILIES[key].cls;
+    probe.style.display = 'none';
+    document.body.appendChild(probe);
+    var cs = getComputedStyle(probe);
+    defaults[key] = { band: cs.getPropertyValue('--band').trim(), tint: cs.getPropertyValue('--tint').trim() };
+    probe.remove();
+  });
+
+  var custom = {};
+  try { custom = JSON.parse(localStorage.getItem(PALETTE_STORE)) || {}; } catch (e) { custom = {}; }
+
+  var paletteStyle = document.createElement('style');
+  document.head.appendChild(paletteStyle);
+
+  function colourOf(key, part) {
+    return (custom[key] && custom[key][part]) || defaults[key][part];
+  }
+
+  function applyPalette() {
+    paletteStyle.textContent = Object.keys(FAMILIES).map(function (key) {
+      return '.' + FAMILIES[key].cls + '{--band:' + colourOf(key, 'band') +
+        ';--tint:' + colourOf(key, 'tint') + ';}';
+    }).join('\n');
+  }
+
+  function savePalette() {
+    try { localStorage.setItem(PALETTE_STORE, JSON.stringify(custom)); } catch (e) { /* private mode */ }
+  }
+
+  var swatches = [];
+  var grid = document.getElementById('palette-grid');
+  Object.keys(FAMILIES).forEach(function (key) {
+    var row = document.createElement('div');
+    row.className = 'pal-row';
+    var nm = document.createElement('span');
+    nm.className = 'nm';
+    nm.textContent = FAMILIES[key].short;
+    row.appendChild(nm);
+    PARTS.forEach(function (part) {
+      var lab = document.createElement('label');
+      lab.textContent = part[1];
+      var inp = document.createElement('input');
+      inp.type = 'color';
+      inp.value = colourOf(key, part[0]);
+      inp.id = 'pal-' + key + '-' + part[0];
+      lab.htmlFor = inp.id;
+      inp.addEventListener('input', function () {
+        custom[key] = custom[key] || {};
+        custom[key][part[0]] = inp.value;
+        applyPalette();
+        savePalette();
+      });
+      row.appendChild(lab);
+      row.appendChild(inp);
+      swatches.push({ key: key, part: part[0], input: inp });
+    });
+    grid.appendChild(row);
+  });
+
+  applyPalette();
+
+  document.getElementById('palette-reset').addEventListener('click', function () {
+    custom = {};
+    savePalette();
+    applyPalette();
+    swatches.forEach(function (sw) { sw.input.value = defaults[sw.key][sw.part]; });
+  });
+
+  var paletteBtn = document.getElementById('colours');
+  var palettePanel = document.getElementById('palette');
+  paletteBtn.addEventListener('click', function () {
+    var opening = palettePanel.hidden;
+    palettePanel.hidden = !opening;
+    paletteBtn.setAttribute('aria-expanded', String(opening));
+  });
+
   /* Selector, grouped by family so it reads like the catalogue. */
   var pick = document.getElementById('pick');
   Object.keys(FAMILIES).forEach(function (key) {
