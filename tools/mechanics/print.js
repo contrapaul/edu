@@ -162,6 +162,8 @@
     applyPalette();
     swatches.forEach(function (sw) { sw.input.value = defaults[sw.key][sw.part]; });
     scaleInput.value = 100;
+    autoInput.checked = false;
+    applyAuto();
     applyScale();
   });
 
@@ -186,15 +188,71 @@
   }
 
   function reportFit() {
-    var page = host.querySelector('.sheet.is-current .page');
-    if (!page) return;
+    var sheet = host.querySelector('.sheet.is-current');
+    if (!sheet) return;
+    var page = sheet.querySelector('.page');
     var over = page.scrollHeight - page.clientHeight;
-    fitNote.textContent = over > 0 ? 'This sheet overflows by ' + over + 'px' : 'This sheet fits';
+    if (autoInput.checked) {
+      var own = Math.round((parseFloat(sheet.style.getPropertyValue('--dgm-scale')) || 1) * 100);
+      fitNote.textContent = 'This sheet fitted at ' + own + '%';
+    } else {
+      fitNote.textContent = over > 0 ? 'This sheet overflows by ' + over + 'px' : 'This sheet fits';
+    }
     fitNote.classList.toggle('over', over > 0);
   }
 
-  scaleInput.addEventListener('input', applyScale);
+  scaleInput.addEventListener('input', function () {
+    if (autoInput.checked) { autoInput.checked = false; applyAuto(); }
+    applyScale();
+  });
+
+  /* ── auto fit ──────────────────────────────────────────────────
+     Overflow only grows with the scale, so the largest scale a sheet can
+     take is found by halving the range rather than trying every step. Each
+     sheet keeps its own answer, on the sheet itself, which beats the shared
+     slider underneath it. */
+  var AUTO_STORE = 'mechanics-print-autofit';
+  var autoInput = document.getElementById('dgm-auto');
+  var STEPS = [];
+  for (var v = 60; v <= 140; v += 5) STEPS.push(v);
+
+  function largestFitting(sheet) {
+    var page = sheet.querySelector('.page');
+    var lo = 0, hi = STEPS.length - 1, best = 0;
+    while (lo <= hi) {
+      var mid = (lo + hi) >> 1;
+      sheet.style.setProperty('--dgm-scale', STEPS[mid] / 100);
+      if (page.scrollHeight <= page.clientHeight) { best = mid; lo = mid + 1; }
+      else hi = mid - 1;
+    }
+    return STEPS[best];
+  }
+
+  function applyAuto() {
+    var on = autoInput.checked;
+    var showing = host.querySelector('.sheet.is-current');
+    if (!showing) return;
+    scaleInput.disabled = on;
+    try { localStorage.setItem(AUTO_STORE, on ? '1' : '0'); } catch (e) { /* private mode */ }
+
+    host.querySelectorAll('.sheet').forEach(function (sheet) {
+      sheet.style.removeProperty('--dgm-scale');
+      if (!on || !sheet.querySelector('.dgm svg')) return;
+      /* A sheet can only be measured while it is the one on screen. */
+      sheet.classList.add('is-current');
+      if (sheet !== showing) showing.classList.remove('is-current');
+      fitDiagrams();
+      sheet.style.setProperty('--dgm-scale', largestFitting(sheet) / 100);
+      if (sheet !== showing) { sheet.classList.remove('is-current'); showing.classList.add('is-current'); }
+    });
+    reportFit();
+  }
+
+  autoInput.addEventListener('change', applyAuto);
+
   applyScale();
+  autoInput.checked = localStorage.getItem(AUTO_STORE) === '1';
+  scaleInput.disabled = autoInput.checked;
 
   var paletteBtn = document.getElementById('colours');
   var palettePanel = document.getElementById('palette');
@@ -239,6 +297,7 @@
     if (!confirm('Print all ' + MECHANICS.length + ' sheets? That is ' + MECHANICS.length + ' sides of paper.')) return;
     document.body.classList.add('all');
     fitDiagrams();
+    if (autoInput.checked) applyAuto();
     window.print();
   });
 
@@ -247,5 +306,9 @@
 
   var start = location.hash.slice(1);
   show(MECHANICS.some(function (m) { return m.slug === start; }) ? start : MECHANICS[0].slug);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitDiagrams);
+  if (autoInput.checked) applyAuto();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () {
+    fitDiagrams();
+    if (autoInput.checked) applyAuto(); else reportFit();
+  });
 })();

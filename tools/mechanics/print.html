@@ -58,6 +58,9 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .pal-scale label { font-size:0.8rem; }
 .pal-scale input[type=range] { flex:1 1 180px; max-width:250px; accent-color:#1c1f24; }
 .pal-scale output { font-family:var(--mono); font-size:0.72rem; font-weight:700; min-width:3.6em; }
+.pal-scale .auto { display:flex; align-items:center; gap:5px; font-size:0.78rem; }
+.pal-scale .auto input { accent-color:#1c1f24; }
+.pal-scale input[type=range]:disabled { opacity:0.4; }
 .pal-scale .fit { font-size:0.72rem; color:var(--soft); }
 .pal-scale .fit.over { color:#c23b30; }
 .palette-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:9px 22px; }
@@ -199,6 +202,7 @@ ul.warn li::marker { color:var(--band); }
     <label for="dgm-scale">Diagram scale</label>
     <input type="range" id="dgm-scale" min="60" max="140" step="5" value="100">
     <output id="dgm-scale-out" for="dgm-scale">100%</output>
+    <label class="auto"><input type="checkbox" id="dgm-auto"> Fit each sheet</label>
     <span class="fit" id="dgm-fit"></span>
   </div>
   <h4>Family colours</h4>
