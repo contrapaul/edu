@@ -421,7 +421,7 @@ const DIAGRAMS = {
     s += pips(1 + D / 2, dy + D / 2, D, 4, "var(--fam-color,#FFE536)");
 
     /* One whole roll, cut into six equal parts, one face per part. */
-    const x0 = 106, W = 290, H = 66, y0 = dy + (D - H) / 2, seg = W / 6;
+    const x0 = 106, W = 288, seg = W / 6, H = seg, y0 = dy + (D - H) / 2;
     for (let i = 0; i < 6; i++) {
       s += `<rect x="${(x0 + i * seg).toFixed(1)}" y="${y0}" width="${seg.toFixed(1)}" height="${H}" style="fill:var(--fam-color,#FFE536)"/>`;
       s += pips(x0 + i * seg + seg / 2, y0 + H / 2, seg * 0.98, i + 1, "var(--dg-knock,rgba(0,0,0,0.55))");
