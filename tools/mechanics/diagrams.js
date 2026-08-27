@@ -378,8 +378,7 @@ const DIAGRAMS = {
     });
     s += `<path class="dg-alt" d="M20 ${22 + cell * 1.5} L${3 * cell - 4} ${22 + cell * 1.5}" stroke-dasharray="5 4"/>`;
     s += `<path class="dg-alt" d="M${3 * cell - 14} ${22 + cell * 1.5 - 8} L${3 * cell - 4} ${22 + cell * 1.5} L${3 * cell - 14} ${22 + cell * 1.5 + 8}" stroke-width="2.6"/>`;
-    s += `<text class="dg-t" x="0" y="188">Two pieces can shut a whole lane.</text>`;
-    s += `<text class="dg-t" x="0" y="210">Standing still becomes a real move.</text>`;
+    s += `<text class="dg-t" x="0" y="188">Two pieces can shut a whole lane, and standing still becomes a real move.</text>`;
     return dgWrap("0 0 400 222", s);
   },
 
@@ -394,8 +393,7 @@ const DIAGRAMS = {
     s += draw(130, 22, [[1, 1], [2, 1], [1, 2], [0, 1]], true);
     s += `<text class="dg-k" x="270" y="12">Turn 9</text>`;
     s += draw(270, 22, [[1, 1], [2, 1], [1, 2], [0, 1], [2, 0], [0, 2], [2, 2], [1, 0], [3, 1]], true);
-    s += `<text class="dg-t" x="0" y="164">Every game is played on a different map.</text>`;
-    s += `<text class="dg-t" x="0" y="186">Players build the problem they then have to solve.</text>`;
+    s += `<text class="dg-t" x="0" y="164">Every game is played on a different map and players build the problem they have to solve.</text>`;
     return dgWrap("0 0 400 198", s);
   },
 
