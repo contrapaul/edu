@@ -27,7 +27,7 @@
         '<div class="lede">' +
           m.whatItIs.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('') +
         '</div>' +
-        (dg ? '<div class="dgm">' + dg + '</div>' : '') +
+        (dg ? '<div class="dgm-band"><div class="dgm">' + dg + '</div></div>' : '') +
         '<div class="cols">' +
           '<div class="block"><h3>How it works in play</h3><ol class="steps">' +
             m.howItWorks.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') +
