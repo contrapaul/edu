@@ -119,8 +119,8 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .crit-C { --crit:#3f6b4a; }
 .crit-D { --crit:#8a5a1f; }
 
-.cpage { width:794px; height:1123px; display:none; background:#fff;
-  grid-template-columns:1fr; grid-template-rows:repeat(4,1fr);
+.cpage { width:794px; height:1123px; display:none; overflow:hidden; background:#fff;
+  grid-template-columns:1fr; grid-template-rows:repeat(4,24.4%); align-content:start;
   box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
 .cpage.is-current { display:grid; }
 /* Four strips to a side, cut on the dashed lines. The full width means the
@@ -259,7 +259,7 @@ ul.warn li::marker { color:var(--band); }
   .poster { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0; overflow:hidden; }
   .poster-inner { width:297mm; height:210mm; transform:translateY(297mm) rotate(-90deg);
     transform-origin:top left; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .cpage { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0; }
+  .cpage { width:210mm; height:297mm; overflow:hidden; box-shadow:none; transform:none; margin:0; }
   .sheet.is-current, .tpage.is-current { display:flex; }
   .poster.is-current { display:block; }
   .cpage.is-current { display:grid; }
