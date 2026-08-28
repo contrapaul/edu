@@ -6,7 +6,7 @@
    "title": "Ergonomics",
    "level": "SL",
    "file": "a1.1-ergonomics.html",
-   "count": 10
+   "count": 11
   },
   {
    "topic": "A2.1",
@@ -251,15 +251,15 @@
    "level": "SL",
    "sub": "A1.1.3",
    "subTitle": "Percentiles",
-   "text": "A product dimension is set to the 5th–95th percentile range using data for a workforce that is half male and half female. Approximately what percentage of that workforce is excluded?",
+   "text": "A public library fits a fixed-height standing counter for its catalogue terminals. The counter cannot be adjusted, and users stand at it briefly. Which percentile should its working height be set to?",
    "options": {
-    "A": "About 5%",
-    "B": "About 10%",
-    "C": "About 50%",
-    "D": "About 90%"
+    "A": "5th percentile, so that the shortest users can reach the surface",
+    "B": "50th percentile, because the dimension cannot be adjusted and either extreme would penalise everyone at the other end",
+    "C": "95th percentile, so that the tallest users are not forced to stoop",
+    "D": "99th percentile, so that the whole population is covered"
    },
-   "answer": "A",
-   "commentary": "Within a single gender the 5th–95th range excludes 10%, that is 5% at each end. In a mixed group only the largest 5% of men and the smallest 5% of women fall outside the range, and because each group is half the sample that is 2.5% + 2.5% = 5% excluded overall."
+   "answer": "B",
+   "commentary": "Clearances are set to the largest user and reaches to the smallest, but a fixed working height is neither. It is a dimension where being too high and being too low are both uncomfortable, so the error is shared rather than pushed onto one end of the population. Setting the counter at 95th percentile height leaves shorter users working at shoulder level; setting it at 5th forces taller users to stoop. The 50th percentile keeps the worst mismatch as small as possible. It fits nobody exactly, which is why an adjustable surface is preferred wherever the cost can be justified."
   },
   {
    "id": "a1.1-q6",
@@ -287,15 +287,15 @@
    "level": "SL",
    "sub": "A1.1.5",
    "subTitle": "Work Envelopes",
-   "text": "A designer is setting the knee clearance under a desk and the distance from the seated user to a frequently used control. Which percentiles are appropriate?",
+   "text": "A designer is setting the knee clearance under a desk and the distance from the seated user to an emergency stop button. Which percentiles are appropriate?",
    "options": {
-    "A": "95th for the knee clearance, 5th for the control distance",
-    "B": "5th for the knee clearance, 95th for the control distance",
+    "A": "95th for the knee clearance, 5th for the stop button distance",
+    "B": "5th for the knee clearance, 95th for the stop button distance",
     "C": "50th for both",
     "D": "95th for both"
    },
    "answer": "A",
-   "commentary": "Clearance is a 95th percentile problem: if the largest user fits under the desk, everyone does. Reach is a 5th percentile problem: if the user with the shortest reach can operate the control, everyone can. A single percentile cannot solve both at once, which is one reason adjustable workstations exist."
+   "commentary": "Clearance is a 95th percentile problem: if the largest user fits under the desk, everyone does. Reach is a 5th percentile problem: if the user with the shortest reach can hit the stop button, everyone can. A single percentile cannot solve both at once, which is one reason adjustable workstations exist."
   },
   {
    "id": "a1.1-q8",
@@ -326,7 +326,7 @@
    "text": "An ergonomic keyboard with a wrist support and a split key arrangement is designed to reduce:",
    "options": {
     "A": "Eye strain",
-    "B": "Hearing damage",
+    "B": "Muscle fatigue in the lower back during long periods of seated work",
     "C": "Strain on the wrists and hands during prolonged use",
     "D": "Colour confusion"
    },
@@ -341,7 +341,7 @@
    "level": "SL",
    "sub": "A1.1.7",
    "subTitle": "Psychology",
-   "text": "A phone gives a short vibration when a touchscreen button is pressed. The main ergonomic purpose of this haptic feedback is to:",
+   "text": "A phone gives a short vibration when a touchscreen button is pressed. The main ergonomic purpose of this vibration is to:",
    "options": {
     "A": "Reduce the force needed to operate the button",
     "B": "Confirm the input registered without relying on sight or sound",
@@ -350,6 +350,24 @@
    },
    "answer": "B",
    "commentary": "A touchscreen gives no mechanical travel, so without haptic feedback the user has no physical signal that the press registered, which leads to repeated presses and missed inputs. Haptics supply that confirmation through touch, which is why they work in silent mode and for users who are not looking at the screen. Their limit is that the sensation is weakened if the device rests on a surface rather than in the hand."
+  },
+  {
+   "id": "a1.1-q11",
+   "topic": "A1.1",
+   "topicTitle": "Ergonomics",
+   "topicFile": "a1.1-ergonomics.html",
+   "level": "SL",
+   "sub": "A1.1.7",
+   "subTitle": "Psychology",
+   "text": "An Xbox controller contains small motors that vibrate in response to events on screen, such as an impact or the rumble of an engine. This is an example of:",
+   "options": {
+    "A": "Texture",
+    "B": "Haptic feedback",
+    "C": "Biomechanics",
+    "D": "Anthropometrics"
+   },
+   "answer": "B",
+   "commentary": "The controller is delivering information through the sense of touch, timed to what the player is doing and seeing, which is what makes it feedback rather than decoration. Texture is a fixed property of a surface that the user feels passively, whatever the game is doing. Biomechanics concerns the forces and movements of the body itself, and anthropometrics is the measurement of body dimensions. Both matter to how the controller is shaped, but neither describes a signal sent back to the user."
   },
   {
    "id": "a2.1-q1",
