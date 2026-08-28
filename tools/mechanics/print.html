@@ -53,6 +53,7 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
 .palette-head p { flex:1 1 auto; margin:0; font-size:0.76rem; line-height:1.5; color:var(--soft); }
 .palette h4 { font-family:var(--mono); font-size:0.6rem; font-weight:700; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--dim); margin:0 0 10px; }
+.palette h4.pal-gap { margin-top:15px; padding-top:14px; border-top:1px solid var(--rule); }
 .pal-scale { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:13px;
   padding-bottom:13px; border-bottom:1px solid var(--rule); }
 .pal-scale label { font-size:0.8rem; }
@@ -109,6 +110,37 @@ select { font-family:var(--body); font-size:0.82rem; padding:0.45rem 0.6rem; bor
   text-transform:uppercase; color:rgba(255,255,255,0.6); text-align:center; }
 .poster-foot { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase;
   color:rgba(255, 255, 255, 0.510); margin:72px 0 0; }
+
+/* ── criteria cards ───────────────────────────────────────────
+   The sixteen assessed strands, four to an A4 side, cut on the dashed
+   lines. One colour per letter, set apart from the family palette. */
+.crit-A { --crit:#2f4f7a; }
+.crit-B { --crit:#7a3f5e; }
+.crit-C { --crit:#3f6b4a; }
+.crit-D { --crit:#8a5a1f; }
+
+.cpage { width:794px; height:1123px; display:none; background:#fff;
+  grid-template-columns:1fr; grid-template-rows:repeat(4,1fr);
+  box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
+.cpage.is-current { display:grid; }
+/* Four strips to a side, cut on the dashed lines. The full width means the
+   code and the task name sit on one line together. */
+.ccard { display:flex; flex-direction:column; min-width:0; overflow:hidden; }
+.ccard + .ccard { border-top:1px dashed #c2c8d0; }
+.ccard-head { background:var(--crit); color:#fff; padding:26px 46px 24px; }
+.ccard-crit { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:rgba(255,255,255,0.78); margin:0 0 13px; }
+.ccard-crit span { padding:0 4px; color:rgba(255,255,255,0.5); }
+/* The sheet's h3 is a mono section label with a rule under it, which is not
+   what a card title wants. */
+.ccard-title { font-family:var(--slab); font-weight:800; font-size:33px; line-height:1.05;
+  letter-spacing:-0.02em; text-transform:none; color:#fff;
+  margin:0; padding-bottom:0; border-bottom:0; }
+.ccard-body { flex:1 1 auto; display:flex; flex-direction:column; padding:22px 46px 20px; }
+.ccard-blurb { font-size:16px; line-height:1.55; margin:0; color:var(--soft); }
+.ccard-foot { margin-top:auto; padding-top:14px; font-family:var(--mono); font-size:8px;
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); }
+.ccard-foot span { padding:0 4px; }
 
 /* ── family title pages ───────────────────────────────────────
    Two half pages to an A4 side. The colour runs to every edge, so a cut
@@ -207,7 +239,7 @@ ul.warn li::marker { color:var(--band); }
 
 @media (max-width:860px) {
   body { padding:12px 8px 40px; }
-  .sheet.is-current, .tpage.is-current { transform:scale(calc((100vw - 24px)/794)); transform-origin:top center;
+  .sheet.is-current, .tpage.is-current, .cpage.is-current { transform:scale(calc((100vw - 24px)/794)); transform-origin:top center;
     margin-bottom:calc((100vw - 24px)/794 * 1123 - 1123px); }
   .poster.is-current { transform:scale(calc((100vw - 24px)/1123)); transform-origin:top center;
     margin-bottom:calc((100vw - 24px)/1123 * 794 - 794px); }
@@ -227,13 +259,16 @@ ul.warn li::marker { color:var(--band); }
   .poster { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0; overflow:hidden; }
   .poster-inner { width:297mm; height:210mm; transform:translateY(297mm) rotate(-90deg);
     transform-origin:top left; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .cpage { width:210mm; height:297mm; box-shadow:none; transform:none; margin:0; }
   .sheet.is-current, .tpage.is-current { display:flex; }
   .poster.is-current { display:block; }
+  .cpage.is-current { display:grid; }
   /* "Print the set" turns every page on, one per side: poster, dividers, sheets. */
   body.all .sheet, body.all .tpage { display:flex; break-after:page; page-break-after:always; }
   body.all .poster { display:block; break-after:page; page-break-after:always; }
+  body.all .cpage { display:grid; break-after:page; page-break-after:always; }
   body.all .sheet:last-of-type { break-after:auto; page-break-after:auto; }
-  .band, .dgm, .game, .tcard, .poster-inner, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .band, .dgm, .game, .tcard, .poster-inner, .ccard-head, ol.steps li::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
 </head>
@@ -246,7 +281,7 @@ ul.warn li::marker { color:var(--band); }
   <button class="btn" id="all" type="button">Print the set</button>
   <button class="btn btn-go" id="one" type="button">Print this one</button>
 </div>
-<p class="hint">Colour coded by family so a wall of them groups by type. The set opens with a poster, which prints sideways on a portrait sheet so the whole set is one orientation, then family title pages, two to an A4 side, to be cut in half and used as dividers. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
+<p class="hint">Colour coded by family so a wall of them groups by type. The set opens with a poster, which prints sideways on a portrait sheet so the whole set is one orientation, then family title pages, then the sixteen criteria cards, two to an A4 side, to be cut in half and used as dividers. The diagram runs the full width. Links, photos, the tag row and "try this" are left off to keep every mechanic on a single side.</p>
 
 <div class="palette" id="palette" hidden>
   <div class="palette-head">
@@ -260,7 +295,9 @@ ul.warn li::marker { color:var(--band); }
     <label class="auto"><input type="checkbox" id="dgm-auto"> Fit each sheet</label>
     <span class="fit" id="dgm-fit"></span>
   </div>
-  <h4>Family colours</h4>
+  <h4>Criteria colours</h4>
+  <div class="palette-grid" id="palette-crit"></div>
+  <h4 class="pal-gap">Family colours</h4>
   <div class="palette-grid" id="palette-grid"></div>
 </div>
 

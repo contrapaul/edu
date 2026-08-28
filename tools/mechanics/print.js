@@ -142,7 +142,74 @@
       titleCard(FAM_KEYS[t]) + (FAM_KEYS[t + 1] ? titleCard(FAM_KEYS[t + 1]) : '') + '</div>';
   }
 
-  host.innerHTML = poster() + titlePages + MECHANICS.map(sheet).join('');
+
+  /* ── criteria cards ────────────────────────────────────────────
+     The sixteen assessed strands, four to an A4 side, one side per letter.
+     Task names are the ones the unit page already uses, so a student reads
+     the same words here as in the brief. */
+  var CRIT_LETTERS = ['A', 'B', 'C', 'D'];
+  var CRIT_NAMES = {
+    A: 'Inquiring and analysing',
+    B: 'Developing ideas',
+    C: 'Creating the solution',
+    D: 'Evaluating'
+  };
+  var CRITERIA = [
+    { code: 'Ai', task: 'Justify the need',
+      blurb: 'Students identify the client group their game is for and explain what that group needs. They argue the case for the game rather than describing the situation around it.' },
+    { code: 'Aii', task: 'Plan and prioritise research',
+      blurb: 'Students plan the research they need before designing anything. They decide which questions matter most and set out how each one will be answered.' },
+    { code: 'Aiii', task: 'Analyse existing games',
+      blurb: 'Students analyse three existing games against the same set of questions. They turn what they find into design implications they can carry into their own game.' },
+    { code: 'Aiv', task: 'Write the design brief',
+      blurb: 'Students write a design brief that pulls their research together into one document. It sets out what the game is for and who it is for, drawing on the analysis behind it.' },
+    { code: 'Bi', task: 'Write the specification',
+      blurb: 'Students write a specification of measurable success criteria for their game. Each one states how it will be tested and where it came from in the research.' },
+    { code: 'Bii', task: 'Generate a range of ideas',
+      blurb: 'Students develop a range of different game ideas and annotate them. The annotation has to be clear enough that another designer could build from the drawing alone.' },
+    { code: 'Biii', task: 'Choose and justify critically',
+      blurb: 'Students choose one design and justify that decision against the others. They also make the strongest case they can against their own choice.' },
+    { code: 'Biv', task: 'Draw it for production',
+      blurb: 'Students draw the chosen game accurately enough for it to be made. The drawings carry measurements, materials and the requirements for producing each component.' },
+    { code: 'Ci', task: 'Plan the build',
+      blurb: 'Students build a plan for making the game, with time and resources set against every step. Another student should be able to follow it without asking questions.' },
+    { code: 'Cii', task: 'Demonstrate technical skill',
+      blurb: 'Students demonstrate technical skill while making their components. They work at depth in at least three skills across two different production methods.' },
+    { code: 'Ciii', task: 'Finish a working game',
+      blurb: 'Students follow their plan and finish a game that works. It has to be playable by people who had no part in making it.' },
+    { code: 'Civ', task: 'Justify every change',
+      blurb: 'Students record the changes they make to the design while building it. They explain why each change was needed and keep the record as the work happens rather than afterwards.' },
+    { code: 'Di', task: 'Design the testing methods',
+      blurb: 'Students design testing methods that produce real data about their game. Each method sets out what is being measured and how it will be captured.' },
+    { code: 'Dii', task: 'Evaluate against the spec',
+      blurb: 'Students test the finished game and evaluate it against their own specification. Every success criterion is judged on the evidence the testing produced.' },
+    { code: 'Diii', task: 'Explain the improvements',
+      blurb: 'Students explain how the game could be improved. Each improvement traces back to something the testing actually found.' },
+    { code: 'Div', task: 'Explain the impact',
+      blurb: 'Students explain the impact of the finished game on the client group. They report what changed for the people who played it.' }
+  ];
+
+  function critCard(c) {
+    var letter = c.code.charAt(0);
+    return '<div class="ccard crit-' + letter + '">' +
+      '<div class="ccard-head">' +
+        '<p class="ccard-crit">Criterion ' + letter + ' <span>/</span> ' + esc(CRIT_NAMES[letter]) + '</p>' +
+        '<h3 class="ccard-title">' + esc(c.code) + ': ' + esc(c.task) + '</h3>' +
+      '</div>' +
+      '<div class="ccard-body">' +
+        '<p class="ccard-blurb">' + esc(c.blurb) + '</p>' +
+        '<p class="ccard-foot">MYP Design <span>/</span> Grade 9 Tabletop Game Design</p>' +
+      '</div>' +
+    '</div>';
+  }
+
+  var critPages = CRIT_LETTERS.map(function (L) {
+    return '<div class="cpage" data-slug="criteria-' + L + '">' +
+      CRITERIA.filter(function (c) { return c.code.charAt(0) === L; }).map(critCard).join('') +
+      '</div>';
+  }).join('');
+
+  host.innerHTML = poster() + titlePages + critPages + MECHANICS.map(sheet).join('');
   liftCaptions();
 
   /* The explainer is drawn inside the SVG so the catalogue can scale it along
@@ -194,6 +261,15 @@
     probe.remove();
   });
 
+  CRIT_LETTERS.forEach(function (L) {
+    var probe = document.createElement('div');
+    probe.className = 'crit-' + L;
+    probe.style.display = 'none';
+    document.body.appendChild(probe);
+    defaults['crit-' + L] = { band: getComputedStyle(probe).getPropertyValue('--crit').trim() };
+    probe.remove();
+  });
+
   var custom = {};
   try { custom = JSON.parse(localStorage.getItem(PALETTE_STORE)) || {}; } catch (e) { custom = {}; }
 
@@ -208,7 +284,9 @@
     paletteStyle.textContent = Object.keys(FAMILIES).map(function (key) {
       return '.' + FAMILIES[key].cls + '{--band:' + colourOf(key, 'band') +
         ';--tint:' + colourOf(key, 'tint') + ';}';
-    }).join('\n');
+    }).concat(CRIT_LETTERS.map(function (L) {
+      return '.crit-' + L + '{--crit:' + colourOf('crit-' + L, 'band') + ';}';
+    })).join('\n');
   }
 
   function savePalette() {
@@ -243,6 +321,32 @@
       swatches.push({ key: key, part: part[0], input: inp });
     });
     grid.appendChild(row);
+  });
+
+  var cgrid = document.getElementById('palette-crit');
+  CRIT_LETTERS.forEach(function (L) {
+    var row = document.createElement('div');
+    row.className = 'pal-row';
+    var nm = document.createElement('span');
+    nm.className = 'nm';
+    nm.textContent = 'Criterion ' + L;
+    row.appendChild(nm);
+    var lab = document.createElement('label');
+    lab.textContent = 'Colour';
+    var inp = document.createElement('input');
+    inp.type = 'color';
+    inp.value = colourOf('crit-' + L, 'band');
+    inp.id = 'pal-crit-' + L;
+    lab.htmlFor = inp.id;
+    inp.addEventListener('input', function () {
+      custom['crit-' + L] = { band: inp.value };
+      applyPalette();
+      savePalette();
+    });
+    row.appendChild(lab);
+    row.appendChild(inp);
+    cgrid.appendChild(row);
+    swatches.push({ key: 'crit-' + L, part: 'band', input: inp });
   });
 
   applyPalette();
@@ -366,6 +470,16 @@
   pgroup.appendChild(po);
   pick.appendChild(pgroup);
 
+  var cgroup = document.createElement('optgroup');
+  cgroup.label = 'Criteria cards';
+  CRIT_LETTERS.forEach(function (L) {
+    var co = document.createElement('option');
+    co.value = 'criteria-' + L;
+    co.textContent = 'Criterion ' + L + ': ' + CRIT_NAMES[L];
+    cgroup.appendChild(co);
+  });
+  pick.appendChild(cgroup);
+
   var tgroup = document.createElement('optgroup');
   tgroup.label = 'Family title pages';
   for (var tp = 0; tp < FAM_KEYS.length; tp += 2) {
@@ -389,7 +503,7 @@
   });
 
   function show(slug) {
-    host.querySelectorAll('.sheet, .tpage, .poster').forEach(function (s) {
+    host.querySelectorAll('.sheet, .tpage, .poster, .cpage').forEach(function (s) {
       s.classList.toggle('is-current', s.dataset.slug === slug);
     });
     pick.value = slug;
@@ -406,9 +520,10 @@
   });
 
   document.getElementById('all').addEventListener('click', function () {
-    var pages = 1 + Math.ceil(FAM_KEYS.length / 2) + MECHANICS.length;
-    if (!confirm('Print the whole set? That is ' + pages + ' sides: the poster in landscape, ' +
-      Math.ceil(FAM_KEYS.length / 2) + ' of family title pages, two to a side, then ' +
+    var pages = 1 + Math.ceil(FAM_KEYS.length / 2) + CRIT_LETTERS.length + MECHANICS.length;
+    if (!confirm('Print the whole set? That is ' + pages + ' sides: the poster, ' +
+      Math.ceil(FAM_KEYS.length / 2) + ' of family title pages two to a side, ' +
+      CRIT_LETTERS.length + ' of criteria cards four to a side, then ' +
       MECHANICS.length + ' mechanics.')) return;
     document.body.classList.add('all');
     fitDiagrams();
