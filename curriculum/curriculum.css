@@ -839,6 +839,31 @@
   margin-bottom: 0;
 }
 
+/* Statement of inquiry, between the title and the intro. Used by every MYP
+   unit page; the first <em> is the label, the second is the statement. */
+.myp-subtitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0 0 1.1rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--accent);
+  max-width: 62ch;
+}
+.myp-subtitle em {
+  font-style: italic;
+}
+.myp-subtitle em:first-child {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
 /* MYP criterion section colours (applied via --curr-color) */
 .crit-a { --curr-color: #2c5f6e; }
 .crit-b { --curr-color: #8b6520; }
