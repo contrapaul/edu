@@ -248,9 +248,9 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
+| 1-2 | | Your design brief is unfinished and does not reference your research. |
+| 3-4 | | Develop a basic design brief that references your research. |
+| 5-6 | | Develop a design brief that includes a summary of your research. |
 | 7-8 | | Developed a detailed design brief that includes a summary of your reseach.  |
 
 ### Tips
@@ -561,10 +561,10 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | Demonstrate poor techical skills in the process of creating your game. |
+| 3-4 | | Demonstrate satisfactory techical skills in the process of creating your game. |
+| 5-6 | | Demonstrate competent techical skills in the process of creating your game. |
+| 7-8 | | Demonstrate excellent techical skills in the process of creating your game.|
 
 Raw material, the `Why the failed attempt is required` note already on the page:
 
@@ -614,21 +614,19 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | Produce a game that didn't closely follow the plan and does not function well. |
+| 3-4 | | Follow the plan and produce a simple game which works with some issues. |
+| 5-6 | | Follow the plan and produce a competent game which works with few issues. |
+| 7-8 | | Follow the plan and produce a highly competent game that works well with few issues. |
 
 ### Tips
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
-
-Possible sources on the unit page, formatives that could become advice: *Internal rulebook cold read*.
+1. Keep testing the rules and playing the game!
+2. More eyes is more chances to spot problems! Share your work with others and ask for feedback.
+3. Tight gameplay and limited rules is better than sprawling gameplay and complex rules.
+4. High quality elements make a weaker game feel stronger.
 
 ---
 
@@ -721,10 +719,10 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | I chose testing methods that are unlikely to generate useful data. |
+| 3-4 | | I designed basic testing methods which can generate some useful data. |
+| 5-6 | | I designed testing methods which can generate useful data. |
+| 7-8 | | I designed detailed testing methods which will generate useful data. |
 
 Raw material, the `A distinction to teach` note already on the page:
 
@@ -734,10 +732,10 @@ Raw material, the `A distinction to teach` note already on the page:
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
+1. If your testing methods can be answered with yes or no, they are not likely to help much.
+2. Your job when collecting data is to collect data, not to teach your game.
+3. Microsoft Forms is an option, but should be one of many choices. 
+4. Be sure to collect quantitative AND qualitative data!
 
 Possible sources on the unit page, failures already written up: *Match the method to the specification*; formatives that could become advice: *Method matching*, *Write five bad questions*, *Build an observation sheet*.
 
