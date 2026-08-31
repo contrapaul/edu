@@ -434,3 +434,12 @@ body.show-notes .note { display: block; }
 .blk.grow { flex: 1 1 auto; min-height: 0; }
 .stack { display: flex; flex-direction: column; gap: 11px; }
 .stack.grow { flex: 1 1 auto; min-height: 0; }
+
+/* ── DRAFTED CONTENT vs EVIDENCE STILL TO COME ────────────────────
+   Black upright text is written. Grey italic is a placeholder waiting
+   on a photograph, a measurement or a test result. */
+.field-val { flex: 1 1 auto; color: var(--ink); }
+.field-val.strong { font-weight: 600; }
+.prose.written { color: var(--ink); font-style: normal; }
+.ann-text.written { color: var(--ink); font-style: normal; border-bottom: none; }
+.pg-foot-notes.written { font-style: normal; color: var(--ink-soft); }

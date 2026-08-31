@@ -105,7 +105,7 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 1. You must write your own need statement and audience notes. No sharing at all!
 2. Don't make assumptions, ask questions to find evidence.
 3. Justifying the need for something means explaining why it is needed in detail, with proof.
-4. Writing about something you want or care about is a not acceptable.
+4. Writing about something you want or care about is not acceptable.
 
 Possible sources on the unit page, failures already written up: *Writing about themselves*; formatives that could become advice: *Need or want sort*, *Weak brief autopsy*.
 
@@ -193,7 +193,7 @@ Class shape, for the strip under the masthead:
 ### Hand in
 
 - 3 Games Analysed and completed synthesis
-- Submit to **Upload pictures of your work to ManageBac, subit papers in class**
+- Submit to **Upload pictures of your work to ManageBac, submit papers in class**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -206,7 +206,7 @@ MYP descriptor, quoted verbatim on the sheet:
 |---|---|---|
 | 1-2 | | Produce an incomplete analysis and choose games that are not likely to guide your work. |
 | 3-4 | | Complete basic analysis of 3 games, though not all of them are likely to help guide your work. |
-| 5-6 | | Completed a partially detailed analysis of 3 games which are mosly likely to help guide your work. |
+| 5-6 | | Completed a partially detailed analysis of 3 games which are mostly likely to help guide your work. |
 | 7-8 | | Completed a detailed analysis of 3 games which are all likely to help guide your work. |
 
 ### Tips
@@ -340,7 +340,7 @@ Devices on the page that belong in this column: **The mechanic draw**, **The int
 
 - 3 detailed game ideas
 - Brainstorming documents
-- Submit to **Upload pictures of your to ManageBac, hand in the paper in class.**
+- Submit to **Upload pictures of your work to ManageBac, hand in the paper in class.**
 - Also submit: *TO WRITE*
 
 ### Graded
