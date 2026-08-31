@@ -109,6 +109,27 @@ const DEVICES = {
     note: 'Full-featured. Supports all components. 22 GPIO per side. Dual USB-C.',
     maxInstances: { button: 12, ky040: 2, hw040: 2, ssd1306_i2c: 2, ssd1309: 1, sh1106: 2, ps2_joystick: 2, hw371: 4, slide_pot_long: 4 },
   },
+  esp32s3_super_mini: {
+    label: 'ESP32-S3 Super Mini',
+    logo: 'ESP32-S3',
+    model: 'Super Mini',
+    pinset: 'ESP32S3_SUPERMINI_PINS',
+    chipWidth: 160,
+    chipColor: '#1a2a1a',
+    chipBorder: '#3a6a30',
+    logoColor: '#4aaa40',
+    maxGpio: 15,
+    unsupported: ['ssd1306_spi'],
+    warnings: {
+      'GPIO3':  'Strapping pin -- add a 10k pull resistor.',
+      'GPIO7':  'Underside solder pad -- solder a wire to the pad on the back of the board.',
+      'GPIO8':  'Underside solder pad -- solder a wire to the pad on the back of the board.',
+      'GPIO43': 'UART0 TX -- avoid unless needed.',
+      'GPIO44': 'UART0 RX -- avoid unless needed.',
+    },
+    note: '13 GPIO on the headers, plus IO7 and IO8 as solder pads on the underside. Compact USB-C.',
+    maxInstances: { button: 10, ky040: 1, hw040: 1, ssd1306_i2c: 1, ssd1309: 1, sh1106: 1, ps2_joystick: 1, hw371: 2, slide_pot_long: 2 },
+  },
   esp32c3_super_mini: {
     label: 'ESP32-C3 Super Mini',
     logo: 'ESP32-C3',
@@ -167,6 +188,7 @@ const DEVICES = {
 function getCurrentPins() {
   const PIN_SETS = {
     'ESP32S3_PINS':           ESP32S3_PINS,
+    'ESP32S3_SUPERMINI_PINS': ESP32S3_SUPERMINI_PINS,
     'ESP32C3_SUPERMINI_PINS': ESP32C3_SUPERMINI_PINS,
     'ESP32C3_DEVKIT_PINS':    ESP32C3_DEVKIT_PINS,
     'XIAO_SAMD21_PINS':       XIAO_SAMD21_PINS,
@@ -248,10 +270,12 @@ function buildDeviceSelector() {
             !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
               'XIAO_VCC','XIAO_GND','XIAO_3V3','XIAO_BGND','XIAO_VIN',
               'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'S3SM_5V','S3SM_GND','S3SM_3V3',
               'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5',
               'C3D_GND6','C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
               'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB',
               'C3D_RST','C3D_RST2','C3D_PWR'].includes(p.id) &&
+            !p.solder &&
             p.types.some(t => t === pg.type || (pg.type === 'gpio' && t === 'gpio') ||
               (pg.type === 'analog' && t === 'analog'))
           );
@@ -349,6 +373,14 @@ function buildChip() {
         <div class="chip-usb-label" style="color:${dev.logoColor}">USB-C</div>
         <div class="chip-usb-label" style="color:${dev.logoColor}">USB-C</div>
       </div>`;
+  } else if (state.device === 'esp32s3_super_mini') {
+    // S3 Super Mini: USB-C at top, IO7/IO8 as underside solder pads
+    centerContent = `
+      <div class="chip-usb-label chip-usb-label-top" style="color:${dev.logoColor}">USB-C</div>
+      <div class="chip-logo-text" style="color:${dev.logoColor}">${dev.logo}</div>
+      <div class="chip-model-text">${dev.model}</div>
+      ${bottomPins.length ? `<div class="chip-solder-label">&#9660; Underside pads &mdash; solder required</div>
+      <div class="chip-bottom-pins">${bottomHTML}</div>` : ''}`;
   } else if (state.device.startsWith('esp32c3')) {
     // C3: single USB-C at top, logo centered
     centerContent = `
@@ -396,6 +428,7 @@ function buildChip() {
 function pinClass(pin) {
   if (pin.types.includes('power')) return 'power';
   if (pin.types.includes('gnd'))   return 'gnd';
+  if (pin.solder)                  return 'solder';
   return '';
 }
 
@@ -566,12 +599,14 @@ function addComponent(compId, x, y) {
       pinAssign[pg.id] = '';
     } else {
       // Try preferred first, then walk the pin list for next available compatible pin
+      // Solder-pad pins are never auto-assigned  --  the user must pick them by hand
       const compat = getCurrentPins().filter(p =>
         !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST'].includes(p.id) &&
+        !p.solder &&
         p.types.some(t => pg.type === t || t === 'gpio')
       );
       let chosen = '';
-      if (pg.preferred && !usedGPIO.has(pg.preferred)) {
+      if (pg.preferred && !usedGPIO.has(pg.preferred) && compat.some(p => p.id === pg.preferred)) {
         chosen = pg.preferred;
       } else {
         for (const p of compat) {
@@ -1208,6 +1243,7 @@ function buildCcpBody(instId) {
         'GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
         'GND','3V3','5V','VUSB',
         'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'S3SM_5V','S3SM_GND','S3SM_3V3',
         'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
         'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
         'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
@@ -1220,7 +1256,7 @@ function buildCcpBody(instId) {
             const taken  = usedPins.includes(p.id);
             const sel    = inst.pinAssign[pg.id] === p.id ? 'selected' : '';
             const style  = !compat ? 'style="color:var(--text3)"' : taken ? 'style="color:var(--yellow)"' : '';
-            const sfx    = !compat ? ' (incompat)' : taken ? ' (in use)' : '';
+            const sfx    = !compat ? ' (incompat)' : taken ? ' (in use)' : p.solder ? ' (solder pad)' : '';
             return `<option value="${p.id}" ${sel} ${style}>${p.label}${sfx}</option>`;
           }).join('')}
         </select></td></tr>`;
@@ -1421,6 +1457,7 @@ function renderPanel(id) {
       const allPins = getCurrentPins().filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
        'GND','3V3','5V','VUSB',
        'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'S3SM_5V','S3SM_GND','S3SM_3V3',
        'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
        'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
        'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
@@ -1436,7 +1473,7 @@ function renderPanel(id) {
             const style    = !isCompat
               ? 'style="color:var(--text3)"'
               : taken ? 'style="color:var(--yellow)"' : '';
-            const suffix   = !isCompat ? ' (incompatible)' : taken ? ' (in use)' : '';
+            const suffix   = !isCompat ? ' (incompatible)' : taken ? ' (in use)' : p.solder ? ' (solder pad)' : '';
             return `<option value="${p.id}" ${sel} ${style}>${p.label}${suffix}</option>`;
           }).join('')}
         </select></td>
@@ -1607,6 +1644,7 @@ function openPinReassign(instId, pgId, anchorEl) {
   const allPins   = getCurrentPins().filter(p => !['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
        'GND','3V3','5V','VUSB',
        'C3SM_5V','C3SM_GND','C3SM_3V3',
+       'S3SM_5V','S3SM_GND','S3SM_3V3',
        'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5','C3D_GND6',
        'C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
        'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',
@@ -1625,7 +1663,7 @@ function openPinReassign(instId, pgId, anchorEl) {
       const taken    = usedPins.includes(p.id);
       const sel      = inst.pinAssign[pgId] === p.id;
       const color    = !isCompat ? 'var(--text3)' : taken ? 'var(--yellow)' : sel ? 'var(--green)' : 'var(--text)';
-      const suffix   = !isCompat ? ' &#10007;' : taken ? ' &#9888;' : sel ? ' &#10003;' : '';
+      const suffix   = !isCompat ? ' &#10007;' : taken ? ' &#9888;' : sel ? ' &#10003;' : p.solder ? ' (solder pad)' : '';
       return `<div style="padding:5px 8px;border-radius:4px;cursor:pointer;font-family:var(--font-mono);font-size:0.72rem;color:${color};background:${sel?'var(--bg3)':'transparent'}"
         onmouseenter="this.style.background='var(--bg3)'"
         onmouseleave="this.style.background='${sel?'var(--bg3)':'transparent'}'"
@@ -1643,6 +1681,17 @@ function closePinPopover() {
 }
 
 // -- Load preset build ----------------------------------------------
+// Presets are written against the ESP32-S3 N16R8 pin map. On a device where one
+// of those ids is a solder pad, blank it so the user has to choose it deliberately.
+function dropSolderPins(pinAssign) {
+  const solder = new Set(getCurrentPins().filter(p => p.solder).map(p => p.id));
+  const out = {};
+  Object.entries(pinAssign).forEach(([pgId, pinId]) => {
+    out[pgId] = solder.has(pinId) ? '' : pinId;
+  });
+  return out;
+}
+
 function loadPreset(presetId) {
   const preset = PRESET_CONFIGS[presetId];
   if (!preset) return;
@@ -1689,7 +1738,7 @@ function loadPreset(presetId) {
       compId: def.compId,
       x: px,
       y: py,
-      pinAssign: Object.assign({}, def.pinAssign),
+      pinAssign: dropSolderPins(def.pinAssign),
       config,
       label: def.label || (comp.shortName + ' ' + state.nextId),
       wireColor: WIRE_SEQ[baseColorIdx % WIRE_SEQ.length],
@@ -2362,6 +2411,21 @@ function updateNotes() {
     }
   });
 
+  // Solder-pad pins in use  --  they need a wire soldered to the board's underside
+  const solderPins = getCurrentPins().filter(p => p.solder);
+  if (solderPins.length) {
+    const inUse = new Set();
+    state.placed.forEach(inst => {
+      Object.values(inst.pinAssign).forEach(pinId => {
+        if (solderPins.some(p => p.id === pinId)) inUse.add(pinId);
+      });
+    });
+    if (inUse.size) {
+      const labels = solderPins.filter(p => inUse.has(p.id)).map(p => p.label).join(' and ');
+      notes.push({ cls: 'note-warn', text: `${labels} ${inUse.size > 1 ? 'are underside solder pads' : 'is an underside solder pad'} on the ${dev.label}  --  no header pin. Solder a wire directly to the pad on the back of the board.` });
+    }
+  }
+
   // XIAO SAMD21: warn about 5V on pins
   if (state.device === 'xiao_samd21') {
     notes.push({ cls: 'note-info', text: 'XIAO SAMD21: logic is 3.3V only. Do not connect 5V components directly to GPIO pins.' });
@@ -2502,6 +2566,7 @@ function buildConfigJSON() {
 function hasPinConflicts() {
   const FIXED = new Set(['GND_L','GND_R1','GND_R2','GND_R3','3V3_A','3V3_B','5VIN','RST',
     'GND','3V3','5V','VUSB','C3SM_5V','C3SM_GND','C3SM_3V3',
+       'S3SM_5V','S3SM_GND','S3SM_3V3',
     'C3D_GND1','C3D_GND2','C3D_GND3','C3D_GND4','C3D_GND5',
     'C3D_GND6','C3D_GND7','C3D_GND8','C3D_GND9','C3D_GND10',
     'C3D_3V3A','C3D_3V3B','C3D_5VA','C3D_5VB','C3D_RST','C3D_RST2','C3D_PWR',

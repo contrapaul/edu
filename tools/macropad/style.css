@@ -1106,6 +1106,23 @@ header {
   background: var(--copper);
 }
 
+/* Underside solder pads (ESP32-S3 Super Mini IO7/IO8) */
+.chip-solder-label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: var(--text3);
+  text-align: center;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+.pin-item.solder .pin-stub-bottom { background: var(--yellow); }
+.pin-item.solder .pin-dot {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--yellow);
+}
+.pin-item.solder.used .pin-dot { background: var(--yellow); border-style: solid; }
+
 /* -- Device selector ---------------------------------------------- */
 .device-selector-wrap {
   display: flex;

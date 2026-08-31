@@ -351,6 +351,34 @@ const ESP32S3_PINS = [
   { id: 'GND_R2', label: 'GND',    side: 'right', types: ['gnd'],                      note: 'Ground' },
   { id: 'GND_R3', label: 'GND',    side: 'right', types: ['gnd'],                      note: 'Ground' },
 ];
+// -- ESP32-S3 Super Mini --------------------------------------------
+// USB-C at top. 8 pins per side, 16 total, plus two pads on the underside.
+// Left top->bottom:  5V GND 3V3 GPIO13 GPIO12 GPIO11 GPIO10 GPIO9
+// Right top->bottom: GPIO1 GPIO2 GPIO3 GPIO4 GPIO5 GPIO6 GPIO43 GPIO44
+// Underside pads:    GPIO7 GPIO8  -- not broken out to a header, must be soldered
+const ESP32S3_SUPERMINI_PINS = [
+  { id: 'S3SM_5V',  label: '5V',   side: 'left',   types: ['power'],                    note: '5V USB passthrough' },
+  { id: 'S3SM_GND', label: 'GND',  side: 'left',   types: ['gnd'],                      note: 'Ground' },
+  { id: 'S3SM_3V3', label: '3V3',  side: 'left',   types: ['power'],                    note: '3.3V output' },
+  { id: 'GPIO13',   label: 'IO13', side: 'left',   types: ['gpio','spi'],               note: 'SPI MISO. ADC2 -- unreliable while WiFi is on.' },
+  { id: 'GPIO12',   label: 'IO12', side: 'left',   types: ['gpio','spi'],               note: 'SPI SCK' },
+  { id: 'GPIO11',   label: 'IO11', side: 'left',   types: ['gpio','spi'],               note: 'SPI MOSI' },
+  { id: 'GPIO10',   label: 'IO10', side: 'left',   types: ['gpio','analog','spi'],      note: 'ADC1_CH9. SPI CS.' },
+  { id: 'GPIO9',    label: 'IO9',  side: 'left',   types: ['gpio','analog','i2c_scl'],  note: 'ADC1_CH8. Default I2C SCL.' },
+  { id: 'GPIO1',    label: 'IO1',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH0' },
+  { id: 'GPIO2',    label: 'IO2',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH1' },
+  { id: 'GPIO3',    label: 'IO3',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH2. Strapping pin -- use with care.' },
+  { id: 'GPIO4',    label: 'IO4',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH3' },
+  { id: 'GPIO5',    label: 'IO5',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH4' },
+  { id: 'GPIO6',    label: 'IO6',  side: 'right',  types: ['gpio','analog'],            note: 'ADC1_CH5' },
+  { id: 'GPIO43',   label: 'TX',   side: 'right',  types: ['gpio'],                     note: 'UART0 TX (GPIO43) -- avoid unless needed' },
+  { id: 'GPIO44',   label: 'RX',   side: 'right',  types: ['gpio'],                     note: 'UART0 RX (GPIO44) -- avoid unless needed' },
+  { id: 'GPIO7',    label: 'IO7',  side: 'bottom', types: ['gpio','analog'], solder: true,
+    note: 'ADC1_CH6. Solder pad on the underside of the board -- no header pin. Solder a wire to it before use.' },
+  { id: 'GPIO8',    label: 'IO8',  side: 'bottom', types: ['gpio','analog','i2c_sda'], solder: true,
+    note: 'ADC1_CH7, default I2C SDA. Solder pad on the underside of the board -- no header pin. Solder a wire to it before use.' },
+];
+
 // -- ESP32-C3 Super Mini (HW-466AB, confirmed from physical board) --
 // USB-C at top. 8 pins per side, 16 total.
 // Left top->bottom:  5V GND 3V3 GPIO4 GPIO3 GPIO2 GPIO1 GPIO0
