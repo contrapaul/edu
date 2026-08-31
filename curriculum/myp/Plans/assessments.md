@@ -75,44 +75,37 @@ The 7-8 row is the MYP descriptor itself, which is quoted verbatim under **Grade
 
 Required on the submission, from the unit page checklist:
 
-- Who the audience is, in specifics. Not "Grade 6 students" but what they do at 11:45 on a Tuesday.
-- The situation as it stands, with at least one piece of evidence gathered rather than assumed.
-- Why a tabletop game rather than a club, an app, a sport or nothing at all.
-- What happens if nothing is made. If the honest answer is "nothing much", the need has not been found yet.
+- Choose a target audience for your game and go talk to them. 
+- Define your specific audience. 
+- Provide details about their current recess activities. 
+- Justify starting a project to build a tabletop game for this audience.
 
 ### Hand in
 
-- Need Statement, 1 page
-- Submit to **ManageBac**
-- Also submit: *TO WRITE*
+- Need Statement and interview notes, 1 page front and back
+- Submit to **Upload pictures of your page on ManageBac, and submit the actual paper in class.**
 
 ### Graded
 
 MYP descriptor, quoted verbatim on the sheet:
 
-> You will choose an audience and find a client group, then conduct research to support the development of a new game.
-
-`CHECK` This is a student-voice rewrite, not the IB descriptor. Every other strand on the page quotes the descriptor verbatim; Ai is the one that does not. The IB wording for A i is *"Explains and justifies the need for a solution to a problem for a client/target audience."* Decide which one prints, but the sheet should carry the IB wording verbatim somewhere, the way the other fifteen do.
+> Explains and justifies the need for a solution to a problem for a client/target audience.
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
-
-Raw material, the `The 5-6 to 7-8 line` note already on the page:
-
-> A 5-6 explains that the audience exists and would probably enjoy a game. A 7-8 argues why this audience, why this need, and why a tabletop game beats the alternatives for them.
+| 1-2 | | An incomplete statement with limited notes, no justification, and no explanation. |
+| 3-4 | | A need statement and audience notes, with limited justification and explanation. |
+| 5-6 | | A need statement and audience notes, with some justification and explanation. |
+| 7-8 | | A detailed need statement and audience notes, with strong justification and clear explanation. |
 
 ### Tips
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
+1. You must write your own need statement and audience notes. No sharing at all!
+2. Don't make assumptions, ask questions to find evidence.
+3. Justifying the need for something means explaining why it is needed in detail, with proof.
+4. Writing about something you want or care about is a not acceptable.
 
 Possible sources on the unit page, failures already written up: *Writing about themselves*; formatives that could become advice: *Need or want sort*, *Weak brief autopsy*.
 
@@ -142,7 +135,7 @@ Devices on the page that belong in this column: **The research budget**.
 ### Hand in
 
 - Research Plan, 1 page
-- Submit to **ManageBac**
+- Submit to **A PDF of your research plan to ManageBac**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -199,8 +192,8 @@ Class shape, for the strip under the masthead:
 
 ### Hand in
 
-- 3 teardowns + synthesis
-- Submit to **ManageBac**
+- 3 Games Analysed and completed synthesis
+- Submit to **Upload pictures of your work to ManageBac, subit papers in class**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -211,25 +204,19 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
-
-Raw material, the `The 5-6 to 7-8 line` note already on the page:
-
-> Three good teardowns with no synthesis is a 5-6, because the analysis has not been carried anywhere. The implications are the difference.
+| 1-2 | | Produce an incomplete analysis and choose games that are not likely to guide your work. |
+| 3-4 | | Complete basic analysis of 3 games, though not all of them are likely to help guide your work. |
+| 5-6 | | Completed a partially detailed analysis of 3 games which are mosly likely to help guide your work. |
+| 7-8 | | Completed a detailed analysis of 3 games which are all likely to help guide your work. |
 
 ### Tips
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
-
-Possible sources on the unit page, formatives that could become advice: *Teardown together*, *Mechanic spotting speed run*.
+1. You many only share 1 analysed game with a group member.
+2. Your work is your own, a shared game just means you both get to analyse it.
+3. Choose games that complement your group's choices.
+4. Be detailed!
 
 ---
 
@@ -246,8 +233,6 @@ Possible sources on the unit page, formatives that could become advice: *Teardow
 | Deadline wording | | TO WRITE |
 
 ### Do
-
-*No checklist on the unit page. The requirements have to be lifted out of the prose in the `aiv` section, or written fresh.*
 
 ### Hand in
 
@@ -266,7 +251,7 @@ MYP descriptor, quoted verbatim on the sheet:
 | 1-2 | | TO WRITE |
 | 3-4 | | TO WRITE |
 | 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 7-8 | | Developed a detailed design brief that includes a summary of your reseach.  |
 
 ### Tips
 
@@ -275,9 +260,7 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 1. 
 2. 
 3. 
-4. 
-
-Possible sources on the unit page, formatives that could become advice: *Brief or spec?*.
+4. Referencing research a requirement, not an option. 
 
 ---
 
@@ -288,19 +271,19 @@ Possible sources on the unit page, formatives that could become advice: *Brief o
 | Field | Value | |
 |---|---|---|
 | Time | 1 class | FROM PAGE |
-| Worked | Individual | FROM PAGE |
+| Worked | Group Work | FROM PAGE |
 | Hand in | Specification, 8 to 12 lines | FROM PAGE |
 | Also submit | | TO WRITE |
 | Deadline wording | | TO WRITE |
 
 ### Do
 
-*No checklist on the unit page. The requirements have to be lifted out of the prose in the `bi` section, or written fresh.*
+Create a set of design specifications which will guide your project. These must be testable, and linked to research you did in Aiii.
 
 ### Hand in
 
 - Specification, 8 to 12 lines
-- Submit to **ManageBac**
+- Submit to **Upload a PDF of your work to ManageBac**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -311,21 +294,19 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | Did not create a complete set of design specifications. |
+| 3-4 | | Created a set of basic design specifications which partially link to research, some can be tested. |
+| 5-6 | | Created a set of design specifications which are partially linked to relevant research and can be tested. |
+| 7-8 | | Created a detailed set of design specifications which are linked to relevant research and can be tested. |
 
 ### Tips
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
-
-Possible sources on the unit page, failures already written up: *If it cannot be measured, it is not a specification*; formatives that could become advice: *Make it measurable*, *Spec to test matching*.
+1. "Testing" your specifications can happen many different ways. 
+2. Specifications must be achievable and help guide the project.
+3. Specifications should be created by your group, but each of you must participate.
+4. All aspects of the game should be considered. 
 
 ---
 
@@ -337,7 +318,7 @@ Possible sources on the unit page, failures already written up: *If it cannot be
 |---|---|---|
 | Time | 3 classes | FROM PAGE |
 | Worked | Individual | FROM PAGE |
-| Hand in | 6 to 8 concepts + 2 prototypes | FROM PAGE |
+| Hand in | 3 detailed game ideas + Brainstorming documents | FROM PAGE |
 | Also submit | | TO WRITE |
 | Deadline wording | | TO WRITE |
 
@@ -345,12 +326,7 @@ Possible sources on the unit page, failures already written up: *If it cannot be
 
 Required on the submission, from the unit page checklist:
 
-- A core loop diagram. What a player does on their turn, in order.
-- Board or component sketch, roughly to scale.
-- Mechanics used, named from the catalog.
-- The meaningful choice, circled and labelled. If it cannot be pointed at, the concept is not finished.
-- Annotation linking to a Bi specification by number.
-- One risk. The part most likely to fail.
+- 
 
 Class shape, for the strip under the masthead:
 
@@ -362,8 +338,9 @@ Devices on the page that belong in this column: **The mechanic draw**, **The int
 
 ### Hand in
 
-- 6 to 8 concepts + 2 prototypes
-- Submit to **ManageBac**
+- 3 detailed game ideas
+- Brainstorming documents
+- Submit to **Upload pictures of your to ManageBac, hand in the paper in class.**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -374,19 +351,19 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | Produced less than 3 complete game ideas, with messy drawings and few notes. |
+| 3-4 | | Produced 3 game ideas with drawings and some notes.   |
+| 5-6 | | Produced 3 game ideas with clean drawings and notes. |
+| 7-8 | | Produced 3 well developed game ideas, with many clean drawings and many notes. |
 
 ### Tips
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
+1. Write a lot of notes! You're explaining ideas to yourself, your team, and more.
+2. Use rulers and drawing tools- your work will be far neater.
+3. Use art markers, but be careful with them! (Don't mix colors)
+4. Lean on game mechanics to help with your ideas!
 
 Possible sources on the unit page, formatives that could become advice: *Two family challenge*, *Annotation density check*, *Interpretation rehearsal*.
 
@@ -479,10 +456,10 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | Developed incomplete drawings and a limited outline or requirements to produce the game. |
+| 3-4 | | Developed basic drawings and a general outline of requirements to produce the game. |
+| 5-6 | | Developed partially accurate and somewhat detailed planning drawings and outlined requirements to produce the game. |
+| 7-8 | | Developed accurate and detailed planning drawings and outlined requirements to produce the game. |
 
 ### Tips
 
@@ -492,8 +469,6 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 2. 
 3. 
 4. 
-
-Possible sources on the unit page, failures already written up: *The large laser cutter is not reliable*; formatives that could become advice: *Dimension a real card*, *Manifest a published game*.
 
 ---
 
@@ -629,8 +604,7 @@ Devices on the page that belong in this column: **The cold read test**.
 ### Hand in
 
 - The game + cold read record
-- Submit to **ManageBac**
-- Also submit: *TO WRITE*
+- Submit to **Pictures of your work to ManageBac, the physical games shared in class**
 
 ### Graded
 
@@ -677,7 +651,7 @@ Possible sources on the unit page, formatives that could become advice: *Interna
 ### Hand in
 
 - Change Log, dated
-- Submit to **ManageBac**
+- Submit to **Upload a picture of your work to ManageBac and submit your paper in class**
 - Also submit: *TO WRITE*
 
 ### Graded
@@ -688,10 +662,10 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | My changelog includes few changes, and no real justification or explanation. |
+| 3-4 | | My changelog includes many changes, but only some explanations and justifications. |
+| 5-6 | | My changelong includes many changes, some of which have explanations and justifications. |
+| 7-8 | | My changelog includes many changes which have explanations and justifications. |
 
 Raw material, the `What a top band entry contains` note already on the page:
 
@@ -701,10 +675,10 @@ Raw material, the `What a top band entry contains` note already on the page:
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
+1. Don't wait to write about changes until the end!
+2. The more detailed you are the better. 
+3. Changes explain your choices- telling a bigger story than it seems.
+4. Your change log is individual, even though it might share some changes with the team.
 
 Possible sources on the unit page, failures already written up: *Logs written the night before are obvious*; formatives that could become advice: *Trigger, options, choice*.
 
@@ -787,8 +761,7 @@ Possible sources on the unit page, failures already written up: *Match the metho
 
 Class shape, for the strip under the masthead:
 
-1. The client session
-2. The evaluation
+1. Students test the finished game and evaluate it against their own specifications. Every success criterion is judged on the evidence the testing produced. 2The evaluation
 
 Devices on the page that belong in this column: **The limits of your own evidence**.
 
