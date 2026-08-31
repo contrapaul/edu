@@ -1,0 +1,436 @@
+/* ── RESET & TOKENS ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0b0b14;
+  --bg-raised: #14141f;
+  --text: #f2f2f7;
+  --text-secondary: #b7b7c9;
+  --text-muted: #7d7d92;
+  --rule: rgba(255,255,255,0.08);
+  --accent: #7fd8ff;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+          'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', 'Courier New', Courier, monospace;
+
+  /* Criterion colours, used on tabs, chips and page headers. */
+  --crit-a: #ff7aa8;
+  --crit-b: #ffb84d;
+  --crit-c: #8ce99a;
+  --crit-d: #7fd8ff;
+  --crit-e: #c9a3ff;
+
+  /* A4 portrait at 96dpi. Every page is exactly this size; the track is
+     scaled to fit the viewport by iasample.js. */
+  --page-w: 794px;
+  --page-h: 1123px;
+  --page-pad: 46px;
+
+  /* Paper */
+  --paper: #ffffff;
+  --ink: #16161c;
+  --ink-soft: #4a4a58;
+  --ink-faint: #8d8d9c;
+  --paper-rule: #d9d9e2;
+  --placeholder: #f2f3f7;
+  --placeholder-rule: #c8cad6;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+a { color: inherit; }
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: #0b0b14; padding: 10px 16px; font-weight: 700;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ── TOP BAR ──────────────────────────────────────────────────── */
+.ia-bar {
+  flex-shrink: 0;
+  background: rgba(11,11,20,0.92);
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 16px 0;
+}
+.ia-bar-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+}
+.ia-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.ia-title span { color: var(--text-muted); font-weight: 500; }
+.ia-bar-spacer { flex: 1 1 auto; }
+
+.ia-attribution { font-size: 12px; color: var(--text-muted); letter-spacing: 0.04em; }
+.ia-attribution a { color: var(--accent); text-decoration: none; font-weight: 500; }
+.ia-attribution a:hover { text-decoration: underline; }
+
+.ia-toggle {
+  appearance: none; cursor: pointer; font: inherit;
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 5px 13px;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.ia-toggle:hover { color: var(--text); background: rgba(255,255,255,0.09); }
+.ia-toggle[aria-pressed="true"] {
+  color: #0b0b14; background: var(--accent); border-color: var(--accent);
+}
+.ia-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Page counter and step arrows */
+.ia-stepper { display: flex; align-items: center; gap: 6px; }
+.ia-step {
+  appearance: none; cursor: pointer; font: inherit; line-height: 1;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--rule);
+}
+.ia-step:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+.ia-step:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ia-counter {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  min-width: 92px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── QUICK LINKS ──────────────────────────────────────────────── */
+.ia-quicklinks {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 9px;
+  scrollbar-width: thin;
+}
+.ia-quicklinks::-webkit-scrollbar { height: 4px; }
+.ia-quicklinks::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 2px; }
+
+.ql {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--ql-colour, var(--rule));
+  border-radius: 4px;
+  padding: 5px 11px;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.ql:hover { color: var(--text); background: rgba(255,255,255,0.09); }
+.ql:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ql-crit { color: var(--ql-colour); font-weight: 800; letter-spacing: 0.06em; }
+.ql-pages { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); }
+.ql.is-active {
+  color: #0b0b14;
+  background: var(--ql-colour);
+  border-color: var(--ql-colour);
+}
+.ql.is-active .ql-crit, .ql.is-active .ql-pages { color: rgba(0,0,0,0.62); }
+
+.ql[data-crit="A"] { --ql-colour: var(--crit-a); }
+.ql[data-crit="B"] { --ql-colour: var(--crit-b); }
+.ql[data-crit="C"] { --ql-colour: var(--crit-c); }
+.ql[data-crit="D"] { --ql-colour: var(--crit-d); }
+.ql[data-crit="E"] { --ql-colour: var(--crit-e); }
+
+/* ── HORIZONTAL PAGE TRACK ────────────────────────────────────── */
+.ia-scroller {
+  flex: 1 1 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+}
+.ia-scroller::-webkit-scrollbar { height: 9px; }
+.ia-scroller::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+.ia-scroller::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.16); border-radius: 5px; }
+.ia-scroller::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.28); }
+
+.ia-track {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 22px 40px;
+  width: max-content;
+  /* zoom is set by iasample.js so a whole A4 page fits the viewport height */
+}
+
+/* ── A4 PAGE ──────────────────────────────────────────────────── */
+.ia-page {
+  flex: 0 0 auto;
+  width: var(--page-w);
+  height: var(--page-h);
+  background: var(--paper);
+  color: var(--ink);
+  scroll-snap-align: center;
+  border-radius: 2px;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.55);
+  padding: var(--page-pad);
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  line-height: 1.45;
+  position: relative;
+}
+.ia-page[data-crit="A"] { --crit: var(--crit-a); }
+.ia-page[data-crit="B"] { --crit: var(--crit-b); }
+.ia-page[data-crit="C"] { --crit: var(--crit-c); }
+.ia-page[data-crit="D"] { --crit: var(--crit-d); }
+.ia-page[data-crit="E"] { --crit: var(--crit-e); }
+
+/* Landscape exception, permitted for the criterion D dimension drawings */
+.ia-page.is-landscape { width: var(--page-h); height: var(--page-w); }
+
+/* Running head */
+.pg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid var(--crit);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+.pg-crit {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--crit) 72%, #000);
+}
+.pg-strand { font-size: 10px; letter-spacing: 0.05em; color: var(--ink-faint); }
+.pg-head-spacer { flex: 1 1 auto; }
+.pg-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-body { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+
+/* Headings inside a page */
+.pg-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+.pg-subtitle { font-size: 12px; color: var(--ink-soft); }
+h3.blk-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--paper-rule);
+  margin-bottom: 6px;
+}
+
+/* Placeholder fields: label plus a ruled line to write on */
+.fields { display: flex; flex-direction: column; gap: 5px; }
+.field { display: flex; gap: 8px; font-size: 11.5px; align-items: baseline; }
+.field-label { flex: 0 0 auto; color: var(--ink-soft); font-weight: 600; }
+.field-fill {
+  flex: 1 1 auto;
+  border-bottom: 1px dotted var(--placeholder-rule);
+  min-height: 15px;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.field.stacked { flex-direction: column; gap: 2px; }
+
+/* Image plates: where photographs, renders and drawings go */
+.plate {
+  background: var(--placeholder);
+  border: 1px dashed var(--placeholder-rule);
+  border-radius: 3px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 10px;
+  color: var(--ink-faint);
+  font-size: 10.5px;
+  font-style: italic;
+  min-height: 90px;
+  overflow: hidden;
+}
+.plate.grow { flex: 1 1 auto; }
+.plate img { width: 100%; height: 100%; object-fit: contain; }
+.plate-grid { display: grid; gap: 10px; }
+.plate-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.plate-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.plate-grid.rows-2 { grid-template-rows: 1fr 1fr; }
+.plate-grid.grow { flex: 1 1 auto; min-height: 0; }
+
+/* Annotations, held to the guide's 10 word ceiling */
+.anns { display: flex; flex-direction: column; gap: 4px; }
+.ann {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.ann-key {
+  flex: 0 0 auto;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--crit);
+  color: #16161c;
+  font-size: 9px;
+  font-weight: 800;
+  display: grid; place-items: center;
+  font-family: var(--font-mono);
+}
+.ann-text { flex: 1 1 auto; border-bottom: 1px dotted var(--placeholder-rule); font-style: italic; }
+
+/* Tables */
+.ia-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
+.ia-table th, .ia-table td {
+  border: 1px solid var(--paper-rule);
+  padding: 4px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+.ia-table th {
+  background: color-mix(in srgb, var(--crit) 16%, #fff);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.ia-table td.fill { color: var(--ink-faint); font-style: italic; }
+.ia-table tbody tr:nth-child(even) td { background: #fafafd; }
+
+/* Storyboard frames */
+.frames { display: grid; gap: 9px; flex: 1 1 auto; min-height: 0; }
+.frames.g6 { grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; }
+.frames.g4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.frame { display: flex; flex-direction: column; gap: 5px; min-height: 0; }
+.frame .plate { flex: 1 1 auto; min-height: 0; }
+.frame-no {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--crit) 70%, #000);
+}
+.frame-ann {
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  border-bottom: 1px dotted var(--placeholder-rule);
+  min-height: 14px;
+}
+
+/* Prose slot, with the word budget shown so students can see the cost */
+.prose {
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  border-left: 2px solid var(--paper-rule);
+  padding: 3px 0 3px 9px;
+}
+.prose p + p { margin-top: 5px; }
+
+/* Footnote strip, since the guide requires sources on the page itself */
+.pg-foot {
+  flex-shrink: 0;
+  margin-top: 12px;
+  padding-top: 6px;
+  border-top: 1px solid var(--paper-rule);
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 9px;
+  color: var(--ink-faint);
+}
+.pg-foot-notes { flex: 1 1 auto; font-style: italic; }
+.pg-foot-budget { font-family: var(--font-mono); white-space: nowrap; }
+
+/* ── GUIDANCE NOTES (hidden until toggled) ────────────────────── */
+.note {
+  border-left: 3px solid var(--crit);
+  background: color-mix(in srgb, var(--crit) 9%, #fff);
+  padding: 6px 9px;
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  border-radius: 0 3px 3px 0;
+  display: none;
+}
+.note b {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--crit) 65%, #000);
+  margin-bottom: 2px;
+}
+body.show-notes .note { display: block; }
+
+/* ── PRINT: real A4, one page per sheet ───────────────────────── */
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  body { display: block; height: auto; overflow: visible; background: #fff; }
+  .ia-bar, .skip-link { display: none; }
+  .ia-scroller { overflow: visible; }
+  .ia-track { display: block; width: auto; padding: 0; zoom: 1 !important; }
+  .ia-page {
+    width: 210mm; height: 297mm;
+    box-shadow: none; border-radius: 0;
+    break-after: page; page-break-after: always;
+  }
+  .ia-page.is-landscape { width: 297mm; height: 210mm; }
+  .note { display: none !important; }
+}
+
+/* ── LAYOUT HELPERS INSIDE A PAGE ─────────────────────────────── */
+.cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.cols2.uneven { grid-template-columns: 1.15fr 1fr; }
+.cols2.grow { flex: 1 1 auto; min-height: 0; }
+.col { display: flex; flex-direction: column; gap: 11px; min-height: 0; }
+.blk { display: flex; flex-direction: column; }
+.blk.grow { flex: 1 1 auto; min-height: 0; }
+.stack { display: flex; flex-direction: column; gap: 11px; }
+.stack.grow { flex: 1 1 auto; min-height: 0; }
