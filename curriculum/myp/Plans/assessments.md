@@ -787,7 +787,8 @@ Possible sources on the unit page, failures already written up: *Match the metho
 
 Class shape, for the strip under the masthead:
 
-1. Students test the finished game and evaluate it against their own specifications. Every success criterion is judged on the evidence the testing produced. 2The evaluation
+1. The client session
+2. The evaluation
 
 Devices on the page that belong in this column: **The limits of your own evidence**.
 

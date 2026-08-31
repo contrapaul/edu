@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Printable student task sheets for the Grade 9 Tabletop Game Design unit, one A4 landscape side per MYP Design strand.">
+<title>Task Sheets | Grade 9 Tabletop Game Design</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/g9-task-sheets.html">
+<meta name="robots" content="noindex">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   G9 TABLETOP GAME DESIGN, STUDENT TASK SHEETS
+   Sixteen sheets, one per MYP Design strand, A4 landscape at
+   1123 x 794 which is A4 at 96dpi.
+
+   Content is filled in from curriculum/myp/Plans/assessments.md.
+   That file is still being written, so anything not yet decided
+   shows as a marked placeholder rather than being left blank or
+   invented. Search this file for "todo" to find them all.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'Bespoke Slab'; src:url('../../Fonts/fonts/BespokeSlab-Extrabold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:#1c1f24; --soft:#4a4f57; --dim:#767c86; --rule:#d3d8de; --hair:#e6e9ee;
+  --todo:#b0562c; --todo-bg:#fbf0e9;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --slab:'Bespoke Slab', Georgia, serif;
+}
+/* One colour per criterion, matching the criteria cards in
+   tools/mechanics/print.js so the two sets agree. */
+.crit-a { --crit:#2f4f7a; --tint:#eef2f7; }
+.crit-b { --crit:#7a3f5e; --tint:#f7eef2; }
+.crit-c { --crit:#3f6b4a; --tint:#eef4ef; }
+.crit-d { --crit:#8a5a1f; --tint:#f8f2e9; }
+
+* { box-sizing:border-box; }
+body { margin:0; background:#e9ebef; color:var(--ink); font-family:var(--body);
+  display:flex; flex-direction:column; align-items:center; padding:22px 12px 70px; }
+
+/* ── screen chrome ────────────────────────────────────────────── */
+.top { width:1123px; max-width:100%; }
+.crumb { font-family:var(--mono); font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--dim); margin:0 0 12px; }
+.crumb a { color:var(--soft); text-decoration:none; border-bottom:1px solid var(--rule); }
+.crumb a:hover, .crumb a:focus-visible { color:var(--ink); border-bottom-color:currentColor; }
+.top h1 { font-family:var(--slab); font-weight:800; font-size:2rem; letter-spacing:-0.025em;
+  line-height:1.05; margin:0 0 10px; }
+.top .lede { font-size:0.92rem; line-height:1.65; color:var(--soft); margin:0 0 18px; max-width:70ch; }
+.top .lede b { color:var(--ink); font-weight:600; }
+
+.bar { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:20px; }
+.btn { font-family:var(--mono); font-size:0.66rem; font-weight:700; letter-spacing:0.08em;
+  text-transform:uppercase; padding:0.5rem 0.85rem; border-radius:7px; cursor:pointer;
+  background:#fff; border:1px solid #b9c0c9; color:var(--ink); }
+.btn:hover { border-color:#333; }
+.btn-go { background:#1c1f24; border-color:#1c1f24; color:#fff; }
+.btn:focus-visible, .toc-list a:focus-visible, .crumb a:focus-visible { outline:2px solid #1c1f24; outline-offset:2px; }
+
+.state { display:flex; gap:0; border:1px solid var(--rule); border-radius:10px; overflow:hidden;
+  background:#fff; margin:0 0 22px; flex-wrap:wrap; }
+.state div { flex:1 1 160px; padding:13px 17px; border-right:1px solid var(--hair); }
+.state div:last-child { border-right:0; }
+.state dt { font-family:var(--mono); font-size:0.56rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 5px; }
+.state dd { margin:0; font-size:0.88rem; font-weight:500; font-variant-numeric:tabular-nums; }
+.state dd.warn { color:var(--todo); }
+
+/* ── table of contents ────────────────────────────────────────── */
+.toc { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 34px; }
+.toc-grp { background:#fff; border:1px solid var(--rule); border-top:3px solid var(--crit);
+  border-radius:9px; padding:14px 15px 12px; }
+.toc-crit { font-family:var(--mono); font-size:0.58rem; font-weight:700; letter-spacing:0.13em;
+  text-transform:uppercase; color:var(--crit); margin:0 0 11px; line-height:1.4; }
+.toc-crit span { color:var(--dim); padding:0 2px; }
+.toc-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
+.toc-list a { display:grid; grid-template-columns:auto 1fr; gap:2px 9px; text-decoration:none;
+  color:var(--ink); padding:7px 8px; border-radius:6px; }
+.toc-list a:hover { background:var(--tint); }
+.toc-code { font-family:var(--mono); font-size:0.66rem; font-weight:700; color:var(--crit);
+  grid-row:span 2; padding-top:1px; }
+.toc-name { font-size:0.82rem; font-weight:500; line-height:1.3; }
+.toc-meta { font-family:var(--mono); font-size:0.58rem; color:var(--dim); letter-spacing:0.04em; }
+.toc-gap { font-family:var(--mono); font-size:0.55rem; font-weight:700; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--todo); grid-column:2; }
+.toc-gap.ok { color:#3f6b4a; }
+@media (max-width:1000px) { .toc { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:620px)  { .toc { grid-template-columns:1fr; } }
+
+/* ── the sheet ────────────────────────────────────────────────── */
+.sheet { scroll-margin-top:18px; margin:0 0 30px; }
+.sh { width:1123px; height:794px; background:#fff; display:flex; flex-direction:column;
+  overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
+
+.sh-mast { background:var(--crit); color:#fff; padding:22px 34px 18px; }
+.sh-mast-top { display:flex; align-items:flex-start; justify-content:space-between; gap:34px; }
+.sh-code { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:0.19em;
+  text-transform:uppercase; color:rgba(255,255,255,0.78); margin:0; }
+.sh-code span { color:rgba(255,255,255,0.5); padding:0 3px; }
+.sh-title { font-family:var(--slab); font-weight:800; font-size:37px; line-height:1.02;
+  letter-spacing:-0.03em; margin:9px 0 0; }
+.sh-soi { flex:0 0 400px; border-left:2px solid rgba(255,255,255,0.42); padding-left:15px; }
+.sh-lab { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:rgba(255,255,255,0.62); margin:0 0 4px; }
+.sh-soi-t { font-size:12.5px; line-height:1.48; color:rgba(255,255,255,0.94); margin:0; }
+.sh-frame { display:flex; gap:26px; margin:16px 0 0; }
+.sh-frame div { min-width:0; }
+.sh-frame .sh-fr-r { margin-left:auto; text-align:right; }
+.sh-frame .sh-fr-r + .sh-fr-r { margin-left:0; }
+.sh-frame dt { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:3px; }
+.sh-frame dd { margin:0; font-size:11.5px; font-weight:500; line-height:1.35; }
+
+/* Class shape, only on strands that have one. */
+.sh-track { display:flex; margin:0; padding:0; list-style:none; background:var(--tint);
+  border-bottom:1px solid var(--rule); }
+.sh-track li { flex:1; display:flex; gap:10px; align-items:flex-start; padding:10px 20px;
+  border-right:1px solid rgba(0,0,0,0.07); }
+.sh-track li:last-child { border-right:0; }
+.sh-track .n { font-family:var(--mono); font-size:10px; font-weight:700; color:#fff;
+  background:var(--crit); width:19px; height:19px; border-radius:5px; flex:0 0 19px;
+  display:flex; align-items:center; justify-content:center; }
+.sh-track .s { font-size:11.4px; line-height:1.4; color:#2f333a; }
+
+.sh-body { flex:1 1 auto; display:grid; grid-template-columns:repeat(3,1fr); min-height:0; }
+.sh-col { padding:19px 26px; border-right:1px solid var(--rule); display:flex;
+  flex-direction:column; gap:11px; min-width:0; }
+.sh-col:last-child { border-right:0; }
+.sh-ch { display:flex; align-items:baseline; gap:9px; padding-bottom:5px;
+  border-bottom:2px solid var(--crit); }
+.sh-ch .k { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--crit); }
+.sh-ch .t { font-family:var(--mono); font-size:10px; color:var(--dim); letter-spacing:0.05em;
+  margin-left:auto; }
+
+.sh p, .sh li { font-size:12.3px; line-height:1.5; color:#2a2e35; margin:0; }
+.sh-list { margin:0; padding-left:15px; display:flex; flex-direction:column; gap:6px; }
+.sh-list li::marker { color:var(--crit); }
+.sh-ticks { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.sh-ticks li { display:flex; gap:8px; }
+.tick { display:inline-block; width:11px; height:11px; border:1.4px solid var(--crit);
+  border-radius:2.5px; flex:0 0 11px; margin-top:3px; }
+.sh-where { background:var(--tint); border-radius:7px; padding:10px 12px; }
+.sh-lab2 { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 4px; }
+.sh-note { font-size:11.4px; color:var(--soft); }
+.sh-q { font-size:12.3px; line-height:1.5; font-style:italic; color:#2a2e35; }
+
+.sh-bands { display:flex; flex-direction:column; }
+.sh-bands div { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid var(--rule);
+  font-size:11px; line-height:1.4; color:var(--soft); }
+.sh-bands div:first-child { border-top:1px solid var(--rule); }
+.sh-bands b { font-family:var(--mono); font-size:10px; color:var(--crit); flex:0 0 26px; }
+.sh-bands div.here { color:var(--ink); font-weight:500; }
+
+.sh-tips { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:13px 26px;
+  background:var(--tint); border-top:1px solid var(--rule); }
+.sh-tip p:last-child { font-size:11.3px; line-height:1.45; color:#3d424b; }
+
+.sh-foot { display:flex; justify-content:space-between; padding:8px 26px 10px;
+  font-family:var(--mono); font-size:8px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--dim); }
+.sh-foot .sep { padding:0 4px; }
+
+/* Anything still to be decided. Deliberately loud on screen so the
+   unfinished sheets cannot be mistaken for finished ones. */
+.todo, .sh-bands div.empty span, .sh-tip.empty p:last-child {
+  color:var(--todo); font-style:italic; }
+.todo { background:var(--todo-bg); border-left:2px solid var(--todo); padding:7px 10px;
+  border-radius:0 5px 5px 0; font-size:11.4px; }
+.sh-bands div.empty b, .sh-tip.empty .sh-lab2 { color:var(--todo); opacity:0.65; }
+
+@media (max-width:1180px) {
+  body { padding:14px 8px 44px; }
+  .sh { transform:scale(calc((100vw - 20px)/1123)); transform-origin:top left; }
+  .sheet { height:calc((100vw - 20px)/1123 * 794); margin-bottom:20px; }
+}
+
+@page { size:A4 landscape; margin:0; }
+@media print {
+  body { background:#fff; padding:0; display:block; }
+  .top, .bar, .toc, .state { display:none !important; }
+  .sheet { margin:0; height:auto; break-after:page; page-break-after:always; }
+  .sheet:last-of-type { break-after:auto; page-break-after:auto; }
+  .sh { width:297mm; height:210mm; box-shadow:none; transform:none;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .sh-mast, .sh-track, .sh-where, .sh-tips, .tick, .sh-track .n {
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+@media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+html { scroll-behavior:smooth; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <p class="crumb"><a href="/curriculum">Curriculum</a> / <a href="g9-game-design.html">Tabletop Game Design</a> / Task sheets</p>
+  <h1>Student task sheets</h1>
+  <p class="lede">Sixteen sheets, one for each assessed strand, printable as a set on A4 landscape. Content comes from <b>Plans/assessments.md</b>, which is still being written. Anything not yet decided is <b style="color:var(--todo)">marked in orange</b> on the sheet rather than left blank, so an unfinished sheet cannot be mistaken for a finished one. Sheets are not linked from the unit page yet.</p>
+  <div class="bar">
+    <button class="btn btn-go" id="printall" type="button">Print the set</button>
+    <button class="btn" id="printone" type="button">Print the sheet you are on</button>
+  </div>
+  <dl class="state">
+    <div><dt>Sheets</dt><dd>16</dd></div>
+    <div><dt>Page</dt><dd>A4 landscape</dd></div>
+    <div><dt>Ready to print</dt><dd class="warn">0 of 16</dd></div>
+    <div><dt>Still to write</dt><dd class="warn">152 items</dd></div>
+    <div><dt>Submission</dt><dd>ManageBac</dd></div>
+  </dl>
+  <nav class="toc" aria-label="Task sheets">
+<div class="toc-grp crit-a">
+<p class="toc-crit">Criterion A <span>/</span> Inquiring and analysing</p>
+<ol class="toc-list">
+<li><a href="#ai"><span class="toc-code">Ai</span><span class="toc-name">Justify the need for a new game</span><span class="toc-meta">1 class</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#aii"><span class="toc-code">Aii</span><span class="toc-name">Plan and prioritise research</span><span class="toc-meta">1 class</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#aiii"><span class="toc-code">Aiii</span><span class="toc-name">Analyse existing games</span><span class="toc-meta">3 classes</span><span class="toc-gap">10 to write</span></a></li>
+<li><a href="#aiv"><span class="toc-code">Aiv</span><span class="toc-name">Write the design brief</span><span class="toc-meta">1 class</span><span class="toc-gap">10 to write</span></a></li>
+</ol></div>
+<div class="toc-grp crit-b">
+<p class="toc-crit">Criterion B <span>/</span> Developing ideas</p>
+<ol class="toc-list">
+<li><a href="#bi"><span class="toc-code">Bi</span><span class="toc-name">Write design specification</span><span class="toc-meta">1 class</span><span class="toc-gap">10 to write</span></a></li>
+<li><a href="#bii"><span class="toc-code">Bii</span><span class="toc-name">Generate a range of ideas</span><span class="toc-meta">3 classes</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#biii"><span class="toc-code">Biii</span><span class="toc-name">Choose and justify critically</span><span class="toc-meta">2 classes</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#biv"><span class="toc-code">Biv</span><span class="toc-name">Draw it for production</span><span class="toc-meta">3 classes</span><span class="toc-gap">10 to write</span></a></li>
+</ol></div>
+<div class="toc-grp crit-c">
+<p class="toc-crit">Criterion C <span>/</span> Creating the solution</p>
+<ol class="toc-list">
+<li><a href="#ci"><span class="toc-code">Ci</span><span class="toc-name">Plan the build</span><span class="toc-meta">1 class</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#cii"><span class="toc-code">Cii</span><span class="toc-name">Demonstrate technical skill</span><span class="toc-meta">Runs through the build block</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#ciii"><span class="toc-code">Ciii</span><span class="toc-name">Finish a working game</span><span class="toc-meta">End of the build block</span><span class="toc-gap">10 to write</span></a></li>
+<li><a href="#civ"><span class="toc-code">Civ</span><span class="toc-name">Justify every change</span><span class="toc-meta">Ongoing, logged weekly</span><span class="toc-gap">10 to write</span></a></li>
+</ol></div>
+<div class="toc-grp crit-d">
+<p class="toc-crit">Criterion D <span>/</span> Evaluating</p>
+<ol class="toc-list">
+<li><a href="#di"><span class="toc-code">Di</span><span class="toc-name">Design testing methods</span><span class="toc-meta">2 classes</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#dii"><span class="toc-code">Dii</span><span class="toc-name">Evaluate against the specifications</span><span class="toc-meta">2 classes</span><span class="toc-gap">10 to write</span></a></li>
+<li><a href="#diii"><span class="toc-code">Diii</span><span class="toc-name">Explain the improvements</span><span class="toc-meta">1 class</span><span class="toc-gap">9 to write</span></a></li>
+<li><a href="#div"><span class="toc-code">Div</span><span class="toc-name">Explain the impact</span><span class="toc-meta">2 classes</span><span class="toc-gap">10 to write</span></a></li>
+</ol></div>
+  </nav>
+</div>
+
+<section class="sheet crit-a" id="ai">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Ai <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Justify the need for a new game</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Who the audience is, in specifics. Not &quot;Grade 6 students&quot; but what they do at 11:45 on a Tuesday.</li>
+<li>The situation as it stands, with at least one piece of evidence gathered rather than assumed.</li>
+<li>Why a tabletop game rather than a club, an app, a sport or nothing at all.</li>
+<li>What happens if nothing is made. If the honest answer is &quot;nothing much&quot;, the need has not been found yet.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Need Statement, 1 page</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ai</span></div>
+<p class="sh-q">&ldquo;You will choose an audience and find a client group, then conduct research to support the development of a new game.&rdquo;</p>
+<p class="todo">This is a student-voice rewrite, not the IB descriptor. Every other strand on the page quotes the descriptor verbatim; Ai is the one that does not. The IB wording for A i is <em>&quot;Explains and justifies the need for a solution to a problem for a client/target audience.&quot;</em> Decide which one prints, but the sheet should carry the IB wording verbatim somewhere, the way the other fifteen do.</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Ai <span class="sep">/</span> Sheet 1 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-a" id="aii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Aii <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Plan and prioritise research</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Why these, in this order. Which activity had to happen first, and what it unblocks.</li>
+<li>What I gave up. The activity they could not afford, and the risk that creates.</li>
+</ul>
+<p class="sh-note">On the unit page: <b>The research budget</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Research Plan, 1 page</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aii</span></div>
+<p class="sh-q">&ldquo;Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Aii <span class="sep">/</span> Sheet 2 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-a" id="aiii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Aiii <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Analyse existing games</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Teardown together, then the first one alone</span></li>
+<li><span class="n">2</span><span class="s">Two more teardowns</span></li>
+<li><span class="n">3</span><span class="s">Synthesis and design implications</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>3 teardowns + synthesis</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aiii</span></div>
+<p class="sh-q">&ldquo;Analyses a range of existing products that inspire a solution to the problem in detail.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Aiii <span class="sep">/</span> Sheet 3 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-a" id="aiv">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Aiv <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Write the design brief</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Design Brief, 1 page</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aiv</span></div>
+<p class="sh-q">&ldquo;Develops a detailed design brief, which summarizes the analysis of relevant research.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Aiv <span class="sep">/</span> Sheet 4 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-b" id="bi">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Bi <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Write design specification</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Specification, 8 to 12 lines</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Bi</span></div>
+<p class="sh-q">&ldquo;Develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Bi <span class="sep">/</span> Sheet 5 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-b" id="bii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Bii <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Generate a range of ideas</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Mechanic draw and rapid concepts</span></li>
+<li><span class="n">2</span><span class="s">Develop and annotate the best six</span></li>
+<li><span class="n">3</span><span class="s">Paper prototypes and the interpretation test</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<ul class="sh-list">
+<li>A core loop diagram. What a player does on their turn, in order.</li>
+<li>Board or component sketch, roughly to scale.</li>
+<li>Mechanics used, named from the catalog.</li>
+<li>The meaningful choice, circled and labelled. If it cannot be pointed at, the concept is not finished.</li>
+<li>Annotation linking to a Bi specification by number.</li>
+<li>One risk. The part most likely to fail.</li>
+</ul>
+<p class="sh-note">On the unit page: <b>The mechanic draw</b>, <b>The interpretation test</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>6 to 8 concepts + 2 prototypes</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Bii</span></div>
+<p class="sh-q">&ldquo;Develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Bii <span class="sep">/</span> Sheet 6 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-b" id="biii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Biii <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Choose and justify critically</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual writing, group decision</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>Why the chosen design wins, referencing specifications by number.</li>
+<li>The case against it. What it does worse than the concepts they rejected.</li>
+<li>What was carried over from the rejected concepts into the final design.</li>
+<li>What is still unresolved, and how the build will resolve it.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Matrix + justification</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Biii</span></div>
+<p class="sh-q">&ldquo;Presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Biii <span class="sep">/</span> Sheet 7 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-b" id="biv">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Biv <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Draw it for production</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual pages, team pack</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Production Pack, 4 to 8 pages</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Biv</span></div>
+<p class="sh-q">&ldquo;Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Biv <span class="sep">/</span> Sheet 8 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-c" id="ci">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Ci <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Plan the build</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Team plan + personal plan</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Team plan: build a plan for making the game, with time and resources established every step. All members of the group should be able to follow it without asking questions.</li>
+<li>Personal task plan: Create your own plan for the specific tasks you will be responsible for. It must be detailed enough that other group members can help if you are absent.</li>
+</ul>
+<p class="sh-note">On the unit page: <b>The peer follow test</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Both plans, both versions</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ci</span></div>
+<p class="sh-q">&ldquo;Constructs a detailed and logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Ci <span class="sep">/</span> Sheet 9 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-c" id="cii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Cii <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Demonstrate technical skill</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>Runs through the build block</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">Runs through the build block</span></div>
+<ul class="sh-list">
+<li>A dated photo of work in progress, with the student&#x27;s hand or initials visible on the part</li>
+<li>A photo of the outcome</li>
+<li>What went wrong, what they changed, and what the second attempt did better</li>
+</ul>
+<p class="sh-note">On the unit page: <b>Three skills at depth, across at least two tracks</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Making Log, 3 skills at depth</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Cii</span></div>
+<p class="sh-q">&ldquo;Demonstrates excellent technical skills when making the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Cii <span class="sep">/</span> Sheet 10 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-c" id="ciii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Ciii <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Finish a working game</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>End of the build block</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Team artefact, individual components</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">End of the build block</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+<p class="sh-note">On the unit page: <b>The cold read test</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>The game + cold read record</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ciii</span></div>
+<p class="sh-q">&ldquo;Follows the plan to create the solution, which functions as intended and is presented appropriately.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Ciii <span class="sep">/</span> Sheet 11 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-c" id="civ">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Civ <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Justify every change</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>Ongoing, logged weekly</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">Ongoing, logged weekly</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Change Log, dated</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Civ</span></div>
+<p class="sh-q">&ldquo;Fully justifies changes made to the chosen design and plan when making the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Civ <span class="sep">/</span> Sheet 12 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-d" id="di">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Di <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Design testing methods</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>The questionnaire, with its actual questions in their actual order</li>
+<li>The observation sheet, with what is being tallied and how</li>
+<li>The interview script, with prompts and follow ups</li>
+<li>The user trial protocol, with what is timed or counted, by whom</li>
+</ul>
+<p class="sh-note">On the unit page: <b>Naming a method is not designing one</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Test Plan + the instruments</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Di</span></div>
+<p class="sh-q">&ldquo;Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Di <span class="sep">/</span> Sheet 13 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-d" id="dii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Dii <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Evaluate against the specifications</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">The client session</span></li>
+<li><span class="n">2</span><span class="s">The evaluation</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+<p class="sh-note">On the unit page: <b>The limits of your own evidence</b>.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Point by point evaluation</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Dii</span></div>
+<p class="sh-q">&ldquo;Critically evaluates the success of the solution against the design specification based on authentic product testing.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Dii <span class="sep">/</span> Sheet 14 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-d" id="diii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Diii <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Explain the improvements</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Every improvement traces to a specific Dii finding. An improvement with no evidence behind it is a preference, and preferences do not evidence this strand.</li>
+<li>Include one improvement for something that passed. Meeting a specification is not the same as being as good as it could be, and noticing that gap is a top band move.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Ranked improvements</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Diii</span></div>
+<p class="sh-q">&ldquo;Explains how the solution could be improved.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Diii <span class="sep">/</span> Sheet 15 of 16</span></footer>
+</div>
+</section>
+
+<section class="sheet crit-d" id="div">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top">
+<div class="sh-id">
+<p class="sh-code">Div <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Explain the impact</h2>
+</div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers communicate through the choices they give a player, and those choices decide who the game is really for.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Communication</dd></div>
+<div><dt>Related concepts</dt><dd>Innovation, Collaboration</dd></div>
+<div><dt>Global context</dt><dd>Personal and Cultural Expression</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>Individual</dd></div>
+</dl>
+</header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<p class="todo">The requirements for this task have not been written yet. They need lifting out of the unit page or writing fresh.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t"></span></div>
+<ul class="sh-ticks"><li><span class="tick"></span><span>Impact report, poster or 2 pages</span></li></ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Upload to <b>ManageBac</b> as soon as it is finished. If it is not on ManageBac it cannot be marked.</p></div>
+<p class="todo">Anything to submit beyond the ManageBac upload has not been decided yet.</p>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Div</span></div>
+<p class="sh-q">&ldquo;Explains the impact of the product on the client/target audience.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p>
+<div class="sh-bands">
+<div class="empty"><b>1-2</b><span>Not written yet</span></div>
+<div class="empty"><b>3-4</b><span>Not written yet</span></div>
+<div class="empty"><b>5-6</b><span>Not written yet</span></div>
+<div class="empty"><b>7-8</b><span>Not written yet</span></div>
+</div>
+</div>
+</div>
+<div class="sh-tips">
+<div class="sh-tip empty"><p class="sh-lab2">Tip 1</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 2</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 3</p><p>Not written yet</p></div>
+<div class="sh-tip empty"><p class="sh-lab2">Tip 4</p><p>Not written yet</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 9 Tabletop Game Design</span><span>Div <span class="sep">/</span> Sheet 16 of 16</span></footer>
+</div>
+</section>
+
+<script>
+/* Print the whole set, or just the sheet nearest the top of the screen. */
+(function () {
+  var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+  document.getElementById('printall').addEventListener('click', function () {
+    sheets.forEach(function (s) { s.style.display = ''; });
+    window.print();
+  });
+  document.getElementById('printone').addEventListener('click', function () {
+    var best = sheets[0], bestD = Infinity;
+    sheets.forEach(function (s) {
+      var d = Math.abs(s.getBoundingClientRect().top);
+      if (d < bestD) { bestD = d; best = s; }
+    });
+    sheets.forEach(function (s) { s.style.display = (s === best) ? '' : 'none'; });
+    window.print();
+    setTimeout(function () { sheets.forEach(function (s) { s.style.display = ''; }); }, 0);
+  });
+}());
+</script>
+</body>
+</html>

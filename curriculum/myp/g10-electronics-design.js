@@ -48,7 +48,7 @@
         explanation: 'The information never changes, so it does not need a device to hold it. Print it on a card and put the card where people ask. If the answer is a fixed piece of text, paper wins.' },
       { id: 'p3', correctZone: 'paper',
         label: 'Grade 12 students argue about whose turn it is to tidy the common room.',
-        explanation: 'A rota on the wall does this. The real problem is that people ignore the rota, and a screen showing the same rota gets ignored in exactly the same way. Electronics cannot fix not wanting to.' },
+        explanation: 'A rota on the wall does this. The real problem is that people ignore the rota, and a screen showing the same rota gets ignored in exactly the same way. Electronics cannot make people want to do it.' },
       { id: 'p4', correctZone: 'paper',
         label: 'The front office wants every visitor to sign in when they arrive.',
         explanation: 'A book and a pen already work, and they keep working in a power cut. Before you replace paper, ask what the electronic version does that the paper version does not. Here, nothing.' },
@@ -158,7 +158,7 @@
       why: 'Fine, and worth comparing with the sentence just above it. This one says when, how long, and how many. "Everyone knows" says none of those things.' },
     { text: 'Obviously an electronic device is the best way to fix this.',
       weak: true, fault: 'No alternative is considered',
-      why: 'The word "obviously" is doing all the work here, and no other option is even mentioned. This is the sticky note failure in one sentence. Fix it by naming what else could work and saying why it does not.' },
+      why: 'The word "obviously" is doing the job that evidence should be doing, and no other option is even mentioned. This is the sticky note failure in one sentence. Fix it by naming what else could work and saying why it does not.' },
     { text: 'A printed map by the door would help, but it cannot show which rooms are free right now, and that changes every period.',
       weak: false,
       why: 'Fine, and this is the sentence above done properly. It names the cheap alternative, then gives the exact reason electronics beats it. That reason is the third bullet of your Ai page.' },
@@ -170,7 +170,7 @@
       why: 'The most common failure in Ai. You built it, so of course you can use it. That tells you nothing about four adults who have never seen it. Fix it by testing with them, or by cutting the claim.' },
     { text: 'Two of the four staff told us they cannot see the back gate from any desk.',
       weak: false,
-      why: 'Fine. It says how many people, and where the information came from, so a reader can judge how much weight to give it.' }
+      why: 'Fine. It says how many people, and where the information came from, so a reader can judge how much to trust it.' }
   ];
 
   window.ClaimHunt.init({
@@ -182,7 +182,7 @@
     target: 3,
     sentences: SENTENCES,
     prompt: 'Click the three sentences that claim something without supporting it.',
-    allFound: 'All three found. Every one of them would have survived a spellcheck and a read-through.'
+    allFound: 'All three found. Every one of them would pass a spellcheck and sound fine read out loud.'
   });
 })();
 
