@@ -146,10 +146,10 @@ MYP descriptor, quoted verbatim on the sheet:
 
 | Band | What it looks like | |
 |---|---|---|
-| 1-2 | | TO WRITE |
-| 3-4 | | TO WRITE |
-| 5-6 | | TO WRITE |
-| 7-8 | | TO WRITE |
+| 1-2 | | I constructed a basic research plan that is unliklely to help develop our game. |
+| 3-4 | | I constructed a research plan that will help to develop elements of our game. |
+| 5-6 | | I constructed an organized research plan that will help to develop our game. |
+| 7-8 | | I constructed a detailed and organized research plan will help develop our game. |
 
 Raw material, the `The column that does the work` note already on the page:
 
@@ -159,10 +159,10 @@ Raw material, the `The column that does the work` note already on the page:
 
 Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
-1. 
-2. 
-3. 
-4. 
+1. Be sure your research questions are directly tied to something you actually need to learn.
+2. Brainstorm and ask loads of questions!
+3. Spread your inquiry to many different areas.
+4. Explore what doesn't work in addition to what does.
 
 Possible sources on the unit page, formatives that could become advice: *Spend the tokens*, *Question quality ladder*.
 
