@@ -4126,6 +4126,31 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
   color: var(--muted); background: var(--surface-2);
 }
 .unit-meta span strong { color: var(--text); font-weight: 600; }
+/* Link out to the printable task sheet for this strand. Sits in the same
+   row as the meta chips, and is the only one that is clickable. */
+.unit-meta .task-sheet-link {
+  font-family: var(--font-mono);
+  font-size: 0.63rem; letter-spacing: 0.04em;
+  padding: 0.24rem 0.6rem;
+  border: 1px solid var(--curr-color, var(--accent));
+  border-radius: 999px;
+  color: var(--curr-color, var(--accent));
+  background: transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.unit-meta .task-sheet-link:hover,
+.unit-meta .task-sheet-link:focus-visible {
+  background: var(--curr-color, var(--accent));
+  color: #fff;
+}
+/* The arrow is inside the link, so it would otherwise pick up the pill
+   styling from .unit-meta span and draw a second border around itself. */
+.unit-meta .task-sheet-link span {
+  border: 0; background: none; border-radius: 0;
+  padding: 0 0 0 0.25rem;
+  font-size: inherit; letter-spacing: inherit; color: inherit;
+}
 
 /* The IB descriptor, quoted exactly. Kept visually separate from my
    task wording so the two are never confused. */
