@@ -563,6 +563,7 @@ body.ta-is-dragging * {
   </ul>
   <p><strong>Cognitive load notes</strong> appear in the lower section of a step card in a contrasting colour. Use them to identify: where users hesitate, make errors, or abandon a task.</p>
   <p><strong>Example</strong> loads a sample HTA. <strong>Clear</strong> resets to a single blank step. <strong>Download</strong> saves the canvas as a PNG image.</p>
+  <p>Your work is kept in this browser and reloads automatically. It is not stored on a server, so use <strong>Download</strong> before switching computers.</p>
   <button class="ta-help-close" id="ta-help-close">Close</button>
 </div>
 </div>
@@ -717,6 +718,22 @@ function canvasDims() {
   return { w: minW, h: minH };
 }
 
+/* ── Persistence ────────────────────────────────────────── */
+var STORE_KEY = 'ta-state-v1';
+
+function save() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+}
+
+function load() {
+  try {
+    var obj = JSON.parse(localStorage.getItem(STORE_KEY));
+    if (!obj || !obj.goal || !Array.isArray(obj.steps) || !obj.steps.length) return false;
+    for (var k in state) if (obj.hasOwnProperty(k)) state[k] = obj[k];
+    return true;
+  } catch (e) { return false; }
+}
+
 /* ── DOM helpers ────────────────────────────────────────── */
 function esc(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function svgEl(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
@@ -738,6 +755,7 @@ function makeDragHandle(id, isGoal) {
 function render() {
   renderCards();
   drawLines();
+  save();
 }
 
 function renderCards() {
@@ -800,7 +818,7 @@ function makeStepCard(step, i) {
   textEl.contentEditable = 'true';
   textEl.setAttribute('data-ph', 'Describe this step…');
   textEl.innerHTML = esc(step.text);
-  textEl.addEventListener('input', function() { step.text = textEl.innerText; });
+  textEl.addEventListener('input', function() { step.text = textEl.innerText; save(); });
   main.appendChild(textEl);
 
   /* Action buttons */
@@ -850,7 +868,7 @@ function makeStepCard(step, i) {
     cogText.contentEditable = 'true';
     cogText.setAttribute('data-ph', 'Describe the mental effort at this step…');
     cogText.innerHTML = esc(step.cognitive);
-    cogText.addEventListener('input', function() { step.cognitive = cogText.innerText; });
+    cogText.addEventListener('input', function() { step.cognitive = cogText.innerText; save(); });
     cogSection.appendChild(cogText);
 
     card.appendChild(cogSection);
@@ -954,6 +972,7 @@ function endDrag() {
   if (drag.active) {
     drag.active = false;
     document.body.classList.remove('ta-is-dragging');
+    save();
   }
 }
 
@@ -1137,6 +1156,14 @@ function downloadCanvas() {
 
 /* ── Wire events ────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', function() {
+
+  /* Restore the previous session, if there is one */
+  if (load()) {
+    document.getElementById('ta-goal-display').textContent = state.goal;
+    document.getElementById('ta-overlay').style.display    = 'none';
+    document.getElementById('ta-page').style.display       = '';
+    render();
+  }
 
   /* Goal submit */
   var startBtn  = document.getElementById('ta-start-btn');
