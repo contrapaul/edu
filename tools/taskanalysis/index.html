@@ -329,20 +329,25 @@
 .ta-act-btn {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  padding: 0.2rem 0.45rem;
+  box-sizing: border-box;
+  height: 22px;
+  min-width: 24px;
+  padding: 0 0.45rem;
   border: 1px solid var(--border);
   border-radius: 3px;
   background: var(--surface);
   color: var(--muted);
   cursor: pointer;
   transition: border-color 0.12s, color 0.12s, background 0.12s;
-  line-height: 1;
+  line-height: 20px;
+  text-align: center;
 }
 .ta-act-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.ta-act-del { margin-left: auto; }
 .ta-act-add {
   font-size: 1rem;
   font-weight: 600;
-  padding: 0.1rem 0.5rem;
+  padding: 0 0.5rem;
   color: var(--accent);
   border-color: var(--accent);
 }
@@ -821,7 +826,6 @@ function makeStepCard(step, i) {
     btnDel.className = 'ta-act-btn ta-act-del';
     btnDel.textContent = '×';
     btnDel.title = 'Delete this step';
-    btnDel.style.marginLeft = 'auto';
     btnDel.addEventListener('click', function() { removeStep(step.id); });
     actions.appendChild(btnDel);
   }
@@ -1055,6 +1059,23 @@ function loadExample() {
   render();
 }
 
+/* Bounding box of all cards, in canvas coordinates. */
+function cardsBounds() {
+  var ids = state.steps.map(function(s) { return 'card-' + s.id; });
+  ids.push('card-goal');
+  var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  ids.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    minX = Math.min(minX, el.offsetLeft);
+    minY = Math.min(minY, el.offsetTop);
+    maxX = Math.max(maxX, el.offsetLeft + el.offsetWidth);
+    maxY = Math.max(maxY, el.offsetTop + el.offsetHeight);
+  });
+  if (minX === Infinity) return null;
+  return { x: minX, y: minY, w: maxX - minX, h: maxY - minY };
+}
+
 function downloadCanvas() {
   var canvas = document.getElementById('ta-canvas');
   if (typeof html2canvas === 'undefined') {
@@ -1064,16 +1085,47 @@ function downloadCanvas() {
   var btn = document.getElementById('ta-download-btn');
   btn.textContent = '⏳ Rendering…';
   btn.disabled = true;
+  var SHOT_PAD = 24;
   html2canvas(canvas, {
     backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f8f9fa',
     scale: 2,
     useCORS: true,
-    logging: false
+    logging: false,
+    onclone: function(doc) {
+      /* html2canvas draws <button> text from the top of the box rather than
+         centring it. A plain div with a short line-height lands the glyph on
+         the button's centre. */
+      doc.querySelectorAll('button.ta-act-btn').forEach(function(b) {
+        var d = doc.createElement('div');
+        d.className   = b.className;
+        d.textContent = b.textContent;
+        d.style.display    = 'block';
+        d.style.fontSize   = '12px';
+        d.style.lineHeight = '5.25px';
+        b.parentNode.replaceChild(d, b);
+      });
+    }
   }).then(function(cvs) {
+    var out = cvs;
+    var b = cardsBounds();
+    if (b) {
+      var k = cvs.width / canvas.offsetWidth;
+      var sx = Math.max(0, Math.round((b.x - SHOT_PAD) * k));
+      var sy = Math.max(0, Math.round((b.y - SHOT_PAD) * k));
+      var sw = Math.min(cvs.width  - sx, Math.round((b.w + SHOT_PAD * 2) * k));
+      var sh = Math.min(cvs.height - sy, Math.round((b.h + SHOT_PAD * 2) * k));
+      out = document.createElement('canvas');
+      out.width  = sw;
+      out.height = sh;
+      var ctx = out.getContext('2d');
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#f8f9fa';
+      ctx.fillRect(0, 0, sw, sh);
+      ctx.drawImage(cvs, sx, sy, sw, sh, 0, 0, sw, sh);
+    }
     var link = document.createElement('a');
     var slug = (state.goal || 'task-analysis').toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);
     link.download = slug + '.png';
-    link.href = cvs.toDataURL('image/png');
+    link.href = out.toDataURL('image/png');
     link.click();
   }).catch(function(e) {
     alert('Download failed: ' + e.message);
