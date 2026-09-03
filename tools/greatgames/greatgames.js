@@ -133,6 +133,55 @@
     return row;
   }
 
+  // Parents notes are stored as plain text. Lines starting with "- "
+  // render as a bulleted list; any other line renders as a paragraph,
+  // except when it sits directly above a bullet block (e.g. "Notes and
+  // concerns:"), in which case it's styled like the discussion subheading.
+  function renderParentsNote(body, note) {
+    const lines = String(note).split('\n');
+    let list = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      if (line.startsWith('- ')) {
+        if (!list) {
+          list = document.createElement('ul');
+          list.className = 'gg-why-list';
+        }
+        const li = document.createElement('li');
+        li.className = 'gg-why-item';
+        li.textContent = line.slice(2).trim();
+        list.appendChild(li);
+        continue;
+      }
+
+      if (list) {
+        body.appendChild(list);
+        list = null;
+      }
+
+      let j = i + 1;
+      while (j < lines.length && !lines[j].trim()) j++;
+      const followedByBullets = j < lines.length && lines[j].trim().startsWith('- ');
+
+      if (followedByBullets) {
+        const heading = document.createElement('div');
+        heading.className = 'gg-discussion-subtitle';
+        heading.textContent = line;
+        body.appendChild(heading);
+      } else {
+        const p = document.createElement('p');
+        p.className = 'gg-detail-desc';
+        p.textContent = line;
+        body.appendChild(p);
+      }
+    }
+
+    if (list) body.appendChild(list);
+  }
+
   function renderDetailContent(container, game) {
     container.replaceChildren();
 
@@ -209,10 +258,7 @@
       body.appendChild(guideTitle);
 
       if (game.parentsNote) {
-        const noteText = document.createElement('p');
-        noteText.className = 'gg-detail-desc';
-        noteText.textContent = game.parentsNote;
-        body.appendChild(noteText);
+        renderParentsNote(body, game.parentsNote);
       }
 
       if (game.discussionQuestions && game.discussionQuestions.length) {
