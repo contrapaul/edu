@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Printable student task sheets for the Grade 10 Electronics Design unit, one A4 landscape side per MYP Design strand.">
+<title>Task Sheets | Grade 10 Electronics Design</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/g10-task-sheets.html">
+<meta name="robots" content="noindex">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   G10 ELECTRONICS DESIGN, STUDENT TASK SHEETS
+   Sixteen sheets, one per MYP Design strand, A4 landscape at
+   1123 x 794 which is A4 at 96dpi.
+
+   Content is filled in from curriculum/myp/Plans/assessments-g10.md.
+   That file is still being written, so anything not yet decided
+   shows as a marked placeholder rather than being left blank or
+   invented. Search this file for "todo" to find them all.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'Bespoke Slab'; src:url('../../Fonts/fonts/BespokeSlab-Extrabold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:#1c1f24; --soft:#4a4f57; --dim:#767c86; --rule:#d3d8de; --hair:#e6e9ee;
+  --todo:#b0562c; --todo-bg:#fbf0e9;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --slab:'Bespoke Slab', Georgia, serif;
+}
+/* One colour per criterion, matching the criteria cards in
+   tools/mechanics/print.js so the two sets agree. */
+.crit-a { --crit:#1a5cb8; --tint:#eaf1fb; }
+.crit-b { --crit:#3d6b4a; --tint:#ecf3ee; }
+.crit-c { --crit:#8b4a1a; --tint:#f8f0e8; }
+.crit-d { --crit:#4a3d7a; --tint:#efedf6; }
+
+* { box-sizing:border-box; }
+body { margin:0; background:#e9ebef; color:var(--ink); font-family:var(--body);
+  display:flex; flex-direction:column; align-items:center; padding:22px 12px 70px; }
+
+/* ── screen chrome ────────────────────────────────────────────── */
+.top { width:1123px; max-width:100%; }
+.crumb { font-family:var(--mono); font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--dim); margin:0 0 12px; }
+.crumb a { color:var(--soft); text-decoration:none; border-bottom:1px solid var(--rule); }
+.crumb a:hover, .crumb a:focus-visible { color:var(--ink); border-bottom-color:currentColor; }
+.top h1 { font-family:var(--slab); font-weight:800; font-size:2rem; letter-spacing:-0.025em;
+  line-height:1.05; margin:0 0 10px; }
+.top .lede { font-size:0.92rem; line-height:1.65; color:var(--soft); margin:0 0 18px; max-width:70ch; }
+.top .lede b { color:var(--ink); font-weight:600; }
+
+.bar { display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:20px; }
+.btn { font-family:var(--mono); font-size:0.66rem; font-weight:700; letter-spacing:0.08em;
+  text-transform:uppercase; padding:0.5rem 0.85rem; border-radius:7px; cursor:pointer;
+  background:#fff; border:1px solid #b9c0c9; color:var(--ink); }
+.btn:hover { border-color:#333; }
+.btn-go { background:#1c1f24; border-color:#1c1f24; color:#fff; }
+.btn:focus-visible, .toc-list a:focus-visible, .crumb a:focus-visible { outline:2px solid #1c1f24; outline-offset:2px; }
+
+.state { display:flex; gap:0; border:1px solid var(--rule); border-radius:10px; overflow:hidden;
+  background:#fff; margin:0 0 22px; flex-wrap:wrap; }
+.state div { flex:1 1 160px; padding:13px 17px; border-right:1px solid var(--hair); }
+.state div:last-child { border-right:0; }
+.state dt { font-family:var(--mono); font-size:0.56rem; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 5px; }
+.state dd { margin:0; font-size:0.88rem; font-weight:500; font-variant-numeric:tabular-nums; }
+.state dd.warn { color:var(--todo); }
+
+/* ── table of contents ────────────────────────────────────────── */
+.toc { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 34px; }
+.toc-grp { background:#fff; border:1px solid var(--rule); border-top:3px solid var(--crit);
+  border-radius:9px; padding:14px 15px 12px; }
+.toc-crit { font-family:var(--mono); font-size:0.58rem; font-weight:700; letter-spacing:0.13em;
+  text-transform:uppercase; color:var(--crit); margin:0 0 11px; line-height:1.4; }
+.toc-crit span { color:var(--dim); padding:0 2px; }
+.toc-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:3px; }
+.toc-list a { display:grid; grid-template-columns:auto 1fr; gap:2px 9px; text-decoration:none;
+  color:var(--ink); padding:7px 8px; border-radius:6px; }
+.toc-list a:hover { background:var(--tint); }
+.toc-code { font-family:var(--mono); font-size:0.66rem; font-weight:700; color:var(--crit);
+  grid-row:span 2; padding-top:1px; }
+.toc-name { font-size:0.82rem; font-weight:500; line-height:1.3; }
+.toc-meta { font-family:var(--mono); font-size:0.58rem; color:var(--dim); letter-spacing:0.04em; }
+.toc-gap { font-family:var(--mono); font-size:0.55rem; font-weight:700; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--todo); grid-column:2; }
+.toc-gap.ok { color:#3f6b4a; }
+@media (max-width:1000px) { .toc { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:620px)  { .toc { grid-template-columns:1fr; } }
+
+/* ── the sheet ────────────────────────────────────────────────── */
+.sheet { scroll-margin-top:18px; margin:0 0 30px; }
+.sh { width:1123px; height:794px; background:#fff; display:flex; flex-direction:column;
+  overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
+
+.sh-mast { background:var(--crit); color:#fff; padding:22px 34px 18px; }
+.sh-mast-top { display:flex; align-items:flex-start; justify-content:space-between; gap:34px; }
+.sh-mast .sh-code { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:0.19em;
+  text-transform:uppercase; color:#fff; margin:0; }
+.sh-mast .sh-code span { color:rgba(255,255,255,0.7); padding:0 3px; }
+.sh-title { font-family:var(--slab); font-weight:800; font-size:37px; line-height:1.02;
+  letter-spacing:-0.03em; margin:9px 0 0; }
+.sh-soi { flex:0 0 400px; border-left:2px solid rgba(255,255,255,0.42); padding-left:15px; }
+.sh-mast .sh-lab { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:#fff; margin:0 0 4px; }
+.sh-mast .sh-soi-t { font-size:12.5px; line-height:1.48; color:#fff; margin:0; }
+.sh-frame { display:flex; gap:26px; margin:16px 0 0; }
+.sh-frame div { min-width:0; }
+.sh-frame .sh-fr-r { margin-left:auto; text-align:right; }
+.sh-frame .sh-fr-r + .sh-fr-r { margin-left:0; }
+.sh-frame dt { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:3px; }
+.sh-frame dd { margin:0; font-size:11.5px; font-weight:500; line-height:1.35; }
+
+/* Class shape, only on strands that have one. */
+.sh-track { display:flex; margin:0; padding:0; list-style:none; background:var(--tint);
+  border-bottom:1px solid var(--rule); }
+.sh-track li { flex:1; display:flex; gap:10px; align-items:flex-start; padding:10px 20px;
+  border-right:1px solid rgba(0,0,0,0.07); }
+.sh-track li:last-child { border-right:0; }
+.sh-track .n { font-family:var(--mono); font-size:10px; font-weight:700; color:#fff;
+  background:var(--crit); width:19px; height:19px; border-radius:5px; flex:0 0 19px;
+  display:flex; align-items:center; justify-content:center; }
+.sh-track .s { font-size:11.4px; line-height:1.4; color:#2f333a; }
+
+.sh-body { flex:1 1 auto; display:grid; grid-template-columns:repeat(3,1fr); min-height:0; }
+.sh-col { padding:19px 26px; border-right:1px solid var(--rule); display:flex;
+  flex-direction:column; gap:11px; min-width:0; }
+.sh-col:last-child { border-right:0; }
+.sh-ch { display:flex; align-items:baseline; gap:9px; padding-bottom:5px;
+  border-bottom:2px solid var(--crit); }
+.sh-ch .k { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--crit); }
+.sh-ch .t { font-family:var(--mono); font-size:10px; color:var(--dim); letter-spacing:0.05em;
+  margin-left:auto; }
+
+.sh p, .sh li { font-size:12.3px; line-height:1.5; color:#2a2e35; margin:0; }
+.sh-list { margin:0; padding-left:15px; display:flex; flex-direction:column; gap:6px; }
+.sh-list li::marker { color:var(--crit); }
+.sh-ticks { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+.sh-ticks li { display:flex; gap:8px; }
+.tick { display:inline-block; width:11px; height:11px; border:1.4px solid var(--crit);
+  border-radius:2.5px; flex:0 0 11px; margin-top:3px; }
+.sh-where { background:var(--tint); border-radius:7px; padding:10px 12px; }
+.sh-lab2 { font-family:var(--mono); font-size:8px; font-weight:700; letter-spacing:0.16em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 4px; }
+.sh-note { font-size:11.4px; color:var(--soft); }
+.sh-q { font-size:12.3px; line-height:1.5; font-style:italic; color:#2a2e35; }
+
+.sh-bands { display:flex; flex-direction:column; }
+.sh-bands div { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid var(--rule);
+  font-size:11px; line-height:1.4; color:var(--soft); }
+.sh-bands div:first-child { border-top:1px solid var(--rule); }
+.sh-bands b { font-family:var(--mono); font-size:10px; color:var(--crit); flex:0 0 26px; }
+.sh-bands div.here { color:var(--ink); font-weight:500; }
+
+.sh-tips { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; padding:13px 26px;
+  background:var(--tint); border-top:1px solid var(--rule); }
+.sh-tip p:last-child { font-size:11.3px; line-height:1.45; color:#3d424b; }
+
+.sh-foot { display:flex; justify-content:space-between; padding:8px 26px 10px;
+  font-family:var(--mono); font-size:8px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--dim); }
+.sh-foot .sep { padding:0 4px; }
+
+/* Anything still to be decided. Deliberately loud on screen so the
+   unfinished sheets cannot be mistaken for finished ones. */
+.todo, .sh-bands div.empty span, .sh-tip.empty p:last-child {
+  color:var(--todo); font-style:italic; }
+.todo { background:var(--todo-bg); border-left:2px solid var(--todo); padding:7px 10px;
+  border-radius:0 5px 5px 0; font-size:11.4px; }
+.sh-bands div.empty b, .sh-tip.empty .sh-lab2 { color:var(--todo); opacity:0.65; }
+
+@media (max-width:1180px) {
+  body { padding:14px 8px 44px; }
+  .sh { transform:scale(calc((100vw - 20px)/1123)); transform-origin:top left; }
+  .sheet { height:calc((100vw - 20px)/1123 * 794); margin-bottom:20px; }
+}
+
+@page { size:A4 landscape; margin:0; }
+@media print {
+  body { background:#fff; padding:0; display:block; }
+  .top, .bar, .toc, .state { display:none !important; }
+  .sheet { margin:0; height:auto; break-after:page; page-break-after:always; }
+  .sheet:last-of-type { break-after:auto; page-break-after:auto; }
+  .sh { width:297mm; height:210mm; box-shadow:none; transform:none;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .sh-mast, .sh-track, .sh-where, .sh-tips, .tick, .sh-track .n {
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+@media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+html { scroll-behavior:smooth; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <p class="crumb"><a href="/curriculum">Curriculum</a> / <a href="g10-electronics-design.html">Electronics Design</a> / Task sheets</p>
+  <h1>Student task sheets</h1>
+  <p class="lede">Sixteen sheets, one for each assessed strand, printable as a set on A4 landscape. Content comes from <b>Plans/assessments-g10.md</b>. All sixteen are complete, so nothing here is a placeholder, but the band ladders and tips are <b>written rather than sourced from a rubric</b> and the statement of inquiry is a draft. Sheets are not linked from the unit page yet.</p>
+  <div class="bar">
+    <button class="btn btn-go" id="printall" type="button">Print the set</button>
+    <button class="btn" id="printone" type="button">Print the sheet you are on</button>
+  </div>
+  <dl class="state">
+    <div><dt>Sheets</dt><dd>16</dd></div>
+    <div><dt>Page</dt><dd>A4 landscape</dd></div>
+    <div><dt>Ready to print</dt><dd>16 of 16</dd></div>
+    <div><dt>Still to write</dt><dd>0 items</dd></div>
+    <div><dt>Submission</dt><dd>ManageBac</dd></div>
+  </dl>
+  <nav class="toc" aria-label="Task sheets">
+<div class="toc-grp crit-a">
+<p class="toc-crit">Criterion A <span>/</span> Inquiring and analysing</p>
+<ol class="toc-list">
+<li><a href="#ai"><span class="toc-code">Ai</span><span class="toc-name">Show that they need this</span><span class="toc-meta">2 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#aii"><span class="toc-code">Aii</span><span class="toc-name">Plan your research</span><span class="toc-meta">1 class</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#aiii"><span class="toc-code">Aiii</span><span class="toc-name">Take apart four products, without opening them</span><span class="toc-meta">3 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#aiv"><span class="toc-code">Aiv</span><span class="toc-name">Write your design brief</span><span class="toc-meta">1 class</span><span class="toc-gap ok">Ready</span></a></li>
+</ol></div>
+<div class="toc-grp crit-b">
+<p class="toc-crit">Criterion B <span>/</span> Developing ideas</p>
+<ol class="toc-list">
+<li><a href="#bi"><span class="toc-code">Bi</span><span class="toc-name">Write your specification</span><span class="toc-meta">1 class</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#bii"><span class="toc-code">Bii</span><span class="toc-name">Come up with a range of ideas</span><span class="toc-meta">3 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#biii"><span class="toc-code">Biii</span><span class="toc-name">Choose one design and defend it</span><span class="toc-meta">2 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#biv"><span class="toc-code">Biv</span><span class="toc-name">Draw everything you need to build it</span><span class="toc-meta">3 classes</span><span class="toc-gap ok">Ready</span></a></li>
+</ol></div>
+<div class="toc-grp crit-c">
+<p class="toc-crit">Criterion C <span>/</span> Creating the solution</p>
+<ol class="toc-list">
+<li><a href="#ci"><span class="toc-code">Ci</span><span class="toc-name">Plan your build</span><span class="toc-meta">1 class</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#cii"><span class="toc-code">Cii</span><span class="toc-name">Show real technical skill</span><span class="toc-meta">During the build classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#ciii"><span class="toc-code">Ciii</span><span class="toc-name">Follow your plan and finish it</span><span class="toc-meta">End of the build classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#civ"><span class="toc-code">Civ</span><span class="toc-name">Explain every change you made</span><span class="toc-meta">Ongoing, every build class</span><span class="toc-gap ok">Ready</span></a></li>
+</ol></div>
+<div class="toc-grp crit-d">
+<p class="toc-crit">Criterion D <span>/</span> Evaluating</p>
+<ol class="toc-list">
+<li><a href="#di"><span class="toc-code">Di</span><span class="toc-name">Design your tests</span><span class="toc-meta">2 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#dii"><span class="toc-code">Dii</span><span class="toc-name">Test it and judge the results</span><span class="toc-meta">2 classes</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#diii"><span class="toc-code">Diii</span><span class="toc-name">Say how it could be better</span><span class="toc-meta">1 class</span><span class="toc-gap ok">Ready</span></a></li>
+<li><a href="#div"><span class="toc-code">Div</span><span class="toc-name">What difference did it make?</span><span class="toc-meta">2 classes</span><span class="toc-gap ok">Ready</span></a></li>
+</ol></div>
+  </nav>
+</div>
+
+<section class="sheet crit-a" id="ai">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Ai <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Show that they need this</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Choose your client, then research with AI</span></li>
+<li><span class="n">2</span><span class="s">Laptops closed, write it by hand</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li><b>What the situation is now</b>, with at least one piece of evidence you actually collected. Not something you assumed.</li>
+<li><b>Why this has to be electronic.</b> What will your device sense, work out, or remember that a person, a sign, or a phone your client already owns cannot do as well?</li>
+<li><b>What happens if nobody makes anything.</b> If the honest answer is &quot;not much&quot;, you have not found the need yet.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 2, handed in on paper</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Need Statement, handwritten in class</span></li>
+<li><span class="tick"></span><span>Your research notes from class 1, however you made them.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A photo of your handwritten page to ManageBac, and the paper itself at the end of class 2</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ai</span></div>
+<p class="sh-q">&ldquo;Explains and justifies the need for a solution to a problem for a client/target audience.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>An incomplete need statement, with no evidence and no justification.</span></div>
+<div><b>3-4</b><span>A need statement with limited justification and no evidence you collected yourself.</span></div>
+<div><b>5-6</b><span>A need statement with some justification and at least one piece of evidence you collected.</span></div>
+<div class="here"><b>7-8</b><span>A detailed need statement, fully justified, with your own evidence and a clear argument for why this problem needs electronics.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Use AI hard in class 1. Ask it to argue against your idea, not just for it.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Take notes you can write from. In class 2 they are the only thing on your desk.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Choose a group outside your own grade, then go and ask them. Do not guess what they need.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Justifying a need means proving it, not asserting it.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Ai <span class="sep">/</span> Sheet 1 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-a" id="aii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Aii <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Plan your research</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Why this order? Which activity had to happen first, and what it allows you to start.</li>
+<li>What did you give up? Name what you could not afford, and say what could go wrong because you skipped it.</li>
+<li>A bench test, budgeted at 3 tokens. It is the only activity that tells you whether your idea is physically possible.</li>
+<li>A &quot;what this lets me decide&quot; column on every row.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 1</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Research Plan, 1 page</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your research plan to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aii</span></div>
+<p class="sh-q">&ldquo;Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>A basic plan that is unlikely to help you develop a device.</span></div>
+<div><b>3-4</b><span>A plan that will help you develop parts of your device, in no particular order.</span></div>
+<div><b>5-6</b><span>An organised plan, ordered by priority, that will help you develop your device.</span></div>
+<div class="here"><b>7-8</b><span>A detailed and organised plan, prioritised with reasons, including the bench test, where every row lets you decide something.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Every row should let you decide something. If it does not, take it off the plan.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Spend the tokens on the bench test. It is the only thing that tells you what is physically possible.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Reading about a sensor is not the same as watching one fail on your desk.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write down what you gave up, and what could go wrong because you skipped it.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Aii <span class="sep">/</span> Sheet 2 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-a" id="aiii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Aiii <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Take apart four products, without opening them</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">One card together, then your first one alone</span></li>
+<li><span class="n">2</span><span class="s">Two more cards</span></li>
+<li><span class="n">3</span><span class="s">The badly designed one, then your summary</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<ul class="sh-list">
+<li>What it is, who it is for, what it costs, and how it gets its power.</li>
+<li>What it must be sensing, and your evidence.</li>
+<li>What it must be deciding. Look for behaviour a direct wire from input to output could not explain.</li>
+<li>What it does back, and which output does it.</li>
+<li>Your block diagram: what goes in, what happens in the middle, what comes out, with real catalog parts named.</li>
+<li>Power: mains, batteries or rechargeable, and what that choice forced the designer to do.</li>
+<li>Controls and lights: every button and every indicator, and what a user must already know to use it.</li>
+<li>One sentence on what you would copy from this product, and what you would leave behind.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 3</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>4 Black Box Cards and a summary</span></li>
+<li><span class="tick"></span><span>Bring the cards to class for the summary discussion.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Photos of your four cards and a PDF of the summary to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aiii</span></div>
+<p class="sh-q">&ldquo;Analyses a range of existing products that inspire a solution to the problem in detail.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>An incomplete analysis, of products unlikely to guide your work.</span></div>
+<div><b>3-4</b><span>Basic analysis of four products, though not all of them will help guide your work.</span></div>
+<div><b>5-6</b><span>Partly detailed analysis of four products, most of which will help guide your work.</span></div>
+<div class="here"><b>7-8</b><span>Detailed analysis of four products that all guide your work, with a summary that turns them into design implications.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>You may share one product with a classmate, no more.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Do not open anything. Work out what is inside from how it behaves.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Name real catalog parts in your block diagrams, not just &quot;a sensor&quot;.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>The summary is where the marks are. Four cards and no summary stays at 5-6.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Aiii <span class="sep">/</span> Sheet 3 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-a" id="aiv">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Aiv <span>/</span> Criterion A, Inquiring and analysing</p>
+<h2 class="sh-title">Write your design brief</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>A summary of your research, not a repeat of it.</li>
+<li>Who the client is and what they need, carried over from Ai.</li>
+<li>What the device must do. This is the row that becomes your specification in Bi.</li>
+<li>The constraints you already know about: power, size, cost, where it lives.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 1</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Design Brief, 1 page</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your brief to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Aiv</span></div>
+<p class="sh-q">&ldquo;Develops a detailed design brief, which summarizes the analysis of relevant research.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>An unfinished brief that does not reference your research.</span></div>
+<div><b>3-4</b><span>A basic brief that references your research.</span></div>
+<div><b>5-6</b><span>A brief that includes a summary of your research.</span></div>
+<div class="here"><b>7-8</b><span>A detailed brief that summarises your research and states clearly what the device must do.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Referencing your research is a requirement, not an option.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>&quot;What the device must do&quot; is the row that carries into Bi. Spend your time there.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write about hardware here, not about people. You already did the people in Ai.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>One page. If it runs longer, you are repeating your research instead of summarising it.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Aiv <span class="sep">/</span> Sheet 4 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-b" id="bi">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Bi <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Write your specification</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>One row per rule, each written so it can be tested.</li>
+<li>Numbers wherever a number is possible. Times, distances, durations, counts.</li>
+<li>The decision rule: what your device works out on its own, without being told.</li>
+<li>The standalone rule: working on your client&#x27;s desk, on its own power, with nobody helping it.</li>
+<li>Where each rule came from in your research.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 1</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Design Specification, 1 page</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your specification to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Bi</span></div>
+<p class="sh-q">&ldquo;Develops detailed design specifications, which explain the success criteria for the design of a solution based on the analysis of the research.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>An incomplete set of specifications.</span></div>
+<div><b>3-4</b><span>Basic specifications, partly linked to research, some of which can be tested.</span></div>
+<div><b>5-6</b><span>Specifications partly linked to relevant research, which can be tested.</span></div>
+<div class="here"><b>7-8</b><span>Detailed specifications, linked to relevant research and all testable, including the decision rule and the standalone power rule.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Every rule must be testable. If you cannot describe the test, rewrite the rule.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Put numbers in. &quot;Fast&quot; is not a specification, &quot;within 2 seconds&quot; is.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Include the rule about the decision your device makes on its own.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Include the rule about running on its own power with nobody helping it.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Bi <span class="sep">/</span> Sheet 5 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-b" id="bii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Bii <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Come up with a range of ideas</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Draw cards, make ideas fast</span></li>
+<li><span class="n">2</span><span class="s">Develop and annotate your best six</span></li>
+<li><span class="n">3</span><span class="s">Breadboard tests and the swap</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<ul class="sh-list">
+<li>Block diagram. What goes in, what happens in the middle, what comes out, with real catalog parts named.</li>
+<li>Sketch of the object. Roughly to scale, in the place it will live, next to a hand or a desk for size.</li>
+<li>Three frame storyboard. What the user does, what the device does back, and what state it is left in.</li>
+<li>Your notes, explaining how this idea helps your client and pointing at your Bi rules by number, plus one risk.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 3</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>6 ideas + 2 breadboard tests</span></li>
+<li><span class="tick"></span><span>A photo or short video of each breadboard test, with a note on what it proved.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Photos of all six idea sheets to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Bii</span></div>
+<p class="sh-q">&ldquo;Develops a range of feasible design ideas, using an appropriate medium(s) and detailed annotation, which can be correctly interpreted by others.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Fewer than six complete ideas, with messy drawings and few notes.</span></div>
+<div><b>3-4</b><span>Six ideas with drawings and some notes.</span></div>
+<div><b>5-6</b><span>Six ideas with clean block diagrams, sketches and notes.</span></div>
+<div class="here"><b>7-8</b><span>Six well developed ideas with clean diagrams, storyboards and dense notes, plus two breadboard tests that prove the risky parts work.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write far more notes than you think you need. You are explaining the idea to someone who is not you.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Use a ruler and drawing tools. Neat drawings are easier to annotate.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Build only the risky part on the breadboard. Twenty minutes is enough to kill a bad idea.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Six genuinely different ideas, not one idea in six colours.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Bii <span class="sep">/</span> Sheet 6 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-b" id="biii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Biii <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Choose one design and defend it</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Run the three checks</span></li>
+<li><span class="n">2</span><span class="s">Scoring table and writing</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>Why your chosen design wins, pointing at your Bi rules by number.</li>
+<li>The argument against it. What does it do worse than the ideas you rejected? What are you giving up?</li>
+<li>What you took from the rejected ideas and moved into the final one.</li>
+<li>What is still unsolved, including any check you have not passed, and how the build will deal with it.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 2</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Checks, scoring table, reasons</span></li>
+<li><span class="tick"></span><span>If you are asking for a board other than the SuperMini, submit that argument here too.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your checks, table and reasons to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Biii</span></div>
+<p class="sh-q">&ldquo;Presents the chosen design and justifies fully and critically its selection with detailed reference to the design specification.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>A choice with little or no reasoning behind it.</span></div>
+<div><b>3-4</b><span>A choice with basic reasons, and no argument against it.</span></div>
+<div><b>5-6</b><span>A choice justified against your specification, with some argument against it.</span></div>
+<div class="here"><b>7-8</b><span>A choice justified in full against your specification by number, with the strongest case against it, and what you carried over from the ideas you rejected.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Point at your Bi rules by number. Vague praise scores nothing.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write the argument against your own choice. Leaving it out caps you at 5-6.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Say what you took from the ideas you rejected, and where it went.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>If you want a board other than the SuperMini, make that case here with the three checks.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Biii <span class="sep">/</span> Sheet 7 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-b" id="biv">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Biv <span>/</span> Criterion B, Developing ideas</p>
+<h2 class="sh-title">Draw everything you need to build it</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>3 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Block diagram, circuit diagram, wiring list</span></li>
+<li><span class="n">2</span><span class="s">State diagram and code plan</span></li>
+<li><span class="n">3</span><span class="s">Case, parts list, requirements, test points</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">3 classes</span></div>
+<ul class="sh-list">
+<li>Block diagram, circuit diagram and a wiring list.</li>
+<li>A state diagram and a code plan.</li>
+<li>Case drawings with measurements, and a parts list with real part numbers.</li>
+<li>Requirements for making it, and the test points you will use to check it works.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 3</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Production Pack, 6 to 9 pages</span></li>
+<li><span class="tick"></span><span>The pack must be signed off by Mr. K before build class 1.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A single PDF of the whole pack to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Biv</span></div>
+<p class="sh-q">&ldquo;Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Incomplete drawings and a limited outline of what is needed to build it.</span></div>
+<div><b>3-4</b><span>Basic drawings and a general outline of requirements.</span></div>
+<div><b>5-6</b><span>Partly accurate and somewhat detailed drawings, with requirements outlined.</span></div>
+<div class="here"><b>7-8</b><span>Accurate and detailed drawings, including circuit, wiring and state diagrams, with full requirements for building it.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Someone else has to build from these drawings. Draw for them, not for yourself.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>The state diagram is where most packs are thin. Show every state and what moves between them.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>List real parts with real part numbers, and say when each must be ordered.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Get signed off before build class 1. An unsigned pack costs you build time.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Biv <span class="sep">/</span> Sheet 8 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-c" id="ci">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Ci <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Plan your build</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Your critical path, marked. The chain of tasks that decides your finish date.</li>
+<li>Order deadlines. Anything you buy, print or send to a machine gets a class number by which it must be started.</li>
+<li>A &quot;finished when&quot; on every row. If a task has no finish condition, nobody can follow it.</li>
+<li>A backup plan on every critical path row.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 1</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Build Plan, both versions</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of both versions, before and after the swap test, to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ci</span></div>
+<p class="sh-q">&ldquo;Constructs a detailed and logical plan, which describes the efficient use of time and resources, sufficient for peers to be able to follow to create the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>A plan too incomplete for anyone else to follow.</span></div>
+<div><b>3-4</b><span>A basic plan, with some tasks and rough timings.</span></div>
+<div><b>5-6</b><span>A logical plan with timings and resources, which a classmate could mostly follow.</span></div>
+<div class="here"><b>7-8</b><span>A detailed and logical plan with a marked critical path, order deadlines, a finished-when on every row and a backup on every critical row, which a classmate can follow without asking you anything.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Mark the critical path. It is the chain that decides your finish date.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Every row needs a finished-when. &quot;Work on the case&quot; is not a task.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Put an order deadline on anything you have to buy, print or send to a machine.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Do the swap test honestly. What your partner cannot follow is what you have to fix.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Ci <span class="sep">/</span> Sheet 9 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-c" id="cii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Cii <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Show real technical skill</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>During the build classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">During the build classes</span></div>
+<ul class="sh-list">
+<li>Three skills, shown in depth, from at least two different areas.</li>
+<li>Photographs of the work in progress, not only the finished part.</li>
+<li>A first attempt beside the fixed version, where something went wrong.</li>
+<li>An entry at the end of every build class.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">Every build class</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Making Log, 3 skills in depth</span></li>
+<li><span class="tick"></span><span>Photos of the work itself, not just of the finished part.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Your making log to <b>ManageBac</b>, updated at the end of every build class</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Cii</span></div>
+<p class="sh-q">&ldquo;Demonstrates excellent technical skills when making the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Poor technical skill in making your device.</span></div>
+<div><b>3-4</b><span>Satisfactory technical skill in making your device.</span></div>
+<div><b>5-6</b><span>Competent technical skill in making your device.</span></div>
+<div class="here"><b>7-8</b><span>Excellent technical skill, shown through three skills in depth from at least two different areas.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Three skills in depth beats ten touched lightly.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Use at least two different areas. Ten classes at the printer is not a build.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Photograph the work as you go, including the attempts that failed.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write the log at the end of every build class, not at the end of the unit.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Cii <span class="sep">/</span> Sheet 10 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-c" id="ciii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Ciii <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Follow your plan and finish it</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>End of the build classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">End of the build classes</span></div>
+<ul class="sh-list">
+<li>It does what your specification says, including the decision it makes on its own.</li>
+<li>It runs on its own power, with no laptop connected, for as long as your specification claims.</li>
+<li>It is in a case, or deliberately open and neat, with every board fixed down and nothing loose.</li>
+<li>Every button and every light is labelled, in words your client can read.</li>
+<li>There is a way to turn it on and off.</li>
+<li>The wiring is tidy enough to repair, and connectors unplug instead of being cut.</li>
+<li>A one page user sheet: what it does, how to start it, what each light or sound means, and what to do when it stops.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">Last build class</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>The finished device</span></li>
+<li><span class="tick"></span><span>The device itself, demonstrated in class and working on its own power.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Photos of the finished device and a PDF of your user sheet to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Ciii</span></div>
+<p class="sh-q">&ldquo;Follows the plan to create the solution, which functions as intended and is presented appropriately.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>A device that does not follow the plan and does not work.</span></div>
+<div><b>3-4</b><span>A device that follows the plan loosely and works with several problems.</span></div>
+<div><b>5-6</b><span>A device that follows the plan and works with few problems.</span></div>
+<div class="here"><b>7-8</b><span>A device that follows the plan, does what your specification says including its own decision, runs on its own power, and is finished well enough to hand to your client.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Test it on its own power, with no laptop attached, before you call it finished.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Label every button and every light in words your client can read.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Connectors should unplug, not be cut. You will need to repair it.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write the one page user sheet as if you will not be there to explain anything.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Ciii <span class="sep">/</span> Sheet 11 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-c" id="civ">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Civ <span>/</span> Criterion C, Creating the solution</p>
+<h2 class="sh-title">Explain every change you made</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>Ongoing, every build class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">Ongoing, every build class</span></div>
+<ul class="sh-list">
+<li>Every change, dated, in the class it happened.</li>
+<li>The trigger. What went wrong, or what you found out.</li>
+<li>The options you considered, not just the one you chose.</li>
+<li>What the change cost you somewhere else.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">Every build class</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Change Log, dated</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Your change log to <b>ManageBac</b>, updated at the end of every build class</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Civ</span></div>
+<p class="sh-q">&ldquo;Fully justifies changes made to the chosen design and plan when making the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Few changes recorded, with no reasons given.</span></div>
+<div><b>3-4</b><span>Many changes recorded, with only some reasons.</span></div>
+<div><b>5-6</b><span>Many changes recorded, most with a trigger and a reason.</span></div>
+<div class="here"><b>7-8</b><span>Every change recorded and dated, each with its trigger, the options you considered, and what it cost you elsewhere.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Write the entry the day the change happens. Logs written later are obvious.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Every entry needs a trigger. Something made you change it.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Name the options you considered, not just the one you picked.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Say what the change cost you somewhere else. That is what full justification means.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Civ <span class="sep">/</span> Sheet 12 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-d" id="di">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Di <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Design your tests</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<ol class="sh-track">
+<li><span class="n">1</span><span class="s">Give every rule a test</span></li>
+<li><span class="n">2</span><span class="s">Build the test sheets</span></li>
+</ol>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>A test for every rule in your specification.</li>
+<li>The actual test sheets, written out and ready to use.</li>
+<li>Who you are testing with, and when.</li>
+<li>Both kinds of data: things you count, and things people say.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 2</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Test Plan + your test sheets</span></li>
+<li><span class="tick"></span><span>Bring printed copies of the sheets to the testing session.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of the plan and every test sheet to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Di</span></div>
+<p class="sh-q">&ldquo;Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Testing methods unlikely to generate useful data.</span></div>
+<div><b>3-4</b><span>Basic methods which generate some useful data.</span></div>
+<div><b>5-6</b><span>Methods which generate useful data for most of your rules.</span></div>
+<div class="here"><b>7-8</b><span>Detailed methods with the actual test sheets written out, generating useful data for every rule in your specification.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>A question answered yes or no will not tell you much. Ask what happened instead.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Build the real test sheets now. Naming a method is not designing one.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Give every rule in your specification a test. A rule with no test cannot be judged.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Collect numbers and words. You need both to judge a device.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Di <span class="sep">/</span> Sheet 13 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-d" id="dii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Dii <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Test it and judge the results</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>Every rule from your specification, one row each, in order.</li>
+<li>What test you used, and what data it produced.</li>
+<li>Met, partly met, or not met, with the evidence beside it.</li>
+<li>A closing note on where your evidence is thin, and why.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 2</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Every rule, judged one by one</span></li>
+<li><span class="tick"></span><span>Your completed test sheets, photographed or scanned.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your judged specification table to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Dii</span></div>
+<p class="sh-q">&ldquo;Critically evaluates the success of the solution against the design specification based on authentic product testing.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Few rules judged, with little evidence behind the judgements.</span></div>
+<div><b>3-4</b><span>Most rules judged, with limited evidence.</span></div>
+<div><b>5-6</b><span>Every rule judged against evidence from testing.</span></div>
+<div class="here"><b>7-8</b><span>Every rule judged against evidence from real testing, including an honest account of where your evidence is thin.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Judge every rule, including the ones that failed. Skipping them is obvious.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>A device that works when you use it is not the same as a device that works.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>If you only tested a rule yourself, write that down. Honesty costs nothing here.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Point at your evidence in every row. A judgement with no evidence is an opinion.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Dii <span class="sep">/</span> Sheet 14 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-d" id="diii">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Diii <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">Say how it could be better</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>1 class</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">1 class</span></div>
+<ul class="sh-list">
+<li>Each improvement traced back to something Dii found.</li>
+<li>Ranked, most important first, with a reason for the order.</li>
+<li>One improvement for something that already passed.</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 1</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Improvements, most important first</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>A PDF of your ranked improvements to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Diii</span></div>
+<p class="sh-q">&ldquo;Explains how the solution could be improved.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Improvements listed with no link to your testing.</span></div>
+<div><b>3-4</b><span>Improvements with some link to your testing.</span></div>
+<div><b>5-6</b><span>Improvements that each point back to something your testing found.</span></div>
+<div class="here"><b>7-8</b><span>Improvements ranked by importance, each pointing back to your testing, including one for something that already passed.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Every improvement points back to something Dii actually found.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Rank them. Most important first, and say why it is first.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Include one improvement for something that already passed.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>&quot;Make it better&quot; is not an improvement. Say what you would change and why.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Diii <span class="sep">/</span> Sheet 15 of 16</span></footer>
+</div></section>
+
+<section class="sheet crit-d" id="div">
+<div class="sh">
+<header class="sh-mast">
+<div class="sh-mast-top"><div class="sh-id">
+<p class="sh-code">Div <span>/</span> Criterion D, Evaluating</p>
+<h2 class="sh-title">What difference did it make?</h2></div>
+<div class="sh-soi"><p class="sh-lab">Statement of inquiry</p><p class="sh-soi-t">Designers develop new functions by making devices that sense, decide and act for the people who need them.</p></div>
+</div>
+<dl class="sh-frame">
+<div><dt>Key concept</dt><dd>Development</dd></div>
+<div><dt>Related concepts</dt><dd>Function, Innovation</dd></div>
+<div><dt>Global context</dt><dd>Scientific and Technical Innovation</dd></div>
+<div class="sh-fr-r"><dt>Time</dt><dd>2 classes</dd></div>
+<div class="sh-fr-r"><dt>Worked</dt><dd>On your own</dd></div>
+</dl></header>
+<div class="sh-body">
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Do</span><span class="t">2 classes</span></div>
+<ul class="sh-list">
+<li>What would you stop doing if you had this?</li>
+<li>What would you start doing?</li>
+<li>Who else in this room would notice it, and would they mind?</li>
+<li>What would annoy you about it by the third week?</li>
+<li>Who would charge it, or fix it, or switch it back on when it stops?</li>
+<li>Would you want to keep it? What would have to be true for that?</li>
+</ul>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Hand in</span><span class="t">End of class 2</span></div>
+<ul class="sh-ticks">
+<li><span class="tick"></span><span>Impact report + demo video</span></li>
+<li><span class="tick"></span><span>The video must show your client using the device in the place it would live.</span></li>
+</ul>
+<div class="sh-where"><p class="sh-lab2">Where it goes</p><p>Your report as a PDF and your 3 minute demo video to **ManageBac</p></div>
+</div>
+<div class="sh-col">
+<div class="sh-ch"><span class="k">Graded</span><span class="t">Div</span></div>
+<p class="sh-q">&ldquo;Explains the impact of the product on the client/target audience.&rdquo;</p>
+<p class="sh-lab2">What separates the bands</p><div class="sh-bands">
+<div><b>1-2</b><span>Little explanation of what difference the device made.</span></div>
+<div><b>3-4</b><span>A basic explanation of the difference it made, with little evidence.</span></div>
+<div><b>5-6</b><span>An explanation of the impact on your client, with evidence from real use.</span></div>
+<div class="here"><b>7-8</b><span>A detailed explanation of the impact on your client, evidenced by the demo video and their own words, returning to the need you wrote in Ai.</span></div>
+</div></div></div>
+<div class="sh-tips">
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Film your client using it, in the place it would live, doing the real task.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Their words matter more than yours. Record what they say.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>Quote your own Ai need statement. That is where the report closes.</p></div>
+<div class="sh-tip"><p class="sh-lab2">Tip</p><p>You take the device home at the end, so the video is the only record that it was used.</p></div>
+</div>
+<footer class="sh-foot"><span>MYP Design <span class="sep">/</span> Grade 10 Electronics Design</span><span>Div <span class="sep">/</span> Sheet 16 of 16</span></footer>
+</div></section>
+<script>
+/* Print the whole set, or just the sheet nearest the top of the screen. */
+(function () {
+  var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+  document.getElementById('printall').addEventListener('click', function () {
+    sheets.forEach(function (s) { s.style.display = ''; });
+    window.print();
+  });
+  document.getElementById('printone').addEventListener('click', function () {
+    var best = sheets[0], bestD = Infinity;
+    sheets.forEach(function (s) {
+      var d = Math.abs(s.getBoundingClientRect().top);
+      if (d < bestD) { bestD = d; best = s; }
+    });
+    sheets.forEach(function (s) { s.style.display = (s === best) ? '' : 'none'; });
+    window.print();
+    setTimeout(function () { sheets.forEach(function (s) { s.style.display = ''; }); }, 0);
+  });
+}());
+</script>
+</body>
+</html>
