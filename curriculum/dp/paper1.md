@@ -158,10 +158,12 @@ Longer case studies interleave further figures and text between parts. Question 
 For a **40-mark HL paper**, a workable allocation:
 
 - 7 single-mark items, of which 5 or 6 share one running context
-- 2 case studies of 5 items
+- 3 case studies of 5 items
 - 1 case study of 3 items
 - 1 case study of 6 items
 - 1 case study of 9 items
+
+That is 7 + 15 + 3 + 6 + 9 = 40, which is the HL specimen's own distribution.
 
 For a **30-mark SL paper**:
 
@@ -169,6 +171,8 @@ For a **30-mark SL paper**:
 - 2 case studies of 5 items
 - 2 case studies of 3 items
 - 1 case study of 9 items
+
+That is 5 + 10 + 6 + 9 = 30, which is the SL specimen's own distribution.
 
 ---
 
