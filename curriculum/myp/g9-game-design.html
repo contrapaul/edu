@@ -160,7 +160,55 @@
 </div>
 </div>
 
-<main><div class="curr-main">
+<main>
+<div class="curr-page-layout">
+
+<nav class="curr-toc" aria-label="Page contents">
+<div class="curr-toc-label">On this page</div>
+<ul class="curr-toc-list">
+  <li class="curr-toc-item" data-section="rules"><a href="#rules">The two non-negotiables</a></li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-a">
+    <a href="#crit-a">Criterion A</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-a">
+      <li data-section="ai"><a href="#ai">Ai &middot; Justify the need</a></li>
+      <li data-section="aii"><a href="#aii">Aii &middot; Plan the research</a></li>
+      <li data-section="aiii"><a href="#aiii">Aiii &middot; Analyse existing games</a></li>
+      <li data-section="aiv"><a href="#aiv">Aiv &middot; Write the brief</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-b">
+    <a href="#crit-b">Criterion B</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-b">
+      <li data-section="bi"><a href="#bi">Bi &middot; Specification</a></li>
+      <li data-section="bii"><a href="#bii">Bii &middot; A range of ideas</a></li>
+      <li data-section="biii"><a href="#biii">Biii &middot; Choose and justify</a></li>
+      <li data-section="biv"><a href="#biv">Biv &middot; Draw it for production</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-c">
+    <a href="#crit-c">Criterion C</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-c">
+      <li data-section="ci"><a href="#ci">Ci &middot; Plan the build</a></li>
+      <li data-section="cii"><a href="#cii">Cii &middot; Technical skill</a></li>
+      <li data-section="ciii"><a href="#ciii">Ciii &middot; Finish the game</a></li>
+      <li data-section="civ"><a href="#civ">Civ &middot; Justify every change</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item curr-toc-has-sub" data-section="crit-d">
+    <a href="#crit-d">Criterion D</a>
+    <ul class="curr-toc-sub" id="toc-sub-crit-d">
+      <li data-section="di"><a href="#di">Di &middot; Design the tests</a></li>
+      <li data-section="dii"><a href="#dii">Dii &middot; Evaluate against the spec</a></li>
+      <li data-section="diii"><a href="#diii">Diii &middot; Explain improvements</a></li>
+      <li data-section="div"><a href="#div">Div &middot; Explain the impact</a></li>
+    </ul>
+  </li>
+  <li class="curr-toc-item" data-section="sequence"><a href="#sequence">Class sequence</a></li>
+  <li class="curr-toc-item" data-section="references"><a href="#references">References &amp; Resources</a></li>
+</ul>
+</nav>
+
+<div class="curr-main">
 
 <div class="unit-facts">
   <div class="unit-fact"><p class="unit-fact-k">Length</p><p class="unit-fact-v"><strong>36 classes</strong>, 33 of them assessed</p></div>
@@ -1309,7 +1357,9 @@ who had no part in making it.</p>
 <a class="nav-next" href="g10-electronics-design.html"><span class="nav-dir">Next →</span><span class="nav-title">Electronics Design (Grade 10)</span></a>
 </nav>
 
-</div></main>
+</div><!-- /curr-main -->
+</div><!-- /curr-page-layout -->
+</main>
 <!-- ══ FORMATIVE MATERIALS ═════════════════════════════════════ -->
 
 <div class="case-modal" id="modal-need-want" role="dialog" aria-modal="true" aria-labelledby="modal-need-want-title">
@@ -1497,6 +1547,7 @@ who had no part in making it.</p>
 <script src="../drag-sort.js"></script>
 <script src="../claim-hunt.js"></script>
 <script src="../curriculum.js"></script>
+<script src="../curr-toc.js"></script>
 <script src="g9-game-design.js"></script>
 <script src="../curriculum-themes.js"></script>
 </body>
