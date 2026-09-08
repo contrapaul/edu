@@ -379,14 +379,14 @@
 }
 
 .obj-outcome {
-  font-size: 0.85rem;
+  font-size: 0.81rem;
   color: var(--muted);
-  line-height: 1.65;
-  padding: 0.65rem 0.875rem;
+  line-height: 1.55;
+  padding: 0.55rem 0.75rem;
   background: var(--surface-2);
   border-left: 2px solid var(--border-strong);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.9rem;
 }
 .obj-outcome-label {
   display: block;
@@ -1970,8 +1970,8 @@ details.p2-reveal summary::before { content: "▼ "; }
 
 /* ── CONCEPT INTRODUCTION BOX ────────────────────────────────── */
 .concept-box {
-  margin: 1.75rem 0 0.5rem;
-  padding: 1.25rem 1.5rem 1.5rem;
+  margin: 1.2rem 0 0.4rem;
+  padding: 0.9rem 1.1rem 1rem;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-left: 4px solid var(--curr-color, var(--accent));
@@ -1988,24 +1988,36 @@ details.p2-reveal summary::before { content: "▼ "; }
 }
 .concept-box-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  line-height: 1.2;
-  margin-bottom: 0.875rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
   color: var(--text);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0.625rem;
+  padding-bottom: 0.4rem;
 }
 .concept-box > p {
-  font-size: 0.875rem;
-  line-height: 1.72;
+  font-size: 0.83rem;
+  line-height: 1.6;
   color: var(--text);
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
 }
 .concept-box > p:last-child { margin-bottom: 0; }
+/* Lists in these two boxes had no size of their own, so they inherited the 1rem
+   page size and came out larger than the prose beside them. Matches the caution
+   box, which has always sized its own list items. */
+.concept-box ul, .concept-box ol,
+.discussion-box ul, .discussion-box ol { margin: 0.35rem 0 0.5rem; padding-left: 1.15rem; }
+.concept-box li, .discussion-box li {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+.concept-box > :last-child, .discussion-box > :last-child { margin-bottom: 0; }
 .concept-box-examples {
-  margin: 1rem 0;
-  padding: 0.875rem 1rem;
+  margin: 0.75rem 0;
+  padding: 0.7rem 0.85rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -2028,8 +2040,8 @@ details.p2-reveal summary::before { content: "▼ "; }
   gap: 0.5rem;
 }
 .concept-box-examples li {
-  font-size: 0.84rem;
-  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  padding: 0.45rem 0.65rem;
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -2522,8 +2534,8 @@ details.p2-reveal summary::before { content: "▼ "; }
 
 /* ── DISCUSSION PROMPT BOX (stands out, not behind an accordion) ── */
 .discussion-box {
-  margin: 1.75rem 0 0.5rem;
-  padding: 1.25rem 1.5rem 1.5rem;
+  margin: 1.2rem 0 0.4rem;
+  padding: 0.9rem 1.1rem 1rem;
   background: var(--green-bg);
   border: 1px solid var(--border);
   border-left: 4px solid var(--green);
@@ -2540,24 +2552,24 @@ details.p2-reveal summary::before { content: "▼ "; }
 }
 .discussion-box-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.3;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.45rem;
   color: var(--text);
 }
 .discussion-box p {
-  font-size: 0.875rem;
-  line-height: 1.7;
+  font-size: 0.83rem;
+  line-height: 1.6;
   color: var(--text);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.45rem;
 }
 .discussion-box p:last-child { margin-bottom: 0; }
 
 /* ── PLANNED ADDITION (interactive placeholder — no code, note only) ── */
 .planned-feature {
-  margin: 1.5rem 0 0.5rem;
-  padding: 1.1rem 1.375rem;
+  margin: 1.1rem 0 0.4rem;
+  padding: 0.85rem 1.05rem;
   background: var(--amber-bg);
   border: 1.5px dashed var(--amber);
   border-radius: var(--radius);
@@ -2572,14 +2584,14 @@ details.p2-reveal summary::before { content: "▼ "; }
   margin-bottom: 0.4rem;
 }
 .planned-feature-title {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 0.35rem;
 }
 .planned-feature p {
-  font-size: 0.85rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.55;
   color: var(--text);
   font-style: italic;
   margin: 0;
@@ -4027,8 +4039,8 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
    Same shape as .concept-box and .discussion-box, in amber. For
    rules that are easy to break and mistakes that cost marks. ── */
 .caution-box {
-  margin: 1.75rem 0 0.5rem;
-  padding: 1.25rem 1.5rem 1.5rem;
+  margin: 1.2rem 0 0.4rem;
+  padding: 0.9rem 1.1rem 1rem;
   background: var(--amber-bg);
   border: 1px solid var(--border);
   border-left: 4px solid var(--amber);
@@ -4045,18 +4057,18 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 }
 .caution-box-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   line-height: 1.3;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.45rem;
   color: var(--text);
 }
 .caution-box p, .caution-box li {
-  font-size: 0.875rem;
-  line-height: 1.7;
+  font-size: 0.83rem;
+  line-height: 1.6;
   color: var(--text);
 }
-.caution-box p { margin-bottom: 0.6rem; }
+.caution-box p { margin-bottom: 0.45rem; }
 .caution-box ul { margin: 0.25rem 0 0; padding-left: 1.15rem; }
 .caution-box li { margin-bottom: 0.4rem; }
 .caution-box > :last-child { margin-bottom: 0; }
@@ -4155,8 +4167,8 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 /* The IB descriptor, quoted exactly. Kept visually separate from my
    task wording so the two are never confused. */
 .unit-desc {
-  margin: 0 0 1.1rem;
-  padding: 0.8rem 1rem;
+  margin: 0 0 0.85rem;
+  padding: 0.65rem 0.85rem;
   border-left: 3px solid var(--curr-color, var(--accent));
   background: var(--surface-2);
   border-radius: 0 8px 8px 0;
@@ -4166,7 +4178,7 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
   font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--muted); display: block; margin-bottom: 0.3rem;
 }
-.unit-desc q { font-size: 0.88rem; line-height: 1.6; color: var(--text); font-style: italic; }
+.unit-desc q { font-size: 0.83rem; line-height: 1.55; color: var(--text); font-style: italic; }
 
 /* Small labelled sub-heading inside a strand */
 .unit-h {
@@ -4326,11 +4338,35 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 
 /* "How this works" note, used inside the activity modals. */
 .unit-run {
-  margin: 1.25rem 0 0.5rem; padding: 0.85rem 1.1rem;
+  margin: 0.9rem 0 0.4rem; padding: 0.7rem 0.9rem;
   border: 1px dashed var(--border-strong); border-radius: var(--radius);
-  font-size: 0.84rem; line-height: 1.6; color: var(--muted);
+  font-size: 0.8rem; line-height: 1.55; color: var(--muted);
 }
 .unit-run strong { color: var(--text); }
+
+/* ── CALLOUTS INSIDE AN ACTIVITY MODAL ───────────────────────────────
+   In a modal the callouts are preamble and the widget is the task, so
+   they are compressed further than on the page, to keep the task above
+   the fold. The :has() scope limits this to modals that hold a widget,
+   which leaves the DP case study modals alone. ── */
+.case-modal-body:has(.drag-sort, .rplan, .g9-planner, .unit-brief) > p {
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+.case-modal-body:has(.drag-sort, .rplan, .g9-planner, .unit-brief) :is(.concept-box, .caution-box, .discussion-box) {
+  margin: 0.8rem 0 0.3rem;
+  padding: 0.7rem 0.9rem 0.8rem;
+}
+.case-modal-body:has(.drag-sort, .rplan, .g9-planner, .unit-brief) :is(.concept-box-title, .caution-box-title, .discussion-box-title) {
+  font-size: 0.92rem;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.3rem;
+}
+.case-modal-body:has(.drag-sort, .rplan, .g9-planner, .unit-brief) :is(.concept-box, .caution-box, .discussion-box) :is(p, li) {
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+.case-modal-body:has(.drag-sort, .rplan, .g9-planner, .unit-brief) .unit-run { margin: 0.65rem 0 0.3rem; }
 
 /* Opt in with .drag-sort--liftable on a sort that passes enableDrag:true, so
    its cards look like something you can pick up. The DP sort widgets are click
