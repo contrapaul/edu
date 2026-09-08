@@ -4353,6 +4353,12 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 .drag-sort--liftable .drag-sort-zone-slot:empty::before { content: none; }
 .drag-sort--liftable .drag-sort-zone-wrap { transition: border-color 0.15s, background 0.15s; }
 
+/* Opt in with .drag-sort--ladder when the zones are rungs rather than piles, so
+   the order they are read in carries meaning. Stacks them one per row, sharpest
+   at the top, instead of letting the grid wrap them into columns. */
+.drag-sort--ladder .drag-sort-zones { grid-template-columns: 1fr; gap: 0.5rem; }
+.drag-sort--ladder .drag-sort-zone-btn { font-size: 0.68rem; }
+
 /* ── CLAIM HUNT WIDGET ──────────────────────────────────────────────
    The "find the unsupported claims" activity. Behaviour lives in the
    shared claim-hunt.js; content lives in each page's own JS file.

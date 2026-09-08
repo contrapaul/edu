@@ -413,3 +413,51 @@
   say('Drag an activity into a step, or click it to add it to the next empty one.');
 })();
 
+
+/* ── QUESTION QUALITY LADDER (Aii formative) ──────────────────
+   Six research questions about one audience, each sitting on a
+   different rung. The rungs are named after what is missing
+   rather than numbered, so a question is placed by diagnosing it
+   and not by guessing an order. Only the top rung has all three
+   of number, method and decision. */
+(function () {
+  'use strict';
+  var bankEl = document.getElementById('sort-qladder-bank');
+  if (!bankEl || !window.DragSort) return;
+
+  window.DragSort.init({
+    enableDrag: true,
+    bankEl: bankEl,
+    zonesEl: document.getElementById('sort-qladder-zones'),
+    statusEl: document.getElementById('sort-qladder-status'),
+    resetBtn: document.getElementById('sort-qladder-reset'),
+    zones: [
+      { id: 'sharp',    label: 'Sharp · a number that changes the game' },
+      { id: 'idle',     label: 'Measurable · but decides nothing' },
+      { id: 'cant',     label: 'Unanswerable · not by you, not now' },
+      { id: 'vague',    label: 'Vague · no number, no time' },
+      { id: 'yesno',    label: 'Yes or no · a one word answer' },
+      { id: 'opinion',  label: 'Opinion · about everybody' }
+    ],
+    items: [
+      { id: 'q1', correctZone: 'sharp',
+        label: 'How long does a group of Grade 6 students stay at one table before they get up, timed over five lunches?',
+        explanation: 'A number, a method, and a decision waiting on it. Whatever that number turns out to be is the longest your game can run, and that single figure shapes the round length, the win condition and the box size. This is what a token buys.' },
+      { id: 'q2', correctZone: 'idle',
+        label: 'How many Grade 6 students are there in the school?',
+        explanation: 'You can answer this in one email, and the answer is a clean number, which is why it looks like research. Ask what you would do differently if it were 60 rather than 90. Nothing. A question that cannot change the game does not belong on a plan with 12 tokens.' },
+      { id: 'q3', correctZone: 'cant',
+        label: 'Will Grade 6 students still want to play our game in six months?',
+        explanation: 'A good thing to wonder about and impossible to research, because the answer lives in the future. No interview, questionnaire or observation reaches it. Questions like this quietly turn into assumptions, because the plan says they were answered.' },
+      { id: 'q4', correctZone: 'vague',
+        label: 'Is there enough time at lunch for a game?',
+        explanation: 'Enough time compared with what? Two people could research this honestly and come back disagreeing, because nothing here says what is being measured. Put a unit and a limit in it and it climbs two rungs: how many minutes are free, and how many does your game need?' },
+      { id: 'q5', correctZone: 'yesno',
+        label: 'Do Grade 6 students play games at lunch?',
+        explanation: 'Answerable, about the right group, and worth almost nothing, because the answer is one word. Yes tells you nothing about what they play, how long for, or how many at a table. Yes or no questions are worth asking only as the first half of a longer one.' },
+      { id: 'q6', correctZone: 'opinion',
+        label: 'Do people like games?',
+        explanation: 'The bottom rung, and the most commonly written question in the unit. There is no audience in it, no place, no number and no answer you could act on. Everybody already knows the answer is roughly yes, which is how you can tell nothing was found out.' }
+    ]
+  });
+})();

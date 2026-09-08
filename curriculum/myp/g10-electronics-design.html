@@ -429,11 +429,12 @@
       <span class="unit-fcard-desc">Build your real plan here. Spend your 12 tokens, then write a question, a decision and a date for every row, plus the two paragraphs underneath. Download it when you are done. Your work is saved in this browser as you type.</span>
       <span class="unit-fcard-cta">Open the planner</span>
       </button>
-      <div class="unit-fcard">
+      <button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-question-ladder">
       <span class="unit-fcard-label">Practice &middot; 10 min</span>
-      <span class="unit-fcard-title">Good question, bad question</span>
-      <span class="unit-fcard-desc">Put six research questions in order, from useless to precise. Compare "Do people like gadgets?" with "How long does a Grade 6 stay at a desk before getting up?" One of those you can act on.</span>
-      </div>
+      <span class="unit-fcard-title">Question quality ladder</span>
+      <span class="unit-fcard-desc">Put six research questions in order, from useless to precise. Compare "Do people like gadgets?" with "How many minutes does a delivery wait at the back gate before anybody notices?" Only one of those tells you what to build.</span>
+      <span class="unit-fcard-cta">Open the activity</span>
+      </button>
       <div class="unit-fcard">
       <span class="unit-fcard-label">Practice &middot; 10 min</span>
       <span class="unit-fcard-title">What a bench test buys you</span>
@@ -1780,6 +1781,55 @@
         <p class="discussion-box-label">Try this first, if there is time</p>
         <h3 class="discussion-box-title">Spend the tokens on somebody else's client</h3>
         <p>Before you plan your own, do a fast run for a different client group, about 20 minutes. Then compare with the people near you. Two plans with the same twelve tokens can be completely different, and arguing about which is better is the fastest way to see what the "what this lets me decide" column is for.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     ACTIVITY: QUESTION QUALITY LADDER (Aii)
+     ═══════════════════════════════════════════════════════ -->
+<div class="case-modal" id="modal-question-ladder" role="dialog" aria-modal="true" aria-labelledby="modal-question-ladder-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-question-ladder-title">Question quality ladder</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Six research questions written about one client, <strong>the four staff who work at the front office desk</strong>. Any of them could go in the first column of your <a href="#aii">Aii</a> plan. Only one of them is worth a token.</p>
+
+      <div class="unit-run">
+        <strong>How this works.</strong> Pairs, about 10 minutes. Place all six, then rewrite the bottom question so that it reaches the top rung. The rewrite is the part that stays with you.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">The test</p>
+        <h3 class="concept-box-title">Three things a sharp question has</h3>
+        <p>A <strong>number</strong> in the answer. A <strong>method</strong> that could actually produce it. A <strong>decision</strong> waiting on the other side. Remove any one of the three and the question drops a rung.</p>
+        <p>The third is the one people skip. If you can picture both answers and your device is the same either way, the question is costing you a token and telling you nothing. That is the same test as the "what this lets me decide" column on your plan.</p>
+      </div>
+
+      <div class="drag-sort drag-sort--liftable drag-sort--ladder" id="sort-qladder">
+        <div class="drag-sort-label">Activity</div>
+        <div class="drag-sort-title">Put the six questions on the ladder</div>
+        <p class="drag-sort-intro">Drag each question onto the rung that describes it. The top rung is the only one you would spend a token on.</p>
+        <div class="drag-sort-section-label">Questions</div>
+        <div class="drag-sort-bank" id="sort-qladder-bank"></div>
+        <div class="drag-sort-section-label">The ladder, best at the top</div>
+        <div class="drag-sort-zones" id="sort-qladder-zones"></div>
+        <div class="drag-sort-status" id="sort-qladder-status" aria-live="polite"></div>
+        <button class="drag-sort-reset-btn" type="button" id="sort-qladder-reset">Reset</button>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">Common mistake</p>
+        <h3 class="caution-box-title">The five weak questions all sound reasonable</h3>
+        <p>None of them is a silly question, and all five get written every year. They fail quietly. You ask, you get an answer, you write it in the plan, and the device you build is exactly the device you were going to build anyway.</p>
+        <p>Read every question on your own plan out loud, then add the words "and then what will I do differently?" A question that has no answer to that is a row you can delete, which gives you a token back.</p>
       </div>
 
     </div>

@@ -219,3 +219,53 @@
     ]
   });
 })();
+
+/* ── QUESTION QUALITY LADDER (Aii activity) ───────────────────
+   Six research questions about the front office, each one on a
+   different rung. The rungs are named after what is missing
+   rather than numbered, so a question is placed by diagnosing it
+   instead of guessing an order. Only the top rung has all three
+   of number, method and decision, and only one of the six is a
+   feasibility question, which is the argument for the bench test
+   made a second time. */
+(function () {
+  'use strict';
+  var bankEl = document.getElementById('sort-qladder-bank');
+  if (!bankEl || !window.DragSort) return;
+
+  window.DragSort.init({
+    enableDrag: true,
+    bankEl: bankEl,
+    zonesEl: document.getElementById('sort-qladder-zones'),
+    statusEl: document.getElementById('sort-qladder-status'),
+    resetBtn: document.getElementById('sort-qladder-reset'),
+    zones: [
+      { id: 'sharp',   label: 'Sharp · a number that changes the device' },
+      { id: 'idle',    label: 'Measurable · but decides nothing' },
+      { id: 'cant',    label: 'Unanswerable · not by you, not now' },
+      { id: 'vague',   label: 'Vague · no number, no time' },
+      { id: 'yesno',   label: 'Yes or no · a one word answer' },
+      { id: 'opinion', label: 'Opinion · about everybody' }
+    ],
+    items: [
+      { id: 'q1', correctZone: 'sharp',
+        label: 'How many minutes does a delivery wait at the back gate before anybody notices, timed over five deliveries?',
+        explanation: 'A number, a method that produces it, and a decision waiting on it. That figure becomes a line in your Bi specification and the thing you test against in Di. If it comes out at 12 minutes, your device has a target to beat.' },
+      { id: 'q2', correctZone: 'idle',
+        label: 'How many desks are there in the front office?',
+        explanation: 'One question, one clean number, which is why it looks like research. Now ask what you would build differently if the answer were three rather than four. Nothing. A row that cannot change the device is costing you a token and buying you a fact.' },
+      { id: 'q3', correctZone: 'cant',
+        label: 'Will the office staff still be using our device next year?',
+        explanation: 'Worth wondering about and impossible to research, because the answer is in the future. No interview, questionnaire or bench test reaches it. Questions like this become assumptions with a tick next to them, which is the dangerous kind.' },
+      { id: 'q4', correctZone: 'vague',
+        label: 'How busy is the front desk?',
+        explanation: 'Busy measured how, and over what? Interruptions per hour, calls per morning, people in the queue? Two people could research this honestly and come back disagreeing. Add a unit and a time window and it climbs most of the ladder.' },
+      { id: 'q5', correctZone: 'yesno',
+        label: 'Do the office staff get interrupted while they work?',
+        explanation: 'The right client, and almost worthless, because the answer is one word you could have predicted. Yes tells you nothing about how often, by what, or at what cost. A yes or no question is only useful as the first half of a longer one.' },
+      { id: 'q6', correctZone: 'opinion',
+        label: 'Do people like gadgets?',
+        explanation: 'The bottom rung, and the most commonly written question in the unit. No client, no place, no number, no decision. Everybody already knows the answer is roughly yes, which is how you can tell that nothing was found out.' }
+    ]
+  });
+})();

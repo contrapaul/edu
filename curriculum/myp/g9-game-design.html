@@ -360,17 +360,12 @@ explanations for your choices. (Then do the research).</p>
 <span class="unit-fcard-desc">A practice run of the budget against a fake brief for a different audience, before doing it for real. Compare spends across the room and argue about them.</span>
 <span class="unit-fcard-cta">Open materials</span>
 </button>
-<div class="unit-fcard">
+<button type="button" class="unit-fcard unit-fcard--live" data-modal="modal-question-ladder">
 <span class="unit-fcard-label">Formative · 10 min</span>
 <span class="unit-fcard-title">Question quality ladder</span>
 <span class="unit-fcard-desc">Rank six research questions from useless to sharp. "Do people like games?" against "How long will a Grade 6 stay at one table before they get up?" The difference between them is the lesson.</span>
-</div>
-</div>
-
-<div class="planned-feature">
-<p class="planned-feature-label">Planned</p>
-<h3 class="planned-feature-title">Interactive: research budget planner</h3>
-<p>Drag activities into a plan, watch the token total, and get blocked when overspending. Exports the finished table.</p>
+<span class="unit-fcard-cta">Open materials</span>
+</button>
 </div>
 
 </div>
@@ -1412,6 +1407,51 @@ who had no part in making it.</p>
         <p class="caution-box-label">The question to end on</p>
         <h3 class="caution-box-title">What did you give up, and what does that cost you?</h3>
         <p>Every plan on the room's screens is missing something. Ask each student to name the activity they could not afford, and what they will now be guessing about. A plan that admits its own gap is stronger than one that pretends there is none.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="case-modal" id="modal-question-ladder" role="dialog" aria-modal="true" aria-labelledby="modal-question-ladder-title">
+  <div class="case-modal-overlay" tabindex="-1"></div>
+  <div class="case-modal-content">
+    <header class="case-modal-header">
+      <h2 id="modal-question-ladder-title">Question quality ladder</h2>
+      <button class="case-modal-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="case-modal-body">
+
+      <p>Six research questions written by a team designing a tabletop game for <strong>Grade 6 students at lunch recess</strong>. Every one of them could appear in the first column of a research plan. Only one of them is worth a token.</p>
+
+      <div class="unit-run">
+        <strong>How to run it.</strong> Pairs, 10 minutes. Place all six, then ask each pair to rewrite the bottom question so that it climbs to the top rung. That rewrite is the whole activity; the sorting is how they get there.
+      </div>
+
+      <div class="concept-box">
+        <p class="concept-box-label">The test</p>
+        <h3 class="concept-box-title">What makes a research question sharp</h3>
+        <p>A sharp question has a <strong>number</strong> in the answer, a <strong>method</strong> that could produce it, and a <strong>decision</strong> waiting on the other side. Take any one of those three away and the question drops a rung.</p>
+        <p>The last one is the one students skip. If you can already picture both answers and your game is the same either way, the question is decoration.</p>
+      </div>
+
+      <div class="drag-sort drag-sort--liftable drag-sort--ladder" id="sort-qladder">
+        <div class="drag-sort-label">Interactive</div>
+        <div class="drag-sort-title">Put the six questions on the ladder</div>
+        <p class="drag-sort-intro">Drag each question onto the rung that describes it. The top rung is the only one you would spend a token on.</p>
+        <div class="drag-sort-section-label">Questions</div>
+        <div class="drag-sort-bank" id="sort-qladder-bank"></div>
+        <div class="drag-sort-section-label">The ladder, best at the top</div>
+        <div class="drag-sort-zones" id="sort-qladder-zones"></div>
+        <div class="drag-sort-status" id="sort-qladder-status" aria-live="polite"></div>
+        <button class="drag-sort-reset-btn" type="button" id="sort-qladder-reset">Reset</button>
+      </div>
+
+      <div class="caution-box">
+        <p class="caution-box-label">The discussion to have afterwards</p>
+        <h3 class="caution-box-title">The bottom four questions all sound reasonable</h3>
+        <p>None of the weak questions is stupid, and every one of them gets written every year. They fail quietly: the team asks them, gets an answer, writes it in the plan, and the game does not change. A research plan made of those questions still costs 12 tokens and still teaches the team nothing.</p>
+        <p>Send them into their own Aii plan with one rule. Every question in column one has to survive being read out loud followed by "and then what will you do differently?"</p>
       </div>
 
     </div>
