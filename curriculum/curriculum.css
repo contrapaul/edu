@@ -309,15 +309,15 @@
 }
 .obj-code {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--curr-color, var(--muted));
   white-space: nowrap;
   flex-shrink: 0;
-  min-width: 3rem;
-  margin-top: 0.22rem;  /* align with cap-height of h3 */
+  min-width: 3.5rem;
+  margin-top: 0.1rem;  /* align with cap-height of the statement beside it */
   transition: color 0.15s;
 }
 .obj-trigger h3 {
@@ -347,6 +347,13 @@
 
 .obj-body { display: none; padding: 0.25rem 0 1.25rem; }
 .obj-body.open { display: block; }
+/* Strand prose. Left at the 1rem page default it came out larger than the
+   strand header, so it is set to the same scale as the rest of the unit copy.
+   Bare list items are included: they inherit, and a body of 0.9rem paragraphs
+   with 1rem bullets is the same mismatch one level down. */
+.obj-body > p,
+.obj-body ul:not([class]) li,
+.obj-body ol:not([class]) li { font-size: 0.9rem; line-height: 1.7; }
 
 .obj-figure {
   margin: 1rem 0 1.5rem;
@@ -371,11 +378,14 @@
 }
 .obj-figure:has(.obj-img[src=""]) { display: none; }
 
+/* The strand title itself, and the only heading a reader sees on a closed
+   strand, so it is sized like the h3 the DP pages use in the same slot. */
 .obj-statement {
-  font-size: 0.88rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
   color: var(--text);
-  line-height: 1.65;
-  margin-bottom: 0.75rem;
+  line-height: 1.3;
 }
 
 .obj-outcome {
