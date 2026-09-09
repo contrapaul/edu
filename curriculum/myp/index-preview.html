@@ -73,44 +73,38 @@
 .unit-tile:focus-visible .unit-tile-img { transform: scale(1.045); }
 
 /* ── the caption ──────────────────────────────────────────────────
-   Always visible, always in the same place. No scrim, no reveal.
-   Legibility comes from choosing the ink per tile, not from dimming
-   the picture: set data-ink="dark" on a tile with a pale photo.
+   Always visible, always in the same place. No scrim over the picture
+   and nothing that appears on hover. The frosted panel blurs away the
+   detail the text would otherwise fight, and lifts its own backing
+   towards white, so one dark ink reads on any cover. That also means
+   a new cover needs no per-image judgement.
    ───────────────────────────────────────────────────────────────── */
 .unit-tile-cap {
   position: absolute;
-  left: 1.15rem; bottom: 1rem; right: 1.15rem;
-  --ink: #fff;
-  --ink-soft: rgba(255,255,255,0.82);
-  --ink-shadow: 0 1px 3px rgba(0,0,0,0.55), 0 1px 12px rgba(0,0,0,0.35);
-}
-.unit-tile[data-ink="dark"] .unit-tile-cap {
-  --ink: #14171c;
-  --ink-soft: rgba(20,23,28,0.7);
-  --ink-shadow: 0 1px 3px rgba(255,255,255,0.6);
-}
-/* A tile with no photograph has no picture to fight with, so it just
-   uses the theme's own text colour and needs no shadow at all. */
-.unit-tile--flat .unit-tile-cap {
-  --ink: var(--text);
-  --ink-soft: var(--muted);
-  --ink-shadow: none;
-}
-.unit-tile-grade {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--ink-soft);
-  text-shadow: var(--ink-shadow);
-  margin-bottom: 0.25rem;
+  left: 0.85rem; bottom: 0.85rem;
+  max-width: calc(100% - 1.7rem);
+  padding: 0.42rem 0.8rem 0.48rem;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.58);
+  -webkit-backdrop-filter: blur(16px) saturate(0.85);
+  backdrop-filter: blur(16px) saturate(0.85);
 }
 .unit-tile-title {
   display: block;
   font-family: var(--font-display);
   font-size: 1.32rem; font-weight: 600; line-height: 1.15;
-  color: var(--ink);
-  text-shadow: var(--ink-shadow);
+  color: #14171c;
 }
+
+/* A tile with no cover has no picture to sit on, so it drops the panel
+   and takes the theme's own text colour. */
+.unit-tile--flat .unit-tile-cap {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  padding: 0;
+}
+.unit-tile--flat .unit-tile-title { color: var(--text); }
 
 /* Only on a unit that genuinely is not written yet. */
 .unit-tile-soon {
@@ -124,10 +118,10 @@
   padding: 0.2rem 0.55rem;
 }
 
-/* ── tiles with no photograph yet ─────────────────────────────────
+/* ── tiles with no cover yet ──────────────────────────────────────
    A quiet generated field, so a tile without art still reads as a
    deliberate tile rather than a broken one. Angle and spacing vary
-   per unit so the six of them do not look like one repeated card.
+   per unit so the four of them do not look like one repeated card.
    ───────────────────────────────────────────────────────────────── */
 .unit-tile-pattern {
   position: absolute; inset: 0;
@@ -182,68 +176,44 @@
 <div class="unit-grid">
 
 <a class="unit-tile" href="g6-lego-designers.html">
-  <img class="unit-tile-img" src="Plans/G6Lego/Cybercity.webp" alt="" loading="lazy">
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 6</span>
-    <span class="unit-tile-title">Lego Designers</span>
-  </span>
+  <img class="unit-tile-img" src="../../media/legounit.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap"><span class="unit-tile-title">Lego Designers</span></span>
 </a>
 
 <a class="unit-tile unit-tile--flat" href="g7-lego-engineers.html">
   <span class="unit-tile-pattern" style="--pat-angle:32deg; --pat-gap:13px"></span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 7</span>
-    <span class="unit-tile-title">Lego Engineers</span>
-  </span>
+  <span class="unit-tile-cap"><span class="unit-tile-title">Lego Engineers</span></span>
 </a>
 
 <a class="unit-tile unit-tile--flat" href="g8-bridge-designers.html">
   <span class="unit-tile-pattern" style="--pat-angle:-40deg; --pat-gap:11px"></span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 8</span>
-    <span class="unit-tile-title">Bridge Designers</span>
-  </span>
+  <span class="unit-tile-cap"><span class="unit-tile-title">Bridge Designers</span></span>
 </a>
 
 <a class="unit-tile unit-tile--flat" href="g8-3d-modeling.html">
   <span class="unit-tile-pattern" style="--pat-angle:70deg; --pat-gap:17px"></span>
   <span class="unit-tile-soon">Coming soon</span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 8</span>
-    <span class="unit-tile-title">3D Modeling</span>
-  </span>
+  <span class="unit-tile-cap"><span class="unit-tile-title">3D Modeling</span></span>
 </a>
 
-<a class="unit-tile unit-tile--flat" href="g9-toy-design.html">
-  <span class="unit-tile-pattern" style="--pat-angle:12deg; --pat-gap:15px"></span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 9</span>
-    <span class="unit-tile-title">Toy Design</span>
-  </span>
+<a class="unit-tile" href="g9-toy-design.html">
+  <img class="unit-tile-img" src="../../media/toyunit.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap"><span class="unit-tile-title">Toy Design</span></span>
 </a>
 
-<a class="unit-tile unit-tile--flat" href="g9-game-design.html">
-  <span class="unit-tile-pattern" style="--pat-angle:-15deg; --pat-gap:12px"></span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 9</span>
-    <span class="unit-tile-title">Tabletop Game Design</span>
-  </span>
+<a class="unit-tile" href="g9-game-design.html">
+  <img class="unit-tile-img" src="../../media/gamesunit.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap"><span class="unit-tile-title">Tabletop Game Design</span></span>
 </a>
 
-<a class="unit-tile" href="g10-electronics-design.html" data-ink="dark">
-  <img class="unit-tile-img" src="../../tools/electronics/media/resistors.webp" alt="" loading="lazy">
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 10</span>
-    <span class="unit-tile-title">Electronics Design</span>
-  </span>
+<a class="unit-tile" href="g10-electronics-design.html">
+  <img class="unit-tile-img" src="../../media/electronicsunit.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap"><span class="unit-tile-title">Electronics Design</span></span>
 </a>
 
 <a class="unit-tile unit-tile--flat" href="g10-studio-project.html">
   <span class="unit-tile-pattern" style="--pat-angle:55deg; --pat-gap:19px"></span>
-  <span class="unit-tile-cap">
-    <span class="unit-tile-grade">Grade 10</span>
-    <span class="unit-tile-title">Studio Project</span>
-  </span>
+  <span class="unit-tile-cap"><span class="unit-tile-title">Studio Project</span></span>
 </a>
 
 </div>
