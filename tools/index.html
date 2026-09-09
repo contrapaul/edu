@@ -558,6 +558,64 @@
 }
 .cs-ticket:hover { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
 
+/* 36 — Video Card (clip fills the card; plays on hover, resets on leave)
+   Per-card custom properties, set in the style="" attribute:
+     --cv-bg          solid ground behind the clip and under the text scrim
+     --cv-edge        border colour at rest
+     --cv-edge-hover  border colour on hover/focus
+   Media: 720x400 (2x the 360x200 card). See media/README.md for encoding. */
+.cs-video {
+  overflow: hidden;
+  background: var(--cv-bg, #14141c) !important;
+  border: 1px solid var(--cv-edge, rgba(255,255,255,0.12)) !important;
+  border-radius: 14px !important;
+  justify-content: flex-end !important;
+  gap: 0.3rem !important;
+  padding: 1rem 1.35rem 1.2rem !important;
+  transition: transform 0.35s cubic-bezier(0.2,0.7,0.3,1), box-shadow 0.35s, border-color 0.35s !important;
+}
+.cs-video .cs-clip {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* 1.02 at rest so the hover scale has nothing to reveal at the edges */
+  transform: scale(1.02);
+  filter: saturate(0.85) brightness(0.78);
+  transition: transform 0.55s cubic-bezier(0.2,0.7,0.3,1), filter 0.35s;
+  pointer-events: none;
+}
+/* Scrim: keeps the title legible over whatever the clip is doing */
+.cs-video::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--cv-bg, #14141c) 3%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+.cs-video .tool-card-title,
+.cs-video .tool-card-sub { position: relative; z-index: 1; }
+.cs-video .tool-card-title { text-shadow: 0 2px 10px rgba(0,0,0,0.75); }
+.cs-video .tool-card-sub { text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
+
+.cs-video:hover,
+.cs-video:focus-visible {
+  transform: translateY(-8px) scale(1.035) !important;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.5) !important;
+  border-color: var(--cv-edge-hover, rgba(255,255,255,0.35)) !important;
+}
+.cs-video:hover .cs-clip,
+.cs-video:focus-visible .cs-clip {
+  transform: scale(1.09);
+  filter: saturate(1) brightness(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-video, .cs-video .cs-clip { transition: none !important; }
+  .cs-video:hover, .cs-video:focus-visible { transform: none !important; }
+  .cs-video:hover .cs-clip, .cs-video:focus-visible .cs-clip { transform: scale(1.02); }
+}
+
+
 </style>
 </head>
 <body>
@@ -579,6 +637,36 @@
 <main>
 
 <div class="tool-cards-grid">
+
+<a class="tool-card cs-video" href="https://make.contrapaul.com/localai/"
+   style="--card-title-color:#f0f1ff; --card-sub-color:#b6bad6; --cv-bg:#0a0e1c; --cv-edge:rgba(139,147,255,0.28); --cv-edge-hover:#8b93ff;">
+  <video class="cs-clip" muted loop playsinline preload="none" poster="media/localai-poster.webp" aria-hidden="true" tabindex="-1">
+    <source src="media/localai.webm" type="video/webm">
+    <source src="media/localai.mp4" type="video/mp4">
+  </video>
+  <h3 class="tool-card-title">localAI</h3>
+  <p class="tool-card-sub">How local AI models actually run: hardware, memory bandwidth, and the real cost of inference.</p>
+</a>
+
+<a class="tool-card cs-video" href="https://games.contrapaul.com/runestone/"
+   style="--card-title-color:#f6efe4; --card-sub-color:#cbb894; --cv-bg:#131218; --cv-edge:rgba(226,163,74,0.28); --cv-edge-hover:#e2a34a;">
+  <video class="cs-clip" muted loop playsinline preload="none" poster="media/runestone-poster.webp" aria-hidden="true" tabindex="-1">
+    <source src="media/runestone.webm" type="video/webm">
+    <source src="media/runestone.mp4" type="video/mp4">
+  </video>
+  <h3 class="tool-card-title">Runestone Expedition</h3>
+  <p class="tool-card-sub">Turn tiles over one at a time, fight what you find, and take the Runestone before your torch burns out.</p>
+</a>
+
+<a class="tool-card cs-video" href="https://games.contrapaul.com/castle/"
+   style="--card-title-color:#f2ece6; --card-sub-color:#bfc6d2; --cv-bg:#121620; --cv-edge:rgba(201,138,90,0.3); --cv-edge-hover:#c98a5a;">
+  <video class="cs-clip" muted loop playsinline preload="none" poster="media/castle-poster.webp" aria-hidden="true" tabindex="-1">
+    <source src="media/castle.webm" type="video/webm">
+    <source src="media/castle.mp4" type="video/mp4">
+  </video>
+  <h3 class="tool-card-title">Castle Assault</h3>
+  <p class="tool-card-sub">You are the archer on the wall. Aim, draw, and lead what is walking at you &mdash; before the wall goes out from under you.</p>
+</a>
 
   <a class="tool-card cs-blurt" href="https://blurt.contrapaul.com/"
    style="--card-title-color:#ece9f2; --card-sub-color:#8a8798; --card-title-size:2.5rem;">
@@ -769,6 +857,25 @@
 
 <script src="../curriculum/curriculum-themes.js"></script>
 <script>
+/* Video cards: play from the title frame on hover/focus, rewind on leave. */
+document.querySelectorAll('.cs-video').forEach(function(card){
+  var v = card.querySelector('video.cs-clip');
+  if (!v) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function play(){
+    try { v.currentTime = 0; } catch (e) {}
+    var p = v.play();
+    if (p && p.catch) p.catch(function(){});
+  }
+  function reset(){
+    v.pause();
+    try { v.currentTime = 0; } catch (e) {}
+  }
+  card.addEventListener('mouseenter', play);
+  card.addEventListener('mouseleave', reset);
+  card.addEventListener('focus', play);
+  card.addEventListener('blur', reset);
+});
 document.querySelectorAll('.cs-spotlight').forEach(function(el){
   el.addEventListener('mousemove', function(e){
     var r = el.getBoundingClientRect();
