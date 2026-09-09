@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Work out what must be inside a product without opening it. Build four Black Box Cards and the summary for the Grade 10 Electronics Design Aiii task, then print them.">
+<title>Black Box Analyzer | G10 MYP Design | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/assessments/aiii-blackbox.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Black Box Analyzer | contrapaul edu">
+<meta property="og:description" content="Four Black Box Cards and a summary, built from the class parts catalog.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/myp/assessments/aiii-blackbox.html">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="aiii-blackbox.css">
+</head>
+<body>
+
+<a href="#work" class="skip-link">Skip to the cards</a>
+
+<header class="bb-head">
+  <div class="bb-head-inner">
+    <div class="bb-head-text">
+      <p class="bb-eyebrow">contrapaul / edu</p>
+      <h1>Black Box Analyzer</h1>
+      <p class="bb-head-sub">Four products, none of them opened. Work out what must be inside from what each one does, name the parts from the catalog, then turn all four into design implications.</p>
+    </div>
+    <a class="bb-unit-link" href="../g10-electronics-design.html#aiii">
+      <span class="bb-unit-link-kicker">Back to Aiii</span>
+      <span class="bb-unit-link-title">Grade 10 Electronics Design</span>
+    </a>
+  </div>
+</header>
+
+<nav class="bb-nav" id="nav" aria-label="Cards and summary">
+  <div class="bb-nav-inner">
+    <div class="bb-tabs" id="tabs" role="tablist"></div>
+    <div class="bb-nav-actions">
+      <button type="button" class="bb-btn" id="exportBtn">Save a copy</button>
+      <button type="button" class="bb-btn" id="importBtn">Open a copy</button>
+      <button type="button" class="bb-btn bb-btn-go" id="printBtn">Print / PDF</button>
+      <input type="file" id="importFile" accept="application/json" hidden>
+    </div>
+  </div>
+</nav>
+
+<main id="work">
+  <div class="bb-stage" id="stage"></div>
+</main>
+
+<footer class="bb-foot">
+  <p id="saveState" class="bb-savestate" aria-live="polite">Your work saves in this browser as you type.</p>
+  <p><em>A project by Mr. K, more at <a href="https://edu.contrapaul.com/tools">edu.contrapaul.com/tools</a></em></p>
+  <p><button type="button" class="bb-btn bb-btn-warn" id="resetBtn">Clear everything and start again</button></p>
+</footer>
+
+<!-- Part picker -->
+<div class="bb-modal" id="picker" hidden>
+  <div class="bb-modal-backdrop" data-close></div>
+  <div class="bb-modal-box" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+    <div class="bb-modal-top">
+      <h2 id="pickerTitle" class="bb-modal-title">Pick a part</h2>
+      <button type="button" class="bb-modal-close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="bb-modal-sub" id="pickerSub"></p>
+    <input type="search" id="pickerSearch" class="bb-input" placeholder="Search the catalog" aria-label="Search the catalog">
+    <div class="bb-picker-list" id="pickerList"></div>
+  </div>
+</div>
+
+<script src="../../../tools/electronics/data.js"></script>
+<script src="aiii-blackbox-png.js"></script>
+<script src="aiii-blackbox.js"></script>
+</body>
+</html>

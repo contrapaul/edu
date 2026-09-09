@@ -147,6 +147,77 @@
 
   $('sheets').innerHTML = teardown(1) + teardown(2) + teardown(3) + synthesis();
 
+  /* ── saving ───────────────────────────────────────────────────────
+     Four sides is more than one lesson's work, so nothing here may
+     depend on the tab staying open. Every field has an id already, so
+     the whole sheet stores as one id -> value map, written as the
+     student types and read back before they see the page.
+     ─────────────────────────────────────────────────────────────── */
+  var KEY = 'aiii-teardowns-v1';
+  var saveTimer = null;
+
+  function fields() {
+    return document.querySelectorAll('#sheets input');
+  }
+
+  function writeNow() {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+    var out = {};
+    Array.prototype.forEach.call(fields(), function (i) {
+      if (i.type === 'checkbox') { if (i.checked) out[i.id] = true; }
+      else if (i.value) out[i.id] = i.value;
+    });
+    try {
+      localStorage.setItem(KEY, JSON.stringify(out));
+      return true;
+    } catch (e) {
+      status('This browser will not save your work. Download the PNG before you close the tab.');
+      return false;
+    }
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      if (writeNow()) status('Saved in this browser.');
+    }, 300);
+  }
+
+  function restore() {
+    var raw;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+    if (!raw) return;
+    var got;
+    try { got = JSON.parse(raw); } catch (e) { return; }
+    Array.prototype.forEach.call(fields(), function (i) {
+      if (!(i.id in got)) return;
+      if (i.type === 'checkbox') i.checked = !!got[i.id];
+      else i.value = got[i.id];
+    });
+    status('Picked up where you left off.');
+  }
+
+  function status(msg) {
+    var n = $('savestate');
+    if (n) n.textContent = msg;
+  }
+
+  restore();
+
+  /* One listener on the container, so fields added later still save. */
+  $('sheets').addEventListener('input', save);
+  $('sheets').addEventListener('change', save);
+
+  /* Typing debounces, so write straight out when the page goes away.
+     pagehide is the one that fires reliably on iOS. */
+  function flush() { if (saveTimer) writeNow(); }
+  window.addEventListener('pagehide', flush);
+  window.addEventListener('beforeunload', flush);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') flush();
+  });
+
   /* Keep the synthesis column heads in step with the game names. */
   [1,2,3].forEach(function (i) {
     var src = $('t' + i + '-game'), dst = $('s-game' + i);
@@ -155,9 +226,11 @@
 
   /* ── clear ── */
   $('btn-clear').addEventListener('click', function () {
-    if (!confirm('Clear all four pages?')) return;
+    if (!confirm('Clear all four pages? This cannot be undone.')) return;
     document.querySelectorAll('#sheets input[type=text]').forEach(function (i) { i.value = ''; });
     document.querySelectorAll('#sheets input[type=checkbox]').forEach(function (i) { i.checked = false; });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    status('Cleared.');
   });
 
   $('btn-print').addEventListener('click', function () { window.print(); });

@@ -45,6 +45,7 @@ body { margin:0; background:var(--desk); color:var(--ink); font-family:var(--bod
 .btn-go { background:var(--accent); border-color:var(--accent); color:#fff; }
 .btn-go:hover { color:#fff; filter:brightness(1.08); }
 .hint { width:794px; max-width:100%; margin:0 0 14px; font-size:0.78rem; color:var(--mid); }
+.savestate { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--mid); }
 
 /* ── SHEETS ──────────────────────────────────────────────────── */
 .sheet { width:794px; height:1123px; background:var(--page); padding:40px 46px;
@@ -144,7 +145,7 @@ input[type=text]:focus { outline:none; border-bottom-color:var(--accent); backgr
   <button class="btn" id="btn-print" type="button">Print</button>
   <button class="btn btn-go" id="btn-png" type="button">Download PNG</button>
 </div>
-<p class="hint">Four sides. Print double sided on two sheets, or fill it in here and download the PNG to hand in.</p>
+<p class="hint">Four sides. Print double sided on two sheets, or fill it in here and download the PNG to hand in. <span id="savestate" class="savestate">Your work saves in this browser as you type.</span></p>
 
 <div id="sheets"></div>
 
