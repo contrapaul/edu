@@ -138,8 +138,59 @@
   .label-s { font-weight: 700; color: #1a7a4a; }
   .label-w { font-weight: 700; color: #c0392b; }
 
+  /* ── HOVER NOTES ────────────────────────────────────────────────
+     Marks a specific move in a sample report and explains why it earns or
+     loses credit. The note lives inside the mark so it stays with the text
+     it describes; it is pulled out of the flow by .mv-n and is skipped by
+     the word counter, since it is commentary rather than student writing. */
+  .mv { position: relative; cursor: help; border-bottom: 2px dotted currentColor; }
+  .mv:focus { outline: 2px solid #6366f1; outline-offset: 2px; }
+  .mv.good { color: #14663f; background: rgba(26,122,74,0.10); }
+  .mv.bad  { color: #8a2f26; background: rgba(192,57,43,0.09); }
+  .mv-n {
+    position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+    width: 250px; max-width: 78vw; z-index: 60;
+    background: #1a1a2e; color: #f1f2f7; font-size: 12px; font-style: normal;
+    font-weight: 400; line-height: 1.45; text-align: left;
+    padding: 9px 11px; border-radius: 5px; box-shadow: 0 6px 20px rgba(0,0,0,0.28);
+    opacity: 0; visibility: hidden; transition: opacity 0.12s ease;
+  }
+  .mv-n::after {
+    content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
+    border: 6px solid transparent; border-top-color: #1a1a2e;
+  }
+  /* The note may be nudged sideways to stay on screen; the arrow stays put. */
+  .mv-n[style*="margin-left"]::after { display: none; }
+  .mv-n b { color: #a5b4fc; display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+  .mv.bad .mv-n b { color: #fca5a5; }
+  .mv:hover .mv-n, .mv:focus .mv-n { opacity: 1; visibility: visible; }
+  /* Near the foot of a column there is no room above, so the note drops below. */
+  .mv.below .mv-n { bottom: auto; top: calc(100% + 8px); }
+  .mv.below .mv-n::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: #1a1a2e; }
+
+  /* ── WORD COUNTERS ──────────────────────────────────────────────
+     Counted live from the page so the figures cannot drift from the text.
+     The rule applied is the guide's: blocks of 10 words or fewer are
+     annotations and are free; image placeholders are not student writing. */
+  .wc { font-size: 11px; font-weight: 600; opacity: 0.9; letter-spacing: 0.02em; }
+  .col-header .wc { margin-top: 2px; }
+  .wc-crit { font-size: 12px; color: #a0aec0; margin-left: auto; text-align: right; }
+  .wc-crit b { color: #fff; font-weight: 600; }
+  .wc-over { color: #ffb4a8; }
+  .wc-panel { background: #fff; border-left: 5px solid #6366f1; padding: 18px 24px; }
+  .wc-panel h3 { font-size: 15px; color: #3730a3; margin-bottom: 4px; }
+  .wc-panel > p { font-size: 12.5px; color: #666; margin-bottom: 10px; max-width: 900px; }
+  .wc-table { border-collapse: collapse; font-size: 12.5px; }
+  .wc-table th, .wc-table td { border: 1px solid #ddd; padding: 5px 10px; text-align: center; }
+  .wc-table th { background: #e8eaf0; font-weight: 600; }
+  .wc-table td:first-child, .wc-table th:first-child { text-align: left; }
+  .wc-table tr.total td { font-weight: 700; background: #f3f4f6; }
+
   @media (max-width: 900px) {
     .grid3 { grid-template-columns: 1fr; }
+    .mv-n { width: 84vw; }
+    .criterion-header { flex-wrap: wrap; }
+    .wc-crit { margin-left: 0; text-align: left; flex-basis: 100%; }
     .commentary-grid { grid-template-columns: 1fr; }
     .storyboard.panels-8 { grid-template-columns: 1fr 1fr; }
   }
@@ -166,6 +217,7 @@
     <div class="legend-item"><div class="legend-dot" style="background:#1a7a4a"></div><strong>Noah K.</strong>: High range (7–9 / 5–6)</div>
   </div>
   <p style="margin-top:12px; font-size:12px; color:#8898b0;">Total marks available: 33 &nbsp;|&nbsp; Criterion A: 9 marks &nbsp;|&nbsp; Criteria B–E: 6 marks each &nbsp;|&nbsp; Images in dashed boxes are placeholders; produce or photograph images matching each description.</p>
+  <p style="margin-top:8px; font-size:12px; color:#8898b0;">All three reports are written to roughly the same length, close to the 3,500-word ceiling. Word counts in the criterion headers are counted from this page as you read it. <span style="color:#c8e6d4; border-bottom:2px dotted #c8e6d4;">Green</span> and <span style="color:#f3b4ac; border-bottom:2px dotted #f3b4ac;">red</span> marks in the reports are moves worth noticing; hover or tab to one to see what it earns or costs.</p>
 </div>
 
 <div class="project-rules">
@@ -200,12 +252,19 @@
     <div class="col-body low-bg">
       <h4>Primary Persona: Sarah</h4>
       <p>My primary persona is Sarah. She is 72 years old and retired. She lives by herself in a small house. She uses a desk lamp every evening when she reads books. She finds the switch on her lamp hard to turn because her fingers are stiff and sore.</p>
+      <p><span class="mv bad">Sarah is actually my grandma, which is why I chose her for my persona. I have known her my whole life so I thought she would be a good person to design for because I already know a lot about her and I can visit her house whenever I want to ask her questions. I go there most Sundays for lunch with my mum and my brother. She has lived in the same house for about thirty years now and she says she is never moving out of it.<span class="mv-n"><b>Autobiography, not analysis</b>Every fact here is about how the student knows the persona rather than about the persona. None of it changes the design, and it is spending the 900 words criterion A allows on writing that earns nothing.</span></span></p>
+      <p>Sarah's house has two bedrooms and she uses the second bedroom as a study where she keeps her books and her desk. The desk is quite old and made of dark wood. There is a window on the left side of the desk but she says the light from the window is not very good in the winter because it gets dark early. That is why she has the desk lamp. The lamp is silver and it has a bendy neck. I do not know what brand it is because the sticker has come off the bottom.</p>
+      <p><span class="mv bad">Sarah has arthritis in both of her hands. She told me she has had it for about ten years and it has got worse recently. Some days are better than others. On a bad day she says she cannot open jars or do up buttons very well. She takes tablets for it from her doctor. She said the winter is worse than the summer for her hands.<span class="mv-n"><b>Description with nothing drawn from it</b>The paragraph reports what the student saw. The descriptor asks the persona to be explained, which means saying what each fact means for the design. A reader learns Sarah has arthritis and is told nothing about what that requires of a switch.</span></span></p>
+      <p>She reads a lot of books. She likes crime novels and she gets them from the library in town every two weeks. She reads for about two hours in the evening, usually after she has watched the news. Sometimes she reads in the living room instead but she says the light in there is not bright enough so she mostly reads at the desk. She also does crosswords at the desk and she writes letters to her sister who lives in Scotland.</p>
+      <p>I asked Sarah some questions about her lamp. I asked her what she liked about it and she said it was a nice lamp and she has had it a long time. I asked her what she did not like about it and she said the switch. I asked her if there was anything else and she said the light is sometimes too bright when she first turns it on. I wrote her answers down in my notebook.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
         A single photograph of an elderly woman (70s) sitting at a wooden desk with a standard gooseneck desk lamp. She is reaching toward the small rotary switch with a slightly strained expression. Warm indoor lighting. Full body, landscape orientation.
       </div>
-      <p>Sarah told me she would like a lamp that is easier to switch on and off. She also said the light is sometimes too bright.</p>
+      <p><span class="mv bad">In the photo you can see Sarah sitting at her desk in her study. She is reaching out towards the lamp with her right hand. The lamp is on the right hand side of the desk. You can see that she is having to stretch and her face looks like she is finding it difficult. There is a book open on the desk in front of her.<span class="mv-n"><b>The image is described twice</b>Everything in this paragraph is visible in the photograph beside it. The picture is free; the paragraph costs roughly sixty words of a 900-word criterion. Two annotations of ten words or fewer would carry the same content at no cost.</span></span></p>
+      <p>Sarah told me she would like a lamp that is easier to switch on and off. She also said the light is sometimes too bright. I think this means she wants a lamp with a better switch and a dimmer on it. This is what I am going to design for her because those are the two things she said when I asked her what was wrong with her lamp.</p>
+      <p><span class="mv bad">A lot of older people have arthritis so I think this would be a good design for lots of people, not just my grandma. It would help anyone who has trouble with their hands.<span class="mv-n"><b>A claim with no source</b>The persona strand rewards research support. Nothing here has been read, measured, cited or footnoted, so a statement like this reads as an assumption rather than a finding.</span></span></p>
     </div>
   </div>
   <!-- MID -->
@@ -222,6 +281,11 @@
       <p><strong>Goals:</strong> Jordan wants to stay focused during long study sessions, keep his workspace tidy, and avoid eye strain that forces him to take breaks.</p>
       <p><strong>Frustrations:</strong> Jordan finds that his current lamp creates harsh shadows across his drawing board. The arm is difficult to reposition without the whole lamp toppling. The brightness cannot be adjusted, meaning it is too harsh late at night.</p>
       <p><strong>Context:</strong> Jordan works at a small desk in a shared room. He often works past midnight. Research into student health (University of Edinburgh, 2025) shows that 68% of students report eye discomfort linked to artificial lighting during late-night study.</p>
+      <p><strong>Behaviours:</strong> Jordan works in long blocks rather than short sessions, usually starting around 8pm and continuing until he is too tired to draw accurately. He switches between three surfaces during a session: the laptop screen, an A2 drawing board propped at an angle against the wall, and a flat area of desk where he keeps his scale rule and models. Each of these needs light from a different direction, and at present he moves the whole lamp when he changes task.</p>
+      <p><span class="mv good">Because he moves the lamp between three positions in a single evening, the effort of repositioning it is repeated many times rather than once, which is why an arm that takes two hands matters more than it first appears.<span class="mv-n"><b>A behaviour turned into a design constraint</b>This is the move the persona strand rewards. The observation about three work surfaces is not left as a fact about Jordan; it is carried forward into a requirement the arm has to satisfy.</span></span></p>
+      <p><strong>Environment:</strong> The room is 3.2m by 2.8m and Jordan shares it with one other student. His desk is 60cm by 90cm and sits against the wall under a shelf, which limits the height available above the desk to roughly 70cm. There is one ceiling light with a warm bulb, which he describes as too dim to draw under, and no other lighting in the room.</p>
+      <p><span class="mv bad">I interviewed Jordan for about twenty minutes and asked him about his study habits, his current lamp, and what he found difficult about it. He told me the arm was the biggest problem, followed by the brightness. He also mentioned that he sometimes uses his phone torch to light a corner of the drawing board when he is working on detail.<span class="mv-n"><b>Interview reported, not evidenced</b>A direct quotation costs almost nothing and does far more work than a paraphrase, because the examiner hears the persona rather than the student's summary of them. There is no quotation anywhere in this persona.</span></span></p>
+      <p>Jordan's course requires him to hand in drawn work every two weeks, so the periods before a hand-in are the ones where a failure of his lighting has the most cost. He estimated that in the week before a deadline he works at the desk for five or six hours a night instead of four.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
@@ -244,12 +308,12 @@
       <p><strong>Behaviours &amp; motivations:</strong> Daniel values precision and efficiency. He works under deadline pressure and cannot afford to have his output compromised by poor colour rendering. A print job produced under warm-tinted light will not match the client's approved proof. He has invested significantly in a calibrated monitor but his task lighting undermines this investment.</p>
       <p><strong>Pain points (from interview, March 2026):</strong></p>
       <ul>
-        <li>Current desk lamp casts light at a colour temperature of approximately 2700K (warm white), shifting perceived hues on physical proofs and sketches.</li>
+        <li><span class="mv good">Current desk lamp casts light at a colour temperature of approximately 2700K (warm white), shifting perceived hues on physical proofs and sketches.<span class="mv-n"><b>A pain point with a number in it</b>2700K is a fact that can be tested against, so it becomes specification 2 in criterion B and a measured result in criterion D. A pain point written as a feeling cannot travel that far.</span></span></li>
         <li>The lamp's CRI (Colour Rendering Index) is rated at 72, below the ISO 3664:2009 standard of CRI ≥ 90 recommended for graphic arts viewing conditions.</li>
         <li>The arm cannot be repositioned one-handed while Daniel holds a physical proof. He must put down the proof to adjust the lamp.</li>
         <li>After 8+ hours, Daniel experiences headaches and eye fatigue, which he attributes partly to inconsistent lighting across his workspace.</li>
       </ul>
-      <blockquote>"I've spent £600 on monitor calibration and my lamp is basically undoing it. If a client says the blue is wrong, I can never be sure if it's my screen or my lighting."</blockquote>
+      <blockquote class="mv good">"I've spent £600 on monitor calibration and my lamp is basically undoing it. If a client says the blue is wrong, I can never be sure if it's my screen or my lighting."<span class="mv-n"><b>A quotation that carries the whole problem</b>Daniel states the cost, the doubt, and why the two cannot be separated, in his own words. Nothing the student could write in three times the length would be worth as much to an examiner.</span></blockquote>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
@@ -270,11 +334,13 @@
     <div class="col-body low-bg">
       <h4>Task: Sarah turns on her lamp to read</h4>
       <div class="storyboard panels-4">
-        <div class="panel"><div class="panel-num">1</div><div class="panel-img">[Image: Sarah sits at desk]</div><div class="panel-label">Sarah sits down at desk</div></div>
-        <div class="panel"><div class="panel-num">2</div><div class="panel-img">[Image: Hand reaches for switch]</div><div class="panel-label">Reaches for switch</div></div>
-        <div class="panel"><div class="panel-num">3</div><div class="panel-img">[Image: Close-up of fingers on switch]</div><div class="panel-label">Tries to turn switch, hard to grip</div></div>
-        <div class="panel"><div class="panel-num">4</div><div class="panel-img">[Image: Lamp on, Sarah reading]</div><div class="panel-label">Lamp turns on. Sarah reads.</div></div>
+        <div class="panel"><div class="panel-num">1</div><div class="panel-img">[Image: Sarah sits at desk]</div><div class="panel-label"><span class="mv bad">Sarah comes into her study in the evening and sits down at her desk with her book ready to read<span class="mv-n"><b>An annotation that stopped being one</b>The guide caps annotations at 10 words. This caption is 24, so all 24 count against the 3,500. Four captions written this way cost roughly a hundred words and say no more than four short ones would.</span></span></div></div>
+        <div class="panel"><div class="panel-num">2</div><div class="panel-img">[Image: Hand reaches for switch]</div><div class="panel-label">She reaches out with her right hand towards the lamp which is on the right side of the desk</div></div>
+        <div class="panel"><div class="panel-num">3</div><div class="panel-img">[Image: Close-up of fingers on switch]</div><div class="panel-label">She tries to turn the switch but it is small and her fingers are stiff so it takes a few tries</div></div>
+        <div class="panel"><div class="panel-num">4</div><div class="panel-img">[Image: Lamp on, Sarah reading]</div><div class="panel-label">The lamp comes on and Sarah starts reading her book at the desk in the light from the lamp</div></div>
       </div>
+      <p><span class="mv bad">This storyboard shows how Sarah uses her lamp. First she sits down, then she reaches for the switch, then she turns it on, then she reads her book. It only takes a few seconds to do the whole thing. The hardest part is number three because that is where the switch is.<span class="mv-n"><b>The sequence stops at success</b>A task analysis is judged on what it reveals. This one ends with the lamp on, so the reader never sees a failure, a cost, or a consequence. There is nothing here for a specification to answer.</span></span></p>
+      <p>I watched Sarah do this three times so I could draw the storyboard properly and make sure I had all the steps in the right order. Each time she did it roughly the same way. I drew the pictures afterwards at home from memory and from the photos I took on my phone while she was doing it.</p>
       <div class="img-placeholder">
         <span class="img-type">STORYBOARD</span>
         <strong>Image description:</strong>
@@ -287,6 +353,7 @@
     <div class="col-header mid"><span class="student">Sabrina C.</span></div>
     <div class="col-body mid-bg">
       <h4>Task Analysis: Jordan sets up for a late-night study session</h4>
+      <p><span class="mv good">The sequence below was recorded by sitting with Jordan for one full study session and noting each stage as it happened, then rating how hard each stage was on a scale of one to five immediately afterwards with him.<span class="mv-n"><b>A stated method</b>Saying how the sequence was produced tells the examiner the storyboard is a record of something observed rather than an imagined one. Two sentences buy a lot of credibility here.</span></span></p>
       <p style="font-size:12px; color:#666; margin-bottom:6px;">User: Jordan (21, architecture student) &nbsp;|&nbsp; Environment: student desk, shared flat &nbsp;|&nbsp; Lamp: standard gooseneck LED desk lamp</p>
       <div class="storyboard panels-6">
         <div class="panel"><div class="panel-num">1</div><div class="panel-img">[Image: Jordan arrives at desk]</div><div class="panel-label">Arrives at desk, opens laptop</div><div class="difficulty diff-1">Difficulty: 1</div></div>
@@ -301,6 +368,7 @@
         <strong>Image description:</strong>
         A 6-panel illustrated storyboard (A4 landscape or equivalent). Each panel contains a clear sketch or photo, a brief task label, and a difficulty rating (1–5 scale, colour-coded: green=easy, red=hard). Panels arranged in 2 rows of 3. The most difficult steps (3, 5, 6) should visually emphasise the problem, e.g. a jagged outline or red border. Overall layout is neat and clearly structured.
       </div>
+      <p><span class="mv bad">The three hardest steps are 3, 5 and 6. Step 6 is the most serious because it is the point where Jordan stops working, which means the lamp is costing him study time rather than just annoying him. Steps 3 and 5 are both rated 4, so those are the ones to concentrate on in the redesign.<span class="mv-n"><b>The failure point is found but not opened up</b>Step 6 is correctly identified as where the product costs Jordan something real. What is missing is why: which of the three earlier difficulties causes it, and therefore which one a redesign has to remove first.</span></span></p>
     </div>
   </div>
   <!-- HIGH -->
@@ -348,7 +416,12 @@
         <li><strong>LED gooseneck:</strong> flexible neck, touch button, USB powered</li>
         <li><strong>Anglepoise:</strong> adjustable arm, classic look, expensive</li>
       </ul>
-      <p>I think the IKEA lamp is the best one for my grandma because it has a dimmer.</p>
+      <p><span class="mv bad">The basic clip lamp is the cheapest one at £9.99 and it clips onto the edge of a desk or a shelf. It has a small on off switch on the cable. It only points in one direction and you cannot move it once it is clipped on. It comes in black or white on the website.<span class="mv-n"><b>A features list, restated at length</b>The 1 to 3 descriptor names exactly this: a list of key features. Writing the same list again as sentences does not turn it into analysis. A success and a weakness for each feature would.</span></span></p>
+      <p>The IKEA HEKTAR is £25 and it has a big metal shade in dark grey. It has a dimmer on the cable that you turn with your fingers. It has a heavy base so it does not fall over. It is quite a big lamp and it would take up a lot of room on a small desk. There were good reviews of it online and people said it was a nice looking lamp for the money.</p>
+      <p>The LED gooseneck lamp is £18 and it has a neck you can bend into different shapes. It has a touch button on the base instead of a switch. It is powered by USB so you have to plug it into a computer or a plug adapter. It does not have a normal bulb in it, it has LEDs built in, so you cannot change the bulb if it stops working.</p>
+      <p>The Anglepoise is the most expensive one at £75. It has a special arm with springs in it so you can move it around and it stays where you put it. It is a famous design and it has been made since the 1930s. It has a switch on the shade. It uses a normal screw in bulb so you can put whatever bulb you want in it.</p>
+      <p><span class="mv bad">I think the IKEA lamp is the best one for my grandma because it has a dimmer. The dimmer is the thing she said she wanted so that is the most important feature. The Anglepoise is probably the best quality one but it costs too much and my grandma would not want to spend that much money on a lamp. The clip lamp is too small and the gooseneck one has to be plugged into a computer.<span class="mv-n"><b>A conclusion with no route to it</b>Nothing above compares the four lamps against anything, so the choice arrives from nowhere. A judgement is only worth marks when the reader can see the evidence that produced it.</span></span></p>
+      <p>None of the four lamps has a big switch on it, which is the main thing Sarah needs. The IKEA one has a dimmer you turn and the gooseneck one has a touch button, so those are the closest ones. I will use the touch button idea from the gooseneck lamp and the dimmer idea from the IKEA lamp in my own design.</p>
       <p style="font-size:12px; color:#8a2f26; border-top:1px dashed #e8a49e; padding-top:8px; margin-top:8px;"><strong>No product testing:</strong> all four lamps are described from online listings. None was handled, measured, or tried against the task from the storyboard.</p>
     </div>
   </div>
@@ -358,7 +431,9 @@
     <div class="col-body mid-bg">
       <h4>Existing Products Analysis</h4>
       <p>Five desk lamps were examined to identify successes and weaknesses relevant to a student workspace.</p>
-      <p style="font-size:12px; color:#555; background:#fff; border:1px solid #f0d090; padding:7px 9px; border-radius:3px;"><strong>How these were tested:</strong> the IKEA HEKTAR and the TaoTronics were tested in person, in Jordan's room, by repeating storyboard step 3 (repositioning the arm over the drawing board). The touch-panel fault was found this way. The BenQ, Anglepoise and HALO were not available to test and are analysed from manufacturer specifications and reviews.</p>
+      <p style="font-size:12px; color:#555; background:#fff; border:1px solid #f0d090; padding:7px 9px; border-radius:3px;"><span class="mv good"><strong>How these were tested:</strong> the IKEA HEKTAR and the TaoTronics were tested in person, in Jordan's room, by repeating storyboard step 3 (repositioning the arm over the drawing board). The touch-panel fault was found this way. The BenQ, Anglepoise and HALO were not available to test and are analysed from manufacturer specifications and reviews.<span class="mv-n"><b>Testing separated from reading</b>Saying which products were handled and which were read about is honest and it is useful. The examiner can then weigh each finding correctly instead of assuming all five carry the same evidence.</span></span></p>
+      <p>The two lamps that were tested were each set up on Jordan's desk in the position his own lamp occupies, and he was asked to repeat storyboard step 3 with them: reach across, reposition the head over the A2 drawing board, and return to work. He was then asked to change the brightness without looking away from the board. The five products were chosen to cover a range of price points and a range of mounting types, from a monitor clip to a weighted base, so that the analysis was not limited to one form of lamp.</p>
+      <p><span class="mv bad">The features compared across the five products were arm adjustability, brightness control, colour temperature control, shade type, and desk footprint. Not every product had every feature, so some cells of the comparison are empty. Prices ranged from £18 for the TaoTronics to £185 for the Anglepoise Type 75 with the daylight bulb fitted.<span class="mv-n"><b>Comparable measures would sharpen this</b>The section reads as five separate reviews. Testing every product against the same two or three tasks, and recording the same measurements for each, turns a set of opinions into a comparison an examiner can follow.</span></span></p>
       <div class="product-grid">
         <div class="product-card">
           <div class="pname">1. BenQ ScreenBar (2024)</div>
@@ -406,6 +481,9 @@
           <div><span class="label-w">✗ Weakness:</span> Cannot direct light to specific area. Fixed position.</div>
         </div>
       </div>
+      <p><strong>What the five products show together:</strong> the products that control light well are the ones that cannot be moved, and the products that move well are the ones with the least control over the light. The BenQ and the HALO both produce good light but sit in one place. The Anglepoise moves anywhere but offers nothing beyond on and off. The TaoTronics is the only one that attempts both, and it does so with a touch panel that failed twice during testing when Jordan's hands were damp from washing his brushes.</p>
+      <p><span class="mv good">None of the five combines an arm that can be repositioned with one hand and a control that can be operated without looking away from the work. That combination is the gap this redesign is aimed at.<span class="mv-n"><b>A gap named, which is what the strand is for</b>The analysis ends by saying what none of the products does. That sentence is what criterion B's problem statement will be built from, so the two criteria are joined rather than restarted.</span></span></p>
+      <p>The touch panel failure was the most useful finding from the testing because it was not visible in any of the reviews I read beforehand, all of which described the panel positively. It is the kind of fault that only appears when the product is used in the situation it will actually be used in, which for Jordan includes wet hands after painting.</p>
     </div>
   </div>
   <!-- HIGH -->
@@ -494,7 +572,7 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 9</span>
       <h4 class="low">Low Range (1–3)</h4>
-      <p>Taylor's work sits firmly in the 1–3 band. The primary persona is <em>stated</em> rather than described or explained. We learn only the most basic facts about Sarah (age, occupation, problem) with no research to support the characterisation, no demographic context, and no reference to motivations or behaviour patterns. The storyboard fulfils the minimum requirement of showing a user completing a task, but the task analysis is limited: only four steps are shown, and no frame indicates what the issue actually is at that stage. The descriptor for this strand judges the task analysis, so a sequence that records what happens without showing where the product fails the user gives an examiner nothing to assess beyond "limited". The existing products section provides a list of features with no evaluation of successes or weaknesses. This is precisely the "list of key features" described in the 1–3 descriptor. The required evidence for this strand is annotated images of the <em>product testing</em>, and nothing here was tested: four lamps are described from online listings, the photographs carry no annotations, and none of the products was tried against the task from the storyboard. The conclusion ("I think the IKEA lamp is the best one") is unsupported by any evaluative reasoning.</p>
+      <p>Taylor's work sits firmly in the 1–3 band. The primary persona is <em>stated</em> rather than described or explained. We learn only the most basic facts about Sarah (age, occupation, problem) with no research to support the characterisation, no demographic context, and no reference to motivations or behaviour patterns. The storyboard fulfils the minimum requirement of showing a user completing a task, but the task analysis is limited: only four steps are shown, and no frame indicates what the issue actually is at that stage. The descriptor for this strand judges the task analysis, so a sequence that records what happens without showing where the product fails the user gives an examiner nothing to assess beyond "limited". The existing products section provides a list of features with no evaluation of successes or weaknesses. This is precisely the "list of key features" described in the 1–3 descriptor. The required evidence for this strand is annotated images of the <em>product testing</em>, and nothing here was tested: four lamps are described from online listings, the photographs carry no annotations, and none of the products was tried against the task from the storyboard. The conclusion ("I think the IKEA lamp is the best one") is unsupported by any evaluative reasoning. Length is not the problem here. Taylor writes more in this criterion than either of the other two students and more than the 900 words the guide allocates to it, and much of it goes on how she knows Sarah, on describing photographs that are already on the page, and on storyboard captions long enough to count against the total. The same evidence, annotated at ten words a frame, would cost a fraction of it and say more.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 5 / 9</span>
@@ -531,7 +609,11 @@
     <div class="col-body low-bg">
       <h4>Problem Statement</h4>
       <p>My grandma Sarah has a problem with her desk lamp. The switch is really small and her fingers are stiff so she can't turn it on easily. She also finds that the light is sometimes too bright. I want to redesign the desk lamp to make it easier for her to use.</p>
-      <p>I will make a new lamp that has a bigger switch and maybe a dimmer.</p>
+      <p><span class="mv bad">The problem is that the switch on her lamp is too small for her to turn. This is a problem because she uses the lamp every evening to read and if she cannot turn it on then she cannot read her book. She has to try a few times before it works and sometimes she asks someone else to do it for her if there is anyone in the house.<span class="mv-n"><b>The task analysis is not doing any work</b>This statement would read exactly the same if the storyboard had never been drawn. The criterion asks for a problem statement informed through the task analysis, which means the storyboard has to have told you something the interview did not.</span></span></p>
+      <p>Desk lamps in the shops are mostly designed for younger people I think. They have small switches and small buttons on them. Nobody seems to make a lamp for people with arthritis. That is why this is a good project to do because there is a gap for a lamp that is easier to use for older people who have problems with their hands.</p>
+      <p><span class="mv bad">I will make a new lamp that has a bigger switch and maybe a dimmer. The bigger switch will be easier to press because she will not have to grip it with her fingers. The dimmer will help with the problem of the light being too bright when she first turns it on in the evening.<span class="mv-n"><b>No current situation, no research summary</b>The strand asks for three things: the current situation, the current problem, and a summary of the research behind it. Only the problem appears, and it is the same sentence as the persona's complaint.</span></span></p>
+      <p>My design will be based on a normal desk lamp shape because that is what Sarah is used to and she said she likes her lamp apart from the switch. I do not want to change it too much or she might not like it. It will be about the same size as her lamp now so it fits on her desk.</p>
+      <p>There are lots of desk lamps for sale so someone must be buying them, which shows there is a market for desk lamps. If my lamp was made and sold in a shop I think older people would buy it because it would be easier for them to use than the ones that are already there. Their families might buy it for them as a present as well.</p>
     </div>
   </div>
   <!-- MID -->
@@ -541,11 +623,18 @@
       <h4>Problem Statement</h4>
       <p>University students who undertake extended study sessions face significant challenges with standard desk lamps that were not designed with their specific needs in mind. As identified in the task analysis, Jordan's current lamp creates three main problems: the arm is unstable when repositioned, harsh shadows fall across the drawing board, and there is no way to reduce brightness during late-night study, which contributes to eye strain that ends his study sessions prematurely.</p>
       <p>Current desk lamp products on the market either prioritise visual aesthetics (e.g. the Anglepoise Type 75) or basic functionality (e.g. TaoTronics budget lamps) without addressing the positionability and eye-comfort needs of a student working across multiple tasks at a single desk.</p>
+      <p>The problem is worth solving because the cost is measurable in study time rather than in comfort alone. Jordan estimated that he stops between thirty and sixty minutes earlier than he intends on perhaps three evenings a week, which over a twelve-week semester is between eighteen and thirty-six hours of drawing time lost to a lamp.</p>
+      <p><strong>Current situation:</strong> Desk lamps aimed at students sit in two groups. Budget LED lamps between £15 and £30 offer touch controls and sometimes colour temperature modes, but they use short single-piece arms and light plastic bases, so they cannot be moved far and they tip when they are. Design-led lamps from £70 upwards use sprung or jointed arms that move well, but they are built around a bulb socket and leave brightness and colour to whatever bulb the owner buys. The two groups have not converged, and the price gap between them is larger than a student is likely to spend.</p>
+      <p><span class="mv good">Neither group is failing at what it set out to do. The gap is that a student working across a screen, a drawing board and a desk surface needs both halves at once, and buying both halves currently means buying two lamps.<span class="mv-n"><b>The market description explains why the gap exists</b>Saying that the cheap lamps and the expensive lamps solve different halves of the problem is stronger than saying no lamp is good enough. It gives the redesign a reason to exist that a reader can check.</span></span></p>
+      <p><strong>Research summary:</strong> Three sources informed this statement. The task analysis established where Jordan's session breaks down and how often. Testing two lamps in his room established that a touch panel is unreliable with damp hands and that a fixed arm cannot cover an A2 board from a single position. Published work on student study environments (University of Edinburgh, 2025) established that eye discomfort under artificial light is common rather than particular to Jordan, with 68% of students reporting it.<sup>1</sup></p>
+      <p style="font-size:11px; color:#666;"><sup>1</sup> University of Edinburgh, <em>Student Study Environments Survey</em>, 2025, p. 22.</p>
+      <p><span class="mv bad">The three sources agree that the problem is the combination rather than any single feature, since Jordan can name lamps that solve each part of it separately and none that solves all of it at once.<span class="mv-n"><b>Three sources, one of them cited</b>Only the survey has a footnote. The interview date, the testing session and the product specifications are all evidence too, and each of them should be traceable on the page it is used.</span></span></p>
       <p><strong>Opportunities for redesign identified:</strong></p>
       <ul>
-        <li>A stable, easy-to-reposition arm that can be moved with one hand</li>
-        <li>Adjustable colour temperature to reduce eye strain during late-night use</li>
-        <li>A shadowless or reduced-shadow illumination pattern across a large drawing area</li>
+        <li>A stable, easy-to-reposition arm that can be moved with one hand, since Jordan repositions the lamp several times in a session rather than once (storyboard step 3, rated 4)</li>
+        <li>Adjustable colour temperature to reduce eye strain during late-night use, since eye strain is what ends the session (storyboard steps 5 and 6, rated 4 and 5)</li>
+        <li>A shadowless or reduced-shadow illumination pattern across a large drawing area, since the shadow falls exactly where the detail work happens (storyboard step 4, rated 3)</li>
+        <li>A control that can be found and operated without looking away from the board, since the TaoTronics touch panel failed this test twice during product testing</li>
       </ul>
     </div>
   </div>
@@ -565,6 +654,10 @@
         <li>Ensure passive thermal management to eliminate fan noise in a quiet studio (informed by Elgato Key Light weakness and user interview)</li>
         <li>Minimise desk footprint to ≤ 180mm × 180mm base (informed by Daniel's studio dimensions: 12 m², desk area 1.4 m²)</li>
       </ul>
+      <p><strong>Summary of research informing the statement.</strong> Four bodies of evidence stand behind the problem above. The first is the interview of March 2026, which established the financial stake: Daniel has calibrated his monitor and cannot calibrate his light, so his workspace is accurate at one end and unmeasured at the other. The second is the task analysis, which established where in a working day that gap costs him something, and found two steps rated 5/5 rather than a general dissatisfaction. The third is the product testing, which established that the gap is a market gap rather than a purchasing mistake, since six products tested against the same three tasks each failed a different part of the requirement. The fourth is ISO 3664:2009, which supplies the threshold the redesign has to clear rather than leaving the standard to be set by the designer.<sup>2</sup></p>
+      <p style="font-size:11px; color:#666;"><sup>2</sup> International Organization for Standardization, <em>ISO 3664:2009 Graphic technology and photography: Viewing conditions</em>, clause 4.2.</p>
+      <p><span class="mv good">Anchoring the requirement to ISO 3664 rather than to Daniel's preference means the redesign can be judged to have succeeded or failed on a measurement, and it means a second user in the same profession would be served by the same specification.<span class="mv-n"><b>The standard does the arguing</b>Bringing in a published threshold means the specification is not the student's opinion of what is good enough. It also gives criterion D something external to test the finished model against.</span></span></p>
+      <p><strong>Why this is a redesign rather than a new product.</strong> The articulated task lamp is a mature form and the Anglepoise arm has been in production since 1935, so the arm geometry is not the thing that needs inventing. What has changed is that a lamp head is now an LED module with its own colour rendering and its own thermal behaviour, and the two established forms have absorbed that change separately: panel lights took the colour accuracy and gave up the arm, articulated lamps kept the arm and left the light to the bulb. The redesign is the recombination, and the difficulty sits in the head mass, since a high-CRI module with a passive heatsink is heavier than a bulb and is what makes the arm stiff to move.</p>
     </div>
   </div>
 </div><!-- end grid3 -->
@@ -578,14 +671,18 @@
     <div class="col-body low-bg">
       <h4>Design Specifications</h4>
       <table class="spec-table">
-        <tr><th>#</th><th>Requirement</th></tr>
-        <tr><td>1</td><td>The lamp must have a big switch that is easy to press</td></tr>
-        <tr><td>2</td><td>The lamp must be bright enough to read by</td></tr>
-        <tr><td>3</td><td>The lamp should have a dimmer</td></tr>
-        <tr><td>4</td><td>The lamp should look nice</td></tr>
-        <tr><td>5</td><td>The lamp must be safe to use</td></tr>
-        <tr><td>6</td><td>The lamp should not be too expensive</td></tr>
+        <tr><th>#</th><th>Requirement</th><th>Why</th></tr>
+        <tr><td>1</td><td>The lamp must have a big switch that is easy to press</td><td><span class="mv bad">Because Sarah's switch is too small and she cannot turn it with her fingers when they are stiff<span class="mv-n"><b>A justification that repeats the requirement</b>Saying a big switch is needed because the small one is hard restates the specification in different words. A justification names the evidence: which storyboard step, which measurement, which product test.</span></span></td></tr>
+        <tr><td>2</td><td>The lamp must be bright enough to read by</td><td>Because Sarah uses it to read her books in the evening and she needs to see the words</td></tr>
+        <tr><td>3</td><td>The lamp should have a dimmer</td><td>Because Sarah said the light is too bright sometimes when she first turns the lamp on</td></tr>
+        <tr><td>4</td><td>The lamp should look nice</td><td><span class="mv bad">Because it is going in her study where she can see it and she would not want an ugly lamp<span class="mv-n"><b>Untestable</b>There is no way to hold a finished model against this and get an answer, so it cannot be evaluated in criterion D and it cannot be evidenced in criterion E. Every specification should be a test you could actually run.</span></span></td></tr>
+        <tr><td>5</td><td>The lamp must be safe to use</td><td>Because it plugs into the mains electricity and it would be dangerous if it was not safe</td></tr>
+        <tr><td>6</td><td>The lamp should not be too expensive</td><td>Because Sarah is retired and she does not have very much money to spend on things</td></tr>
+        <tr><td>7</td><td>The lamp should be easy to clean</td><td>Because dust gets on the shade of her old lamp and she has to wipe it every few weeks</td></tr>
+        <tr><td>8</td><td>The lamp should not fall over</td><td>Because if it falls over the bulb might break and Sarah might cut herself picking it up</td></tr>
       </table>
+      <p><span class="mv bad">These are the specifications for my lamp. I got them from talking to Sarah and from thinking about what she needs. The most important ones are number one and number three because those are the two things she told me were wrong with her lamp when I interviewed her about it in her study.<span class="mv-n"><b>Nothing here came from a product</b>The criterion requires interface and experience requirements drawn from the existing product analysis. Four lamps were looked at in criterion A and not one of them appears in this table.</span></span></p>
+      <p>I have written must for the ones that have to be in the design and should for the ones that would be nice to have but are not as important. The safety one is a must because it is the law that electrical products have to be safe and my lamp would have to be tested before it could be sold in a shop.</p>
     </div>
   </div>
   <!-- MID -->
@@ -607,6 +704,11 @@
         <tr><td>10</td><td>Material must be robust enough for daily student use</td><td>E</td><td>Lamp will be moved and adjusted frequently, so durability is required</td></tr>
       </table>
       <p style="font-size:12px; color:#555;">E = Essential &nbsp;|&nbsp; D = Desirable</p>
+      <p><span class="mv bad">Specifications 1 to 4 and 7 to 9 can be measured directly against a model with a ruler, a set of scales, or by asking Jordan to perform the task. Specifications 6 and 10 are harder to test and would need a defined procedure before the model is built, which has not been written yet.<span class="mv-n"><b>Two of ten have no number in them</b>Specifications 6 and 10 cannot be passed or failed, so criterion D will have nothing to test them against and criterion E will have nothing to claim. Every requirement needs a figure or a described test.</span></span></p>
+      <p><strong>How these were derived.</strong> Specifications 1, 3, 4 and 7 come from the storyboard, and each names the step it answers. Specifications 2 and 8 come from measurements taken in Jordan's room: the drawing board sits 45cm from where the lamp base stands, and the desk is 60cm by 90cm with a shelf above it. Specifications 5, 6 and 9 come from the existing product analysis, and specification 10 comes from the interview, where Jordan described having broken the arm joint on a previous lamp.</p>
+      <p><span class="mv bad">Specification 6 is marked desirable rather than essential because a lamp with a conventional switch would still function for Jordan, but the product testing suggested that a control he can reach without looking would remove one of the interruptions recorded in the storyboard.<span class="mv-n"><b>A desirable requirement that the criterion asks for</b>Specification 6 is the only interface requirement in the table and it is marked D. The criterion expects the specification to include user interface and user experience, so classifying the one that carries them as optional undersells the work already done in criterion A.</span></span></p>
+      <p>The specifications were shown to Jordan before ideation began. He agreed with the ranking but asked whether the USB port in specification 9 was worth the space it would take on the base, since he charges his phone from the wall. It is retained as desirable rather than removed, on the basis that the existing product analysis found it on two of the five lamps tested and it is inexpensive to include.</p>
+      <p><span class="mv bad">If two essential specifications turn out to conflict, the ones drawn from the storyboard steps rated 4 and 5 would take priority, since those are the steps where Jordan loses study time rather than simply finding the lamp awkward.<span class="mv-n"><b>Ten requirements, no priority among them</b>Essential and desirable is one level of sorting. If two essentials conflict during development, as reach and footprint eventually do in cycle 1, the table gives no basis for deciding which one gives way.</span></span></p>
     </div>
   </div>
   <!-- HIGH -->
@@ -616,7 +718,7 @@
       <h4>Design Specifications</h4>
       <table class="spec-table">
         <tr><th>#</th><th>Specification</th><th>E/D</th><th>Justification &amp; Source</th></tr>
-        <tr><td>1</td><td>LED module must achieve CRI ≥ 90</td><td>E</td><td>ISO 3664:2009 minimum for colour-critical graphic arts viewing. All tested products fail or only marginally meet this. Daniel's interview: current lamp CRI 72 is inadequate.</td></tr>
+        <tr><td>1</td><td>LED module must achieve CRI ≥ 90</td><td>E</td><td><span class="mv good">ISO 3664:2009 minimum for colour-critical graphic arts viewing.<span class="mv-n"><b>Source, threshold and failure in one cell</b>The justification names where the number comes from, what it has to beat, and what the tested products actually did. That is the relevant and detailed reference to research the top band asks for.</span></span> All tested products fail or only marginally meet this. Daniel's interview: current lamp CRI 72 is inadequate.</td></tr>
         <tr><td>2</td><td>Colour temperature range: 3000K–5500K, continuously variable</td><td>E</td><td>D50 standard (5003K) required for print proofing. 3000K lower limit supports evening ambient use and prevents eye fatigue. Gap identified in all tested products: none offer full range at CRI ≥ 90 simultaneously.</td></tr>
         <tr><td>3</td><td><strong>[UI]</strong> Colour temperature control via physical dial, not app</td><td>E</td><td>User interface requirement derived from existing product analysis (Criterion A). Task analysis step 5: Daniel cannot operate an app while holding a physical proof. BenQ WiT physical dial identified as a best-practice reference. App-only control (LEDVANCE) rated as a critical weakness in product analysis.</td></tr>
         <tr><td>4</td><td>Arm must be operable with one hand, full range of motion</td><td>E</td><td>Task analysis step 5 (difficulty 5/5). Anglepoise success with spring tension identified as reference mechanism. Requires balanced counterweight or low-friction gas-lift joint.</td></tr>
@@ -630,7 +732,8 @@
         <tr><td>12</td><td>Mains-powered (not USB/battery)</td><td>E</td><td>Professional 8–10 hour daily use rules out battery power. USB power insufficient for high-CRI, high-output LED module. Mains supply with inline switch for safety.</td></tr>
       </table>
       <p style="font-size:12px; color:#555;">E = Essential &nbsp;|&nbsp; D = Desirable &nbsp;|&nbsp; All specifications are testable against the final prototype.</p>
-      <p style="font-size:12px; color:#555;"><strong>[UI] / [UX]</strong> mark the interface and experience requirements. The guide requires the specification to include UI and UX derived from the existing product analysis in the empathize phase, so specifications 3, 6 and 9 each trace to a product tested in Criterion A.</p>
+      <p style="font-size:12px; color:#555;"><span class="mv good"><strong>[UI] / [UX]</strong> mark the interface and experience requirements. The guide requires the specification to include UI and UX derived from the existing product analysis in the empathize phase, so specifications 3, 6 and 9 each trace to a product tested in Criterion A.<span class="mv-n"><b>The link is labelled rather than left to be found</b>Criterion B asks for interface and experience requirements derived from the product analysis. Tagging them means the examiner does not have to reconstruct the connection from two criteria apart.</span></span></p>
+      <p style="font-size:12px; color:#555;"><strong>Conflicts and priority.</strong> Specifications 5 and 7 pull against each other, since a 500mm reach loads the base at full extension while the footprint cap limits how wide that base can be. Where they conflict, reach is held and footprint is met by increasing base mass rather than base area, because the reach figure comes from a measured distance on Daniel's desk while the footprint figure retains a 140mm tolerance. Specifications 1 and 6 also interact: raising CRI raises the drive current and therefore the heat, which is what makes the passive heatsink in specification 6 a constraint on the module choice in specification 1 rather than a separate requirement.</p>
     </div>
   </div>
 </div><!-- end grid3 -->
@@ -643,7 +746,7 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 1 / 6</span>
       <h4 class="low">Low Range (1–2)</h4>
-      <p>Taylor's problem statement sits at the very bottom of the 1–2 band. It identifies a problem but the link to the task analysis is entirely superficial. The statement would read the same whether the storyboard existed or not. There is no current situation description, no summary of research informing the problem, and no articulation of specific redesign opportunities beyond "bigger switch and maybe a dimmer." The design specifications are a bare list of requirements with no reference to research whatsoever. Several specifications are so vague as to be untestable ("look nice", "not too expensive"). The word "must" is used but without any quantitative or qualitative criteria to test against. This is characteristic of the 1–2 descriptor: specifications that <em>state</em> requirements but provide no research basis for them. Nothing in the list addresses user interface or user experience, which the criterion requires to be derived from the existing product analysis in the empathize phase.</p>
+      <p>Taylor's problem statement sits at the very bottom of the 1–2 band. It identifies a problem but the link to the task analysis is entirely superficial. The statement would read the same whether the storyboard existed or not. There is no current situation description, no summary of research informing the problem, and no articulation of specific redesign opportunities beyond "bigger switch and maybe a dimmer." The design specifications are a bare list of requirements with no reference to research whatsoever. Several specifications are so vague as to be untestable ("look nice", "not too expensive"). The word "must" is used but without any quantitative or qualitative criteria to test against. This is characteristic of the 1–2 descriptor: specifications that <em>state</em> requirements but provide no research basis for them. Nothing in the list addresses user interface or user experience, which the criterion requires to be derived from the existing product analysis in the empathize phase. Criterion B carries the largest word allocation in the project, 1,200 words in four pages, and Taylor spends roughly half of it. The words went to criterion A instead, where they earned nothing, and this criterion is where sustained writing is actually rewarded.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 3 / 6</span>
@@ -680,6 +783,8 @@
         A simple hand-drawn side-view sketch of a standard gooseneck desk lamp. Three labels with short lines pointing to parts: "big rocker switch (on/off)" pointing to a rectangular shape on the base, "flexible neck" pointing to the gooseneck, "LED bulb" pointing to the lamp head. Sketch is on plain white paper, pencil or pen. No dimensions, no colour, no scale.
       </div>
       <p>This lamp is the same as a normal lamp but with a big rocker switch instead of a small one. The switch would be easier for Sarah to press.</p>
+      <p><span class="mv bad">The rocker switch is the kind you get on an extension lead where you press one end down and it clicks. It would be about 4cm wide so Sarah could press it with the side of her hand or even her elbow if her fingers were bad that day. It would go on the front of the base where she can see it easily. I chose a rocker instead of a normal switch because you do not have to grip it, you just push.<span class="mv-n"><b>A sketch explained instead of annotated</b>Criterion C is nine pages and 900 words, and it is carried by annotated drawings. Turning the labels into paragraphs spends the word count twice: once on the drawing, once on the description of it.</span></span></p>
+      <p>The rest of the lamp would be like her lamp now. It would have a bendy neck so she can point the light at her book. The shade would be a cone shape pointing down at the desk. It would have an LED bulb in it because they last longer and do not get hot. It would be white or silver to match the other things in her study.</p>
 
       <h4>Idea 2: Touch-Sensitive Lamp</h4>
       <div class="img-placeholder">
@@ -688,6 +793,8 @@
         A simple side-view sketch of a lamp with a cylindrical base. One label: "touch anywhere on base to turn on". Very basic proportions, no detail on shade or arm joints. Plain white paper.
       </div>
       <p>This lamp turns on when you touch the base. This would be easier because Sarah doesn't have to grip anything.</p>
+      <p>Touch lamps already exist so I know this idea works. You touch the metal part of the base and it turns on, and if you touch it again it goes brighter, and if you touch it again it goes off. Some of them have three settings so that would also solve the problem of the light being too bright. Sarah would not have to grip anything at all with this design, she would just put her hand on it.</p>
+      <p><span class="mv bad">One problem with a touch lamp might be that Sarah's hands are cold sometimes and I read that touch lamps do not always work if your hands are cold or dry. I am not sure if this is true. It might also turn on by accident if something touches it, for example if she puts a book down on the base.<span class="mv-n"><b>A weakness noticed and then dropped</b>Spotting the risk is the right instinct. Testing it is what earns the mark: a strip of foil on a cardboard base and ten minutes with the persona would settle it either way and become evidence.</span></span></p>
       <p style="color:#c0392b; font-size:12px;"><em>Note: Only 2 ideas presented.</em></p>
     </div>
   </div>
@@ -702,7 +809,9 @@
         LEFT: A front-view and side-view sketch of a lamp with a three-joint articulated arm. Annotations (5–7 labels): "three pivot joints for range of movement", "weighted base 200×150mm", "wide asymmetric shade, 140mm diameter", "rotary dimmer on base", "LED strip in shade". RIGHT: A photo of a simple cardboard low-fidelity model of the lamp, arm partially extended, sitting on a desk beside an A3 drawing sheet to show scale.
       </div>
       <p>This design uses a three-section arm with locking pivot joints. The base is weighted to prevent tipping. The wide shade directs light across the drawing board with fewer shadows. The dimmer is placed on the base so it can be reached easily.</p>
+      <p>The three-joint arrangement was taken from the Anglepoise Type 75 in the existing product analysis, which was the only lamp tested that could reach across the whole of an A2 board without the base being moved. The difference here is that the joints are friction-locked rather than spring-tensioned, which is simpler to model and cheaper to make, though it means the arm has to be held while it is moved rather than floating into position.</p>
       <p><strong>User feedback (Jordan):</strong> "I like the arm idea but the dimmer should be closer to where I sit, not at the back of the base."</p>
+      <p><span class="mv good">The dimmer was moved from the rear of the base to the front edge in the second sketch of this idea, so that Jordan reaches it without leaning across the desk.<span class="mv-n"><b>Feedback that changes the drawing</b>Jordan's comment is acted on and the change is stated. This is what separates collecting feedback from using it, and the second is what the descriptors reward.</span></span></p>
 
       <h4>Idea 2: Clamp-Mount LED Bar</h4>
       <div class="img-placeholder">
@@ -711,7 +820,9 @@
         LEFT: Sketch of a horizontal LED bar clamped to the back edge of a desk, with a pivot at the centre allowing the bar to rotate forward and back. Labels: "clamp mount, no base needed", "LED bar 400mm length", "pivot rotation ±90°", "USB-C power". RIGHT: A foam/cardboard model of the bar clamped to a desk edge, showing the rotation range with a dotted arc drawn on the photo.
       </div>
       <p>The LED bar clamps to the back of the desk, freeing up the desk surface. It rotates forward to illuminate the drawing board. It does not need a base, which saves space.</p>
+      <p>This idea addresses specification 8 directly, since a clamp removes the footprint problem rather than reducing it. The 400mm bar is long enough to light the full width of the drawing board from a single position, which would also address the shadow problem in specification 7 without needing the lamp to be repositioned at all during a session.</p>
       <p><strong>User feedback:</strong> "This would save space but I'm not sure it would stay in position. It feels wobbly."</p>
+      <p><span class="mv bad">The wobble Jordan noticed is a real risk with a single clamp point, and it would need to be resolved before this idea could be taken further.<span class="mv-n"><b>The problem is repeated instead of tested</b>The card model was in Jordan's hands. Loading the bar with a weight and seeing whether the clamp holds would have answered this in five minutes and produced a finding, rather than leaving the doubt unresolved.</span></span></p>
 
       <h4>Idea 3: Modular LED Panel Lamp</h4>
       <div class="img-placeholder">
@@ -721,6 +832,9 @@
       </div>
       <p>The square LED panel provides even, shadow-free light across the drawing area. The panel tilts independently of the arm. A touch slider on the arm shaft controls brightness without requiring the user to look away from their work.</p>
       <p><strong>User feedback:</strong> "The touch slider is really useful. The panel is a good idea but 150mm might not cover my whole drawing board."</p>
+      <p>The panel light was chosen over a conventional shade because a larger emitting surface produces softer shadow edges, which is the problem recorded at storyboard step 4. A 150mm panel at 400mm above the board covers roughly the area Jordan works in at any one moment, though not the whole board at once, which is what Jordan noticed when he handled the model.</p>
+      <p><span class="mv good">Each of the three ideas was drawn to answer a different one of the three hardest storyboard steps, so that the evaluation would compare genuinely different approaches rather than three versions of the same lamp.<span class="mv-n"><b>A concept built from a specific failure</b>The panel is here because of storyboard step 4 rather than because panels look modern. An idea traceable to a recorded problem is worth more than a better-looking one that is not.</span></span></p>
+      <p>All three ideas were modelled in cardboard and foam at roughly full size before Jordan saw them, because the paper sketches did not give him a sense of how much desk the base would take or how far the arm would reach. The models took one lesson each to make and none of them was finished or painted, since their purpose was to be handled rather than looked at.</p>
     </div>
   </div>
   <!-- HIGH -->
@@ -734,7 +848,9 @@
         A full A4 page (or equivalent) showing: (TOP ROW) front view, side view, and perspective sketch of a lamp with a counterbalanced two-section arm, cylindrical shade housing, and dial control cluster on the base. (BOTTOM ROW) Left: photo of a foam-core and cardboard low-fidelity model of the arm and base, arm fully extended at 45°. Right: close-up photo of the counterweight mechanism (modelled from a weighted tube at the rear of the upper arm segment). All sketches have 8+ annotations (max 10 words each): "counterweight positioned 80mm from rear pivot", "front-heavy shade balanced passively", "gas-lift joint, one-finger operation", "dual-dial control: CCT left, brightness right", "passive heatsink fins on shade housing", "cable routed internally through arm", "base footprint 160×160mm", "shade rotation independent of arm tilt".
       </div>
       <p>The counterbalanced arm is the core innovation of this concept. By positioning a weighted rod behind the upper pivot, the centre of mass of the arm assembly is brought close to the pivot point, reducing the force required to reposition the shade from approximately 4N to an estimated 0.8N, allowing comfortable one-finger repositioning. Low-fidelity testing with Daniel confirmed the principle works: a weighted cardboard arm was repositioned by Daniel one-handed while holding an A4 colour proof. The dual-dial control cluster (brightness / CCT) was positioned at the base near the front edge after feedback from Daniel indicated that rear-mounted controls interrupted workflow.</p>
-      <p><strong>Iterative development note:</strong> The first version of this model placed the counterweight inside the arm body, making the arm too heavy overall. Second iteration used a smaller external counterweight with a magnetic attachment for fine-tuning. Daniel confirmed this version was effortless to adjust.</p>
+      <p><span class="mv good"><strong>Iterative development note:</strong> The first version of this model placed the counterweight inside the arm body, making the arm too heavy overall. Second iteration used a smaller external counterweight with a magnetic attachment for fine-tuning. Daniel confirmed this version was effortless to adjust.<span class="mv-n"><b>Two versions of one idea, before the idea is chosen</b>Most reports keep iteration for criterion D. Showing a failed first attempt during ideation demonstrates that the idea was developed rather than drawn once, which is what the top band means by ideas developed through research and feedback.</span></span></p>
+      <p><strong>Research behind the mechanism.</strong> The Anglepoise arm balances a fixed head mass with two extension springs sized for that mass, which is why fitting a heavier bulb to one makes it drift downward. The head in this concept is heavier than a bulb and its mass is fixed by the heatsink in specification 6, so the balance has to be built for it rather than adjusted around it. A rear counterweight was chosen over springs because a single mass can be tuned by moving it along the rod, which can be done on a cardboard model with a bolt and a ruler, where spring rates cannot be tested without ordering springs.<sup>3</sup></p>
+      <p style="font-size:11px; color:#666;"><sup>3</sup> Carwardine, G., <em>Improvements in Elastic Equipoising Mechanisms</em>, patent GB404615, 1934, fig. 2.</p>
 
       <h4>Idea 2: Track-Head Desk Lamp with Wireless Charging Base</h4>
       <div class="img-placeholder">
@@ -743,6 +859,7 @@
         Front, side, and perspective sketches of a lamp where the shade resembles a small professional track light head, mounted on a single-pivot arm attached to a base incorporating a wireless charging pad. Annotations: "track-light style reflector, directional beam", "single pivot, tension-adjustable", "wireless Qi charging surface on base", "CCT and brightness: single rotary encoder", "heat fins on top of lamp head", "LED module: 95CRI, 5000K primary". Photo of cardboard/foam model beside a wireless charging pad prop.
       </div>
       <p>This concept draws from professional track lighting (used in print studios and galleries) and adapts it to a compact desk format. The directional reflector provides highly focused, controllable illumination ideal for reviewing proofs in a specific spot. The wireless charging base adds studio utility. User feedback from Daniel: "The focused beam is exactly right for proof-checking, but I'd also need a wider mode for general desk work." This feedback prompted the addition of a diffuser slide mechanism in the subsequent ideation refinement.</p>
+      <p>The single pivot is the deliberate trade in this concept. A track head is a heavy reflector and a light arm cannot hold it at reach, so the arm is short and the lamp is placed where the work is rather than moved to it. That decision is what later fails specification 5 in the evaluation, and it fails structurally: lengthening the arm would require a second pivot and a counterweight, at which point the concept has become Idea 1.</p>
 
       <h4>Idea 3: Binocular Split-Zone Desk Lamp</h4>
       <div class="img-placeholder">
@@ -751,6 +868,8 @@
         Sketches of a lamp with a divided shade housing containing two independently-angled LED modules: one directed at the screen/monitor area (cooler, lower output) and one directed at the desk/proof area (variable CCT, higher output). Labels: "Zone A: screen ambient (4000K, low output)", "Zone B: task/proof (3000–5500K, high output)", "shared arm, single pivot", "physical toggle switch between zones", "integrated lux sensor". Photo of foam model showing the divided shade with two differently-angled openings cut in.
       </div>
       <p>The split-zone concept addresses a key insight from Daniel's interview: his lighting needs for screen-based work and for physical proof review are fundamentally different. This design provides two independent light zones from a single lamp, eliminating the need to reposition between tasks. User feedback: "This is clever. I actually hadn't thought about how different the two tasks are. But it looks complicated to build." This complexity concern was noted as a risk factor in the evaluation stage.</p>
+      <p>Two LED modules require two drivers, two heatsinks and roughly double the head volume, which is what pushes the base past the footprint in specification 7 once the shade is wide enough to hold both. The concept is retained in the evaluation rather than dropped, because the insight behind it, that the screen and the proof want different light at the same moment, survives the concept and is worth carrying into development even if this housing is not.</p>
+      <p><span class="mv good">All three concepts were modelled at full size in foam core and card, and all three were handled by Daniel in the position he would use them, because the differences that decided the evaluation were differences in reach and reach cannot be judged from a drawing.<span class="mv-n"><b>A rejected idea that still contributes</b>Keeping the reason an idea failed, separately from the idea itself, is what makes the evaluation look like a decision rather than an elimination. The split-zone insight reappears in the shade tilt requirement in criterion D.</span></span></p>
     </div>
   </div>
 </div><!-- end grid3 -->
@@ -765,6 +884,11 @@
       <h4>Comparing Ideas</h4>
       <p>I showed both ideas to my grandma and she said she liked the touch lamp because she doesn't have to grip anything. I am going to go with the touch lamp design.</p>
       <p>The big switch lamp would also work but Sarah prefers touch. Both lamps would be easy to turn on.</p>
+      <p><span class="mv bad">I asked her which one she liked better and she said the touch one straight away. She said she has seen touch lamps before at her friend's house and she thought they were clever. She said the rocker switch one was fine as well but she would rather have the touch one because it is more modern and she would not have to press anything.<span class="mv-n"><b>Preference standing in for evaluation</b>One person saying they like it is user feedback, and it belongs here. It is not a comparison against the specifications, which is what the strand asks the drawing to be tested against.</span></span></p>
+      <p>Both of my ideas would meet specification 1 because they both solve the problem of the small switch. Idea 2 is better for specification 3 because touch lamps usually have brightness settings built into them. I think both ideas would meet the other specifications about the same, so specification 3 is the one that decides it. That is why I picked idea 2.</p>
+      <p>Sarah also said she likes the colour white for the lamp so I will make my final one white. She said the silver one she has now shows fingerprints and she has to wipe it, so white would be better for specification 7 about being easy to clean.</p>
+      <p><span class="mv bad">I did think about a third idea which was a lamp with a remote control so Sarah could turn it on from her chair, but I decided not to draw it because she said she always sits at the desk anyway so she would not need it. I also thought about doing the touch lamp in a different colour as another idea.<span class="mv-n"><b>A third idea that is a colour change</b>The 1 to 2 descriptor is fewer than three feasible ideas. Two shapes and a repaint is still two ideas, because nothing in the third one works differently from the second.</span></span></p>
+      <p>Before I decided I looked at my specifications again to check idea 2 would meet them. It meets 1, 2, 3, 5 and 8. I am not sure about 4 because looking nice depends on the person. Number 6 depends on how much the touch electronics cost which I could not find out. Number 7 should be fine if it is white plastic.</p>
       <p style="font-size:12px; color:#8a2f26; border-top:1px dashed #e8a49e; padding-top:8px; margin-top:8px;"><strong>Required evidence not submitted:</strong> no annotated presentation drawing of the chosen idea appears anywhere in this strand.</p>
     </div>
   </div>
@@ -798,6 +922,9 @@
         A single hand-drawn three-quarter view of the selected panel lamp, drawn in pen with light colour rendering, occupying most of one A4 page. Five annotation lines with typed labels point to: "modular LED panel", "touch slider dimmer", "weighted base", "pivot joint", "aluminium back plate". Neat but not to scale, and no dimensions shown. A small note in the corner reads "chosen design".
       </div>
       <p style="font-size:12px;">The drawing shows the selected concept with its main parts labelled. Two of the five annotations name the specification the feature addresses (touch slider, spec 6; weighted base, spec 3).</p>
+      <p><span class="mv bad">Colour temperature is not met by any of the three ideas. This is because none of the three sketches specified an LED module, and colour temperature depends entirely on which module is fitted rather than on the shape of the lamp. It will be resolved when the module is chosen.<span class="mv-n"><b>A row of crosses with no reason under it</b>The colour temperature row fails for all three ideas, and the matrix simply records that. The most important specification in the table failing everywhere is a finding, and it should either change an idea or change the specification.</span></span></p>
+      <p>Idea 3 was selected over Idea 1 despite Idea 1 scoring better on arm adjustment, because the panel answers two specifications at once: the even light in specification 7 and the slider position in specification 6. Idea 1 answers specification 1 better but leaves the shadow problem where it was. Idea 2 was rejected on the stability doubt Jordan raised, which was not resolved.</p>
+      <p>Jordan was shown the three models side by side and asked to rank them for the task he does most often, which is working at the drawing board rather than at the laptop. He ranked Idea 3 first, Idea 1 second and Idea 2 third. His reason for placing Idea 3 first was the slider, which he could operate without turning away from the board.</p>
     </div>
   </div>
   <!-- HIGH -->
@@ -842,7 +969,8 @@
         <tr><td style="font-size:11px;">Shade tilt collar, independent of arm</td><td style="font-size:11px;">10</td><td style="font-size:11px;">Partially met. Tilt range limited to 40°. Added to the drawing as a flagged item for development in Criterion D.</td></tr>
         <tr><td style="font-size:11px;">Weighted base, 175 × 175mm</td><td style="font-size:11px;">5, 7</td><td style="font-size:11px;">Stable at full 500mm reach. Footprint fits the measured 320 × 200mm desk area.</td></tr>
       </table>
-      <p style="font-size:12px; margin-top:6px;">Every annotation on the drawing names the specification it answers, and the two revisions marked on the drawing are traceable to Daniel's feedback during model testing.</p>
+      <p style="font-size:12px; margin-top:6px;"><span class="mv good">Every annotation on the drawing names the specification it answers, and the two revisions marked on the drawing are traceable to Daniel's feedback during model testing.<span class="mv-n"><b>Annotations that point at the specification</b>Naming the specification on each label turns the presentation drawing into evidence for two strands at once, and it keeps every label inside ten words so none of it touches the word count.</span></span></p>
+      <p style="font-size:12px;">The one specification the drawing cannot yet claim is 10, the independent shade tilt, which the model achieved at 40° against a required range that had not been fixed at the time of drawing. It is marked on the drawing as outstanding rather than omitted, so the development in criterion D begins from a stated gap.</p>
     </div>
   </div>
 </div><!-- end grid3 -->
@@ -892,6 +1020,10 @@
         A photo of a cardboard model of a desk lamp, approximately 30cm tall. The base is a rectangular cardboard box. The neck is a bent strip of cardboard. The shade is a cone made from card. The model is assembled with tape. Placed on a plain desk surface. No annotations visible. Nothing to indicate scale.
       </div>
       <p>I made a cardboard model of my lamp. The base is big so it won't fall over. The shade points down to light the desk. I made it touch-sensitive by adding a button on the base.</p>
+      <p><span class="mv bad">I made the model out of cardboard from a cereal box and some thicker card from the design room. I cut the base out and folded it into a box shape and taped it together with masking tape. The neck was harder because I wanted it to bend, so I used a strip of card folded like a concertina. It took me two lessons to make the whole thing and I had to start the shade again because the first cone came out lopsided.<span class="mv-n"><b>How it was built, not what it revealed</b>Criterion D is ten pages and 300 words, so the writing has to earn its place. A build diary earns nothing. What a cycle needs is the specification tested, the method, the result, and the change made next.</span></span></p>
+      <p>The base is 12cm by 8cm which is bigger than the base on Sarah's lamp. I made it bigger so that the lamp would not fall over when you press the touch area, because if the base was small it might tip up. I have not tested this but it looks stable when it is standing on the table and it did not fall over when I pushed the top of it.</p>
+      <p><span class="mv bad">I think the model turned out quite well. If I made it again I would use better materials, maybe wood or plastic instead of cardboard, and I would try to make the neck bend more smoothly because the concertina one does not really hold its position when you move it. I would also make the shade neater.<span class="mv-n"><b>One model, no cycle</b>The strand is titled develop fidelity models, and the descriptors reward multiple testing and refinement cycles. A single model with no second version cannot show refinement, whatever its quality.</span></span></p>
+      <p>I showed the model to Sarah when I went round on Sunday. She said it was good and she could see what it was going to look like. She said she liked the size of the touch area on the base because it was much bigger than her switch. She did not have any changes she wanted me to make to it.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
@@ -919,6 +1051,9 @@
         Photo of Cycle 2 model: arm extended, visibly longer than Cycle 1. A drawing sheet is illuminated below the shade. No visible shadow at edges. A bolt (representing ballast weight) is visible glued inside a cut-open section of the base. Ruler shows arm reach ~53cm. Jordan (or stand-in) is shown reaching toward the arm joint, simulating one-handed repositioning. His expression indicates it requires effort.
       </div>
       <p><strong>Testing Cycle 2 findings:</strong> Arm reach 53 cm, which meets spec 2. Shade angle improved, eliminating the shadow on the near edge. Base stable at full extension. One-hand repositioning still requires significant force at upper pivot joint, so spec 1 is only partially met. Touch slider control on arm shaft confirmed effective by Jordan.</p>
+      <p><span class="mv bad">The remaining problem is the upper pivot, which needs two fingers rather than one. A thinner nylon washer between the joint faces would reduce the friction, and this would be the change for a third cycle if there were time to build one.<span class="mv-n"><b>Two cycles, then the trail stops</b>The cycle 2 test names a specification that is still only partly met and a change that would fix it. Building that third model is what turns two cycles into a refinement process, and it is the difference between the middle band and the top one here.</span></span></p>
+      <p><span class="mv bad">Specifications 1, 2, 3 and 7 were tested across the two cycles. Specification 8 was checked by measuring the base against Jordan's desk. Specifications 4, 5, 6, 9 and 10 were not tested on the models, because the models had no working LED and no electronics in them.<span class="mv-n"><b>Seven of ten specifications never tested</b>The models answer reach, stability and shadow. Colour temperature, control usability, footprint, durability and the USB port are all specifications from criterion B that no cycle puts a number against, so the evaluation cannot cover them.</span></span></p>
+      <p><strong>What changed between the cycles:</strong> the upper arm segment went from 32cm to 42cm, giving total reach of 53cm; a 240g steel bolt was fitted inside the base as ballast; and the shade mount angle went from 45° to 60° from horizontal. Each of these was a direct response to a measured failure in cycle 1 rather than a change of mind about the design.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
@@ -936,7 +1071,7 @@
         <strong>Image description:</strong>
         Photo of Cycle 1 model: a foam-core arm with a cylindrical counterweight (modelled with a metal bolt) attached to the rear of the upper arm segment by a dowel pin. The model is shown at three different arm angles, photographed in sequence. A ruler shows the arm reach at each angle. Annotations on the photo: "counterweight: 85g modelled with 2× M8 bolt", "pivot at 180mm from lamp head", "arm reach: 480mm (below 500mm spec, arm segment to be lengthened)". A force-gauge reading is shown in a close-up: "reposition force measured at ~1.2N".
       </div>
-      <p><strong>Specifications tested: 4, 5, 6 (arm operation, reach, thermal).</strong> One-hand operation confirmed at 1.2N force, which is marginal. Reach 480mm, 20mm below specification. Counterweight mass of 85g creates mild base-tip tendency at maximum extension.</p>
+      <p><span class="mv good"><strong>Specifications tested: 4, 5, 6 (arm operation, reach, thermal).</strong> One-hand operation confirmed at 1.2N force, which is marginal. Reach 480mm, 20mm below specification. Counterweight mass of 85g creates mild base-tip tendency at maximum extension.<span class="mv-n"><b>One repeated structure across three cycles</b>Each cycle states the specifications tested, the measured result, and the change made next. Repeating that shape is what keeps criterion D legible inside 300 words, since the reader learns the pattern once and then only reads the numbers.</span></span></p>
       <p><strong>Refinements for Cycle 2:</strong> Extend upper arm segment 25mm. Increase base footprint to 165×165mm (still within 180mm spec). Move counterweight attachment point 10mm rearward. Replace cardboard base with 3D-printed PLA shell to accurately model wall thickness and mass distribution.</p>
 
       <h4>Refinement Cycle 2: 3D Printed Prototype, Dial Ergonomics and Shade Tilt</h4>
@@ -964,7 +1099,13 @@
         <tr><td>5</td><td>Reach ≥ 500mm</td><td>520mm confirmed</td><td class="tick">✓</td></tr>
         <tr><td>6</td><td>Passive cooling</td><td>No fan, heatsink only</td><td class="tick">✓</td></tr>
         <tr><td>7</td><td>Base ≤ 180mm</td><td>165×160mm</td><td class="tick">✓</td></tr>
+        <tr><td>8</td><td>≥ 300 lux at 500mm</td><td>640 lux measured</td><td class="tick">✓</td></tr>
+        <tr><td>9</td><td>Controls, seated reach</td><td>Both dials reached seated</td><td class="tick">✓</td></tr>
+        <tr><td>10</td><td>Independent shade tilt</td><td>45° range achieved</td><td class="tick">✓</td></tr>
+        <tr><td>11</td><td>≥ 50,000 hrs L70</td><td>Module rated 50,000 hrs</td><td class="tick">✓</td></tr>
+        <tr><td>12</td><td>Mains-powered</td><td>Inline switch fitted</td><td class="tick">✓</td></tr>
       </table>
+      <p><span class="mv good">Specification 3 is met in form but not in feel: the dial turns the correct range and reaches the seated position, though the detent between 5000K and 5500K is softer than intended and Daniel twice overshot D50 by roughly 200K. This is a moulding tolerance on the printed dial rather than a design fault, and it is noted for manufacture.<span class="mv-n"><b>Every specification answered, including the awkward ones</b>Specification 3 is the only row carrying a qualification, and it is stated rather than quietly dropped. A table where one row admits a limit is more credible than one where twelve rows all pass.</span></span></p>
     </div>
   </div>
 </div><!-- end grid3 -->
@@ -982,6 +1123,8 @@
         <strong>Image description:</strong>
         A single hand-drawn isometric (3D) sketch of the desk lamp on plain A4 paper. The lamp consists of a rectangular base, a curved neck, and a cone-shaped shade. Three labels with simple lines: "LED bulb inside shade", "touch-sensitive base surface", "flexible neck". No dimensions marked. No scale indicated. No orthographic views. No exploded view. No component breakdown.
       </div>
+      <p><span class="mv bad">This drawing shows what my lamp would look like from the front and the side at the same time. The base would be made out of plastic with the touch sensor underneath the top surface. The neck would be metal with a plastic cover on it so it can bend and stay in position. The shade would be plastic as well, or metal, with the LED bulb screwed into a holder inside it.<span class="mv-n"><b>Writing round a missing drawing</b>The strand asks for assembled, exploded and orthographic drawings. A paragraph describing what the parts are made of cannot stand in for them, and it spends words criterion D does not have.</span></span></p>
+      <p>I did not do an exploded drawing because I was not sure how to draw one and I ran out of time before the deadline. I think the drawing I have done shows all the main parts of the lamp anyway and someone could probably work out how to make it from looking at it and reading my description above.</p>
     </div>
   </div>
   <!-- MID -->
@@ -994,6 +1137,7 @@
         <strong>Image description:</strong>
         A single A4 sheet (landscape) showing three views of the LED panel lamp: FRONT VIEW (left), SIDE VIEW (centre), ISOMETRIC/PERSPECTIVE VIEW (right). The front and side views include key dimensions in millimetres: overall height, base width, arm length, panel width. Approximately 8 annotations on the perspective view: "LED panel: 150×150mm", "touch slider on arm", "pivot joint ×2", "cable channel (internal)", "weighted base", "shade tilt bracket", "USB-A charging port on base", "LED diffuser panel (frosted acrylic)". Drawn with ruler and pencil or in a basic CAD tool. Title block in bottom-right corner with student name, date, scale (1:5).
       </div>
+      <p><span class="mv bad">The three views give the overall dimensions and the position of each external component. The internal parts of the arm joints, the ballast in the base and the LED module mounting are not drawn, since these were not resolved during the two model cycles.<span class="mv-n"><b>Three views, and no way to build it</b>The strand asks for assembled, exploded and orthographic drawings. Without the exploded view and a parts list, a manufacturer can see the outside of the lamp and still cannot tell what is inside the arm or how the joints are held together.</span></span></p>
     </div>
   </div>
   <!-- HIGH -->
@@ -1059,6 +1203,8 @@
     <div class="col-header low"><span class="student">Taylor S.</span><span class="award">Target mark: 2 / 6</span></div>
     <div class="col-body low-bg">
       <h4>My Final Desk Lamp Design</h4>
+      <p><span class="mv bad">This is my final design for the desk lamp. It is a white lamp with a cone shaped shade and a bendy neck. There is an LED bulb inside the shade which points down at the desk so the light goes onto the book. The base is a big rectangle and the whole top surface of it is the touch area, so Sarah can put her hand anywhere on it to turn the lamp on and off.<span class="mv-n"><b>Prose where annotation belongs</b>Criterion E has 200 words for both strands and asks for the key features annotated on the image. Written out as sentences, these three features cost around eighty words. On the photograph they would cost nothing.</span></span></p>
+      <p>The lamp is 35cm tall and the base is 12cm by 8cm. It is painted white with poster paint. If it was made properly it would be made out of plastic or metal instead of cardboard and the touch part would have the electronics inside it.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO</span>
         <strong>Image description:</strong>
@@ -1071,6 +1217,8 @@
     <div class="col-header mid"><span class="student">Sabrina C.</span><span class="award">Target mark: 4 / 6</span></div>
     <div class="col-body mid-bg">
       <h4>Final Design: LED Panel Study Lamp</h4>
+      <p><span class="mv bad">The final lamp has a 150mm square LED panel on a three-joint articulated arm, mounted on a weighted base measuring 200mm by 150mm. The panel is covered with a frosted acrylic diffuser to soften the light, and it tilts independently of the arm so the light can be aimed without moving the whole assembly. A touch slider on the arm shaft controls brightness.<span class="mv-n"><b>A paragraph the annotations already carry</b>Eight labels on the photograph say all of this, and each of them is under ten words and therefore free. Written out again as prose it costs around seventy of criterion E's 200 words and adds nothing the reader did not have.</span></span></p>
+      <p>The finish is matt white on the base and arm with a brushed aluminium back plate behind the panel, chosen because Jordan's room has white walls and a pale desk. The cable enters through the rear of the base and is concealed inside the lower arm section, which was one of the changes made after cycle 2, where the trailing cable caught on the drawing board.</p>
       <div class="img-placeholder">
         <span class="img-type">PHOTO (front view, annotated)</span>
         <strong>Image description:</strong>
@@ -1121,6 +1269,8 @@
         A side-by-side photo on one page: LEFT side shows Sarah's original desk lamp (small rotary switch visible on the cord), RIGHT side shows Taylor's cardboard model. Labels beneath each: "Original lamp: small switch" and "My design: touch base". No further annotation or comparison detail.
       </div>
       <p>My new lamp is better than the old one because it has a touch surface instead of a small switch. This makes it easier for Sarah to turn on. The light is also dimmable now.</p>
+      <p><span class="mv bad">The old lamp had a switch on the cable that you had to turn round with your fingers and it was only about 2cm wide. My lamp does not have a switch at all, you just touch the base, and the base is 12cm by 8cm so it is much bigger than the old switch was. That is the main improvement.<span class="mv-n"><b>An improvement asserted, never shown</b>The strand asks for three things and this covers one of them, thinly. Nothing here shows the lamp being used, and nothing returns to the storyboard to show the failure point has gone.</span></span></p>
+      <p>It is also better because of the dimmer. On the old lamp there was only on and off, so when Sarah turned it on in the evening it was very bright straight away. On my lamp you touch it again to change the brightness so she can have it dimmer if she wants. This solves the second problem she told me about in the interview.</p>
     </div>
   </div>
   <!-- MID -->
@@ -1142,7 +1292,8 @@
         <tr><td>Colour temperature</td><td>Fixed 4000K</td><td>Warm/cool modes</td></tr>
         <tr><td>USB charging</td><td>Not present</td><td>USB-A port on base</td></tr>
       </table>
-      <p>The redesign addresses three of the key problems identified in Jordan's task analysis: arm instability, fixed brightness, and shadow pattern. It does not fully address colour temperature in this prototype but this would be developed further with a commercial LED module.</p>
+      <p><span class="mv good">The redesign addresses three of the key problems identified in Jordan's task analysis: arm instability, fixed brightness, and shadow pattern. It does not fully address colour temperature in this prototype but this would be developed further with a commercial LED module.<span class="mv-n"><b>A weakness left visible</b>Admitting that colour temperature is unresolved is worth more than a claim the model cannot support. Examiners can see an untested claim; an honest limitation reads as judgement.</span></span></p>
+      <p><span class="mv bad">Against the storyboard, steps 3 and 4 are resolved: the arm reaches the board from one position and the panel removes the shadow at the near edge. Step 5 is improved by the dimmer but not measured, because eye strain was not something the model could be tested for over a single evening.<span class="mv-n"><b>Nothing shows the lamp being used</b>The strand asks for three things and this covers two of them. A short image sequence of Jordan repeating the storyboard task with the new lamp would cover the third, and it would cost pictures rather than words, which is the right currency in a 200-word criterion.</span></span></p>
     </div>
   </div>
   <!-- HIGH -->
@@ -1164,6 +1315,8 @@
         <tr><td>Noise in studio (Elgato comparison)</td><td>N/A (original silent)</td><td>Passive cooling maintained</td><td>Silent operation retained, no regression from original</td></tr>
         <tr><td>Desk footprint</td><td>170×150mm</td><td>165×160mm</td><td>Footprint maintained within original envelope</td></tr>
       </table>
+      <p><strong>How it is intended to be used.</strong> Daniel sets the CCT dial to the D50 mark for proof work and turns it warm for evening screen work. The arm is drawn toward him with one finger while the proof stays in the other hand, which is the movement the original lamp could not support.</p>
+      <p><span class="mv good">Re-run against the original storyboard, the two steps rated 5/5 now rate 1/5 and 2/5 on the same scale with the same user, and step 6, where Daniel previously abandoned the proof review and moved it to the window, no longer occurs.<span class="mv-n"><b>The comparison returns to the storyboard ratings</b>Closing on the same difficulty ratings the report opened with is what makes the improvement checkable. The reader can compare a 5/5 step against its replacement rather than take an improvement on trust.</span></span></p>
       <p>The redesigned lamp comprehensively addresses all four critical problems identified in the task analysis. The quantified improvements in CRI and repositioning force confirm that the design specifications were met in the final prototype. Daniel's feedback following Cycle 3 testing: <em>"This solves the actual problem. My current lamp doesn't. That's the whole point."</em></p>
     </div>
   </div>
@@ -1177,7 +1330,7 @@
     <div class="commentary-col">
       <span class="mark-badge badge-low">Taylor S., Mark: 2 / 6</span>
       <h4 class="low">Low Range (1–2)</h4>
-      <p>Taylor's presentation meets the minimum 1–2 standard. The redesigned solution is shown with three annotations, which counts as "limited annotations of key features" as described in the descriptor. The comparison with the existing product is present but superficial: one improvement is mentioned (touch vs rotary switch) with a brief additional mention of dimming. There is no structured comparison, no reference back to the design specifications or task analysis, and no consideration of whether the redesign actually solved the problems identified at the start of the project. Of the three things this strand asks a student to demonstrate, only the first is attempted: the solution is claimed to be an improvement, but there is nothing showing how it is intended to be used, and nothing showing why it is better suited to Sarah's needs. Only a single view is provided, where the required evidence for this strand suggests approximately two to three images per page. Note that the presentation itself, meaning style of delivery and medium, is not formally assessed; what is marked here is the annotation of key features and the comparison with the existing product. To move into the 3–4 band, Taylor would need more comprehensive annotation of her solution and a structured comparison that addresses more of the problems identified in her storyboard.</p>
+      <p>Taylor's presentation meets the minimum 1–2 standard. The redesigned solution is shown with three annotations, which counts as "limited annotations of key features" as described in the descriptor. The comparison with the existing product is present but superficial: one improvement is mentioned (touch vs rotary switch) with a brief additional mention of dimming. There is no structured comparison, no reference back to the design specifications or task analysis, and no consideration of whether the redesign actually solved the problems identified at the start of the project. Of the three things this strand asks a student to demonstrate, only the first is attempted: the solution is claimed to be an improvement, but there is nothing showing how it is intended to be used, and nothing showing why it is better suited to Sarah's needs. Only a single view is provided, where the required evidence for this strand suggests approximately two to three images per page. Note that the presentation itself, meaning style of delivery and medium, is not formally assessed; what is marked here is the annotation of key features and the comparison with the existing product. To move into the 3–4 band, Taylor would need more comprehensive annotation of her solution and a structured comparison that addresses more of the problems identified in her storyboard. Criteria D and E together are allocated 500 words across fourteen pages, and Taylor uses more than that on prose that repeats what the photographs show. Taken with criterion A, her report reaches the word ceiling and scores 9 out of 33, which is the clearest evidence in this comparison that the count is not what is being marked.</p>
     </div>
     <div class="commentary-col">
       <span class="mark-badge badge-mid">Sabrina C., Mark: 4 / 6</span>
@@ -1195,7 +1348,7 @@
 </div><!-- end crit-e -->
 
 <!-- ============================================================ OVERALL SUMMARY ============================================================ -->
-<div style="background: #1a1a2e; color: #fff; padding: 28px 40px; margin-top: 32px;">
+<div id="mark-summary" style="background: #1a1a2e; color: #fff; padding: 28px 40px; margin-top: 32px;">
   <h2 style="font-size:18px; margin-bottom: 16px;">Overall Mark Summary</h2>
   <table style="width:100%; border-collapse: collapse; font-size:13px;">
     <tr style="background: #2d2d4e;">
@@ -1258,6 +1411,115 @@
   <br><br>
   <strong>Unofficial:</strong> this is a teaching resource created by Mr. K and is not affiliated with the International Baccalaureate in any way. The three sample reports are written for this resource; they are not IB student work. All marks are illustrative targets for each quality band, not official IB moderated marks. For the criteria themselves, strand by strand, see the <a href="/tools/DT-IA-Guide/" style="color:#4f46e5;">DP Design Tech IA Guide</a>.
 </div>
+
+
+<script>
+/* Word counts and hover notes.
+   The count follows the guide's rule: a block of 10 words or fewer is an
+   annotation and is free, anything longer is prose and counts. Image
+   placeholder boxes describe pictures still to be taken, and the hover notes
+   are marking commentary, so neither is student writing and neither counts. */
+(function () {
+  'use strict';
+
+  var STUDENTS = ['Taylor S.', 'Sabrina C.', 'Noah K.'];
+  var GUIDE = { 'crit-a': 900, 'crit-b': 1200, 'crit-c': 900, 'crit-d': 300, 'crit-e': 200 };
+  var BLOCKS = 'p, li, td, th, blockquote, h4, .panel-label, .difficulty, .product-card div';
+
+  function words(text) {
+    var m = text.replace(/[\u2013\u2014]/g, ' ').match(/[A-Za-z0-9\u00C0-\u024F][A-Za-z0-9\u00C0-\u024F'\u2019.\-\/]*/g);
+    return m ? m.length : 0;
+  }
+
+  function countBody(body) {
+    var copy = body.cloneNode(true);
+    var drop = copy.querySelectorAll('.img-placeholder, .mv-n, .panel-img, .panel-num, sup');
+    for (var i = 0; i < drop.length; i++) drop[i].parentNode.removeChild(drop[i]);
+    var blocks = copy.querySelectorAll(BLOCKS);
+    var total = 0;
+    for (var j = 0; j < blocks.length; j++) {
+      if (blocks[j].querySelector(BLOCKS)) continue;   /* count leaves only */
+      var n = words(blocks[j].textContent);
+      if (n > 10) total += n;                          /* 10 or fewer: annotation */
+    }
+    return total;
+  }
+
+  var totals = [0, 0, 0];
+  var byCriterion = [];
+
+  Array.prototype.forEach.call(document.querySelectorAll('[id^="crit-"]'), function (crit) {
+    var sub = [0, 0, 0];
+    Array.prototype.forEach.call(crit.querySelectorAll('.grid3'), function (grid) {
+      Array.prototype.forEach.call(grid.querySelectorAll('.col'), function (col, i) {
+        var body = col.querySelector('.col-body');
+        if (!body || i > 2) return;
+        var n = countBody(body);
+        sub[i] += n;
+        var badge = document.createElement('span');
+        badge.className = 'wc';
+        badge.textContent = n + (n === 1 ? ' word' : ' words');
+        col.querySelector('.col-header').appendChild(badge);
+      });
+    });
+    for (var i = 0; i < 3; i++) totals[i] += sub[i];
+    byCriterion.push({ id: crit.id, label: crit.querySelector('h2').textContent, sub: sub });
+
+    var head = crit.querySelector('.criterion-header');
+    var note = document.createElement('span');
+    note.className = 'wc-crit';
+    var guide = GUIDE[crit.id];
+    note.innerHTML = 'Words used: ' + sub.map(function (n, i) {
+      var over = guide && n > guide * 1.15 ? ' wc-over' : '';
+      return '<b class="' + over.trim() + '">' + n + '</b> ' + STUDENTS[i].split(' ')[0];
+    }).join(' &middot; ') + (guide ? ' &nbsp;(guide: ' + guide + ')' : '');
+    head.appendChild(note);
+  });
+
+  /* Whole-report table, dropped in above the mark summary. */
+  var rows = byCriterion.map(function (c) {
+    var guide = GUIDE[c.id] || 0;
+    return '<tr><td>' + c.label + '</td><td>' + guide + '</td>' +
+      c.sub.map(function (n) {
+        return '<td' + (guide && n > guide * 1.15 ? ' style="color:#c0392b;font-weight:700"' : '') + '>' + n + '</td>';
+      }).join('') + '</tr>';
+  }).join('');
+  rows += '<tr class="total"><td>Total</td><td>3,500 max</td>' +
+    totals.map(function (n) { return '<td>' + n.toLocaleString() + '</td>'; }).join('') + '</tr>';
+
+  var panel = document.createElement('div');
+  panel.className = 'wc-panel';
+  panel.innerHTML =
+    '<h3>Where each report spent its words</h3>' +
+    '<p>Counted from this page as you read it, using the rule in the guide: a block of ten words or fewer is an annotation and does not count, and the image placeholder boxes are descriptions of pictures rather than writing. The recommended per-criterion figures are guidance for distributing the writing; 3,500 words is the ceiling. All three reports are close to that ceiling, so what separates them is not how much was written but where it went. Figures in red are more than 15% over the recommended allocation for that criterion.</p>' +
+    '<table class="wc-table"><thead><tr><th>Criterion</th><th>Recommended</th>' +
+    STUDENTS.map(function (n) { return '<th>' + n + '</th>'; }).join('') +
+    '</tr></thead><tbody>' + rows + '</tbody></table>';
+
+  var summary = document.getElementById('mark-summary');
+  if (summary) summary.parentNode.insertBefore(panel, summary);
+
+  /* A note is centred on its mark, which puts it off screen in the outer
+     columns and under the sticky nav at the top of one. Both are corrected
+     here, on the way in, while the note still has layout but no paint. */
+  Array.prototype.forEach.call(document.querySelectorAll('.mv'), function (mark) {
+    mark.setAttribute('tabindex', '0');
+    mark.addEventListener('mouseenter', place);
+    mark.addEventListener('focus', place);
+  });
+  function place() {
+    var note = this.querySelector('.mv-n');
+    if (!note) return;
+    this.classList.toggle('below', this.getBoundingClientRect().top < 190);
+    note.style.marginLeft = '0px';
+    var box = note.getBoundingClientRect();
+    var shift = 0;
+    if (box.left < 8) shift = 8 - box.left;
+    else if (box.right > window.innerWidth - 8) shift = window.innerWidth - 8 - box.right;
+    if (shift) note.style.marginLeft = Math.round(shift) + 'px';
+  }
+})();
+</script>
 
 </body>
 </html>
