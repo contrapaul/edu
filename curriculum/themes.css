@@ -1473,63 +1473,90 @@
 [data-theme="paper"] .curr-section-intro-img,
 [data-theme="paper"] .e-applied-img,
 [data-theme="paper"] .case-study-img img,
-[data-theme="paper"] .tool-promo-img {
+[data-theme="paper"] .tool-promo-img,
+[data-theme="paper"] .unit-tile-img,
+[data-theme="paper"] .cs-shot,
+[data-theme="paper"] .cs-photo {
   filter: grayscale(0.4) sepia(0.15) contrast(0.95) brightness(1.05);
 }
 [data-theme="sketchbook"] .obj-img,
 [data-theme="sketchbook"] .curr-section-intro-img,
 [data-theme="sketchbook"] .e-applied-img,
 [data-theme="sketchbook"] .case-study-img img,
-[data-theme="sketchbook"] .tool-promo-img {
+[data-theme="sketchbook"] .tool-promo-img,
+[data-theme="sketchbook"] .unit-tile-img,
+[data-theme="sketchbook"] .cs-shot,
+[data-theme="sketchbook"] .cs-photo {
   filter: grayscale(0.85) sepia(0.2) hue-rotate(180deg) saturate(1.4) contrast(1.05);
 }
 [data-theme="blueprint"] .obj-img,
 [data-theme="blueprint"] .curr-section-intro-img,
 [data-theme="blueprint"] .e-applied-img,
 [data-theme="blueprint"] .case-study-img img,
-[data-theme="blueprint"] .tool-promo-img {
+[data-theme="blueprint"] .tool-promo-img,
+[data-theme="blueprint"] .unit-tile-img,
+[data-theme="blueprint"] .cs-shot,
+[data-theme="blueprint"] .cs-photo {
   filter: grayscale(1) sepia(1) hue-rotate(180deg) saturate(4) brightness(0.85) contrast(1.1);
 }
 [data-theme="exam"] .obj-img,
 [data-theme="exam"] .curr-section-intro-img,
 [data-theme="exam"] .e-applied-img,
 [data-theme="exam"] .case-study-img img,
-[data-theme="exam"] .tool-promo-img {
+[data-theme="exam"] .tool-promo-img,
+[data-theme="exam"] .unit-tile-img,
+[data-theme="exam"] .cs-shot,
+[data-theme="exam"] .cs-photo {
   filter: grayscale(1) contrast(1.3) brightness(1.05);
 }
 [data-theme="win95"] .obj-img,
 [data-theme="win95"] .curr-section-intro-img,
 [data-theme="win95"] .e-applied-img,
 [data-theme="win95"] .case-study-img img,
-[data-theme="win95"] .tool-promo-img {
+[data-theme="win95"] .tool-promo-img,
+[data-theme="win95"] .unit-tile-img,
+[data-theme="win95"] .cs-shot,
+[data-theme="win95"] .cs-photo {
   filter: saturate(0.7) hue-rotate(-8deg) contrast(1.05) brightness(1.05);
 }
 [data-theme^="dos"]:not([data-theme="dos-amber"]) .obj-img,
 [data-theme^="dos"]:not([data-theme="dos-amber"]) .curr-section-intro-img,
 [data-theme^="dos"]:not([data-theme="dos-amber"]) .e-applied-img,
 [data-theme^="dos"]:not([data-theme="dos-amber"]) .case-study-img img,
-[data-theme^="dos"]:not([data-theme="dos-amber"]) .tool-promo-img {
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .tool-promo-img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .unit-tile-img,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .cs-shot,
+[data-theme^="dos"]:not([data-theme="dos-amber"]) .cs-photo {
   filter: grayscale(1) sepia(1) hue-rotate(90deg) saturate(3.5) brightness(0.9) contrast(1.15);
 }
 [data-theme="dos-amber"] .obj-img,
 [data-theme="dos-amber"] .curr-section-intro-img,
 [data-theme="dos-amber"] .e-applied-img,
 [data-theme="dos-amber"] .case-study-img img,
-[data-theme="dos-amber"] .tool-promo-img {
+[data-theme="dos-amber"] .tool-promo-img,
+[data-theme="dos-amber"] .unit-tile-img,
+[data-theme="dos-amber"] .cs-shot,
+[data-theme="dos-amber"] .cs-photo {
   filter: grayscale(1) sepia(1) saturate(2.5) brightness(0.95) contrast(1.15);
 }
 [data-theme="gamer"] .obj-img,
 [data-theme="gamer"] .curr-section-intro-img,
 [data-theme="gamer"] .e-applied-img,
 [data-theme="gamer"] .case-study-img img,
-[data-theme="gamer"] .tool-promo-img {
+[data-theme="gamer"] .tool-promo-img,
+[data-theme="gamer"] .unit-tile-img,
+[data-theme="gamer"] .cs-shot,
+[data-theme="gamer"] .cs-photo {
   filter: saturate(1.6) contrast(1.1) hue-rotate(-8deg) brightness(0.92);
 }
 [data-theme="gameboy"] .obj-img,
 [data-theme="gameboy"] .curr-section-intro-img,
 [data-theme="gameboy"] .e-applied-img,
 [data-theme="gameboy"] .case-study-img img,
-[data-theme="gameboy"] .tool-promo-img {
+[data-theme="gameboy"] .tool-promo-img,
+[data-theme="gameboy"] .unit-tile-img,
+[data-theme="gameboy"] .cs-shot,
+[data-theme="gameboy"] .cs-photo {
   filter: grayscale(1) sepia(1) hue-rotate(60deg) saturate(3) brightness(0.95) contrast(1.05);
   image-rendering: pixelated;
 }
@@ -1537,21 +1564,30 @@
 [data-theme="xbox"] .curr-section-intro-img,
 [data-theme="xbox"] .e-applied-img,
 [data-theme="xbox"] .case-study-img img,
-[data-theme="xbox"] .tool-promo-img {
+[data-theme="xbox"] .tool-promo-img,
+[data-theme="xbox"] .unit-tile-img,
+[data-theme="xbox"] .cs-shot,
+[data-theme="xbox"] .cs-photo {
   filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(4) brightness(0.75) contrast(1.2);
 }
 [data-theme="nightmare"] .obj-img,
 [data-theme="nightmare"] .curr-section-intro-img,
 [data-theme="nightmare"] .e-applied-img,
 [data-theme="nightmare"] .case-study-img img,
-[data-theme="nightmare"] .tool-promo-img {
+[data-theme="nightmare"] .tool-promo-img,
+[data-theme="nightmare"] .unit-tile-img,
+[data-theme="nightmare"] .cs-shot,
+[data-theme="nightmare"] .cs-photo {
   filter: invert(0.85) hue-rotate(180deg) saturate(1.8) contrast(1.15);
 }
 [data-theme="hannah"] .obj-img,
 [data-theme="hannah"] .curr-section-intro-img,
 [data-theme="hannah"] .e-applied-img,
 [data-theme="hannah"] .case-study-img img,
-[data-theme="hannah"] .tool-promo-img {
+[data-theme="hannah"] .tool-promo-img,
+[data-theme="hannah"] .unit-tile-img,
+[data-theme="hannah"] .cs-shot,
+[data-theme="hannah"] .cs-photo {
   filter: grayscale(1) sepia(1) hue-rotate(300deg) saturate(2.5) brightness(1.05) contrast(0.95);
 }
 

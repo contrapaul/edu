@@ -4754,10 +4754,30 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 .curr-cols {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.6rem;
+  gap: 1.2rem;
 }
 @media (max-width: 720px) {
   .curr-cols { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* Programme colours, carried over from the section colours the
+   previous landing page used (--curr-color on #dp and #myp). The tile
+   pattern already reads var(--accent), so overriding it once per
+   column tints the fallback tiles and the label together. */
+.curr-cols > [data-prog="dp"]  { --accent: #1a5cb8; }
+.curr-cols > [data-prog="myp"] { --accent: #b8541a; }
+
+/* Each programme sits on its own faintly tinted slab, so the two read
+   as separate objects rather than one sixteen-card grid. The border
+   and padding carry the split even in themes where the tint is
+   swamped by the background. */
+.curr-cols > section {
+  background: var(--surface);
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem 1.2rem;
 }
 
 /* Two programmes on one page do need naming, or the right-hand column
@@ -4767,9 +4787,49 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
   font-size: 0.68rem; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--muted);
+  color: var(--accent);
   margin: 0 0 0.7rem;
   padding-bottom: 0.45rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  border-bottom-color: var(--accent);
 }
 
 .unit-stack { display: grid; gap: 0.75rem; }
+
+/* ── UNIT PAGE HERO ─────────────────────────────────────────────────
+   The band at the top of a DP unit page repeats that unit's card from
+   the curriculum landing page, so the two read as one object. It takes
+   the same cover image, or the same generated pattern while no cover
+   exists.
+   ─────────────────────────────────────────────────────────────────── */
+.unit-hero {
+  position: relative;
+  /* width has to be definite, or the browser is free to resolve width
+     from min-height through the aspect ratio and the band grows wider
+     than its column on a narrow screen. */
+  width: 100%;
+  aspect-ratio: 5 / 1;
+  min-height: 148px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  margin: 0 0 1.6rem;
+}
+.unit-hero .unit-tile-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.unit-hero .unit-tile-title {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  margin: 0;
+}
+
+.unit-intro { max-width: 68ch; margin: 0 0 2rem; }
+.unit-intro p { font-size: 0.95rem; line-height: 1.7; margin: 0 0 0.9rem; }
+.unit-intro p:last-child { margin-bottom: 0; }
+
+/* The topic list heading reuses the column label from the landing
+   page, so both pages name a group the same way. */
+.unit-topics-label { margin-top: 0; }
