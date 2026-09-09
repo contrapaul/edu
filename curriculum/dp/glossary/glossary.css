@@ -1,0 +1,253 @@
+/* ============================================================
+   glossary.css
+   Part 1 — the .gloss tag and its popover. Load this on any page
+            that tags words, alongside glossary-tip.js.
+   Part 2 — the glossary page itself.
+   Tokens come from style.css / curriculum.css / themes.css.
+   ============================================================ */
+
+/* ── 1. TAGGED WORDS ─────────────────────────────────────── */
+
+.gloss {
+  border-bottom: 2px dotted var(--accent);
+  cursor: help;
+  transition: background var(--transition), border-color var(--transition);
+}
+.gloss:hover,
+.gloss:focus-visible,
+.gloss.is-open {
+  background: var(--accent-bg);
+  border-bottom-color: var(--accent);
+  border-bottom-style: solid;
+  outline: none;
+}
+.gloss[data-gloss="missing"] {
+  border-bottom: 1px dashed var(--amber);
+}
+
+.gloss-pop {
+  position: absolute;
+  z-index: 900;
+  width: min(22rem, calc(100vw - 1.5rem));
+  padding: 0.75rem 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+.gloss-pop-term {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.gloss-pop-def {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.gloss-pop-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+}
+.gloss-pop-chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-bg);
+  color: var(--accent);
+  text-decoration: none;
+}
+.gloss-pop-chip:hover { text-decoration: underline; }
+
+/* ── 2. GLOSSARY PAGE ────────────────────────────────────── */
+
+.gl-main {
+  max-width: var(--curr-max-w, 1200px);
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 3rem;
+}
+
+.gl-head { margin-bottom: 1.25rem; }
+.gl-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  line-height: 1.15;
+}
+.gl-sub {
+  margin-top: 0.4rem;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* controls */
+.gl-controls {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 0.75rem 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.gl-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+.gl-search {
+  flex: 1 1 16rem;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+.gl-search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.gl-count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.gl-btn {
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.gl-btn:hover { background: var(--surface-2); }
+
+.gl-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}
+.gl-topic {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.22rem 0.5rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+.gl-topic:hover { border-color: var(--border-strong); color: var(--text); }
+.gl-topic.is-on {
+  color: var(--accent);
+  background: var(--accent-bg);
+  border-color: var(--accent);
+  font-weight: 700;
+}
+
+.gl-alpha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  margin-top: 0.6rem;
+}
+.gl-alpha a, .gl-alpha span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  min-width: 1.4rem;
+  padding: 0.15rem 0.25rem;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.gl-alpha a { color: var(--accent); }
+.gl-alpha a:hover { background: var(--accent-bg); text-decoration: none; }
+.gl-alpha span { color: var(--border-strong); }
+
+/* entries */
+.gl-letter {
+  margin: 1.75rem 0 0.6rem;
+  padding-bottom: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.gl-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr));
+  gap: 0.75rem;
+}
+.gl-entry {
+  padding: 0.85rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: 9rem;
+}
+.gl-entry:target {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+.gl-term {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.gl-def {
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.gl-note {
+  margin-top: 0.45rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: pre-line;
+}
+.gl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}
+.gl-chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  padding: 0.12rem 0.45rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-bg);
+  color: var(--accent);
+  text-decoration: none;
+}
+.gl-chip:hover { text-decoration: underline; }
+.gl-hit { background: var(--amber-bg); color: var(--text); border-radius: 2px; }
+
+.gl-empty {
+  padding: 2.5rem 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .gl-controls { position: static; }
+  .gl-list { grid-template-columns: 1fr; }
+}
