@@ -4607,3 +4607,141 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 .rplan-tools { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
 .rplan-msg { margin: 0.7rem 0 0; font-size: 0.8rem; line-height: 1.55; color: var(--muted); min-height: 1.1rem; }
 .rplan-msg.warn { color: var(--amber); font-weight: 600; }
+
+/* ── UNIT TILES ─────────────────────────────────────────────────────
+   The MYP hub. A cover image is the card, with the unit title on a
+   frosted panel at the bottom left. Everything is built from theme
+   tokens, so all ten themes keep working.
+   ─────────────────────────────────────────────────────────────────── */
+.unit-wrap { max-width: var(--max-w); margin: 0 auto; padding: 1rem 2rem 2.5rem; }
+
+/* The only thing above the grid: a way back. */
+.unit-back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; letter-spacing: 0.08em;
+  color: var(--muted); text-decoration: none;
+  margin-bottom: 0.9rem;
+}
+.unit-back:hover { color: var(--accent); }
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (max-width: 720px) { .unit-grid { grid-template-columns: 1fr; } }
+
+/* The image is the card. Nothing sits on top of it but the title. */
+.unit-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 2.4 / 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.unit-tile:hover,
+.unit-tile:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.unit-tile-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Grows with the lift so the tile never shows a gap at its edge. */
+  transition: transform 260ms ease;
+}
+.unit-tile:hover .unit-tile-img,
+.unit-tile:focus-visible .unit-tile-img { transform: scale(1.045); }
+
+/* The caption is always visible, always in the same place: no scrim
+   over the picture and nothing that appears on hover. The frosted
+   panel blurs away the detail the text would otherwise fight, and
+   lifts its own backing towards white, so one dark ink reads on any
+   cover. A new cover therefore needs no per-image judgement. */
+.unit-tile-cap {
+  position: absolute;
+  left: 0.85rem; bottom: 0.85rem;
+  max-width: calc(100% - 1.7rem);
+  padding: 0.42rem 0.8rem 0.48rem;
+  border-radius: 9px;
+  background: rgba(255,255,255,0.58);
+  -webkit-backdrop-filter: blur(16px) saturate(0.85);
+  backdrop-filter: blur(16px) saturate(0.85);
+}
+.unit-tile-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.32rem; font-weight: 600; line-height: 1.15;
+  color: #14171c;
+}
+
+/* A tile with no cover has no picture to sit on, so it drops the panel
+   and takes the theme's own text colour. */
+.unit-tile--flat .unit-tile-cap {
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  padding: 0;
+}
+.unit-tile--flat .unit-tile-title { color: var(--text); }
+
+/* Only on a unit that genuinely is not written yet. */
+.unit-tile-soon {
+  position: absolute; top: 0.9rem; right: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.55rem;
+}
+
+/* A quiet generated field, so a tile without art still reads as a
+   deliberate tile rather than a broken one. Angle and spacing vary
+   per unit so several of them do not look like one repeated card. */
+.unit-tile-pattern {
+  position: absolute; inset: 0;
+  background: var(--surface-2);
+  background:
+    repeating-linear-gradient(
+      var(--pat-angle, 45deg),
+      color-mix(in srgb, var(--accent) 16%, transparent) 0 2px,
+      transparent 2px var(--pat-gap, 14px)
+    ),
+    radial-gradient(
+      120% 110% at 78% 12%,
+      color-mix(in srgb, var(--accent) 26%, transparent) 0%,
+      transparent 66%
+    ),
+    var(--surface-2);
+  transition: transform 260ms ease;
+}
+.unit-tile:hover .unit-tile-pattern,
+.unit-tile:focus-visible .unit-tile-pattern { transform: scale(1.045); }
+
+@media (prefers-reduced-motion: reduce) {
+  .unit-tile, .unit-tile-img, .unit-tile-pattern { transition: none; }
+  .unit-tile:hover { transform: none; }
+  .unit-tile:hover .unit-tile-img,
+  .unit-tile:hover .unit-tile-pattern { transform: none; }
+}
+
+/* Keeps the page titled for screen readers and search without putting
+   a slab of prose back on the screen. */
+.unit-vh {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
