@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MYP Design units, Grades 6 to 10.">
+<title>MYP Design — contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../curriculum.css">
+<link rel="stylesheet" href="../themes.css">
+<script>
+  (function(){var t=localStorage.getItem('edu-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   UNIT TILES  —  proposal, would move into curriculum.css on approval.
+   Everything is built from site tokens, so all ten themes keep working.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.unit-wrap { max-width: var(--max-w); margin: 0 auto; padding: 1rem 2rem 2.5rem; }
+
+/* The only thing left above the grid: a way back. */
+.unit-back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; letter-spacing: 0.08em;
+  color: var(--muted); text-decoration: none;
+  margin-bottom: 0.9rem;
+}
+.unit-back:hover { color: var(--accent); }
+
+.unit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+@media (max-width: 720px) { .unit-grid { grid-template-columns: 1fr; } }
+
+/* ── the tile ─────────────────────────────────────────────────────
+   The image is the card. Nothing sits on top of it but the title.
+   ───────────────────────────────────────────────────────────────── */
+.unit-tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 2.4 / 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.unit-tile:hover,
+.unit-tile:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+  text-decoration: none;
+}
+
+.unit-tile-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Grows with the lift so the tile never shows a gap at its edge. */
+  transition: transform 260ms ease;
+}
+.unit-tile:hover .unit-tile-img,
+.unit-tile:focus-visible .unit-tile-img { transform: scale(1.045); }
+
+/* ── the caption ──────────────────────────────────────────────────
+   Always visible, always in the same place. No scrim, no reveal.
+   Legibility comes from choosing the ink per tile, not from dimming
+   the picture: set data-ink="dark" on a tile with a pale photo.
+   ───────────────────────────────────────────────────────────────── */
+.unit-tile-cap {
+  position: absolute;
+  left: 1.15rem; bottom: 1rem; right: 1.15rem;
+  --ink: #fff;
+  --ink-soft: rgba(255,255,255,0.82);
+  --ink-shadow: 0 1px 3px rgba(0,0,0,0.55), 0 1px 12px rgba(0,0,0,0.35);
+}
+.unit-tile[data-ink="dark"] .unit-tile-cap {
+  --ink: #14171c;
+  --ink-soft: rgba(20,23,28,0.7);
+  --ink-shadow: 0 1px 3px rgba(255,255,255,0.6);
+}
+/* A tile with no photograph has no picture to fight with, so it just
+   uses the theme's own text colour and needs no shadow at all. */
+.unit-tile--flat .unit-tile-cap {
+  --ink: var(--text);
+  --ink-soft: var(--muted);
+  --ink-shadow: none;
+}
+.unit-tile-grade {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-soft);
+  text-shadow: var(--ink-shadow);
+  margin-bottom: 0.25rem;
+}
+.unit-tile-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.32rem; font-weight: 600; line-height: 1.15;
+  color: var(--ink);
+  text-shadow: var(--ink-shadow);
+}
+
+/* Only on a unit that genuinely is not written yet. */
+.unit-tile-soon {
+  position: absolute; top: 0.9rem; right: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.55rem;
+}
+
+/* ── tiles with no photograph yet ─────────────────────────────────
+   A quiet generated field, so a tile without art still reads as a
+   deliberate tile rather than a broken one. Angle and spacing vary
+   per unit so the six of them do not look like one repeated card.
+   ───────────────────────────────────────────────────────────────── */
+.unit-tile-pattern {
+  position: absolute; inset: 0;
+  background: var(--surface-2);
+  background:
+    repeating-linear-gradient(
+      var(--pat-angle, 45deg),
+      color-mix(in srgb, var(--accent) 16%, transparent) 0 2px,
+      transparent 2px var(--pat-gap, 14px)
+    ),
+    radial-gradient(
+      120% 110% at 78% 12%,
+      color-mix(in srgb, var(--accent) 26%, transparent) 0%,
+      transparent 66%
+    ),
+    var(--surface-2);
+  transition: transform 260ms ease;
+}
+.unit-tile:hover .unit-tile-pattern,
+.unit-tile:focus-visible .unit-tile-pattern { transform: scale(1.045); }
+
+@media (prefers-reduced-motion: reduce) {
+  .unit-tile, .unit-tile-img, .unit-tile-pattern { transition: none; }
+  .unit-tile:hover { transform: none; }
+  .unit-tile:hover .unit-tile-img,
+  .unit-tile:hover .unit-tile-pattern { transform: none; }
+}
+
+/* Keeps the page titled for screen readers and search without
+   putting a slab of prose back on the screen. */
+.vh {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<div class="brand"><a href="/" class="wordmark">contrapaul <span class="brand-sub">/ edu</span></a></div>
+<nav class="nav"><a href="/curriculum">Curriculum</a><a href="/tools">Tools</a><a href="/about">About</a><a href="https://contrapaul.com" class="nav-external">← Main site</a></nav>
+</div>
+</header>
+
+<main>
+<div class="unit-wrap">
+
+<h1 class="vh">MYP Design units</h1>
+<a href="/curriculum" class="unit-back">← Curriculum</a>
+
+<div class="unit-grid">
+
+<a class="unit-tile" href="g6-lego-designers.html">
+  <img class="unit-tile-img" src="Plans/G6Lego/Cybercity.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 6</span>
+    <span class="unit-tile-title">Lego Designers</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g7-lego-engineers.html">
+  <span class="unit-tile-pattern" style="--pat-angle:32deg; --pat-gap:13px"></span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 7</span>
+    <span class="unit-tile-title">Lego Engineers</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g8-bridge-designers.html">
+  <span class="unit-tile-pattern" style="--pat-angle:-40deg; --pat-gap:11px"></span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 8</span>
+    <span class="unit-tile-title">Bridge Designers</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g8-3d-modeling.html">
+  <span class="unit-tile-pattern" style="--pat-angle:70deg; --pat-gap:17px"></span>
+  <span class="unit-tile-soon">Coming soon</span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 8</span>
+    <span class="unit-tile-title">3D Modeling</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g9-toy-design.html">
+  <span class="unit-tile-pattern" style="--pat-angle:12deg; --pat-gap:15px"></span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 9</span>
+    <span class="unit-tile-title">Toy Design</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g9-game-design.html">
+  <span class="unit-tile-pattern" style="--pat-angle:-15deg; --pat-gap:12px"></span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 9</span>
+    <span class="unit-tile-title">Tabletop Game Design</span>
+  </span>
+</a>
+
+<a class="unit-tile" href="g10-electronics-design.html" data-ink="dark">
+  <img class="unit-tile-img" src="../../tools/electronics/media/resistors.webp" alt="" loading="lazy">
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 10</span>
+    <span class="unit-tile-title">Electronics Design</span>
+  </span>
+</a>
+
+<a class="unit-tile unit-tile--flat" href="g10-studio-project.html">
+  <span class="unit-tile-pattern" style="--pat-angle:55deg; --pat-gap:19px"></span>
+  <span class="unit-tile-cap">
+    <span class="unit-tile-grade">Grade 10</span>
+    <span class="unit-tile-title">Studio Project</span>
+  </span>
+</a>
+
+</div>
+</div>
+</main>
+
+<footer class="site-footer"><div class="footer-inner"><span class="footer-brand"><a href="https://edu.contrapaul.com">contrapaul / edu</a> / <a href="https://blog.contrapaul.com">blog</a> / <a href="https://make.contrapaul.com">make</a></span><span class="footer-note">Not affiliated with the IB Organisation</span></div></footer>
+<script src="../curriculum-themes.js"></script>
+</body>
+</html>
