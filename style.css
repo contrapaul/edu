@@ -610,10 +610,13 @@ main { flex: 1; }
 .tool-cards-section { border-bottom: 1px solid var(--border); }
 
 .tool-cards-grid {
+  /* The gutter is a variable so a page can reuse it for its own spacing
+     (see the margin-top on /tools/) without the two numbers drifting apart. */
+  --tool-card-gap: 1.25rem;
   display: grid;
   grid-template-columns: repeat(3, 360px);
   justify-content: center;
-  gap: 1.25rem;
+  gap: var(--tool-card-gap);
 }
 
 /*
