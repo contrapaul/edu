@@ -1,23 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════
-   Choose Your Own Adventure — book styling.
-   Standalone stylesheet (no site theme dependency), like greatgames.
+   Choose Your Own Adventure — reader styling (the open book itself).
+   Loaded after shell.css, which carries the theme tokens and the
+   nav/footer shell shared with the library index.
    ═══════════════════════════════════════════════════════════════════ */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-[hidden] { display: none !important; }
-
 :root {
-  --desk: #2b2320;
-  --desk-edge: #1c1614;
-  --paper: #f4ecd8;
-  --paper-edge: #e5d9bc;
-  --ink: #3a2f28;
-  --ink-soft: #7a6a58;
-  --accent: #8c2f1b;
-  --accent-soft: #b8552f;
-  --gold: #c9a24b;
-
   /* The open book is one fixed size. It must never resize as the
      reader turns pages, so both the leaf width and the leaf height are
      pinned: the width keeps every page wrapping identically, the
@@ -28,41 +15,6 @@
      foot of this file, and desktopSpread in cyoa.js). */
   --page-width: 500px;
   --page-height: 640px;
-}
-
-html { height: 100%; }
-
-body {
-  min-height: 100%;
-  font-family: Georgia, 'Times New Roman', serif;
-  background: radial-gradient(ellipse at 50% 20%, var(--desk) 0%, var(--desk-edge) 100%);
-  color: var(--ink);
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── Skip link + nav (site convention) ─────────────────────────── */
-.skip-link {
-  position: absolute; left: -9999px; top: 0;
-  background: var(--paper); color: var(--ink); padding: 0.5rem 1rem; z-index: 50;
-}
-.skip-link:focus { left: 0; }
-
-.site-nav {
-  padding: 0.55rem 1rem;
-  background: rgba(0,0,0,0.35);
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 0.72rem;
-  color: #b6a892;
-}
-.site-nav a { color: #d8c9a8; }
-
-main {
-  flex: 1;
-  width: 100%;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 1rem 1rem 2.5rem;
 }
 
 /* ── Narration bar ─────────────────────────────────────────────── */
@@ -354,13 +306,3 @@ main {
   .flip-flap { display: none; }
   .narr-bar { justify-content: center; }
 }
-
-/* ── Footer (site convention) ──────────────────────────────────── */
-footer {
-  padding: 1.2rem 1rem 2rem;
-  text-align: center;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 0.72rem;
-  color: #8f8069;
-}
-footer a { color: #c2b090; }

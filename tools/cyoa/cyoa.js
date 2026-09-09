@@ -128,7 +128,7 @@
       const back = document.createElement('a');
       back.className = 'choice-btn';
       back.href = CYOA_META.toolsUrl;
-      back.textContent = 'Return to /tools';
+      back.textContent = 'Return to the library';
       choices.appendChild(back);
     } else {
       page.choices.forEach(function (c) {

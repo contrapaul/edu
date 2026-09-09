@@ -1,0 +1,88 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Choose Your Own Adventure — library shelf.
+   Loaded after shell.css. The covers are artwork that already carries
+   each title, so the shelf draws no text over or beside them.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.shelf-intro {
+  text-align: center;
+  color: #d8c9a8;
+  font-size: 0.95rem;
+  font-style: italic;
+  padding: 1.2rem 0 2rem;
+}
+
+/* Auto-fits as books are added to books.js; the cover width is the
+   only thing that decides how many sit on a row. */
+.shelf {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 170px));
+  justify-content: center;
+  gap: 2rem 1.6rem;
+  padding: 0 0 1rem;
+}
+
+.shelf-item { display: flex; }
+
+/* Covers are 2:3 artwork. The ratio is fixed so the shelf does not
+   reflow as images decode. */
+.book-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 3px 7px 7px 3px;
+  box-shadow:
+    6px 7px 0 -3px #3a2c24,
+    6px 7px 0 -1.5px #241a15,
+    0 14px 28px rgba(0,0,0,0.55);
+}
+.book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+a.book-cover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+a.book-cover:hover,
+a.book-cover:focus-visible {
+  transform: translateY(-5px);
+  box-shadow:
+    7px 9px 0 -3px #3a2c24,
+    7px 9px 0 -1.5px #241a15,
+    0 20px 36px rgba(0,0,0,0.65);
+}
+a.book-cover:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Not written yet: the cover still shows, but it is not a link. */
+.book-cover.is-unready { position: relative; cursor: default; }
+.book-cover.is-unready img { filter: saturate(0.45) brightness(0.6); }
+.book-cover.is-unready::after {
+  content: 'Coming soon';
+  position: absolute;
+  left: 0; right: 0; bottom: 12%;
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0dfb4;
+  background: rgba(0,0,0,0.6);
+  padding: 0.35rem 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.book-cover { transition: none; }
+  a.book-cover:hover, a.book-cover:focus-visible { transform: none; }
+}
+
+@media (max-width: 520px) {
+  .shelf { grid-template-columns: repeat(auto-fit, minmax(120px, 150px)); gap: 1.5rem 1.2rem; }
+}
