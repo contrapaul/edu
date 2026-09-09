@@ -17,6 +17,17 @@
   --accent: #8c2f1b;
   --accent-soft: #b8552f;
   --gold: #c9a24b;
+
+  /* The open book is one fixed size. It must never resize as the
+     reader turns pages, so both the leaf width and the leaf height are
+     pinned: the width keeps every page wrapping identically, the
+     height must clear the tallest page in pages.js. Verified against
+     all 30 pages (the tallest, page 6, needs 448px of the 516px this
+     leaves for text); leave headroom if you add longer ones. Under
+     1040px the two leaves stack instead (see the media query at the
+     foot of this file, and desktopSpread in cyoa.js). */
+  --page-width: 500px;
+  --page-height: 640px;
 }
 
 html { height: 100%; }
@@ -180,15 +191,17 @@ main {
 .spread {
   position: relative;
   display: flex;
+  width: calc(var(--page-width) * 2);
+  margin: 0 auto;
   perspective: 2200px;
   border-radius: 6px 10px 10px 6px;
   box-shadow: 0 26px 60px rgba(0,0,0,0.65);
 }
 
 .page {
-  flex: 1 1 50%;
-  min-width: 0;
-  min-height: 540px;
+  flex: none;
+  width: var(--page-width);
+  height: var(--page-height);
   display: flex;
   flex-direction: column;
   padding: 2.2rem 2.4rem 1.6rem;
@@ -222,6 +235,8 @@ main {
 
 .page-body {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
   font-size: 1.05rem;
   line-height: 1.65;
 }
@@ -316,19 +331,22 @@ main {
 }
 
 /* ── Mobile: stack the two pages ───────────────────────────────── */
-@media (max-width: 719px) {
+@media (max-width: 1039px) {
   .spread {
     flex-direction: column;
+    width: auto;
     gap: 0.9rem;
     box-shadow: none;
     perspective: none;
   }
   .page {
-    min-height: 0;
+    width: auto;
+    height: auto;
     border-radius: 6px;
     box-shadow: 0 12px 28px rgba(0,0,0,0.5);
     padding: 1.6rem 1.4rem 1.2rem;
   }
+  .page-body { overflow: visible; }
   .page-left, .page-right {
     border-right: none;
     background: var(--paper);

@@ -27,7 +27,7 @@
   const audio      = document.getElementById('narrAudio');
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const desktopSpread = window.matchMedia('(min-width: 720px)');
+  const desktopSpread = window.matchMedia('(min-width: 1040px)');
 
   let currentPage = null;
   let turning = false;
@@ -103,7 +103,7 @@
     paras.forEach(function (text) {
       const el = document.createElement('p');
       el.textContent = text;
-      if (leftChars < total / 2) {
+      if (leftChars === 0 || leftChars + text.length <= total / 2) {
         bodyLeft.appendChild(el);
         leftChars += text.length;
       } else {
