@@ -333,7 +333,9 @@ function drawPicker() {
 
 picker.search.addEventListener('input', drawPicker);
 picker.node.addEventListener('click', function (e) {
-  if (e.target.hasAttribute('data-close')) closePicker();
+  /* The close button holds an svg, so a click lands on the icon rather
+     than the button. Walk up to whatever carries the attribute. */
+  if (e.target.closest('[data-close]')) closePicker();
 });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !picker.node.hidden) closePicker();
@@ -401,15 +403,16 @@ function esc(s) {
 }
 
 /* Returns SVG markup for one card, or '' when there is nothing to draw.
-   `paper` swaps the palette for the print sheet. */
-function diagramSVG(c, paper) {
+   Screen and paper share one palette, because the page is paper
+   coloured too. */
+function diagramSVG(c) {
   if (!c.inParts.length && !c.outParts.length) return '';
 
-  var ink   = paper ? '#16181c' : '#eef6f0';
-  var dim   = paper ? '#5c636e' : '#7d9587';
-  var line  = paper ? '#c9cfd7' : '#2c5240';
-  var fill  = paper ? '#f4f6f9' : '#1f4231';
-  var midBg = paper ? '#eef1f5' : '#10281d';
+  var ink   = '#16181c';
+  var dim   = '#5c636e';
+  var line  = '#c8cdd6';
+  var fill  = '#f7f8fa';
+  var midBg = '#eef1f5';
 
   var W = 760, BOX = 200, BH = 46, GAP = 12;
   var colX = [10, 280, 550];
@@ -660,7 +663,7 @@ function renderCard(i) {
   var b5 = block('05', 'Your block diagram',
     'Drawn from the parts you named above. What goes in, what happens in the middle, what comes out. Named parts make your guess specific enough to be wrong, which is the point.');
   var dia = el('div', 'bb-diagram');
-  var svg = diagramSVG(c, false);
+  var svg = diagramSVG(c);
   if (svg) dia.innerHTML = svg;
   else dia.appendChild(el('p', 'bb-diagram-empty', 'Name a part in 02 or 04 and your diagram draws itself here.'));
   b5.appendChild(dia);
@@ -995,7 +998,7 @@ function printCard(c, i) {
           return '<li><b>' + esc(partName(s)) + '</b></li>'; }).join('') + '</ul>'
       : '<p class="pr-t is-blank">None named</p>') + '</div>';
 
-  var svg = diagramSVG(c, true);
+  var svg = diagramSVG(c);
   if (svg) {
     h += '<div class="pr-b is-wide"><p class="pr-l">Block diagram</p>' +
          svg.replace('<svg ', '<svg class="pr-dia" ') + '</div>';
