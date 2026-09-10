@@ -423,119 +423,232 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+<div class="p2-intro">Every Paper 2 question is attached to a product. Nothing here can be answered from memory alone: read the case study first, then answer the parts in order. The tariff tells you how many creditable points to make, and the command term tells you what kind of point counts. Write your answer before you open either panel, then mark yourself against the markscheme rather than against the example.</div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 1 &middot; 4 marks</div>
-<div class="p2-q-text">Explain what an Ashby chart (material selection chart) is and how designers use it. Include one specific example of a property pair that might be plotted.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p>An <strong>Ashby chart</strong> is a graphical tool developed by Professor Michael Ashby of Cambridge University in the 1990s. It plots two material properties against each other on <strong>logarithmic scales</strong>, so that materials spanning many orders of magnitude (from rubber to diamond) can be compared on the same axes. Each material or material family appears as a bubble or region positioned by its property values.</p>
-<p>Designers use Ashby charts to:</p>
-<ul>
-<li>Screen many materials simultaneously: those falling in a target zone of the chart meet the property requirements.</li>
-<li>Visualise trade-offs between competing properties (e.g., high strength often comes with high density).</li>
-<li>Draw <strong>design lines</strong> (lines of constant performance index) to rank materials by efficiency for a specific function.</li>
-<li>Conduct substitution studies when a preferred material is unavailable or too expensive.</li>
-</ul>
-<p><strong>Example property pair (Strength vs. density):</strong> A designer seeking a lightweight but strong material for an aerospace component would plot ultimate tensile strength (y-axis) against density (x-axis). Materials in the upper-left corner (high strength, low density), such as CFRP and titanium alloys, are the best candidates. A second useful pair is corrosion potential (E_corr) against corrosion current density (i_corr), used for selecting materials in corrosive environments: materials with lower i_corr and more noble E_corr (upper-left) are preferred.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct definition (logarithmic scales, multiple materials compared simultaneously); 1 mark for naming at least two uses (screening, trade-off visualisation, design lines, substitution); 1 mark for correctly explaining the specific property pair example; 1 mark for the design line concept or the corrosion chart example.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 1 &middot; B3.1 &middot; SL and HL</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A wind turbine blade is 80 m long and rotates about a horizontal axis. It is a hollow shell with internal spars. Every rotation reverses the direction of gravity loading on the blade, and the turbine runs for twenty years without the blade being replaced.</p>
+<p>Blades are laid up as a composite of glass fibre in an epoxy matrix. Some manufacturers use carbon fibre in the spar caps only.</p>
+<p><em>Table 1: Candidate materials for the blade shell</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Property</th><th>Glass/epoxy</th><th>Carbon/epoxy</th><th>Aluminium alloy</th></tr></thead><tbody>
+<tr><td>Density (kg/m&sup3;)</td><td>1900</td><td>1600</td><td>2700</td></tr>
+<tr><td>Young's modulus (GPa)</td><td>39</td><td>135</td><td>69</td></tr>
+<tr><td>Tensile strength (MPa)</td><td>1000</td><td>1500</td><td>310</td></tr>
+<tr><td>Relative cost per kg</td><td>1</td><td>9</td><td>2</td></tr>
+<tr><td>Fatigue resistance</td><td>Good</td><td>Excellent</td><td>Moderate</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the property combination that matters most for a component that must be stiff and light, see Table 1. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Outline why fatigue resistance is a decisive property for this blade, see Table 1. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Explain why carbon fibre is used only in the spar caps rather than throughout the blade, see Table 1. <strong>[3]</strong></p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 2 &middot; 6 marks</div>
-<div class="p2-q-text">Describe three different performance indices mentioned in the chapter. For each, explain what property combination it represents and in what application it would be useful.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<ol>
-<li><strong>Specific strength (σᵤ/ρ)</strong>: Ultimate tensile strength divided by density. Measures how strong a material is for its weight: higher specific strength means more load-carrying ability per kilogram. <em>Application</em>: Aerospace (aircraft wing spars, fuselage skin) and motorsport (chassis, suspension components) where high structural loads must be carried with minimum mass. Carbon fibre composites and titanium alloys have excellent specific strength; mild steel does not, despite high absolute strength.</li>
-<li><strong>Specific stiffness (E/ρ)</strong>: Young's Modulus divided by density. Measures stiffness per unit weight: how much a material resists elastic deformation per kilogram. <em>Application</em>: Bicycle frames, sailing masts, wind turbine blades: structures that must not flex or vibrate under load, but must be as light as possible. CFRP excels here (high E, very low ρ); aluminium alloy is a common budget alternative.</li>
-<li><strong>Thermal conductivity to cost ratio (λ/Φ)</strong>: Thermal conductivity divided by material cost per unit volume. Measures heat-transfer performance per unit cost. <em>Application</em>: Heat exchangers, radiator fins, cooling systems: where maximising thermal performance within a budget matters. Copper has the best thermal conductivity (≈400 W/m·K) but is expensive; aluminium (≈230 W/m·K) is much cheaper, often giving a better λ/Φ for cost-sensitive designs. Fracture toughness (K_Ic, MPa·m½) is a fourth index worth knowing: useful for pressure vessels and safety-critical components to resist crack propagation.</li>
-</ol>
-<p class="p2-marks-note"><em>Mark scheme</em>: 2 marks per performance index: 1 for correctly stating the formula/property combination; 1 for a relevant, specific application with explanation. Maximum 6 marks from three indices.</p>
 </div>
-</details>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 3 &middot; 5 marks</div>
-<div class="p2-q-text">A designer is selecting a material for a bicycle frame. They need a material that is stiff (high Young's Modulus) but also light (low density). Using the concept of performance indices, explain which index is most relevant and why. Then name two suitable materials and two unsuitable materials, justifying your choices.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Most relevant index: Specific stiffness (E/ρ)</strong>: Young's Modulus divided by density. A bicycle frame must resist bending and torsion when the rider pedals or corners (requiring high stiffness, E), while being as light as possible (requiring low ρ). High specific stiffness means the frame will be responsive and efficient without being heavy to carry or accelerate. Using E or ρ alone would be insufficient: a dense but stiff material (steel) would be too heavy; a light but flexible material (rubber) would be useless.</p>
-<p><strong>Suitable materials:</strong></p>
-<ol>
-<li><strong>Carbon fibre reinforced polymer (CFRP)</strong>: E ≈ 70–150 GPa, ρ ≈ 1.6 g/cm³. Exceptional specific stiffness; widely used in high-end racing bicycles. The fibre orientation can be tuned to resist specific load directions.</li>
-<li><strong>Titanium alloy (Ti-6Al-4V)</strong>: E ≈ 110 GPa, ρ ≈ 4.4 g/cm³. Lower specific stiffness than CFRP but excellent fatigue resistance and corrosion resistance; comfortable ride quality due to slight flex. Used in premium performance frames.</li>
-</ol>
-<p><strong>Unsuitable materials:</strong></p>
-<ol>
-<li><strong>Mild steel</strong>: E ≈ 200 GPa (high) but ρ ≈ 7.8 g/cm³ (very high). Specific stiffness is relatively poor. A steel frame would be strong but very heavy: acceptable for budget touring bikes but fails the lightweight requirement for performance applications.</li>
-<li><strong>Natural rubber</strong>: E ≈ 0.01–0.1 GPa (very low) despite low density. Extremely poor specific stiffness: a rubber frame would flex uncontrollably and cannot support the rider's weight. Unsuitable for any structural bicycle component.</li>
-</ol>
-<p>On an Ashby chart of E vs. ρ, the designer would draw a design line with slope = 1 (for the E/ρ index) and select materials above the line: CFRP and titanium appear clearly above mild steel and rubber.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correctly identifying specific stiffness (E/ρ) and explaining why both E and ρ matter simultaneously; 1 mark each for two suitable materials with valid property-based justification (2 marks); 1 mark each for two unsuitable materials with clear reasons (2 marks). Total 5 marks.</p>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Specific stiffness, meaning Young's modulus relative to density.</p>
+<p><strong>(b)</strong> The blade turns continuously for twenty years, and every rotation reverses the direction of the gravity load on it, so the material is cycled through hundreds of millions of load reversals. A material can be strong enough to survive any single one of those loads and still crack under repeated cycling well below its tensile strength, so the number that governs the design is fatigue life rather than strength.</p>
+<p><strong>(c)</strong> The spar caps carry almost all the bending load, so that is where stiffness pays for itself. Carbon is roughly three and a half times stiffer than glass at a lower density, which is exactly what a spar needs, and placing it at the top and bottom of the section puts it as far from the neutral axis as possible, where each kilogram does the most work. The shell between the spars is mainly carrying aerodynamic surface loads and holding the aerofoil shape, so its stiffness barely affects the blade's deflection, and carbon there would buy very little. Against that, carbon costs nine times as much per kilogram as glass, and an 80 m blade is a large amount of material, so using it everywhere would raise the blade cost far more than it improves the turbine's output. Confining the expensive material to the region where the property is needed is what makes the blade affordable.</p>
 </div>
-</details>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; Specific stiffness &#10003;<br>&bull; Stiffness-to-weight ratio &#10003;<br>&bull; Young's modulus relative to density &#10003;</p>
+<p class="p2-award">Award [1] for the correct property combination up to [1 max].</p>
+<p><strong>(b)</strong> Materials are selected for specific applications based on their properties.<br>
+&bull; The blade turns continuously for twenty years &#10003;<br>
+&bull; Every rotation reverses the direction of the gravity load &#10003;<br>
+&bull; The material sees hundreds of millions of load cycles &#10003;<br>
+&bull; A material can survive any single load and still crack under repeated cycling &#10003;<br>
+&bull; Fatigue failure occurs at stresses well below the tensile strength &#10003;<br>
+&bull; The blade is not replaced during the turbine's life, so failure is not recoverable &#10003;<br>
+&bull; Access for inspection and repair 80 m up is difficult and costly &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on why fatigue resistance is decisive up to [2 max]. The response must refer to cyclic loading for full marks.</p>
+<p><strong>(c)</strong> Materials are selected based on their properties, and additional factors including cost influence the selection.<br>
+Where stiffness is needed:<br>
+&bull; The spar caps carry almost all the bending load &#10003;<br>
+&bull; Carbon is about 3.5 times stiffer than glass, 135 GPa against 39 GPa &#10003;<br>
+&bull; It achieves this at a lower density, 1600 against 1900 kg/m&sup3; &#10003;<br>
+&bull; Placing it furthest from the neutral axis is where each kilogram does the most work &#10003;<br>
+Where it is not:<br>
+&bull; The shell carries aerodynamic surface loads and holds the aerofoil shape &#10003;<br>
+&bull; Shell stiffness barely affects the blade's overall deflection &#10003;<br>
+&bull; Carbon in the shell buys very little performance &#10003;<br>
+Cost:<br>
+&bull; Carbon costs nine times as much per kilogram as glass &#10003;<br>
+&bull; An 80 m blade uses a very large mass of material, so the multiplier is severe &#10003;<br>
+&bull; Full carbon would raise blade cost more than it improves turbine output &#10003;<br>
+&bull; Confining the expensive material to where the property is needed keeps the blade affordable &#10003;</p>
+<p class="p2-award">Award [1] for each relevant reason / cause explaining the selective use of carbon fibre up to [3 max]. Award a maximum of [2] where the response argues only from cost and does not address where stiffness is needed.</p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 4 &middot; 4 marks</div>
-<div class="p2-q-text">Explain why designers must consider aesthetic factors when selecting materials, in addition to mechanical and physical properties. Use examples from the chapter.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p>A product that performs perfectly mechanically but looks, feels, or sounds wrong will fail commercially. Aesthetic considerations differentiate a product from competitors and give it <strong>personality or character</strong>: influencing consumer perception, willingness to pay, and brand identity.</p>
-<p><strong>Aesthetic factors from the chapter:</strong></p>
-<ul>
-<li><strong>Wood grain</strong>: The natural pattern of timber veneer provides warmth and a crafted quality that plastic and metal cannot replicate. A designer choosing oak for luxury furniture prioritises its visual and tactile associations over moderate mechanical properties (E ≈ 11 GPa).</li>
-<li><strong>Polished marble</strong>: The reflective surface of marble conveys permanence and elegance. Hotel lobbies and monuments use it primarily for aesthetic effect, despite its weight and brittleness.</li>
-<li><strong>Brushed stainless steel</strong>: Fine directional surface scratches hide fingerprints, reduce glare, and signal precision and modernity. Common in kitchen appliances, surgical instruments, and consumer electronics.</li>
-<li><strong>Sound</strong>: The solid "thunk" of a quality car door closing signals robustness and precision engineering: this perception is engineered through panel mass and sealing material choices, not just appearance.</li>
-</ul>
-<p><strong>Important distinction</strong>: corrosion protection (galvanising, passivation, epoxy coating) is a <em>functional</em> finish, not an aesthetic one: it improves durability, not appearance. Designers must not confuse the two categories.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for explaining the commercial reason (differentiation, consumer perception, brand identity); 1 mark each for two or more specific aesthetic examples with explanation (up to 2 marks); 1 mark for correctly distinguishing aesthetic from functional finishes (corrosion protection example).</p>
 </div>
-</details>
 </div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 5 &middot; 6 marks</div>
-<div class="p2-q-text">Analyse how a designer might balance competing material selection factors when choosing a material for a sustainable product. Refer to lifecycle costs, environmental impact, availability, and manufacturability in your answer. Use a concrete product example.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p>Designers rarely find a material that excels in every category. Selection requires weighing often-conflicting factors and accepting deliberate trade-offs. Manufacturing is part of the decision too, since some materials are far easier to machine, mould or weld than others, and cost and feasibility follow from that.</p>
-<p><strong>Example product: Reusable water bottle</strong></p>
-<div class="content-table-wrap">
-<table class="content-table">
-<thead><tr><th>Factor</th><th>What it means</th><th>Trade-off example</th></tr></thead>
-<tbody>
-<tr><td><strong>Lifecycle cost</strong></td><td>Total cost from raw material extraction to disposal, not just purchase price</td><td>Stainless steel costs more upfront than plastic but lasts 10+ years, reducing replacement frequency and total lifecycle cost</td></tr>
-<tr><td><strong>Environmental impact</strong></td><td>Carbon footprint, resource use, pollution, recyclability</td><td>Bioplastic (PLA) is renewable and biodegradable but requires industrial composting facilities that may not be locally available: "biodegradable" does not mean it breaks down in landfill</td></tr>
-<tr><td><strong>Availability</strong></td><td>Local sourcing, renewability, recyclability of material</td><td>Bamboo is fast-growing and locally available in many Asian regions but must be processed with binding agents that may not be food-safe or recyclable; stainless steel is globally available and 100% recyclable</td></tr>
-<tr><td><strong>Manufacturability</strong></td><td>Ease of forming, joining, and quality control</td><td>Aluminium is easy to spin-form or extrude; glass requires high-temperature forming and is brittle during production, with higher rejection rates</td></tr>
-</tbody>
-</table>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 2 &middot; B3.1 &middot; SL and HL</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A hospital is specifying curtains for the bays around beds. The curtain must screen a patient, hang from a ceiling track, and be changed and laundered. Infection control requires curtains to be replaced or washed at 71 &deg;C on a schedule, and immediately after certain infections.</p>
+<p>Two options are under consideration.</p>
+<p><em>Table 2: Two curtain options</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th></th><th>Woven polyester, launderable</th><th>Nonwoven polypropylene, disposable</th></tr></thead><tbody>
+<tr><td>Cost per curtain</td><td>&pound;38</td><td>&pound;6</td></tr>
+<tr><td>Service life</td><td>75 wash cycles</td><td>Single use, changed every 6 months</td></tr>
+<tr><td>Wash temperature tolerated</td><td>71 &deg;C</td><td>&mdash;</td></tr>
+<tr><td>Mass</td><td>640 g</td><td>210 g</td></tr>
+<tr><td>Colour range</td><td>Wide, colourfast</td><td>Limited, fades</td></tr>
+<tr><td>End of life</td><td>Recyclable if unmixed</td><td>Incinerated as clinical waste</td></tr>
+</tbody></table></div>
 </div>
-<p><strong>Balanced recommendation: 304 stainless steel with ≥70% recycled content.</strong></p>
-<ul>
-<li><em>Lifecycle cost</em>: Higher upfront cost than plastic; lowest 10-year cost because it never needs replacement.</li>
-<li><em>Environmental impact</em>: Mitigated by recycled content (lower embodied energy than virgin steel); fully recyclable at end of life: closes the circular economy loop.</li>
-<li><em>Availability</em>: Globally available; recycled stainless steel supply chain well-established.</li>
-<li><em>Manufacturability</em>: Deep drawing, spinning, and laser welding are established for stainless steel; high-volume bottle production at competitive cost.</li>
-</ul>
-<p>This decision favours Planet (recyclability, durability, no microplastic leaching) and People (safe, non-toxic, durable) at a slightly higher Profit cost: an intentional, documented trade-off the designer can defend through both Ashby chart screening (specific strength, embodied energy) and primary research (user willingness-to-pay testing for a premium sustainable bottle).</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for each of the four factors correctly defined and illustrated with the product example (4 marks); 1 mark for a balanced, justified recommendation that explicitly acknowledges at least one trade-off; 1 mark for referencing both primary and secondary research methods or Ashby chart screening as part of the decision process.</p>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State one aesthetic characteristic in Table 2 that differs between the two options. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Describe why the ability to withstand 71 &deg;C is a required property rather than a desirable one, see Table 2. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Justify a material selection for a hospital replacing curtains across 400 beds, see Table 2. <strong>[3]</strong></p>
 </div>
-</details>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Colour range: the polyester is wide and colourfast, the polypropylene limited and prone to fading.</p>
+<p><strong>(b)</strong> The wash temperature is set by infection control to kill organisms on the fabric, so a material that cannot survive 71 &deg;C cannot be decontaminated by the process the hospital uses. That makes it a requirement the material either meets or fails, with no partial credit, because a curtain that degrades in the wash is not a slightly worse curtain, it is one that cannot be put back into a clinical area.</p>
+<p><strong>(c)</strong> The launderable polyester is the better selection for a hospital of this size. On unit cost the disposable looks far cheaper at £6 against £38, but the comparison that matters is cost per year in service, and 75 wash cycles against a six month replacement means the polyester is reused many times over while the polypropylene is bought again twice a year across all 400 beds. The polyester also meets the 71 &deg;C requirement, so it can be decontaminated on demand after an infection rather than only on a schedule, which is the clinically important capability. Its colourfastness matters more than it appears to, because a faded curtain in a ward reads as neglect to patients and families and affects confidence in the ward's cleanliness. The disposable option wins on immediate handling, since it is a third of the mass and needs no laundry contract, and it would be the right choice for a temporary facility or an outbreak, but for a permanent 400 bed hospital its whole-life cost and the incineration of every curtain as clinical waste make it the weaker selection.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; Colour range / colourfastness &#10003;<br>&bull; Texture, woven against nonwoven &#10003;<br>&bull; Appearance over time, fading &#10003;</p>
+<p class="p2-award">Award [1] for one aesthetic characteristic supported by Table 2 up to [1 max]. Do not credit cost, mass or service life.</p>
+<p><strong>(b)</strong> Materials are selected for specific applications based on their properties, and some properties are set by regulation rather than by preference.<br>
+&bull; The temperature is set by infection control to kill organisms on the fabric &#10003;<br>
+&bull; A material that cannot survive 71 &deg;C cannot be decontaminated by the hospital's process &#10003;<br>
+&bull; The requirement is binary: the material either withstands it or is unusable &#10003;<br>
+&bull; A curtain that degrades in the wash cannot be returned to a clinical area &#10003;<br>
+&bull; Patient safety depends on it, so no trade-off against cost is available &#10003;<br>
+&bull; Compliance with infection control policy is mandatory for the hospital &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why the wash temperature is a requirement rather than a preference, up to [2 max].</p>
+<p><strong>(c)</strong> The selection of materials for a specific purpose can be justified through primary and secondary research, weighing properties, aesthetics and additional factors.<br>
+Credit a justified selection of either material. Indicative content for polyester:<br>
+&bull; Unit cost is misleading; cost per year in service is the relevant comparison &#10003;<br>
+&bull; 75 wash cycles against replacement twice a year favours polyester across 400 beds &#10003;<br>
+&bull; It meets the 71 &deg;C requirement, so it can be decontaminated on demand after an infection &#10003;<br>
+&bull; On-demand decontamination is the clinically important capability &#10003;<br>
+&bull; Colourfastness matters because a faded curtain reads as neglect and affects confidence in cleanliness &#10003;<br>
+&bull; Recyclable if unmixed, against incineration of every disposable curtain as clinical waste &#10003;<br>
+Indicative content for polypropylene:<br>
+&bull; A third of the mass, so easier and faster for staff to change &#10003;<br>
+&bull; No laundry contract, transport or storage of soiled curtains &#10003;<br>
+&bull; No risk of a curtain being returned to service inadequately washed &#10003;<br>
+&bull; Appropriate for a temporary facility or during an outbreak &#10003;<br>
+&bull; Low capital outlay, which suits a constrained budget &#10003;</p>
+<p class="p2-award">Award [1] for each valid reason / piece of evidence supporting the selection made up to [3 max]. Credit either selection provided it is justified from Table 2. Award a maximum of [2] where the response argues only from unit cost.</p>
+</div>
+</div>
 </div>
 
+<div class="p2-question">
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 3 &middot; B3.1 &middot; SL and HL</span><span class="p2-marks">10 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 1</span>
+<p>A company is designing a reusable coffee cup sold to commuters. It must be carried in a bag, hold 340 ml at 90 &deg;C, survive being dropped on a pavement, and be washed in a dishwasher for at least two years.</p>
+<p>The lid is a separate part with a sliding closure.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(a)</strong> Identify two properties the cup body material must have. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 2</span>
+<p><em>Table 3: Candidate materials for the cup body</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Property</th><th>Borosilicate glass</th><th>Stainless steel</th><th>Polypropylene</th><th>Bamboo fibre composite</th></tr></thead><tbody>
+<tr><td>Density (kg/m&sup3;)</td><td>2230</td><td>7900</td><td>905</td><td>1300</td></tr>
+<tr><td>Thermal conductivity (W/m&nbsp;K)</td><td>1.1</td><td>16</td><td>0.2</td><td>0.3</td></tr>
+<tr><td>Impact resistance</td><td>Poor</td><td>Excellent</td><td>Good</td><td>Moderate</td></tr>
+<tr><td>Dishwasher safe</td><td>Yes</td><td>Yes</td><td>Yes, may warp</td><td>No, delaminates</td></tr>
+<tr><td>Taste transfer</td><td>None</td><td>None</td><td>Absorbs over time</td><td>Absorbs</td></tr>
+<tr><td>Relative cost</td><td>2</td><td>4</td><td>1</td><td>2</td></tr>
+</tbody></table></div>
+</div>
+<div class="p2-q-text">
+<p><strong>(b)</strong> Outline why bamboo fibre composite fails the specification, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 3</span>
+<p>The marketing team wants the cup to look and feel like a ceramic café cup, and wants the drink to be visible. It also wants the outside of the cup to be comfortable to hold without a sleeve.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(c)</strong> Describe the conflict between the marketing requirements and the properties in Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 4</span>
+<p>The company must choose one material and commit to a mould or forming tool. It sells through commuter rail stations, and its stated position is that a reusable cup is only worth making if it displaces enough disposable cups to justify its own manufacture.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(d)</strong> Explain how the company should weigh the competing factors in selecting the cup body material, see Table 3. <strong>[4]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Impact resistance, to survive being dropped on a pavement, and resistance to hot water and detergent, to survive repeated dishwasher cycles.</p>
+<p><strong>(b)</strong> It is not dishwasher safe and delaminates, which fails the requirement to be washed for two years, and because the fibres absorb flavours the cup would taste of yesterday's coffee. Both are failures against stated requirements rather than weaknesses to be traded off, so the material is eliminated regardless of how it performs elsewhere.</p>
+<p><strong>(c)</strong> Visibility of the drink requires a transparent body, which among these materials means only borosilicate glass, and glass has poor impact resistance, which conflicts directly with surviving a drop on a pavement. A comfortable outside surface requires low thermal conductivity, and stainless steel at 16 W/m&nbsp;K is by far the worst on that measure while being the only material with excellent impact resistance, so the two marketing requirements point at opposite ends of the table.</p>
+<p><strong>(d)</strong> The decision should start by separating requirements from preferences, because the two are not tradeable against each other.</p>
+<p>Dishwasher survival and taste neutrality are requirements, and they eliminate bamboo composite outright and put polypropylene under serious doubt, since it may warp and absorbs flavour over time. A cup that tastes stale after six months does not get carried, and a cup that is not carried displaces no disposables, which defeats the company's own stated purpose. That leaves glass and steel.</p>
+<p>Between those, the deciding factor is which failure the product cannot survive. Glass gives the marketing team everything it wants: it is transparent, it feels like ceramic, and at 1.1 W/m&nbsp;K it is far more comfortable to hold than steel. Its impact resistance is poor, and a commuter cup is carried in a bag on a rush hour platform, so being dropped is not an edge case but a normal event. A cup that breaks in the first month is worse environmentally than a disposable, because its manufacture is amortised over almost no uses.</p>
+<p>Steel is the opposite trade. It survives everything, it is taste neutral, it is dishwasher safe, and at four times the cost of polypropylene it is the most expensive option, which raises the purchase price and so reduces how many people buy one. Its real weakness is that 16 W/m&nbsp;K makes the outside too hot to hold, and it hides the drink.</p>
+<p>Steel is the correct selection, because the thermal problem is solvable within the design and the impact problem is not. A double wall, a silicone band or a formed grip fixes the heat without changing the material, whereas nothing in the design can make glass survive a pavement. The company should accept the higher cost and the loss of visibility, since the decisive test is how many uses the cup actually delivers, and a cup that survives two years of commuting displaces enough disposables to justify itself while a broken one does not.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> Materials are selected for specific applications based on their properties.<br>
+&bull; Impact resistance / toughness &#10003;<br>&bull; Resistance to hot water and detergent &#10003;<br>&bull; Low thermal conductivity &#10003;<br>&bull; Food safety / non-toxicity &#10003;<br>&bull; Low density &#10003;<br>&bull; Resistance to staining or taste transfer &#10003;<br>&bull; Thermal stability at 90 &deg;C &#10003;</p>
+<p class="p2-award">Award [1] for each relevant property identified up to [2 max].</p>
+<p><strong>(b)</strong> &bull; It is not dishwasher safe and delaminates &#10003;<br>
+&bull; The specification requires dishwasher washing for at least two years &#10003;<br>
+&bull; The fibres absorb flavours, so the cup would taste of previous drinks &#10003;<br>
+&bull; Impact resistance is only moderate, against a requirement to survive a drop &#10003;<br>
+&bull; These are failures against stated requirements, not weaknesses to be traded off &#10003;<br>
+&bull; The material is therefore eliminated regardless of its other properties &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on why bamboo fibre composite fails up to [2 max]. Credit responses that distinguish a failed requirement from a poor score.</p>
+<p><strong>(c)</strong> Materials are selected based on aesthetic characteristics as well as properties, and the two can conflict.<br>
+&bull; Visibility of the drink requires transparency, which among these materials means glass only &#10003;<br>
+&bull; Glass has poor impact resistance, conflicting with surviving a drop on a pavement &#10003;<br>
+&bull; A comfortable outer surface requires low thermal conductivity &#10003;<br>
+&bull; Stainless steel at 16 W/m&nbsp;K is the worst on that measure &#10003;<br>
+&bull; Steel is also the only material with excellent impact resistance &#10003;<br>
+&bull; The two marketing requirements therefore point at opposite ends of the table &#10003;<br>
+&bull; A ceramic feel suggests glass or a coated surface rather than bare metal &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of the conflict, up to [2 max]. The response must connect a marketing requirement to a property in Table 3.</p>
+<p><strong>(d)</strong> Additional factors influence the selection and application of materials in a specific context, and selection is justified by weighing them against the design's purpose.<br>
+Separate requirements from preferences:<br>
+&bull; Dishwasher survival and taste neutrality are requirements, not tradeable against cost or looks &#10003;<br>
+&bull; These eliminate bamboo composite and cast doubt on polypropylene, which may warp and absorbs flavour &#10003;<br>
+&bull; A cup that tastes stale is not carried, and a cup not carried displaces no disposables &#10003;<br>
+&bull; That defeats the company's own stated justification for the product &#10003;<br>
+The glass case:<br>
+&bull; Transparent, ceramic-like, and at 1.1 W/m&nbsp;K comfortable to hold &#10003;<br>
+&bull; Delivers every marketing requirement &#10003;<br>
+&bull; Poor impact resistance against a product carried in a bag on a rush hour platform &#10003;<br>
+&bull; Being dropped is a normal event for this product, not an edge case &#10003;<br>
+&bull; A cup broken in month one is environmentally worse than a disposable, since manufacture is amortised over almost no uses &#10003;<br>
+The steel case:<br>
+&bull; Excellent impact resistance, taste neutral and dishwasher safe &#10003;<br>
+&bull; Four times the cost of polypropylene, raising price and reducing uptake &#10003;<br>
+&bull; 16 W/m&nbsp;K makes the outside uncomfortable to hold &#10003;<br>
+&bull; Opaque, so the drink is not visible &#10003;<br>
+&bull; Highest density at 7900 kg/m&sup3;, so the heaviest to carry &#10003;<br>
+The deciding principle:<br>
+&bull; Choose the material whose weakness the design can compensate for &#10003;<br>
+&bull; A double wall, silicone band or formed grip solves the heat without changing material &#10003;<br>
+&bull; Nothing in the design can make glass survive a pavement &#10003;<br>
+&bull; The decisive measure is uses delivered, since that is what displaces disposables &#10003;</p>
+<p class="p2-award">Award [1] for each relevant detail / reason / cause relating to how the competing factors should be weighed up to [4 max]. Credit any selection that is justified. Award a maximum of [3] where the response does not weigh at least two materials against each other. Credit responses that relate the choice to the company's stated purpose.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 

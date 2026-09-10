@@ -661,99 +661,222 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example, then compare your approach, not just the content.</div>
+<div class="p2-intro">Every Paper 2 question is attached to a product. Nothing here can be answered from memory alone: read the case study first, then answer the parts in order. The tariff tells you how many creditable points to make, and the command term tells you what kind of point counts. Numerical work appears under the command term <strong>Apply</strong>, which is how the specimen paper sets calculation: you apply a principle to the case study and state what the result means. Write your answer before you open either panel, then mark yourself against the markscheme rather than against the example. This topic is HL only.</div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 1 &middot; 3.4.2 Test Equipment &middot; 4 marks</div>
-<div class="p2-q-text">Explain the difference between measuring voltage, current, and resistance with a digital multimeter (DMM). For each measurement, describe the correct connection method and any circuit modifications required.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Voltage:</strong> The voltmeter probes are connected in <strong>parallel</strong> across the two points being measured. No circuit interruption is required: the meter has very high internal resistance so that almost no current flows through it and the circuit is not disturbed. The black probe connects to COM; the red probe to the V terminal.</p>
-<p><strong>Current:</strong> The meter must be connected in <strong>series</strong>: the circuit must be broken and the meter inserted into the break so that the full circuit current flows through it. The power must be switched off before breaking the circuit, then restored for the reading. The black probe connects to COM; the red probe to the A (or mA) terminal. Caution: connecting a current meter in parallel will short-circuit the component.</p>
-<p><strong>Resistance:</strong> The component to be measured must be <strong>removed from the circuit</strong> entirely. If left in circuit, parallel current paths will give a false reading. The dial is set to Ω; the meter sends its own small test current from its internal battery through the component and calculates resistance from the resulting voltage drop. The reading is meaningless if other components remain connected in parallel.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 1 &middot; B3.4 &middot; HL only</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A bicycle rear light runs from a single lithium cell and must stay visible for a long ride. The designer must set the current through the LED with a series resistor.</p>
+<p><em>Table 1: Rear light circuit</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>
+<tr><td>Supply voltage</td><td>3.7 V</td></tr>
+<tr><td>LED forward voltage</td><td>2.1 V</td></tr>
+<tr><td>Series resistor</td><td>80 &Omega;</td></tr>
+<tr><td>Cell capacity</td><td>500 mAh</td></tr>
+<tr><td>LED maximum continuous current</td><td>30 mA</td></tr>
+</tbody></table></div>
 </div>
-</details>
-</div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 2 &middot; 3.4.4 Resistors &amp; Capacitors &middot; 6 marks</div>
-<div class="p2-q-text">A technician suspects that contact bounce from a mechanical switch is causing erratic logic gate outputs in a digital circuit.<br><br>a) Explain what contact bounce is and why it causes problems in digital circuits.<br>b) Describe how an RC circuit can be used to eliminate contact bounce.<br>c) Explain whether a low-pass or high-pass filter configuration is appropriate and why.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>a) Contact bounce:</strong> When a mechanical switch closes, the spring contacts do not make a single clean connection. Instead, they bounce or vibrate against each other for several milliseconds before settling. This produces a rapid series of 1s and 0s at the logic gate input instead of one clean transition from 0 to 1. The circuit cannot tell the difference between bounce and several deliberate presses, so it responds to all of them. A counter, for example, might advance five or six times when the user pressed the button once.</p>
-<p><strong>b) RC circuit solution:</strong> A resistor-capacitor (RC) circuit is placed between the switch output and the logic gate input. When the switch closes, the capacitor does not charge instantly: it charges through the resistor at a rate determined by the time constant τ = R × C. The output voltage rises smoothly from 0 V toward the supply voltage rather than jumping immediately. This smooth rise filters out the rapid spikes caused by bouncing. By the time the voltage crosses the logic gate's switching threshold, the contacts have settled and a clean transition is presented to the gate.</p>
-<p><strong>c) Low-pass filter:</strong> A <strong>low-pass</strong> filter configuration is appropriate: resistor in series, capacitor in parallel with the output. A low-pass filter passes slow (low-frequency) signals and attenuates fast (high-frequency) signals. The intended switch closure is a slow event (the user presses the button over tens of milliseconds); the bounce spikes are fast events (milliseconds). The RC filter smooths away the fast spikes while still allowing the slow, intended transition to reach the logic gate. A high-pass filter would do the opposite: it would block the intended slow signal and pass the fast bounce spikes, which is exactly what must be avoided.</p>
-</div>
-</details>
-</div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 3 &middot; 3.4.2 Test Equipment &middot; 5 marks</div>
-<div class="p2-q-text">A digital storage oscilloscope (DSO) and a multimeter are both available to a technician.<br><br>a) What can a DSO show that a multimeter cannot?<br>b) Give three examples of signal abnormalities that a DSO can reveal.<br>c) Why might a technician use both instruments rather than relying on one alone?</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>a) What a DSO shows that a multimeter cannot:</strong> A DSO visualises voltage as a waveform over time, displaying voltage on the vertical axis and time on the horizontal axis. It captures the shape, frequency, period, and timing of a signal. A multimeter (even a high-quality digital model) only displays a single numerical value (RMS voltage, average current, or resistance). It cannot reveal signal shape, timing relationships, or transient events.</p>
-<p><strong>b) Three signal abnormalities a DSO can reveal:</strong></p>
-<ol>
-<li><strong>Ringing</strong>: damped oscillations that appear after a sharp rising or falling edge, indicating impedance mismatches. These can cause false triggering in digital circuits.</li>
-<li><strong>Distorted rising/falling edges</strong>: an edge that slopes too slowly suggests a slow component, excessive load capacitance, or a weak driver circuit.</li>
-<li><strong>Incorrect amplitude</strong>: a signal whose high level is too low or low level is too high reduces noise margins and may indicate a faulty power supply or excessive current draw.</li>
-</ol>
-<p><strong>c) Why use both:</strong> The multimeter excels at steady-state DC measurements (precise voltage levels, continuity checking, and resistance values) quickly and portably. The DSO excels at dynamic, time-varying signals: capturing transients, measuring frequency and duty cycle, and debugging communication timing. The instruments complement each other: use the multimeter first to verify that power supply voltages are correct and there are no short circuits, then use the DSO to verify signal integrity and timing. A function generator paired with the DSO allows a technician to inject a known test signal and observe the circuit's response: a powerful combination for diagnosing filters, amplifiers and logic circuits.</p>
-</div>
-</details>
-</div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 4 &middot; 3.4.4 Resistors &amp; Capacitors &middot; 4 marks</div>
-<div class="p2-q-text">Calculate the total resistance for each of the following resistor configurations. Show all working.<br><br>a) Three resistors in series: 100 Ω, 220 Ω, and 330 Ω.<br>b) Two resistors in parallel: 100 Ω and 100 Ω.<br>c) Two resistors in parallel: 47 Ω and 47 Ω.<br>d) A combination circuit: a 100 Ω resistor in series with two 50 Ω resistors connected in parallel with each other.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>a) Series:</strong><br>R_total = 100 + 220 + 330 = <strong>650 Ω</strong></p>
-<p><strong>b) Two equal resistors in parallel (100 Ω ∥ 100 Ω):</strong><br>R_total = R / n = 100 / 2 = <strong>50 Ω</strong><br><em>Verification:</em> 1/R_total = 1/100 + 1/100 = 0.02; R_total = 1/0.02 = 50 Ω ✓</p>
-<p><strong>c) Two equal resistors in parallel (47 Ω ∥ 47 Ω):</strong><br>R_total = 47 / 2 = <strong>23.5 Ω</strong></p>
-<p><strong>d) Combination (100 Ω in series with 50 Ω ∥ 50 Ω):</strong><br>Step 1 (resolve the parallel branch first): R_parallel = 50 / 2 = 25 Ω<br>Step 2 (add the series resistor): R_total = 100 + 25 = <strong>125 Ω</strong></p>
-<div class="content-table-wrap">
-<table class="content-table">
-<thead><tr><th>Configuration</th><th>Result</th></tr></thead>
-<tbody>
-<tr><td>Series: 100 + 220 + 330</td><td>650 Ω</td></tr>
-<tr><td>Parallel: 100 ∥ 100</td><td>50 Ω</td></tr>
-<tr><td>Parallel: 47 ∥ 47</td><td>23.5 Ω</td></tr>
-<tr><td>Combination: 100 + (50 ∥ 50)</td><td>125 Ω</td></tr>
-</tbody>
-</table>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the purpose of the series resistor in this circuit, see Table 1. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Apply Ohm's law to determine the current through the LED, see Table 1. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Explain why the light flashes rather than shining continuously, see Table 1. <strong>[3]</strong></p>
 </div>
 </div>
-</details>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> To limit the current through the LED to a safe value.</p>
+<p><strong>(b)</strong> The resistor drops 3.7 &minus; 2.1 = 1.6 V. Current = V &divide; R = 1.6 &divide; 80 = 0.02 A, so 20 mA. That is below the LED's 30 mA maximum, so the resistor value is safe.</p>
+<p><strong>(c)</strong> At 20 mA a 500 mAh cell would last about 25 hours of continuous running, and a light that has to be recharged after a few night rides will be found flat when it is needed. Flashing at a low duty cycle, for example on for a tenth of the time, cuts the mean current to about 2 mA and extends the life to hundreds of hours, which is what turns the light into something a rider can leave on the bike. The reason this works without losing the light's function is that visibility does not depend on the light being on continuously. A driver has to notice the light, and a changing source draws the eye far more effectively than a constant one of the same brightness, so a flashing light is actually more conspicuous while using a fraction of the energy. Flashing also allows the LED to be driven harder during each pulse than its continuous rating permits, because it has time to cool between pulses, so the peak brightness can exceed what 30 mA would allow continuously.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; To limit the current through the LED &#10003;<br>&bull; To protect the LED from excessive current &#10003;<br>&bull; To drop the surplus supply voltage &#10003;</p>
+<p class="p2-award">Award [1] for the correct purpose up to [1 max].</p>
+<p><strong>(b)</strong> Voltage in a circuit is calculated by a combination of current and resistance.<br>
+&bull; Voltage across the resistor = 3.7 &minus; 2.1 = 1.6 V &#10003;<br>
+&bull; I = V &divide; R = 1.6 &divide; 80 = 0.02 A = 20 mA &#10003;<br>
+&bull; 20 mA is below the 30 mA maximum, so the value is safe &#10003;</p>
+<p class="p2-award">Award [1] for the correct voltage across the resistor and [1] for the correct current, up to [2 max]. Do not credit 3.7 &divide; 80, which ignores the LED forward voltage.</p>
+<p><strong>(c)</strong> Electronic systems utilise output devices to perform a function in response to an initial stimulus.<br>
+&bull; At 20 mA a 500 mAh cell lasts about 25 hours of continuous running &#10003;<br>
+&bull; A light needing recharging after a few night rides will be found flat when needed &#10003;<br>
+&bull; Flashing at a low duty cycle cuts the mean current &#10003;<br>
+&bull; On for a tenth of the time gives about 2 mA mean, extending life to hundreds of hours &#10003;<br>
+&bull; That makes the light something a rider can leave on the bike &#10003;<br>
+&bull; Visibility does not require the light to be on continuously &#10003;<br>
+&bull; A changing source draws the eye more effectively than a constant one of equal brightness &#10003;<br>
+&bull; A flashing light is more conspicuous while using less energy &#10003;<br>
+&bull; The LED can be driven above its continuous rating during each pulse &#10003;<br>
+&bull; It cools between pulses, so peak brightness can exceed what 30 mA allows continuously &#10003;</p>
+<p class="p2-award">Award [1] for each relevant reason / cause explaining why the light flashes up to [3 max]. Credit both the energy argument and the conspicuity argument.</p>
+</div>
+</div>
 </div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 5 &middot; 3.4.3 &amp; 3.4.11 Calculations and Protocols &middot; 6 marks</div>
-<div class="p2-q-text">A battery-powered soil moisture sensor is being designed for a garden. It runs from a 5 V supply and sends readings to a phone.<br><br>a) The sensor's indicator LED is driven through a 220 &Omega; resistor. Calculate the current through the LED and the power dissipated by the resistor.<br><br>b) The designer must choose between Bluetooth, Wi-Fi and 5G to send the readings. Recommend one and justify your choice.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>a) Current:</strong><br>I = V / R = 5 / 220 = 0.0227 A = <strong>22.7 mA</strong></p>
-<p><strong>Power in the resistor:</strong><br>P = V &times; I = 5 &times; 0.0227 = <strong>0.114 W</strong>, or about 114 mW. Using P = V&sup2; / R gives the same result: 25 / 220 = 0.114 W. A standard 0.25 W resistor is therefore adequate.</p>
-<p><em>Note:</em> this is a simplified calculation that ignores the LED's own forward voltage. Taking a typical forward voltage of 2 V, the resistor would drop only 3 V, giving I = 3 / 220 = 13.6 mA. Either method earns the marks if the working is shown and the assumption is stated.</p>
-<p><strong>b) Recommended protocol: Bluetooth.</strong></p>
-<ul>
-<li><strong>Power:</strong> the product runs on a battery in a garden, and Bluetooth uses far less power than Wi-Fi or 5G. This is the deciding factor, because battery life determines how often the user has to maintain the product.</li>
-<li><strong>Range:</strong> Bluetooth reaches about 10 m, which is enough to reach a phone held nearby when the user checks the reading.</li>
-<li><strong>Infrastructure:</strong> Bluetooth is peer to peer and needs no router or network subscription, so the product works in a garden with no Wi-Fi coverage.</li>
-<li><strong>Why not the others:</strong> Wi-Fi would allow readings to be uploaded continuously but needs an access point and drains the battery faster. 5G offers far more range and speed than this product needs, at the highest power cost and with a subscription attached.</li>
-</ul>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct current with unit; 1 mark for correct power with unit; 1 mark for a stated assumption or correct use of an alternative power formula; 1 mark for naming a suitable protocol; 2 marks for justification referring to at least two of power, range and infrastructure.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 2 &middot; B3.4 &middot; HL only</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A refrigerator sounds an alarm if the door is left open. It must sound only when the door has been open for more than 45 seconds, and must not sound while the door is being opened and closed normally.</p>
+<p>A reed switch on the door frame gives a logic HIGH when the door is open.</p>
+<p><em>Table 2: Alarm system elements</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Element</th><th>Component</th><th>Signal</th></tr></thead><tbody>
+<tr><td>Input</td><td>Reed switch and magnet</td><td>Digital, HIGH when open</td></tr>
+<tr><td>Input</td><td>Thermistor in cabinet</td><td>Analogue</td></tr>
+<tr><td>Process</td><td>Timer and logic gate</td><td>&mdash;</td></tr>
+<tr><td>Output</td><td>Piezo sounder</td><td>3 V, 15 mA</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the logic gate needed to sound the alarm only when the door is open <em>and</em> the timer has elapsed, see Table 2. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Describe why a timer is required between the reed switch and the sounder, see Table 2. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Justify driving the piezo sounder directly from a microcontroller pin rather than through a relay, see Table 2. <strong>[3]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> An AND gate.</p>
+<p><strong>(b)</strong> Without a timer the alarm would sound the instant the door opened, which is every time anyone takes anything out, so a signal meant to indicate a fault would accompany normal use and be ignored. The timer distinguishes the two states by duration: opening for a few seconds is normal, and remaining open past 45 seconds is a fault, and duration is the only thing separating them since the switch reads identically in both cases.</p>
+<p><strong>(c)</strong> A relay exists to bridge a gap between what a pin can supply and what a load needs, and here there is no gap. The sounder draws 15 mA at 3 V, which a microcontroller pin supplies directly, so a relay would be a component added to solve a problem the circuit does not have. Adding it would make the product worse in several ways: the relay itself draws more current than the sounder it switches, which matters in a device that runs continuously for years, and it is an electromechanical part with contacts that wear, so it would become the least reliable component in an otherwise solid-state circuit. It also costs more and takes board space in an appliance made in high volume. The isolation a relay provides is unnecessary because there is no mains voltage on the output side, and driving the piezo directly has a positive advantage as well, since the pin can be switched rapidly to generate the tone rather than needing a separate oscillator.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> Digital systems use logic to compare input data.<br>
+&bull; AND &#10003;</p>
+<p class="p2-award">Award [1] for the correct logic gate up to [1 max].</p>
+<p><strong>(b)</strong> Digital systems at the second stage of the input-process-output model use control circuits to monitor and control.<br>
+&bull; Without a timer the alarm sounds the instant the door opens &#10003;<br>
+&bull; That is every time anyone takes anything out &#10003;<br>
+&bull; A fault signal accompanying normal use would be ignored by the user &#10003;<br>
+&bull; The timer distinguishes the two states by duration &#10003;<br>
+&bull; Opening for a few seconds is normal; staying open past 45 s is a fault &#10003;<br>
+&bull; The switch reads identically in both cases, so duration is the only distinguishing information &#10003;<br>
+&bull; It also prevents nuisance alarms from switch bounce as the door closes &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why a timer is required, up to [2 max].</p>
+<p><strong>(c)</strong> Electronic systems utilise output devices to perform a function, and interface components are selected to match the load.<br>
+&bull; A relay bridges a gap between pin capability and load demand &#10003;<br>
+&bull; The sounder draws 15 mA at 3 V, which a pin supplies directly &#10003;<br>
+&bull; There is no gap, so a relay solves a problem the circuit does not have &#10003;<br>
+&bull; A relay coil draws more current than the sounder it switches &#10003;<br>
+&bull; That matters in an appliance running continuously for years &#10003;<br>
+&bull; A relay is electromechanical with contacts that wear &#10003;<br>
+&bull; It would be the least reliable component in an otherwise solid-state circuit &#10003;<br>
+&bull; It costs more and takes board space in a high volume product &#10003;<br>
+&bull; Isolation is unnecessary, since there is no mains voltage on the output side &#10003;<br>
+&bull; A directly driven pin can be switched rapidly to generate the tone &#10003;<br>
+&bull; No separate oscillator is then required &#10003;</p>
+<p class="p2-award">Award [1] for each valid reason / piece of evidence justifying direct drive up to [3 max]. Award a maximum of [2] where the response does not compare the load with the pin's capability.</p>
+</div>
+</div>
 </div>
 
-
+<div class="p2-question">
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 3 &middot; B3.4 &middot; HL only</span><span class="p2-marks">10 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 1</span>
+<p>A beekeeper wants to monitor hives remotely. Opening a hive to inspect it chills the colony and disturbs the bees, so a monitor that reports on the colony without opening it would reduce the number of inspections needed.</p>
+<p>Hives stand in fields with no mains power and no reliable phone signal.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(a)</strong> Identify two input devices that would report usefully on a colony without the hive being opened. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 2</span>
+<p><em>Table 3: Monitor specification</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Element</th><th>Component</th><th>Detail</th></tr></thead><tbody>
+<tr><td>Input</td><td>Load cell under the hive</td><td>Analogue, 0&ndash;200 kg</td></tr>
+<tr><td>Input</td><td>Temperature and humidity sensor</td><td>Digital, in the brood box</td></tr>
+<tr><td>Process</td><td>Microcontroller</td><td>Sleeps between readings</td></tr>
+<tr><td>Output</td><td>Radio transmitter</td><td>Sends once per hour</td></tr>
+<tr><td>Power</td><td>Solar panel and cell</td><td>2 W panel, 6600 mAh cell</td></tr>
+</tbody></table></div>
+</div>
+<div class="p2-q-text">
+<p><strong>(b)</strong> Outline what a change in the load cell reading tells the beekeeper, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 3</span>
+<p>The microcontroller spends most of each hour asleep, drawing a few microamps, waking briefly to take a reading and transmit.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(c)</strong> Describe why the microcontroller sleeps between readings, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 4</span>
+<p>The designer must choose how the monitor sends its data. Wi-Fi needs a nearby access point. A mobile connection needs signal and a monthly subscription per hive. A long-range low-power radio can reach several kilometres to a single receiver at the beekeeper's house, but sends only small amounts of data.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(d)</strong> Explain which communication method should be selected, see Table 3. <strong>[4]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> A load cell under the hive to weigh it, and a temperature sensor in the brood box.</p>
+<p><strong>(b)</strong> A steady rise through the day means the bees are bringing in nectar, so the colony is foraging and the flow is on, and a rise fast enough to fill the box tells the beekeeper to add another before the bees run out of room. A fall means the colony is consuming stores rather than gathering, and a sudden large drop means the hive has swarmed or been stolen or knocked over.</p>
+<p><strong>(c)</strong> The monitor runs from a 2 W panel in a field, and a microcontroller drawing its full running current continuously would flatten a 6600 mAh cell in a few days and could not be recharged through winter or a run of dull weather. Sleeping at a few microamps means the device draws almost nothing for the 59 minutes an hour when it has nothing to do, so the average current is set by the brief wake period, and the cell lasts through periods when the panel generates almost nothing.</p>
+<p><strong>(d)</strong> The long-range low-power radio is the correct selection, because the constraints in this application are exactly the ones it is designed for.</p>
+<p>Wi-Fi fails first. It needs an access point within a few tens of metres, and the hives are in fields, so there is nothing to connect to. Even if a link could be arranged, Wi-Fi is power hungry, and a device on a 2 W panel cannot afford a radio that draws heavily every time it associates with a network.</p>
+<p>A mobile connection is technically workable but poorly matched. The case study says signal is unreliable, and a monitor that reports only when the network happens to be available is worth little, since the events the beekeeper cares about are exactly the ones needing prompt action. The subscription per hive is the bigger objection, because a beekeeper with twenty hives pays twenty subscriptions forever, and the monitor's value is saving inspections rather than generating income.</p>
+<p>The low-power radio matches every constraint. Several kilometres covers hives in fields around a beekeeper's house, one receiver serves every hive so there is no cost per unit, and there is no subscription at all. Its limitation, that it sends only small amounts of data, costs nothing here: the payload is a weight, a temperature and a humidity figure once an hour, which is a few bytes. Low power is not merely acceptable but necessary, since the transmitter is the largest single consumer in the device and cutting its energy is what makes the solar budget work.</p>
+<p>The design should therefore use the low-power radio, with the receiver at the house handling the internet connection. That puts the mains-powered part where mains power exists and keeps every hive-mounted unit cheap, subscription-free and within its energy budget.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> Digital systems at the first stage of the input-process-output model use inputs to sense changes in their environment.<br>
+&bull; Load cell to weigh the hive &#10003;<br>&bull; Temperature sensor in the brood box &#10003;<br>&bull; Humidity sensor &#10003;<br>&bull; Microphone to detect colony sound &#10003;<br>&bull; Accelerometer to detect the hive being knocked or moved &#10003;<br>&bull; Infrared beam counting bees at the entrance &#10003;</p>
+<p class="p2-award">Award [1] for each relevant input device up to [2 max]. The device must work without the hive being opened.</p>
+<p><strong>(b)</strong> Electronic systems utilise input devices to identify a change in an environment that requires a response.<br>
+&bull; A steady rise through the day means nectar is being brought in &#10003;<br>
+&bull; The colony is foraging and the nectar flow is on &#10003;<br>
+&bull; A fast rise warns that another box is needed before the bees run out of room &#10003;<br>
+&bull; A fall means the colony is consuming stores rather than gathering &#10003;<br>
+&bull; A sustained fall in winter tracks stores and warns of starvation &#10003;<br>
+&bull; A sudden large drop indicates a swarm, theft, or the hive being knocked over &#10003;<br>
+&bull; The trend matters more than the absolute value &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on what a weight change indicates up to [2 max]. Credit both rising and falling interpretations.</p>
+<p><strong>(c)</strong> Electronic systems are designed so that they may be used responsibly, including managing their energy consumption.<br>
+&bull; The monitor runs from a 2 W panel in a field with no mains &#10003;<br>
+&bull; Continuous running would flatten a 6600 mAh cell in a few days &#10003;<br>
+&bull; It could not be recharged through winter or a run of dull weather &#10003;<br>
+&bull; Sleeping at a few microamps draws almost nothing for 59 minutes of each hour &#10003;<br>
+&bull; Average current is set by the brief wake period &#10003;<br>
+&bull; The cell then lasts through periods when the panel generates little &#10003;<br>
+&bull; Hourly readings are frequent enough for the events being monitored &#10003;<br>
+&bull; It also allows a smaller cell and panel, reducing cost per hive &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why the microcontroller sleeps, up to [2 max].</p>
+<p><strong>(d)</strong> Digital systems at the third stage of the input-process-output model use the output to communicate to or control their environment.<br>
+Rejecting Wi-Fi:<br>
+&bull; Needs an access point within a few tens of metres &#10003;<br>
+&bull; The hives are in fields, so there is nothing to connect to &#10003;<br>
+&bull; Wi-Fi draws heavily on every association, which the 2 W panel cannot support &#10003;<br>
+Rejecting mobile:<br>
+&bull; Signal is stated to be unreliable at the hive sites &#10003;<br>
+&bull; A monitor reporting only when the network allows is worth little &#10003;<br>
+&bull; The events the beekeeper cares about are the ones needing prompt action &#10003;<br>
+&bull; A subscription per hive multiplies across twenty hives, forever &#10003;<br>
+&bull; The monitor saves inspections rather than generating income, so recurring cost is hard to justify &#10003;<br>
+Selecting the low-power radio:<br>
+&bull; Several kilometres covers hives in fields around the beekeeper's house &#10003;<br>
+&bull; One receiver serves every hive, so there is no cost per unit &#10003;<br>
+&bull; No subscription at all &#10003;<br>
+&bull; The small payload limit costs nothing, since a reading is a few bytes &#10003;<br>
+&bull; Low power is necessary, not merely acceptable &#10003;<br>
+&bull; The transmitter is the largest single consumer, so its energy decides the solar budget &#10003;<br>
+System design:<br>
+&bull; The receiver at the house handles the internet connection &#10003;<br>
+&bull; That puts the mains-powered part where mains power exists &#10003;<br>
+&bull; Every hive-mounted unit stays cheap and within its energy budget &#10003;</p>
+<p class="p2-award">Award [1] for each relevant detail / reason / cause supporting the selection up to [4 max]. Credit a justified selection of any method. Award a maximum of [3] where the response does not weigh at least two options against the constraints in Table 3.</p>
+</div>
+</div>
+</div>
 </div>
 </div><!-- /paper2 -->
 

@@ -797,106 +797,218 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 requires extended written responses. Write your answer before revealing the example, then compare your approach, not just the content.</div>
+<div class="p2-intro">Every Paper 2 question is attached to a product. Nothing here can be answered from memory alone: read the case study first, then answer the parts in order. The tariff tells you how many creditable points to make, and the command term tells you what kind of point counts. Write your answer before you open either panel, then mark yourself against the markscheme rather than against the example.</div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 1 &middot; 1.1.4 Usability Objectives &middot; 4 marks</div>
-<div class="p2-q-text">A team is designing a fitness tracking smartwatch for users aged 65+ who may have reduced vision and hand tremors. Using <strong>two</strong> of the five usability objectives (Learnability, Efficiency, Memorability, Errors, Satisfaction), explain how each could guide specific design decisions for this product. Provide a concrete example for each.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Easy to learn (Learnability):</strong><br>
-The interface should require minimal instruction to get started. For example, the watch could have only two physical buttons: one to cycle through functions (steps, heart rate, time) and one to confirm. A short narrated audio tutorial that plays the first time the watch turns on guides the user without requiring them to read a manual, reducing frustration for users unfamiliar with complex technology.</p>
-<p><strong>Error tolerant (Errors):</strong><br>
-The design should prevent or forgive common mistakes. For example, if the user accidentally touches the screen with a shaky hand, the watch could require a 1-second long press to change any setting rather than responding to brief contact. Additionally, if the user forgets to stop a workout session, the watch could auto-detect 5 minutes of inactivity and display: "Did you finish exercising?", preventing inaccurate data recording without requiring any user action.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 1 &middot; B1.1 &middot; SL and HL</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>An airport replaced staffed check-in desks with self-service bag drop units. A passenger prints a bag tag, attaches it, places the bag on a belt, scans their boarding pass and confirms. Staff supervise several units at once.</p>
+<p>Timings were taken during the first month.</p>
+<p><em>Table 1: Observations at the bag drop units, 400 passengers</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Measure</th><th>First-time users</th><th>Repeat users</th></tr></thead><tbody>
+<tr><td>Mean time to complete</td><td>3 min 40 s</td><td>1 min 05 s</td></tr>
+<tr><td>Required staff intervention</td><td>44 %</td><td>7 %</td></tr>
+<tr><td>Attached the tag to the wrong part of the handle</td><td>31 %</td><td>4 %</td></tr>
+<tr><td>Abandoned and joined the staffed desk queue</td><td>12 %</td><td>1 %</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the usability objective most clearly failing for first-time users, see Table 1. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Describe how the 31&nbsp;% tag attachment error indicates a design fault rather than a user fault, see Table 1. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Explain why a comparison of first-time and repeat users is more useful to the design team than an overall average, see Table 1. <strong>[3]</strong></p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 2 &middot; 1.1.5 Task Analysis &middot; 4 marks</div>
-<div class="p2-q-text">Explain how task analysis could be used to improve the checkout process of a mobile shopping app. Identify one potential pain point a designer might discover and one design change that could address it.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p>A designer would conduct task analysis by breaking the checkout process into a hierarchy of sub-tasks:</p>
-<ol>
-<li>Open cart</li>
-<li>Review items</li>
-<li>Select shipping address</li>
-<li>Choose shipping speed</li>
-<li>Enter payment information</li>
-<li>Confirm order</li>
-</ol>
-<p><strong>Pain point discovered:</strong> Users frequently abandon checkout after realising they must manually re-enter credit card details because they are not logged in, and a "Create account" screen appears after entering their email address but before payment, interrupting the task mid-flow and increasing cognitive load at the highest-friction point.</p>
-<p><strong>Design change:</strong> Add a guest checkout option that processes payment without requiring account creation. Reposition the account creation prompt to <em>after</em> the order is confirmed, with a simple "Save my info for next time?" toggle. This removes the mid-task interruption and reduces the steps between intent and completion.</p>
 </div>
-</details>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 3 &middot; 1.1.3 Personas &middot; 6 marks</div>
-<div class="p2-q-text">Describe a scenario where a design team might create both a primary persona and an anti-persona for a social media content moderation system. Explain what each persona would represent and how the anti-persona helps prevent misuse.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Scenario:</strong> A team is designing an AI-assisted moderation dashboard for a large social media platform. Human moderators use the dashboard to review flagged posts for hate speech, bullying and misinformation.</p>
-<p><strong>Primary persona (Elena, 34, professional content moderator):</strong><br>
-Goals: Quickly and accurately review flagged posts; minimise false removals; maintain personal wellbeing by avoiding repeated exposure to graphic content.<br>
-Needs: Clear visual indicators of violation type, batch processing tools, keyboard shortcuts, automatic blurring of graphic images.</p>
-<p><strong>Anti-persona ("Bad Actor" Ben):</strong><br>
-Represents a malicious user or coordinated group who submits mass false reports to overwhelm moderators, or posts borderline content designed to confuse the AI filter. He is not a moderator; he is someone who exploits the system.</p>
-<p><strong>How the anti-persona prevents misuse:</strong> By designing with Ben in mind, the team can add safeguards: rate-limiting reports from a single account per hour; requiring a verified account before submitting reports; flagging accounts that repeatedly submit false reports for human review. These safeguards protect Elena from being flooded with junk reports, and protect legitimate users from coordinated false-flagging campaigns.</p>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Learnability.</p>
+<p><strong>(b)</strong> Nearly a third of first-time users making the same error is a rate no population of careless individuals would produce; a fault distributed that evenly comes from the product. It also drops to 4&nbsp;% among repeat users, which shows the task is perfectly performable once learned, so what the unit fails to do is communicate where the tag goes at the moment the passenger is holding it.</p>
+<p><strong>(c)</strong> An average across all passengers hides the two populations that matter, and they are failing in different ways. The overall completion time would land somewhere near two minutes, a figure that describes nobody: first-time users take 3 min 40 s and repeat users 1 min 05 s. Splitting them shows that the unit is efficient once known and hard to learn, which points the redesign at first contact rather than at speeding up the whole flow. The comparison also separates the two usability objectives, because learnability is measured by what a new user manages and efficiency by what an experienced one manages, and only the split lets the team see that one is good and the other poor. It matters commercially too, since an airport's passengers are mostly infrequent flyers, so the first-time column describes the majority of real use, while an average weighted by repeat users would make the product look better than it is.</p>
 </div>
-</details>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; Learnability &#10003;</p>
+<p class="p2-award">Award [1] for the correct usability objective up to [1 max]. The five usability objectives are learnability, efficiency, memorability, errors and satisfaction. Do not credit efficiency, which Table 1 shows is good for repeat users.</p>
+<p><strong>(b)</strong> Products can be analysed by using usability objectives to identify opportunities for improvement.<br>
+&bull; 31&nbsp;% is too high a rate to be explained by individual carelessness &#10003;<br>
+&bull; A fault occurring across a third of a population comes from the product, not the person &#10003;<br>
+&bull; The same specific error recurs, which indicates a systematic cause &#10003;<br>
+&bull; It falls to 4&nbsp;% among repeat users, so the task is performable once learned &#10003;<br>
+&bull; What fails is the communication of where the tag goes at the moment it is needed &#10003;<br>
+&bull; Errors are one of the five usability objectives, so an error rate is a measure of the design &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why the error rate indicates a design fault, up to [2 max]. Credit the argument from rate or from the first-time to repeat comparison.</p>
+<p><strong>(c)</strong> Products can be analysed by using usability objectives to identify opportunities for improvement.<br>
+&bull; An average near two minutes describes neither group and describes no real passenger &#10003;<br>
+&bull; The two groups fail differently, so a single figure hides the failure &#10003;<br>
+&bull; The split shows the unit is efficient once known and hard to learn &#10003;<br>
+&bull; That directs the redesign at first contact rather than at the whole flow &#10003;<br>
+&bull; Learnability is measured by new users and efficiency by experienced ones, so the objectives can only be separated by splitting the data &#10003;<br>
+&bull; An airport's passengers are mostly infrequent flyers, so the first-time column describes most real use &#10003;<br>
+&bull; An average weighted by repeat users flatters the product &#10003;<br>
+&bull; The 12&nbsp;% abandonment rate among first-time users is a business cost that the average conceals &#10003;<br>
+&bull; Staff intervention at 44&nbsp;% against 7&nbsp;% determines how many staff the airport must roster &#10003;</p>
+<p class="p2-award">Award [1] for each relevant reason / cause explaining why the comparison is more useful than an average up to [3 max]. Credit responses that name the usability objectives involved.</p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 4 &middot; 1.1.2 Research Methods &middot; 5 marks</div>
-<div class="p2-q-text">Compare field research and structured interviews as methods for understanding how university students use online collaboration tools (e.g., Google Docs or Microsoft Teams). State one advantage of each method in this context and one disadvantage of the other.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<div class="content-table-wrap">
-<table class="content-table">
-<thead>
-<tr><th>Method</th><th>Advantage in this context</th><th>Disadvantage in this context</th></tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Field research</strong></td>
-<td>Observes real behaviour: watching students collaborate in a library or dorm reveals workarounds, distractions and silent frustrations (e.g., one student retyping instead of using comments) that users would never mention in an interview.</td>
-<td>Time-consuming and unpredictable: group projects happen irregularly, and the observer's presence may change behaviour (observer effect: students may appear more productive than normal).</td>
-</tr>
-<tr>
-<td><strong>Structured interview</strong></td>
-<td>Produces consistent, comparable data across many students. Identical questions ("On a scale of 1–5, how easy is it to recover a deleted file?") allow statistical comparison between year groups or between tools.</td>
-<td>Misses unconscious issues: students may say "collaboration is easy" while field research would show them spending 10 minutes per session figuring out who edited what. Structured questions cannot uncover what users don't think to mention.</td>
-</tr>
-</tbody>
-</table>
 </div>
-<p><strong>Recommended approach:</strong> Conduct structured interviews first to identify broad satisfaction patterns, then use targeted field observation with a small group to uncover the specific usability problems that interviews missed.</p>
-</div>
-</details>
 </div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 5 &middot; 1.1.1 UCD Planning &middot; 6 marks</div>
-<div class="p2-q-text">A company wants to redesign shared e-scooter hire kiosks to be more universally usable. Explain how you would construct a UCD research plan for this project. In your answer, include: two specific research questions, one appropriate research method for each question, and one justification for each method choice.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Research question 1:</strong> "At what specific point during the docking process do users fail to properly lock the scooter, and what physical or cognitive factors contribute to that failure?"</p>
-<p><strong>Method:</strong> User observation at an existing kiosk, watching 8–10 real users return a scooter.<br>
-<strong>Justification:</strong> Users are unlikely to be aware of or articulate the precise moment of failure in an interview. Observation at the actual kiosk captures the physical interaction in context (including hesitation, incorrect grip and missed feedback cues) that a questionnaire would miss.</p>
-<p><strong>Research question 2:</strong> "How satisfied are users with the current touchscreen interface, and which specific steps feel most confusing?"</p>
-<p><strong>Method:</strong> A short questionnaire with a 5-question Likert scale (satisfaction rating per screen) plus two open-ended follow-up questions.<br>
-<strong>Justification:</strong> A questionnaire can be distributed digitally to a large number of users quickly (e.g., via QR code at the kiosk), producing quantitative satisfaction scores that can be compared across different kiosk locations. The open-ended questions capture qualitative context that the Likert scores alone cannot provide.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 2 &middot; B1.1 &middot; SL and HL</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A manufacturer designs an insulin pen for teenagers with type 1 diabetes. A dose is set by twisting a dial, checked in a window, and delivered by pressing a plunger. Several doses are needed each day, including at school.</p>
+<p>The team carried out a task analysis of one mealtime dose, and wrote a persona from its research.</p>
+<p><em>Table 2: Task analysis of a mealtime dose, existing pen</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Step</th><th>Action</th><th>Observed problem</th></tr></thead><tbody>
+<tr><td>1</td><td>Retrieve pen from bag</td><td>Done under a table to avoid being seen</td></tr>
+<tr><td>2</td><td>Attach a new needle</td><td>Fiddly with one hand; needle sometimes reused</td></tr>
+<tr><td>3</td><td>Prime with 2 units</td><td>Skipped by 6 of 11 participants</td></tr>
+<tr><td>4</td><td>Dial the dose</td><td>Dial overshoots; window hard to read in low light</td></tr>
+<tr><td>5</td><td>Inject and hold 10 s</td><td>Released early by 8 of 11 participants</td></tr>
+<tr><td>6</td><td>Record the dose</td><td>Rarely done</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State one attribute a persona for this product should carry that a set of demographics would not. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Identify two steps in Table 2 where a design change could reduce the error rate. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Justify the use of task analysis rather than an interview to find the problems listed in Table 2. <strong>[3]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> A goal, such as wanting to dose at a school lunch table without anyone noticing.</p>
+<p><strong>(b)</strong> Step 3, priming, skipped by 6 of 11; and step 5, holding for ten seconds, released early by 8 of 11.</p>
+<p><strong>(c)</strong> Task analysis breaks the dose into its individual steps and watches each one, which is what makes step-level failure visible: an interview would have returned "I use my pen at lunch", not the fact that priming is skipped by more than half of users. Several of these problems are also things a teenager would not report. Reusing a needle and skipping a step are departures from what they have been taught, so they are unlikely to be volunteered to an adult researcher, and injecting under the table is a behaviour so habitual that the participant no longer notices it. Others are not knowable by the user at all: releasing the plunger early feels identical to holding it, so nobody can report an error they cannot detect. Task analysis produces this because it records what happens in the real setting and in the real order, rather than what the user remembers and is willing to say.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> A persona is a generalized profile of users who are experiencing a challenge in a process that presents a design opportunity [definition].<br>
+&bull; A goal or motivation &#10003;<br>&bull; A frustration or pain point &#10003;<br>&bull; A behaviour or habit &#10003;<br>&bull; An attitude, such as embarrassment about dosing in public &#10003;<br>&bull; A context of use, such as a school lunch table &#10003;<br>&bull; A level of skill or confidence &#10003;</p>
+<p class="p2-award">Award [1] for one relevant attribute that demographics alone would not supply up to [1 max]. Do not credit age, gender or location.</p>
+<p><strong>(b)</strong> &bull; Step 3, priming, skipped by 6 of 11 &#10003;<br>&bull; Step 5, hold time, released early by 8 of 11 &#10003;<br>&bull; Step 2, needle attachment, fiddly and sometimes reused &#10003;<br>&bull; Step 4, dial overshoot and unreadable window &#10003;<br>&bull; Step 6, dose recording, rarely done &#10003;</p>
+<p class="p2-award">Award [1] for each relevant step identified up to [2 max]. The step must be one where a design change could plausibly reduce error.</p>
+<p><strong>(c)</strong> A task analysis is a strategy used to develop empathy and gain understanding of how users perform a task to achieve their intended goal.<br>
+&bull; It breaks the dose into individual steps, making step-level failure visible &#10003;<br>
+&bull; An interview returns a summary of the task, not what happens at each step &#10003;<br>
+&bull; Skipping priming and reusing a needle depart from what the user has been taught, so they are unlikely to be admitted to an adult researcher &#10003;<br>
+&bull; Injecting under the table is habitual, so the user no longer notices it &#10003;<br>
+&bull; Releasing the plunger early feels identical to holding it, so the user cannot detect the error &#10003;<br>
+&bull; A user cannot report a problem they are unaware of, however well the interview is conducted &#10003;<br>
+&bull; Observation records the real setting and the real order of steps &#10003;<br>
+&bull; It quantifies how many participants failed each step, which an interview does not &#10003;<br>
+&bull; The sequence itself is data: the problems at step 2 make the skip at step 3 more likely &#10003;</p>
+<p class="p2-award">Award [1] for each valid reason / piece of evidence supporting task analysis over an interview up to [3 max]. Credit responses that reason from the data in Table 2.</p>
+</div>
+</div>
 </div>
 
+<div class="p2-question">
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 3 &middot; B1.1 &middot; SL and HL</span><span class="p2-marks">10 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 1</span>
+<p>A rural bus network is replacing the ticket machines at its stops. A machine stands unsheltered at the roadside, is used a few times an hour, and must work for passengers who may use it once a month or once a year.</p>
+<p>The operator commissioned a user-centred design plan before any concept work began.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(a)</strong> List two research questions the plan should answer before a concept is drawn. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 2</span>
+<p><em>Table 3: Two personas developed from the research</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th></th><th>Doreen, 81</th><th>Kofi, 17</th></tr></thead><tbody>
+<tr><td>Frequency</td><td>Twice a week, same journey</td><td>Daily to college, term time</td></tr>
+<tr><td>Payment</td><td>Cash, counts coins carefully</td><td>Phone, never carries cash</td></tr>
+<tr><td>Constraint</td><td>Arthritis; reads slowly in bright sun</td><td>Often running for the bus</td></tr>
+<tr><td>Goal</td><td>Be certain the ticket is right before boarding</td><td>Get a ticket in under fifteen seconds</td></tr>
+</tbody></table></div>
+</div>
+<div class="p2-q-text">
+<p><strong>(b)</strong> Outline the conflict between Doreen's and Kofi's goals, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 3</span>
+<p>A proposed concept has a touchscreen showing a list of destinations, a card reader, and a coin slot. Selecting a destination requires scrolling an alphabetical list of 140 stops.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(c)</strong> Describe one usability objective that the scrolling destination list fails for both personas, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 4</span>
+<p>The operator suggests dropping the coin slot, on the grounds that only 9&nbsp;% of tickets are now bought with cash, and that removing it would cut the unit cost, remove the most common mechanical fault and stop the machines being broken into.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(d)</strong> Evaluate the proposal to remove the coin slot, see Table 3. <strong>[4]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Which payment methods do passengers at these stops actually carry, and how does the machine perform in direct sunlight, rain and darkness?</p>
+<p><strong>(b)</strong> Doreen wants certainty and will trade time for it, so she needs confirmation steps, larger type and a chance to check before committing. Kofi wants speed and will trade certainty for it, so every confirmation step Doreen needs is an obstacle between him and a departing bus. A single flow tuned for one of them is wrong for the other.</p>
+<p><strong>(c)</strong> Efficiency. A 140-item alphabetical list makes the number of scroll actions depend on where the destination falls in the alphabet rather than on how common it is, so a frequent journey can take as long as a rare one. Kofi misses his bus doing it, and Doreen, whose arthritis makes repeated scrolling painful and slow, is doing the same work twice a week for a journey she has made for years.</p>
+<p><strong>(d)</strong> The operational case is strong. Nine per cent of tickets is a small share, the coin mechanism is the most common mechanical fault, and cash in an unattended roadside machine attracts break-ins, so removing it lowers unit cost, raises reliability and removes a security problem at once. Machines that work are worth a great deal on a rural network where the next stop may be miles away.</p>
+<p>The case against rests on who that nine per cent is. Doreen pays in cash and has no alternative in Table 3, so for her removing the slot does not make the machine harder to use, it makes it unusable, and the consequence is not inconvenience but being unable to travel. On a rural network the bus is often the only transport, so exclusion from the ticket machine is exclusion from the service. A percentage also conceals distribution: nine per cent overall could be forty per cent at a stop serving an older village, and the decision is being taken on a network average.</p>
+<p>The argument that cash use is falling is partly circular, because cash use falls when cash becomes hard to use, and each machine that drops the slot pushes the figure down further and makes the next removal look better justified.</p>
+<p>On balance the proposal should not go ahead as stated. The savings are real but they are being paid for by the users least able to absorb the loss, and a 9&nbsp;% figure is not a safe basis for a decision that removes a group's only route to a ticket. A defensible version would keep cash somewhere in the system, whether by retaining coin acceptance at the busiest rural stops, keeping payment to the driver, or selling tickets through village shops, so that the reliability gains are captured without cutting Doreen out.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> UCD requires a plan to structure an inquiry using user-centred research methods.<br>
+&bull; Which payment methods do passengers at these stops carry? &#10003;<br>
+&bull; How does the machine perform in sunlight, rain, cold and darkness? &#10003;<br>
+&bull; Which journeys are made most often from each stop? &#10003;<br>
+&bull; How long do passengers have between arriving and the bus departing? &#10003;<br>
+&bull; What proportion of passengers use the machine once a year or less? &#10003;<br>
+&bull; What physical and sensory capabilities does the passenger population have? &#10003;<br>
+&bull; What do passengers do now when the machine fails? &#10003;</p>
+<p class="p2-award">Award [1] for each relevant research question up to [2 max]. The question must be answerable by research; do not credit statements of a solution.</p>
+<p><strong>(b)</strong> Personae represent attributes of user populations and are used to guide design development.<br>
+&bull; Doreen prioritizes certainty and will trade time to get it &#10003;<br>
+&bull; Kofi prioritizes speed and will trade certainty to get it &#10003;<br>
+&bull; Confirmation steps that reassure Doreen are obstacles for Kofi &#10003;<br>
+&bull; Larger type and slower pacing suit Doreen and slow Kofi down &#10003;<br>
+&bull; A single flow tuned to one persona is wrong for the other &#10003;<br>
+&bull; Their payment methods differ, so the hardware must serve both &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on the conflict up to [2 max]. The response must address both personas.</p>
+<p><strong>(c)</strong> The five usability objectives are learnability, efficiency, memorability, errors and satisfaction.<br>
+Efficiency:<br>
+&bull; The number of scroll actions depends on alphabetical position, not on how common the journey is &#10003;<br>
+&bull; A frequent journey takes as long as a rare one, so regular use is never rewarded &#10003;<br>
+&bull; Kofi cannot meet his fifteen second goal and risks missing the bus &#10003;<br>
+&bull; Doreen's arthritis makes repeated scrolling slow and painful &#10003;<br>
+&bull; Neither persona's most likely destination is reachable in a small number of actions &#10003;<br>
+Errors, if argued instead:<br>
+&bull; Adjacent entries in a 140-item alphabetical list are easy to mis-select &#10003;<br>
+&bull; Selecting under time pressure or in bright sun increases the error rate &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of one usability objective the list fails, up to [2 max]. The objective must be named. Accept efficiency or errors if consistently argued. Award a maximum of [1] where the response does not relate the failure to both personas.</p>
+<p><strong>(d)</strong> Products can be analysed by using usability objectives to identify opportunities for improvement, and design decisions must be weighed against the needs of the user population.<br>
+Strengths of the proposal:<br>
+&bull; 9&nbsp;% is a small share of transactions &#10003;<br>
+&bull; The coin mechanism is the most common mechanical fault, so removing it raises reliability &#10003;<br>
+&bull; Reliability matters disproportionately on a rural network where the next stop is far away &#10003;<br>
+&bull; Removes the incentive to break into an unattended roadside machine &#10003;<br>
+&bull; Lowers unit cost, so more stops can be equipped for the same budget &#10003;<br>
+&bull; Removes cash collection rounds and their cost &#10003;<br>
+Limitations:<br>
+&bull; Doreen pays in cash and Table 3 shows no alternative, so the machine becomes unusable rather than harder &#10003;<br>
+&bull; The consequence is exclusion from travel, not inconvenience, where the bus is the only transport &#10003;<br>
+&bull; A network average conceals distribution: cash use could be far higher at particular stops &#10003;<br>
+&bull; Users without a bank account or a smartphone are excluded entirely &#10003;<br>
+&bull; The falling cash figure is partly caused by cash being made harder to use, so the argument is circular &#10003;<br>
+&bull; Each removal pushes the figure down and makes the next removal look better justified &#10003;<br>
+Judgment:<br>
+&bull; The savings are real but are paid for by the users least able to absorb the loss &#10003;<br>
+&bull; A 9&nbsp;% figure is not a safe basis for removing a group's only route to a ticket &#10003;<br>
+&bull; A defensible version retains cash somewhere in the system, at busy rural stops, on the bus, or through village shops &#10003;</p>
+<p class="p2-award">Award [1] for each distinct strength / limitation, leading to an appraisal of the proposal to remove the coin slot, up to [4 max]. Award a maximum of [3] where only strengths or only limitations are given. Credit responses that reach a judgment and those that propose a compromise.</p>
+</div>
+</div>
+</div>
 </div>
 </div><!-- /paper2 -->
 

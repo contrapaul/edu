@@ -628,99 +628,236 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-paper2">
-<div class="p2-intro">Paper 2 structured questions require extended written responses. Use the sample answers and mark scheme notes to practise and self-assess.</div>
+<div class="p2-intro">Every Paper 2 question is attached to a product. Nothing here can be answered from memory alone: read the case study first, then answer the parts in order. The tariff tells you how many creditable points to make, and the command term tells you what kind of point counts. Write your answer before you open either panel, then mark yourself against the markscheme rather than against the example. This topic is HL only, so these questions appear on HL Paper 2 and never on SL.</div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 1 &middot; 4 marks</div>
-<div class="p2-q-text">Using the Input–Process–Output–Feedback (IPOF) model, describe how a home thermostat controls room temperature. Identify the input device, the processing stage, the output device, and the role of feedback.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Input</strong>: A thermistor (NTC temperature sensor) continuously measures the actual room temperature. The resistance of the thermistor decreases as temperature rises, producing a proportional voltage at the input of the microcontroller or comparator circuit.</p>
-<p><strong>Process</strong>: The control circuit (microcontroller or comparator) compares the actual temperature (from the thermistor) to the user-set target temperature (set point). If the actual temperature is below the set point, the processor generates a signal to activate the heating output. If actual temperature equals or exceeds the set point, the output signal is removed.</p>
-<p><strong>Output</strong>: A relay (electrically controlled switch) is activated by the processor. The relay closes to switch on the boiler or heating element (mains voltage circuit). When the target temperature is reached, the relay opens, turning the boiler off.</p>
-<p><strong>Feedback</strong>: The thermistor continuously reports the room temperature back to the process stage. This is negative feedback: when the heater is on and the room warms up, the thermistor voltage changes in a direction that reduces the error between actual and set temperature, eventually switching the heater off. This creates a self-regulating system.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct input device with explanation (thermistor, measures temperature); 1 mark for process stage (comparison to set point, decision logic); 1 mark for output device (relay switching heater/boiler); 1 mark for correct description of negative feedback as self-correcting (not just "feedback sends signal back").</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 1 &middot; A3.4 &middot; HL only</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A public washroom hand dryer starts when hands are placed beneath it and stops shortly after they are withdrawn. An infrared emitter sends a pulsed beam downward; a photodiode alongside it detects light reflected back from whatever is in the way.</p>
+<p><em>Table 1: Elements of the hand dryer system</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Element</th><th>Component</th><th>Function</th></tr></thead><tbody>
+<tr><td>Input</td><td>Infrared emitter and photodiode</td><td>Detects a reflecting surface within 150 mm</td></tr>
+<tr><td>Process</td><td>Microcontroller</td><td>Compares reflected signal with a threshold</td></tr>
+<tr><td>Output</td><td>Motor and heating element</td><td>Drives air over a heater</td></tr>
+<tr><td>Feedback</td><td>Continued reflection</td><td>Holds the motor on while hands remain</td></tr>
+<tr><td>&mdash;</td><td>Thermal cut-out on heater</td><td>Opens above 90 &deg;C</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the model represented by the four elements in Table 1. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Outline why the infrared beam is pulsed rather than continuous, see Table 1. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Explain the role of feedback in preventing the dryer from stopping while hands are still beneath it, see Table 1. <strong>[3]</strong></p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 2 &middot; 6 marks</div>
-<div class="p2-q-text">Compare analogue and digital electronic systems. In your answer, discuss signal characteristics, noise immunity, processing methods, and give one example application of each that demonstrates why that signal type is appropriate.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Analogue systems</strong> use signals that vary continuously over a range of values, like a smoothly changing voltage that mirrors a physical quantity exactly. An analogue microphone output rises and falls in direct proportion to air pressure changes from sound. Analogue signals can represent an infinite range of values between minimum and maximum.</p>
-<p><strong>Digital systems</strong> represent all information as sequences of binary digits (0 and 1). A digital signal switches sharply between LOW (0 V) and HIGH (3.3 V or 5 V). All data (numbers, text, images, audio) is encoded as patterns of bits.</p>
-<div class="content-table-wrap">
-<table class="content-table">
-<thead><tr><th>Feature</th><th>Analogue</th><th>Digital</th></tr></thead>
-<tbody>
-<tr><td>Signal values</td><td>Infinite continuous range</td><td>Only two states: 0 or 1</td></tr>
-<tr><td>Noise immunity</td><td>Low: any electrical noise corrupts the signal permanently</td><td>High: noise rejected as long as it does not cross the threshold; signal can be regenerated perfectly</td></tr>
-<tr><td>Processing</td><td>Op-amps, filters, oscillators: hardware-defined</td><td>Logic gates, microcontrollers: software-programmable</td></tr>
-<tr><td>Copying accuracy</td><td>Degrades with each copy (noise accumulates)</td><td>Perfect: digital copies are bit-for-bit identical</td></tr>
-</tbody>
-</table>
 </div>
-<p><strong>Example (analogue)</strong>: A vinyl record stores audio as a continuous groove in a disc. The groove's width and depth vary continuously, just as the original sound pressure varied. A stylus reads the groove as a continuous analogue signal. Digital conversion would be unnecessary overhead for this type of storage: the analogue medium directly captures all detail.</p>
-<p><strong>Example (digital)</strong>: Wi-Fi transmits data as digital packets over radio waves. Because radio signals are subject to significant noise and interference, using a digital format means the receiver can reconstruct the original data perfectly using error-correction codes. The same data would be destroyed by noise if transmitted as an analogue signal without any error-correction.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for correct signal characteristic of each (continuous vs. discrete/binary); 1 mark for noise immunity comparison with explanation; 1 mark for processing methods contrast; 1 mark for correct analogue example with justification; 1 mark for correct digital example with justification; 1 mark for any additional developed comparison point (copying accuracy, storage density, programmability).</p>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
 </div>
-</details>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> The input-process-output-feedback model.</p>
+<p><strong>(b)</strong> A washroom is full of infrared from sunlight and lighting, and a photodiode cannot distinguish that background from the emitter's own beam if the beam is steady. Pulsing it at a known rate lets the microcontroller accept only signals arriving at that rate, so ambient infrared is rejected and the dryer does not start on its own.</p>
+<p><strong>(c)</strong> Without feedback the system would be open loop: it would detect hands once, run for a fixed time and stop, whether or not the hands were still there. Feedback closes the loop by returning information about the current state of the output's environment to the input, so the microcontroller is not deciding once but re-testing continuously. Because the reflected signal is still above threshold, the condition that started the motor remains true and the motor stays on, and the dryer therefore matches its running time to the user rather than to a timer. The same mechanism handles the opposite case, since the signal falls away when the hands are withdrawn and the dryer stops without the user doing anything. The short delay before stopping exists because feedback that acted instantly would cut out every time the hands moved momentarily out of the beam, which is why the system waits for the signal to stay absent rather than reacting to a single missing sample.</p>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 3 &middot; 5 marks</div>
-<div class="p2-q-text">A security light uses a PIR (passive infrared) sensor, a microcontroller, and an LED floodlight. A relay is used between the microcontroller and the floodlight. Draw the block diagram of this system and explain why a relay is necessary in this circuit.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Block diagram (describe in text):</strong></p>
-<p>PIR sensor → [INPUT] → Microcontroller → [PROCESS] → Relay driver (transistor) → Relay → [OUTPUT] → LED floodlight</p>
-<p>A timer in the microcontroller's software usually holds the light on for a set period, for example 30 seconds, after movement stops.</p>
-<p><strong>Why a relay is necessary:</strong></p>
-<p>A microcontroller's GPIO (general-purpose input/output) pin can supply only approximately 20–40 mA at 3.3 V or 5 V. An LED floodlight may require 500 mA to several amps at 12 V or 240 V mains. Connecting the floodlight directly to a GPIO pin would damage or destroy the microcontroller.</p>
-<p>A relay provides electrical isolation between the low-voltage microcontroller circuit and the high-power floodlight circuit. The microcontroller energises a small electromagnetic coil in the relay (typically 5–12 V, ~50–100 mA, within safe GPIO limits using a transistor driver). This coil magnetically closes the relay's switching contacts, which can safely carry the high current and voltage needed by the floodlight. The two circuits are electrically separate: mains voltage never reaches the microcontroller.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for a correct block diagram with all four components in correct sequence (PIR → MCU → relay → floodlight); 1 mark for correctly stating the GPIO current/voltage limitation (~40 mA, low voltage); 1 mark for explaining that the relay coil is controlled by a safe low current; 1 mark for explaining electrical isolation (mains voltage separated from microcontroller); 1 mark for any additional developed point (transistor driver, timer in software, protection diode across relay coil).</p>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; Input-process-output-feedback (IPOF) &#10003;</p>
+<p class="p2-award">Award [1] for the correct model up to [1 max].</p>
+<p><strong>(b)</strong> Electronic systems utilise input devices to identify a change in an environment that requires a response.<br>
+&bull; A washroom contains infrared from sunlight and lighting &#10003;<br>
+&bull; A photodiode cannot distinguish background infrared from a steady beam &#10003;<br>
+&bull; Pulsing at a known rate lets the controller accept only signals at that rate &#10003;<br>
+&bull; Ambient infrared is rejected, so the dryer does not start on its own &#10003;<br>
+&bull; Pulsing allows a higher peak power without a high average power &#10003;<br>
+&bull; Lower average current extends component life and reduces heating &#10003;<br>
+&bull; The emitter is off most of the time, saving energy &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on why the beam is pulsed up to [2 max]. Credit either the noise rejection or the power argument.</p>
+<p><strong>(c)</strong> Electronic systems comprise an input, process, output and feedback loop.<br>
+&bull; Without feedback the system would be open loop &#10003;<br>
+&bull; It would detect hands once, run for a fixed time and stop regardless &#10003;<br>
+&bull; Feedback returns information about the current state to the input &#10003;<br>
+&bull; The microcontroller re-tests continuously rather than deciding once &#10003;<br>
+&bull; The reflected signal remains above threshold while hands are present &#10003;<br>
+&bull; The starting condition stays true, so the motor stays on &#10003;<br>
+&bull; Running time is matched to the user rather than to a timer &#10003;<br>
+&bull; The same loop stops the dryer when the signal falls away &#10003;<br>
+&bull; The user does not have to switch it off, which suits a shared washroom &#10003;<br>
+&bull; The delay before stopping prevents cut-out when hands move briefly out of the beam &#10003;<br>
+&bull; The system waits for a sustained absence rather than a single missing sample &#10003;</p>
+<p class="p2-award">Award [1] for each relevant reason / cause explaining the role of feedback up to [3 max]. Award a maximum of [2] where the response does not contrast the feedback loop with an open loop system.</p>
 </div>
-</details>
 </div>
-
-<div class="p2-question">
-<div class="p2-q-num">Question 4 &middot; 4 marks</div>
-<div class="p2-q-text">Explain the difference between series and parallel circuits. For each, state how total resistance is calculated and describe what happens to the rest of the circuit if one component fails (open circuit).</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>Series circuits</strong> connect components end-to-end in a single, unbroken loop. The same current flows through every component. Total resistance is the sum of all individual resistances:</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">R_total = R₁ + R₂ + R₃ + …</p>
-<p>If one component fails open circuit (breaks), the current path is interrupted and the entire circuit stops working. The failed component causes a complete loss of function. <em>Example</em>: Old-style series Christmas lights: one blown bulb stops the whole string.</p>
-<p><strong>Parallel circuits</strong> connect components across the same two nodes, providing multiple independent current paths. The same voltage appears across every branch. Total resistance is calculated using the reciprocal formula:</p>
-<p style="font-family:var(--font-mono);font-size:0.9rem;margin:0.75rem 0;padding:0.5rem 0.75rem;background:var(--surface-2);border-radius:4px;">1/R_total = 1/R₁ + 1/R₂ + 1/R₃ + …</p>
-<p>The total parallel resistance is always less than the smallest individual resistor. If one branch fails open circuit, current continues to flow through the remaining parallel branches: the rest of the circuit is unaffected. <em>Example</em>: House wiring: each room's lighting circuit is a separate parallel branch; one blown fuse does not affect other rooms.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for series definition (same current, single path) with correct total resistance formula; 1 mark for explanation of series open-circuit failure (complete loss of function); 1 mark for parallel definition (same voltage, multiple paths) with correct reciprocal resistance formula; 1 mark for explanation of parallel open-circuit failure (remaining branches unaffected).</p>
-</div>
-</details>
 </div>
 
 <div class="p2-question">
-<div class="p2-q-num">Question 5 &middot; 6 marks</div>
-<div class="p2-q-text">Evaluate the claim that "all modern electronic products should be redesigned to minimise their environmental impact." Refer to energy efficiency requirements, e-waste regulations, and the responsibilities of designers in your answer.</div>
-<details class="p2-reveal">
-<summary>Show example answer</summary>
-<div class="p2-answer">
-<p><strong>The case for redesign:</strong> Electronic products are the fastest-growing waste stream globally (54 million tonnes of e-waste generated in 2019, according to the UN Global E-waste Monitor). Many older products contain hazardous materials (lead solder, mercury backlights, hexavalent chromium) now restricted under the EU RoHS Directive (2011). These substances leach into soil and groundwater if products are landfilled rather than properly recycled.</p>
-<p>Energy consumption is also significant. A device drawing 5 W on standby and left plugged in for 10 years uses 5 W × 87,600 hours = 438 kWh of electricity for no useful output at all. Multiplied across millions of units sold, that is a large amount of generation capacity wasted, which is why the EU caps standby power at 0.5 W for most products. The EU Ecodesign Directive and the Australian Minimum Energy Performance Standards (MEPS) both require manufacturers to meet energy efficiency targets before products can be sold.</p>
-<p><strong>Designer responsibilities:</strong> Designers must now consider environmental impact across the full product life cycle: from material selection (avoiding restricted substances, using recycled content) through energy consumption in use, to end-of-life recyclability. Designing for disassembly (fasteners rather than adhesives, labelled materials, modularity) allows components to be separated and recovered. The EU's Right to Repair legislation (2021) extends this further: designers must make spare parts and repair documentation available for a minimum period.</p>
-<p><strong>Limitations of the claim:</strong> "All products" is too broad: the trade-off between environmental redesign cost and benefit varies widely. A device sold in millions of units (smartphone charger) benefits hugely from even a small efficiency improvement; a specialised industrial instrument sold in tens of units may not justify a complete redesign. Additionally, manufacturing a new product has its own environmental cost (embedded carbon, rare earth extraction), if a redesign requires discarding functional existing devices, the net environmental benefit may be negative.</p>
-<p><strong>Conclusion:</strong> The claim is broadly valid as a design principle, but "all modern products should be redesigned" overstates the case. Priority should go to high-volume, high-energy-use, or high-hazard products. Regulations provide a minimum standard; responsible designers should aim beyond compliance: designing for longevity, repairability, and efficient end-of-life processing.</p>
-<p class="p2-marks-note"><em>Mark scheme</em>: 1 mark for relevant e-waste statistic or reference to e-waste problem; 1 mark for correct reference to a regulation (RoHS, Ecodesign, MEPS, Right to Repair) with explanation of its scope; 1 mark for designer responsibility in material selection or design for disassembly; 1 mark for energy efficiency point with a quantified example; 1 mark for a valid counter-argument or qualification of the claim (embedded carbon, cost-benefit analysis, high vs. low volume); 1 mark for a supported conclusion that evaluates the claim rather than simply restating it.</p>
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 2 &middot; A3.4 &middot; HL only</span><span class="p2-marks">6 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study</span>
+<p>A guitar amplifier takes a small signal from a pickup and drives a loudspeaker. Two amplifiers are compared: a valve amplifier, in which the whole signal path is analogue, and a modelling amplifier, which converts the signal to digital, processes it, and converts it back.</p>
+<p><em>Table 2: The two amplifiers compared</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th></th><th>Valve, analogue</th><th>Modelling, digital</th></tr></thead><tbody>
+<tr><td>Signal representation</td><td>Continuously variable voltage</td><td>Sampled 48&nbsp;000 times per second</td></tr>
+<tr><td>Behaviour when overdriven</td><td>Gradual, progressive distortion</td><td>Abrupt clipping unless modelled</td></tr>
+<tr><td>Noise added per stage</td><td>Accumulates</td><td>None after conversion</td></tr>
+<tr><td>Copies of a stored sound</td><td>&mdash;</td><td>Identical</td></tr>
+<tr><td>Mass</td><td>22 kg</td><td>7 kg</td></tr>
+<tr><td>Sounds available</td><td>1</td><td>60 stored presets</td></tr>
+</tbody></table></div>
 </div>
-</details>
+<div class="p2-q-text">
+<p><strong>(a)</strong> State the process by which a continuously variable voltage is represented digitally, see Table 2. <strong>[1]</strong></p>
+<p><strong>(b)</strong> Describe why noise accumulates in the analogue amplifier but not after conversion in the digital one, see Table 2. <strong>[2]</strong></p>
+<p><strong>(c)</strong> Evaluate the modelling amplifier as a replacement for the valve amplifier, see Table 2. <strong>[3]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> Analogue-to-digital conversion, by sampling and quantisation.</p>
+<p><strong>(b)</strong> An analogue stage cannot tell signal from noise, because both are just voltage, so any noise picked up is amplified along with the music and each further stage adds its own on top of what it received. A digital sample is a number, and a small voltage disturbance leaves that number unchanged as long as it is not large enough to alter which value was read, so noise is discarded at every stage rather than carried forward.</p>
+<p><strong>(c)</strong> As a piece of equipment the modelling amplifier is clearly better. It offers sixty sounds against one, weighs a third as much, which matters to someone carrying it to a venue, and it stores and recalls a setting exactly, so a sound found once can be reproduced identically at every performance and copied to another amplifier. Against that, it depends on modelling the very behaviour that makes the valve amplifier musical. A valve overdriven produces gradual, progressive distortion, and players use that as an instrument, varying their playing to move the amplifier through it. Digital clipping is abrupt and unmusical unless the response is deliberately modelled, so the digital amplifier is trying to imitate something the analogue one does by its nature, and it succeeds only as far as the model is good. The judgment depends on what is being bought: for a player who needs many sounds reliably, the modelling amplifier is the better product, while for a player whose sound is one overdriven valve circuit, it remains a reproduction of the thing rather than the thing.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> &bull; Analogue-to-digital conversion &#10003;<br>&bull; Sampling and quantisation &#10003;</p>
+<p class="p2-award">Award [1] for the correct process up to [1 max].</p>
+<p><strong>(b)</strong> An analogue system uses continually changing signals; a digital system stores, processes and communicates information in digital form.<br>
+&bull; An analogue stage cannot distinguish signal from noise, since both are voltage &#10003;<br>
+&bull; Noise is amplified along with the music &#10003;<br>
+&bull; Each stage adds its own noise on top of what it received &#10003;<br>
+&bull; Degradation is therefore cumulative through the signal path &#10003;<br>
+&bull; A digital sample is a number rather than a voltage level &#10003;<br>
+&bull; A small disturbance leaves the number unchanged unless it alters the value read &#10003;<br>
+&bull; Noise is discarded at each stage rather than carried forward &#10003;<br>
+&bull; This is why copies of a stored digital sound are identical &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why noise accumulates in one and not the other, up to [2 max]. The response must contrast the two representations.</p>
+<p><strong>(c)</strong> Electronic systems can be either analogue or digital, and each suits different applications.<br>
+Strengths:<br>
+&bull; Sixty stored presets against a single sound &#10003;<br>
+&bull; 7 kg against 22 kg, which matters to a player carrying it to a venue &#10003;<br>
+&bull; A setting is stored and recalled exactly, so a sound is reproducible at every performance &#10003;<br>
+&bull; Settings can be copied identically to another amplifier &#10003;<br>
+&bull; No noise added after conversion, so the signal path stays clean &#10003;<br>
+&bull; No valves to wear out or replace &#10003;<br>
+Limitations:<br>
+&bull; It depends on modelling the behaviour that makes the valve amplifier musical &#10003;<br>
+&bull; Valve overdrive is gradual and progressive, and players use it as part of the instrument &#10003;<br>
+&bull; Digital clipping is abrupt and unmusical unless deliberately modelled &#10003;<br>
+&bull; The digital amplifier imitates what the analogue one does by its nature &#10003;<br>
+&bull; It succeeds only as far as the model is accurate &#10003;<br>
+&bull; Sampling at 48&nbsp;000 per second imposes a limit the analogue path does not have &#10003;<br>
+Judgment:<br>
+&bull; Better for a player who needs many sounds recalled reliably &#10003;<br>
+&bull; For a player whose sound is one overdriven valve circuit it remains a reproduction &#10003;</p>
+<p class="p2-award">Award [1] for each distinct strength / limitation, leading to an appraisal of the modelling amplifier as a replacement, up to [3 max]. Award a maximum of [2] where only strengths or only limitations are given.</p>
+</div>
+</div>
 </div>
 
+<div class="p2-question">
+<div class="p2-q-header">
+<div class="p2-q-meta"><span class="p2-q-num">Question 3 &middot; A3.4 &middot; HL only</span><span class="p2-marks">10 marks</span></div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 1</span>
+<p>A commercial greenhouse grows tomatoes under a climate controller. Vents in the roof open and close, a heating pipe warms the air, and a screen draws across to shade the crop. The grower sets a target temperature and humidity band.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(a)</strong> Identify two input devices the controller would need. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 2</span>
+<p><em>Table 3: Controller inputs and outputs</em></p>
+<div class="p2-table-wrap"><table class="p2-data-table"><thead><tr><th>Stage</th><th>Device</th><th>Signal</th></tr></thead><tbody>
+<tr><td>Input</td><td>Thermistor</td><td>Analogue, resistance falls as temperature rises</td></tr>
+<tr><td>Input</td><td>Capacitive humidity sensor</td><td>Analogue</td></tr>
+<tr><td>Input</td><td>Rain detector</td><td>Digital, on or off</td></tr>
+<tr><td>Process</td><td>Microcontroller</td><td>&mdash;</td></tr>
+<tr><td>Output</td><td>Vent motor</td><td>Mains, 400 W</td></tr>
+<tr><td>Output</td><td>Heating valve</td><td>Mains, 60 W</td></tr>
+</tbody></table></div>
+</div>
+<div class="p2-q-text">
+<p><strong>(b)</strong> Outline why the analogue sensor signals must be converted before the microcontroller can use them, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 3</span>
+<p>The microcontroller operates at 3.3 V and can supply a few milliamps per pin. The vent motor draws 400 W from the mains.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(c)</strong> Describe why a relay is required between the microcontroller and the vent motor, see Table 3. <strong>[2]</strong></p>
+</div>
+<div class="p2-stimulus"><span class="p2-stimulus-label">Case study &middot; part 4</span>
+<p>The controller must close the vents when it rains, open them when the greenhouse is too hot, and heat when it is too cold. On a warm day with heavy rain, two of these conditions conflict.</p>
+</div>
+<div class="p2-q-text">
+<p><strong>(d)</strong> Explain how the control logic should resolve the conflict between the rain and temperature inputs, see Table 3. <strong>[4]</strong></p>
+</div>
+</div>
+<div class="p2-q-body">
+<div class="p2-reveal-btns">
+<button class="p2-reveal-btn" data-reveals="p2-answer">Show example answer</button>
+<button class="p2-reveal-btn" data-reveals="p2-markscheme">Show markscheme</button>
+</div>
+<div class="p2-panel p2-answer"><span class="p2-panel-label">Example answer</span>
+<p><strong>(a)</strong> A temperature sensor such as a thermistor, and a humidity sensor.</p>
+<p><strong>(b)</strong> A thermistor produces a continuously variable resistance, and the microcontroller works only with discrete numbers, so the analogue voltage has to be sampled and quantised by an analogue-to-digital converter before it can be compared with a target. Without conversion there is nothing for the controller to compare, since it cannot operate on a voltage level directly.</p>
+<p><strong>(c)</strong> The microcontroller supplies a few milliamps at 3.3 V and the motor needs 400 W from the mains, so the output pin cannot drive the load by many orders of magnitude and would be destroyed if connected directly. The relay lets a small current from the pin close a separate switch carrying the mains, and because the two circuits are only linked by a magnetic field it also isolates the low-voltage electronics from mains voltage, protecting both the controller and anyone working on it.</p>
+<p><strong>(d)</strong> The conflict is that the temperature input calls for the vents to open and the rain input calls for them to close, so the logic has to decide which condition takes precedence rather than acting on each independently.</p>
+<p>Rain should win, and the reason is the asymmetry of the consequences. An overheated greenhouse costs yield over hours and is recoverable, whereas rain falling directly onto the crop and the electrical equipment causes damage that is immediate and permanent. When two demands conflict, the control should default to the state that fails safely, which here means closed.</p>
+<p>Implementing that means the rain input has to override rather than merely contribute. If the controller simply weighed the two, a hot enough day would open the vents in a downpour, so the rain condition has to be evaluated first and the temperature branch reached only when it is false. That is straightforward because the rain detector is digital, giving a clean on or off with no threshold to interpret, unlike the thermistor.</p>
+<p>The logic then needs to handle the greenhouse still being too hot with the vents shut. Venting is not the only cooling output available: the shade screen can be drawn to cut incoming solar gain, and the heating valve must be held closed. So the correct response is not to do nothing but to fall back to the cooling actions that do not require an open roof.</p>
+<p>Two practical points follow. The rain detector should have a delay before the vents reopen, because a detector drying out in intermittent rain would cycle a 400 W motor repeatedly and wear it out. And because the whole crop depends on one digital input, the failure of that sensor should default to the safe state, so a disconnected rain detector should be treated as rain rather than as dry.</p>
+</div>
+<div class="p2-panel p2-markscheme"><span class="p2-panel-label">Markscheme</span>
+<p><strong>(a)</strong> Electronic systems utilise input devices to identify a change in an environment that requires a response.<br>
+&bull; Thermistor / temperature sensor &#10003;<br>&bull; Humidity sensor &#10003;<br>&bull; Rain detector &#10003;<br>&bull; Light sensor / LDR &#10003;<br>&bull; Wind speed or direction sensor &#10003;<br>&bull; CO&#8322; sensor &#10003;<br>&bull; Vent position sensor &#10003;</p>
+<p class="p2-award">Award [1] for each relevant input device up to [2 max]. Do not credit motors or valves, which are outputs.</p>
+<p><strong>(b)</strong> An analogue system uses continually changing signals; a digital system stores, processes and communicates information in digital form.<br>
+&bull; A thermistor produces a continuously variable resistance &#10003;<br>
+&bull; The microcontroller operates only on discrete numbers &#10003;<br>
+&bull; The analogue voltage must be sampled and quantised &#10003;<br>
+&bull; An analogue-to-digital converter performs this conversion &#10003;<br>
+&bull; Without conversion there is no value to compare with the target &#10003;<br>
+&bull; The controller cannot operate on a voltage level directly &#10003;<br>
+&bull; A digital value can be stored, compared and logged &#10003;</p>
+<p class="p2-award">Award [1] for each relevant brief point on why conversion is required up to [2 max].</p>
+<p><strong>(c)</strong> Electronic systems utilise output devices to perform a function in response to an initial stimulus, and interface components match the controller to the load.<br>
+&bull; The pin supplies a few milliamps at 3.3 V &#10003;<br>
+&bull; The motor requires 400 W from the mains &#10003;<br>
+&bull; The output pin cannot supply the load by many orders of magnitude &#10003;<br>
+&bull; A direct connection would destroy the microcontroller &#10003;<br>
+&bull; A small pin current closes a separate switch carrying the mains &#10003;<br>
+&bull; The two circuits are linked only by a magnetic field, giving isolation &#10003;<br>
+&bull; Isolation protects the electronics and anyone working on the low-voltage side &#10003;<br>
+&bull; It also protects against back-EMF from the motor &#10003;</p>
+<p class="p2-award">Award [1] for each detail, leading to an account of why a relay is required, up to [2 max]. Credit both the current handling and the isolation arguments.</p>
+<p><strong>(d)</strong> Many everyday electronic devices contain control circuits to monitor and control, and digital systems use logic to compare input data.<br>
+The nature of the conflict:<br>
+&bull; Temperature calls for the vents to open; rain calls for them to close &#10003;<br>
+&bull; The logic must set a precedence rather than act on each input independently &#10003;<br>
+Why rain takes priority:<br>
+&bull; The consequences are asymmetric &#10003;<br>
+&bull; Overheating costs yield over hours and is recoverable &#10003;<br>
+&bull; Rain on the crop and on electrical equipment causes immediate, permanent damage &#10003;<br>
+&bull; Control should default to the state that fails safely, which is closed &#10003;<br>
+Implementation:<br>
+&bull; The rain input must override rather than contribute to a weighted decision &#10003;<br>
+&bull; A weighted decision would open the vents in a downpour on a hot enough day &#10003;<br>
+&bull; The rain condition is evaluated first and the temperature branch reached only if false &#10003;<br>
+&bull; The rain detector is digital, giving a clean on or off with no threshold to interpret &#10003;<br>
+Fallback actions:<br>
+&bull; Venting is not the only cooling output available &#10003;<br>
+&bull; The shade screen can be drawn to cut incoming solar gain &#10003;<br>
+&bull; The heating valve must be held closed &#10003;<br>
+&bull; The correct response is to fall back to cooling actions that do not need an open roof &#10003;<br>
+Practical refinements:<br>
+&bull; A delay before reopening prevents a drying detector cycling a 400 W motor repeatedly &#10003;<br>
+&bull; Repeated cycling would wear out the vent motor &#10003;<br>
+&bull; A failed or disconnected rain detector should default to the safe state, treated as rain &#10003;<br>
+&bull; The whole crop depends on one digital input, so its failure mode matters &#10003;</p>
+<p class="p2-award">Award [1] for each relevant detail / reason / cause relating to how the control logic should resolve the conflict up to [4 max]. Award a maximum of [3] where the response asserts a priority without justifying it from the consequences. Credit responses that identify fallback outputs or a fail-safe default.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 

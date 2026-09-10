@@ -642,6 +642,42 @@
   margin-bottom: 0.4rem;
 }
 
+.p2-stimulus p { font-style: normal; margin: 0 0 0.6rem; }
+.p2-stimulus p:last-child { margin-bottom: 0; }
+.p2-stimulus em { font-style: italic; }
+
+.p2-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.6rem 0 0.2rem;
+}
+
+.p2-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-style: normal;
+}
+.p2-data-table th,
+.p2-data-table td {
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.55rem;
+  text-align: left;
+}
+.p2-data-table th {
+  background: var(--surface);
+  font-weight: 700;
+  color: var(--text);
+}
+.p2-award {
+  margin: 0.4rem 0 0.9rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+  font-style: italic;
+}
+
 .p2-q-body {
   padding: 1rem 1.25rem;
   background: var(--bg);
