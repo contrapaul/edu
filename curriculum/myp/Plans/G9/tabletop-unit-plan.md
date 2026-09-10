@@ -51,10 +51,10 @@ grade through the group phase:
 | Launch | 1 | Demographic brief cards issued, teams formed |
 | Ai | 1 | Need Statement, 1 page |
 | Aii | 1 | Research Plan, prioritised, 1 page |
-| Aiii | 3 | 4 Teardown Cards plus a synthesis page |
+| Aiii | 3 | 3 teardowns plus a synthesis page |
 | Aiv | 1 | Design Brief, 1 page with evidence column |
 | Bi | 1 | Design Specification, 8 to 12 testable specs |
-| Bii | 3 | 6 to 8 annotated concepts plus 2 paper prototypes |
+| Bii | 3 | 3 annotated concepts plus 2 paper prototypes |
 | Biii | 2 | Decision matrix plus critical justification |
 | Biv | 3 | Production Pack, 4 to 8 pages |
 | Ci | 1 | Group plan plus personal task plan |
@@ -234,7 +234,7 @@ the concepts and is direct evidence for "can be correctly interpreted by others"
 which is otherwise very hard to evidence.
 
 **Class shape.** Class 1 mechanic draw and rapid concepts. Class 2 develop and
-annotate the best six. Class 3 paper prototypes and the interpretation test.
+annotate all three. Class 3 paper prototypes and the interpretation test.
 
 ## Biii (2 classes)
 

@@ -37,7 +37,7 @@ Everything goes to **ManageBac** as soon as it is finished. Some tasks produce s
 | 3 | **Aiii** | Analyse existing games | 3 classes | 3 teardowns + synthesis | TO WRITE | TO WRITE | 0 of 4 |
 | 4 | **Aiv** | Write the design brief | 1 class | Design Brief, 1 page | TO WRITE | TO WRITE | 0 of 4 |
 | 5 | **Bi** | Write design specification | 1 class | Specification, 8 to 12 lines | TO WRITE | TO WRITE | 0 of 4 |
-| 6 | **Bii** | Generate a range of ideas | 3 classes | 6 to 8 concepts + 2 prototypes | TO WRITE | TO WRITE | 0 of 4 |
+| 6 | **Bii** | Generate a range of ideas | 3 classes | 3 concepts + 2 prototypes | TO WRITE | TO WRITE | 0 of 4 |
 | 7 | **Biii** | Choose and justify critically | 2 classes | Matrix + justification | TO WRITE | TO WRITE | 0 of 4 |
 | 8 | **Biv** | Draw it for production | 3 classes | Production Pack, 4 to 8 pages | TO WRITE | TO WRITE | 0 of 4 |
 | 9 | **Ci** | Plan the build | 1 class | Both plans, both versions | TO WRITE | TO WRITE | 0 of 4 |
@@ -331,7 +331,7 @@ Required on the submission, from the unit page checklist:
 Class shape, for the strip under the masthead:
 
 1. Mechanic draw and rapid concepts
-2. Develop and annotate the best six
+2. Develop and annotate all three
 3. Paper prototypes and the interpretation test
 
 Devices on the page that belong in this column: **The mechanic draw**, **The interpretation test**.
