@@ -1,0 +1,295 @@
+/* ============================================================
+   presentation.css — "Present" mode for curriculum topic pages.
+   Pairs with presentation.js. Built entirely on the site variables
+   (--bg, --surface, --text, --curr-color …) so every theme in
+   themes.css carries into the deck unchanged.
+   ============================================================ */
+
+/* ---- entry buttons on the page ------------------------------------ */
+.ps-topic-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.07em;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--curr-color, var(--accent));
+  background: var(--surface);
+  border: 1px solid var(--curr-color, var(--accent));
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 0.875rem; margin: 1.25rem 0 0.75rem 0.6rem;
+  cursor: pointer; vertical-align: middle;
+  transition: background var(--transition), color var(--transition);
+}
+.ps-topic-btn:hover { background: var(--curr-color, var(--accent)); color: #fff; }
+.ps-topic-btn svg, .ps-obj-btn svg { width: 11px; height: 11px; flex: none; }
+
+.ps-obj-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.07em;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--muted); background: none;
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 0.3rem 0.75rem; margin: 0 0 1rem; cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+.ps-obj-btn:hover { color: var(--curr-color, var(--accent)); border-color: var(--curr-color, var(--accent)); }
+.ps-topic-btn:focus-visible, .ps-obj-btn:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 3px; }
+
+/* ---- overlay ------------------------------------------------------- */
+body.ps-presenting { overflow: hidden; }
+/* Let the site's floating theme picker, case-study modals and the image
+   lightbox sit above the deck instead of underneath it. */
+body.ps-presenting .theme-picker-wrap { z-index: 2500; }
+body.ps-presenting .case-modal.open { z-index: 2400; }
+body.ps-presenting .case-lightbox.open { z-index: 2450; }
+
+.ps-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  display: none; flex-direction: column;
+  background: var(--bg); color: var(--text);
+  font-family: var(--font-body);
+}
+.ps-overlay.is-open { display: flex; }
+
+.ps-topbar {
+  flex: none; display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.55rem 1rem; min-height: 2.9rem;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.ps-deck-title {
+  flex: 1; min-width: 0;
+  font-family: var(--font-display); font-size: 0.92rem; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ps-deck-title .ps-deck-code { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--curr-color, var(--accent)); margin-right: 0.6rem; }
+.ps-tb-btn {
+  flex: none; display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--muted); background: none;
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  padding: 0.38rem 0.75rem; cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+.ps-tb-btn svg { width: 14px; height: 14px; }
+.ps-tb-btn:hover, .ps-tb-btn.is-on { color: var(--text); border-color: var(--border-strong); }
+.ps-tb-btn.is-on { background: var(--surface-2); }
+.ps-tb-btn:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 2px; }
+.ps-tb-btn--close { color: var(--text); }
+.ps-overlay.is-fullscreen .ps-topbar { display: none; }
+
+.ps-progress { flex: none; height: 3px; background: var(--surface-2); }
+.ps-progress-bar { display: block; height: 100%; width: 0; background: var(--curr-color, var(--accent)); transition: width 0.3s ease; }
+
+/* ---- stage and slides ---------------------------------------------- */
+.ps-stage {
+  position: relative; flex: 1; overflow: hidden;
+  --ps-fs: clamp(1.05rem, 1.9vw, 1.9rem);
+  --ps-pad-x: clamp(1.4rem, 4.5vw, 4rem);
+  touch-action: pan-y;
+}
+.ps-slide {
+  position: absolute; inset: 0; visibility: hidden; overflow: hidden;
+  padding: clamp(2.6rem, 6vh, 3.6rem) var(--ps-pad-x) clamp(1.2rem, 3vh, 2rem);
+}
+.ps-slide.is-active { visibility: visible; animation: ps-fade 0.22s ease; }
+@keyframes ps-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .ps-slide.is-active { animation: none; } }
+
+.ps-slide-kicker {
+  position: absolute; top: clamp(0.8rem, 2vh, 1.2rem); left: var(--ps-pad-x); right: var(--ps-pad-x);
+  font-family: var(--font-mono); font-size: clamp(0.66rem, 0.95vw, 0.9rem);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ps-slide-kicker .ps-kicker-code { font-weight: 700; color: var(--curr-color, var(--accent)); margin-right: 0.6em; }
+
+.ps-slide-inner {
+  position: relative; height: 100%;
+  display: flex; flex-direction: column; justify-content: safe center;
+}
+.ps-slide--text .ps-slide-body { width: 100%; max-width: 58rem; margin-left: auto; margin-right: auto; }
+.ps-slide--split .ps-slide-inner { flex-direction: row; align-items: center; gap: clamp(1.4rem, 3vw, 2.8rem); }
+.ps-slide--split .ps-slide-body { flex: 1; min-width: 0; }
+.ps-slide--split .ps-media-col { flex: none; width: min(44%, 560px); }
+.ps-slide--split.ps-slide--media-left .ps-media-col { order: -1; }
+.ps-slide--imgonly .ps-slide-inner { justify-content: center; align-items: center; }
+.ps-slide--imgonly .ps-media-col { width: 100%; height: 100%; }
+
+/* ---- slide typography ----------------------------------------------
+   Scales with the viewport so a projected slide reads from the back of
+   the room instead of inheriting page-sized text. */
+/* Selectors carry .ps-overlay so they outrank the page's own
+   .obj-body > p and .obj-body ul:not([class]) li sizing. */
+.ps-overlay .ps-slide-body.obj-body { display: block; padding: 0; font-size: var(--ps-fs); line-height: 1.55; }
+.ps-overlay .ps-slide-body > :first-child { margin-top: 0; }
+.ps-overlay .ps-slide-body > :last-child { margin-bottom: 0; }
+.ps-overlay .ps-slide-body p, .ps-overlay .ps-slide-body :is(ul, ol) li { font-size: 1em; line-height: 1.55; }
+.ps-overlay .ps-slide-body p { margin: 0 0 0.8em; }
+.ps-overlay .ps-slide-body :is(ul, ol) { font-size: 1em; margin: 0 0 0.8em; padding-left: 1.25em; }
+.ps-overlay .ps-slide-body :is(ul, ol) li { margin: 0 0 0.6em; }
+.ps-overlay .ps-slide-body li:last-child { margin-bottom: 0; }
+.ps-overlay .ps-slide-body a { color: inherit; text-decoration: underline; text-decoration-color: var(--curr-color, var(--accent)); text-underline-offset: 0.18em; }
+.ps-overlay .ps-slide-body p.content-formula { font-size: 1.05em; margin: 0 0 0.8em; }
+.ps-overlay .ps-slide-body hr { display: none; }
+
+.ps-block { display: block; margin: 0 0 1em; }
+.ps-block:last-child { margin-bottom: 0; }
+.ps-lead {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 1.4em; line-height: 1.2; color: var(--text);
+  margin: 0 0 0.5em; padding-bottom: 0.28em;
+  border-bottom: 2px solid var(--curr-color, var(--accent));
+}
+.ps-lead--cont { color: var(--muted); border-bottom-color: var(--border); }
+.ps-lead--cont .ps-cont { font-family: var(--font-mono); font-size: 0.55em; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 0.6em; vertical-align: middle; }
+
+.ps-slide-body .content-table-wrap { margin: 0; overflow: visible; }
+.ps-slide-body table { width: 100%; margin: 0; font-size: 0.8em; line-height: 1.45; }
+.ps-slide-body table th {
+  font-family: var(--font-mono); font-size: 0.72em; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  padding: 0.7em 0.9em; vertical-align: bottom;
+}
+.ps-slide-body table td { padding: 0.7em 0.9em; }
+
+/* Boxes written for the page (discussion, topic links, tool cards) keep
+   their own styling and simply scale up. */
+.ps-slide-body .discussion-box, .ps-slide-body .topic-link-blurb { margin: 0; font-size: 0.85em; }
+.ps-slide-body .discussion-box p, .ps-slide-body .discussion-box li, .ps-slide-body .topic-link-blurb { font-size: 1em; line-height: 1.55; }
+.ps-slide-body .discussion-box-title { font-size: 1.3em; }
+.ps-slide-body .tool-promo-card { margin: 0 auto; max-width: 46rem; }
+.ps-slide--live .ps-slide-body { font-size: clamp(1rem, 1.3vw, 1.25rem); }
+.ps-slide--live .ps-slide-body .drag-sort { margin: 0; }
+
+/* ---- media ----------------------------------------------------------- */
+.ps-media-col { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.9rem; min-height: 0; }
+.ps-media-col figure, .ps-media-col .case-photo { width: 100%; margin: 0; text-align: center; }
+.ps-media-col img {
+  display: block; width: auto; height: auto; max-width: 100%; max-height: 58vh;
+  margin: 0 auto; object-fit: contain;
+  border: 1px solid var(--border); border-radius: var(--radius); cursor: zoom-in;
+}
+.ps-media-col figure + figure img, .ps-media-col figure:has(+ figure) img { max-height: 27vh; }
+.ps-slide--imgonly .ps-media-col { flex-direction: row; align-items: center; }
+.ps-slide--imgonly .ps-media-col figure { flex: 1; min-width: 0; }
+.ps-slide--imgonly .ps-media-col img { max-height: 56vh; }
+.ps-slide--imgonly .ps-media-col figure + figure img, .ps-slide--imgonly .ps-media-col figure:has(+ figure) img { max-height: 50vh; }
+.ps-media-col figcaption {
+  font-size: clamp(0.72rem, 0.95vw, 0.95rem); line-height: 1.5; color: var(--muted);
+  margin-top: 0.5rem; text-align: center;
+}
+.ps-media-col figcaption a { color: var(--muted); text-decoration: underline; }
+
+/* Feature: a large centred image with its caption as the description. */
+.ps-slide--feature .ps-slide-inner { align-items: center; justify-content: center; }
+.ps-slide--feature .ps-media-col { width: 100%; height: 100%; }
+.ps-slide--feature .ps-media-col img { max-height: 58vh; max-width: min(100%, 1400px); }
+.ps-slide--feature .ps-media-col figcaption { font-size: clamp(0.95rem, 1.4vw, 1.4rem); color: var(--text); max-width: 60rem; margin: 1rem auto 0; }
+
+/* ---- cover and section dividers ---------------------------------------- */
+.ps-cover-inner { width: 100%; max-width: 62rem; margin: auto; text-align: center; }
+.ps-cover-code { font-family: var(--font-mono); font-size: clamp(0.9rem, 1.6vw, 1.15rem); font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--curr-color, var(--accent)); }
+.ps-cover-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.8rem, 4vw, 3.4rem); line-height: 1.15; color: var(--text); margin: 0.45rem auto 1.4rem; }
+.ps-cover-gq { font-size: clamp(1rem, 1.7vw, 1.55rem); line-height: 1.45; color: var(--muted); max-width: 48rem; margin: 0 auto; }
+.ps-cover-gq .ps-gq-label { display: block; font-family: var(--font-mono); font-size: 0.6em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--curr-color, var(--accent)); margin-bottom: 0.5em; }
+.ps-cover-hint { margin-top: 2.2rem; font-family: var(--font-mono); font-size: clamp(0.66rem, 0.9vw, 0.85rem); letter-spacing: 0.06em; color: var(--muted); }
+
+.ps-divider-inner { width: 100%; max-width: 60rem; margin: auto; }
+.ps-divider-code { font-family: var(--font-mono); font-size: clamp(1.4rem, 3vw, 2.6rem); font-weight: 700; letter-spacing: 0.08em; color: var(--curr-color, var(--accent)); }
+.ps-divider-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3.1vw, 2.7rem); line-height: 1.2; color: var(--text); margin: 0.4rem 0 1.4rem; }
+.ps-divider-outcome { font-size: clamp(0.95rem, 1.45vw, 1.35rem); line-height: 1.5; padding: 0.8em 1em; background: var(--surface-2); border-left: 3px solid var(--curr-color, var(--accent)); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--text); }
+.ps-divider-outcome .obj-outcome-label { display: block; font-family: var(--font-mono); font-size: 0.62em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4em; }
+.ps-divider-outcome .obj-outcome-label::after { content: ''; }
+
+/* ---- case study hero ------------------------------------------------- */
+.ps-slide--hero { padding: 0; }
+.ps-slide--hero .ps-slide-kicker { display: none; }
+.ps-slide--hero .ps-slide-inner { display: flex; flex-direction: column; }
+.ps-overlay .ps-slide--hero .ps-slide-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.ps-case-hero { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--surface); }
+.ps-case-hero > img { flex: 1; min-height: 0; width: 100%; object-fit: contain; background: var(--surface-2); }
+.ps-case-hero-text { flex: none; padding: clamp(1.2rem, 3vw, 2.4rem) var(--ps-pad-x); border-top: 4px solid var(--curr-color, var(--accent)); }
+.ps-case-hero--noimg .ps-case-hero-text { flex: 1; display: flex; flex-direction: column; justify-content: center; border-top: 0; }
+.ps-case-kicker { font-family: var(--font-mono); font-size: clamp(0.66rem, 0.9vw, 0.85rem); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--curr-color, var(--accent)); }
+.ps-case-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.6rem); line-height: 1.15; color: var(--text); margin: 0.5rem 0 0.7rem; }
+.ps-case-teaser { font-size: clamp(0.95rem, 1.3vw, 1.3rem); line-height: 1.5; color: var(--muted); margin: 0; }
+
+/* ---- footer nav ----------------------------------------------------------- */
+.ps-footer {
+  flex: none; display: flex; align-items: center; justify-content: center; gap: 1.1rem;
+  padding: 0.45rem 1rem; background: var(--surface); border-top: 1px solid var(--border);
+}
+.ps-overlay.is-fullscreen .ps-footer { padding: 0.3rem 1rem; }
+.ps-counter { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); min-width: 5rem; text-align: center; }
+.ps-nav {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  cursor: pointer; transition: background var(--transition), border-color var(--transition);
+}
+.ps-nav svg { width: 18px; height: 18px; }
+.ps-nav:hover:not(:disabled) { background: var(--surface-2); border-color: var(--border-strong); }
+.ps-nav:disabled { opacity: 0.35; cursor: default; }
+.ps-nav:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: 2px; }
+
+/* ---- overview (contents) panel --------------------------------------------- */
+.ps-overview {
+  position: absolute; top: 0; bottom: 0; left: 0; z-index: 5;
+  width: min(22rem, 85vw); display: none; flex-direction: column;
+  background: var(--surface); border-right: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+.ps-overview.is-open { display: flex; }
+.ps-overview-head { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem 0.6rem; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+.ps-overview-list { flex: 1; overflow-y: auto; list-style: none; margin: 0; padding: 0.5rem 0; }
+.ps-overview-item { display: flex; align-items: baseline; gap: 0.6rem; width: 100%; text-align: left; padding: 0.55rem 1rem; background: none; border: 0; border-left: 3px solid transparent; color: var(--text); font-family: var(--font-body); font-size: 0.86rem; line-height: 1.35; cursor: pointer; }
+.ps-overview-item:hover { background: var(--surface-2); }
+.ps-overview-item.is-current { border-left-color: var(--curr-color, var(--accent)); background: var(--surface-2); }
+.ps-overview-item:focus-visible { outline: 2px solid var(--curr-color, var(--accent)); outline-offset: -2px; }
+.ps-ov-code { flex: none; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: var(--curr-color, var(--accent)); min-width: 3.2rem; }
+.ps-ov-title { flex: 1; min-width: 0; }
+.ps-ov-count { flex: none; font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); }
+
+/* ---- keyboard help --------------------------------------------------------- */
+.ps-help {
+  position: absolute; inset: 0; z-index: 6; display: none;
+  align-items: center; justify-content: center; background: rgba(0,0,0,0.45);
+}
+.ps-help.is-open { display: flex; }
+.ps-help-card { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.6rem 1.4rem; width: min(30rem, 92vw); box-shadow: var(--shadow-md); }
+.ps-help-card h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; margin: 0 0 0.8rem; }
+.ps-help-card table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.ps-help-card td { padding: 0.32rem 0; vertical-align: top; }
+.ps-help-card td:first-child { width: 9.5rem; }
+.ps-help-card kbd { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.1rem 0.4rem; border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-2); margin-right: 0.25rem; }
+.ps-help-close { margin-top: 1rem; }
+
+/* ---- building state ---------------------------------------------------------- */
+.ps-building { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---- small screens ------------------------------------------------------------ */
+@media (max-width: 760px) {
+  .ps-slide--split .ps-slide-inner { flex-direction: column; align-items: stretch; }
+  .ps-slide--split .ps-media-col { width: 100%; order: -1; }
+  .ps-media-col img { max-height: 34vh; }
+  .ps-tb-btn span { display: none; }
+}
+
+/* ---- PDF export (print) --------------------------------------------------------
+   Each slide becomes one landscape page. Slide type sizes use vw and vh,
+   so the layout measured on screen re-flows to the page in proportion. */
+@media print {
+  @page { size: landscape; margin: 0; }
+  body.ps-presenting { overflow: visible; display: block; }
+  body.ps-presenting > :not(.ps-overlay) { display: none !important; }
+  .ps-overlay { position: static; display: block; height: auto; overflow: visible; }
+  .ps-topbar, .ps-footer, .ps-progress, .ps-overview, .ps-help, .ps-building { display: none !important; }
+  .ps-stage { position: static; overflow: visible; height: auto; }
+  .ps-slide {
+    position: relative; visibility: visible; animation: none;
+    width: 100vw; height: 100vh; overflow: hidden;
+    break-after: page; page-break-after: always;
+    background: var(--bg); color: var(--text);
+  }
+  .ps-slide:last-child { break-after: auto; page-break-after: auto; }
+  .ps-media-col img { cursor: default; }
+}
