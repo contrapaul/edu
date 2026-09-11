@@ -184,12 +184,18 @@ Everything above maps to data. To extend the world without touching the engine:
 **A product is one data file** describing all six phases (`brief`, `design`,
 `testing`, `certification`, `manufacturing`, `launch`). Key hooks:
 - a component with `kind: 'material'` is the material slot; one with
-  `critical: true` drives the cert "unverifiable certificate" risk, the EMC
-  difficulty penalty, and the launch field issue;
+  `critical: true` drives the cert "unverifiable certificate" risk and the
+  launch field issue;
 - a test with `interactive: true` + `minigame: 'emc' | 'droptest'` launches a
   mini-game; otherwise it auto-resolves, and a `resolve(p, def)` function lets a
   product define a **bespoke test** (optical, speed-limit, GDPR, food-contact,
   leaching, insulation, food-temp, green-claims) without engine changes;
+- the design drives the bench: each EMC peak names the `component` it comes
+  from, and that part's rating shifts the peak (rating 5 clears it, rating 1-2
+  makes it worse); drop-test points shift with the housing material's toughness.
+  Any test the design already guarantees (an auto test that resolves to pass, or
+  a bench with nothing over the limit) is **pre-cleared** for free, so only
+  genuinely uncertain tests offer a paid Run;
 - `phases.certification.toleranceCheck` is the product's one genuinely
   within-tolerance discrepancy (the others must be corrected);
 - non-electronic products simply omit electronics `categories` and EMC tests —

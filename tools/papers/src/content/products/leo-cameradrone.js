@@ -125,8 +125,8 @@ export default {
         standardLabel: 'FCC §15 / CE RED',
         maxApplications: 5,
         peaks: [
-          { id: 'video', freq: '5.8 GHz', label: '5.8 GHz video downlink', source: 'Analogue/digital video transmitter', excess: 7, correctFix: 'shield' },
-          { id: 'esc',   freq: '600 kHz', label: '600 kHz ESC switching', source: 'Motor speed controllers', excess: 6, correctFix: 'ferrite', psuSensitive: true },
+          { id: 'video', freq: '5.8 GHz', label: '5.8 GHz video downlink', source: 'Analogue/digital video transmitter', excess: 7, correctFix: 'shield', component: 'camera' },
+          { id: 'esc',   freq: '600 kHz', label: '600 kHz ESC switching', source: 'Motor speed controllers', excess: 6, correctFix: 'ferrite', component: 'battery' },
           { id: 'ctrl',  freq: '2.4 GHz', label: '2.4 GHz control spur', source: 'Control-link transceiver', excess: 5, correctFix: 'filter' },
           { id: 'gps',   freq: '1.575 GHz', label: 'GPS L1 (receive only)', source: 'GPS receiver (passive)', excess: -3, correctFix: null }
         ]

@@ -9,9 +9,12 @@
 //   onComplete(result): result = { status:'pass'|'conditional'|'fail', score, details }
 
 const MITIGATIONS = [
-  { id: 'ferrite', name: 'Ferrite Bead',     hint: 'Low-frequency conducted / switching noise' },
-  { id: 'shield',  name: 'Shield Can',        hint: 'High-frequency radiated emissions' },
-  { id: 'filter',  name: 'Filter Capacitor',  hint: 'Amplifier / output-stage noise' }
+  { id: 'ferrite', name: 'Ferrite Bead',     hint: 'Low-frequency conducted / switching noise',
+    why: 'a ferrite bead adds impedance on the cable, choking switching noise before it leaves the box' },
+  { id: 'shield',  name: 'Shield Can',        hint: 'High-frequency radiated emissions',
+    why: 'a shield can boxes in the RF source so the harmonic cannot radiate off the board' },
+  { id: 'filter',  name: 'Filter Capacitor',  hint: 'Amplifier / output-stage noise',
+    why: 'a capacitor across the output shunts the noise to ground instead of letting it ride the wires' }
 ];
 const CORRECT_REDUCTION = 12;
 const WRONG_REDUCTION = 2;
@@ -24,6 +27,7 @@ export function renderEmc(container, config, onComplete) {
   const maxApps = config.maxApplications;
   let used = 0;
   let selected = null;
+  let feedback = null;   // { kind: 'good' | 'bad', text } for the last fix applied
 
   const failingCount = () => peaks.filter(p => p.currentExcess > 0).length;
 
@@ -75,13 +79,20 @@ export function renderEmc(container, config, onComplete) {
       `<button class="emc-mit" data-mit="${m.id}" ${cleared || used >= maxApps ? 'disabled' : ''}>
         <b>${m.name}</b><span>${m.hint}</span>
       </button>`).join('');
+    const outOfFixes = !cleared && used >= maxApps;
     return `<div class="emc-detail">
       <div class="emc-detail-head">
         <span class="emc-detail-freq">${p.freq}</span>
         <span class="emc-detail-status ${cleared ? 'ok' : 'over'}">${cleared ? 'Within limit' : `+${p.currentExcess} dB over`}</span>
       </div>
       <p class="emc-source"><b>Likely source:</b> ${p.source}</p>
-      ${cleared ? '<p class="emc-cleared">This peak is compliant. Nice.</p>' : `<div class="emc-mits">${buttons}</div>`}
+      ${p.note ? `<p class="emc-design-note"><b>Design note:</b> ${p.note}</p>` : ''}
+      ${feedback && feedback.peak === p.id ? `<p class="emc-feedback ${feedback.kind}">${feedback.text}</p>` : ''}
+      ${cleared
+        ? '<p class="emc-cleared">This peak is compliant. Nice.</p>'
+        : outOfFixes
+          ? '<p class="emc-feedback bad">No fixes left. Record the result as it stands, or abort (the fee is refunded) and come back with a plan.</p>'
+          : `<div class="emc-mits">${buttons}</div>`}
     </div>`;
   }
 
@@ -116,9 +127,13 @@ export function renderEmc(container, config, onComplete) {
         const p = peaks.find(x => x.id === selected);
         if (!p || p.currentExcess <= 0) return;
         const correct = btn.dataset.mit === p.correctFix;
+        const m = MITIGATIONS.find(x => x.id === btn.dataset.mit);
         p.currentExcess -= correct ? CORRECT_REDUCTION : WRONG_REDUCTION;
         p.fixes.push(btn.dataset.mit);
         used++;
+        feedback = correct
+          ? { peak: p.id, kind: 'good', text: `${m.name}: −${CORRECT_REDUCTION} dB. Right tool: ${m.why}.` }
+          : { peak: p.id, kind: 'bad', text: `${m.name}: only −${WRONG_REDUCTION} dB, and that fix is spent. It targets ${m.hint.toLowerCase()}, but this peak comes from the ${p.source}. Pick the fix whose hint matches that source.` };
         render();
       });
     });
@@ -130,9 +145,11 @@ export function renderEmc(container, config, onComplete) {
   function finish() {
     const over = failingCount();
     const status = over === 0 ? 'pass' : over === 1 ? 'conditional' : 'fail';
+    const wasted = peaks.reduce((n, p) => n + p.fixes.filter(f => f !== p.correctFix).length, 0);
+    const wastedNote = wasted ? ` ${wasted} fix${wasted === 1 ? ' was' : 'es were'} the wrong tool for the source.` : '';
     const details = over === 0
-      ? `All emissions below the ${config.standardLabel} limit after ${used} fix${used === 1 ? '' : 'es'}.`
-      : `${over} peak${over === 1 ? '' : 's'} still over the limit. ${status === 'conditional' ? 'Marginal — may pass with documented justification.' : 'Will fail formal EMC testing.'}`;
+      ? `All emissions below the ${config.standardLabel} limit after ${used} fix${used === 1 ? '' : 'es'}.${wastedNote}`
+      : `${over} peak${over === 1 ? '' : 's'} still over the limit. ${status === 'conditional' ? 'Marginal — may pass with documented justification.' : 'Will fail formal EMC testing.'}${wastedNote}`;
     const score = Math.max(0, 100 - over * 30 - Math.max(0, used - over) * 5);
     onComplete({ status, score, details });
   }

@@ -123,9 +123,9 @@ export default {
         standardLabel: 'FCC §15 / CE RED',
         maxApplications: 5,
         peaks: [
-          { id: 'tx',   freq: '2.4 GHz', label: 'Transmitter spur', source: '2.4 GHz control transmitter', excess: 6, correctFix: 'shield' },
-          { id: 'esc',  freq: '450 kHz', label: '450 kHz ESC switching', source: 'Motor speed controller', excess: 7, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'brush',freq: '900 kHz', label: '900 kHz brush noise', source: 'Brushed motor commutation', excess: 4, correctFix: 'filter' },
+          { id: 'tx',   freq: '2.4 GHz', label: 'Transmitter spur', source: '2.4 GHz control transmitter', excess: 6, correctFix: 'shield', component: 'radio' },
+          { id: 'esc',  freq: '450 kHz', label: '450 kHz ESC switching', source: 'Motor speed controller', excess: 7, correctFix: 'ferrite', component: 'motor' },
+          { id: 'brush',freq: '900 kHz', label: '900 kHz brush noise', source: 'Brushed motor commutation', excess: 4, correctFix: 'filter', component: 'motor' },
           { id: 'clk',  freq: '16 MHz',  label: '16 MHz receiver clock', source: 'Receiver MCU (filtered)', excess: -2, correctFix: null }
         ]
       }

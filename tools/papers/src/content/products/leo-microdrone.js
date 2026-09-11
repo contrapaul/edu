@@ -112,9 +112,9 @@ export default {
         standardLabel: 'FCC §15 / CE RED',
         maxApplications: 5,
         peaks: [
-          { id: 'radio', freq: '2.4 GHz', label: 'Control-radio spur', source: '2.4 GHz control-link transmitter', excess: 6, correctFix: 'shield' },
-          { id: 'esc',   freq: '500 kHz', label: '500 kHz ESC switching', source: 'Motor electronic speed controllers', excess: 7, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'pwm',   freq: '1.1 MHz', label: '1.1 MHz motor PWM', source: 'Motor drive PWM stage', excess: 4, correctFix: 'filter' },
+          { id: 'radio', freq: '2.4 GHz', label: 'Control-radio spur', source: '2.4 GHz control-link transmitter', excess: 6, correctFix: 'shield', component: 'radio' },
+          { id: 'esc',   freq: '500 kHz', label: '500 kHz ESC switching', source: 'Motor electronic speed controllers', excess: 7, correctFix: 'ferrite', component: 'motor' },
+          { id: 'pwm',   freq: '1.1 MHz', label: '1.1 MHz motor PWM', source: 'Motor drive PWM stage', excess: 4, correctFix: 'filter', component: 'motor' },
           { id: 'clk',   freq: '24 MHz',  label: '24 MHz flight-controller clock', source: 'Flight controller (filtered)', excess: -2, correctFix: null }
         ]
       },

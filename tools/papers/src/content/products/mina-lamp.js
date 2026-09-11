@@ -122,9 +122,9 @@ export default {
         standardLabel: 'FCC §15 / CE EMC',
         maxApplications: 5,
         peaks: [
-          { id: 'driver', freq: '900 kHz', label: '900 kHz driver switching', source: 'LED constant-current driver', excess: 7, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'wifi',   freq: '2.4 GHz', label: 'Wi-Fi 2.4 GHz harmonic', source: 'Smart Wi-Fi module', excess: 6, correctFix: 'shield' },
-          { id: 'pwm',    freq: '1.0 MHz', label: '1.0 MHz dimming ripple', source: 'PWM dimming stage', excess: 4, correctFix: 'filter' },
+          { id: 'driver', freq: '900 kHz', label: '900 kHz driver switching', source: 'LED constant-current driver', excess: 7, correctFix: 'ferrite', component: 'driver' },
+          { id: 'wifi',   freq: '2.4 GHz', label: 'Wi-Fi 2.4 GHz harmonic', source: 'Smart Wi-Fi module', excess: 6, correctFix: 'shield', component: 'wifi' },
+          { id: 'pwm',    freq: '1.0 MHz', label: '1.0 MHz dimming ripple', source: 'PWM dimming stage', excess: 4, correctFix: 'filter', component: 'driver' },
           { id: 'clk',    freq: '48 MHz',  label: '48 MHz MCU clock', source: 'Microcontroller clock (filtered)', excess: -3, correctFix: null }
         ]
       }

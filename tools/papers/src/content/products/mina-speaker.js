@@ -75,9 +75,9 @@ export default {
         standardLabel: 'FCC §15 / CE EMC',
         maxApplications: 5,
         peaks: [
-          { id: 'wifi',   freq: '2.4 GHz', label: 'Wi-Fi 2.4 GHz harmonic', source: 'Wi-Fi / Bluetooth module radiated emission', excess: 7, correctFix: 'shield' },
-          { id: 'switch', freq: '700 kHz', label: '700 kHz switching noise', source: 'Power-supply switching regulator', excess: 6, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'amp',    freq: '1.2 MHz', label: '1.2 MHz amplifier noise', source: 'Class-D amplifier output stage', excess: 5, correctFix: 'filter' },
+          { id: 'wifi',   freq: '2.4 GHz', label: 'Wi-Fi 2.4 GHz harmonic', source: 'Wi-Fi / Bluetooth module radiated emission', excess: 7, correctFix: 'shield', component: 'wifi' },
+          { id: 'switch', freq: '700 kHz', label: '700 kHz switching noise', source: 'Power-supply switching regulator', excess: 6, correctFix: 'ferrite', component: 'psu' },
+          { id: 'amp',    freq: '1.2 MHz', label: '1.2 MHz amplifier noise', source: 'Class-D amplifier output stage', excess: 5, correctFix: 'filter', component: 'amp' },
           { id: 'clk',    freq: '80 MHz',  label: '80 MHz MCU clock', source: 'Microcontroller clock (already filtered)', excess: -3, correctFix: null }
         ]
       }

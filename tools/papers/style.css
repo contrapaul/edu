@@ -565,6 +565,9 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .submit-ok { font-size: 0.82rem; color: var(--stamp-grn); }
 .test-retest { align-self: flex-start; margin-top: 0.5rem; font-size: 0.8rem; padding: 0.45rem 0.9rem; }
 .retest-note { display: block; margin-top: 0.5rem; font-size: 0.76rem; color: var(--muted); font-style: italic; }
+.test-result.pre-cleared { border-left-style: dashed; }
+.test-precleared-note { font-size: 0.72rem; color: var(--muted); font-style: italic; }
+.preclear-summary { font-size: 0.84rem; color: #33373f; background: var(--green-bg); border-left: 3px solid var(--stamp-grn); padding: 0.55rem 0.8rem; border-radius: 4px; margin-bottom: 0.6rem; }
 
 /* ============================================================
    EMC MINI-GAME
@@ -614,6 +617,11 @@ button:focus-visible, input:focus-visible, [tabindex]:focus-visible { outline: 3
 .emc-detail-status.ok { color: var(--stamp-grn); font-family: var(--font-mono); font-size: 0.85rem; }
 .emc-source { font-size: 0.82rem; color: #33373f; margin: 0.3rem 0 0.5rem; }
 .emc-cleared { font-size: 0.82rem; color: var(--stamp-grn); }
+.emc-design-note { font-size: 0.76rem; color: var(--muted); margin: 0 0 0.5rem; border-left: 2px solid var(--line); padding-left: 0.55rem; }
+.emc-design-note b { color: #33373f; }
+.emc-feedback { font-size: 0.8rem; margin: 0 0 0.6rem; padding: 0.45rem 0.7rem; border-radius: 4px; }
+.emc-feedback.good { background: var(--green-bg); color: #14532d; }
+.emc-feedback.bad { background: var(--amber-bg); color: #7c2d12; }
 .emc-mits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
 .emc-mit {
   text-align: left; background: #fff; border: 1.5px solid var(--line); border-radius: 5px;

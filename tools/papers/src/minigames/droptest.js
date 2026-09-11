@@ -11,10 +11,14 @@
 //   onComplete(result): { status:'pass'|'conditional'|'fail', score, details }
 
 const FIXES = [
-  { id: 'rib',      name: 'Add Rib',          hint: 'Stiffens thin spans and hinges' },
-  { id: 'thicker',  name: 'Thicken Wall',     hint: 'More material to resist bending' },
-  { id: 'material', name: 'Tougher Material',  hint: 'Higher-impact polymer' },
-  { id: 'fillet',   name: 'Add Fillet',        hint: 'Relieves stress at sharp corners' }
+  { id: 'rib',      name: 'Add Rib',          hint: 'Stiffens thin spans and hinges',
+    why: 'a rib turns a flexing span into a beam, so it stops bending far enough to snap' },
+  { id: 'thicker',  name: 'Thicken Wall',     hint: 'More material to resist bending',
+    why: 'a thicker section spreads the impact load over more material' },
+  { id: 'material', name: 'Tougher Material',  hint: 'Higher-impact polymer',
+    why: 'a tougher polymer absorbs the impact energy instead of fracturing' },
+  { id: 'fillet',   name: 'Add Fillet',        hint: 'Relieves stress at sharp corners',
+    why: 'a rounded corner spreads the stress that a sharp one concentrates' }
 ];
 const CORRECT_RED = 12;
 const WRONG_RED = 3;
@@ -23,10 +27,11 @@ const W = 600, H = 260;
 const BOX = { x: 150, y: 50, w: 300, h: 150 };  // cross-section outline
 
 export function renderDropTest(container, config, onComplete) {
-  const points = config.points.map(p => ({ ...p, currentWeak: p.weakness }));
+  const points = config.points.map(p => ({ ...p, currentWeak: p.weakness, fixes: [] }));
   const maxFixes = config.maxReinforcements;
   let used = 0;
   let selected = null;
+  let feedback = null;   // { point, kind: 'good' | 'bad', text } for the last fix applied
 
   const cracking = () => points.filter(p => p.currentWeak > 0).length;
   const px = (p) => BOX.x + p.x * BOX.w;
@@ -62,13 +67,20 @@ export function renderDropTest(container, config, onComplete) {
       `<button class="emc-mit" data-fix="${f.id}" ${cleared || used >= maxFixes ? 'disabled' : ''}>
         <b>${f.name}</b><span>${f.hint}</span>
       </button>`).join('');
+    const outOfFixes = !cleared && used >= maxFixes;
     return `<div class="emc-detail">
       <div class="emc-detail-head">
         <span class="emc-detail-freq">${p.label}</span>
         <span class="emc-detail-status ${cleared ? 'ok' : 'over'}">${cleared ? 'Holds' : `cracks · +${p.currentWeak}`}</span>
       </div>
       <p class="emc-source"><b>Failure mode:</b> ${p.source}</p>
-      ${cleared ? '<p class="emc-cleared">Reinforced. It survives the drop.</p>' : `<div class="emc-mits">${buttons}</div>`}
+      ${p.note ? `<p class="emc-design-note"><b>Design note:</b> ${p.note}</p>` : ''}
+      ${feedback && feedback.point === p.id ? `<p class="emc-feedback ${feedback.kind}">${feedback.text}</p>` : ''}
+      ${cleared
+        ? '<p class="emc-cleared">Reinforced. It survives the drop.</p>'
+        : outOfFixes
+          ? '<p class="emc-feedback bad">No reinforcements left. Record the result as it stands, or abort (the fee is refunded) and come back with a plan.</p>'
+          : `<div class="emc-mits">${buttons}</div>`}
     </div>`;
   }
 
@@ -103,8 +115,13 @@ export function renderDropTest(container, config, onComplete) {
         const p = points.find(x => x.id === selected);
         if (!p || p.currentWeak <= 0) return;
         const correct = btn.dataset.fix === p.correctFix;
+        const f = FIXES.find(x => x.id === btn.dataset.fix);
         p.currentWeak -= correct ? CORRECT_RED : WRONG_RED;
+        p.fixes.push(btn.dataset.fix);
         used++;
+        feedback = correct
+          ? { point: p.id, kind: 'good', text: `${f.name}: −${CORRECT_RED}. Right call: ${f.why}.` }
+          : { point: p.id, kind: 'bad', text: `${f.name}: only −${WRONG_RED}, and that reinforcement is spent. It ${f.hint.toLowerCase()}, but here the ${p.source.charAt(0).toLowerCase() + p.source.slice(1)}. Pick the fix that addresses that failure mode.` };
         render();
       });
     });
@@ -116,9 +133,11 @@ export function renderDropTest(container, config, onComplete) {
   function finish() {
     const cracks = cracking();
     const status = cracks === 0 ? 'pass' : cracks === 1 ? 'conditional' : 'fail';
+    const wasted = points.reduce((n, p) => n + p.fixes.filter(f => f !== p.correctFix).length, 0);
+    const wastedNote = wasted ? ` ${wasted} reinforcement${wasted === 1 ? ' was' : 's were'} the wrong fix for the failure mode.` : '';
     const details = cracks === 0
-      ? `The housing survives the drop after ${used} reinforcement${used === 1 ? '' : 's'}.`
-      : `${cracks} stress point${cracks === 1 ? '' : 's'} still crack. ${status === 'conditional' ? 'Marginal — passable with a documented caveat.' : 'Will fail mechanical certification.'}`;
+      ? `The housing survives the drop after ${used} reinforcement${used === 1 ? '' : 's'}.${wastedNote}`
+      : `${cracks} stress point${cracks === 1 ? '' : 's'} still crack. ${status === 'conditional' ? 'Marginal — passable with a documented caveat.' : 'Will fail mechanical certification.'}${wastedNote}`;
     const score = Math.max(0, 100 - cracks * 30 - Math.max(0, used - cracks) * 5);
     onComplete({ status, score, details });
   }

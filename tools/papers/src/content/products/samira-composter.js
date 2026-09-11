@@ -134,8 +134,8 @@ export default {
         standardLabel: 'FCC §15 / CE EMC',
         maxApplications: 5,
         peaks: [
-          { id: 'triac', freq: '120 kHz', label: '120 kHz heater triac', source: 'Heater phase-control triac', excess: 7, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'motor', freq: '800 kHz', label: '800 kHz grinder brush noise', source: 'Grinder motor commutation', excess: 6, correctFix: 'filter' },
+          { id: 'triac', freq: '120 kHz', label: '120 kHz heater triac', source: 'Heater phase-control triac', excess: 7, correctFix: 'ferrite', component: 'heater' },
+          { id: 'motor', freq: '800 kHz', label: '800 kHz grinder brush noise', source: 'Grinder motor commutation', excess: 6, correctFix: 'filter', component: 'motor' },
           { id: 'smps',  freq: '2.4 MHz', label: '2.4 MHz logic supply', source: 'Control-board switching supply', excess: 4, correctFix: 'shield' },
           { id: 'clk',   freq: '20 MHz',  label: '20 MHz MCU clock', source: 'Microcontroller clock (filtered)', excess: -2, correctFix: null }
         ]

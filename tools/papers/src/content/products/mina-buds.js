@@ -112,9 +112,9 @@ export default {
         standardLabel: 'FCC §15 / CE RED',
         maxApplications: 5,
         peaks: [
-          { id: 'bt',   freq: '2.4 GHz', label: 'Bluetooth fundamental spur', source: 'Bluetooth SoC antenna radiated emission', excess: 6, correctFix: 'shield' },
-          { id: 'buck', freq: '1.5 MHz', label: '1.5 MHz charging noise', source: 'Charging-case buck converter', excess: 6, correctFix: 'ferrite', psuSensitive: true },
-          { id: 'harm', freq: '4.8 GHz', label: '2nd-harmonic spur', source: 'Antenna matching network', excess: 4, correctFix: 'filter' },
+          { id: 'bt',   freq: '2.4 GHz', label: 'Bluetooth fundamental spur', source: 'Bluetooth SoC antenna radiated emission', excess: 6, correctFix: 'shield', component: 'btsoc' },
+          { id: 'buck', freq: '1.5 MHz', label: '1.5 MHz charging noise', source: 'Charging-case buck converter', excess: 6, correctFix: 'ferrite', component: 'battery' },
+          { id: 'harm', freq: '4.8 GHz', label: '2nd-harmonic spur', source: 'Antenna matching network', excess: 4, correctFix: 'filter', component: 'btsoc' },
           { id: 'clk',  freq: '32 MHz',  label: 'SoC clock', source: 'SoC reference clock (already filtered)', excess: -2, correctFix: null }
         ]
       },
