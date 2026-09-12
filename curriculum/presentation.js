@@ -34,6 +34,10 @@
    A standalone "Label:" paragraph, or a paragraph opening with
    <strong>Label:</strong>, becomes the slide heading.
 
+   The Quiz section becomes one slide per question: the first press
+   of → or Space reveals the answer, the next one advances. Clicking
+   an option (or pressing A to D) commits that choice and reveals.
+
    Deep links:  #present            open the deck at the cover
                 #present/3.3.6      open at objective 3.3.6
                 #present/3.3.6/4    open at slide 4 of that objective
@@ -131,6 +135,12 @@
       out.push({ id: sec.id, code: code, title: title, kicker: shortTitle(sec.id, title),
                  outcome: body.querySelector('.obj-outcome'), nodes: nodes });
     });
+
+    var quiz = document.querySelectorAll('#quiz .quiz-q[data-answer]');
+    if (quiz.length) {
+      out.push({ id: 'quiz', code: 'quiz', kicker: 'Quiz', title: 'Quiz',
+                 quiz: Array.prototype.slice.call(quiz), nodes: [] });
+    }
 
     var lq = document.querySelector('.curr-main .linking-qs');
     if (lq) {
@@ -643,6 +653,63 @@
     return s;
   }
 
+  /* ---- quiz slides -------------------------------------------------------- */
+
+  function quizDividerSlide(sec) {
+    var s = el('section', 'ps-slide ps-slide--divider');
+    s.dataset.sec = sec.id;
+    var inner = el('div', 'ps-slide-inner');
+    var d = el('div', 'ps-divider-inner');
+    d.appendChild(el('div', 'ps-divider-code', 'Quiz'));
+    d.appendChild(el('h2', 'ps-divider-title', 'Paper 1 practice'));
+    var o = el('div', 'ps-divider-outcome');
+    o.appendChild(el('span', 'obj-outcome-label', 'How it works'));
+    o.appendChild(document.createTextNode(sec.quiz.length + ' multiple-choice questions, one per slide. Choose an answer by clicking it or pressing A to D, or press \u2192 to reveal the answer straight away.'));
+    d.appendChild(o);
+    inner.appendChild(d);
+    s.appendChild(inner);
+    return s;
+  }
+
+  function quizSlide(sec, q, n) {
+    var s = newSlide(sec);
+    s.classList.add('ps-slide--quiz', 'ps-slide--text');
+    var k = s.querySelector('.ps-slide-kicker');
+    if (k) k.appendChild(document.createTextNode(' \u00b7 question ' + n + ' of ' + sec.quiz.length));
+    var c = q.cloneNode(true);
+    c.removeAttribute('id');
+    c.classList.remove('answered');
+    Array.prototype.forEach.call(c.querySelectorAll('.quiz-option'), function (o) {
+      o.disabled = false;
+      o.classList.remove('selected', 'correct', 'incorrect');
+      if (o.textContent.trim().length > 60) c.classList.add('ps-quiz--long');
+    });
+    var btn = el('button', 'ps-tb-btn ps-quiz-reveal', 'Reveal answer');
+    btn.type = 'button';
+    c.appendChild(btn);
+    s.ps.body.appendChild(c);
+    s.ps.hard = true;
+    s.ps.quiz = c;
+    if (overflows(s)) shrinkToFit(s);
+    return s;
+  }
+
+  /* Marks the chosen option (if any), shows the correct one and the
+     explanation. Returns false when the question was already revealed. */
+  function revealQuiz(s, chosen) {
+    var q = s && s.ps ? s.ps.quiz : null;
+    if (!q || q.classList.contains('answered')) return false;
+    var key = q.dataset.answer;
+    Array.prototype.forEach.call(q.querySelectorAll('.quiz-option'), function (o) {
+      if (chosen && o.dataset.opt === chosen) o.classList.add('selected');
+      o.disabled = true;
+      if (o.dataset.opt === key) o.classList.add('correct');
+      else if (o.classList.contains('selected')) o.classList.add('incorrect');
+    });
+    q.classList.add('answered');
+    return true;
+  }
+
   /* ---- deck assembly ------------------------------------------------------ */
 
   function preloadImages(secs, done) {
@@ -680,6 +747,18 @@
 
     sections.forEach(function (sec) {
       sec.first = slides.length;
+      if (sec.quiz) {
+        var qd = quizDividerSlide(sec);
+        stage.appendChild(qd);
+        slides.push(qd);
+        sec.quiz.forEach(function (q, i) {
+          var qs = quizSlide(sec, q, i + 1);
+          stage.appendChild(qs);
+          slides.push(qs);
+        });
+        sec.count = slides.length - sec.first;
+        return;
+      }
       if (sec.code !== 'intro' && sec.code !== 'linking') {
         var d = dividerSlide(sec);
         stage.appendChild(d);
@@ -711,7 +790,8 @@
     }
     item(meta.code, meta.title, 1, 0);
     sections.forEach(function (sec) {
-      item(sec.code === sec.id || sec.code === 'intro' || sec.code === 'linking' ? '' : sec.code, sec.kicker, sec.count, sec.first);
+      var plain = sec.code === sec.id || /^(intro|linking|quiz)$/.test(sec.code);
+      item(plain ? '' : sec.code, sec.kicker, sec.count, sec.first);
     });
   }
 
@@ -742,6 +822,7 @@
           '<tr><td><kbd>→</kbd> <kbd>Space</kbd> <kbd>PgDn</kbd></td><td>Next slide</td></tr>' +
           '<tr><td><kbd>←</kbd> <kbd>PgUp</kbd></td><td>Previous slide</td></tr>' +
           '<tr><td><kbd>Home</kbd> <kbd>End</kbd></td><td>First / last slide</td></tr>' +
+          '<tr><td><kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> <kbd>D</kbd></td><td>Quiz: choose an option and reveal the answer (→ reveals without choosing)</td></tr>' +
           '<tr><td><kbd>O</kbd></td><td>Contents panel</td></tr>' +
           '<tr><td><kbd>F</kbd></td><td>Fullscreen</td></tr>' +
           '<tr><td><kbd>P</kbd></td><td>Save as PDF (print)</td></tr>' +
@@ -757,6 +838,7 @@
       '</div>';
     document.body.appendChild(overlay);
     stage = overlay.querySelector('.ps-stage');
+    stage.tabIndex = -1;
     ovList = overlay.querySelector('.ps-overview-list');
 
     overlay.querySelector('.ps-return').addEventListener('click', closeDeck);
@@ -778,6 +860,9 @@
     stage.addEventListener('click', function (e) {
       var img = e.target.closest('.ps-media-col img');
       if (img) { openLightbox(img); return; }
+      var opt = e.target.closest('.ps-slide--quiz .quiz-option');
+      if (opt) { revealQuiz(slides[index], opt.dataset.opt); focusStage(); return; }
+      if (e.target.closest('.ps-quiz-reveal')) { revealQuiz(slides[index]); focusStage(); return; }
       var a = e.target.closest('a[href^="#"]');
       if (a) {
         var id = a.getAttribute('href').slice(1);
@@ -804,6 +889,7 @@
       tx = null;
       if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
       if (e.target.closest('.drag-sort, .ps-live-slot')) return;
+      if (dx < 0 && revealQuiz(slides[index])) return;
       show(dx < 0 ? index + 1 : index - 1);
     }, { passive: true });
 
@@ -848,6 +934,17 @@
     var hash = '#' + HASH_KEY;
     if (sec) hash += '/' + sec.code + (index > sec.first ? '/' + (index - sec.first + 1) : '');
     if (location.hash !== hash) history.replaceState(null, '', hash);
+    focusStage();
+  }
+
+  /* Keyboard navigation reads the focused element: a focused toolbar
+     button would swallow Space, so focus rests on the stage between
+     interactions. */
+  function focusStage() {
+    if (overlay.querySelector('.ps-overview.is-open') || overlay.querySelector('.ps-help.is-open')) return;
+    var a = document.activeElement;
+    if (a && a.closest && a.closest('.ps-live-slot')) return;
+    stage.focus({ preventScroll: true });
   }
 
   function toggleOverview(force) {
@@ -856,12 +953,14 @@
     p.classList.toggle('is-open', on);
     overlay.querySelector('.ps-tb-overview').classList.toggle('is-on', on);
     if (on) { var cur = p.querySelector('.is-current') || p.querySelector('.ps-overview-item'); if (cur) cur.focus(); }
+    else focusStage();
   }
   function toggleHelp(force) {
     var p = overlay.querySelector('.ps-help');
     var on = typeof force === 'boolean' ? force : !p.classList.contains('is-open');
     p.classList.toggle('is-open', on);
     if (on) p.querySelector('.ps-help-close').focus();
+    else focusStage();
   }
 
   function fullscreenEl() { return document.fullscreenElement || document.webkitFullscreenElement || null; }
@@ -927,7 +1026,6 @@
       buildDeck();
       overlay.classList.remove('is-building');
       show(resolveTarget(target));
-      overlay.querySelector('.ps-tb-overview').focus();
     });
   }
 
@@ -995,10 +1093,21 @@
     }
     if (modalOpen || isBuilding()) return;
     var inButton = t && /^(BUTTON|A)$/.test(t.tagName);
+    var cur = slides[index];
+    if (cur && cur.ps && cur.ps.quiz && /^[a-dA-D]$/.test(e.key)) {
+      if (revealQuiz(cur, e.key.toUpperCase())) return;
+    }
     switch (e.key) {
-      case 'ArrowRight': case 'PageDown': e.preventDefault(); show(index + 1); break;
+      case 'ArrowRight': case 'PageDown': e.preventDefault(); if (!revealQuiz(cur)) show(index + 1); break;
       case 'ArrowLeft':  case 'PageUp':   e.preventDefault(); show(index - 1); break;
-      case ' ': if (!inButton) { e.preventDefault(); show(e.shiftKey ? index - 1 : index + 1); } break;
+      case ' ':
+        if (inButton && t.classList.contains('quiz-option')) break;
+        if (!inButton || t.classList.contains('ps-quiz-reveal')) {
+          e.preventDefault();
+          if (e.shiftKey) show(index - 1);
+          else if (!revealQuiz(cur)) show(index + 1);
+        }
+        break;
       case 'Home': e.preventDefault(); show(0); break;
       case 'End':  e.preventDefault(); show(slides.length - 1); break;
       case 'o': case 'O': toggleOverview(); break;
