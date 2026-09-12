@@ -25,6 +25,8 @@
      data-ps="live"      move the real element into the deck for the
                          duration (interactive widgets keep working);
                          .drag-sort gets this automatically
+     data-ps="trailer"   a short note allowed to follow a list or table on
+                         the same slide (used for markscheme award lines)
      data-ps-title="…"   heading shown above this element on its slide
      data-ps-side="left" on a figure: image on the left of the text
                          (default is right)
@@ -37,6 +39,12 @@
    The Quiz section becomes one slide per question: the first press
    of → or Space reveals the answer, the next one advances. Clicking
    an option (or pressing A to D) commits that choice and reveals.
+
+   The Paper 2 section becomes, per question: the case study
+   (stimulus) slides, then one slide per part with the example answer
+   hidden until → or Space reveals it, then the markscheme for that
+   part. An answer too long to share the part's slide follows on its
+   own slides instead.
 
    Deep links:  #present            open the deck at the cover
                 #present/3.3.6      open at objective 3.3.6
@@ -77,6 +85,16 @@
     return n;
   }
   function hint(node) { return node && node.getAttribute ? (node.getAttribute('data-ps') || '') : ''; }
+
+  /* Interactive blocks are moved into the deck for real (listeners and
+     ids intact) rather than cloned. Known widget classes, plus anything
+     holding a form control or canvas. */
+  var LIVE_SEL = '.drag-sort, .diagram-widget, .live-calc, .compare-slider-widget, .swot-build, .tbl-tool, .mclass-diagram';
+  function isLive(node) {
+    if (!node.matches) return false;
+    if (hint(node) === 'live' || node.matches(LIVE_SEL)) return true;
+    return !!node.querySelector('input, select, textarea, canvas');
+  }
   function isOpen() { return overlay && overlay.classList.contains('is-open'); }
   function isBuilding() { return overlay && overlay.classList.contains('is-building'); }
   function textLen(node) { return node.textContent.trim().length; }
@@ -140,6 +158,12 @@
     if (quiz.length) {
       out.push({ id: 'quiz', code: 'quiz', kicker: 'Quiz', title: 'Quiz',
                  quiz: Array.prototype.slice.call(quiz), nodes: [] });
+    }
+
+    var p2 = document.querySelectorAll('#paper2 .p2-question');
+    if (p2.length) {
+      out.push({ id: 'paper2', code: 'paper2', kicker: 'Paper 2', title: 'Paper 2',
+                 p2: Array.prototype.slice.call(p2), nodes: [] });
     }
 
     var lq = document.querySelector('.curr-main .linking-qs');
@@ -332,7 +356,7 @@
         Array.prototype.forEach.call(node.children, function (card) { caseUnits(card, out); });
         return;
       }
-      if (h === 'live' || node.classList.contains('drag-sort')) {
+      if (isLive(node)) {
         var ph = document.createComment('ps-live');
         liveNodes.push({ node: node, placeholder: ph });
         out.push(unit(node, 'live', { title: title, hard: true }));
@@ -360,7 +384,7 @@
         Array.prototype.push.apply(out, lu);
         return;
       }
-      if (clone.matches('.content-table-wrap, table')) {
+      if (clone.matches('.content-table-wrap, .p2-table-wrap, table')) {
         var du = unit(clone, 'data', { title: title, hard: solo });
         carry(du, out);
         out.push(du);
@@ -374,14 +398,18 @@
           return;
         }
       }
-      if (clone.matches('.discussion-box, .topic-link-blurb, .tool-promo-card, .concept-box')) {
+      if (clone.matches('.discussion-box, .topic-link-blurb, .tool-promo-card, .concept-box, .activity-block') ||
+          /^(DIV|SECTION|ASIDE|ARTICLE)$/.test(clone.tagName)) {
         out.push(unit(clone, 'box', { title: title, hard: true }));
         return;
       }
       if (clone.tagName === 'P') {
         var own = title || extractLead(clone);
-        var leadIn = /[:：]\s*$/.test(clone.textContent.trim());
-        out.push(unit(clone, 'text', { title: own, hard: solo, leadIn: leadIn }));
+        var txt = clone.textContent.trim();
+        /* A colon-ended paragraph, or a "Table 1:" caption, opens the slide
+           its list or table then joins. */
+        var leadIn = /[:：]\s*$/.test(txt) || /^(Table|Figure)\s+\d/i.test(txt);
+        out.push(unit(clone, 'text', { title: own, hard: solo, leadIn: leadIn, trailer: h === 'trailer' }));
         return;
       }
       out.push(unit(clone, 'text', { title: title, hard: solo }));
@@ -421,6 +449,21 @@
 
   function splitUnit(u) {
     var n = u.node;
+    if (u.kind === 'box' && n.tagName !== 'A') {
+      /* Unwrap: the box's label and title become the slide heading and
+         its children go through the normal pipeline. */
+      var label = n.querySelector('[class$="-label"]'), ttl = n.querySelector('[class$="-title"]');
+      var kids = Array.prototype.filter.call(n.children, function (k) { return k !== label && k !== ttl; });
+      if (!kids.length) return null;
+      var heading = (ttl ? ttl.textContent.trim() : '') || (label ? label.textContent.trim() : '') || u.title;
+      var parts = [];
+      collectUnits(kids, parts);
+      if (!parts.length) return null;
+      parts.forEach(function (x, i) {
+        if (!x.title) { x.title = heading; if (i) { x.cont = true; x.carriedFrom = parts[0]; } }
+      });
+      return parts;
+    }
     if (u.kind === 'text' && n.tagName === 'P') {
       var text = n.textContent;
       var cut = sentenceCut(text, Math.round(text.length / 2));
@@ -516,6 +559,7 @@
 
   function accepts(s, u) {
     var p = s.ps;
+    if (p.closed && u.trailer) return true;
     if (p.hard || p.closed || u.hard) return p.units.length === 0;
     var bodyN = p.body.children.length, mediaN = p.media.children.length;
     if (u.kind === 'figure') return bodyN === 0 && mediaN < 2;
@@ -567,12 +611,16 @@
   }
 
   /* Last resort for a block that cannot be split. */
-  function shrinkToFit(s) {
+  function shrinkToFit(s, floor) {
     var inner = s.ps.inner, zoom = 1;
-    while (overflows(s) && zoom > 0.55) {
+    floor = floor || 0.55;
+    while (overflows(s) && zoom > floor) {
       zoom = Math.round((zoom - 0.05) * 100) / 100;
       inner.style.zoom = zoom;
     }
+    /* A widget taller than the stage scrolls rather than becoming
+       unreadable. */
+    if (overflows(s) && s.ps.units.some(function (u) { return u.kind === 'live'; })) s.classList.add('ps-slide--scroll');
   }
 
   function packSection(sec, units, out) {
@@ -599,7 +647,7 @@
             queue.unshift.apply(queue, parts);
             continue;
           }
-          shrinkToFit(cur);
+          shrinkToFit(cur, u.kind === 'live' ? 0.7 : 0.55);
         } else {
           unplace(cur, u);
           u.el = null;
@@ -690,6 +738,7 @@
     s.ps.body.appendChild(c);
     s.ps.hard = true;
     s.ps.quiz = c;
+    stage.appendChild(s);
     if (overflows(s)) shrinkToFit(s);
     return s;
   }
@@ -697,6 +746,12 @@
   /* Marks the chosen option (if any), shows the correct one and the
      explanation. Returns false when the question was already revealed. */
   function revealQuiz(s, chosen) {
+    if (s && s.ps && s.ps.p2) {
+      if (!s.ps.p2.answer.hidden) return false;
+      s.ps.p2.answer.hidden = false;
+      s.ps.p2.btn.hidden = true;
+      return true;
+    }
     var q = s && s.ps ? s.ps.quiz : null;
     if (!q || q.classList.contains('answered')) return false;
     var key = q.dataset.answer;
@@ -708,6 +763,162 @@
     });
     q.classList.add('answered');
     return true;
+  }
+
+  /* ---- paper 2 slides ------------------------------------------------------ */
+
+  function p2DividerSlide(sec) {
+    var s = el('section', 'ps-slide ps-slide--divider');
+    s.dataset.sec = sec.id;
+    var inner = el('div', 'ps-slide-inner');
+    var d = el('div', 'ps-divider-inner');
+    d.appendChild(el('div', 'ps-divider-code', 'Paper 2'));
+    d.appendChild(el('h2', 'ps-divider-title', 'Written answer practice'));
+    var o = el('div', 'ps-divider-outcome');
+    o.appendChild(el('span', 'obj-outcome-label', 'How it works'));
+    o.appendChild(document.createTextNode(sec.p2.length + (sec.p2.length === 1 ? ' structured question' : ' structured questions') + '. Each opens with its case study. Every part gets a slide: answer it first, then press \u2192 to reveal the example answer, and the markscheme follows.'));
+    d.appendChild(o);
+    inner.appendChild(d);
+    s.appendChild(inner);
+    return s;
+  }
+
+  /* Splits an answer or markscheme panel into parts keyed by their "(a)"
+     label; paragraphs without a label continue the part before them. */
+  function p2Parts(panel) {
+    var parts = {}, order = [], key = '';
+    if (!panel) return { parts: parts, order: order };
+    Array.prototype.forEach.call(panel.children, function (n) {
+      if (n.classList.contains('p2-panel-label')) return;
+      var m = n.textContent.match(/^\s*\(([a-z])\)/i);
+      if (m) key = m[1].toLowerCase();
+      if (!parts[key]) { parts[key] = []; order.push(key); }
+      parts[key].push(n);
+    });
+    return { parts: parts, order: order };
+  }
+
+  function stripPartLabel(node) {
+    var first = node.firstElementChild;
+    if (first && first.tagName === 'STRONG' && /^\s*\([a-z]\)\s*$/i.test(first.textContent)) {
+      node.removeChild(first);
+      if (node.firstChild && node.firstChild.nodeType === 3) node.firstChild.nodeValue = node.firstChild.nodeValue.replace(/^\s+/, '');
+    }
+    return node;
+  }
+
+  /* A markscheme paragraph is one <p> of <br>-separated lines: a syllabus
+     statement, then bullet lines, sometimes with "Gains:" style group
+     headings between them. It becomes paragraphs and lists so the packer
+     can split it by point. */
+  function markschemeNodes(pNode, out) {
+    var c = stripPartLabel(prepareClone(pNode));
+    var lines = [], cur = document.createElement('span');
+    Array.prototype.slice.call(c.childNodes).forEach(function (n) {
+      if (n.nodeType === 1 && n.tagName === 'BR') { lines.push(cur); cur = document.createElement('span'); }
+      else cur.appendChild(n);
+    });
+    lines.push(cur);
+    var list = null;
+    lines.forEach(function (ln) {
+      var t = ln.textContent.trim();
+      if (!t) return;
+      if (/^[\u2022\u00b7•]/.test(t)) {
+        if (!list) { list = document.createElement('ul'); list.className = 'ps-ms-list'; out.push(list); }
+        var li = document.createElement('li');
+        while (ln.firstChild) li.appendChild(ln.firstChild);
+        var tn = li.firstChild;
+        while (tn && tn.nodeType === 3 && !tn.nodeValue.trim()) tn = tn.nextSibling;
+        if (tn && tn.nodeType === 3) tn.nodeValue = tn.nodeValue.replace(/^\s*[\u2022\u00b7•]\s*/, '');
+        list.appendChild(li);
+      } else {
+        list = null;
+        var p = document.createElement('p');
+        while (ln.firstChild) p.appendChild(ln.firstChild);
+        out.push(p);
+      }
+    });
+  }
+
+  function p2PartSlide(secQ, qp, letter, answerNodes) {
+    var s = newSlide(secQ);
+    s.classList.add('ps-slide--p2part', 'ps-slide--text');
+    var k = s.querySelector('.ps-slide-kicker');
+    if (k && letter) k.appendChild(document.createTextNode(' (' + letter + ')'));
+    var wrap = el('div', 'ps-p2-part');
+    var qc = prepareClone(qp);
+    qc.className = 'ps-p2-q';
+    wrap.appendChild(qc);
+    var ans = el('div', 'ps-p2-answer');
+    ans.appendChild(el('span', 'ps-p2-label', 'Example answer'));
+    answerNodes.forEach(function (n) { ans.appendChild(stripPartLabel(prepareClone(n))); });
+    var btn = el('button', 'ps-tb-btn ps-p2-reveal', 'Reveal example answer');
+    btn.type = 'button';
+    wrap.appendChild(ans);
+    wrap.appendChild(btn);
+    s.ps.body.appendChild(wrap);
+    s.ps.hard = true;
+    stage.appendChild(s);
+    /* Measure with the answer showing: if it cannot share the slide, it
+       goes on its own slides after this one instead. */
+    var inline = answerNodes.length > 0 && !overflows(s);
+    if (!inline) { wrap.removeChild(ans); wrap.removeChild(btn); }
+    else { ans.hidden = true; s.ps.p2 = { answer: ans, btn: btn }; }
+    return { slide: s, inline: inline };
+  }
+
+  function p2QuestionSlides(sec, q, n, out) {
+    var meta = q.querySelector('.p2-q-meta');
+    var num = meta && meta.querySelector('.p2-q-num') ? meta.querySelector('.p2-q-num').textContent.trim() : 'Question ' + n;
+    var marks = meta && meta.querySelector('.p2-marks') ? meta.querySelector('.p2-marks').textContent.trim() : '';
+    var secQ = { id: sec.id, code: sec.code, kicker: 'Paper 2 \u00b7 ' + num + (marks ? ' \u00b7 ' + marks : '') };
+    var answers = p2Parts(q.querySelector('.p2-answer'));
+    var scheme = p2Parts(q.querySelector('.p2-markscheme'));
+    var header = q.querySelector('.p2-q-header') || q;
+
+    Array.prototype.forEach.call(header.children, function (block) {
+      if (block.classList.contains('p2-q-meta')) return;
+      if (block.classList.contains('p2-stimulus')) {
+        var lbl = block.querySelector('.p2-stimulus-label');
+        var nodes = Array.prototype.filter.call(block.children, function (k) { return k !== lbl; });
+        var units = [];
+        collectUnits(nodes, units);
+        if (units.length && lbl && !units[0].title) units[0].title = lbl.textContent.trim();
+        units.forEach(function (u, i) { if (i && !u.title && lbl) { u.title = lbl.textContent.trim(); u.cont = true; u.carriedFrom = units[0]; } });
+        packSection(secQ, units, out);
+        return;
+      }
+      var qps = block.classList.contains('p2-q-text') ? Array.prototype.slice.call(block.querySelectorAll('p')) : [];
+      if (block.matches('p.p2-q-text')) qps = [block];
+      qps.forEach(function (qp) {
+        var m = qp.textContent.match(/^\s*\(([a-z])\)/i);
+        var letter = m ? m[1].toLowerCase() : '';
+        var aNodes = answers.parts[letter] || (letter ? [] : [].concat.apply([], answers.order.map(function (k) { return answers.parts[k]; })));
+        var part = p2PartSlide(secQ, qp, letter, aNodes);
+        out.push(part.slide);
+        var suffix = letter ? ' (' + letter + ')' : '';
+        if (!part.inline && aNodes.length) {
+          var au = [];
+          collectUnits(aNodes.map(function (x) { return stripPartLabel(prepareClone(x)); }), au);
+          au.forEach(function (u, i) { u.title = 'Example answer' + suffix; if (i) { u.cont = true; u.carriedFrom = au[0]; } });
+          packSection(secQ, au, out);
+        }
+        var mNodes = scheme.parts[letter] || (letter ? [] : [].concat.apply([], scheme.order.map(function (k) { return scheme.parts[k]; })));
+        if (mNodes.length) {
+          var nodes = [];
+          mNodes.forEach(function (x) {
+            if (x.classList.contains('p2-award')) { var a = prepareClone(x); a.classList.add('ps-p2-award'); a.setAttribute('data-ps', 'trailer'); nodes.push(a); }
+            else markschemeNodes(x, nodes);
+          });
+          var mu = [];
+          collectUnits(nodes, mu);
+          mu.forEach(function (u, i) {
+            if (!u.title) { u.title = 'Markscheme' + suffix; if (i) { u.cont = true; u.carriedFrom = mu[0]; } }
+          });
+          packSection(secQ, mu, out);
+        }
+      });
+    });
   }
 
   /* ---- deck assembly ------------------------------------------------------ */
@@ -747,15 +958,19 @@
 
     sections.forEach(function (sec) {
       sec.first = slides.length;
+      if (sec.p2) {
+        var pd = p2DividerSlide(sec);
+        stage.appendChild(pd);
+        slides.push(pd);
+        sec.p2.forEach(function (q, i) { p2QuestionSlides(sec, q, i + 1, slides); });
+        sec.count = slides.length - sec.first;
+        return;
+      }
       if (sec.quiz) {
         var qd = quizDividerSlide(sec);
         stage.appendChild(qd);
         slides.push(qd);
-        sec.quiz.forEach(function (q, i) {
-          var qs = quizSlide(sec, q, i + 1);
-          stage.appendChild(qs);
-          slides.push(qs);
-        });
+        sec.quiz.forEach(function (q, i) { slides.push(quizSlide(sec, q, i + 1)); });
         sec.count = slides.length - sec.first;
         return;
       }
@@ -790,7 +1005,7 @@
     }
     item(meta.code, meta.title, 1, 0);
     sections.forEach(function (sec) {
-      var plain = sec.code === sec.id || /^(intro|linking|quiz)$/.test(sec.code);
+      var plain = sec.code === sec.id || /^(intro|linking|quiz|paper2)$/.test(sec.code);
       item(plain ? '' : sec.code, sec.kicker, sec.count, sec.first);
     });
   }
@@ -823,6 +1038,7 @@
           '<tr><td><kbd>←</kbd> <kbd>PgUp</kbd></td><td>Previous slide</td></tr>' +
           '<tr><td><kbd>Home</kbd> <kbd>End</kbd></td><td>First / last slide</td></tr>' +
           '<tr><td><kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> <kbd>D</kbd></td><td>Quiz: choose an option and reveal the answer (→ reveals without choosing)</td></tr>' +
+          '<tr><td><kbd>→</kbd> on a Paper 2 part</td><td>Reveals the example answer, then advances</td></tr>' +
           '<tr><td><kbd>O</kbd></td><td>Contents panel</td></tr>' +
           '<tr><td><kbd>F</kbd></td><td>Fullscreen</td></tr>' +
           '<tr><td><kbd>P</kbd></td><td>Save as PDF (print)</td></tr>' +
@@ -862,7 +1078,7 @@
       if (img) { openLightbox(img); return; }
       var opt = e.target.closest('.ps-slide--quiz .quiz-option');
       if (opt) { revealQuiz(slides[index], opt.dataset.opt); focusStage(); return; }
-      if (e.target.closest('.ps-quiz-reveal')) { revealQuiz(slides[index]); focusStage(); return; }
+      if (e.target.closest('.ps-quiz-reveal, .ps-p2-reveal')) { revealQuiz(slides[index]); focusStage(); return; }
       var a = e.target.closest('a[href^="#"]');
       if (a) {
         var id = a.getAttribute('href').slice(1);
@@ -1102,7 +1318,7 @@
       case 'ArrowLeft':  case 'PageUp':   e.preventDefault(); show(index - 1); break;
       case ' ':
         if (inButton && t.classList.contains('quiz-option')) break;
-        if (!inButton || t.classList.contains('ps-quiz-reveal')) {
+        if (!inButton || t.classList.contains('ps-quiz-reveal') || t.classList.contains('ps-p2-reveal')) {
           e.preventDefault();
           if (e.shiftKey) show(index - 1);
           else if (!revealQuiz(cur)) show(index + 1);

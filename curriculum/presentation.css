@@ -48,6 +48,7 @@ body.ps-presenting .case-lightbox.open { z-index: 2450; }
   font-family: var(--font-body);
 }
 .ps-overlay.is-open { display: flex; }
+.ps-overlay [hidden] { display: none !important; }
 
 .ps-topbar {
   flex: none; display: flex; align-items: center; gap: 0.6rem;
@@ -158,7 +159,8 @@ body.ps-presenting .case-lightbox.open { z-index: 2450; }
 .ps-slide-body .discussion-box-title { font-size: 1.3em; }
 .ps-slide-body .tool-promo-card { margin: 0 auto; max-width: 46rem; }
 .ps-slide--live .ps-slide-body { font-size: clamp(1rem, 1.3vw, 1.25rem); }
-.ps-slide--live .ps-slide-body .drag-sort { margin: 0; }
+.ps-slide--live .ps-slide-body > .ps-live-slot > * { margin-top: 0; margin-bottom: 0; }
+.ps-slide--scroll .ps-slide-inner { overflow-y: auto; justify-content: flex-start; }
 
 /* ---- media ----------------------------------------------------------- */
 .ps-media-col { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.9rem; min-height: 0; }
@@ -227,6 +229,18 @@ body.ps-presenting .case-lightbox.open { z-index: 2450; }
 .ps-overlay .ps-slide--quiz .quiz-q.answered .quiz-answer { display: block; }
 .ps-quiz-reveal { margin-top: 0.2em; }
 .ps-overlay .ps-slide--quiz .quiz-q.answered .ps-quiz-reveal { display: none; }
+
+/* ---- paper 2 slides ---------------------------------------------------------- */
+.ps-overlay .ps-slide-body .ps-p2-part { max-width: 60rem; margin: 0 auto; }
+.ps-overlay .ps-slide-body .ps-p2-q { font-family: var(--font-display); font-weight: 500; font-size: 1.35em; line-height: 1.35; color: var(--text); margin: 0 0 0.8em; }
+.ps-overlay .ps-slide-body .ps-p2-q strong { font-weight: 700; color: var(--curr-color, var(--accent)); }
+.ps-overlay .ps-slide-body .ps-p2-answer { font-size: 0.9em; line-height: 1.5; padding: 0.7em 1em; margin: 0 0 0.6em; background: var(--surface-2); border-left: 3px solid var(--curr-color, var(--accent)); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.ps-overlay .ps-slide-body .ps-p2-answer p { font-size: 1em; margin: 0 0 0.6em; }
+.ps-overlay .ps-slide-body .ps-p2-answer p:last-child { margin-bottom: 0; }
+.ps-overlay .ps-slide-body .ps-p2-label { display: block; font-family: var(--font-mono); font-size: 0.66em; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5em; }
+.ps-overlay .ps-slide-body .ps-p2-award { font-size: 0.85em; color: var(--muted); padding-left: 0.8em; border-left: 2px solid var(--border); }
+.ps-overlay .ps-slide-body .ps-ms-list li { margin-bottom: 0.45em; }
+.ps-overlay .ps-slide-body table.p2-data-table { font-family: var(--font-body); }
 
 /* ---- footer nav ----------------------------------------------------------- */
 .ps-footer {
