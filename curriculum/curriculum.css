@@ -4723,14 +4723,17 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 }
 
 /* A tile with no cover has no picture to sit on, so it drops the panel
-   and takes the theme's own text colour. */
-.unit-tile--flat .unit-tile-cap {
+   and takes the theme's own text colour. Keyed on the image itself, not
+   the class, so dropping an <img> into a flat tile is enough: the panel
+   comes back and any leftover pattern gets out of the picture's way. */
+.unit-tile--flat:not(:has(.unit-tile-img)) .unit-tile-cap {
   background: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   padding: 0;
 }
-.unit-tile--flat .unit-tile-title { color: var(--text); }
+.unit-tile--flat:not(:has(.unit-tile-img)) .unit-tile-title { color: var(--text); }
+.unit-tile:has(.unit-tile-img) .unit-tile-pattern { display: none; }
 
 /* Only on a unit that genuinely is not written yet. */
 .unit-tile-soon {
