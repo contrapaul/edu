@@ -28,6 +28,8 @@
   --green-bg:      #0d2b15;
   --amber:         #d29922;
   --amber-bg:      #2b1f0a;
+  --gloss:         #34d0b6;
+  --gloss-bg:      transparent;
   /* Black shadows vanish on a near-black bg — raise the opacity so
      resting depth and the hover lift stay legible in dark mode */
   --shadow-sm:     0 1px 3px rgba(0,0,0,0.5);
@@ -68,6 +70,8 @@
   --green-bg:      #c0c0c0;
   --amber:         #808000;
   --amber-bg:      #c0c0c0;
+  --gloss:         #800000;   /* maroon */
+  --gloss-bg:      transparent;
   --font-display:  'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
   --font-body:     'MS W98 UI', 'Tahoma', 'Arial', sans-serif;
   --font-mono:     'Courier New', 'Lucida Console', monospace;
@@ -214,6 +218,8 @@
   --green-bg:      #0d1a0d;
   --amber:         #FFFF55;   /* CGA bright yellow */
   --amber-bg:      #1a1a00;
+  --gloss:         #FF55FF;   /* CGA bright magenta */
+  --gloss-bg:      transparent;
   --font-display:  'IBM VGA 8x16 2x', monospace;
   --font-body:     'IBM VGA 8x16', monospace;
   --font-mono:     'IBM VGA 8x16', monospace;
@@ -400,6 +406,8 @@
   --accent-bg:     #1a1200;
   --hl:            #FFD75E;   /* bright amber for highlights */
   --hl-bg:         #1a1500;
+  --gloss:         #FFD75E;
+  --gloss-bg:      transparent;
   --green:         #FFB000;
   --green-bg:      #1a1200;
 }
@@ -444,6 +452,8 @@
   --green-bg:      #071a00;
   --amber:         #c8e800;
   --amber-bg:      #181e00;
+  --gloss:         #000500;   /* black on lime: inverted block */
+  --gloss-bg:      #76e800;
   --font-display:  'XBOX Original', 'Verdana', 'Arial', sans-serif;
   --font-body:     'Verdana', 'Arial', sans-serif;
   --font-mono:     'Courier New', monospace;
@@ -602,6 +612,8 @@
   --green-bg:      #adff2f;
   --amber:         #ff8c00;
   --amber-bg:      #ffd700;
+  --gloss:         #1e90ff;
+  --gloss-bg:      transparent;
   --font-display:  'Comic Sans MS', 'Comic Sans', cursive;
   --font-body:     'Comic Sans MS', 'Comic Sans', cursive;
   --font-mono:     'Comic Sans MS', 'Comic Sans', cursive;
@@ -725,6 +737,8 @@
   --green-bg:      #ffd6e7;
   --amber:         #e75480;   /* deep pink stand-in for warning */
   --amber-bg:      #ffeef5;
+  --gloss:         #7b2cbf;
+  --gloss-bg:      transparent;
   --radius:        22px;      /* extra-round — hannah's signature */
 }
 
@@ -985,6 +999,8 @@
   --green-bg:      #11402a;
   --amber:         #ffca6b;
   --amber-bg:      #3a2e10;
+  --gloss:         #d8b4fe;   /* lavender; amber is taken by --hl */
+  --gloss-bg:      transparent;
   --font-display:  'JetBrains Mono', ui-monospace, monospace;
   --radius:        4px;
   --radius-sm:     2px;
@@ -1045,6 +1061,8 @@
   --green-bg:      #e6efdd;
   --amber:         #a8742c;
   --amber-bg:      #f5ecd7;
+  --gloss:         #2e7d6e;
+  --gloss-bg:      transparent;
   --font-display:  'Segoe Print', 'Bradley Hand', 'Comic Sans MS', cursive;
   --shadow-sm:     0 1px 2px rgba(58,52,39,0.12);
   --shadow-md:     0 4px 10px rgba(58,52,39,0.18);
@@ -1085,6 +1103,8 @@
   --green-bg:      #e3e8e3;
   --amber:         #5c4a28;
   --amber-bg:      #ece5d5;
+  --gloss:         var(--text);   /* yellow highlighter, ink stays ink */
+  --gloss-bg:      #fff2a8;
   --font-display:  Georgia, 'Times New Roman', serif;
   --font-body:     Georgia, 'Times New Roman', serif;
   --radius:        6px;
@@ -1135,6 +1155,8 @@
   --green-bg:      #8bac0f;
   --amber:         #306230;
   --amber-bg:      #9bbc0f;
+  --gloss:         #306230;   /* four shades only; glossary.css adds an underline */
+  --gloss-bg:      transparent;
   --font-display:  'VT323', 'Courier New', monospace;
   --font-body:     'VT323', 'Courier New', monospace;
   --font-mono:     'VT323', 'Courier New', monospace;
@@ -1194,6 +1216,8 @@
   --green-bg:      #e9f2ec;
   --amber:         #7a5c1e;
   --amber-bg:      #f5efe0;
+  --gloss:         #1f4e8c;   /* the one colour on the page */
+  --gloss-bg:      transparent;
   --font-display:  'Times New Roman', Times, Georgia, serif;
   --font-body:     'Times New Roman', Times, Georgia, serif;
   --font-mono:     'Courier New', monospace;
@@ -1257,6 +1281,8 @@
   --green-bg:      #0a2614;
   --amber:         #ffcc00;
   --amber-bg:      #2a2205;
+  --gloss:         #b78cff;
+  --gloss-bg:      transparent;
   --font-display:  'JetBrains Mono', ui-monospace, monospace;
   --font-body:     'JetBrains Mono', ui-monospace, monospace;
   --font-mono:     'JetBrains Mono', ui-monospace, monospace;

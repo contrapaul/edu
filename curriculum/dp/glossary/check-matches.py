@@ -3,6 +3,11 @@ and the topic pages.
 
 Run from the repo root:  python3 curriculum/dp/glossary/check-matches.py
 
+With --page a3.1 it instead reports what glossary-link.js should produce on
+that page: first occurrence of each term per .obj-section inside
+#course-notes, with the same skipped elements. Compare the total with the
+data-gloss-links attribute the script sets on #course-notes.
+
 Errors (exit 1):
   - a key that is not a term id in glossary-data.js
   - the same surface form claimed by two terms (a case-sensitive form that
@@ -133,6 +138,92 @@ for path in pages:
                 hits_by_term[tid] += 1
                 hits_by_page[name] += 1
                 top_by_page[name][tid] += 1
+
+# ---- per-page section mode (mirrors glossary-link.js) -----------------
+
+SKIP_TAGS = {'a', 'button', 'h1', 'h2', 'h3', 'h4', 'code', 'pre', 'svg', 'label',
+             'input', 'textarea', 'select', 'script', 'style'}
+SKIP_CLASSES = {'gloss', 'obj-code'}
+
+def page_links(path):
+    """Text nodes of #course-notes grouped by .obj-section, skips applied."""
+    from html.parser import HTMLParser
+    class P(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.stack = []          # (tag, classes, id, skip, section)
+            self.in_root = False
+            self.root_depth = None
+            self.chunks = []         # (section, text)
+            self.section = 'intro'
+        def handle_starttag(self, tag, attrs):
+            a = dict(attrs)
+            classes = set((a.get('class') or '').split())
+            skip = tag in SKIP_TAGS or bool(classes & SKIP_CLASSES) or 'data-nogloss' in a
+            if a.get('id') == 'course-notes':
+                self.in_root = True
+                self.root_depth = len(self.stack)
+            if 'obj-section' in classes:
+                self.section = a.get('id') or 'section'
+                sec_open = True
+            else:
+                sec_open = False
+            parent_skip = any(f[3] for f in self.stack)
+            self.stack.append((tag, classes, a.get('id'), skip or parent_skip, sec_open))
+        def handle_startendtag(self, tag, attrs):
+            self.handle_starttag(tag, attrs); self.handle_endtag(tag)
+        def handle_endtag(self, tag):
+            while self.stack:
+                f = self.stack.pop()
+                if f[4]: self.section = 'intro'
+                if f[0] == tag: break
+            if self.in_root and self.root_depth is not None and len(self.stack) <= self.root_depth:
+                self.in_root = False
+        def handle_data(self, data):
+            if self.in_root and self.stack and not self.stack[-1][3] and data.strip():
+                self.chunks.append((self.section, data))
+    p = P(); p.feed(open(path, encoding='utf-8').read())
+    return p.chunks
+
+def run_page(code):
+    matches = glob.glob(os.path.join(DP, code.lower() + '-*.html'))
+    if not matches:
+        print('no page for', code); sys.exit(1)
+    path = matches[0]
+    fam = family(code.upper())
+    seen = collections.defaultdict(set)
+    per_section = collections.Counter()
+    linked = []
+    for section, text in page_links(path):
+        taken = []
+        def free(a, b):
+            return all(b <= s or a >= e for s, e in taken)
+        found = []
+        for f, tid, kind in forms:
+            if kind == 'local' and fam not in allowed_topics(tid):
+                continue
+            flags = 0 if kind == 'exact' else re.I
+            for m in re.finditer(pattern(f), text, flags):
+                if free(m.start(), m.end()):
+                    taken.append((m.start(), m.end()))
+                    found.append((m.start(), tid, m.group(0)))
+        for _, tid, word in sorted(found):
+            if tid in seen[section]:
+                continue
+            seen[section].add(tid)
+            per_section[section] += 1
+            linked.append((section, tid, word))
+    print(os.path.basename(path))
+    for sec, n in per_section.items():
+        print(f'  {sec:14s} {n}')
+    print(f'  total          {sum(per_section.values())}')
+    if '--list' in sys.argv:
+        for sec, tid, word in linked:
+            print(f'    {sec:12s} {tid:40s} {word}')
+    sys.exit(0)
+
+if '--page' in sys.argv:
+    run_page(sys.argv[sys.argv.index('--page') + 1])
 
 # ---- report -------------------------------------------------------------
 

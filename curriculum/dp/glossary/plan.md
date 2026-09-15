@@ -58,16 +58,19 @@ occurrence per section rather than every occurrence.
 
 ### Colour, not underline
 
-A new token `--gloss` on `:root` in `style.css` and in every theme block in
-`themes.css`. It must read as a different kind of link from `--accent`
-(regular links) and never be confused with `--text`. Proposed values, all
-first drafts to be eyeballed on a real page:
+Two new tokens on `:root` in `style.css` and in every theme block in
+`themes.css`: `--gloss` (text colour) and `--gloss-bg` (background,
+transparent by default). Most themes set only `--gloss`. Paper and Xbox use
+a highlighter instead: text stays readable and `--gloss-bg` carries the
+meaning. Either way it must read as a different kind of link from
+`--accent` (regular links) and never be confused with `--text`. Proposed
+values, all first drafts to be eyeballed on a real page:
 
 | Theme | accent | proposed `--gloss` | note |
 |---|---|---|---|
 | light | #1a5cb8 blue | #0f766e teal | 4.9:1 on white |
 | dark | #58a6ff | #34d0b6 teal | |
-| paper | #1c1b18 (ink) | #8b3a2f ink red | paper underlines plain links; gloss gets colour only |
+| paper | #1c1b18 (ink) | text `--text`, bg #fff2a8 | highlighter: a student marking vocabulary |
 | sketchbook | #46628c | #2e7d6e | |
 | blueprint | #4fc3f7 cyan | #d8b4fe lavender | amber is already `--hl` |
 | exam | #111 | #1f4e8c | the one colour on an otherwise B/W page |
@@ -75,7 +78,7 @@ first drafts to be eyeballed on a real page:
 | dos | #55FF55 green | #FF55FF CGA magenta | |
 | dos-amber | #FFB000 | #FFD75E + solid underline | monochrome phosphor, colour alone is not enough |
 | gameboy | #0f380f | #306230 + solid underline | four shades only, colour alone is not enough |
-| xbox | #76e800 | #7ee8ff cyan | everything else is green |
+| xbox | #76e800 | text #000500, bg #76e800 | inverted block, the original dashboard look; check weight on a3.1 |
 | gamer | #00e5ff | #b78cff violet | |
 | nightmare | #ff1493 | #1e90ff | |
 | hannah | #ff1493 | #7b2cbf | |
@@ -83,25 +86,34 @@ first drafts to be eyeballed on a real page:
 CSS in `glossary.css` part 1 becomes:
 
 ```css
-.gloss { color: var(--gloss); text-decoration: none; }
+.gloss {
+  color: var(--gloss);
+  background: var(--gloss-bg, transparent);
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
+  border-radius: 2px;
+  box-decoration-break: clone;   /* wrapped terms highlight on every line */
+  text-decoration: none;
+}
 .gloss:hover, .gloss:focus-visible, .gloss.is-open { text-decoration: underline; outline: none; }
 ```
 
-No background tint, no dotted border. `--gloss` also colours the popover's
+Highlighter themes deepen `--gloss-bg` on hover instead of underlining.
+No dotted border anywhere. `--gloss` also colours the popover's
 term name and topic chips so the popover visibly belongs to the same system.
 
 ### Teaching the colour
 
-A one-line key at the top of Course Notes on every page, always visible,
-no dismiss button:
+A permanent key on the DP hub (`curriculum/dp/index.html`), next to the
+existing Glossary link, and nothing on the topic pages themselves:
 
 > Words in **this colour** have a glossary definition. Hover to read it,
 > click to open the glossary.
 
 "this colour" is itself a live `.gloss` element whose popover says
 "Like this. Click any coloured word to open its glossary entry." The
-reader tries the mechanic on the key itself. The DP hub already links to
-the glossary; the glossary page gets one sentence saying the same thing.
+reader tries the mechanic on the key itself. The glossary page gets one
+sentence saying the same thing.
 
 ### Anchor, not span
 
@@ -112,10 +124,11 @@ Auto-linked words are real links:
 ```
 
 Hover or keyboard focus shows the popover. Click follows the link. On
-touch devices (`matchMedia('(hover: none)')`) the first tap opens the
-popover and the second tap on the same word follows the link; the popover
-already carries topic chips that link into the glossary, so a reader is
-never stuck. Escape, outside click and scroll-away close it, as now.
+touch devices (`matchMedia('(hover: none)')`) tapping the word opens the
+popover and tapping it again closes it; navigation happens from an
+explicit "Open in glossary" link inside the popover. That link is shown on
+every device, so hover users also get a visible affordance. Escape,
+outside click and scroll-away close it, as now.
 
 Hand-tagging with `<span class="gloss">` keeps working for cases where the
 visible wording matches nothing in the matches file.
@@ -157,12 +170,13 @@ stay plain. Verbatim text is unaffected because wrapping does not change
 
 | File | Change |
 |---|---|
-| `glossary/glossary-link.js` | New. Loads `DP_GLOSSARY` and `DP_GLOSSARY_MATCHES`, builds two regexes (case-insensitive and exact) sorted longest-first, reads `data-curr-page` from `body` for the local family, walks text nodes inside `#course-notes`, wraps first occurrence per section per term in an anchor, then calls `glossaryScan()` from `glossary-tip.js`. |
-| `glossary/glossary-tip.js` | Anchors instead of role=button; click follows link on hover devices, opens popover first on touch. Drop `tabindex` and `role` for anchors. |
-| `glossary/glossary.css` | Part 1: colour-based `.gloss`, `--gloss` in popover, z-index 1100. Key line styles. |
-| `style.css`, `curriculum/themes.css` | `--gloss` token, 14 values. |
-| `curriculum/presentation.css` | Neutralise `.gloss` in slides. |
-| 24 topic pages | One stylesheet link and three script tags. Scriptable with sed: the pages all end with the same five script tags. Plus the key line after the Course Notes heading. |
+| `glossary/glossary-link.js` | Done. Loads `DP_GLOSSARY` and `DP_GLOSSARY_MATCHES`, builds two regexes (case-insensitive and exact) sorted longest-first, reads `data-curr-page` from `body` for the local family, walks text nodes inside `#course-notes`, wraps first occurrence per section per term in an anchor, then calls `glossaryScan()` from `glossary-tip.js`. Sets `data-gloss-links` and `data-gloss-ms` on `#course-notes` for checking. |
+| `glossary/glossary-tip.js` | Done. Anchors keep their native focus and href; click follows the link on hover devices. On touch, hover and focus listeners are not bound at all (a tap fires both before click, which toggled the popover shut), so tap opens and tap closes. Popover carries "Open in glossary". |
+| `glossary/glossary.css` | Done. Colour-based `.gloss` with `--gloss-bg`, highlighter hover for paper and xbox, underline for gameboy and dos-amber, popover z-index 1100 with a `--gloss` left border. |
+| `style.css`, `curriculum/themes.css` | Done. `--gloss` and `--gloss-bg`, 14 themes. |
+| `curriculum/presentation.css` | Done. `.ps-overlay .ps-slide-body .gloss` neutralised; it has to come after the slide link rule that underlines every `a`. |
+| 24 topic pages | One stylesheet link and four script tags. `a3.1` is wired; the other 23 follow in Phase 3 with one sed pass, since every page ends with the same five script tags. |
+| `curriculum/dp/index.html` | The key line, next to the Glossary link. |
 | `glossary/index.html` | One sentence explaining the colour. |
 | `curriculum/dp/presentmode.md` | Note the `.gloss` rule. |
 
@@ -181,45 +195,45 @@ Load order on a topic page:
 
 Each phase ends with a check that can fail.
 
-**Phase 0, done.** Matches file and checker. Verify: `check-matches.py`
-exits 0, and the spot checks in context are clean (they were: "elastic
-bands", "a persona is a composite", "fracture clinic", "sewing machine"
-and "polished model" were caught and moved to `local` or dropped).
+**Phase 0, done.** Matches file and checker. `check-matches.py` exits 0,
+and the spot checks in context are clean ("elastic bands", "a persona is
+a composite", "fracture clinic", "sewing machine" and "polished model"
+were caught and moved to `local` or dropped).
 
-**Phase 1. Colour.** Add `--gloss` to `style.css` and all theme blocks, and
-the `.gloss` rules in `glossary.css`. Hand-tag three words on `a3.1` to
-have something to look at. Verify: screenshot `a3.1` in all 14 themes,
-gloss words distinguishable from plain links and body text in each; fix
-any value that is not.
+**Phase 1, done.** `--gloss` and `--gloss-bg` in `style.css` and all
+theme blocks, `.gloss` rules in `glossary.css`. Verified on `a3.1` in all
+14 themes: glossary words distinguishable from plain links and body text
+in each. Paper's yellow highlighter and Xbox's black-on-lime blocks both
+read well at the density a3.1 produces.
 
-**Phase 2. Scanner on one page.** Write `glossary-link.js`, adapt
-`glossary-tip.js`, wire into `a3.1` only. Verify:
-- link count on `a3.1` matches the checker's first-per-section count for
-  that page (add a per-section mode to the checker for this);
-- no `.gloss` inside `#quiz`, `#paper2`, `#references`, headings, buttons
-  or existing links;
-- hover, Tab focus, click, Escape, outside click all behave;
-- mobile viewport: first tap opens, second tap navigates;
+**Phase 2, done.** `glossary-link.js` written, `glossary-tip.js` adapted,
+wired into `a3.1` only. Verified:
+- 130 links on `a3.1`, identical section by section to
+  `check-matches.py --page a3.1` (`--list` prints every linked word);
+- none inside `#quiz`, `#paper2`, `#references`, headings, buttons or
+  existing links; no `data-gloss="missing"`;
+- hover, Tab focus, click-through to the entry, Escape all behave;
+- mobile viewport: tap opens, tap again closes, URL unchanged;
 - presentation mode: slides show plain text;
-- console clean, and scan time under 30 ms (log it during development).
+- console clean, scan 21 ms.
 
-**Phase 3. Roll out.** Add the tags and key line to all 24 pages with one
-sed pass. Include case-study modals in the scan. Verify: open every page
-once and read the linked words on the first screen; anything silly goes
-back into the matches file as a `local` or a removal, then rerun the
-checker. Commit the matches file changes separately so the tuning is
-visible in history.
+**Phase 3. Roll out.** Add the stylesheet and script tags to the other 23
+pages with one sed pass. Key line on the DP hub. Include case-study modals
+in the scan. Verify: open every page once and read the linked words on
+the first screen; anything silly goes back into the matches file as a
+`local` or a removal, then rerun the checker. Commit the matches file
+changes separately so the tuning is visible in history.
 
 **Phase 4, later.** Cross-links inside glossary definitions on the glossary
 page. Linking in quiz explanations (shown only after answering) if wanted.
 Linking on the hub and unit landing pages.
 
-## Decisions to confirm before Phase 2
+## Decisions, confirmed 2026-09-14
 
-1. Course notes only, or also quiz explanations after answering?
-2. First occurrence per section (recommended), or per page?
-3. Touch behaviour: tap opens popover, second tap navigates (recommended),
-   or tap always navigates?
-4. Key line: always visible (recommended), or dismissible with the choice
-   remembered in localStorage?
-5. Colour values in the table above.
+1. Course notes only.
+2. First occurrence per section.
+3. Touch: tap opens the popover, navigation is from the "Open in glossary"
+   link inside it.
+4. Key line lives on the DP hub, not on topic pages.
+5. Colour values as in the table, with paper and Xbox as highlighters.
+   All values get eyeballed in Phase 1 and may change.

@@ -8,35 +8,64 @@
 
 /* ── 1. TAGGED WORDS ─────────────────────────────────────── */
 
+/* --gloss / --gloss-bg come from style.css and each theme block in
+   themes.css. Most themes colour the text; paper and xbox set --gloss-bg
+   and read as a highlighter instead. */
 .gloss {
-  border-bottom: 2px dotted var(--accent);
+  color: var(--gloss);
+  background: var(--gloss-bg, transparent);
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
+  border-radius: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;             /* wrapped terms highlight on every line */
+  text-decoration: none;
   cursor: help;
-  transition: background var(--transition), border-color var(--transition);
+  transition: background var(--transition), color var(--transition);
 }
+a.gloss { cursor: pointer; }
 .gloss:hover,
 .gloss:focus-visible,
 .gloss.is-open {
-  background: var(--accent-bg);
-  border-bottom-color: var(--accent);
-  border-bottom-style: solid;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
   outline: none;
 }
+/* highlighter themes: deepen the highlight rather than underline */
+[data-theme="paper"] .gloss:hover,
+[data-theme="paper"] .gloss:focus-visible,
+[data-theme="paper"] .gloss.is-open { text-decoration: none; background: #ffe680; }
+[data-theme="xbox"] .gloss:hover,
+[data-theme="xbox"] .gloss:focus-visible,
+[data-theme="xbox"] .gloss.is-open { text-decoration: none; background: var(--hl); }
+/* palettes too narrow for colour alone to carry the meaning */
+[data-theme="gameboy"] .gloss,
+[data-theme="dos-amber"] .gloss { text-decoration: underline; text-underline-offset: 0.15em; }
+[data-theme="gameboy"] .gloss:hover,
+[data-theme="dos-amber"] .gloss:hover { text-decoration-thickness: 2px; }
+
 .gloss[data-gloss="missing"] {
+  color: inherit;
+  background: none;
   border-bottom: 1px dashed var(--amber);
 }
 
 .gloss-pop {
   position: absolute;
-  z-index: 900;
+  z-index: 1100;                           /* above case-study modals (1000) */
   width: min(22rem, calc(100vw - 1.5rem));
   padding: 0.75rem 0.85rem;
   background: var(--surface);
   border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--gloss);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
   font-family: var(--font-body);
   line-height: 1.5;
+  color: var(--text);
 }
+[data-theme="paper"] .gloss-pop,
+[data-theme="xbox"] .gloss-pop { border-left-color: var(--gloss-bg); }
 .gloss-pop-term {
   display: block;
   font-family: var(--font-display);
@@ -53,6 +82,7 @@
 .gloss-pop-foot {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.3rem;
   margin-top: 0.55rem;
 }
@@ -67,6 +97,15 @@
   text-decoration: none;
 }
 .gloss-pop-chip:hover { text-decoration: underline; }
+.gloss-pop-open {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.gloss-pop-open:hover { text-decoration: underline; }
 
 /* ── 2. GLOSSARY PAGE ────────────────────────────────────── */
 

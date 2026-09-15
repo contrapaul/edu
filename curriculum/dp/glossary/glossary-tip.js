@@ -1,14 +1,16 @@
 /* glossary-tip.js — hover / tap definitions for glossary-tagged words.
    Requires glossary-data.js to be loaded first.
 
-   TAGGING A WORD ON A TOPIC PAGE
-   ------------------------------
-   Add these two lines before </body>, with the path adjusted for depth:
+   Topic pages get their words tagged automatically by glossary-link.js,
+   which wraps each match in <a class="gloss" data-term="…" href="…">.
+   Hover or keyboard focus shows the definition; click follows the link to
+   the glossary entry. On touch devices (no hover) a tap opens the popover
+   instead, and the popover carries its own "Open in glossary" link.
 
-     <script src="glossary/glossary-data.js"></script>
-     <script src="glossary/glossary-tip.js"></script>
-
-   Then wrap the word. The simplest form matches on the text itself:
+   TAGGING A WORD BY HAND
+   ----------------------
+   For wording the matcher does not know, wrap the word yourself. The
+   simplest form matches on the text itself:
 
      <span class="gloss">anthropometrics</span>
 
@@ -31,6 +33,7 @@
   if (!G) { return; }
 
   var GLOSSARY_URL = document.documentElement.getAttribute('data-glossary-url') || '/curriculum/dp/glossary/';
+  var TOUCH = window.matchMedia && window.matchMedia('(hover: none)').matches;
 
   var byId = {};
   G.terms.forEach(function (t) { byId[t.id] = t; });
@@ -70,7 +73,9 @@
     pop.innerHTML =
       '<span class="gloss-pop-term">' + esc(entry.term) + '</span>' +
       '<span class="gloss-pop-def">' + esc(entry.def) + '</span>' +
-      '<span class="gloss-pop-foot">' + chips + '</span>';
+      '<span class="gloss-pop-foot">' + chips +
+        '<a class="gloss-pop-open" href="' + GLOSSARY_URL + '#' + entry.id + '">Open in glossary \u2192</a>' +
+      '</span>';
   }
 
   function esc(s) {
@@ -141,15 +146,26 @@
 
     el._glossEntry = entry;
     el.setAttribute('data-gloss', entry.id);
-    if (!el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); }
-    el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', entry.term + ' — show definition');
+    var isLink = el.tagName === 'A';
+    if (isLink) {
+      if (!el.getAttribute('href')) { el.setAttribute('href', GLOSSARY_URL + '#' + entry.id); }
+    } else {
+      if (!el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); }
+      el.setAttribute('role', 'button');
+    }
+    el.setAttribute('aria-label', entry.term + ': show definition');
 
-    el.addEventListener('mouseenter', function () { clearTimeout(hideTimer); show(el); });
-    el.addEventListener('mouseleave', scheduleHide);
-    el.addEventListener('focus', function () { show(el); });
-    el.addEventListener('blur', hide);
+    if (!TOUCH) {
+      /* On touch browsers a tap fires mouseenter, focus and then click, so
+         the popover would open and close in one go. Hover and focus
+         listeners are desktop-only; touch uses click alone. */
+      el.addEventListener('mouseenter', function () { clearTimeout(hideTimer); show(el); });
+      el.addEventListener('mouseleave', scheduleHide);
+      el.addEventListener('focus', function () { show(el); });
+      el.addEventListener('blur', scheduleHide);
+    }
     el.addEventListener('click', function (e) {
+      if (isLink && !TOUCH) { return; }          /* a real link: let it navigate */
       e.preventDefault();
       if (current === el) { hide(); } else { show(el); }
     });

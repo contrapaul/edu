@@ -129,6 +129,8 @@ body.ps-presenting .case-lightbox.open { z-index: 2450; }
 .ps-overlay .ps-slide-body :is(ul, ol) li { margin: 0 0 0.6em; }
 .ps-overlay .ps-slide-body li:last-child { margin-bottom: 0; }
 .ps-overlay .ps-slide-body a { color: inherit; text-decoration: underline; text-decoration-color: var(--curr-color, var(--accent)); text-underline-offset: 0.18em; }
+/* glossary links are cloned into slides with the notes; keep them plain there */
+.ps-overlay .ps-slide-body .gloss { color: inherit; background: none; padding: 0; margin: 0; text-decoration: none; pointer-events: none; }
 .ps-overlay .ps-slide-body p.content-formula { font-size: 1.05em; margin: 0 0 0.8em; }
 .ps-overlay .ps-slide-body hr { display: none; }
 
