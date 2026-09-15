@@ -28,10 +28,13 @@
      - the longest form wins; forms never overlap
 
    Skipped: text inside links, buttons, headings, code, form controls, SVG,
-   existing .gloss tags, .obj-code labels and anything under [data-nogloss].
+   figure captions, existing .gloss tags, .obj-code labels and anything
+   under [data-nogloss].
 
    Sections: each .obj-section is a section; anything in #course-notes
-   outside one counts as a single intro section.
+   outside one counts as a single intro section. Case-study modals are
+   opened from the course notes but live outside them in the DOM, so each
+   .case-modal-body is scanned as its own section.
 */
 (function () {
   'use strict';
@@ -39,9 +42,9 @@
   var G = window.DP_GLOSSARY, M = window.DP_GLOSSARY_MATCHES;
   if (!G || !M) { return; }
 
-  var ROOT_SEL = '#course-notes';
-  var SECTION_SEL = '.obj-section';
-  var SKIP_SEL = 'a, button, h1, h2, h3, h4, code, pre, svg, label, input, textarea, select, script, style, .gloss, .obj-code, [data-nogloss]';
+  var ROOT_SEL = '#course-notes, .case-modal .case-modal-body';
+  var SECTION_SEL = '.obj-section, .case-modal';
+  var SKIP_SEL = 'a, button, h1, h2, h3, h4, code, pre, svg, figcaption, label, input, textarea, select, script, style, .gloss, .obj-code, [data-nogloss]';
   var GLOSSARY_URL = document.documentElement.getAttribute('data-glossary-url') || '/curriculum/dp/glossary/';
 
   var byId = {};
@@ -127,8 +130,7 @@
 
   /* ---- walk and wrap --------------------------------------------- */
 
-  function link(root) {
-    var seen = {};   // section key -> { termId: true }
+  function link(root, seen) {
     var nodes = [], walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (n) {
         if (!n.nodeValue || !/\S/.test(n.nodeValue)) { return NodeFilter.FILTER_REJECT; }
@@ -171,13 +173,19 @@
   }
 
   function run() {
-    var root = document.querySelector(ROOT_SEL);
-    if (!root) { return; }
+    var roots = document.querySelectorAll(ROOT_SEL);
+    var notes = document.querySelector('#course-notes');
+    if (!roots.length) { return; }
     var t0 = window.performance ? performance.now() : 0;
-    var n = link(root);
-    if (window.glossaryScan) { window.glossaryScan(root); }
-    root.setAttribute('data-gloss-links', String(n));
-    if (window.performance) { root.setAttribute('data-gloss-ms', String(Math.round(performance.now() - t0))); }
+    var seen = {};   // section key -> { termId: true }
+    var n = 0;
+    roots.forEach(function (root) {
+      n += link(root, seen);
+      if (window.glossaryScan) { window.glossaryScan(root); }
+    });
+    var stamp = notes || roots[0];
+    stamp.setAttribute('data-gloss-links', String(n));
+    if (window.performance) { stamp.setAttribute('data-gloss-ms', String(Math.round(performance.now() - t0))); }
   }
 
   if (document.readyState === 'loading') {

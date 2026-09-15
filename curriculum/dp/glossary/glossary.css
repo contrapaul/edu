@@ -107,6 +107,14 @@ a.gloss { cursor: pointer; }
 }
 .gloss-pop-open:hover { text-decoration: underline; }
 
+/* the key on the DP hub and the glossary page */
+.gloss-key {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
 /* ── 2. GLOSSARY PAGE ────────────────────────────────────── */
 
 .gl-main {

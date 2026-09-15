@@ -5,7 +5,8 @@ Run from the repo root:  python3 curriculum/dp/glossary/check-matches.py
 
 With --page a3.1 it instead reports what glossary-link.js should produce on
 that page: first occurrence of each term per .obj-section inside
-#course-notes, with the same skipped elements. Compare the total with the
+#course-notes and per case-study modal body, with the same skipped
+elements. Compare the total with the
 data-gloss-links attribute the script sets on #course-notes.
 
 Errors (exit 1):
@@ -113,6 +114,30 @@ for tid, e in M.items():
     for f in e.get('local', []): forms.append((f, tid, 'local'))
     for f in e.get('exact', []): forms.append((f, tid, 'exact'))
 forms.sort(key=lambda x: -len(x[0]))
+compiled = [(re.compile(pattern(f), 0 if kind == 'exact' else re.I), f, tid, kind) for f, tid, kind in forms]
+
+def claims(text, fam):
+    """Non-overlapping matches in text as (start, term, form, word), the way
+    glossary-link.js resolves them: exact forms first, then case-insensitive,
+    each pass leftmost-first with the longest form winning at a given start."""
+    taken = []
+    def free(a, b):
+        return all(b <= s or a >= e for s, e in taken)
+    out = []
+    for want in ('exact', 'ci'):
+        found = []
+        for rx, f, tid, kind in compiled:
+            if (kind == 'exact') != (want == 'exact'):
+                continue
+            if kind == 'local' and fam not in allowed_topics(tid):
+                continue
+            for m in rx.finditer(text):
+                found.append((m.start(), -(m.end() - m.start()), tid, f, m.group(0)))
+        for start, neglen, tid, f, word in sorted(found):
+            if free(start, start - neglen):
+                taken.append((start, start - neglen))
+                out.append((start, tid, f, word))
+    return sorted(out)
 
 hits_by_form = collections.Counter()
 hits_by_term = collections.Counter()
@@ -120,67 +145,53 @@ hits_by_page = collections.Counter()
 top_by_page = collections.defaultdict(collections.Counter)
 
 pages = sorted(glob.glob(os.path.join(DP, '[abc][0-9].[0-9]-*.html')))
-for path in pages:
+for path in ([] if '--page' in sys.argv else pages):
     name = os.path.basename(path)
     code = name.split('-')[0].upper()          # 'a3.4' -> 'A3.4'
     text = page_text(path)
-    taken = []                                 # (start, end) already linked
-    def free(a, b):
-        return all(b <= s or a >= e for s, e in taken)
-    for f, tid, kind in forms:
-        if kind == 'local' and family(code) not in allowed_topics(tid):
-            continue
-        flags = 0 if kind == 'exact' else re.I
-        for m in re.finditer(pattern(f), text, flags):
-            if free(m.start(), m.end()):
-                taken.append((m.start(), m.end()))
-                hits_by_form[(tid, f)] += 1
-                hits_by_term[tid] += 1
-                hits_by_page[name] += 1
-                top_by_page[name][tid] += 1
+    for start, tid, f, word in claims(text, family(code)):
+        hits_by_form[(tid, f)] += 1
+        hits_by_term[tid] += 1
+        hits_by_page[name] += 1
+        top_by_page[name][tid] += 1
 
 # ---- per-page section mode (mirrors glossary-link.js) -----------------
 
-SKIP_TAGS = {'a', 'button', 'h1', 'h2', 'h3', 'h4', 'code', 'pre', 'svg', 'label',
-             'input', 'textarea', 'select', 'script', 'style'}
+SKIP_TAGS = {'a', 'button', 'h1', 'h2', 'h3', 'h4', 'code', 'pre', 'svg', 'figcaption',
+             'label', 'input', 'textarea', 'select', 'script', 'style'}
 SKIP_CLASSES = {'gloss', 'obj-code'}
 
 def page_links(path):
-    """Text nodes of #course-notes grouped by .obj-section, skips applied."""
+    """Text nodes of #course-notes and every .case-modal-body, grouped by
+    section (.obj-section id, .case-modal id, or 'intro'), skips applied."""
     from html.parser import HTMLParser
     class P(HTMLParser):
         def __init__(self):
             super().__init__(convert_charrefs=True)
-            self.stack = []          # (tag, classes, id, skip, section)
-            self.in_root = False
-            self.root_depth = None
+            self.stack = []          # (tag, skip, is_root, section_opened)
             self.chunks = []         # (section, text)
             self.section = 'intro'
         def handle_starttag(self, tag, attrs):
             a = dict(attrs)
             classes = set((a.get('class') or '').split())
             skip = tag in SKIP_TAGS or bool(classes & SKIP_CLASSES) or 'data-nogloss' in a
-            if a.get('id') == 'course-notes':
-                self.in_root = True
-                self.root_depth = len(self.stack)
-            if 'obj-section' in classes:
+            is_root = a.get('id') == 'course-notes' or 'case-modal-body' in classes
+            sec = None
+            if 'obj-section' in classes or 'case-modal' in classes:
+                sec = self.section
                 self.section = a.get('id') or 'section'
-                sec_open = True
-            else:
-                sec_open = False
-            parent_skip = any(f[3] for f in self.stack)
-            self.stack.append((tag, classes, a.get('id'), skip or parent_skip, sec_open))
+            parent_skip = any(f[1] for f in self.stack)
+            self.stack.append((tag, skip or parent_skip, is_root, sec))
         def handle_startendtag(self, tag, attrs):
             self.handle_starttag(tag, attrs); self.handle_endtag(tag)
         def handle_endtag(self, tag):
             while self.stack:
                 f = self.stack.pop()
-                if f[4]: self.section = 'intro'
+                if f[3] is not None: self.section = f[3]
                 if f[0] == tag: break
-            if self.in_root and self.root_depth is not None and len(self.stack) <= self.root_depth:
-                self.in_root = False
         def handle_data(self, data):
-            if self.in_root and self.stack and not self.stack[-1][3] and data.strip():
+            in_root = any(f[2] for f in self.stack)
+            if in_root and self.stack and not self.stack[-1][1] and data.strip():
                 self.chunks.append((self.section, data))
     p = P(); p.feed(open(path, encoding='utf-8').read())
     return p.chunks
@@ -195,19 +206,7 @@ def run_page(code):
     per_section = collections.Counter()
     linked = []
     for section, text in page_links(path):
-        taken = []
-        def free(a, b):
-            return all(b <= s or a >= e for s, e in taken)
-        found = []
-        for f, tid, kind in forms:
-            if kind == 'local' and fam not in allowed_topics(tid):
-                continue
-            flags = 0 if kind == 'exact' else re.I
-            for m in re.finditer(pattern(f), text, flags):
-                if free(m.start(), m.end()):
-                    taken.append((m.start(), m.end()))
-                    found.append((m.start(), tid, m.group(0)))
-        for _, tid, word in sorted(found):
+        for _, tid, f, word in claims(text, fam):
             if tid in seen[section]:
                 continue
             seen[section].add(tid)

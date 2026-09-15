@@ -25,6 +25,11 @@
 
    A tag that matches nothing gets data-gloss="missing" and is reported in the
    console, so typos show up rather than failing silently.
+
+   For a demonstration that is not a term (the key on the DP hub), give the
+   element its own text instead of a term:
+
+     <span class="gloss" data-gloss-title="Glossary" data-gloss-note="Like this.">this colour</span>
 */
 (function () {
   'use strict';
@@ -70,12 +75,13 @@
     var chips = entry.topics.map(function (t) {
       return '<a class="gloss-pop-chip" href="' + GLOSSARY_URL + '#' + entry.id + '">' + t[0] + '</a>';
     }).join('');
+    var open = entry.id
+      ? '<a class="gloss-pop-open" href="' + GLOSSARY_URL + '#' + entry.id + '">Open in glossary \u2192</a>'
+      : '<a class="gloss-pop-open" href="' + GLOSSARY_URL + '">Open the glossary \u2192</a>';
     pop.innerHTML =
       '<span class="gloss-pop-term">' + esc(entry.term) + '</span>' +
       '<span class="gloss-pop-def">' + esc(entry.def) + '</span>' +
-      '<span class="gloss-pop-foot">' + chips +
-        '<a class="gloss-pop-open" href="' + GLOSSARY_URL + '#' + entry.id + '">Open in glossary \u2192</a>' +
-      '</span>';
+      '<span class="gloss-pop-foot">' + chips + open + '</span>';
   }
 
   function esc(s) {
@@ -137,7 +143,10 @@
     if (el._glossReady) { return; }
     el._glossReady = true;
 
-    var entry = lookup(el.getAttribute('data-term') || el.textContent);
+    var note = el.getAttribute('data-gloss-note');
+    var entry = note
+      ? { id: '', term: el.getAttribute('data-gloss-title') || 'Glossary', def: note, topics: [] }
+      : lookup(el.getAttribute('data-term') || el.textContent);
     if (!entry) {
       el.setAttribute('data-gloss', 'missing');
       if (window.console) { console.warn('[glossary] no entry for:', el.getAttribute('data-term') || el.textContent.trim()); }
@@ -145,7 +154,7 @@
     }
 
     el._glossEntry = entry;
-    el.setAttribute('data-gloss', entry.id);
+    el.setAttribute('data-gloss', entry.id || 'note');
     var isLink = el.tagName === 'A';
     if (isLink) {
       if (!el.getAttribute('href')) { el.setAttribute('href', GLOSSARY_URL + '#' + entry.id); }
@@ -179,7 +188,8 @@
   document.addEventListener('click', function (e) {
     if (current && !current.contains(e.target) && pop && !pop.contains(e.target)) { hide(); }
   });
-  window.addEventListener('scroll', function () { if (current) { place(current); } }, { passive: true });
+  /* Capture phase so scrolling inside a modal repositions the popover too. */
+  document.addEventListener('scroll', function () { if (current) { place(current); } }, { passive: true, capture: true });
   window.addEventListener('resize', hide);
 
   if (document.readyState === 'loading') {

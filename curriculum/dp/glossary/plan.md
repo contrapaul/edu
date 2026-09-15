@@ -217,16 +217,33 @@ wired into `a3.1` only. Verified:
 - presentation mode: slides show plain text;
 - console clean, scan 21 ms.
 
-**Phase 3. Roll out.** Add the stylesheet and script tags to the other 23
-pages with one sed pass. Key line on the DP hub. Include case-study modals
-in the scan. Verify: open every page once and read the linked words on
-the first screen; anything silly goes back into the matches file as a
-`local` or a removal, then rerun the checker. Commit the matches file
-changes separately so the tuning is visible in history.
+**Phase 3, done.** All 24 pages wired. Key line on the DP hub and the
+glossary page, with a live example driven by `data-gloss-note`.
+Case-study modal bodies are scanned as their own sections and the popover
+sits above the modal. Verified: every page's link count matches
+`check-matches.py --page` exactly (the checker now resolves overlaps
+leftmost-first, the way the regex does, so "target user population"
+links "target user" in both); no unresolved terms; nothing outside the
+scanned regions; console clean on every page; every distinct linked word
+maps to the intended term.
+
+Adjective and verb forms of the property terms link everywhere on
+purpose (hard, harder, tough, dense, elastic, fracture, cast, plastic,
+wood…). Where a page uses one in its everyday sense ("hard to open",
+"harder to manage") the prose gets reworded rather than the link
+suppressed. `local` is kept only for words whose other sense is
+pervasive: stress, strain, load, force, current, power, output,
+resistance, user, task, environment, reach, switch, relay, motor, cam,
+column, effort, batch, forming, joining, machine, digital, analogue,
+binary, circuit, in series, in parallel, scenario, texture, frequency,
+efficiency, learnability, memorability, satisfaction, error, empathise,
+tension, bending. Any of these can be promoted by moving the form from
+`local` to `match`.
 
 **Phase 4, later.** Cross-links inside glossary definitions on the glossary
 page. Linking in quiz explanations (shown only after answering) if wanted.
-Linking on the hub and unit landing pages.
+Linking on the unit landing pages. Rewording prose where a linked word is
+used in its everyday sense.
 
 ## Decisions, confirmed 2026-09-14
 

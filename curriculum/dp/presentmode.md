@@ -130,6 +130,7 @@ A question with no lettered parts gets a single part slide holding the whole ans
 - Slide text scales with the viewport: `--ps-fs: clamp(1.05rem, 1.9vw, 1.9rem)` on `.ps-stage`. Image heights use `vh`. Both re-flow proportionally in print.
 - `.ps-overlay [hidden] { display: none !important }` exists because the button pills have their own `display` rule, which beats the hidden attribute otherwise.
 - `.ps-slide-inner` uses `justify-content: safe center` so centred content that overflows is measurable and scrollable instead of clipped at the top.
+- Glossary links (`a.gloss`, added to the course notes by `glossary/glossary-link.js` before slides are built) are cloned into slides with the text. `.ps-overlay .ps-slide-body .gloss` resets them to plain body text with no pointer events; it has to sit after the `.ps-slide-body a` rule, which underlines every link in a slide. Verbatim text is unaffected because wrapping a word in an anchor does not change `textContent`.
 
 ## Testing
 
