@@ -15,6 +15,16 @@ Working document. Strand descriptors below are the 7-8 band, task specific.
 | Core requirement | The game **must offer meaningful choices**. See below. |
 | Key tool | [Game Mechanics Catalog](https://edu.contrapaul.com/tools/mechanics/), 70 mechanics in 10 families. |
 
+## Inquiry questions
+
+| Type | Question | Where it is answered |
+|---|---|---|
+| Factual | What makes a choice in a game meaningful? | The two non-negotiables |
+| Factual | What mechanic families exist, and which ones are used in the games your audience already plays? | Aiii, with the mechanics catalog |
+| Conceptual | How does the set of choices a game offers communicate who it was designed for? | Bii and Biii |
+| Conceptual | Why does a game need to be played by other people before its designer can know whether it works? | Ciii, Di and Dii |
+| Debatable | Is a game that is fun for its designers but not for its audience a failure? | Ai at the start, Div at the end |
+
 ## The two non-negotiables
 
 Both are written into the Bi specification and tested in Di and Dii, so a game
