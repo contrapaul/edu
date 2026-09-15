@@ -118,6 +118,176 @@
   });
 })();
 
+/* ── MEANINGFUL CHOICE CHECKER (rules section, feeds Bii) ─────
+   One decision from the student's own game, run through the four
+   criteria on the page. Each answer is yes, no or not sure. A no
+   comes back with the fix, a not sure comes back with which of the
+   four tests to run, and only four yeses let the choice through. */
+(function () {
+  'use strict';
+  var root = document.getElementById('checker');
+  if (!root) return;
+
+  var CRITERIA = [
+    { id: 'diff',
+      title: 'The options are actually different.',
+      ask:   'If the player picked the other option instead, would something different happen in the game?',
+      yes:   'Yes, they lead to different places',
+      no:    'No, it ends up about the same',
+      fix:   'Make the options do different things. If red and blue lead to the same place, one of them is not an option and should go.',
+      test:  'The coin flip test. Play the moment twice, once thinking and once at random, and see if the result changes.' },
+    { id: 'dominant',
+      title: 'No option is always best.',
+      ask:   'Is there a situation where each option is the right one to pick?',
+      yes:   'Yes, it depends on the situation',
+      no:    'No, one option is nearly always right',
+      fix:   'You have a dominant strategy. Give the losing option a moment where it wins, by changing what it costs, when it can be used, or what the other players can see.',
+      test:  'The dominant strategy check. Put five players in the same spot and watch what they pick. Five of the same answer means there was no choice.' },
+    { id: 'reason',
+      title: 'The player can reason about it.',
+      ask:   'Does the player know enough to weigh it up, without the answer being obvious?',
+      yes:   'Yes, they can weigh it up',
+      no:    'No, it is a guess, or it is obvious',
+      fix:   'If it is a guess, show the player more. If it is obvious, hide something, or add a second thing they have to weigh against the first.',
+      test:  'The explain back test. Ask a player why they chose that. "It was the only sensible option" and "I don\'t know" are both failures.' },
+    { id: 'visible',
+      title: 'The consequence is visible.',
+      ask:   'Two turns later, can the player point to what their choice caused?',
+      yes:   'Yes, they can see what it did',
+      no:    'No, the result gets lost',
+      fix:   'Shorten the gap between the choice and its result, or make the result something the player can see on the table rather than something that happens in the maths.',
+      test:  'The regret test. After the game, ask whether there was a moment they wish they had played differently. No regret usually means no visible consequence.' }
+  ];
+
+  var listEl    = document.getElementById('checker-list');
+  var verdictEl = document.getElementById('checker-verdict');
+  var decEl     = document.getElementById('checker-decision');
+
+  function render() {
+    listEl.innerHTML = '';
+    CRITERIA.forEach(function (c, i) {
+      var li = document.createElement('li');
+      li.className = 'g9-check';
+      li.dataset.crit = c.id;
+
+      var num = document.createElement('span');
+      num.className = 'g9-check-num';
+      num.textContent = i + 1;
+      li.appendChild(num);
+
+      var head = document.createElement('div');
+      head.className = 'g9-check-head';
+      var t = document.createElement('strong'); t.textContent = c.title;
+      var q = document.createElement('span');   q.textContent = c.ask;
+      head.appendChild(t); head.appendChild(q);
+      li.appendChild(head);
+
+      var opts = document.createElement('div');
+      opts.className = 'g9-check-opts';
+      opts.setAttribute('role', 'radiogroup');
+      opts.setAttribute('aria-label', c.title);
+      [['yes', c.yes], ['no', c.no], ['unsure', 'Not sure']].forEach(function (o) {
+        var lab = document.createElement('label');
+        lab.className = 'g9-check-opt';
+        var inp = document.createElement('input');
+        inp.type = 'radio'; inp.name = 'checker-' + c.id; inp.value = o[0];
+        var sp = document.createElement('span'); sp.textContent = o[1];
+        lab.appendChild(inp); lab.appendChild(sp);
+        opts.appendChild(lab);
+      });
+      li.appendChild(opts);
+      listEl.appendChild(li);
+    });
+  }
+
+  function answer(c) {
+    var on = root.querySelector('input[name="checker-' + c.id + '"]:checked');
+    return on ? on.value : null;
+  }
+
+  function mark() {
+    CRITERIA.forEach(function (c) {
+      var li = listEl.querySelector('[data-crit="' + c.id + '"]');
+      var a = answer(c);
+      li.classList.toggle('is-yes',    a === 'yes');
+      li.classList.toggle('is-no',     a === 'no');
+      li.classList.toggle('is-unsure', a === 'unsure');
+    });
+  }
+
+  function p(text, cls) {
+    var el = document.createElement('p');
+    if (cls) el.className = cls;
+    el.textContent = text;
+    return el;
+  }
+  function itemList(rows) {
+    var ul = document.createElement('ul');
+    rows.forEach(function (r) {
+      var li = document.createElement('li');
+      var b = document.createElement('strong'); b.textContent = r[0] + ' ';
+      li.appendChild(b); li.appendChild(document.createTextNode(r[1]));
+      ul.appendChild(li);
+    });
+    return ul;
+  }
+
+  function check() {
+    mark();
+    verdictEl.className = 'g9-checker-verdict';
+    verdictEl.innerHTML = '';
+
+    var missing = CRITERIA.filter(function (c) { return !answer(c); });
+    if (!decEl.value.trim()) {
+      verdictEl.appendChild(p('Write the decision down first. If it will not go in one sentence, that is already a finding.', 'warn'));
+      return;
+    }
+    if (missing.length) {
+      verdictEl.appendChild(p('Answer all four. ' + missing.length + (missing.length === 1 ? ' is' : ' are') + ' still blank.', 'warn'));
+      return;
+    }
+
+    var nos     = CRITERIA.filter(function (c) { return answer(c) === 'no'; });
+    var unsures = CRITERIA.filter(function (c) { return answer(c) === 'unsure'; });
+    var dec = '“' + decEl.value.trim() + '”';
+
+    if (nos.length) {
+      verdictEl.classList.add('fail');
+      verdictEl.appendChild(p('This choice does not survive yet.', 'v-head'));
+      verdictEl.appendChild(p(dec + ' fails ' + (nos.length === 1 ? 'one criterion' : nos.length + ' criteria') + '. A choice has to pass all four at once, so fix these before it goes on a concept sheet.'));
+      verdictEl.appendChild(itemList(nos.map(function (c) { return [c.title, c.fix]; })));
+      if (unsures.length) {
+        verdictEl.appendChild(p('Then test the ' + (unsures.length === 1 ? 'one' : unsures.length) + ' you were not sure about.'));
+      }
+      return;
+    }
+    if (unsures.length) {
+      verdictEl.classList.add('unsure');
+      verdictEl.appendChild(p('You cannot tell yet, and that is the honest answer.', 'v-head'));
+      verdictEl.appendChild(p(dec + ' has no failures, but not sure is not a pass. Each one has a test on this page that settles it in a few minutes of play.'));
+      verdictEl.appendChild(itemList(unsures.map(function (c) { return [c.title, c.test]; })));
+      return;
+    }
+    verdictEl.classList.add('pass');
+    verdictEl.appendChild(p('This choice survives.', 'v-head'));
+    verdictEl.appendChild(p(dec + ' passes all four. Circle it on your Bii concept sheet and write these four answers next to it, because that annotation is what gets assessed. Then run the four tests on a real player, since your own answers are the easiest ones to be wrong about.'));
+  }
+
+  function reset() {
+    decEl.value = '';
+    Array.prototype.forEach.call(root.querySelectorAll('input[type=radio]'), function (r) { r.checked = false; });
+    mark();
+    verdictEl.className = 'g9-checker-verdict';
+    verdictEl.innerHTML = '';
+  }
+
+  render();
+  listEl.addEventListener('change', mark);
+  document.getElementById('checker-check').addEventListener('click', check);
+  document.getElementById('checker-reset').addEventListener('click', reset);
+})();
+
+
 /* ── RESEARCH BUDGET PLANNER (Aii formative) ──────────────────
    Twelve tokens, six activities, ten ordered slots. Dragging uses
    pointer events so a finger works as well as a mouse; clicking a

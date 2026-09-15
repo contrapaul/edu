@@ -138,6 +138,77 @@
 }
 .g9-planner-msg.warn { color: var(--amber); font-weight: 600; }
 
+/* Meaningful choice checker. One decision, four criteria, each
+   answered yes, no or not sure. A no gets a fix, a not sure gets the
+   test to run, and only four yeses let the choice through. */
+.g9-checker {
+  margin: 1.25rem 0 0.4rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.g9-checker-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 0.3rem;
+}
+.g9-checker-title { font-size: 1.05rem; font-weight: 650; color: var(--text); margin: 0 0 0.4rem; }
+.g9-checker-intro { font-size: 0.85rem; line-height: 1.55; color: var(--muted); margin: 0; }
+.g9-checker-input {
+  display: block; width: 100%; box-sizing: border-box;
+  font: inherit; font-size: 0.9rem; color: var(--text);
+  padding: 0.55rem 0.7rem;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px;
+}
+.g9-checker-input:focus { outline: none; border-color: var(--accent); }
+
+.g9-checker-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.g9-check {
+  display: grid; grid-template-columns: 1.6rem 1fr; column-gap: 0.7rem; row-gap: 0.45rem;
+  padding: 0.7rem 0.75rem 0.75rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+}
+.g9-check-num {
+  width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; background: var(--surface-2);
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: var(--muted);
+}
+.g9-check-head { min-width: 0; }
+.g9-check-head strong { display: block; font-size: 0.88rem; color: var(--text); }
+.g9-check-head span { display: block; font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin-top: 0.1rem; }
+.g9-check-opts { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.g9-check-opt { position: relative; }
+.g9-check-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.g9-check-opt span {
+  display: inline-block; padding: 0.35rem 0.75rem;
+  font-size: 0.78rem; color: var(--text);
+  background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 999px;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s;
+}
+.g9-check-opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.g9-check-opt span:hover { border-color: var(--accent); }
+.g9-check-opt input:checked + span { border-color: var(--accent); background: var(--surface); font-weight: 600; }
+.g9-check.is-yes    { border-color: #86efac; }
+.g9-check.is-no     { border-color: var(--amber); }
+.g9-check.is-unsure { border-style: dashed; border-color: var(--border-strong); }
+.g9-check.is-yes .g9-check-num    { background: var(--green-bg); color: var(--green); }
+.g9-check.is-no .g9-check-num     { background: var(--amber-bg); color: var(--amber); }
+
+.g9-checker-verdict { margin-top: 0.9rem; font-size: 0.85rem; line-height: 1.55; color: var(--text); }
+.g9-checker-verdict:empty { display: none; }
+.g9-checker-verdict p { margin: 0 0 0.5rem; }
+.g9-checker-verdict p:last-child { margin-bottom: 0; }
+.g9-checker-verdict .v-head { font-weight: 650; }
+.g9-checker-verdict.pass { padding: 0.75rem 0.9rem; border-radius: 10px; background: var(--green-bg); border-left: 4px solid var(--green); }
+.g9-checker-verdict.pass .v-head { color: var(--green); }
+.g9-checker-verdict.fail { padding: 0.75rem 0.9rem; border-radius: 10px; background: var(--amber-bg); border-left: 4px solid var(--amber); }
+.g9-checker-verdict.fail .v-head { color: var(--amber); }
+.g9-checker-verdict.unsure { padding: 0.75rem 0.9rem; border-radius: 10px; background: var(--surface); border-left: 4px solid var(--border-strong); }
+.g9-checker-verdict ul { margin: 0; padding-left: 1.1rem; }
+.g9-checker-verdict li { margin: 0.25rem 0; }
+.g9-checker-verdict .warn { color: var(--amber); font-weight: 600; }
+
 /* Materials inside a modal */
 
 </style>
@@ -280,10 +351,21 @@
 <p>Most first drafts from students are roll and move: throw a die, move that far, do what the square says. There is no decision anywhere in that loop. Catch it early, in Bii, not in Dii when the game is already built. Two fixes work most of the time. Give the player two things to spend instead of one, or let them choose <em>which</em> piece moves instead of <em>whether</em> it moves.</p>
 </div>
 
-<div class="planned-feature">
-<p class="planned-feature-label">Planned</p>
-<h3 class="planned-feature-title">Interactive: meaningful choice checker</h3>
-<p>A short interactive where students describe one decision from their game, answer the four criteria, and see whether the choice survives. Feeds directly into the Bii annotation requirement.</p>
+<div class="g9-checker" id="checker">
+<p class="g9-checker-kicker">Interactive</p>
+<h3 class="g9-checker-title">Does your choice survive?</h3>
+<p class="g9-checker-intro">Take one decision from your game and put it through the four criteria. Answer honestly. <strong>Not sure</strong> is allowed, and it tells you which of the four tests above to run next.</p>
+
+<label class="g9-planner-label" for="checker-decision">The decision, in one sentence</label>
+<input type="text" class="g9-checker-input" id="checker-decision" placeholder="On your turn you choose whether to..." autocomplete="off">
+
+<ol class="g9-checker-list" id="checker-list"></ol>
+
+<div class="unit-tools">
+  <button class="tool-btn" type="button" id="checker-check">Check the choice</button>
+  <button class="drag-sort-reset-btn" type="button" id="checker-reset">Reset</button>
+</div>
+<div class="g9-checker-verdict" id="checker-verdict" aria-live="polite"></div>
 </div>
 
 </div>
