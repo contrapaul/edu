@@ -33,8 +33,11 @@
    as "timing": [ms, ms, ...] per character without changing
    anything else here.
 
-   Text is a small markdown subset: paragraphs, "1." and "-"
-   lists, **bold**, `code`. Nothing else, on purpose.
+   Text is a markdown subset, grown only as real transcripts
+   needed it: paragraphs, "1." and "-" lists, "###" headings,
+   "> " quotes, pipe tables, reference lines like [1]: url "title",
+   **bold**, `code`, [links](url), and ![images](url), which render
+   as a placeholder because images are never hotlinked.
 
    Events, dispatched on the root element (bubble, so a page can
    listen once on document):
@@ -65,6 +68,8 @@ const STRINGS = {
   placeholder: 'Placeholder. Not a real transcript.',
   source: 'Source',
   thinking: 'Writing',
+  image: 'Image',
+  sources: 'Sources',
 };
 
 const SPEEDS = [
@@ -98,29 +103,52 @@ export function applyAnnotations(text, annotations = []) {
   return { text: out, found };
 }
 
-/** Split text into blocks: { type: 'p' | 'ol' | 'ul', lines|items }. */
+/** Split text into blocks:
+ *  { type: 'p', text } | { type: 'ol'|'ul', items } | { type: 'h', text }
+ *  | { type: 'quote', text } | { type: 'table', rows } | { type: 'refs', refs } */
 export function parseBlocks(text) {
   const blocks = [];
   const lines = String(text).replace(/\r\n?/g, '\n').split('\n');
   let cur = null;
+  let gap = false;   // a blank line was seen since the last content line
   const flush = () => { if (cur) { blocks.push(cur); cur = null; } };
 
   for (const raw of lines) {
     const line = raw.trim();
-    if (!line) { flush(); continue; }
+    if (!line) { gap = true; continue; }
+    const sawGap = gap;
+    gap = false;
+    const h = /^#{1,6}\s+(.*)$/.exec(line);
+    const quote = /^>\s?(.*)$/.exec(line);
+    const ref = /^\[(\w+)\]:\s+(\S+)(?:\s+"([^"]*)")?$/.exec(line);
+    const row = /^\|(.*)\|$/.exec(line);
     const ol = /^(\d+)[.)]\s+(.*)$/.exec(line);
     const ul = /^[-*•]\s+(.*)$/.exec(line);
-    if (ol) {
-      if (!cur || cur.type !== 'ol') { flush(); cur = { type: 'ol', items: [] }; }
+    if (h) {
+      flush(); blocks.push({ type: 'h', text: h[1] });
+    } else if (quote) {
+      if (!cur || cur.type !== 'quote' || sawGap) { flush(); cur = { type: 'quote', text: '' }; }
+      cur.text += (cur.text ? ' ' : '') + quote[1];
+    } else if (ref) {
+      if (!cur || cur.type !== 'refs') { flush(); cur = { type: 'refs', refs: [] }; }
+      cur.refs.push({ id: ref[1], url: ref[2], title: ref[3] || ref[2] });
+    } else if (row) {
+      if (/^[\s|:-]+$/.test(line)) continue;   // the |---|---| separator
+      if (!cur || cur.type !== 'table') { flush(); cur = { type: 'table', rows: [] }; }
+      cur.rows.push(row[1].split('|').map((c) => c.trim()));
+    } else if (ol) {
+      // A blank line between items keeps the list going, as it does in
+      // markdown. A blank line before anything else ends the block.
+      if (!cur || cur.type !== 'ol') { flush(); cur = { type: 'ol', items: [], start: Number(ol[1]) }; }
       cur.items.push(ol[2]);
     } else if (ul) {
       if (!cur || cur.type !== 'ul') { flush(); cur = { type: 'ul', items: [] }; }
       cur.items.push(ul[1]);
-    } else if (cur && (cur.type === 'ol' || cur.type === 'ul') && /^\s/.test(raw)) {
+    } else if (cur && (cur.type === 'ol' || cur.type === 'ul') && /^\s/.test(raw) && !sawGap) {
       // indented continuation of a list item
       cur.items[cur.items.length - 1] += ' ' + line;
     } else {
-      if (!cur || cur.type !== 'p') { flush(); cur = { type: 'p', text: '' }; }
+      if (!cur || cur.type !== 'p' || sawGap) { flush(); cur = { type: 'p', text: '' }; }
       cur.text += (cur.text ? ' ' : '') + line;
     }
   }
@@ -167,6 +195,21 @@ export function parseInline(text) {
         continue;
       }
     }
+    if (ch === '[' || (ch === '!' && s[i + 1] === '[')) {
+      const isImg = ch === '!';
+      const open = isImg ? i + 1 : i;
+      const mid = s.indexOf('](', open);
+      const close = mid > 0 ? s.indexOf(')', mid) : -1;
+      if (mid > 0 && close > 0 && !s.slice(open, mid).includes('\n')) {
+        pushText();
+        const label = s.slice(open + 1, mid);
+        const url = s.slice(mid + 2, close);
+        if (isImg) nodes.push({ t: 'img', s: label, url });
+        else nodes.push({ t: 'link', url, children: parseInline(label) });
+        i = close + 1;
+        continue;
+      }
+    }
     buf += ch;
     i += 1;
   }
@@ -181,12 +224,15 @@ export function plainLength(text) {
   const walk = (nodes) => {
     for (const node of nodes) {
       if (node.t === 'text' || node.t === 'code') n += node.s.length;
+      else if (node.t === 'img') n += STRINGS.image.length;
       else walk(node.children);
     }
   };
   for (const b of parseBlocks(text)) {
-    if (b.type === 'p') walk(parseInline(b.text));
-    else b.items.forEach((it) => walk(parseInline(it)));
+    if (b.type === 'p' || b.type === 'h' || b.type === 'quote') walk(parseInline(b.text));
+    else if (b.type === 'ol' || b.type === 'ul') b.items.forEach((it) => walk(parseInline(it)));
+    else if (b.type === 'table') b.rows.forEach((r) => r.forEach((c) => walk(parseInline(c))));
+    else if (b.type === 'refs') b.refs.forEach((r) => { n += r.id.length + r.title.length; });
   }
   return n;
 }
@@ -215,6 +261,20 @@ function renderInline(doc, parent, nodes, found, anns) {
       const b = el(doc, 'strong');
       renderInline(doc, b, node.children, found, anns);
       parent.appendChild(b);
+    } else if (node.t === 'link') {
+      const link = el(doc, 'a', 'tp-link');
+      link.href = node.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      renderInline(doc, link, node.children, found, anns);
+      parent.appendChild(link);
+    } else if (node.t === 'img') {
+      // Never hotlinked: an image the model showed is represented by
+      // a placeholder, and a note message can say what was there.
+      const img = el(doc, 'span', 'tp-img');
+      img.setAttribute('title', node.url);
+      img.appendChild(doc.createTextNode(STRINGS.image));
+      parent.appendChild(img);
     } else if (node.t === 'ann') {
       const a = found[node.index];
       const span = el(doc, 'mark', 'tp-ann tp-ann--' + (a.kind || 'note'));
@@ -232,18 +292,49 @@ function renderBody(doc, text, annotations) {
   const body = el(doc, 'div', 'tp-body');
   const anns = [];
   for (const b of parseBlocks(marked)) {
-    if (b.type === 'p') {
-      const p = el(doc, 'p');
-      renderInline(doc, p, parseInline(b.text), found, anns);
-      body.appendChild(p);
-    } else {
+    if (b.type === 'p' || b.type === 'h' || b.type === 'quote') {
+      const tag = b.type === 'quote' ? 'blockquote' : 'p';
+      const node = el(doc, tag, b.type === 'h' ? 'tp-h' : null);
+      renderInline(doc, node, parseInline(b.text), found, anns);
+      body.appendChild(node);
+    } else if (b.type === 'ol' || b.type === 'ul') {
       const list = el(doc, b.type);
+      if (b.start && b.start !== 1) list.start = b.start;
       for (const item of b.items) {
         const li = el(doc, 'li');
         renderInline(doc, li, parseInline(item), found, anns);
         list.appendChild(li);
       }
       body.appendChild(list);
+    } else if (b.type === 'table') {
+      const wrap = el(doc, 'div', 'tp-table');
+      const table = el(doc, 'table');
+      b.rows.forEach((row, r) => {
+        const tr = el(doc, 'tr');
+        for (const cell of row) {
+          const td = el(doc, r === 0 ? 'th' : 'td');
+          renderInline(doc, td, parseInline(cell), found, anns);
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      });
+      wrap.appendChild(table);
+      body.appendChild(wrap);
+    } else if (b.type === 'refs') {
+      const refs = el(doc, 'div', 'tp-refs');
+      refs.appendChild(el(doc, 'p', 'tp-refs-title', STRINGS.sources));
+      const list = el(doc, 'ol');
+      for (const r of b.refs) {
+        const li = el(doc, 'li');
+        li.appendChild(doc.createTextNode('[' + r.id + '] '));
+        const a = el(doc, 'a', 'tp-link');
+        a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.appendChild(doc.createTextNode(r.title));
+        li.appendChild(a);
+        list.appendChild(li);
+      }
+      refs.appendChild(list);
+      body.appendChild(refs);
     }
   }
   return { body, anns };
@@ -379,13 +470,32 @@ export class TranscriptPlayer {
     this.log = el(d, 'div', 'tp-log');
     this.log.setAttribute('aria-live', 'off');
     // Notes open on hover, and also on tap or Enter for touch and keyboard.
+    // The note is positioned within the message body, under the last
+    // line of its mark (a mark can wrap across lines), and pulled left
+    // when it would run past the body's edge.
+    const placeNote = (ann) => {
+      const body = ann.closest('.tp-body');
+      const rects = ann.getClientRects();
+      if (!body || !rects.length) return;
+      const last = rects[rects.length - 1];
+      const b = body.getBoundingClientRect();
+      const noteW = Math.min(448, b.width);   // 28rem cap, matches the CSS
+      const x = Math.max(0, Math.min(last.left - b.left, b.width - noteW));
+      ann.style.setProperty('--tp-note-x', x + 'px');
+      ann.style.setProperty('--tp-note-y', (last.bottom - b.top + 6) + 'px');
+    };
     const toggleNote = (target) => {
       const ann = target.closest && target.closest('.tp-ann.is-revealed[data-note]');
       if (!ann) return false;
       for (const other of this.log.querySelectorAll('.tp-ann.is-open')) if (other !== ann) other.classList.remove('is-open');
+      placeNote(ann);
       ann.classList.toggle('is-open');
       return true;
     };
+    this.log.addEventListener('mouseover', (e) => {
+      const ann = e.target.closest && e.target.closest('.tp-ann.is-revealed[data-note]');
+      if (ann) placeNote(ann);
+    });
     this.log.addEventListener('click', (e) => { toggleNote(e.target); });
     this.log.addEventListener('keydown', (e) => {
       if ((e.key === 'Enter' || e.key === ' ') && toggleNote(e.target)) e.preventDefault();
@@ -493,7 +603,7 @@ export class TranscriptPlayer {
     for (const n of nodes) n.node.nodeValue = '';
     // Blocks stay hidden until the stream reaches them, so a list does
     // not show seven empty numbers while the first item is being written.
-    const blocks = Array.from(body.querySelectorAll('p, li, ol, ul'));
+    const blocks = Array.from(body.querySelectorAll('p, li, ol, ul, blockquote, .tp-table, .tp-refs'));
     for (const b of blocks) b.setAttribute('data-empty', '');
     const cursor = el(this.doc, 'span', 'tp-cursor');
     cursor.setAttribute('aria-hidden', 'true');

@@ -63,6 +63,60 @@
       ]
     },
     {
+      "role": "user",
+      "text": "Can you suggest some topic ideas for my paper?"
+    },
+    {
+      "role": "assistant",
+      "text": "Sure! Here are some potential topic ideas for your paper on Hadrian's Wall: \n1. The historical context and purpose of Hadrian's Wall \n2. The construction and design of Hadrian's Wall \n3. The impact of Hadrian's Wall on the Roman occupation of Britain \n4. The role of the Roman army in building and maintaining Hadrian's Wall \n5. The cultural and economic significance of Hadrian's Wall in ancient Britain \n6. The legacy of Hadrian's Wall and its impact on modern tourism and heritage preservation \n7. The social and political implications of Hadrian's Wall in the Roman Empire \n8. The relationship between Hadrian's Wall and other Roman frontiers, such as the Limes Germanicus or the Antonine Wall. \n9. The use of propaganda in the construction and promotion of Hadrian's Wall \n10. The significance of Hadrian's Wall as a cultural and archaeological site today. I hope these topic ideas help you get started on your paper!",
+      "annotations": [
+        {
+          "match": "The historical context and purpose of Hadrian's Wall",
+          "kind": "note",
+          "note": "Ten topics, all broad. None is phrased as a question you could argue. Compare the 2026 answer, which sorts its ideas by how arguable they are and says why."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "text": "What is the Antonine Wall?"
+    },
+    {
+      "role": "assistant",
+      "text": "The Antonine Wall was a defensive wall built by the Roman Empire in Scotland during the 2nd century AD. It was constructed across the narrowest point of the Scottish lowlands, between the Firth of Forth and the Firth of Clyde, and extended for approximately 37 miles (59 km). The wall was made of turf, stone, and timber, and was up to 12 feet (3.6 meters) high and 16 feet (4.9 meters) wide.\n\nThe Antonine Wall was built by the Roman Emperor Antoninus Pius in AD 142, approximately 20 years after Hadrian's Wall was constructed further south. The wall served as the northernmost frontier of the Roman Empire in Britain for a brief period, until it was abandoned and the Roman forces retreated back to Hadrian's Wall. The reasons for the abandonment of the Antonine Wall are not entirely clear, but it is thought to have been due to military and logistical difficulties in maintaining a garrison in the far north of Britain.\n\nToday, the Antonine Wall is a UNESCO World Heritage Site, and parts of the wall and associated structures, such as forts and bathhouses, can still be seen and visited. Like Hadrian's Wall, the Antonine Wall is an important historical and cultural site, and continues to attract visitors and researchers interested in the history of the Roman Empire in Britain.",
+      "annotations": [
+        {
+          "match": "approximately 37 miles (59 km)",
+          "kind": "good",
+          "note": "Close enough. The Antonine Wall was about 63 km, or 39 miles. Plain factual questions like this one were where the 2023 model was at its best."
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "text": "What are some of the social and political implications of Hadrian's Wall?"
+    },
+    {
+      "role": "assistant",
+      "text": "Hadrian's Wall had significant social and political implications, both within Roman Britain and the wider Roman Empire. Here are a few examples: \n1. Military Control: Hadrian's Wall was built to control movement across the frontier and to restrict the movement of people and goods, particularly in the northern reaches of the province. The wall was intended to establish a clear boundary between Roman Britain and the unconquered lands to the north, and to exert control over the indigenous peoples living in the region. \n2. Cultural Exchange: While the wall was primarily built for military purposes, it also had important cultural implications. The Roman soldiers stationed along the wall brought with them Roman culture, religion, and language, which would have had an impact on the local population. Similarly, the wall served as a barrier to the spread of indigenous culture and practices southward into Roman Britain. \n3. Economic Significance: The construction of Hadrian's Wall had significant economic implications, both for the local economy and for the wider Roman Empire. The wall required large amounts of resources to build and maintain, including building materials, food, and labor. This would have had an impact on the local economy, and would have likely stimulated trade and commerce along the frontier. \n4. Propaganda and Power: The construction of Hadrian's Wall was also an important political statement, both within Roman Britain and the wider empire. The wall was a symbol of Roman power and control, and was used by the Roman authorities to project their authority over the local population and to communicate their strength and military prowess to their rivals in the wider Roman world.\n\nOverall, Hadrian's Wall had far-reaching social and political implications, both for the people living in Roman Britain and for the wider Roman Empire. Its impact on culture, language, and economics was significant, and its role as a symbol of Roman power and control was central to its construction and legacy.",
+      "annotations": [
+        {
+          "match": "the wall served as a barrier to the spread of indigenous culture and practices southward",
+          "kind": "check",
+          "note": "Stated as fact, with nothing behind it. The 2026 answer argues nearly the opposite, that the frontier mixed cultures, and cites evidence for it."
+        },
+        {
+          "match": "Overall, Hadrian's Wall had far-reaching social and political implications",
+          "kind": "note",
+          "note": "A closing paragraph that repeats the opening. Reads like a school essay because it was trained on a great many of them."
+        }
+      ]
+    },
+    {
+      "role": "note",
+      "text": "Four answers in a row with no source named anywhere. In 2023 the model had no way to give one."
+    },
+    {
       "role": "choice",
       "prompt": "What would you do next?",
       "options": [

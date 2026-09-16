@@ -69,3 +69,41 @@ test('the recorded transcript parses and every annotation is found', async () =>
     assert.equal(found.length, m.annotations.length, 'every annotation must match text in its message');
   }
 });
+
+test('parseBlocks handles headings, quotes, tables and reference lines', () => {
+  const blocks = parseBlocks('### Title\n> quoted\n> more\n| a | b |\n| --- | --- |\n| 1 | 2 |\n[1]: https://x.example/ "X"\n[2]: https://y.example/');
+  assert.deepEqual(blocks.map((b) => b.type), ['h', 'quote', 'table', 'refs']);
+  assert.equal(blocks[0].text, 'Title');
+  assert.equal(blocks[1].text, 'quoted more');
+  assert.deepEqual(blocks[2].rows, [['a', 'b'], ['1', '2']]);
+  assert.deepEqual(blocks[3].refs[0], { id: '1', url: 'https://x.example/', title: 'X' });
+  assert.equal(blocks[3].refs[1].title, 'https://y.example/');
+});
+
+test('parseInline handles links and images', () => {
+  const nodes = parseInline('see [**the** site](https://x.example/?a=1) and ![Image](https://img.example/p.jpg) now');
+  assert.deepEqual(nodes.map((n) => n.t), ['text', 'link', 'text', 'img', 'text']);
+  assert.equal(nodes[1].url, 'https://x.example/?a=1');
+  assert.equal(nodes[1].children[0].t, 'strong');
+  assert.equal(nodes[3].url, 'https://img.example/p.jpg');
+});
+
+test('an annotation inside link text still becomes a span', () => {
+  const { text } = applyAnnotations('[English Heritage](https://x.example/)', [{ match: 'Heritage', kind: 'check' }]);
+  const nodes = parseInline(text);
+  assert.equal(nodes[0].t, 'link');
+  assert.equal(nodes[0].children[1].t, 'ann');
+});
+
+test('a blank line between numbered items keeps one list, and the start number is kept', () => {
+  const blocks = parseBlocks('Intro:\n\n1. **[A](https://a.example/)**\n   About A.\n\n2. **[B](https://b.example/)**\n   About B.\n\nOutro.\n\n5. five\n6. six');
+  assert.deepEqual(blocks.map((b) => b.type), ['p', 'ol', 'p', 'ol']);
+  assert.equal(blocks[1].items.length, 2);
+  assert.equal(blocks[1].items[0], '**[A](https://a.example/)** About A.');
+  assert.equal(blocks[3].start, 5);
+});
+
+test('a blank line between two paragraphs still separates them', () => {
+  const blocks = parseBlocks('One.\n\nTwo.');
+  assert.equal(blocks.length, 2);
+});
