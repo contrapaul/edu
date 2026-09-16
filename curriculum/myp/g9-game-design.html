@@ -209,6 +209,21 @@
 .g9-checker-verdict li { margin: 0.25rem 0; }
 .g9-checker-verdict .warn { color: var(--amber); font-weight: 600; }
 
+/* Photos. The shared .case-photo rule centres a figure at 60% width. The
+   right variant floats it beside the paragraph that follows, textbook
+   style, and anything that is not a paragraph drops below it so a box or
+   a table never wraps. The wide variant is for a short, wide image. */
+.case-photo--right {
+  float: right; width: 38%;
+  margin: 0.2rem 0 0.9rem 1.5rem;
+}
+.case-photo--right ~ *:not(p):not(ul):not(ol) { clear: right; }
+.case-photo--wide { width: 100%; }
+.case-photo--wide img { max-height: none; width: 100%; }
+@media (max-width: 640px) {
+  .case-photo--right { float: none; width: 100%; margin: 1.25rem auto; }
+}
+
 /* Materials inside a modal */
 
 </style>
@@ -281,6 +296,11 @@
 
 <div class="curr-main">
 
+<figure class="case-photo">
+  <a href="media/lotrduel.webp" target="_blank" rel="noopener"><img src="media/lotrduel.webp" width="1800" height="1200" alt="The Lord of the Rings: Duel for Middle-earth, cards and board laid out mid game" loading="lazy"></a>
+  <figcaption><em>The Lord of the Rings: Duel for Middle-earth | <a href="https://boardgamegeek.com/boardgame/421006/the-lord-of-the-rings-duel-for-middle-earth">Board Game Geek</a></em></figcaption>
+</figure>
+
 <div class="unit-facts">
   <div class="unit-fact"><p class="unit-fact-k">Length</p><p class="unit-fact-v"><strong>36 classes</strong>, 33 of them assessed</p></div>
   <div class="unit-fact"><p class="unit-fact-k">Teams</p><p class="unit-fact-v"><strong>3 to 4</strong>, formed before Ai</p></div>
@@ -322,6 +342,10 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-rules">
+<figure class="case-photo case-photo--right">
+  <a href="media/wingspan.webp" target="_blank" rel="noopener"><img src="media/wingspan.webp" width="883" height="600" alt="A Wingspan player board with bird cards, eggs and food tokens" loading="lazy"></a>
+  <figcaption><em>A Wingspan player board | <a href="https://boardgamegeek.com/boardgame/266192/wingspan">Board Game Geek</a></em></figcaption>
+</figure>
 <p class="curr-section-intro">Two requirements sit above everything else in this unit. Both are written into the specification in <strong>Bi</strong>, then tested in <strong>Di</strong> and <strong>Dii</strong>. A game that misses either one cannot reach the top band, however well it is made. Teach them in the launch class and return to them constantly.</p>
 
 <div class="unit-rules">
@@ -393,6 +417,10 @@
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-a">
+<figure class="case-photo case-photo--right">
+  <a href="media/carcassone.webp" target="_blank" rel="noopener"><img src="media/carcassone.webp" width="1600" height="1200" alt="Carcassonne being played in class" loading="lazy"></a>
+  <figcaption><em>Carcassonne being played in class, learn more at <a href="https://boardgamegeek.com/boardgame/822/carcassonne">Board Game Geek: Carcassonne</a></em></figcaption>
+</figure>
 <p class="curr-section-intro">Teams are formed, and each is assigned a real client group inside the school. Students justify why that group needs a game and plan their research. They then take apart existing games using the shared mechanics vocabulary, and pull it all together into a brief.</p>
 
 <div class="content-note">
@@ -410,6 +438,11 @@
 <div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>You will choose an audience and find a client group, then conduct research to support the development of a new game.</q></div>
 
 <div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Need Statement</strong>, 1 page</span><a class="task-sheet-link" href="g9-task-sheets.html#ai">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
+
+<figure class="case-photo case-photo--right">
+  <a href="media/tickettoridecard.webp" target="_blank" rel="noopener"><img src="media/tickettoridecard.webp" width="1600" height="1200" alt="A Ticket to Ride card" loading="lazy"></a>
+  <figcaption><em>A Ticket to Ride card, learn more at <a href="https://boardgamegeek.com/boardgame/9209/ticket-to-ride">Board Game Geek: Ticket to Ride</a></em></figcaption>
+</figure>
 
 <p>Each team receives its client group. Students identify, explain and justify the need for a tabletop game for that specific audience. The justification is the whole strand, so the writing has to argue rather than describe.</p>
 
@@ -458,6 +491,11 @@
 <div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Constructs a detailed research plan, which identifies and prioritizes the primary and secondary research needed to develop a solution to the problem independently.</q></div>
 
 <div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Research Plan</strong>, 1 page</span><a class="task-sheet-link" href="g9-task-sheets.html#aii">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
+
+<figure class="case-photo case-photo--right">
+  <a href="media/arcnova.webp" target="_blank" rel="noopener"><img src="media/arcnova.webp" width="800" height="600" alt="Ark Nova" loading="lazy"></a>
+  <figcaption><em>Ark Nova | <a href="https://boardgamegeek.com/boardgame/342942/ark-nova">Board Game Geek</a></em></figcaption>
+</figure>
 
 <p>You will plan your research methods and topics before designing anything, then provide
 explanations for your choices. (Then do the research).</p>
@@ -598,6 +636,11 @@ game. The <a href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics C
 
 <div class="unit-meta"><span><strong>1</strong> class</span><span>Individual</span><span>Hand in: <strong>Design Brief</strong>, 1 page</span><a class="task-sheet-link" href="g9-task-sheets.html#aiv">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
 
+<figure class="case-photo case-photo--right">
+  <a href="media/pandemiclegacy.webp" target="_blank" rel="noopener"><img src="media/pandemiclegacy.webp" width="1600" height="1200" alt="Pandemic Legacy: Season 1" loading="lazy"></a>
+  <figcaption><em>Pandemic Legacy: Season 1 | <a href="https://boardgamegeek.com/boardgame/161936/pandemic-legacy-season-1">Board Game Geek</a></em></figcaption>
+</figure>
+
 <p>Note the verb. The brief <em>summarises the analysis</em>, so this is a synthesis document. Measurable criteria belong in Bi, not here. Keeping these two apart is the single most common A to B confusion.</p>
 
 <p class="unit-h">One page, with an evidence column</p>
@@ -644,6 +687,10 @@ game. The <a href="https://edu.contrapaul.com/tools/mechanics/">Game Mechanics C
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-b">
+<figure class="case-photo case-photo--right">
+  <a href="media/terraformingmars.webp" target="_blank" rel="noopener"><img src="media/terraformingmars.webp" width="1200" height="1200" alt="Terraforming Mars" loading="lazy"></a>
+  <figcaption><em>Terraforming Mars | <a href="https://boardgamegeek.com/boardgame/167791/terraforming-mars">Board Game Geek</a></em></figcaption>
+</figure>
 <p class="curr-section-intro">Students turn the brief into testable specifications, then generate a real range of concepts using the mechanics catalog. Teams converge on one direction, and each student draws what is needed to build it.</p>
 
 <!-- Bi -->
@@ -719,6 +766,11 @@ states how it will be tested and why it has been chosen.</p>
 
 <div class="unit-meta"><span><strong>3</strong> classes</span><span>Individual</span><span>Hand in: <strong>3 concepts + 2 prototypes</strong></span><a class="task-sheet-link" href="g9-task-sheets.html#bii">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
 
+<figure class="case-photo case-photo--wide">
+  <a href="media/gloomhaven.webp" target="_blank" rel="noopener"><img src="media/gloomhaven.webp" width="900" height="305" alt="Four Gloomhaven ability cards side by side" loading="lazy"></a>
+  <figcaption><em>Gloomhaven ability cards | <a href="https://boardgamegeek.com/boardgame/174430/gloomhaven">Board Game Geek</a></em></figcaption>
+</figure>
+
 <div class="concept-box">
 <p class="concept-box-label">Task device</p>
 <h3 class="concept-box-title">The mechanic draw</h3>
@@ -788,6 +840,11 @@ states how it will be tested and why it has been chosen.</p>
 
 <div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual writing, group decision</span><span>Hand in: <strong>Matrix + justification</strong></span><a class="task-sheet-link" href="g9-task-sheets.html#biii">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
 
+<figure class="case-photo case-photo--right">
+  <a href="media/brassbirmingham.webp" target="_blank" rel="noopener"><img src="media/brassbirmingham.webp" width="1600" height="1200" alt="Brass: Birmingham" loading="lazy"></a>
+  <figcaption><em>Brass: Birmingham | <a href="https://boardgamegeek.com/boardgame/224517/brass-birmingham">Board Game Geek</a></em></figcaption>
+</figure>
+
 <p>You will choose one design and justify that decision against the others. You'll also make the strongest case you can against your own choice.</p>
 
 <p class="unit-h">How the team converges</p>
@@ -839,6 +896,11 @@ states how it will be tested and why it has been chosen.</p>
 <div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Develops accurate and detailed planning drawings/diagrams and outlines requirements for the creation of the chosen solution.</q></div>
 
 <div class="unit-meta"><span><strong>3</strong> classes</span><span>Individual pages, team pack</span><span>Hand in: <strong>Production Pack</strong>, 4 to 8 pages</span><a class="task-sheet-link" href="g9-task-sheets.html#biv">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
+
+<figure class="case-photo case-photo--right">
+  <a href="media/7wondersduel.webp" target="_blank" rel="noopener"><img src="media/7wondersduel.webp" width="1600" height="1200" alt="7 Wonders Duel" loading="lazy"></a>
+  <figcaption><em>7 Wonders Duel | <a href="https://boardgamegeek.com/boardgame/173346/7-wonders-duel">Board Game Geek</a></em></figcaption>
+</figure>
 
 <p>You will draw the chosen game accurately enough for it to be made. The drawings carry measurements, materials and the requirements for producing each component.</p>
 
@@ -899,6 +961,10 @@ states how it will be tested and why it has been chosen.</p>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-c">
+<figure class="case-photo case-photo--right">
+  <a href="media/warofthering.webp" target="_blank" rel="noopener"><img src="media/warofthering.webp" width="1600" height="1200" alt="War of the Ring" loading="lazy"></a>
+  <figcaption><em>War of the Ring | <a href="https://boardgamegeek.com/boardgame/115746/war-of-the-ring-second-edition">Board Game Geek</a></em></figcaption>
+</figure>
 <p class="curr-section-intro">One planning class, then a ten class build block. Cii, Ciii and Civ all run inside that block at the same time. That is why the evidence routines matter more here than anywhere else in the unit.</p>
 
 <div class="concept-box">
@@ -970,6 +1036,11 @@ states how it will be tested and why it has been chosen.</p>
 <div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Demonstrates excellent technical skills when making the solution.</q></div>
 
 <div class="unit-meta"><span>Runs through the <strong>build block</strong></span><span>Individual</span><span>Hand in: <strong>Making Log</strong>, 3 skills at depth</span><a class="task-sheet-link" href="g9-task-sheets.html#cii">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
+
+<figure class="case-photo case-photo--right">
+  <a href="media/slaythesppire.webp" target="_blank" rel="noopener"><img src="media/slaythesppire.webp" width="900" height="900" alt="Slay the Spire: The Board Game" loading="lazy"></a>
+  <figcaption><em>Slay the Spire: The Board Game | <a href="https://boardgamegeek.com/boardgame/338960/slay-the-spire-the-board-game">Board Game Geek</a></em></figcaption>
+</figure>
 
 <p>You must demonstrate technical skill while making your game. You choose which skills to
 highlight, and provide evidence of the work for consideration.</p>
@@ -1060,6 +1131,11 @@ highlight, and provide evidence of the work for consideration.</p>
 
 <div class="unit-meta"><span>End of the <strong>build block</strong></span><span>Team artefact, individual components</span><span>Hand in: <strong>The game</strong> + cold read record</span><a class="task-sheet-link" href="g9-task-sheets.html#ciii">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
 
+<figure class="case-photo case-photo--right">
+  <a href="media/twilightimperium.webp" target="_blank" rel="noopener"><img src="media/twilightimperium.webp" width="1800" height="1013" alt="Twilight Imperium" loading="lazy"></a>
+  <figcaption><em>Twilight Imperium | <a href="https://boardgamegeek.com/boardgame/233078/twilight-imperium-fourth-edition">Board Game Geek</a></em></figcaption>
+</figure>
+
 <p>You and your group follow the plans and finish a game that works. It has to be playable by people
 who had no part in making it.</p>
 
@@ -1140,6 +1216,10 @@ who had no part in making it.</p>
 <svg class="curr-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 </button>
 <div class="curr-body" id="body-crit-d">
+<figure class="case-photo case-photo--right">
+  <a href="media/bloodbowl.webp" target="_blank" rel="noopener"><img src="media/bloodbowl.webp" width="1600" height="1142" alt="A Blood Bowl pitch mid match" loading="lazy"></a>
+  <figcaption><em>Mr. K lost this game of Blood Bowl, learn more at <a href="https://boardgamegeek.com/boardgame/457587/blood-bowl-third-season-edition">Board Game Geek: Blood Bowl</a></em></figcaption>
+</figure>
 <p class="curr-section-intro">Students design testing methods that produce real data about their game. They will use the methods established to gather data.</p>
 
 <div class="content-note">
@@ -1157,6 +1237,11 @@ who had no part in making it.</p>
 <div class="unit-desc"><span class="unit-desc-label">MYP descriptor, 7 to 8</span><q>Designs detailed and relevant testing methods, which generate data, to measure the success of the solution.</q></div>
 
 <div class="unit-meta"><span><strong>2</strong> classes</span><span>Individual</span><span>Hand in: <strong>Test Plan + the instruments</strong></span><a class="task-sheet-link" href="g9-task-sheets.html#di">Task sheet <span aria-hidden="true">&rarr;</span></a></div>
+
+<figure class="case-photo case-photo--right">
+  <a href="media/tickettoridelegends.webp" target="_blank" rel="noopener"><img src="media/tickettoridelegends.webp" width="1600" height="1200" alt="Ticket to Ride Legacy: Legends of the West" loading="lazy"></a>
+  <figcaption><em>Ticket to Ride Legacy: Legends of the West | <a href="https://boardgamegeek.com/boardgame/390092/ticket-to-ride-legacy-legends-of-the-west">Board Game Geek</a></em></figcaption>
+</figure>
 
 <p>Methods are drawn from the DP <a href="../dp/a2.1-user-centred-research.html">A2.1 user centred research</a> toolkit: user observation, interviews, focus groups, questionnaires, user trials, personae and scenarios. Meeting them here sets up the DP course for anyone continuing.</p>
 
@@ -1455,6 +1540,10 @@ who had no part in making it.</p>
 
 </div><!-- /curr-main -->
 </div><!-- /curr-page-layout -->
+<div class="case-lightbox" id="case-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <img src="" alt="">
+</div>
+
 </main>
 <!-- ══ FORMATIVE MATERIALS ═════════════════════════════════════ -->
 
