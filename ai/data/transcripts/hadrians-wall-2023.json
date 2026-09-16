@@ -1,0 +1,103 @@
+{
+  "id": "hadrians-wall-2023",
+  "title": "Asking for sources, 2023",
+  "model": {
+    "name": "ChatGPT (GPT-3.5)",
+    "vendor": "OpenAI",
+    "date": "March 2023",
+    "search": false
+  },
+  "source": "ChatGPT for Educators, Paul Kwiatkowski, February to March 2023. Prompts and replies reproduced as recorded; the notes are from the same document.",
+  "placeholder": false,
+  "pace": {
+    "cps": 80
+  },
+  "messages": [
+    {
+      "role": "user",
+      "text": "I'm in grade 10 and need to do some research for a report about Hadrian's Wall. Can you suggest some sources?"
+    },
+    {
+      "role": "assistant",
+      "text": "Certainly! Here are some sources you can use for your research on Hadrian's Wall:\n1. Hadrian's Wall: A Study in Archaeology and History by D.J. Breeze and B. Dobson. This book is an authoritative and comprehensive guide to the history, construction, and purpose of Hadrian's Wall.\n2. Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce. This book provides a detailed account of the archaeological evidence and the architecture of Hadrian's Wall.\n3. The Roman Army and Hadrian's Wall by Brian Dobson. This book provides a comprehensive overview of the Roman army and its relationship to Hadrian's Wall.\n4. Hadrian's Wall: A Souvenir Guide by English Heritage. This guidebook offers a concise overview of the history and significance of Hadrian's Wall.\n5. The Hadrian's Wall website, run by English Heritage, offers a wealth of information and resources about the wall, including historical background, photographs, and maps.\n6. The Hadrian's Wall Path National Trail website provides information on walking the entire length of Hadrian's Wall, including maps, accommodations, and historical sites to visit along the way.\n7. The Vindolanda Trust website provides information on the Roman fort and civilian settlement of Vindolanda, which is located near Hadrian's Wall and is one of the most extensively excavated Roman sites in Britain.\nI hope these sources help you in your research on Hadrian's Wall!",
+      "annotations": [
+        {
+          "match": "Hadrian's Wall: A Study in Archaeology and History by D.J. Breeze and B. Dobson",
+          "kind": "fabricated",
+          "note": "Breeze and Dobson did write a book about the wall. Its title is simply \"Hadrian's Wall\". This longer title does not exist."
+        },
+        {
+          "match": "Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce",
+          "kind": "fabricated",
+          "note": "Collingwood Bruce wrote a real book, first published in 1863: \"Handbook to the Roman Wall\". This title is invented."
+        },
+        {
+          "match": "The Roman Army and Hadrian's Wall by Brian Dobson",
+          "kind": "check",
+          "note": "Dobson is a real author on this subject, but no book with this exact title was found. Check before citing."
+        },
+        {
+          "match": "The Vindolanda Trust website",
+          "kind": "good",
+          "note": "Real, and a good source. The websites in this list held up better than the books."
+        }
+      ]
+    },
+    {
+      "role": "note",
+      "text": "In 2023 this model could not search the internet or produce links. It wrote titles that sounded right. Two of the four books do not exist under those names. Every one is presented with the same confidence."
+    },
+    {
+      "role": "user",
+      "text": "Did Emperor Hadrian ever visit the wall?"
+    },
+    {
+      "role": "assistant",
+      "text": "Yes, Emperor Hadrian did visit the wall during his visit to Britain in AD 122. He traveled to the frontier in order to inspect the progress of the construction work and to ensure that the wall was being built to his specifications. According to historical sources, Hadrian spent several months in Britain, during which time he made a number of important decisions about the future of the province. Although there is no record of him returning to the wall after his initial visit, his name and likeness were used extensively in the iconography of the wall and the associated structures, indicating his ongoing interest and involvement in its construction and maintenance.",
+      "annotations": [
+        {
+          "match": "According to historical sources",
+          "kind": "check",
+          "note": "Which sources? None are named. Hadrian did visit Britain in AD 122, and the wall is thought to have been begun on his orders, but a phrase like this with nothing behind it is a signal to check."
+        }
+      ]
+    },
+    {
+      "role": "choice",
+      "prompt": "What would you do next?",
+      "options": [
+        {
+          "label": "Copy the list into my bibliography",
+          "messages": [
+            {
+              "role": "note",
+              "text": "Two of those books do not exist. A teacher who looks them up finds nothing, and now the whole bibliography is in doubt."
+            }
+          ]
+        },
+        {
+          "label": "Look each one up before using it",
+          "messages": [
+            {
+              "role": "note",
+              "text": "This is the habit. Asking for sources is step one. Checking them is step two, and in 2023 it was the step that caught the invented titles."
+            }
+          ]
+        },
+        {
+          "label": "Ask the AI if it's sure",
+          "messages": [
+            {
+              "role": "user",
+              "text": "Are you sure all of these books exist?"
+            },
+            {
+              "role": "note",
+              "text": "Placeholder. The reply to this question was not recorded in 2023. When a current model answers it, the recorded transcript goes here."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -4,8 +4,20 @@
     {
       "name": "edu-static",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["serve_nocache.py", "8899"],
+      "runtimeArgs": [
+        "serve_nocache.py",
+        "8899"
+      ],
       "port": 8899
+    },
+    {
+      "name": "edu-ai",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "serve_nocache.py",
+        "8911"
+      ],
+      "port": 8911
     }
   ]
 }

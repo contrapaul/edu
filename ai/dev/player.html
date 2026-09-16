@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Transcript player test bed</title>
+<link rel="stylesheet" href="../css/transcript-player.css">
+<style>
+  :root { --bg: #f8f9fa; --text: #111418; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; line-height: 1.5; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 120px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  .lede { color: #64748b; margin: 0 0 24px; }
+  .spacer { height: 70vh; display: grid; place-items: center; color: #64748b; }
+  .reactor { margin: 12px 0 32px; padding: 12px 14px; border: 1px solid #dde1e6; border-radius: 8px; background: #fff; font-size: 0.85rem; }
+  .reactor h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; margin: 0 0 6px; color: #64748b; }
+  .reactor ul { margin: 0; padding-left: 1.2em; }
+  .reactor li { margin: 2px 0; }
+  .reactor li.fabricated { color: #b91c1c; }
+  .reactor li.check { color: #92400e; }
+  .reactor li.good { color: #166534; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Transcript player test bed</h1>
+  <p class="lede">Scroll down. The player starts when it comes into view. The box under it shows what the page hears from the player as the text arrives.</p>
+
+  <div class="spacer">Keep scrolling.</div>
+
+  <div data-transcript="hadrians-wall-2023"></div>
+
+  <div class="reactor" id="reactor">
+    <h2>What the page heard</h2>
+    <ul id="events"></ul>
+  </div>
+</main>
+
+<script type="module">
+  import { mountAll } from '../js/transcript-player.js';
+  const list = document.getElementById('events');
+  const add = (text, cls) => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    if (cls) li.className = cls;
+    list.appendChild(li);
+  };
+  document.addEventListener('tp:load', (e) => add('Loaded: ' + e.detail.transcript.title));
+  document.addEventListener('tp:start', () => add('Started'));
+  document.addEventListener('tp:message', (e) => add('Message ' + e.detail.index + ' (' + e.detail.message.role + ')'));
+  document.addEventListener('tp:annotation', (e) => add(e.detail.annotation.kind + ': ' + e.detail.annotation.match, e.detail.annotation.kind));
+  document.addEventListener('tp:choice', () => add('Waiting on a choice'));
+  document.addEventListener('tp:choose', (e) => add('Chose: ' + e.detail.option.label));
+  document.addEventListener('tp:done', () => add('Done'));
+  mountAll(document, { baseUrl: '../data/transcripts/' });
+</script>
+</body>
+</html>

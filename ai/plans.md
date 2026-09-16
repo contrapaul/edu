@@ -159,4 +159,8 @@ The toolkit:
 ## Reference files in `/ai/`
 
 - `pi.html`: the pi.dev homepage HTML, saved 2026-09-16 as a motion and pacing reference. Not the final word on style.
-- A folder (to come) with the school AI policy, Paul's early-2023 ChatGPT guide for teachers, and any saved 2023 transcripts.
+- `reference/` (gitignored): the school AI policy, Paul's early-2023 "ChatGPT for Educators" manual (129 pages of genuine GPT-3.5 transcripts with his notes at the time; the primary "then" source), and any saved transcripts. See `HANDOFF.md` for what's in the manual.
+
+## Build log
+
+See `HANDOFF.md`. First component built 2026-09-16: the transcript player, with the Hadrian's Wall 2023 transcript from the manual as its first recording.
