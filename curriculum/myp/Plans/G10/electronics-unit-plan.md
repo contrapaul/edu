@@ -20,6 +20,16 @@ in structure so that students meet the same 16 strand rhythm two years running.
 | Key tool | [Electronics Parts Catalog](https://edu.contrapaul.com/tools/electronics/), 49 parts in 9 categories, every part deep linkable as `#slug`. |
 | Second tool | [MacroPad Builder](https://edu.contrapaul.com/tools/macropad/) for pin planning on ESP32 projects. |
 
+## Inquiry questions
+
+| Type | Question | Where it is answered |
+|---|---|---|
+| Factual | What does it mean for a device to sense, decide and act, and where is the decision in yours? | The two non-negotiables |
+| Factual | What parts are available, and what does each one let a device do? | Aiii, with the parts catalog |
+| Conceptual | How does a device's function change when it is developed for one specific group rather than for everyone? | Ai to Aiv, then Div |
+| Conceptual | Why is iteration important in the design and prototyping process? | Bii, Cii and Civ, then Diii |
+| Debatable | Is a problem that a pencil and a sticky note could solve ever worth solving with electronics? | Ai at the start, Dii at the end |
+
 ---
 
 ## The two non-negotiables
