@@ -25,12 +25,15 @@ The problems the site addresses:
 5. **Where the line is.** Some usage is obviously cheating. Many cases are edge cases. Students need to discuss them to learn where the line sits.
 6. **Citation.** When and how to cite AI-generated material is a challenge for students, and many teachers fail to cite too. Sometimes because the material is "non-academic" (a presentation, a poster, assembly images). Sometimes because they feel their own ideas and requests are enough to skip citation on worksheets, lesson plans, or assessments. Sometimes because they're reluctant to address their own usage while telling students none is acceptable.
 
+7. **The poster problem, and the hypocrisy.** (Added 2026-09-19 from a class discussion, matching a sentiment common in teaching communities online.) Students hate generative AI images, music and posters, and say so unprompted. They see AI posters going up around the school with no line saying how they were made. They see teachers making posters, lessons, worksheets, presentations and more with AI and not disclosing it, while being told to disclose even a whiff of AI use in brainstorming. They know this is a double standard and they say that too. Paul agrees with them, and says so in class. This is a wake-up call for teachers and a way to lock in student attention: a teacher throwing other teachers under the bus, on the students' side.
+
 What the site should do:
 
 - Demonstrate how AI can be used for research, to organize research, to find sources, and to make learning memorable.
 - Show obviously inappropriate use and many edge cases, so students can discuss and learn where the line is.
 - Guide teachers and students through citation scenarios, promote classroom debate, and propose guidelines for citing AI work.
 - Be honest about teacher use, including Paul's own (see the case studies in `interactive.md`).
+- Carry students' own voices through the pages: real quotes, collected with permission, on what they think of AI images, undisclosed teacher use, and being asked to disclose more than their teachers do. See "Student voice" in `interactive.md`.
 
 ## The Wikipedia parallel (proposed framing)
 
@@ -165,6 +168,16 @@ The toolkit:
 ## Showcase page
 
 `showcase-plan.md` (2026-09-18) plans a sample page, `sample.html`, that rebuilds page one as nine screens with colour stripes, a progress rail, and one interactive per screen. Built separately from `index.html` until it earns its place; the pieces that work carry into the real page.
+
+## Pages as they stand (2026-09-19)
+
+| File | What |
+|---|---|
+| `sample.html` | Page one, the showcase version, eight of nine screens built. |
+| `index.html` | Page one, plain version. Kept until Paul decides which is page one. |
+| `learn.html`, `line.html` | Pages two and three, skeletons with placeholders. |
+| `glossary.html` | Rendered from `data/glossary.json`. Hover cards on every page. |
+| `dev/player.html` | Transcript player test bed. |
 
 ## Build log
 

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where the line is · AI in Education</title>
+<meta name="robots" content="noindex">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ai-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('ai-mode') === 'teacher') document.documentElement.setAttribute('data-mode', 'teacher');
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/transcript-player.css">
+<link rel="stylesheet" href="css/line.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="./"><span class="wordmark-dot" aria-hidden="true"></span>AI in Education<span class="wordmark-sub">&nbsp;· draft</span></a>
+    <button class="tool-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Pages">
+      <a href="sample.html" data-nav="p1">1. What AI is now</a>
+      <a href="learn.html" data-nav="p2">2. Using AI to learn</a>
+      <a href="line.html" data-nav="p3" aria-current="page">3. Where the line is</a>
+      <a href="glossary.html" data-nav="glossary">Glossary</a>
+      <a href="#" class="is-soon" aria-disabled="true">About</a>
+    </nav>
+    <div class="header-tools">
+      <button class="tool-btn" type="button" data-theme-toggle aria-pressed="false" title="Switch between light and dark"><span class="sw" aria-hidden="true"></span><span class="tool-label">Light</span></button>
+      <button class="tool-btn" type="button" data-mode-toggle aria-pressed="false" title="Teacher mode: larger type and classroom controls"><span class="label-long">Teacher mode</span><span class="label-short" aria-hidden="true">Teach</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mode-banner" role="status">
+  <div class="wrap"><p><strong>Teacher mode.</strong> Larger type for a projector. Classroom controls come with the activities.</p></div>
+</div>
+
+<main>
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1 data-reveal>Where the line is</h1>
+    <p class="lede" data-reveal>Some uses of AI are clearly fine and some are clearly cheating. Most of the interesting ones are in between, and the only way to learn where the line is, is to argue about it.</p>
+  </div>
+</section>
+
+<section class="section" id="cards">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>Scenario cards</h2>
+      <p data-reveal>Short, concrete situations. You place each one on a line from clearly fine to clearly cheating, then see where other people put it.</p>
+    </div>
+    <div data-cards></div>
+    <div data-voice="teacher-hypocrisy"></div>
+  </div>
+</section>
+<section class="section" id="cite">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>Citing, crediting, and just saying so</h2>
+      <p data-reveal>When to cite an AI tool in MLA, when a plain note is enough, and when the honest answer is a line in your methodology.</p>
+    </div>
+    <div data-voice="ai-posters"></div>
+    <div data-cite></div>
+  </div>
+</section>
+<section class="section" id="cases">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>Three cases from a teacher</h2>
+      <p data-reveal>Sample exam papers drafted with AI. Feedback on student drafts with AI. Code written with AI. A teacher who did all three explains why, and where each one is arguable.</p>
+    </div>
+    <div data-cases></div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-reveal>The awkward conversation</h2>
+      <p data-reveal>A student asks a teacher whether the AI-made worksheet is allowed. You pick the teacher's reply and see how it goes.</p>
+    </div>
+    <div class="placeholder" data-reveal>
+      <span class="tag">Placeholder</span>
+      <h3>The dialogue</h3>
+      <p>Built for teachers as the audience, and for classroom debate.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Part 3 of 3. Not built yet: the headings are the plan, and the panels say what each one will hold.</p>
+    <p><a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
+  </div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/line/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+{
+  "checkedOn": "2026-09-19",
+  "note": "Every link was checked live on the date above and every title is the article's name after redirects. Re-check when adding one. Definitions are written at a grade 6 to 8 reading level and define every term in plain words before relying on it.",
+  "terms": [
+    {
+      "id": "large-language-model",
+      "term": "Large language model",
+      "short": "The kind of AI that chatbots are built on. It has read an enormous amount of text and writes by predicting the next word, again and again.",
+      "full": "A large language model, often shortened to LLM, is a computer program that has been trained on an enormous amount of written text. It does not store facts the way an encyclopedia does. Instead it learns patterns in how words follow other words, and it writes by predicting the most likely next word, then the next, until it has an answer. \"Large\" refers to the size of the model and the amount of text it learned from. Every chatbot on this site, from ChatGPT to DeepSeek to a model running on your own laptop, is a large language model with a chat window in front of it.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Large language model",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model"
+        }
+      ]
+    },
+    {
+      "id": "chatbot",
+      "term": "Chatbot",
+      "short": "A program you talk to by typing. Today's chatbots are large language models with a chat window in front of them.",
+      "full": "A chatbot is a program you hold a conversation with by typing. Simple ones have existed for decades and followed fixed scripts. The chatbots people mean today, such as ChatGPT, Kimi or Claude, are large language models wrapped in a chat window, which is why they can answer almost any question in fluent sentences. The chat window is the part you see. The model behind it is what decides what to say.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Chatbot",
+          "url": "https://en.wikipedia.org/wiki/Chatbot"
+        }
+      ]
+    },
+    {
+      "id": "training-data",
+      "term": "Training data",
+      "short": "The text a model learned from: web pages, books, articles and code, collected up to a certain date.",
+      "full": "Training data is the text a model was shown while it was being built. For a large language model that means a huge collection of web pages, books, articles, forum posts and code, gathered up to a certain date. Everything the model \"knows\" on its own comes from this collection. If something was not in the training data, the model has no way to know it, although it may still write about it as if it did. Companies rarely publish the full list of what went in.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Training, validation, and test data sets",
+          "url": "https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets"
+        }
+      ]
+    },
+    {
+      "id": "training-cutoff",
+      "term": "Training cutoff",
+      "short": "The date after which a model's training data stops. On its own, the model knows nothing that happened later.",
+      "full": "The training cutoff, also called the knowledge cutoff, is the date the text used to train a model was collected up to. Anything that happened after that date is not in the model. If you ask about a later event, the model either says it doesn't know, or guesses, or, if the tool can search the web, looks it up. The wall in the fourth screen of page one is this cutoff. Different models have different cutoffs, and companies do not always say what they are.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Knowledge cutoff",
+          "url": "https://en.wikipedia.org/wiki/Knowledge_cutoff"
+        }
+      ]
+    },
+    {
+      "id": "token",
+      "term": "Token",
+      "short": "A piece of text, usually a word or part of a word, that a model reads and writes one at a time. Each token has a number.",
+      "full": "A token is the unit a language model actually works with. Before the model sees your text, it is split into tokens: common words are one token each, less common words are split into pieces, and each piece has a number the model uses instead of the letters. The word \"chatbot\", for example, becomes two tokens, \"chat\" and \"bot\". The model writes the same way, one token at a time. The chips falling behind the title of page one are the tokens of that page, with their real numbers.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Large language model",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model"
+        }
+      ]
+    },
+    {
+      "id": "prompt",
+      "term": "Prompt",
+      "short": "What you type to a model: the question, the instructions, and anything you paste in.",
+      "full": "The prompt is everything you give the model to work from: your question, any instructions about how to answer, and any text you paste in for it to use. The model's answer depends on all of it. A one-line prompt gets a general answer; a prompt that says who you are, what you need it for and what to avoid gets a more useful one. Asking follow-up questions adds to the prompt, which is why a conversation usually beats a single question.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Prompt engineering",
+          "url": "https://en.wikipedia.org/wiki/Prompt_engineering"
+        }
+      ]
+    },
+    {
+      "id": "hallucination",
+      "term": "Hallucination",
+      "short": "When a model writes something that is not true, in the same confident voice it uses for things that are.",
+      "full": "A hallucination is the name people use when a model states something false as if it were fact: a book that doesn't exist, a quote nobody said, a page that doesn't say what the model claims. It happens because the model is predicting likely words, not checking facts, and a made-up book title can be a very likely string of words. The word is a little misleading, because the model is not seeing things; it is doing exactly what it always does. The only defence is to check. The 2023 transcript on page one has two of these, and the 2026 one has a subtler kind: a real page credited with a sentence it does not contain.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Hallucination (artificial intelligence)",
+          "url": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)"
+        }
+      ]
+    },
+    {
+      "id": "web-search",
+      "term": "Web search (in a chatbot)",
+      "short": "When a chatbot looks up web pages before answering and uses what it reads. Not every tool can, and a tool that can does not always do it.",
+      "full": "Some chatbots can search the web while they answer. The tool runs a search, reads a few of the pages it finds, and writes its answer from them, usually with links to the pages it used. This is how a model gets past its training cutoff. It matters for two reasons. First, not every tool can do it. Second, a tool that can may decide not to for a particular question and answer from memory instead; the only sign is usually that the links are missing. When links are there, open them. The model may have read the page correctly, or it may not.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Retrieval-augmented generation",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+        },
+        {
+          "source": "Wikipedia",
+          "title": "Web search engine",
+          "url": "https://en.wikipedia.org/wiki/Web_search_engine"
+        }
+      ]
+    },
+    {
+      "id": "open-weights",
+      "term": "Open weights",
+      "short": "A model whose files anyone can download and run on their own computer. Your text never has to leave the machine.",
+      "full": "A model's weights are the numbers it learned during training: the model itself, as a file. When a company releases those files, the model is called open weights. Anyone can download it, run it on their own hardware, study it or change it. Many models from Chinese companies and from Meta and Mistral are open weights; the main models from OpenAI, Anthropic and Google are not. Open weights is not the same as open source, because the training data and the code used to train the model are usually still private. For a student the practical point is where your text goes: an open-weight model on your own computer sends nothing anywhere.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Open weights",
+          "url": "https://en.wikipedia.org/wiki/Open_weights"
+        }
+      ]
+    },
+    {
+      "id": "local-model",
+      "term": "Local model",
+      "short": "A model running on your own computer rather than on a company's servers. Slower, smaller, and completely private.",
+      "full": "A local model is one you run on your own computer with a program such as LM Studio, llama.cpp or Unsloth. It needs an open-weight model file and enough memory to hold it. Local models are usually smaller and slower than the ones big companies run, and they cannot search the web unless you connect a search tool yourself. What you gain is that nothing you type leaves the machine, there is no account, no fee and no policy to read. For work that involves other people's information, such as a teacher looking at student writing, that difference can decide which kind of tool is appropriate.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Llama.cpp",
+          "url": "https://en.wikipedia.org/wiki/Llama.cpp"
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "term": "Source",
+      "short": "Where a piece of information comes from: a book, an article, a web page, a document, a person. A model's answer is not a source.",
+      "full": "A source is where a fact or an idea comes from. It might be a book, an article, an official web page, a letter, a data set or an interview. Sources are what you cite in a report, and what a reader can go and check. A model's answer is not a source, even when it is right, because there is nothing behind it for a reader to check. A model can help you find sources, as the transcripts on page one show, and it can invent sources that don't exist, as the same transcripts also show. Either way the source is the thing you open, not the answer that pointed you to it.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Primary source",
+          "url": "https://en.wikipedia.org/wiki/Primary_source"
+        }
+      ]
+    },
+    {
+      "id": "citation",
+      "term": "Citation",
+      "short": "A note that says where information came from, in a fixed format, so a reader can find it. Your school uses MLA.",
+      "full": "A citation is a note in your work that says where a piece of information or an idea came from, written in a fixed format so that anyone can find the same source. Schools choose a format; this one uses MLA. Citing is about honesty and usefulness at once: it credits the person whose work you used, and it lets a reader check. Whether and how to cite an AI tool is a newer question, and the third part of this site is about it. The short version is that a tool you used is acknowledged, and a source you found through it is cited as itself.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Citation",
+          "url": "https://en.wikipedia.org/wiki/Citation"
+        }
+      ]
+    },
+    {
+      "id": "affiliate-link",
+      "term": "Affiliate link",
+      "short": "A link that pays the site when you buy something through it. A tag on the end of the address gives it away.",
+      "full": "An affiliate link is a link to a shop that carries a tag identifying the site that sent you. If you buy something after clicking it, the shop pays that site a share. Affiliate links are not dishonest in themselves, but they explain a lot about the web a model reads: a page whose income comes from links has a reason to exist even when it has nothing new to say, and a reason to look recent so that search engines keep sending people to it. Hover over a link and look at the address. A tag such as \"ref=\" or \"tag=\" at the end is the sign.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Affiliate marketing",
+          "url": "https://en.wikipedia.org/wiki/Affiliate_marketing"
+        }
+      ]
+    },
+    {
+      "id": "content-farm",
+      "term": "Content farm",
+      "short": "A site that publishes large amounts of cheap, quickly written text to attract search traffic and advertising, not readers.",
+      "full": "A content farm is a website that exists to publish as many pages as possible, as cheaply as possible, so that search engines send it traffic and advertisers pay for the visitors. The writing is thin because nobody is meant to read it closely. AI tools have made this cheaper still, so a growing share of the recent pages a search finds, and a chatbot with web search reads, come from sites like this. The re-dated recipe post on page one is a mock of one.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Content farm",
+          "url": "https://en.wikipedia.org/wiki/Content_farm"
+        }
+      ]
+    },
+    {
+      "id": "recency-bias",
+      "term": "Recency bias",
+      "short": "The habit of trusting the newest thing more, whether or not being new matters for the question.",
+      "full": "Recency bias is the habit of treating newer information as better information. Sometimes it is: for a price, a law or a piece of software, the newest page usually is the right one. For a recipe, a historical event or a maths method, the date barely matters, and a page \"updated\" last week may have changed nothing but its date. Search engines and AI tools share the habit, which is why sites re-date old pages. The check is cheap: ask whether the question actually depends on the date, and if the page says it was updated, look for what changed.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Recency bias",
+          "url": "https://en.wikipedia.org/wiki/Recency_bias"
+        }
+      ]
+    },
+    {
+      "id": "edit-history",
+      "term": "Edit history",
+      "short": "Wikipedia's record of every change to an article, who made it and when. It is the answer to \"anyone can edit it\".",
+      "full": "Every Wikipedia article has a page listing every change ever made to it, with the date, the account that made it and what was changed. This is the edit history. It is why \"anyone can edit it\" was never the whole story: anyone can, and everyone can see that they did, and most damage is undone within minutes. Reading the history of an article, and the discussion page next to it, is how you tell a settled article from a contested one. A chatbot's answer has no history, which is one of the real differences between the two.",
+      "links": [
+        {
+          "source": "Wikipedia",
+          "title": "Reliability of Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Reliability_of_Wikipedia"
+        }
+      ]
+    }
+  ]
+}

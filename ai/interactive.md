@@ -79,7 +79,7 @@ Started 2026-09-16. Ideas for in-page activities, teacher-facing presentation in
 
 The teacher cards mixed in with the student cards is deliberate. It's the point of the page.
 
-**Citation builder.** Pick what you did (drafted, brainstormed, edited, generated an image, got feedback), the tool and version, the date, and whether you're citing for an essay, a poster, or a lesson plan. The builder produces the citation in the school's chosen style, plus a plain-language acknowledgement line for non-academic work. Also shows when the honest answer is "this needs a note in the methodology, not a citation." Once the format is settled this is a small, high-use tool that teachers would actually keep open.
+**Citation builder.** (Built 2026-09-19, page three.) Pick what you did (drafted, brainstormed, edited, generated an image, got feedback), the tool and version, the date, and whether you're citing for an essay, a poster, or a lesson plan. The builder produces the citation in the school's chosen style, plus a plain-language acknowledgement line for non-academic work. Also shows when the honest answer is "this needs a note in the methodology, not a citation." Once the format is settled this is a small, high-use tool that teachers would actually keep open.
 
 **The reluctance problem.** A short scenario, presented as a dialogue: a teacher who used AI for a worksheet is asked by a student whether that's allowed. Reader picks the teacher's reply. Each reply plays out. Built for classroom debate with teachers as the audience.
 
@@ -116,6 +116,23 @@ Paul uses AI for code assistance and creation (this site included) and dislikes 
 This is a good case because it separates two questions students usually merge: "is it made by AI" and "what is it made of, and who does it belong to." A scenario card pair (the same student uses AI for a poster image and for a script to sort their data) makes the distinction concrete. The pushback a student might raise: code models were also trained on human-written code, some of it under licenses that mattered to its authors. That's a fair challenge and the site should let it stand rather than settle it.
 
 Each case could be presented as: the situation, what Paul did and why, then "what would you have done differently," then a reveal of the pushback points. Teachers see it modeled by a teacher who is open about it, which addresses the reluctance problem directly.
+
+## Student voice (added 2026-09-19)
+
+Real student quotes, placed through the pages, inspired by students' reactions to Paul's own disclosed AI use and by a class discussion in which students said, unprompted, how much they hate AI-generated images, music and posters, especially the AI posters appearing around the school with no attribution, and how clearly they see the double standard between what they must disclose and what their teachers don't.
+
+Rules:
+- Real quotes only. Nothing invented, nothing paraphrased into being. If a page has a slot and there is no quote for it, the page shows a marked placeholder. A test asserts the quotes file has the right shape; the file starts empty and Paul fills it.
+- Collected with permission, anonymised to a grade and a month ("A grade 10 student, September 2026").
+- Tagged, so one quote can appear in more than one place. Current slot tags: `ai-images` (page one, by the model map), `ai-posters` and `teacher-hypocrisy` (page three).
+
+Built: `data/quotes.json`, `js/voice.js`, `.voice` styles in `site.css`, slots via `<div data-voice="tag">`.
+
+Ideas for where this goes beyond pull quotes:
+- A screen or section on page three, "What students say", built entirely from the quotes: a wall of them, one at a time, with the teacher-mode reveal step so a class can hear their own words read back.
+- The poster case as its own scenario in the card sort (it is: "A teacher put an AI-generated poster up in the corridor with nothing saying so").
+- A short, blunt teacher-facing panel: what students notice, what they say when a teacher isn't in the room, and the one thing they ask for, which is a line saying how it was made.
+- In the citation builder, the "poster" path ends with exactly that line, ready to copy.
 
 ## Learn mode and teacher mode
 

@@ -26,7 +26,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 /* ---------- screens ---------- */
 .screen {
   position: relative;
-  padding: clamp(72px, 12vh, 140px) 0 clamp(56px, 9vh, 112px);
+  padding: clamp(72px, 10vh, 120px) 0 clamp(56px, 8vh, 104px);
   --ink: oklch(var(--ink-l) var(--ink-c) var(--hue));
   --band: oklch(var(--band-l) var(--band-c) var(--hue));
   --band-2: oklch(calc(var(--band-l) + 4%) calc(var(--band-c) * 0.7) calc(var(--hue) + 30));
@@ -200,7 +200,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 .screen .compare { margin-top: var(--sp-5); }
 
 /* ---------- screen 1: rain and typed title ---------- */
-.hero--rain { overflow: hidden; min-height: 92vh; display: flex; align-items: center; }
+.hero--rain { overflow: hidden; min-height: clamp(520px, 82vh, 780px); display: flex; align-items: center; }
 .hero--rain .rain {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -237,7 +237,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 
 /* ---------- screen 4: the wall and the window ---------- */
 .wall-stage { margin-top: var(--sp-5); }
-.wall-stage.is-pinned { height: 190vh; }
+.wall-stage.is-pinned { height: calc(100vh + 90vh); }
 .wall-stage.is-pinned .wall-scene { position: sticky; top: 72px; }
 .wall-scene {
   --brick: oklch(var(--ink-l) calc(var(--ink-c) * 0.9) var(--hue));
@@ -251,7 +251,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
   overflow: hidden;
   min-height: 420px;
 }
-.wall-svg { display: block; width: 100%; height: auto; max-height: 52vh; }
+.wall-svg { display: block; width: 100%; height: auto; max-height: min(52vh, 460px); }
 .wall-axis { stroke: var(--border-strong); stroke-width: 2; }
 .wall-tick { stroke: var(--border-strong); stroke-width: 2; }
 .wall-year { font-family: var(--font-mono); font-size: 14px; fill: var(--muted); }
@@ -349,7 +349,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 
 /* ---------- screen 2: the scrubbed timeline ---------- */
 .tl-stage { margin-top: var(--sp-5); }
-.tl-stage.is-pinned { height: 230vh; }
+.tl-stage.is-pinned { height: calc(100vh + 160vh); }
 .tl-stage.is-pinned .tl-scene { position: sticky; top: 72px; }
 .tl-scene {
   position: relative;
@@ -491,7 +491,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 .rp-body {
   --wipe: 0%;
   position: relative;
-  max-height: 62vh;
+  max-height: min(62vh, 640px);
   overflow-y: auto;
   background: #fff;
 }
@@ -559,7 +559,7 @@ body { background: oklch(var(--tint-l) var(--tint-c) var(--page-hue)); transitio
 @media (max-width: 600px) {
   .rp-article { padding: 18px 16px 24px; }
   .rp-window .rp-title { font-size: 1.4rem; }
-  .rp-body { max-height: 70vh; }
+  .rp-body { max-height: min(70vh, 640px); }
   .rp-stickers { right: 2px; top: 40px; }
 }
 @media (prefers-reduced-motion: reduce) {

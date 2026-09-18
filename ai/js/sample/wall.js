@@ -15,6 +15,7 @@
    ============================================================ */
 
 import { markDone } from './progress.js';
+import { centreSticky } from '../scroll.js';
 
 const VB = { w: 1000, h: 400 };
 const AXIS_Y = 330;
@@ -305,6 +306,7 @@ export async function mountWall(root, { reducedMotion = false, url = './data/wal
   if (pinned) {
     gsap.registerPlugin(ScrollTrigger);
     setBuilt(0);
+    centreSticky(scene);
     ScrollTrigger.create({
       trigger: root,
       start: 'top top+=60',

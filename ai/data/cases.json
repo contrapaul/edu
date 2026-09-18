@@ -1,0 +1,106 @@
+{
+  "strings": {
+    "intro": "Three things I have done with AI in my own teaching. Each one is here as it happened, then why I did it, then the pushback a student or a colleague might give. Before you see the pushback, say what you would have done.",
+    "happened": "What happened",
+    "why": "Why I did it",
+    "ask": "What would you have done?",
+    "yourWords": "In your own words, if you like",
+    "reveal": "Show the pushback",
+    "pushback": "Where it's arguable",
+    "response": "My answer",
+    "done": "You've seen all three. Notice that the strongest objection to each one is not \"AI was used\". It is about what the people affected knew, and when.",
+    "next": "Next case",
+    "options": [
+      "Nothing different. This is fine.",
+      "The same, but I'd tell the people affected first.",
+      "I'd do it without AI.",
+      "I'm not sure."
+    ]
+  },
+  "cases": [
+    {
+      "id": "papers",
+      "title": "Sample exam papers, drafted with AI",
+      "happened": [
+        "I teach IB Design Technology. On my computer I keep a folder of past papers, the sample papers for the new curriculum, and the relevant parts of the subject guide and the teacher support material.",
+        "I used an AI tool, with that folder as its reference, to produce a detailed guide for writing sample papers that match the official ones in every way that matters: the command terms, the mark allocations, the way a question is phrased. Then I used the tool to draft sample papers for standard and higher level, giving it case study topics and specific requirements.",
+        "Once a paper was drafted I added pictures and charts, formatted it, adjusted question and answer text where it needed it, and checked everything for accuracy. I told my students how the papers were made and shared the method with them."
+      ],
+      "why": [
+        "The tool writes questions that read like IB questions better than I do. My own tend to have more plausible wrong answers and more complicated wording, which is good for a challenge and bad if I want an honest picture of how a student would do on a real paper.",
+        "I checked every question against my own knowledge of the subject and the guide before a student saw it.",
+        "I was open about it from the start."
+      ],
+      "pushback": [
+        {
+          "q": "\"If the teacher can outsource writing the questions, why can't I outsource writing the essay?\"",
+          "a": "Because I checked every question against expertise you don't have yet, and because the purpose of the two tasks is different. The paper exists to measure you. The essay exists to teach you. This is exactly the discussion I want to have, and it's why the case is here."
+        },
+        {
+          "q": "Does the paper itself say how it was made, or does that live only in what I said in class?",
+          "a": "It should be on the paper. A student who finds the PDF a year from now has no way to know otherwise. That is the credit line the citation builder above writes."
+        },
+        {
+          "q": "The IB's own papers were the reference. Is a paper that closely imitates a copyrighted exam format a problem?",
+          "a": "For internal classroom use, no more than any teacher's practice paper has ever been. It is worth knowing that the question exists."
+        }
+      ]
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback on students' first drafts, with AI",
+      "happened": [
+        "For the Internal Assessment I keep a similar folder: the guide and teacher support material, officially commissioned sample reports with the examiner's comments, a comparison I wrote of three IAs across different grade bands, and my own sample IA.",
+        "I used an AI tool, with all of that as reference, to write feedback on each student's first draft, and to give me general notes about issues to address with the class. I wrote my own handwritten notes on each draft first, and only read the AI's feedback afterwards, because I didn't want its comments to colour mine and I didn't want to pass off work that wasn't my own as if it were.",
+        "The students were not aware their drafts had gone through an AI tool until I explained it in class, along with my reasons."
+      ],
+      "why": [
+        "With the reference material loaded, the tool covers a draft more thoroughly than I can in the hour I don't have for each one.",
+        "It has no opinion of the student. It doesn't know who is usually careful and who isn't.",
+        "It catches things I miss when I'm cross-referencing a draft against thirty pages of criteria, and it spots patterns across the whole class that I can teach to.",
+        "Reading its feedback second, after writing my own, is the difference between a tool checking my judgment and a tool replacing it."
+      ],
+      "pushback": [
+        {
+          "q": "Students didn't know their work was being sent to a company's servers until afterwards.",
+          "a": "This is the strongest objection and I accept it. It's why this site has a section on where your text goes. The right order was: tell them, then do it. A local model, which sends nothing anywhere, would have removed the question entirely."
+        },
+        {
+          "q": "\"The AI is unbiased\" is a strong claim.",
+          "a": "It's imprecise. The tool has no bias about the student, which is the point I meant. It is certainly biased toward the sample IAs and the reference material I gave it, and toward whatever those emphasised."
+        },
+        {
+          "q": "The IB allows one round of teacher advice on a draft. Does AI feedback delivered by the teacher count as that round?",
+          "a": "Almost certainly yes, and that's fine, but a teacher doing this should check the current guide before also giving their own round."
+        },
+        {
+          "q": "The student got two voices. Which one carried the teacher's authority?",
+          "a": "Mine, and I should have made that clearer on the page than I did in the room."
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Code written with AI, and images I won't make with it",
+      "happened": [
+        "This website was built with an AI coding tool connected to my files. I describe what I want, it writes code, I read it, change it, and decide what stays. The site's about page says so.",
+        "I don't use AI to make posters or images, and I dislike seeing them go up around a school with nothing to say how they were made. My students feel the same way, and said so before I did."
+      ],
+      "why": [
+        "Code and images are not the same kind of thing. An AI-made image can't be edited precisely, can't be reproduced exactly, and needs another generation to fix a spelling mistake or a garbled sign. Code can be copied exactly, changed line by line, tested, and rewritten by hand.",
+        "Code models were trained on the capabilities of a language. Image models were trained on the work of artists.",
+        "Every file on this site can be read by a person, and was."
+      ],
+      "pushback": [
+        {
+          "q": "Code models were also trained on human work, some of it under licences that mattered to the people who wrote it.",
+          "a": "That's a fair challenge and I'd rather leave it standing than settle it here. The difference I'm claiming is about what you can do with the result, not about how clean the training was."
+        },
+        {
+          "q": "If the site is made with AI, why should a student trust anything on it?",
+          "a": "For the same reason you trust a book typeset by a machine. What matters is who checked it. The about page says who did, and the transcripts and data files on this site show their sources."
+        }
+      ]
+    }
+  ]
+}

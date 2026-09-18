@@ -29,10 +29,10 @@
     <a class="wordmark" href="./"><span class="wordmark-dot" aria-hidden="true"></span>AI in Education<span class="wordmark-sub">&nbsp;· sample</span></a>
     <button class="tool-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Pages">
-      <a href="sample.html" aria-current="page">1. What AI is now</a>
-      <a href="#" class="is-soon" aria-disabled="true">2. Using AI to learn</a>
-      <a href="#" class="is-soon" aria-disabled="true">3. Where the line is</a>
-      <a href="#" class="is-soon" aria-disabled="true">Glossary</a>
+      <a href="sample.html" data-nav="p1" aria-current="page">1. What AI is now</a>
+      <a href="learn.html" data-nav="p2">2. Using AI to learn</a>
+      <a href="line.html" data-nav="p3">3. Where the line is</a>
+      <a href="glossary.html" data-nav="glossary">Glossary</a>
       <a href="#" class="is-soon" aria-disabled="true">About</a>
     </nav>
     <div class="header-tools">
@@ -55,7 +55,7 @@
   <div class="wrap">
     <p class="screen-n">Screen 1 of 9</p>
     <h1 data-typed>What AI is now</h1>
-    <p class="lede after-typed">A lot of people tried a free chatbot in early 2023, watched it make something up, and decided that AI could not be trusted. The tools have changed a great deal since then. This page explains how they work now, what they still get wrong, and how to tell the difference.</p>
+    <p class="lede after-typed">A lot of people tried a free chatbot in early 2023, watched it <a class="gloss" data-term="hallucination" href="glossary.html#hallucination">make something up</a>, and decided that AI could not be trusted. The tools have changed a great deal since then. This page explains how they work now, what they still get wrong, and how to tell the difference.</p>
     <p class="rain-note after-typed">Behind this text: the words of this page, in the pieces a model splits them into, each with the number the model uses for it.</p>
     <a class="scroll-cue after-typed" href="#s2">Start reading <span class="arrow" aria-hidden="true">↓</span></a>
   </div>
@@ -67,7 +67,7 @@
     <p class="screen-n" data-reveal>Screen 2 of 9</p>
     <div class="section-head">
       <h2 data-reveal>Wikipedia, then AI</h2>
-      <p data-reveal>For about ten years, many teachers told students not to use Wikipedia, because anyone could edit it. That was true, and it was a real reason to be careful. It was also an incomplete picture. Wikipedia records every edit, asks for a source on every claim, and usually repairs damage within minutes. Something similar is happening now with AI.</p>
+      <p data-reveal>For about ten years, many teachers told students not to use Wikipedia, because anyone could edit it. That was true, and it was a real reason to be careful. It was also an incomplete picture. Wikipedia <a class="gloss" data-term="edit-history" href="glossary.html#edit-history">records every edit</a>, asks for a source on every claim, and usually repairs damage within minutes. Something similar is happening now with AI.</p>
     </div>
     <div data-timeline></div>
   </div>
@@ -79,7 +79,7 @@
     <p class="screen-n" data-reveal>Screen 3 of 9</p>
     <div class="section-head">
       <h2 data-reveal>The same five questions, three years apart</h2>
-      <p data-reveal>In March 2023 a teacher asked a free chatbot to suggest sources for a report on Hadrian's Wall, then asked it four more questions. In September 2026 he asked a free chatbot the same five questions. Both conversations play below exactly as they happened. The card keeps score as they go: each claim that was checked afterwards gets a stamp when the stream reaches it.</p>
+      <p data-reveal>In March 2023 a teacher asked a free <a class="gloss" data-term="chatbot" href="glossary.html#chatbot">chatbot</a> to suggest <a class="gloss" data-term="source" href="glossary.html#source">sources</a> for a report on Hadrian's Wall, then asked it four more questions. In September 2026 he asked a free chatbot the same five questions. Both conversations play below exactly as they happened. The card keeps score as they go: each claim that was checked afterwards gets a stamp when the stream reaches it.</p>
     </div>
     <div data-scorecard data-for="#compare-hadrians" data-left-label="2023" data-right-label="2026" data-reveal></div>
     <div id="compare-hadrians" data-compare data-left="hadrians-wall-2023" data-right="hadrians-wall-2026" data-left-label="2023" data-right-label="2026" data-reveal="scale"></div>
@@ -92,7 +92,7 @@
     <p class="screen-n" data-reveal>Screen 4 of 9</p>
     <div class="section-head">
       <h2 data-reveal>Where a model's knowledge stops</h2>
-      <p data-reveal>A model learns from text collected up to a certain date, called its training cutoff. On its own, it knows nothing that happened after that date. Some tools can search the web while they answer, which is like opening a window in that wall. Many tools still cannot, and a tool that can may not do it for every question.</p>
+      <p data-reveal>A model learns from <a class="gloss" data-term="training-data" href="glossary.html#training-data">text collected up to a certain date</a>, called its <a class="gloss" data-term="training-cutoff" href="glossary.html#training-cutoff">training cutoff</a>. On its own, it knows nothing that happened after that date. Some tools can <a class="gloss" data-term="web-search" href="glossary.html#web-search">search the web</a> while they answer, which is like opening a window in that wall. Many tools still cannot, and a tool that can may not do it for every question.</p>
     </div>
     <div data-wall></div>
   </div>
@@ -104,7 +104,7 @@
     <p class="screen-n" data-reveal>Screen 5 of 9</p>
     <div class="section-head">
       <h2 data-reveal>How a model writes</h2>
-      <p data-reveal>A language model does not look up an answer. It predicts the next word from everything it has read, then the next word after that. This is why its writing sounds fluent, and it is also why it can be fluently wrong. A made-up book title is simply a likely sequence of words.</p>
+      <p data-reveal>A <a class="gloss" data-term="large-language-model" href="glossary.html#large-language-model">language model</a> does not look up an answer. It predicts the <a class="gloss" data-term="token" href="glossary.html#token">next word</a> from everything it has read, then the next word after that. This is why its writing sounds fluent, and it is also why it can be fluently wrong. A made-up book title is simply a likely sequence of words.</p>
     </div>
     <div class="soon" data-reveal><span class="tag">Coming</span><p>The probability race: pick the next word, then watch the bars run out to what the model really thought. Needs recorded probabilities from a local model.</p></div>
   </div>
@@ -116,7 +116,7 @@
     <p class="screen-n" data-reveal>Screen 6 of 9</p>
     <div class="section-head">
       <h2 data-reveal>Pages that pretend to be new</h2>
-      <p data-reveal>When a tool searches, it reads the same web you do. A growing share of that web was written by AI, quickly, to look recent. A recipe that says it was updated last week may have changed only its date. Search engines and AI tools both prefer recent pages, so the trick works on both of them.</p>
+      <p data-reveal>When a tool searches, it reads the same web you do. A growing share of that web was written by AI, quickly, to look recent. A recipe that says it was updated last week may have changed only its date. That works because we all have a <a class="gloss" data-term="recency-bias" href="glossary.html#recency-bias">recency bias</a>. Search engines and AI tools both prefer recent pages, so the trick works on both of them.</p>
     </div>
     <div data-redated></div>
   </div>
@@ -128,9 +128,10 @@
     <p class="screen-n" data-reveal>Screen 7 of 9</p>
     <div class="section-head">
       <h2 data-reveal>Which model</h2>
-      <p data-reveal>There are many AI tools, from many countries, and they differ in ways that matter: whether they can search, whether anyone can run them on their own computer, and where the text you type ends up.</p>
+      <p data-reveal>There are many AI tools, from many countries, and they differ in ways that matter: whether they can search, whether anyone can <a class="gloss" data-term="local-model" href="glossary.html#local-model">run them on their own computer</a>, and where the text you type ends up.</p>
     </div>
     <div data-map></div>
+    <div data-voice="ai-images"></div>
   </div>
 </section>
 

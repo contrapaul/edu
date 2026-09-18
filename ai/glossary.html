@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary · AI in Education</title>
+<meta name="description" content="Every technical term used on this site, defined in plain words, with links to learn more.">
+<meta name="robots" content="noindex">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ai-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      if (localStorage.getItem('ai-mode') === 'teacher') document.documentElement.setAttribute('data-mode', 'teacher');
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="wordmark" href="./"><span class="wordmark-dot" aria-hidden="true"></span>AI in Education<span class="wordmark-sub">&nbsp;· draft</span></a>
+    <button class="tool-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Pages">
+      <a href="sample.html" data-nav="p1">1. What AI is now</a>
+      <a href="learn.html" data-nav="p2">2. Using AI to learn</a>
+      <a href="line.html" data-nav="p3">3. Where the line is</a>
+      <a href="glossary.html" data-nav="glossary" aria-current="page">Glossary</a>
+      <a href="#" class="is-soon" aria-disabled="true">About</a>
+    </nav>
+    <div class="header-tools">
+      <button class="tool-btn" type="button" data-theme-toggle aria-pressed="false" title="Switch between light and dark"><span class="sw" aria-hidden="true"></span><span class="tool-label">Light</span></button>
+      <button class="tool-btn" type="button" data-mode-toggle aria-pressed="false" title="Teacher mode: larger type and classroom controls"><span class="label-long">Teacher mode</span><span class="label-short" aria-hidden="true">Teach</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mode-banner" role="status">
+  <div class="wrap"><p><strong>Teacher mode.</strong> Larger type for a projector.</p></div>
+</div>
+
+<main>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h1>Glossary</h1>
+      <p>Every technical word used on this site, defined in plain words. On the other pages, a dotted underline under a word means it is here; rest on it for the short version, or click it to come here.</p>
+    </div>
+    <div data-glossary></div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Definitions are written at a grade 6 to 8 reading level and every link was checked on the date shown above.</p>
+    <p><a href="https://edu.contrapaul.com">edu.contrapaul.com</a></p>
+  </div>
+</footer>
+
+<script type="module">
+  import { bindThemeToggle } from './js/theme.js';
+  import { initMode, bindModeToggle } from './js/mode.js';
+  import { loadGlossary, renderGlossary, mountHoverCards } from './js/glossary.js';
+  initMode();
+  bindThemeToggle(document.querySelector('[data-theme-toggle]'));
+  bindModeToggle(document.querySelector('[data-mode-toggle]'));
+  const header = document.querySelector('.site-header');
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  navToggle.addEventListener('click', () => { const open = header.classList.toggle('nav-open'); navToggle.setAttribute('aria-expanded', String(open)); });
+  const glossary = await loadGlossary('./data/glossary.json');
+  renderGlossary(glossary, document.querySelector('[data-glossary]'));
+  mountHoverCards(glossary);
+</script>
+</body>
+</html>

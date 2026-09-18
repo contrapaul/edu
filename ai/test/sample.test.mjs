@@ -99,3 +99,93 @@ test('the recap writes one line per finished activity in the reader\'s own words
   assert.equal(old.length, 2);
   assert.ok(!old.some((l) => l.includes('()') || l.endsWith(': .')));
 });
+
+test('glossary data is complete and every marked term on the pages exists', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const g = JSON.parse(await readFile(new URL('../data/glossary.json', import.meta.url), 'utf8'));
+  const { letterIndex } = await import('../js/glossary.js');
+  const ids = new Set(g.terms.map((t) => t.id));
+  for (const t of g.terms) {
+    assert.ok(t.short && t.full && t.links.length, t.id + ' needs short, full and a link');
+    assert.ok(!/—/.test(t.short + t.full), t.id + ' has an em dash');
+    for (const l of t.links) assert.match(l.url, /^https:\/\/en\.wikipedia\.org\/wiki\/\S+$/);
+  }
+  assert.ok(letterIndex(g.terms).size >= 8);
+  for (const page of ['sample.html', 'index.html', 'learn.html', 'line.html']) {
+    const html = await readFile(new URL('../' + page, import.meta.url), 'utf8');
+    for (const m of html.matchAll(/data-term="([^"]+)"/g)) assert.ok(ids.has(m[1]), page + ' marks unknown term ' + m[1]);
+  }
+});
+
+test('card sort helpers: zones, clamping and non-overlapping layout', async () => {
+  const { clampPos, zoneOf, layout } = await import('../js/line/cards.js');
+  assert.equal(clampPos(-1), 0); assert.equal(clampPos(2), 1); assert.equal(clampPos('0.4'), 0.4);
+  assert.equal(zoneOf(0.1), 'fine'); assert.equal(zoneOf(0.5), 'depends'); assert.equal(zoneOf(0.9), 'cheating');
+  const lay = layout({ a: 0.50, b: 0.52, c: 0.53, d: 0.9 });
+  assert.equal(lay.a.row, 0); assert.equal(lay.b.row, 1); assert.equal(lay.c.row, 2); assert.equal(lay.d.row, 0);
+  const { readFile } = await import('node:fs/promises');
+  const d = JSON.parse(await readFile(new URL('../data/scenarios.json', import.meta.url), 'utf8'));
+  assert.equal(d.cards.length, 15);
+  assert.ok(d.cards.filter((c) => c.who === 'teacher').length >= 3, 'teacher cards are mixed in on purpose');
+  for (const c of d.cards) assert.ok(c.consider, c.id + ' needs a consider note');
+});
+
+test('student quotes are never invented: the file starts empty and a slot without one shows a placeholder', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const d = JSON.parse(await readFile(new URL('../data/quotes.json', import.meta.url), 'utf8'));
+  const { quotesFor } = await import('../js/voice.js');
+  assert.ok(Array.isArray(d.quotes));
+  for (const q of d.quotes) assert.ok(q.text && q.grade && q.when && q.tags?.length, 'a quote needs text, grade, when and tags');
+  assert.deepEqual(quotesFor(d, 'nothing'), []);
+  assert.ok(d.placeholder.includes('{tag}'));
+});
+
+test('the citation builder writes MLA forms, credits, notes and comments by case', async () => {
+  const { buildCitation, mlaDate, shortTitle } = await import('../js/line/cite.js');
+  const { readFile } = await import('node:fs/promises');
+  const data = JSON.parse(await readFile(new URL('../data/cite.json', import.meta.url), 'utf8'));
+  assert.equal(mlaDate('2023-03-08', data.months), '8 Mar. 2023');
+  assert.equal(mlaDate('2026-05-01', data.months), '1 May 2026');
+  assert.equal(shortTitle('Describe the symbolism of the green light'), 'Describe the symbolism…');
+  const tool = { name: 'ChatGPT', company: 'OpenAI', url: 'chatgpt.com' };
+  const essay = buildCitation({ use: 'words', work: 'essay', tool, version: '13 Feb. version', date: '2023-03-08', prompt: 'Describe the symbolism of the green light' }, data);
+  assert.equal(essay.blocks[0].text, '"Describe the symbolism of the green light" prompt. ChatGPT, 13 Feb. version, OpenAI, 8 Mar. 2023, chatgpt.com.');
+  assert.equal(essay.blocks[1].text, '("Describe the symbolism…")');
+  const edit = buildCitation({ use: 'edit', work: 'essay', tool, date: '2026-09-19', prompt: '' }, data);
+  assert.equal(edit.blocks.length, 1); assert.equal(edit.blocks[0].kind, 'note');
+  assert.ok(edit.blocks[0].text.startsWith('I used ChatGPT (OpenAI) on 19 September 2026.'));
+  const poster = buildCitation({ use: 'image', work: 'poster', tool, date: '2026-09-19', prompt: 'a sheep in a field' }, data);
+  assert.equal(poster.blocks[0].kind, 'credit');
+  assert.ok(poster.blocks[0].text.startsWith('Image made with ChatGPT (OpenAI) on 19 September 2026 from the prompt'));
+  assert.equal(poster.blocks[1].kind, 'worksCited');
+  const code = buildCitation({ use: 'words', work: 'code', tool: { name: 'Claude', company: 'Anthropic' }, date: '2026-09-19', prompt: 'sort these rows' }, data);
+  assert.ok(code.blocks[0].text.startsWith('// Written with help from Claude (Anthropic)'));
+  const src = buildCitation({ use: 'sources', work: 'essay', tool, date: '2026-09-19' }, data);
+  assert.ok(src.sourcesNote);
+  const priv = buildCitation({ use: 'words', work: 'private', tool, date: '2026-09-19' }, data);
+  assert.ok(priv.noneNeeded);
+  const teach = buildCitation({ use: 'ideas', work: 'teaching', tool, date: '2026-09-19', prompt: 'ten questions on forces' }, data);
+  assert.deepEqual(teach.blocks.map((b) => b.kind), ['credit', 'worksCited']);
+});
+
+test('the citation builder does not repeat a company that shares the tool\'s name', async () => {
+  const { buildCitation } = await import('../js/line/cite.js');
+  const { readFile } = await import('node:fs/promises');
+  const data = JSON.parse(await readFile(new URL('../data/cite.json', import.meta.url), 'utf8'));
+  const r = buildCitation({ use: 'words', work: 'essay', tool: { name: 'DeepSeek', company: 'DeepSeek', url: 'chat.deepseek.com' }, date: '2026-09-19', prompt: 'x' }, data);
+  assert.equal(r.blocks[0].text, '"x" prompt. DeepSeek, 19 Sept. 2026, chat.deepseek.com.');
+});
+
+test('the cases data has three beats each and the pushback carries an answer', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const d = JSON.parse(await readFile(new URL('../data/cases.json', import.meta.url), 'utf8'));
+  const { answeredCases } = await import('../js/line/cases.js');
+  assert.equal(d.cases.length, 3);
+  for (const c of d.cases) {
+    assert.ok(c.happened.length && c.why.length && c.pushback.length, c.id);
+    for (const pb of c.pushback) assert.ok(pb.q && pb.a, c.id + ' pushback needs q and a');
+  }
+  assert.ok(!/—/.test(JSON.stringify(d)));
+  const p = { answers: { cases: { papers: { choice: 1 }, code: { words: 'x' } } } };
+  assert.deepEqual(answeredCases(p, ['papers', 'feedback', 'code'], 'cases'), ['papers']);
+});

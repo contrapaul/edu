@@ -14,6 +14,7 @@
    ============================================================ */
 
 import { markDone } from './progress.js';
+import { centreSticky } from '../scroll.js';
 
 const SCRAMBLE = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -206,6 +207,7 @@ export async function mountTimeline(root, { reducedMotion = false, url = './data
 
   if (pinned) {
     gsap.registerPlugin(ScrollTrigger);
+    centreSticky(scene);
     ScrollTrigger.create({
       trigger: root,
       start: 'top top+=60',

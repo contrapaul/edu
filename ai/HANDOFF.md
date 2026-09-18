@@ -2,6 +2,60 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-19 (late night): three cases from a teacher
+
+- `data/cases.json`: the three cases in Paul's first person, written from his own accounts in `interactive.md` and meant to be edited in place. Each has `happened` (paragraphs), `why` (list), and `pushback` (each item a question a student or colleague might ask, `q`, and Paul's answer, `a`). The strings include the four "what would you have done" options.
+- `js/line/cases.js`: tabs for the three cases, one panel at a time. Each panel: what happened, why, then the reader's move (pick one of four options, optional free text) which enables "Show the pushback"; the pushback then animates in with the answers. Choices and text persist under `answers.cases`; revealing all three marks `cases` done and shows a closing line. `answeredCases` is pure and tested.
+- Page three's third section has `id="cases"`. Styles in `css/line.css`.
+- The copy is the part Paul most wants to control. Everything a reader sees is in the JSON file, nothing in the JS.
+
+## 2026-09-19 (night): the citation builder
+
+- `data/cite.json`: the six uses (quoted or paraphrased words; an image, sound or video; ideas or outline; edit, grammar or translate; feedback; finding sources), the five kinds of work (essay; poster, slides or display; a teacher's worksheet, lesson or assessment; code; not handing it in), a "why" paragraph per case, MLA month abbreviations, and all strings.
+- `data/models.json` gained a `url` per tool (the chat address, for MLA entries). Paul reviews these with the rest.
+- `js/line/cite.js`: `buildCitation(input, data)` is pure and tested. It returns the blocks for the case: an MLA Works Cited entry (`"prompt" prompt. Tool, version, Company, 8 Mar. 2023, address.`) and in-text form for quoted, paraphrased or image use in an essay; a credit line on the work itself for posters and teacher materials (plus the Works Cited when the use is a citing one); a comment for code; a note in the reader's own words for editing and feedback; "cite the sources themselves" for source-finding; "nothing required" for private work. A company that shares the tool's name is not repeated. The form: two radio groups, a tool select from `models.json` with an "another tool" option that opens name, company and address fields, version, date (local, defaults to today), and the prompt. Output re-renders on every input, each block has a copy button, and the first copy marks `cite` done.
+- The MLA forms follow the MLA Style Center's 2023 guidance on generative AI (prompt description as title, tool as container, version, company, date, URL; functional uses acknowledged rather than cited). The page says so and tells the reader to check the school's own rule too.
+- Page three's second section has `id="cite"`. Styles in `css/line.css`.
+
+## 2026-09-19 (evening): the card sort, and student voice
+
+### Card sort (page three, first section)
+
+- `data/scenarios.json`: fifteen cards, twelve student and three teacher, deliberately mixed, each with a `consider` note that poses the question rather than answers it. The scale labels and every string.
+- `js/line/cards.js`: a tray of cards and a line from "clearly fine" to "clearly cheating" with a tinted field. Drag a card onto the line; or tap it, then tap the line or one of three quick buttons (which fan cards across their zone rather than piling them). A placed card shows its consider note when tapped and can be dragged again; arrow keys nudge a focused placed card. Stacks: cards within 16% of each other on the line stack upward (`layout()`, pure, tested) and the field grows with its tallest stack. Placements persist under `answers.cards`; all fifteen placed marks `cards` done. "Compare with a class" is a stub that says it is coming.
+- Teacher mode adds "Run it with the class": one card at a time in large type, three tap-to-count columns (fine, it depends, cheating) with a minus on each, a live fill, previous and next, and a results board of stacked bars at the end. Votes persist under `ai-line-class` in localStorage so a refresh mid-lesson loses nothing; a button clears them. This is the hands-up version from the plan; the live-device version needs the backend and comes later.
+- `css/line.css` is page three's stylesheet. `js/line/main.js` mounts the sort. Page three's first section has `id="cards"`.
+- Trap: a `display: flex` rule on an element defeats the `hidden` attribute. `[hidden]` is now explicit for the picker, the stage and the consider panel.
+
+### Student voice
+
+Paul wants real student quotes through the site (see `plans.md` motivation item 7 and "Student voice" in `interactive.md`). Built: `data/quotes.json` (empty, with the format and the rule), `js/voice.js` (`quotesFor` is pure and tested; a slot with no quote shows a marked placeholder), styles in `site.css`, and three slots: `ai-images` on page one by the map, `ai-posters` and `teacher-hypocrisy` on page three. Paul adds the quotes. Nothing is ever invented.
+
+## 2026-09-19 (later): portrait windows, the glossary, pages two and three
+
+### Portrait windows
+
+Paul reported that tall, narrow browser windows broke the look. Causes and fixes:
+- Anything sized in `vh` ballooned: the hero (`92vh`), the compare panes (`70vh`), the mock post body (`62vh`), the wall SVG (`52vh`). All are now capped in pixels with `min()` or `clamp()`.
+- Pinned scenes stuck to the top of a very tall viewport with a void below. `centreSticky(scene)` in `js/scroll.js` sets the sticky `top` so the scene sits vertically centred when there is room, re-run on resize and font load. The wall and timeline use it.
+- The pinned stage heights are `calc(100vh + <scroll distance>)` rather than a multiple of the viewport.
+- Checked at 760 by 1300 (unpinned) and 1000 by 1500 (pinned).
+
+### Glossary
+
+- `data/glossary.json`: sixteen terms with `short` (hover card, 1 to 2 sentences), `full` (the page), and `links` to Wikipedia. Every URL was checked live on 2026-09-19 and every title is the article's name after redirects ("Training data" lands on "Training, validation, and test data sets"). The Wikipedia API rate-limits after about ten quick requests; space them out when re-checking.
+- `js/glossary.js`: `loadGlossary`, `mountHoverCards` (one shared card, delegated listeners, hover, focus, tap on touch where the first tap opens the card instead of following the link, Escape closes, repositions on scroll, flips above the term when there is no room below), `renderGlossary` (letter index, grouped entries, "Learn more" links, highlight and scroll to a hashed entry after render), and `letterIndex` (pure).
+- `glossary.html` renders it. Markup for a term anywhere: `<a class="gloss" data-term="token" href="glossary.html#token">…</a>`. Eleven terms are marked on `sample.html`, first occurrence only. A test asserts every `data-term` on every page exists in the data.
+- Styles are in `css/site.css` (dotted accent underline, the card, the page).
+
+### Pages two and three
+
+`learn.html` and `line.html` are skeletons: the shell, a hero, four sections each with a heading, a paragraph and a `Placeholder` panel naming the interactive from `interactive.md`. Nothing built. They exist so the nav works and the shape of the site is visible.
+
+### Nav
+
+All pages share one header block (in the generating script in this session; copy it from any page). "1. What AI is now" points at `sample.html`, since that is the version being built; `index.html` (the plain one) still exists with its own nav and a "plain" tag. Decide which one is page one before publishing and delete or redirect the other.
+
 ## 2026-09-19: screens 8 and 9, the recap and the hand-off band
 
 The sample page is now complete except for screen 5, which waits on recorded next-word probabilities.

@@ -1,0 +1,125 @@
+{
+  "scale": {
+    "left": "Clearly fine",
+    "mid": "It depends",
+    "right": "Clearly cheating"
+  },
+  "strings": {
+    "intro": "Drag each card onto the line where you think it belongs, or tap a card and then tap the line. There is no right answer key. The point is where you put it, and why.",
+    "armed": "Now tap the line where this belongs, or pick one:",
+    "fine": "Fine",
+    "depends": "It depends",
+    "cheating": "Cheating",
+    "placedAll": "All fifteen placed. Tap any card to see what makes it arguable, or drag it again.",
+    "left": "{n} left to place.",
+    "reset": "Start again",
+    "compare": "Compare with a class",
+    "compareSoon": "Coming once a class has run it. For now, run it with yours in teacher mode.",
+    "who": {
+      "student": "Student",
+      "teacher": "Teacher"
+    },
+    "run": "Run it with the class",
+    "exit": "Back to the sort",
+    "next": "Next card",
+    "prev": "Previous",
+    "finish": "Show all results",
+    "hands": "Hands up. Tap a column for each hand.",
+    "cardOf": "Card {i} of {n}",
+    "results": "Where the class put them",
+    "clearClass": "Clear the class's votes",
+    "minus": "Take one away"
+  },
+  "cards": [
+    {
+      "id": "explain",
+      "who": "student",
+      "text": "Asked an AI to explain a concept from class, then wrote the essay alone.",
+      "consider": "How is this different from asking a tutor or a friend? And what if the explanation was wrong?"
+    },
+    {
+      "id": "outline",
+      "who": "student",
+      "text": "Asked for an essay outline, then wrote the essay from it.",
+      "consider": "The words are yours. The structure isn't. Would you say so anywhere in the essay?"
+    },
+    {
+      "id": "grammar",
+      "who": "student",
+      "text": "Pasted a finished essay in and asked it to fix the grammar.",
+      "consider": "Where does fixing grammar end and rewriting begin? What if it changed one word and the meaning with it?"
+    },
+    {
+      "id": "polish",
+      "who": "student",
+      "text": "Asked it to rewrite a paragraph \"to sound better\".",
+      "consider": "The ideas are yours and the sentences are not. Does this assignment grade the sentences?"
+    },
+    {
+      "id": "rewrite",
+      "who": "student",
+      "text": "Had it write the essay, then rewrote every sentence in your own words.",
+      "consider": "Paraphrasing someone else's essay is still their essay. Does it matter that the someone is a machine?"
+    },
+    {
+      "id": "translate",
+      "who": "student",
+      "text": "Used it to translate a source written in another language.",
+      "consider": "Translation tools have been allowed for years, with limits. Does the school's rule on translation cover this?"
+    },
+    {
+      "id": "flashcards",
+      "who": "student",
+      "text": "Made flashcards from your class notes with it, then studied them.",
+      "consider": "Nothing was handed in. Is there any question here at all?"
+    },
+    {
+      "id": "maths",
+      "who": "student",
+      "text": "Asked it to solve one maths problem, then solved five similar ones alone.",
+      "consider": "A worked example is what a textbook gives you. What if it solved the first one wrong?"
+    },
+    {
+      "id": "copywork",
+      "who": "student",
+      "text": "Asked it to solve the whole problem set and copied the working.",
+      "consider": "Is there any reading of this that isn't copying?"
+    },
+    {
+      "id": "poster",
+      "who": "student",
+      "text": "Generated the images for a poster and didn't say so.",
+      "consider": "Nobody is grading the poster. Does credit only matter when there is a mark?"
+    },
+    {
+      "id": "summary",
+      "who": "student",
+      "text": "Had it summarise a 40 page reading instead of reading it.",
+      "consider": "You now know what the summary says. Do you know what the reading says?"
+    },
+    {
+      "id": "rubric",
+      "who": "student",
+      "text": "Checked your essay against the rubric with it before handing it in.",
+      "consider": "A teacher could do this too. Is it different when the checker also suggests the fixes?"
+    },
+    {
+      "id": "worksheet",
+      "who": "teacher",
+      "text": "A teacher made the worksheet with AI and didn't tell the class.",
+      "consider": "Students must disclose even a whiff of AI in brainstorming. What is the rule for the person who sets the rule?"
+    },
+    {
+      "id": "feedback",
+      "who": "teacher",
+      "text": "A teacher used AI to give feedback on every student's draft.",
+      "consider": "Where did the drafts go? Did the students know? Did the teacher read what it said before they did?"
+    },
+    {
+      "id": "corridor",
+      "who": "teacher",
+      "text": "A teacher put an AI-generated poster up in the corridor with nothing saying so.",
+      "consider": "Students say they can tell, and that they hate it. Who is the poster for?"
+    }
+  ]
+}

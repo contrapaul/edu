@@ -99,3 +99,18 @@ export function whenInView(el, cb, { ratio = 0.35 } = {}) {
   };
   setTimeout(sweep, 60);
 }
+
+/** Keep a sticky scene vertically centred when the viewport is much
+ *  taller than the scene, instead of pinned under the header with a
+ *  void beneath. Re-runs on resize. `minTop` is the header height. */
+export function centreSticky(scene, { minTop = 72 } = {}) {
+  const place = () => {
+    const h = scene.getBoundingClientRect().height;
+    const top = Math.max(minTop, Math.round((window.innerHeight - h) / 2));
+    scene.style.top = top + 'px';
+  };
+  place();
+  window.addEventListener('resize', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  return place;
+}
