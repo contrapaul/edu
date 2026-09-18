@@ -1,0 +1,311 @@
+{
+  "note": "Every entry is a claim about a company, and companies change. Each shows the date it was last checked. The 'where your text goes' line is filled in only after Paul has read that company's own policy; until then it says so. More tools will be added.",
+  "strings": {
+    "intro": "Tap a name.",
+    "madeBy": "Made by",
+    "search": "Can search the web",
+    "open": "Open weights",
+    "policy": "Where your text goes",
+    "policyPending": "Not reviewed yet. This line is written only after the company's own policy has been read.",
+    "checked": "Checked",
+    "local": "Nowhere. It stays on the machine.",
+    "yourComputer": "Your computer",
+    "done": "You've looked at a few. Notice which questions had the same answer for every tool, and which didn't.",
+    "more": "More tools will be added over time.",
+    "values": {
+      "yes": "Yes",
+      "no": "No",
+      "some": "Some",
+      "most": "Most",
+      "runs them": "Runs them"
+    }
+  },
+  "models": [
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "maker": "DeepSeek",
+      "city": "Hangzhou",
+      "country": "China",
+      "lon": 120.2,
+      "lat": 30.3,
+      "dx": 22,
+      "dy": 28,
+      "search": {
+        "v": "yes",
+        "note": "The app has a web search switch."
+      },
+      "open": {
+        "v": "yes",
+        "note": "The main models are released with open weights."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "qwen",
+      "name": "Qwen",
+      "maker": "Alibaba Cloud",
+      "city": "Hangzhou",
+      "country": "China",
+      "lon": 120.2,
+      "lat": 30.3,
+      "dx": 22,
+      "dy": 50,
+      "search": {
+        "v": "yes",
+        "note": "Qwen Chat can search."
+      },
+      "open": {
+        "v": "most",
+        "note": "Most Qwen models are open weights; the largest are not."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi",
+      "maker": "Moonshot AI",
+      "city": "Beijing",
+      "country": "China",
+      "lon": 116.4,
+      "lat": 39.9,
+      "dx": -70,
+      "dy": -40,
+      "search": {
+        "v": "yes",
+        "note": "Kimi searches and shows the pages it read."
+      },
+      "open": {
+        "v": "yes",
+        "note": "Kimi K2 was released with open weights."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "doubao",
+      "name": "Doubao",
+      "maker": "ByteDance",
+      "city": "Beijing",
+      "country": "China",
+      "lon": 116.4,
+      "lat": 39.9,
+      "dx": -70,
+      "dy": -18,
+      "search": {
+        "v": "yes",
+        "note": "The app can search."
+      },
+      "open": {
+        "v": "no",
+        "note": "The Doubao models are not released."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "glm",
+      "name": "GLM",
+      "maker": "Zhipu AI",
+      "city": "Beijing",
+      "country": "China",
+      "lon": 116.4,
+      "lat": 39.9,
+      "dx": -70,
+      "dy": 4,
+      "search": {
+        "v": "yes",
+        "note": "The chat app can search."
+      },
+      "open": {
+        "v": "yes",
+        "note": "The GLM series is released with open weights."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "maker": "OpenAI",
+      "city": "San Francisco",
+      "country": "United States",
+      "lon": -122.4,
+      "lat": 37.8,
+      "dx": -40,
+      "dy": 30,
+      "search": {
+        "v": "yes",
+        "note": "Searches when it decides to, or when you turn it on. The Hadrian's Wall transcript on this page shows both."
+      },
+      "open": {
+        "v": "some",
+        "note": "The main models are closed. A pair of smaller gpt-oss models was released with open weights in 2025."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "maker": "Anthropic",
+      "city": "San Francisco",
+      "country": "United States",
+      "lon": -122.4,
+      "lat": 37.8,
+      "dx": -40,
+      "dy": 52,
+      "search": {
+        "v": "yes",
+        "note": "Web search can be turned on."
+      },
+      "open": {
+        "v": "no",
+        "note": "Not released."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "maker": "Google",
+      "city": "Mountain View",
+      "country": "United States",
+      "lon": -122.1,
+      "lat": 37.4,
+      "dx": -40,
+      "dy": 74,
+      "search": {
+        "v": "yes",
+        "note": "Built on Google search."
+      },
+      "open": {
+        "v": "no",
+        "note": "Gemini is closed. Google's open-weight sibling is called Gemma."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "llama",
+      "name": "Llama",
+      "maker": "Meta",
+      "city": "Menlo Park",
+      "country": "United States",
+      "lon": -122.2,
+      "lat": 37.5,
+      "dx": -40,
+      "dy": 96,
+      "search": {
+        "v": "yes",
+        "note": "Meta's own app can search. The model itself is something you can run anywhere."
+      },
+      "open": {
+        "v": "yes",
+        "note": "Released with open weights under Meta's own licence, which has conditions."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "copilot",
+      "name": "Copilot",
+      "maker": "Microsoft",
+      "city": "Redmond",
+      "country": "United States",
+      "lon": -122.1,
+      "lat": 47.7,
+      "dx": -62,
+      "dy": -30,
+      "search": {
+        "v": "yes",
+        "note": "Built on Bing search. This is the tool a school's Microsoft 365 subscription provides."
+      },
+      "open": {
+        "v": "no",
+        "note": "Not released."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral",
+      "maker": "Mistral AI",
+      "city": "Paris",
+      "country": "France",
+      "lon": 2.35,
+      "lat": 48.9,
+      "dx": -20,
+      "dy": -30,
+      "search": {
+        "v": "yes",
+        "note": "Le Chat can search."
+      },
+      "open": {
+        "v": "most",
+        "note": "Many Mistral models are open weights; some are not."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "hyperclova",
+      "name": "HyperCLOVA X",
+      "maker": "Naver",
+      "city": "Seoul",
+      "country": "South Korea",
+      "lon": 127.0,
+      "lat": 37.6,
+      "dx": 26,
+      "dy": -16,
+      "search": {
+        "v": "yes",
+        "note": "Built on Naver search."
+      },
+      "open": {
+        "v": "some",
+        "note": "Small versions were released with open weights."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    },
+    {
+      "id": "local",
+      "name": "Local models",
+      "maker": "LM Studio, llama.cpp, Unsloth",
+      "city": "Your computer",
+      "country": "",
+      "lon": null,
+      "lat": null,
+      "dx": 28,
+      "dy": 4,
+      "search": {
+        "v": "no",
+        "note": "Not unless you connect one yourself. A local model knows only what it was trained on."
+      },
+      "open": {
+        "v": "runs them",
+        "note": "These are programs for running open-weight models on your own machine."
+      },
+      "policy": null,
+      "checkedOn": "2026-09-18",
+      "reviewed": false
+    }
+  ]
+}

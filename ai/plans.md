@@ -121,6 +121,7 @@ ai/
 - **School policy.** Exists; Paul wrote it. This site is for people beyond the school. Paul will place the policy, his early-2023 teacher guide to ChatGPT, and any saved 2023 transcripts in a folder inside `/ai/` for reference, not necessarily for inclusion.
 - **Paul's cases.** He stands by them and is happy for the site to push back. He may revise the wording to avoid handing anyone a stick, and may collect real student feedback on the practice. His use of AI for code is a further case, especially against image generation (see case 3).
 - **Build order.** A slick, engaging experience first, with placeholders where content isn't developed. The site must be genuinely fun to use or students won't stay.
+- **Look (2026-09-18).** Fully distinct from the rest of edu.contrapaul.com: own header, own tokens, own fonts (IBM Plex Sans and JetBrains Mono, self-hosted), light and dark. The site's win95 theme doesn't apply here.
 
 ## Live sessions: what the blurt/cloud pattern means here
 
@@ -160,6 +161,10 @@ The toolkit:
 
 - `pi.html`: the pi.dev homepage HTML, saved 2026-09-16 as a motion and pacing reference. Not the final word on style.
 - `reference/` (gitignored): the school AI policy, Paul's early-2023 "ChatGPT for Educators" manual (129 pages of genuine GPT-3.5 transcripts with his notes at the time; the primary "then" source), and any saved transcripts. See `HANDOFF.md` for what's in the manual.
+
+## Showcase page
+
+`showcase-plan.md` (2026-09-18) plans a sample page, `sample.html`, that rebuilds page one as nine screens with colour stripes, a progress rail, and one interactive per screen. Built separately from `index.html` until it earns its place; the pieces that work carry into the real page.
 
 ## Build log
 

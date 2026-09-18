@@ -7,7 +7,9 @@
    player works whether or not a page inherits /style.css.
    ============================================================ */
 
-.tp {
+/* .tp-scope gives the same tokens to controls that live outside a player,
+   such as the bar above a side-by-side comparison. */
+.tp, .tp-scope {
   --tp-bg: var(--surface, #fff);
   --tp-bg-2: var(--surface-2, #f0f2f4);
   --tp-border: var(--border, #dde1e6);
@@ -17,19 +19,20 @@
   --tp-accent-bg: var(--accent-bg, #eef3fb);
   --tp-user-bg: var(--accent-bg, #eef3fb);
   --tp-ai-bg: var(--surface-2, #f0f2f4);
-  --tp-note-bg: var(--amber-bg, #fef3c7);
-  --tp-note-text: var(--amber, #92400e);
-  --tp-fab: #b91c1c;              /* fabricated: red */
-  --tp-fab-bg: #fee2e2;
-  --tp-check: #92400e;            /* worth checking: amber */
-  --tp-check-bg: #fef3c7;
-  --tp-good: #166534;             /* correct, or well handled: green */
-  --tp-good-bg: #dcfce7;
+  --tp-note-bg: var(--check-bg, #fef3c7);
+  --tp-note-text: var(--check, #92400e);
+  --tp-fab: var(--fab, #b91c1c);            /* fabricated: red */
+  --tp-fab-bg: var(--fab-bg, #fee2e2);
+  --tp-check: var(--check, #92400e);        /* worth checking: amber */
+  --tp-check-bg: var(--check-bg, #fef3c7);
+  --tp-good: var(--good, #166534);          /* correct, or well handled: green */
+  --tp-good-bg: var(--good-bg, #dcfce7);
   --tp-radius: var(--radius, 14px);
   --tp-radius-sm: var(--radius-sm, 8px);
-  --tp-font: var(--font-body, system-ui, sans-serif);
+  --tp-font: var(--font-sans, var(--font-body, system-ui, sans-serif));
   --tp-mono: var(--font-mono, ui-monospace, monospace);
-
+}
+.tp {
   font-family: var(--tp-font);
   color: var(--tp-text);
   background: var(--tp-bg);
@@ -57,11 +60,11 @@
   font-family: var(--tp-mono);
   font-size: 0.78rem;
   color: var(--tp-muted);
-  white-space: nowrap;
 }
 
 /* ---------- log ---------- */
 .tp-log {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -135,14 +138,14 @@
 .tp-table { overflow-x: auto; margin: 0.6em 0; }
 .tp-table table { border-collapse: collapse; font-size: 0.88em; min-width: 100%; }
 .tp-table th, .tp-table td { border: 1px solid var(--tp-border); padding: 5px 9px; text-align: left; vertical-align: top; }
-.tp-table th { background: rgba(0, 0, 0, 0.04); }
+.tp-table th { background: color-mix(in srgb, currentColor 5%, transparent); }
 .tp-refs { margin-top: 0.8em; font-size: 0.82em; color: var(--tp-muted); }
 .tp-refs-title { font-weight: 700; margin-bottom: 0.2em; }
 .tp-refs ol { list-style: none; padding-left: 0; }
 .tp-body code {
   font-family: var(--tp-mono);
   font-size: 0.88em;
-  background: rgba(0, 0, 0, 0.06);
+  background: color-mix(in srgb, currentColor 8%, transparent);
   padding: 0.05em 0.35em;
   border-radius: 4px;
 }
@@ -184,7 +187,7 @@
 .tp-ann--fabricated { --tp-ann-color: var(--tp-fab); --tp-ann-bg: var(--tp-fab-bg); }
 .tp-ann--check { --tp-ann-color: var(--tp-check); --tp-ann-bg: var(--tp-check-bg); }
 .tp-ann--good { --tp-ann-color: var(--tp-good); --tp-ann-bg: var(--tp-good-bg); }
-.tp-ann--note { --tp-ann-color: var(--tp-accent); --tp-ann-bg: var(--tp-accent-bg); }
+.tp-ann--note { --tp-ann-color: var(--note, var(--tp-accent)); --tp-ann-bg: var(--note-bg, var(--tp-accent-bg)); }
 
 .tp-ann.is-revealed[data-note] { cursor: help; }
 .tp-ann.is-revealed[data-note]:hover::after,

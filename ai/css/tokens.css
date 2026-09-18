@@ -1,0 +1,172 @@
+/* ============================================================
+   AI in Education: design tokens
+   ------------------------------------------------------------
+   Every colour, size, face and duration used by these pages is
+   defined here and nowhere else. Component CSS uses var() only.
+
+   Themes: light and dark, via [data-theme] on <html>. The default
+   follows the system; the header toggle stores a choice in
+   localStorage("ai-theme"). js/theme.js and the pre-paint snippet
+   in each page's <head> must agree.
+
+   Fonts are self hosted in ../fonts/. Nothing is fetched from
+   another host: a blocked font host can stop a page loading.
+   ============================================================ */
+
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Italic.woff2') format('woff2');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../fonts/IBMPlexSans-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* type */
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-1: 0.8125rem;   /* 13 */
+  --fs-2: 0.9375rem;   /* 15 */
+  --fs-3: 1.0625rem;   /* 17, body */
+  --fs-4: 1.25rem;     /* 20 */
+  --fs-5: 1.5rem;      /* 24 */
+  --fs-6: 2rem;        /* 32 */
+  --fs-7: clamp(2.5rem, 2rem + 3vw, 4.25rem);   /* display */
+  --lh-body: 1.6;
+  --lh-tight: 1.15;
+  --measure: 64ch;
+
+  /* space */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --max-w: 1080px;
+
+  /* shape */
+  --radius-sm: 6px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --dur-fast: 160ms;
+  --dur: 260ms;
+  --dur-reveal: 560ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --stagger: 70ms;
+
+  /* light theme */
+  --bg: #f6f3ee;
+  --bg-2: #efeae2;
+  --surface: #fffdf9;
+  --surface-2: #f3efe8;
+  --border: #e3dcd1;
+  --border-strong: #c9c0b2;
+  --text: #1b1a17;
+  --text-2: #3f3b35;
+  --muted: #6d675e;
+  --accent: #2f56e8;
+  --accent-ink: #ffffff;
+  --accent-bg: #e8edfd;
+  --accent-2: #d44a1f;             /* a second warm accent for emphasis */
+  --fab: #b42318;   --fab-bg: #fde8e6;
+  --check: #9a5b00; --check-bg: #fdf0d5;
+  --good: #1b7a3d;  --good-bg: #e0f3e6;
+  --note: #2f56e8;  --note-bg: #e8edfd;
+  --shadow-sm: 0 1px 2px rgba(27, 26, 23, 0.06), 0 1px 8px rgba(27, 26, 23, 0.04);
+  --shadow-md: 0 8px 28px rgba(27, 26, 23, 0.12);
+  --glow-1: rgba(47, 86, 232, 0.18);
+  --glow-2: rgba(212, 74, 31, 0.14);
+  --glow-3: rgba(27, 122, 61, 0.12);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12110f;
+    --bg-2: #181714;
+    --surface: #1c1b18;
+    --surface-2: #24221e;
+    --border: #34312b;
+    --border-strong: #4a463e;
+    --text: #efeae2;
+    --text-2: #d3cdc2;
+    --muted: #a39d92;
+    --accent: #8aa4ff;
+    --accent-ink: #0e1330;
+    --accent-bg: #1d2646;
+    --accent-2: #ff8a5c;
+    --fab: #ff8a7d;   --fab-bg: #3b1714;
+    --check: #f2b95a; --check-bg: #3a2b10;
+    --good: #6fd693;  --good-bg: #123320;
+    --note: #8aa4ff;  --note-bg: #1d2646;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 10px 32px rgba(0, 0, 0, 0.5);
+    --glow-1: rgba(138, 164, 255, 0.16);
+    --glow-2: rgba(255, 138, 92, 0.12);
+    --glow-3: rgba(111, 214, 147, 0.10);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12110f;
+  --bg-2: #181714;
+  --surface: #1c1b18;
+  --surface-2: #24221e;
+  --border: #34312b;
+  --border-strong: #4a463e;
+  --text: #efeae2;
+  --text-2: #d3cdc2;
+  --muted: #a39d92;
+  --accent: #8aa4ff;
+  --accent-ink: #0e1330;
+  --accent-bg: #1d2646;
+  --accent-2: #ff8a5c;
+  --fab: #ff8a7d;   --fab-bg: #3b1714;
+  --check: #f2b95a; --check-bg: #3a2b10;
+  --good: #6fd693;  --good-bg: #123320;
+  --note: #8aa4ff;  --note-bg: #1d2646;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 32px rgba(0, 0, 0, 0.5);
+  --glow-1: rgba(138, 164, 255, 0.16);
+  --glow-2: rgba(255, 138, 92, 0.12);
+  --glow-3: rgba(111, 214, 147, 0.10);
+  color-scheme: dark;
+}
+
+/* Teacher mode: everything a little larger, for a projector. */
+:root[data-mode="teacher"] {
+  --fs-3: 1.2rem;
+  --fs-4: 1.4rem;
+  --fs-5: 1.7rem;
+  --fs-6: 2.25rem;
+  --measure: 56ch;
+}

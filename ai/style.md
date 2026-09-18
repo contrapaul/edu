@@ -35,6 +35,8 @@ Target readers are grades 9 to 12. The language is written at a grade 6 to 8 lev
 
 ## Writing rules (site-wide, absolute)
 
+- **No double titling.** A section gets one title. Not a small uppercase label above a heading that says the same thing twice ("A BELIEF THAT GOT STUCK" over "Wikipedia, then AI"). Paul calls this a hallmark of AI-assisted web design (2026-09-18). Small labels are for metadata that isn't a title: a model name, a date, a status tag such as "Placeholder".
+- **The page must not read as AI-written.** Paul will rewrite much of the copy, but the drafts should give him something to keep. The tells to avoid, beyond the em dash and "not just X": short punchy fragments used as reveals ("That tool no longer exists."), the closing clause that restates the point ("That is also the lesson here."), triads, and the colon that splits a catchy half from an explanatory half. Prefer a longer, complete sentence that says the mechanism.
 - No em dashes anywhere, in any file: page copy, JS strings, comments, markdown.
 - No "not just X, it's Y" in any variant.
 - Don't label the obvious. No "interactive diagram" tags over a diagram.

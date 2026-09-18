@@ -371,6 +371,7 @@ export class TranscriptPlayer {
     this.doc = opts.doc || root.ownerDocument;
     this.baseUrl = opts.baseUrl || './data/transcripts/';
     this.autoplay = opts.autoplay !== false;
+    this.follow = !!opts.follow;   // keep the cursor visible when the log scrolls
     this.raf = opts.raf || ((fn) => requestAnimationFrame(fn));
     this.now = opts.now || (() => performance.now());
     this.reducedMotion = opts.reducedMotion ?? (
@@ -438,7 +439,8 @@ export class TranscriptPlayer {
     const prev = this.speed;
     this.speed = Infinity;
     if (!this.playing) this.play();
-    if (this.stream) { this._cancelFrame(); this._tick(); }
+    else if (this.stream) { this._cancelFrame(); this._tick(); }
+    else { this._cancelFrame(); this._next(); }   // caught in the pause between messages
     this.speed = prev;
     this._syncControls();
   }
@@ -586,6 +588,7 @@ export class TranscriptPlayer {
     const { body, anns } = renderBody(this.doc, message.text || '', message.annotations || []);
     wrap.append(who, body);
     this.log.appendChild(wrap);
+    if (this.follow) this._followCursor(wrap);
     this._emit('tp:message', { index: this.index, message, el: wrap });
 
     const nodes = textNodes(body).map((n) => ({ node: n, full: n.nodeValue }));
@@ -607,7 +610,7 @@ export class TranscriptPlayer {
     for (const b of blocks) b.setAttribute('data-empty', '');
     const cursor = el(this.doc, 'span', 'tp-cursor');
     cursor.setAttribute('aria-hidden', 'true');
-    const delay = (message.delayMs ?? (message.role === 'assistant' ? 500 : 0)) / factor;
+    const delay = (message.delayMs ?? (message.role === 'assistant' ? 700 : 0)) / factor;
     wrap.classList.add('is-streaming');
     this.stream = {
       message, wrap, nodes, anns, blocks, cursor, total, shown: 0,
@@ -658,6 +661,7 @@ export class TranscriptPlayer {
         if (b.hasAttribute('data-empty') && b.textContent.length > 0) b.removeAttribute('data-empty');
       }
       if (last && last.parentNode) last.parentNode.insertBefore(s.cursor, last.nextSibling);
+      if (this.follow) this._followCursor(s.cursor);
       // reveal any annotation whose span now has text in it
       for (const a of s.anns) {
         if (!a.revealed && a.el.textContent.length > 0) this._revealAnn(a);
@@ -676,16 +680,33 @@ export class TranscriptPlayer {
     }
   }
 
+  /** Scroll the log (not the page) so the cursor stays in view. */
+  _followCursor(cursor) {
+    const log = this.log;
+    if (log.scrollHeight <= log.clientHeight) return;
+    const y = cursor.getBoundingClientRect().bottom - log.getBoundingClientRect().top + log.scrollTop;
+    if (y > log.scrollTop + log.clientHeight - 24) log.scrollTop = y - log.clientHeight + 48;
+  }
+
   _revealAnn(a) {
     a.revealed = true;
     a.el.classList.add('is-revealed');
     this._emit('tp:annotation', { annotation: a.annotation, el: a.el });
   }
 
+  /** Pause after a message. A prompt gets reading time, because a reader
+   *  has to take in the question before the answer starts arriving. */
+  _gapAfter(message) {
+    if (message.gapMs != null) return message.gapMs;
+    if (message.role !== 'user') return 350;
+    const words = String(message.text || '').split(/\s+/).filter(Boolean).length;
+    return Math.min(4500, Math.max(1400, 800 + words * 70));
+  }
+
   _endMessage(message, wrap) {
     this._emit('tp:messageend', { index: this.index, message, el: wrap });
     if (!this.playing) return;
-    const gap = (message.gapMs ?? 350) / this._factor();
+    const gap = this._gapAfter(message) / this._factor();
     if (gap === 0 || this._factor() === Infinity) return this._next();
     const t0 = this.now();
     const wait = () => {

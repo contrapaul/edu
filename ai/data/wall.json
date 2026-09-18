@@ -1,0 +1,64 @@
+{
+  "axis": {
+    "from": 2016,
+    "to": 2027,
+    "labels": [
+      2016,
+      2018,
+      2020,
+      2022,
+      2024,
+      2026
+    ]
+  },
+  "cutoff": {
+    "year": 2024.6,
+    "label": "training cutoff"
+  },
+  "strings": {
+    "intro": "Drag a question onto the timeline, or tap it, and see whether the model can reach the answer.",
+    "searchOff": "Search off",
+    "searchOn": "Search on",
+    "reset": "Put the cards back",
+    "landedBefore": "{q} The answer is from before the cutoff, so it was in the training text. The model answers from memory.",
+    "blocked": "{q} The answer is from after the cutoff. Without search, the model has never seen it. Whatever it says now is a guess.",
+    "throughWindow": "{q} The answer is from after the cutoff, but search is on, so the model reads a web page first and answers from that.",
+    "timeless": "{q} This was true long before the cutoff and is still true, so the training text covers it.",
+    "tagMemory": "from memory",
+    "tagBlocked": "can't see it",
+    "tagWeb": "read from the web",
+    "done": "You've tried both sides of the wall. That's the whole idea: the cutoff decides what a model knows on its own, and search is a window that is not always open."
+  },
+  "cards": [
+    {
+      "id": "hadrian",
+      "text": "When was Hadrian's Wall built?",
+      "year": 122,
+      "kind": "timeless"
+    },
+    {
+      "id": "worldcup",
+      "text": "Who won the 2022 World Cup?",
+      "year": 2022.95,
+      "kind": "before"
+    },
+    {
+      "id": "bread",
+      "text": "Why does bread rise?",
+      "year": 1000,
+      "kind": "timeless"
+    },
+    {
+      "id": "phone",
+      "text": "What's the newest phone?",
+      "year": 2026.6,
+      "kind": "after"
+    },
+    {
+      "id": "news",
+      "text": "What was in the news this morning?",
+      "year": 2026.75,
+      "kind": "after"
+    }
+  ]
+}
