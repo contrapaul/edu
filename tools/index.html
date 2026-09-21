@@ -649,6 +649,42 @@
 }
 
 
+
+/* 37 — Game Bench (felt table, bone and brass; matches make.contrapaul.com/fun/gametools) */
+@font-face { font-family:'Lexend'; src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Black.woff2') format('woff2'); font-weight:900; font-display:swap; }
+.cs-bench {
+  background-color: #2a6a48 !important;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
+    radial-gradient(ellipse at 50% 110%, #143a26, transparent 65%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px);
+  border: 2px solid #1c4d33 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 6px 14px -6px rgba(20,40,30,0.55), 0 2px 4px rgba(20,40,30,0.25);
+  gap: 0.35rem;
+}
+.cs-bench .tool-card-title {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #fffbf1;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.25);
+}
+.cs-bench .tool-card-title span { color: #d9a23a; }
+.cs-bench .tool-card-sub {
+  font-family: 'Lexend', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.9rem;
+  color: #fffbf1;
+  opacity: 0.85;
+}
+.cs-bench:hover {
+  border-color: #d9a23a !important;
+  box-shadow: 0 8px 10px -3px rgba(0,18,10,0.85), 0 3px 4px -1px rgba(0,18,10,0.45);
+}
 </style>
 </head>
 <body>
@@ -711,6 +747,11 @@
   </video>
   <h3 class="tool-card-title">Castle Assault</h3>
   <p class="tool-card-sub">You are the archer on the wall. Aim, draw, and lead what is walking at you &mdash; before the wall goes out from under you.</p>
+</a>
+
+<a class="tool-card cs-bench" href="https://make.contrapaul.com/fun/gametools/">
+  <h3 class="tool-card-title">Game<span>Bench</span></h3>
+  <p class="tool-card-sub">A set of tools for people making tabletop games.</p>
 </a>
 
   <a class="tool-card cs-blurt" href="https://blurt.contrapaul.com/"
