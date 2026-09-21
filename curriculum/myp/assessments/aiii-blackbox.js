@@ -1062,7 +1062,28 @@ function doPrint() {
     document.body.appendChild(out);
   }
   out.innerHTML = state.cards.map(printCard).join('') + printSummary();
-  window.print();
+
+  /* window.print() takes its snapshot at once, and a photo stored as a
+     data URL still has to decode before it can be painted. Firing
+     straight away printed whichever photo had won the race, which in
+     practice was only the first, and left the rest blank. Wait for all
+     of them, with a ceiling so one stuck image cannot stop the sheet
+     printing at all. The stored data is not touched. */
+  var imgs = Array.prototype.slice.call(out.querySelectorAll('img'));
+  if (!imgs.length) { window.print(); return; }
+  note('Getting the photos ready to print.');
+  var ready = imgs.map(function (img) {
+    if (img.decode) return img.decode().catch(function () {});
+    return new Promise(function (done) {
+      if (img.complete) { done(); return; }
+      img.onload = img.onerror = done;
+    });
+  });
+  var ceiling = new Promise(function (done) { setTimeout(done, 4000); });
+  Promise.race([Promise.all(ready), ceiling]).then(function () {
+    note('Saved in this browser.');
+    window.print();
+  });
 }
 
 /* ── SAVE A COPY, OPEN A COPY, RESET ──────────────────────────────── */
