@@ -92,7 +92,7 @@ test('the recap writes one line per finished activity in the reader\'s own words
   assert.ok(lines[1].includes('Look each one up'));
   assert.ok(lines[2].includes('Who won the 2022 World Cup: from memory'));
   assert.ok(lines[3].includes('DeepSeek, Claude, Mistral and Local models'));
-  assert.equal(remaining(p), 2);
+  assert.equal(remaining(p), 3); // s2, s5 and s6 are still open in this record
   assert.deepEqual(buildLines({ seen: {}, done: {}, answers: {} }, S), []);
   // an older record without the details still reads as a sentence
   const old = buildLines({ seen: {}, done: { s4: 1, s7: 1 }, answers: { s4: { placed: ['a'] }, s7: { seen: ['x'] } } }, S);

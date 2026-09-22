@@ -12,8 +12,8 @@
 
 import { load, reset } from '../progress.js';
 
-/** The screens that count as activities. Screen 5 joins when it exists. */
-export const ACTIVITY_SCREENS = ['s2', 's3', 's4', 's6', 's7'];
+/** The screens that count as activities. */
+export const ACTIVITY_SCREENS = ['s2', 's3', 's4', 's5', 's6', 's7'];
 
 function fill(tpl, vars) {
   return tpl.replace(/\{(\w+)\}/g, (_, k) => (vars[k] == null ? '' : String(vars[k])));
@@ -36,6 +36,9 @@ export function buildLines(p, S) {
   if (p.done.s4) {
     const cards = (ans.s4?.cards || []).map((c) => `${c.text.replace(/\?$/, '')}: ${S.outcomes[c.outcome] || c.outcome}`);
     out.push(cards.length ? fill(L.s4, { n: cards.length, cards: cards.join('; ') }) : L.s4short);
+  }
+  if (p.done.s5) {
+    out.push(ans.s5?.total ? fill(L.s5, { n: ans.s5.total, matched: ans.s5.matched ?? 0 }) : L.s5short);
   }
   if (p.done.s6) {
     const stickers = (ans.s6?.stickers || []).map((s) => s.toLowerCase());

@@ -11,6 +11,7 @@ import { mountRain } from './rain.js';
 import { typeInto } from './typed.js';
 import { mountWall } from './wall.js';
 import { mountTimeline } from './timeline.js';
+import { mountNextword } from './nextword.js';
 import { mountRedated } from './redated.js';
 import { mountMap } from './map.js';
 import { mountRecap, mountNextBand } from './recap.js';
@@ -52,6 +53,9 @@ for (const el of document.querySelectorAll('[data-wall]')) mountWall(el, { reduc
 
 // screen 2: the scrubbed timeline
 for (const el of document.querySelectorAll('[data-timeline]')) mountTimeline(el, { reducedMotion });
+
+// screen 5: the next word
+for (const el of document.querySelectorAll('[data-nextword]')) mountNextword(el, { reducedMotion });
 
 // screen 6: the re-dated post
 for (const el of document.querySelectorAll('[data-redated]')) mountRedated(el, { reducedMotion });

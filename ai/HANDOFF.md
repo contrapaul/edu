@@ -2,6 +2,18 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-22 (and then): screen 5 is built
+
+The probability race is in, on the recorded numbers.
+
+- `js/sample/nextword.js`: the sentence types itself out (the player's `typeInto`) and stops at the blank; the five chips bounce in; the reader taps one and the bars race out, sorted biggest first, the numbers counting up to the data file's probabilities. The reader's pick is outlined on chip and bar, the model's top pulses, a match gets a small chip burst. Four sentences, then a "Go again" that resets without touching the progress record. `fmtProb` and `barWidth` are pure and tested; a throwaway DOM-shim drive of the whole component (four picks, the finish line, the still version) checked that the numbers on screen equal `data/next-word.json`, then deleted itself.
+- Still version: the sentence in full, chips disabled, bars already out, numbers set. (The first draft crashed here on a call to a function that was never named; the shim caught it.)
+- The last result is kept under the done line, not replaced by it: on the wall-title sentence the reader sees \"The 0.67%\" against \"2 39%\" and then the closing words, in one status line.
+- `css/sample.css`: the screen 5 block, between the map and the recap, using the screen's own `--ink`/`--band`.
+- Wiring: `data-nextword` in `sample.html` (the placeholder is gone), the mount in `js/sample/main.js`, `s5` in `ACTIVITY_SCREENS`, and the recap lines `s5`/`s5short` in `data/recap.json` (\"You picked the next word {n} times. The model's top pick was yours {matched} of those.\"), with the short one for a record that lacks the details.
+- Tests: `test/nextword-screen.test.mjs` (formatting, widths, the recap line in page order, and that every candidate the screen shows is a token in the data file's top list), and `sample.test.mjs`'s recap count moved from two open to three, since six screens now count. 42/42.
+- Not yet seen in a real browser: the typing, the bounce and the pulse are GSAP-driven and were driven here only through the shim with GSAP off. Look at it in a window before the polish pass, on a phone and under reduced motion.
+
 ## 2026-09-22 (later still): the capture ran, and the numbers are in
 
 Paul's decisions, then the run. Qwen3-**1.7B** (not 4B); the proper-name sentence is **dropped** (removed from `data/next-word-sentences.json`); capture on **this machine**. This box does have the tooling after all: LM Studio ships `llama-server` at `~/.lmstudio/extensions/backends/llama.cpp-linux-x86_64-avx2-2.31.2/`. No install.

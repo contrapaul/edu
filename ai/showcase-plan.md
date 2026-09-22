@@ -124,7 +124,7 @@ Status 2026-09-22: these are no longer sample-only. Paul settled that the sample
 
 ## Build order, with checks
 
-Status 2026-09-22: every step is built in `sample.html` except step 6 (next word), which waits on recorded probabilities, and step 10 (the polish pass). Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
+Status 2026-09-22: every step is built in `sample.html` except step 10 (the polish pass). Screen 5's probabilities were captured from Qwen3-1.7B and the probability race is built. Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
 
 1. **Global**: vendored GSAP, the tint and stripes, the rail, the nine empty screens with their hues. Check: scroll the page end to end at 60 fps on a phone; every dot fills.
 2. **Screen 3, the scorecard.** Uses only what exists. Check: every annotation in both transcripts produces a stamp; the final tally matches the data.
