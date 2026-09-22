@@ -15,7 +15,7 @@
    Data: data/scenarios.json.
    ============================================================ */
 
-import { load, markDone, setAnswer } from '../sample/progress.js';
+import { load, markDone, setAnswer } from '../progress.js';
 
 const KEY_CLASS = 'ai-line-class';
 

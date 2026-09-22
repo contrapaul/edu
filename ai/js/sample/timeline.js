@@ -13,7 +13,7 @@
    Data: data/timeline.json.
    ============================================================ */
 
-import { markDone } from './progress.js';
+import { markDone } from '../progress.js';
 import { centreSticky } from '../scroll.js';
 
 const SCRAMBLE = 'abcdefghijklmnopqrstuvwxyz';

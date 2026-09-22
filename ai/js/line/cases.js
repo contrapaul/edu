@@ -10,7 +10,7 @@
    and meant to be edited in place.
    ============================================================ */
 
-import { load, markDone, setAnswer } from '../sample/progress.js';
+import { load, markDone, setAnswer } from '../progress.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
