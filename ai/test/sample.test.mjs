@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mixHue } from '../js/sample/stripes.js';
-import { tally, emptyProgress } from '../js/sample/progress.js';
+import { mixHue } from '../js/stripes.js';
+import { tally, emptyProgress } from '../js/progress.js';
 import { emptyTally, countNewLinks } from '../js/sample/scorecard.js';
 
 test('mixHue goes the short way round the wheel', () => {

@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
 <link rel="stylesheet" href="css/transcript-player.css">
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -42,17 +44,22 @@
   <div class="wrap"><p><strong>Teacher mode.</strong> Larger type for a projector. Classroom controls come with the activities.</p></div>
 </div>
 
+<nav data-rail></nav>
+
 <main>
-<section class="hero">
-  <div class="hero-glow" aria-hidden="true"></div>
+<section class="screen hero" id="intro" data-title="Using AI to learn" style="--hue: 150">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 1 of 5</p>
     <h1 data-reveal>Using AI to learn</h1>
     <p class="lede" data-reveal>A tool that gives you the answer and a tool that helps you learn are the same tool. The difference is what you do with it.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="screen" id="conversation" data-title="One question, or a conversation" style="--hue: 285">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 2 of 5</p>
     <div class="section-head">
       <h2 data-reveal>One question, or a conversation</h2>
       <p data-reveal>Most people ask a chatbot one question, take the first answer, and leave. What they get is an answer. What they could have got is an understanding.</p>
@@ -64,8 +71,10 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section class="screen" id="sources" data-title="Finding sources" style="--hue: 22">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 3 of 5</p>
     <div class="section-head">
       <h2 data-reveal>Finding sources, and checking them</h2>
       <p data-reveal>A model can point you to sources. It can also invent them, or credit a real page with something it does not say. Asking is step one.</p>
@@ -77,8 +86,10 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section class="screen" id="memory" data-title="Making it stay learned" style="--hue: 325">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 4 of 5</p>
     <div class="section-head">
       <h2 data-reveal>Making it stay learned</h2>
       <p data-reveal>Looking something up again is easy, which is exactly why nothing sticks. The habits that make learning last are cheap, and a model can run them for you.</p>
@@ -90,8 +101,10 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section class="screen" id="organising" data-title="Organising research" style="--hue: 48">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 5 of 5</p>
     <div class="section-head">
       <h2 data-reveal>Organising research</h2>
       <p data-reveal>A pile of notes into a plan, with the model showing what it kept, what it merged, and what it quietly dropped.</p>

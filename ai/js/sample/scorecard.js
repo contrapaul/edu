@@ -11,7 +11,7 @@
         data-left-label="2023" data-right-label="2026"></div>
    ============================================================ */
 
-import { markDone, setAnswer } from './progress.js';
+import { markDone, setAnswer } from '../progress.js';
 
 const KINDS = [
   { kind: 'fabricated', label: 'Invented', stamp: 'INVENTED' },

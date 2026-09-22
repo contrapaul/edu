@@ -94,6 +94,8 @@ A full-width band in the next page's colour, with the title of part two and a on
 
 ## Global elements
 
+Status 2026-09-22: these are no longer sample-only. Paul settled that the sample's look is the project's look, so the skin (per-section hues, the scroll-scrubbed tint, the skewed stripes, the section labels, the rail, the `.placeholder` coming panel and the `.band` hand-off) now lives in `css/site.css` with `js/stripes.js`, `js/rail.js` and `js/progress.js`, and every page of the site uses it. The one-off activities stay sample-specific. See `HANDOFF.md`.
+
 **Colour stripes.** Each screen owns a hue. The page background is not one colour; a scroll-linked tint moves through the nine hues as the reader moves, so the transition between screens is a wash rather than a border. Between screens, a skewed band in the next screen's hue slides up under the current one (a diagonal stripe, the thing Paul asked for by name). Headings, the progress dot, the scroll cue and the underline colour all take the current hue.
 
 **Progress rail.** A thin vertical rail on the right (desktop) or a thin bar under the header (phone). Nine dots. A dot fills when its screen has been seen and turns solid when its activity is done. Tapping a dot jumps there. The rail is the exploration reward from localai's plan, done quietly.
@@ -122,7 +124,7 @@ A full-width band in the next page's colour, with the title of part two and a on
 
 ## Build order, with checks
 
-Status 2026-09-19: every step is built in `sample.html` except step 6 (next word), which waits on recorded probabilities, and step 10 (the polish pass). See `HANDOFF.md`.
+Status 2026-09-22: every step is built in `sample.html` except step 6 (next word), which waits on recorded probabilities, and step 10 (the polish pass). Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
 
 1. **Global**: vendored GSAP, the tint and stripes, the rail, the nine empty screens with their hues. Check: scroll the page end to end at 60 fps on a phone; every dot fills.
 2. **Screen 3, the scorecard.** Uses only what exists. Check: every annotation in both transcripts produces a stamp; the final tally matches the data.
@@ -137,7 +139,7 @@ Status 2026-09-19: every step is built in `sample.html` except step 6 (next word
 
 ## What Paul supplies
 
-- Recorded next-word probabilities from a local model (or a session where I capture them with him), for four or five sentences including the invented book title.
+- Recorded next-word probabilities from a local model, for four or five sentences including the invented book title. The capture kit is ready (2026-09-22): pick the sentences in `data/next-word-sentences.json`, then one command against a local llama-server (`dev/capture-next-word.mjs`) writes `data/next-word.json` with full provenance. See `HANDOFF.md`.
 - A decision on the mock recipe post: a wholly invented one (safe, clearly a mockup) or a real example with the site's name removed.
 - The list of models for the map, and which ones he is comfortable naming.
 - Copy. Everything above is described, not written. The drafts I write follow the style rules and he rewrites what he wants.

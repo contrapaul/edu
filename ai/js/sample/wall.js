@@ -14,7 +14,7 @@
    back to instant placement without it.
    ============================================================ */
 
-import { markDone } from './progress.js';
+import { markDone } from '../progress.js';
 import { centreSticky } from '../scroll.js';
 
 const VB = { w: 1000, h: 400 };

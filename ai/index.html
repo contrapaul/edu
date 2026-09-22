@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
 <link rel="stylesheet" href="css/transcript-player.css">
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -44,19 +46,24 @@
   <div class="wrap"><p><strong>Teacher mode.</strong> Larger type for a projector. Classroom controls (reveal steps, votes, timers) come with the activities.</p></div>
 </div>
 
+<nav data-rail></nav>
+
 <main>
 
-<section class="hero" data-section>
-  <div class="hero-glow" aria-hidden="true"></div>
+<section class="screen hero" id="intro" data-section data-title="What AI is now" style="--hue: 232">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 1 of 7</p>
     <h1 data-reveal>What AI is now</h1>
     <p class="lede" data-reveal>A lot of people tried a free chatbot in early 2023, watched it make something up, and decided that AI could not be trusted. The tools have changed a great deal since then. This page explains how they work now, what they still get wrong, and how to tell the difference.</p>
     <a class="scroll-cue" href="#belief" data-reveal>Start reading <span class="arrow" aria-hidden="true">↓</span></a>
   </div>
 </section>
 
-<section class="section" id="belief" data-section>
+<section class="screen" id="belief" data-section data-title="Wikipedia, then AI" style="--hue: 285">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 2 of 7</p>
     <div class="section-head">
       <h2 data-reveal>Wikipedia, then AI</h2>
       <p data-reveal>For about ten years, many teachers told students not to use Wikipedia, because anyone could edit it. That was true, and it was a real reason to be careful. It was also an incomplete picture. Wikipedia records every edit, asks for a source on every claim, and usually repairs damage within minutes. Students who were told to avoid it used it anyway, and nobody showed them how to check an article properly. Something similar is happening now with AI.</p>
@@ -99,8 +106,10 @@
   </div>
 </section>
 
-<section class="section" id="then-now" data-section>
+<section class="screen" id="then-now" data-section data-title="The same five questions" style="--hue: 22">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 3 of 7</p>
     <div class="section-head">
       <h2 data-reveal>The same five questions, three years apart</h2>
       <p data-reveal>In March 2023 a teacher asked a free chatbot to suggest sources for a report on Hadrian's Wall, and then asked it four more questions. In September 2026 he asked a free chatbot the same five questions. Both conversations are shown below exactly as they happened. The coloured underlines were added afterwards, when each claim was checked. Red means the claim was invented, amber means it should be checked, and green means it matched the source.</p>
@@ -114,8 +123,10 @@
   </div>
 </section>
 
-<section class="section" id="cutoff" data-section>
+<section class="screen" id="cutoff" data-section data-title="Where knowledge stops" style="--hue: 48">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 4 of 7</p>
     <div class="section-head">
       <h2 data-reveal>Where a model's knowledge stops</h2>
       <p data-reveal>A model learns from text collected up to a certain date, called its training cutoff. On its own, it knows nothing that happened after that date. Some tools can search the web while they answer, which is like opening a window in that wall. Many tools still cannot, and a tool that can may not do it for every question.</p>
@@ -128,8 +139,10 @@
   </div>
 </section>
 
-<section class="section" id="predict" data-section>
+<section class="screen" id="predict" data-section data-title="How a model writes" style="--hue: 150">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 5 of 7</p>
     <div class="section-head">
       <h2 data-reveal>How a model writes</h2>
       <p data-reveal>A language model does not look up an answer. It predicts the next word from everything it has read, then the next word after that. This is why its writing sounds fluent, and it is also why it can be fluently wrong. A made-up book title is simply a likely sequence of words.</p>
@@ -142,8 +155,10 @@
   </div>
 </section>
 
-<section class="section" id="web" data-section>
+<section class="screen" id="web" data-section data-title="Pages that pretend to be new" style="--hue: 195">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
+    <p class="screen-n" data-reveal>Section 6 of 7</p>
     <div class="section-head">
       <h2 data-reveal>Pages that pretend to be new</h2>
       <p data-reveal>When a tool searches, it reads the same web you do. A growing share of that web was written by AI, quickly, to look recent. A recipe that says it was updated last week may have changed only its date. Search engines and AI tools both prefer recent pages, so the trick works on both of them.</p>
@@ -156,14 +171,15 @@
   </div>
 </section>
 
-<section class="section" id="next" data-section>
+<section class="screen band-stage" id="next" data-section data-title="Next part" style="--hue: 205">
+  <div class="stripe" aria-hidden="true"></div>
   <div class="wrap">
-    <a class="next-link" href="#" data-reveal aria-disabled="true">
-      <span>
-        <strong>Part 2. Using AI to learn</strong>
-        <span class="mono" style="display:block;color:var(--muted);margin-top:4px">Not built yet</span>
-      </span>
-      <span class="go" aria-hidden="true">→</span>
+    <p class="screen-n" data-reveal>Section 7 of 7</p>
+    <a class="band" href="learn.html" data-reveal>
+      <p class="band-eyebrow">Part 2 of 3</p>
+      <p class="band-title">Using AI to learn</p>
+      <p class="band-text">How to ask, how to check, and how to make what you learn stay learned.</p>
+      <span class="band-go" aria-hidden="true">→</span>
     </a>
   </div>
 </section>

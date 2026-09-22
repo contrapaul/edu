@@ -2,6 +2,72 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-22 (evening): the next-word capture kit, and how to run it
+
+Screen 5's capture is ready to run. Paul is moving this PC and powering it down; everything needed to come back to this is in this entry. Nothing has been run against a real model yet.
+
+### What exists
+
+- `data/next-word-sentences.json`: five sentence splits to pick from (four firm, one optional proper-name). Each has `prefix`, `hidden`, and a `note` saying what the split is meant to teach. The last is fixed: the invented book title from the 2023 transcript, split right after "Hadrian's Wall: ".
+- `dev/capture-next-word.mjs`: points at a running llama.cpp server (`--base`, default `127.0.0.1:8080`), records the top 8 tokens and probabilities at each split (`exp(logprob)` over the full vocabulary, so the list does not sum to 1, and the file says so), and writes `data/next-word.json` with the model name as reported by the server, the `--model-file` name, the date, and the normalisation note. It handles both the current and the legacy llama-server logprobs shapes. If a hidden word is not in the top list it still writes the file, names the splits to move, and exits non-zero. `--dry-run` checks the sentence file with no server. The pure helpers are exported and covered by `test/nextword.test.mjs`; 37/37 pass, and the whole run was checked end to end against a mock server (the mock and its output were deleted afterwards; nothing of them is in the repo).
+- This machine has none of the capture tooling: no llama.cpp, no Python ML stack, no model files. So the run happens on Paul's own machine, or an install is approved here.
+
+### The run, step by step
+
+1. **The model.** Qwen3-1.7B at Q4_K_M, a single `.gguf` of about 1.2 GB, from Qwen's GGUF repository on Hugging Face (`Qwen/Qwen3-1.7B-GGUF`; the file lives under its quant folder, e.g. `Q4_K_M/Qwen3-1.7B-Q4_K_M.gguf` in the current layout). 4B instead of 1.7B is fine if the machine has the RAM; 1.7B runs on a plain CPU and is enough, since this is a dozen single-token predictions. Why Qwen3: screen 1's token rain is tokenised against the Qwen3 vocabulary, so the probabilities then come from the same family as the tokens the reader watched fall, and Qwen is already on the model map.
+2. **llama.cpp.** A prebuilt `llama-server` binary (a GitHub release for the platform, or `brew install llama.cpp`). No build needed.
+3. **Serve and capture.**
+   ```
+   llama-server -m /path/to/Qwen3-1.7B-Q4_K_M.gguf --port 8080
+   # in another terminal, from edu/ai:
+   node dev/capture-next-word.mjs --model-file Qwen3-1.7B-Q4_K_M.gguf
+   ```
+   The script reads `data/next-word-sentences.json` by default and writes `data/next-word.json` by default; `--base`, `--top`, `--sentences`, `--out` override. `--optional` includes the proper-name sentence; `--dry-run` needs no server.
+4. **Check the run.** The console prints, per sentence, the model's top token with its probability and where the hidden word ranked. Look at `data/next-word.json`: `model` (name, file, date), `normalisation`, and per sentence `best`, `hiddenRank`, `top`, `candidates` (the five chips, hidden word first, the model's top marked `isTop`). The `wall-title` entry is the one that matters: the hidden word "The" should rank inside the top 8, and its `note` records that the full title is the 2023 model's invention and what the real Collingwood Bruce book is.
+5. **If a hidden word is not in the top list**, the script says which splits to move. Adjust `prefix`/`hidden` in `data/next-word-sentences.json` and re-run; the capture is seconds, so iterating is cheap. (Bumping `--top` to 12 or 16 is also an option, but moving the split is the more honest fix.)
+6. **Then build screen 5**: a `js/sample/nextword.js` (bar race from `candidates`, the reader's pick outlined, the model's top pulsing, the still version under reduced motion), its CSS in `css/sample.css`, tests for any pure helpers, `s5` added to `ACTIVITY_SCREENS` in `js/sample/recap.js`, and the label on the bars reading the model and date from the data file. After that, the polish pass (showcase-plan step 10).
+
+### Decisions left to Paul
+
+- 1.7B or 4B; keep or drop the optional proper-name sentence (and its placeholder name "Grip").
+- Whether the capture happens on his machine (better provenance: "captured on Paul's machine") or an install here.
+- The usual page-one merge: `index.html` is the spare now that the sample is page one; delete or redirect it.
+
+### State of the repo at power-down
+
+All of this session's work is in the working tree but **not committed** (the skin move, the page conversions, the capture kit, the doc updates). A checkpoint commit is the first thing to do on return, before any further edits.
+
+## 2026-09-22 (later): page one is settled
+
+- Paul: `sample.html` is page one. `index.html` is the spare; delete or redirect it when the merge happens (not done yet).
+- Next on page one: the next-word capture for screen 5 (recorded probabilities from a small local model), then the polish pass.
+
+## 2026-09-22: the sample's skin becomes the site
+
+Paul's call: the look found on `sample.html` is the correct one for the whole project. The global touches now apply to every page; the one-off activities (rain, scorecard, wall, timeline, re-dated post, map, recap) stayed on the sample and were not used as a guide anywhere else. Blocked components stayed blocked.
+
+### What moved
+
+- `js/sample/stripes.js`, `js/sample/rail.js` and `js/sample/progress.js` are now `js/stripes.js`, `js/rail.js` and `js/progress.js`. They were global all along; page three's activities already imported progress across directories. Importers updated: everything in `js/sample/`, all of `js/line/`, and `test/sample.test.mjs`. Tests still 27/27.
+- The global skin moved out of `css/sample.css` into `css/site.css`: the `--page-hue` tint tokens and the tinted body background, `.screen` (padding, `--ink`/`--band` derived from the section's `--hue`), the skewed `.stripe`, the mono `.screen-n` section label, the progress rail, and the hand-off `.band`. The unbuilt-interactive panel is `.placeholder` everywhere now; the sample's one `.soon` panel became a `.placeholder` (same look). `css/sample.css` now holds only the one-off activities, and its header says where the skin lives.
+- Out of `site.css`: `.hero-glow` and its keyframe, the `.section` padding and border rules (sections are `.screen` now), the old striped `.placeholder`, and `.next-link` (replaced by the band).
+- `js/main.js` now sets the skin on every page it serves: `initColour()` scrubs the page hue between the sections' hues, and `mountRail()` mounts the rail from the sections. `glossary.html`'s inline module does the same two calls.
+- The four pages converted, section by section. Each section is now a `.screen` with a `--hue`, a `data-title`, a `.stripe`, and a "Section N of M" label; the heroes lost their glow divs:
+  - `index.html`: seven screens, hues 232, 285, 22, 48, 150, 195, 205 (mirroring the sample's corresponding sections). The "next part" link is now the sample's band and links to `learn.html`, which exists (it is a skeleton, but a page).
+  - `learn.html`: five screens, hues 150, 285, 22, 325, 48. The sections got ids: `intro`, `conversation`, `sources`, `memory`, `organising`.
+  - `line.html`: five screens, hues 22, 48, 285, 150, 325. The dialogue section got `id="awkward"`. The rail dots for `cards`, `cite` and `cases` fill solid from the existing `markDone` calls in `js/line/`, no change there.
+  - `glossary.html`: one screen, hue 232.
+- `dev/player.html` is a test bed, not a page of the site; it keeps its own inline styles.
+
+### Trap found on the way
+
+`.screen > .wrap` had `z-index: 1` but was not positioned, so the z-index did nothing and the skewed stripe (a positioned element) painted over the top of the section copy on wide viewports, where the skew pushes the band lower on one side. The rule now also sets `position: relative`, so the copy is always above the stripe.
+
+### What did not move
+
+- The one-off activity components and their CSS (rain, typed title, scorecard, wall, timeline, re-dated post, map, recap) stay in `sample.html` and `css/sample.css`.
+- Everything blocked on Paul's input stayed blocked: screen 5 (recorded probabilities), the page-two placeholders, the page-three dialogue, the "Compare with a class" stub.
+
 ## 2026-09-19 (late night): three cases from a teacher
 
 - `data/cases.json`: the three cases in Paul's first person, written from his own accounts in `interactive.md` and meant to be edited in place. Each has `happened` (paragraphs), `why` (list), and `pushback` (each item a question a student or colleague might ask, `q`, and Paul's answer, `a`). The strings include the four "what would you have done" options.

@@ -1,0 +1,41 @@
+{
+  "note": "Input for the next-word capture (screen 5). Each entry is a sentence split at one point: `prefix` is what the reader sees typed out, `hidden` is the next word in the sentence. The capture records the model's top probabilities at that point, and the screen offers five chips: the hidden word plus the model's top picks. Paul: pick four or five of these; the one marked optional may be dropped. The last one is fixed: it is the invented book title from the 2023 transcript, and it comes last.",
+  "sentences": [
+    {
+      "id": "jar",
+      "kind": "everyday",
+      "prefix": "She opened the cupboard and found a jar of",
+      "hidden": "jam",
+      "note": "A word almost everyone will guess. The spread of the model's probabilities shows how 'sure' a prediction really is."
+    },
+    {
+      "id": "bus",
+      "kind": "near-certain",
+      "prefix": "We waited twenty minutes at the stop for the six-fifty",
+      "hidden": "bus",
+      "note": "A near-certain pick, for contrast with the open ones."
+    },
+    {
+      "id": "crowd",
+      "kind": "ambiguous",
+      "prefix": "The match ended one all, and the home crowd went",
+      "hidden": "quiet",
+      "note": "Several endings are likely. The model's top pick may not be the reader's."
+    },
+    {
+      "id": "hill",
+      "kind": "proper-name",
+      "optional": true,
+      "prefix": "The old map showed the river bending north around a hill called",
+      "hidden": "Grip",
+      "note": "A name the model has not read in this context. Its top picks will be generic words, and that is the lesson: prediction runs out where the world is specific. Paul: swap in a real place name if you have one in mind."
+    },
+    {
+      "id": "wall-title",
+      "kind": "the-invented-title",
+      "prefix": "You could also read a book called \"Hadrian's Wall: ",
+      "hidden": "The",
+      "note": "The full title that follows is the one the 2023 model invented: \"Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce\". The real book by Collingwood Bruce is \"Handbook to the Roman Wall\" (1863). The prefix here is ours; the probabilities are the model's."
+    }
+  ]
+}

@@ -11,7 +11,7 @@
    filled in only after each company's policy has been read.
    ============================================================ */
 
-import { markDone } from './progress.js';
+import { markDone } from '../progress.js';
 
 const VB = { w: 1000, h: 470 };
 const MAP_H = 400;   // the map itself; the strip below is for the local marker

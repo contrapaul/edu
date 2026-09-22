@@ -14,7 +14,7 @@
    are invented.
    ============================================================ */
 
-import { markDone } from './progress.js';
+import { markDone } from '../progress.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);

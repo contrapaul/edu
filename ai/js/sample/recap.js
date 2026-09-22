@@ -10,7 +10,7 @@
    Data: data/recap.json. Pure: buildLines().
    ============================================================ */
 
-import { load, reset } from './progress.js';
+import { load, reset } from '../progress.js';
 
 /** The screens that count as activities. Screen 5 joins when it exists. */
 export const ACTIVITY_SCREENS = ['s2', 's3', 's4', 's6', 's7'];

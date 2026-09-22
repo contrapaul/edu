@@ -17,7 +17,7 @@
    (tools). buildCitation() is pure and tested.
    ============================================================ */
 
-import { markDone } from '../sample/progress.js';
+import { markDone } from '../progress.js';
 
 function el(tag, cls, text) {
   const e = document.createElement(tag);
