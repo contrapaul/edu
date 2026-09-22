@@ -2,6 +2,10 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-22 (last): the page-one merge
+
+Paul asked for the merge to be handled. `index.html` (the plain version of page one) is now a meta-refresh redirect to `sample.html`, keeping the old title and `noindex`. Redirect rather than delete: any link that already points at `/ai/` or `/ai/index.html` lands on page one instead of a 404. The sample's footer lost its "Plain version of this page" link, which would have pointed at itself. Nothing else linked there: every nav points at `sample.html`, and `style.md`'s reference to `/index.html` is the site-root page, not this one. The glossary test still loads the file (it carries no `data-term` marks now, so it passes on its own). `plans.md` reads "redirects" instead of "delete or redirect when the merge happens", and its pages table shows all nine screens built. The one open item left over from the old decision list is gone with it.
+
 ## 2026-09-22 (and then): screen 5 is built
 
 The probability race is in, on the recorded numbers.
