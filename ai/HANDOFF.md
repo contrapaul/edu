@@ -2,6 +2,27 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-22 (later still): the capture ran, and the numbers are in
+
+Paul's decisions, then the run. Qwen3-**1.7B** (not 4B); the proper-name sentence is **dropped** (removed from `data/next-word-sentences.json`); capture on **this machine**. This box does have the tooling after all: LM Studio ships `llama-server` at `~/.lmstudio/extensions/backends/llama.cpp-linux-x86_64-avx2-2.31.2/`. No install.
+
+### What happened
+
+- The Qwen HF repo has changed since the handoff was written: `Qwen/Qwen3-1.7B-GGUF` now holds only `Q8_0` (1.83 GB); the `Q4_K_M` folder is gone (community copies are on `unsloth`). Downloaded the official **Q8_0** to `/home/paul/Qwen3-1.7B-Q8_0.gguf` (size matches HF's exactly). Same 1.7B model, better quant, still the Qwen3 family the rain and the map use.
+- LM Studio's own server already holds port 8080 (it wants an API key), so the capture server ran on **8123** and the script got `--base http://127.0.0.1:8123`. The server was stopped after the run.
+- This llama.cpp is newer than the kit expected and speaks the OpenAI-compatible logprobs shape (`choices[0].logprobs.content`). `parseLogprobs` now handles it, with a test for it (38 tests pass).
+- Two bugs found on the run, both fixed and tested: `buildSentence` duplicated the sampled token when it was already in the top list, and the request was not actually greedy (the server sampled at temperature 0.8, so the "sampled" token was not the top-1). The request now sends `temperature: 0`, matching the "greedy decode" note in the data file.
+- First run: **crowd** and **wall-title** missed the top 8. Fixes: the crowd split lost "home" ("…and the crowd went" puts "quiet" at 7); wall-title needed `--top 12` ("The" is 10th). Both are the handoff's sanctioned fixes, not fudges.
+- Final run, exit 0: `data/next-word.json` has all four sentences, model name, file, date, top-12 lists, the normalisation note. jar: "jam" at 2. bus: "bus" at 2. crowd: "quiet" at 7. wall-title: "The" at 10, **behind nine digits** ("2" at 39%, "1" at 35%).
+
+### The wall-title result is stranger and better than planned
+
+The model, asked what follows `"Hadrian's Wall: ` in a book title, thinks the next token is a **number**. The reader's five chips will read The, 2, 1, 3, 5, and the bar the reader's pick gets is 0.7% against the model's 39%. That is a more honest lesson than the planned one: the invented title was not even the model's likely word, let alone its best. Paul should look at it and decide it reads well, because the screen's copy will lean on it. (jar's chips also include the fragment token "mar" and the word "some"; the chip list is the model's honest top picks, and the screen should probably not filter them.)
+
+### State
+
+The capture kit, the data, and the fixes are in the working tree, **not committed** (`data/next-word.json` is new). Screen 5 is now unblocked: `js/sample/nextword.js`, its CSS in `css/sample.css`, the `s5` line in `ACTIVITY_SCREENS` and a recap line in `data/recap.json` (which currently jumps s4 to s6), the mount in `js/sample/main.js`, and the placeholder in `sample.html`'s s5 section coming out. The numbers on screen must match `data/next-word.json`, and the bars' label reads model and date from it.
+
 ## 2026-09-22 (evening): the next-word capture kit, and how to run it
 
 Screen 5's capture is ready to run. Paul is moving this PC and powering it down; everything needed to come back to this is in this entry. Nothing has been run against a real model yet.

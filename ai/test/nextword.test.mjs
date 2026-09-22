@@ -84,6 +84,27 @@ test('parseLogprobs reads the current llama.cpp shape', () => {
   assert.equal(p.top[1].token, ' honey');
 });
 
+test('parseLogprobs reads the OpenAI-compatible content shape', () => {
+  const resp = {
+    choices: [{
+      text: ' red', index: 0,
+      logprobs: { content: [{
+        id: 2518, token: ' red', logprob: -4.3,
+        top_logprobs: [
+          { token: ' jelly', logprob: -0.9 },
+          { token: ' jam', logprob: -1.4 },
+        ],
+      }] },
+    }],
+  };
+  const p = parseLogprobs(resp);
+  assert.equal(p.sampled.token, ' red');
+  assert.deepEqual(p.top, [
+    { token: ' jelly', logprob: -0.9 },
+    { token: ' jam', logprob: -1.4 },
+  ]);
+});
+
 test('parseLogprobs reads the older OpenAI-style shape (tokens as strings, top as a map)', () => {
   const resp = {
     logprobs: {

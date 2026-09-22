@@ -1,5 +1,5 @@
 {
-  "note": "Input for the next-word capture (screen 5). Each entry is a sentence split at one point: `prefix` is what the reader sees typed out, `hidden` is the next word in the sentence. The capture records the model's top probabilities at that point, and the screen offers five chips: the hidden word plus the model's top picks. Paul: pick four or five of these; the one marked optional may be dropped. The last one is fixed: it is the invented book title from the 2023 transcript, and it comes last.",
+  "note": "Input for the next-word capture (screen 5). Each entry is a sentence split at one point: `prefix` is what the reader sees typed out, `hidden` is the next word in the sentence. The capture records the model's top probabilities at that point, and the screen offers five chips: the hidden word plus the model's top picks. Paul dropped the proper-name sentence on 2026-09-22. The last one is fixed: it is the invented book title from the 2023 transcript, and it comes last.",
   "sentences": [
     {
       "id": "jar",
@@ -18,17 +18,9 @@
     {
       "id": "crowd",
       "kind": "ambiguous",
-      "prefix": "The match ended one all, and the home crowd went",
+      "prefix": "The match ended one all, and the crowd went",
       "hidden": "quiet",
       "note": "Several endings are likely. The model's top pick may not be the reader's."
-    },
-    {
-      "id": "hill",
-      "kind": "proper-name",
-      "optional": true,
-      "prefix": "The old map showed the river bending north around a hill called",
-      "hidden": "Grip",
-      "note": "A name the model has not read in this context. Its top picks will be generic words, and that is the lesson: prediction runs out where the world is specific. Paul: swap in a real place name if you have one in mind."
     },
     {
       "id": "wall-title",

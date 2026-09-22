@@ -91,10 +91,20 @@ export function pickCandidates(top, hidden, count = 5) {
 
 /** Pull the sampled token and its top list out of a response.
  *  Handles the current llama.cpp shape
- *  (logprobs.tokens[0] = { token, logprob, top_logprobs: [{token, logprob}] })
+ *  (logprobs.tokens[0] = { token, logprob, top_logprobs: [{token, logprob}] }),
+ *  the newer OpenAI-compatible shape
+ *  (choices[0].logprobs.content[0] = { token, logprob, top_logprobs: [...] }),
  *  and the older OpenAI-style one
  *  (logprobs.tokens[0] a string, top_logprobs[0] a map or a list). */
 export function parseLogprobs(resp) {
+  const content = resp && resp.choices
+    && resp.choices[0] && resp.choices[0].logprobs
+    && resp.choices[0].logprobs.content;
+  if (Array.isArray(content) && content.length) {
+    const t0 = content[0];
+    const top = (t0.top_logprobs || []).map((t) => ({ token: t.token, logprob: t.logprob }));
+    return { sampled: { token: t0.token, logprob: t0.logprob }, top };
+  }
   const lp = resp && resp.logprobs;
   if (!lp || !Array.isArray(lp.tokens) || !lp.tokens.length) {
     throw new Error('response has no logprobs.tokens: ' + JSON.stringify(resp).slice(0, 200));
@@ -117,7 +127,7 @@ export function parseLogprobs(resp) {
 /** Turn one sentence plus one parsed response into the data-file entry. */
 export function buildSentence(sent, parsed, topK = 8) {
   let top = parsed.top.map((t) => ({ token: t.token, prob: toProb(t.logprob) }));
-  if (!top.length || normToken(top[0].token) !== normToken(parsed.sampled.token)) {
+  if (!top.some((t) => normToken(t.token) === normToken(parsed.sampled.token))) {
     top.unshift({ token: parsed.sampled.token, prob: toProb(parsed.sampled.logprob) });
   }
   top = top.slice(0, topK);
@@ -183,7 +193,7 @@ async function main() {
     const resp = await (await fetch(opts.base + '/v1/completions', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ model: modelName, prompt: s.prefix, max_tokens: 1, logprobs: opts.top }),
+      body: JSON.stringify({ model: modelName, prompt: s.prefix, max_tokens: 1, logprobs: opts.top, temperature: 0 }),
     })).json();
     const entry = buildSentence(s, parseLogprobs(resp), opts.top);
     sentences.push(entry);

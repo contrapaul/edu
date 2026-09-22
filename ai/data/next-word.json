@@ -1,0 +1,401 @@
+{
+  "note": "Recorded next-word probabilities for screen 5, \"The next word\". One pass per sentence, greedy decode. Captured with dev/capture-next-word.mjs.",
+  "model": {
+    "name": "/home/paul/Qwen3-1.7B-Q8_0.gguf",
+    "file": "Qwen3-1.7B-Q8_0.gguf",
+    "servedBy": "http://127.0.0.1:8123",
+    "capturedOn": "2026-09-22",
+    "topK": 12
+  },
+  "normalisation": "prob is exp(logprob) over the model's full vocabulary, so the top list does not sum to 1. Each number is how likely the model thought that token was.",
+  "sentences": [
+    {
+      "id": "jar",
+      "kind": "everyday",
+      "prefix": "She opened the cupboard and found a jar of",
+      "hidden": "jam",
+      "best": " jelly",
+      "bestProb": 0.08250316812830517,
+      "hiddenRank": 2,
+      "top": [
+        {
+          "token": " jelly",
+          "prob": 0.08250316812830517
+        },
+        {
+          "token": " jam",
+          "prob": 0.04787666225107749
+        },
+        {
+          "token": " honey",
+          "prob": 0.040352195583585444
+        },
+        {
+          "token": " mar",
+          "prob": 0.03635511165457283
+        },
+        {
+          "token": " some",
+          "prob": 0.031217941408235923
+        },
+        {
+          "token": " her",
+          "prob": 0.019553512263967395
+        },
+        {
+          "token": "...",
+          "prob": 0.01884557256006378
+        },
+        {
+          "token": " ",
+          "prob": 0.01762645471232875
+        },
+        {
+          "token": " pick",
+          "prob": 0.015883436122913326
+        },
+        {
+          "token": " something",
+          "prob": 0.015873169352663814
+        },
+        {
+          "token": " fish",
+          "prob": 0.014383137839386499
+        },
+        {
+          "token": " red",
+          "prob": 0.01278491953348551
+        }
+      ],
+      "candidates": [
+        {
+          "word": "jam",
+          "token": " jam",
+          "prob": 0.04787666225107749,
+          "isHidden": true,
+          "isTop": false
+        },
+        {
+          "word": "jelly",
+          "token": " jelly",
+          "prob": 0.08250316812830517,
+          "isHidden": false,
+          "isTop": true
+        },
+        {
+          "word": "honey",
+          "token": " honey",
+          "prob": 0.040352195583585444,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "mar",
+          "token": " mar",
+          "prob": 0.03635511165457283,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "some",
+          "token": " some",
+          "prob": 0.031217941408235923,
+          "isHidden": false,
+          "isTop": false
+        }
+      ],
+      "note": "A word almost everyone will guess. The spread of the model's probabilities shows how 'sure' a prediction really is."
+    },
+    {
+      "id": "bus",
+      "kind": "near-certain",
+      "prefix": "We waited twenty minutes at the stop for the six-fifty",
+      "hidden": "bus",
+      "best": " train",
+      "bestProb": 0.7746585118701097,
+      "hiddenRank": 2,
+      "top": [
+        {
+          "token": " train",
+          "prob": 0.7746585118701097
+        },
+        {
+          "token": " bus",
+          "prob": 0.15442807073960407
+        },
+        {
+          "token": " express",
+          "prob": 0.01848550379661811
+        },
+        {
+          "token": " subway",
+          "prob": 0.008852439348511668
+        },
+        {
+          "token": " line",
+          "prob": 0.007882357818318742
+        },
+        {
+          "token": " local",
+          "prob": 0.002380176225977106
+        },
+        {
+          "token": ",",
+          "prob": 0.002364754675632426
+        },
+        {
+          "token": ".",
+          "prob": 0.002228156461589281
+        },
+        {
+          "token": " one",
+          "prob": 0.0016374804038889555
+        },
+        {
+          "token": " tram",
+          "prob": 0.0015269459856589243
+        },
+        {
+          "token": " service",
+          "prob": 0.0012400020924411654
+        },
+        {
+          "token": " that",
+          "prob": 0.0011916275390101306
+        }
+      ],
+      "candidates": [
+        {
+          "word": "bus",
+          "token": " bus",
+          "prob": 0.15442807073960407,
+          "isHidden": true,
+          "isTop": false
+        },
+        {
+          "word": "train",
+          "token": " train",
+          "prob": 0.7746585118701097,
+          "isHidden": false,
+          "isTop": true
+        },
+        {
+          "word": "express",
+          "token": " express",
+          "prob": 0.01848550379661811,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "subway",
+          "token": " subway",
+          "prob": 0.008852439348511668,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "line",
+          "token": " line",
+          "prob": 0.007882357818318742,
+          "isHidden": false,
+          "isTop": false
+        }
+      ],
+      "note": "A near-certain pick, for contrast with the open ones."
+    },
+    {
+      "id": "crowd",
+      "kind": "ambiguous",
+      "prefix": "The match ended one all, and the crowd went",
+      "hidden": "quiet",
+      "best": " wild",
+      "bestProb": 0.6001067910420407,
+      "hiddenRank": 7,
+      "top": [
+        {
+          "token": " wild",
+          "prob": 0.6001067910420407
+        },
+        {
+          "token": " silent",
+          "prob": 0.062027165390360336
+        },
+        {
+          "token": " crazy",
+          "prob": 0.056058789188568235
+        },
+        {
+          "token": " to",
+          "prob": 0.03432109936042465
+        },
+        {
+          "token": " nuts",
+          "prob": 0.03212420004138752
+        },
+        {
+          "token": " into",
+          "prob": 0.03152419985469737
+        },
+        {
+          "token": " quiet",
+          "prob": 0.024573652743087274
+        },
+        {
+          "token": " out",
+          "prob": 0.02025263583346589
+        },
+        {
+          "token": " absolutely",
+          "prob": 0.01699970629685152
+        },
+        {
+          "token": " mad",
+          "prob": 0.01475479038421875
+        },
+        {
+          "token": " for",
+          "prob": 0.009050199724994875
+        },
+        {
+          "token": " on",
+          "prob": 0.007767698124108455
+        }
+      ],
+      "candidates": [
+        {
+          "word": "quiet",
+          "token": " quiet",
+          "prob": 0.024573652743087274,
+          "isHidden": true,
+          "isTop": false
+        },
+        {
+          "word": "wild",
+          "token": " wild",
+          "prob": 0.6001067910420407,
+          "isHidden": false,
+          "isTop": true
+        },
+        {
+          "word": "silent",
+          "token": " silent",
+          "prob": 0.062027165390360336,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "crazy",
+          "token": " crazy",
+          "prob": 0.056058789188568235,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "to",
+          "token": " to",
+          "prob": 0.03432109936042465,
+          "isHidden": false,
+          "isTop": false
+        }
+      ],
+      "note": "Several endings are likely. The model's top pick may not be the reader's."
+    },
+    {
+      "id": "wall-title",
+      "kind": "the-invented-title",
+      "prefix": "You could also read a book called \"Hadrian's Wall: ",
+      "hidden": "The",
+      "best": "2",
+      "bestProb": 0.3903975864302275,
+      "hiddenRank": 10,
+      "top": [
+        {
+          "token": "2",
+          "prob": 0.3903975864302275
+        },
+        {
+          "token": "1",
+          "prob": 0.3484728188813528
+        },
+        {
+          "token": "3",
+          "prob": 0.0673342978064452
+        },
+        {
+          "token": "5",
+          "prob": 0.06645634504107598
+        },
+        {
+          "token": "4",
+          "prob": 0.05726742820291937
+        },
+        {
+          "token": "6",
+          "prob": 0.016537027833035758
+        },
+        {
+          "token": "7",
+          "prob": 0.011966098213473537
+        },
+        {
+          "token": "8",
+          "prob": 0.011557484548440827
+        },
+        {
+          "token": "9",
+          "prob": 0.00903985713856522
+        },
+        {
+          "token": " The",
+          "prob": 0.0066969119565963246
+        },
+        {
+          "token": " A",
+          "prob": 0.003737680145136249
+        },
+        {
+          "token": "0",
+          "prob": 0.0015771339208784864
+        }
+      ],
+      "candidates": [
+        {
+          "word": "The",
+          "token": " The",
+          "prob": 0.0066969119565963246,
+          "isHidden": true,
+          "isTop": false
+        },
+        {
+          "word": "2",
+          "token": "2",
+          "prob": 0.3903975864302275,
+          "isHidden": false,
+          "isTop": true
+        },
+        {
+          "word": "1",
+          "token": "1",
+          "prob": 0.3484728188813528,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "3",
+          "token": "3",
+          "prob": 0.0673342978064452,
+          "isHidden": false,
+          "isTop": false
+        },
+        {
+          "word": "5",
+          "token": "5",
+          "prob": 0.06645634504107598,
+          "isHidden": false,
+          "isTop": false
+        }
+      ],
+      "note": "The full title that follows is the one the 2023 model invented: \"Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce\". The real book by Collingwood Bruce is \"Handbook to the Roman Wall\" (1863). The prefix here is ours; the probabilities are the model's."
+    }
+  ]
+}
