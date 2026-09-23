@@ -2,6 +2,14 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-22 (later): the re-dated post's comments clue, reworded
+
+Paul spotted the weakest clue in screen 6: the sticker read "Older than the post", but the comments (2019, 2020, 2021) are newer than the 2019 publication and older than the claimed 2026 update, and stale comments on their own are not a red flag at all. Two fixes were offered; Paul chose the rewording (option A), keeping the dates as they are.
+
+- The sticker is now **"Dead since 2021"** and the note states the actual argument: the newest comment is five years before the claimed 2026 update, a page that was really updated gets some readers, this one got none, so the date moved to look fresh and the recipe never changed. That is the screen's real lesson ("the update was the date itself"), and the wipe already proves the text is identical.
+- The anachronism option (a 2026 comment thanking the page for an update that had not happened) was considered and set aside for now; it would be the stronger slam-dunk version if the clue ever needs more force.
+- Changed: the comments entry in `data/redated.json`, the header line in `js/sample/redated.js` that repeated the old framing, and the same phrasing in `showcase-plan.md` screen 6 ("comments dated before the 'publish' date"). No component logic touched; the screen reads everything from the data file. 42/42 tests.
+
 ## 2026-09-22 (last): the page-one merge
 
 Paul asked for the merge to be handled. `index.html` (the plain version of page one) is now a meta-refresh redirect to `sample.html`, keeping the old title and `noindex`. Redirect rather than delete: any link that already points at `/ai/` or `/ai/index.html` lands on page one instead of a 404. The sample's footer lost its "Plain version of this page" link, which would have pointed at itself. Nothing else linked there: every nav points at `sample.html`, and `style.md`'s reference to `/index.html` is the site-root page, not this one. The glossary test still loads the file (it carries no `data-term` marks now, so it passes on its own). `plans.md` reads "redirects" instead of "delete or redirect when the merge happens", and its pages table shows all nine screens built. The one open item left over from the old decision list is gone with it.

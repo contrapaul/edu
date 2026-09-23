@@ -64,7 +64,7 @@ Still version: the bars already out, the reader's pick disabled.
 
 ### 6. The web the model reads: the re-dated post
 
-A fake browser window, with its own chrome, showing a mock recipe post. Nothing pulses at first; the reader has to look. Hovering (or tapping) anything reveals whether it was a clue: the "Updated 3 days ago" line with no note about what changed, the four affiliate links, the paragraph that says nothing, the comments dated before the "publish" date. Each found clue adds a sticker to the window's edge. Then a slider appears across the window: drag it and the page wipes to the original 2019 version. The only difference is the date line, and it lights up.
+A fake browser window, with its own chrome, showing a mock recipe post. Nothing pulses at first; the reader has to look. Hovering (or tapping) anything reveals whether it was a clue: the "Updated 3 days ago" line with no note about what changed, the four affiliate links, the paragraph that says nothing, and comments whose last reader is in 2021 against the claimed 2026 update. Each found clue adds a sticker to the window's edge. Then a slider appears across the window: drag it and the page wipes to the original 2019 version. The only difference is the date line, and it lights up.
 
 What it says: recency can be faked, and the check is cheap.
 
