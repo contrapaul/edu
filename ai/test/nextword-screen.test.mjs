@@ -91,7 +91,7 @@ test('every recorded sentence has a lesson, and its numbers come from the record
     for (const [, k] of lesson.matchAll(/\{(\w+)\}/g)) {
       assert.ok(k in vars && vars[k] != null && vars[k] !== '?', `${s.id}: {${k}} has a value`);
     }
-    // the twelve bars and "every other piece" make up the whole 100%
+    // the twelve bars and "Other potential choices" make up the whole 100%
     const total = s.top.reduce((a, t) => a + t.prob, 0) + restProb(s.top);
     assert.ok(Math.abs(total - 1) < 1e-9, `${s.id}: the bars sum to 100%`);
   }

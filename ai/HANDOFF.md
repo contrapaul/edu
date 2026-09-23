@@ -2,6 +2,12 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-23 (late): the web section's paragraph width is fixed
+
+- **What was wrong.** On `learn.html` section 3 ("The web after AI"), the first paragraph ran the full copy width while the five that followed stopped at roughly 60% of it.
+- **Cause.** The first paragraph is a `.section-head p`, which is `max-width: none` like every other copy element on the site. The other five sit in `.prose`, and that class carried `max-width: var(--measure)` (64ch, about 544px against a wrap that runs to about 1000px). That width rule was added when the section was built, and it contradicted the settled 09-23 layout decision that copy runs as wide as the activities below it, unconstrained by `--measure`.
+- **Fix.** The width rule is out of `css/site.css`; `.prose` now only spaces its children (`> * + * { margin-top: 1em }`). The five paragraphs run the wrap width, level with the first. The about page's placeholder columns use the same class, so they widened too, which is the site-wide convention. 46/46.
+
 ## 2026-09-23 (night): the About page is built, waiting on Paul's copy
 
 - **What was asked.** A final page, `about.html`, where Paul writes the final copy himself: the deliverable is the structure, the motion, and a read-through that carries the reader to the end. No interactive elements; placeholder text for formatting.

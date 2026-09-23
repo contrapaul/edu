@@ -4,7 +4,7 @@
    The sentence types itself out and stops at the hidden word.
    Five chips: the sentence's word plus the model's top picks.
    The reader taps one; bars race out for all twelve recorded
-   pieces plus "every other piece" (what is left of 100%), on
+   pieces plus "Other potential choices" (what is left of 100%), on
    one 0 to 100% scale, the numbers counting up. The reader's
    pick is outlined, the model's top pulses, a match gets a
    small burst of chips. Pieces are shown as the model sees
@@ -36,7 +36,7 @@ const STRINGS = {
   result: 'The model\u2019s top word was \u201c{top}\u201d ({topProb}). It put {pickProb} on \u201c{pick}\u201d.',
   oddsHead: 'The model\u2019s chances for the next piece',
   spaceKey: '\u2423 is a space',
-  rest: 'every other piece',
+  rest: 'Other potential choices',
   rollIntro: 'A chatbot does not always write its top piece. It picks at random, weighted by chances like these, so a piece with 40% comes up about 4 times in 10.',
   roll: 'Let the model pick',
   roll20: 'Pick 20 times',
