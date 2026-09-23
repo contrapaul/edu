@@ -126,7 +126,7 @@ ai/
 - **Build order.** A slick, engaging experience first, with placeholders where content isn't developed. The site must be genuinely fun to use or students won't stay.
 - **Page one (2026-09-22, merged 2026-09-23).** The showcase build is page one, and it lives in `index.html` with `css/index.css` and `js/index/`, so `/ai/` loads it with no redirect and nothing it loads is called "sample". The plain version it replaced is in the git history.
 - **Look (2026-09-18).** Fully distinct from the rest of edu.contrapaul.com: own header, own tokens, own fonts (IBM Plex Sans and JetBrains Mono, self-hosted), light and dark. The site's win95 theme doesn't apply here.
-- **Header (2026-09-23).** No status tag on the wordmark on any page (the "· draft" and "· sample" tags and the `.wordmark-sub` style are gone), and page one's section labels are the numbers only ("1 of 9" to "9 of 9").
+- **Header (2026-09-23).** No status tag on the wordmark on any page (the "· draft" and "· sample" tags and the `.wordmark-sub` style are gone), and every page's section labels are the numbers only ("1 of 9" to "9 of 9" on page one, "1 of 5" to "5 of 5" on pages two and three).
 
 ## Live sessions: what the blurt/cloud pattern means here
 
@@ -180,7 +180,8 @@ All pages share the site-wide skin (hues, tint, stripes, rail, labels): each sec
 | File | What |
 |---|---|
 | `index.html` | Page one, all nine screens built, plus the one-off activities (styles in `css/index.css`, modules in `js/index/`). |
-| `learn.html`, `line.html` | Pages two and three, skeletons with placeholders (page three has the card sort, citation builder and case studies built). |
+| `learn.html` | Page two: skeleton with placeholders, plus "The web after AI" (section 3, argument only, no activity yet). |
+| `line.html` | Page three, skeleton with placeholders (the card sort, citation builder and case studies are built). |
 | `glossary.html` | Rendered from `data/glossary.json`. Hover cards on every page. |
 | `dev/player.html` | Transcript player test bed. |
 
