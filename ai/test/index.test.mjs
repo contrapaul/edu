@@ -111,7 +111,7 @@ test('glossary data is complete and every marked term on the pages exists', asyn
     for (const l of t.links) assert.match(l.url, /^https:\/\/en\.wikipedia\.org\/wiki\/\S+$/);
   }
   assert.ok(letterIndex(g.terms).size >= 8);
-  for (const page of ['index.html', 'learn.html', 'line.html']) {
+  for (const page of ['index.html', 'learn.html', 'line.html', 'about.html']) {
     const html = await readFile(new URL('../' + page, import.meta.url), 'utf8');
     for (const m of html.matchAll(/data-term="([^"]+)"/g)) assert.ok(ids.has(m[1]), page + ' marks unknown term ' + m[1]);
   }

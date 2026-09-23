@@ -59,7 +59,7 @@ Three long pages, each with a teacher-facing presentation counterpart. Working t
 3. **Where the line is.** Clear cheating, clear fine, and the edge cases between. Citation: when, how, and in what format. Teacher scenarios, including Paul's own. Proposed guidelines students and teachers can argue with.
 
 Plus:
-- **About / rationale.** Why this exists, Paul's position, methodology, and (proposed) a statement of how AI was used to build the site itself. Practicing the citation guidance on the site that gives it.
+- **About / rationale.** Why this exists, Paul's position, methodology, and a statement of how AI was used to build the site itself. Practicing the citation guidance on the site that gives it. **Built** as `about.html` (2026-09-23): the structure, the motion, and the read-through are done; the copy is placeholder until Paul writes it.
 - **Glossary.** Rendered from one data file, hover cards on every marked term.
 - **Present.** Teacher-facing interactive pages, one per long page or one per activity. See `interactive.md`.
 
@@ -173,7 +173,7 @@ The toolkit:
 
 Settled 2026-09-22 (Paul): the sample's look is the look of the project, and `sample.html` is page one. Its global touches (per-section hues, the scroll-scrubbed page tint, the skewed stripes, the section labels, the progress rail, the hand-off band, the coming panel) are now the site-wide skin, in `css/site.css` with `js/stripes.js`, `js/rail.js` and `js/progress.js`, and every page uses it. Its one-off activities remain specific to page one. Since 2026-09-23 the page is `index.html` (it was `sample.html`), its styles are `css/index.css` and its modules `js/index/` (they were `css/sample.css` and `js/sample/`).
 
-## Pages as they stand (2026-09-22)
+## Pages as they stand (2026-09-23)
 
 All pages share the site-wide skin (hues, tint, stripes, rail, labels): each section is a `.screen` with its own `--hue`, and the global pieces live in `css/site.css`, `js/stripes.js`, `js/rail.js`, `js/progress.js`.
 
@@ -183,6 +183,7 @@ All pages share the site-wide skin (hues, tint, stripes, rail, labels): each sec
 | `learn.html` | Page two: skeleton with placeholders, plus "The web after AI" (section 3, argument only, no activity yet). |
 | `line.html` | Page three, skeleton with placeholders (the card sort, citation builder and case studies are built). |
 | `glossary.html` | Rendered from `data/glossary.json`. Hover cards on every page. |
+| `about.html` | The about/rationale page: six story screens (why, who, what I have seen, what I believe, how it was made, the end). Structure and motion are built (styles in `css/about.css`, logic in `js/about/main.js`); the copy is Paul's to write, every slot a bracketed `[Placeholder: ...]`. |
 | `dev/player.html` | Transcript player test bed. |
 
 ## Build log

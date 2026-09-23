@@ -8,7 +8,7 @@ import { initColour } from '../stripes.js';
 import { mountRail } from '../rail.js';
 import { mountScorecard } from './scorecard.js';
 import { mountRain } from './rain.js';
-import { typeInto } from './typed.js';
+import { typeInto } from '../typed.js';
 import { mountWall } from './wall.js';
 import { mountTimeline } from './timeline.js';
 import { mountNextword } from './nextword.js';

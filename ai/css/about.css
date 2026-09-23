@@ -1,0 +1,139 @@
+/* ============================================================
+   About page: the story motion and the read-through
+   ------------------------------------------------------------
+   The site-wide skin (screens, hues, stripes, rail, hero,
+   band, footer) lives in css/site.css. This file holds only
+   what is specific to the about page: the typed hero, the
+   sentence that assembles as you scroll, the site's own
+   record, and the end moment.
+
+   Everything here has a still fallback: reduced motion and
+   teacher mode get the same content, shown without movement.
+   ============================================================ */
+
+/* ---------- the typed hero ---------- */
+
+/* the title types from empty, so reserve a line and the copy below does not jump */
+.hero h1 { min-height: 1.15em; }
+
+.typed-cursor {
+  display: inline-block;
+  width: 0.08em; height: 0.9em;
+  margin-left: 0.06em;
+  vertical-align: -0.08em;
+  background: currentColor;
+  animation: about-blink 900ms steps(2, start) infinite;
+}
+@keyframes about-blink { to { visibility: hidden; } }
+
+/* the copy under the hero waits for the title, then steps in one by one */
+.after-typed { opacity: 0; transform: translateY(10px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); }
+.after-typed.is-shown { opacity: 1; transform: none; }
+
+/* ---------- the one sentence: it assembles as you scroll ---------- */
+
+.assemble-stage { margin-top: var(--sp-5); }
+.assemble-stage.is-pinned { height: calc(100vh + 120vh); }
+.assemble-stage.is-pinned .assemble-scene { position: sticky; top: 72px; }
+.assemble-scene { display: grid; min-height: 70vh; align-content: center; }
+.assemble-line {
+  margin: 0 auto;
+  max-width: 30ch;
+  font-size: var(--fs-6);
+  line-height: 1.3;
+  text-align: center;
+}
+.assemble-line .w { display: inline-block; }
+
+/* ---------- the site's own record ---------- */
+
+/* the evidence-style block: mono labels, like the transcript labels on page one */
+.about-cite {
+  margin: var(--sp-6) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--sp-2) var(--sp-5);
+}
+.about-cite > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-top: 1px solid var(--border);
+}
+.about-cite > div:first-child { border-top: none; }
+.about-cite dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-top: 0.2em;
+}
+.about-cite dd { margin: 0; }
+@media (max-width: 600px) {
+  .about-cite > div { grid-template-columns: 1fr; gap: var(--sp-1); }
+}
+
+/* ---------- the end ---------- */
+
+/* Base state is "shown". JavaScript marks the moment pending on
+   load, so without JS nothing on this page is ever hidden. */
+.end-moment { margin-top: var(--sp-6); text-align: center; }
+.end-line {
+  margin: 0 auto;
+  max-width: 34ch;
+  font-size: var(--fs-4);
+  color: var(--text-2);
+  opacity: 1;
+  transition: opacity 400ms var(--ease-out);
+}
+.end-stamp {
+  display: inline-block;
+  margin-top: var(--sp-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  padding: 0.55em 1em;
+  opacity: 1;
+  transform: scale(1) rotate(-3deg);
+  transition: opacity 450ms var(--ease-out), transform 450ms var(--ease-out);
+}
+.end-close {
+  margin: var(--sp-5) auto 0;
+  max-width: 42ch;
+  color: var(--text-2);
+  opacity: 1;
+  transform: none;
+  transition: opacity 600ms var(--ease-out) 150ms, transform 600ms var(--ease-out) 150ms;
+}
+.end-moment.is-pending .end-line { opacity: 0; }
+.end-moment.is-pending .end-stamp { opacity: 0; transform: scale(1.5) rotate(-6deg); }
+.end-moment.is-pending .end-close { opacity: 0; transform: translateY(8px); }
+/* the line appears when the moment starts playing, before the typing is done */
+.end-moment.is-playing .end-line { opacity: 1; }
+
+.credits {
+  margin-top: var(--sp-6);
+  font-family: var(--font-mono);
+  font-size: var(--fs-1);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- still fallbacks ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .typed-cursor { animation: none; }
+  .after-typed,
+  .end-line,
+  .end-stamp,
+  .end-close { transition: none; }
+  .assemble-stage.is-pinned { height: auto; }
+  .assemble-stage.is-pinned .assemble-scene { position: static; min-height: 0; }
+}

@@ -77,7 +77,7 @@ Settled 2026-09-22 (Paul): the look found on the showcase build of page one is t
 - The hand-off to the next page is the `.band`: a tinted, bordered block with a mono eyebrow, a large title and an arrow.
 - Layout (Paul, 2026-09-23): titles and the section label are centred; the copy under them runs as wide as the activities and stays left-aligned.
 
-The one-off activities on page one (rain, scorecard, wall, timeline, next word, re-dated post, map, recap) are not the standard for other elements; they carry their own looks and stay where they are.
+The one-off activities on page one (rain, scorecard, wall, timeline, next word, re-dated post, map, recap) are not the standard for other elements; they carry their own looks and stay where they are. The same rule covers the about page's story motion (the typed title, the sentence that assembles on scroll, the read-in-full stamp, the rail that fills as you read): its own looks in `css/about.css`, its own logic in `js/about/main.js`, still fallbacks for reduced motion and teacher mode.
 
 Open:
 

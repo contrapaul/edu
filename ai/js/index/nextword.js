@@ -26,7 +26,7 @@
    ============================================================ */
 
 import { markDone } from '../progress.js';
-import { typeInto } from './typed.js';
+import { typeInto } from '../typed.js';
 
 const STRINGS = {
   prompt: 'What comes next? Pick one.',
