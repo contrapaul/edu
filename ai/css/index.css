@@ -1,6 +1,6 @@
 /* ============================================================
-   Sample page: the one-off activities (scorecard, rain, wall,
-   timeline, re-dated post, map, recap)
+   Page one (index.html): the one-off activities (scorecard,
+   rain, wall, timeline, next word, re-dated post, map, recap)
    ------------------------------------------------------------
    The global skin (screens, hues, the page tint, stripes, the
    rail, the .placeholder and .band, the .screen-n labels) is
@@ -81,9 +81,9 @@
   width: 100%; height: 100%;
   z-index: 0;
   pointer-events: none;
-  /* thinner where the text sits, so the words stay readable */
-  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.5) 55%, rgba(0, 0, 0, 1) 85%);
-  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.5) 55%, rgba(0, 0, 0, 1) 85%);
+  /* thinner where the text sits (the centred column), so the words stay readable */
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 20%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 20%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 1) 100%);
 }
 .hero--rain .lede, .hero--rain h1, .hero--rain .rain-note { text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg); }
 .hero--rain .wrap { width: 100%; }
@@ -103,7 +103,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-1);
   color: var(--muted);
-  max-width: 48ch;
+  max-width: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .typed-cursor { animation: none; }
@@ -501,14 +501,13 @@
 .nw-card {
   position: relative;
   overflow: hidden;
-  max-width: 760px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--sp-5) var(--sp-6);
   box-shadow: var(--shadow-sm);
 }
-.nw-sentence { margin: 0 0 var(--sp-5); font-size: var(--fs-4); line-height: 1.45; min-height: 2.6em; }
+.nw-sentence { margin: 0 0 var(--sp-5); font-size: var(--fs-5); line-height: 1.4; min-height: 2.8em; max-width: none; }
 .nw-slot {
   display: inline-block;
   min-width: 3.2em;
@@ -519,6 +518,7 @@
   font-family: var(--font-mono);
 }
 .nw-slot.is-filled { border-bottom-color: var(--ink); color: var(--ink); font-weight: 600; }
+.nw-slot.is-rolled { border-bottom-color: var(--accent-2); color: var(--accent-2); }
 .nw-chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .nw-chip {
   font: inherit;
@@ -536,20 +536,48 @@
 .nw-chip:hover:not(:disabled) { border-color: var(--ink); }
 .nw-chip:disabled { cursor: default; }
 .nw-chip.is-picked { border-color: var(--accent); background: var(--accent-bg); box-shadow: 0 0 0 3px var(--accent-bg); }
-.nw-bars { display: grid; gap: 10px; margin-top: var(--sp-5); }
-.nw-bar { display: grid; grid-template-columns: minmax(70px, 96px) 1fr auto; align-items: center; gap: 12px; }
-.nw-bar-word { font-weight: 500; font-size: var(--fs-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.nw-bar-track { height: 18px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
-.nw-bar-fill { height: 100%; width: 0; background: var(--band); border-radius: 4px 0 0 4px; }
-.nw-bar-num { font-family: var(--font-mono); font-size: var(--fs-2); min-width: 5.5em; text-align: right; }
+.nw-status { margin: var(--sp-4) 0 0; min-height: 1.6em; font-size: var(--fs-3); color: var(--text); max-width: none; }
+
+/* after the pick: the odds beside the lesson and the draw */
+.nw-result {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--sp-6);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--border);
+}
+.nw-result[hidden] { display: none; }
+.nw-odds-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; font-weight: 600; font-size: var(--fs-2); margin-bottom: var(--sp-3); max-width: none; }
+.nw-key { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-1); color: var(--muted); }
+.nw-bars { display: grid; gap: 6px; }
+.nw-bar { display: grid; grid-template-columns: minmax(84px, 7.5em) 1fr 4.6em 2.6em; align-items: center; gap: 10px; border-radius: 6px; }
+.nw-bar-word { font-family: var(--font-mono); font-size: var(--fs-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nw-bar-track { height: 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.nw-bar-fill { height: 100%; width: 0; min-width: 2px; background: var(--band); border-radius: 3px 0 0 3px; }
+.nw-bar-num { font-family: var(--font-mono); font-size: var(--fs-1); text-align: right; }
+.nw-bar-count { font-family: var(--font-mono); font-size: var(--fs-1); color: var(--accent-2); font-weight: 500; }
 .nw-bar.is-picked .nw-bar-track { outline: 2px solid var(--accent); outline-offset: 2px; }
 .nw-bar.is-top .nw-bar-fill { background: var(--ink); animation: nw-pulse 1.4s ease-in-out infinite; }
 .nw-bar.is-top .nw-bar-num { color: var(--ink); font-weight: 600; }
+.nw-bar.is-rest { margin-top: 6px; padding-top: 8px; border-top: 1px dashed var(--border-strong); border-radius: 0; }
+.nw-bar.is-rest .nw-bar-word { font-family: var(--font-sans); font-style: italic; color: var(--muted); white-space: normal; line-height: 1.2; }
+.nw-bar.is-rest .nw-bar-fill { background: repeating-linear-gradient(135deg, var(--border-strong) 0 4px, transparent 4px 8px); }
+/* the draw: a flicker down the bars, then the landing */
+.nw-bar.is-rolling { background: color-mix(in oklab, var(--accent-2) 14%, transparent); }
+.nw-bar.is-landed { background: color-mix(in oklab, var(--accent-2) 20%, transparent); }
+.nw-bar.is-landed .nw-bar-word { color: var(--accent-2); font-weight: 600; }
 @keyframes nw-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-.nw-status { margin: var(--sp-4) 0 0; min-height: 1.6em; font-size: var(--fs-3); color: var(--text); }
-.nw-note { margin: var(--sp-2) 0 0; font-size: var(--fs-2); font-style: italic; color: var(--muted); }
+
+.nw-side { display: flex; flex-direction: column; gap: var(--sp-4); }
+.nw-lesson { max-width: none; color: var(--text-2); }
+.nw-roll { padding: var(--sp-4); border-radius: var(--radius); background: var(--surface-2); border: 1px solid var(--border); }
+.nw-roll-intro { max-width: none; font-size: var(--fs-2); color: var(--text-2); }
+.nw-roll-bar { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+.nw-roll-status { max-width: none; margin-top: var(--sp-3); min-height: 1.5em; font-size: var(--fs-2); color: var(--accent-2); }
+
 .nw-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3); margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: 1px solid var(--border); }
-.nw-src { flex: 1 1 20ch; margin: 0; font-family: var(--font-mono); font-size: var(--fs-1); color: var(--muted); }
+.nw-src { flex: 1 1 20ch; margin: 0; font-family: var(--font-mono); font-size: var(--fs-1); color: var(--muted); max-width: none; }
 .nw-burst-chip {
   position: absolute;
   width: 14px;
@@ -559,10 +587,14 @@
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) { .nw-bar.is-top .nw-bar-fill { animation: none; } }
+@media (max-width: 860px) {
+  .nw-result { grid-template-columns: 1fr; gap: var(--sp-5); }
+}
 @media (max-width: 600px) {
   .nw-card { padding: var(--sp-4); }
-  .nw-bar { grid-template-columns: 64px 1fr auto; gap: 8px; }
-  .nw-bar-num { min-width: 4.5em; font-size: var(--fs-1); }
+  .nw-sentence { font-size: var(--fs-4); }
+  .nw-bar { grid-template-columns: 5.2em 1fr 4.2em 2.2em; gap: 6px; }
+  .nw-bar-word { font-size: var(--fs-1); }
 }
 
 /* ---------- screen 8: the recap ---------- */

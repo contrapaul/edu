@@ -9,7 +9,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 /* ============================================================
-   Page skin (site-wide, from the sample page)
+   Page skin (site-wide, first built for page one)
    ------------------------------------------------------------
    Every .screen owns a hue (--hue on the section). The page's
    own hue (--page-hue on <html>) is driven by scroll
@@ -194,6 +194,8 @@ strong { font-weight: 600; }
   font-size: var(--fs-1);
   color: var(--ink);
   margin-bottom: var(--sp-3);
+  text-align: center;
+  max-width: none;
 }
 
 /* a slot for an interactive that isn't built yet */
@@ -277,7 +279,8 @@ strong { font-weight: 600; }
 .hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(64px, 10vh, 120px) 0 clamp(48px, 7vh, 88px);
+  /* the bottom clears the next section's stripe, which rises toward the right edge */
+  padding: clamp(64px, 10vh, 120px) 0 clamp(104px, 13vh, 150px);
   isolation: isolate;
 }
 .eyebrow {
@@ -288,16 +291,19 @@ strong { font-weight: 600; }
   text-transform: uppercase;
   margin-bottom: var(--sp-4);
 }
-.hero h1 { max-width: 14ch; }
+.hero h1 { max-width: 14ch; margin-left: auto; margin-right: auto; text-align: center; }
 .hero .lede {
   font-size: var(--fs-4);
   color: var(--text-2);
   margin-top: var(--sp-5);
-  max-width: 52ch;
+  max-width: none;
 }
 .scroll-cue {
   margin-top: var(--sp-7);
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
   align-items: center;
   gap: 10px;
   color: var(--muted);
@@ -308,9 +314,12 @@ strong { font-weight: 600; }
 @keyframes cue-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
 /* ---------- section heads ---------- */
+/* Titles are centred. The copy under them runs as wide as the
+   activities below it and stays left-aligned for reading. */
 .section-head { margin-bottom: var(--sp-6); }
 .section-head .eyebrow { margin-bottom: var(--sp-3); }
-.section-head p { margin-top: var(--sp-4); color: var(--text-2); }
+.section-head h1, .section-head h2 { text-align: center; }
+.section-head p { margin-top: var(--sp-4); color: var(--text-2); max-width: none; }
 .prose > * + * { margin-top: 1em; }
 .prose { max-width: var(--measure); }
 

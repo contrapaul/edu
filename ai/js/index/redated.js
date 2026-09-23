@@ -5,7 +5,7 @@
    highlighted at first; the reader clicks anything that looks
    wrong. Five clues: the "updated" line with no changelog, the
    nameless byline, a paragraph that says nothing, affiliate
-   links, and comments older than the post. Each found clue adds
+   links, and a page that claims a 2026 update whose last reader is in 2021. Each found clue adds
    a sticker to the window's edge. When all five are found, a
    wipe slider reveals the 2019 version underneath, and the only
    line that differs lights up.

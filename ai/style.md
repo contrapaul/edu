@@ -67,7 +67,7 @@ Name any company when it's relevant. Never let the site read as if two or three 
 
 ## Visual direction
 
-Settled 2026-09-22 (Paul): the look found on the sample page is the look of the project. The site-wide skin, on every page:
+Settled 2026-09-22 (Paul): the look found on the showcase build of page one is the look of the project. The site-wide skin, on every page:
 
 - Every section is a `.screen` that owns a hue (`--hue`). Its heading, links, labels, dashed coming panel and hand-off band take ink and band colours derived from that hue; the page background is a light tint of the current hue, scrubbed by scroll from one section's hue to the next.
 - A skewed band (the stripe) crosses the top of every section after the first.
@@ -75,8 +75,9 @@ Settled 2026-09-22 (Paul): the look found on the sample page is the look of the 
 - A progress rail: one dot per section, half-filled when seen, solid when the section's activity is done, scaled when current. A bar under the header on phones.
 - Unbuilt interactives are `.placeholder` panels: dashed border in the section's ink, a tinted fill, a mono uppercase tag. They stay until the component is built.
 - The hand-off to the next page is the `.band`: a tinted, bordered block with a mono eyebrow, a large title and an arrow.
+- Layout (Paul, 2026-09-23): titles and the section label are centred; the copy under them runs as wide as the activities and stays left-aligned.
 
-The one-off activities on the sample page (rain, scorecard, wall, timeline, re-dated post, map, recap) are not the standard for other elements; they carry their own looks and stay where they are.
+The one-off activities on page one (rain, scorecard, wall, timeline, next word, re-dated post, map, recap) are not the standard for other elements; they carry their own looks and stay where they are.
 
 Open:
 
@@ -85,7 +86,7 @@ Open:
 - Motion: one-way scroll reveals (arrive, then stay). localai learned the hard way that reversible reveals bounce when a reader stops scrolling at the trigger edge. Respect `prefers-reduced-motion`.
 - Presentation pages need to read well when projected: large type, high contrast, generous spacing, and nothing that depends on hover. A teacher standing at the front should be able to drive every activity with a touch screen, a clicker, or arrow keys.
 - One thought on look: the subject is trust and verification, so a design that feels clean and legible (paper-like surfaces, clear hierarchy, evidence-style labels on transcripts) may serve the argument better than a glossy AI-product aesthetic. Proposed, not decided.
-- The hero's old radial glow (`hero-glow`) was removed from all pages when the skin went site-wide (2026-09-22). The sample's rain fills that slot on the sample only.
+- The hero's old radial glow (`hero-glow`) was removed from all pages when the skin went site-wide (2026-09-22). Page one's rain fills that slot on page one only.
 
 ## Open questions for Paul
 

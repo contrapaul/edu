@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mixHue } from '../js/stripes.js';
 import { tally, emptyProgress } from '../js/progress.js';
-import { emptyTally, countNewLinks } from '../js/sample/scorecard.js';
+import { emptyTally, countNewLinks } from '../js/index/scorecard.js';
 
 test('mixHue goes the short way round the wheel', () => {
   assert.equal(Math.round(mixHue(350, 10, 0.5)), 0);
@@ -25,7 +25,7 @@ test('countNewLinks counts each href once per side', () => {
 });
 
 test('yearToX pins years outside the axis to its ends', async () => {
-  const { yearToX, brickLayout } = await import('../js/sample/wall.js');
+  const { yearToX, brickLayout } = await import('../js/index/wall.js');
   const axis = { from: 2016, to: 2026 };
   assert.equal(yearToX(122, axis), 60);
   assert.equal(yearToX(2040, axis), 940);
@@ -36,7 +36,7 @@ test('yearToX pins years outside the axis to its ends', async () => {
 });
 
 test('timeline helpers map progress to years along a stretched axis', async () => {
-  const { progressToYear, stateAt, yearToPx, pxToYear } = await import('../js/sample/timeline.js');
+  const { progressToYear, stateAt, yearToPx, pxToYear } = await import('../js/index/timeline.js');
   const seg = [[2000, 2010, 10], [2010, 2020, 100]];
   assert.equal(yearToPx(2005, seg), 50);
   assert.equal(yearToPx(2015, seg), 600);
@@ -56,12 +56,12 @@ test('the re-dated post data has a clue node for every clue and only the date di
   const ids = d.clues.map((c) => c.id);
   assert.deepEqual([...ids].sort(), ['byline', 'comments', 'filler', 'gear', 'updated']);
   assert.ok(d.post.updated !== d.post.publishedOnly);
-  const { foundLine } = await import('../js/sample/redated.js');
+  const { foundLine } = await import('../js/index/redated.js');
   assert.equal(foundLine('Found {n} of {total}.', 2, 5), 'Found 2 of 5.');
 });
 
 test('the map projects longitude and latitude and the model data is consistent', async () => {
-  const { project } = await import('../js/sample/map.js');
+  const { project } = await import('../js/index/map.js');
   assert.deepEqual(project(-180, 84), { x: 0, y: 0 });
   assert.equal(project(0, 0).x, 500);
   assert.ok(project(0, 0).y > 200 && project(0, 0).y < 260);
@@ -78,7 +78,7 @@ test('the map projects longitude and latitude and the model data is consistent',
 });
 
 test('the recap writes one line per finished activity in the reader\'s own words', async () => {
-  const { buildLines, remaining } = await import('../js/sample/recap.js');
+  const { buildLines, remaining } = await import('../js/index/recap.js');
   const { readFile } = await import('node:fs/promises');
   const S = JSON.parse(await readFile(new URL('../data/recap.json', import.meta.url), 'utf8')).strings;
   const p = { seen: {}, done: { s3: 1, s4: 1, s7: 1 }, answers: {
@@ -111,7 +111,7 @@ test('glossary data is complete and every marked term on the pages exists', asyn
     for (const l of t.links) assert.match(l.url, /^https:\/\/en\.wikipedia\.org\/wiki\/\S+$/);
   }
   assert.ok(letterIndex(g.terms).size >= 8);
-  for (const page of ['sample.html', 'index.html', 'learn.html', 'line.html']) {
+  for (const page of ['index.html', 'learn.html', 'line.html']) {
     const html = await readFile(new URL('../' + page, import.meta.url), 'utf8');
     for (const m of html.matchAll(/data-term="([^"]+)"/g)) assert.ok(ids.has(m[1]), page + ' marks unknown term ' + m[1]);
   }

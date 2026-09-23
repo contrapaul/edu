@@ -1,6 +1,6 @@
 # Showcase page: plan
 
-Written 2026-09-18 at Paul's request. The current page one proves the plumbing (player, compare, reveals, themes) and looks basic. This plan is for a sample page that goes the other way: colour, movement, and something to do in every screen. It is built as `ai/sample.html`, kept separate from `index.html` until it earns its place, and it uses page one's content so nothing is thrown away if it does.
+Written 2026-09-18 at Paul's request. The current page one proves the plumbing (player, compare, reveals, themes) and looks basic. This plan is for a sample page that goes the other way: colour, movement, and something to do in every screen. It was built as `ai/sample.html`, kept separate from `index.html` until it earned its place, and it uses page one's content so nothing is thrown away if it does. (It did: since 2026-09-23 it is `index.html`.)
 
 The rule for every idea below: the motion has to carry the point. An animation that only decorates gets cut in the polish pass. Every effect has a still version for `prefers-reduced-motion` and for teacher mode on a projector.
 
@@ -60,11 +60,13 @@ Reader action: picking words.
 
 Data: probabilities recorded from a real model. A local model gives token probabilities directly (llama.cpp and LM Studio both expose them), which also keeps the whole page honest about where numbers come from. Stored in `data/next-word.json` with the model named.
 
+As built (2026-09-23): after the guess, all twelve recorded pieces and "every other piece" race out on one 0 to 100% scale, shown as the model sees them (a leading space drawn as ␣, as in the rain). A lesson per sentence, written from the numbers, says what that sentence shows. Then "Let the model pick" draws from the same numbers, the way a chatbot writes, and each pick fills the blank and counts on its bar. See `HANDOFF.md`.
+
 Still version: the bars already out, the reader's pick disabled.
 
 ### 6. The web the model reads: the re-dated post
 
-A fake browser window, with its own chrome, showing a mock recipe post. Nothing pulses at first; the reader has to look. Hovering (or tapping) anything reveals whether it was a clue: the "Updated 3 days ago" line with no note about what changed, the four affiliate links, the paragraph that says nothing, the comments dated before the "publish" date. Each found clue adds a sticker to the window's edge. Then a slider appears across the window: drag it and the page wipes to the original 2019 version. The only difference is the date line, and it lights up.
+A fake browser window, with its own chrome, showing a mock recipe post. Nothing pulses at first; the reader has to look. Hovering (or tapping) anything reveals whether it was a clue: the "Updated 3 days ago" line with no note about what changed, the four affiliate links, the paragraph that says nothing, and comments whose last reader is in 2021 against the claimed 2026 update. Each found clue adds a sticker to the window's edge. Then a slider appears across the window: drag it and the page wipes to the original 2019 version. The only difference is the date line, and it lights up.
 
 What it says: recency can be faked, and the check is cheap.
 
@@ -117,14 +119,14 @@ Status 2026-09-22: these are no longer sample-only. Paul settled that the sample
 - **The transcript player** as is. Screen 3 is built entirely on its events, which is the test of the event design.
 - **Per-screen data files** in `data/`: `next-word.json`, `redated-post.json`, `models.json`, `timeline.json`. Every user-visible string in a data file or in the HTML, never in JS logic, because of the Chinese translation to come.
 - **State** in localStorage under one key, `ai-progress`, as a small object. Read at load to fill the rail and the recap.
-- **Structure**: `sample.html`, `css/sample.css`, `js/sample/` with one module per screen (`rain.js`, `timeline.js`, `scorecard.js`, `wall.js`, `nextword.js`, `redated.js`, `map.js`, `recap.js`) plus `stripes.js` and `rail.js` for the global pieces. All DOM-free logic (scoring, recap assembly, probability formatting) in pure functions with tests.
+- **Structure**: `sample.html`, `css/sample.css`, `js/sample/` (since 2026-09-23: `index.html`, `css/index.css`, `js/index/`) with one module per screen (`rain.js`, `timeline.js`, `scorecard.js`, `wall.js`, `nextword.js`, `redated.js`, `map.js`, `recap.js`) plus `stripes.js` and `rail.js` for the global pieces. All DOM-free logic (scoring, recap assembly, probability formatting) in pure functions with tests.
 - **Performance budget**: 60 fps scrolling on a 2019 laptop and a mid-range phone; at most three backdrop filters on screen at once; transforms and opacity only in animations; no layout-triggering property animated. Measured in the browser's performance panel before sign-off, not guessed.
 - **Reduced motion and teacher mode**: every screen has a still version described above. Teacher mode uses the still version plus a "play" control, because a projector at the front of a room should not move unless the teacher says so.
 - **Phone**: everything works by tap; drag has a tap alternative; pinned screens shorten (less scroll distance) so a thumb can get through them.
 
 ## Build order, with checks
 
-Status 2026-09-22: every step is built in `sample.html` except step 10 (the polish pass). Screen 5's probabilities were captured from Qwen3-1.7B and the probability race is built. Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
+Status 2026-09-22: every step is built in `sample.html` (now `index.html`) except step 10 (the polish pass). Screen 5's probabilities were captured from Qwen3-1.7B and the probability race is built. Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
 
 1. **Global**: vendored GSAP, the tint and stripes, the rail, the nine empty screens with their hues. Check: scroll the page end to end at 60 fps on a phone; every dot fills.
 2. **Screen 3, the scorecard.** Uses only what exists. Check: every annotation in both transcripts produces a stamp; the final tally matches the data.

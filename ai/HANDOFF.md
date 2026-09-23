@@ -2,6 +2,64 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-23: page one is `index.html`, titles centred, screen 5 reworked
+
+Paul's three asks: undo the redirect merge, change the layout, and get more out of screen 5 from the recorded data.
+
+### The merge, done properly
+
+- `sample.html` moved to `index.html` with `git mv`, over the redirect stub. `/ai/` now loads page one with no redirect. The title and description are the old page one's; the wordmark tag reads "draft", like the other pages.
+- The "1. What AI is now" link on every page points at `./`, not `index.html`: Cloudflare Pages redirects `/index.html` to the folder, so `./` is the address with no hop.
+- `/ai/sample.html` no longer exists. It was `noindex` and nothing outside the site's own nav linked to it. The plain version of page one is in the git history (`2d0fbb0^:ai/index.html`).
+- Nothing the page loads is called "sample" any more (Paul): `css/sample.css` is `css/index.css`, `js/sample/` is `js/index/`, and `test/sample.test.mjs` is `test/index.test.mjs`, following page three's `line.html`, `css/line.css`, `js/line/`. The modules import their neighbours with `../`, at the same depth, so the move changed only the two tags in `index.html` and the test imports. Older entries below keep the old paths as they were at the time.
+- **Deploying.** The live site builds from `main`. Until this branch is merged there, edu.contrapaul.com/ai still serves `main`'s redirect stub to `sample.html`, whatever the browser cache holds.
+
+### Layout (site-wide, `css/site.css`)
+
+- Titles are centred: the mono section label, the section heading, the hero title and the scroll cue. The copy under them (`.section-head p`, the hero lede, the rain note) is no longer held to `--measure`; it runs as wide as the activities below it and stays left-aligned. Rule recorded in `style.md`.
+- The hero's bottom padding grew. The wider lede ran into the next section's stripe, which rises toward the right edge.
+- The rain's mask now thins the middle of the hero, where the text is, instead of the left.
+- `line.html` section 2 had a second `<div class="wrap">` inside the first, left over from the skin conversion, so the card sort ran 80px narrower than everything else. Removed.
+
+### Screen 5, from what the recording shows
+
+The screen showed five of the twelve recorded pieces on a scale relative to the biggest. The recording holds more than that:
+
+- **How sure the model was.** The numbers are over the full vocabulary, so the top twelve plus "everything else" is 100%. For jar the top twelve cover 35%; for bus, 98%. That difference is invisible if every chart is scaled to its own top bar.
+- **Sure is not right.** Bus: "at the stop" points to a bus and the model gave "train" 77%.
+- **Pieces, not words.** Jar's list has "␣mar" (the start of "marmalade"), a bare "␣", and "...".
+- **The space in the wall-title prompt.** The prefix ends in a space, and the model gave 98% to digits. See below.
+
+What the screen does now (`js/index/nextword.js`, `css/index.css`):
+
+- The guess is unchanged (five chips, the sentence types itself).
+- The reveal shows all twelve pieces plus "every other piece" on one 0 to 100% scale, drawn as the model sees them (leading space as ␣, the rain's convention). The reader's pick is outlined; the top pulses.
+- Beside the bars, a lesson per sentence says what its numbers show. The lessons live in `data/next-word-sentences.json` as `lesson`, next to the capture input Paul already edits; the screen fetches that file alongside `data/next-word.json` and joins by id. Every percentage in a lesson is a `{placeholder}` filled from the recording (`lessonVars`), and a test fails if a lesson types a percentage in by hand. `data/next-word.json` is untouched.
+- "Let the model pick" draws one piece at random, weighted by the recorded numbers; "Pick 20 times" draws twenty. Each pick fills the blank (in the warm accent, so it reads as the model's word, not the writer's) and counts on its bar. A pick that lands in "every other piece" shows "…" and says the recording does not name it. The draws happen in the browser; the source line says so.
+- The closing line after the fourth sentence now says what the draws show: a chatbot writes this way one piece at a time, and the picks vary, which is why the same question can get a different answer.
+- The card is full width like the other activities (it was capped at 760px); two columns above 860px, stacked below.
+- Pure and tested: `barWidth` (now absolute), `showPiece`, `restProb`, `rollIndex`, `lessonVars`. 46/46.
+- Checked in Chromium at 1440 and 390 wide, in dark mode, and under reduced motion (bars already out, picks land without the flicker), through all four sentences to "Go again"; the progress record and recap line are unchanged.
+
+### The wall-title prompt ends in a space
+
+The capture sent `You could also read a book called "Hadrian's Wall: ` with the trailing space. Qwen's tokenizer attaches a word's space to the front of the word ("␣The"), and never to a digit, so a space standing alone as the last piece is, in ordinary text, usually followed by a number. The model gave 98% to digits, and the recorded "␣The" at 0.67% is a second space plus "The". The lesson for that sentence explains this, because it is the clearest thing the data shows about pieces, and it ties back to screen 1.
+
+That explanation is an inference from how the tokenizer splits text. The numbers fit it (98% on digits; jar's list also holds a bare "␣"), but no capture has tested it. **The confirming run** is a fifth sentence with the same prefix without the trailing space, `…"Hadrian's Wall:`, hidden `The`, captured on Paul's machine as before. It could not be run here: this session's network blocks Hugging Face. If it comes back as expected, the two sentences side by side (the same title, one space apart) would be the strongest version of the screen, and the "The" number would finally be the one the original plan wanted.
+
+### Noticed, not fixed (reduced motion only)
+
+- The recap's timeline line reads "You ran the timeline through to , and…": the still timeline records `{ still: true }`, not `reached`, and `s2` has no short fallback.
+- The still timeline's two cards sit left in a three-column grid, because `.tl-end` spans every track, so `auto-fit` cannot collapse the empty one.
+
+## 2026-09-22 (later): the re-dated post's comments clue, reworded
+
+Paul spotted the weakest clue in screen 6: the sticker read "Older than the post", but the comments (2019, 2020, 2021) are newer than the 2019 publication and older than the claimed 2026 update, and stale comments on their own are not a red flag at all. Two fixes were offered; Paul chose the rewording (option A), keeping the dates as they are.
+
+- The sticker is now **"Dead since 2021"** and the note states the actual argument: the newest comment is five years before the claimed 2026 update, a page that was really updated gets some readers, this one got none, so the date moved to look fresh and the recipe never changed. That is the screen's real lesson ("the update was the date itself"), and the wipe already proves the text is identical.
+- The anachronism option (a 2026 comment thanking the page for an update that had not happened) was considered and set aside for now; it would be the stronger slam-dunk version if the clue ever needs more force.
+- Changed: the comments entry in `data/redated.json`, the header line in `js/sample/redated.js` that repeated the old framing, and the same phrasing in `showcase-plan.md` screen 6 ("comments dated before the 'publish' date"). No component logic touched; the screen reads everything from the data file. 42/42 tests.
+
 ## 2026-09-22 (last): the page-one merge
 
 Paul asked for the merge to be handled. `index.html` (the plain version of page one) is now a meta-refresh redirect to `sample.html`, keeping the old title and `noindex`. Redirect rather than delete: any link that already points at `/ai/` or `/ai/index.html` lands on page one instead of a 404. The sample's footer lost its "Plain version of this page" link, which would have pointed at itself. Nothing else linked there: every nav points at `sample.html`, and `style.md`'s reference to `/index.html` is the site-root page, not this one. The glossary test still loads the file (it carries no `data-term` marks now, so it passes on its own). `plans.md` reads "redirects" instead of "delete or redirect when the merge happens", and its pages table shows all nine screens built. The one open item left over from the old decision list is gone with it.
