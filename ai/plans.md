@@ -124,7 +124,7 @@ ai/
 - **School policy.** Exists; Paul wrote it. This site is for people beyond the school. Paul will place the policy, his early-2023 teacher guide to ChatGPT, and any saved 2023 transcripts in a folder inside `/ai/` for reference, not necessarily for inclusion.
 - **Paul's cases.** He stands by them and is happy for the site to push back. He may revise the wording to avoid handing anyone a stick, and may collect real student feedback on the practice. His use of AI for code is a further case, especially against image generation (see case 3).
 - **Build order.** A slick, engaging experience first, with placeholders where content isn't developed. The site must be genuinely fun to use or students won't stay.
-- **Page one (2026-09-22, merged 2026-09-23).** The sample is page one, and it lives in `index.html`, so `/ai/` loads it with no redirect. `sample.html` is gone; the plain version it replaced is in the git history.
+- **Page one (2026-09-22, merged 2026-09-23).** The showcase build is page one, and it lives in `index.html` with `css/index.css` and `js/index/`, so `/ai/` loads it with no redirect and nothing it loads is called "sample". The plain version it replaced is in the git history.
 - **Look (2026-09-18).** Fully distinct from the rest of edu.contrapaul.com: own header, own tokens, own fonts (IBM Plex Sans and JetBrains Mono, self-hosted), light and dark. The site's win95 theme doesn't apply here.
 
 ## Live sessions: what the blurt/cloud pattern means here
@@ -170,7 +170,7 @@ The toolkit:
 
 `showcase-plan.md` (2026-09-18) planned a sample page, `sample.html`, that rebuilds page one as nine screens with colour stripes, a progress rail, and one interactive per screen. Built separately from `index.html` until it earns its place.
 
-Settled 2026-09-22 (Paul): the sample's look is the look of the project, and `sample.html` is page one. Its global touches (per-section hues, the scroll-scrubbed page tint, the skewed stripes, the section labels, the progress rail, the hand-off band, the coming panel) are now the site-wide skin, in `css/site.css` with `js/stripes.js`, `js/rail.js` and `js/progress.js`, and every page uses it. Its one-off activities remain sample-specific. Since 2026-09-23 the page itself is `index.html` (it was `sample.html`); the file names `css/sample.css` and `js/sample/` stayed, and mean page one's activities.
+Settled 2026-09-22 (Paul): the sample's look is the look of the project, and `sample.html` is page one. Its global touches (per-section hues, the scroll-scrubbed page tint, the skewed stripes, the section labels, the progress rail, the hand-off band, the coming panel) are now the site-wide skin, in `css/site.css` with `js/stripes.js`, `js/rail.js` and `js/progress.js`, and every page uses it. Its one-off activities remain specific to page one. Since 2026-09-23 the page is `index.html` (it was `sample.html`), its styles are `css/index.css` and its modules `js/index/` (they were `css/sample.css` and `js/sample/`).
 
 ## Pages as they stand (2026-09-22)
 
@@ -178,7 +178,7 @@ All pages share the site-wide skin (hues, tint, stripes, rail, labels): each sec
 
 | File | What |
 |---|---|
-| `index.html` | Page one, all nine screens built, plus the one-off activities (styles in `css/sample.css`, modules in `js/sample/`). |
+| `index.html` | Page one, all nine screens built, plus the one-off activities (styles in `css/index.css`, modules in `js/index/`). |
 | `learn.html`, `line.html` | Pages two and three, skeletons with placeholders (page three has the card sort, citation builder and case studies built). |
 | `glossary.html` | Rendered from `data/glossary.json`. Hover cards on every page. |
 | `dev/player.html` | Transcript player test bed. |

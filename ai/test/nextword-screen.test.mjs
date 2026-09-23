@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { fmtProb, barWidth, showPiece, restProb, rollIndex, lessonVars } from '../js/sample/nextword.js';
-import { buildLines, ACTIVITY_SCREENS } from '../js/sample/recap.js';
+import { fmtProb, barWidth, showPiece, restProb, rollIndex, lessonVars } from '../js/index/nextword.js';
+import { buildLines, ACTIVITY_SCREENS } from '../js/index/recap.js';
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';

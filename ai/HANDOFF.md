@@ -11,7 +11,8 @@ Paul's three asks: undo the redirect merge, change the layout, and get more out 
 - `sample.html` moved to `index.html` with `git mv`, over the redirect stub. `/ai/` now loads page one with no redirect. The title and description are the old page one's; the wordmark tag reads "draft", like the other pages.
 - The "1. What AI is now" link on every page points at `./`, not `index.html`: Cloudflare Pages redirects `/index.html` to the folder, so `./` is the address with no hop.
 - `/ai/sample.html` no longer exists. It was `noindex` and nothing outside the site's own nav linked to it. The plain version of page one is in the git history (`2d0fbb0^:ai/index.html`).
-- File names `css/sample.css` and `js/sample/` stay as they are; they now mean "page one's activities". Renaming them touches every import and this log's history for no reader-facing gain.
+- Nothing the page loads is called "sample" any more (Paul): `css/sample.css` is `css/index.css`, `js/sample/` is `js/index/`, and `test/sample.test.mjs` is `test/index.test.mjs`, following page three's `line.html`, `css/line.css`, `js/line/`. The modules import their neighbours with `../`, at the same depth, so the move changed only the two tags in `index.html` and the test imports. Older entries below keep the old paths as they were at the time.
+- **Deploying.** The live site builds from `main`. Until this branch is merged there, edu.contrapaul.com/ai still serves `main`'s redirect stub to `sample.html`, whatever the browser cache holds.
 
 ### Layout (site-wide, `css/site.css`)
 
@@ -29,7 +30,7 @@ The screen showed five of the twelve recorded pieces on a scale relative to the 
 - **Pieces, not words.** Jar's list has "␣mar" (the start of "marmalade"), a bare "␣", and "...".
 - **The space in the wall-title prompt.** The prefix ends in a space, and the model gave 98% to digits. See below.
 
-What the screen does now (`js/sample/nextword.js`, `css/sample.css`):
+What the screen does now (`js/index/nextword.js`, `css/index.css`):
 
 - The guess is unchanged (five chips, the sentence types itself).
 - The reveal shows all twelve pieces plus "every other piece" on one 0 to 100% scale, drawn as the model sees them (leading space as ␣, the rain's convention). The reader's pick is outlined; the top pulses.
