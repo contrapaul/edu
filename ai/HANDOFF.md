@@ -2,6 +2,13 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-23 (evening): repeat glossary marks on the core terms
+
+- **Paul's call.** Core terms should be marked beyond first occurrence, because students may scroll straight past the first definition. Core set: prompt, source, citation, chatbot, web search. (`hallucination` was checked and has no second occurrence in any page's prose, so it stays once.)
+- **Marks added.** `learn.html`: chatbot at "ask a chatbot one question" with the repeat at "the chatbot is the better researcher"; prompt at "A real student prompt" with the repeat at "The prompt that turns a model"; source at "ask for a source" with the repeat at "point you to sources", and the earlier mark in the web section dropped as a third; citation at "Five citations a model produced" (first on the site). `line.html`: citation at "When to cite an AI tool in MLA" (the page's first mark). `index.html`: web search repeat in the "Which model" section head, "whether they can search".
+- **The rule.** At most two marks of a term on a page; the second at a decision point, never a passing mention. Recorded in `style.md`.
+- **No code needed.** The hover cards are delegated, so repeat marks work as-is; the existing test only checks that the term ids exist. 46/46.
+
 ## 2026-09-23 (later still): page two gets "The web after AI"
 
 - **What was asked.** An extra part of `learn.html` laying out the case that old-school web research is now difficult to do, and may be less reliable, in the year after AI proliferation: AI-produced websites, SEO getting in the way of research, strong sources hard to find. Explicitly not a claim that AI-assisted research is better.

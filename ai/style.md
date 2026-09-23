@@ -47,7 +47,7 @@ Target readers are grades 9 to 12. The language is written at a grade 6 to 8 lev
 These held up well there and fit this project's audience.
 
 - Two failure modes: talking down and assuming. The target is a good textbook, plain and unhurried.
-- Every technical term gets defined in plain words at first appearance in body text, then marked up as a glossary term. Never define a term with another undefined term. Define once, then rely on the glossary.
+- Every technical term gets defined in plain words at first appearance in body text, then marked up as a glossary term. Never define a term with another undefined term. Define once, then rely on the glossary. Core terms (prompt, source, citation, chatbot, web search) get at most one repeat mark, placed at a later decision point on the same page, because readers scroll past first definitions (Paul, 2026-09-23); everything else stays first-occurrence only.
 - Headers are plain noun phrases that name the topic. No rhetorical questions, no metaphors, no term making its first appearance in a header.
 - No rule of three, no reveals, no throat clearing. State the mechanism, not the vibe.
 - Second person, active voice, contractions, the everyday word.
