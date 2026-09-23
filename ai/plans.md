@@ -126,6 +126,7 @@ ai/
 - **Build order.** A slick, engaging experience first, with placeholders where content isn't developed. The site must be genuinely fun to use or students won't stay.
 - **Page one (2026-09-22, merged 2026-09-23).** The showcase build is page one, and it lives in `index.html` with `css/index.css` and `js/index/`, so `/ai/` loads it with no redirect and nothing it loads is called "sample". The plain version it replaced is in the git history.
 - **Look (2026-09-18).** Fully distinct from the rest of edu.contrapaul.com: own header, own tokens, own fonts (IBM Plex Sans and JetBrains Mono, self-hosted), light and dark. The site's win95 theme doesn't apply here.
+- **Header (2026-09-23).** No status tag on the wordmark on any page (the "· draft" and "· sample" tags and the `.wordmark-sub` style are gone), and page one's section labels are the numbers only ("1 of 9" to "9 of 9").
 
 ## Live sessions: what the blurt/cloud pattern means here
 

@@ -2,6 +2,23 @@
 
 Running record of what is built, what was decided, and what the next session should know. Newest at the top. Planning lives in `plans.md`, `style.md` and `interactive.md`; this file is the build log.
 
+## 2026-09-23 (later): the header tags and "Screen" labels are out; the merge put them back on page one
+
+- **What was asked.** No status tag on the wordmark in the shared header (learn, line and glossary read "· draft"; page one read "· sample"), no "Screen" in page one's section labels ("1 of 9", not "Screen 1 of 9"), and no "sample" in the tab title.
+- **What was done (committed as `c5963e6`, "Update").** The `wordmark-sub` span came out of all four pages, page one's nine labels became numbers only, the title is "What AI is now · AI in Education", and the two now-orphaned `.wordmark-sub` rules in `css/site.css` (base rule and the 600px media-query line) went with it. Older entries below keep the old paths and old labels as they were at the time.
+- **The merge wrinkle.** `57adedb` merged origin/main, which carried the other session's rename of `sample.html` to `index.html` (`2a7eef7`, `19aede3`). Both sides had touched the same lines of the same (renamed) file, and the merge took origin's version for them, so page one came back with the "· draft" tag and the "Screen N of 9" labels while the other three pages kept the clean header. The tag would have rendered as plain text: the `.wordmark-sub` styles are already gone. **Re-applied the cleanup to `index.html`** (span out, labels numbers only). The title needed nothing; both sides were already clean. This is uncommitted local work, and origin/main is what the live site builds from, so the live header still carries "· draft" and "Screen" until it is pushed.
+- **Also noticed.** `reference/academicintegrity.md` and `reference/aipolicy.md` are no longer empty (7.8 KB and 2.7 KB); the 2026-09-16 note about them being 0 bytes is spent.
+
+### Next
+
+1. Push the page-one cleanup above, so the live header matches the rest of the site.
+2. **Real data, in `data/`, edited in place:** student quotes into `quotes.json` (still empty; slots `ai-images` on page one, `ai-posters` and `teacher-hypocrisy` on page three; the file says nothing is ever invented); the thirteen `policy: null` lines in `models.json` ("where your text goes" is written only after each company's policy has been read, and the search, open-weights and `url` notes are review too); the ten dated events in `timeline.json` ("Paul to verify before publishing"); and the wording of the three cases in `cases.json`, which Paul most wants to control.
+3. Screen 5's confirming run: a fifth sentence, the wall-title prefix without its trailing space, captured as before; if the numbers fit, the two sentences side by side are the strongest version of the screen.
+4. The 2023 transcript's "Ask the AI if it's sure" branch is still a placeholder; a real capture of that follow-up would complete it. The same five prompts also deserve a Chinese model with search and a local model without, so the comparison is not two OpenAI products.
+5. Page two: `learn.html` is still four `Placeholder` panels (conversation, sources, memory, organising); the activities are specified in `interactive.md`. The about/rationale page the brief asks for does not exist yet (nav marks About `is-soon`).
+6. If page one's copy is rewritten, `data/tokens-page1.json` must be regenerated, and the script that does it lives only in session history, not in the repo; get it into `dev/` before the rewrite.
+7. The "Compare with a class" stub on page three waits on the live-session backend (the blurt/cloud pattern), built last.
+
 ## 2026-09-23: page one is `index.html`, titles centred, screen 5 reworked
 
 Paul's three asks: undo the redirect merge, change the layout, and get more out of screen 5 from the recorded data.
