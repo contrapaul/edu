@@ -89,7 +89,6 @@ strong { font-weight: 600; }
   width: 12px; height: 12px; border-radius: 50%;
   background: conic-gradient(from 200deg, var(--accent), var(--accent-2), var(--good), var(--accent));
 }
-.wordmark-sub { color: var(--muted); font-weight: 400; }
 .site-nav { display: flex; gap: var(--sp-1); margin-left: var(--sp-3); }
 .site-nav a {
   color: var(--text-2);
@@ -145,7 +144,6 @@ strong { font-weight: 600; }
 }
 .label-short { display: none; }
 @media (max-width: 600px) {
-  .wordmark-sub { display: none; }
   .label-long { display: none; }
   .label-short { display: inline; }
   .site-header .wrap { gap: var(--sp-2); }
