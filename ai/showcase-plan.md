@@ -1,6 +1,6 @@
 # Showcase page: plan
 
-Written 2026-09-18 at Paul's request. The current page one proves the plumbing (player, compare, reveals, themes) and looks basic. This plan is for a sample page that goes the other way: colour, movement, and something to do in every screen. It is built as `ai/sample.html`, kept separate from `index.html` until it earns its place, and it uses page one's content so nothing is thrown away if it does.
+Written 2026-09-18 at Paul's request. The current page one proves the plumbing (player, compare, reveals, themes) and looks basic. This plan is for a sample page that goes the other way: colour, movement, and something to do in every screen. It was built as `ai/sample.html`, kept separate from `index.html` until it earned its place, and it uses page one's content so nothing is thrown away if it does. (It did: since 2026-09-23 it is `index.html`.)
 
 The rule for every idea below: the motion has to carry the point. An animation that only decorates gets cut in the polish pass. Every effect has a still version for `prefers-reduced-motion` and for teacher mode on a projector.
 
@@ -59,6 +59,8 @@ What it says: prediction, not lookup, and the wrong answer was a likely one.
 Reader action: picking words.
 
 Data: probabilities recorded from a real model. A local model gives token probabilities directly (llama.cpp and LM Studio both expose them), which also keeps the whole page honest about where numbers come from. Stored in `data/next-word.json` with the model named.
+
+As built (2026-09-23): after the guess, all twelve recorded pieces and "every other piece" race out on one 0 to 100% scale, shown as the model sees them (a leading space drawn as ␣, as in the rain). A lesson per sentence, written from the numbers, says what that sentence shows. Then "Let the model pick" draws from the same numbers, the way a chatbot writes, and each pick fills the blank and counts on its bar. See `HANDOFF.md`.
 
 Still version: the bars already out, the reader's pick disabled.
 
@@ -124,7 +126,7 @@ Status 2026-09-22: these are no longer sample-only. Paul settled that the sample
 
 ## Build order, with checks
 
-Status 2026-09-22: every step is built in `sample.html` except step 10 (the polish pass). Screen 5's probabilities were captured from Qwen3-1.7B and the probability race is built. Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
+Status 2026-09-22: every step is built in `sample.html` (now `index.html`) except step 10 (the polish pass). Screen 5's probabilities were captured from Qwen3-1.7B and the probability race is built. Step 1's global pieces now serve the whole site, not just this page. See `HANDOFF.md`.
 
 1. **Global**: vendored GSAP, the tint and stripes, the rail, the nine empty screens with their hues. Check: scroll the page end to end at 60 fps on a phone; every dot fills.
 2. **Screen 3, the scorecard.** Uses only what exists. Check: every annotation in both transcripts produces a stamp; the final tally matches the data.

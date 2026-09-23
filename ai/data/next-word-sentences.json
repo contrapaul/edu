@@ -1,33 +1,37 @@
 {
-  "note": "Input for the next-word capture (screen 5). Each entry is a sentence split at one point: `prefix` is what the reader sees typed out, `hidden` is the next word in the sentence. The capture records the model's top probabilities at that point, and the screen offers five chips: the hidden word plus the model's top picks. Paul dropped the proper-name sentence on 2026-09-22. The last one is fixed: it is the invented book title from the 2023 transcript, and it comes last.",
+  "note": "Input for the next-word capture (screen 5). Each entry is a sentence split at one point: `prefix` is what the reader sees typed out, `hidden` is the next word in the sentence. The capture records the model's top probabilities at that point, and the screen offers five chips: the hidden word plus the model's top picks. Paul dropped the proper-name sentence on 2026-09-22. The last one is fixed: it is the invented book title from the 2023 transcript, and it comes last. `lesson` is what the reader sees after the reveal, written from the recorded numbers (screen 5 reads it by id, next to data/next-word.json); {top}, {topProb}, {hidden}, {hiddenProb}, {rank}, {covered}, {rest} and {digits} are filled from the recording, so the percentages always match it. Rewrite a lesson if a new capture changes what it describes.",
   "sentences": [
     {
       "id": "jar",
       "kind": "everyday",
       "prefix": "She opened the cupboard and found a jar of",
       "hidden": "jam",
-      "note": "A word almost everyone will guess. The spread of the model's probabilities shows how 'sure' a prediction really is."
+      "note": "A word almost everyone will guess. The spread of the model's probabilities shows how 'sure' a prediction really is.",
+      "lesson": "The model's first choice, “{top}”, got only {topProb}. All twelve pieces on its list add up to {covered}, and the other {rest} is spread thinly over every other piece it knows. When the chances are spread out like this, the model is unsure, although the sentence it writes will sound as sure as any other. One piece on the list, “␣mar”, is not a word. It is the start of a longer word such as “marmalade”, because the model predicts pieces of words, like the ones falling behind the title at the top of this page."
     },
     {
       "id": "bus",
       "kind": "near-certain",
       "prefix": "We waited twenty minutes at the stop for the six-fifty",
       "hidden": "bus",
-      "note": "A near-certain pick, for contrast with the open ones."
+      "note": "A near-certain pick, for contrast with the open ones.",
+      "lesson": "The words “at the stop” suggest a bus, but the model gave “{top}” {topProb} and gave “{hidden}” only {hiddenProb}. It left just {rest} for every piece outside its top twelve. A high number tells you how sure the model is, and nothing about whether it is right."
     },
     {
       "id": "crowd",
       "kind": "ambiguous",
       "prefix": "The match ended one all, and the crowd went",
       "hidden": "quiet",
-      "note": "Several endings are likely. The model's top pick may not be the reader's."
+      "note": "Several endings are likely. The model's top pick may not be the reader's.",
+      "lesson": "“The crowd went wild” is a very common phrase, and the model gave “{top}” {topProb}. The writer's word, “{hidden}”, got {hiddenProb} and came number {rank} on the list. A draw can leave a crowd quiet or send it wild, and the model's chances follow the familiar phrase more than the score. Two pieces on the list, “␣to” and “␣into”, would start a different sentence altogether."
     },
     {
       "id": "wall-title",
       "kind": "the-invented-title",
       "prefix": "You could also read a book called \"Hadrian's Wall: ",
       "hidden": "The",
-      "note": "The full title that follows is the one the 2023 model invented: \"Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce\". The real book by Collingwood Bruce is \"Handbook to the Roman Wall\" (1863). The prefix here is ours; the probabilities are the model's."
+      "note": "The full title that follows is the one the 2023 model invented: \"Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier by J. Collingwood Bruce\". The real book by Collingwood Bruce is \"Handbook to the Roman Wall\" (1863). The prefix here is ours; the probabilities are the model's.",
+      "lesson": "This sentence stops right after a space. The model gave {digits} to digits, and only {hiddenProb} to “␣The”. It reads text as pieces, and a word keeps its space at the front of its piece, as in the rain of pieces at the top of this page. A digit never carries a space, so in the text the model learned from, a space on its own was usually followed by a number. Its guess came from the pieces, and not from anything it knew about books. The 2023 chatbot went on to invent “Hadrian's Wall: The Archaeology and Architecture of Rome's Northern Frontier” and credit it to J. Collingwood Bruce, whose real book is “Handbook to the Roman Wall” (1863)."
     }
   ]
 }

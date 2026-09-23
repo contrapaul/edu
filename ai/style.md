@@ -75,6 +75,7 @@ Settled 2026-09-22 (Paul): the look found on the sample page is the look of the 
 - A progress rail: one dot per section, half-filled when seen, solid when the section's activity is done, scaled when current. A bar under the header on phones.
 - Unbuilt interactives are `.placeholder` panels: dashed border in the section's ink, a tinted fill, a mono uppercase tag. They stay until the component is built.
 - The hand-off to the next page is the `.band`: a tinted, bordered block with a mono eyebrow, a large title and an arrow.
+- Layout (Paul, 2026-09-23): titles and the section label are centred; the copy under them runs as wide as the activities and stays left-aligned.
 
 The one-off activities on the sample page (rain, scorecard, wall, timeline, re-dated post, map, recap) are not the standard for other elements; they carry their own looks and stay where they are.
 
