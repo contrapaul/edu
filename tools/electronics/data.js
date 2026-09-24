@@ -89,6 +89,59 @@ const PARTS = [
 },
 
 {
+  slug: "esp32-cam",
+  name: "ESP32-S3-CAM",
+  shortName: "ESP32-CAM",
+  category: "boards",
+  alsoCalled: ["HW-679", "ESP32-S3-CAM board", "camera board"],
+  blurb: "The S3 N16R8 chip again, this time with a camera on top.",
+  signal: ["Digital in", "Digital out", "Analog in", "PWM", "I2C", "SPI", "Power"],
+  difficulty: "Moderate",
+  voltage: "3.3V logic, 5V in over USB",
+  whatItIs: [
+    "A small computer on a board. It runs your code over and over, reads the pins you have wired things to, and drives the pins you have wired outputs to.",
+    "The N16R8 label means 16 megabytes of program storage and 8 megabytes of extra memory. That is a lot for a class project, so you will not run out of room.",
+    "This board is built around a camera. The chip underneath is the same ESP32-S3 as the big development board, so the wiring rules and the code carry straight over."
+  ],
+  pins: [
+    { name: "3V3", type: "Power out", note: "3.3 volts out. This is what most sensors and modules run on." },
+    { name: "5V", type: "Power", note: "5 volts, passed through from the USB socket. Use it only for parts that need 5V." },
+    { name: "GND", type: "Ground", note: "Ground, the return path for every circuit. Every part you add needs one." },
+    { name: "GPIO4 to GPIO7", type: "Analog in", note: "General pins that can also read a voltage as a number. Use these for potentiometers and joysticks." },
+    { name: "GPIO0, GPIO46, RST", type: "Avoid", note: "These control how the board starts up. Wiring things to them causes boot failures. Leave them alone." }
+  ],
+  wiring: [
+    "Connect the board to a supply or your computer with a USB-C cable that carries data. A charge-only cable powers the board but the computer will never see it.",
+    "Check the board is alive before wiring anything else. A power LED should light. If it does not, stop and fix that first.",
+    "Run power and ground to the parts you add, from the 3V3 and GND pins. Do this once and everything after is two short wires."
+  ],
+  goesWith: ["breadboard", "usb-c-cable", "jumper-wires", "ssd1306-i2c", "push-button"],
+  watchOut: [
+    "Logic is 3.3 volts. Feeding 5 volts into a GPIO pin can kill the pin, and sometimes the board.",
+    "GPIO0 and GPIO46 are strapping pins. If something is pulling them the wrong way at power-up, the board will not boot and it looks like the board is dead.",
+    "The 3.3V output can only supply so much current. A long strip of addressable LEDs needs its own 5V supply, not the board."
+  ],
+  useItFor: "A project that has to take pictures or send video over wifi. The camera is the point of this board, so start here when the brief mentions a camera.",
+  links: [
+    { label: "Espressif ESP32-S3 datasheet", url: "https://www.espressif.com/en/products/socs/esp32-s3", kind: "Datasheet", vpn: false }
+  ],
+  media: {
+    image: {
+      src: "media/esp32cam.webp",
+      alt: "An ESP32-S3-CAM board with the model number HW-679 printed on it, its square camera lens sitting on top of the ESP32-S3 module.",
+      caption: "The camera sits on top of an ESP32-S3 N16R8. Same chip as the main board, built for pictures."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/esp32camdetail.webp",
+      alt: "A close view of the camera board's module, with the ESP32-S3 N16R8 marking, the metal antenna shield, and the WiFi labels in focus.",
+      caption: "The N16R8 marking is the same memory package as the development board: 16 megabytes of storage and 8 megabytes of extra memory."
+    },
+    detailNeed: "Done."
+  }
+},
+
+{
   slug: "esp32-s3-supermini",
   name: "ESP32-S3 Super Mini",
   shortName: "S3 Super Mini",
@@ -185,10 +238,18 @@ const PARTS = [
     { label: "Espressif ESP32-C3 product page", url: "https://www.espressif.com/en/products/socs/esp32-c3", kind: "Datasheet", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The board next to a coin for scale, top down, both pin rows readable.",
-    detail: null,
-    detailNeed: "The underside, showing the antenna and the pin labels printed on the back."
+    image: {
+      src: "media/esp32c3supermini.webp",
+      alt: "An ESP32-C3 Super Mini board seen from above, with both rows of pin holes and their labels facing the camera.",
+      caption: "Read the chip marking before anything else. ESP32-C3 means this board. ESP32-S3 means the other one."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/esp32c3superminidetail.webp",
+      alt: "A close view of the same board, with the square chip marked ESP32-C3 and the board's printed labels in focus.",
+      caption: "The chip marking reads ESP32-C3. That one word decides whether the board can act as a USB keyboard."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -282,10 +343,18 @@ const PARTS = [
     { label: "Seeed Studio XIAO SAMD21 wiki", url: "https://wiki.seeedstudio.com/Seeeduino-XIAO/", kind: "Docs", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "Top down beside a coin for scale, pad labels readable.",
-    detail: null,
-    detailNeed: "Close on the edge pads with a wire soldered to one, showing what a direct solder joint looks like."
+    image: {
+      src: "media/xiaosam21.webp",
+      alt: "A Seeed XIAO SAMD21 board seen from above, with the seeed studio logo and the XIAO-SAMD21 model marking facing the camera.",
+      caption: "The smallest board in the room. The pads run along both edges, and a coin shows just how small they are."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/xiaosam21detail.webp",
+      alt: "A close view of one edge of the XIAO board, with the pad labels and the bare solder pads in focus.",
+      caption: "A finished build can solder wires straight to these pads and skip the breadboard."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -2323,10 +2392,18 @@ const PARTS = [
     { label: "SparkFun, how to use a multimeter", url: "https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The classroom meter with its dial visible, probes in the correct sockets.",
-    detail: null,
-    detailNeed: "The dial with the continuity and DC voltage positions marked on the photo."
+    image: {
+      src: "media/multimeter.webp",
+      alt: "The classroom multimeter, a black FKHE DT9205, with its dial in the middle of the face and the probe sockets along the bottom.",
+      caption: "Learn the dial by hand. Continuity beeps, DC volts reads what a point sits at, resistance needs a dead circuit."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/multimeterdetail.webp",
+      alt: "A close view of the meter's probe sockets, with the COM label, the voltage socket and the 20A socket in focus.",
+      caption: "Black probe in COM, red probe in the voltage socket. The red probe moves to 20A only for big currents."
+    },
+    detailNeed: "Done."
   }
 },
 
@@ -2367,10 +2444,18 @@ const PARTS = [
     { label: "Adafruit, guide to excellent soldering", url: "https://learn.adafruit.com/adafruit-guide-excellent-soldering", kind: "Guide", vpn: false }
   ],
   media: {
-    image: null,
-    imageNeed: "The classroom iron in its stand with solder and brass wool beside it.",
-    detail: null,
-    detailNeed: "A good joint and a cold joint side by side under magnification, both labelled."
+    image: {
+      src: "media/solderingiron.webp",
+      alt: "The classroom soldering iron resting in its stand, with the solder and the brass wool beside it.",
+      caption: "The tip goes back in the stand every single time it is set down. That one habit stops most of the damage."
+    },
+    imageNeed: "Done.",
+    detail: {
+      src: "media/solderingdetail.webp",
+      alt: "A close view of solder joints on a board, a smooth shiny joint next to a dull lumpy one.",
+      caption: "A good joint is a small shiny cone. A cold joint is dull and bumpy, and it can fall out later."
+    },
+    detailNeed: "Done."
   }
 },
 

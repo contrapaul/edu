@@ -26,12 +26,12 @@ edge to edge.
 
 | | count |
 |---|---|
-| Parts with a card photo | 21 of 49 |
-| Photographs wired in total | 35 |
-| Card photos still needed | 28 |
+| Parts with a card photo | 26 of 50 |
+| Photographs wired in total | 45 |
+| Card photos still needed | 24 |
 | Extra shots requested | 5 |
-| Close-ups still needed | 29 |
-| **Total shots outstanding** | **62** |
+| Close-ups still needed | 25 |
+| **Total shots outstanding** | **54** |
 
 Almost all of these are one part on a plain background under a desk lamp. A
 phone on a small tripod and a sheet of white paper covers the whole list. Shoot
@@ -39,17 +39,13 @@ a whole category in one sitting, since the lighting setup does not change.
 
 ---
 
-## 1. Microcontroller Boards (7 shots)
+## 1. Microcontroller Boards (3 shots)
 
 | Done | Part | Shot | Suggested filename | What it needs to show |
 |---|---|---|---|---|
 | [ ] | ESP32-S3 Super Mini | Close-up | `esp32-s3-supermini-detail.webp` | Straight down on the board with every pin label readable, the same framing as the full size S3 shot. |
-| [ ] | ESP32-C3 Super Mini | Card photo | `esp32-c3-supermini.webp` | The board next to a coin for scale, top down, both pin rows readable. |
-| [ ] | ESP32-C3 Super Mini | Close-up | `esp32-c3-supermini-detail.webp` | The underside, showing the antenna and the pin labels printed on the back. |
 | [ ] | ESP32-C3 Dev Board | Card photo | `esp32-c3-devkit.webp` | Top down on a plain background, both pin rows and the two buttons visible. |
 | [ ] | ESP32-C3 Dev Board | Close-up | `esp32-c3-devkit-detail.webp` | The board on a half size breadboard, showing how little free space is left beside it. |
-| [ ] | Seeed XIAO SAMD21 | Card photo | `xiao-samd21.webp` | Top down beside a coin for scale, pad labels readable. |
-| [ ] | Seeed XIAO SAMD21 | Close-up | `xiao-samd21-detail.webp` | Close on the edge pads with a wire soldered to one, showing what a direct solder joint looks like. |
 
 ## 2. Displays (7 shots)
 
@@ -137,15 +133,6 @@ a whole category in one sitting, since the lighting setup does not change.
 | [ ] | TP4056 LiPo Charger Module | Card photo | `lipo-charger.webp` | A protected and an unprotected TP4056 board side by side, close enough to spot the extra chip. |
 | [ ] | TP4056 LiPo Charger Module | Close-up | `lipo-charger-detail.webp` | The protection chip and transistors circled on the photo, so the difference is unmistakable. |
 
-## 9. Workshop Tools (4 shots)
-
-| Done | Part | Shot | Suggested filename | What it needs to show |
-|---|---|---|---|---|
-| [ ] | Digital Multimeter | Card photo | `multimeter.webp` | The classroom meter with its dial visible, probes in the correct sockets. |
-| [ ] | Digital Multimeter | Close-up | `multimeter-detail.webp` | The dial with the continuity and DC voltage positions marked on the photo. |
-| [ ] | Soldering Iron | Card photo | `soldering-iron.webp` | The classroom iron in its stand with solder and brass wool beside it. |
-| [ ] | Soldering Iron | Close-up | `soldering-iron-detail.webp` | A good joint and a cold joint side by side under magnification, both labelled. |
-
 ---
 
 ## Already shot
@@ -153,7 +140,10 @@ a whole category in one sitting, since the lighting setup does not change.
 | Part | Card photo | Close-ups |
 |---|---|---|
 | ESP32-S3 N16R8 | `s3n16r8.webp` | `S3detail.webp` |
+| ESP32-S3-CAM | `esp32cam.webp` | `esp32camdetail.webp` |
 | ESP32-S3 Super Mini | `esps3mini.webp` |  |
+| ESP32-C3 Super Mini | `esp32c3supermini.webp` | `esp32c3superminidetail.webp` |
+| Seeed XIAO SAMD21 | `xiaosam21.webp` | `xiaosam21detail.webp` |
 | SSD1306 OLED, 0.96 inch, I2C | `ssd1306oledI2C.webp` | `ssd1306close.webp` |
 | Tactile Push Button | `tactilebutton.webp` | `tactilebuttondetail.webp` |
 | KY-040 Rotary Encoder | `hw040encoder.webp` | `hw040detail.webp` |
@@ -173,6 +163,8 @@ a whole category in one sitting, since the lighting setup does not change.
 | Perfboard and Stripboard | `perfboard.webp` |  |
 | Breadboard Power Supply Module | `power.webp` | `powersupplydetail.webp` |
 | Wire Strippers and Side Cutters | `wirestrippers.webp` | `strippersclose.webp` |
+| Digital Multimeter | `multimeter.webp` | `multimeterdetail.webp` |
+| Soldering Iron | `solderingiron.webp` | `solderingdetail.webp` |
 
 > Some filenames are historical. `hw040encoder.webp` and `hw040detail.webp` are
 > photographs of a Keyes KY-040 and are wired to that card. `i2cmicrophone.webp`
@@ -184,7 +176,6 @@ a whole category in one sitting, since the lighting setup does not change.
 ## Shots that need more than a desk lamp
 
 - **Breadboard underside.** A dead board with the adhesive backing peeled off so the metal clips are visible. The two close-ups already wired show the surface; nothing yet shows what is under it.
-- **Soldering close-up.** A good joint and a cold joint side by side, under magnification. Worth doing properly once, since students will be sent back to it all year.
 - **TP4056 protected versus unprotected.** The difference is one small chip. Shoot both boards at the same angle and distance so they can be compared directly.
 - **Five band resistor.** Sharp focus and neutral light, each band numbered on the photo. The classroom stock is five band and most charts online are four band, which is exactly the confusion the photo has to settle.
 - **HC-SR04 voltage divider.** A working breadboard build with both resistor values readable. Half a lesson of trouble every year comes from this one connection.
