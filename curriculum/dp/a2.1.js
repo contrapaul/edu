@@ -61,3 +61,91 @@
     ]
   });
 })();
+
+/* ── WHO DID WHAT? THE PILL DISPENSER TEAM (2.1.3) ───────────── */
+(function () {
+  'use strict';
+  var bankEl = document.getElementById('sort-team-bank');
+  if (!bankEl || !window.DragSort) return;
+
+  window.DragSort.init({
+    bankEl: bankEl,
+    zonesEl: document.getElementById('sort-team-zones'),
+    statusEl: document.getElementById('sort-team-status'),
+    resetBtn: document.getElementById('sort-team-reset'),
+    zones: [
+      { id: 'psychologist', label: 'Psychologist' },
+      { id: 'sociologist', label: 'Sociologist' },
+      { id: 'anthropologist', label: 'Anthropologist' },
+      { id: 'designer', label: 'Designer / visual artist' },
+      { id: 'materials', label: 'Materials and manufacturing engineer' },
+      { id: 'systems', label: 'Software, hardware and systems engineer' },
+      { id: 'hfe', label: 'Human factors engineer' },
+      { id: 'data', label: 'Data analyst' },
+      { id: 'marketing', label: 'Marketing and business expert' },
+      { id: 'environment', label: 'Environmental scientist' }
+    ],
+    items: [
+      {
+        id: 't1',
+        label: 'Found that a loud alarm every few hours made users anxious, and that after a week many simply ignored it. Recommended a soft chime that grows louder only if the dose is not taken.',
+        correctZone: 'psychologist',
+        explanation: 'This is about perception and behaviour: how people react to a repeated warning and why they stop paying attention to it (often called alarm fatigue).'
+      },
+      {
+        id: 't2',
+        label: 'Pointed out that many older users feel a loss of independence when a relative is told about every missed dose, and proposed letting the user choose who is alerted and when.',
+        correctZone: 'sociologist',
+        explanation: 'The issue is the social relationship between the user and their family, and how the product changes it. That is the territory of social behaviour and group dynamics.'
+      },
+      {
+        id: 't3',
+        label: 'Spent time in twenty homes and noticed that most people keep their medicine in the kitchen next to the kettle, not in the bathroom as the team had assumed.',
+        correctZone: 'anthropologist',
+        explanation: 'Field research inside real homes revealed a habit the users would probably never have mentioned in a survey, because to them it is simply normal.'
+      },
+      {
+        id: 't4',
+        label: 'Gave the box a warm, rounded look with a fabric-textured lid, so it would sit on a kitchen counter without looking like hospital equipment.',
+        correctZone: 'designer',
+        explanation: 'Aesthetics and emotional response shape the first impression. A product that looks medical can make the user feel ill, which affects whether they keep using it.'
+      },
+      {
+        id: 't5',
+        label: 'Chose a polypropylene for the dose trays that survives thousands of openings and can be injection moulded cheaply in large numbers.',
+        correctZone: 'materials',
+        explanation: 'Selecting a material and a process together, and balancing durability against tooling and unit cost, is the core of this role.'
+      },
+      {
+        id: 't6',
+        label: 'Built a backup battery and an offline mode, so doses are still released on time during a power cut or when the home Wi-Fi drops.',
+        correctZone: 'systems',
+        explanation: 'Turning the concept into a dependable working system, including what happens when parts of it fail, is an engineering and systems problem.'
+      },
+      {
+        id: 't7',
+        label: 'Made the release button large and low-force, because many users have arthritis and cannot press a small stiff switch.',
+        correctZone: 'hfe',
+        explanation: 'Grip strength, finger dexterity and the force a hand can comfortably apply are ergonomic data. Designing the control around them reduces strain and exclusion.'
+      },
+      {
+        id: 't8',
+        label: 'Studied logs from 300 trial units and found that most missed doses happened at the 10 pm slot, which led the team to add an evening reminder on the TV remote.',
+        correctZone: 'data',
+        explanation: 'A pattern across hundreds of units is only visible when the data is analysed at scale. No single interview would have shown it.'
+      },
+      {
+        id: 't9',
+        label: 'Recommended selling the dispenser through pharmacies on a monthly plan rather than as a one-off purchase, so the price fits a pension budget.',
+        correctZone: 'marketing',
+        explanation: 'Pricing, distribution channel and the business model are commercial decisions that decide whether the product reaches its users at all.'
+      },
+      {
+        id: 't10',
+        label: 'Replaced the sealed battery with a standard replaceable one and designed the casing to separate into single-material parts for recycling.',
+        correctZone: 'environment',
+        explanation: 'This looks at the whole life cycle, especially end of life. A sealed battery would send the whole product to landfill when it wears out.'
+      }
+    ]
+  });
+})();

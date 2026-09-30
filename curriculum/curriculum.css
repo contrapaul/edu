@@ -4872,3 +4872,149 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 /* The topic list heading reuses the column label from the landing
    page, so both pages name a group the same way. */
 .unit-topics-label { margin-top: 0; }
+
+/* ── FOUR TYPES OF MOTION (A3.3.1) ───────────────────────────────
+   Four looping SVG animations, CSS only. The dashed path behind each
+   moving part is the teaching point: arc for oscillating, straight
+   line for reciprocating. Reduced motion freezes each part mid-travel. */
+.motion-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.motion-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.motion-tile {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.75rem 0.9rem;
+}
+.motion-tile svg { display: block; width: 100%; height: auto; }
+.motion-caption { font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 0.5rem 0 0; }
+.motion-caption strong { display: block; font-size: 0.9rem; color: var(--text); }
+.motion-note { grid-column: 1 / -1; font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin: 0.25rem 0 0; }
+.motion-path { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 5; opacity: 0.6; }
+.motion-arrowhead { fill: var(--muted); }
+.motion-frame { fill: none; stroke: var(--border-strong); stroke-width: 3; stroke-linejoin: round; }
+.motion-part { fill: var(--curr-color, var(--accent)); stroke: var(--text); stroke-width: 1.5; }
+.motion-tyre { fill: none; stroke: var(--curr-color, var(--accent)); stroke-width: 10; }
+.motion-detail { stroke: var(--text); stroke-width: 2; opacity: 0.55; }
+.motion-rod { stroke: var(--text); stroke-width: 4; stroke-linecap: round; }
+.motion-pivot { fill: var(--text); }
+
+.motion-lift, .motion-wheel, .motion-pendulum, .motion-piston { transform-box: view-box; }
+.motion-lift { animation: motion-lift 3.2s ease-in-out infinite; }
+.motion-wheel { transform-origin: 80px 80px; animation: motion-spin 4s linear infinite; }
+.motion-pendulum { transform-origin: 80px 20px; animation: motion-swing 1.8s ease-in-out infinite alternate; }
+.motion-piston { animation: motion-stroke 1.1s ease-in-out infinite alternate; }
+
+@keyframes motion-lift {
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { transform: translateY(0); opacity: 1; }
+  80%  { transform: translateY(-86px); opacity: 1; }
+  92%, 100% { transform: translateY(-86px); opacity: 0; }
+}
+@keyframes motion-spin { to { transform: rotate(360deg); } }
+@keyframes motion-swing { from { transform: rotate(-28deg); } to { transform: rotate(28deg); } }
+@keyframes motion-stroke { from { transform: translateY(0); } to { transform: translateY(58px); } }
+
+@media (max-width: 640px) {
+  .motion-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-lift, .motion-wheel, .motion-pendulum, .motion-piston { animation: none; }
+  .motion-lift { transform: translateY(-43px); }
+  .motion-wheel { transform: rotate(20deg); }
+  .motion-pendulum { transform: rotate(20deg); }
+  .motion-piston { transform: translateY(29px); }
+}
+
+/* ── LOAD THE REMOTE: POKA-YOKE (B1.1.4) ─────────────────────── */
+.pk-canvas { cursor: default; }
+.pk-widget .diagram-readout { font-family: var(--font-body); font-size: 0.9rem; }
+.pk-remote { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 2; }
+.pk-bay { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+.pk-tray { fill: var(--surface-2); stroke: var(--border); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.pk-slot { cursor: pointer; outline: none; }
+.pk-slot-bg { fill: var(--surface-2); stroke: var(--border); stroke-width: 1; }
+.pk-slot:hover .pk-slot-bg, .pk-slot:focus-visible .pk-slot-bg { stroke: var(--curr-color, var(--accent)); stroke-width: 2; }
+.pk-emboss { font: 700 9px var(--font-mono); fill: var(--muted); opacity: 0.55; text-anchor: middle; }
+.pk-spring { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linejoin: round; }
+.pk-plate { fill: var(--muted); }
+.pk-rib { fill: var(--border-strong); }
+.pk-cell { cursor: pointer; outline: none; transition: transform 0.35s ease; }
+.pk-cell--still { transition: none; }
+.pk-cell-body { fill: var(--text); }
+.pk-cell-band { fill: var(--curr-color, var(--accent)); }
+.pk-cell-nub { fill: var(--muted); }
+.pk-cell-sign { font: 700 16px var(--font-mono); fill: var(--surface); text-anchor: middle; }
+.pk-cell-name { font: 600 10px var(--font-mono); fill: var(--surface); opacity: 0.7; text-anchor: middle; }
+.pk-cell--selected .pk-cell-body, .pk-cell:focus-visible .pk-cell-body { stroke: var(--curr-color, var(--accent)); stroke-width: 4; }
+.pk-cell--wrong .pk-cell-body { stroke: #dc2626; stroke-width: 4; }
+.pk-led { fill: var(--border-strong); }
+.pk-beam { stroke: #dc2626; stroke-width: 2; stroke-linecap: round; opacity: 0; }
+.pk-tv { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 2; }
+.pk-screen { fill: var(--text); opacity: 0.85; transition: fill 0.4s ease; }
+.pk-stand { fill: none; stroke: var(--border-strong); stroke-width: 3; stroke-linecap: round; }
+.pk-on .pk-led { fill: #dc2626; }
+.pk-on .pk-beam { opacity: 0.8; }
+.pk-on .pk-screen { fill: var(--curr-color, var(--accent)); opacity: 1; }
+
+.pk-closeup { margin-top: 0.875rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; }
+.pk-closeup svg { display: block; width: 100%; height: auto; max-width: 480px; margin: 0 auto; }
+.pk-closeup-captions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+.pk-closeup-captions p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin: 0; }
+.pk-cu-body { fill: var(--text); }
+.pk-cu-nub, .pk-cu-plate { fill: var(--muted); }
+.pk-cu-rib { fill: var(--border-strong); }
+.pk-cu-sign { font: 700 18px var(--font-mono); fill: var(--surface); text-anchor: middle; }
+.pk-cu-gap { stroke: #dc2626; stroke-width: 3; stroke-linecap: round; }
+.pk-action { border-color: var(--curr-color, var(--accent)); color: var(--curr-color, var(--accent)); }
+
+/* ── CURVE EXPLORER AND STATIC/DYNAMIC FIGURE (A1.1.2) ───────── */
+.curve-svg, .anthro-svg { cursor: default; margin-top: 0.875rem; }
+.curve-toggle { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text); cursor: pointer; }
+.curve-axis { stroke: var(--border-strong); stroke-width: 1.5; }
+.curve-tick { font: 10px var(--font-mono); fill: var(--muted); text-anchor: middle; }
+.curve-unit { text-anchor: end; }
+.curve-line { fill: none; stroke-width: 2.5; }
+.curve-line--men, .curve-mean--men { stroke: var(--curr-color, var(--accent)); }
+.curve-line--women, .curve-mean--women { stroke: var(--amber); }
+.curve-mean { stroke-width: 1; stroke-dasharray: 3 3; }
+.curve-band { opacity: 0.16; }
+.curve-band--men { fill: var(--curr-color, var(--accent)); }
+.curve-band--women { fill: var(--amber); }
+.curve-pline { stroke-width: 1.5; }
+.curve-pline--men { stroke: var(--curr-color, var(--accent)); }
+.curve-pline--women { stroke: var(--amber); }
+.curve-marker { stroke: var(--text); stroke-width: 2; }
+.curve-marker-label { font: 700 11px var(--font-mono); fill: var(--text); text-anchor: middle; }
+.curve-key { display: flex; gap: 1.25rem; margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); }
+.curve-key span::before { content: ""; display: inline-block; width: 18px; height: 3px; margin-right: 0.4rem; vertical-align: middle; }
+.curve-key-men::before { background: var(--curr-color, var(--accent)); }
+.curve-key-women::before { background: var(--amber); }
+.curve-readout, .anthro-readout { font-family: var(--font-body); font-size: 0.9rem; }
+.curve-result { font-weight: 600; }
+.curve-warn { color: var(--amber); }
+
+.anthro-range { width: 100%; accent-color: var(--curr-color, var(--accent)); }
+.anthro-btn.is-active { border-color: var(--curr-color, var(--accent)); color: var(--curr-color, var(--accent)); }
+.anthro-stage { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.anthro-stage .anthro-readout { margin-top: 0.875rem; }
+.anthro-ground { stroke: var(--border-strong); stroke-width: 2; }
+.anthro-limb { stroke: var(--curr-color, var(--accent)); stroke-linecap: round; }
+.anthro-torso { fill: var(--curr-color, var(--accent)); stroke: var(--curr-color, var(--accent)); stroke-linejoin: round; }
+.anthro-head { fill: var(--curr-color, var(--accent)); }
+.anthro-dim { stroke: var(--text); stroke-width: 1.2; }
+.anthro-dim-label { font: 600 11px var(--font-mono); fill: var(--text); }
+.anthro-arc { fill: none; stroke: var(--amber); stroke-width: 2; stroke-dasharray: 5 4; }
+.anthro-guide { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.anthro-head-line { font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-top: 0.6rem !important; }
+.anthro-head-line:first-child { margin-top: 0 !important; }
+.anthro-readout .diagram-readout-line:not(.anthro-head-line):not(.anthro-note) { display: flex; justify-content: space-between; gap: 1rem; }
+.anthro-key { color: var(--muted); }
+.anthro-note { margin-top: 0.75rem !important; color: var(--muted); font-size: 0.84rem; }
+@media (max-width: 640px) {
+  .anthro-stage { grid-template-columns: 1fr; }
+}

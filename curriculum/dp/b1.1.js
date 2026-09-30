@@ -623,3 +623,220 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Case-study modals and the .case-photo image lightbox (used by the
    1.1.2 focus-group photo) are handled globally by curriculum.js. */
+
+/* ═══════════════════════════════════════════════════════════
+   LOAD THE REMOTE: POKA-YOKE BATTERIES (1.1.4)
+   Both cells in the tray face the same way and the two slots run in
+   opposite directions, so one cell always goes in backwards. Remote A
+   (a spring at both ends of each slot) accepts it and stays dead;
+   Remote B (positive contact behind ribs) pushes it back out.
+═══════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var svg = document.getElementById('pk-svg');
+  if (!svg) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var intro = document.getElementById('pk-intro');
+  var readout = document.getElementById('pk-readout');
+  var actionBtn = document.getElementById('pk-action');
+  var closeup = document.getElementById('pk-closeup');
+
+  /* Slot geometry: dir is the side the positive end must face (+1 right, -1 left). */
+  var SLOTS = [{ y: 48, dir: 1 }, { y: 124, dir: -1 }];
+  var SLOT_X = 70, SLOT_W = 240, SLOT_H = 56;
+  var TRAY_Y = [258, 302];
+
+  var stage, cells, selected, busy;
+
+  function mk(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+
+  function spring(x, cy, facing, parent) {
+    /* A zigzag coil 24 wide, compressed against the slot wall at x. */
+    var d = 'M' + x + ',' + cy;
+    for (var i = 0; i < 5; i++) {
+      var cx = x + facing * (3 + i * 4);
+      d += ' L' + cx + ',' + (cy - 14) + ' L' + (cx + facing * 2) + ',' + (cy + 14);
+    }
+    mk('path', { d: d, 'class': 'pk-spring' }, parent);
+  }
+
+  function ribbedContact(slot, parent) {
+    var cy = slot.y + SLOT_H / 2;
+    var wall = slot.dir > 0 ? SLOT_X + SLOT_W : SLOT_X;
+    var plateX = slot.dir > 0 ? wall - 6 : wall;
+    var ribX = slot.dir > 0 ? wall - 20 : wall + 6;
+    mk('rect', { x: plateX, y: slot.y + 6, width: 6, height: SLOT_H - 12, 'class': 'pk-plate' }, parent);
+    mk('rect', { x: ribX, y: slot.y + 4, width: 14, height: SLOT_H / 2 - 15, 'class': 'pk-rib' }, parent);
+    mk('rect', { x: ribX, y: cy + 11, width: 14, height: SLOT_H / 2 - 15, 'class': 'pk-rib' }, parent);
+    spring(slot.dir > 0 ? SLOT_X : SLOT_X + SLOT_W, cy, slot.dir > 0 ? 1 : -1, parent);
+  }
+
+  function drawScene() {
+    svg.innerHTML = '';
+    mk('rect', { x: 30, y: 16, width: 320, height: 200, rx: 22, 'class': 'pk-remote' }, svg);
+    mk('rect', { x: 60, y: 40, width: 260, height: 148, rx: 6, 'class': 'pk-bay' }, svg);
+    mk('circle', { cx: 350, cy: 116, r: 7, 'class': 'pk-led', id: 'pk-led' }, svg);
+    var beam = mk('g', { 'class': 'pk-beam', id: 'pk-beam' }, svg);
+    mk('path', { d: 'M362,108 L392,96 M364,116 L392,116 M362,124 L392,136' }, beam);
+
+    mk('rect', { x: 398, y: 62, width: 110, height: 76, rx: 5, 'class': 'pk-tv' }, svg);
+    mk('rect', { x: 405, y: 69, width: 96, height: 62, rx: 2, 'class': 'pk-screen', id: 'pk-screen' }, svg);
+    mk('path', { d: 'M440,138 L434,156 M468,138 L474,156 M426,156 L482,156', 'class': 'pk-stand' }, svg);
+
+    mk('rect', { x: 30, y: 234, width: 320, height: 90, rx: 10, 'class': 'pk-tray' }, svg);
+
+    SLOTS.forEach(function (slot, i) {
+      var g = mk('g', { 'class': 'pk-slot', tabindex: 0, role: 'button',
+        'aria-label': (i === 0 ? 'Upper' : 'Lower') + ' battery slot' }, svg);
+      mk('rect', { x: SLOT_X, y: slot.y, width: SLOT_W, height: SLOT_H, rx: 4, 'class': 'pk-slot-bg' }, g);
+      var cy = slot.y + SLOT_H / 2;
+      /* The small moulded polarity marks: the only guide in Remote A. */
+      mk('text', { x: slot.dir > 0 ? SLOT_X + SLOT_W - 34 : SLOT_X + 34, y: slot.y + 7.5, 'class': 'pk-emboss' }, g).textContent = '+';
+      mk('text', { x: slot.dir > 0 ? SLOT_X + 34 : SLOT_X + SLOT_W - 34, y: slot.y + 7.5, 'class': 'pk-emboss' }, g).textContent = '−';
+      if (stage === 1) {
+        spring(SLOT_X, cy, 1, g);
+        spring(SLOT_X + SLOT_W, cy, -1, g);
+      } else {
+        ribbedContact(slot, g);
+      }
+      g.addEventListener('click', function () { placeInto(i); });
+      g.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); placeInto(i); }
+      });
+    });
+
+    cells.forEach(function (cell) {
+      cell.g = mk('g', { 'class': 'pk-cell', tabindex: 0, role: 'button' }, svg);
+      drawCell(cell);
+      cell.g.addEventListener('click', function () { select(cell); });
+      cell.g.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(cell); }
+      });
+      moveCell(cell, false);
+    });
+  }
+
+  function drawCell(cell) {
+    var g = cell.g, d = cell.dir;
+    g.innerHTML = '';
+    g.setAttribute('aria-label', 'AA cell, positive end facing ' + (d > 0 ? 'right' : 'left'));
+    mk('rect', { x: -98, y: -20, width: 196, height: 40, rx: 5, 'class': 'pk-cell-body' }, g);
+    mk('rect', { x: d > 0 ? 58 : -98, y: -20, width: 40, height: 40, 'class': 'pk-cell-band' }, g);
+    mk('rect', { x: d > 0 ? 98 : -108, y: -8, width: 10, height: 16, rx: 2, 'class': 'pk-cell-nub' }, g);
+    mk('text', { x: d * 78, y: 6, 'class': 'pk-cell-sign' }, g).textContent = '+';
+    mk('text', { x: -d * 80, y: 6, 'class': 'pk-cell-sign' }, g).textContent = '−';
+    mk('text', { x: -d * 10, y: 5, 'class': 'pk-cell-name' }, g).textContent = 'AA 1.5V';
+  }
+
+  function cellPos(cell) {
+    if (cell.slot === null) return { x: 190, y: TRAY_Y[cell.id] };
+    var slot = SLOTS[cell.slot];
+    return { x: 190 + (cell.dir > 0 ? 4 : -4), y: slot.y + SLOT_H / 2 };
+  }
+
+  function moveCell(cell, animate, pos) {
+    var p = pos || cellPos(cell);
+    cell.g.classList.toggle('pk-cell--still', !animate);
+    cell.g.style.transform = 'translate(' + p.x + 'px,' + p.y + 'px)';
+  }
+
+  function select(cell) {
+    if (busy || cell.slot !== null) return;
+    selected = selected === cell ? null : cell;
+    cells.forEach(function (c) { c.g.classList.toggle('pk-cell--selected', c === selected); });
+  }
+
+  function placeInto(i) {
+    if (busy) return;
+    if (cells.some(function (c) { return c.slot === i; })) return;
+    var cell = selected || cells.filter(function (c) { return c.slot === null; })[0];
+    if (!cell) return;
+    selected = null;
+    cell.g.classList.remove('pk-cell--selected');
+    var slot = SLOTS[i];
+
+    if (stage === 2 && cell.dir !== slot.dir) {
+      bounce(cell, i);
+      return;
+    }
+    cell.slot = i;
+    moveCell(cell, true);
+    afterPlace();
+  }
+
+  function bounce(cell, i) {
+    busy = true;
+    var slot = SLOTS[i];
+    /* Slides in until its flat end meets the ribs, then springs back out. */
+    moveCell(cell, true, { x: 190 - slot.dir * 16, y: slot.y + SLOT_H / 2 });
+    setTimeout(function () {
+      cell.g.classList.add('pk-cell--wrong');
+      moveCell(cell, true);
+      setTimeout(function () {
+        busy = false;
+        cell.bouncedFrom = i;
+        closeup.hidden = false;
+        say('It will not go in. The flat negative end of the cell hits the plastic ribs before it can reach the contact, so the spring at the other end pushes the cell back out. The close-up below shows the positive end of that slot.');
+        showAction('Turn it round', function () {
+          cell.g.classList.remove('pk-cell--wrong');
+          cell.dir = -cell.dir;
+          drawCell(cell);
+          closeup.hidden = true;
+          hideAction();
+          placeInto(cell.bouncedFrom);
+        });
+      }, 450);
+    }, 380);
+  }
+
+  function afterPlace() {
+    var loaded = cells.filter(function (c) { return c.slot !== null; }).length;
+    if (loaded < 2) {
+      say(stage === 1 ? 'One cell is in. Now load the second.' : 'That one clicked into place. Now load the second.');
+      return;
+    }
+    say('Both cells are in. Try the remote.');
+    showAction('Press power', power);
+  }
+
+  function power() {
+    hideAction();
+    var working = cells.every(function (c) { return c.dir === SLOTS[c.slot].dir; });
+    if (!working) {
+      cells.forEach(function (c) { if (c.dir !== SLOTS[c.slot].dir) c.g.classList.add('pk-cell--wrong'); });
+      say('Nothing happens. Look at the lower slot: that cell is in backwards. Both cells came out of the pack facing the same way, but the two slots in a remote run in opposite directions, so one of them had to be turned round. This compartment has an identical spring at each end of every slot, so it accepted the cell either way. The only guide was a small + and − moulded into the plastic, which is easy to miss in a dim room. With one cell reversed, the two cells push against each other and their voltages cancel: 1.5 V − 1.5 V = 0 V.');
+      showAction('Try the error-proofed compartment', function () { start(2); });
+      return;
+    }
+    svg.classList.add('pk-on');
+    say('The television comes on. The ribs around each positive contact make a backwards cell physically impossible to fit, so the user never has to notice the tiny + and − marks or work out which way each slot runs. This is poka-yoke: the design takes the guesswork out and removes the error, which is the Errors usability objective. Look back at the list above: what stops a diesel nozzle from going into a petrol car, and is that the same idea?');
+  }
+
+  function say(text) { readout.innerHTML = ''; var p = document.createElement('p'); p.className = 'diagram-readout-line'; p.textContent = text; readout.appendChild(p); }
+  function showAction(label, fn) { actionBtn.textContent = label; actionBtn.hidden = false; actionBtn.onclick = fn; }
+  function hideAction() { actionBtn.hidden = true; actionBtn.onclick = null; }
+
+  function start(n) {
+    stage = n;
+    selected = null;
+    busy = false;
+    cells = [{ id: 0, dir: 1, slot: null }, { id: 1, dir: 1, slot: null }];
+    svg.classList.remove('pk-on');
+    closeup.hidden = true;
+    hideAction();
+    intro.textContent = n === 1
+      ? 'Remote A takes two AA cells and has a spring contact at each end of both slots. Tap a cell, then tap a slot to put it in.'
+      : 'Remote B takes the same two cells. Each slot still has a spring at its negative end, but the positive contact sits behind a pair of plastic ribs. Load it the same way.';
+    say(n === 1 ? 'The remote is empty.' : 'Remote B is empty.');
+    drawScene();
+  }
+
+  document.getElementById('pk-reset').addEventListener('click', function () { start(1); });
+  start(1);
+})();

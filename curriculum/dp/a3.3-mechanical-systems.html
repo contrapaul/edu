@@ -86,6 +86,44 @@
 <li><strong>Oscillating motion:</strong> A back-and-forth arc of movement around a fixed pivot point. Unlike reciprocating motion (which is linear), oscillating motion follows a curved path. <em>Examples</em>: A pendulum swinging; windscreen wipers sweeping; a metronome; a child's swing.</li>
 <li><strong>Reciprocating motion:</strong> A back-and-forth movement along a straight line. Reciprocating motion is linear but reverses direction periodically. <em>Examples</em>: A piston moving up and down inside a cylinder; a saw blade cutting; a sewing machine needle; a bicycle pump.</li>
 </ol>
+<div class="motion-tiles">
+<svg class="motion-defs" aria-hidden="true" focusable="false"><defs><marker id="motion-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="motion-arrowhead" d="M0,0 L10,5 L0,10 z"/></marker></defs></svg>
+<div class="motion-tile">
+<svg viewBox="0 0 160 160" role="img" aria-label="A lift car rising up its shaft in a straight line">
+<path class="motion-path" d="M128,140 L128,22" marker-end="url(#motion-arrow)"/>
+<rect class="motion-frame" x="50" y="14" width="60" height="132" rx="2"/>
+<g class="motion-lift"><rect class="motion-part" x="56" y="104" width="48" height="36" rx="3"/><line class="motion-detail" x1="80" y1="108" x2="80" y2="136"/></g>
+</svg>
+<p class="motion-caption"><strong>Linear</strong>A lift car travels in one direction along a straight path.</p>
+</div>
+<div class="motion-tile">
+<svg viewBox="0 0 160 160" role="img" aria-label="A wheel spinning about its axle">
+<path class="motion-path" d="M80,18 A62,62 0 1 1 54,23.7" marker-end="url(#motion-arrow)"/>
+<g class="motion-wheel"><circle class="motion-part motion-tyre" cx="80" cy="80" r="44"/><line class="motion-detail" x1="80" y1="40" x2="80" y2="120"/><line class="motion-detail" x1="40" y1="80" x2="120" y2="80"/><line class="motion-detail" x1="51.7" y1="51.7" x2="108.3" y2="108.3"/><line class="motion-detail" x1="108.3" y1="51.7" x2="51.7" y2="108.3"/></g>
+<circle class="motion-pivot" cx="80" cy="80" r="6"/>
+</svg>
+<p class="motion-caption"><strong>Rotary</strong>A wheel turns continuously around a fixed axle.</p>
+</div>
+<div class="motion-tile">
+<svg viewBox="0 0 160 160" role="img" aria-label="A pendulum swinging back and forth along an arc">
+<path class="motion-path" d="M24,117 A112,112 0 0 0 136,117" marker-start="url(#motion-arrow)" marker-end="url(#motion-arrow)"/>
+<line class="motion-frame" x1="50" y1="20" x2="110" y2="20"/>
+<g class="motion-pendulum"><line class="motion-rod" x1="80" y1="20" x2="80" y2="98"/><circle class="motion-part" cx="80" cy="104" r="12"/></g>
+<circle class="motion-pivot" cx="80" cy="20" r="5"/>
+</svg>
+<p class="motion-caption"><strong>Oscillating</strong>A pendulum swings back and forth along an arc around its pivot.</p>
+</div>
+<div class="motion-tile">
+<svg viewBox="0 0 160 160" role="img" aria-label="A piston moving up and down inside a cylinder">
+<path class="motion-path" d="M128,30 L128,130" marker-start="url(#motion-arrow)" marker-end="url(#motion-arrow)"/>
+<path class="motion-frame" d="M52,146 L52,16 L108,16 L108,146"/>
+<g class="motion-piston"><rect class="motion-part" x="56" y="26" width="48" height="30" rx="2"/><line class="motion-rod" x1="80" y1="56" x2="80" y2="100"/></g>
+</svg>
+<p class="motion-caption"><strong>Reciprocating</strong>A piston slides up and down along a straight line, reversing at each end.</p>
+</div>
+<p class="motion-note">The faint line behind each part is its path. Oscillating and reciprocating parts both move back and forth, so the shape of the path, an arc or a straight line, is what tells them apart.</p>
+</div>
+
 <p><strong>Converting between motion types</strong> is one of the core tasks of mechanical design. A petrol engine converts reciprocating piston motion into rotary crankshaft motion. A rack and pinion converts rotary into linear. A cam converts rotary into reciprocating. Understanding which mechanism achieves which conversion is essential for designing functional products.</p>
 
 <div class="drag-sort" id="sort-mechanism">
