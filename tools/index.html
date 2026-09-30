@@ -446,7 +446,7 @@
 /* 34 — Blurt (dark table, cream accents; matches blurt.contrapaul.com) */
 @font-face {
   font-family: 'Bespoke Slab';
-  src: url('https://blurt.contrapaul.com/fonts/BespokeSlab-Extrabold.woff2') format('woff2');
+  src: url('/Fonts/fonts/BespokeSlab-Extrabold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -476,23 +476,26 @@
   border-radius: 14px !important;
   overflow: hidden;
   justify-content: flex-end !important;
-  gap: 0.35rem !important;
-  padding: 0.9rem 1.25rem 1.15rem !important;
+  gap: 0.1rem !important;
+  padding: 0.5rem 1rem 0.6rem !important;
 }
 .cs-banner .cs-shot {
   position: absolute; top: 0; left: 0;
-  width: 100%; height: 96px;
+  width: 100%; height: 100%;
   object-fit: cover;
   object-position: center top;
   display: block;
   transition: transform 0.5s ease;
 }
+/* Short scrim: only the strip under the text is darkened, the rest is image */
 .cs-banner::after {
-  content: ''; position: absolute; left: 0; right: 0; top: 52px; height: 52px;
-  background: linear-gradient(transparent, #17171f);
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 62px;
+  background: linear-gradient(transparent, rgba(23,23,31,0.92) 45%, #17171f);
   pointer-events: none;
 }
 .cs-banner .tool-card-title, .cs-banner .tool-card-sub { position: relative; z-index: 1; }
+.cs-banner .tool-card-title { font-size: 1rem; line-height: 1.2; }
+.cs-banner .tool-card-sub { font-size: 0.7rem; line-height: 1.35; }
 .cs-banner:hover .cs-shot { transform: scale(1.06); }
 .cs-banner:hover { border-color: rgba(255,255,255,0.28) !important; 
 }
@@ -591,64 +594,338 @@
 }
 .cs-ticket:hover { filter: drop-shadow(0 8px 20px rgba(0,0,0,0.45)); }
 
-/* 36 — Video Card (clip fills the card; plays on hover, resets on leave)
-   Per-card custom properties, set in the style="" attribute:
-     --cv-bg          solid ground behind the clip and under the text scrim
-     --cv-edge        border colour at rest
-     --cv-edge-hover  border colour on hover/focus
-   Media: 720x400 (2x the 360x200 card). See media/README.md for encoding. */
-.cs-video {
-  overflow: hidden;
-  background: var(--cv-bg, #14141c) !important;
-  border: 1px solid var(--cv-edge, rgba(255,255,255,0.12)) !important;
-  border-radius: 14px !important;
-  justify-content: flex-end !important;
-  gap: 0.3rem !important;
-  padding: 1rem 1.35rem 1.2rem !important;
-  transition: transform 0.35s cubic-bezier(0.2,0.7,0.3,1), box-shadow 0.35s, border-color 0.35s !important;
+/* Status pill (in progress / in development). Colours per card:
+     --st-fg, --st-bg, --st-edge */
+.cs-status {
+  position: absolute; top: 10px; right: 12px; z-index: 2;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  color: var(--st-fg, #fff);
+  background: var(--st-bg, rgba(0,0,0,0.4));
+  border: 1px solid var(--st-edge, transparent);
 }
-.cs-video .cs-clip {
+
+/* 38: Gradient Mesh (localAI, Code with AI; matches their dark theme on make.contrapaul.com).
+   Four soft blobs drift under a glass crumb. Per-card blob colours: --m1 .. --m4 */
+.cs-mesh {
+  --m1: rgba(79,70,229,0.50);
+  --m2: rgba(14,165,233,0.34);
+  --m3: rgba(139,92,246,0.40);
+  --m4: rgba(16,185,129,0.20);
+  background: #0a0e1c !important;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  border-radius: 18px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.35);
+  overflow: hidden;
+  isolation: isolate;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  text-align: left !important;
+  gap: 0.3rem !important;
+  padding: 1.2rem 1.5rem 1.35rem !important;
+}
+.cs-mesh::before, .cs-mesh::after {
+  content: '';
+  position: absolute; inset: -30%;
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 1.4s cubic-bezier(0.2,0.7,0.3,1);
+}
+.cs-mesh::before {
+  background:
+    radial-gradient(circle 170px at 28% 30%, var(--m1), transparent 70%),
+    radial-gradient(circle 150px at 76% 32%, var(--m2), transparent 70%);
+}
+.cs-mesh::after {
+  background:
+    radial-gradient(circle 160px at 32% 76%, var(--m3), transparent 70%),
+    radial-gradient(circle 120px at 74% 72%, var(--m4), transparent 70%);
+}
+.cs-mesh:hover::before { transform: translate(26px, 18px) scale(1.1); }
+.cs-mesh:hover::after { transform: translate(-22px, -16px) scale(1.12); }
+.cs-mesh:hover {
+  border-color: rgba(139,147,255,0.55) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 12px 32px rgba(0,0,0,0.45), 0 0 24px rgba(79,70,229,0.25) !important;
+}
+.cs-mesh .tool-card-title {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.cs-mesh .tool-card-title span {
+  background: linear-gradient(90deg, #8b93ff, #3ee0f5);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+}
+.cs-mesh .tool-card-sub { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.cs-crumb {
+  position: absolute; top: 14px; left: 16px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px 4px 8px;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.62rem; font-weight: 600;
+  color: #e9edfa;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+.cs-crumb svg { color: #8b93ff; }
+.cs-crumb i { font-style: normal; opacity: 0.45; }
+
+/* 39: Paper Notes (AI in Education; warm paper, Plex, the conic wordmark dot) */
+@font-face { font-family: 'IBM Plex Sans'; src: url('/ai/fonts/IBMPlexSans-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'IBM Plex Sans'; src: url('/ai/fonts/IBMPlexSans-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+.cs-aied {
+  background: #f6f3ee !important;
+  border: 1px solid #e3dcd1 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 0 #c9c0b2, 0 8px 22px rgba(0,0,0,0.25);
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 1.5rem 1.75rem 1.75rem !important;
+}
+.cs-aied .tool-card-title {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.cs-aied .tool-card-title::before {
+  content: '';
+  flex: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: conic-gradient(from 200deg, #2f56e8, #d44a1f, #1b7a3d, #2f56e8);
+  transition: transform 0.8s cubic-bezier(0.2,0.7,0.3,1);
+}
+.cs-aied:hover .tool-card-title::before { transform: rotate(360deg); }
+.cs-aied .tool-card-sub { font-family: 'IBM Plex Sans', system-ui, sans-serif; }
+/* Reading-progress bar along the foot: the site is part written */
+.cs-aied::after {
+  content: '';
+  position: absolute; left: 1.75rem; right: 1.75rem; bottom: 16px; height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2f56e8 0 38%, #e3dcd1 38%);
+}
+.cs-aied:hover { border-color: #2f56e8 !important; box-shadow: 0 1px 0 #2f56e8, 0 12px 28px rgba(0,0,0,0.3) !important; }
+
+/* 40: Tome (Tome of Secrets title screen: ink, gold frame, Cinzel wordmark) */
+@font-face { font-family: 'Cinzel'; src: url('/Fonts/Tome/Cinzel.woff2') format('woff2'); font-weight: 400 900; font-display: swap; }
+@font-face { font-family: 'Alegreya'; src: url('/Fonts/Tome/Alegreya-Italic.woff2') format('woff2'); font-weight: 400 900; font-style: italic; font-display: swap; }
+.cs-tome {
+  background:
+    radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(0,0,0,0.7) 100%),
+    radial-gradient(circle at 50% 38%, rgba(139,106,216,0.16), transparent 60%),
+    linear-gradient(#1a1724, #0b0a0f) !important;
+  border: 2px solid #d4a83b !important;
+  border-radius: 14px !important;
+  outline: 1px solid rgba(212,168,59,0.35);
+  outline-offset: -9px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transition: transform var(--transition), box-shadow 0.35s, border-color 0.35s, outline-color 0.35s !important;
+}
+.cs-tome::before, .cs-tome::after {
+  content: '';
+  position: absolute; left: calc(50% - 4px);
+  width: 8px; height: 8px;
+  background: #d4a83b;
+  transform: rotate(45deg);
+  transition: background 0.35s;
+}
+.cs-tome::before { top: 5px; }
+.cs-tome::after { bottom: 5px; }
+.cs-tome .tool-card-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.35s, text-shadow 0.35s;
+}
+.cs-tome .tool-card-sub { font-family: 'Alegreya', Georgia, serif; font-style: italic; }
+.cs-tome:hover {
+  border-color: #f2cf6b !important;
+  outline-color: rgba(242,207,107,0.6);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.55), 0 0 26px rgba(212,168,59,0.3) !important;
+}
+.cs-tome:hover::before, .cs-tome:hover::after { background: #f2cf6b; }
+.cs-tome:hover .tool-card-title { color: #f2cf6b; text-shadow: 0 0 14px rgba(242,207,107,0.5); }
+
+/* 41: Runestone (torchlight in stone; Bitter wordmark, a tile that turns over on hover) */
+@font-face { font-family: 'Bitter'; src: url('/Fonts/Bitter/bitter-800.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+.cs-rune {
+  background-color: #0c0b10 !important;
+  background-image:
+    radial-gradient(circle at 86% 16%, rgba(232,160,74,0.26), transparent 55%),
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: auto, 22px 22px, 22px 22px;
+  border: 1px solid #2c2a37 !important;
+  border-radius: 4px !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 1.5rem 7rem 1.5rem 1.6rem !important;
+  transition: transform var(--transition), box-shadow 0.35s, border-color 0.35s !important;
+}
+.cs-rune .tool-card-title {
+  font-family: 'Bitter', Georgia, serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.cs-rune .tool-card-title::after {
+  content: '';
+  display: block;
+  width: 3.4em; height: 2px;
+  margin-top: 0.45em;
+  background: #e8a04a;
+  font-size: 0.8rem;
+}
+.cs-rune:hover {
+  border-color: #e8a04a !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 22px rgba(232,160,74,0.2) !important;
+}
+.cs-flip {
+  position: absolute; right: 26px; top: calc(50% - 32px);
+  width: 64px; height: 64px;
+  perspective: 400px;
+}
+.cs-flip img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  /* 1.02 at rest so the hover scale has nothing to reveal at the edges */
-  transform: scale(1.02);
-  filter: saturate(0.85) brightness(0.78);
-  transition: transform 0.55s cubic-bezier(0.2,0.7,0.3,1), filter 0.35s;
-  pointer-events: none;
+  image-rendering: pixelated;
+  backface-visibility: hidden;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #3f3c4d, 0 6px 14px rgba(0,0,0,0.5);
+  transition: transform 0.55s cubic-bezier(0.2,0.7,0.3,1), box-shadow 0.35s;
 }
-/* Scrim: keeps the title legible over whatever the clip is doing */
-.cs-video::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, var(--cv-bg, #14141c) 3%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.15) 100%);
-  pointer-events: none;
+.cs-flip-face { background: #23222c; transform: rotateY(180deg); }
+.cs-rune:hover .cs-flip-back { transform: rotateY(-180deg); }
+.cs-rune:hover .cs-flip-face {
+  transform: rotateY(0deg);
+  box-shadow: 0 0 0 1px #d8493a, 0 0 18px rgba(216,73,58,0.45);
 }
-.cs-video .tool-card-title,
-.cs-video .tool-card-sub { position: relative; z-index: 1; }
-.cs-video .tool-card-title { text-shadow: 0 2px 10px rgba(0,0,0,0.75); }
-.cs-video .tool-card-sub { text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
 
-.cs-video:hover,
-.cs-video:focus-visible {
-  transform: translateY(-8px) scale(1.035) !important;
-  box-shadow: 0 18px 44px rgba(0,0,0,0.5) !important;
-  border-color: var(--cv-edge-hover, rgba(255,255,255,0.35)) !important;
+/* 42: Castle (dusk sky over the wall; an arrow crosses on hover) */
+.cs-castle {
+  background:
+    radial-gradient(ellipse 60% 45% at 82% 88%, rgba(214,162,68,0.35), transparent 70%),
+    linear-gradient(#4a3a2e 0%, #2a211c 50%, #0d0a09 100%) !important;
+  border: 1px solid #2b3542 !important;
+  border-radius: 2px !important;
+  overflow: hidden;
+  align-items: flex-start !important;
+  text-align: left !important;
+  padding: 1.25rem 1.6rem 2.6rem !important;
+  transition: transform var(--transition), box-shadow 0.35s, border-color 0.35s !important;
 }
-.cs-video:hover .cs-clip,
-.cs-video:focus-visible .cs-clip {
-  transform: scale(1.09);
-  filter: saturate(1) brightness(1);
+/* The wall: a band of cold stone with merlons along its top */
+.cs-castle::before {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0; height: 30px;
+  background:
+    repeating-linear-gradient(90deg, #3b4756 0 18px, transparent 18px 30px) top / 100% 10px no-repeat,
+    linear-gradient(#3b4756, #1d242e) bottom / 100% 20px no-repeat;
+}
+/* The arrow: the brightest thing on screen */
+.cs-castle::after {
+  content: '';
+  position: absolute; left: -60px; top: 34%;
+  width: 46px; height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255,243,196,0), #fff3c4);
+  box-shadow: 0 0 8px #d6a244;
+  opacity: 0;
+}
+.cs-castle:hover::after { animation: cs-arrow 0.9s cubic-bezier(0.3,0.1,0.6,1) forwards; }
+@keyframes cs-arrow {
+  0% { opacity: 1; transform: translate(0, 0) rotate(-7deg); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translate(460px, 36px) rotate(9deg); }
+}
+.cs-castle .tool-card-title,
+.cs-castle .tool-card-sub { position: relative; z-index: 1; }
+.cs-castle .tool-card-title {
+  font-family: 'Bitter', Georgia, serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.cs-castle .tool-card-title::after {
+  content: '';
+  display: block;
+  width: 3.4em; height: 2px;
+  margin-top: 0.45em;
+  background: #d6a244;
+  font-size: 0.8rem;
+}
+.cs-castle:hover {
+  border-color: #d6a244 !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5) !important;
+}
+
+/* 43: Dodgeball Court (DuoShan; blue side, red side, the yellow centreline) */
+.cs-duo {
+  background:
+    linear-gradient(90deg, rgba(58,134,255,0.24), transparent 36%, transparent 64%, rgba(255,45,45,0.24)),
+    #0c1018 !important;
+  border: 1px solid #2c3444 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow 0.35s, border-color 0.35s !important;
+}
+/* Centreline, faded out behind the text */
+.cs-duo::before {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: calc(50% - 1.5px);
+  width: 3px;
+  background: repeating-linear-gradient(#ffdd33 0 10px, transparent 10px 16px);
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(#000 0 16%, transparent 30% 72%, #000 86%);
+  mask-image: linear-gradient(#000 0 16%, transparent 30% 72%, #000 86%);
+}
+/* The ball: sits on the blue side, and goes live across the line on hover */
+.cs-duo::after {
+  content: '';
+  position: absolute; left: 13%; bottom: 14px;
+  width: 22px; height: 22px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23d62828'/%3E%3Cpath d='M5 12q11 6 22 0M5 20q11-6 22 0' stroke='%23fff' stroke-width='2' fill='none'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.cs-duo:hover::after { animation: cs-throw 0.7s cubic-bezier(0.25,0.1,0.4,1) forwards; }
+@keyframes cs-throw {
+  0% { transform: translate(0, 0) rotate(0deg); filter: drop-shadow(0 0 0 rgba(255,45,45,0)); }
+  15% { filter: drop-shadow(0 0 6px #ff2d2d); }
+  100% { transform: translate(215px, -6px) rotate(620deg); filter: drop-shadow(0 0 6px #ff2d2d); }
+}
+.cs-duo .tool-card-title,
+.cs-duo .tool-card-sub { position: relative; z-index: 1; }
+.cs-duo .tool-card-title {
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.cs-duo .tool-card-title span {
+  color: #ffdd33;
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  margin-left: 0.2em;
+}
+.cs-duo .tool-card-sub { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+.cs-duo:hover {
+  border-color: #ffdd33 !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cs-video, .cs-video .cs-clip { transition: none !important; }
-  .cs-video:hover, .cs-video:focus-visible { transform: none !important; }
-  .cs-video:hover .cs-clip, .cs-video:focus-visible .cs-clip { transform: scale(1.02); }
+  .cs-mesh::before, .cs-mesh::after, .cs-flip img, .cs-aied .tool-card-title::before { transition: none; }
+  .cs-castle:hover::after, .cs-duo:hover::after { animation: none; }
 }
-
-
 
 /* 37 — Game Bench (felt table, bone and brass; matches make.contrapaul.com/fun/gametools) */
 @font-face { font-family:'Lexend'; src:url('/Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
@@ -719,34 +996,44 @@
   <p class="tool-card-sub">The tools built to go alongside the DP Design Technology course.</p>
 </a>
 
-<a class="tool-card cs-video" href="https://make.contrapaul.com/localai/"
-   style="--card-title-color:#f0f1ff; --card-sub-color:#b6bad6; --cv-bg:#0a0e1c; --cv-edge:rgba(139,147,255,0.28); --cv-edge-hover:#8b93ff;">
-  <video class="cs-clip" muted loop playsinline preload="none" poster="media/localai-poster.webp" aria-hidden="true" tabindex="-1">
-    <source src="media/localai.webm" type="video/webm">
-    <source src="media/localai.mp4" type="video/mp4">
-  </video>
-  <h3 class="tool-card-title">localAI</h3>
+<a class="tool-card cs-mesh" href="https://make.contrapaul.com/localai/"
+   style="--card-title-color:#e9edfa; --card-sub-color:#b6bad6; --card-title-size:1.6rem;">
+  <span class="cs-crumb" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5L13 2Z" fill="currentColor"/></svg>make <i>/</i> localAI</span>
+  <h3 class="tool-card-title">local<span>AI</span></h3>
   <p class="tool-card-sub">How local AI models actually run: hardware, memory bandwidth, and the real cost of inference.</p>
 </a>
 
-<a class="tool-card cs-video" href="https://games.contrapaul.com/runestone/"
-   style="--card-title-color:#f6efe4; --card-sub-color:#cbb894; --cv-bg:#131218; --cv-edge:rgba(226,163,74,0.28); --cv-edge-hover:#e2a34a;">
-  <video class="cs-clip" muted loop playsinline preload="none" poster="media/runestone-poster.webp" aria-hidden="true" tabindex="-1">
-    <source src="media/runestone.webm" type="video/webm">
-    <source src="media/runestone.mp4" type="video/mp4">
-  </video>
-  <h3 class="tool-card-title">Runestone Expedition</h3>
-  <p class="tool-card-sub">Turn tiles over one at a time, fight what you find, and take the Runestone before your torch burns out.</p>
+<a class="tool-card cs-mesh" href="https://make.contrapaul.com/tools/codewithai/"
+   style="--card-title-color:#e9edfa; --card-sub-color:#b6bad6; --card-title-size:1.6rem; --m1:rgba(139,92,246,0.42); --m2:rgba(16,185,129,0.26); --m3:rgba(14,165,233,0.36); --m4:rgba(79,70,229,0.40);">
+  <span class="cs-crumb" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M13 2 4.5 13.5H11L9.5 22 19 9.5h-6.5L13 2Z" fill="currentColor"/></svg>make <i>/</i> Code with AI</span>
+  <h3 class="tool-card-title">Code with <span>AI</span></h3>
+  <p class="tool-card-sub">The words, the tools, and how to work with an AI assistant without letting it do the work for you.</p>
 </a>
 
-<a class="tool-card cs-video" href="https://games.contrapaul.com/castle/"
-   style="--card-title-color:#f2ece6; --card-sub-color:#bfc6d2; --cv-bg:#121620; --cv-edge:rgba(201,138,90,0.3); --cv-edge-hover:#c98a5a;">
-  <video class="cs-clip" muted loop playsinline preload="none" poster="media/castle-poster.webp" aria-hidden="true" tabindex="-1">
-    <source src="media/castle.webm" type="video/webm">
-    <source src="media/castle.mp4" type="video/mp4">
-  </video>
+<a class="tool-card cs-aied" href="/ai/"
+   style="--card-title-color:#1b1a17; --card-sub-color:#6d675e; --card-title-size:1.3rem; --st-fg:#9a5b00; --st-bg:#fdf0d5; --st-edge:rgba(154,91,0,0.25);">
+  <span class="cs-status">In progress</span>
+  <h3 class="tool-card-title">AI in Education</h3>
+  <p class="tool-card-sub">How AI tools work today, and how to use them to learn rather than to skip learning.</p>
+</a>
+
+<a class="tool-card cs-rune" href="https://games.contrapaul.com/runestone/"
+   style="--card-title-color:#ebe8f0; --card-sub-color:#a39fb0; --card-title-size:1.45rem;">
+  <h3 class="tool-card-title">Runestone Expedition</h3>
+  <p class="tool-card-sub">Turn tiles over one at a time, fight what you find, and take the Runestone before your torch burns out.</p>
+  <span class="cs-flip" aria-hidden="true"><img class="cs-flip-back" src="media/runestone-tile.png" alt=""><img class="cs-flip-face" src="media/runestone-troll.png" alt=""></span>
+</a>
+
+<a class="tool-card cs-castle" href="https://games.contrapaul.com/castle/"
+   style="--card-title-color:#e2e6ec; --card-sub-color:#c3cad4; --card-title-size:1.5rem;">
   <h3 class="tool-card-title">Castle Assault</h3>
-  <p class="tool-card-sub">You are the archer on the wall. Aim, draw, and lead what is walking at you &mdash; before the wall goes out from under you.</p>
+  <p class="tool-card-sub">You are the archer on the wall. Aim, draw, and lead what is walking at you, before the wall goes out from under you.</p>
+</a>
+
+<a class="tool-card cs-tome" href="https://tome.contrapaul.com/"
+   style="--card-title-color:#d4a83b; --card-sub-color:#bfb193; --card-title-size:1.35rem; --card-sub-size:0.95rem;">
+  <h3 class="tool-card-title">Tome of Secrets</h3>
+  <p class="tool-card-sub">A deckbuilding roguelike. Pick a hero, build your deck, and fight your way through the Tome.</p>
 </a>
 
 <a class="tool-card cs-bench" href="https://make.contrapaul.com/fun/gametools/">
@@ -906,10 +1193,11 @@
   <p class="tool-card-sub">Take a product from design to market and collect regulatory certification!</p>
 </a>
 
-<a class="tool-card cs-aurora" href="/tools/RTSproject/"
-   style="--card-title-color:#f0f0ff; --card-sub-color:#a8a8c4;">
-  <h3 class="tool-card-title">StarCraft Lite: In Progress</h3>
-  <p class="tool-card-sub">Experimenting with a lightweight multiplayer RTS game hosted and run in browser.</p>
+<a class="tool-card cs-duo" href="https://duoshan.contrapaul.com/"
+   style="--card-title-color:#f5f5f5; --card-sub-color:#9aa4b5; --card-title-size:1.6rem; --st-fg:#ffdd33; --st-bg:rgba(255,221,51,0.1); --st-edge:rgba(255,221,51,0.4);">
+  <span class="cs-status">In development</span>
+  <h3 class="tool-card-title">DuoShan<span lang="zh-Hans">躲闪</span></h3>
+  <p class="tool-card-sub">Elite dodgeball: a physics-driven team game played in the browser.</p>
 </a>
 
 </div>
@@ -927,25 +1215,6 @@
 
 <script src="../curriculum/curriculum-themes.js"></script>
 <script>
-/* Video cards: play from the title frame on hover/focus, rewind on leave. */
-document.querySelectorAll('.cs-video').forEach(function(card){
-  var v = card.querySelector('video.cs-clip');
-  if (!v) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  function play(){
-    try { v.currentTime = 0; } catch (e) {}
-    var p = v.play();
-    if (p && p.catch) p.catch(function(){});
-  }
-  function reset(){
-    v.pause();
-    try { v.currentTime = 0; } catch (e) {}
-  }
-  card.addEventListener('mouseenter', play);
-  card.addEventListener('mouseleave', reset);
-  card.addEventListener('focus', play);
-  card.addEventListener('blur', reset);
-});
 document.querySelectorAll('.cs-spotlight').forEach(function(el){
   el.addEventListener('mousemove', function(e){
     var r = el.getBoundingClientRect();
