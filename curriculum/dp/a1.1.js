@@ -66,40 +66,53 @@
 })();
 
 /* ── WHERE DO YOU FIT ON THE CURVE? (1.1.2) ──────────────────────
-   Mean and SD per region and sex, in cm. APPROXIMATE, and labelled so
-   on the page: heights are rounded to published national averages
-   (NCD-RisC), SDs are typical values, and foot and hand lengths are
-   scaled from stature using ANSUR II proportions. See interactives.md
-   for the sourcing task that should replace these with cited figures. */
+   Height means (cm) come from the national survey rows in Wikipedia's
+   "Human height by country" table (measured adults):
+   - China: Lu et al. 2022, adults 18+, average age 48.
+   - United States: NHANES 2015-2018 (Fryar et al. 2021), adults 20+.
+   - Europe: Albania, Belarus, England, France, Germany, Moldova,
+     Poland and Ukraine, weighted by population.
+   - Global: the table gives no world figure, so this is the 15 most
+     populous countries it covers (about 4.8 billion people), weighted
+     by population.
+   Population weights are rounded 2023 estimates. The table reports
+   few standard deviations; the SD used here (men 6.9, women 6.4) is
+   the median of those it does list. Foot and hand length are
+   estimated from stature with fixed body proportions, so they are
+   less reliable than height. */
 (function () {
   'use strict';
   var svg = document.getElementById('curve-svg');
   if (!svg) return;
 
-  var DATA = {
-    height: {
-      label: 'height',
-      global:   { men: [171, 7.0],   women: [159, 6.5] },
-      namerica: { men: [177, 7.2],   women: [164, 6.8] },
-      europe:   { men: [178, 7.0],   women: [165, 6.5] },
-      china:    { men: [175.5, 6.5], women: [163.5, 6.0] }
-    },
-    foot: {
-      label: 'foot length',
-      global:   { men: [26.0, 1.3], women: [23.7, 1.1] },
-      namerica: { men: [26.9, 1.3], women: [24.4, 1.1] },
-      europe:   { men: [27.1, 1.3], women: [24.6, 1.1] },
-      china:    { men: [26.7, 1.2], women: [24.4, 1.0] }
-    },
-    hand: {
-      label: 'hand length',
-      global:   { men: [18.6, 0.9], women: [17.3, 0.85] },
-      namerica: { men: [19.3, 0.9], women: [17.8, 0.85] },
-      europe:   { men: [19.4, 0.9], women: [17.9, 0.85] },
-      china:    { men: [19.1, 0.85], women: [17.7, 0.8] }
-    }
+  var SD = { men: 6.9, women: 6.4 };
+  var HEIGHT = {
+    global:   { men: 168.3, women: 156.4 },
+    usa:      { men: 175.3, women: 161.3 },
+    europe:   { men: 174.6, women: 162.2 },
+    china:    { men: 169.6, women: 158.9 }
   };
-  var REGION_NAMES = { global: 'the global population', namerica: 'North America', europe: 'Europe', china: 'China' };
+  /* Proportion of stature and SD (cm) for the estimated measures. */
+  var FROM_STATURE = {
+    foot: { label: 'foot length', men: [0.152, 1.3], women: [0.149, 1.1] },
+    hand: { label: 'hand length', men: [0.109, 0.9], women: [0.1085, 0.85] }
+  };
+
+  var DATA = { height: { label: 'height' } };
+  Object.keys(HEIGHT).forEach(function (r) {
+    DATA.height[r] = { men: [HEIGHT[r].men, SD.men], women: [HEIGHT[r].women, SD.women] };
+  });
+  Object.keys(FROM_STATURE).forEach(function (key) {
+    var f = FROM_STATURE[key];
+    DATA[key] = { label: f.label };
+    Object.keys(HEIGHT).forEach(function (r) {
+      DATA[key][r] = {
+        men: [Math.round(HEIGHT[r].men * f.men[0] * 10) / 10, f.men[1]],
+        women: [Math.round(HEIGHT[r].women * f.women[0] * 10) / 10, f.women[1]]
+      };
+    });
+  });
+  var REGION_NAMES = { global: 'the global population', usa: 'the United States', europe: 'Europe', china: 'China' };
   var Z95 = 1.645;
   var NS = 'http://www.w3.org/2000/svg';
   var X0 = 30, X1 = 580, BASE = 225, TOP = 30;
@@ -133,7 +146,7 @@
   function draw() {
     var measure = DATA[measureSel.value], set = measure[regionSel.value];
     /* The axis and vertical scale cover every region, so a region change visibly moves the curves. */
-    var all = ['global', 'namerica', 'europe', 'china'].map(function (r) { return measure[r]; });
+    var all = ['global', 'usa', 'europe', 'china'].map(function (r) { return measure[r]; });
     var lo = Math.floor(Math.min.apply(null, all.map(function (s) { return Math.min(s.men[0] - 3.5 * s.men[1], s.women[0] - 3.5 * s.women[1]); })));
     var hi = Math.ceil(Math.max.apply(null, all.map(function (s) { return Math.max(s.men[0] + 3.5 * s.men[1], s.women[0] + 3.5 * s.women[1]); })));
     var peak = Math.max.apply(null, all.map(function (s) { return Math.max(pdf(s.men[0], s.men[0], s.men[1]), pdf(s.women[0], s.women[0], s.women[1])); }));

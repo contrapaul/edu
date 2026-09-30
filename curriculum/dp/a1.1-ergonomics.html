@@ -229,7 +229,7 @@
 <label class="live-calc-field-label" for="curve-region">Region</label>
 <select class="live-calc-select" id="curve-region">
 <option value="global">Global</option>
-<option value="namerica">North America</option>
+<option value="usa">United States</option>
 <option value="europe">Europe</option>
 <option value="china">China</option>
 </select>
@@ -251,7 +251,8 @@
 <svg class="diagram-canvas curve-svg" id="curve-svg" viewBox="0 0 600 270" role="img" aria-label="Two normal distribution curves, for men and for women"></svg>
 <div class="curve-key"><span class="curve-key-men">Men</span><span class="curve-key-women">Women</span></div>
 <div class="diagram-readout curve-readout" id="curve-readout" aria-live="polite"></div>
-<div class="live-calc-illustrative-flag">Approximate figures based on published averages, for illustration</div>
+<p class="curve-source">Heights come from measured national surveys collected in Wikipedia's <a href="https://en.wikipedia.org/wiki/Human_height_by_country" target="_blank" rel="noopener">Human height by country</a> (see References). Europe and the global curve are population-weighted averages; the global curve covers the 15 most populous countries in that list. Foot and hand lengths are estimated from height.</p>
+<div class="live-calc-illustrative-flag">Foot and hand lengths are estimates</div>
 </div>
 
 <p><strong>Using anthropometric data in practice</strong></p>
@@ -1007,6 +1008,12 @@ Limits:<br>
 <div class="ref-item-title">Computer Workstations eTool, OSHA</div>
 <a class="ref-item-url" href="https://www.osha.gov/etools/computer-workstations" target="_blank" rel="noopener">osha.gov/etools/computer-workstations</a>
 <div class="ref-item-desc">A practical checklist for desk setup: monitor height, chair adjustment, keyboard placement, reach zones. Anthropometrics applied to a real workstation, and a good model for writing your own design specification.</div>
+</div>
+
+<div class="ref-item">
+<div class="ref-item-title">Human height by country, Wikipedia</div>
+<a class="ref-item-url" href="https://en.wikipedia.org/wiki/Human_height_by_country" target="_blank" rel="noopener">en.wikipedia.org/wiki/Human_height_by_country</a>
+<div class="ref-item-desc">Average adult height for men and women in over 100 countries, with the survey, age range and year behind each figure. The height curves in 1.1.2 are built from this table. Notice how much the method matters: some countries are measured, others are self-reported, and some samples cover only one age group.</div>
 </div>
 
 </div>
