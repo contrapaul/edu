@@ -124,3 +124,24 @@ Written the way a busy teacher would actually write them. Detailed design instru
 4. Build the `?author` mode for placing regions, or will you be happy adjusting numbers I draft by eye?
 5. Should results include a share line or nothing at all? Default is nothing.
 6. Chinese translation later, as with `edu/ai`? If so, the text tells need their own handling, since the vocabulary tells are English-specific.
+
+
+## Prompts
+
+1. Dumplings Oct 1, 2026- ChatGPT
+Make me a poster advertising a dumping shop called 'Phoenix Dumplings". They have the best, freshest Jiaozi and Baozi, including vegetarian friendly fillings. Students say their dumplings are "delicious", and "so good they ordered another full plate!" They are offered steamed and fried, and have black vinegar, chili oil, ginger, and soy sauce for dipping.
+
+2. Roman History Oct 2, 2026- ChatGPT
+Create poster for a high school history classroom about being a citizen of Ancient Rome. Title: "A day in the life of a Roman" Include details about daily life, photorealistic pictures of life in Rome, "roman flourishes" all over, somewhat cringe-inducing comparisons to modern life- IE "Tiktok isn't invented for at least 2000 years, instead Roman teens spent their time doing..." Portrait, A3.
+
+3. Digital Citizen Oct 1, 2026- ChatGPT
+Create a colorful, eye-catching poster for my high school classroom about Digital Citizenship. Title: "Be a Responsible Digital Citizen!" Include 6 key tips, each with an icon and a short explanation, illustrations of diverse students using laptops and phones, and an inspiring quote at the bottom. Make it bright, engaging and modern. Portrait, A3.
+
+4. Spotting AI Slop Oct 1, 2026- ChatGPT
+Make an engaging educational poster for high school students titled "Can You Spot AI Slop?" that teaches them how to recognize low-quality AI-generated content. Include 8 warning signs, each with an icon and a short explanation, a friendly robot mascot holding a magnifying glass, a surprised student character, a QR code for more information, and a motivating slogan at the bottom. Bright, modern infographic style for a school hallway. Portrait, A3.
+
+5. AI Slop Bucket Oct 2, 2026- ChatGPT
+Create another poster advertising 'AI Slop', a rainbow goop that in flavors like brainrot, dead internet, "I asked chat", and "LinkedIn". Not an educational poster, but instead very tongue in cheek, with the many selling points being negatives that initially read as positives, like 'No thinking required', and 'You don't need to learn art anymore!". Aim for a photorealistic product and packaging. Portrait, A3
+
+6. AI Slop with information Oct 2, 2026- ChatGPT
+Create a poster advertising 'AI Slop' that uses warning signs as selling points, and looks more like an ad for a product than an educational poster. Portrait, A3
