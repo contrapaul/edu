@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slop</title>
+  <meta name="description" content="How to spot AI slop in the posters and texts you meet at school.">
+  <link rel="icon" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="slop.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<header class="masthead">
+  <h1 aria-label="Slop"><span>S</span><span>l</span><span>o</span><span>p</span></h1>
+  <p class="deck">How to tell when a poster or a page was made by AI, and why you already stopped reading it.</p>
+</header>
+
+<main>
+
+  <section class="commentary placeholder reveal">
+    <p>Every corridor in this school has at least one of these posters. You already know the look: a glossy picture, a crowd of icons, a slogan that sounds like an advert, and nobody's name anywhere. Most of you stopped reading them a long time ago, and you were right to. This page is about why they feel the way they do, and how to say exactly what gives them away.</p>
+  </section>
+
+  <section class="exhibit" data-poster="goop"></section>
+  <section class="exhibit" data-poster="digital-citizen"></section>
+  <section class="exhibit" data-poster="rome"></section>
+
+  <section class="activity" data-poster="dumplings">
+    <h2 class="reveal">Phoenix Dumplings</h2>
+    <p class="intro placeholder reveal">This poster advertises a dumpling shop that doesn't exist. The prompt that made it is printed below the poster, so you can compare what was asked for with what came out. Tap every part you think gives it away as AI-made, then press Check. You get a few more pins than there are tells, so tapping everything won't work.</p>
+    <div class="workspace">
+      <div class="stage">
+        <button type="button" class="round-close stage-close" aria-label="Close full screen">&times;</button>
+        <figure class="poster reveal reveal-side"></figure>
+        <button type="button" class="start">Tap to start</button>
+      </div>
+      <div class="side reveal">
+        <div class="controls">
+          <p class="count" aria-live="polite"></p>
+          <p class="score" aria-live="polite"></p>
+          <button type="button" class="check" disabled>Check</button>
+          <button type="button" class="again" hidden>Try again</button>
+        </div>
+        <aside class="note" hidden>
+          <p class="note-meta"><span class="note-cat"></span> <span class="note-status"></span></p>
+          <h3 class="note-title"></h3>
+          <p class="note-body"></p>
+          <div class="note-nav">
+            <button type="button" class="note-prev" aria-label="Previous tell">&larr;</button>
+            <span class="note-pos"></span>
+            <button type="button" class="note-next" aria-label="Next tell">&rarr;</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <div class="cite reveal"></div>
+  </section>
+
+  <section class="exhibit" data-poster="spot-ai-slop"></section>
+  <section class="exhibit" data-poster="slop-warning"></section>
+
+  <section class="commentary placeholder reveal">
+    <p>Paul's closing commentary goes here: what students can do with this, and a word for the teachers reading over their shoulders about naming the tool and the prompt on anything AI helped to make. There is more on using AI well in <a href="/ai/">AI in Education</a>.</p>
+  </section>
+
+</main>
+
+<footer class="colophon reveal">
+  <p>The posters on this page were made with ChatGPT for this lesson, and each one is shown with its prompt. The page itself was built with help from Claude.</p>
+</footer>
+
+<div class="viewer" hidden>
+  <button type="button" class="round-close viewer-close" aria-label="Close">&times;</button>
+  <img alt="">
+</div>
+
+<script src="slop.js"></script>
+</body>
+</html>

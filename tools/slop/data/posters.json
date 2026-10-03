@@ -1,0 +1,191 @@
+{
+  "posters": [
+    {
+      "id": "dumplings",
+      "title": "Phoenix Dumplings",
+      "image": "img/dumplings.webp",
+      "width": 1024,
+      "height": 1536,
+      "alt": "An advert for Phoenix Dumplings. A red and orange phoenix sits beside the shop name in brush lettering. Below are speech bubbles with student quotes, a plate of steamed and fried jiaozi, a bamboo steamer of baozi, and four small bowls of dipping sauce.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "1 October 2026",
+        "prompt": "Make me a poster advertising a dumping shop called 'Phoenix Dumplings\". They have the best, freshest Jiaozi and Baozi, including vegetarian friendly fillings. Students say their dumplings are \"delicious\", and \"so good they ordered another full plate!\" They are offered steamed and fried, and have black vinegar, chili oil, ginger, and soy sauce for dipping."
+      },
+      "tells": [
+        {
+          "id": "students-say",
+          "title": "The prompt, pasted in",
+          "category": "Prompt echo",
+          "shapes": [[318, 488, 284, 184]],
+          "body": "The prompt said: Students say their dumplings are \"delicious\". The poster prints almost exactly those words, including \"their\", which makes no sense on the shop's own poster. Image models are good at copying words from a prompt onto a picture, but they don't understand who is speaking in the sentence. A person making this poster would have asked a real student for a quote, or left it out."
+        },
+        {
+          "id": "so-good",
+          "title": "A customer quote about somebody else",
+          "category": "Prompt echo",
+          "shapes": [[604, 452, 300, 200]],
+          "body": "In the prompt, \"so good they ordered another full plate\" describes what students did. The poster puts it in quotation marks as if a customer said it, but keeps the word \"they\", so the customer seems to be talking about other people. A real customer would say \"so good I ordered another plate.\" The smiley face underneath was added to fill the empty space."
+        },
+        {
+          "id": "tagline",
+          "title": "Words that could go on any poster",
+          "category": "Filler",
+          "shapes": [[96, 410, 838, 56, -2.8]],
+          "body": "\"Authentic flavors, quality ingredients, made with care\" was not in the prompt. Phrases like these appear on millions of real adverts, so they are what a model expects to come next, and it adds them whenever there is space. They tell the reader nothing about this shop, and they would fit just as well on a pizza box or a hotel brochure."
+        },
+        {
+          "id": "house-made",
+          "title": "A claim nobody made",
+          "category": "Filler",
+          "shapes": [[222, 1134, 586, 62]],
+          "body": "The prompt listed four things for dipping. The poster calls them \"our house-made sauces\", which nobody said, and one of the four is a bowl of sliced ginger, which isn't a sauce at all. The model invented a selling point because adverts usually have one. On a real poster, a claim like this could be false advertising."
+        },
+        {
+          "id": "no-chinese",
+          "title": "A jiaozi shop with no Chinese on it",
+          "category": "Missing",
+          "shapes": [[384, 28, 580, 310]],
+          "body": "A real shop selling jiaozi and baozi would usually show its name or its food in Chinese characters as well as English. Image models are much worse at drawing Chinese characters than English letters, so they tend to leave them out unless the prompt asks for them, and even then the characters are often wrong."
+        },
+        {
+          "id": "footer",
+          "title": "Nowhere to find the shop",
+          "category": "Missing",
+          "shapes": [[180, 1430, 664, 100]],
+          "body": "The bottom of a shop poster is where the address, opening hours, prices or a phone number usually go. Here it holds a thin line and a tiny phoenix. The model had no information about any of these, and instead of asking, it filled the space with decoration. A poster that doesn't tell you where to go has failed at its only job."
+        },
+        {
+          "id": "corners",
+          "title": "Decoration from a template",
+          "category": "Decoration",
+          "shapes": [[8, 8, 92, 124], [860, 8, 156, 124], [8, 1418, 150, 110], [866, 1418, 150, 110]],
+          "body": "The red fret corners are the pattern that appears on almost every Chinese New Year card and restaurant menu online. The model reached for the most common sign of \"Chinese\" and put one in each corner, the same way it puts a lightbulb on posters about ideas and a rocket on posters about success."
+        }
+      ]
+    },
+    {
+      "id": "goop",
+      "title": "Rainbow Goop",
+      "image": "img/slop-goop.webp",
+      "width": 1054,
+      "height": 1492,
+      "alt": "A photorealistic advert for a tub of rainbow goop called AI Slop, with a spoon dripping goop, a row of selling points down the left side, four flavor labels down the right, and a sticky note on the desk.",
+      "intro": "The prompt asked for a joke advert, so the jokes themselves don't count. The way they are written does.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "2 October 2026",
+        "prompt": "Create another poster advertising 'AI Slop', a rainbow goop that in flavors like brainrot, dead internet, \"I asked chat\", and \"LinkedIn\". Not an educational poster, but instead very tongue in cheek, with the many selling points being negatives that initially read as positives, like 'No thinking required', and 'You don't need to learn art anymore!\". Aim for a photorealistic product and packaging. Portrait, A3"
+      },
+      "observations": [
+        "Almost every line is two short fragments, such as \"Feels real. Isn't.\" and \"Less effort. More slop.\" One line like that can be a joke, but this poster has more than ten of them, and that rhythm is one of the most common habits of AI writing.",
+        "The label on the tub is printed with the same rainbow goop that is inside it, so at the top and bottom of the tub you can't tell where the label ends and the goop begins.",
+        "The brain icon starts as a front view with left and right halves, then grows a lump at the bottom right that looks like the back of a brain, while keeping the line down the middle. It looks like a brain for a moment and falls apart when you look closely.",
+        "The other flavor icons have the same problem. \"Dead Internet\" is a blue square with a face, \"I Asked Chat\" is a target inside a speech bubble, and the smiley face has a second face layered over it.",
+        "The clock icon's face sits off-center inside its circle.",
+        "The sticky note has faint ghost marks in its empty corner and a half-drawn smiley after \"day.\"",
+        "The ingredients list decays as it goes down the label: \"Ingredients\" becomes \"Ingredieats\" and \"optional\" becomes \"optomal\".",
+        "The barcode has no real numbers under it, only shapes that look like numbers from a distance.",
+        "\"Harmlessly addictive\" is missing an i.",
+        "The tub promises four flavors, but the goop inside is one mixed rainbow with no way to tell the flavors apart."
+      ]
+    },
+    {
+      "id": "digital-citizen",
+      "title": "Be a Responsible Digital Citizen",
+      "image": "img/digital-citizen.webp",
+      "width": 1054,
+      "height": 1492,
+      "alt": "A bright cartoon classroom poster titled Be a Responsible Digital Citizen, with six numbered tips in colored boxes, cartoon students with laptops and phones, and a quote credited to Bill Gates at the bottom.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "1 October 2026",
+        "prompt": "Create a colorful, eye-catching poster for my high school classroom about Digital Citizenship. Title: \"Be a Responsible Digital Citizen!\" Include 6 key tips, each with an icon and a short explanation, illustrations of diverse students using laptops and phones, and an inspiring quote at the bottom. Make it bright, engaging and modern. Portrait, A3."
+      },
+      "observations": [
+        "The quote at the bottom is credited to Bill Gates but gives no source, so there is no way to check that he ever said it.",
+        "Tip 4 tells students to check their sources, on a poster whose only quote has none.",
+        "The body text uses three em dashes (the long dash). Very few people type them, which is why they have become one of the best known signs of AI writing.",
+        "Tip 6 says technology is \"a tool, not a replacement for real life\", the \"not this, but that\" sentence shape that AI uses constantly.",
+        "The slogans come as lists of short phrases: \"Think, Be Kind, Make a Positive Impact\" and \"Learn, Create, Support, Inspire\".",
+        "The four students in tip 2 are each a different kind of person, but they share the same face shape and the same smile.",
+        "Almost every student wears headphones, and the boy in the green hoodie at the top left appears on two other posters on this page.",
+        "All six tips sit in boxes of the same size with the same layout, whether the tip matters a lot or a little.",
+        "The icons are the ones on every poster like this: a shield with a padlock, a lightbulb on a laptop and a magnifying glass."
+      ]
+    },
+    {
+      "id": "rome",
+      "title": "A Day in the Life of a Roman",
+      "image": "img/rome.webp",
+      "width": 1054,
+      "height": 1492,
+      "alt": "A busy history poster titled A Day in the Life of a Roman, with parchment panels for morning, afternoon and evening, photorealistic scenes of a market, a bath and a dinner, marble busts, the Colosseum, and a teenager in sunglasses at the bottom.",
+      "intro": "The prompt asked for cringe-worthy comparisons to modern life, so the cringe doesn't count here.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "2 October 2026",
+        "prompt": "Create poster for a high school history classroom about being a citizen of Ancient Rome. Title: \"A day in the life of a Roman\" Include details about daily life, photorealistic pictures of life in Rome, \"roman flourishes\" all over, somewhat cringe-inducing comparisons to modern life- IE \"Tiktok isn't invented for at least 2000 years, instead Roman teens spent their time doing...\" Portrait, A3."
+      },
+      "observations": [
+        "The dome in the top right is St Peter's Basilica, which was finished in the late 1500s, more than a thousand years after the Western Roman Empire fell.",
+        "\"Reading, writing, or learning (yes, actual books!)\" is wrong for most of Roman history. Romans read scrolls, and the bound book, called a codex, only became common late in the empire.",
+        "\"Rise with the sun (around 6 to 7am)\" assumes clock hours. Romans split the daylight into twelve hours, and the length of each hour changed with the seasons.",
+        "The handwritten note on the breakfast photo falls apart into \"a liittle diffferent\", and the sign on the market stall is a scribble that only looks like writing.",
+        "The prompt asked for \"Roman flourishes all over\", meaning decoration. The poster took the words literally and made a section with the heading \"ROMAN FLOURISHES\".",
+        "One idea appears three times: \"Same human nature. Different century.\", \"Different times. Same vibes.\" and \"Different century. Same human story.\"",
+        "\"Not just legionaries... real people!\" and \"more than just gladiators\" both use the \"not just X\" shape.",
+        "\"NO TIKTOK? The problem. Roman teens spent their time doing...\" doesn't work as a sentence, because \"The problem\" doesn't connect to anything.",
+        "The Colosseum appears three times, and the two marble busts are almost the same face.",
+        "The teen at the bottom wears sunglasses and a toga over a T-shirt, and the public bath looks like a hotel pool.",
+        "The body text uses em dashes."
+      ]
+    },
+    {
+      "id": "spot-ai-slop",
+      "title": "Can You Spot AI Slop?",
+      "image": "img/spot-ai-slop.webp",
+      "width": 1054,
+      "height": 1492,
+      "alt": "A cartoon infographic titled Can You Spot AI Slop?, with a robot holding a magnifying glass, a surprised student with a phone, eight numbered warning signs in pastel boxes, slogans across the bottom and a QR code.",
+      "intro": "Most of this poster's advice is good, which makes its own slop easier to see.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "1 October 2026",
+        "prompt": "Make an engaging educational poster for high school students titled \"Can You Spot AI Slop?\" that teaches them how to recognize low-quality AI-generated content. Include 8 warning signs, each with an icon and a short explanation, a friendly robot mascot holding a magnifying glass, a surprised student character, a QR code for more information, and a motivating slogan at the bottom. Bright, modern infographic style for a school hallway. Portrait, A3."
+      },
+      "observations": [
+        "The bottom strip holds three slogans that each come in threes: \"Real people. Real thinking. Real impact.\", \"Be Curious. Think Critically. Make Better Choices.\" and \"Better questions. A smarter internet. A brighter future.\"",
+        "Warning sign 1, \"too perfect to be true\", is illustrated with a flawless AI-made fairy-tale landscape.",
+        "Warning sign 6, \"lack of real emotion\", is illustrated with an AI-made girl whose face shows no real emotion.",
+        "Warning signs 3 and 7 use \"In today's fast-paced world\" and \"delve into the tapestry\" as examples of AI language. Both are fair examples, and the poster's own slogans have the same problem.",
+        "Image models can draw something that looks like a QR code, but they almost never draw one that works. Try scanning it.",
+        "All eight warning signs sit in matching boxes, each with an icon, an explanation and a handwritten catchphrase in the same place.",
+        "The robot mascot, the surprised student and the lightbulb turn up on poster after poster. The student is the boy in the green hoodie again.",
+        "Warning sign 7 has an em dash."
+      ]
+    },
+    {
+      "id": "slop-warning",
+      "title": "A second AI Slop advert",
+      "image": "img/slop-warning.webp",
+      "width": 1054,
+      "height": 1492,
+      "alt": "A yellow and black poster with a dripping bucket labeled AI Slop, six black warning boxes, a surprised cartoon student at a laptop, and a QR code.",
+      "intro": "The prompt asked for an advert that used the warning signs as selling points, and said it should look more like an ad for a product than an educational poster.",
+      "citation": {
+        "tool": "ChatGPT (free plan)",
+        "date": "2 October 2026",
+        "prompt": "Create a poster advertising 'AI Slop' that uses warning signs as selling points, and looks more like an ad for a product than an educational poster. Portrait, A3"
+      },
+      "observations": [
+        "ChatGPT made an educational poster anyway. \"Spot the red flags. Avoid the slop.\" is advice, not a sales pitch. When a request is unusual, the model drifts back to the kind of poster it has made most often.",
+        "It repeats the Can You Spot AI Slop? poster almost point for point: the same warning signs, \"In today's fast-paced world\" as the example again, a QR code and the same surprised boy in the green hoodie.",
+        "The slogans come in pairs and threes: \"It looks good. But is it real?\" and \"Better sources. Real thinking. Higher quality.\"",
+        "\"Too good to be true\" lists perfect grammar and zero mistakes as warning signs, which would make careful human writing look suspicious.",
+        "The bucket is filled with the same picture and document icons that stand for \"content\" on every poster like this.",
+        "The QR code is another one to try scanning."
+      ]
+    }
+  ]
+}
