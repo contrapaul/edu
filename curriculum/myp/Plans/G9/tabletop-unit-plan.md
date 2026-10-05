@@ -64,7 +64,7 @@ grade through the group phase:
 | Aiii | 3 | 3 teardowns plus a synthesis page |
 | Aiv | 1 | Design Brief, 1 page with evidence column |
 | Bi | 1 | Design Specification, 8 to 12 testable specs |
-| Bii | 3 | 3 annotated concepts plus 2 paper prototypes |
+| Bii | 3 | 3 annotated concepts, brainstorming, interpretation test list |
 | Biii | 2 | Decision matrix plus critical justification |
 | Biv | 3 | Production Pack, 4 to 8 pages |
 | Ci | 1 | Group plan plus personal task plan |
@@ -218,24 +218,27 @@ materials, rules clarity, balance and fairness, aesthetics, accessibility, cost.
 
 **Task, three parts.**
 
-**1. Forced range: the mechanic draw.** Each student draws two family cards from
-the catalog and must generate a concept using at least one mechanic from each. Draw
-three times. This produces genuine range rather than six versions of one idea.
-Across the full set, concepts must touch at least **three different families**.
+**1. Forced range: nine mechanics, three of them unique.** Across the three
+concepts each student must use at least **nine mechanics** named from the catalog,
+roughly three per concept, and at least **three of those nine** must not appear in
+any teammate's concepts. This produces genuine range rather than three versions of
+one idea, and it stops a team converging before Biii.
 
-**2. Six to eight annotated concepts**, on a standard A3 template so annotation has
+**2. Three annotated concepts**, on a standard A3 template so annotation has
 somewhere to live. Each concept shows:
 - A core loop diagram, what a player does on their turn, in order
 - Board or component sketch
 - Mechanics used, named from the catalog
+- The meaningful choice, circled and labelled
 - Annotation on how it serves the audience, referencing a Bi spec by number
 - One risk: the part most likely to fail
 
 Hand drawing is the better medium here, because MYP rewards annotation density and
 students annotate more freely by hand. Digital allowed if annotation is as rich.
 
-**3. Two paper prototypes, actually played for five minutes.** Feasibility is in
-the descriptor. An idea nobody has tried is not demonstrably feasible.
+**3. Feasibility, shown on the sheet.** Feasible is in the descriptor, so each
+concept names its components and what they are made of. A concept needing a part
+the team cannot make or buy inside the build block is not a feasible idea.
 
 **The interpretation test, which is also the formative.** Swap sheets with a
 classmate. They explain your concept back to you from the sheet alone, with no
@@ -243,8 +246,8 @@ talking from you. You write down what they got wrong. That list is submitted wit
 the concepts and is direct evidence for "can be correctly interpreted by others",
 which is otherwise very hard to evidence.
 
-**Class shape.** Class 1 mechanic draw and rapid concepts. Class 2 develop and
-annotate all three. Class 3 paper prototypes and the interpretation test.
+**Class shape.** Class 1 pick mechanics and sketch fast. Class 2 develop and
+annotate all three. Class 3 finish the annotation and run the interpretation test.
 
 ## Biii (2 classes)
 
@@ -503,9 +506,8 @@ the class that precedes the strand it prepares for.
 |---|---|---|---|
 | Bi | **Make it measurable.** 8 unmeasurable specs, rewrite each with a number and a test. | 20 min | "Fun", "easy", "attractive" |
 | Bi | **Spec to test matching.** Given a spec, choose the method that could actually test it. | 15 min | Sets up Di early |
-| Bii | **Two family challenge.** Draw two catalog families, sketch a concept in 8 minutes. Repeat three times. | 30 min | Fluency and range before it counts |
 | Bii | **Annotation density check.** Compare two sketches of the same idea, one bare and one annotated. Count what you can only learn from the annotated one. | 15 min | Annotation is the assessed part, not the drawing |
-| Bii | **Interpretation rehearsal.** Explain a partner's sketch back to them, first run, ungraded. | 15 min | Reveals what a reader actually needs |
+| Bii | **Interpretation test.** Explain a partner's sketch back to them, first run, ungraded. | 15 min | Reveals what a reader actually needs |
 | Biii | **Matrix with a rigged winner.** Give a matrix where the highest scoring option is obviously wrong. Discuss what the matrix missed. | 20 min | Stops blind trust in the numbers |
 | Biii | **Write the case against.** Practise arguing against a design you like. | 15 min | The hardest half of Biii |
 | Biv | **Dimension a card.** Take a real card, measure it, draw it to scale with bleed and margin marked. | 25 min | Scale and dimensioning conventions |
