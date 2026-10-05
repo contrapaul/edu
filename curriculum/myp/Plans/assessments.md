@@ -36,7 +36,7 @@ Everything goes to **ManageBac** as soon as it is finished. Some tasks produce s
 | 2 | **Aii** | Plan and prioritise research | 1 class | Research Plan, 1 page | TO WRITE | TO WRITE | 0 of 4 |
 | 3 | **Aiii** | Analyse existing games | 3 classes | 3 teardowns + synthesis | TO WRITE | TO WRITE | 0 of 4 |
 | 4 | **Aiv** | Write the design brief | 1 class | Design Brief, 1 page | TO WRITE | TO WRITE | 0 of 4 |
-| 5 | **Bi** | Write design specification | 1 class | Specification, 8 to 12 lines | TO WRITE | TO WRITE | 0 of 4 |
+| 5 | **Bi** | Write design specification | 1 class | Specification, 8 to 12 lines | DONE | TO WRITE | 4 of 4 |
 | 6 | **Bii** | Generate a range of ideas | 3 classes | 3 concepts + brainstorming | DONE | TO WRITE | 4 of 4 |
 | 7 | **Biii** | Choose and justify critically | 2 classes | Matrix + justification | TO WRITE | TO WRITE | 0 of 4 |
 | 8 | **Biv** | Draw it for production | 3 classes | Production Pack, 4 to 8 pages | TO WRITE | TO WRITE | 0 of 4 |
@@ -278,7 +278,10 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
 ### Do
 
-Create a set of design specifications which will guide your project. These must be testable, and linked to research you did in Aiii.
+- Use the **Design Specifications Tool** on Mr. K's website to complete your work.
+- Choose specifications that meet all of the requirements and that match your target audience.
+- Each specification must be testable. That can be as simple as measuring a box, and as complicated as simulating thousands of card draws or dice rolls.
+- You must include a brief explanation of why you chose each specification.
 
 ### Hand in
 

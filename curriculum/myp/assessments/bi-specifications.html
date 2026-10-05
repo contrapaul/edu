@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Criterion Bi design specifications tool. Twelve specification cards with a category and test method chosen from a list, a measurable success criterion, and a reason for each.">
+<title>Bi Design Specifications | G9 MYP Design | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/assessments/bi-specifications.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Bi Design Specifications | contrapaul edu">
+<meta property="og:description" content="Build a testable set of design specifications for MYP Design Criterion Bi.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/myp/assessments/bi-specifications.html">
+<meta name="twitter:card" content="summary">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Bi DESIGN SPECIFICATIONS
+   Four sides at 794 x 1123, which is A4 at 96dpi. A coverage page
+   and three specification pages of four cards, so twelve rows for
+   a hand-in of eight to twelve. Fonts are self-hosted, nothing
+   external is loaded. Built to match aiii-teardowns.html.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:#14171c; --mid:#5b6472; --line:#c8cdd6; --hair:#e4e7ec;
+  --accent:#7a2c4e; --page:#fff; --desk:#eceef2; --warn:#b0562c;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--desk); color:var(--ink); font-family:var(--body);
+  display:flex; flex-direction:column; align-items:center; padding:20px 12px 60px; }
+
+.bar { width:794px; max-width:100%; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:12px; }
+.bar h1 { font-size:1rem; font-weight:600; margin:0 auto 0 0; }
+.bar h1 span { color:var(--mid); font-weight:400; }
+.btn { font-family:var(--mono); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  padding:0.5rem 0.85rem; border-radius:7px; cursor:pointer; background:var(--page); color:var(--ink); border:1px solid var(--line); }
+.btn:hover { border-color:var(--accent); color:var(--accent); }
+.btn-go { background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn-go:hover { color:#fff; filter:brightness(1.12); }
+.hint { width:794px; max-width:100%; margin:0 0 14px; font-size:0.78rem; color:var(--mid); }
+.savestate { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--mid); }
+
+/* ── SHEETS ──────────────────────────────────────────────────── */
+.sheet { width:794px; height:1123px; background:var(--page); padding:38px 44px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13);
+  display:flex; flex-direction:column; margin-bottom:26px; }
+.sheet:last-of-type { margin-bottom:0; }
+
+.sheet-head { display:flex; align-items:flex-end; gap:12px; border-bottom:2px solid var(--ink); padding-bottom:8px; }
+.sheet-title { font-size:19px; font-weight:700; margin:0; white-space:nowrap; }
+.sheet-sub { font-family:var(--mono); font-size:8.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--mid); margin:0 auto 3px 0; }
+.pagenum { font-family:var(--mono); font-size:8.5px; letter-spacing:0.1em; color:var(--mid); margin:0 0 3px; }
+
+h2 { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--accent); margin:15px 0 8px; padding-bottom:3px; border-bottom:1px solid var(--hair); }
+.sec-note { font-size:9.5px; color:var(--mid); font-weight:400; text-transform:none; letter-spacing:0; float:right; }
+
+.f { display:flex; align-items:baseline; gap:6px; min-width:0; }
+.f > label { font-family:var(--mono); font-size:8.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); white-space:nowrap; }
+input[type=text] { font-family:var(--body); font-size:12px; color:var(--ink); border:none;
+  border-bottom:1px solid var(--line); background:transparent; padding:2px 2px 3px; width:100%; min-width:0; }
+input[type=text]:focus { outline:none; border-bottom-color:var(--accent); background:#fdf5f8; }
+.row3 { display:grid; grid-template-columns:2fr 1.1fr 0.9fr; gap:16px; margin-top:14px; }
+
+.rules { font-size:9.5px; color:var(--mid); line-height:1.55; margin:0; }
+.rules b { color:var(--ink); font-weight:600; }
+
+.todo-list { margin:0; padding-left:16px; display:flex; flex-direction:column; gap:4px; }
+.todo-list li { font-size:10.5px; line-height:1.5; color:var(--ink); }
+.todo-list li::marker { color:var(--accent); font-weight:700; }
+.todo-list b { font-weight:600; }
+
+/* ── coverage checklist ──────────────────────────────────────── */
+.cov { display:grid; grid-template-columns:repeat(3,1fr); gap:7px 14px; margin-top:10px; }
+.cov-item { display:flex; align-items:center; gap:6px; font-size:10.5px; color:var(--ink); }
+.cov-box { flex:none; width:12px; height:12px; border:1.4px solid var(--line); border-radius:2.5px;
+  background:var(--page); position:relative; }
+.cov-item.done .cov-box { background:var(--accent); border-color:var(--accent); }
+.cov-item.done .cov-box::after { content:''; position:absolute; left:3.4px; top:0.8px; width:3px; height:7px;
+  border:solid #fff; border-width:0 1.7px 1.7px 0; transform:rotate(42deg); }
+.cov-item.req { font-weight:600; }
+.cov-item.req .cov-box { border-color:var(--warn); border-width:1.8px; }
+.cov-item.req.done .cov-box { border-color:var(--accent); }
+.cov-n { margin-left:auto; font-family:var(--mono); font-size:8.5px; color:var(--mid); }
+
+.tally { display:flex; align-items:baseline; gap:8px; margin-top:12px;
+  font-family:var(--mono); font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); }
+.tally b { font-size:15px; color:var(--ink); letter-spacing:0; }
+.tally .short { color:var(--warn); font-weight:700; }
+
+/* ── example table ───────────────────────────────────────────── */
+.eg { width:100%; border-collapse:collapse; table-layout:fixed; margin-top:8px; }
+.eg th, .eg td { border:1px solid var(--hair); padding:5px 7px; text-align:left; vertical-align:top; }
+.eg thead th { border-bottom:1.5px solid var(--line); background:#faf7f8;
+  font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); font-weight:700; }
+.eg td { font-size:9.5px; line-height:1.45; color:var(--ink); }
+.eg td.bad { color:var(--warn); }
+
+/* ── specification cards ─────────────────────────────────────── */
+.cards { flex:1; display:flex; flex-direction:column; gap:11px; margin-top:11px; min-height:0; }
+.card { flex:1; display:flex; flex-direction:column; gap:7px; min-height:0;
+  border:1px solid var(--hair); border-left:3px solid var(--line); border-radius:5px; padding:8px 11px 10px; }
+.card.filled { border-left-color:var(--accent); }
+.card-top { display:grid; grid-template-columns:auto 1fr 1fr; gap:12px; align-items:center; }
+.card-n { font-family:var(--mono); font-size:11px; font-weight:700; color:var(--accent);
+  width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--hair); border-radius:4px; }
+.card.filled .card-n { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+select { font-family:var(--body); font-size:10.5px; color:var(--ink); width:100%; min-width:0;
+  border:none; border-bottom:1px solid var(--line); background:transparent;
+  padding:2px 2px 3px; cursor:pointer;
+  appearance:none; -webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--mid) 50%),linear-gradient(135deg,var(--mid) 50%,transparent 50%);
+  background-position:calc(100% - 9px) 55%, calc(100% - 5px) 55%;
+  background-size:4px 4px, 4px 4px; background-repeat:no-repeat; padding-right:16px; }
+select:focus { outline:none; border-bottom-color:var(--accent); }
+select:invalid, select.empty { color:var(--mid); }
+
+.fld { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.fld > span { font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mid); }
+.card-two { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.card textarea {
+  flex:1; min-height:0; resize:none;
+  font-family:var(--body); font-size:10.5px; line-height:1.5; color:var(--ink);
+  border:none; border-top:1px dotted var(--line); background:transparent; padding:4px 2px 0; width:100%;
+  background-image:repeating-linear-gradient(transparent, transparent 15px, var(--hair) 15px, var(--hair) 16px);
+  background-position:0 4px; }
+.card textarea:focus { outline:none; background-color:#fdf5f8; }
+.card .why { display:flex; flex-direction:column; gap:2px; flex:1; min-height:0; }
+.card .why > span { font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--mid); }
+
+/* Page 1 is a brief rather than a grid of cards, so its blocks are
+   spread down the page instead of stacking at the top over a long
+   empty foot. The card pages keep the default flow, where .cards
+   already flexes to fill. */
+.sheet[data-page="1"] { justify-content:space-between; }
+.sheet[data-page="1"] .sheet-foot { margin-top:0; }
+.sheet[data-page="1"] .cov { gap:10px 14px; }
+
+.sheet-foot { margin-top:auto; padding-top:8px; border-top:1px solid var(--hair);
+  display:flex; justify-content:space-between; align-items:center;
+  font-family:var(--mono); font-size:7.5px; letter-spacing:0.08em; color:var(--mid); }
+
+@media (max-width:860px) {
+  body { padding:14px 8px 40px; }
+  .sheet { transform:scale(calc((100vw - 24px)/794)); transform-origin:top center;
+    margin-bottom:calc((100vw - 24px)/794 * 1123 - 1123px + 26px); }
+}
+
+@page { size:A4 portrait; margin:0; }
+@media print {
+  body { background:#fff; padding:0; display:block; }
+  .bar, .hint { display:none !important; }
+  .sheet { width:210mm; height:297mm; padding:10mm 12mm; box-shadow:none; transform:none;
+    margin:0; page-break-after:always; break-after:page; }
+  .sheet:last-of-type { page-break-after:auto; break-after:auto; }
+  input[type=text], select, .card textarea { border-color:#b9bfc9; }
+  select { background-image:none; }
+  .cov-box, .cov-item.done .cov-box, .card.filled .card-n, .eg thead th {
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  h2, .card-n, .tally b { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Bi Design Specifications <span>/ twelve rows, eight to twelve used</span></h1>
+  <button class="btn" id="btn-clear" type="button">Clear</button>
+  <button class="btn" id="btn-print" type="button">Print</button>
+  <button class="btn btn-go" id="btn-png" type="button">Download PNG</button>
+</div>
+<p class="hint">Four sides. Fill it in here and download the PNG to hand in, or print it and write on it. <span id="savestate" class="savestate">Your work saves in this browser as you type.</span></p>
+
+<div id="sheets"></div>
+
+<script src="bi-specifications.js"></script>
+</body>
+</html>
