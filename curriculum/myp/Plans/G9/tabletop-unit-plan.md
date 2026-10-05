@@ -63,7 +63,7 @@ grade through the group phase:
 | Aii | 1 | Research Plan, prioritised, 1 page |
 | Aiii | 3 | 3 teardowns plus a synthesis page |
 | Aiv | 1 | Design Brief, 1 page with evidence column |
-| Bi | 1 | Design Specification, 8 to 12 testable specs |
+| Bi | 1 | Design Specification, 6 testable specs |
 | Bii | 3 | 3 annotated concepts, brainstorming, interpretation test list |
 | Biii | 2 | Decision matrix plus critical justification |
 | Biv | 3 | Production Pack, 4 to 8 pages |
@@ -197,7 +197,7 @@ box. On theme, and forces brevity. Keep the evidence table as the graded part.
 This is the most important single page in the unit, because Dii tests against it
 line by line. Time spent here is repaid twice.
 
-**Deliverable.** 8 to 12 specifications. Every one has four parts:
+**Deliverable.** 6 specifications. Every one has four parts:
 
 | # | Specification | Measurable success criterion | How it will be tested | Source |
 |---|---|---|---|---|

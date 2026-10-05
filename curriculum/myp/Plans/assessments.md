@@ -36,7 +36,7 @@ Everything goes to **ManageBac** as soon as it is finished. Some tasks produce s
 | 2 | **Aii** | Plan and prioritise research | 1 class | Research Plan, 1 page | TO WRITE | TO WRITE | 0 of 4 |
 | 3 | **Aiii** | Analyse existing games | 3 classes | 3 teardowns + synthesis | TO WRITE | TO WRITE | 0 of 4 |
 | 4 | **Aiv** | Write the design brief | 1 class | Design Brief, 1 page | TO WRITE | TO WRITE | 0 of 4 |
-| 5 | **Bi** | Write design specification | 1 class | Specification, 8 to 12 lines | DONE | TO WRITE | 4 of 4 |
+| 5 | **Bi** | Write design specification | 1 class | Specification, 6 lines | DONE | TO WRITE | 4 of 4 |
 | 6 | **Bii** | Generate a range of ideas | 3 classes | 3 concepts + brainstorming | DONE | TO WRITE | 4 of 4 |
 | 7 | **Biii** | Choose and justify critically | 2 classes | Matrix + justification | TO WRITE | TO WRITE | 0 of 4 |
 | 8 | **Biv** | Draw it for production | 3 classes | Production Pack, 4 to 8 pages | TO WRITE | TO WRITE | 0 of 4 |
@@ -272,7 +272,7 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 |---|---|---|
 | Time | 1 class | FROM PAGE |
 | Worked | Group Work | FROM PAGE |
-| Hand in | Specification, 8 to 12 lines | FROM PAGE |
+| Hand in | Specification, 6 lines | FROM PAGE |
 | Also submit | | TO WRITE |
 | Deadline wording | | TO WRITE |
 
@@ -285,7 +285,7 @@ Four to a sheet, along the foot band. Keep each to roughly twenty words.
 
 ### Hand in
 
-- Specification, 8 to 12 lines
+- Specification, 6 lines
 - Submit to **Upload a PDF of your work to ManageBac**
 - Also submit: *TO WRITE*
 
