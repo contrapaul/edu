@@ -97,10 +97,10 @@
       '<div class="sheet-head">' +
         '<p class="sheet-title"><span class="sheet-code">Bi</span> Design Specifications</p>' +
         '<div class="ident">' +
-          '<div class="f"><label for="id-name">Name</label><input type="text" id="id-name"></div>' +
-          '<div class="f f-sm"><label for="id-team">Team</label><input type="text" id="id-team"></div>' +
-          '<div class="f f-sm"><label for="id-date">Date</label><input type="text" id="id-date"></div>' +
-          '<div class="f"><label for="id-aud">Target audience</label><input type="text" id="id-aud"></div>' +
+          '<div class="f f-name"><label for="id-name">Name</label><input type="text" id="id-name"></div>' +
+          '<div class="f f-team"><label for="id-team">Team</label><input type="text" id="id-team"></div>' +
+          '<div class="f f-date"><label for="id-date">Date</label><input type="text" id="id-date"></div>' +
+          '<div class="f f-aud"><label for="id-aud">Target audience</label><input type="text" id="id-aud"></div>' +
         '</div>' +
       '</div>' +
       '<div class="cards">' + cards + '</div>' +
