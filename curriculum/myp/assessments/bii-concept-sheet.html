@@ -89,11 +89,15 @@ body { margin:0; background:var(--desk); color:var(--ink); font-family:var(--bod
   letter-spacing:0; text-transform:none; color:var(--mid); margin-left:auto; text-align:right; }
 
 /* The two hand-drawn fields carry a faint grid, so a sketch can be
-   kept roughly to scale without anyone ruling a sheet first. */
-.field { flex:1; min-height:0;
-  background-image:linear-gradient(var(--grid) 1px, transparent 1px),
-                   linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size:16px 16px; }
+   kept roughly to scale without anyone ruling a sheet first.
+
+   The grid is an SVG pattern rather than a pair of CSS gradients.
+   Gradients with a 1px hard stop are rasterised by print engines at
+   the wrong scale and come out as solid black bands on the PDF; an
+   SVG pattern is drawn as real geometry and survives both the screen
+   and the printer. */
+.field { flex:1; min-height:0; position:relative; }
+.field svg { display:block; width:100%; height:100%; }
 
 .sketch { grid-column:1; grid-row:1; border-bottom:1px solid var(--line); }
 .reqs   { grid-column:2; grid-row:1; border-left:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -119,8 +123,9 @@ textarea {
   flex:1; min-height:0; resize:none; margin-top:4px;
   font-family:var(--body); font-size:11px; line-height:1.55; color:var(--ink);
   border:none; background:transparent; padding:2px 2px 0; width:100%;
-  background-image:repeating-linear-gradient(transparent, transparent 16px, var(--hair) 16px, var(--hair) 17px);
-  background-position:0 3px; }
+  /* Ruled with an SVG tile for the same reason as the grid above. */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17'%3E%3Cpath d='M0 16.5H4' stroke='%23e4e7ec' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat:repeat; background-position:0 3px; }
 textarea:focus { outline:none; background-color:#faf3f6; }
 
 .mech { display:grid; grid-template-columns:auto 1fr; gap:4px 7px; align-items:baseline; margin-top:5px; }
@@ -163,7 +168,7 @@ textarea:focus { outline:none; background-color:#faf3f6; }
   .bar, .hint { display:none !important; }
   .sheet { width:420mm; height:297mm; padding:6mm; box-shadow:none; transform:none; margin:0; }
   input[type=text], textarea { border-color:#b9bfc9; }
-  .field, .panel-lab, .req-lab b, .tb-unit .tb-sub {
+  .field svg, .panel-lab, .req-lab b, .tb-unit .tb-sub, textarea {
     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 </style>
@@ -173,6 +178,7 @@ textarea:focus { outline:none; background-color:#faf3f6; }
 <div class="bar">
   <h1>Bii Concept Sheet <span>/ one A3 side per concept, three in total</span></h1>
   <button class="btn" id="btn-clear" type="button">Clear</button>
+  <button class="btn" id="btn-png" type="button">Download PNG</button>
   <button class="btn btn-go" id="btn-print" type="button">Print</button>
 </div>
 <p class="hint">A3 landscape, print first. Print one for each of your three concepts and draw on them. The text boxes are here only so you can start on a laptop. <span id="savestate" class="savestate">Typed work saves in this browser.</span></p>
@@ -191,7 +197,7 @@ textarea:focus { outline:none; background-color:#faf3f6; }
     <!-- ── the big hand-drawn field ── -->
     <section class="panel sketch">
       <p class="panel-lab">Board and components<em>Roughly to scale. Circle the meaningful choice and label it.</em></p>
-      <div class="field"></div>
+      <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-sketch" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-sketch)"/></svg></div>
     </section>
 
     <!-- ── what every concept must carry ── -->
@@ -234,7 +240,7 @@ textarea:focus { outline:none; background-color:#faf3f6; }
     <!-- ── core loop, also hand drawn ── -->
     <section class="panel loop">
       <p class="panel-lab">Core loop<em>What a player does on their turn, in order.</em></p>
-      <div class="field"></div>
+      <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-loop" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-loop)"/></svg></div>
     </section>
 
     <!-- ── title block ── -->
