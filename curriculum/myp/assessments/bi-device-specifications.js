@@ -8,6 +8,10 @@
 
   var ROWS = 6;
 
+  /* How far a field's text may be shrunk to make it fit before the
+     rest is clipped. Below this it stops being readable on paper. */
+  var MIN_FIT = 0.72;
+
   /* The nine categories, in the order the unit page lists them. The
      table there says what each one covers, so the labels here are kept
      short enough to read inside a dropdown. */
@@ -126,6 +130,12 @@
        card reads as unfinished on paper as well as on screen. */
     Array.prototype.forEach.call(document.querySelectorAll('#sheets select'), function (s) {
       s.classList.toggle('empty', !s.value);
+    });
+    /* The download can only show what fits inside the box, so a field
+       holding more than that is marked while there is still time to
+       shorten it. */
+    Array.prototype.forEach.call(document.querySelectorAll('#sheets input[type=text]'), function (i) {
+      i.classList.toggle('over', i.scrollWidth > i.clientWidth + 1);
     });
   }
 
@@ -246,17 +256,40 @@
       if (el.tagName === 'INPUT' || el.tagName === 'SELECT') {
         if (!el.value) return;
         var text = el.tagName === 'SELECT' ? el.options[el.selectedIndex].text : el.value;
-        c.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
         c.fillStyle = cs.color;
         var fs = parseFloat(cs.fontSize);
-        /* A browser centres text inside an input's content box, so a
-           tall cell and a short writing line both land right. */
+        var padL = parseFloat(cs.paddingLeft) || 0, padR = parseFloat(cs.paddingRight) || 0;
         var padT = parseFloat(cs.paddingTop) || 0, padB = parseFloat(cs.paddingBottom) || 0;
         var bdT = parseFloat(cs.borderTopWidth) || 0, bdB = parseFloat(cs.borderBottomWidth) || 0;
+        var maxW = r.width - padL - padR;
+
+        /* A browser clips whatever overflows an input and lets the field
+           scroll. Canvas does neither, so a long entry used to paint
+           straight across the sheet and over the card beside it. Shrink
+           a little first, which rescues anything close to fitting, then
+           clip, so nothing can be drawn outside the field whatever the
+           student typed. */
+        var scale = 1;
+        c.font = cs.fontWeight + ' ' + fs + 'px ' + cs.fontFamily;
+        if (c.measureText(text).width > maxW) {
+          while (scale > MIN_FIT) {
+            scale -= 0.02;
+            c.font = cs.fontWeight + ' ' + (fs * scale) + 'px ' + cs.fontFamily;
+            if (c.measureText(text).width <= maxW) break;
+          }
+        }
+
+        /* A browser centres text inside an input's content box, so a
+           tall cell and a short writing line both land right. */
         var contentH = r.height - bdT - bdB - padT - padB;
+        c.save();
+        c.beginPath();
+        c.rect(X(r.left) + padL, Y(r.top), maxW, r.height);
+        c.clip();
         c.fillText(text,
-          X(r.left) + (parseFloat(cs.paddingLeft) || 0),
-          Y(r.top) + bdT + padT + contentH / 2 + fs * 0.35);
+          X(r.left) + padL,
+          Y(r.top) + bdT + padT + contentH / 2 + (fs * scale) * 0.35);
+        c.restore();
         return;
       }
 
