@@ -1,6 +1,6 @@
 # Design technology — Standard level — Paper 2 — Set A
 
-*A practice paper written to the conventions in [paper2.md](../paper2.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
+*A practice paper written to the conventions in [paper2.md](paper2.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
 
 Companion to [sl-paper-1-set-a.md](sl-paper-1-set-a.md). No case study is reused between the two papers.
 
@@ -356,7 +356,7 @@ Make sure you have looked at all pages. Put the SEEN annotation on any blank pag
 
 ## A. Structure check
 
-| Requirement ([paper2.md §11](../paper2.md)) | This paper |
+| Requirement ([paper2.md §11](paper2.md)) | This paper |
 | --- | --- |
 | SL: 7 questions, 50 marks | ✓ |
 | Pattern 6, 6, 6, 6, 6, 10, 10 | ✓ Q1–Q5 at 6, Q6–Q7 at 10 |
@@ -422,7 +422,7 @@ One note on terminology: the HL Paper 1 specimen uses *affordance*, *constraints
 
 Ten of the fifteen terms. **Label** is the one SL-plausible term absent; it needs a figure to annotate and would fit naturally on Figure 6 or Figure 8 in a Set B. *Apply* and *Demonstrate* appear only at HL in the specimen. *Construct* and *Design* are used only in the HL Design Thinking Challenge.
 
-Every tariff matches the usage observed in the specimen ([paper2.md §4.1](../paper2.md)). No `State` is worth more than 1. Every item whose tariff implies a count says the number.
+Every tariff matches the usage observed in the specimen ([paper2.md §4.1](paper2.md)). No `State` is worth more than 1. Every item whose tariff implies a count says the number.
 
 ## E. Assessment objective split
 
@@ -454,9 +454,9 @@ Remaining from the pool: **Geocities** and **portable power banks**. Both suit a
 
 ## G. Building the HL version
 
-Per [paper2.md §3.1](../paper2.md), an HL Set A would reuse five of these case studies unchanged with different question parts, swap two for HL-content ones, and add the 30-mark Design Thinking Challenge.
+Per [paper2.md §3.1](paper2.md), an HL Set A would reuse five of these case studies unchanged with different question parts, swap two for HL-content ones, and add the 30-mark Design Thinking Challenge.
 
 - **Keep and rewrite the parts for:** Q1 student project, Q2 USB, Q5 WeChat, Q6 mechanical keyboards, Q7 World of Warcraft.
 - **Swap out** Q3 Instagram and Q4 Sony Walkman, which carry no HL content.
 - **Swap in** two cases that do. Portable power banks would serve A3.4 and B3.4 electronic systems; a load-bearing physical product would serve A3.2 and B3.2 structural systems. The mechanical keyboard case can also be pushed to HL by asking about the switch as a mechanical system (A3.3) and the PCB matrix as an electronic system (A3.4).
-- **Add** an HL Design Thinking Challenge on a separate humanitarian or civic scenario, built to the twelve-step spine in [paper2.md §6.2](../paper2.md). None of the subjects in this pool suits it; the challenge needs a resource-constrained community problem with personas, a constraints table and a quantified materials list.
+- **Add** an HL Design Thinking Challenge on a separate humanitarian or civic scenario, built to the twelve-step spine in [paper2.md §6.2](paper2.md). None of the subjects in this pool suits it; the challenge needs a resource-constrained community problem with personas, a constraints table and a quantified materials list.

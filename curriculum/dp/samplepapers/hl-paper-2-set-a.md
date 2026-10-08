@@ -1,6 +1,6 @@
 # Design technology — Higher level — Paper 2 — Set A
 
-*A practice paper written to the conventions in [paper2.md](../paper2.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
+*A practice paper written to the conventions in [paper2.md](paper2.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
 
 Completes Set A with [sl-paper-1-set-a.md](sl-paper-1-set-a.md), [sl-paper-2-set-a.md](sl-paper-2-set-a.md) and [hl-paper-1-set-a.md](hl-paper-1-set-a.md). Five case studies are shared with SL Paper 2, as the specimen shares its own; every question part is new. No subject used in HL Paper 1 appears here.
 
@@ -550,7 +550,7 @@ Make sure you have looked at all pages. Put the SEEN annotation on any blank pag
 
 ## A. Structure check
 
-| Requirement ([paper2.md §3.3 and §11](../paper2.md)) | This paper |
+| Requirement ([paper2.md §3.3 and §11](paper2.md)) | This paper |
 | --- | --- |
 | HL: 10 questions, 80 marks | ✓ |
 | 50-mark SL-shaped section, then a 30-mark Design Thinking Challenge | ✓ Q1–Q7 = 50, Q8–Q10 = 30 |
@@ -567,7 +567,7 @@ Make sure you have looked at all pages. Put the SEEN annotation on any blank pag
 
 ## B. Design Thinking Challenge check
 
-Against the twelve-step spine in [paper2.md §6.2](../paper2.md):
+Against the twelve-step spine in [paper2.md §6.2](paper2.md):
 
 | Step | This paper |
 | --- | --- |
@@ -659,7 +659,7 @@ By command term, following the guide's AO groupings:
 
 This inverts the SL paper's 60/40 and overshoots the guide's stated 50/50 in the opposite direction, for a structural reason worth understanding: **the Design Thinking Challenge is 30 marks of pure AO3.** Analyse, Construct, Design and Evaluate are all AO3 command terms, and between them they carry the whole challenge.
 
-Running the same mapping over the HL specimen gives 28 AO1/AO2 and 52 AO3, which is the same picture. So this paper matches the specimen, and the specimen does not match its own guide's stated weighting. The resolution is the one recorded in [paper2.md §4.4](../paper2.md): the IB is evidently not classifying these papers by command term alone. Match the specimen's structure and report both figures rather than distorting the paper to hit a percentage.
+Running the same mapping over the HL specimen gives 28 AO1/AO2 and 52 AO3, which is the same picture. So this paper matches the specimen, and the specimen does not match its own guide's stated weighting. The resolution is the one recorded in [paper2.md §4.4](paper2.md): the IB is evidently not classifying these papers by command term alone. Match the specimen's structure and report both figures rather than distorting the paper to hit a percentage.
 
 ## F. Duplication check
 

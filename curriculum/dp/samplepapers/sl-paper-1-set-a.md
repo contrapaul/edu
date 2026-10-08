@@ -1,6 +1,6 @@
 # Design technology — Standard level — Paper 1 — Set A
 
-*A practice paper written to the conventions in [paper1.md](../paper1.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
+*A practice paper written to the conventions in [paper1.md](paper1.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
 
 **File naming convention for this directory:** `{level}-paper-{n}-set-{letter}.md`, so `sl-paper-1-set-a.md`, `hl-paper-2-set-b.md`, and so on. One paper per file, markscheme included at the end.
 
@@ -526,7 +526,7 @@ Figure 9: *[to be added]*
 
 # Appendix — teacher notes
 
-*Not part of the examination paper. This is the private companion document recommended in [paper1.md §8](../paper1.md), giving the syllabus reference and rationale for each item so the paper can be used for feedback.*
+*Not part of the examination paper. This is the private companion document recommended in [paper1.md §8](paper1.md), giving the syllabus reference and rationale for each item so the paper can be used for feedback.*
 
 ## A. Structure check
 
@@ -587,7 +587,7 @@ Content deliberately excluded because it is **HL only**:
 | --- | --- | --- | --- |
 | 8 (27%) | 7 (23%) | 8 (27%) | 7 (23%) |
 
-Longest run of one letter: two (7b, 7c). Every letter sits inside the 20–30% band set in [paper1.md §9](../paper1.md). Note this deliberately does **not** copy the SL specimen's own key distribution (5 A, 13 B, 10 C, 2 D), which is an artefact worth avoiding.
+Longest run of one letter: two (7b, 7c). Every letter sits inside the 20–30% band set in [paper1.md §9](paper1.md). Note this deliberately does **not** copy the SL specimen's own key distribution (5 A, 13 B, 10 C, 2 D), which is an artefact worth avoiding.
 
 ## F. Item-by-item rationale
 

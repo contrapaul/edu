@@ -209,7 +209,7 @@ Marks go in square brackets, right-aligned at the end of the question text: `...
 
 ## 5. Case studies in Paper 2
 
-Everything in [paper1.md §4](paper1.md) applies. Paper 2 adds four things.
+Everything in [paper1.md §4](paper1.md) applies, including the subject-selection rules in §4.5 and the cross-sector subject bank in §4.6. Paper 2 adds four things, and then its own view of the bank in §5.5 and a scenario bank for the HL challenge in §5.6.
 
 ### 5.1 Every question is a product analysis
 
@@ -262,6 +262,64 @@ Each stage supplies exactly the facts the next part needs. Build 10-mark case st
 Because HL 1, 2, 3, 6, 7 and SL 1, 2, 3, 6, 7 are the same case studies with different parts, you can and should write **one set of case studies and two sets of questions**. This halves the work of producing a paired SL/HL mock and is what the IB itself did.
 
 The two swapped case studies at HL should carry HL-only content. In the specimen these are structural systems (aircraft wing, cantilever, factor of safety, Young's modulus) and materials and structural systems again (airship, composites, strength-to-weight ratio, static and dynamic forces). Other good HL-swap territory: mechanical systems, electronic systems, production systems, life-cycle analysis, design for manufacture strategies, beyond usability.
+
+### 5.5 Subject bank for Paper 2
+
+The selection rules and the screening test are in [paper1.md §4.5](paper1.md), and the full cross-sector bank is in [paper1.md §4.6](paper1.md). Both apply here unchanged. What follows is the Paper 2 view of that bank: which subjects carry a 6-mark case, which can sustain a 10-mark case in four progressive stages (§5.3), and which belong in the two HL swap slots.
+
+A 6-mark case needs one clear AO3 hook for its closing [3]. A 10-mark case needs four separable aspects, introduced in sequence, ending on an AO3 item worth [4]. That is a much harder requirement than Paper 1's, and it is what the third column records.
+
+| Subject | Best used as | AO3 hook for the closing item | Level |
+| --- | --- | --- | --- |
+| KitchenAid stand mixer | 10-mark | Evaluate a form unchanged since 1937 against the case for redesign | Either; gear train is HL |
+| Honda Super Cub | 10-mark | Explain how designing for repair in low-income markets produced a 100-million-unit product | Either |
+| Framework laptop | 10-mark | Evaluate modular construction against a sealed competitor on cost, mass and service life | Either |
+| Nintendo Switch Joy-Con drift | 10-mark | Evaluate the manufacturer's response against the designer's responsibility to the user | Either |
+| Duracell against Energizer | 10-mark | Explain which battery chemistry a given use case justifies, citing the comparison data | Either |
+| Osprey Anti-Gravity suspension | 10-mark | Explain how the suspension redistributes load, using the biomechanics of the loaded spine | Either |
+| Nike Go FlyEase | 6-mark | Justify a design-for-extremes strategy over an adjustable fastening | Either |
+| Barbie Fashionistas | 6-mark | Evaluate the range against the principles of inclusive design | Either |
+| G.I. Joe 1976 scale reduction | 6-mark | Explain how a raw-material cost shock propagated through the whole design | Either |
+| Microsoft Zune | 6-mark | Evaluate why a competent product failed against a weaker one | Either |
+| Microsoft Kin phones | 6-mark | Analyse the mismatch between the stated persona and the shipped product | Either |
+| Labubu blind-box model | 6-mark | Evaluate scarcity and style obsolescence as deliberate design decisions | Either |
+| Amazon Echo | 6-mark | Evaluate an always-listening microphone against the responsibility of the designer | Either |
+| Samsung Galaxy Note 7 | 6-mark | Evaluate the recall against the standards the product was certified to | Either |
+| Adobe Creative Cloud | 6-mark | Justify or challenge subscription licensing from the user's position | Either |
+| Lego brick tolerance | 6-mark | Explain how a manufacturing tolerance became a longevity strategy | Either |
+| Nvidia GPU cooler and 12VHPWR | 6-mark, **HL swap** | Explain the thermal and electrical failure path and the design response | HL: A3.4, B3.4 |
+| Samsung foldable hinge | 6-mark, **HL swap** | Explain how the hinge resolves the conflict between fold radius and glass stress | HL: A3.3, A3.2 |
+| Giant bicycle frame selection | 6-mark, **HL swap** | Explain the selection of alloy against carbon for a given rider and budget | HL: A3.2, B3.2 |
+| Haas CNC machining centre | 6-mark, **HL swap** | Explain how batch size decides between subtractive and formative routes | HL: A4.1, B4.1 |
+| Espressif ESP32 | 6-mark, **HL swap** | Explain the input-process-output chain and the consequence of ending firmware support | HL: A3.4, B3.4 |
+| Creality Ender 3 against Bambu Lab | 6-mark, **HL swap** | Evaluate an open platform against a closed one on repair, cost and capability | HL: A4.1, B4.1 |
+| Yamaha pianos and motorcycles | 6-mark, **HL swap** | Explain how one material requirement differs between an instrument and an engine | HL: A3.1, B3.1 |
+| KitchenAid planetary gear | 6-mark, **HL swap** | Apply velocity ratio to the beater's motion about two axes | HL: A3.3, B3.3 |
+
+Per [paper1.md §4.5](paper1.md), a product listed here may also appear in Paper 1 provided the sub-topics differ. The HL swap column exists because §5.4 requires the two swapped cases to carry HL-only content; the product itself is never the constraint, as an HL-associated product may anchor an SL case so long as every mark stays inside SL material.
+
+### 5.6 Scenario bank for the HL Design Thinking Challenge
+
+§6.3 sets five requirements for a challenge scenario: humanitarian or civic framing with a named organization and a real goal, resource constraint, quantification, three or four personas with conflicting needs, and closing feedback data. Ordinary product subjects do not meet them, which is why the challenge needs its own bank.
+
+Each scenario below is sized for the 30-mark run at questions 8 to 10 and can be built out to the twelve-step spine in §6.2.
+
+| Scenario | Framing | Conflicting personas | Constraint that makes it markable |
+| --- | --- | --- | --- |
+| Rainwater harvesting, Loma village | UN SDG 6, Oxfam | Nurse, teacher, farmer | Avoid: this is the IB specimen's own scenario |
+| Village solar microgrid, Sabari | UN SDG 7 | Health post, household, shopkeeper | Used: HL Paper 2 Set A |
+| Cold chain for vaccines without reliable grid power | WHO, UN SDG 3 | Clinic nurse, delivery rider, district pharmacist | Hold time in hours against ice-pack mass and vehicle load |
+| School handwashing station, drought region | UNICEF, UN SDG 6 | Youngest pupil, teacher, caretaker | Litres per pupil per day against tank refill interval |
+| Flood-resilient market stalls, river town | UN SDG 11 | Trader, council officer, delivery driver | Flood depth and warning time against what one person can move |
+| Accessible transport to a rural clinic | UN SDG 3, WHO | Wheelchair user, carer, driver | Vehicle payload and door width against road surface |
+| Grain storage against post-harvest loss | FAO, UN SDG 2 | Smallholder, cooperative manager, buyer | Tonnage, humidity threshold and pest exclusion |
+| Emergency shelter for a cold-climate displacement camp | UNHCR | Family of five, camp manager, logistics officer | Pack volume per shelter against truck capacity |
+| Safe cooking stove replacing open fires | WHO, UN SDG 7 | Cook, child, fuel seller | Fuel mass per meal against indoor particulate limits |
+| Community e-waste recovery point | UN SDG 12, Basel Convention | Repairer, resident, municipal collector | Throughput per week against storage area and safety rules |
+| Shade and water for an outdoor labour site | ILO, UN SDG 8 | Labourer, supervisor, site owner | Wet-bulb temperature against rest-cycle scheduling |
+| School desk for a classroom with no furniture budget | UNESCO, UN SDG 4 | Pupil, teacher, carpenter | Local timber stock and hand tools only |
+
+Write the persona table, the constraints table, the resources table and the feedback table before writing any question, as §6.3 requires. The conflict between personas is what makes question 10(a) non-trivial, so choose a scenario where the three users genuinely want different things.
 
 ---
 
@@ -501,6 +559,8 @@ Case studies
 - [ ] **Every part is anchored to its case study.** Deletion test passed on all parts.
 - [ ] Every part that has a figure names it: `see Figure n`
 - [ ] At least one case study derived from anonymized DP student project work
+- [ ] Every subject passes the [paper1.md §4.5](paper1.md) screening test; any reuse asks about different sub-topics
+- [ ] Each use recorded in the subject bank
 - [ ] 10-mark cases introduce figures and text progressively between parts
 - [ ] SL and HL share case studies where possible; HL swaps carry HL-only content
 - [ ] All figures numbered sequentially, captioned, and listed in the back matter

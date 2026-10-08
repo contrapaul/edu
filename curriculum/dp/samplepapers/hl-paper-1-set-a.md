@@ -1,6 +1,6 @@
 # Design technology — Higher level — Paper 1 — Set A
 
-*A practice paper written to the conventions in [paper1.md](../paper1.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
+*A practice paper written to the conventions in [paper1.md](paper1.md), for the guide first assessed in 2027. Not an IB paper. Figures are placeholders for images to be added.*
 
 Companion to [sl-paper-1-set-a.md](sl-paper-1-set-a.md) and [sl-paper-2-set-a.md](sl-paper-2-set-a.md). Several case study subjects recur across the set; every question is new, and §F of the appendix records the checks made against duplication.
 
@@ -684,7 +684,7 @@ Figures 1–14: *[to be added]*
 
 ## A. Structure check
 
-| Requirement ([paper1.md §4.4](../paper1.md)) | This paper |
+| Requirement ([paper1.md §4.4](paper1.md)) | This paper |
 | --- | --- |
 | 40 items, each 1 mark, 1 hour 30 minutes | ✓ |
 | 7 single-mark items, 5 or 6 sharing a running context | ✓ Q1–Q7, with Q2–Q7 on the Stanley Quencher |
@@ -762,7 +762,7 @@ Each of the three is answerable in well under a minute and has distractors built
 | AO1 + AO2 | 1, 2, 3, 5, 6, 7, 8a, 8c, 9a, 9c, 10a, 11a, 11b, 11c, 12a, 12b, 12c, 13b, 13d, 13h | 20 |
 | AO3 | 4, 8b, 8d, 8e, 9b, 9d, 9e, 10b, 10c, 10d, 10e, 12d, 12e, 12f, 13a, 13c, 13e, 13f, 13g, 13i | 20 |
 
-50/50. In a multiple-choice paper the AO3 items are those requiring the candidate to rank competing options, calculate, judge a trade-off, or read data from a figure rather than retrieve a term. Note this is a cognitive-demand classification, not the command-term mapping used for Paper 2, where the tariff ladder forces a different answer (see [paper2.md §4.4](../paper2.md)).
+50/50. In a multiple-choice paper the AO3 items are those requiring the candidate to rank competing options, calculate, judge a trade-off, or read data from a figure rather than retrieve a term. Note this is a cognitive-demand classification, not the command-term mapping used for Paper 2, where the tariff ladder forces a different answer (see [paper2.md §4.4](paper2.md)).
 
 ## E. Answer key balance
 
@@ -792,11 +792,11 @@ Instagram, WeChat, USB, mechanical keyboards, World of Warcraft, portable power 
 
 ## G. Building HL Paper 2 Set A
 
-For consistency with [paper2.md §3.1](../paper2.md), an HL Paper 2 Set A would:
+For consistency with [paper2.md §3.1](paper2.md), an HL Paper 2 Set A would:
 
 - **Keep from SL Paper 2 Set A**, with new question parts: the student design project, USB, WeChat, mechanical keyboards, World of Warcraft.
 - **Swap out** Instagram and the Sony Walkman, neither of which carries HL content and the second of which is now used here.
 - **Swap in** portable power banks (A3.4 and B3.4 electronic systems, C3.2 life-cycle analysis) and the Bambu Lab X1 Carbon (B4.1 production systems, A4.1 manufacturing techniques, A3.3 mechanical systems in the gantry).
-- **Add** the 30-mark Design Thinking Challenge on a separate humanitarian or civic scenario, built to the twelve-step spine in [paper2.md §6.2](../paper2.md). No subject in this pool suits it; the challenge needs a resource-constrained community problem with personas, a constraints table and a quantified materials list.
+- **Add** the 30-mark Design Thinking Challenge on a separate humanitarian or civic scenario, built to the twelve-step spine in [paper2.md §6.2](paper2.md). No subject in this pool suits it; the challenge needs a resource-constrained community problem with personas, a constraints table and a quantified materials list.
 
 That plan leaves the four Set A papers with no repeated question and full coverage of all twenty-four sub-topics at each level.
