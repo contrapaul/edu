@@ -5020,3 +5020,429 @@ body.audio-players-hidden .curr-audio-bar { display: none; }
 @media (max-width: 640px) {
   .anthro-stage { grid-template-columns: 1fr; }
 }
+
+/* ── DESIGN BRIEF EXAMPLE (B2.1.9) ───────────────────────────── */
+/* One highlight per element of a design brief. Each theme swaps the five
+   colours: paper and exam use highlighter pens like the glossary, xbox and
+   hannah stay inside their own greens and pinks, dos uses CGA ink colours,
+   and gameboy and dos-amber, whose palettes are too narrow for colour to
+   carry the meaning, switch to five underline styles instead.
+   The colours sit on .brief-tag rather than the box because presentation
+   mode unwraps the box, and the specification children carry their own
+   tag for the same reason. On the page a nested tag defers to its parent. */
+.brief-tag {
+  --bt-problem:    #d9e7ff;
+  --bt-intent:     #ebe0ff;
+  --bt-spec:       #d5f1de;
+  --bt-constraint: #ffdcd5;
+  --bt-time:       #ffecbf;
+  background: var(--bt);
+  color: var(--bt-ink, inherit);
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  text-decoration-line: var(--bt-line, none);
+  text-decoration-style: var(--bt-style);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.25em;
+}
+.brief-tag--problem    { --bt: var(--bt-problem);    --bt-style: solid; }
+.brief-tag--intent     { --bt: var(--bt-intent);     --bt-style: double; }
+.brief-tag--spec       { --bt: var(--bt-spec);       --bt-style: dashed; }
+.brief-tag--constraint { --bt: var(--bt-constraint); --bt-style: dotted; }
+.brief-tag--time       { --bt: var(--bt-time);       --bt-style: wavy; }
+.brief-tag:not(span) {
+  display: block;
+  margin: 0 0 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm, 4px);
+}
+.brief-tag .brief-tag {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  text-decoration-line: none;
+}
+.brief-example > p { line-height: 1.8; }
+.brief-example p.brief-tag,
+.brief-criteria li {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: inherit;
+}
+
+ul.brief-key {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  margin: 0 0 0.9rem;
+  padding: 0;
+}
+.brief-key li {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+.brief-key .brief-tag { padding: 0.2em 0.55em; }
+
+p.brief-tag.brief-subhead {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0.75rem 0 0.3rem;
+}
+ol.brief-criteria {
+  list-style: none;
+  counter-reset: crit;
+}
+.brief-criteria li {
+  position: relative;
+  padding-left: 2.1em;
+  margin-bottom: 0.3rem;
+  counter-increment: crit;
+}
+.brief-criteria li::before {
+  position: absolute;
+  left: 0;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+.brief-criteria--e li::before { content: "E" counter(crit); }
+.brief-criteria--d li::before { content: "D" counter(crit); }
+
+[data-theme="dark"] .brief-tag,
+[data-theme="gamer"] .brief-tag {
+  --bt-problem:    #1b3a63;
+  --bt-intent:     #392a63;
+  --bt-spec:       #1a4630;
+  --bt-constraint: #5a2626;
+  --bt-time:       #4f3d12;
+}
+[data-theme="blueprint"] .brief-tag {
+  --bt-problem:    #22598a;
+  --bt-intent:     #4b3c80;
+  --bt-spec:       #1f5e45;
+  --bt-constraint: #6e2f45;
+  --bt-time:       #5e4b1c;
+}
+/* highlighter pens; the yellow is the glossary's own */
+[data-theme="paper"] .brief-tag,
+[data-theme="exam"] .brief-tag {
+  --bt-problem:    #c4e2ff;
+  --bt-intent:     #ecd2ff;
+  --bt-spec:       #c8efbd;
+  --bt-constraint: #ffc8da;
+  --bt-time:       #fff2a8;
+}
+/* greens that differ in hue as well as depth, so five stay apart */
+[data-theme="xbox"] .brief-tag {
+  --bt-problem:    #0b3000;
+  --bt-intent:     #3d6400;
+  --bt-spec:       #004a30;
+  --bt-constraint: #4a5000;
+  --bt-time:       #1d6b1d;
+}
+[data-theme="hannah"] .brief-tag {
+  --bt-problem:    #ffd0e2;
+  --bt-intent:     #f7c4ef;
+  --bt-spec:       #ffc6bf;
+  --bt-constraint: #ff9ecb;
+  --bt-time:       #e8c5f5;
+}
+[data-theme="dos"] .brief-tag { --bt: transparent; }
+[data-theme="dos"] .brief-tag--problem    { --bt-ink: #55FFFF; }
+[data-theme="dos"] .brief-tag--intent     { --bt-ink: #FF55FF; }
+[data-theme="dos"] .brief-tag--spec       { --bt-ink: #55FF55; }
+[data-theme="dos"] .brief-tag--constraint { --bt-ink: #FF5555; }
+[data-theme="dos"] .brief-tag--time       { --bt-ink: #FFFF55; }
+[data-theme="gameboy"] .brief-tag,
+[data-theme="dos-amber"] .brief-tag { --bt: transparent; --bt-line: underline; }
+
+/* ── BRAINSTORM WALL (B2.1.10) ───────────────────────────────── */
+/* Twenty sticky notes on one 20 s loop, roughly one new note a second.
+   Each note carries its own start delay, position and tilt inline; the
+   keyframes drop it from close to the viewer onto the page, hold it for
+   about five seconds and fade it out. Colours and font are theme tokens
+   so every theme reskins it. Phones use the --mx/--my layout. */
+.brainstorm-wall {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 2.3;
+  margin: 0.6rem 0 1.4rem;
+}
+.bs-note {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 19%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6em;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(0.6rem, 2.15cqw, 0.9rem);
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  color: var(--text);
+  background: var(--amber-bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: rotate(var(--r));
+  animation-name: bs-stick;
+  animation-duration: 20s;
+  animation-delay: var(--d);
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+.bs-note:nth-child(4n+2) { background: var(--green-bg); }
+.bs-note:nth-child(4n+3) { background: var(--hl-bg); }
+.bs-note:nth-child(4n+4) { background: var(--accent-bg); }
+@keyframes bs-stick {
+  0%   { opacity: 0; transform: translate(var(--dx), -14%) rotate(calc(var(--r) * -2)) scale(1.6);
+         box-shadow: var(--shadow-md); animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  2.6% { opacity: 1; transform: rotate(var(--r)) scale(0.96); box-shadow: var(--shadow-sm); }
+  3.4% { opacity: 1; transform: rotate(var(--r)) scale(1); }
+  28%  { opacity: 1; transform: rotate(var(--r)) scale(1); }
+  32%  { opacity: 0; transform: rotate(var(--r)) scale(0.98); }
+  100% { opacity: 0; transform: rotate(var(--r)) scale(0.98); }
+}
+@media (max-width: 560px) {
+  .brainstorm-wall { aspect-ratio: 0.78; }
+  .bs-note {
+    left: var(--mx);
+    top: var(--my);
+    width: 31%;
+    font-size: clamp(0.6rem, 3.5cqw, 0.85rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bs-note { animation: none; }
+  .bs-note:nth-child(-n+8) { opacity: 1; }
+}
+
+/* ── SANDWICH MIND MAP (B2.1.10) ─────────────────────────────── */
+/* Hand-placed SVG. Each branch takes one theme colour, so the map
+   reskins with the page. Labels get a halo in the page colour so a
+   crossing line never runs through the text. Below 760px the map
+   keeps its size and scrolls sideways inside its own frame. */
+.mindmap {
+  margin: 0.6rem 0 1.4rem;
+  overflow-x: auto;
+}
+.mindmap svg {
+  display: block;
+  width: 100%;
+  min-width: 760px;
+  height: auto;
+  overflow: visible;
+}
+.mindmap .mm-b1 { --mm: var(--amber); }
+.mindmap .mm-b2 { --mm: var(--accent); }
+.mindmap .mm-b3 { --mm: var(--hl); }
+.mindmap .mm-b4 { --mm: var(--green); }
+.mindmap .mm-b5 { --mm: var(--gloss); }
+/* xbox draws glossary words black on lime, so its --gloss is black */
+[data-theme="xbox"] .mindmap .mm-b5 { --mm: var(--gloss-bg); }
+/* an entry that belongs to two branches gets a neutral dot */
+.mindmap .mm-dot.mm-shared { fill: var(--text); }
+.mindmap path { fill: none; stroke: var(--mm); stroke-linecap: round; }
+.mindmap .mm-main { stroke-width: 5; }
+.mindmap .mm-leaf { stroke-width: 2.25; }
+.mindmap .mm-twig { stroke-width: 1.5; }
+.mindmap .mm-link { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.mindmap .mm-hub,
+.mindmap .mm-dot { fill: var(--mm); }
+.mindmap .mm-centre { fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 2; }
+.mindmap text {
+  fill: var(--text);
+  font-family: var(--font-body);
+  paint-order: stroke;
+  stroke: var(--surface);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.mindmap .mm-t0 { font-family: var(--font-display); font-size: 21px; font-weight: 600; stroke: none; }
+.mindmap .mm-t1 { font-family: var(--font-display); font-size: 18px; font-weight: 600; fill: var(--mm); }
+.mindmap .mm-t2 { font-size: 15px; }
+.mindmap .mm-t3 { font-size: 13px; fill: var(--muted); }
+.mindmap .mm-link-label { font-style: italic; }
+
+/* ── SCAMPER TABS (B2.1.10) ──────────────────────────────────── */
+/* Seven letter tabs over one example at a time. The panels share a
+   single grid cell, so the box is always as tall as the longest
+   example and nothing below it jumps when the letter changes. */
+.scamper { margin: 0.6rem 0 1.4rem; }
+.scamper-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+.scamper-tab {
+  flex: 1 1 0;
+  max-width: 3.4rem;
+  aspect-ratio: 1;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.scamper-tab:hover { border-color: var(--accent); }
+.scamper-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.scamper-tab.is-active {
+  color: var(--surface);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.scamper-panels {
+  display: grid;
+  padding: 0.9rem 1.1rem 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.scamper-panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.scamper-panel.is-active { visibility: visible; opacity: 1; }
+.scamper-panel p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+.scamper-panel .scamper-word {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+.scamper-panel .scamper-q {
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ── SANDWICH CRITERIA TABLE (B2.1.10) ───────────────────────── */
+/* Meets / partly / does not meet. The symbol carries the meaning on
+   its own; the fill only reinforces it, so the narrow palettes
+   (gameboy, dos-amber) stay readable. Each theme swaps the three
+   colours the same way the design brief example does. */
+.zw {
+  --zw-yes: #d5f1de;  --zw-yes-ink: #166534;
+  --zw-part: #ffecbf; --zw-part-ink: #92400e;
+  --zw-no: #ffdcd5;   --zw-no-ink: #9f1d1d;
+  margin: 0.6rem 0 1.4rem;
+}
+.zw .content-table-wrap { margin: 0.5rem 0 0.75rem; }
+.zw-table th { vertical-align: bottom; }
+.zw-table tbody th { font-weight: 600; white-space: nowrap; }
+.content-table.zw-table td {
+  position: relative;   /* keeps the hidden .zw-sr labels inside the scroll frame */
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.zw .zw-yes  { background: var(--zw-yes);  color: var(--zw-yes-ink); }
+.zw .zw-part { background: var(--zw-part); color: var(--zw-part-ink); }
+.zw .zw-no   { background: var(--zw-no);   color: var(--zw-no-ink); }
+/* !important because xbox and hannah force every td's colours with it */
+.zw .zw-table td.zw-yes  { background: var(--zw-yes) !important;  color: var(--zw-yes-ink) !important; }
+.zw .zw-table td.zw-part { background: var(--zw-part) !important; color: var(--zw-part-ink) !important; }
+.zw .zw-table td.zw-no   { background: var(--zw-no) !important;   color: var(--zw-no-ink) !important; }
+/* the marks are symbols, not text: a pixel theme font draws ½ badly */
+.zw-table td span[aria-hidden],
+.zw-chip span[aria-hidden] { font-family: "Helvetica Neue", Arial, sans-serif; }
+.content-table.zw-table td.zw-score { font-size: 0.83rem; white-space: nowrap; color: var(--text); }
+.zw .zw-table .zw-best th,
+.zw .zw-table .zw-best td {
+  border-top: 2px solid var(--accent) !important;
+  border-bottom: 2px solid var(--accent) !important;
+}
+.zw .zw-table .zw-best th { border-left: 2px solid var(--accent) !important; }
+.zw .zw-table .zw-best td:last-child { border-right: 2px solid var(--accent) !important; color: var(--accent) !important; }
+.zw-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.zw-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+.zw-chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.2em 0.6em;
+  border-radius: 3px;
+}
+.zw-chip span { font-weight: 700; }
+
+[data-theme="dark"] .zw,
+[data-theme="gamer"] .zw {
+  --zw-yes: #1a4630;  --zw-yes-ink: #6ee7a0;
+  --zw-part: #4f3d12; --zw-part-ink: #f5c66b;
+  --zw-no: #5a2626;   --zw-no-ink: #ff9b9b;
+}
+[data-theme="blueprint"] .zw {
+  --zw-yes: #1f5e45;  --zw-yes-ink: #a7f3c9;
+  --zw-part: #5e4b1c; --zw-part-ink: #ffd98a;
+  --zw-no: #6e2f45;   --zw-no-ink: #ffb3c6;
+}
+/* highlighter pens, as in the design brief example */
+[data-theme="paper"] .zw,
+[data-theme="exam"] .zw {
+  --zw-yes: #c8efbd;  --zw-yes-ink: var(--text);
+  --zw-part: #fff2a8; --zw-part-ink: var(--text);
+  --zw-no: #ffc8da;   --zw-no-ink: var(--text);
+}
+/* greens only: full lime, dim olive, then nothing */
+[data-theme="xbox"] .zw {
+  --zw-yes: #76e800;  --zw-yes-ink: #000500;
+  --zw-part: #2c5600; --zw-part-ink: #d4ff50;
+  --zw-no: transparent; --zw-no-ink: #58b818;
+}
+/* pinks only, strongest for a pass */
+[data-theme="hannah"] .zw {
+  --zw-yes: #ff8cc6;  --zw-yes-ink: #4a0020;
+  --zw-part: #ffd0e2; --zw-part-ink: #6d0f35;
+  --zw-no: #fff7fa;   --zw-no-ink: #c2607a;
+}
+[data-theme="dos"] .zw {
+  --zw-yes: transparent;  --zw-yes-ink: #55FF55;
+  --zw-part: transparent; --zw-part-ink: #FFFF55;
+  --zw-no: transparent;   --zw-no-ink: #FF5555;
+}
+[data-theme="dos-amber"] .zw {
+  --zw-yes: #FFB000;  --zw-yes-ink: #000000;
+  --zw-part: #1a1200; --zw-part-ink: #FFD75E;
+  --zw-no: transparent; --zw-no-ink: var(--muted);
+}
+[data-theme="gameboy"] .zw {
+  --zw-yes: #0f380f;  --zw-yes-ink: #9bbc0f;
+  --zw-part: #306230; --zw-part-ink: #9bbc0f;
+  --zw-no: transparent; --zw-no-ink: #306230;
+}
