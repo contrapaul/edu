@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Criterion Bii concept sheet. One A3 landscape drawing sheet per device concept, laid out like an engineering drawing with a title block, with room to sketch and annotate by hand.">
+<title>Bii Concept Sheet | G10 MYP Design | contrapaul edu</title>
+<link rel="canonical" href="https://edu.contrapaul.com/curriculum/myp/assessments/bii-device-concept-sheet.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contrapaul / edu">
+<meta property="og:title" content="Bii Concept Sheet | contrapaul edu">
+<meta property="og:description" content="An A3 drawing sheet for each of the three device concepts in MYP Design Criterion Bii.">
+<meta property="og:url" content="https://edu.contrapaul.com/curriculum/myp/assessments/bii-device-concept-sheet.html">
+<meta name="twitter:card" content="summary">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Bii CONCEPT SHEET
+   One side at 1587 x 1123, which is A3 landscape at 96dpi. Laid out
+   as a drawing sheet: a ruled border with zone markings, a large
+   sketch field, a requirements column, a three frame storyboard, a
+   block diagram field and a title block in the bottom right corner.
+
+   Print first. The text fields exist so a concept can be started on
+   a laptop, but the drawings are meant to be done by hand on paper.
+   Print one copy per concept, so three in total.
+   ═══════════════════════════════════════════════════════════════ */
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Regular.woff2') format('woff2');  font-weight:400; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Medium.woff2') format('woff2');   font-weight:500; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lexend'; src:url('../../../Fonts/Lexend%20Family/webfonts/Lexend-Bold.woff2') format('woff2');     font-weight:700; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'JetBrains Mono'; src:url('../../../Fonts/Jetbrains/woff2/JetBrainsMono-Bold.woff2') format('woff2');    font-weight:700; font-display:swap; }
+
+:root {
+  --ink:#14171c; --mid:#5b6472; --line:#c8cdd6; --hair:#e4e7ec;
+  --accent:#7a3f5e; --page:#fff; --desk:#eceef2;
+  --grid:#edeff3;
+  --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  --body:'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--desk); color:var(--ink); font-family:var(--body);
+  display:flex; flex-direction:column; align-items:center; padding:20px 12px 60px; }
+
+.bar { width:1587px; max-width:100%; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:12px; }
+.bar h1 { font-size:1rem; font-weight:600; margin:0 auto 0 0; }
+.bar h1 span { color:var(--mid); font-weight:400; }
+.btn { font-family:var(--mono); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  padding:0.5rem 0.85rem; border-radius:7px; cursor:pointer; background:var(--page); color:var(--ink); border:1px solid var(--line); }
+.btn:hover { border-color:var(--accent); color:var(--accent); }
+.btn-go { background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn-go:hover { color:#fff; filter:brightness(1.12); }
+.hint { width:1587px; max-width:100%; margin:0 0 14px; font-size:0.78rem; color:var(--mid); }
+.savestate { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--mid); }
+
+/* ── THE SHEET ───────────────────────────────────────────────── */
+.sheet { width:1587px; height:1123px; background:var(--page); padding:9px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.10), 0 14px 40px rgba(0,0,0,0.13); }
+
+/* The drawing border: a heavy outer rule with a lighter margin ruler
+   carrying the zone letters and numbers, exactly as a drawing frame
+   does, so a student can say "the dice track is in C3". */
+.frame { width:100%; height:100%; border:2px solid var(--ink); padding:0;
+  display:grid; grid-template-columns:19px 1fr 19px; grid-template-rows:19px 1fr 19px; }
+.zones { display:flex; font-family:var(--mono); font-size:8px; color:var(--mid); }
+.zones.top, .zones.bottom { grid-column:2; flex-direction:row; }
+.zones.left, .zones.right { grid-row:2; flex-direction:column; }
+.zones.top { grid-row:1; border-bottom:1px solid var(--line); }
+.zones.bottom { grid-row:3; border-top:1px solid var(--line); }
+.zones.left { grid-column:1; border-right:1px solid var(--line); }
+.zones.right { grid-column:3; border-left:1px solid var(--line); }
+.zones span { flex:1; display:flex; align-items:center; justify-content:center; }
+.zones.top span + span, .zones.bottom span + span { border-left:1px solid var(--hair); }
+.zones.left span + span, .zones.right span + span { border-top:1px solid var(--hair); }
+.corner { background:var(--page); }
+
+.plate { grid-column:2; grid-row:2; display:grid;
+  grid-template-columns:1fr 352px; grid-template-rows:1fr 196px 268px; }
+
+/* ── panels ──────────────────────────────────────────────────── */
+.panel { position:relative; min-width:0; min-height:0; display:flex; flex-direction:column; }
+.panel + .panel { border-left:1px solid var(--line); }
+.panel-lab {
+  font-family:var(--mono); font-size:8.5px; font-weight:700; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--accent);
+  padding:5px 10px 4px; border-bottom:1px solid var(--hair);
+  display:flex; align-items:baseline; gap:10px; flex:none; }
+.panel-lab em { font-family:var(--body); font-size:9px; font-weight:400; font-style:normal;
+  letter-spacing:0; text-transform:none; color:var(--mid); margin-left:auto; text-align:right; }
+
+/* The two hand-drawn fields carry a faint grid, so a sketch can be
+   kept roughly to scale without anyone ruling a sheet first.
+
+   The grid is an SVG pattern rather than a pair of CSS gradients.
+   Gradients with a 1px hard stop are rasterised by print engines at
+   the wrong scale and come out as solid black bands on the PDF; an
+   SVG pattern is drawn as real geometry and survives both the screen
+   and the printer. */
+.field { flex:1; min-height:0; position:relative; }
+.field svg { display:block; width:100%; height:100%; }
+
+.sketch { grid-column:1; grid-row:1; border-bottom:1px solid var(--line); }
+.reqs   { grid-column:2; grid-row:1 / span 2; border-left:1px solid var(--line);
+  border-bottom:1px solid var(--line); }
+.story  { grid-column:1; grid-row:2; border-left:0; border-bottom:1px solid var(--line); }
+.loop   { grid-column:1; grid-row:3; border-left:0; }
+.title  { grid-column:2; grid-row:3; border-left:1px solid var(--line); }
+
+/* The storyboard is three equal frames, ruled the same way as the
+   other drawn fields so the whole sheet reads as one surface. */
+.story-frames { flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr 1fr; }
+.story-frames .field + .field { border-left:1px solid var(--hair); }
+
+/* ── requirements column ─────────────────────────────────────── */
+.reqs-body { flex:1; display:flex; flex-direction:column; min-height:0; }
+.req { display:flex; flex-direction:column; min-height:0; padding:6px 10px 7px; }
+.req + .req { border-top:1px solid var(--hair); }
+.req-lab { font-family:var(--mono); font-size:7.5px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--mid); display:flex; align-items:baseline; gap:6px; }
+.req-lab b { color:var(--accent); }
+.req-lab i { font-family:var(--body); font-style:normal; font-size:8px; letter-spacing:0;
+  text-transform:none; color:var(--mid); margin-left:auto; }
+.req-grow { flex:1; }
+
+input[type=text] { font-family:var(--body); font-size:11px; color:var(--ink); border:none;
+  border-bottom:1px solid var(--line); background:transparent; padding:2px 2px 3px; width:100%; min-width:0; }
+input[type=text]:focus { outline:none; border-bottom-color:var(--accent); background:#faf3f6; }
+.lines { display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+textarea {
+  flex:1; min-height:0; resize:none; margin-top:4px;
+  font-family:var(--body); font-size:11px; line-height:1.55; color:var(--ink);
+  border:none; background:transparent; padding:2px 2px 0; width:100%;
+  /* Ruled with an SVG tile for the same reason as the grid above. */
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17'%3E%3Cpath d='M0 16.5H4' stroke='%23e4e7ec' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat:repeat; background-position:0 3px; }
+textarea:focus { outline:none; background-color:#faf3f6; }
+
+.mech { display:grid; grid-template-columns:auto 1fr; gap:4px 7px; align-items:baseline; margin-top:5px; }
+.mech-n { font-family:var(--mono); font-size:8px; font-weight:700; color:var(--accent); }
+
+/* ── title block ─────────────────────────────────────────────── */
+.tb { flex:1; display:grid;
+  grid-template-columns:1fr 1fr 86px;
+  grid-template-rows:auto auto auto 1fr auto; min-height:0; }
+.tb-cell { border-top:1px solid var(--hair); border-left:1px solid var(--hair);
+  padding:4px 8px 5px; min-width:0; display:flex; flex-direction:column; justify-content:flex-end; }
+.tb-cell:first-child, .tb-cell.row-start { border-left:0; }
+.tb-cell > label, .tb-k { font-family:var(--mono); font-size:7px; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--mid); margin-bottom:1px; }
+.tb-wide { grid-column:1 / -1; }
+.tb-mid { grid-column:1 / 3; }
+.tb-unit { border-top:0; padding:7px 8px 5px; }
+.tb-unit .tb-title { font-size:15px; font-weight:700; line-height:1.15; }
+.tb-unit .tb-sub { font-family:var(--mono); font-size:7.5px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:2px; }
+/* The block is 352px wide, so the strap line is sized to stay on one
+   row rather than wrapping into the rule above it. */
+.tb-foot { grid-column:1 / -1; border-left:0; padding:5px 8px 4px;
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  font-family:var(--mono); font-size:6.5px; letter-spacing:0.04em; color:var(--mid); }
+.tb-foot span { white-space:nowrap; }
+.tb-of { font-family:var(--body); font-size:11px; color:var(--ink); display:flex; align-items:baseline; gap:3px; }
+.tb-of input { width:34px; text-align:center; }
+.tb-of span { color:var(--mid); font-size:10px; }
+
+@media (max-width:1640px) {
+  body { padding:14px 8px 40px; }
+  .sheet { transform:scale(calc((100vw - 24px)/1587)); transform-origin:top center;
+    margin-bottom:calc((100vw - 24px)/1587 * 1123 - 1123px); }
+}
+
+@page { size:A3 landscape; margin:0; }
+@media print {
+  body { background:#fff; padding:0; display:block; }
+  .bar, .hint { display:none !important; }
+  .sheet { width:420mm; height:297mm; padding:6mm; box-shadow:none; transform:none; margin:0; }
+  input[type=text], textarea { border-color:#b9bfc9; }
+  .field svg, .panel-lab, .req-lab b, .tb-unit .tb-sub, textarea {
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <h1>Bii Concept Sheet <span>/ one A3 side per concept, three in total</span></h1>
+  <button class="btn" id="btn-clear" type="button">Clear</button>
+  <button class="btn" id="btn-png" type="button">Download PNG</button>
+  <button class="btn btn-go" id="btn-print" type="button">Print</button>
+</div>
+<p class="hint">A3 landscape, print first. Print one for each of your three concepts and draw on them. The text boxes are here only so you can start on a laptop. <span id="savestate" class="savestate">Typed work saves in this browser.</span></p>
+
+<div class="sheet">
+<div class="frame">
+
+  <div class="corner"></div>
+  <div class="zones top"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+  <div class="corner"></div>
+
+  <div class="zones left"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+
+  <div class="plate">
+
+    <!-- ── the big hand-drawn field ── -->
+    <section class="panel sketch">
+      <p class="panel-lab">The device and where it lives<em>Roughly to scale, next to a hand or a desk for size. Name the catalog parts you can see.</em></p>
+      <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-sketch" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-sketch)"/></svg></div>
+    </section>
+
+    <!-- ── what every concept must carry ── -->
+    <section class="panel reqs">
+      <p class="panel-lab">Required on this sheet</p>
+      <div class="reqs-body">
+
+        <div class="req">
+          <p class="req-lab"><b>01</b> Catalog parts used<i>Input, decision, output</i></p>
+          <div class="mech">
+            <span class="mech-n">1</span><input type="text" id="mech1">
+            <span class="mech-n">2</span><input type="text" id="mech2">
+            <span class="mech-n">3</span><input type="text" id="mech3">
+          </div>
+        </div>
+
+        <div class="req req-grow">
+          <p class="req-lab"><b>02</b> What it decides on its own<i>Without being told</i></p>
+          <textarea id="choice" rows="3"></textarea>
+        </div>
+
+        <div class="req">
+          <p class="req-lab"><b>03</b> Serves specification no.<i>From your Bi sheet</i></p>
+          <div class="lines"><input type="text" id="spec"></div>
+        </div>
+
+        <div class="req req-grow">
+          <p class="req-lab"><b>04</b> Power and mounting<i>What it runs on, what it fixes to</i></p>
+          <textarea id="materials" rows="3"></textarea>
+        </div>
+
+        <div class="req req-grow">
+          <p class="req-lab"><b>05</b> One risk<i>The part most likely to fail</i></p>
+          <textarea id="risk" rows="2"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── storyboard, three frames, hand drawn ── -->
+    <section class="panel story">
+      <p class="panel-lab">Three frame storyboard<em>1 what the user does. 2 what the device does back. 3 what it is left showing.</em></p>
+      <div class="story-frames">
+        <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-s1" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-s1)"/></svg></div>
+        <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-s2" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-s2)"/></svg></div>
+        <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-s3" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-s3)"/></svg></div>
+      </div>
+    </section>
+
+    <!-- ── block diagram, also hand drawn ── -->
+    <section class="panel loop">
+      <p class="panel-lab">Block diagram<em>What goes in, what gets decided in the middle, what comes out. Name real catalog parts.</em></p>
+      <div class="field"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-loop" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M16 0H0V16" fill="none" stroke="#e3e7ed" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-loop)"/></svg></div>
+    </section>
+
+    <!-- ── title block ── -->
+    <section class="panel title">
+      <div class="tb">
+
+        <div class="tb-cell tb-wide tb-unit">
+          <p class="tb-sub">Bii &middot; Developing ideas</p>
+          <p class="tb-title">Device Concept</p>
+        </div>
+
+        <div class="tb-cell tb-wide row-start">
+          <label for="tb-concept">Concept name</label>
+          <input type="text" id="tb-concept">
+        </div>
+
+        <div class="tb-cell row-start"><label for="tb-name">Drawn by</label><input type="text" id="tb-name"></div>
+        <div class="tb-cell"><label for="tb-client">Client</label><input type="text" id="tb-client"></div>
+        <div class="tb-cell"><label for="tb-date">Date</label><input type="text" id="tb-date"></div>
+
+        <div class="tb-cell tb-mid row-start">
+          <label for="tb-aud">What it does, in one line</label>
+          <input type="text" id="tb-aud">
+        </div>
+        <div class="tb-cell">
+          <span class="tb-k">Sheet</span>
+          <span class="tb-of"><input type="text" id="tb-no"><span>of 3</span></span>
+        </div>
+
+        <div class="tb-foot">
+          <span>edu.contrapaul.com / G10 electronics unit</span>
+          <span>Criteria Bii Concept Sheet</span>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <div class="zones right"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+
+  <div class="corner"></div>
+  <div class="zones bottom"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+  <div class="corner"></div>
+
+</div>
+</div>
+
+<script src="bii-device-concept-sheet.js"></script>
+</body>
+</html>
