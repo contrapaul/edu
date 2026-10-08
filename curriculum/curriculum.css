@@ -5167,7 +5167,8 @@ ol.brief-criteria {
    Each note carries its own start delay, position and tilt inline; the
    keyframes drop it from close to the viewer onto the page, hold it for
    about five seconds and fade it out. Colours and font are theme tokens
-   so every theme reskins it. Phones use the --mx/--my layout. */
+   so every theme reskins it. Sizes are in container units, so the
+   wall scales as one picture instead of reflowing on narrow screens. */
 .brainstorm-wall {
   position: relative;
   container-type: inline-size;
@@ -5186,7 +5187,7 @@ ol.brief-criteria {
   padding: 0.6em;
   text-align: center;
   font-family: var(--font-display);
-  font-size: clamp(0.6rem, 2.15cqw, 0.9rem);
+  font-size: calc(2.15cqw * var(--bs-fit, 1));
   line-height: 1.25;
   overflow-wrap: break-word;
   color: var(--text);
@@ -5203,6 +5204,10 @@ ol.brief-criteria {
   animation-fill-mode: both;
   animation-timing-function: linear;
 }
+/* the xbox and dos display fonts are wide enough that a long word
+   would spill past the note, so those themes write a little smaller */
+[data-theme="xbox"] .brainstorm-wall { --bs-fit: 0.74; }
+[data-theme^="dos"] .brainstorm-wall { --bs-fit: 0.68; }
 .bs-note:nth-child(4n+2) { background: var(--green-bg); }
 .bs-note:nth-child(4n+3) { background: var(--hl-bg); }
 .bs-note:nth-child(4n+4) { background: var(--accent-bg); }
@@ -5215,15 +5220,6 @@ ol.brief-criteria {
   32%  { opacity: 0; transform: rotate(var(--r)) scale(0.98); }
   100% { opacity: 0; transform: rotate(var(--r)) scale(0.98); }
 }
-@media (max-width: 560px) {
-  .brainstorm-wall { aspect-ratio: 0.78; }
-  .bs-note {
-    left: var(--mx);
-    top: var(--my);
-    width: 31%;
-    font-size: clamp(0.6rem, 3.5cqw, 0.85rem);
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .bs-note { animation: none; }
   .bs-note:nth-child(-n+8) { opacity: 1; }
@@ -5232,16 +5228,12 @@ ol.brief-criteria {
 /* ── SANDWICH MIND MAP (B2.1.10) ─────────────────────────────── */
 /* Hand-placed SVG. Each branch takes one theme colour, so the map
    reskins with the page. Labels get a halo in the page colour so a
-   crossing line never runs through the text. Below 760px the map
-   keeps its size and scrolls sideways inside its own frame. */
-.mindmap {
-  margin: 0.6rem 0 1.4rem;
-  overflow-x: auto;
-}
+   crossing line never runs through the text. The SVG simply scales
+   with the column; phone readers can pinch to zoom. */
+.mindmap { margin: 0.6rem 0 1.4rem; }
 .mindmap svg {
   display: block;
   width: 100%;
-  min-width: 760px;
   height: auto;
   overflow: visible;
 }
@@ -5283,6 +5275,7 @@ ol.brief-criteria {
 .scamper { margin: 0.6rem 0 1.4rem; }
 .scamper-tabs {
   display: flex;
+  justify-content: center;
   gap: 0.4rem;
   margin-bottom: 0.6rem;
 }
@@ -5445,4 +5438,120 @@ ol.brief-criteria {
   --zw-yes: #0f380f;  --zw-yes-ink: #9bbc0f;
   --zw-part: #306230; --zw-part-ink: #9bbc0f;
   --zw-no: transparent; --zw-no-ink: #306230;
+}
+
+/* ── TRIZ EXAMPLE AND PRINCIPLE CARDS (B2.1.10) ──────────────── */
+/* Numbered steps inside a concept box, then a grid of principle cards.
+   Every colour is a theme token, so the special themes need nothing
+   extra; the number badges are spans, so the xbox and hannah !important
+   rules on td do not reach them. */
+ol.triz-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: triz;
+}
+.concept-box .triz-steps > li {
+  position: relative;
+  margin: 0 0 0.85rem;
+  padding-left: 2.1rem;
+  counter-increment: triz;
+}
+.triz-steps > li::before {
+  content: counter(triz);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--surface);
+  background: var(--accent);
+  border-radius: 50%;
+}
+.triz-steps p {
+  font-size: 0.83rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0 0 0.4rem;
+}
+.triz-steps .triz-step {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  margin: 0 0 0.2rem;
+}
+.triz-steps .content-table-wrap { margin: 0.4rem 0 0; }
+.triz-table td:first-child { font-weight: 600; white-space: nowrap; }
+.triz-num {
+  display: inline-block;
+  min-width: 1.6rem;
+  padding: 0.05rem 0.3rem;
+  margin-right: 0.3rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--surface);
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.triz-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.6rem;
+  margin: 0.5rem 0 1.4rem;
+}
+.triz-card {
+  padding: 0.7rem 0.8rem 0.8rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+}
+.triz-card-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--accent);
+}
+.triz-card p {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 0.35rem;
+}
+.triz-card .triz-card-name {
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 0.15rem 0 0.3rem;
+}
+.triz-card .triz-card-eg {
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+}
+/* On narrow screens the cards become one row that swipes sideways, so
+   the block stays one card tall instead of stacking eight high. */
+@media (max-width: 700px) {
+  .triz-cards {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.4rem;
+  }
+  .triz-card {
+    flex: 0 0 10rem;
+    scroll-snap-align: start;
+  }
 }
