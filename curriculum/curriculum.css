@@ -5555,3 +5555,73 @@ ol.triz-steps {
     scroll-snap-align: start;
   }
 }
+
+/* ── SIX THINKING HATS (B2.1.10) ─────────────────────────────── */
+/* The drawing stays one image. Each figure is covered by a transparent
+   tab holding a ring traced just outside its hat (an alpha mask made
+   from the drawing), filled with the theme accent, so the active hat is
+   outlined without tinting the translucent paint inside it. The
+   explanation reuses the SCAMPER panel box. */
+.hats { margin: 0.6rem 0 1.4rem; }
+.hats-figure {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto 0.6rem;
+}
+.hats-img { display: block; width: 100%; height: auto; }
+.hat-tab {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.hat-ring {
+  position: absolute;
+  background: var(--accent);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.hat-tab:hover .hat-ring,
+.hat-tab.is-active .hat-ring { opacity: 1; }
+.hat-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm); }
+.hat-panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.hat-panel.is-active { visibility: visible; opacity: 1; }
+.hat-panel p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+.hat-panel .hat-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+.hat-swatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.45em;
+  vertical-align: -0.05em;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+}
+.hat-panel .hat-q {
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
