@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>R1 Bodies and inclusion cross-reference</title>
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../curriculum.css">
+<style>
+:root { --gap: 1.5rem; }
+body { background: var(--bg, #fff); color: var(--text, #1a1a1a); margin: 0; }
+.xref { padding: 1.5rem 16px 4rem; max-width: none; }
+.xref-head h1 { margin: 0 0 0.25rem; }
+.xref-meta { color: var(--muted, #666); font-size: 0.85rem; margin: 0 0 1rem; }
+.toolbar { position: sticky; top: 0; z-index: 10; background: var(--bg, #fff); border-bottom: 1px solid #ccc;
+  padding: 0.6rem 0; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.toolbar button { font: inherit; padding: 0.4rem 0.9rem; cursor: pointer; }
+.toolbar a { font-size: 0.85rem; }
+.copy-status { font-size: 0.85rem; color: var(--muted, #666); }
+.focus-table { border-collapse: collapse; margin: 0.5rem 0 1rem; max-width: 70rem; }
+.focus-table th, .focus-table td { text-align: left; vertical-align: top; border: 1px solid #ccc; padding: 0.5rem 0.75rem; }
+.focus-table th { white-space: nowrap; }
+.key { display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.85rem; }
+.key span, .src-tag { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 3px; color: #fff; font-weight: 600; }
+.xrow { border-top: 3px solid #333; margin-top: 3rem; padding-top: 1rem; }
+.xrow > h2 { margin: 0 0 0.25rem; }
+.row-note { background: #fff6d6; border: 1px solid #e0c96b; padding: 0.4rem 0.75rem; font-size: 0.85rem; margin: 0.5rem 0 1rem; }
+.cols { display: grid; gap: var(--gap); grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+@media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+.col { border-top: 6px solid var(--c); padding-top: 0.75rem; min-width: 0; }
+.col-head { margin-bottom: 1rem; }
+.col-head h3 { margin: 0.4rem 0; font-size: 1.05rem; }
+.col-head .outcome { font-size: 0.85rem; background: #f3f3f3; padding: 0.4rem 0.6rem; margin: 0.4rem 0; }
+.col-head .outcome b { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.col-head .src-link { font-size: 0.8rem; }
+.col img, .col video { max-width: 100%; height: auto; }
+.col .content-table-wrap, .col table { max-width: 100%; overflow-x: auto; }
+.popup-inline { border: 2px dashed #999; padding: 0.75rem; margin: 1rem 0; }
+.popup-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; }
+.img-placeholder { display: block; border: 2px dashed #bbb; padding: 1.25rem 0.75rem; color: #666; font-size: 0.85rem; text-align: center; margin: 0.5rem 0; }
+.notes { margin-top: 1.5rem; }
+.notes label { font-weight: 700; display: block; margin-bottom: 0.3rem; }
+.notes textarea { width: 100%; min-height: 8rem; font: inherit; padding: 0.5rem; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<main class="xref">
+<header class="xref-head"><h1>R1 Bodies and inclusion: cross-reference</h1><p class="xref-meta">Editorial worksheet, built 2026-10-10 from the live topic pages by <code>remix/build-crossref.py</code>. Copy is unchanged from the source pages.</p></header>
+<div class="toolbar"><button id="copy-notes" type="button">Copy all notes as Markdown</button><span class="copy-status" aria-live="polite"></span><a href="#focus">Focus</a><a href="#intros">Introductions</a><a href="#row-1">Row 1</a><a href="#row-2">Row 2</a><a href="#row-3">Row 3</a><a href="#row-4">Row 4</a><a href="#row-5">Row 5</a><a href="#row-6">Row 6</a></div>
+<section id="focus"><h2>Unit focus (from remix.md)</h2><table class="focus-table"><tr><th>Guiding question</th><td>Whose body is a product designed around, and who does that choice leave out?</td></tr><tr><th>Absorbs</th><td>A1.1.1 to A1.1.6 (ergonomics, anthropometrics, percentiles, adjustability, work envelopes, physiology); C1.2.1 to C1.2.3 (inclusive design, the limits of designing for the average, design for extremes)</td></tr><tr><th>Taught once</th><td>Percentiles and the case against the 50th percentile (A1.1.3, A1.1.5, C1.2.2). Disability and physiological limits as one discussion (A1.1.2, A1.1.6, C1.2.1). Design for extremes, moved here from the "method of extremes" box on the B1.1 page (B1.1.2, C1.2.3).</td></tr><tr><th>Value</th><td>SL 11 marks (13.8 %), yield 1.2; HL 5 marks. Inclusion 5 at SL, 4 at HL. Feeds IA criterion B (specifications with measurable dimensions).</td></tr></table><p>(SL, 9 hours)</p><p>C1.2 is ergonomics with a values argument attached. Teaching inclusive design straight after percentiles means "design for extremes" arrives as the answer to the problem the percentile lesson raises, which is the order a student needs it in.</p><div class="key"><span class="src-tag" style="background:#2c5f6e">A1.1</span> Ergonomics <span class="src-tag" style="background:#1a5cb8">B1.1</span> User-centred design <span class="src-tag" style="background:#3d6b4a">C1.2</span> Inclusive design</div><div class="notes"><label for="notes-focus">Notes: Unit focus</label><textarea id="notes-focus" data-heading="Unit focus" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="intros"><h2>Course notes introductions</h2><div class="cols" style="--n:2"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>Course notes introduction</strong> <a class="src-link" href="../a1.1-ergonomics.html#course-notes">source</a></div>
+<p>Ergonomics is the first topic in the course for a reason. Every object you have ever used was built around an assumption about a body. Once you can name those assumptions, you start seeing them everywhere. The door you have to shove with your shoulder, the shelf you cannot reach without a stool, the phone that needs two hands when your last one needed only one: none of that is bad luck. Somebody chose a dimension, and in doing so somebody decided whose body it would fit.</p>
+<p>What makes this topic useful, and not just interesting, is that it gives you evidence. Anthropometric data and percentiles let you argue that a handle is too small or a control is out of reach without saying "it feels wrong to me". That is exactly what examiners want in Paper 2, and exactly what your IA needs when you justify a measurement.</p>
+<p>Ergonomics also carries real weight. The crash test dummy case in 1.1.3 shows that deciding whose body counts as "standard" has consequences well beyond comfort. Take the percentile logic seriously now, because it comes back in <a href="../c1.2-inclusive-design.html">C1.2 Inclusive Design</a> and anywhere else you have to defend a measurement.</p>
+
+</div><div class="col" style="--c:#3d6b4a"><div class="col-head"><span class="src-tag" style="background:#3d6b4a">C1.2</span> <strong>Course notes introduction</strong> <a class="src-link" href="../c1.2-inclusive-design.html#course-notes">source</a></div>
+<p>Inclusive design starts from a claim that sounds obvious and turns out to be radical: disability is not a property of a person, it is a mismatch between a person and an environment somebody designed. A building with stairs and no ramp does not accommodate a wheelchair user badly. It excludes them, and it does so because of decisions that could have gone another way at little cost had anyone thought about it early enough.</p>
+<p>The practical case is easy to make and worth making. Curb cuts were fought for by wheelchair users and are now used by anyone with a suitcase, a pram or a delivery trolley. Captions were built for deaf viewers and are now switched on in half the world's living rooms. Designing for the edges of a user population tends to improve the product for the middle, which is why "design for extremes" appears here as a strategy rather than an act of charity. Pay particular attention to objective 1.2.2, which admits that inclusive design is not always possible. Being able to say clearly where the limits are and why is a far more sophisticated answer than insisting everything can be made universal. This topic also connects tightly back to the percentile and physiology work in <a href="../a1.1-ergonomics.html">A1.1</a>.</p>
+
+</div></div><div class="notes"><label for="notes-intros">Notes: Course notes introductions</label><textarea id="notes-intros" data-heading="Course notes introductions" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-1"><h2>Row 1: What ergonomics is (A1.1.1)</h2><div class="cols" style="--n:1"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.1</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.1">source</a><h3>Ergonomics is the relationship and interaction between people (aspects of the human body) and the products, systems and environments they use.</h3><p class="outcome"><b>Students must be able to</b>Describe how ergonomics is used to improve the design of a product by making a design more efficient, usable, functional, effective and safe.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p><strong>Ergonomics</strong> (also called <strong>human factors engineering</strong>) is the study of how people interact with the products, systems and environments they use. When designers apply ergonomic thinking, the result is products that are safer, more comfortable and more efficient to use.</p>
+<p>The field is built on three interlocking disciplines:</p>
+<ul>
+<li><strong>Anthropometrics</strong> - the measurement of human body dimensions. Knowing how large or small a user's body is allows designers to set appropriate dimensions for a chair, a control panel or a doorway.</li>
+<li><strong>Physiology</strong> - how the body's systems (muscles, nervous system, cardiovascular system) function, respond and reach their limits. Relevant when designing for force, fatigue, posture or sensory capability.</li>
+<li><strong>Psychology</strong> - how the mind perceives and interprets information from the senses. Relevant when designing interfaces, environments, warnings or anything that communicates through sight, sound, smell, taste or touch.</li>
+</ul>
+<p>A product designed without ergonomic consideration may still function technically. It will be harder to use, more tiring, riskier or inaccessible to some users. Good ergonomic design removes that mismatch.</p>
+
+<p>A practical way to apply ergonomics is to evaluate a design against the five qualities the IB syllabus identifies. Each describes a different way a product can fail to match the person using it:</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead>
+<tr><th>Quality</th><th>What it means</th><th>Applied example</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Efficient</strong></td><td>Reduces the effort, time or resources a user needs to complete a task</td><td>A chair adjusted so the user's elbows rest at desk height, eliminating shoulder elevation during typing</td></tr>
+<tr><td><strong>Usable</strong></td><td>The product can be operated successfully by the target user population without specialist knowledge</td><td>Touchscreen buttons sized to at least 44 × 44 px so different finger sizes can tap accurately</td></tr>
+<tr><td><strong>Functional</strong></td><td>The product performs its purpose without causing harm or requiring workarounds</td><td>A handle diameter chosen to fit the grip range of the target users so they can apply the required torque</td></tr>
+<tr><td><strong>Effective</strong></td><td>The user achieves accurate and complete results when using the product</td><td>A warning label that uses both colour and symbol, so users with <a href="../c1.2-inclusive-design.html">colour vision deficiency</a> still receive the message</td></tr>
+<tr><td><strong>Safe</strong></td><td>Reduces the risk of injury or harm during intended and foreseeable use</td><td>A machine guard preventing accidental contact with rotating parts during normal operation</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Ergonomics applied: six product categories</strong></p>
+<p>The five qualities above are abstract until you see them in a real object. The categories below are the ones the course uses most often, and each one solves a different kind of body-to-product mismatch.</p>
+<ul>
+<figure class="case-photo">
+<a href="../A1.1/ergochair.webp"><img src="../A1.1/ergochair.webp" alt="Mr.K ergo chair" loading="lazy"></a>
+<figcaption>Mr. K's Ergonomic Chair</figcaption>
+</figure>
+<li><strong>Office chairs.</strong> Adjustable seat height lets the user place their feet flat on the floor with the thighs roughly parallel to the ground, which keeps the spine in a neutral position and reduces strain on the lower back. Adjustable <em>lumbar support</em> (support for the inward curve of the lower back) prevents slouching and takes pressure off the spinal discs. Adjustable armrests carry the weight of the arms so the shoulders can stay relaxed rather than raised.</li>
+<figure class="case-photo">
+<a href="../A1.1/ergomouse.webp"><img src="../A1.1/ergomouse.webp" alt="Mr.K ergo mouse" loading="lazy"></a>
+<figcaption>Mr. K's Ergonomic Mouse</figcaption>
+</figure>
+<li><strong>Keyboards and mice.</strong> Wrist supports, split or angled key layouts and carefully placed mouse buttons reduce the awkward wrist angles that cause discomfort during long periods of typing. Less strain also means fewer errors and better productivity.</li>
+<li><strong>Medical devices.</strong> These are designed to reduce physical strain on doctors and nurses who use them for hours at a time, because a tired user makes more mistakes. Features that prevent accidental injury, such as needle guards and locking connectors, are part of the same thinking.</li>
+<li><strong>Automotive design.</strong> Seats, steering wheels and control panels are all shaped around driver comfort and reach. The clearest recent example is the <strong>head-up display (HUD)</strong>, which projects speed and navigation information onto the windscreen so the driver reads it without looking away from the road. Connecting the HUD to a phone lets the driver deal with calls and messages without taking their hands off the wheel.</li>
+<li><strong>Consumer electronics.</strong> Phones, tablets and wearables are sized and weighted so they can be held and operated for long periods without the hand or wrist tiring.</li>
+<li><strong>Kitchen knives.</strong> A chef's knife should feel like an extension of the hand. Designers control weight distribution so the knife balances near the handle, giving the user more control and better accuracy. Lightweight, non-slip and textured materials improve grip, which matters most when the hand is wet.</li>
+</ul>
+
+<div class="topic-link-blurb">These five qualities map directly onto the evaluation criteria used in user-centred research. <a href="../a2.1-user-centred-research.html">A2.1 User-centred Research Methods</a> covers how designers collect data to assess each one.</div>
+
+</div></div><div class="notes"><label for="notes-row-1">Notes: Row 1: What ergonomics is (A1.1.1)</label><textarea id="notes-row-1" data-heading="Row 1: What ergonomics is (A1.1.1)" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-2"><h2>Row 2: Measuring bodies, and what changes the data (A1.1.2)</h2><p class="row-note">The paragraph on disability under &quot;Factors that change the data&quot; also relates to row 5.</p><div class="cols" style="--n:1"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.2</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.2">source</a><h3>Anthropometrics involves the measurement of human physical dimensions expressed in the percentile range. This method specifically focuses on determining and presenting the range of individuals' physical characteristics.</h3><p class="outcome"><b>Students must be able to</b>Explain and use static and dynamic anthropometric data to design for different people and be able to discuss how factors such as age, gender, ethnicity and disability affect the anthropometric data.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p><strong>Anthropometric data</strong> is the systematic collection of human body measurements - height, reach, grip diameter, shoulder width, eye height and hundreds of other dimensions. Designers use this data to set critical product dimensions.</p>
+<p>The World Health Organisation, in its report <em>Physical status: the use and interpretation of anthropometry</em> (1995), calls anthropometry "the single most universally applicable, inexpensive and non-invasive method available to assess the size, proportions, and composition of the human body". <em>Non-invasive</em> means nothing enters the body: you are measuring a person from the outside, with a tape or a caliper, not with a scan or a blood test. That is why the method is used everywhere from hospitals to furniture factories.</p>
+<p>Two types of data are collected:</p>
+<ul>
+<li><strong>Static anthropometrics</strong> (also called structural) - measurements taken with the body still: standing height, seated eye height, shoulder breadth, hand length, and distances between joints. This data is easy to collect because the subject is not moving. Used when designing furniture, clothing, vehicle interiors and equipment that must fit a stationary body.</li>
+<li><strong>Dynamic anthropometrics</strong> (also called functional) - measurements taken during movement: reach envelope, step length, grip force, reaction time, range of motion. This data is harder to collect, but it is often more useful, because it shows the range and the ease of the movements a user can actually make. Used when designing controls, handles, tools and spaces where the user must move to operate the product.</li>
+</ul>
+
+<div class="diagram-widget" id="anthro-a112">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Static or Dynamic?</div>
+<p class="drag-sort-intro">Set up a person, then collect each type of data. Try two people of the same height but different ages, or give one of them limited shoulder movement after an injury or with arthritis: their static measurements match, but their dynamic ones do not.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="anthro-height">Height: <span id="anthro-height-val"></span> cm</label>
+<input class="anthro-range" type="range" id="anthro-height" min="140" max="200" step="1" value="170">
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="anthro-weight">Weight: <span id="anthro-weight-val"></span> kg</label>
+<input class="anthro-range" type="range" id="anthro-weight" min="40" max="130" step="1" value="65">
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="anthro-age">Age</label>
+<select class="live-calc-select" id="anthro-age">
+<option value="20">20s</option>
+<option value="45">40s</option>
+<option value="75">70s</option>
+</select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="anthro-mobility">Shoulder mobility</label>
+<select class="live-calc-select" id="anthro-mobility">
+<option value="full">Full</option>
+<option value="limited">Limited</option>
+</select>
+</div>
+</div>
+
+<div class="diagram-actions">
+<button class="drag-sort-reset-btn anthro-btn" type="button" id="anthro-static">Collect static data</button>
+<button class="drag-sort-reset-btn anthro-btn" type="button" id="anthro-dynamic">Collect dynamic data</button>
+</div>
+
+<div class="anthro-stage">
+<svg class="diagram-canvas anthro-svg" id="anthro-svg" viewBox="0 0 420 440" role="img" aria-label="A standing figure drawn to the chosen height and build"></svg>
+<div class="diagram-readout anthro-readout" id="anthro-readout" aria-live="polite"></div>
+</div>
+<div class="live-calc-illustrative-flag">Body proportions and movement ranges are typical rule-of-thumb values, for illustration</div>
+</div>
+
+<p><strong>How the data is collected, and why it is not perfect</strong></p>
+<p>Measurements are taken with instruments such as <strong>calipers</strong> (a sliding measuring tool with two arms that close onto the body), tape measures, height gauges and, increasingly, 3D body scanners. Whatever the instrument, two things matter: it must be sturdy, and it must be <strong>calibrated</strong>, meaning it has been checked against a known standard so its readings can be trusted.</p>
+<p>Some measurements are far more reliable than others. Height and weight are simple and repeatable. Body fat measured with skinfold calipers is much less reliable across a large sample, because the result depends on exactly where and how hard the technician pinches the skin. When you use a data table, it is worth asking how the numbers in it were obtained.</p>
+<p>There is one convention that surprises most students. Anthropometric data is meant to describe the <em>nude</em> body, so that measurements from different studies can be compared. In practice, cultural expectations often make that impossible, so investigators measure clothed subjects and then subtract an allowance for the type and thickness of the clothing worn. Designers sometimes have to add an allowance back on, since a user wearing a winter coat or protective equipment occupies more space than the table says.</p>
+
+<p><strong>Factors that change the data</strong></p>
+<p>No two bodies are identical. A person tall enough to fit clothing size L may have arms that fit a size S. Designing for a single "standard human" always excludes real users. Anthropometric data must account for variation across:</p>
+<ul>
+<li><strong>Age</strong> - children and older adults differ significantly from young adults in reach, grip strength and mobility. Children are also a moving target, because they change size quickly.</li>
+<li><strong>Gender</strong> - on average, men are taller and heavier than women, a difference driven largely by hormones. Male bones are generally larger and denser: peak bone mass in men is roughly 50% greater than in women, and women lose bone mass faster as they age, so the gap widens over a lifetime. Women on average carry a higher percentage of body fat, which matters when interpreting health measures such as BMI. Products for a mixed population must accommodate both.</li>
+<li><strong>Ethnicity</strong> - body proportions vary across populations, so data collected from one group cannot be applied globally without adjustment. For example, people of African descent tend to have higher bone density and lower fracture rates than people of European descent, and measures such as waist circumference and waist-to-hip ratio differ meaningfully between ethnic groups.</li>
+<li><strong>Disability</strong> - users with physical disabilities may have reach ranges, grip capabilities or postures that change every dimension a designer must consider. Conditions affecting mobility, such as cerebral palsy or muscular dystrophy, produce body measurements that standard tables do not describe. Wheelchair users often have different upper-body strength and proportions from non-users, which changes both the reach envelope and the forces a product can ask for. See <a href="../c1.2-inclusive-design.html">C1.2 Inclusive Design</a> for how these differences shape design requirements.</li>
+</ul>
+
+<div class="diagram-widget" id="curve-a112">
+<div class="drag-sort-label">Interactive</div>
+<div class="drag-sort-title">Where Do You Fit on the Curve?</div>
+<p class="drag-sort-intro">Each curve shows how one measurement is spread across adult men and adult women in a region. Change the region to see the curves shift, then enter a measurement of your own to find its percentile.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="curve-measure">Measurement</label>
+<select class="live-calc-select" id="curve-measure">
+<option value="height">Height (stature)</option>
+<option value="foot">Foot length</option>
+<option value="hand">Hand length</option>
+</select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="curve-region">Region</label>
+<select class="live-calc-select" id="curve-region">
+<option value="global">Global</option>
+<option value="usa">United States</option>
+<option value="europe">Europe</option>
+<option value="china">China</option>
+</select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="curve-value">Your measurement</label>
+<div class="live-calc-field-input-wrap"><input class="live-calc-input" type="number" id="curve-value" step="0.1" inputmode="decimal"><span class="live-calc-field-unit">cm</span></div>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="curve-group">Compare with</label>
+<select class="live-calc-select" id="curve-group">
+<option value="men">Men</option>
+<option value="women">Women</option>
+</select>
+</div>
+</div>
+<label class="curve-toggle"><input type="checkbox" id="curve-band"> Show the 5th to 95th percentile range</label>
+
+<svg class="diagram-canvas curve-svg" id="curve-svg" viewBox="0 0 600 270" role="img" aria-label="Two normal distribution curves, for men and for women"></svg>
+<div class="curve-key"><span class="curve-key-men">Men</span><span class="curve-key-women">Women</span></div>
+<div class="diagram-readout curve-readout" id="curve-readout" aria-live="polite"></div>
+<p class="curve-source">Heights come from measured national surveys collected in Wikipedia's <a href="https://en.wikipedia.org/wiki/Human_height_by_country" target="_blank" rel="noopener">Human height by country</a> (see References). Europe and the global curve are population-weighted averages; the global curve covers the 15 most populous countries in that list. Foot and hand lengths are estimated from height.</p>
+<div class="live-calc-illustrative-flag">Foot and hand lengths are estimates</div>
+</div>
+
+<p><strong>Using anthropometric data in practice</strong></p>
+<p>A designer identifies which body dimension is critical for the product (seat height, grip width, overhead reach distance), selects the data table for the relevant user population, then determines which end of the distribution to design for. Whether the dimension is about reach or clearance controls the choice of percentile. The rules for that are covered in <a href="../a1.1-ergonomics.html#obj-1.1.3">1.1.3 Percentiles</a> and <a href="../a1.1-ergonomics.html#obj-1.1.5">1.1.5 Work Envelopes</a>.</p>
+
+</div></div><div class="notes"><label for="notes-row-2">Notes: Row 2: Measuring bodies, and what changes the data (A1.1.2)</label><textarea id="notes-row-2" data-heading="Row 2: Measuring bodies, and what changes the data (A1.1.2)" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-3"><h2>Row 3: Percentiles, and why the average fits nobody (A1.1.3, A1.1.5, C1.2.2)</h2><div class="cols" style="--n:3"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.3</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.3">source</a><h3>Percentiles aid in the selection of appropriate anthropometric data to satisfy the majority of a user population.</h3><p class="outcome"><b>Students must be able to</b>Identify where the 5th, 50th and 5th–95th percentiles are appropriate for a design scenario.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p>Anthropometric data for any dimension - such as standing height - follows a <strong>normal distribution</strong> (also called a Gaussian distribution, or a bell curve). Most people cluster near the middle; fewer people are at the extremes. <strong>Percentiles</strong> tell you what percentage of the measured population falls at or below a given measurement. Someone in the 70th percentile for a dimension measures the same as, or more than, 70% of the sample.</p>
+
+<p><strong>The statistics behind the curve</strong></p>
+<p>A normal distribution is described by just two numbers. The <strong>mean</strong> is the average value, which sits at the peak of the curve. The <strong>standard deviation</strong> (written with the Greek letter sigma, σ) measures how spread out the values are around that mean. A small standard deviation gives a tall, narrow curve, meaning most people are close to average. A large one gives a wide, flat curve.</p>
+<p>The useful part is that the spread is predictable:</p>
+<ul>
+<li>About <strong>68%</strong> of the population falls within <strong>one</strong> standard deviation of the mean (mean ± 1σ).</li>
+<li>About <strong>95%</strong> falls within <strong>two</strong> standard deviations (mean ± 2σ).</li>
+</ul>
+<p>This is why percentile tables work at all. Because the shape of the curve is known, a designer can convert "I want to include 90% of users" into two actual measurements in millimetres, taken from the table at the 5th and 95th percentiles.</p>
+<p>A second useful piece of arithmetic concerns mixed populations. Within a <em>single</em> gender, the 5th to 95th percentile range covers 90% of people, because 5% are excluded at each end. In a mixed group that is half male and half female, the same range covers about 95% of people. Only the tallest 5% of men and the smallest 5% of women fall outside it, and since each group is half the sample, that is 2.5% + 2.5% = 5% excluded in total.</p>
+
+<p>Three percentiles are used routinely in design:</p>
+<ul>
+<li><strong>5th percentile</strong> - 5% of the population is at or below this measurement. A 5th percentile adult is among the smallest in the population. When designing for <em>reach</em> - how far a person must stretch to operate something - design for the 5th percentile: if the smallest person can reach it, everyone can.</li>
+<li><strong>50th percentile</strong> - the median value; half the population is above and half below. Rarely the right choice on its own - a product sized only for the median excludes people at both extremes.</li>
+<li><strong>95th percentile</strong> - 95% of the population is at or below this measurement. A 95th percentile adult is among the largest. When designing for <em>clearance</em> - how much space a person needs to fit through or under something - design for the 95th percentile: if the largest person fits, almost everyone fits.</li>
+</ul>
+<p>Most products should be designed for the <strong>5th–95th percentile range</strong>, covering 90% of the population. The extreme 5% at each end are excluded - a deliberate design compromise when the cost of accommodating them is too high.</p>
+<p>Designing for the mean alone looks sensible but usually is not. Very few people sit exactly at the average, so a fixed dimension set at the 50th percentile fits almost nobody properly. The problem gets worse when the user group crosses age or gender boundaries, because there is no single average that describes both halves of the group.</p>
+
+<p><strong>Case study: the crash test dummy</strong></p>
+<p>Crash test dummies are the clearest example of a 50th percentile decision with consequences. The timeline below is worth knowing in detail, because it shows how long a bad assumption can survive once it is built into testing equipment.</p>
+<ul>
+<li><strong>Sierra Sam (1949).</strong> The first widely used dummy was built for the aviation industry, not for cars, and represented a <em>95th percentile</em> male: heavier and taller than 95% of men. It was used to test ejection seats, aviation helmets and pilot restraints.</li>
+<figure class="case-photo">
+<a href=""><img src="../A1.1/hybrid2.webp" alt="Hybrid II crash test dummies" loading="lazy"></a>
+<figcaption><a href="https://commons.wikimedia.org/w/index.php?curid=49415906" target="_blank" rel="noopener">A pair of Hybrid II's, By Dynamic Test Center, AGU Zürich - Public Domain </a></figcaption>
+</figure>
+<li><strong>Hybrid I (1971).</strong> General Motors <a href="https://en.wikipedia.org/wiki/Crash_test_dummy">redesigned Sierra Sam</a>redesigned Sierra Sam into a dummy modelled on the <em>50th percentile</em> male, using average male height, mass and proportion. Vehicle safety features such as seatbelt geometry and airbag placement were tuned around this body.</li>
+<li><strong>The 1980s.</strong> The first female crash test dummy appeared, more than a decade later. It was essentially a scaled-down version of the male dummy, so it captured a smaller body but not the actual anatomical differences between male and female bodies.</li>
+<li><strong>2022.</strong> Swedish researchers developed the first dummy genuinely modelled on female anatomy, designed to capture the injuries women are most likely to sustain rather than simply shrinking a male model.</li>
+<figure class="case-photo">
+<a href=""><img src="../A1.1/thor5.webp" alt="A Thor 5 test dummy" loading="lazy"></a>
+<figcaption><a href="https://www.humaneticsgroup.com/products/anthropomorphic-test-devices/frontal-impact/thor-5f" target="_blank" rel="noopener">Thor 5 crash test dummy | Humanetics Group</a></figcaption>
+</figure>
+<li><strong>THOR 5th ATD.</strong> A modern, <em>biofidelic</em> (built to behave like real human tissue) Anthropomorphic Test Device representing a 5th percentile female, designed around female physiology rather than adapted from a male baseline.</li>
+</ul>
+<p>Because female anthropometric data was not collected or used for decades, safety features were effectively optimised for a male body, and studies later showed women were significantly more likely to be injured in crashes. The case illustrates the real harm that follows when designers fail to represent the full range of users in their data.</p>
+<p><em>A second example</em> shows the same principle without the tragedy. Computer furniture for primary school children has to cover a very wide 5th to 95th percentile range, across both genders and across several years of rapid growth. Get it right and the furniture encourages good posture, reduces fatigue and prevents long-term back problems. Get it wrong, and a child spends six years at a desk that does not fit them.</p>
+
+<p>A useful heuristic when selecting a percentile: ask whether the dimension involves a person reaching <em>towards</em> something or fitting <em>into</em> something.</p>
+<div class="content-table-wrap">
+<table class="content-table">
+<thead>
+<tr><th>Design concern</th><th>Percentile to use</th><th>Reasoning</th></tr>
+</thead>
+<tbody>
+<tr><td>Reach: how far a control or object is from the user</td><td><strong>5th percentile</strong></td><td>If the person with the shortest reach can reach it, everyone can</td></tr>
+<tr><td>Clearance: head height, knee room, corridor width</td><td><strong>95th percentile</strong></td><td>If the largest person fits, everyone will</td></tr>
+<tr><td>One-size product with a fixed dimension</td><td><strong>5th–95th range</strong></td><td>Set the minimum at the 5th and the maximum at the 95th to include 90% of users</td></tr>
+<tr><td>Documenting a reference "typical" user</td><td><strong>50th percentile</strong></td><td>The median is used as a reference point only. Do not use it to set fixed design dimensions that must fit a range of people</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="live-calc" id="calc-percentile">
+<div class="live-calc-label">Interactive</div>
+<div class="live-calc-title">Percentile Lookup Tool</div>
+<p class="live-calc-intro">Pick a body dimension, a population, and a target percentile. The tool looks up a value using the same 5th/50th/95th logic taught above.</p>
+
+<div class="live-calc-fields">
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-dimension">Dimension</label>
+<select class="live-calc-select" id="pct-dimension"></select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-population">Population</label>
+<select class="live-calc-select" id="pct-population">
+<option value="male">Adult male</option>
+<option value="female">Adult female</option>
+<option value="child">Child (8–12)</option>
+<option value="elderly">Older adult (65+)</option>
+</select>
+</div>
+<div class="live-calc-field">
+<label class="live-calc-field-label" for="pct-percentile">Percentile</label>
+<select class="live-calc-select" id="pct-percentile">
+<option value="5">5th</option>
+<option value="50" selected>50th</option>
+<option value="95">95th</option>
+</select>
+</div>
+</div>
+
+<div class="live-calc-output"><div class="live-calc-working" id="pct-working"></div></div>
+<div class="live-calc-illustrative-flag">Illustrative values for teaching purposes only, not measured data</div>
+</div>
+
+</div><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.5</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.5">source</a><h3>In design, consideration must be given to work envelopes, reach, clearance, adjustability and range of sizes.</h3><p class="outcome"><b>Students must be able to</b>Explain the importance of workspace envelopes, adjustability, reach and range of sizes clearance in relation to percentiles and how they are used when designing products.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p>When designing a workspace, whether it is a cockpit, a kitchen or a production line, a designer needs to map more than body size. They also have to map the <em>space in which the body moves and operates</em>. Three related concepts define that space:</p>
+<p><strong>Work envelope (workspace envelope)</strong> - the three-dimensional space that a person can comfortably reach and operate within from a fixed position. Imagine a sphere of reachable space around a seated operator. All critical controls must fall within this envelope; otherwise the user must stretch, lean or shift in ways that increase fatigue and error rate. The size of the work envelope changes with body size, so it must be defined using percentile data.</p>
+<p><strong>Reach</strong> - the maximum distance a person can extend their arm to contact or operate something. Reach is a <em>5th percentile</em> design concern: if the smallest user can reach every control, everyone can. Place the most frequently used controls in the nearest zone of the work envelope.</p>
+<p><strong>Clearance</strong> - the minimum space needed to fit part of the body without obstruction: head clearance in a doorway, knee clearance under a desk, shoulder width in a corridor. Clearance is a <em>95th percentile</em> concern: design so the largest user fits through or into the space, and everyone else will too.</p>
+<p>Applying these correctly means using different percentiles for different problems: reach calls for 5th percentile data; clearance calls for 95th percentile data. A single percentile cannot solve both simultaneously. This is one reason <a href="../a1.1-ergonomics.html#obj-1.1.4">adjustable workstations</a> exist.</p>
+
+<p><strong>Why one percentile is never enough: multivariate variation</strong></p>
+<p>The usual rule for adjustability is to cover from the 5th percentile female to the 95th percentile male. That sounds like it guarantees 95% coverage, and it would, if human bodies were always in the same proportion. They are not. A tall person can have short arms; a short person can have proportionally long arms. Being 50th percentile for height tells you almost nothing about someone's shoulder width or seated eye height.</p>
+<p><strong>Multivariate analysis</strong> is the statistical method used to handle several body dimensions at once instead of one at a time. The uncomfortable finding it produces is this: when a product depends on several dimensions together, designing each one to the 5th–95th range still leaves <em>more</em> than 5% of people excluded on at least one dimension. Someone who fits the seat depth may not fit the armrest width.</p>
+<p>Designers accept this rather than solve it, because the cost of accommodating every possible combination of dimensions rises very steeply and is rarely justified. What they can do is identify which dimension actually limits the design. In a workstation, that limiting factor is usually arm reach, which is why the reach envelope is defined as a three-dimensional space rather than a single distance.</p>
+
+<p><strong>Where the data comes from</strong></p>
+<p>Reliable data is essential before you can define a reach envelope for a broad population. Four sources are commonly used:</p>
+<ul>
+<li><strong>Anthropometric tables</strong> - published percentile data for a defined population.</li>
+<li><strong>Dynamic measurement</strong> - measuring real users while they move, which captures reach and range of motion that static tables miss.</li>
+<li><strong>Software simulation</strong> - digital human models placed into a CAD model of the workspace, so reach and clearance can be tested before anything is built.</li>
+<li><strong>Video analysis</strong> - traditionally measurements were taken by hand, but recorded video has proved an effective way to capture how people actually move through a task.</li>
+</ul>
+<p>Every one of these can be distorted by clothing, which adds bulk and restricts movement. A reach envelope measured in a t-shirt does not describe the same worker in a padded jacket, gloves and a helmet.</p>
+
+<div class="hub-group-label"><span>Product Spotlight</span></div>
+<div class="case-study-grid spotlight-grid">
+
+<article class="case-study-card" data-case="xbox-controller" data-modal="modal-xbox-controller" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="../A1.1/controller1.webp" alt="The original Xbox 'Duke' controller" loading="lazy">
+  </figure>
+  <div class="case-study-content">
+    <h4>Xbox Controller Redesign</h4>
+    <p>Built for one hand size, then rebuilt for everyone else.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+<article class="case-study-card" data-case="standing-desk" data-modal="modal-standing-desk" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="../A1.1/desk1.webp" alt="An IKEA Mittzon adjustable standing desk" loading="lazy">
+  </figure>
+  <div class="case-study-content">
+    <h4>Adjustable Standing Desks</h4>
+    <p>One height range, covered by a motor instead of a size chart.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+<article class="case-study-card" data-case="office-chair" data-modal="modal-office-chair" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="../A1.1/aeronsizes.webp" alt="Herman Miller Aeron office chair">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Aeron's Three Frames</h4>
+    <p>When adjustment alone isn't enough, and you need three different frames instead of one.</p>
+    <span class="case-study-btn tool-btn-sm">Read spotlight →</span>
+  </div>
+</article>
+
+</div><div class="popup-inline"><div class="popup-label">Popup content</div><h4>Product Spotlight: Xbox Controller Redesign</h4>
+
+      <figure class="case-photo">
+        <a href="../A1.1/controller1.webp" target="_blank" rel="noopener"><img src="../A1.1/controller1.webp" alt="The original Xbox 'Duke' controller" loading="lazy"></a>
+        <figcaption><em>The original Xbox controller, nicknamed "Duke" inside Microsoft.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>When Microsoft's design team sized the original Xbox controller, they built it around the hands of their defined target player: males in their late teens and twenties. Anthropometric data for that group pointed toward a wide, deep grip with plenty of room between the analog sticks, and the team delivered exactly that. Reviewers in North America mostly agreed it felt solid and comfortable, precisely because it matched the hand sizes it had been designed for.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="../A1.1/controller2.webp" target="_blank" rel="noopener"><img src="../A1.1/controller2.webp" alt="The smaller Xbox Controller S" loading="lazy"></a>
+        <figcaption><em>The Controller S, designed by Alan Han for players the original Duke didn't fit.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>The trouble appeared once the console reached international markets. In Japan in particular, a large share of players found the Duke simply too big to hold comfortably. The team had designed for the percentile range of its main persona and stopped there, instead of checking the shape against a wider population. Industrial designer Alan Han led the fix: a smaller, lighter pad built around a narrower hand-size range. It was released as a mid-production change rather than being planned from the start. This is what happens when a product goes on sale before its ergonomics have been checked against every group of users, rather than only the group the team had in mind.</p>
+      </div>
+
+    </div><div class="popup-inline"><div class="popup-label">Popup content</div><h4>Product Spotlight: Adjustable Standing Desks</h4>
+
+      <figure class="case-photo">
+        <video src="../A1.1/desk2.mp4" autoplay muted loop playsinline></video>
+        <figcaption><a href="https://www.ikea.com/us/en/p/mittzon-desk-sit-stand-electric-oak-veneer-white-s79528975/#content" target="_blank" rel="noopener">An IKEA MITTZON motorised standing desk, sitting up and down.</a></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>A desk has to fit two very different measurements. One is the elbow height of a seated 5th percentile user. The other is the elbow height of a standing 95th percentile user. Those two numbers are nowhere near each other. Worse, a sit-stand desk has to satisfy both of them for the <em>same</em> body, because one person works in both postures during a single day. A fixed-height desk can only sit at one compromise point somewhere in between, which suits nobody in particular. IKEA's MITTZON line solves this with a motorised telescoping frame covering a range of roughly 62cm to 124cm: low enough to sit at, high enough to stand at. The motor covers the whole gap, so the buyer never has to choose a fixed height from a chart.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="../A1.1/desk1.webp" target="_blank" rel="noopener"><img src="../A1.1/desk1.webp" alt="An adjustable standing desk" loading="lazy"></a>
+        <figcaption>IKEA's own dimension diagram for the MITTZON desk, specifying its full height adjustment range.</figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>This is an easier problem than the one the Aeron chair faced in the previous card. A desk only has to get one dimension right, the distance from tabletop to floor, and that dimension moves along a single axis a motor can drive directly. A chair has to get seat height, seat depth, armrest width and lumbar position right at the same time, and those dimensions do not scale together across a population. That is exactly why Herman Miller needed three separate frame sizes instead of one adjustable shell. Adjustability and range of sizes are both valid answers to the same percentile problem. Which one a designer chooses depends on how many dimensions are linked together, and how cheaply each one can be adjusted on its own.</p>
+      </div>
+
+    </div><div class="popup-inline"><div class="popup-label">Popup content</div><h4>Product Spotlight: The Aeron's Three Frames</h4>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="../A1.1/aeron.webp" alt="Herman Miller Aeron office chair"></a>
+        <figcaption><em>The Aeron Chair | <a href="https://www.brooklynmuseum.org/opencollection/objects/169418">By Brooklyn Museum</a> - <a href="https://commons.wikimedia.org/w/index.php?curid=132620961">CC BY 3.0</a></em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Before we get into the exciting details of the Aeron, I'm going to jump in and share that I had one of these at my first proper office job, hundreds of years ago in 2012-2015. This chair is so good. As an ancient person with back pain and stuff I think about this chair a lot- because I could sit in it literally all day without ever getting sore. I've tried so many other desk chairs, and literally the only reason I don't have another Aeron <em>right now</em> is that I need a <em>stool</em> for my desk, and there isn't an Aeron at the height I need. If I started my own school and had a huge budget for furniture I'd absolutely get a full classroom of these chairs. Onto the <em>actual</em> content...</p>
+          
+        <p>Most office chairs handle a wide range of bodies through adjustment alone, like seat height, armrest position, tilt tension, or lumbar depth. Herman Miller's engineers ran into the limit of that approach while developing the Aeron in the early 1990s. However many adjustments you add, a single frame still has one seat pan shape and one set of proportions. Stretch that one frame to cover both a 5th percentile woman and a 95th percentile man, and it ends up fitting neither of them well.</p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="" target="_blank" rel="noopener"><img src="../A1.1/aeronsizes.webp" alt="The Aeron's three frame sizes compared"></a>
+        <figcaption><em>The Aeron's Three Frame Sizes | <a href="https://www.hermanmiller.com/products/office-chairs/aeron-chair/">Herman Miller</a></em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Their answer was to stop treating the chair as one product. The Aeron ships in three frame sizes (A, B and C), each scaled to a different band of the population rather than uniformly scaled up or down, since skeletal proportions don't grow in the same ratio as height does. Adjustability still handles the fine-tuning within a size; the size itself does the work that no armrest lever ever could. It's a clean example of choosing "a range of sizes" over "adjustable" (see 1.1.4) precisely because adjustment alone couldn't cover the full percentile spread on its own.</p>
+      </div>
+
+    </div>
+
+</div><div class="col" style="--c:#3d6b4a"><div class="col-head"><span class="src-tag" style="background:#3d6b4a">C1.2</span> <strong>C1.2.2</strong> <a class="src-link" href="../c1.2-inclusive-design.html#obj-1.2.2">source</a><h3>Inclusive design is not always possible.</h3><p class="outcome"><b>Students must be able to</b>Discuss how the average person correlates to the 50th percentile adult and child, and how it is not always appropriate to design for the average person.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p>Inclusive design is a goal, not always a guarantee. Two realities place practical limits on how far universal solutions can extend.</p>
+<p><strong>The problem with designing for the average</strong>: Anthropometric data is reported as percentiles. The <strong>50th percentile</strong> is the median: the value below which 50% of the measured population falls. Designing for the "average" person seems logical, but the <strong>Union soldiers census of 1850</strong> illustrates the problem: the average height was 5 feet 8 inches, yet it is unlikely that any individual soldier was exactly that height across <em>all</em> relevant body dimensions simultaneously. The statistical average is not a real person.</p>
+<p><strong>Body dimensions are not linearly correlated</strong>: Someone with short arms does not necessarily have short legs. A person might be 5th percentile in arm reach but 95th percentile in torso height. This means:</p>
+<ul>
+<li>There is no such thing as an "average person" in any practically meaningful sense</li>
+<li>A product designed for the 50th percentile in every dimension will fit very few real people precisely</li>
+<li>Designing for one dimension in isolation can create problems in another</li>
+</ul>
+<p><strong>The 5th–95th percentile range</strong>: In practice, designers target the central 90% of the population. This means the product must be usable by the smallest plausible user (5th percentile in the critical dimension) and the largest (95th percentile). A seat, for example, needs adjustability to serve both the smallest and tallest users within this range.</p>
+<p>Users outside this range (below the 5th or above the 95th percentile) will always require specialist or adapted solutions. This is not a failure of inclusive design but an honest acknowledgement of its practical limits. Designers must identify where the boundary is drawn and be prepared to justify it.</p>
+
+<div class="topic-link-blurb">The anthropometric data and percentile method underlying this analysis are introduced in <a href="../a1.1-ergonomics.html">A1.1 Ergonomics</a>.</div>
+
+</div></div><div class="notes"><label for="notes-row-3">Notes: Row 3: Percentiles, and why the average fits nobody (A1.1.3, A1.1.5, C1.2.2)</label><textarea id="notes-row-3" data-heading="Row 3: Percentiles, and why the average fits nobody (A1.1.3, A1.1.5, C1.2.2)" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-4"><h2>Row 4: Fitting a range: adjustability and sizes (A1.1.4)</h2><div class="cols" style="--n:1"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.4</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.4">source</a><h3>To ensure products are appropriate to a range of percentiles, designers can choose to design products to be adjustable and/or to be produced in a range of sizes.</h3><p class="outcome"><b>Students must be able to</b>Explain the reasons why designers choose adjustability and/or range of sizes for a product, and identify products that use one or both strategies.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p>Because no single fixed dimension suits the full 5th–95th percentile range, designers have two core strategies for accommodating different body sizes:</p>
+<p><strong>Strategy 1 - Adjustability</strong><br>
+The product has components that can be moved, extended or set by the user to suit their own body. Examples:</p>
+<ul>
+<li>An office chair with adjustable seat height, lumbar support and armrests allows a 5th percentile small user and a 95th percentile tall user to both sit comfortably at the same workstation.</li>
+<li>A car's steering column and seat position both adjust, accommodating drivers across a wide height range.</li>
+<li>A bicycle saddle slides up and down its post to match the rider's leg length.</li>
+</ul>
+<p>Adjustability is preferred when users share a product and need it to fit their specific body. Its main cost is added mechanical complexity and the need for users to correctly set it up.</p>
+<p><strong>Strategy 2 - Range of sizes</strong><br>
+The product is manufactured in multiple fixed sizes. Users select the size closest to their body. Examples:</p>
+<ul>
+<li>Clothing sold in XS, S, M, L and XL.</li>
+<li>Crash test dummies: the Hybrid III family includes a 50th percentile male, a 5th percentile female and three child dummies; five sizes to cover a wider population range.</li>
+<li>Bicycle helmets offered in S, M and L to fit different head circumferences.</li>
+</ul>
+<p>A range of sizes is appropriate when adjustability is mechanically impractical, too costly, or when the product is consumed or worn and cannot be shared. Some products use <em>both strategies</em> - adjustable components within each size - to maximise fit. Clothing is the everyday example: garments are sold in fixed sizes, but drawstrings, elastic bands, belts and adjustable straps let the wearer fine-tune the fit within the size they bought.</p>
+<p>Widening the percentile range a product covers is sometimes called <strong>design for more types</strong>. It is a trade-off rather than a free improvement. Each extra bit of range costs money, adds mechanism or adds stock-keeping complexity, and the cost climbs steeply once you go beyond the 5th to 95th band. Users outside that band usually have to look for a customised solution instead.</p>
+
+</div></div><div class="notes"><label for="notes-row-4">Notes: Row 4: Fitting a range: adjustability and sizes (A1.1.4)</label><textarea id="notes-row-4" data-heading="Row 4: Fitting a range: adjustability and sizes (A1.1.4)" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-5"><h2>Row 5: Physical limits and designing for impairment (A1.1.6, C1.2.1)</h2><div class="cols" style="--n:2"><div class="col" style="--c:#2c5f6e"><div class="col-head"><span class="src-tag" style="background:#2c5f6e">A1.1</span> <strong>A1.1.6</strong> <a class="src-link" href="../a1.1-ergonomics.html#obj-1.1.6">source</a><h3>Physiology is the study of systems and biomechanics within the human body, their responses, limitations and capabilities.</h3><p class="outcome"><b>Students must be able to</b>Explain limiting aspects of user capabilities, including users' visual accuracy, colour perception, strengths, fatigue, muscle control and hearing thresholds.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p><strong>Physiology</strong> is the study of how the body's systems function, respond and break down under use. For designers, the relevant question is: <em>what are the limits of what the human body can do, and how does the product stay within those limits?</em></p>
+<p><strong>Visual accuracy and colour perception.</strong> The eye can only see fine detail at the very centre of the visual field, in a small area of the retina called the <em>fovea</em>. Everything outside that centre is <em>peripheral vision</em>, which detects movement well but detail poorly. Approximately 8% of males have some form of <em>colour vision deficiency</em>, meaning they cannot reliably tell certain colours apart. Designs that rely on colour alone to carry critical information (red = danger, green = safe) exclude these users. Good design treats colour as one channel among several, so that shape, symbol and position repeat the same message for anyone who cannot see the colour difference.</p>
+<p><strong>Muscle strength and fatigue.</strong> The force a person can exert (gripping, lifting, pushing) varies widely by age, gender, hand size and physical condition. <em>Biomechanics</em> is the study of the mechanical laws governing movement in living bodies: levers, joints and load paths. Designing a product that requires excessive force can cause injury over time. A rubber jar opener with a serrated strip works by <em>increasing friction and mechanical advantage</em>, allowing the same torque to be produced with far less hand force. This reduces fatigue and injury risk for users with reduced grip strength.</p>
+<p><strong>Muscle control.</strong> Fine motor control (precise finger and hand movements) decreases with age, fatigue, cold and certain medical conditions. Products requiring precise input, with small buttons or fine-tuned controls, can exclude users with reduced motor control.</p>
+<p><strong>Hearing thresholds.</strong> Human hearing is most sensitive in the 1,000–4,000 Hz range. High-frequency hearing loss is common with age. Auditory warnings must be designed to reach users with reduced hearing and must not be masked by background noise in the environment where the product is used.</p>
+
+<p><strong>Every design contains a biomechanical assumption</strong></p>
+<p>Whenever a designer specifies a control, they are quietly assuming something about the user's body. That a finger can press this button hard enough. That a wrist can twist this switch. That a hand can turn the handle of a can opener or a corkscrew. Those assumptions come from anthropometric data describing the population's strength, dexterity and fine motor control, and they are only as good as the population the data was taken from.</p>
+<p>Several common conditions break the assumption. Age-related muscle weakness, <strong>arthritis</strong> (painful inflammation and stiffness of the joints), <strong>Parkinson's disease</strong> (a nervous system disorder causing tremor and slowed movement) and <strong>multiple sclerosis</strong> (damage to the nerves, causing weakness and loss of coordination) all reduce the force and precision a user can produce. Designers respond either by adapting the original design or by developing <em>adaptive technologies</em>, which are devices that amplify what the user's body can do rather than replacing it.</p>
+<p>Packaging is where this fails most often. Older consumers regularly report difficulty with jar lids, soft drink bottle tops, ring pulls and child-resistant screw caps. Reduced grip strength and arthritis turn a task the designer never thought about into a daily obstacle. Better packaging, or a grip aid that supplies mechanical advantage, solves it cheaply.</p>
+<p>A different biomechanical problem appears when equipment adds load to the body. Protective helmets are worn in many jobs and sports, and the neck muscles must resist that extra weight for hours. It becomes serious in military and search-and-rescue work, where night vision goggles or a head-mounted display are attached to the front of the helmet. The added mass sits forward of the neck joint, so it acts on a longer lever arm and multiplies the strain.</p>
+
+<p><strong>Biomechanics in sporting equipment</strong></p>
+<p>Sport is the clearest showcase for biomechanics, because equipment is refined to improve performance, reduce fatigue or prevent injury. Products are usually developed for elite athletes first, then mass-produced for everyone else.</p>
+<ul>
+<li><strong>Tennis racquets and golf clubs</strong> use more responsive materials, so more of the energy the athlete puts in is returned to the ball rather than absorbed by the frame or the arm.</li>
+<li><strong>Competitive swimsuits</strong> are engineered to create less drag through the water.</li>
+<li><strong>Javelins</strong> include damping technology that absorbs the vibration set up when force is applied sideways during the initial throw.</li>
+</ul>
+<p>Biomechanical engineers work on far more ordinary products too, from backpacks to child safety harnesses, and they use the same analysis to investigate how a product is used, misused or found difficult. Applied across the whole population, including children, older adults and people with disabilities, this work becomes <em>design for inclusion</em>.</p>
+
+<p><strong>Designing around the limits of sight</strong></p>
+<p>Because vision carries most of the information a user receives, visual design has to be unambiguous: the right information, in the right place, at the moment it is needed, with nothing distracting around it. Designers are responsible for asking how the information will actually be used. A door that opens in only one direction should say <em>push</em> or <em>pull</em>, because nothing in the shape of a flat plate tells the user which is which.</p>
+<p>Colour does several jobs at once, and it is worth separating them:</p>
+<ul>
+<li><strong>Appeal.</strong> Bright, saturated colours make a product stand out on a shelf; neutral colours suggest elegance and restraint.</li>
+<li><strong>Legibility.</strong> High contrast between text and background makes information readable, whether on packaging or a phone screen. Contrast checking tools let a designer test this numerically instead of guessing.</li>
+<li><strong>Inclusion.</strong> Choosing colour combinations that remain distinguishable to users with colour vision deficiency is a basic inclusive design move, and it costs nothing at the design stage.</li>
+<li><strong>Brand identity.</strong> Consistent brand colours build recognition, and specific colours carry learned associations: gold, silver and black are widely read as signalling luxury and exclusivity.</li>
+<li><strong>Context and safety.</strong> Camouflage patterns let clothing and equipment disappear into an environment. The opposite choice, high-visibility orange on lifeboats and life vests, makes equipment as easy to find as possible. Both are colour decisions driven by how the eye works rather than by taste.</li>
+</ul>
+
+<p><strong>Designing around the limits of hearing</strong></p>
+<p>Hearing is used deliberately in design for four main purposes:</p>
+<ul>
+<li><strong>Safety.</strong> Volume limiters, built into headphones as either software or hardware, cap output at a level considered safe. Separate limits are often set for children and adults, because long listening sessions at high volume permanently damage hearing.</li>
+<li><strong>Privacy.</strong> Soundproofing is applied to offices, bedrooms and studios to stop noise entering a space, leaving it, or both.</li>
+<li><strong>Alarms.</strong> The pitch, pattern and intensity of an alarm are engineered so the signal carries through the environment and reaches as many people as possible. Police and ambulance sirens, fire alarms and smoke alarms are all tuned to be heard and understood quickly.</li>
+<li><strong>Environments.</strong> Acoustic treatment of walls, floors and ceilings absorbs echo and reverberation. Without it, speech becomes hard to follow and music loses definition, whatever the quality of the sound source.</li>
+</ul>
+
+<p><strong>Thermal comfort</strong></p>
+<p>A person's experience of a given temperature depends on air temperature, humidity, air movement, radiant heat, clothing insulation, metabolic rate and individual physiology. Two people in the same room at the same thermostat setting may experience it very differently, depending on their clothing, activity level, body composition and acclimatisation. A single fixed temperature cannot satisfy all occupants of a shared space. Designers and facilities managers address this with zoned temperature controls, personal desk fans or heaters, and flexible dress codes. The underlying logic is the same as designing products in a range of sizes: no single fixed setting works for everyone, so the environment must allow for variation.</p>
+
+<div class="topic-link-blurb">Physiological limits such as <a href="../c1.2-inclusive-design.html">colour vision deficiency</a>, reduced motor control and hearing loss are central topics in <a href="../c1.2-inclusive-design.html">C1.2 Inclusive Design</a>.</div>
+
+</div><div class="col" style="--c:#3d6b4a"><div class="col-head"><span class="src-tag" style="background:#3d6b4a">C1.2</span> <strong>C1.2.1</strong> <a class="src-link" href="../c1.2-inclusive-design.html#obj-1.2.1">source</a><h3>Inclusive design ensures products that address the needs of the widest possible audience, regardless of their age or ability, and focuses on designing universally acceptable products for all users.</h3><p class="outcome"><b>Students must be able to</b>Discuss how inclusive design requires designing universally accessible products for all users, including those with physical, sensory and cognitive impairments.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p><strong>Inclusive design</strong> (also called universal design, accessible design, or design for all) is an approach that removes barriers and ensures products and environments are usable by everyone, regardless of age, ability, or physical or cognitive difference. The goal is mainstream products that work for all users, not a parallel range of "special needs" versions that stigmatise users and add cost.</p>
+<p>The term <strong>Universal Design</strong> was coined by architect <strong>Ron Mace</strong> in 1985. The Centre for Universal Design at North Carolina State University defines it as: <em>"the design of products and environments to be usable by all people, to the greatest extent possible, without the need for adaptation or specialised design."</em></p>
+<p>Inclusive design extends <a href="../b1.1-user-centred-design.html">User-Centred Design (UCD)</a> by deliberately including community members who might otherwise be overlooked: the elderly, pregnant women, people with disabilities, and those who are temporarily injured. The <strong>seven principles of Universal Design</strong> are:</p>
+<ol>
+<li><strong>Equitable use</strong>: the design is useful and marketable to people with diverse abilities</li>
+<li><strong>Flexibility in use</strong>: accommodates a wide range of individual preferences and abilities</li>
+<li><strong>Simple and intuitive use</strong>: easy to understand regardless of experience, knowledge, language or concentration level</li>
+<li><strong>Perceptible information</strong>: communicates necessary information effectively regardless of ambient conditions or the user's sensory abilities</li>
+<li><strong>Tolerance for error</strong>: minimises hazards and adverse consequences of accidental or unintended actions</li>
+<li><strong>Low physical effort</strong>: can be used efficiently and comfortably with minimal fatigue</li>
+<li><strong>Size and space for approach and use</strong>: appropriate size and space is provided regardless of the user's body size, posture or mobility</li>
+</ol>
+<p><strong>Legislation</strong>: Many countries legally require designers to consider users with disabilities:</p>
+<ul>
+<li><strong>Americans with Disabilities Act (1990)</strong>: US federal law covering physical access, employment and product accessibility</li>
+<li><strong>Disability Discrimination Act (1992)</strong>: Australian legislation requiring reasonable adjustment for people with disabilities</li>
+<li>Similar legislation exists in Canada, South Africa and India</li>
+</ul>
+
+<div class="hub-group-label"><span>Case Study</span></div>
+<div class="case-study-grid">
+
+<article class="case-study-card" data-case="typewriter" data-modal="modal-typewriter" role="button" tabindex="0" aria-haspopup="dialog">
+  <figure class="case-study-img">
+    <img src="../C1.2/blick5small.webp" alt="An early typewriter mechanism">
+  </figure>
+  <div class="case-study-content">
+    <h4>The Typewriter</h4>
+    <p>Built so one blind woman could write a legible letter.</p>
+    <span class="case-study-btn tool-btn-sm">Read case study →</span>
+  </div>
+</article>
+
+</div><div class="popup-inline"><div class="popup-label">Popup content</div><h4>Case Study: The Typewriter</h4>
+
+      <figure class="case-photo">
+        <a href="../C1.2/blick5small.webp" target="_blank" rel="noopener"><img src="../C1.2/blick5small.webp" alt="An early 19th-century typewriter mechanism"></a>
+        <figcaption><em><a href="https://site.xavier.edu/polt/typewriters/tw-history.html">An early 19th-century typewriter mechanism.</a></em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Around 1808, an Italian inventor named Pellegrino Turri built a writing machine for a close friend, Countess Carolina Fantoni da Fivizzano. She had lost her sight and could no longer write a letter anyone else could read. There was no real market for it, just a goal to help someone who couldn't see write letters without help. Several of the Countess's letters, typed on Turri's machine, survive today. <a href="https://site.xavier.edu/polt/typewriters/tw-history.html">Unfortunately the machine itself has been lost to history.</a></p>
+      </div>
+
+      <figure class="case-photo">
+        <a href="../C1.2/keyboard.webp" target="_blank" rel="noopener"><img src="../C1.2/keyboard.webp" alt="A modern QWERTY keyboard"></a>
+        <figcaption><em>A modern QWERTY keyboard.</em></figcaption>
+      </figure>
+
+      <div class="case-phase">
+        <p>Turri's solution needed a way to check that the ink had actually transferred to the page, so he is also credited with inventing carbon paper specifically to make his machine work. Six decades later, a commercially successful version by Christopher Sholes introduced the QWERTY key layout, and the typewriter went on to dominate offices worldwide for over a century. Every keyboard in front of a sighted, able-bodied typist today, including the one this text was written on, descends from a machine built to solve one blind woman's very particular problem.</p>
+        <p>Learn more about the history of the keyboard: <a href="https://web.archive.org/web/20160905195941/http://history-computer.com/ModernComputer/Basis/keyboard.html"> History-Computer.com</a></p>
+      </div>
+
+    </div>
+
+</div></div><div class="notes"><label for="notes-row-5">Notes: Row 5: Physical limits and designing for impairment (A1.1.6, C1.2.1)</label><textarea id="notes-row-5" data-heading="Row 5: Physical limits and designing for impairment (A1.1.6, C1.2.1)" placeholder="What to merge, keep or cut"></textarea></div></section>
+<section class="xrow" id="row-6"><h2>Row 6: Design for extremes (C1.2.3, B1.1.2 (The Method of Extremes box))</h2><div class="cols" style="--n:2"><div class="col" style="--c:#3d6b4a"><div class="col-head"><span class="src-tag" style="background:#3d6b4a">C1.2</span> <strong>C1.2.3</strong> <a class="src-link" href="../c1.2-inclusive-design.html#obj-1.2.3">source</a><h3>Designers often use a "design for extremes" strategy to develop solutions suitable for use by those with physical, sensory and cognitive impairments, which are also appropriate for the general population.</h3><p class="outcome"><b>Students must be able to</b>Discuss the advantages of designing for extremes when designing products for a general population, and identify where a design for extremes strategy has been used.</p></div>
+
+
+<figure class="obj-figure"><span class="img-placeholder">Image to come: no alt text</span></figure>
+
+<p>When a fully universal solution is not achievable, the <strong>design for extremes</strong> strategy offers a powerful alternative. Rather than designing for a middle-ground average, designers target users with the most demanding needs: those with physical, sensory or cognitive impairments. The key insight is that solutions developed for extreme users frequently become innovations that benefit the entire population.</p>
+<p>This is known as the <strong>curb-cut effect</strong>: kerb ramps installed for wheelchair users are also used by parents with pushchairs, delivery workers with trolleys, cyclists and people with temporary injuries. The solution built for the hardest case improves the experience for everyone.</p>
+<p>Examples from the chapter:</p>
+<ul>
+<li><strong>Oxo Good Grips vegetable peeler</strong>: Sam Farber developed the peeler after watching his wife, who had arthritis, struggle to grip a standard peeler. The arthritic hand (the extreme user) required less grip force, a non-slip surface and pressure distributed away from the finger joints. The solution was an oversized handle made from <strong>Santoprene</strong> (a thermoplastic elastomer) with a scooped-out body and fins for thumb and forefinger, usable with a palm grip rather than a finger grip. The peeler became comfortable for everyone and entered the MoMA permanent collection in 1994. Its principles now appear across the entire Good Grips range and throughout the kitchen tools industry.</li>
+<li><strong>Voice commands and text-to-speech (TTS)</strong>: Developed for people with visual impairments and dyslexia, TTS reads digital text aloud. The hard constraint (the user cannot read a screen) forced a complete rethinking of human-device interaction. The result is used by millions without any disability for hands-free operation while driving, cooking or multitasking. Virtual assistants (Siri, Google Assistant, Alexa) are mainstream products built entirely on accessibility-driven innovation.</li>
+<li><strong>Tactile pavements</strong>: Raised textured surfaces on walkways and platform edges warn visually impaired pedestrians (detectable by cane or foot) that they are approaching a hazard. They also alert any distracted pedestrian nearing a road crossing or platform edge.</li>
+<li><strong>Rumble strips</strong> (Audio Tactile Lane Markings): Raised patterns along road edges generate audible and tactile warnings when a tyre crosses them. Designed primarily to alert drowsy or distracted drivers, they provide an additional safety layer for all drivers on long journeys or in adverse weather.</li>
+<li><strong>Braille-like dots on Australian polymer banknotes</strong>: Tactile features help visually impaired users identify denominations and benefit all users through a consistent, identifiable surface feature.</li>
+</ul>
+<p><strong>Why design for extremes works</strong>:</p>
+<ul>
+<li>Hard constraints imposed by extreme users force genuinely new thinking rather than incremental improvement of the status quo</li>
+<li>Solutions that satisfy the most demanding users automatically satisfy less demanding users too</li>
+<li>It future-proofs products: ageing populations, temporary injuries and changing user profiles all shift today's "extreme" toward tomorrow's mainstream</li>
+</ul>
+
+<div class="topic-link-blurb">The anthropometric data behind sizing for extreme users, the 5th and 95th percentile ranges, is covered in <a href="../a1.1-ergonomics.html">A1.1 Ergonomics</a>.</div>
+
+<div class="discussion-box">
+<div class="discussion-box-label">Discussion</div>
+<div class="discussion-box-title">Find the next curb cut</div>
+<p>Every example above, kerb ramps, the OXO peeler, text-to-speech, tactile paving, is now a familiar, well-worn case. That familiarity is a trap: reaching for the same handful of examples in an exam answer signals that you've memorised a list, not that you understand why designing for extremes actually works.</p>
+<p>Find your own example: a product or feature originally built for a specific impairment that you or people around you now use without a second thought, and be ready to explain why the extreme constraint, not just a general desire to be inclusive, forced a better design. Then find a counter-example: a case where designing for an extreme user made the product worse for everyone else, or where a company bolted on an "accessibility feature" that didn't actually solve the real problem. What separates the two?</p>
+</div>
+
+</div><div class="col" style="--c:#1a5cb8"><div class="col-head"><span class="src-tag" style="background:#1a5cb8">B1.1</span> <strong>B1.1.2, concept box only: The Method of Extremes</strong> <a class="src-link" href="../b1.1-user-centred-design.html#obj-1.1.2">source</a><h3>UCD uses specific research methods to target persona populations and it develops empathy and understanding of users' demographics.</h3><p class="outcome"><b>Students must be able to</b>Apply a variety of user-centred research methods (field research, user observation, interviews, questionnaires and focus groups) and analyse data to establish users' characteristics, behaviours, and the wants and needs of the target population defined by their demographics.</p></div><div class="concept-box">
+<div class="concept-box-label">Key concept</div>
+<div class="concept-box-title">The Method of Extremes</div>
+<p>The <strong>method of extremes</strong> designs for the ends of the user population rather than the average. Instead of asking what the typical user can do, you ask what the largest and the smallest user need, then design so that both are accommodated. The mean is used alongside these two limits.</p>
+<p>The convention is to apply each extreme where it does the most good. Doorways, ladders, step heights and escape hatches are sized on the <strong>95th percentile of males</strong>, because clearance has to work for the largest user. The force required to operate a control button is set by the <strong>5th percentile of females</strong>, because if the weakest user can press it, everyone can. Together these choices accommodate the largest possible number of people.</p>
+<p>By its nature, this approach still excludes anyone falling beyond the extremes that were chosen. That is why designing for extreme users often means prioritising people with disabilities, whose needs sit outside the able-bodied range entirely. Doing so reliably produces better designs for everyone, and it is the point where the method of extremes shades into <a href="../c1.2-inclusive-design.html">universal design</a>, which aims for products usable by all people without adaptation.</p>
+</div></div></div><div class="notes"><label for="notes-row-6">Notes: Row 6: Design for extremes (C1.2.3, B1.1.2 (The Method of Extremes box))</label><textarea id="notes-row-6" data-heading="Row 6: Design for extremes (C1.2.3, B1.1.2 (The Method of Extremes box))" placeholder="What to merge, keep or cut"></textarea></div></section>
+</main>
+<script src="../../live-calc.js"></script><script src="../a1.1.js"></script>
+<script>
+(function () {
+  var KEY = 'remix-notes-r1';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.notes textarea'));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { saved = {}; }
+  boxes.forEach(function (b) {
+    if (saved[b.id]) b.value = saved[b.id];
+    b.addEventListener('input', function () {
+      saved[b.id] = b.value;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+    });
+  });
+  var status = document.querySelector('.copy-status');
+  document.getElementById('copy-notes').addEventListener('click', function () {
+    var lines = ['# R1 Bodies and inclusion: editorial notes', ''];
+    boxes.forEach(function (b) {
+      lines.push('## ' + b.getAttribute('data-heading'), '');
+      lines.push(b.value.trim() || '(no notes)', '');
+    });
+    var text = lines.join('\n');
+    function done(msg) { status.textContent = msg; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done('Notes copied as Markdown.'); },
+        function () { fallback(); });
+    } else { fallback(); }
+    function fallback() {
+      var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); done('Notes copied as Markdown.'); } catch (e) { done('Copy failed: select the text manually.'); }
+      document.body.removeChild(t);
+    }
+  });
+})();
+</script>
+</body>
+</html>
